@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">कक्षा के शिक्षकों और छात्रों दोनों द्वारा देखा जा सकता है</string>
   <string name="teachersOfTheClass">कक्षा के शिक्षक</string>
   <string name="addLichessUsernames">उन्हें शिक्षक के रूप में आमंत्रित करने के लिए लिचेस उपयोगकर्ता नाम जोड़ें। प्रति पंक्ति एक।</string>
-  <string name="theyMustFirstApply">उन्हें पहले लिचेस शिक्षक बनने के लिए आवेदन करना होगा।</string>
   <string name="resetPassword">रीसेट पासवर्ड</string>
   <string name="makeSureToCopy">अब पासवर्ड को कॉपी करे या लिख ले। आप इसे फिर से नहीं देख पाएंगे!</string>
   <string name="passwordX">पासवर्ड: %s</string>
@@ -51,6 +50,12 @@
   <string name="generateANewUsername">एक नया उपयोगकर्ता नाम बनाएँ</string>
   <string name="welcomeToClass">आपकी कक्षा में आपका स्वागत है:%s
 यहां लिंक क्लास एक्सेस करने के लिए है।</string>
+  <string name="invitationToClass">आपको एक छात्र के रूप में कक्षा \"%s\" में शामिल होने के लिए आमंत्रित किया जाता है।</string>
+  <string name="clickToViewInvitation">निमंत्रण देखने के लिए लिंक पर क्लिक करें:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">एक लंबित निमंत्रण</item>
+    <item quantity="other">%s लंबित आमंत्रण</item>
+  </plurals>
   <string name="onlyVisibleToTeachers">केवल कक्षा शिक्षकों को दिखाई देगा</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">प्रबंधित</string>
@@ -61,6 +66,9 @@
   <string name="releaseDesc1">मुक्त किए गए खाते को फिर से प्रबंधित नहीं किया जा सकता है। छात्र kid-mode को टॉगल करने और पासवर्ड रीसेट करने में सक्षम होगा।</string>
   <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
   <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
+  <string name="closeStudent">खातें को बंद करें</string>
+  <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
+  <string name="closeDesc1">छात्र इस खाते का उपयोग फिर कभी नहीं कर पायेगा। बंद करना स्थायी है। सुनिश्चित करें कि छात्र समझता है और सहमत है।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
@@ -70,6 +78,7 @@
     <item quantity="one">छात्र</item>
     <item quantity="other">%s विद्यार्थी</item>
   </plurals>
+  <string name="students">छात्र</string>
   <string name="progress">प्रगति</string>
   <string name="noStudents">कोई भी छात्र अभी तक कक्षा में नहीं है।</string>
   <string name="noRemovedStudents">छात्रों को हटाया नहीं गया।</string>
@@ -86,5 +95,4 @@
   <string name="newsEdit2">शीर्ष पर हाल की खबर जोड़ें। पिछली खबरों को डिलीट न करें।</string>
   <string name="newsEdit3">अलग खबरें ---
 यह एक क्षैतिज रेखा प्रदर्शित करेगा।</string>
-  <string name="markdownAvailable">%s अधिक उन्नत सिंटैक्स के लिए उपलब्ध है।</string>
 </resources>

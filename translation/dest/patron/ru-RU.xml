@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Поддержать проект</string>
+  <string name="donateAsX">Пожертвовать как %s</string>
   <string name="lichessPatron">Lichess-спонсор</string>
   <string name="freeAccount">Бесплатный аккаунт</string>
   <string name="becomePatron">Стать спонсором Lichess</string>
   <string name="xBecamePatron">%s стал спонсором Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s продлил спонсорство Lichess на %2$s месяц</item>
+    <item quantity="few">%1$s продлил спонсорство Lichess на %2$s месяца</item>
+    <item quantity="many">%1$s продлил спонсорство Lichess на %2$s месяцев</item>
+    <item quantity="other">%1$s продлил спонсорство Lichess на %2$s месяцев</item>
+  </plurals>
   <string name="newPatrons">Новые спонсоры</string>
   <string name="freeChess">Бесплатные шахматы для всех, навсегда!</string>
   <string name="noAdsNoSubs">Без рекламы, без подписок, но с открытым исходным кодом и преданностью делу.</string>
@@ -17,13 +24,12 @@
   <string name="lifetime">Пожизненная</string>
   <string name="payLifetimeOnce">Заплатите %s один раз. Станьте спонсором навсегда!</string>
   <string name="lifetimePatron">Пожизненный покровитель Lichess</string>
-  <string name="makeExtraDonation">Сделать дополнительное пожертвование?</string>
   <string name="monthly">Ежемесячно</string>
   <string name="recurringBilling">Регулярные платежи продлевают ваше \"крыло спонсора\" каждый месяц.</string>
   <string name="onetime">Однократно</string>
   <string name="singleDonation">Одно пожертвование, которое даст вам \"крыло спонсора\"на один месяц.</string>
   <string name="otherAmount">Другое</string>
-  <string name="pleaseEnterAmount">Пожалуйста, введите сумму в долларах США</string>
+  <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
@@ -40,7 +46,6 @@
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
-  <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
   <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
 Однако, спонсор получает новую классную иконку профиля.</string>
@@ -57,6 +62,7 @@
   <string name="nextPayment">Следующий платёж</string>
   <string name="youWillBeChargedXOnY">%2$s с вашего счета будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
+  <string name="giftPatronWings">Подарить «крылья» патрона игроку</string>
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
   <string name="cancelSupport">отменить поддержку</string>
@@ -64,8 +70,6 @@
   <string name="decideHowMuch">Решите, что для вас значит Lichess:</string>
   <string name="stopPayments">Отзовите кредитную карту и прекратите платежи:</string>
   <string name="noLongerSupport">Больше не поддерживать Lichess</string>
-  <string name="paymentHistory">История платежей</string>
-  <string name="paid">Оплачено</string>
   <string name="viewOthers">Посмотреть других покровителей Lichess</string>
   <string name="date">Дата</string>
   <string name="amount">Сумма</string>
@@ -75,4 +79,5 @@
   <string name="nowLifetime">Теперь вы пожизненный покровитель Lichess!</string>
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>
   <string name="downgradeNextMonth">В следующем месяце сумма НЕ будет списана с вашего счёта и ваш аккаунт Lichess будет изменён на бесплатный.</string>
+  <string name="changeCurrency">Изменить валюту</string>
 </resources>

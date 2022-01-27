@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s의 블로그</string>
+  <string name="newPost">새 글 쓰기</string>
+  <string name="editYourBlogPost">블로그 게시글 편집</string>
+  <string name="saveDraft">임시 저장</string>
+  <string name="postTitle">제목</string>
+  <string name="postBody">본문</string>
+  <string name="drafts">임시 보관 글</string>
+  <string name="published">게시된 글</string>
+  <plurals name="nbViews">
+    <item quantity="other">조회수 %s</item>
+  </plurals>
+  <string name="moreBlogPostsBy">더 많은 %s의 글</string>
+  <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
+  <string name="noDrafts">임시저장된 글이 없습니다.</string>
+  <string name="imageAlt">이미지 대체 텍스트</string>
+  <string name="imageCredit">이미지 저작권</string>
+</resources>

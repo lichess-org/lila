@@ -1,5 +1,6 @@
 package views.html.streamer
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
@@ -7,16 +8,14 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 
-import controllers.routes
-
-object edit extends Context.ToLang {
+object edit {
 
   import trans.streamer._
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       form: Form[_],
-      modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
+      modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
@@ -29,13 +28,18 @@ object edit extends Context.ToLang {
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(targetBlank, href := routes.Streamer.picture(), title := changePicture.txt())(
-                  bits.pic(s.streamer, s.user)
+                a(
+                  targetBlank,
+                  cls := "picture-edit",
+                  href := routes.Streamer.picture,
+                  title := changePicture.txt()
+                )(
+                  picture.thumbnail(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(
                   ctx.is(s.user) option
-                    a(targetBlank, cls := "button", href := routes.Streamer.picture())(
+                    a(targetBlank, cls := "button", href := routes.Streamer.picture)(
                       uploadPicture()
                     )
                 ),
@@ -45,12 +49,12 @@ object edit extends Context.ToLang {
               )
             )
           else views.html.streamer.header(s),
-          div(cls := "box__pad") {
+          div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
                 cls := s"status is${granted ?? "-green"}",
-                dataIcon := (if (granted) "E" else "")
+                dataIcon := (if (granted) "" else "")
               )(
                 if (granted)
                   frag(
@@ -71,7 +75,7 @@ object edit extends Context.ToLang {
                       frag(
                         if (s.streamer.completeEnough)
                           whenReady(
-                            postForm(action := routes.Streamer.approvalRequest())(
+                            postForm(action := routes.Streamer.approvalRequest)(
                               button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
                                 requestReview()
                               )
@@ -88,9 +92,9 @@ object edit extends Context.ToLang {
                   )
                 )
               ),
-              modData.map { case (log, notes) =>
+              modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
-                  strong(cls := "text", dataIcon := "!")(
+                  strong(cls := "text", dataIcon := "")(
                     "Moderation history",
                     log.isEmpty option ": nothing to show."
                   ),
@@ -108,15 +112,36 @@ object edit extends Context.ToLang {
                     }
                   ),
                   br,
-                  strong(cls := "text", dataIcon := "!")(
+                  strong(cls := "text", dataIcon := "")(
                     "Moderator notes",
                     notes.isEmpty option ": nothing to show."
                   ),
                   notes.nonEmpty option ul(
                     notes.map { note =>
-                      li(
-                        p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
-                        p(cls := "text")(richText(note.text))
+                      (isGranted(_.Admin) || !note.dox) option
+                        li(
+                          p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
+                          p(cls := "text")(richText(note.text))
+                        )
+                    }
+                  ),
+                  br,
+                  strong(cls := "text", dataIcon := "")(
+                    "Streamers with same Twitch or YouTube",
+                    same.isEmpty option ": nothing to show."
+                  ),
+                  same.nonEmpty option table(cls := "slist")(
+                    same.map { s =>
+                      tr(
+                        td(userIdLink(s.userId.some)),
+                        td(s.name),
+                        td(s.twitch.map(t => a(href := s"https://twitch.tv/${t.userId}")(t.userId))),
+                        td(
+                          s.youTube.map(t =>
+                            a(href := s"https://youtube.com/channel/${t.channelId}")(t.channelId)
+                          )
+                        ),
+                        td(momentFromNow(s.createdAt))
                       )
                     }
                   )
@@ -124,7 +149,7 @@ object edit extends Context.ToLang {
               },
               postForm(
                 cls := "form3",
-                action := s"${routes.Streamer.edit()}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+                action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
                   form3.split(
@@ -167,7 +192,7 @@ object edit extends Context.ToLang {
                         name := "approval.quick",
                         value := "approve"
                       ),
-                    form3.submit("Decline and next", icon = "L".some)(
+                    form3.submit("Decline and next", icon = "".some)(
                       cls := "button-red",
                       name := "approval.quick",
                       value := "decline"
@@ -175,6 +200,7 @@ object edit extends Context.ToLang {
                     form3.submit(trans.apply())
                   )
                 ),
+                form3.globalError(form),
                 form3.split(
                   form3.group(
                     form("twitch"),

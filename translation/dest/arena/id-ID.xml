@@ -25,4 +25,15 @@
   <string name="shareUrl">Berbagi URL ini agar orang lain bisa bergabung: %s</string>
   <string name="drawStreak">Remis beruntun: Ketika pemain memiliki remis beruntun, hanya remis pertama yang akan mendapat satu poin, atau remis dengan lebih dari %s langkah. Remis beruntun hanya dapat dibatalkan dengan menang, bukan kalah atau remis.</string>
   <string name="history">Riwayat Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="other">Lihat semua %s tim</item>
+  </plurals>
+  <string name="newTeamBattle">Pertempuran Tim Baru</string>
+  <string name="customStartDate">Tanggal mulai khusus</string>
+  <string name="customStartDateHelp">Dalam zona waktu lokal Anda sendiri. Ini akan menimpa pengaturan \"Waktu sebelum turnamen dimulai\"</string>
+  <string name="allowBerserk">Izinkan Berserk</string>
+  <string name="allowBerserkHelp">Biarkan pemain memotong waktu jam mereka untuk mendapatkan sebuah poin ekstra</string>
+  <string name="allowChatHelp">Biarkan pemain berdiskusi dalam sebuah ruang obrol</string>
+  <string name="arenaStreaks">Streak arena</string>
+  <string name="arenaStreaksHelp">Setelah 2 kemenangan, secar berurutan akan mendapatkan 4 poin alih-alih 2.</string>
 </resources>

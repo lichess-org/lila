@@ -2,7 +2,7 @@ package lila.clas
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lila.user.{ Holder, User }
 
 case class ClasInvite(
     _id: ClasInvite.Id, // random
@@ -17,7 +17,7 @@ object ClasInvite {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def make(clas: Clas, user: User, realName: String, teacher: User) =
+  def make(clas: Clas, user: User, realName: String, teacher: Holder) =
     ClasInvite(
       _id = Id(lila.common.ThreadLocalRandom nextString 8),
       userId = user.id,

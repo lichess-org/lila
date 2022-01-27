@@ -16,7 +16,7 @@ object show {
       data: lila.study.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
-      streams: List[lila.streamer.Stream]
+      streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s.name.value,
@@ -37,16 +37,13 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 writeable = ctx.userId exists s.canChat,
-                public = false,
+                public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
                 palantir = ctx.userId exists s.isMember,
                 localMod = ctx.userId exists s.canContribute
               )
             },
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
+            "explorer"      -> views.html.board.bits.explorerConfig,
             "socketUrl"     -> socketUrl(s.id.value),
             "socketVersion" -> socketVersion.value
           )
@@ -55,18 +52,18 @@ object show {
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withTwitch.withPeer.some,
+      csp = defaultCsp.withWebAssembly.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
           url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
-          description = s"A chess study by ${usernameOrId(s.ownerId)}"
+          description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )
         .some
     )(
       frag(
         main(cls := "analyse"),
-        bits.streamers(streams)
+        bits.streamers(streamers)
       )
     )
 

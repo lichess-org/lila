@@ -30,10 +30,11 @@ object index {
         .OpenGraph(
           title = "Learn chess by playing",
           description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-          url = s"$netBaseUrl${routes.Learn.index()}"
+          url = s"$netBaseUrl${routes.Learn.index}"
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      chessground = false
     ) {
       main(id := "learn-app")
     }
@@ -173,6 +174,8 @@ object index {
       pieceValueIntro,
       queenOverBishop,
       takeThePieceWithTheHighestValue,
+      pieceValueLegal,
+      pieceValueExchange,
       pieceValueComplete,
       checkInTwo,
       twoMovesToGiveCheck,

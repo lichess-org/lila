@@ -3,8 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org moves tree",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "keywords": [
     "chess",
     "lichess"
@@ -12,13 +13,14 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "compile": "tsc --incremental",
+    "dev": "$npm_execpath run compile",
+    "prod": "$npm_execpath run compile"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "typescript": "^4.0.3"
+    "@types/web": "=0.0.32",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "common": "2.0.0"

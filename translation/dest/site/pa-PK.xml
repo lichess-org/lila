@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s ਪੱਧਰ %2$s</string>
   <string name="level">ਰੁਕਾਵਟ</string>
   <string name="toggleTheChat">ਗੱਲਬਾਤ ਟੌਗਲ ਕਰੋ</string>
-  <string name="toggleSound">ਆਵਾਜ਼ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
   <string name="chat">ਗਲਬਾਤ</string>
   <string name="resign">ਅਸਤੀਫਾ ਦੇਣਾ</string>
   <string name="checkmate">ਮਾਤ</string>
@@ -34,15 +33,14 @@
   <string name="blackPlays">ਕਾਲਾ ਦੀ ਵਾਰੀ</string>
   <string name="opponentLeftChoices">ਤੁਹਾਡੇ ਵਿਰੋਧੀ ਨੇ ਖੇਡ ਨੂੰ ਛੱਡ ਦਿੱਤਾ. ਤੁਸੀਂ ਜਿੱਤ ਦਾ ਦਾਅਵਾ ਕਰ ਸਕਦੇ ਹੋ, ਖੇਡ ਨੂੰ ਡਰਾਅ ਕਹਿ ਸਕਦੇ ਹੋ, ਜਾਂ ਇੰਤਜ਼ਾਰ ਕਰ ਸਕਦੇ ਹੋ.</string>
   <string name="forceResignation">ਦਾਅਵਾ ਜਿੱਤ</string>
+  <string name="forceDraw">ਕਾਲ ਡਰਾਅ</string>
   <string name="talkInChat">ਕਿਰਪਾ ਕਰਕੇ ਗੱਲਬਾਤ ਵਿੱਚ ਚੰਗੇ ਬਣੋ!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ਇਸ ਲਿੰਕ ਤੇ ਆਉਣ ਵਾਲਾ ਪਹਿਲਾ ਵਿਅਕਤੀ ਤੁਹਾਡੇ ਨਾਲ ਖੇਡੇ ਗਾ।</string>
   <string name="whiteResigned">ਚਿੱਟੇ ਨੇ ਅਸਤੀਫਾ ਦੇ ਦਿੱਤਾ</string>
   <string name="blackResigned">ਕਾਲੇ ਨੇ ਅਸਤੀਫਾ ਦੇ ਦਿੱਤਾ</string>
   <string name="whiteLeftTheGame">ਚਿੱਟਾ ਨੇ ਖੇਡ ਨੂੰ ਛੱਡ ਦਿੱਤਾ</string>
   <string name="blackLeftTheGame">ਕਾਲਾ ਨੇ ਖੇਡ ਨੂੰ ਛੱਡ ਦਿੱਤਾ</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ਦਰਸ਼ਕਾਂ ਨੂੰ ਖੇਡ ਵੇਖਣ ਲਈ ਇਸ ਲਿੰਕ ਨੂੰ ਸਾਂਝ ਕਰੋ</string>
-  <string name="theComputerAnalysisHasFailed">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਅਸਫਲ ਰਿਹਾ ਹੈ</string>
-  <string name="viewTheComputerAnalysis">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਵੇਖੋ</string>
+  <string name="blackDidntMove">ਕਾਲਾ ਹਿੱਲਿਆ ਨਹੀਂ</string>
   <string name="requestAComputerAnalysis">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ ਬੇਨਤੀ ਕਰੋ</string>
   <string name="computerAnalysis">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ</string>
   <string name="computerAnalysisAvailable">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਉਪਲਬਧ ਹੈ</string>
@@ -81,8 +79,6 @@
   <string name="play">ਖੇਡੋ</string>
   <string name="send">ਭੇਜੋ</string>
   <string name="freeOnlineChess">ਮੁਫਤ ਦਾ ਸ਼ਤਰੰਜ</string>
-  <string name="spectators">ਦਰਸ਼ਕ:</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">ਇਹ ਖਿਡਾਰੀ ਨਕਲੀ ਤੌਰ \'ਤੇ ਉਨ੍ਹਾਂ ਦੀ ਰੇਟਿੰਗ ਨੂੰ ਵਧਾ / ਘਟਾਉਂਦਾ ਹੈ</string>
   <string name="openingExplorerAndTablebase">ਉਦਘਾਟਨੀ ਖੋਜੀ; ਟੇਬਲਬੇਸ</string>
   <string name="takeback">ਵਾਪਸ ਲਓ</string>
   <string name="proposeATakeback">ਇੱਕ ਵਾਪਸੀ ਦਾ ਪ੍ਰਸਤਾਵ ਕਰੋ</string>

@@ -52,8 +52,8 @@ final class SwissJson(
         "canJoin" -> {
           {
             (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-            (myInfo.isEmpty && swiss.isEnterable && isInTeam)
-          } && verdicts.accepted
+            (myInfo.isEmpty && swiss.isEnterable)
+          } && verdicts.accepted && isInTeam
         },
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
@@ -88,7 +88,7 @@ final class SwissJson(
               }
               .flatMap { gameId =>
                 rankingApi(swiss).dmap(_ get player.userId) map2 { rank =>
-                  MyInfo(rank + 1, gameId, me, player)
+                  MyInfo(rank, gameId, me, player)
                 }
               }
           }
@@ -126,14 +126,14 @@ final class SwissJson(
               colls.swiss.updateField($id(swiss.id), "winnerId", _).void
             }
             .unit
-          userRepo.filterEngine(top3.map(_.userId)) map { engines =>
+          userRepo.filterLame(top3.map(_.userId)) map { lame =>
             JsArray(
               top3.map { player =>
                 playerJsonBase(
                   player,
                   lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
                   performance = true
-                ).add("engine", engines(player.userId))
+                ).add("lame", lame(player.userId))
               }
             ).some
           }
@@ -141,12 +141,12 @@ final class SwissJson(
       }
     }
 
-  def playerResult(player: SwissPlayer, rank: Int): Fu[JsObject] =
-    lightUserApi.asyncFallback(player.userId) map { user =>
+  def playerResult(p: SwissPlayer.WithUserAndRank): JsObject = p match {
+    case SwissPlayer.WithUserAndRank(player, user, rank) =>
       Json
         .obj(
           "rank"     -> rank,
-          "score"    -> player.score.value,
+          "points"   -> player.points.value,
           "tieBreak" -> player.tieBreak.value,
           "rating"   -> player.rating,
           "username" -> user.name
@@ -154,7 +154,7 @@ final class SwissJson(
         .add("title" -> user.title)
         .add("performance" -> player.performance)
         .add("absent" -> player.absent)
-    }
+  }
 }
 
 object SwissJson {
@@ -171,7 +171,7 @@ object SwissJson {
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
         "round"     -> swiss.round,
-        "nbRounds"  -> swiss.actualNbRounds,
+        "nbRounds"  -> swiss.settings.nbRounds,
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
         "status" -> {

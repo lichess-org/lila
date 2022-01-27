@@ -1,0 +1,13 @@
+%zen {
+  body.playing.zen & {
+    display: none;
+  }
+}
+
+#friend_box,
+.puz-side__solved__text,
+.puz-side__table,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}

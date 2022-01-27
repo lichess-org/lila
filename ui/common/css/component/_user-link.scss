@@ -9,7 +9,7 @@
     }
 
     color: $c-good;
-    opacity: .9;
+    opacity: 0.9;
 
     &.patron {
       opacity: 1;
@@ -32,11 +32,11 @@
     }
 
     &::before {
-      content: "\e01a";
+      content: '';
     }
 
     &.patron::before {
-      content: '' !important;
+      content: '' !important;
     }
 
     &.moderator::before {

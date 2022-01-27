@@ -85,7 +85,9 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
+  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.getSeconds)
+
+  def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
 
@@ -190,10 +192,7 @@ object Tournament {
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate match {
-        case Some(startDate) => startDate plusSeconds ThreadLocalRandom.nextInt(60)
-        case None            => DateTime.now plusMinutes waitMinutes
-      },
+      startsAt = startDate | DateTime.now.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )
@@ -221,4 +220,16 @@ object Tournament {
   def makeId = ThreadLocalRandom nextString 8
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
+
+  sealed abstract class JoinResult(val error: Option[String]) {
+    def ok = error.isEmpty
+  }
+  object JoinResult {
+    case object Ok             extends JoinResult(none)
+    case object WrongEntryCode extends JoinResult("Wrong entry code".some)
+    case object Paused         extends JoinResult("Your pause is not over yet".some)
+    case object Verdicts       extends JoinResult("Tournament restrictions".some)
+    case object MissingTeam    extends JoinResult("Missing team".some)
+    case object Nope           extends JoinResult("Couldn't join for some reason?".some)
+  }
 }

@@ -19,9 +19,7 @@ import lila.user.User
 private class RoundConfig(
     @ConfigName("collection.note") val noteColl: CollName,
     @ConfigName("collection.forecast") val forecastColl: CollName,
-    @ConfigName("collection.alarm") val alarmColl: CollName,
-    @ConfigName("animation.duration") val animationDuration: AnimationDuration,
-    @ConfigName("moretime") val moretimeDuration: MoretimeDuration
+    @ConfigName("collection.alarm") val alarmColl: CollName
 )
 
 @Module
@@ -35,7 +33,7 @@ final class Env(
     bookmark: actors.Bookmark,
     tournamentApi: actors.TournamentApi,
     chatApi: lila.chat.ChatApi,
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
@@ -51,7 +49,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     lightUserSync: lila.common.LightUser.GetterSync,
-    slackApi: lila.slack.SlackApi,
+    ircApi: lila.irc.IrcApi,
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
@@ -60,8 +58,7 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
-  implicit private val animationLoader = durationLoader(AnimationDuration.apply)
+  implicit private val animationLoader = durationLoader(AnimationDuration)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
@@ -87,7 +84,7 @@ final class Env(
 
   private lazy val proxyDependencies =
     new GameProxy.Dependencies(gameRepo, scheduler)
-  private lazy val roundDependencies = wire[RoundDuct.Dependencies]
+  private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
@@ -162,7 +159,7 @@ final class Env(
   lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
-    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundDuct.HasUserId(userId, _))
+    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundAsyncActor.HasUserId(userId, _))
 
   lazy val jsonView = wire[JsonView]
 
@@ -176,11 +173,13 @@ final class Env(
 
   private lazy val takebacker = wire[Takebacker]
 
-  private lazy val moretimer = wire[Moretimer]
+  lazy val moretimer = wire[Moretimer]
 
   val playing = wire[PlayingUsers]
 
   val tvBroadcast = system.actorOf(Props(wire[TvBroadcast]))
+
+  val apiMoveStream = wire[ApiMoveStream]
 
   def resign(pov: Pov): Unit =
     if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))

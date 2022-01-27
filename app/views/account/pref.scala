@@ -45,7 +45,7 @@ object pref {
       val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
       div(cls := "account box box-pad")(
         h1(bits.categName(categ)),
-        postForm(cls := "autosubmit", action := routes.Pref.formApply())(
+        postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
               pieceAnimation(),
@@ -121,7 +121,12 @@ object pref {
             ),
             setting(
               promoteToQueenAutomatically(),
-              radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
+              frag(
+                radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainPromoteToQueenAutomatically()
+                )
+              )
             ),
             setting(
               claimDrawOnThreefoldRepetitionAutomatically(),
@@ -144,15 +149,19 @@ object pref {
               radios(form("behavior.keyboardMove"), booleanChoices)
             ),
             setting(
-              "Snap arrows to valid moves",
+              snapArrowsToValidMoves(),
               radios(form("behavior.arrowSnap"), booleanChoices)
             )(cls := "arrow-snap"),
             setting(
-              "Say \"Good game, well played\" upon defeat or draw",
+              sayGgWpAfterLosingOrDrawing(),
               radios(form("behavior.courtesy"), booleanChoices)
-            )(cls := "arrow-snap")
+            ),
+            setting(
+              scrollOnTheBoardToReplayMoves(),
+              radios(form("behavior.scrollMoves"), booleanChoices)
+            )
           ),
-          categFieldset(PrefCateg.Privacy, categ)(
+          categFieldset(PrefCateg.Site, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
               radios(form("follow"), booleanChoices)
@@ -170,11 +179,24 @@ object pref {
               radios(form("studyInvite"), translatedStudyInviteChoices)
             ),
             setting(
+              trans.receiveForumNotifications(),
+              radios(form("mention"), booleanChoices)
+            ),
+            setting(
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices)
+            ),
+            setting(
+              showPlayerRatings(),
+              frag(
+                radios(form("ratings"), booleanChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainShowPlayerRatings()
+                )
+              )
             )
           ),
-          p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
         )
       )
     }

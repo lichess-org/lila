@@ -3,6 +3,7 @@
   background: fade-out($c-bg-high, 0.5);
   height: 100%;
   white-space: nowrap;
+  display: block;
 
   td {
     padding: 1em 0;
@@ -16,13 +17,14 @@
   }
 
   .checkable {
-    padding: 4.3px 0;
+    padding: 4.3px 2px 4.3px 0;
   }
 
   .checkable {
     @extend %nowrap-ellipsis;
 
-    label, input {
+    label,
+    input {
       vertical-align: middle;
       cursor: pointer;
     }
@@ -43,11 +45,11 @@
 
   tr.inline .checkable {
     display: inline-block;
-    padding: 4.3px 20px 4.3px 0;
+    padding: 4.3px 20px 4.3px 2px;
   }
 
   input {
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
 
   .range {
@@ -58,8 +60,11 @@
     @extend %flex-center-nowrap;
     justify-content: center;
     input {
-      padding: .6em 0;
+      padding: 0.6em 0;
       margin: 0 1ch;
+      @include breakpoint($mq-not-xx-small) {
+        width: 26vw;
+      }
     }
   }
 
@@ -68,7 +73,23 @@
     text-align: right;
 
     button {
-      margin-left: .3em;
+      margin-left: 0.3em;
+    }
+  }
+
+  @include breakpoint($mq-not-xx-small) {
+    padding: $block-gap 1em;
+
+    td {
+      max-width: 50vw;
+    }
+
+    td:first-child {
+      margin-right: 1rem;
+    }
+
+    tr.variant .checkable {
+      width: 50%;
     }
   }
 }

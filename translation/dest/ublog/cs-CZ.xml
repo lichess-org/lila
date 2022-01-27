@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog hráče %s</string>
+  <string name="newPost">Nový příspěvek</string>
+  <string name="editYourBlogPost">Upravit svůj příspěvek na blogu</string>
+  <string name="saveDraft">Uložit koncept</string>
+  <string name="postTitle">Nadpis příspěvku</string>
+  <string name="postIntro">Úvod příspěvku</string>
+  <string name="drafts">Koncepty</string>
+  <string name="published">Publikováno</string>
+  <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
+  <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
+  <string name="xPublishedY">%1$s publikoval %2$s</string>
+  <string name="thisPostIsPublished">Tento příspěvek je publikován</string>
+  <string name="thisIsADraft">Toto je koncept</string>
+  <string name="moreBlogPostsBy">Více příspěvků blogu od %s</string>
+  <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
+  <string name="noDrafts">Žádné koncepty k zobrazení.</string>
+  <string name="latestBlogPosts">Poslední příspěvky na blogu</string>
+  <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
+  <string name="imageAlt">Alternativní text obrázku</string>
+  <string name="imageCredit">Zdroj obrázku</string>
+</resources>

@@ -16,7 +16,7 @@ final class PerfStatIndexer(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
+    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue {
@@ -35,7 +35,7 @@ final class PerfStatIndexer(
           case (perfStat, _) => perfStat
         }
         .flatMap { ps =>
-          storage insert ps recover lila.db.recoverDuplicateKey(_ => ()) inject ps
+          storage insert ps recover lila.db.ignoreDuplicateKey inject ps
         }
         .mon(_.perfStat.indexTime)
     }
@@ -54,7 +54,7 @@ final class PerfStatIndexer(
     pov.game.perfType ?? { perfType =>
       storage.find(userId, perfType) flatMap {
         _ ?? { perfStat =>
-          storage.update(perfStat agg pov)
+          storage.update(perfStat, perfStat agg pov)
         }
       }
     }

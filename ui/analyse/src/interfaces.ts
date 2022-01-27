@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom';
 import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
@@ -6,9 +6,10 @@ import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interf
 import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
 import { ChatCtrl } from 'chat';
+import { ExplorerOpts } from './explorer/interfaces';
+import { StudyData } from './study/interfaces';
+import { AnalyseSocketSend } from './socket';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[]
 export type Seconds = number;
 
 export { Key, Piece } from 'chessground/types';
@@ -39,13 +40,25 @@ export interface AnalyseData {
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
-  pref: any;
+  pref: AnalysePref;
   url: {
-    socket: string
-  }
+    socket: string;
+  };
   userTv?: {
-    id: string
-  }
+    id: string;
+  };
+}
+
+export interface AnalysePref {
+  coords: Prefs.Coords;
+  is3d?: boolean;
+  showDests?: boolean;
+  rookCastle?: boolean;
+  destination?: boolean;
+  highlight?: boolean;
+  showCaptured?: boolean;
+  animationDuration?: number;
+  moveEvent: Prefs.MoveEvent;
 }
 
 export interface ServerEvalData {
@@ -55,12 +68,21 @@ export interface ServerEvalData {
   division?: Division;
 }
 
+export interface CachedEval {
+  fen: Fen;
+  knodes: number;
+  depth: number;
+  pvs: Tree.PvDataServer[];
+  path: string;
+}
+
 // similar, but not identical, to game/Game
 export interface Game {
   id: string;
   status: Status;
   player: Color;
   turns: number;
+  fen: Fen;
   startedAtTurn: number;
   source: Source;
   speed: Speed;
@@ -83,7 +105,7 @@ export interface Opening {
 
 export interface Division {
   middle?: number;
-  end?: number
+  end?: number;
 }
 
 export interface Analysis {
@@ -103,30 +125,43 @@ export interface AnalysisSide {
 export interface AnalyseOpts {
   element: HTMLElement;
   data: AnalyseData;
-  userId: string | null;
+  userId?: string;
   hunter: boolean;
   embed: boolean;
-  explorer: boolean;
-  socketSend: SocketSend;
+  explorer: ExplorerOpts;
+  socketSend: AnalyseSocketSend;
   trans: Trans;
-  study?: any;
+  study?: StudyData;
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
   $side?: Cash;
   $underboard?: Cash;
-  i18n: any;
+  i18n: I18nDict;
   chat: {
     parseMoves: boolean;
-    instance?: Promise<ChatCtrl>
+    instance?: Promise<ChatCtrl>;
   };
+  wiki?: boolean;
 }
 
 export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
 }
 
-export type Conceal = boolean | 'conceal' | 'hide' | null;
+export interface EvalGetData {
+  fen: Fen;
+  path: string;
+  variant?: VariantKey;
+  mpv?: number;
+  up?: boolean;
+}
+
+export interface EvalPutData extends Tree.ServerEval {
+  variant?: VariantKey;
+}
+
+export type Conceal = false | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export type Redraw = () => void;

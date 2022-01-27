@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Dirua eman</string>
+  <string name="donateAsX">Egin dohaintza %s gisa</string>
   <string name="lichessPatron">Lichess babeslea</string>
   <string name="freeAccount">Doako kontua</string>
   <string name="becomePatron">Lichess Babesle bihurtu</string>
   <string name="xBecamePatron">%s Lichess Babesle bihurtu da</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s Lichess Babeslea da orain dela hilabete %2$setik</item>
+    <item quantity="other">%1$s Lichess Babeslea da orain dela %2$s hilabetetik</item>
+  </plurals>
   <string name="newPatrons">Babesle berriak</string>
   <string name="freeChess">Doako xakea, guztiontzat, betiko!</string>
   <string name="noAdsNoSubs">Ez dago iragarkirik, ez kuotarik baina bai software librea, ordea.</string>
@@ -17,13 +22,12 @@
   <string name="lifetime">Bizi guztirako</string>
   <string name="payLifetimeOnce">Ordaindu %s behin. Izan Lichess Babesle betiko!</string>
   <string name="lifetimePatron">Bizi guztirako Lichess Babeslea</string>
-  <string name="makeExtraDonation">Dohaintza gehigarri bat egin?</string>
   <string name="monthly">Hilero</string>
   <string name="recurringBilling">Hileroko ordainketa, hilero berritu zure Babesle hegoak.</string>
   <string name="onetime">Behin</string>
   <string name="singleDonation">Behin egiteko dohaintza, Babesle egoak hilabeterako jasoko dituzu.</string>
   <string name="otherAmount">Bestelakoa</string>
-  <string name="pleaseEnterAmount">Idatzi kopurua dolarretan</string>
+  <string name="pleaseEnterAmountInX">Idatzi kopurua %stan</string>
   <string name="withCreditCard">Kreditu txartela</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>
@@ -40,7 +44,6 @@ Edo %s.</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
   <string name="bankTransfers">Banku-transferentziak ere onartzen ditugu</string>
-  <string name="bitcoin">Hauxe da gure bitcoin helbidea: %s</string>
   <string name="patronFeatures">Badago zerbait Babesleentzat bakarrik gordeta?</string>
   <string name="noPatronFeatures">Ez, Lichess osoa doakoa delako, betiko eta guztiontzat. Hori hitz ematen dugu. Hala ere, Babesleek beren profilaren orrialdean ikono berri bat jasotzen dute.</string>
   <string name="featuresComparison">Ikusi ezaugarrien alderaketa</string>
@@ -54,6 +57,7 @@ Edo %s.</string>
   <string name="nextPayment">Hurrengo ordainketa</string>
   <string name="youWillBeChargedXOnY">%1$s kobratuko dizugu egun honetan %2$s.</string>
   <string name="makeAdditionalDonation">Dohaintza gehigarria orain egin</string>
+  <string name="giftPatronWings">Oparitu Babeslearen hegoak jokalari bati</string>
   <string name="update">Eguneratu</string>
   <string name="changeMonthlyAmount">Hileroko kopurua aldatu (%s)</string>
   <string name="cancelSupport">zure babesa ezeztatu</string>
@@ -61,8 +65,6 @@ Edo %s.</string>
   <string name="decideHowMuch">Erabaki zenbat balio duen Lichessek zuretzat:</string>
   <string name="stopPayments">Kendu zure kreditu txartela eta ordainketa egiteari utzi:</string>
   <string name="noLongerSupport">Lichess gehiago ez babestu</string>
-  <string name="paymentHistory">Ordainketen historikoa</string>
-  <string name="paid">Ordainduta</string>
   <string name="viewOthers">Beste Lichess Babesle batzuk ikusi</string>
   <string name="date">Data</string>
   <string name="amount">Kopurua</string>
@@ -72,4 +74,5 @@ Edo %s.</string>
   <string name="nowLifetime">Orain Bizi guztirako Lichess Babeslea zara!</string>
   <string name="nowOneMonth">Orain hilabeterako Lichess Babeslea zara!</string>
   <string name="downgradeNextMonth">Hilabetean EZ dizugu berriz kobratuko eta zure kontua ohiko izatera pasatuko da.</string>
+  <string name="changeCurrency">Aldatu moneta</string>
 </resources>

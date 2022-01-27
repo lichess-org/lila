@@ -3,23 +3,23 @@ name: Lint translations
 on:
   push:
     paths:
-    - '.github/workflows/translations.yml'
-    - 'translation/**'
-    - 'bin/trans-lint.py'
+      - '.github/workflows/translations.yml'
+      - 'translation/**'
+      - 'bin/trans-lint.py'
   pull_request:
     paths:
-    - '.github/workflows/translations.yml'
-    - 'translation/**'
-    - 'bin/trans-lint.py'
+      - '.github/workflows/translations.yml'
+      - 'translation/**'
+      - 'bin/trans-lint.py'
 
 jobs:
   translations:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install xmllint
-      run: sudo apt-get update && sudo apt-get install -y libxml2-utils
-    - name: Validate translation files
-      run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
-    - name: Lint translation files
-      run: ./bin/trans-lint.py translation/dest/*/*.xml
+      - uses: actions/checkout@v2
+      - name: Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+      - name: Validate translation files
+        run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
+      - name: Lint translation files
+        run: ./bin/trans-lint.py translation/dest/*/*.xml

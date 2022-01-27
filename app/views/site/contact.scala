@@ -1,9 +1,9 @@
-package views
-package html.site
-
-import scala.util.chaining._
+package views.html
+package site
 
 import controllers.routes
+import scala.util.chaining._
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,20 +11,21 @@ import lila.app.ui.ScalatagsTemplate._
 object contact {
 
   import trans.contact._
+  import views.html.base.navTree._
 
-  sealed private trait Node {
-    val id: String
-    val name: Frag
-  }
-  private case class Branch(id: String, name: Frag, children: List[Node]) extends Node
-  private case class Leaf(id: String, name: Frag, content: Frag)          extends Node
+  private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
+
+  def contactEmailLinkEmpty =
+    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)
+  def contactEmailLink(implicit ctx: Context) =
+    contactEmailLinkEmpty(trans.clickToRevealEmailAddress())
 
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
       frag(
-        p(a(href := routes.Account.reopen())(reopenOnThisPage())),
+        p(a(href := routes.Account.reopen)(reopenOnThisPage())),
         p(doNotAskByEmailToReopen())
       )
     )
@@ -36,13 +37,13 @@ object contact {
           a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
         ),
         li(
-          a(href := "https://github.com/ornicar/lila/issues")(reportWebsiteIssue())
+          a(href := "https://github.com/lichess-org/lila/issues")(reportWebsiteIssue())
         ),
         li(
           a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
         ),
         li(
-          a(href := "https://discord.gg/hy5jqSs")(reportBugInDiscord())
+          a(href := "https://discord.gg/lichess")(reportBugInDiscord())
         )
       ),
       p(howToReportBug())
@@ -61,7 +62,7 @@ object contact {
               "email-confirm",
               noConfirmationEmail(),
               p(
-                a(href := routes.Account.emailConfirmHelp())(visitThisPage()),
+                a(href := routes.Account.emailConfirmHelp)(visitThisPage()),
                 "."
               )
             ),
@@ -69,7 +70,7 @@ object contact {
               "forgot-password",
               forgotPassword(),
               p(
-                a(href := routes.Auth.passwordReset())(visitThisPage()),
+                a(href := routes.Auth.passwordReset)(visitThisPage()),
                 "."
               )
             ),
@@ -77,14 +78,14 @@ object contact {
               "forgot-username",
               forgotUsername(),
               p(
-                a(href := routes.Auth.login())(youCanLoginWithEmail()),
+                a(href := routes.Auth.login)(youCanLoginWithEmail()),
                 "."
               )
             ),
             Leaf(
               "lost-2fa",
               lost2FA(),
-              p(a(href := routes.Auth.passwordReset())(doPasswordReset()), ".")
+              p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
             ),
             reopenLeaf("login"),
             Leaf(
@@ -117,7 +118,7 @@ object contact {
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master())(visitTitleConfirmation()),
+                a(href := routes.Page.master)(visitTitleConfirmation()),
                 "."
               )
             ),
@@ -125,7 +126,7 @@ object contact {
               "close",
               wantCloseAccount(),
               frag(
-                p(a(href := routes.Account.close())(closeYourAccount()), "."),
+                p(a(href := routes.Account.close)(closeYourAccount()), "."),
                 p(doNotAskByEmail())
               )
             ),
@@ -134,7 +135,7 @@ object contact {
               "change-username",
               wantChangeUsername(),
               frag(
-                p(a(href := routes.Account.username())(changeUsernameCase()), "."),
+                p(a(href := routes.Account.username)(changeUsernameCase()), "."),
                 p(cantChangeMore()),
                 p(orCloseAccount())
               )
@@ -149,39 +150,27 @@ object contact {
             )
           )
         ),
-        Branch(
+        Leaf(
           "report",
           wantReport(),
-          List(
-            "cheating"          -> cheating(),
-            "sandbagging"       -> sandbagging(),
-            "trolling"          -> trolling(),
-            "insults"           -> insults(),
-            "some other reason" -> otherReason()
-          ).map { case (reason, name) =>
-            Leaf(
-              reason,
-              frag("Report a player for ", name),
-              frag(
-                p(
-                  a(href := routes.Report.form())(toReportAPlayer(name)),
-                  "."
-                ),
-                p(
-                  youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
-                ),
-                p(
-                  doNotMessageModerators(),
-                  br,
-                  doNotReportInForum(),
-                  br,
-                  doNotSendReportEmails(),
-                  br,
-                  onlyReports()
-                )
-              )
+          frag(
+            p(
+              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              "."
+            ),
+            p(
+              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := ""))
+            ),
+            p(
+              doNotMessageModerators(),
+              br,
+              doNotReportInForum(),
+              br,
+              doNotSendReportEmails(),
+              br,
+              onlyReports()
             )
-          }
+          )
         ),
         Branch(
           "bug",
@@ -201,7 +190,7 @@ object contact {
               frag(
                 p(castlingPrevented()),
                 p(a(href := "https://en.wikipedia.org/wiki/Castling#Requirements")(castlingRules()), "."),
-                p(a(href := "/learn#/15")(tryCastling()), "."),
+                p(a(href := "/learn#/14")(tryCastling()), "."),
                 p(castlingImported())
               )
             ),
@@ -216,7 +205,10 @@ object contact {
             Leaf(
               "casual",
               noRatingPoints(),
-              p(ratedGame())
+              frag(
+                p(ratedGame()),
+                botRatingAbuse()
+              )
             ),
             Leaf(
               "error-page",
@@ -230,10 +222,10 @@ object contact {
               "security",
               "Security vulnerability",
               frag(
-                p(s"Please report security issues to $contactEmail."),
+                p("Please report security issues to ", contactEmailLink),
                 p(
                   "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that Lichess is built by volunteers and we currently do not have a bug bounty program."
+                  "Note that we do not currently pay cash bounties."
                 ),
                 p(
                   "Vulnerabilities are relevant even when they are not directly exploitable, ",
@@ -245,7 +237,7 @@ object contact {
                   "Avoid spamming, DDoS and volumetric attacks."
                 ),
                 p(
-                  "We believe transport encryption should be sufficient for all reports. ",
+                  "We believe transport encryption will probably be sufficient for all reports. ",
                   "If you insist on using PGP, please clarify the nature of the message ",
                   "in the plain-text subject and encrypt for ",
                   a(href := "/.well-known/gpg.asc")("multiple recipients"),
@@ -265,7 +257,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home())(netConfig.domain, routes.Appeal.home().url))),
+          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
           p(
             falsePositives(),
             br,
@@ -334,23 +326,33 @@ object contact {
               "gdpr",
               "GDPR",
               frag(
-                p("If you are a European citizen, you may request the deletion of your Lichess account."),
+                p("You may request the deletion of your Lichess account."),
                 p(
                   "First, ",
-                  a(href := routes.Account.close())("close your account"),
+                  a(href := routes.Account.close)("close your account"),
                   "."
                 ),
                 p(
-                  s"Then send us an email at $contactEmail to request the definitive erasure of all data linked to the account."
-                ),
-                p("Note that games are facts, not personal information. And as such they are never deleted.")
+                  "Then send us an email at ",
+                  contactEmailLink,
+                  " to request the definitive erasure of all data linked to the account."
+                )
+              )
+            ),
+            Leaf(
+              "dmca",
+              "DMCA / Intellectual Property Take Down Notice",
+              p(
+                a(href := dmcaUrl)("Complete this form"),
+                " ",
+                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
               )
             ),
             Leaf(
               "contact-other",
               noneOfTheAbove(),
               frag(
-                p(sendEmailAt(contactEmail)),
+                p(sendEmailAt(contactEmailLink)),
                 p(explainYourRequest())
               )
             )
@@ -359,50 +361,19 @@ object contact {
       )
     )
 
-  private def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
-    node match {
-      case Leaf(_, _, content) =>
-        List(
-          div(makeId(node.id), cls := "node leaf")(
-            h2(parent map goBack, node.name),
-            div(cls := "content")(content)
-          )
-        )
-      case b @ Branch(id, _, children) =>
-        frag(
-          div(makeId(node.id), cls := s"node branch $id")(
-            h2(parent map goBack, node.name),
-            div(cls := "links")(
-              children map { child =>
-                a(makeLink(child.id))(child.name)
-              }
-            )
-          ),
-          children map { renderNode(_, b.some) }
-        )
-    }
-
-  private def renderedMenu(implicit ctx: Context) = renderNode(menu, none)
-
-  private def makeId(id: String)   = st.id := s"help-$id"
-  private def makeLink(id: String) = href := s"#help-$id"
-
-  private def goBack(parent: Node): Frag =
-    a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")
+  val dmcaUrl = "/dmca"
 
   def apply()(implicit ctx: Context) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),
-      moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
+      moreJs = jsModule("contact"),
       contentCls = "page box box-pad"
     )(
       frag(
         h1(contactLichess()),
-        div(cls := "contact")(
-          renderedMenu
-        )
+        div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
 }

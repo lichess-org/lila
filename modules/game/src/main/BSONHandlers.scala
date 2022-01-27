@@ -13,6 +13,7 @@ import chess.{
   History => ChessHistory,
   Game => ChessGame
 }
+import chess.format.FEN
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
@@ -66,6 +67,18 @@ object BSONHandlers {
       )
   }
 
+  implicit private[game] val gameDrawOffersHandler = tryHandler[GameDrawOffers](
+    { case arr: BSONArray =>
+      Success(arr.values.foldLeft(GameDrawOffers.empty) {
+        case (offers, BSONInteger(p)) =>
+          if (p > 0) offers.copy(white = offers.white incl p)
+          else offers.copy(black = offers.black incl -p)
+        case (offers, _) => offers
+      })
+    },
+    offers => BSONArray((offers.white ++ offers.black.map(-_)).view.map(BSONInteger.apply).toIndexedSeq)
+  )
+
   import Player.playerBSONHandler
   private val emptyPlayerBuilder = playerBSONHandler.read($empty)
 
@@ -90,6 +103,11 @@ object BSONHandlers {
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
         val clm      = r.get[CastleLastMove](F.castleLastMove)
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
+        val halfMoveClock =
+          pgnMoves.reverse
+            .indexWhere(san => san.contains("x") || san.headOption.exists(_.isLower))
+            .some
+            .filter(0 <=)
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
@@ -97,9 +115,8 @@ object BSONHandlers {
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
-          halfMoveClock = pgnMoves.reverse.indexWhere(san =>
-            san.contains("x") || san.headOption.exists(_.isLower)
-          ) atLeast 0
+          halfMoveClock = halfMoveClock orElse
+            r.getO[FEN](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
         )
       }
       val chessGame = ChessGame(
@@ -160,7 +177,8 @@ object BSONHandlers {
           tournamentId = r strO F.tournamentId,
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
-          analysed = r boolD F.analysed
+          analysed = r boolD F.analysed,
+          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty)
         )
       )
     }

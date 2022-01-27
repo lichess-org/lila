@@ -3,21 +3,19 @@ package lila.api
 import lila.common.Bus
 
 final private[api] class Cli(
-    userRepo: lila.user.UserRepo,
     security: lila.security.Env,
     teamSearch: lila.teamSearch.Env,
     forumSearch: lila.forumSearch.Env,
-    team: lila.team.Env,
-    puzzle: lila.puzzle.Env,
     tournament: lila.tournament.Env,
-    explorer: lila.explorer.Env,
     fishnet: lila.fishnet.Env,
     study: lila.study.Env,
     studySearch: lila.studySearch.Env,
     coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
-    msg: lila.msg.Env
+    msg: lila.msg.Env,
+    video: lila.video.Env,
+    accountClosure: AccountClosure
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 
@@ -37,13 +35,7 @@ final private[api] class Cli(
       AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
-      userRepo named username map {
-        case None                       => "No such user."
-        case Some(user) if user.enabled => "That user account is not closed. Can't erase."
-        case Some(user) =>
-          Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
-          s"Erasing all data about ${user.username} now"
-      }
+      accountClosure.eraseClosed(username).map(_.fold(identity, identity))
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none
       Bus.publish(AnnounceStore.cancel, "announce")
@@ -58,9 +50,6 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
           )
       }
-    case "bus" :: "dump" :: Nil =>
-      val keys = Bus.keys
-      fuccess(s"${keys.size}\n ${keys mkString "\n"}")
   }
 
   private def run(args: List[String]): Fu[String] = {
@@ -73,16 +62,13 @@ final private[api] class Cli(
     security.cli.process orElse
       teamSearch.cli.process orElse
       forumSearch.cli.process orElse
-      team.cli.process orElse
-      puzzle.cli.process orElse
       tournament.cli.process orElse
-      explorer.cli.process orElse
       fishnet.cli.process orElse
       study.cli.process orElse
       studySearch.cli.process orElse
-      coach.cli.process orElse
       evalCache.cli.process orElse
       plan.cli.process orElse
       msg.cli.process orElse
+      video.cli.process orElse
       process
 }

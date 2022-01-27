@@ -1,8 +1,9 @@
 package lila.study
 
+import ornicar.scalalib.Zero
 import scala.concurrent.duration._
 
-import lila.hub.DuctSequencers
+import lila.hub.AsyncActorSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,
@@ -14,23 +15,26 @@ final private class StudySequencer(
 ) {
 
   private val workQueue =
-    new DuctSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
+    new AsyncActorSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
 
-  def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
+  def sequenceStudy[A: Zero](studyId: Study.Id)(f: Study => Fu[A]): Fu[A] =
     workQueue(studyId.value) {
       studyRepo.byId(studyId) flatMap {
         _ ?? { f(_) }
       }
     }
 
-  def sequenceStudyWithChapter(studyId: Study.Id, chapterId: Chapter.Id)(
-      f: Study.WithChapter => Funit
-  ): Funit =
+  def sequenceStudyWithChapter[A: Zero](studyId: Study.Id, chapterId: Chapter.Id)(
+      f: Study.WithChapter => Fu[A]
+  ): Fu[A] =
     sequenceStudy(studyId) { study =>
-      chapterRepo.byId(chapterId) flatMap {
-        _ ?? { chapter =>
-          f(Study.WithChapter(study, chapter))
+      chapterRepo
+        .byId(chapterId)
+        .flatMap {
+          _.filter(_.studyId == studyId) ?? { chapter =>
+            f(Study.WithChapter(study, chapter))
+          }
         }
-      }
+        .mon(_.study.sequencer.chapterTime)
     }
 }

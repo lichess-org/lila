@@ -3,20 +3,21 @@ package lila.common
 import akka.actor._
 import scala.concurrent.duration._
 
+/* Schedules an async function to be run periodically
+ * Prevents concurrent execution of the function
+ * Guarantees next execution even if the function fails or never completes
+ */
 object ResilientScheduler {
-
-  private case object Tick
-  private case object Done
 
   def apply(
       every: Every,
-      atMost: AtMost,
+      timeout: AtMost,
       initialDelay: FiniteDuration
   )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem): Unit = {
     val run = () => f
     def runAndScheduleNext(): Unit =
       run()
-        .withTimeout(atMost.value)
+        .withTimeout(timeout.value)
         .addEffectAnyway {
           system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }.unit
         }

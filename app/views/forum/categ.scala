@@ -17,14 +17,14 @@ object categ {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Lichess community forum",
-          url = s"$netBaseUrl${routes.ForumCateg.index().url}",
+          url = s"$netBaseUrl${routes.ForumCateg.index.url}",
           description = "Chess discussions and feedback about Lichess development"
         )
         .some
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
-          h1(dataIcon := "d", cls := "text")("Lichess Forum"),
+          h1(dataIcon := "", cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -47,7 +47,7 @@ object categ {
       a(
         href := routes.ForumTopic.form(categ.slug),
         cls := "button button-empty button-green text",
-        dataIcon := "m"
+        dataIcon := ""
       )(
         trans.createANewTopic()
       )
@@ -64,13 +64,13 @@ object categ {
                 momentFromNow(post.createdAt)
               ),
               br,
-              authorLink(post)
+              trans.by(authorLink(post))
             )
           }
         )
       )
     val bar = div(cls := "bar")(
-      bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
+      views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
       newTopicButton
     )
 
@@ -88,8 +88,8 @@ object categ {
       main(cls := "forum forum-categ box")(
         h1(
           a(
-            href := categ.team.fold(routes.ForumCateg.index())(routes.Team.show(_)),
-            dataIcon := "I",
+            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+            dataIcon := "",
             cls := "text"
           ),
           categ.team.fold(frag(categ.name))(teamIdToName)
@@ -139,7 +139,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by(authorName(post))
+                  trans.by(authorLink(post))
                 )
               }
             )

@@ -2,8 +2,8 @@
 <resources>
   <string name="settings">Postavke</string>
   <string name="closeAccount">Zatvori račun</string>
-  <string name="closingIsDefinitive">Zatvaranje je konačno. Nema povratka. Jeste li sigurni?</string>
-  <string name="cantOpenSimilarAccount">Neće Vam biti dopušteno otvaranje novog računa s istim imenom, čak i ako je kapitalizacija slova drugačija.</string>
+  <string name="closingIsDefinitive">Zatvaranje je konačno. Nema povratka. Jesi li siguran?</string>
+  <string name="cantOpenSimilarAccount">Neće ti biti dopušteno otvaranje novog računa s istim imenom, čak i ako kapitalizacija slova bude drugačija.</string>
   <string name="changedMindDoNotCloseAccount">Predomislio/la sam se, ne zatvaraj moj račun</string>
   <string name="closeAccountExplanation">Jeste li sigurni da želite zatvoriti račun? Zatvaranje računa je trajna odluka. Više se NIKADA nećete moći prijaviti.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>

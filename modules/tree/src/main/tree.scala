@@ -149,7 +149,8 @@ object Node {
     }
     def sanitize(text: String) =
       Text {
-        text.trim
+        lila.common.String
+          .softCleanUp(text)
           .take(4000)
           .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
           .replaceAll("""(?m)(^ *| +(?= |$))""", "")
@@ -176,6 +177,8 @@ object Node {
     def ++(comments: Comments) = Comments(value ::: comments.value)
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
+
+    def hasLichessComment = value.exists(_.by == Comment.Author.Lichess)
   }
   object Comments {
     val empty = Comments(Nil)

@@ -1,13 +1,12 @@
 package views.html.puzzle
 
+import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object show {
 
@@ -16,20 +15,24 @@ object show {
       data: JsObject,
       pref: JsObject,
       difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
-  )(implicit
-      ctx: Context
-  ) =
+  )(implicit ctx: Context) = {
+    val isStreak = data.value.contains("streak")
     views.html.base.layout(
-      title = trans.puzzles.txt(),
-      moreCss = cssTag("puzzle"),
+      title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
+      moreCss = frag(
+        cssTag("puzzle"),
+        ctx.blind option cssTag("round.nvui")
+      ),
       moreJs = frag(
-        jsModule("puzzle"),
+        puzzleTag,
+        puzzleNvuiTag,
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json
             .obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> bits.jsI18n
+              "data"        -> data,
+              "pref"        -> pref,
+              "i18n"        -> bits.jsI18n(streak = isStreak),
+              "showRatings" -> ctx.pref.showRatings
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
             .add("difficulty" -> difficulty.map(_.key))
@@ -40,17 +43,23 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
-          title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          title =
+            if (isStreak) "Puzzle Streak"
+            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
-          description = s"Lichess tactic trainer: " + puzzle.color
-            .fold(
-              trans.puzzle.findTheBestMoveForWhite,
-              trans.puzzle.findTheBestMoveForBlack
-            )
-            .txt() + s" Played by ${puzzle.plays} players."
+          description =
+            if (isStreak) trans.puzzle.streakDescription.txt()
+            else
+              s"Lichess tactic trainer: ${puzzle.color
+                .fold(
+                  trans.puzzle.findTheBestMoveForWhite,
+                  trans.puzzle.findTheBestMoveForBlack
+                )
+                .txt()}. Played by ${puzzle.plays} players."
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      playing = true
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
@@ -61,4 +70,5 @@ object show {
         div(cls := "puzzle__controls")
       )
     }
+  }
 }

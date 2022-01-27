@@ -113,10 +113,23 @@ object list {
       )
     }
 
+  def staffPicks(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = ~doc.getText("doc.title"),
+      moreCss = frag(cssTag("study.index"), cssTag("page"))
+    ) {
+      main(cls := "page-menu")(
+        menu("staffPicks", Order.Mine, Nil),
+        main(cls := "page-menu__content box box-pad page")(
+          views.html.site.page.pageContent(doc, resolver)
+        )
+      )
+    }
+
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
-        iconTag("4"),
+        iconTag(""),
         p(trans.study.noneYet())
       )
     else
@@ -134,12 +147,15 @@ object list {
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth option bits.authLinks(active, nonMineOrder),
-      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics())("Topics"),
+      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)(
+        trans.study.topics()
+      ),
       topics.map { topic =>
         a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
           topic.value
         )
       },
+      a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
         trans.study.whatAreStudies()
       )
@@ -149,7 +165,7 @@ object list {
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value),
-      submitButton(cls := "button", dataIcon := "y")
+      submitButton(cls := "button", dataIcon := "")
     )
 
   private def layout(

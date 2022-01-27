@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Sigbaar deur beide ondewysers en studente van die klas</string>
   <string name="teachersOfTheClass">Onderwysers van die klas</string>
   <string name="addLichessUsernames">Voeg Lichess gebruikersnaam om hulle as onderwysers te nooi. Een per lyn.</string>
-  <string name="theyMustFirstApply">Hulle moet eers aansoek doen om Lichess Onderwysers te wees.</string>
   <string name="resetPassword">Herstel wagwoord</string>
   <string name="makeSureToCopy">Maak seker dat jy die wagwoord nou kopieer of neerskryf. Jy sal dit nie weer kan sien nie!</string>
   <string name="passwordX">Wagwoord: %s</string>
@@ -51,6 +50,12 @@ Wagwoord: %3$s</string>
   <string name="generateANewUsername">Genereer \'n nuwe gebruikersnaam</string>
   <string name="welcomeToClass">Welkom by jou klas: %s.
 Hier is die skakel om die klas te betree.</string>
+  <string name="invitationToClass">U word uitgenooi om as student by die klas \"%s\" aan te sluit.</string>
+  <string name="clickToViewInvitation">Klik op die skakel om die uitnodiging te sien:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Een hangende uitnodiging</item>
+    <item quantity="other">%s hangende uitnodigings</item>
+  </plurals>
   <string name="onlyVisibleToTeachers">Slegs sigbaar vir die klas onderwysers</string>
   <string name="lastActiveDate">Aktief</string>
   <string name="managed">Onder Administrasie</string>
@@ -70,6 +75,7 @@ Hier is die skakel om die klas te betree.</string>
     <item quantity="one">Student</item>
     <item quantity="other">%s studente</item>
   </plurals>
+  <string name="students">Studente</string>
   <string name="progress">Vordering</string>
   <string name="noStudents">Nog geen studente in die klas nie.</string>
   <string name="noRemovedStudents">Geen verwyderde studente.</string>
@@ -86,5 +92,4 @@ Hier is die skakel om die klas te betree.</string>
   <string name="newsEdit2">Voeg die onlangse nuus aan die bokant. Moenie vorige nuus uitvee nie.</string>
   <string name="newsEdit3">Skei nuus met ---
 Dit sal \'n horisontale lyn vertoon.</string>
-  <string name="markdownAvailable">%s is beskikbaar vir meer ingewikkelde sintaks.</string>
 </resources>

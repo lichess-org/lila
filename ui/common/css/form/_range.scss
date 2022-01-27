@@ -14,7 +14,7 @@
   height: 1em;
   cursor: pointer;
   background: $c-shade;
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
 
 input.range {
@@ -34,7 +34,6 @@ input.range {
     @include range-thumb;
 
     -webkit-appearance: none;
-    margin-top: -0.3px;
   }
 
   &::-moz-range-track {

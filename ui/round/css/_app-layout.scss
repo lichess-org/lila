@@ -34,7 +34,8 @@
   grid-area: clock-bot;
 }
 
-#{$rmoves-tag}, .col1-rmoves-preload {
+#{$rmoves-tag},
+.col1-rmoves-preload {
   grid-area: moves;
 }
 
@@ -46,8 +47,8 @@
   display: grid;
 
   @include breakpoint($mq-col1) {
-    grid-template-rows: auto $col1-pocket-height $col1-player-clock-height auto $expiration-height $col1-player-clock-height $col1-pocket-height;
-    grid-template-areas: 'moves' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'kb-move' 'controls';
+    grid-template-rows: auto auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto;
+    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'kb-move' 'controls';
 
     // Put clocks and players in the same grid cell.
     // This allows having a single cell column, instead of
@@ -55,11 +56,11 @@
     // This is required to display the overflowable horizontal move list,
     // so that it can be contain within the grid parent.
     .rclock-top {
-      grid-area: 3 / 1 / 3 / 2;
+      grid-area: 3 / 1 / 5 / 2;
     }
 
     .rclock-bottom {
-      grid-area: 6 / 1 / 6 / 2;
+      grid-area: 7 / 1 / 9 / 2;
     }
 
     cg-board {
@@ -73,21 +74,10 @@
     &__table {
       display: none;
     }
-
-    &.move-confirm {
-      // replace move list with move confirmation
-      grid-template-areas: 'controls' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'kb-move';
-
-      #{$rmoves-tag} {
-        display: none;
-      }
-    }
   }
-
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-rows: 1fr $material-height $clock-height $expiration-height $user-height $moves-height $controls-height $user-height $expiration-height $clock-height $material-height 1fr;
     grid-template-areas: 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
     grid-column-gap: $block-gap;
 
@@ -119,12 +109,10 @@
     }
   }
 
-
   @include breakpoint($mq-col2-uniboard-squeeze) {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
     grid-column-gap: #{$block-gap * 3 / 2};
   }
-
 
   &__board {
     grid-area: board;

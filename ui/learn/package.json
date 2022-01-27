@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess performance statistics",
-  "main": "src/main.js",
+  "type": "module",
+  "module": "src/main.js",
   "keywords": [
     "chess",
     "lichess",
@@ -12,9 +13,15 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0"
+    "@build/rollupProject": "2.0.0",
+    "@types/cash": "8.0.0",
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@types/chess.js": "=0.10.1",
     "chess.js": "github:ornicar/chess.js#learn",
     "chessground": "^4.4",
     "common": "2.0.0",

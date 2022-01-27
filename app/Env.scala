@@ -12,12 +12,14 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
+import lila.security.Granter
+import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
-    val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
+    val mailer: lila.mailer.Env,
     val security: lila.security.Env,
     val hub: lila.hub.Env,
     val socket: lila.socket.Env,
@@ -57,7 +59,7 @@ final class Env(
     val insight: lila.insight.Env,
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
-    val slack: lila.slack.Env,
+    val irc: lila.irc.Env,
     val challenge: lila.challenge.Env,
     val explorer: lila.explorer.Env,
     val fishnet: lila.fishnet.Env,
@@ -79,6 +81,9 @@ final class Env(
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env,
     val swiss: lila.swiss.Env,
+    val storm: lila.storm.Env,
+    val racer: lila.racer.Env,
+    val ublog: lila.ublog.Env,
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
@@ -112,10 +117,20 @@ final class Env(
     text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
   )
   lazy val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers ",
+    "prizeTournamentMakers",
     default = UserIds(Nil),
     text =
       "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+  )
+  lazy val apiExplorerGamesPerSecond = memo.settingStore[Int](
+    "apiExplorerGamesPerSecond",
+    default = 300,
+    text = "Opening explorer games per second".some
+  )
+  lazy val pieceImageExternal = memo.settingStore[Boolean](
+    "pieceImageExternal",
+    default = false,
+    text = "Use external piece images".some
   )
 
   lazy val preloader     = wire[mashup.Preload]
@@ -137,41 +152,7 @@ final class Env(
 
   def scheduler = system.scheduler
 
-  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
-    for {
-      u <- user.repo byId userId orFail s"No such user $userId"
-      badApple = u.lameOrTrollOrAlt
-      playbanned <- playban.api.hasCurrentBan(u.id)
-      _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
-      _          <- relation.api.unfollowAll(u.id)
-      _          <- user.rankingApi.remove(u.id)
-      teamIds    <- team.api.quitAll(u.id)
-      _          <- challenge.api.removeByUserId(u.id)
-      _          <- tournament.api.withdrawAll(u)
-      _          <- swiss.api.withdrawAll(u, teamIds)
-      _          <- plan.api.cancel(u).nevermind
-      _          <- lobby.seekApi.removeByUser(u)
-      _          <- security.store.closeAllSessionsOf(u.id)
-      _          <- push.webSubscriptionApi.unsubscribeByUser(u)
-      _          <- streamer.api.demote(u.id)
-      _          <- coach.api.remove(u.id)
-      reports    <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
-      _          <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
-      _ <- u.marks.troll ?? relation.api.fetchFollowing(u.id).flatMap {
-        activity.write.unfollowAll(u, _)
-      }
-    } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
-
-  Bus.subscribeFun("garbageCollect") { case lila.hub.actorApi.security.GarbageCollect(userId) =>
-    // GC can be aborted by reverting the initial SB mark
-    user.repo.isTroll(userId) foreach { troll =>
-      if (troll) scheduler.scheduleOnce(1.second) {
-        closeAccount(userId, self = false).unit
-      }
-    }
-  }
-
-  system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
+  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("app.renderer.name"))
 }
 
 final class EnvBoot(
@@ -194,13 +175,11 @@ final class EnvBoot(
   def baseUrl              = netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 
-  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
-  lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
-
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]
+  lazy val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
   lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
@@ -239,7 +218,7 @@ final class EnvBoot(
   lazy val insight: lila.insight.Env         = wire[lila.insight.Env]
   lazy val push: lila.push.Env               = wire[lila.push.Env]
   lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
-  lazy val slack: lila.slack.Env             = wire[lila.slack.Env]
+  lazy val irc: lila.irc.Env                 = wire[lila.irc.Env]
   lazy val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
   lazy val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   lazy val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
@@ -261,6 +240,9 @@ final class EnvBoot(
   lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
   lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
   lazy val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
+  lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
+  lazy val racer: lila.racer.Env             = wire[lila.racer.Env]
+  lazy val ublog: lila.ublog.Env             = wire[lila.ublog.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 

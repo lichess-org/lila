@@ -1,6 +1,7 @@
 import LobbyController from './ctrl';
+import { Seek } from './interfaces';
 
-function order(a, b) {
+function order(a: Seek, b: Seek) {
   return a.rating > b.rating ? -1 : 1;
 }
 
@@ -9,8 +10,8 @@ export function sort(ctrl: LobbyController) {
 }
 
 export function initAll(ctrl: LobbyController) {
-  ctrl.data.seeks.forEach(function(seek) {
-    seek.action = (ctrl.data.me && seek.username === ctrl.data.me.username) ? 'cancelSeek' : 'joinSeek';
+  ctrl.data.seeks.forEach(function (seek) {
+    seek.action = ctrl.data.me && seek.username === ctrl.data.me.username ? 'cancelSeek' : 'joinSeek';
   });
   sort(ctrl);
 }

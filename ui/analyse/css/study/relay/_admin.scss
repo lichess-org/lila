@@ -14,7 +14,7 @@
     @extend %flex-between;
 
     font-size: 1.2em;
-    padding: .4em .6em;
+    padding: 0.4em 0.6em;
     border-bottom: $border;
   }
 
@@ -30,7 +30,7 @@
       @extend %flex-center;
 
       font-size: 1.3em;
-      margin: 0 .5em 0 .8em;
+      margin: 0 0.5em 0 0.8em;
     }
 
     &.clickable:hover {
@@ -67,7 +67,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     white-space: nowrap;
-    padding: .3em .7em;
+    padding: 0.3em 0.7em;
 
     > div {
       @extend %flex-center-nowrap;
@@ -77,14 +77,14 @@
       &::before {
         color: $c-good;
         font-size: 1.3em;
-        margin-right: .5em;
+        margin-right: 0.5em;
       }
     }
 
     time {
       @extend %roboto;
 
-      margin-left: .3em;
+      margin-left: 0.3em;
     }
 
     .err::before {

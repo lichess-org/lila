@@ -2,6 +2,7 @@ package lila.game
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
@@ -13,7 +14,6 @@ final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
-    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val gifUrl: String
@@ -24,6 +24,7 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
@@ -36,7 +37,6 @@ final class Env(
 ) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
-  import config.paginatorMaxPerPage
 
   lazy val gameRepo = new GameRepo(db(config.gameColl))
 
@@ -56,7 +56,7 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl)
+    matchupColl = yoloDb(config.matchupColl).failingSilently()
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]

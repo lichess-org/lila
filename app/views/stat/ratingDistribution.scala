@@ -23,7 +23,7 @@ object ratingDistribution {
         embedJsUnsafeLoadThen(s"""lichess.ratingDistributionChart(${safeJsonValue(
           Json.obj(
             "freq"     -> data,
-            "myRating" -> ctx.me.map(_.perfs(perfType).intRating),
+            "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
             "i18n"     -> i18nJsObject(i18nKeys)
           )
         )})""")
@@ -41,33 +41,36 @@ object ratingDistribution {
                   a(
                     dataIcon := pt.iconChar,
                     cls := (perfType == pt).option("current"),
-                    href := routes.Stat.ratingDistribution(pt.key)
+                    href := routes.User.ratingDistribution(pt.key)
                   )(pt.trans)
                 }
               )
             )
           ),
           div(cls := "desc", dataIcon := perfType.iconChar)(
-            ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
-              lila.user.Stat.percentile(data, rating) match {
-                case (under, sum) =>
-                  div(
-                    trans
-                      .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
-                    br,
-                    trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
-                    br,
-                    trans.youAreBetterThanPercentOfPerfTypePlayers(
-                      strong((under * 100.0 / sum).round, "%"),
-                      perfType.trans
+            ctx.me.ifTrue(ctx.pref.showRatings).flatMap(_.perfs(perfType).glicko.establishedIntRating).map {
+              rating =>
+                lila.user.Stat.percentile(data, rating) match {
+                  case (under, sum) =>
+                    div(
+                      trans
+                        .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                      br,
+                      trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
+                      br,
+                      trans.youAreBetterThanPercentOfPerfTypePlayers(
+                        strong((under * 100.0 / sum).round, "%"),
+                        perfType.trans
+                      )
                     )
-                  )
-              }
+                }
             } getOrElse div(
               trans.nbPerfTypePlayersThisWeek
                 .plural(data.sum, strong(data.sum.localize), perfType.trans),
-              br,
-              trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
+              ctx.pref.showRatings option frag(
+                br,
+                trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
+              )
             )
           ),
           div(id := "rating_distribution_chart")(spinner)

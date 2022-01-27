@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Pribadi</string>
   <string name="myStudies">Studi saya</string>
-  <string name="studiesIContributeTo">Studi yang saya kontribusikan kepada</string>
+  <string name="studiesIContributeTo">Studi yang saya ikut berkontribusi</string>
   <string name="myPublicStudies">Studi publik saya</string>
   <string name="myPrivateStudies">Studi pribadi saya</string>
   <string name="myFavoriteStudies">Studi favorit saya</string>
@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Tanggal ditambahkan (terlama)</string>
   <string name="recentlyUpdated">Baru saja diperbarui</string>
   <string name="mostPopular">Paling populer</string>
+  <string name="alphabetical">Menurut abjad</string>
   <string name="addNewChapter">Tambahkan bab baru</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Bab</item>
@@ -37,6 +38,7 @@
   <string name="youAreNowASpectator">Sekarang Anda adalah penonton</string>
   <string name="pgnTags">Tagar PGN</string>
   <string name="like">Suka</string>
+  <string name="unlike">Batal Suka</string>
   <string name="newTag">Tagar baru</string>
   <string name="commentThisPosition">Komentar di posisi ini</string>
   <string name="commentThisMove">Komentari langkah ini</string>
@@ -59,15 +61,13 @@
   <string name="chapterPgn">Bab PGN</string>
   <string name="downloadGame">Unduh permainan</string>
   <string name="studyUrl">URL studi</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL Broadcast</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
-  <string name="currentGameUrl">URL permainan</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Anda dapat menempelkan ini di forum untuk disematkan</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Anda dapat menempelkan ini di forum untuk disematkan</string>
   <string name="startAtInitialPosition">Mulai saat posisi awal</string>
   <string name="startAtX">Mulai dari %s</string>
   <string name="embedInYourWebsite">Sematkan di blog atau website Anda</string>
   <string name="readMoreAboutEmbedding">Baca lebih tentang penyematan</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Hanya pelajaran publik yang dapat di sematkan!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Hanya pelajaran publik yang dapat di sematkan!</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Studi tidak ditemukan</string>
@@ -123,6 +123,37 @@
   <string name="clearChat">Bersihkan obrolan</string>
   <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan studi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="deleteStudy">Hapus studi</string>
-  <string name="deleteTheEntireStudy">Hapus semua studi? Ini tidak akan dapat mengulangkan kembali!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Hapus seluruh studi? Tidak dapat kembal lagi! Tuliskan nama studi untuk konfirmasi: %s</string>
   <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
+  <string name="goodMove">Langkah bagus</string>
+  <string name="mistake">Kesalahan</string>
+  <string name="brilliantMove">Langkah Brilian</string>
+  <string name="blunder">Blunder</string>
+  <string name="interestingMove">Langkah menarik</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Langkah meragukan</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Langkah satu-satunya</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Posisi imbang</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posisi tidak jelas</string>
+  <string name="whiteIsSlightlyBetter">Putih sedikit lebih unggul</string>
+  <string name="blackIsSlightlyBetter">Hitam sedikit lebih unggul</string>
+  <string name="whiteIsBetter">Putih lebih unggul</string>
+  <string name="blackIsBetter">Hitam lebih unggul</string>
+  <string name="whiteIsWinning">Putih menang telak</string>
+  <string name="blackIsWinning">Hitam menang telak</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Langkah baru</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Pengembangan</string>
+  <string name="initiative">Inisiatif</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Serangan</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Serangan balik</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tekanan waktu</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Dengan kompensasi</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Dengan ide</string>
+  <string name="nextChapter">Bab selanjutnya</string>
+  <string name="prevChapter">Bab sebelumnya</string>
+  <string name="studyActions">Pembelajaran</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Topik</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Topik populer</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Kembali</string>
+  <string name="playAgain">Main lagi</string>
 </resources>

@@ -2,43 +2,31 @@
   @extend %flex-column;
 
   color: $c-font-page;
-  font-size: .9em;
-  align-items: flex-start;
+  font-size: 0.9em;
   line-height: 1.15em;
   margin-top: 1em;
 
-  td {
-    text-align: center;
-
-    &:first-child {
-      width: 5ch;
+  &__side > div {
+    display: flex;
+    i,
+    strong {
+      flex: 0 1 4ch;
+      text-align: center;
     }
-  }
-
-  table {
-    overflow: hidden;
-  }
-
-  tbody td {
-    font-weight: bold;
+    &.symbol {
+      cursor: pointer;
+      &:hover {
+        color: $c-link;
+      }
+    }
   }
 
   .color-icon::before {
     vertical-align: text-bottom;
   }
 
-  tr {
-    &.symbol {
-      cursor: pointer;
-    }
-
-    &.symbol:hover {
-      color: #3893E8;
-    }
-  }
-
   .button {
-    margin: .6em 0;
+    margin: 0.6em 0;
   }
 
   @include breakpoint($mq-col1) {
@@ -48,7 +36,7 @@
     border-bottom: $border;
     margin: 0;
 
-    table {
+    &__side {
       flex: 0 0 calc(50% - #{$block-gap});
       margin-left: $block-gap;
     }

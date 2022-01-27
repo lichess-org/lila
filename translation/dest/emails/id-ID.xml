@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Konfirmasi akun lichess.org Anda, %s</string>
-  <string name="emailConfirm_click">Klik link untuk mengaktifkan akun Lichess Anda:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klik link untuk mengaktifkan akun Lichess Anda:</string>
   <string name="emailConfirm_ignore">Jika Anda tidak mendaftarkan di Lichess Anda dapat dengan aman mengabaikan pesan ini.</string>
   <string name="passwordReset_subject">Atur ulang sandi lichess.org, %s</string>
   <string name="passwordReset_intro">Kami menerima permintaan untuk menyetel ulang sandi untuk akun Anda.</string>

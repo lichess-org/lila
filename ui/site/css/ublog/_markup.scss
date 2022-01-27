@@ -1,0 +1,137 @@
+.ublog-post__markup {
+  @extend %break-word;
+  font-size: 1.2em;
+  cursor: initial;
+  line-height: 1.8;
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p,
+  ol,
+  ul,
+  table,
+  pre {
+    margin: 2em 0;
+  }
+
+  ol,
+  ul {
+    padding-left: 0.5em;
+  }
+
+  li ol,
+  li ul {
+    margin: 0;
+    padding-left: 2em;
+  }
+
+  ol > li {
+    list-style: decimal inside;
+  }
+
+  ul > li {
+    list-style: disc inside;
+  }
+
+  li p {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
+  }
+
+  /* should not be used */
+  h1 {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  h2 {
+    margin-top: 1.8em;
+    border-bottom: 1px solid $c-brag;
+    line-height: 1.5em;
+    padding-bottom: 0.5em;
+  }
+
+  h3 {
+    @include fluid-size('font-size', 18px, 27px);
+
+    font-weight: bold;
+    margin: 1.6em 0 1em 0;
+  }
+
+  h4 {
+    @include fluid-size('font-size', 17px, 23px);
+  }
+
+  .img-container {
+    text-align: center;
+    color: $c-font-dim;
+    line-height: 1.2em;
+    font-size: 0.9em;
+  }
+  img {
+    @extend %box-neat;
+    display: block;
+    max-width: 100%;
+    max-height: 50vh;
+    margin: auto;
+  }
+
+  $c-code-bg: #111;
+  $c-code-font: #ccc;
+  code {
+    @extend %box-radius;
+    font-family: monospace;
+    padding: 0.2em 0.5em;
+    background: $c-code-bg;
+    color: $c-code-font;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    @extend %box-neat;
+    background: hsl(226, 16%, 15%);
+    padding: 1em 1.5em;
+    line-height: 1.4em;
+    code {
+      background: inherit;
+      padding: 0;
+    }
+  }
+
+  blockquote {
+    color: $c-font-dim;
+    border-left: 0.3em solid $c-font-dimmer;
+    padding-left: 1em;
+  }
+
+  .embed {
+    @extend %video;
+
+    &--game {
+      @extend %game-embed;
+    }
+
+    margin: $block-gap auto;
+  }
+
+  th,
+  td {
+    &[align='left'] {
+      text-align: left;
+    }
+    &[align='center'] {
+      text-align: center;
+    }
+    &[align='right'] {
+      text-align: right;
+    }
+  }
+}

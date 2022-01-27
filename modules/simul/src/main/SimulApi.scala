@@ -30,7 +30,7 @@ final class SimulApi(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 128,
       expiration = 10 minutes,
       timeout = 10 seconds,
@@ -58,9 +58,11 @@ final class SimulApi(
       host = me,
       color = setup.color,
       text = setup.text,
-      team = setup.team
+      estimatedStartAt = setup.estimatedStartAt,
+      team = setup.team,
+      featurable = some(~setup.featured && me.canBeFeatured)
     )
-    repo.create(simul, me.hasTitle && ~setup.featured) >>- publish() >>- {
+    repo.create(simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }
@@ -73,9 +75,11 @@ final class SimulApi(
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
-      team = setup.team
+      estimatedStartAt = setup.estimatedStartAt,
+      team = setup.team,
+      featurable = some(~setup.featured && me.canBeFeatured)
     )
-    repo.update(simul, some(me.hasTitle && ~setup.featured)) >>- publish() inject simul
+    repo.update(simul) >>- publish() inject simul
   }
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
@@ -222,7 +226,7 @@ final class SimulApi(
   def byTeamLeaders = repo.byTeamLeaders _
 
   def idToName(id: Simul.ID): Fu[Option[String]] =
-    repo find id dmap2 { _.fullName }
+    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: Simul.ID): Fu[Option[TeamID]] =
     repo.coll.primitiveOne[TeamID]($id(id), "team")
@@ -269,7 +273,7 @@ final class SimulApi(
     }
 
   private def update(simul: Simul): Funit =
-    repo.update(simul, none) >>- socket.reload(simul.id) >>- publish()
+    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
       finding: Simul.ID => Fu[Option[Simul]],

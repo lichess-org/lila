@@ -9,6 +9,7 @@ import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
 import chess.variant.Variant
+import lila.common.Template
 
 final case class ApiConfig(
     variant: chess.variant.Variant,
@@ -17,10 +18,10 @@ final case class ApiConfig(
     rated: Boolean,
     color: Color,
     position: Option[FEN] = None,
-    acceptByToken: Option[String] = None
+    acceptByToken: Option[String] = None,
+    message: Option[Template],
+    keepAliveStream: Boolean
 ) {
-
-  def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
@@ -30,6 +31,8 @@ final case class ApiConfig(
     !isBot || clock.fold(true) { c =>
       Speed(c) >= Speed.Bullet
     }
+
+  def validRated = mode.casual || clock.isDefined || variant.standard
 
   def mode = chess.Mode(rated)
 
@@ -48,8 +51,10 @@ object ApiConfig extends BaseHumanConfig {
       d: Option[Int],
       r: Boolean,
       c: Option[String],
-      pos: Option[String],
-      tok: Option[String]
+      pos: Option[FEN],
+      tok: Option[String],
+      msg: Option[String],
+      keepAliveStream: Option[Boolean]
   ) =
     new ApiConfig(
       variant = chess.variant.Variant.orDefault(~v),
@@ -57,8 +62,10 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map FEN.apply,
-      acceptByToken = tok
+      position = pos,
+      acceptByToken = tok,
+      message = msg map Template,
+      keepAliveStream = ~keepAliveStream
     ).autoVariant
 
   def validFen(variant: Variant, fen: Option[FEN]) =

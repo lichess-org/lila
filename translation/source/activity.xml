@@ -55,13 +55,18 @@
     <item quantity="other">Created %s new studies</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Competed in %s tournament</item>
-    <item quantity="other">Competed in %s tournaments</item>
+    <item quantity="one">Competed in %s Arena tournament</item>
+    <item quantity="other">Competed in %s Arena tournaments</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Ranked #%1$s (top %2$s%%) with %3$s game in %4$s</item>
     <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Competed in %s swiss tournament</item>
+    <item quantity="other">Competed in %s swiss tournaments</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Ranked #%1$s in %2$s</string>
   <string name="signedUp">Signed up to lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Joined %s team</item>

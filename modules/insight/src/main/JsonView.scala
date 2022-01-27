@@ -17,7 +17,7 @@ final class JsonView {
       "key"         -> D.Opening.key,
       "name"        -> D.Opening.name,
       "position"    -> D.Opening.position,
-      "description" -> D.Opening.description.render,
+      "description" -> D.Opening.description,
       "values" -> Dimension
         .valuesOf(D.Opening)
         .filter { o =>
@@ -52,7 +52,9 @@ final class JsonView {
           Json.toJson(D.PieceRole: Dimension[_]),
           Json.toJson(D.MovetimeRange: Dimension[_]),
           Json.toJson(D.MaterialRange: Dimension[_]),
-          Json.toJson(D.Phase: Dimension[_])
+          Json.toJson(D.EvalRange: Dimension[_]),
+          Json.toJson(D.Phase: Dimension[_]),
+          Json.toJson(D.CplRange: Dimension[_])
         ) ::: {
           asMod ?? List(Json.toJson(D.Blur: Dimension[_]), Json.toJson(D.TimeVariance: Dimension[_]))
         }
@@ -91,6 +93,7 @@ final class JsonView {
         "Evaluation",
         List(
           Json.toJson(M.MeanCpl: Metric),
+          Json.toJson(M.CplBucket: Metric),
           Json.toJson(M.Opportunism: Metric),
           Json.toJson(M.Luck: Metric)
         )
@@ -132,7 +135,7 @@ final class JsonView {
           "key"         -> d.key,
           "name"        -> d.name,
           "position"    -> d.position,
-          "description" -> d.description.render,
+          "description" -> d.description,
           "values"      -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
         )
       }
@@ -141,7 +144,7 @@ final class JsonView {
       Json.obj(
         "key"         -> m.key,
         "name"        -> m.name,
-        "description" -> m.description.render,
+        "description" -> m.description,
         "position"    -> m.position
       )
     }

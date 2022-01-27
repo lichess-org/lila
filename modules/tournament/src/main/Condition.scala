@@ -25,16 +25,16 @@ object Condition {
 
   type GetMaxRating = PerfType => Fu[Int]
 
-  sealed abstract class Verdict(val accepted: Boolean)
-  case object Accepted                       extends Verdict(true)
-  case class Refused(reason: Lang => String) extends Verdict(false)
+  sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
+  case object Accepted                        extends Verdict(true, none)
+  case class Refused(because: Lang => String) extends Verdict(false, because.some)
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond {
     def name(implicit lang: Lang) = "Only titled players"
     def apply(user: User) =
-      if (user.title.exists(_ != Title.LM)) Accepted
+      if (user.title.exists(_ != Title.LM) && user.noBot) Accepted
       else Refused(name(_))
   }
 
@@ -65,7 +65,12 @@ object Condition {
       }
   }
 
-  case class MaxRating(perf: PerfType, rating: Int) extends Condition {
+  abstract trait RatingCondition {
+    val perf: PerfType
+    val rating: Int
+  }
+
+  case class MaxRating(perf: PerfType, rating: Int) extends Condition with RatingCondition {
 
     def apply(
         getMaxRating: GetMaxRating
@@ -91,7 +96,7 @@ object Condition {
     def name(implicit lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
   }
 
-  case class MinRating(perf: PerfType, rating: Int) extends Condition with FlatCond {
+  case class MinRating(perf: PerfType, rating: Int) extends Condition with RatingCondition with FlatCond {
 
     def apply(user: User) =
       if (user.hasTitle) Accepted
@@ -145,6 +150,14 @@ object Condition {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu dmap All.WithVerdicts.apply
 
+    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[All.WithVerdicts] =
+      list.map {
+        case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
+        case c             => fuccess(WithVerdict(c, Accepted))
+      }.sequenceFu dmap All.WithVerdicts.apply
+
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
@@ -178,6 +191,10 @@ object Condition {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
+    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[All.WithVerdicts] =
+      all.withRejoinVerdicts(user, getUserTeamIds)
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
         tour: Tournament
     )(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
@@ -214,6 +231,14 @@ object Condition {
         },
         "accepted" -> verdicts.accepted
       )
+
+    implicit val ratingConditionWrites: OWrites[Condition.RatingCondition] =
+      OWrites[Condition.RatingCondition] { r =>
+        Json.obj(
+          "perf"   -> r.perf.key,
+          "rating" -> r.rating
+        )
+      }
   }
 
   object DataForm {

@@ -88,12 +88,12 @@
     @extend %roboto;
 
     font-size: 1.5em;
-    margin-left: .2em;
+    margin-left: 0.2em;
   }
 
   .shy {
     line-height: 20px;
-    font-size: .9em;
+    font-size: 0.9em;
     font-weight: bold;
     text-transform: uppercase;
     opacity: 0.6;
@@ -114,7 +114,7 @@
     height: 80px;
     opacity: 0.7;
     transition: 1s;
-    font-family: "lichess";
+    font-family: 'lichess';
     filter: hue-rotate(190deg);
 
     &:hover {
@@ -136,7 +136,7 @@
         height: 80px;
         background: url(../images/trophy/shield-gold.png) no-repeat;
         background-size: contain;
-        font-family: "lichess";
+        font-family: 'lichess';
         font-size: 40px;
         line-height: 80px;
         text-align: center;

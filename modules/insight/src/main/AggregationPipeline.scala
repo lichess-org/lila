@@ -17,7 +17,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import question.{ dimension, filters, metric }
 
         import lila.insight.{ Dimension => D, Metric => M }
-        import Entry.{ BSONFields => F }
+        import InsightEntry.{ BSONFields => F }
         import Storage._
 
         val sampleGames    = Sample(10_000)
@@ -37,11 +37,22 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case (acc, mtr) =>
               $doc(
                 "$cond" -> $arr(
-                  $doc("$lte" -> $arr("$" + F.moves("t"), mtr.tenths.last)),
+                  $doc("$lt" -> $arr("$" + F.moves("t"), mtr.tenths)),
                   mtr.id,
                   acc
                 )
               )
+          }
+
+        lazy val cplIdDispatcher =
+          CplRange.all.reverse.foldLeft[BSONValue](BSONInteger(CplRange.worse.cpl)) { case (acc, cpl) =>
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lte" -> $arr("$" + F.moves("c"), cpl.cpl)),
+                cpl.cpl,
+                acc
+              )
+            )
           }
         lazy val materialIdDispatcher = $doc(
           "$cond" -> $arr(
@@ -59,6 +70,16 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           )
         )
+        lazy val evalIdDispatcher =
+          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { case (acc, ev) =>
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
+                ev.id,
+                acc
+              )
+            )
+          }
         lazy val timeVarianceIdDispatcher =
           TimeVariance.all.reverse
             .drop(1)
@@ -74,7 +95,9 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         def dimensionGroupId(dim: Dimension[_]): BSONValue =
           dim match {
             case Dimension.MovetimeRange => movetimeIdDispatcher
+            case Dimension.CplRange      => cplIdDispatcher
             case Dimension.MaterialRange => materialIdDispatcher
+            case Dimension.EvalRange     => evalIdDispatcher
             case Dimension.TimeVariance  => timeVarianceIdDispatcher
             case d                       => BSONString("$" + d.dbKey)
           }
@@ -150,6 +173,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case f if f.dimension.isInMove => f.matcher
           } ::: (dimension match {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
+            case D.CplRange     => List($doc(F.moves("c") $exists true))
+            case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
           })).some.filterNot(_.isEmpty) map Match.apply
 
@@ -164,7 +189,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           selectUserId(user.id) ++
             gameMatcher ++
             (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
-            Metric.requiresAnalysis(metric).??($doc(F.analysed -> true)) ++
+            (Metric.requiresAnalysis(metric) || Dimension.requiresAnalysis(dimension))
+              .??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
@@ -179,6 +205,15 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               ) :::
                 group(dimension, AvgField(F.moves("c"))) :::
                 List(includeSomeGameIds.some)
+            case M.CplBucket =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves,
+                AddFields($doc("cplBucket" -> cplIdDispatcher)).some
+              ) :::
+                groupMulti(dimension, "cplBucket")
             case M.Material =>
               List(
                 projectForMove,

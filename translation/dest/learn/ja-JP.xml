@@ -86,7 +86,7 @@
   <string name="captureAndDefendPieces">駒を取り、駒を守る</string>
   <string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
   <string name="combatComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
-  <string name="checkInOne">1手でチェック</string>
+  <string name="checkInOne">1 手でチェック</string>
   <string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
   <string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
   <string name="checkInOneGoal">1 手で相手のキングを
@@ -105,7 +105,7 @@
   <string name="escapeOrBlock">キングを逃がすか
 合い駒で防ぐか</string>
   <string name="outOfCheckComplete">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
-  <string name="mateInOne">1手でメイト</string>
+  <string name="mateInOne">1 手でメイト</string>
   <string name="defeatTheOpponentsKing">相手のキングをメイトする</string>
   <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
   <string name="attackYourOpponentsKing">防げないような
@@ -188,6 +188,12 @@
   <string name="queenOverBishop">いちばん価値の大きい
 駒を取ってください。
 クイーン ＞ ビショップ</string>
+  <string name="pieceValueExchange">いちばん価値の高い駒を取って！
+ 価値の高い駒を
+ 価値の低い駒と交換しないように。</string>
+  <string name="pieceValueLegal">いちばん価値の高い
+駒を取って！
+ルールに従った手で！</string>
   <string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
 駒を取ってください。</string>
   <string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
@@ -196,7 +202,7 @@
 ビショップ = 3
 ナイト = 3
 ポーン = 1</string>
-  <string name="checkInTwo">2手でチェック</string>
+  <string name="checkInTwo">2 手でチェック</string>
   <string name="twoMovesToGiveCheck">2 手動かしてチェックする</string>
   <string name="checkInTwoIntro">相手のキングをチェックする 2 手の組み合わせを考えてください。</string>
   <string name="checkInTwoGoal">2 手で相手のキングを
@@ -208,13 +214,13 @@
   <string name="getAFreeLichessAccount">Lichess の無料アカウントを作る</string>
   <string name="practice">練習</string>
   <string name="learnCommonChessPositions">チェスのよくある局面を知る</string>
-  <string name="puzzles">タクティクス</string>
+  <string name="puzzles">タクティクス問題</string>
   <string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
   <string name="videos">動画</string>
   <string name="watchInstructiveChessVideos">チェスの教材動画を見る</string>
   <string name="playPeople">対人戦</string>
   <string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
-  <string name="playMachine">AIと対局</string>
+  <string name="playMachine">マシンと対戦</string>
   <string name="testYourSkillsWithTheComputer">コンピュータで腕前をテスト</string>
   <string name="letsGo">どうぞ！</string>
   <string name="stageX">ステージ %s</string>

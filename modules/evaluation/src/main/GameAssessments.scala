@@ -1,18 +1,5 @@
 package lila.evaluation
 
-import chess.Color
-
-case class PlayerAssessments(
-    white: Option[PlayerAssessment],
-    black: Option[PlayerAssessment]
-) {
-  def color(c: Color) =
-    c match {
-      case Color.White => white
-      case _           => black
-    }
-}
-
 sealed trait GameAssessment {
   val id: Int
   val description: String
@@ -52,7 +39,4 @@ object GameAssessment {
     a.id -> a
   }.toMap
   def orDefault(id: Int) = byId.getOrElse(id, NotCheating)
-
-  implicit val GameAssessmentBSONHandler =
-    reactivemongo.api.bson.BSONIntegerHandler.as[GameAssessment](orDefault, _.id)
 }

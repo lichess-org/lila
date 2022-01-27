@@ -1,6 +1,11 @@
 package lila.plan
 
+import java.text.NumberFormat
+import java.util.{ Currency, Locale }
 import org.joda.time.DateTime
+import play.api.i18n.Lang
+
+import lila.user.User
 
 case class ChargeId(value: String)       extends AnyVal
 case class ClientId(value: String)       extends AnyVal
@@ -16,64 +21,67 @@ object Freq {
   case object Onetime extends Freq(renew = false)
 }
 
-case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
-  def compare(other: Usd) = value compare other.value
-  def cents               = Cents((value * 100).toInt)
-  override def toString   = s"$$$value"
-}
-object Usd {
-  def apply(value: Int): Usd = Usd(BigDecimal(value))
-}
-case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
-  def compare(other: Cents) = Integer.compare(value, other.value)
-  def usd                   = Usd(BigDecimal(value, 2))
-  override def toString     = usd.toString
+// /!\ In smallest currency unit /!\
+// https://stripe.com/docs/currencies#zero-decimal
+case class StripeAmount(smallestCurrencyUnit: Int) extends AnyVal {
+  def toMoney(currency: Currency) =
+    Money(
+      if (CurrencyApi zeroDecimalCurrencies currency) smallestCurrencyUnit
+      else BigDecimal(smallestCurrencyUnit) / 100,
+      currency
+    )
 }
 
-object Cents {
-  val lifetime = Cents(25000)
+case class Money(amount: BigDecimal, currency: Currency) {
+  def display(locale: Locale): String = {
+    val format = NumberFormat.getCurrencyInstance(locale)
+    format setCurrency currency
+    format format amount
+  }
+  def display(implicit lang: Lang): String = display(lang.locale)
+  def currencyCode                         = currency.getCurrencyCode
+  def code                                 = s"${currencyCode}_$amount"
+  def toStripeAmount = StripeAmount {
+    if (CurrencyApi.zeroDecimalCurrencies(currency)) amount.toInt else (amount * 100).toInt
+  }
+  override def toString = code
 }
+
+case class Usd(value: BigDecimal) extends AnyVal {
+  def cents = (value * 100).toInt
+}
+
+case class Country(code: String) extends AnyVal
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
-case class StripePlan(id: String, name: String, amount: Cents) {
-  def cents = amount
-  def usd   = cents.usd
-}
-object StripePlan {
-  def make(cents: Cents, freq: Freq): StripePlan =
-    freq match {
-      case Freq.Monthly =>
-        StripePlan(
-          id = s"monthly_${cents.value}",
-          name = s"Monthly ${cents.usd}",
-          amount = cents
-        )
-      case Freq.Onetime =>
-        StripePlan(
-          id = s"onetime_${cents.value}",
-          name = s"One-time ${cents.usd}",
-          amount = cents
-        )
-    }
+case class StripeProducts(monthly: String, onetime: String, gift: String)
 
-  val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
+case class StripeItem(id: String, price: StripePrice)
+
+case class StripePrice(product: String, unit_amount: StripeAmount, currency: Currency) {
+  def amount = unit_amount
+  def money  = unit_amount toMoney currency
 }
+
+case class NextUrls(cancel: String, success: String)
 
 case class StripeSession(id: SessionId)
 case class CreateStripeSession(
-    success_url: String,
-    cancel_url: String,
-    customer_id: CustomerId,
-    checkout: Checkout
+    customerId: CustomerId,
+    checkout: Checkout,
+    urls: NextUrls,
+    giftTo: Option[User],
+    isLifetime: Boolean
 )
 
 case class StripeSubscription(
     id: String,
-    plan: StripePlan,
+    item: StripeItem,
     customer: CustomerId,
     cancel_at_period_end: Boolean,
-    status: String
+    status: String,
+    default_payment_method: Option[String]
 ) {
   def renew    = !cancel_at_period_end
   def isActive = status == "active"
@@ -86,29 +94,53 @@ case class StripeCustomer(
 ) {
 
   def firstSubscription = subscriptions.data.headOption
-
-  def plan = firstSubscription.map(_.plan)
-
-  def renew = firstSubscription ?? (_.renew)
+  def renew             = firstSubscription.??(_.renew)
 }
 
-case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId) {
-  def lifetimeWorthy = amount >= Cents.lifetime
+case class StripeCharge(
+    id: ChargeId,
+    amount: StripeAmount,
+    currency: Currency,
+    customer: CustomerId,
+    billing_details: Option[StripeCharge.BillingDetails],
+    metadata: Map[String, String]
+) {
+  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def giftTo: Option[User.ID] = metadata get "giftTo"
+}
+
+object StripeCharge {
+  case class Address(country: Option[String])
+  case class BillingDetails(address: Option[Address])
 }
 
 case class StripeInvoice(
     id: Option[String],
-    amount_due: Int,
-    date: Long,
+    amount_due: StripeAmount,
+    currency: Currency,
+    created: Long,
     paid: Boolean
 ) {
-  def cents    = Cents(amount_due)
-  def usd      = cents.usd
-  def dateTime = new DateTime(date * 1000)
+  def money    = amount_due toMoney currency
+  def dateTime = new DateTime(created * 1000)
 }
+
+case class StripePaymentMethod(card: Option[StripeCard])
+
+case class StripeCard(brand: String, last4: String, exp_year: Int, exp_month: Int)
 
 case class StripeCompletedSession(
     customer: CustomerId,
     mode: String,
-    subscription: Option[SubscriptionId]
-)
+    metadata: Map[String, String],
+    amount_total: StripeAmount,
+    currency: Currency
+) {
+  def freq                    = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+  def money                   = amount_total toMoney currency
+  def giftTo: Option[User.ID] = metadata get "giftTo"
+}
+
+case class StripeSetupIntent(payment_method: String)
+
+case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)

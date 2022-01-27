@@ -23,15 +23,11 @@ object index {
 
     def widget(s: lila.streamer.Streamer.WithUser, stream: Option[lila.streamer.Stream]) =
       frag(
-        a(
-          cls := "overlay",
-          href := {
-            if (requests) s"${routes.Streamer.edit()}?u=${s.user.username}"
-            else routes.Streamer.show(s.user.username).url
-          }
-        ),
+        if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
+        else
+          bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
         stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
-        bits.pic(s.streamer, s.user),
+        picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
           s.streamer.headline.map(_.value).map { d =>

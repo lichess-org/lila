@@ -1,0 +1,28 @@
+@import 'widget';
+
+.relay-index {
+  .box__top {
+    flex-flow: row nowrap;
+  }
+
+  .new::before {
+    font-size: 3em;
+  }
+}
+
+.relay-tour {
+  &__description {
+    @extend %box-padding, %box-neat;
+
+    margin: 2em auto 2em auto;
+    padding: 1.5em 2.5em;
+    background: $c-bg-zebra;
+    width: 70%;
+  }
+
+  &__no-round {
+    @extend %box-padding;
+    margin: 3em;
+    text-align: center;
+  }
+}

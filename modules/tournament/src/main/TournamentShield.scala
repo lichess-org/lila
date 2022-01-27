@@ -130,79 +130,79 @@ object TournamentShield {
     case object UltraBullet
         extends Category(
           of = Left(Schedule.Speed.UltraBullet),
-          iconChar = '{'
+          iconChar = ''
         )
 
     case object HyperBullet
         extends Category(
           of = Left(Schedule.Speed.HyperBullet),
-          iconChar = 'T'
+          iconChar = ''
         )
 
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
-          iconChar = 'T'
+          iconChar = ''
         )
 
     case object SuperBlitz
         extends Category(
           of = Left(Schedule.Speed.SuperBlitz),
-          iconChar = ')'
+          iconChar = ''
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
-          iconChar = ')'
+          iconChar = ''
         )
 
     case object Rapid
         extends Category(
           of = Left(Schedule.Speed.Rapid),
-          iconChar = '#'
+          iconChar = ''
         )
 
     case object Classical
         extends Category(
           of = Left(Schedule.Speed.Classical),
-          iconChar = '+'
+          iconChar = ''
         )
 
     case object Chess960
         extends Category(
           of = Right(chess.variant.Chess960),
-          iconChar = '\''
+          iconChar = ''
         )
 
     case object KingOfTheHill
         extends Category(
           of = Right(chess.variant.KingOfTheHill),
-          iconChar = '('
+          iconChar = ''
         )
 
     case object Antichess
         extends Category(
           of = Right(chess.variant.Antichess),
-          iconChar = '@'
+          iconChar = ''
         )
 
     case object Atomic
         extends Category(
           of = Right(chess.variant.Atomic),
-          iconChar = '>'
+          iconChar = ''
         )
 
     case object ThreeCheck
         extends Category(
           of = Right(chess.variant.ThreeCheck),
-          iconChar = '.'
+          iconChar = ''
         )
 
     case object Horde
         extends Category(
           of = Right(chess.variant.Horde),
-          iconChar = '_'
+          iconChar = ''
         )
 
     case object RacingKings
@@ -242,7 +242,7 @@ object TournamentShield {
 
   def spotlight(name: String) =
     Spotlight(
-      iconFont = "5".some,
+      iconFont = "".some,
       headline = s"Battle for the $name Shield",
       description =
         s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.

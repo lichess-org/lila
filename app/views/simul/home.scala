@@ -19,7 +19,7 @@ object home {
       moreJs = embedJsUnsafeLoadThen(s"""
 lichess.StrongSocket.defaultParams.flag = 'simul';
 lichess.pubsub.on('socket.in.reload', () =>
-  fetch('${routes.Simul.homeReload()}').then(r => r.text()).then(html => {
+  fetch('${routes.Simul.homeReload}').then(r => r.text()).then(html => {
   $$('.simul-list__content').html(html);
   lichess.contentLoaded();
 }))"""),
@@ -27,7 +27,7 @@ lichess.pubsub.on('socket.in.reload', () =>
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.simultaneousExhibitions.txt(),
-          url = s"$netBaseUrl${routes.Simul.home()}",
+          url = s"$netBaseUrl${routes.Simul.home}",
           description = trans.aboutSimul.txt()
         )
         .some

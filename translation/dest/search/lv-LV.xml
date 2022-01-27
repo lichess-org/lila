@@ -26,4 +26,17 @@
   <string name="sortBy">Kārtot pēc</string>
   <string name="analysis">Analīze</string>
   <string name="onlyAnalysed">Tikai spēles, kurām pieejama datoranalīze</string>
+  <string name="color">Krāsa</string>
+  <string name="evaluation">Izvērtējums</string>
+  <string name="maxNumber">Maksimālais daudzums</string>
+  <string name="maxNumberExplanation">Lielākais daudzums spēļu, ko atgriezt</string>
+  <string name="include">Iekļaut</string>
+  <string name="descending">Dilstošā secībā</string>
+  <string name="ascending">Augošā secībā</string>
+  <plurals name="gamesFound">
+    <item quantity="zero">Atrastas %s spēles</item>
+    <item quantity="one">Atrasta %s spēle</item>
+    <item quantity="other">Atrastas %s spēles</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Abu spēlētāju vidējais reitings</string>
 </resources>

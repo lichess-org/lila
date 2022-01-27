@@ -22,12 +22,12 @@ object bits {
       main(cls := "page-small box box-pad")(
         h1(trans.noSimulFound()),
         p(trans.noSimulExplanation()),
-        p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
+        p(a(href := routes.Simul.home)(trans.returnToSimulHomepage()))
       )
     }
 
   def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
-    a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
+    a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
         span(cls := "name")(s.name, " simul"),
@@ -45,8 +45,8 @@ object bits {
         tr(
           td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
-          td(cls := "text", dataIcon := "p")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "r")(simul.applicants.size)
+          td(cls := "text", dataIcon := "")(simul.clock.config.show),
+          td(cls := "text", dataIcon := "")(simul.applicants.size)
         )
       }
     )

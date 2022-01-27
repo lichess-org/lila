@@ -35,9 +35,11 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}")
+                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+                localMod = ctx.userId has sim.hostId
               )
-            }
+            },
+            "showRatings" -> ctx.pref.showRatings
           )
         )})""")
       )
@@ -47,7 +49,7 @@ object show {
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
               div(cls := "header")(
-                iconTag("f"),
+                iconTag(""),
                 div(
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
@@ -56,7 +58,7 @@ object show {
                     trans.casual(),
                     (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
                       " • ",
-                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
+                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(""))
                     )
                   )
                 )
@@ -90,6 +92,12 @@ object show {
               frag(
                 br,
                 trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
+              )
+            },
+            sim.estimatedStartAt map { d =>
+              frag(
+                br,
+                absClientDateTime(d)
               )
             }
           ),

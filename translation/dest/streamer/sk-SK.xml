@@ -13,11 +13,13 @@
   <string name="editPage">Upravenie stránky streamera</string>
   <string name="yourPage">Vaša streamerská stránka</string>
   <string name="downloadKit">Stiahnite si streamerskú súpravu</string>
-  <string name="xIsStreaming">%s streamuje</string>
+  <string name="xIsStreaming">%s vysiela</string>
   <string name="rules">Pravidlá streamovania</string>
   <string name="rule1">Zahrňte kľúčové slovo \"lichess.org\" v názve Vášho streamu a požite kategóriu \"Šach\" keď streamujete na Lichessi.</string>
   <string name="rule2">Odstráňte kľúčové slovo keď nestreamujete z Lichessu.</string>
   <string name="rule3">Lichess automaticky rozozná tvoj stream a poskytne ti nasledujúce výhody:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Aby sme počas Vášho streamu zabezpečili fair play pre všetkých, prečítajte so naše %s.</string>
+  <string name="streamingFairplayFAQ">Časté otázky: Fariplay pri streamovaní</string>
   <string name="perks">Benefity streamovania s kľúčovým slovom</string>
   <string name="perk1">Dostanete ohnivú streamerskú ikonku na Váš Lichess profil.</string>
   <string name="perk2">Dostanete sa na vrchol zoznamu streamerov.</string>
@@ -26,8 +28,8 @@
   <string name="approved">Váš stream je schválený.</string>
   <string name="pendingReview">Váš stream je preskúmavaný moderátormi.</string>
   <string name="pleaseFillIn">Prosím vyplňte Vaše streamerské informácie a nahrajte obrázok.</string>
-  <string name="whenReady">Keď budete pripravený byť uvedený ako Lichess streamer, %s</string>
-  <string name="requestReview">požiadať o preskúmanie moderátorom</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Keď budete pripravený byť uvedený ako Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požiadať o preskúmanie moderátorom</string>
   <string name="anotherLanguage">Ak je Váš stream v inom jazyku ako angličtine, zahrňte správne označenie jazyka (%s) v hranatých zátvorkách na začiatok Vášho názvu streamu.
 Napríklad, môžete zahrnúť \"[RU]\" pre Ruštinu, \"[TR]\" pre Turečtinu, \"[FR]\" pre Francúzštinu, atď.
 Zahrňte to do názvu streamu na Twitchi alebo Youtube, nie do nastavení streamu na Lichessi. 
@@ -41,10 +43,8 @@ Ak je Váš stream v Angličtine, netreba zahrnúť označenie.</string>
   <string name="headline">Titulok</string>
   <string name="tellUsAboutTheStream">Povedzte nám o Vašom streame v jednej vete</string>
   <string name="longDescription">Dlhý popis</string>
-  <string name="xStreamerPicture">%s streamerský obrázok</string>
+  <string name="xStreamerPicture">Obrázok streamera %s</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
   <string name="uploadPicture">Nahrať obrázok</string>
-  <string name="deletePicture">Odstrániť obrázok</string>
   <string name="maxSize">Maximálna veľkosť: %s</string>
-  <string name="installBlocker">Nainštalujte si bloker malwareov!</string>
 </resources>

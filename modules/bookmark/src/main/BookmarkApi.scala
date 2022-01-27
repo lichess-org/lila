@@ -40,7 +40,6 @@ final class BookmarkApi(
     coll.delete.one($doc("g" $in gameIds)).void
 
   def remove(gameId: Game.ID, userId: User.ID): Funit = coll.delete.one(selectId(gameId, userId)).void
-  // def remove(selector: Bdoc): Funit = coll.remove(selector).void
 
   def toggle(gameId: Game.ID, userId: User.ID): Funit =
     exists(gameId, userId) flatMap { e =>
@@ -51,8 +50,7 @@ final class BookmarkApi(
 
   def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
 
-  def gamePaginatorByUser(user: User, page: Int) =
-    paginator.byUser(user, page) dmap { _.mapResults(_.game) }
+  def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
   private def add(gameId: Game.ID, userId: User.ID, date: DateTime): Funit =
     coll.insert

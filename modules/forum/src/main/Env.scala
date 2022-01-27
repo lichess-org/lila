@@ -9,13 +9,13 @@ import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
+import lila.pref.PrefApi
 import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
-    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
-    @ConfigName("public_categ_ids") val publicCategIds: List[String]
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
 )
 
 @Module
@@ -31,6 +31,7 @@ final class Env(
     forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
+    prefApi: PrefApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
@@ -45,27 +46,29 @@ final class Env(
   private lazy val detectLanguage =
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
+  lazy val paginator: ForumPaginator = wire[ForumPaginator]
+
   lazy val categApi: CategApi = {
     val mk = (env: Env) => wire[CategApi]
     mk(this)
   }
 
   lazy val topicApi: TopicApi = {
-    val mk = (max: MaxPerPage, env: Env) => wire[TopicApi]
-    mk(config.topicMaxPerPage, this)
+    val mk = (env: Env) => wire[TopicApi]
+    mk(this)
   }
 
   lazy val postApi: PostApi = {
-    val mk = (max: MaxPerPage, env: Env) => wire[PostApi]
-    mk(config.postMaxPerPage, this)
+    val mk = (env: Env) => wire[PostApi]
+    mk(this)
   }
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
-  lazy val recent                           = wire[Recent]
+  lazy val recent                           = wire[ForumRecent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
-    case lila.user.User.GDPRErase(user) => postApi.erase(user).unit
+    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
   }
 }

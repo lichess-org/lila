@@ -25,7 +25,7 @@ object show {
       csp = bits.csp
     )(
       main(cls := "page-menu page-small")(
-        bits.menu(none, hasActive = false),
+        bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post ${~doc.getText("blog.cssClasses")}")(
           h1(doc.getText("blog.title")),
           bits.metas(doc),
@@ -48,11 +48,12 @@ object show {
                   .exists(
                     _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
                   )) option
-                  a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "d")(
+                  a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"
                   )
               } else p("This is a preview."),
-              views.html.base.bits.connectLinks
+              views.html.base.bits.connectLinks,
+              p(cls := "patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
             )
         )
       )

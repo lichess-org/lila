@@ -7,6 +7,7 @@ import play.api.libs.json._
 import scala.math
 
 import lila.common.ApiVersion
+import lila.common.Json._
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
@@ -21,14 +22,10 @@ final class JsonView(
     moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
-    isOfferingRematch: Pov => Boolean,
-    animation: AnimationDuration,
-    moretime: MoretimeDuration
+    isOfferingRematch: Pov => Boolean
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
-
-  private val moretimeSeconds = moretime.value.toSeconds.toInt
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
@@ -36,10 +33,10 @@ final class JsonView(
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
-      .add("rating" -> p.rating)
-      .add("ratingDiff" -> p.ratingDiff)
-      .add("provisional" -> p.provisional)
+      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
+      .add("rating" -> p.rating.ifTrue(withFlags.rating))
+      .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
+      .add("provisional" -> (p.provisional && withFlags.rating))
       .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
@@ -59,7 +56,7 @@ final class JsonView(
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byId) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map { case socket ~ opponentUser ~ takebackable ~ moretimeable =>
+      moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov._
         Json
           .obj(
@@ -83,7 +80,7 @@ final class JsonView(
             ),
             "pref" -> Json
               .obj(
-                "animationDuration" -> animationDuration(pov, pref),
+                "animationDuration" -> animationMillis(pov, pref),
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
@@ -91,6 +88,7 @@ final class JsonView(
                                 else pref.autoQueen),
                 "clockTenths" -> pref.clockTenths,
                 "moveEvent"   -> pref.moveEvent
+                // "ratings"     -> pref.showRatings
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -135,11 +133,11 @@ final class JsonView(
         "color" -> p.color.name,
         "name"  -> p.name
       )
-      .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
+      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
       .add("ai" -> p.aiLevel)
-      .add("rating" -> p.rating)
-      .add("ratingDiff" -> p.ratingDiff)
-      .add("provisional" -> p.provisional)
+      .add("rating" -> p.rating.ifTrue(withFlags.rating))
+      .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
+      .add("provisional" -> (p.provisional && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -168,7 +166,8 @@ final class JsonView(
             "player" -> {
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "version"   -> socket.version.value,
-                "spectator" -> true
+                "spectator" -> true,
+                "id"        -> me.flatMap(game.player).map(_.id)
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add(
@@ -181,7 +180,7 @@ final class JsonView(
             ),
             "pref" -> Json
               .obj(
-                "animationDuration" -> animationDuration(pov, pref),
+                "animationDuration" -> animationMillis(pov, pref),
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
@@ -220,15 +219,15 @@ final class JsonView(
       .obj(
         "game" -> Json
           .obj(
-            "id"         -> gameId,
-            "variant"    -> game.variant,
-            "opening"    -> game.opening,
-            "initialFen" -> (initialFen | chess.format.Forsyth.initial),
-            "fen"        -> fen,
-            "turns"      -> game.turns,
-            "player"     -> game.turnColor.name,
-            "status"     -> game.status
+            "id"      -> gameId,
+            "variant" -> game.variant,
+            "opening" -> game.opening,
+            "fen"     -> fen,
+            "turns"   -> game.turns,
+            "player"  -> game.turnColor.name,
+            "status"  -> game.status
           )
+          .add("initialFen", initialFen)
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
         "player" -> Json.obj(
@@ -242,10 +241,10 @@ final class JsonView(
         "orientation" -> orientation.name,
         "pref" -> Json
           .obj(
-            "animationDuration" -> animationDuration(pov, pref),
+            "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "resizeHandle"      -> pref.resizeHandle
+            "showCaptured"      -> pref.captured
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
@@ -264,7 +263,7 @@ final class JsonView(
     }
 
   private def clockJson(clock: Clock): JsObject =
-    clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
+    clockWriter.writes(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option
@@ -277,21 +276,10 @@ final class JsonView(
       }
     }
 
-  private def animationFactor(pref: Pref): Float =
-    pref.animation match {
-      case 0 => 0
-      case 1 => 0.5f
-      case 2 => 1
-      case 3 => 2
-      case _ => 1
-    }
-
-  private def animationDuration(pov: Pov, pref: Pref) =
-    math.round {
-      animationFactor(pref) * animation.value.toMillis * {
-        if (pov.game.finished) 1
-        else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
-      }
+  private def animationMillis(pov: Pov, pref: Pref) =
+    pref.animationMillis * {
+      if (pov.game.finished) 1
+      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
 }
 
@@ -302,6 +290,7 @@ object JsonView {
       movetimes: Boolean = false,
       division: Boolean = false,
       clocks: Boolean = false,
-      blurs: Boolean = false
+      blurs: Boolean = false,
+      rating: Boolean = true
   )
 }

@@ -9,11 +9,20 @@ import scala.concurrent.duration._
 import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
-import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
+import lila.game.actorApi.{
+  AbortedBy,
+  BoardDrawOffer,
+  BoardTakeback,
+  BoardTakebackOffer,
+  FinishGame,
+  MoveGameEvent
+}
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
+import play.api.mvc.RequestHeader
+import lila.common.HTTPRequest
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -28,11 +37,12 @@ final class GameStateStream(
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
   def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(implicit
-      lang: Lang
+      lang: Lang,
+      req: RequestHeader
   ): Source[Option[JsObject], _] = {
 
     // terminate previous one if any
-    Bus.publish(NewConnectionDetected, uniqChan(init.game pov as))
+    Bus.publish(PoisonPill, uniqChan(init.game pov as))
 
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
@@ -45,24 +55,25 @@ final class GameStateStream(
     }
   }
 
-  private def uniqChan(pov: Pov) = s"gameStreamFor:${pov.fullId}"
+  private def uniqChan(pov: Pov)(implicit req: RequestHeader) =
+    s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
 
   private def mkActor(
       init: Game.WithInitialFen,
       as: chess.Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
-  )(implicit lang: Lang) =
+  )(implicit lang: Lang, req: RequestHeader) =
     new Actor {
 
       val id = init.game.id
 
-      var gameOver              = false
-      var newConnectionDetected = false
+      var gameOver = false
 
       private val classifiers = List(
         MoveGameEvent makeChan id,
-        s"boardDrawOffer:$id",
+        BoardDrawOffer makeChan id,
+        BoardTakeback makeChan id,
         "finishGame",
         "abortGame",
         uniqChan(init.game pov as),
@@ -89,21 +100,22 @@ final class GameStateStream(
         Bus.unsubscribe(self, classifiers)
         // hang around if game is over
         // so the opponent has a chance to rematch
-        if (!newConnectionDetected)
-          context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
-            Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
-          }
+        context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+          Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
+        }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment().unit
       }
 
       def receive = {
         case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g).unit
-        case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
+        case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, _, text, false, false)) =>
           pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize).unit
-        case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some).unit
-        case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some).unit
-        case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game).unit
+        case FinishGame(g, _, _) if g.id == id   => onGameOver(g.some).unit
+        case AbortedBy(pov) if pov.gameId == id  => onGameOver(pov.game.some).unit
+        case BoardDrawOffer(g) if g.id == id     => pushState(g).unit
+        case BoardTakebackOffer(g) if g.id == id => pushState(g).unit
+        case BoardTakeback(g) if g.id == id      => pushState(g).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
           context.system.scheduler
@@ -114,9 +126,6 @@ final class GameStateStream(
               Bus.publish(Tell(id, QuietFlag), "roundSocket")
             }
             .unit
-        case NewConnectionDetected =>
-          newConnectionDetected = true
-          self ! PoisonPill
       }
 
       def pushState(g: Game): Funit =
@@ -137,5 +146,4 @@ private object GameStateStream {
 
   private case object SetOnline
   private case class User(id: lila.user.User.ID, isBot: Boolean)
-  private case object NewConnectionDetected
 }

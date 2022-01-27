@@ -1,13 +1,14 @@
-@import "crud";
-@import "practice";
-@import "irwin";
-@import "dev";
+@import 'crud';
+@import 'practice';
+@import 'irwin';
+@import 'dev';
 
 .mod-search {
   form {
     @extend %flex-center;
 
-    input, select {
+    input,
+    select {
       flex: 1 1 auto;
       margin: 0 1em 2em 0;
     }
@@ -20,12 +21,12 @@
 
     email {
       display: block;
-      font-size: .8em;
+      font-size: 0.8em;
     }
 
     marked {
-      margin: 0 .3em;
-      font-size: .9em;
+      margin: 0 0.3em;
+      font-size: 0.9em;
     }
   }
 
@@ -40,7 +41,7 @@
   width: 100%;
   padding: 15px 25px;
   font-size: 1.2em;
-  margin: .5rem 0 2rem 0;
+  margin: 0.5rem 0 2rem 0;
   position: relative;
 }
 
@@ -56,7 +57,7 @@
 
   form {
     display: inline;
-    margin: 0 .5em;
+    margin: 0 0.5em;
   }
 }
 

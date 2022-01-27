@@ -28,7 +28,6 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ярышыусы һеҙҙең менән яңынан уйнарға тәкъдим итә</string>
   <string name="whitePlays">Аҡтарҙың йөрөүе</string>
   <string name="blackPlays">Ҡараларҙың йөрөүе</string>
-  <string name="makeYourOpponentResign">Ярышыусыға еңелеү һаналасаҡ</string>
   <string name="depthX">Тәрәнлек %s</string>
   <string name="move">Йөрөү</string>
   <string name="draw">Тиңлек</string>
@@ -49,8 +48,6 @@
   <string name="none">Юҡ</string>
   <string name="fast">Тиҙ</string>
   <string name="slow">Яй</string>
-  <string name="difficultyEasy">Еңел</string>
-  <string name="difficultyHard">Ауыр</string>
   <string name="side">Яҡ</string>
   <string name="menu">Меню</string>
   <string name="language">Тел (Language)</string>

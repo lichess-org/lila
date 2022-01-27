@@ -9,18 +9,26 @@
       max-height: none;
     }
 
-
     overflow-y: auto;
     overflow-x: hidden;
     cursor: initial;
-    font-size: .9em;
+    font-size: 0.9em;
 
     li {
       position: relative;
-      padding: .5em 0 .5em 10px;
+      padding: 0.5em 5px 0.5em 10px;
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
+
+      &.me {
+        border-left: 3px solid $c-secondary-dim;
+        padding-left: 7px;
+      }
+
+      &.host {
+        background-color: rgba($c-secondary-dim, 0.4);
+      }
     }
 
     .deleted {
@@ -31,7 +39,7 @@
       display: block;
       opacity: 0.8;
       font-style: italic;
-      font-size: .9em;
+      font-size: 0.9em;
       margin-left: 0;
       text-align: center;
     }
@@ -42,7 +50,18 @@
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
-      margin-right: .4em;
+      padding-right: 0.4em;
+      max-width: 110px;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    line.patron {
+      font-size: 1.1em;
+      width: 1.2em;
+      text-align: left;
+      color: $c-brag;
     }
 
     .utitle {
@@ -60,7 +79,7 @@
       right: 0;
       cursor: pointer;
       margin-right: 3px;
-      padding: 4px 5px;
+      padding: 1px 5px;
       opacity: 0.7;
       color: $c-accent;
 
@@ -72,6 +91,10 @@
     li:hover i {
       display: block;
       text-shadow: 0 0 2px $c-bg-box, 0 0 5px $c-bg-box, 0 0 10px $c-bg-box;
+    }
+
+    li.me i {
+      display: none !important;
     }
   }
 

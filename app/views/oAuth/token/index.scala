@@ -16,22 +16,24 @@ object index {
       div(cls := "account oauth box")(
         div(cls := "box__top")(
           h1(title),
-          st.form(cls := "box-top__actions", action := routes.OAuthToken.create())(
-            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O")
+          st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
+            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "")
           )
         ),
         standardFlash(cls := "box__pad"),
         p(cls := "box__pad")(
-          "You can make OAuth requests without going through the authorization code flow.",
+          "You can make OAuth requests without going through the ",
+          a(href := s"${routes.Api.index}#section/Authentication")("authorization code flow"),
+          ".",
           br,
           br,
           "Instead, ",
-          a(href := routes.OAuthToken.create())("generate a personal token"),
+          a(href := routes.OAuthToken.create)("generate a personal access token"),
           " that you can directly use in API requests.",
           br,
           br,
-          "Be careful, these tokens are like passwords so you should guard them carefully. ",
-          "The advantage to using a token over putting your password into a script is that a token can be revoked, ",
+          "Guard these tokens carefully! They are like passwords. ",
+          "The advantage to using tokens over putting your password into a script is that tokens can be revoked, ",
           "and you can generate lots of them.",
           br,
           br,
@@ -40,19 +42,19 @@ object index {
             "personal token app example"
           ),
           " and the ",
-          a(href := routes.Api.index())("API documentation"),
+          a(href := routes.Api.index)("API documentation"),
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
-            iconTag("E")(cls := "is-green"),
+            iconTag("")(cls := "is-green"),
             div(
               p(
                 "Make sure to copy your new personal access token now.",
                 br,
                 "You won’t be able to see it again!"
               ),
-              code(token.id.value)
+              code(token.plain.secret)
             )
           )
         },
@@ -73,7 +75,7 @@ object index {
                 }
               ),
               td(cls := "action")(
-                postForm(action := routes.OAuthToken.delete(t.publicId.stringify))(
+                postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
                     cls := "button button-red button-empty confirm",
                     st.title := "Delete this access token"

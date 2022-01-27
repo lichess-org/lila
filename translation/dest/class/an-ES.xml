@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Visible pa profesors y estudiants d\'a clase</string>
   <string name="teachersOfTheClass">Profesors d\'a clase</string>
   <string name="addLichessUsernames">Anyadir nombres d\'usuarios de Lichess pa convidar-los como profesors. Un per linia.</string>
-  <string name="theyMustFirstApply">En primeras han de solicitar estar Profesors de Lichess.</string>
   <string name="resetPassword">Restablir clau</string>
   <string name="makeSureToCopy">Asegura-te de copiar u escribir la clau agora. No podrás veyer-la de nuevo!</string>
   <string name="passwordX">Clau: %s</string>
@@ -53,11 +52,10 @@ Clau: %3$s</string>
 Aquí ye lo vinclo d\'acceso.</string>
   <string name="invitationToClass">Yes convidau a unir-te a la clase \"%s\" como estudiant.</string>
   <string name="clickToViewInvitation">Fe clic en o vinclo pa veyer la invitación:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Una invitación pendient</item>
     <item quantity="other">%s invitacions pendients</item>
   </plurals>
-  <string name="noPendingInvitations">No i hai invitacions pendients</string>
   <string name="onlyVisibleToTeachers">Nomás visible pa los profesors d\'a clase</string>
   <string name="lastActiveDate">Zaguera visita</string>
   <string name="managed">Chestionada</string>
@@ -93,5 +91,4 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="newsEdit1">Totas las noticias de clase en un solo puesto.</string>
   <string name="newsEdit2">Anyade las noticias recients en a parte superior. No elimina las noticias anteriors.</string>
   <string name="newsEdit3">Deseparar noticias con --- amostrará una linia horizontal.</string>
-  <string name="markdownAvailable">%s ye disponible pa una sintaxi mas abanzada.</string>
 </resources>

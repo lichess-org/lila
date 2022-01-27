@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
-import lila.user.{ Title, User }
+import lila.user.Title
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -70,19 +70,16 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit lang: Lang) =
-    variant match {
-      case chess.variant.Standard     => trans.standard.txt()
-      case chess.variant.FromPosition => trans.fromPosition.txt()
-      case v                          => v.name
-    }
-
-  def variantNameNoCtx(variant: chess.variant.Variant) = variantName(variant)(defaultLang)
-
   def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
+
+  def shortClockName(game: Game)(implicit lang: Lang): Frag =
+    game.correspondenceClock
+      .map(c => trans.nbDays(c.daysPerTurn)) orElse
+      game.clock.map(_.config).map(shortClockName) getOrElse
+      trans.unlimited()
 
   def modeName(mode: Mode)(implicit lang: Lang): String =
     mode match {
@@ -92,7 +89,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
 
-  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lang: Lang): Frag =
+  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit
+      lang: Lang
+  ): Frag =
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { user =>
         frag(
@@ -102,7 +101,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         )
       }
     ) { level =>
-      raw(s"A.I. level $level")
+      frag(aiName(level))
     }
 
   def playerText(player: Player, withRating: Boolean = false) =
@@ -111,8 +110,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(lightUser)
 
-  val berserkIconSpan = iconTag("`")
-  val statusIconSpan  = i(cls := "status")
+  val berserkIconSpan = iconTag("")
 
   def playerLink(
       player: Player,
@@ -121,24 +119,21 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withRating: Boolean = true,
       withDiff: Boolean = true,
       engine: Boolean = false,
-      withStatus: Boolean = false,
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(implicit lang: Lang): Frag = {
-    val statusIcon =
-      if (withStatus) statusIconSpan.some
-      else if (withBerserk && player.berserk) berserkIconSpan.some
-      else none
+  )(implicit ctx: Context): Frag = {
+    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level, withRating)
+            case (Some(level), _) => aiNameFrag(level, withRating && ctx.pref.showRatings)
             case (_, Some(name))  => name
             case _                => trans.anonymous.txt()
           },
+          player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
@@ -148,12 +143,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, withRating),
-            (player.ratingDiff ifTrue withDiff) map { d =>
+            playerUsername(player, withRating && ctx.pref.showRatings),
+            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "engine_mark",
+              cls := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),
@@ -167,19 +162,26 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteResigned.txt()
-          case _                        => trans.blackResigned.txt()
-        }
+        (if (game.loser.exists(_.color.white)) trans.whiteResigned else trans.blackResigned).txt()
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
-          case Some(_)                  => trans.blackLeftTheGame.txt()
-          case None                     => trans.draw.txt()
+        (game.loser, game.turnColor) match {
+          case (Some(p), _) if p.color.white => trans.whiteLeftTheGame.txt()
+          case (Some(_), _)                  => trans.blackLeftTheGame.txt()
+          case (None, White)                 => trans.whiteLeftTheGame.txt() + " • " + trans.draw.txt()
+          case (None, Black)                 => trans.blackLeftTheGame.txt() + " • " + trans.draw.txt()
         }
-      case S.Draw => trans.draw.txt()
+      case S.Draw => {
+        import lila.game.DrawReason._
+        game.drawReason match {
+          case Some(MutualAgreement)      => trans.drawByMutualAgreement.txt()
+          case Some(FiftyMoves)           => trans.fiftyMovesWithoutProgress.txt() + " • " + trans.draw.txt()
+          case Some(ThreefoldRepetition)  => trans.threefoldRepetition.txt() + " • " + trans.draw.txt()
+          case Some(InsufficientMaterial) => trans.insufficientMaterial.txt() + " • " + trans.draw.txt()
+          case _                          => trans.draw.txt()
+        }
+      }
       case S.Outoftime =>
         (game.turnColor, game.loser) match {
           case (White, Some(_)) => trans.whiteTimeOut.txt()
@@ -188,9 +190,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
         }
       case S.NoStart =>
-        val color = game.loser.fold(Color.white)(_.color).name.capitalize
-        s"$color didn't move"
-      case S.Cheat => "Cheat detected"
+        (if (game.loser.exists(_.color.white)) trans.whiteDidntMove else trans.blackDidntMove).txt()
+      case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
           case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
@@ -214,7 +215,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
     val res = if (finished) chess.Color.showResult(result map Color.fromWhite) else "*"
-    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
+    s"${titleNameOrId(whiteUserId)} $res ${titleNameOrId(blackUserId)}"
   }
 
   def gameResult(game: Game) =
@@ -228,7 +229,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       tv: Boolean = false
   )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index()
+    if (tv) routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
         routes.Round.player(game fullIdOf o.color)
@@ -243,13 +244,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
-      s"${usernameOrId(reg.id)} (${reg.rating.show})"
+      s"${titleNameOrId(reg.id)} (${reg.rating.show})"
     }
     val players =
       if (c.isOpen) "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
+          s"$challenger challenges ${titleNameOrId(dest.id)} (${dest.rating.show})"
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
   }

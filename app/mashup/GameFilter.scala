@@ -8,6 +8,8 @@ import lila.user.User
 
 import play.api.mvc.Request
 import cats.data.NonEmptyList
+import play.api.data.FormBinding
+import play.api.i18n.Lang
 
 sealed abstract class GameFilter(val name: String)
 
@@ -39,7 +41,7 @@ object GameFilterMenu {
   val all: NonEmptyList[GameFilter] =
     NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
 
-  def apply(user: User, nbs: UserInfo.NbGames, currentName: String): GameFilterMenu = {
+  def apply(user: User, nbs: UserInfo.NbGames, currentName: String, isAuth: Boolean): GameFilterMenu = {
 
     val filters: NonEmptyList[GameFilter] = NonEmptyList(
       All,
@@ -52,7 +54,7 @@ object GameFilterMenu {
         (nbs.playing > 0) option Playing,
         (nbs.bookmark > 0) option Bookmark,
         (nbs.imported > 0) option Imported,
-        (user.count.game > 0) option Search
+        (isAuth && user.count.game > 0) option Search
       ).flatten
     )
 
@@ -97,7 +99,7 @@ object GameFilterMenu {
         filter: GameFilter,
         me: Option[User],
         page: Int
-    )(implicit req: Request[_]): Fu[Paginator[Game]] = {
+    )(implicit req: Request[_], formBinding: FormBinding, lang: Lang): Fu[Paginator[Game]] = {
       val nb               = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match {
@@ -137,7 +139,7 @@ object GameFilterMenu {
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
-  )(implicit req: Request[_]): play.api.data.Form[_] =
+  )(implicit req: Request[_], formBinding: FormBinding, lang: Lang): play.api.data.Form[_] =
     filter match {
       case Search => userGameSearch.requestForm
       case _      => userGameSearch.defaultForm

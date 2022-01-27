@@ -7,7 +7,7 @@ object RatingRegulator {
       apply(_, perfType, before, after)
     }
 
-  def apply(factor: RatingFactor, perfType: PerfType, before: Perf, after: Perf): Perf =
+  private def apply(factor: RatingFactor, perfType: PerfType, before: Perf, after: Perf): Perf =
     if ({
       (after.nb == before.nb + 1) &&               // after playing one game
       (after.glicko.rating > before.glicko.rating) // and gaining rating

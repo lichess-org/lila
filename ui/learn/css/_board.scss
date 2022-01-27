@@ -37,7 +37,8 @@
 
   .apple {
     background-image: url(../images/learn/star.png);
-    animation: 0.6s ease-in-out 0s 1 forwards apple-appear, 1.7s ease-in-out 0.7s infinite none soft-grow, 0.7s ease-in-out 0.7s infinite none soft-hue;
+    animation: 0.6s ease-in-out 0s 1 forwards apple-appear, 1.7s ease-in-out 0.7s infinite none soft-grow,
+      0.7s ease-in-out 0.7s infinite none soft-hue;
   }
 
   square.has-item.move-dest {
@@ -148,5 +149,22 @@
 
   .piece-values .cg-board piece.pawn::before {
     content: '1';
+  }
+}
+// Workaround for chessground 4.4 used in `ui/learn` page.
+// This selector has no effect for chessground 7.11.0 used in other pages.
+cg-container > cg-board > svg {
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: z('cg__svg.cg-shapes');
+  opacity: 0.6;
+
+  image {
+    opacity: 0.5;
   }
 }

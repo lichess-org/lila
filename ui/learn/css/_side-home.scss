@@ -13,7 +13,7 @@
 
   h2 {
     font-size: 1.8em;
-    margin: .4em 0 1em 0;
+    margin: 0.4em 0 1em 0;
   }
 
   @keyframes fat-glide {
@@ -26,7 +26,7 @@
     display: block;
     width: 200px;
     height: 200px;
-    background: img-url("learn/brutal-helm.svg");
+    background: img-url('learn/brutal-helm.svg');
     margin: auto;
     opacity: 0.8;
   }
@@ -70,7 +70,7 @@
     height: 100%;
     background: #1566b2;
     border-radius: 0 5px 5px 0;
-    background-image: img-url("grain.png");
+    background-image: img-url('grain.png');
     transform: translateX(-100px);
     animation: animatedBackground 50s linear infinite, animatedBar 1s forwards;
   }

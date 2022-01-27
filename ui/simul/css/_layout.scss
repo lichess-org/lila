@@ -24,7 +24,6 @@
     }
   }
 
-
   @include breakpoint($mq-col3) {
     &.simul {
       grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;

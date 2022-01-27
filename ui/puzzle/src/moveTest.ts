@@ -1,20 +1,14 @@
+import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
-
 type AltCastle = keyof typeof altCastles;
 
 function isAltCastle(str: string): str is AltCastle {
-  return altCastles.hasOwnProperty(str);
+  return str in altCastles;
 }
 
 export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
@@ -27,18 +21,19 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
     uci: node.uci,
     castle: node.san!.startsWith('O-O'),
-    checkmate: node.san!.endsWith('#')
+    checkmate: node.san!.endsWith('#'),
   }));
 
   for (const i in nodes) {
-    if (nodes[i].checkmate) return vm.node.puzzle = 'win';
-    const uci = nodes[i].uci!, solUci = puzzle.solution[i];
+    if (nodes[i].checkmate) return (vm.node.puzzle = 'win');
+    const uci = nodes[i].uci!,
+      solUci = puzzle.solution[i];
     if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci))
-      return vm.node.puzzle = 'fail';
+      return (vm.node.puzzle = 'fail');
   }
 
   const nextUci = puzzle.solution[nodes.length];
-  if (!nextUci) return vm.node.puzzle = 'win';
+  if (!nextUci) return (vm.node.puzzle = 'win');
 
   // from here we have a next move
   vm.node.puzzle = 'good';
@@ -46,6 +41,6 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   return {
     move: parseUci(nextUci)!,
     fen: vm.node.fen,
-    path: vm.path
+    path: vm.path,
   };
 }

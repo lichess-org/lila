@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.report.Report.WithSuspect
+import lila.user.Holder
 
 object list {
 
@@ -61,18 +62,13 @@ object list {
                 td(
                   r.inquiry match {
                     case None =>
-                      if (r.processedBy.isDefined)
+                      if (r.done.isDefined)
                         postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
+                          submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        frag(
-                          postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
-                            submitButton(dataIcon := "G", cls := "button button-metal")
-                          ),
-                          postForm(action := routes.Report.process(r.id), cls := "cancel")(
-                            submitButton(cls := "button button-thin button-empty")("Dismiss")
-                          )
+                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                          submitButton(dataIcon := "", cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(
@@ -110,20 +106,22 @@ object list {
                 "All",
                 scoreTag(scores.highest)
               ),
-              lila.report.Room.all.map { room =>
-                a(
-                  href := routes.Report.listWithFilter(room.key),
-                  cls := List(
-                    "active"            -> (filter == room.key),
-                    s"room-${room.key}" -> true
+              ctx.me ?? { me =>
+                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
+                  a(
+                    href := routes.Report.listWithFilter(room.key),
+                    cls := List(
+                      "active"            -> (filter == room.key),
+                      s"room-${room.key}" -> true
+                    )
+                  )(
+                    room.name,
+                    scores.get(room).filter(20 <=).map(scoreTag(_))
                   )
-                )(
-                  room.name,
-                  scoreTag(scores get room)
-                )
+                }
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := routes.Appeal.queue(),
+                href := routes.Appeal.queue,
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")
@@ -132,7 +130,7 @@ object list {
                 countTag(appeals),
                 "Appeals"
               ),
-              streamers > 0 option
+              (isGranted(_.Streamers) && streamers > 0) option
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
                   "Streamers"

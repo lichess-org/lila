@@ -12,14 +12,12 @@
   <string name="noTeamFound">Garra equipo trobau</string>
   <string name="joinTeam">Unir-se a l\'equipo</string>
   <string name="quitTeam">Abandonar l\'equipo</string>
-  <string name="anyoneCanJoin">Qualsequiera puede unir-se</string>
-  <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación pa unir-se</string>
-  <string name="joiningPolicy">Politica pa unir-se</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualment las demandas d\'admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si ye marcau, los chugados habrán d\'escribir una petición pa unir-se a l\'equipo, la qual puetz acceptar u refusar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capitán de l\'equipo</item>
     <item quantity="other">Liders de l\'equipo</item>
   </plurals>
-  <string name="teamBestPlayers">Millors chugadors</string>
   <string name="teamRecentMembers">Miembros recients</string>
   <string name="kickSomeone">Espachar a belún de l\'equipo</string>
   <string name="whoToKick">A quí quiers espachar de l\'equipo?</string>
@@ -42,4 +40,7 @@ Los chugadors a los quals no les faiga goyo recibir los tuyos mensaches pueden a
   <string name="youWayWantToLinkOneOfTheseTournaments">Talment quieras vincular un d\'estes proximos torneyos?</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que pueden administrar este equipo</string>
   <string name="leadersChat">Chat de liders</string>
+  <string name="closeTeam">Zarrar equipo</string>
+  <string name="closeTeamDescription">Zarrar l\'equipo pa cutio.</string>
+  <string name="teamAlreadyExists">Este equipo ya existe.</string>
 </resources>

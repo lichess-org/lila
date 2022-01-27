@@ -2,11 +2,11 @@
 <resources>
   <string name="coordinates">좌표</string>
   <string name="coordinateTraining">좌표 훈련</string>
-  <string name="averageScoreAsWhiteX">흰색으로 평균 점수: %s</string>
-  <string name="averageScoreAsBlackX">검정색으로 평균 점수: %s</string>
+  <string name="averageScoreAsWhiteX">백색으로 평균 점수: %s</string>
+  <string name="averageScoreAsBlackX">흑색으로 평균 점수: %s</string>
   <string name="knowingTheChessBoard">체스판 좌표를 아는 것은 아주 중요한 체스 기술입니다:</string>
-  <string name="mostChessCourses">체스에선 대수 기본 표기법을 따르는 경우가 지배적이다.</string>
-  <string name="talkToYourChessFriends">둘다 체스의 \"언어\"를 이해하기 때문에 친구에게 얘기를 하는게 쉽니다.</string>
+  <string name="mostChessCourses">체스에서는 대수 표기법을 일반적으로 사용합니다.</string>
+  <string name="talkToYourChessFriends">둘 다 체스의 \"언어\"를 이해하고 있다면 친구에게 얘기를 하는게 쉽습니다.</string>
   <string name="youCanAnalyseAGameMoreEffectively">당신이 좌표만 보고도 체스 상황을 상상할 수 있다면 더 효과적으로 게임을 분석하는데 도움이 됩니다.</string>
   <string name="aSquareNameAppears">보드 위에 좌표의 이름이 나타납니다. 30초 내에 최대한 많은 좌표에 맞는 사각형을 클릭하십시오!</string>
   <string name="startTraining">훈련 시작</string>

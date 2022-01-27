@@ -1,27 +1,30 @@
 package lila.round
 
-import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, MoveMetrics, MoveOrDrop, Status }
-
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
-import lila.game.actorApi.MoveGameEvent
-import lila.common.Bus
-import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.game.Game.PlayerId
 import cats.data.Validated
+import chess.format.{ Forsyth, Uci }
+import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status }
+import java.util.concurrent.TimeUnit
+
+import lila.common.Bus
+import lila.game.actorApi.MoveGameEvent
+import lila.game.Game.PlayerId
+import lila.game.{ Game, Pov, Progress, UciMemo }
+import lila.user.User
 
 final private class Player(
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
-  private case object Flagged                                          extends MoveResult
-  private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
+  private case object Flagged extends MoveResult
+  private case class MoveApplied(progress: Progress, move: MoveOrDrop, compedLag: Option[Centis])
+      extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: RoundDuct)(
+  private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
   )(implicit proxy: GameProxy): Fu[Events] =
     play match {
@@ -36,7 +39,10 @@ final private class Player(
               .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress, moveOrDrop) =>
+                case MoveApplied(progress, moveOrDrop, compedLag) =>
+                  compedLag foreach { lag =>
+                    lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
+                  }
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
               }
@@ -47,7 +53,7 @@ final private class Player(
         }
     }
 
-  private[round] def bot(uci: Uci, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -57,17 +63,17 @@ final private class Player(
           .fold(errs => fufail(ClientError(errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop) =>
+            case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
-      case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
+      case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(pov))
       case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
       case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
     }
 
   private def postHumanOrBotPlay(
-      round: RoundDuct,
+      round: RoundAsyncActor,
       pov: Pov,
       progress: Progress,
       moveOrDrop: MoveOrDrop
@@ -93,9 +99,10 @@ final private class Player(
         .fold(errs => fufail(ClientError(errs)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
-          case MoveApplied(progress, moveOrDrop) =>
+          case MoveApplied(progress, moveOrDrop, _) =>
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
+              lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
               notifyMove(moveOrDrop, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else
@@ -109,14 +116,14 @@ final private class Player(
         )
       )
 
-  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
+  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
     game.playableByAi ?? {
       if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
     }
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
-  private val botLag     = MoveMetrics(clientLag = Centis(10).some)
+  private val botLag     = MoveMetrics(clientLag = Centis(0).some)
 
   private def applyUci(
       game: Game,
@@ -126,19 +133,20 @@ final private class Player(
   ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
-        game.chess(orig, dest, prom, metrics) map { case (ncg, move) =>
+        game.chess.moveWithCompensated(orig, dest, prom, metrics) map { case (ncg, move) =>
           ncg -> (Left(move): MoveOrDrop)
         }
       case Uci.Drop(role, pos) =>
         game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
-          ncg -> (Right(drop): MoveOrDrop)
+          Clock.WithCompensatedLag(ncg, None) -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-      case (newChessGame, moveOrDrop) =>
+      case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
+      case (ncg, moveOrDrop) =>
         MoveApplied(
-          game.update(newChessGame, moveOrDrop, blur),
-          moveOrDrop
+          game.update(ncg.value, moveOrDrop, blur),
+          moveOrDrop,
+          ncg.compensated
         )
     }
 

@@ -25,19 +25,19 @@
     div {
       @extend %flex-center-nowrap;
 
-      padding: .5em 0;
+      padding: 0.5em 0;
     }
 
     label {
       cursor: pointer;
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
   }
 
   .granted {
     background: mix($c-good, $c-bg-box, 10%);
     color: $c-good;
-    padding: .5em 0;
+    padding: 0.5em 0;
   }
 
   .cmn-toggle:not(:checked) + label::before {

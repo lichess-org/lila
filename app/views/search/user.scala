@@ -17,7 +17,7 @@ object user {
     val commons = bits of form
     import commons._
     st.form(
-      rel := "nofollow",
+      noFollow,
       cls := "search__form",
       action := routes.User.games(u.username, "search"),
       method := "GET"

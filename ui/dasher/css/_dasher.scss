@@ -1,6 +1,6 @@
-@import "link";
-@import "board";
-@import "piece";
+@import 'link';
+@import 'board';
+@import 'piece';
 
 #dasher_app {
   @extend %box-radius-left;
@@ -14,7 +14,7 @@
   .status {
     display: block;
     position: relative;
-    padding: .8rem;
+    padding: 0.8rem;
     border-top: $border;
 
     signal {
@@ -37,9 +37,13 @@
   }
 
   .head {
+    @extend %button-none;
+
     display: block;
     padding: 1rem;
     border-bottom: $border;
+    width: 100%;
+    text-align: start;
   }
 
   .head::before {
@@ -59,7 +63,7 @@
 
     button {
       display: block;
-      padding: .7rem .7rem .7rem 1rem;
+      padding: 0.7rem 0.7rem 0.7rem 1rem;
       border: none;
       background: none;
       width: 100%;
@@ -83,7 +87,7 @@
     .help {
       color: $c-link;
       display: block;
-      padding: .7rem .7rem .7rem 1rem;
+      padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
         background: $c-link;
@@ -94,11 +98,15 @@
 
   .selector {
     flex: 1 1 100%;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
 
-    a {
+    button {
+      @extend %button-none;
+
       display: block;
-      padding: .7rem 1rem;
+      padding: 0.7rem 1rem;
+      width: 100%;
+      text-align: start;
 
       @include transition(background);
 
@@ -132,17 +140,17 @@
       }
     }
 
-    &.large a {
+    &.large button {
       padding: 1rem 1rem;
     }
   }
 
   .zen {
-    a::before {
-      opacity: .5;
+    button::before {
+      opacity: 0.5;
     }
 
-    &:hover a::before {
+    &:hover button::before {
       opacity: 1;
     }
   }
@@ -157,22 +165,24 @@
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
 
-    input[type="range"] {
+    input[type='range'] {
       flex: 0 0 1em;
       width: 1em;
       margin: 1rem;
+      padding-top: 0;
+      padding-bottom: 0;
       writing-mode: bt-lr;
       -webkit-appearance: slider-vertical;
     }
 
-    &.silent input[type="range"] {
+    &.silent input[type='range'] {
       opacity: 0.2;
     }
   }
 
   .background {
     .image p {
-      font-size: .9em;
+      font-size: 0.9em;
       padding: 5px;
     }
 
@@ -191,7 +201,6 @@
     @include breakpoint($mq-board-resizable) {
       display: block;
     }
-
 
     border-top: $border;
     padding: 1.5rem;

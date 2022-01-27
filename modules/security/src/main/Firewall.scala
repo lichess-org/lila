@@ -32,27 +32,21 @@ final class Firewall(
 
   def blockIps(ips: Iterable[IpAddress]): Funit =
     ips.map { ip =>
-      validIp(ip) ?? {
-        coll.update
-          .one(
-            $id(ip),
-            $doc("_id" -> ip, "date" -> DateTime.now),
-            upsert = true
-          )
-          .void
-      }
+      coll.update
+        .one(
+          $id(ip),
+          $doc("_id" -> ip, "date" -> DateTime.now),
+          upsert = true
+        )
+        .void
     }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb.unit
+    coll.delete.one($inIds(ips)).void >>- loadFromDb.unit
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.secondaryPreferred).map { ips =>
       current = ips
       lila.mon.security.firewall.ip.update(ips.size).unit
     }
-
-  private def validIp(ip: IpAddress) =
-    (IpAddress.isv4(ip) && ip.value != "127.0.0.1" && ip.value != "0.0.0.0") ||
-      (IpAddress.isv6(ip) && ip.value != "0:0:0:0:0:0:0:1" && ip.value != "0:0:0:0:0:0:0:0")
 }

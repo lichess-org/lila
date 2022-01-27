@@ -8,7 +8,7 @@
   <string name="lastStream">Sidste stream %s</string>
   <string name="becomeStreamer">Bliv en Lichess-streamer</string>
   <string name="doYouHaveStream">Har du en Twitch- eller YouTube-stream?</string>
-  <string name="hereWeGo">Nu sker det!</string>
+  <string name="hereWeGo">Så er det nu!</string>
   <string name="allStreamers">Alle streamere</string>
   <string name="editPage">Rediger streamer-side</string>
   <string name="yourPage">Din streamer-side</string>
@@ -18,6 +18,8 @@
   <string name="rule1">Inkluder nøgleordet \"lichess.org\" i den streamtitel, når du streamer på Lichess.</string>
   <string name="rule2">Fjern nøgleordet, når du streamer ikke-Lichess ting.</string>
   <string name="rule3">Lichess vil automatisk detektere din stream og aktivere følgende frynsegode:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Læs vores %s for at sikre fair play for alle under din stream.</string>
+  <string name="streamingFairplayFAQ">streaming Fairplay FAQ</string>
   <string name="perks">Fordele ved streaming med nøgleordet</string>
   <string name="perk1">Få et flammende streamer-ikon på din Lichess-profil.</string>
   <string name="perk2">Stryg til tops på streamer-listen.</string>
@@ -26,8 +28,8 @@
   <string name="approved">Din stream er godkendt.</string>
   <string name="pendingReview">Din stream bliver gennemgået af moderatorer.</string>
   <string name="pleaseFillIn">Udfyld venligst din streamer-information og upload et billede.</string>
-  <string name="whenReady">Når du er klar til at blive opført som en lichess-streamer, %s</string>
-  <string name="requestReview">anmod om en moderator-gennemgang</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til at blive opført som en lichess-streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">anmod om en moderator-gennemgang</string>
   <string name="anotherLanguage">Inkluder det korrekte sprog-tag (%s), i kantede parenteser, i starten af din stream-titel, hvis din stream er på et andet sprog end engelsk.
 Inkluder for eksempel \"[RU]\" for russisk, \"[TR]\" for tyrkisk, \"[FR]\" for fransk, etc.
 Anfør det i stream-titlen på Twitch- eller YouTube-siden, ikke i Lichess-streamindstillingerne.
@@ -48,11 +50,5 @@ Hvis din stream er på engelsk, er det ikke nødvendigt at inkludere et sprog-ta
   <string name="xStreamerPicture">%s streamer-billede</string>
   <string name="changePicture">Ændr/slet dit billede</string>
   <string name="uploadPicture">Upload et billede</string>
-  <string name="deletePicture">Slet billede</string>
   <string name="maxSize">Maks størrelse: %s</string>
-  <string name="installBlocker">Installer en malware blocker!</string>
-  <string name="beSafe">Vær i sikkerhed fra annoncer og sporing,
-som forpester Twitch og YouTube.
-Lichess anbefaler uBlock Origin
-som er gratis og open-source.</string>
 </resources>

@@ -1,9 +1,9 @@
-@import "../../../common/css/base/scrollbar";
+@import '../../../common/css/base/scrollbar';
 
-@import "tab";
-@import "members";
-@import "discussion";
-@import "palantir";
+@import 'tab';
+@import 'members';
+@import 'discussion';
+@import 'palantir';
 
 .mchat {
   @extend %box-neat-force, %flex-column;
@@ -19,7 +19,7 @@
     overflow: hidden;
 
     &.note textarea {
-      font-size: .9em;
+      font-size: 0.9em;
       flex-grow: 1;
       border: none;
       background-color: transparent;

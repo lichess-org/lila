@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">仅本班教师和学生可见</string>
   <string name="teachersOfTheClass">班级的教师</string>
   <string name="addLichessUsernames">添加Lichess用户名邀请他们成为教师。每行一个。</string>
-  <string name="theyMustFirstApply">他们必须首先申请成为Lichess教师</string>
   <string name="resetPassword">重置密码</string>
   <string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
@@ -47,16 +46,16 @@
   <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
+  <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
   <string name="lichessUsername">Lichess用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>
   <string name="invitationToClass">您被邀请以学生身份加入班级“%s”。</string>
   <string name="clickToViewInvitation">点击链接查看邀请：</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="other">%s 个待处理的邀请</item>
   </plurals>
-  <string name="noPendingInvitations">没有待处理的邀请</string>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">管理</string>
@@ -67,6 +66,10 @@
   <string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>
   <string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
   <string name="realUniqueEmail">真实且唯一的学生邮箱。我们将向该邮箱发送一个带有激活账号链接的确认邮件。</string>
+  <string name="closeStudent">关闭账户</string>
+  <string name="closeTheAccount">永久关闭学生帐户。</string>
+  <string name="closeDesc1">学生将永远无法再次使用此帐户，关闭是永久性的。请确保学生理解并同意。</string>
+  <string name="closeDesc2">你可能想让学生控制该帐户，以便他们能够继续使用。</string>
   <string name="teachers">教师</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 位教师</item>
@@ -91,5 +94,4 @@
   <string name="newsEdit2">在顶部添加最近的新闻。不要删除以前的新闻。</string>
   <string name="newsEdit3">用----分离新闻
 它将显示一条横线。</string>
-  <string name="markdownAvailable">%s 可用于更高级的语法。</string>
 </resources>

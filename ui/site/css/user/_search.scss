@@ -1,8 +1,9 @@
 .search {
   &__form {
-    @extend %flex-center;
+    @extend %flex-wrap;
 
-    font-size: .9em;
+    align-items: flex-start;
+    font-size: 0.9em;
     white-space: nowrap;
     margin: 1em 1em 1em 0;
 
@@ -12,40 +13,36 @@
     }
 
     td {
-      padding: .4em 0;
+      padding: 0.4em 0;
+      text-align: right;
     }
 
-    input[type="text"],
+    .date td {
+      padding: 0.1em 0;
+    }
+
+    input[type='text'],
     select {
-      padding: 0.3em 1em !important;
-    }
-
-    label {
-      margin-right: .5em;
-      white-space: normal;
-    }
-
-    .single select {
+      padding: 0.3em 1em;
       width: 100%;
     }
 
+    label {
+      margin-right: 0.5em;
+      white-space: normal;
+    }
+
     table {
-      .half {
-        @extend %flex-center;
+      .two-columns {
+        @extend %flex-wrap;
 
-        float: left;
-        width: 50%;
-        text-align: right;
-        justify-content: flex-end;
-
-        select, input {
-          margin-left: .3em;
+        > * {
+          flex: 1 150px;
         }
-      }
 
-      .date {
-        input {
-          width: 100%;
+        input[type='text'],
+        select {
+          width: 78%;
         }
       }
     }

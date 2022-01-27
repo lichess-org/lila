@@ -6,6 +6,8 @@ import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.base.LilaInvalid
+
 final class GifExport(
     ws: StandaloneWSClient,
     url: String
@@ -28,21 +30,21 @@ final class GifExport(
             chapter.tags(_.Black),
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr())
+          "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr())
         )
       )
       .stream() flatMap {
-      case res if res.status != 200 =>
+      case res if res.status == 200 => fuccess(res.bodyAsSource)
+      case res if res.status == 400 => fufail(LilaInvalid(res.body))
+      case res =>
         logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
         fufail(res.statusText)
-      case res => fuccess(res.bodyAsSource)
     }
 
   @annotation.tailrec
-  private def framesRec(nodes: List[RootOrNode], arr: JsArray): JsArray =
+  private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
     nodes match {
-      case Nil => arr
-      case node :: tail =>
+      case node +: tail =>
         framesRec(
           tail,
           arr :+ Json
@@ -53,5 +55,6 @@ final class GifExport(
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )
+      case _ => arr
     }
 }

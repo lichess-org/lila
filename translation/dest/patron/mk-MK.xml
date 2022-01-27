@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Донирај</string>
-  <string name="lichessPatron">Lichess подржувач
-
-Луѓе кои донират на Lichess - https://lichess.org/patron</string>
+  <string name="lichessPatron">Lichess подржувач</string>
   <string name="freeAccount">Бесплатен акаунт</string>
   <string name="becomePatron">Стани подржувач</string>
   <string name="xBecamePatron">%s стани Lichess подржувач</string>
@@ -19,13 +17,11 @@
   <string name="lifetime">Доживотен</string>
   <string name="payLifetimeOnce">Плати %s еднаш. Биди Lichess подржувач засекогаш!</string>
   <string name="lifetimePatron">Доживотен Lichess донатор</string>
-  <string name="makeExtraDonation">Направи дополнителна донација?</string>
   <string name="monthly">Месечно</string>
   <string name="recurringBilling">Повторувачка наплата, обновувајќи ги твоите донаторски крилја секој месец.</string>
   <string name="onetime">Еднократно</string>
   <string name="singleDonation">Една донација која ти ги дава донаторските крилја за еден месец.</string>
   <string name="otherAmount">Друго</string>
-  <string name="pleaseEnterAmount">Ве молиме внесете цена во Американски долари</string>
   <string name="withCreditCard">Кредитна картичка</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме мала група, па со твојата подршка правиш голема промена!</string>
@@ -42,7 +38,6 @@
   <string name="contactSupport">контактирај Lichess подршка</string>
   <string name="otherMethods">Други методи на донација?</string>
   <string name="bankTransfers">Ние исто така прифаќаме донации преку банки</string>
-  <string name="bitcoin">Еве ја нашата биткоин адреса:%s</string>
   <string name="patronFeatures">Дали некои карактеристики се задржани за донаторите?</string>
   <string name="noPatronFeatures">Не, бидејќи Lichess е целосно бесплатен, засекогаш и за секој. Тоа е ветување. Сепак донаторите добиваат нова икона на профилот.</string>
   <string name="featuresComparison">Погледнете ги деталните споредби на карактеристики</string>

@@ -7,7 +7,6 @@ import play.api.mvc._
 import scala.annotation.nowarn
 
 import lila.app._
-import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -90,7 +89,7 @@ final class Main(
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest ipAddress ctx.req,
+        ip = ctx.ip,
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )
@@ -105,39 +104,13 @@ final class Main(
       NoContent
     }
 
-  private lazy val glyphsResult: Result = {
-    import chess.format.pgn.Glyph
-    import lila.tree.Node.glyphWriter
-    Ok(
-      Json.obj(
-        "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
-        "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
-        "observation" -> (Glyph.Observation.display: List[Glyph])
-      )
-    ) as JSON
-  }
-  val glyphs = Action(glyphsResult)
-
-  def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
-    Action.async {
-      env.imageRepo
-        .fetch(id)
-        .map {
-          case None => NotFound
-          case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size.toLong)
-            Ok(image.data).withHeaders(
-              CONTENT_DISPOSITION -> image.name
-            ) as image.contentType.getOrElse("image/jpeg")
-        }
-    }
-
   val robots = Action { req =>
     Ok {
-      if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
+Disallow: /api/
 Allow: /game/export/gif/thumbnail/
 
 User-agent: Twitterbot
@@ -149,7 +122,7 @@ Allow: /
 
   def manifest =
     Action {
-      Ok {
+      JsonOk {
         Json.obj(
           "name"             -> env.net.domain.value,
           "short_name"       -> "Lichess",
@@ -176,7 +149,7 @@ Allow: /
             )
           )
         )
-      } as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
+      }
     }
 
   def getFishnet =
@@ -188,14 +161,14 @@ Allow: /
   def costs =
     Action { req =>
       pageHit(req)
-      Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
+      Redirect("https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview")
     }
 
   def verifyTitle =
     Action { req =>
       pageHit(req)
       Redirect(
-        "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform"
+        "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
       )
     }
 
@@ -219,10 +192,10 @@ Allow: /
   def instantChess =
     Open { implicit ctx =>
       pageHit
-      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home()))
+      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home()}#pool/10+0").withCookies(
+          Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
             env.lilaCookie.withSession { s =>
               s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
             }
@@ -233,23 +206,23 @@ Allow: /
   def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
     Open { _ =>
       MovedPermanently {
-        val faq = routes.Main.faq().url
+        val faq = routes.Main.faq.url
         id match {
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
           case 13   => s"$faq#titles"
-          case 87   => routes.Stat.ratingDistribution("blitz").url
+          case 87   => routes.User.ratingDistribution("blitz").url
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"
-          case 216  => routes.Main.mobile().url
+          case 216  => routes.Main.mobile.url
           case 340  => s"$faq#trophies"
           case 6    => s"$faq#ratings"
           case 207  => s"$faq#hide-ratings"
           case 547  => s"$faq#leaving"
           case 259  => s"$faq#trophies"
           case 342  => s"$faq#provisional"
-          case 50   => routes.Page.help().url
+          case 50   => routes.Page.help.url
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq

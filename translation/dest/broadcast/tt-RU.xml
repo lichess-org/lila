@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Ишеттәрешләр</string>
+  <string name="liveBroadcasts">Хәяти бәйгеләр ишетләштерешләр</string>
+  <string name="newBroadcast">Яңа хәяти ишетләштереш</string>
+  <string name="ongoing">Дәвам ителгән</string>
+  <string name="upcoming">Киләчәк</string>
+  <string name="completed">Тәмамланды</string>
+  <string name="roundNumber">Раунд саны</string>
+  <string name="fullDescription">Вакыйганы тулы тасвирлау</string>
+  <string name="fullDescriptionHelp">Ишетләштереш өстәмә озынлыгы тасвирламасы %1$s бар. Озынлык %2$s символлардан ким булырга тиеш.</string>
+  <string name="sourceUrlOrGameIds">Чыганак URL яки уен IDе</string>
+  <string name="sourceUrlHelp">PGN яңартуларын алу өчен Lichess тикшерәчәк URL. Ул Интернеттан ачык булырга тиеш.</string>
+  <string name="gameIdsHelp">Альтернатив рәвештә, сез буш урыннар белән аерылган 64 Lichess уен ID-ләрен кертә аласыз.</string>
+  <string name="startDate">Башлагыз сәнә сезнең үзегезнең вакыт җирендән</string>
+  <string name="startDateHelp">Ихтимал, вакыйганың кайчан башланганын белсәгез</string>
+  <string name="credits">Чыганакка кредит</string>
+</resources>

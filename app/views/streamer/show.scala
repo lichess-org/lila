@@ -18,7 +18,6 @@ object show {
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = frag(jsTag("ads.js")),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -26,10 +25,10 @@ object show {
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
           `type` = "video",
-          image = s.streamer.picturePath.map(p => dbImageUrl(p.value))
+          image = s.streamer.hasPicture option picture.thumbnail.url(s.streamer)
         )
         .some,
-      csp = defaultCsp.withTwitch.some
+      csp = defaultCsp.finalizeWithTwitch.some
     )(
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(
@@ -51,12 +50,7 @@ object show {
                 }
             }
           ),
-          bits.menu("show", s.withoutStream.some),
-          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://ublockorigin.com")(
-            i(dataIcon := ""),
-            strong(installBlocker()),
-            beSafe()
-          )
+          bits.menu("show", s.withoutStream.some)
         ),
         div(cls := "page-menu__content")(
           s.stream match {
@@ -81,7 +75,7 @@ object show {
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-            a(cls := "ratings", href := routes.User.show(s.user.username))(
+            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }
             ),
             views.html.activity(s.user, activities)

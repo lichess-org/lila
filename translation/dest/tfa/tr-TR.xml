@@ -2,13 +2,17 @@
 <resources>
   <string name="twoFactorAuth">İki faktörlü kimlik doğrulama</string>
   <string name="twoFactorHelp">İki faktörlü kimlik doğrulama, hesabınıza başka bir güvenlik katmanı ekler.</string>
-  <string name="twoFactorApp">İki aşamalı kimlik doğrulama için bir uygulama indirin. Örneğin %1$s ve %2$s için Google Authenticator yükleyebilirsiniz.</string>
+  <string name="twoFactorApp">İki faktörlü kimlik doğrulaması için bir uygulama indirin. Örneğin %1$s veya %2$s için Google Authenticator yükleyebilirsiniz.</string>
   <string name="scanTheCode">QR kodunu uygulama ile tarayın.</string>
   <string name="enterPassword">Kurulumu tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her oturum açtığınızda bir kimlik doğrulama koduna ihtiyacınız olacak.</string>
+  <string name="ifYouCannotScanEnterX">Kodu taratmanız mümkün değilse, uygulamanıza süper gizli %s kodunu girin.</string>
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
-  <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama kodunuza erişimi kaybederseniz, elektronik posta yoluyla bir şifre sıfırlama işlemi yapabilirsiniz.</string>
-  <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştirin</string>
+  <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama koduna erişiminizi kaybederseniz e-posta yoluyla şifrenizi sıfırlayabilirsiniz.</string>
+  <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştir</string>
   <string name="disableTwoFactor">İki faktörlü kimlik doğrulamayı devre dışı bırak</string>
   <string name="twoFactorEnabled">İki faktörlü kimlik doğrulama etkinleştirildi</string>
-  <string name="twoFactorDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için, kimlik doğrulama uygulamanızdan şifrenize ve bir kimlik doğrulama koduna ihtiyacınız vardır. Kimlik doğrulama kodunuza erişimi kaybettiyseniz, elektronik posta yoluyla da bir şifre sıfırlama işlemi yapabilirsiniz.</string>
+  <string name="twoFactorDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için şifrenize ve kimlik belirleme programınızdaki doğrulama koduna ihtiyacınız olacak.
+
+Kimlik doğrulama kodlarına erişimi kaybettiyseniz e-posta yoluyla şifrenizi sıfırlayabilirsiniz.</string>
+  <string name="openTwoFactorApp">Doğrulama kodunu görüntüleyerek kimliğinizi doğrulamak için cihazınızdan iki faktörlü kimlik doğrulama uygulamasını açın.</string>
 </resources>

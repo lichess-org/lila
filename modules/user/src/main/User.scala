@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
+import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
 
 case class User(
     id: String,
@@ -36,7 +37,7 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${!enabled ?? " closed"}"
 
   def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
@@ -53,6 +54,8 @@ case class User(
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
   def titleUsername = title.fold(username)(t => s"$t $username")
+
+  def hasVariantRating = PerfType.variants.exists(perfs.apply(_).nonEmpty)
 
   def titleUsernameWithBestRating =
     title.fold(usernameWithBestRating) { t =>
@@ -79,6 +82,10 @@ case class User(
   def lameOrAlt        = lame || marks.alt
   def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
+  def canBeFeatured = hasTitle && !lameOrTroll
+
+  def canFullyLogin = enabled || !lameOrTrollOrAlt
+
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
   def lightPerf(key: String) =
@@ -93,19 +100,25 @@ case class User(
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).??(_.roundSeconds))
     } take nb
 
-  def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)
+  def best8Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 4)
 
-  def best6Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 6)
+  def best6Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 2)
 
-  def best3Perfs: List[PerfType] = bestOf(User.firstRow, 3)
+  def best4Perfs: List[PerfType] = User.firstRow
+
+  def bestAny3Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 3)
+
+  def bestPerf: Option[PerfType] = bestOf(User.firstRow ::: User.secondRow, 1).headOption
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
   def isPatron = plan.active
 
-  def activePlan: Option[Plan] = if (plan.active) Some(plan) else None
+  def activePlan: Option[Plan] = plan.active option plan
 
   def planMonths: Option[Int] = activePlan.map(_.months)
+
+  def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
@@ -119,10 +132,11 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified   = roles.exists(_ contains "ROLE_VERIFIED")
-  def isSuperAdmin = roles.exists(_ contains "ROLE_SUPER_ADMIN")
-  def isAdmin      = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
-  def isApiHog     = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
+  def isSuperAdmin      = roles.exists(_ contains "ROLE_SUPER_ADMIN")
+  def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
+  def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerifiedOrAdmin = isVerified || isAdmin
 }
 
 object User {
@@ -155,10 +169,13 @@ object User {
     case object InvalidTotpToken          extends Result(none)
   }
 
-  val anonymous              = "Anonymous"
-  val lichessId              = "lichess"
-  val broadcasterId          = "broadcaster"
-  def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
+  val anonymous                    = "Anonymous"
+  val anonMod                      = "A Lichess Moderator"
+  val lichessId                    = "lichess"
+  val broadcasterId                = "broadcaster"
+  val ghostId                      = "ghost"
+  def isLichess(username: String)  = normalize(username) == lichessId
+  def isOfficial(username: String) = isLichess(username) || normalize(username) == broadcasterId
 
   val seenRecently = 2.minutes
 
@@ -180,9 +197,16 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-  case class Speaker(username: String, title: Option[Title], enabled: Boolean, marks: Option[UserMarks]) {
-    def isBot   = title has Title.BOT
-    def isTroll = marks.exists(_.troll)
+  case class Speaker(
+      username: String,
+      title: Option[Title],
+      enabled: Boolean,
+      plan: Option[Plan],
+      marks: Option[UserMarks]
+  ) {
+    def isBot    = title has Title.BOT
+    def isTroll  = marks.exists(_.troll)
+    def isPatron = plan.exists(_.active)
   }
 
   case class Contact(
@@ -199,8 +223,11 @@ object User {
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
     def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
     def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
+    def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
   }
-  case class Contacts(orig: Contact, dest: Contact)
+  case class Contacts(orig: Contact, dest: Contact) {
+    def hasKid = orig.isKid || dest.isKid
+  }
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
@@ -211,17 +238,23 @@ object User {
   implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
-  val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
+  val historicalUsernameRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
   // what new usernames should be like -- now split into further parts for clearer error messages
-  val newUsernameRegex   = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
-  val newUsernamePrefix  = """(?i)[a-z].*""".r
-  val newUsernameSuffix  = """(?i).*[a-z0-9]""".r
-  val newUsernameChars   = """(?i)[\w-]*""".r
-  val newUsernameLetters = """(?i)^([a-z0-9][\w-]?)+$""".r
+  val newUsernameRegex   = "(?i)[a-z][a-z0-9_-]{0,28}[a-z0-9]".r
+  val newUsernamePrefix  = "(?i)^[a-z].*".r
+  val newUsernameSuffix  = "(?i).*[a-z0-9]$".r
+  val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
+  val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
+  def couldBeUsername(str: User.ID) = noGhost(str) && historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
+
+  def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
+
+  def isGhost(name: String) = normalize(name) == ghostId || name.headOption.has('!')
+
+  def noGhost(name: String) = !isGhost(name)
 
   object BSONFields {
     val id                    = "_id"
@@ -252,10 +285,17 @@ object User {
     val totpSecret            = "totp"
     val changedCase           = "changedCase"
     val marks                 = "marks"
+    val eraseAt               = "eraseAt"
+    val erasedAt              = "erasedAt"
+    val blind                 = "blind"
   }
+
+  def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
   import lila.db.BSON
   import lila.db.dsl._
+
+  implicit private def planHandler = Plan.planBSONHandler
 
   implicit val userBSONHandler = new BSON[User] {
 
@@ -266,7 +306,6 @@ object User {
     implicit private def countHandler      = Count.countBSONHandler
     implicit private def profileHandler    = Profile.profileBSONHandler
     implicit private def perfsHandler      = Perfs.perfsBSONHandler
-    implicit private def planHandler       = Plan.planBSONHandler
     implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = {
@@ -321,8 +360,9 @@ object User {
   implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
   private val secondRow: List[PerfType] = List(
+    PerfType.Correspondence,
     PerfType.UltraBullet,
     PerfType.Crazyhouse,
     PerfType.Chess960,

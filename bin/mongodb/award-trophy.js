@@ -6,5 +6,5 @@ db.trophy.insert({
   _id: kind + '/' + user,
   user: user,
   kind: kind,
-  date: new Date()
+  date: new Date(),
 });

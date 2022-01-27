@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Классы Lichess</string>
-  <string name="teachClassesOfChessStudents">Преподавайте шахматы ученикам с помощью инструмента «Классы Lichess».</string>
+  <string name="lichessClasses">Учебные классы</string>
+  <string name="teachClassesOfChessStudents">Преподавайте шахматы ученикам с помощью инструментов «Уроки Lichess».</string>
   <string name="features">Возможности</string>
   <string name="quicklyGenerateSafeUsernames">Быстро создавайте безопасные имена и пароли для учеников</string>
   <string name="trackStudentProgress">Отслеживайте прогресс учеников в партиях и задачах</string>
-  <string name="messageAllStudents">Извещайте всех учеников о новых классных материалах</string>
+  <string name="messageAllStudents">Сообщайте всем ученикам о новых материалах класса</string>
   <string name="freeForAllForever">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
-  <string name="applyToBeLichessTeacher">Подайте заявку чтобы стать Преподавателем Lichess</string>
+  <string name="applyToBeLichessTeacher">Подайте заявку, чтобы стать Преподавателем Lichess</string>
   <string name="noClassesYet">Ещё нет классов.</string>
   <string name="teachersX">Преподаватели: %s</string>
   <string name="newClass">Новый класс</string>
@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Виден как преподавателю, так и ученикам класса</string>
   <string name="teachersOfTheClass">Преподаватели класса</string>
   <string name="addLichessUsernames">Добавьте имена пользователей Lichess, чтобы пригласить их в качестве преподавателей. По одному в каждой строке.</string>
-  <string name="theyMustFirstApply">Сначала они должны стать Преподавателями Lichesses.</string>
   <string name="resetPassword">Сбросить пароль</string>
   <string name="makeSureToCopy">Убедитесь в том, что пароль скопирован или записан. Вы больше не сможете его увидеть!</string>
   <string name="passwordX">Пароль: %s</string>
@@ -47,19 +46,19 @@
   <string name="createDesc2">Email адрес не требуется. Будет сгенерирован пароль, который вы передадите ученику, чтобы он мог войти в систему.</string>
   <string name="createDesc3">Важно: ученик не должен иметь несколько учётных записей.</string>
   <string name="createDesc4">Если у них уже есть, используйте форму приглашения.</string>
+  <string name="createStudentWarning">Создавайте аккаунты только для реальных учеников. Не используйте эту возможность для создания аккаунтов в личных целях, иначе вы будете заблокированы.</string>
   <string name="lichessUsername">Имя пользователя в Lichess</string>
   <string name="generateANewUsername">Создать новое имя пользователя</string>
   <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.
 Вот ссылка для входа в класс.</string>
   <string name="invitationToClass">Вас пригласили в класс «%s» в качестве студента.</string>
   <string name="clickToViewInvitation">Нажмите на ссылку, чтобы просмотреть приглашение:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Приглашение, ожидающее рассмотрения</item>
     <item quantity="few">%s приглашения, ожидающих рассмотрения</item>
     <item quantity="many">%s приглашений, ожидающих рассмотрения</item>
     <item quantity="other">%s приглашений, ожидающих рассмотрения</item>
   </plurals>
-  <string name="noPendingInvitations">Нет приглашений, ожидающих ответа</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
@@ -70,6 +69,10 @@
   <string name="releaseDesc1">Выданная учётная запись не может стать опять управляемой. Ученик сможет самостоятельно переключать детский режим и менять пароль.</string>
   <string name="releaseDesc2">Ученик останется в классе даже после того, как его учётная запись будет выдана ему.</string>
   <string name="realUniqueEmail">Настоящий, уникальный email ученика. Мы отправим на этот адрес подтверждение со ссылкой, по которой ученику будет выдана его учётная запись.</string>
+  <string name="closeStudent">Закрыть аккаунт</string>
+  <string name="closeTheAccount">Навсегда закрыть аккаунт ученика.</string>
+  <string name="closeDesc1">Ученик больше не сможет пользоваться этим аккаунтом. Закрытие является окончательным. Убедитесь, что ученик понимает это и согласен.</string>
+  <string name="closeDesc2">Вместо этого вы можете передать ученику контроль над аккаунтом, чтобы он мог его использовать самостоятельно.</string>
   <string name="teachers">Преподаватели</string>
   <plurals name="nbTeachers">
     <item quantity="one">Преподаватель</item>
@@ -99,5 +102,4 @@
   <string name="newsEdit1">Все новости класса в одном поле.</string>
   <string name="newsEdit2">Добавляйте свежие новости сверху. Не удаляйте предыдущие новости.</string>
   <string name="newsEdit3">Разделяйте новости с помощью трёх дефисов --- они превратятся в горизонтальную линию.</string>
-  <string name="markdownAvailable">%s может быть использован для форматирования текста.</string>
 </resources>

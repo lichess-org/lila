@@ -9,6 +9,8 @@ case class Pov(game: Game, color: Color) {
 
   def playerId = player.id
 
+  def typedPlayerId = Game.PlayerId(player.id)
+
   def fullId = game fullIdOf color
 
   def gameId = game.id
@@ -33,11 +35,15 @@ case class Pov(game: Game, color: Color) {
 
   def hasMoved = game playerHasMoved color
 
+  def moves = game playerMoves color
+
   def win = game wonBy color
 
   def loss = game lostBy color
 
   def forecastable = game.forecastable && game.turnColor != color
+
+  def mightClaimWin = game.resignable && !game.hasAi && game.hasClock && !isMyTurn
 
   override def toString = ref.toString
 }
@@ -64,24 +70,19 @@ object Pov {
   def opponentOfUserId(game: Game, userId: String): Option[Player] =
     ofUserId(game, userId) map (_.opponent)
 
-  private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
-  private def isFresher(a: Pov, b: Pov) = {
-    val aDate = a.game.movedAt.getSeconds
-    val bDate = b.game.movedAt.getSeconds
-    if (aDate == bDate) a.gameId < b.gameId
-    else aDate > bDate
-  }
+  private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue
+  private def isFresher(a: Pov, b: Pov) = a.game.movedAt.getSeconds > b.game.movedAt.getSeconds
 
   def priority(a: Pov, b: Pov) =
     if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
     else if (!a.isMyTurn && b.isMyTurn) false
     else if (a.isMyTurn && !b.isMyTurn) true
     // first move has priority over games with more than 30s left
-    else if (!a.hasMoved && orInf(b.remainingSeconds) > 30) true
-    else if (!b.hasMoved && orInf(a.remainingSeconds) > 30) false
-    else if (orInf(a.remainingSeconds) < orInf(b.remainingSeconds)) true
-    else if (orInf(b.remainingSeconds) < orInf(a.remainingSeconds)) false
-    else isFresher(a, b)
+    else if (orInf(a.remainingSeconds) < 30 && orInf(b.remainingSeconds) > 30) true
+    else if (orInf(b.remainingSeconds) < 30 && orInf(a.remainingSeconds) > 30) false
+    else if (!a.hasMoved && b.hasMoved) true
+    else if (!b.hasMoved && a.hasMoved) false
+    else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
 }
 
 case class PovRef(gameId: Game.ID, color: Color) {

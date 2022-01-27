@@ -17,17 +17,24 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
+) {
 
-  lazy val nameGenerator = wire[NameGenerator]
+  lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
   lazy val forms = wire[ClasForm]
 
   private val colls = wire[ClasColls]
 
-  lazy val api: ClasApi = wire[ClasApi]
+  lazy val studentCache = wire[ClasStudentCache]
 
-  private def getStudentIds = () => api.student.allIds
+  lazy val matesCache = wire[ClasMatesCache]
+
+  lazy val api: ClasApi = wire[ClasApi]
 
   lazy val progressApi = wire[ClasProgressApi]
 
@@ -37,8 +44,13 @@ final class Env(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
       progressApi.onFinishGame(game).unit
     },
-    "clas" -> { case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
-      promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
+    "clas" -> {
+      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+        promise completeWith api.clas.isTeacherOf(teacher, student)
+      case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+        promise completeWith api.clas.areKidsInSameClass(kid1, kid2)
+      case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+        promise completeWith matesCache.get(kid.id)
     }
   )
 }

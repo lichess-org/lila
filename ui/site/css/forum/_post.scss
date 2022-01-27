@@ -1,12 +1,10 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0 .5rem 0;
+  padding: 0.5rem 0 0.5rem 0;
 
   &__metas {
     @extend %flex-between;
-
-    margin-bottom: 1.5rem;
 
     > div {
       @extend %flex-center;
@@ -19,11 +17,29 @@
       margin-right: 1rem;
     }
 
+    a.author--op {
+      @extend %box-radius;
+      padding: 0.2em;
+      padding-right: 0.8em;
+      background: mix($c-primary, $c-bg-box, 12%);
+    }
+
     .anchor {
       @extend %break-nope;
 
       color: $c-link-dim;
       font-weight: bold;
+    }
+
+    time {
+      margin-right: 1em;
+    }
+
+    .delete {
+      color: $c-font;
+      &:hover {
+        color: $c-bad;
+      }
     }
   }
 
@@ -32,7 +48,16 @@
       visibility: hidden;
     }
 
-    font-size: .9em;
+    font-size: 0.9em;
+    color: $c-font;
+    &:hover {
+      color: $c-bad;
+
+      &.quote,
+      &.edit {
+        color: $c-primary;
+      }
+    }
 
     &.postip {
       margin-left: 1rem;
@@ -52,39 +77,57 @@
 
   &:last-child {
     border-bottom: $border;
-    margin-bottom: 3rem;
   }
 
   &.erased {
-    background: $c-shade;
-    opacity: 0.6;
-  }
+    color: $c-font-dimmer;
 
-  &.erased .forum-post__message {
-    font-style: italic;
-    text-align: center;
-    margin: 0;
+    .forum-post__message {
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    .forum-post__metas {
+      justify-content: flex-end;
+    }
   }
 
   &__message {
-    @extend %break-word;
+    @extend %break-word, %zalgoverflow;
 
-    margin-bottom: .5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
     .embed:not(img) {
       @extend %video;
 
       margin: $block-gap auto;
+
+      &.embed--game {
+        @extend %game-embed;
+      }
+    }
+
+    .hidden-quotes {
+      color: transparent;
+      display: inline-block;
+      width: 0;
     }
 
     img {
       max-width: 100%;
     }
+
+    blockquote {
+      padding-left: 0.5em;
+      border-left: 0.3em solid;
+      margin: 0.3em;
+    }
   }
 
   .edit-buttons {
     text-align: right;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 
   .edit-buttons a {

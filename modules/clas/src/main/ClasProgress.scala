@@ -44,7 +44,7 @@ final class ClasProgressApi(
     gameRepo: GameRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
-    getStudentIds: () => Fu[Set[User.ID]]
+    studentCache: ClasStudentCache
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
@@ -165,10 +165,6 @@ final class ClasProgressApi(
       }
   }
 
-  private[clas] def onFinishGame(game: lila.game.Game): Funit =
-    game.userIds.nonEmpty ?? {
-      getStudentIds() flatMap { studentIds =>
-        game.userIds.exists(studentIds.contains) ?? gameRepo.denormalizePerfType(game)
-      }
-    }
+  private[clas] def onFinishGame(game: lila.game.Game): Unit =
+    if (game.userIds.exists(studentCache.isStudent)) gameRepo.denormalizePerfType(game)
 }

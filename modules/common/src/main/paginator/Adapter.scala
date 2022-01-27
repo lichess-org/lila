@@ -23,15 +23,6 @@ abstract class AdapterLike[A](implicit ec: scala.concurrent.ExecutionContext) {
         AdapterLike.this.slice(offset, length) dmap { _ map f }
     }
 
-  def mapFuture[B](f: A => Fu[B]): AdapterLike[B] =
-    new AdapterLike[B] {
-
-      def nbResults = AdapterLike.this.nbResults
-
-      def slice(offset: Int, length: Int) =
-        AdapterLike.this.slice(offset, length) flatMap { _.map(f).sequenceFu }
-    }
-
   def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): AdapterLike[B] =
     new AdapterLike[B] {
 

@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Видливо од инструкторите и учениците на часот</string>
   <string name="teachersOfTheClass">Инструктори на часот</string>
   <string name="addLichessUsernames">Додадете Lichess корисници за да ги поканите како инструктори. По еден корисник во ред.</string>
-  <string name="theyMustFirstApply">Мораат прво да аплицираат за да станат Lichess инструктори.</string>
   <string name="resetPassword">Обнови ја лозинката</string>
   <string name="makeSureToCopy">Ископирајте ја или запишете ја лозинката сега. Нема да можете да ја видите повторно!</string>
   <string name="passwordX">Лозинка: %s</string>
@@ -53,11 +52,10 @@
 Еве ви врска за пристап на часот.</string>
   <string name="invitationToClass">Поканети сте да се придружите на часот „%s“ како ученик.</string>
   <string name="clickToViewInvitation">Кликнете на врската за да ја видите поканата:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Една покана во исчекување</item>
     <item quantity="other">%s покани во исчекување</item>
   </plurals>
-  <string name="noPendingInvitations">Нема покани во исчекување</string>
   <string name="onlyVisibleToTeachers">Видливо само за инструкторите на часот</string>
   <string name="lastActiveDate">Пријавен/а</string>
   <string name="managed">Раководена</string>
@@ -94,5 +92,4 @@
   <string name="newsEdit2">Додади ја последната вест на врвот. Не бриши ги претходните вести.</string>
   <string name="newsEdit3">Оддели ги вестите со ---
 Ќе биде покажано како линија.</string>
-  <string name="markdownAvailable">%s е достапно за понапредна синтакса.</string>
 </resources>

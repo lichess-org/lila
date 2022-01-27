@@ -1,10 +1,10 @@
 package lila.user
 
 import play.api.libs.json._
+import User.{ LightPerf, PlayTime }
 
 import lila.common.Json.jodaWrites
 import lila.rating.{ Perf, PerfType }
-import User.{ LightPerf, PlayTime }
 
 final class JsonView(isOnline: lila.socket.IsOnline) {
 
@@ -12,45 +12,45 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   implicit private val profileWrites  = Json.writes[Profile]
   implicit private val playTimeWrites = Json.writes[PlayTime]
 
-  def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject =
-    Json
-      .obj(
-        "id"        -> u.id,
-        "username"  -> u.username,
-        "online"    -> isOnline(u.id),
-        "perfs"     -> perfs(u, onlyPerf),
-        "createdAt" -> u.createdAt
-      )
-      .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
-      .add("booster" -> u.marks.boost)
-      .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
-      .add("seenAt" -> u.seenAt)
-      .add("patron" -> u.isPatron)
-      .add("playTime" -> u.playTime)
-      .add("language" -> u.lang)
-      .add("title" -> u.title)
+  def full(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean, withRating: Boolean): JsObject =
+    if (u.disabled) disabled(u)
+    else
+      base(u, onlyPerf, withRating = withRating) ++ Json
+        .obj("createdAt" -> u.createdAt)
+        .add("online" -> withOnline.option(isOnline(u.id)))
+        .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
+        .add("seenAt" -> u.seenAt)
+        .add("playTime" -> u.playTime)
 
-  def minimal(u: User, onlyPerf: Option[PerfType]) =
+  def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
+    if (u.disabled) disabled(u)
+    else
+      base(u, onlyPerf, withRating = withRating) ++ Json
+        .obj("online" -> isOnline(u.id))
+        .add("profile" -> u.profile.flatMap(_.country).map { country =>
+          Json.obj("country" -> country)
+        })
+
+  private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "online"   -> isOnline(u.id),
-        "perfs"    -> perfs(u, onlyPerf)
+        "perfs"    -> (withRating ?? perfs(u, onlyPerf))
       )
       .add("title" -> u.title)
-      .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
-      .add("booster" -> u.marks.boost)
-      .add("language" -> u.lang)
-      .add("profile" -> u.profile.flatMap(_.country).map { country =>
-        Json.obj("country" -> country)
-      })
+      .add("tosViolation" -> u.lame)
       .add("patron" -> u.isPatron)
+      .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
+
+  def disabled(u: User) = Json.obj(
+    "id"       -> u.id,
+    "username" -> u.username,
+    "disabled" -> true
+  )
 }
 
 object JsonView {
@@ -80,11 +80,9 @@ object JsonView {
         "id"       -> u.id,
         "username" -> u.username,
         "title"    -> u.title,
-        "engine"   -> u.marks.engine,
-        "booster"  -> u.marks.boost,
-        "troll"    -> u.marks.troll,
         "games"    -> u.count.game
       )
+      .add("tos" -> u.marks.dirty)
       .add("title" -> u.title)
   }
 
@@ -108,7 +106,25 @@ object JsonView {
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
         key -> perfWrites.writes(perf)
-    })
+    }).add(
+      "storm",
+      u.perfs.storm.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.storm.runs,
+        "score" -> u.perfs.storm.score
+      )
+    ).add(
+      "racer",
+      u.perfs.racer.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.racer.runs,
+        "score" -> u.perfs.racer.score
+      )
+    ).add(
+      "streak",
+      u.perfs.streak.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.streak.runs,
+        "score" -> u.perfs.streak.score
+      )
+    )
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
     JsObject(onlyPerfs.map { perfType =>

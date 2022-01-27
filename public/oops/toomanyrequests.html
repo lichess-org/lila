@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Too many requests • lichess.org</title>
     <style>
-      html, body, a {
-        font:16px monospace;
+      html,
+      body,
+      a {
+        font: 16px monospace;
         background: #000;
         color: #ebd488;
         text-align: center;
         line-height: 1.6em;
       }
 
-      html, body {
+      html,
+      body {
         width: 100%;
-        margin: 0; 
+        margin: 0;
         padding: 0;
       }
-
 
       @media (max-width: 767px) {
         .game {
@@ -35,20 +37,21 @@
         }
       }
     </style>
-    <meta content="noindex, nofollow" name="robots">
+    <meta content="noindex, nofollow" name="robots" />
   </head>
   <body>
     <h1>lichess.org - too many requests</h1>
     <p>
       Your network has sent too many requests! Try again later.<br />
-      <div class="hide-for-mobile">In the meantime, try out that fun little game:</div>
+      <span class="hide-for-mobile">In the meantime, try out that fun little game:</span>
     </p>
     <div class="game">
       <iframe
         src="//lichess1.org/assets/vendor/ChessPursuit/bin-release/index.html"
         frameborder="0"
         width="400"
-        height="500">
+        height="500"
+      >
       </iframe>
     </div>
     <p>
@@ -62,4 +65,3 @@
     </p>
   </body>
 </html>
-

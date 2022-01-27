@@ -25,15 +25,15 @@ object dailyPuzzleSlackApp {
           )(
             img(
               alt := "Add to Slack",
-              height := 40,
-              width := 139,
+              heightA := 40,
+              widthA := 139,
               src := assetUrl("images/add-to-slack.png")
             )
           ),
           h2("Summary"),
           p(
             "By default, the app will post the ",
-            a(href := routes.Puzzle.daily())("daily chess puzzle"),
+            a(href := routes.Puzzle.daily)("daily chess puzzle"),
             " from Lichess to the channel in which it was installed every day (at the same time of day it was installed). Use the ",
             code("/puzzletime"),
             " command to change this setting, e.g. ",
@@ -53,7 +53,7 @@ object dailyPuzzleSlackApp {
           ),
           h2("Privacy Policy"),
           p(
-            "The app only collects and stores information necessary to deliver the service, which is limited to OAuth authentication information, Slack workspace/channel identifiers and app configuration settings. No personal information is processed expect for the username of users invoking slash commands. No personal information is stored."
+            "The app only collects and stores information necessary to deliver the service, which is limited to OAuth authentication information, Slack workspace/channel identifiers and app configuration settings. No personal information is processed except for the username of users invoking slash commands. No personal information is stored."
           ),
           h2("Support and feedback"),
           p(
@@ -63,9 +63,7 @@ object dailyPuzzleSlackApp {
             a(href := routes.ForumCateg.show("lichess-feedback"))(
               "in the forum"
             ),
-            ". Alternatively, use ",
-            contactEmailLink,
-            " to get in touch with us. The source code is available at ",
+            ". The source code is available at ",
             a(href := "https://github.com/arex1337/lichess-daily-puzzle-slack-app")(
               "github.com/arex1337/lichess-daily-puzzle-slack-app"
             ),

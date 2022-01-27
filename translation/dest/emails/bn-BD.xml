@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">আপনার lichess.org একাউন্ট নিশ্চিত করুন, %s</string>
-  <string name="emailConfirm_click">আপনার লিচাস একাউন্ট সক্রিয় করতে লিংকে ক্লিক করুন:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">আপনার লিচাস একাউন্ট সক্রিয় করতে লিংকে ক্লিক করুন:</string>
   <string name="emailConfirm_ignore">আপনি যদি লিচাসে নিবন্ধন না করেন আপনি নিরাপদে এই বার্তাটি প্রত্যাখ্যান করতে পারেন.</string>
   <string name="passwordReset_subject">আপনার lichess.org পাসওয়ার্ড পরিবর্তন করুন, %s</string>
   <string name="passwordReset_intro">আপনার একাউন্টের পাসওয়ার্ড পরিবর্তনের জন্য আমরা একটি অনুরোধ পেয়েছি.</string>

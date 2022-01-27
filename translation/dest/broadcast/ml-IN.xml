@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcastUrl">പ്രക്ഷേപണം ചെയ്യുനതിനുള്ള URL</string>
+  <string name="currentRoundUrl">നിലവിലെ ഘട്ടത്തിന്‍റെ URL</string>
+  <string name="currentGameUrl">നിലവിലെ കളിയുടെ URL</string>
+</resources>

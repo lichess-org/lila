@@ -56,14 +56,17 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
 
-  def setLeaders(teamId: String, leaders: Set[User.ID]): Funit =
+  def setLeaders(teamId: Team.ID, leaders: Set[User.ID]): Funit =
     coll.updateField($id(teamId), "leaders", leaders).void
 
-  def leads(teamId: String, userId: User.ID) =
+  def leads(teamId: Team.ID, userId: User.ID) =
     coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
-  def name(id: String): Fu[Option[String]] =
+  def name(id: Team.ID): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")
+
+  def mini(id: Team.ID): Fu[Option[Team.Mini]] =
+    name(id) map2 { Team.Mini(id, _) }
 
   private[team] def countCreatedSince(userId: String, duration: Period): Fu[Int] =
     coll.countSel(
@@ -73,7 +76,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
     )
 
-  def incMembers(teamId: String, by: Int): Funit =
+  def incMembers(teamId: Team.ID, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
   def enable(team: Team): Funit =
@@ -82,7 +85,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def disable(team: Team): Funit =
     coll.updateField($id(team.id), "enabled", false).void
 
-  def addRequest(teamId: String, request: Request): Funit =
+  def addRequest(teamId: Team.ID, request: Request): Funit =
     coll.update
       .one(
         $id(teamId) ++ $doc("requests.user" $ne request.user),
@@ -100,13 +103,25 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match($doc("leaders" -> userId)) -> List(
+          Group(BSONNull)("ids" -> PushField("_id")),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
-                "from"         -> requestColl.name,
-                "localField"   -> "_id",
-                "foreignField" -> "team",
-                "as"           -> "requests"
+                "from" -> requestColl.name,
+                "as"   -> "requests",
+                "let"  -> $doc("teams" -> "$ids"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$in" -> $arr("$team", "$$teams")),
+                          $doc("$ne" -> $arr("$declined", true))
+                        )
+                      )
+                    )
+                  )
+                )
               )
             )
           ),

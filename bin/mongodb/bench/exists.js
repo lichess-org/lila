@@ -1,7 +1,7 @@
 var limit = 50 * 1000;
 var coll = db.relation;
 var query = {
-  _id: 'thibault/legendary22bcloud'
+  _id: 'thibault/legendary22bcloud',
 };
 var expected = false;
 
@@ -15,12 +15,12 @@ function timer(name, f) {
   }
 }
 
-timer('count', function() {
+timer('count', function () {
   return coll.count(query) === 1;
 });
-timer('find', function() {
+timer('find', function () {
   return coll.find(query).limit(1).length() === 1;
 });
-timer('findOne', function() {
+timer('findOne', function () {
   return coll.findOne(query) !== null;
 });

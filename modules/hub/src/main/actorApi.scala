@@ -22,10 +22,14 @@ package map {
 }
 
 package socket {
+
   case class SendTo(userId: String, message: JsObject)
+  case class SendToAsync(userId: String, message: () => Fu[JsObject])
   object SendTo {
     def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
       SendTo(userId, Json.obj("t" -> typ, "d" -> data))
+    def async[A: Writes](userId: String, typ: String, data: () => Fu[A]): SendToAsync =
+      SendToAsync(userId, () => data() dmap { d => Json.obj("t" -> typ, "d" -> d) })
   }
   case class SendTos(userIds: Set[String], message: JsObject)
   object SendTos {
@@ -41,13 +45,14 @@ package socket {
 }
 
 package clas {
-  case class IsTeacherOf(teacherId: String, studentId: String, promise: Promise[Boolean])
+  case class AreKidsInSameClass(kid1: user.KidId, kid2: user.KidId, promise: Promise[Boolean])
+  case class IsTeacherOf(teacher: String, student: String, promise: Promise[Boolean])
+  case class ClasMatesAndTeachers(kid: user.KidId, promise: Promise[Set[String]])
 }
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Shutup(userId: String, text: String)
-  case class Booster(winnerId: String, loserId: String)
+  case class Shutup(userId: String, text: String, critical: Boolean)
   case class AutoFlag(suspectId: String, resource: String, text: String)
   case class CheatReportCreated(userId: String)
 }
@@ -56,10 +61,17 @@ package security {
   case class GarbageCollect(userId: String)
   case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
+  case class DeletePublicChats(userId: String)
 }
 
 package msg {
   case class SystemMsg(userId: String, text: String)
+}
+
+package puzzle {
+  case class StormRun(userId: String, score: Int)
+  case class RacerRun(userId: String, score: Int)
+  case class StreakRun(userId: String, score: Int)
 }
 
 package shutup {
@@ -86,13 +98,14 @@ package mod {
   case class ChatTimeout(mod: String, user: String, reason: String, text: String)
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
-  case class SetPermissions(userId: String, permissions: List[String])
   case class AutoWarning(userId: String, subject: String)
   case class Impersonate(userId: String, by: Option[String])
+  case class SelfReportMark(userId: String, name: String)
 }
 
 package playban {
-  case class Playban(userId: String, mins: Int)
+  case class Playban(userId: String, mins: Int, inTournament: Boolean)
+  case class RageSitClose(userId: String)
 }
 
 package captcha {
@@ -106,13 +119,12 @@ package simul {
   case class PlayerMove(gameId: String)
 }
 
-package slack {
+package irc {
   sealed trait Event
-  case class Error(msg: String)                                                 extends Event
-  case class Warning(msg: String)                                               extends Event
-  case class Info(msg: String)                                                  extends Event
-  case class Victory(msg: String)                                               extends Event
-  case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
+  case class Error(msg: String)   extends Event
+  case class Warning(msg: String) extends Event
+  case class Info(msg: String)    extends Event
+  case class Victory(msg: String) extends Event
 }
 
 package timeline {
@@ -134,6 +146,10 @@ package timeline {
       extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
   }
+  case class UblogPost(userId: String, id: String, slug: String, title: String)
+      extends Atom(s"ublog:$id", false) {
+    def userIds = List(userId)
+  }
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
     def userIds = List(userId)
   }
@@ -148,20 +164,22 @@ package timeline {
   case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
     def userIds = List(userId)
   }
-  case class StudyCreate(userId: String, studyId: String, studyName: String)
-      extends Atom("studyCreate", true) {
-    def userIds = List(userId)
-  }
   case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
     def userIds = List(userId)
   }
   case class PlanStart(userId: String) extends Atom("planStart", true) {
     def userIds = List(userId)
   }
+  case class PlanRenew(userId: String, months: Int) extends Atom("planRenew", true) {
+    def userIds = List(userId)
+  }
   case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", true) {
     def userIds = Nil
   }
-  case class StreamStart(id: String, name: String) extends Atom("streamStart", true) {
+  case class UblogPostLike(userId: String, id: String, title: String) extends Atom("ublogPostLike", false) {
+    def userIds = List(userId)
+  }
+  case class StreamStart(id: String, name: String) extends Atom("streamStart", false) {
     def userIds = List(id)
   }
 
@@ -214,12 +232,16 @@ package fishnet {
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
       moves: List[Uci],
-      userId: String
+      userId: String,
+      unlimited: Boolean
   )
 }
 
 package user {
   case class Note(from: String, to: String, text: String, mod: Boolean)
+  sealed trait ClasId
+  case class KidId(id: String)    extends ClasId
+  case class NonKidId(id: String) extends ClasId
 }
 
 package round {
@@ -255,7 +277,7 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class Mlat(micros: Int)
+  case class Mlat(millis: Int)
 }
 
 package evaluation {
@@ -280,6 +302,9 @@ package study {
 }
 
 package plan {
-  case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
+  case class ChargeEvent(username: String, cents: Int, percent: Int, date: DateTime)
   case class MonthInc(userId: String, months: Int)
+  case class PlanStart(userId: String)
+  case class PlanGift(from: String, to: String, lifetime: Boolean)
+  case class PlanExpire(userId: String)
 }

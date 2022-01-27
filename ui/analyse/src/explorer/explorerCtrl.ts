@@ -1,13 +1,16 @@
-import { prop } from 'common';
+import { Prop, prop } from 'common';
 import { storedProp } from 'common/storage';
 import debounce from 'common/debounce';
+import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
-import { controller as configCtrl } from './explorerConfig';
 import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl, ExplorerData, ExplorerDb, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
+import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
+import { CancellableStream } from 'common/ndjson';
+import { ExplorerConfigCtrl } from './explorerConfig';
+import { clearLastShow } from './explorerView';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -28,148 +31,192 @@ function tablebasePieces(variant: VariantKey) {
   }
 }
 
-export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
-  return pieceCount(fen) <= tablebasePieces(variant);
-}
+export const tablebaseGuaranteed = (variant: VariantKey, fen: Fen) => pieceCount(fen) <= tablebasePieces(variant);
 
-function tablebaseRelevant(variant: VariantKey, fen: Fen) {
-  return pieceCount(fen) - 1 <= tablebasePieces(variant);
-}
+export default class ExplorerCtrl {
+  allowed: Prop<boolean>;
+  enabled: Prop<boolean>;
+  withGames: boolean;
+  effectiveVariant: VariantKey;
+  config: ExplorerConfigCtrl;
 
-export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
-  const allowed = prop(allow),
-  enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
-  loading = prop(true),
-  failing = prop(false),
-  hovering = prop<Hovering | null>(null),
-  movesAway = prop(0),
+  loading = prop(true);
+  failing = prop<Error | null>(null);
+  hovering = prop<Hovering | null>(null);
+  movesAway = prop(0);
   gameMenu = prop<string | null>(null);
+  lastStream = prop<Sync<CancellableStream> | null>(null);
+  cache: Dictionary<ExplorerData> = {};
 
-  if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
-
-  let cache = {};
-  function onConfigClose() {
-    root.redraw();
-    cache = {};
-    setNode();
+  constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, allow: boolean) {
+    this.allowed = prop(allow);
+    this.enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
+    this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
+    this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
+    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload);
+    window.addEventListener('hashchange', this.checkHash, false);
+    this.checkHash();
   }
-  const data = root.data,
-  withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
-  effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
-  config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = debounce(() => {
-    const fen = root.node.fen;
-    const request: Promise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
-      xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
-      xhr.opening({
-        endpoint: opts.endpoint,
-        db: config.data.db.selected() as ExplorerDb,
-        variant: effectiveVariant,
-        rootFen: root.nodeList[0].fen,
-        play: root.nodeList.slice(1).map(s => s.uci!),
-        fen,
-        speeds: config.data.speed.selected(),
-        ratings: config.data.rating.selected(),
-        withGames,
-      });
-
-    request.then((res: ExplorerData) => {
-      cache[fen] = res;
-      movesAway(res.moves.length ? 0 : movesAway() + 1);
-      loading(false);
-      failing(false);
-      root.redraw();
-    }, () => {
-      loading(false);
-      failing(true);
-      root.redraw();
-    });
-  }, 250, true);
-
-  const empty = {
-    isOpening: true,
-    moves: {}
-  };
-
-  function setNode() {
-    if (!enabled()) return;
-    gameMenu(null);
-    const node = root.node;
-    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
-      cache[node.fen] = empty;
-    }
-    const cached = cache[node.fen];
-    if (cached) {
-      movesAway(cached.moves.length ? 0 : movesAway() + 1);
-      loading(false);
-      failing(false);
-    } else {
-      loading(true);
-      fetch();
+  checkHash = (e?: HashChangeEvent) => {
+    const parts = location.hash.split('/');
+    if ((parts[0] == '#explorer' || parts[0] == '#opening') && !this.root.embed) {
+      this.enabled(true);
+      if (parts[1] == 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
+      else if (parts[1]?.match(/[A-Za-z0-9_-]{2,30}/)) {
+        this.config.selectPlayer(parts[1]);
+        this.config.data.color(parts[2] == 'black' ? 'black' : 'white');
+      }
+      if (e) this.root.redraw();
     }
   };
 
-  return {
-    allowed,
-    enabled,
-    setNode,
-    loading,
-    failing,
-    hovering,
-    movesAway,
-    config,
-    withGames,
-    gameMenu,
-    current: () => cache[root.node.fen],
-    toggle() {
-      movesAway(0);
-      enabled(!enabled());
-      setNode();
-      root.autoScroll();
-    },
-    disable() {
-      if (enabled()) {
-        enabled(false);
-        gameMenu(null);
-        root.autoScroll();
-      }
-    },
-    setHovering(fen, uci) {
-      hovering(uci ? {
-        fen,
-        uci,
-      } : null);
-      root.setAutoShapes();
-    },
-    fetchMasterOpening: (() => {
-      const masterCache = {};
-      return (fen: Fen): Promise<OpeningData> => {
-        if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
-        return xhr.opening({
-          endpoint: opts.endpoint,
-          db: 'masters',
-          rootFen: fen,
-          play: [],
-          fen,
-        }).then((res: OpeningData) => {
-          masterCache[fen] = res;
-          return res;
-        });
-      }
-    })(),
-    fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit> {
-      return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
-        const move = res.moves[0];
-        if (move && move.dtz == null) throw 'unknown tablebase position';
-        return {
-          fen: fen,
-          best: move && move.uci,
-          winner: res.checkmate ? opposite(colorOf(fen)) : (
-            res.stalemate ? undefined : winnerOf(fen, move!)
+  reload = () => {
+    this.cache = {};
+    this.setNode();
+    this.root.redraw();
+  };
+
+  destroy = clearLastShow;
+
+  private baseXhrOpening = () => ({
+    endpoint: this.opts.endpoint,
+    config: this.config.data,
+  });
+
+  fetch = debounce(
+    () => {
+      const fen = this.root.node.fen;
+      const processData = (res: ExplorerData) => {
+        this.cache[fen] = res;
+        this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
+        this.loading(false);
+        this.failing(null);
+        this.root.redraw();
+      };
+      const onError = (err: Error) => {
+        this.loading(false);
+        this.failing(err);
+        this.root.redraw();
+      };
+      const prev = this.lastStream();
+      if (prev) prev.promise.then(stream => stream.cancel());
+      if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
+        xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen).then(processData, onError);
+      else
+        this.lastStream(
+          sync(
+            xhr
+              .opening(
+                {
+                  ...this.baseXhrOpening(),
+                  db: this.db() as ExplorerDb,
+                  variant: this.effectiveVariant,
+                  rootFen: this.root.nodeList[0].fen,
+                  play: this.root.nodeList.slice(1).map(s => s.uci!),
+                  fen,
+                  withGames: this.withGames,
+                },
+                processData
+              )
+              .then(stream => {
+                stream.end.promise.then(res => (res !== true ? onError(res) : this.root.redraw()));
+                return stream;
+              })
           )
-        } as SimpleTablebaseHit
-      });
+        );
+    },
+    250,
+    true
+  );
+
+  empty: OpeningData = {
+    isOpening: true,
+    moves: [],
+    fen: '',
+    opening: this.root.data.game.opening,
+  };
+
+  tablebaseRelevant = (variant: VariantKey, fen: Fen) =>
+    pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
+
+  setNode = () => {
+    if (!this.enabled()) return;
+    this.gameMenu(null);
+    const node = this.root.node;
+    if (node.ply >= 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+      this.cache[node.fen] = this.empty;
+    }
+    const cached = this.cache[node.fen];
+    if (cached) {
+      this.movesAway(cached.moves.length ? 0 : this.movesAway() + 1);
+      this.loading(false);
+      this.failing(null);
+    } else {
+      this.loading(true);
+      this.fetch();
     }
   };
-};
+
+  db = () => this.config.data.db();
+  current = () => this.cache[this.root.node.fen];
+  toggle = () => {
+    this.movesAway(0);
+    this.enabled(!this.enabled());
+    this.setNode();
+    this.root.autoScroll();
+  };
+  disable = () => {
+    if (this.enabled()) {
+      this.enabled(false);
+      this.gameMenu(null);
+      this.root.autoScroll();
+    }
+  };
+  setHovering = (fen: Fen, uci: Uci | null) => {
+    this.hovering(uci ? { fen, uci } : null);
+    this.root.setAutoShapes();
+  };
+  onFlip = () => {
+    if (this.db() == 'player') {
+      this.cache = {};
+      this.setNode();
+    }
+  };
+  isIndexing = () => {
+    const stream = this.lastStream();
+    return !!stream && (!stream.sync || !stream.sync.end.sync);
+  };
+  fetchMasterOpening = (() => {
+    const masterCache: Dictionary<OpeningData> = {};
+    return (fen: Fen): Promise<OpeningData> => {
+      const val = masterCache[fen];
+      if (val) return Promise.resolve(val);
+      return new Promise(resolve =>
+        xhr.opening(
+          {
+            ...this.baseXhrOpening(),
+            db: 'masters',
+            rootFen: fen,
+            play: [],
+            fen,
+          },
+          (res: OpeningData) => {
+            masterCache[fen] = res;
+            resolve(res);
+          }
+        )
+      );
+    };
+  })();
+  fetchTablebaseHit = async (fen: Fen): Promise<SimpleTablebaseHit> => {
+    const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
+    const move = res.moves[0];
+    if (move && move.dtz == null) throw 'unknown tablebase position';
+    return {
+      fen,
+      best: move && move.uci,
+      winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+    } as SimpleTablebaseHit;
+  };
+}

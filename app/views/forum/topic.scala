@@ -23,25 +23,29 @@ object topic {
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
-          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "I", cls := "text"),
+          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
           categ.name
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "!", cls := "text")(trans.important()),
+          h2(dataIcon := "", cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
-              strong(a(href := routes.Main.faq())(trans.inTheFAQ()))
+              strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
             )
           ),
           p(
             trans.toReportSomeoneForCheatingOrBadBehavior(
-              strong(a(href := routes.Report.form())(trans.useTheReportForm()))
+              strong(a(href := routes.Report.form)(trans.useTheReportForm()))
             )
           ),
           p(
             trans.toRequestSupport(
-              strong(a(href := routes.Main.contact())(trans.tryTheContactPage()))
+              strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
             )
+          ),
+          p(
+            "Make sure to read ",
+            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))("the forum etiquette"))
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
@@ -89,13 +93,14 @@ object topic {
         .some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
-      val pager    = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+      val pager = views.html.base.bits
+        .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
             href := routes.ForumCateg.show(categ.slug),
-            dataIcon := "I",
+            dataIcon := "",
             cls := "text"
           ),
           topic.name
@@ -108,14 +113,15 @@ object topic {
               topic,
               p,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
           }
         ),
+        pager,
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) emptyFrag
-          else if (topic.isOld)
+          if (topic.isOld)
             p(trans.thisTopicIsArchived())
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
@@ -127,9 +133,9 @@ object topic {
                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
                 )
               )
-            } getOrElse {
-              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.")
-              else p(trans.youCannotPostYetPlaySomeGames())
+            } orElse {
+              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.").some
+              else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
             },
           div(
             unsub.map { uns =>
@@ -137,10 +143,10 @@ object topic {
                 cls := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")(
+                button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
                   trans.subscribe()
                 ),
-                button(cls := "button button-empty text off", dataIcon := "v", bits.dataUnsub := "on")(
+                button(cls := "button button-empty text off", dataIcon := "", bits.dataUnsub := "on")(
                   trans.unsubscribe()
                 )
               )
@@ -151,18 +157,19 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg option
+            canModCateg option frag(
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
                 )
               ),
-            canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
-              )
+              ),
+              deleteModal
+            )
           )
         ),
         formWithCaptcha.map { case (form, captcha) =>
@@ -171,23 +178,50 @@ object topic {
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
-            form3.group(form("text"), trans.message()) { f =>
+            form3.group(
+              form("text"),
+              trans.message(),
+              help = a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+                "Forum etiquette"
+              ).some
+            ) { f =>
               form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
             },
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-              isGranted(_.PublicMod) option
+              (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
                 form3.submit(
-                  frag("Reply as a mod"),
+                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = "".some
                 ),
               form3.submit(trans.reply())
             )
           )
-        },
-        pager
+        }
       )
     }
+
+  private def deleteModal(implicit ctx: Context) =
+    div(cls := "forum-delete-modal none")(
+      p("Delete the post"),
+      st.form(method := "post", cls := "form3")(
+        st.select(
+          name := "reason",
+          cls := "form-control"
+        )(
+          option(value := "")("no message"),
+          lila.msg.MsgPreset.forumDeletion.presets.map { reason =>
+            option(value := reason)(reason)
+          }
+        ),
+        form3.actions(
+          button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
+          form3.submit(
+            frag("Delete the post")
+          )(value := "default", cls := "button-red")
+        )
+      )
+    )
 }

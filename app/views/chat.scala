@@ -71,9 +71,9 @@ object chat {
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
-          .obj("local" -> localMod)
-          .add("timeout" -> isGranted(_.ChatTimeout))
-          .add("shadowban" -> isGranted(_.Shadowban))
+          .obj("local" -> (public && localMod))
+          .add("timeout" -> (public && isGranted(_.ChatTimeout)))
+          .add("shadowban" -> (public && isGranted(_.Shadowban)))
       )
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)
@@ -90,5 +90,12 @@ object chat {
       I18nKeys.youHaveBeenTimedOut.some,
       withNote option I18nKeys.notes,
       withNote option I18nKeys.typePrivateNotesHere
+    )
+
+  val spectatorsFrag =
+    div(
+      cls := "chat__members none",
+      aria.live := "off",
+      aria.relevant := "additions removals text"
     )
 }

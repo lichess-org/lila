@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s さん lichess.org のアカウントご確認を</string>
-  <string name="emailConfirm_click">リンクをクリックして Lichess のアカウントを有効化してください。</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">リンクをクリックして Lichess のアカウントを有効化してください。</string>
   <string name="emailConfirm_ignore">もし Lichess に登録した覚えがなければ、無視して大丈夫です。</string>
   <string name="passwordReset_subject">%s さん、lichess.org のパスワードをリセットして</string>
   <string name="passwordReset_intro">あなたの Lichess アカウントのパスワード変更申請を受信しました。</string>

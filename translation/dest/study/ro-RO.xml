@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data adăugată (cele mai vechi)</string>
   <string name="recentlyUpdated">Încărcate recent</string>
   <string name="mostPopular">Cele mai populare</string>
+  <string name="alphabetical">Alfabetic</string>
   <string name="addNewChapter">Adaugă un nou capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitol</item>
@@ -43,6 +44,7 @@
   <string name="youAreNowASpectator">Acum ești un spectator</string>
   <string name="pgnTags">Etichete PGN</string>
   <string name="like">Apreciază</string>
+  <string name="unlike">Nu îmi mai place</string>
   <string name="newTag">Etichetă nouă</string>
   <string name="commentThisPosition">Comentează această poziție</string>
   <string name="commentThisMove">Comentează această mutare</string>
@@ -65,15 +67,13 @@
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Difuzează URL</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
-  <string name="currentGameUrl">URL-ul partidei curente</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Poți lipi acest cod în forum pentru a îngloba</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Poți lipi acest cod în forum pentru a îngloba</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
   <string name="embedInYourWebsite">Înglobează pe site-ul sau blog-ul tău</string>
   <string name="readMoreAboutEmbedding">Citește mai multe despre înglobare</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Numai studii publice pot fi înglobate!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Numai studii publice pot fi înglobate!</string>
   <string name="open">Deschideți</string>
   <string name="xBroughtToYouByY">%1$s, oferit pentru dvs. de %2$s</string>
   <string name="studyNotFound">Studiul nu a fost găsit</string>
@@ -131,6 +131,41 @@
   <string name="clearChat">Șterge conversația</string>
   <string name="deleteTheStudyChatHistory">Ștergeți istoricul chatului? Nu există cale de întoarcere!</string>
   <string name="deleteStudy">Ștergeți studiul</string>
-  <string name="deleteTheEntireStudy">Ștergeți întregul studiu? Nu există cale de întoarcere!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ștergeți întregul studiu? Nu există cale de întoarcere! Introduceți numele studiului pentru a confirma: %s</string>
   <string name="whereDoYouWantToStudyThat">Unde vreți s-o studiați?</string>
+  <string name="goodMove">Mutare bună</string>
+  <string name="mistake">Greșeală</string>
+  <string name="brilliantMove">Mișcare genială</string>
+  <string name="blunder">Gafă</string>
+  <string name="interestingMove">Mișcare interesantă</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Mutare dubioasă</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Singura mișcare posibilă</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Poziție egală</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Poziție neclară</string>
+  <string name="whiteIsSlightlyBetter">Albul este puțin mai bun</string>
+  <string name="blackIsSlightlyBetter">Negrul este puțin mai bun</string>
+  <string name="whiteIsBetter">Albul este mai bun</string>
+  <string name="blackIsBetter">Negrul este mai bun</string>
+  <string name="whiteIsWinning">Albul câștigă</string>
+  <string name="blackIsWinning">Negrul câștigă</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Noutate</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Dezvoltare</string>
+  <string name="initiative">Inițiativă</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atac</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contraatac</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Probleme de timp</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Cu compensații</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Cu ideea</string>
+  <string name="nextChapter">Capitolul următor</string>
+  <string name="prevChapter">Capitolul precedent</string>
+  <string name="studyActions">Acţiuni de studiu</string>
+  <string name="topics">Subiecte</string>
+  <string name="myTopics">Subiectele mele</string>
+  <string name="popularTopics">Subiecte populare</string>
+  <string name="manageTopics">Gestionează subiecte</string>
+  <string name="back">Înapoi</string>
+  <string name="playAgain">Joacă din nou</string>
+  <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
+  <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
 </resources>

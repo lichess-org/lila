@@ -1,7 +1,9 @@
 package lila.common
 
 import java.text.Normalizer
+import java.util.stream.Collectors
 import play.api.libs.json._
+import scala.jdk.CollectionConverters._
 import scalatags.Text.all._
 
 import lila.base.RawHtml
@@ -21,6 +23,86 @@ object String {
     val slug         = slugR.replaceAllIn(normalized, "")
     slug.toLowerCase
   }
+
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
+
+  def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
+
+  def distinctGarbageChars(str: String): Set[Char] =
+    str
+      .chars()
+      .filter(isGarbageChar _)
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .toSet
+
+  private def removeChars(str: String, isRemoveable: Int => Boolean): String =
+    str
+      .chars()
+      .filter(c => !isRemoveable(c))
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .mkString
+
+  private def isGarbageChar(c: Int) =
+    isInvisibleChar(c) ||
+      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+      // and chess symbols https://www.compart.com/en/unicode/block/U+2600
+      (c >= '\u2100' && c <= '\u21FF') ||
+      (c >= '\u2300' && c <= '\u2653') ||
+      (c >= '\u2660' && c <= '\u2C5F') ||
+      // decorative chars ꧁ ꧂ and svastikas
+      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
+      // pretty quranic chars ۩۞
+      (c >= '\u06d6' && c <= '\u06ff') ||
+      // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
+      (c >= '\u1d00' && c <= '\u1d7f') ||
+      // IPA extensions https://www.compart.com/en/unicode/block/U+0250
+      (c >= '\u0250' && c <= '\u02af')
+
+  private def isInvisibleChar(c: Int) =
+    // invisible chars https://www.compart.com/en/unicode/block/U+2000
+    (c >= '\u2000' && c <= '\u200F') ||
+      // weird stuff https://www.compart.com/en/unicode/block/U+2000
+      (c >= '\u2028' && c <= '\u202F') ||
+      // Hangul fillers
+      (c == '\u115f' || c == '\u1160')
+
+  object normalize {
+
+    private val ordinalRegex = "[º°ª]".r
+
+    // convert weird chars into letters when possible
+    // but preserve ordinals
+    def apply(str: String): String = Normalizer
+      .normalize(
+        ordinalRegex.replaceAllIn(
+          str,
+          _.group(0)(0) match {
+            case 'º' | '°' => "\u0001".toString
+            case 'ª'       => '\u0002'.toString
+          }
+        ),
+        Normalizer.Form.NFKC
+      )
+      .replace('\u0001', 'º')
+      .replace('\u0002', 'ª')
+  }
+
+  // https://www.compart.com/en/unicode/block/U+1F300
+  private val multibyteSymbolsRegex               = "\\p{So}+".r
+  def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
+
+  // for publicly listed text like team names, study names, forum topics...
+  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str.trim), isGarbageChar))
+
+  // for inner text like study move annotations, possibly forum posts and team descriptions
+  def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
 
   def decodeUriPath(input: String): Option[String] = {
     try {
@@ -52,14 +134,6 @@ object String {
 
   def hasLinks = RawHtml.hasLinks _
 
-  def hasZeroWidthChars(s: String) =
-    s.contains('\u200b') ||
-      s.contains('\u200c') ||
-      s.contains('\u200d') ||
-      s.contains('\u200e') ||
-      s.contains('\u200f') ||
-      s.contains('\u202e') // https://www.fileformat.info/info/unicode/char/202e/index.htm
-
   object base64 {
     import java.util.Base64
     import java.nio.charset.StandardCharsets
@@ -73,13 +147,14 @@ object String {
       }
   }
 
-  val atUsernameRegex = RawHtml.atUsernameRegex
+  val atUsernameRegex    = RawHtml.atUsernameRegex
+  val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
 
   object html {
 
-    def richText(rawText: String, nl2br: Boolean = true): Frag =
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true): Frag =
       raw {
-        val withLinks = RawHtml.addLinks(rawText)
+        val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks) else withLinks
       }
 
@@ -125,7 +200,7 @@ object String {
   }
 
   private val prizeRegex =
-    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b)""".r.unanchored
+    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|(\b|\d)usd|dollar|paypal|cash|award|\bfees?\b|\beuros?\b|price|(\b|\d)btc|bitcoin)""".r.unanchored
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 }

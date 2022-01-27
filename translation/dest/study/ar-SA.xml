@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">تاريخ الإضافة (الأقدم)</string>
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
+  <string name="alphabetical">أبجدي</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s فصل</item>
@@ -33,6 +34,14 @@
     <item quantity="other">%s مباراة</item>
   </plurals>
   <string name="addMembers">إضافة أعضاء</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s عضو</item>
+    <item quantity="one">%s عضو</item>
+    <item quantity="two">%s عضو</item>
+    <item quantity="few">%s عضو</item>
+    <item quantity="many">%s عضو</item>
+    <item quantity="other">%s أعضاء</item>
+  </plurals>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
   <string name="searchByUsername">البحث بواسطة اسم المستخدم</string>
@@ -44,6 +53,7 @@
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
   <string name="pgnTags">وسم PGN</string>
   <string name="like">إعجاب</string>
+  <string name="unlike">إلغاء الإعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
   <string name="commentThisMove">التعليق على هذه النقلة</string>
@@ -66,15 +76,13 @@
   <string name="chapterPgn">PGN الفصل</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">رابط البث</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
-  <string name="currentGameUrl">رابط اللعبة الحالية</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">يمكنك لصق هذا في المنتدى لتضمينه</string>
+  <string name="youCanPasteThisInTheForumToEmbed">يمكنك لصق هذا في المنتدى لتضمينه</string>
   <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
   <string name="embedInYourWebsite">ضمنه في موقع أو مدونة</string>
   <string name="readMoreAboutEmbedding">راجع المزيد عن التضمين</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">يمكن تضمين الدراسات العامة فقط!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">يمكن تضمين الدراسات العامة فقط!</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>
@@ -102,6 +110,14 @@
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
   <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="zero">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="one">الصق نص الPGN هنا، حتى %s لعبة واحدة</item>
+    <item quantity="two">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="few">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="many">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="other">الصق الPGN هنا، حتى %s العاب</item>
+  </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
   <string name="createChapter">أنشئ الفصل</string>
@@ -127,6 +143,41 @@
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
-  <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
+  <string name="goodMove">نقلة جيدة</string>
+  <string name="mistake">خطأ</string>
+  <string name="brilliantMove">نقلة رائعة</string>
+  <string name="blunder">غلطة</string>
+  <string name="interestingMove">نقلة مثيرة للاهتمام</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">نقلة مشبوهة</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">نقلة وحيدة</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">وضع متساوي</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">وضعية غير واضح</string>
+  <string name="whiteIsSlightlyBetter">الأبيض أفضل بقليل</string>
+  <string name="blackIsSlightlyBetter">الأسود أفضل بقليل</string>
+  <string name="whiteIsBetter">الأبيض أفضل</string>
+  <string name="blackIsBetter">الأسود أفضل</string>
+  <string name="whiteIsWinning">الأبيض يفوز</string>
+  <string name="blackIsWinning">الأسود يفوز</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">جديد</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">تطوير</string>
+  <string name="initiative">مبادرة</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">هجوم</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">هجوم مضاد</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">مشكلة وقت</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">مع تعويض</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">مع فكرة</string>
+  <string name="nextChapter">الفصل التالي</string>
+  <string name="prevChapter">الفصل السابق</string>
+  <string name="studyActions">خيارات الدراسة</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">المواضيع</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">المواضيع الخاصة بي</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">المواضيع الشائعة</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">إدارة المواضيع</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">رجوع</string>
+  <string name="playAgain">اللعب مجددا</string>
+  <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
+  <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
 </resources>

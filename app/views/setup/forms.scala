@@ -13,15 +13,16 @@ object forms {
 
   import bits._
 
-  def hook(form: Form[_])(implicit ctx: Context) =
+  def hook(form: Form[_], forceTimeMode: Boolean = false)(implicit ctx: Context) =
     layout(
       "hook",
       trans.createAGame(),
-      routes.Setup.hook("sri-placeholder")
+      routes.Setup.hook("sri-placeholder"),
+      forceTimeMode = forceTimeMode
     ) {
       frag(
         renderVariant(form, translatedVariantChoicesWithVariants),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = false),
         ctx.isAuth option frag(
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
@@ -54,31 +55,38 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
+  def ai(
+      form: Form[_],
+      ratings: Map[Int, Int],
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+  )(implicit
       ctx: Context
   ) =
-    layout("ai", trans.playWithTheMachine(), routes.Setup.ai()) {
+    layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
-        fenInput(form("fen"), strict = true, validFen),
-        renderTimeMode(form),
+        fenInput(form("fen"), strict = true, validFen, editorUrl),
+        renderTimeMode(form, allowAnon = true),
         if (ctx.blind)
           frag(
-            renderLabel(form("level"), trans.level()),
+            renderLabel(form("level"), trans.strength()),
             renderSelect(form("level"), lila.setup.AiConfig.levelChoices),
             blindSideChoice(form)
           )
         else
           frag(
             br,
-            trans.level(),
+            trans.strength(),
             div(cls := "level buttons")(
               div(id := "config_level")(
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
               div(cls := "ai_info")(
                 ratings.toList.map { case (level, _) =>
-                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                  div(cls := s"${prefix}level_$level")(
+                    trans.aiNameLevelAiLevel("Fairy-Stockfish 14", level)
+                  )
                 }
               )
             )
@@ -90,11 +98,12 @@ object forms {
       form: Form[_],
       user: Option[User],
       error: Option[String],
-      validFen: Option[lila.setup.ValidFen]
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
   )(implicit ctx: Context) =
     layout(
       "friend",
-      (if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
+      (if (user.isDefined) trans.challenge.challengeToPlay else trans.playWithAFriend)(),
       routes.Setup.friend(user map (_.id)),
       error.map(e => raw(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
     )(
@@ -103,8 +112,8 @@ object forms {
           userLink(u, cssClass = "target".some)
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
-        fenInput(form("fen"), strict = false, validFen),
-        renderTimeMode(form),
+        fenInput(form("fen"), strict = false, validFen, editorUrl),
+        renderTimeMode(form, allowAnon = true),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)
         ),
@@ -122,7 +131,8 @@ object forms {
       typ: String,
       titleF: Frag,
       route: Call,
-      error: Option[Frag] = None
+      error: Option[Frag] = None,
+      forceTimeMode: Boolean = false
   )(fields: Frag)(implicit ctx: Context) =
     div(cls := error.isDefined option "error")(
       h2(titleF),
@@ -131,7 +141,7 @@ object forms {
           frag(
             p(cls := "error")(e),
             br,
-            a(href := routes.Lobby.home(), cls := "button text", dataIcon := "L")(trans.cancel.txt())
+            a(href := routes.Lobby.home, cls := "button text", dataIcon := "")(trans.cancel.txt())
           )
         }
         .getOrElse {
@@ -140,7 +150,8 @@ object forms {
             novalidate,
             dataRandomColorVariants,
             dataType := typ,
-            dataAnon := ctx.isAnon.option("1")
+            dataAnon := ctx.isAnon.option("1"),
+            dataForceTimeMode := forceTimeMode.option("1")
           )(
             fields,
             if (ctx.blind) submitButton("Create the game")
@@ -162,14 +173,24 @@ object forms {
         div(cls := "ratings")(
           form3.hidden("rating", "?"),
           lila.rating.PerfType.nonPuzzle.map { perfType =>
-            div(cls := perfType.key)(
-              trans.perfRatingX(
-                raw(s"""<strong data-icon="${perfType.iconChar}">${me
-                  .perfs(perfType.key)
-                  .map(_.intRating)
-                  .getOrElse("?")}</strong> ${perfType.trans}""")
+            {
+              val rating = me
+                .perfs(perfType.key)
+                .map(_.intRating.toString)
+                .getOrElse("?")
+              div(cls := perfType.key)(
+                if (ctx.pref.showRatings)
+                  trans.perfRatingX(
+                    raw(s"""<strong data-icon="${perfType.iconChar}">${rating}</strong> ${perfType.trans}""")
+                  )
+                else
+                  frag(
+                    i(dataIcon := perfType.iconChar),
+                    strong(cls := "none")(rating), // To calculate rating range in JS
+                    perfType.trans
+                  )
               )
-            )
+            }
           }
         )
       }

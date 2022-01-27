@@ -20,7 +20,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         .OpenGraph(
           title = "Practice your chess",
           description = "Learn how to master the most common chess positions",
-          url = s"$netBaseUrl${routes.Practice.index()}"
+          url = s"$netBaseUrl${routes.Practice.index}"
         )
         .some
     ) {
@@ -33,17 +33,17 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
             div(cls := "text")("Progress: ", data.progressPercent, "%"),
             div(cls := "bar", style := s"width: ${data.progressPercent}%")
           ),
-          postForm(action := routes.Practice.reset())(
+          postForm(action := routes.Practice.reset)(
             if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
-            else a(href := routes.Auth.signup())("Sign up to save your progress")
+            else a(href := routes.Auth.signup)("Sign up to save your progress")
           )
         ),
         div(cls := "page-menu__content practice-app")(
-          data.structure.sections.map { section =>
+          data.structure.sections.filter(s => !s.hide || isGranted(_.PracticeConfig)) map { section =>
             st.section(
               h2(section.name),
               div(cls := "studies")(
-                section.studies.map { stud =>
+                section.studies.filter(s => !s.hide || isGranted(_.PracticeConfig)).map { stud =>
                   val prog = data.progressOn(stud.id)
                   a(
                     cls := s"study ${if (prog.complete) "done" else "ongoing"}",

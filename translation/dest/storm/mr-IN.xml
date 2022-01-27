@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">सुरू करण्यासाठी सोंगटी हलवा</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये पांढरे रंगाने खेळणार आहेत</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये काळ्या रंगाने खेळणार आहेत</string>
+  <string name="puzzlesSolved">सोड्वलेली कोडी</string>
+  <string name="newDailyHighscore">नवीन दैनिक उच्चांक!</string>
+  <string name="newWeeklyHighscore">नवीन साप्ताहिक उच्चांक!</string>
+  <string name="newMonthlyHighscore">नवीन मासिक उच्चांक!</string>
+  <string name="playAgain">परत खेळा</string>
+  <plurals name="xRuns">
+    <item quantity="one">१ प्रयत्न</item>
+    <item quantity="other">%s प्रयत्न</item>
+  </plurals>
+  <string name="score">गुण</string>
+  <string name="moves">चाली</string>
+  <string name="accuracy">अचूकता</string>
+  <string name="time">वेळ</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">या आठवड्यात</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">या महिन्यात</string>
+</resources>

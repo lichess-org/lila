@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s سويه %2$s</string>
   <string name="level">سويه</string>
   <string name="toggleTheChat">دبنډار څرنګتیاونج تڼۍ</string>
-  <string name="toggleSound">غږ څرنګتیاونج تڼۍ</string>
   <string name="chat">بنډار</string>
   <string name="resign">پرښودنه</string>
   <string name="checkmate">ټولمات</string>
@@ -31,7 +30,6 @@
   <string name="whitePlays">سپین لوبه کوی</string>
   <string name="blackPlays">تور لوبه کوی</string>
   <string name="opponentLeftChoices">-سيال کېدې شي چی لوبه پرېښودلی وي -اقتدار لری چی لوبه ترلاسه كړی, يا مساوي كړی, او يا صبر وکړی</string>
-  <string name="makeYourOpponentResign">په زوره لوبه وګټی</string>
   <string name="forceResignation">لوبه ترلاسه كړی</string>
   <string name="forceDraw">مساوي كړی</string>
   <string name="talkInChat">!لطفاٌ ښه وينه وکړی</string>
@@ -40,15 +38,9 @@
   <string name="blackResigned">تور غاړه کېښود</string>
   <string name="whiteLeftTheGame">سپین لوبه پرېښود</string>
   <string name="blackLeftTheGame">تور لوبه پرېښود</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Vertaal  Share this URL to let spectators see the game د دې یو شریک ته اجازه نندارچیانو د لوبې وګورئ</string>
-  <string name="theComputerAnalysisHasFailed">د کمپيوټر په تحلیل کې پاتې راغلی</string>
-  <string name="viewTheComputerAnalysis">د کمپيوټر تحليل ښکاره کړی</string>
   <string name="requestAComputerAnalysis">د کمپيوټر تحليل غوښتنه</string>
   <string name="computerAnalysis">کمپيوټر تحليل</string>
   <string name="analysis">تحلیل بورډ</string>
-  <string name="blunders">خطاوو</string>
-  <string name="mistakes">غلطي</string>
-  <string name="inaccuracies">ناسمه برخه</string>
   <string name="offerDraw">انډولست</string>
   <string name="draw">انډول</string>
   <plurals name="nbPlayers">
@@ -72,7 +64,6 @@
   <string name="gamesPlayed">ترسره شوي لوبې</string>
   <string name="cancel">ړنګول</string>
   <string name="drawOfferSent">انډولست ولېږدېد</string>
-  <string name="drawOfferDeclined">انډولست وغورځید</string>
   <string name="drawOfferAccepted">انډولست ومنل شو</string>
   <string name="drawOfferCanceled">انډولست وړنګېد</string>
   <string name="yourOpponentOffersADraw">سیال مو انډولست کوي</string>
@@ -91,7 +82,6 @@
   <string name="composeMessage">پیام ولیکئ</string>
   <string name="incrementInSeconds">شېبې زیاتول</string>
   <string name="freeOnlineChess">وړیا پرلیکه شطرنج</string>
-  <string name="spectators">لیدونکی:</string>
   <plurals name="nbWins">
     <item quantity="one">%s  ګټلي</item>
     <item quantity="other">%s  ګټلي</item>

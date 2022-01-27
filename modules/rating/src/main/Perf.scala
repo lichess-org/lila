@@ -2,7 +2,7 @@ package lila.rating
 
 import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON
 
@@ -21,13 +21,15 @@ case class Perf(
       recent.lastOption map (head -)
     }
 
-  def add(g: Glicko, date: DateTime): Perf =
+  def add(g: Glicko, date: DateTime): Perf = {
+    val capped = g.cap
     copy(
-      glicko = g.cap,
+      glicko = capped,
       nb = nb + 1,
-      recent = updateRecentWith(g),
+      recent = updateRecentWith(capped),
       latest = date.some
     )
+  }
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
     val newGlicko = Glicko(
@@ -58,6 +60,8 @@ case class Perf(
   private def updateRecentWith(glicko: Glicko) =
     if (nb < 10) recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
+
+  def clearRecent = copy(recent = Nil)
 
   def toRating =
     new Rating(
@@ -91,8 +95,30 @@ case object Perf {
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
   val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, DateTime.now.some)
   val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, DateTime.now.some)
+  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, DateTime.now.some)
 
   val recentMaxSize = 12
+
+  case class Storm(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+  object Storm {
+    val default = Storm(0, 0)
+  }
+
+  case class Racer(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+  object Racer {
+    val default = Racer(0, 0)
+  }
+
+  case class Streak(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+  object Streak {
+    val default = Streak(0, 0)
+  }
 
   implicit val perfBSONHandler = new BSON[Perf] {
 
@@ -116,4 +142,8 @@ case object Perf {
         "la" -> o.latest.map(w.date)
       )
   }
+
+  implicit val stormBSONHandler  = Macros.handler[Storm]
+  implicit val racerBSONHandler  = Macros.handler[Racer]
+  implicit val streakBSONHandler = Macros.handler[Streak]
 }

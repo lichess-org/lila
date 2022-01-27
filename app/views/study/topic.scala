@@ -15,7 +15,7 @@ object topic {
 
   def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[_]])(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Study topics",
+      title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
       moreJs = jsModule("study.topic.form"),
       wrapClass = "full-screen-force"
@@ -23,22 +23,17 @@ object topic {
       main(cls := "page-menu")(
         views.html.study.list.menu("topic", Order.Mine, mine.??(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
-          h1("Study topics"),
+          h1(trans.study.topics()),
           myForm.map { form =>
-            postForm(cls := "form3", action := routes.Study.topics())(
-              form3.group(form("topics"), frag("Topics to organize your studies with"))(
-                form3.textarea(_)(rows := 10)
-              ),
-              form3.submit(trans.save())
-            )
-          },
-          mine.filter(_.value.nonEmpty) map { topics =>
             frag(
-              h2("My topics"),
-              topicsList(topics, Order.Mine)
+              h2(trans.study.myTopics()),
+              postForm(cls := "form3", action := routes.Study.topics)(
+                form3.textarea(form("topics"))(rows := 10),
+                form3.submit(trans.save())
+              )
             )
           },
-          h2("Popular topics"),
+          h2(trans.study.popularTopics()),
           topicsList(popular)
         )
       )

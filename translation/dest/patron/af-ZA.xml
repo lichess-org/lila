@@ -17,13 +17,11 @@
   <string name="lifetime">Lewenslange</string>
   <string name="payLifetimeOnce">Betaal %s een keer. Word \'n Lichess Beskermheer vir ewig!</string>
   <string name="lifetimePatron">Lewenslange Lichess Beskermheer</string>
-  <string name="makeExtraDonation">Maak \'n ekstra donasie?</string>
   <string name="monthly">Maandelikse</string>
   <string name="recurringBilling">Herhalende paaiemente, hernu jou Beskermheer vlerke elke maand.</string>
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">\'n Enkele donasie wat jou die Beskermheer vlerke fir \'n maand gee.</string>
   <string name="otherAmount">Ander</string>
-  <string name="pleaseEnterAmount">Tik asseblief die bedrag in USD in</string>
   <string name="withCreditCard">Kredietkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
@@ -40,7 +38,6 @@ Of jy kan %s.</string>
   <string name="contactSupport">Lichess ondersteuning kontak</string>
   <string name="otherMethods">Ander donasie metodes?</string>
   <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
-  <string name="bitcoin">En hier is ons bitcoin adres: %s</string>
   <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
   <string name="noPatronFeatures">Nee, want Lichess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
 Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
@@ -62,8 +59,6 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
   <string name="noLongerSupport">Ondersteun nie meer Lichess nie</string>
-  <string name="paymentHistory">Betaling geskiedenis</string>
-  <string name="paid">Betaal</string>
   <string name="viewOthers">Sien ander Lichess Beskermhere</string>
   <string name="date">Datum</string>
   <string name="amount">Bedrag</string>

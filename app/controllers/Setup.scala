@@ -17,6 +17,7 @@ import views._
 
 final class Setup(
     env: Env,
+    editorC: => Editor,
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
@@ -29,7 +30,16 @@ final class Setup(
     5,
     1.minute,
     key = "setup.post",
+    enforce = env.net.rateLimit.value,
+    log = false
+  )
+
+  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+    key = "setup.hook.anon",
     enforce = env.net.rateLimit.value
+  )(
+    ("fast", 8, 1.minute),
+    ("slow", 300, 1.day)
   )
 
   def aiForm =
@@ -39,10 +49,11 @@ final class Setup(
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict"))
+            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict")),
+            editorC.editorUrl
           )
         }
-      } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
+      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
   def ai =
@@ -56,24 +67,24 @@ final class Setup(
         fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
           val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
           userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
+            case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
             case Some(user) =>
               env.challenge.granter(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen))
+                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
           }
         }
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home()}#friend")
+          Redirect(s"${routes.Lobby.home}#friend")
         }
     }
 
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      PostRateLimit(HTTPRequest ipAddress ctx.req) {
+      PostRateLimit(ctx.ip) {
         forms
           .friend(ctx)
           .bindFromRequest()
@@ -94,11 +105,7 @@ final class Setup(
                     )
                   case None =>
                     import lila.challenge.Challenge._
-                    val timeControl = config.makeClock map {
-                      TimeControl.Clock.apply
-                    } orElse config.makeDaysPerTurn.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited
+                    val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
                       initialFen = config.fen,
@@ -121,7 +128,7 @@ final class Setup(
                         )
                       case false =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home())),
+                          html = fuccess(Redirect(routes.Lobby.home)),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
@@ -135,11 +142,14 @@ final class Setup(
     Open { implicit ctx =>
       NoBot {
         if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          fuccess(forms.hookFilled(timeModeString = get("time"))) map { html.setup.forms.hook(_) }
+          val timeMode = get("time")
+          fuccess(forms.hookFilled(timeModeString = timeMode)) map {
+            html.setup.forms.hook(_, timeMode.isDefined)
+          }
         }
         else
           fuccess {
-            Redirect(s"${routes.Lobby.home()}#hook")
+            Redirect(s"${routes.Lobby.home}#hook")
           }
       }
     }
@@ -147,12 +157,12 @@ final class Setup(
   private def hookResponse(res: HookResult) =
     res match {
       case HookResult.Created(id) =>
-        Ok(
+        JsonOk(
           Json.obj(
             "ok"   -> true,
             "hook" -> Json.obj("id" -> id)
           )
-        ) as JSON
+        )
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
 
@@ -160,38 +170,42 @@ final class Setup(
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
-        PostRateLimit(HTTPRequest ipAddress ctx.req) {
-          NoPlaybanOrCurrent {
-            forms
-              .hook(ctx)
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                userConfig =>
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                    processor.hook(
-                      userConfig withinLimits ctx.me,
-                      Sri(sri),
-                      HTTPRequest sid req,
-                      blocking
-                    ) map hookResponse
-                  }
-              )
-          }
-        }(rateLimitedFu)
+        NoPlaybanOrCurrent {
+          forms
+            .hook(ctx)
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              userConfig =>
+                PostRateLimit(ctx.ip) {
+                  AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
+                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                      processor.hook(
+                        userConfig withinLimits ctx.me,
+                        Sri(sri),
+                        HTTPRequest sid req,
+                        blocking
+                      ) map hookResponse
+                    }
+                  }(rateLimitedFu)
+                }(rateLimitedFu)
+            )
+        }
       }
     }
 
   def like(sri: String, gameId: String) =
     Open { implicit ctx =>
       NoBot {
-        PostRateLimit(HTTPRequest ipAddress ctx.req) {
+        PostRateLimit(ctx.ip) {
           NoPlaybanOrCurrent {
             env.game.gameRepo game gameId flatMap {
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
+                    "rr"
+                  ) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
@@ -229,7 +243,13 @@ final class Setup(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                       )(apiC.sourceToNdJsonOption).fuccess
                     }(rateLimitedFu)
-                  case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
+                  case Right(Some(seek)) =>
+                    env.setup.processor.createSeekIfAllowed(seek, me.id) map {
+                      case HookResult.Refused =>
+                        BadRequest(Json.obj("error" -> "Already playing too many games"))
+                      case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                    }
+                  case Right(None) => notFoundJson()
                 }
               }
           )
@@ -266,7 +286,7 @@ final class Setup(
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
-      PostRateLimit(HTTPRequest ipAddress ctx.req) {
+      PostRateLimit(ctx.ip) {
         implicit val req = ctx.body
         form(ctx)
           .bindFromRequest()

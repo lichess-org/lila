@@ -1,9 +1,6 @@
 .puzzle__tools {
   @extend %box-neat-force, %flex-column;
 
-  max-height: 90vh;
-
-  /* hack to mitigate safari 10 disaster */
   background: $c-bg-box;
 
   .ceval-wrap {
@@ -18,8 +15,7 @@
 .puzzle__moves {
   flex: 2 1 auto;
   overflow: auto;
-  border: $border;
-  border-width: 1px 0;
+  border-bottom: $border;
   position: relative;
 
   /* required by line::before */
@@ -33,10 +29,6 @@
   }
 
   move {
-    glyph {
-      vertical-align: middle;
-    }
-
     &.fail glyph {
       color: $c-bad;
     }
@@ -59,7 +51,7 @@
 
   @include breakpoint($mq-col2) {
     @include breakpoint($mq-tall) {
-      flex: 1 0 13rem;
+      flex: 1 0 17rem;
     }
   }
 
@@ -128,6 +120,7 @@
   .view_solution.show {
     visibility: visible;
     opacity: 0.8;
+
     @include transition(opacity, 1.5s);
   }
 }
@@ -135,8 +128,12 @@
 .puzzle__controls {
   @extend %flex-center;
 
-  height: $puzzle-history-height;
+  height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
+
+  @include breakpoint($mq-col1) {
+    height: $col1-uniboard-controls;
+  }
 
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
   .jumps {

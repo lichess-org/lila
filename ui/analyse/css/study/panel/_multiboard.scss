@@ -14,21 +14,21 @@
   .top {
     @extend %flex-between;
 
-    padding: .4em 1.5em;
+    padding: 0.4em 1.5em;
   }
 
   .pager {
     @extend %flex-center;
 
     .page {
-      margin: 0 .4em;
+      margin: 0 0.4em;
     }
   }
 
   .fbt {
     @extend %box-radius;
 
-    padding: .6em 1em;
+    padding: 0.6em 1em;
   }
 
   .playing {
@@ -48,7 +48,7 @@
       @extend %box-radius;
 
       color: $c-font;
-      padding: .4em;
+      padding: 0.4em;
 
       @include transition(background);
 
@@ -82,7 +82,7 @@
       white-space: nowrap;
 
       span {
-        margin-left: .5em;
+        margin-left: 0.5em;
       }
     }
 

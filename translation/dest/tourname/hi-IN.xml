@@ -40,10 +40,8 @@
   <string name="classicalShield">क्लासिकल शील्ड</string>
   <string name="xShieldArena">%s शील्ड एरिना</string>
   <string name="xShield">%s शील्ड</string>
-  <string name="openingRapidArena">%s रैपिड एरिना</string>
-  <string name="openingRapid">%s रैपिड</string>
   <string name="xTeamBattle">%s टीम युद्ध</string>
   <string name="eliteXArena">एलीट %s अरीना</string>
   <string name="eliteX">एलीट %s</string>
-  <string name="xArena">%s एरिना</string>
+  <string name="xArena">%s अखाड़ा</string>
 </resources>

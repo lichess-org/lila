@@ -11,9 +11,14 @@ case class TeamBattle(
 ) {
   def hasEnoughTeams     = teams.sizeIs > 1
   lazy val sortedTeamIds = teams.toList.sorted
+
+  def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
 }
 
 object TeamBattle {
+
+  val maxTeams     = 200
+  val displayTeams = 10
 
   def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
@@ -58,8 +63,8 @@ object TeamBattle {
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
       .verifying(
-        "In this version of team battles, no more than 10 teams can be allowed.",
-        s => s.potentialTeamIds.sizeIs <= 10
+        s"In this version of team battles, no more than $maxTeams teams can be allowed.",
+        s => s.potentialTeamIds.sizeIs <= maxTeams
       )
 
     def edit(teams: List[String], nbLeaders: Int) =
@@ -72,8 +77,14 @@ object TeamBattle {
         teams: String,
         nbLeaders: Int
     ) {
-      def potentialTeamIds: Set[TeamID] =
-        teams.linesIterator.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
+      // guess if newline or comma separated
+      def potentialTeamIds: Set[TeamID] = {
+        val lines = teams.linesIterator.toList
+        val dirtyIds =
+          if (lines.sizeIs > 1) lines.map(_.takeWhile(' ' !=))
+          else lines.headOption.??(_.split(',').toList)
+        dirtyIds.map(_.trim).filter(_.nonEmpty).toSet
+      }
     }
   }
 }

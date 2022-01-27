@@ -123,13 +123,6 @@ object Monitor {
     monResult.failure(client.userId.value).increment()
   }
 
-  private[fishnet] def weak(work: Work, client: Client, data: JsonApi.Request.CompleteAnalysis) = {
-    logger.warn(
-      s"Received weak analysis ${work.id} (nodes: ${~data.medianNodes}) for ${work.game.id} by ${client.fullId}"
-    )
-    monResult.weak(client.userId.value).increment()
-  }
-
   private[fishnet] def timeout(userId: Client.UserId) =
     monResult.timeout(userId.value).increment()
 

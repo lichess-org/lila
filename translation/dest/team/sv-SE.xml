@@ -12,14 +12,12 @@
   <string name="noTeamFound">Inget lag hittat</string>
   <string name="joinTeam">Gå med i lag</string>
   <string name="quitTeam">Lämna lag</string>
-  <string name="anyoneCanJoin">Vem som helst kan gå med</string>
-  <string name="aConfirmationIsRequiredToJoin">Bekräftelse nödvändig för att gå med</string>
-  <string name="joiningPolicy">Deltagningspolicy</string>
+  <string name="manuallyReviewAdmissionRequests">Granska antagningsförfrågningar manuellt</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Om markerad behöver spelare skriva en förfrågning för att gå med i laget, som du kan avslå eller godkänna.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagledare</item>
     <item quantity="other">Lagledare</item>
   </plurals>
-  <string name="teamBestPlayers">Topplista</string>
   <string name="teamRecentMembers">Nya medlemmar</string>
   <string name="kickSomeone">Uteslut någon ur laget</string>
   <string name="whoToKick">Vem vill du utesluta ur laget?</string>
@@ -29,10 +27,12 @@
   </plurals>
   <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
   <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
+  <string name="subToTeamMessages">Prenumerera på lagmeddelanden</string>
   <string name="teamBattle">Lagmatch</string>
   <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
   <string name="teamTournament">Turnering inom laget</string>
   <string name="teamTournamentOverview">En arena-turnering som endast medlemmar i ditt lag kan delta i</string>
+  <string name="swissTournamentOverview">En schweizerturnering som endast medlemmar i ditt lag kan gå med</string>
   <string name="messageAllMembers">Meddela alla medlemmar</string>
   <string name="messageAllMembersOverview">Skicka ett privat meddelande till varje medlem i laget</string>
   <string name="messageAllMembersLongDescription">Skicka ett privat meddelande till ALLA medlemmar i laget.
@@ -42,4 +42,9 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="youWayWantToLinkOneOfTheseTournaments">Du kanske vill länka en av dessa kommande turneringar?</string>
   <string name="usersWhoCanManageThisTeam">Användare som kan managera detta lag</string>
   <string name="leadersChat">Lagledarchatt</string>
+  <string name="closeTeam">Avsluta lag</string>
+  <string name="closeTeamDescription">Stänger laget för evigt.</string>
+  <string name="teamAlreadyExists">Det här lagnamnet finns redan.</string>
+  <string name="upcomingTourns">Kommande turneringar</string>
+  <string name="completedTourns">Avslutade turneringar</string>
 </resources>

@@ -7,7 +7,6 @@ case class Categ(
     _id: String, // slug
     name: String,
     desc: String,
-    pos: Int,
     team: Option[TeamID] = None,
     nbTopics: Int,
     nbPosts: Int,
@@ -29,10 +28,11 @@ case class Categ(
 
   def withPost(topic: Topic, post: Post): Categ =
     copy(
-      nbTopics = if (post.troll) nbTopics else nbTopics + 1,
+      // the `Topic` object is created before adding the post, hence why nbPosts is compared to 0 and not to 1
+      nbTopics = if (post.troll || topic.nbPosts > 0) nbTopics else nbTopics + 1,
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
       lastPostId = if (post.troll || topic.isTooBig) lastPostId else post.id,
-      nbTopicsTroll = nbTopicsTroll + 1,
+      nbTopicsTroll = if (topic.nbPostsTroll == 0) nbTopicsTroll + 1 else nbTopicsTroll,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = if (topic.isTooBig) lastPostIdTroll else post.id
     )
@@ -42,11 +42,7 @@ case class Categ(
 
 object Categ {
 
-  private val TeamSlugPattern = """team-([\w-]++)""".r
+  def isTeamSlug(slug: String) = slug.startsWith("team-")
 
-  def slugToTeamId(slug: String) =
-    slug match {
-      case TeamSlugPattern(teamId) => teamId.some
-      case _                       => none
-    }
+  def slugToTeamId(slug: String) = isTeamSlug(slug) option slug.drop(5)
 }

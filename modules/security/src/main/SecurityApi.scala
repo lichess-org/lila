@@ -1,35 +1,37 @@
 package lila.security
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
+import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.oauth.{ AccessToken, OAuthServer }
+import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.user.User.LoginCandidate
 import lila.user.{ User, UserRepo }
-import User.LoginCandidate
 
 final class SecurityApi(
     userRepo: UserRepo,
     store: Store,
     firewall: Firewall,
+    cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    tryOauthServer: lila.oauth.OAuthServer.Try,
+    oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    mode: Mode
 ) {
 
   val AccessUri = "access_uri"
@@ -91,49 +93,50 @@ final class SecurityApi(
     userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
-        val sessionId = Random secureString 22
-        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"TOR login $userId")
+        val sessionId = SecureRandom nextString 22
+        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
       req: RequestHeader
   ): Funit = {
-    val sessionId = lila.common.ThreadLocalRandom nextString 22
+    val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
-  def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
+  def restoreUser(req: RequestHeader): Fu[Option[Either[AppealUser, FingerPrintedUser]]] =
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
-      store.authInfo(sessionId) flatMap {
-        _ ?? { d =>
-          userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.hasFp) } }
-        }
+      appeal.authenticate(sessionId) match {
+        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
+        case None =>
+          store.authInfo(sessionId) flatMap {
+            _ ?? { d =>
+              userRepo byId d.user dmap {
+                _ map { u => Right(FingerPrintedUser(stripRolesOfCookieUser(u), d.hasFp)) }
+              }
+            }
+          }
       }
     }
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope],
-      retries: Int = 2
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None if retries > 0 =>
-        lila.common.Future.delay(2 seconds) {
-          oauthScoped(req, scopes, retries - 1)
-        }
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(req, scopes)
-    }
-
-  def oauthScoped(
-      tokenId: AccessToken.Id,
       scopes: List[lila.oauth.OAuthScope]
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(tokenId, scopes)
-    }
+    oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
+
+  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
+    if (scoped.scopes has OAuthScope.Web.Mod) scoped
+    else scoped.copy(user = stripRolesOfUser(scoped.user))
+
+  private def stripRolesOfCookieUser(user: User) =
+    if (mode == Mode.Prod && user.totpSecret.isEmpty) stripRolesOfUser(user)
+    else user
+
+  private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
@@ -157,20 +160,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
-      val u1s: Set[String] = ipsAndFps
-        .filter(_.user == u1)
-        .flatMap { x =>
-          List(x.ip.value, ~x.fp)
-        }
-        .toSet
-      ipsAndFps.exists { x =>
-        x.user == u2 && {
-          u1s(x.ip.value) || x.fp.??(u1s.contains)
-        }
-      }
-    }
+  def shareAnIpOrFp = store.shareAnIpOrFp _
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
@@ -187,6 +177,28 @@ final class SecurityApi(
       ),
       ReadPreference.secondaryPreferred
     )
+
+  // special temporary auth for marked closed accounts so they can use appeal endpoints
+  object appeal {
+
+    private type SessionId = String
+
+    private val prefix = "appeal:"
+
+    private val store = cacheApi.notLoadingSync[SessionId, User.ID](256, "security.session.appeal")(
+      _.expireAfterAccess(2.days).build()
+    )
+
+    def authenticate(sessionId: SessionId): Option[User.ID] =
+      sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
+
+    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
+      val sessionId = s"$prefix${SecureRandom nextString 22}"
+      store.put(sessionId, userId)
+      logger.info(s"Appeal login by $userId")
+      fuccess(sessionId)
+    }
+  }
 }
 
 object SecurityApi {

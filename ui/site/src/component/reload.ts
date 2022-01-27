@@ -1,17 +1,22 @@
 let redirectInProgress: false | string = false;
 
-export const redirect = obj => {
-  let url;
-  if (typeof obj == "string") url = obj;
+interface Opts {
+  url: string;
+  cookie: Cookie;
+}
+
+export const redirect = (opts: string | Opts) => {
+  let url: string;
+  if (typeof opts == 'string') url = opts;
   else {
-    url = obj.url;
-    if (obj.cookie) {
+    url = opts.url;
+    if (opts.cookie) {
       const domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
       const cookie = [
-        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
-        '; max-age=' + obj.cookie.maxAge,
+        encodeURIComponent(opts.cookie.name) + '=' + opts.cookie.value,
+        '; max-age=' + opts.cookie.maxAge,
         '; path=/',
-        '; domain=' + domain
+        '; domain=' + domain,
       ].join('');
       document.cookie = cookie;
     }
@@ -22,13 +27,13 @@ export const redirect = obj => {
 };
 
 export const unload = {
-  expected: false
-}
+  expected: false,
+};
 
 export const reload = () => {
   if (redirectInProgress) return;
   unload.expected = true;
   lichess.socket.disconnect();
   if (location.hash) location.reload();
-  else location.href = location.href;
+  else location.assign(location.href);
 };

@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Visível para ambos professores e alunos</string>
   <string name="teachersOfTheClass">Professores da turma</string>
   <string name="addLichessUsernames">Adicione nomes de usuário do Lichess para convidá-los como professores. Um por linha.</string>
-  <string name="theyMustFirstApply">Primeiro, devem candidatar-se a professores Lichess.</string>
   <string name="resetPassword">Alterar senha</string>
   <string name="makeSureToCopy">Copie ou escreva a sua senha em algum lugar. Você não poderá vê-la novamente!</string>
   <string name="passwordX">Senha: %s</string>
@@ -47,17 +46,17 @@ Senha: %3$s</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terá que transmiti-la ao aluno, para que ele possa ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não deve ter várias contas.</string>
   <string name="createDesc4">Se já tiver um, utilize o formulário de convite.</string>
+  <string name="createStudentWarning">Somente crie contas para alunos de verdade. Não use isso para criar várias contas para si mesmo ou será banido.</string>
   <string name="lichessUsername">Nome de utilizador Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à sua turma: %s.
 Aqui está o link para acessar a turma.</string>
   <string name="invitationToClass">Você está convidado a participar da turma \"%s\" como um estudante.</string>
   <string name="clickToViewInvitation">Clique no link para ver o convite:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
-  <string name="noPendingInvitations">Nenhum convite pendente</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -68,6 +67,10 @@ Aqui está o link para acessar a turma.</string>
   <string name="releaseDesc1">Uma conta libertada não pode ser administrada novamente. O aluno será capaz de alternar o modo de criança e redefinir a palavra-passe para si mesmo.</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviaremos um e-mail de confirmação para ele, com um link para libertar a conta.</string>
+  <string name="closeStudent">Encerrar conta</string>
+  <string name="closeTheAccount">Encerrar a conta do aluno permanentemente.</string>
+  <string name="closeDesc1">O aluno nunca mais poderá usar esta conta novamente. O encerramento é definitivo. Tenha certeza de que o aluno entende e concorda.</string>
+  <string name="closeDesc2">Você também pode dar ao aluno controle sobre a conta. Assim, ele poderá continuar usando-a.</string>
   <string name="teachers">Professores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Professor</item>
@@ -93,5 +96,4 @@ Aqui está o link para acessar a turma.</string>
   <string name="newsEdit1">Todas as notícias sobre a aula num único campo.</string>
   <string name="newsEdit2">Adicione as notícias recentes no topo. Não exclua notícias anteriores.</string>
   <string name="newsEdit3">Separe as notícias com --- tal irá mostrar uma linha horizontal.</string>
-  <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
 </resources>

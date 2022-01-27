@@ -24,14 +24,15 @@ export function first(ctrl: AnalyseCtrl): void {
 }
 
 export function enterVariation(ctrl: AnalyseCtrl): void {
-  let child = ctrl.node.children[1];
+  const child = ctrl.node.children[1];
   if (child) ctrl.userJump(ctrl.path + child.id);
 }
 
 export function exitVariation(ctrl: AnalyseCtrl): void {
   if (ctrl.onMainline) return;
-  let found, path = treePath.root;
-  ctrl.nodeList.slice(1, -1).forEach(function(n: Tree.Node) {
+  let found,
+    path = treePath.root;
+  ctrl.nodeList.slice(1, -1).forEach(function (n: Tree.Node) {
     path += n.id;
     if (n.children[1]) found = path;
   });

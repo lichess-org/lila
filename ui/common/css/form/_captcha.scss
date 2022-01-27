@@ -7,7 +7,6 @@
     flex-wrap: nowrap;
   }
 
-
   &.is-invalid:not(.success) {
     @extend %box-radius;
 

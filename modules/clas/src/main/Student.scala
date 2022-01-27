@@ -4,6 +4,8 @@ import lila.user.User
 
 import org.joda.time.DateTime
 
+import lila.common.SecureRandom
+
 case class Student(
     _id: Student.Id, // userId:clasId
     userId: User.ID,
@@ -44,14 +46,20 @@ object Student {
 
   case class WithUser(student: Student, user: User)
 
+  case class WithUserAndManagingClas(withUser: WithUser, managingClas: Option[Clas]) {
+    def student = withUser.student
+    def user    = withUser.user
+  }
+
   case class WithPassword(student: Student, password: User.ClearPassword)
+
+  case class ManagedInfo(createdBy: User, clas: Clas)
 
   private[clas] object password {
 
-    private val random     = new java.security.SecureRandom()
     private val chars      = ('2' to '9') ++ (('a' to 'z').toSet - 'l') mkString
     private val nbChars    = chars.length
-    private def secureChar = chars(random nextInt nbChars)
+    private def secureChar = chars(SecureRandom nextInt nbChars)
 
     def generate =
       User.ClearPassword {

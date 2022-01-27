@@ -63,7 +63,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   def showEnglishDateTime(date: DateTime): String =
     englishDateTimeFormatter print date
 
-  def semanticDate(date: DateTime)(implicit lang: Lang): Frag =
+  def semanticDate(date: DateTime)(implicit lang: Lang): Tag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
   def showPeriod(period: Period)(implicit lang: Lang): String =
@@ -112,9 +112,4 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     else if (years == 0) s"${pluralize("month", months)} ago"
     else s"${pluralize("year", years)} ago"
   }
-
-  private val atomDateFormatter        = ISODateTimeFormat.dateTime
-  def atomDate(date: DateTime): String = atomDateFormatter print date
-  def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
-    doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
 }

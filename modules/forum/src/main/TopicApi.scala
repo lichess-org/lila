@@ -1,25 +1,29 @@
 package lila.forum
 
 import actorApi._
+import scala.concurrent.duration._
+
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.memo.CacheApi
 import lila.security.{ Granter => MasterGranter }
-import lila.user.User
+import lila.user.{ Holder, User }
 
 final private[forum] class TopicApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    maxPerPage: lila.common.config.MaxPerPage,
+    config: ForumConfig,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -40,9 +44,22 @@ final private[forum] class TopicApi(
       }
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
+        env.paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
+
+  object findDuplicate {
+    private val cache = cacheApi.notLoadingSync[(User.ID, String), Topic.ID](64, "forum.topic.duplicate") {
+      _.expireAfterWrite(1 hour).build()
+    }
+    def apply(topic: Topic): Fu[Option[Topic]] = {
+      val key = (~topic.userId, topic.name)
+      cache.getIfPresent(key) ?? env.topicRepo.coll.byId[Topic] orElse {
+        cache.put(key, topic.id)
+        fuccess(none)
+      }
+    }
+  }
 
   def makeTopic(
       categ: Categ,
@@ -61,7 +78,7 @@ final private[forum] class TopicApi(
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = me.id.some,
         troll = me.marks.troll,
         hidden = topic.hidden,
         text = spam.replace(data.post.text),
@@ -70,23 +87,28 @@ final private[forum] class TopicApi(
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
       )
-      env.postRepo.coll.insert.one(post) >>
-        env.topicRepo.coll.insert.one(topic withPost post) >>
-        env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-          !categ.quiet ?? (indexer ! InsertPost(post))
-          !categ.quiet ?? env.recent.invalidate()
-          promotion.save(me, post.text)
-          shutup ! {
-            val text = s"${topic.name} ${post.text}"
-            if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
-            else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
-          }
-          if (!post.troll && !categ.quiet)
-            timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).toFollowersOf(me.id)
-          lila.mon.forum.post.create.increment()
-          env.mentionNotifier.notifyMentionedUsers(post, topic)
-          Bus.publish(actorApi.CreatePost(post), "forumPost")
-        } inject topic
+      findDuplicate(topic) flatMap {
+        case Some(dup) => fuccess(dup)
+        case None =>
+          env.postRepo.coll.insert.one(post) >>
+            env.topicRepo.coll.insert.one(topic withPost post) >>
+            env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet ?? env.recent.invalidate()
+              promotion.save(me, post.text)
+              shutup ! {
+                val text = s"${topic.name} ${post.text}"
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
+              }
+              if (!post.troll && !categ.quiet)
+                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id))
+                  .toFollowersOf(me.id)
+              lila.mon.forum.post.create.increment()
+              env.mentionNotifier.notifyMentionedUsers(post, topic)
+              Bus.publish(actorApi.CreatePost(post), "forumPost")
+            } inject topic
+      }
     }
 
   def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
@@ -101,7 +123,7 @@ final private[forum] class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId,
+      userId = User.lichessId.some,
       troll = false,
       hidden = false,
       text = s"Comments on $url",
@@ -118,35 +140,11 @@ final private[forum] class TopicApi(
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
-  def paginator(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] = {
-    val adapter = new Adapter[Topic](
-      collection = env.topicRepo.coll,
-      selector = env.topicRepo.forUser(forUser) byCategNotStickyQuery categ,
-      projection = none,
-      sort = $sort.updatedDesc
-    ) mapFutureList { topics =>
-      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
-        posts =>
-          topics zip posts map { case (topic, post) =>
-            TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
-          }
-      }
-    }
-    val cachedAdapter =
-      if (categ.isTeam) adapter
-      else new CachedAdapter(adapter, nbResults = fuccess(1000))
-    Paginator(
-      adapter = cachedAdapter,
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
-  }
-
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
     env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
         env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-          TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+          TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
       }.sequenceFu
     }
@@ -159,24 +157,24 @@ final private[forum] class TopicApi(
         env.recent.invalidate()
     }
 
-  def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.close(topic.id, topic.open) >> {
-      MasterGranter(_.ModerateForum)(mod) ??
-        modLog.toggleCloseTopic(mod.id, categ.name, topic.name, topic.open)
+      MasterGranter.is(_.ModerateForum)(mod) ??
+        modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
     }
 
-  def toggleHide(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleHide(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.hide(topic.id, topic.visibleOnHome) >> {
-      MasterGranter(_.ModerateForum)(mod) ?? {
+      MasterGranter.is(_.ModerateForum)(mod) ?? {
         env.postRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
-          modLog.toggleHideTopic(mod.id, categ.name, topic.name, topic.visibleOnHome)
+          modLog.toggleHideTopic(mod.id, categ.id, topic.slug, topic.visibleOnHome)
       } >>- env.recent.invalidate()
     }
 
-  def toggleSticky(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleSticky(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter(_.ModerateForum)(mod) ??
-        modLog.toggleStickyTopic(mod.id, categ.name, topic.name, !topic.isSticky)
+      MasterGranter.is(_.ModerateForum)(mod) ??
+        modLog.toggleStickyTopic(mod.id, categ.id, topic.slug, !topic.isSticky)
     }
 
   def denormalize(topic: Topic): Funit =

@@ -10,17 +10,13 @@ import lila.clas.{ Clas, Student }
 
 object wall {
 
-  def show(
-      c: Clas,
-      html: Frag,
-      students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  def show(c: Clas, html: Frag, students: List[Student.WithUser])(implicit ctx: Context) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
-        a(dataIcon := "m", href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas text")(
+        a(dataIcon := "", href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas text")(
           trans.clas.editNews()
         ),
-        a(dataIcon := "e", href := routes.Clas.notifyStudents(c.id.value), cls := "button button-clas text")(
+        a(dataIcon := "", href := routes.Clas.notifyStudents(c.id.value), cls := "button button-clas text")(
           trans.clas.notifyAllStudents()
         )
       ),
@@ -30,11 +26,7 @@ object wall {
         div(cls := "box__pad clas-wall")(html)
     )
 
-  def edit(
-      c: Clas,
-      students: List[Student.WithUser],
-      form: Form[_]
-  )(implicit ctx: Context) =
+  def edit(c: Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -42,16 +34,7 @@ object wall {
           ul(
             li(trans.clas.newsEdit2()),
             li(trans.clas.newsEdit3()),
-            li(
-              trans.clas.markdownAvailable(
-                a(
-                  href := "https://guides.github.com/features/mastering-markdown/",
-                  targetBlank
-                )(
-                  "Markdown"
-                )
-              )
-            )
+            li(markdownAvailable)
           )
         ),
         postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(

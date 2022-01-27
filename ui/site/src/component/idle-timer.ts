@@ -1,10 +1,9 @@
 export default function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void) {
-
   const events = ['mousemove', 'touchstart'];
 
   let listening = false,
-  active = true,
-  lastSeenActive = performance.now();
+    active = true,
+    lastSeenActive = performance.now();
 
   const onActivity = () => {
     if (!active) {
@@ -38,4 +37,4 @@ export default function idleTimer(delay: number, onIdle: () => void, onWakeUp: (
     }
     startListening();
   }, 10000);
-};
+}

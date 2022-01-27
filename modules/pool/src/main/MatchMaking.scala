@@ -72,9 +72,9 @@ object MatchMaking {
     // malus (so negative number as bonus) if neither of those are true, meaning that their sit counters are far away (e.g. 0 and -5)
     private def ragesitBonus(a: PoolMember, b: PoolMember) =
       if (a.rageSitCounter >= -2 && b.rageSitCounter >= -2) 30        // good players
-      else if (a.rageSitCounter <= -10 && b.rageSitCounter <= -10) 80 // very bad players
+      else if (a.rageSitCounter <= -12 && b.rageSitCounter <= -12) 60 // very bad players
       else if (a.rageSitCounter <= -5 && b.rageSitCounter <= -5) 30   // bad players
-      else (abs(a.rageSitCounter - b.rageSitCounter) atMost 10) * -30 // match of good and bad player
+      else (abs(a.rageSitCounter - b.rageSitCounter) atMost 10) * -20 // match of good and bad player
 
     def apply(members: Vector[PoolMember]): Option[Vector[Couple]] = {
       WMMatching(members.toArray, pairScore).fold(

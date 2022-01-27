@@ -9,6 +9,9 @@ case class Profile(
     fideRating: Option[Int] = None,
     uscfRating: Option[Int] = None,
     ecfRating: Option[Int] = None,
+    rcfRating: Option[Int] = None,
+    cfcRating: Option[Int] = None,
+    dsbRating: Option[Int] = None,
     links: Option[String] = None
 ) {
 
@@ -36,7 +39,18 @@ case class Profile(
   def officialRating: Option[OfficialRating] =
     fideRating.map { OfficialRating("fide", _) } orElse
       uscfRating.map { OfficialRating("uscf", _) } orElse
-      ecfRating.map { OfficialRating("ecf", _) }
+      ecfRating.map { OfficialRating("ecf", _) } orElse
+      rcfRating.map { OfficialRating("rcf", _) } orElse
+      cfcRating.map { OfficialRating("cfc", _) } orElse
+      dsbRating.map { OfficialRating("dsb", _) }
+
+  def filterTroll(troll: Boolean) = copy(
+    bio = bio ifFalse troll,
+    firstName = firstName ifFalse troll,
+    lastName = lastName ifFalse troll,
+    location = location ifFalse troll,
+    links = links ifFalse troll
+  )
 
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }

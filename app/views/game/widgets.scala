@@ -12,6 +12,7 @@ object widgets {
 
   def apply(
       games: Seq[Game],
+      notes: Map[Game.ID, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -34,8 +35,7 @@ object widgets {
                       frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
-                    else g.variant.name.toUpperCase
+                    bits.variantLink(g.variant)
                   )
                 else
                   frag(
@@ -60,7 +60,7 @@ object widgets {
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := "U"),
+            div(cls := "swords", dataIcon := ""),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
@@ -71,7 +71,7 @@ object widgets {
                   gameEndStatus(g),
                   g.winner.map { winner =>
                     frag(
-                      ", ",
+                      " • ",
                       winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
                     )
                   }
@@ -95,6 +95,9 @@ object widgets {
               )
             )
           } else frag(br, br),
+          notes get g.id map { note =>
+            div(cls := "notes")(strong("Notes: "), note)
+          },
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
           g.pgnImport.flatMap(_.user).map { user =>
@@ -129,18 +132,22 @@ object widgets {
           userIdLink(playerUser.id.some, withOnline = false),
           br,
           player.berserk option berserkIconSpan,
-          playerUser.rating,
-          player.provisional option "?",
-          playerUser.ratingDiff map { d =>
-            frag(" ", showRatingDiff(d))
-          }
+          ctx.pref.showRatings option frag(
+            playerUser.rating,
+            player.provisional option "?",
+            playerUser.ratingDiff map { d =>
+              frag(" ", showRatingDiff(d))
+            }
+          )
         )
       } getOrElse {
         player.aiLevel map { level =>
           frag(
             span(aiName(level, withRating = false)),
-            br,
-            aiRating(level)
+            ctx.pref.showRatings option frag(
+              br,
+              aiRating(level)
+            )
           )
         } getOrElse {
           (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>

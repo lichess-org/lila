@@ -29,14 +29,14 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentLink(tour: Tournament)(implicit lang: Lang): Frag =
     a(
-      dataIcon := "g",
+      dataIcon := "",
       cls := (if (tour.isScheduled) "text is-gold" else "text"),
       href := routes.Tournament.show(tour.id).url
     )(tour.name())
 
   def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
     a(
-      dataIcon := "g",
+      dataIcon := "",
       cls := "text",
       href := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
@@ -48,7 +48,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
       "Lichess "    -> "",
-      "Marathon"    -> icon('\\'),
+      "Marathon"    -> icon(''),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
@@ -65,7 +65,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentIconChar(tour: Tournament): String =
     tour.schedule.map(_.freq) match {
-      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
+      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => ""
       case _                                                                 => tour.spotlight.flatMap(_.iconFont) | tour.perfType.iconChar.toString
     }
 }

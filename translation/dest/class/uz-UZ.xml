@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Sinf oʻquvchilari va oʻqituvchilariga ham koʻrinarli</string>
   <string name="teachersOfTheClass">Sinf oʻqituvchilari</string>
   <string name="addLichessUsernames">Oʻqituvchi sifatida qoʻshmoqchi boʻlgan Lichess foydalanuvchilar nomlarini qatorma qator kiriting.</string>
-  <string name="theyMustFirstApply">Ular avval taklifni qabul qilishlari kerak oʻqituvchi boʻlishlari uchun.</string>
   <string name="resetPassword">Parolni qayta tiklash</string>
   <string name="makeSureToCopy">Parolingizni nushalang yoki toʻgʻriligini tekshiring. Uni siz boshqa koʻrmaysiz!</string>
   <string name="passwordX">Parol: %s</string>
@@ -52,11 +51,10 @@ Paroli: %3$s</string>
   <string name="welcomeToClass">%s : sinfiga xush kelibsiz!</string>
   <string name="invitationToClass">Siz \"%s\" sinfiga oʻquvchi sifatida qoʻshilishga taklif qilindingiz.</string>
   <string name="clickToViewInvitation">Taklifni koʻrish uchun linkni bosing:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Bitta kutilayotgan taklif</item>
     <item quantity="other">%s kutilayotgan takliflar</item>
   </plurals>
-  <string name="noPendingInvitations">Kutilayotgan takliflar mavjud emas</string>
   <string name="onlyVisibleToTeachers">Faqat sinf oʻqituvchilariga koʻrinadi</string>
   <string name="lastActiveDate">Faol</string>
   <string name="managed">Oʻqituvchi tomonidan yaratilgan</string>
@@ -93,5 +91,4 @@ Paroli: %3$s</string>
   <string name="newsEdit2">Yangi habarlarni tepaga qoʻshing. Avvalgi yangiliklarni oʻchirmang.</string>
   <string name="newsEdit3">Yangiliklarni --- 
 bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
-  <string name="markdownAvailable">%s yanada kengroq sintaksisga ega.</string>
 </resources>

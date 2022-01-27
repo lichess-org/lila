@@ -1,4 +1,4 @@
-import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
+import { EditorState, Selected, Redraw, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
@@ -6,18 +6,20 @@ import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
+import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
-  cfg: EditorConfig;
-  options: EditorOptions;
+  cfg: Editor.Config;
+  options: Editor.Options;
   trans: Trans;
-  extraPositions: OpeningPosition[];
+  extraPositions: Editor.OpeningPosition[];
   chessground: CgApi | undefined;
   redraw: Redraw;
 
   selected: Prop<Selected>;
 
+  initialFen: string;
   pockets: Material | undefined;
   turn: Color;
   unmovedRooks: SquareSet | undefined;
@@ -28,7 +30,7 @@ export default class EditorCtrl {
   halfmoves: number;
   fullmoves: number;
 
-  constructor(cfg: EditorConfig, redraw: Redraw) {
+  constructor(cfg: Editor.Config, redraw: Redraw) {
     this.cfg = cfg;
     this.options = cfg.options || {};
 
@@ -36,17 +38,24 @@ export default class EditorCtrl {
 
     this.selected = prop('pointer');
 
-    this.extraPositions = [{
-      fen: INITIAL_FEN,
-      epd: INITIAL_EPD,
-      name: this.trans('startPosition')
-    }, {
-      fen: 'prompt',
-      name: this.trans('loadPosition')
-    }];
+    this.extraPositions = [
+      {
+        fen: INITIAL_FEN,
+        epd: INITIAL_EPD,
+        name: this.trans('startPosition'),
+      },
+      {
+        fen: 'prompt',
+        name: this.trans('loadPosition'),
+      },
+    ];
 
     if (cfg.positions) {
-      cfg.positions.forEach(p => p.epd = p.fen.split(' ').splice(0, 4).join(' '));
+      cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
+    }
+
+    if (cfg.endgamePositions) {
+      cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
     }
 
     window.Mousetrap.bind('f', () => {
@@ -55,21 +64,21 @@ export default class EditorCtrl {
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'chess';
+    const params = new URLSearchParams(location.search);
+    this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
+    this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
-    this.setFen(cfg.fen);
+    this.setFen(this.initialFen);
     this.redraw = redraw;
   }
 
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      const state = { rules: this.rules };
-      if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
-      else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
+      window.history.replaceState(null, '', this.makeEditorUrl(fen));
     }
-    this.options.onChange && this.options.onChange(fen);
+    this.options.onChange?.(fen);
     this.redraw();
   }
 
@@ -82,8 +91,11 @@ export default class EditorCtrl {
   }
 
   private getSetup(): Setup {
-    const boardFen = this.chessground ? this.chessground.getFen() : this.cfg.fen;
-    const board = parseFen(boardFen).unwrap(setup => setup.board, _ => Board.empty());
+    const boardFen = this.chessground?.getFen() || this.initialFen;
+    const board = parseFen(boardFen).unwrap(
+      setup => setup.board,
+      _ => Board.empty()
+    );
     return {
       board,
       pockets: this.pockets,
@@ -97,17 +109,23 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), {promoted: this.rules == 'crazyhouse'});
+    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
   }
 
   private getLegalFen(): string | undefined {
-    return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
-      return makeFen(pos.toSetup(), {promoted: pos.rules == 'crazyhouse'});
-    }, _ => undefined);
+    return setupPosition(this.rules, this.getSetup()).unwrap(
+      pos => {
+        return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
+      },
+      _ => undefined
+    );
   }
 
   private isPlayable(): boolean {
-    return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
+    return setupPosition(this.rules, this.getSetup()).unwrap(
+      pos => !pos.isEnd(),
+      _ => false
+    );
   }
 
   getState(): EditorState {
@@ -119,27 +137,18 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    switch (this.rules) {
-      case 'chess': return this.makeUrl('/analysis/', legalFen);
-      case '3check': return this.makeUrl('/analysis/threeCheck/', legalFen);
-      case 'kingofthehill': return this.makeUrl('/analysis/kingOfTheHill/', legalFen);
-      case 'racingkings': return this.makeUrl('/analysis/racingKings/', legalFen);
-      case 'antichess':
-      case 'atomic':
-      case 'horde':
-      case 'crazyhouse':
-        return this.makeUrl(`/analysis/${this.rules}/`, legalFen);
-    }
+    const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
+    return `/analysis/${variant}${urlFen(legalFen)}`;
   }
 
-  makeUrl(baseUrl: string, fen: string): string {
-    return baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  makeEditorUrl(fen: string): string {
+    if (fen === INITIAL_FEN && this.rules === 'chess') return this.cfg.baseUrl;
+    const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
+    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}`;
   }
 
   bottomColor(): Color {
-    return this.chessground ?
-    this.chessground.state.orientation :
-    this.options.orientation || 'white';
+    return this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
   }
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
@@ -170,25 +179,28 @@ export default class EditorCtrl {
   }
 
   setFen(fen: string): boolean {
-    return parseFen(fen).unwrap(setup => {
-      if (this.chessground) this.chessground.set({fen});
-      this.pockets = setup.pockets;
-      this.turn = setup.turn;
-      this.unmovedRooks = setup.unmovedRooks;
-      this.epSquare = setup.epSquare;
-      this.remainingChecks = setup.remainingChecks;
-      this.halfmoves = setup.halfmoves;
-      this.fullmoves = setup.fullmoves;
+    return parseFen(fen).unwrap(
+      setup => {
+        if (this.chessground) this.chessground.set({ fen });
+        this.pockets = setup.pockets;
+        this.turn = setup.turn;
+        this.unmovedRooks = setup.unmovedRooks;
+        this.epSquare = setup.epSquare;
+        this.remainingChecks = setup.remainingChecks;
+        this.halfmoves = setup.halfmoves;
+        this.fullmoves = setup.fullmoves;
 
-      const castles = Castles.fromSetup(setup);
-      this.castlingToggles['K'] = defined(castles.rook.white.h);
-      this.castlingToggles['Q'] = defined(castles.rook.white.a);
-      this.castlingToggles['k'] = defined(castles.rook.black.h);
-      this.castlingToggles['q'] = defined(castles.rook.black.a);
+        const castles = Castles.fromSetup(setup);
+        this.castlingToggles['K'] = defined(castles.rook.white.h);
+        this.castlingToggles['Q'] = defined(castles.rook.white.a);
+        this.castlingToggles['k'] = defined(castles.rook.black.h);
+        this.castlingToggles['q'] = defined(castles.rook.black.a);
 
-      this.onChange();
-      return true;
-    }, _ => false);
+        this.onChange();
+        return true;
+      },
+      _ => false
+    );
   }
 
   setRules(rules: Rules): void {
@@ -205,4 +217,8 @@ export default class EditorCtrl {
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   }
+}
+
+function urlFen(fen: string): string {
+  return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }

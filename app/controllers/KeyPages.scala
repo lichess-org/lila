@@ -13,17 +13,18 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     homeHtml
-      .dmap { html =>
+      .map { html =>
         env.lilaCookie.ensure(ctx.req)(status(html))
       }
 
   def homeHtml(implicit ctx: Context): Fu[Frag] =
     env
       .preloader(
-        posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).nevermind,
-        tours = env.tournament.cached.onHomepage.getUnit.nevermind,
-        events = env.event.api.promoteTo(ctx.req).nevermind,
-        simuls = env.simul.allCreatedFeaturable.get {}.nevermind,
+        posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).recoverDefault,
+        tours = env.tournament.cached.onHomepage.getUnit.recoverDefault,
+        swiss = env.swiss.feature.onHomepage.getUnit.getIfPresent,
+        events = env.event.api.promoteTo(ctx.req).recoverDefault,
+        simuls = env.simul.allCreatedFeaturable.get {}.recoverDefault,
         streamerSpots = env.streamer.homepageMaxSetting.get()
       )
       .mon(_.lobby segment "preloader.total")

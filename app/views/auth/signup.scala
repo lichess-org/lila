@@ -9,38 +9,43 @@ import controllers.routes
 
 object signup {
 
-  def apply(form: lila.security.RecaptchaForm[_])(implicit ctx: Context) =
+  def apply(form: lila.security.HcaptchaForm[_])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
         jsModule("login"),
         embedJsUnsafeLoadThen("""loginSignup.signupStart()"""),
-        views.html.base.recaptcha.script(form),
-        fingerprintTag,
-        embedJsUnsafeLoadThen("""
-          lichess.loadModule('passwordComplexity').then(() =>
-            passwordComplexity.addPasswordChangeListener('form3-password')
-          )""")
+        views.html.base.hcaptcha.script(form),
+        fingerprintTag
       ),
       moreCss = cssTag("auth"),
-      csp = defaultCsp.withRecaptcha.some
+      csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.signupPost())(
+        postForm(
+          id := "signup-form",
+          cls := List(
+            "form3"             -> true,
+            "h-captcha-enabled" -> form.config.enabled
+          ),
+          action := routes.Auth.signupPost
+        )(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
             trans.computersAreNotAllowedToPlay(),
             br,
             small(
-              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos())(trans.termsOfService()))
+              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())),
+              br,
+              trans.readAboutOur(a(href := routes.Page.menuBookmark("privacy"))(trans.privacyPolicy())),
+              br
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key startsWith "agreement.")),
-          views.html.base.recaptcha.button(form) {
-            button(cls := "submit button text big")(trans.signUp())
-          }
+          views.html.base.hcaptcha.tag(form),
+          button(cls := "submit button text big")(trans.signUp())
         )
       )
     }

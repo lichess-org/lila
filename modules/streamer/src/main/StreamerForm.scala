@@ -39,6 +39,10 @@ object StreamerForm {
         )(ApprovalData.apply)(ApprovalData.unapply)
       )
     )(UserData.apply)(UserData.unapply)
+      .verifying(
+        "Must specify a Twitch and/or YouTube channel.",
+        u => u.twitch.isDefined || u.youTube.isDefined
+      )
   )
 
   def userForm(streamer: Streamer) =

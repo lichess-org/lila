@@ -24,4 +24,16 @@
   <string name="sortBy">Ordena per</string>
   <string name="analysis">Anàlisi</string>
   <string name="onlyAnalysed">Només partides on hi ha disponible l\'anàlisi computeritzat</string>
+  <string name="color">Color</string>
+  <string name="evaluation">Avaluació</string>
+  <string name="maxNumber">Número màxim</string>
+  <string name="maxNumberExplanation">Número màxim de partides per mostrar als resultats</string>
+  <string name="include">Incloure</string>
+  <string name="descending">Descendent</string>
+  <string name="ascending">Ascendent</string>
+  <plurals name="gamesFound">
+    <item quantity="one">S\'ha trobat %s partida</item>
+    <item quantity="other">S\'han trobat %s partides</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">La puntuació mitjana dels dos jugadors</string>
 </resources>

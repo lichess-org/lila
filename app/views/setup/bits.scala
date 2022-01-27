@@ -11,18 +11,25 @@ private object bits {
 
   val prefix = "sf_"
 
-  def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
+  def fenInput(
+      field: Field,
+      strict: Boolean,
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+  )(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index())(routes.Editor.load).url
+    val url = field.value.fold(routes.Editor.index.url) { fen =>
+      editorUrl(chess.format.FEN(fen), chess.variant.Standard)
+    }
     div(cls := "fen_position optional_config")(
       frag(
         div(
           cls := "fen_form",
-          dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}"""
+          dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
         )(
           form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
-          a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
+          a(cls := "button button-empty", dataIcon := "", title := trans.boardEditor.txt(), href := url)
         ),
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(
@@ -93,9 +100,14 @@ private object bits {
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
 
-  def renderTimeMode(form: Form[_])(implicit ctx: Context) =
+  def renderTimeMode(form: Form[_], allowAnon: Boolean)(implicit ctx: Context) =
     div(cls := "time_mode_config optional_config")(
-      div(cls := "label_select")(
+      div(
+        cls := List(
+          "label_select" -> true,
+          "none"         -> (ctx.isAnon && !allowAnon)
+        )
+      )(
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(form("timeMode"), translatedTimeModeChoices)
       ),
@@ -144,10 +156,11 @@ private object bits {
   val dataRandomColorVariants =
     attr("data-random-color-variants") := lila.game.Game.variantsWhereWhiteIsBetter.map(_.id).mkString(",")
 
-  val dataAnon        = attr("data-anon")
-  val dataMin         = attr("data-min")
-  val dataMax         = attr("data-max")
-  val dataValidateUrl = attr("data-validate-url")
-  val dataResizable   = attr("data-resizable")
-  val dataType        = attr("data-type")
+  val dataAnon          = attr("data-anon")
+  val dataMin           = attr("data-min")
+  val dataMax           = attr("data-max")
+  val dataValidateUrl   = attr("data-validate-url")
+  val dataResizable     = attr("data-resizable")
+  val dataType          = attr("data-type")
+  val dataForceTimeMode = attr("data-force-time-mode")
 }

@@ -5,6 +5,8 @@ import scala.concurrent.duration._
 
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
+import scala.concurrent.ExecutionContext
+import org.joda.time.DateTime
 
 /** Validate and normalize emails
   */
@@ -13,7 +15,7 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-) {
+)(implicit ec: ExecutionContext) {
 
   private def isAcceptable(email: EmailAddress): Boolean =
     email.domain exists disposable.isOk
@@ -35,7 +37,8 @@ final class EmailAddressValidator(
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize).dmap(1 <)
+    userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusWeeks(1)).dmap(_ >= 2) >>|
+      userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusMonths(1)).dmap(_ >= 4)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (EmailAddress.from(e).exists(isAcceptable)) Valid
@@ -78,16 +81,19 @@ final class EmailAddressValidator(
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
-    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(
-      90.millis,
-      "dns", {
-        logger.warn(
-          s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
+    if (
+      EmailAddress.from(e).exists { email =>
+        hasAcceptableDns(email).awaitOrElse(
+          90.millis,
+          "dns", {
+            logger.warn(
+              s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
+            )
+            false
+          }
         )
-        false
       }
-    )
-    if (ok) Valid
+    ) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 }

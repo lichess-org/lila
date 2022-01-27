@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.Centis
+import chess.{ Centis, Color }
 import chess.format.pgn.Glyphs
 import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import chess.opening._
@@ -26,32 +26,14 @@ object TreeBuilder {
       analysis: Option[Analysis],
       initialFen: FEN,
       withFlags: WithFlags
-  ): Root =
-    apply(
-      id = game.id,
-      pgnMoves = game.pgnMoves,
-      variant = game.variant,
-      analysis = analysis,
-      initialFen = initialFen,
-      withFlags = withFlags,
-      clocks = withFlags.clocks ?? game.bothClockStates
-    )
-
-  def apply(
-      id: String,
-      pgnMoves: Vector[String],
-      variant: Variant,
-      analysis: Option[Analysis],
-      initialFen: FEN,
-      withFlags: WithFlags,
-      clocks: Option[Vector[Centis]]
   ): Root = {
-    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
+    val drawOfferPlies                     = game.drawOffers.normalizedPlies
+    chess.Replay.gameMoveWhileValid(game.pgnMoves, initialFen, game.variant) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logChessError(game.id)
         val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
+          if (withFlags.opening && Variant.openingSensibleVariants(game.variant)) FullOpeningDB.findByFen
           else _ => None
         val fen                 = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
@@ -83,18 +65,18 @@ object TreeBuilder {
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
-              advice.map(_.makeComment(withEval = false, withBestMove = true)).toList.map { text =>
-                Node.Comment(
-                  Node.Comment.Id.make,
-                  Node.Comment.Text(text),
-                  Node.Comment.Author.Lichess
-                )
-              }
+              drawOfferPlies(g.turns)
+                .option(makeLichessComment(s"${!Color.fromPly(g.turns)} offers draw"))
+                .toList :::
+                advice
+                  .map(_.makeComment(withEval = false, withBestMove = true))
+                  .toList
+                  .map(makeLichessComment)
             }
           )
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map { case (fromGame, _) =>
-              withAnalysisChild(id, branch, variant, Forsyth >> fromGame, openingOf)(adv.info)
+              withAnalysisChild(game.id, branch, game.variant, Forsyth >> fromGame, openingOf)(adv.info)
             }
           } getOrElse branch
         }
@@ -107,6 +89,13 @@ object TreeBuilder {
         }
     }
   }
+
+  private def makeLichessComment(text: String) =
+    Node.Comment(
+      Node.Comment.Id.make,
+      Node.Comment.Text(text),
+      Node.Comment.Author.Lichess
+    )
 
   private def withAnalysisChild(
       id: String,

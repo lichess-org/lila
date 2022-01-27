@@ -21,19 +21,23 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
     Auth { _ => me =>
       findToken(me) flatMap { t =>
         t.isEmpty.?? {
-          val token = lila.oauth.OAuthForm.token.Data(
-            description = "DGT board automatic token",
-            scopes = dgtScopes.toList.map(_.key)
-          ) make me
-          env.oAuth.tokenApi.create(token)
-        } inject Redirect(routes.DgtCtrl.config())
+          env.oAuth.tokenApi.create(
+            lila.oauth.OAuthTokenForm.Data(
+              description = "DGT board automatic token",
+              scopes = dgtScopes.toList.map(_.key)
+            ),
+            me,
+            isStudent = false
+          ) >>
+            env.pref.api.saveTag(me, _.dgt, true)
+        } inject Redirect(routes.DgtCtrl.config)
       }
     }
 
   def play =
     Auth { implicit ctx => me =>
       findToken(me) map {
-        case None => Redirect(routes.DgtCtrl.config())
+        case None => Redirect(routes.DgtCtrl.config)
         case Some(t) =>
           if (!ctx.pref.hasDgt) env.pref.api.saveTag(me, _.dgt, true)
           Ok(views.html.dgt.play(t))
@@ -51,5 +55,5 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
   }
 
   private def findToken(me: lila.user.User) =
-    env.oAuth.tokenApi.findCompatible(me, dgtScopes)
+    env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)
 }

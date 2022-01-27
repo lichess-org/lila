@@ -13,8 +13,10 @@ private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
-    @ConfigName("streaming.google.api_key") val googleApiKey: Secret
+    @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
+    @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
 )
+private class TwitchConfig(@ConfigName("client_id") val clientId: String, val secret: Secret)
 
 @Module
 final class Env(
@@ -23,22 +25,21 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
+    picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
-    db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
+    db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
+  implicit private val twitchLoader  = AutoConfig.loader[TwitchConfig]
   implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
   private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
-
-  private lazy val photographer = new lila.db.Photographer(imageRepo, "streamer")
 
   lazy val alwaysFeaturedSetting = {
     import lila.memo.SettingStore.UserIds._
@@ -51,13 +52,6 @@ final class Env(
     )
   }
 
-  lazy val twitchCredentialsSetting =
-    settingStore[String](
-      "twitchCredentials",
-      default = "",
-      text = "Twitch API client ID and secret, separated by a space".some
-    )
-
   lazy val homepageMaxSetting =
     settingStore[Int](
       "streamerHomepageMax",
@@ -69,6 +63,8 @@ final class Env(
 
   lazy val pager = wire[StreamerPager]
 
+  private lazy val twitchApi: TwitchApi = wire[TwitchApi]
+
   private val streamingActor = system.actorOf(
     Props(
       new Streaming(
@@ -79,11 +75,7 @@ final class Env(
         keyword = config.keyword,
         alwaysFeatured = alwaysFeaturedSetting.get _,
         googleApiKey = config.googleApiKey,
-        twitchCredentials = () =>
-          twitchCredentialsSetting.get().split(' ') match {
-            case Array(client, secret) => (client, secret)
-            case _                     => ("", "")
-          }
+        twitchApi = twitchApi
       )
     )
   )

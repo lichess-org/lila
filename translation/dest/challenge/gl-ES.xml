@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Desafíos</string>
+  <string name="challengeToPlay">Desafía a unha partida</string>
+  <string name="challengeDeclined">Desafío rexeitado</string>
+  <string name="challengeAccepted">Desafío aceptado!</string>
+  <string name="challengeCanceled">Desafío cancelado.</string>
+  <string name="registerToSendChallenges">Por favor rexístrate para enviar desafíos.</string>
+  <string name="youCannotChallengeX">Non podes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non acepta desafíos.</string>
+  <string name="yourXRatingIsTooFarFromY">A túa puntuación %1$s está demasiado lonxe da de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No podes desafiar dado que a túa puntuación en %s é provisional.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s só acepta desafíos de amigos.</string>
+  <string name="declineGeneric">Neste momento non acepto desafíos.</string>
+  <string name="declineLater">Non podo neste momento. Falamos máis tarde.</string>
+  <string name="declineTooFast">Paréceme pouco tempo. Proba cun ritmo máis lento.</string>
+  <string name="declineTooSlow">Paréceme moito tempo. Proba un ritmo máis rápido.</string>
+  <string name="declineTimeControl">Non acepto desafíos a este ritmo.</string>
+  <string name="declineRated">Por favor, desafíame a unha partida por puntos.</string>
+  <string name="declineCasual">Por favor, rétame a unha partida amigable.</string>
+  <string name="declineStandard">Non estou a aceptar desafíos de variantes no momento.</string>
+  <string name="declineVariant">Neste momento non me apetece xogar esa variante.</string>
+  <string name="declineNoBot">Non acepto desafíos de bots.</string>
+  <string name="declineOnlyBot">Só acepto desafíos de bots.</string>
+</resources>

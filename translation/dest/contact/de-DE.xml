@@ -2,10 +2,10 @@
 <resources>
   <string name="contact">Kontakt</string>
   <string name="contactLichess">Lichess kontaktieren</string>
-  <string name="whatCanWeHelpYouWith">Wobei können wir dir behilflich sein?</string>
+  <string name="whatCanWeHelpYouWith">Wie können wir dir helfen?</string>
   <string name="visitThisPage">Besuche diese Seite, um das Problem zu lösen</string>
   <string name="iCantLogIn">Ich kann mich nicht einloggen</string>
-  <string name="noConfirmationEmail">Ich erhalte meine Bestätigungsmail nicht</string>
+  <string name="noConfirmationEmail">Ich erhalte meine Bestätigungs-E-Mail nicht</string>
   <string name="forgotPassword">Ich habe mein Passwort vergessen</string>
   <string name="forgotUsername">Ich habe meinen Benutzernamen vergessen</string>
   <string name="youCanLoginWithEmail">Du kannst dich mit der E-Mail-Adresse einloggen, mit der du dich angemeldet hast</string>
@@ -13,10 +13,10 @@
   <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
   <string name="accountSupport">Ich benötige Konto-Unterstützung</string>
   <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
-  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
+  <string name="visitTitleConfirmation">Besuche die Titelbestätigungsseite, um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen</string>
   <string name="wantCloseAccount">Ich möchte mein Konto schließen</string>
   <string name="closeYourAccount">Du kannst dein Konto auf dieser Seite schließen</string>
-  <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, das kannst du selbst tun.</string>
+  <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, wir werden es nicht schließen.</string>
   <string name="wantReopen">Ich möchte mein Konto wiedereröffnen</string>
   <string name="reopenOnThisPage">Du kannst dein Konto auf dieser Seite wiedereröffnen. Das funktioniert nur ein einziges Mal.</string>
   <string name="doNotAskByEmailToReopen">Bitte uns nicht per E-Mail ein Konto wiederzueröffnen, wir werden es nicht wiedereröffnen.</string>
@@ -27,13 +27,8 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="cheating">betrügen</string>
-  <string name="sandbagging">absichtlichen Verlierens</string>
-  <string name="trolling">Trollens</string>
-  <string name="insults">Beleidigungen</string>
-  <string name="otherReason">ein anderer Grund</string>
-  <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
-  <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls mit dem Meldeknopf (%s) auf Profilseiten.</string>
+  <string name="toReportAPlayerUseForm">Benutze das Meldeformular, um einen Spieler zu melden</string>
+  <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
   <string name="doNotReportInForum">Melde keine Spieler im Forum.</string>
   <string name="doNotSendReportEmails">Sende uns keine Meldungen per E-Mail.</string>
   <string name="doNotMessageModerators">Sende den Moderatoren keine direkten Nachrichten.</string>
@@ -57,9 +52,10 @@
   <string name="knightMate">Es ist möglich mit nur einem Springer oder Läufer Matt zu setzen, falls der Gegner mehr als einen König auf dem Brett hat.</string>
   <string name="noRatingPoints">Keine Wertungspunkte wurden vergeben</string>
   <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
+  <string name="botRatingAbuse">Wenn ein Spieler gegen einen Bot spielt, kann es unter Umständen passieren, dass ein Sieg in einem gewertetem Spiel keine Punkte einbringt, falls der Spieler den Bot dazu benutzt, Wertungspunkte anzuhäufen.</string>
   <string name="errorPage">Fehlerseite</string>
   <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Einspruch gegen einen Bann oder IP-Beschränkung</string>
+  <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>
   <string name="engineAppeal">Markierung für Computerunterstützung/Betrug</string>
   <string name="sendAppealTo">Du kannst deinen Einspruch an %s senden.</string>
   <string name="falsePositives">Falsche Positivergebnisse können gelegentlich auftreten und dafür möchten wir uns entschuldigen.</string>
@@ -74,7 +70,7 @@
   <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
   <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
-  <string name="noneOfTheAbove">Keines der oben genannten</string>
+  <string name="noneOfTheAbove">Nichts des oben Genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
   <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
 </resources>

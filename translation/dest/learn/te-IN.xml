@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">చదరంగం నేర్చుకొండి</string>
+  <string name="byPlaying">ఆటలు ఆడుతూ!</string>
+  <string name="progressX">పురోగతి:%s</string>
+  <string name="resetMyProgress">పురోగతిని తిరిగి ప్రారంభించు</string>
+  <string name="youWillLoseAllYourProgress">మీ ప్రస్తుత పురోగతిని మొత్తం కోల్పోతారు!</string>
+  <string name="play">ఆడు!</string>
+  <string name="chessPieces">చెస్ ముక్కలు</string>
+</resources>

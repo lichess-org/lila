@@ -8,6 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation
 import play.api.data.validation.Constraint
+import scala.util.chaining._
 
 import lila.common.Form._
 import lila.hub.LeaderTeam
@@ -19,7 +20,7 @@ final class TournamentForm {
   import TournamentForm._
 
   def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamID] = None) =
-    form(user, leaderTeams) fill TournamentSetup(
+    form(user, leaderTeams, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
@@ -40,7 +41,7 @@ final class TournamentForm {
     )
 
   def edit(user: User, leaderTeams: List[LeaderTeam], tour: Tournament) =
-    form(user, leaderTeams) fill TournamentSetup(
+    form(user, leaderTeams, tour.some) fill TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
@@ -60,43 +61,52 @@ final class TournamentForm {
       hasChat = tour.hasChat.some
     )
 
-  private def nameType(user: User) = eventName(2, 30).verifying(
-    Constraint[String] { (t: String) =>
-      if (t.toLowerCase.contains("lichess") && !user.isVerified && !user.isAdmin)
-        validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
-      else validation.Valid
-    }
-  )
+  private val blockList = List("lichess", "liсhess")
 
-  private def form(user: User, leaderTeams: List[LeaderTeam]) =
-    Form(
-      mapping(
-        "name"           -> optional(nameType(user)),
-        "clockTime"      -> numberInDouble(clockTimeChoices),
-        "clockIncrement" -> numberIn(clockIncrementChoices),
-        "minutes" -> {
-          if (lila.security.Granter(_.ManageTournament)(user)) number
-          else numberIn(minuteChoices)
-        },
-        "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
-        "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
-        "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
-        "rated"            -> optional(boolean),
-        "password"         -> optional(clean(nonEmptyText)),
-        "conditions"       -> Condition.DataForm.all(leaderTeams),
-        "teamBattleByTeam" -> optional(nonEmptyText),
-        "berserkable"      -> optional(boolean),
-        "streakable"       -> optional(boolean),
-        "description"      -> optional(clean(nonEmptyText)),
-        "hasChat"          -> optional(boolean)
-      )(TournamentSetup.apply)(TournamentSetup.unapply)
-        .verifying("Invalid clock", _.validClock)
-        .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-        .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-        .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
-    )
+  private def form(user: User, leaderTeams: List[LeaderTeam], prev: Option[Tournament]) =
+    Form {
+      makeMapping(user, leaderTeams) pipe { m =>
+        prev.fold(m) { tour =>
+          m
+            .verifying(
+              "Can't change variant after players have joined",
+              _.realVariant == tour.variant || tour.nbPlayers == 0
+            )
+            .verifying(
+              "Can't change time control after players have joined",
+              _.speed == tour.speed || tour.nbPlayers == 0
+            )
+        }
+      }
+    }
+
+  private def makeMapping(user: User, leaderTeams: List[LeaderTeam]) =
+    mapping(
+      "name"           -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
+      "clockTime"      -> numberInDouble(clockTimeChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "minutes" -> {
+        if (lila.security.Granter(_.ManageTournament)(user)) number
+        else numberIn(minuteChoices)
+      },
+      "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
+      "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"         -> optional(lila.common.Form.fen.playableStrict),
+      "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
+      "rated"            -> optional(boolean),
+      "password"         -> optional(cleanNonEmptyText),
+      "conditions"       -> Condition.DataForm.all(leaderTeams),
+      "teamBattleByTeam" -> optional(nonEmptyText.verifying(id => leaderTeams.exists(_.id == id))),
+      "berserkable"      -> optional(boolean),
+      "streakable"       -> optional(boolean),
+      "description"      -> optional(cleanNonEmptyText),
+      "hasChat"          -> optional(boolean)
+    )(TournamentSetup.apply)(TournamentSetup.unapply)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
+      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
+      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
 }
 
 object TournamentForm {
@@ -138,6 +148,16 @@ object TournamentForm {
     validVariants.find { v =>
       v.key == from || from.toIntOption.exists(v.id ==)
     }
+
+  val joinForm =
+    Form(
+      mapping(
+        "team"     -> optional(nonEmptyText),
+        "password" -> optional(nonEmptyText)
+      )(TournamentJoin.apply)(TournamentJoin.unapply)
+    )
+
+  case class TournamentJoin(team: Option[String], password: Option[String])
 }
 
 private[tournament] case class TournamentSetup(
@@ -172,7 +192,9 @@ private[tournament] case class TournamentSetup(
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
-  def validRatedUltraBulletVariant =
+  def speed = chess.Speed(clockConfig)
+
+  def validRatedVariant =
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig.some)
 
@@ -180,6 +202,63 @@ private[tournament] case class TournamentSetup(
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
+
+  // prevent berserk tournament abuse with TC like 1+60,
+  // where perf is Classical but berserked games are Hyperbullet.
+  def timeControlPreventsBerserk =
+    clockConfig.incrementSeconds > clockConfig.limitInMinutes * 2
+
+  def isBerserkable = ~berserkable && !timeControlPreventsBerserk
+
+  // update all fields and use default values for missing fields
+  // meant for HTML form updates
+  def updateAll(old: Tournament): Tournament = {
+    val newVariant = if (old.isCreated && variant.isDefined) realVariant else old.variant
+    old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = realMode,
+        variant = newVariant,
+        startsAt = startDate | old.startsAt,
+        password = password,
+        position = newVariant.standard ?? {
+          if (old.isCreated || old.position.isDefined) realPosition
+          else old.position
+        },
+        noBerserk = !isBerserkable,
+        noStreak = !(~streakable),
+        teamBattle = old.teamBattle,
+        description = description,
+        hasChat = hasChat | true
+      )
+  }
+
+  // update only fields that are specified
+  // meant for API updates
+  def updatePresent(old: Tournament): Tournament = {
+    val newVariant = if (old.isCreated) realVariant else old.variant
+    old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = if (rated.isDefined) realMode else old.mode,
+        variant = newVariant,
+        startsAt = startDate | old.startsAt,
+        password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
+        position = newVariant.standard ?? {
+          if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
+          else old.position
+        },
+        noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,
+        noStreak = streakable.fold(old.noStreak)(!_),
+        teamBattle = old.teamBattle,
+        description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
+        hasChat = hasChat | old.hasChat
+      )
+  }
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 

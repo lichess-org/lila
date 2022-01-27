@@ -19,7 +19,19 @@ final class ImporterForm {
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImportData(pgn, none).preprocess(none)
+  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+    ImportData(pgn, none).preprocess(none)
+  }
+}
+
+object ImporterForm {
+
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try {
+    f()
+  } catch {
+    case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
+      Validated.Invalid("This PGN seems too long or too complex!")
+  }
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -42,13 +54,12 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] =
-    Parser.full(pgn) flatMap { parsed =>
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+    Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
-        pgn,
-        sans => sans.copy(value = sans.value take maxPlies),
-        Tags.empty
-      ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
+        parsed,
+        sans => sans.copy(value = sans.value take maxPlies)
+      ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
         val initBoard    = parsed.tags.fen flatMap Forsyth.<< map (_.board)
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.initial)
         val variant = {
@@ -69,25 +80,29 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         } map Forsyth.>>
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("normal") | None    => Status.Resign
-          case Some("abandoned")        => Status.Aborted
-          case Some("time forfeit")     => Status.Outoftime
-          case Some("rules infraction") => Status.Cheat
-          case Some(_)                  => Status.UnknownFinish
+          case Some("normal") | None                   => Status.Resign
+          case Some("abandoned")                       => Status.Aborted
+          case Some("time forfeit")                    => Status.Outoftime
+          case Some("rules infraction")                => Status.Cheat
+          case Some(txt) if txt contains "won on time" => Status.Outoftime
+          case Some(_)                                 => Status.UnknownFinish
         }
 
         val date = parsed.tags.anyDate
 
-        def name(whichName: TagPicker, whichRating: TagPicker): String =
-          parsed.tags(whichName).fold("?") { n =>
-            n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
-          }
-
         val dbGame = Game
           .make(
             chess = game,
-            whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
-            blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
+            whitePlayer = Player.makeImported(
+              chess.White,
+              parsed.tags(_.White),
+              parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
+            ),
+            blackPlayer = Player.makeImported(
+              chess.Black,
+              parsed.tags(_.Black),
+              parsed.tags(_.BlackElo).flatMap(_.toIntOption)
+            ),
             mode = Mode.Casual,
             source = Source.Import,
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
@@ -114,4 +129,5 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
     }
+  }
 }

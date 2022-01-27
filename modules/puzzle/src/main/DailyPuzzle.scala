@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.common.ThreadLocalRandom
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -18,23 +19,23 @@ final private[puzzle] class DailyPuzzle(
   import BsonHandlers._
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle.Html]] {
-      _.refreshAfterWrite(30 minutes)
+    cacheApi.unit[Option[DailyPuzzle.WithHtml]] {
+      _.refreshAfterWrite(1 minutes)
         .buildAsyncFuture(_ => find)
     }
 
-  def get: Fu[Option[DailyPuzzle.Html]] = cache.getUnit
+  def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
 
-  private def find: Fu[Option[DailyPuzzle.Html]] =
-    (findCurrent orElse findNew) recover { case e: Exception =>
+  private def find: Fu[Option[DailyPuzzle.WithHtml]] =
+    (findCurrent orElse findNewBiased()) recover { case e: Exception =>
       logger.error("find daily", e)
       none
     } flatMap { _ ?? makeDaily }
 
-  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.Html]] = {
+  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
     renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
-      case html: String => DailyPuzzle.Html(html, puzzle.color, puzzle.id).some
+      case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
   } recover { case e: Exception =>
     logger.warn("make daily", e)
@@ -43,40 +44,70 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find($doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15)))
+      _.find($doc(F.day $gt DateTime.now.minusDays(1)))
+        .sort($sort desc F.day)
         .one[Puzzle]
     }
 
-  private def findNew =
+  private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] = {
+    def tryAgainMaybe = (tries < 5) ?? findNewBiased(tries + 1)
+    import lila.common.ThreadLocalRandom.odds
+    import PuzzleTheme._
+    findNew flatMap {
+      case None                                             => tryAgainMaybe
+      case Some(p) if p.hasTheme(anastasiaMate) && !odds(3) => tryAgainMaybe dmap (_ orElse p.some)
+      case Some(p) if p.hasTheme(arabianMate) && odds(2)    => tryAgainMaybe dmap (_ orElse p.some)
+      case p                                                => fuccess(p)
+    }
+  }
+
+  private def findNew: Fu[Option[Puzzle]] =
     colls
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 1200 to 2200)) -> List(
-            Sample(1),
-            Project($doc("ids" -> true))
+          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 2150 to 2300)) -> List(
+            Sample(3),
+            Project($doc("ids" -> true, "_id" -> false)),
+            UnwindField("ids"),
+            PipelineOperator(
+              $lookup.pipeline(
+                from = colls.puzzle,
+                as = "puzzle",
+                local = "ids",
+                foreign = "_id",
+                pipe = List(
+                  $doc(
+                    "$match" -> $doc(
+                      Puzzle.BSONFields.plays $gt 5000,
+                      Puzzle.BSONFields.day $exists false,
+                      Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
+                    )
+                  )
+                )
+              )
+            ),
+            UnwindField("puzzle"),
+            ReplaceRootField("puzzle"),
+            AddFields($doc("dayScore" -> $doc("$multiply" -> $arr("$plays", "$vote")))),
+            Sort(Descending("dayScore")),
+            Limit(1)
           )
-        }.dmap(~_.flatMap(_.getAsOpt[List[Puzzle.Id]]("ids")))
-      } flatMap { ids =>
-      colls.puzzle { c =>
-        c.find($doc(F.id $in ids, F.day $exists false))
-          .sort($doc(F.vote -> -1))
-          .one[Puzzle] flatMap {
-          case Some(puzzle) =>
-            c.update.one(
-              $id(puzzle.id),
-              $set(F.day -> DateTime.now)
-            ) inject puzzle.some
-          case None => fuccess(none)
         }
       }
-    }
+      .flatMap { docOpt =>
+        docOpt.flatMap(PuzzleBSONReader.readOpt) ?? { puzzle =>
+          colls.puzzle {
+            _.update.one($id(puzzle.id), $set(F.day -> DateTime.now))
+          } inject puzzle.some
+        }
+      }
 }
 
 object DailyPuzzle {
-  type Try = () => Fu[Option[DailyPuzzle.Html]]
+  type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
-  case class Html(html: String, color: chess.Color, id: Puzzle.Id)
+  case class WithHtml(puzzle: Puzzle, html: String)
 
   case class Render(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
 }

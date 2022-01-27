@@ -31,30 +31,30 @@ final class PrefApi(
           upsert = true
         )
         .void
-        .recover(lila.db.ignoreDuplicateKey)
     else
       coll.update
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
         .void >>- { cache invalidate user.id }
   } >>- { cache invalidate user.id }
 
-  def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
-  val getPref                               = getPrefById _
-  def getPref(user: User): Fu[Pref]         = getPref(user.id)
-  def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
+  def getPrefById(id: User.ID): Fu[Option[Pref]] = cache get id
 
-  def getPref[A](user: User, pref: Pref => A): Fu[A]      = getPref(user) dmap pref
-  def getPref[A](userId: User.ID, pref: Pref => A): Fu[A] = getPref(userId) dmap pref
+  def getPref(user: User): Fu[Pref] = cache get user.id dmap {
+    _ getOrElse Pref.create(user)
+  }
+
+  def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) dmap pref
+
+  def getPref[A](userId: User.ID, pref: Pref => A): Fu[A] =
+    getPrefById(userId).dmap(p => pref(p | Pref.default))
 
   def getPref(user: User, req: RequestHeader): Fu[Pref] =
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
   def followable(userId: User.ID): Fu[Boolean] =
-    coll.find($id(userId), $doc("follow" -> true).some).one[Bdoc] dmap {
-      _ flatMap (_.getAsOpt[Boolean]("follow")) getOrElse Pref.default.follow
-    }
+    coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
 
-  def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
+  private def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
       $inIds(userIds) ++ $doc("follow" -> false)
@@ -68,19 +68,29 @@ final class PrefApi(
       userIds map followables.contains
     }
 
+  private def unmentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
+    coll.secondaryPreferred.distinctEasy[User.ID, Set](
+      "_id",
+      $inIds(userIds) ++ $doc("mention" -> false)
+    )
+
+  def mentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
+    unmentionableIds(userIds) map userIds.diff
+
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void.recover(lila.db.ignoreDuplicateKey) >>-
+    coll.update.one($id(pref.id), pref, upsert = true).void >>-
       cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref
 
-  def setPref(userId: User.ID, change: Pref => Pref): Funit =
-    getPref(userId) map change flatMap setPref
-
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } orFail
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
+
+  def agree(user: User): Funit =
+    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
+      cache.invalidate(user.id)
 
   def setBot(user: User): Funit =
     setPref(

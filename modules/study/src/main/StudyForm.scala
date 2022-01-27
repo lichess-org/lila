@@ -4,7 +4,7 @@ import chess.format.FEN
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.clean
+import lila.common.Form.cleanNonEmptyText
 
 object StudyForm {
 
@@ -60,13 +60,14 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "name"        -> clean(text),
-        "orientation" -> optional(nonEmptyText),
-        "variant"     -> optional(nonEmptyText),
-        "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
-        "initial"     -> boolean,
-        "sticky"      -> boolean,
-        "pgn"         -> nonEmptyText
+        "name"          -> cleanNonEmptyText,
+        "orientation"   -> optional(nonEmptyText),
+        "variant"       -> optional(nonEmptyText),
+        "mode"          -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
+        "initial"       -> boolean,
+        "sticky"        -> boolean,
+        "pgn"           -> nonEmptyText,
+        "isDefaultName" -> boolean
       )(Data.apply)(Data.unapply)
     )
 
@@ -77,28 +78,30 @@ object StudyForm {
         mode: String,
         initial: Boolean,
         sticky: Boolean,
-        pgn: String
+        pgn: String,
+        isDefaultName: Boolean
     ) {
 
-      def orientation = orientationStr.flatMap(chess.Color.fromName) | chess.White
-
-      def toChapterDatas =
-        MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>
+      def toChapterDatas = {
+        val pgns = MultiPgn.split(pgn, max = 32).value
+        pgns.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
-            orientation = orientation.name,
+            orientation = orientationStr | "white",
             mode = mode,
-            initial = initial && index == 0
+            initial = initial && index == 0,
+            isDefaultName = index > 0 || isDefaultName
           )
         }
+      }
     }
   }
 
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(", ")
+    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
 }

@@ -10,10 +10,21 @@ import controllers.routes
 
 object bits {
 
-  private[blog] def menu(year: Option[Int], hasActive: Boolean = true) =
+  def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := (year.isEmpty && hasActive).option("active"), href := routes.Blog.index())("Latest"),
-      lila.blog.allYears map { y =>
+      a(cls := active.has("community").option("active"), href := routes.Ublog.community("all"))(
+        "Community blogs"
+      ),
+      a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)("Blog topics"),
+      ctx.isAuth option a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())(
+        "Friends blogs"
+      ),
+      a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())("Liked blog posts"),
+      ctx.me map { me =>
+        a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog")
+      },
+      a(cls := active.has("lichess").option("active"), href := routes.Blog.index())("Lichess blog"),
+      year.isDefined || active.has("lichess") option lila.blog.allYears.map { y =>
         a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
       }
     )
@@ -38,13 +49,13 @@ object bits {
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "p")(semanticDate(date.value.toDateTimeAtStartOfDay))
+          span(cls := "text", dataIcon := "")(semanticDate(date.value.toDateTimeAtStartOfDay))
         },
         doc.getText("blog.author").map { author =>
-          span(cls := "text", dataIcon := "r")(richText(author))
+          span(cls := "text", dataIcon := "")(richText(author))
         },
         doc.getText("blog.category").map { categ =>
-          span(cls := "text", dataIcon := "t")(categ)
+          span(cls := "text", dataIcon := "")(categ)
         }
       ),
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))

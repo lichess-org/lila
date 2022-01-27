@@ -2,7 +2,7 @@
 <resources>
   <string name="settings">Asetukset</string>
   <string name="closeAccount">Sulje tili</string>
-  <string name="closingIsDefinitive">Sulkeminen on lopullista. Paluuta ei ole. Oletko varma?</string>
+  <string name="closingIsDefinitive">Tunnuksen sulku on lopullinen. Et voi myöhemmin peruuttaa sitä. Oletko varma?</string>
   <string name="cantOpenSimilarAccount">Et voi luoda uutta käyttäjätiliä samalla nimellä, et vaikka muuttaisit isoja kirjaimia pieniksi tai päinvastoin.</string>
   <string name="changedMindDoNotCloseAccount">Muutin mieleni, älä sulje tiliäni</string>
   <string name="closeAccountExplanation">Haluatko varmasti sulkea tilisi? Sulkeminen on pysyvä päätös. Et voi ENÄÄ KOSKAAN kirjautua sisään.</string>

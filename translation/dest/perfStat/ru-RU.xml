@@ -2,11 +2,11 @@
 <resources>
   <string name="perfStats">Статистика %s</string>
   <string name="viewTheGames">Посмотреть партии</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">предварительный</string>
+  <string name="provisional">предварительный</string>
   <string name="notEnoughRatedGames">Недостаточно рейтинговых игр, чтобы узнать точный рейтинг.</string>
   <string name="progressOverLastXGames">Прогресс за последние игры (%s):</string>
   <string name="ratingDeviation">Отклонение рейтинга: %s.</string>
-  <string name="ratingDeviationHelp">Меньшее значение соответствует более точному рейтингу. Выше %s рейтинг считается предварительным.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Меньшее значение означает, что рейтинг более стабилен. Если этот показатель превышает %1$s, то рейтинг считается примерным. Для включения в рейтинг-листы этот показатель должен быть ниже %2$s (стандартные шахматы) и %3$s (варианты).</string>
   <string name="totalGames">Всего партий</string>
   <string name="ratedGames">Рейтинговые игры</string>
   <string name="tournamentGames">Турнирных партий</string>

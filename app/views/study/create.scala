@@ -15,16 +15,17 @@ object create {
   def apply(
       data: lila.study.StudyForm.importGame.Data,
       owner: List[Study.IdName],
-      contrib: List[Study.IdName]
+      contrib: List[Study.IdName],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
   )(implicit ctx: Context) =
     views.html.site.message(
       title = trans.toStudy.txt(),
-      icon = Some("4"),
-      back = data.fen.map(f => routes.Editor.load(f.value).url),
+      icon = Some(""),
+      back = data.fen.map(fen => editorUrl(fen, chess.variant.Variant.orDefault(~data.variantStr))),
       moreCss = cssTag("study.create").some
     ) {
       div(cls := "study-create")(
-        postForm(action := routes.Study.create())(
+        postForm(action := routes.Study.create)(
           input(tpe := "hidden", name := "gameId", value := data.gameId),
           input(tpe := "hidden", name := "orientation", value := data.orientationStr),
           input(tpe := "hidden", name := "fen", value := data.fen.map(_.value)),
@@ -36,7 +37,7 @@ object create {
               name := "as",
               value := "study",
               cls := "submit button large new text",
-              dataIcon := "4"
+              dataIcon := ""
             )(trans.study.createStudy())
           ),
           div(cls := "studies")(

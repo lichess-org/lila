@@ -1,4 +1,5 @@
 .analyse-controls {
+  @extend %double-tap;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -23,7 +24,7 @@
       &:first-child,
       &:last-child {
         flex: 1 1 20%;
-        font-size: .7em;
+        font-size: 0.7em;
       }
     }
   }

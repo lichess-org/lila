@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog užívateľa %s</string>
+  <string name="newPost">Nový príspevok</string>
+  <string name="editYourBlogPost">Upraviť príspevok</string>
+  <string name="saveDraft">Uložiť koncept</string>
+  <string name="postTitle">Názov príspevku</string>
+  <string name="postIntro">Úvod k príspevku</string>
+  <string name="postBody">Telo príspevku</string>
+  <string name="drafts">Koncepty</string>
+  <string name="published">Zverejnené</string>
+  <string name="publishOnYourBlog">Zverejnené na tvojom blogu</string>
+  <string name="publishHelp">Ak je toto pole začiarknuté, príspevok bude uvedený na vašom blogu. Ak nie je, bude príspevok uvedený ako súkromný vo forme konceptu</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Zverejnil jeden príspevok na blogu</item>
+    <item quantity="few">Zverejnil %s príspevky na blogu</item>
+    <item quantity="many">Zverejnil %s príspevkov na blogu</item>
+    <item quantity="other">Zverejnil %s príspevkov na blogu</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">%s pozretie</item>
+    <item quantity="few">%s pozretia</item>
+    <item quantity="many">%s pozretí</item>
+    <item quantity="other">%s pozretí</item>
+  </plurals>
+  <string name="xPublishedY">Používateľ %1$s uverejnil blog s názvom %2$s</string>
+  <string name="thisPostIsPublished">Tento príspevok je zverejnený</string>
+  <string name="thisIsADraft">Toto je koncept</string>
+  <string name="moreBlogPostsBy">Viac príspevkov na blogu od používateľa %s</string>
+  <string name="noPostsInThisBlogYet">V tomto blogu zatiaľ nie sú žiadne príspevky.</string>
+  <string name="noDrafts">Žiadne koncepty na zobrazenie.</string>
+  <string name="latestBlogPosts">Najnovšie príspevky na blogu</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Prezrieť jeden príspevok</item>
+    <item quantity="few">Prezrieť %s príspevky</item>
+    <item quantity="many">Prezrieť %s príspevkov</item>
+    <item quantity="other">Prezrieť všetkých %s príspevkov</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Nahrať obrázok pre svoj príspevok</string>
+  <string name="imageAlt">Alternatívny popis obrázka</string>
+  <string name="imageCredit">Vlastník obrázka</string>
+</resources>

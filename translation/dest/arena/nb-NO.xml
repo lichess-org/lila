@@ -33,4 +33,16 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="shareUrl">Del denne URL-en for å la folk bli med: %s</string>
   <string name="drawStreak">Remisrekke: En spiller med en ubrutt rekke partier som ender med remis i en arena, får bare poeng for den første remisen, eller ved remiser etter mer enn %s trekk. En remisrekke blir bare brutt av en seier, ikke av et nederlag eller en remis.</string>
   <string name="history">Arena-historikk</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Vis laget</item>
+    <item quantity="other">Vis alle %s lagene</item>
+  </plurals>
+  <string name="newTeamBattle">Ny lagkamp</string>
+  <string name="customStartDate">Egendefinert startdato</string>
+  <string name="customStartDateHelp">I tidssonen din. Dette overstyrer innstillingen «Tid før turnering starter»</string>
+  <string name="allowBerserk">Tillat berserk</string>
+  <string name="allowBerserkHelp">La spillerne halvere tiden sin på klokken for et ekstra poeng</string>
+  <string name="allowChatHelp">La spillerne diskutere i samtalerom</string>
+  <string name="arenaStreaks">Arenarekker</string>
+  <string name="arenaStreaksHelp">Etter 2 seiere gir påfølgende seiere 4 poeng i stedet for 2.</string>
 </resources>

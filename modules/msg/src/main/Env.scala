@@ -20,7 +20,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic,
-    shutup: lila.hub.actors.Shutup
+    shutup: lila.hub.actors.Shutup,
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -41,10 +42,12 @@ final class Env(
 
   lazy val compat = wire[MsgCompat]
 
+  lazy val twoFactorReminder = wire[TwoFactorReminder]
+
   def cli =
     new lila.common.Cli {
       def process = { case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
+        api.cliMultiPost(orig, dests.map(_.toLower).split(',').toIndexedSeq, words mkString " ")
       }
     }
 

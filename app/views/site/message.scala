@@ -1,13 +1,12 @@
 package views
 package html.site
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
-import lila.common.HTTPRequest
 
 object message {
 
@@ -21,7 +20,7 @@ object message {
       main(cls := "box box-pad")(
         h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
           back map { url =>
-            a(href := url, dataIcon := "I", cls := "text")
+            a(href := url, dataIcon := "", cls := "text")
           },
           title
         ),
@@ -44,17 +43,12 @@ object message {
       "Sorry, boosters and sandbaggers are not allowed here."
     }
 
-  def blacklisted(implicit ctx: Context) =
-    apply("IP address blacklisted") {
-      blacklistedMessage
-    }
-
   def blacklistedMessage(implicit ctx: Context) =
-    s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
+    s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
-      title = s"${usernameOrId(study.ownerId)}'s study",
+      title = s"${titleNameOrId(study.ownerId)}'s study",
       back = routes.Study.allDefault(1).url.some
     )(
       "Sorry! This study is private, you cannot access it.",
@@ -73,8 +67,8 @@ object message {
 
   def challengeDenied(msg: String)(implicit ctx: Context) =
     apply(
-      title = trans.challengeToPlay.txt(),
-      back = routes.Lobby.home().url.some
+      title = trans.challenge.challengeToPlay.txt(),
+      back = routes.Lobby.home.url.some
     )(msg)
 
   def insightNoGames(u: User)(implicit ctx: Context) =
@@ -108,4 +102,7 @@ object message {
     apply("Temporarily disabled")(
       "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
     )
+
+  def notYet(text: String)(implicit ctx: Context) =
+    apply("Not yet available")(text)
 }

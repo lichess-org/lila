@@ -29,7 +29,7 @@ final class Event(env: Env) extends LilaController(env) {
     }
 
   def update(id: String) =
-    SecureBody(_.ManageEvent) { implicit ctx => _ =>
+    SecureBody(_.ManageEvent) { implicit ctx => me =>
       OptionFuResult(api one id) { event =>
         implicit val req = ctx.body
         api
@@ -37,7 +37,7 @@ final class Event(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             err => BadRequest(html.event.edit(event, err)).fuccess,
-            data => api.update(event, data) inject Redirect(routes.Event.edit(id)).flashSuccess
+            data => api.update(event, data, me.user) inject Redirect(routes.Event.edit(id)).flashSuccess
           )
       }
     }

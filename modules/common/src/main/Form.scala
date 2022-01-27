@@ -9,7 +9,10 @@ import play.api.data.Forms._
 import play.api.data.JodaForms._
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
+import play.api.data.{ validation => V }
 import scala.util.Try
+
+import lila.common.base.StringUtils
 
 object Form {
 
@@ -45,45 +48,143 @@ object Form {
       d -> format(d)
     }
 
+  private def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+
   def numberIn(choices: Options[Int]) =
-    number.verifying(hasKey(choices, _))
+    number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def numberIn(choices: Set[Int]) =
-    number.verifying(choices.contains _)
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberIn(choices: Seq[Int]) =
-    number.verifying(choices.contains _)
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
-    of[Double].verifying(hasKey(choices, _))
+    of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
-  def clean(m: Mapping[String]) =
-    trim(m)
-      .verifying("This text contains invalid chars", s => !String.hasZeroWidthChars(s))
 
-  def eventName(minLength: Int, maxLength: Int) =
-    clean(text).verifying(
-      Constraints minLength minLength,
-      Constraints maxLength maxLength,
-      Constraints.pattern(
-        regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
-        error = "Invalid characters"
-      )
+  // trims and removes garbage chars before validation
+  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+    def bind(key: String, data: Map[String, String]) =
+      data
+        .get(key)
+        .map(_.trim)
+        .map(String.normalize.apply)
+        .map(String.removeMultibyteSymbols)
+        .toRight(Seq(FormError(key, "error.required", Nil)))
+    def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
+  }
+
+  val cleanText: Mapping[String] = of(cleanTextFormatter).verifying(
+    V.Constraint((s: String) =>
+      if (String.hasGarbageChars(s))
+        V.Invalid(
+          Seq(
+            V.ValidationError(
+              s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
+            )
+          )
+        )
+      else V.Valid
     )
+  )
+  def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    (minLength, maxLength) match {
+      case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
+      case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
+      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+    }
+
+  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
+  def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
+
+  object eventName {
+
+    def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
+      cleanText.verifying(
+        Constraints minLength minLength,
+        Constraints maxLength maxLength,
+        Constraints.pattern(
+          regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
+          error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
+        ),
+        mustNotContainLichess(verifiedUser)
+      )
+  }
+
+  object mustNotContainLichess {
+    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
+    def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
+      if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+        V.Invalid(V.ValidationError("Must not contain \"lichess\""))
+      else V.Valid
+    }
+  }
+
+  object markdownImage {
+    private val allowedDomains =
+      List(
+        "imgur.com",
+        "giphy.com",
+        "wikimedia.org",
+        "creativecommons.org",
+        "pexels.com",
+        "piqsels.com",
+        "freeimages.com",
+        "unsplash.com",
+        "pixabay.com",
+        "githubusercontent.com",
+        "googleusercontent.com",
+        "i.ibb.co",
+        "i.postimg.cc",
+        "xkcd.com",
+        "lichess1.org"
+      )
+    private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
+    sealed abstract private class Bad(val msg: String)
+    private case class BadUrl(url: String)       extends Bad(s"Invalid image URL: $url")
+    private case class BadDomain(domain: String) extends Bad(s"Disallowed image domain: $domain")
+    val constraint = V.Constraint((s: String) =>
+      Markdown
+        .imageUrls(s)
+        .map {
+          case imageDomainRegex(domain) =>
+            !allowedDomains.exists(d => domain == d || domain.endsWith(s".$d")) option BadDomain(
+              domain
+            )
+          case url => BadUrl(url).some
+        }
+        .flatten match {
+        case Nil => V.Valid
+        case bads =>
+          V.Invalid(
+            bads.map(_.msg).map(V.ValidationError(_)) ::: {
+              bads.exists {
+                case _: BadDomain => true
+                case _            => false
+              } ?? List(
+                V.ValidationError(s"Allowed domains: ${allowedDomains mkString ", "}")
+              )
+            }
+          )
+      }
+    )
+  }
 
   def stringIn(choices: Options[String]) =
-    text.verifying(hasKey(choices, _))
+    text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def stringIn(choices: Set[String]) =
-    text.verifying(choices.contains _)
+    text.verifying(mustBeOneOf(choices), choices.contains _)
 
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
   def hasKey[A](choices: Options[A], key: A) =
     choices.map(_._1).toList contains key
 
-  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "on" || v == "yes"
+  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
@@ -110,7 +211,6 @@ object Form {
   }
 
   object constraint {
-    import play.api.data.{ validation => V }
     def minLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.minLength", length) { o =>
         if (from(o).lengthIs >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
@@ -122,11 +222,18 @@ object Form {
   }
 
   object fen {
-    implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict             = playable(strict = true)
-    def playable(strict: Boolean) = of[FEN](fenFormat)
+    implicit val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    val playableStrict     = playable(strict = true)
+    def playable(strict: Boolean) = of[FEN]
       .transform[FEN](f => FEN(f.value.trim), identity)
       .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
+      .transform[FEN](if (strict) truncateMoveNumber else identity, identity)
+    def truncateMoveNumber(fen: FEN) =
+      (Forsyth <<< fen).fold(fen) { g =>
+        if (g.fullMoveNumber >= 150)
+          Forsyth >> g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+        else fen
+      }
   }
 
   def inTheFuture(m: Mapping[DateTime]) =

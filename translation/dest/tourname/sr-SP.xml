@@ -21,7 +21,7 @@
   <string name="weeklyClassicalArena">Недељна класична арена</string>
   <string name="weeklyClassical">Недељни класични</string>
   <string name="weeklyXArena">Недељна %s арена</string>
-  <string name="weeklyX">Недељни %s</string>
+  <string name="weeklyX">Седмични %s</string>
   <string name="monthlyRapidArena">Месечна рапид арена</string>
   <string name="monthlyRapid">Месечни рапид</string>
   <string name="monthlyClassicalArena">Месечна класична арена</string>
@@ -40,8 +40,6 @@
   <string name="classicalShield">Класични Шилд</string>
   <string name="xShieldArena">%s Шилд арена</string>
   <string name="xShield">%s Шилд</string>
-  <string name="openingRapidArena">%s Рапид арена</string>
-  <string name="openingRapid">%s Рапид</string>
   <string name="xTeamBattle">%s Борба тимова</string>
   <string name="eliteXArena">Елитна %s арена</string>
   <string name="eliteX">Елитни %s</string>

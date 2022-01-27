@@ -3,7 +3,7 @@
   <string name="settings">Ustawienia</string>
   <string name="closeAccount">Zamknij konto</string>
   <string name="closingIsDefinitive">Zamknięcie jest ostateczne. Nie ma odwrotu. Czy jesteś pewien?</string>
-  <string name="cantOpenSimilarAccount">Nie będziesz mógł otworzyć nowego konta z tą samą nazwą, nawet jeśli wielkość liter jest inna.</string>
+  <string name="cantOpenSimilarAccount">Nie będziesz mógł otworzyć nowego konta, z tą samą nazwą, nawet jeśli wielkość liter będzie inna.</string>
   <string name="changedMindDoNotCloseAccount">Zmieniłem zdanie, nie chcę zamykać swojego konta</string>
   <string name="closeAccountExplanation">Jesteś pewien, że chcesz zamknąć swoje konto? Zamknięcie konta jest decyzją nieodwracalną. Już NIGDY nie będziesz mógł się na nie zalogować.</string>
   <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>

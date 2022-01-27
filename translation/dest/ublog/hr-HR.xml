@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog korisnika %s</string>
+  <string name="newPost">Nova objava</string>
+  <string name="editYourBlogPost">Uredite svoju objavu na blogu</string>
+  <string name="saveDraft">Spremi skicu</string>
+  <string name="postTitle">Naslov objave</string>
+  <string name="postIntro">Uvod objave</string>
+  <string name="postBody">Tijelo objave</string>
+  <string name="drafts">Skice</string>
+  <string name="published">Objavljeno</string>
+  <string name="publishOnYourBlog">Objavi na blog</string>
+  <string name="publishHelp">Ako je označeno, objava će biti navedena na vašem blogu. Ako ne, bit će privatan, u vašim skicama objava</string>
+  <string name="xPublishedY">%1$s objavio %2$s</string>
+  <string name="thisPostIsPublished">Ovaj post je objavljen</string>
+  <string name="thisIsADraft">Ovo je skica</string>
+  <string name="moreBlogPostsBy">Više blog objava od %s</string>
+  <string name="noPostsInThisBlogYet">Još nema postova na ovom blogu.</string>
+  <string name="noDrafts">Nema skica za prikaz.</string>
+  <string name="latestBlogPosts">Najnovije objave na blogu</string>
+  <string name="uploadAnImageForYourPost">Prenesite sliku za svoj post</string>
+  <string name="imageAlt">Alternativni tekst slike</string>
+</resources>

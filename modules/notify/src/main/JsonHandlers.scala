@@ -2,8 +2,11 @@ package lila.notify
 
 import lila.common.LightUser
 import play.api.libs.json._
+import lila.i18n.{ I18nKeys => trans }
 
 import lila.common.Json.jodaWrites
+import play.api.i18n.Lang
+import lila.i18n.JsDump
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
@@ -62,6 +65,10 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
           Json.obj(
             "user" -> getLightUser(userId)
           )
+        case KaladinDone(userId) =>
+          Json.obj(
+            "user" -> getLightUser(userId)
+          )
         case GenericLink(url, title, text, icon) =>
           Json.obj(
             "url"   -> url,
@@ -85,11 +92,38 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
   implicit val unreadWrites = Writes[Notification.UnreadCount] { v =>
     JsNumber(v.value)
   }
-  implicit val andUnreadWrites: Writes[Notification.AndUnread] = Json.writes[Notification.AndUnread]
+  implicit val andUnreadWrites: OWrites[Notification.AndUnread] = Json.writes[Notification.AndUnread]
 
   implicit val newNotificationWrites: Writes[NewNotification] = (newNotification: NewNotification) =>
     Json.obj(
       "notification" -> newNotification.notification,
       "unread"       -> newNotification.unreadNotifications
+    )
+
+  private val i18nKeys: List[lila.i18n.MessageKey] = List(
+    trans.mentionedYouInX,
+    trans.xMentionedYouInY,
+    trans.invitedYouToX,
+    trans.xInvitedYouToY,
+    trans.youAreNowPartOfTeam,
+    trans.youHaveJoinedTeamX,
+    trans.thankYou,
+    trans.someoneYouReportedWasBanned,
+    trans.victory,
+    trans.defeat,
+    trans.draw,
+    trans.congratsYouWon,
+    trans.gameVsX,
+    trans.resVsX,
+    trans.newPendingReview,
+    trans.someoneReviewedYourCoachProfile,
+    trans.lostAgainstTOSViolator,
+    trans.refundXpointsTimeControlY,
+    trans.timeAlmostUp
+  ).map(_.key)
+
+  def apply(notify: Notification.AndUnread)(implicit lang: Lang) =
+    andUnreadWrites.writes(notify) ++ Json.obj(
+      "i18n" -> JsDump.keysToObject(i18nKeys, lang)
     )
 }

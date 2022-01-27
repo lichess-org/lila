@@ -12,14 +12,10 @@
   <string name="noTeamFound">Walang koponan na nakita</string>
   <string name="joinTeam">Sumali sa koponan</string>
   <string name="quitTeam">Umalis sa koponan</string>
-  <string name="anyoneCanJoin">Libre para sa lahat</string>
-  <string name="aConfirmationIsRequiredToJoin">Isang kompirmasyon ang kailangan para makasali</string>
-  <string name="joiningPolicy">Patakaran ng Pagsali</string>
   <plurals name="teamLeaders">
     <item quantity="one">Pinuno ng koponan</item>
     <item quantity="other">Mga pinuno ng koponan</item>
   </plurals>
-  <string name="teamBestPlayers">Pinakamagaling na mga manlalaro</string>
   <string name="teamRecentMembers">Mga bagong miyembro</string>
   <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
   <string name="whoToKick">Sino ang gusto mong/ninyong sibakin mula sa koponan?</string>

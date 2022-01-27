@@ -1,6 +1,6 @@
 package lila.relay
 
-import io.lemonlabs.uri._
+import io.mola.galimatias.URL
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
@@ -14,47 +14,47 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(i
 ) {
 
   import RelayFormat._
-  import Relay.Sync.UpstreamWithRound
+  import RelayRound.Sync.UpstreamUrl
 
-  private val cache = cacheApi[UpstreamWithRound, RelayFormat](8, "relay.format") {
+  private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format") {
     _.refreshAfterWrite(10 minutes)
       .expireAfterAccess(20 minutes)
       .buildAsyncFuture(guessFormat)
   }
 
-  def get(upstream: UpstreamWithRound): Fu[RelayFormat] = cache get upstream
+  def get(upstream: UpstreamUrl.WithRound): Fu[RelayFormat] = cache get upstream
 
-  def refresh(upstream: UpstreamWithRound): Unit = cache invalidate upstream
+  def refresh(upstream: UpstreamUrl.WithRound): Unit = cache invalidate upstream
 
-  private def guessFormat(upstream: UpstreamWithRound): Fu[RelayFormat] = {
+  private def guessFormat(upstream: UpstreamUrl.WithRound): Fu[RelayFormat] = {
 
-    val originalUrl = Url parse upstream.url
+    val originalUrl = URL parse upstream.url
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
-    def guessLcc(url: Url): Fu[Option[RelayFormat]] =
+    def guessLcc(url: URL): Fu[Option[RelayFormat]] =
       url.toString match {
-        case Relay.Sync.LccRegex(id) =>
+        case UpstreamUrl.LccRegex(id) =>
           guessManyFiles(
-            Url.parse(
+            URL.parse(
               s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
             )
           )
         case _ => fuccess(none)
       }
 
-    def guessSingleFile(url: Url): Fu[Option[RelayFormat]] =
+    def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(
           url.some,
-          !url.path.parts.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
+          !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
         ).flatten.distinct
-      )(looksLikePgn) dmap2 { (u: Url) =>
+      )(looksLikePgn) dmap2 { (u: URL) =>
         SingleFile(pgnDoc(u))
       }
 
-    def guessManyFiles(url: Url): Fu[Option[RelayFormat]] =
+    def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
-        List(url) ::: mostCommonIndexNames.filterNot(url.path.parts.contains).map(addPart(url, _))
+        List(url) ::: mostCommonIndexNames.filterNot(url.pathSegments.contains).map(addPart(url, _))
       )(looksLikeJson) flatMap {
         _ ?? { index =>
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
@@ -73,7 +73,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(i
     logger.info(s"guessed format of $upstream: $format")
   }
 
-  private def httpGet(url: Url): Fu[Option[String]] =
+  private def httpGet(url: URL): Fu[Option[String]] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
       .get()
@@ -86,7 +86,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(i
     MultiPgn.split(body, 1).value.headOption ?? { pgn =>
       lila.study.PgnImport(pgn, Nil).isValid
     }
-  private def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
+  private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 
   private def looksLikeJson(body: String): Boolean =
     try {
@@ -94,7 +94,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(i
     } catch {
       case _: Exception => false
     }
-  private def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
+  private def looksLikeJson(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 }
 
 sealed private trait RelayFormat
@@ -107,28 +107,21 @@ private object RelayFormat {
     case object Pgn  extends DocFormat
   }
 
-  case class Doc(url: Url, format: DocFormat)
+  case class Doc(url: URL, format: DocFormat)
 
-  def jsonDoc(url: Url) = Doc(url, DocFormat.Json)
-  def pgnDoc(url: Url)  = Doc(url, DocFormat.Pgn)
+  def jsonDoc(url: URL) = Doc(url, DocFormat.Json)
+  def pgnDoc(url: URL)  = Doc(url, DocFormat.Pgn)
 
   case class SingleFile(doc: Doc) extends RelayFormat
 
   type GameNumberToDoc = Int => Doc
 
-  case class ManyFiles(jsonIndex: Url, game: GameNumberToDoc) extends RelayFormat {
+  case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat {
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
   }
 
-  def addPart(url: Url, part: String) = url.withPath(url.path addPart part)
-  def replaceLastPart(url: Url, withPart: String) =
-    if (url.path.isEmpty) addPart(url, withPart)
-    else
-      url.withPath {
-        url.path.withParts {
-          url.path.parts.init :+ withPart
-        }
-      }
+  def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
+  def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames     = List("round.json", "index.json")

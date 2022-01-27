@@ -11,8 +11,8 @@
     <item quantity="other">%1$s %2$s állást gyakorolt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Megoldott %s taktikai feladványt</item>
-    <item quantity="other">Megoldott %s taktikai feladványt</item>
+    <item quantity="one">Befejezett %s taktikai feladványt</item>
+    <item quantity="other">Befejezett %s taktikai feladványt</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s %2$s partit játszott</item>
@@ -62,6 +62,11 @@
     <item quantity="one">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
     <item quantity="other">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s svájci rendszerű versenyen vett részt</item>
+    <item quantity="other">%s svájci rendszerű versenyen vett részt</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Helyezés: %1$s / %2$s</string>
   <string name="signedUp">Regisztrált a lichess.org-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>

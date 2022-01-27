@@ -1,6 +1,27 @@
 const coll = db.game_search;
 
-const players = ["penguingim1", "aladdin65", "aleksey472", "azuaga", "benpig", "blackboarder", "bockosrb555", "bogdan_low_player", "charlytb", "chchbbuur", "chessexplained", "cmcookiemonster", "crptone", "cselhu3", "darkzam", "dmitri31", "dorado99", "ericrosen", "fast-tsunami", "flaneur" ];
+const players = [
+  'penguingim1',
+  'aladdin65',
+  'aleksey472',
+  'azuaga',
+  'benpig',
+  'blackboarder',
+  'bockosrb555',
+  'bogdan_low_player',
+  'charlytb',
+  'chchbbuur',
+  'chessexplained',
+  'cmcookiemonster',
+  'crptone',
+  'cselhu3',
+  'darkzam',
+  'dmitri31',
+  'dorado99',
+  'ericrosen',
+  'fast-tsunami',
+  'flaneur',
+];
 const sources = [1, 2, 3, 4, 5, 6, 7, 8];
 const variants = [1, 2, 3, 4, 5, 6, 7, 8];
 const results = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -34,49 +55,52 @@ for (let i = 0; i < nbGames; i++) {
     minutes: NumberInt(30 + intRandom(3600 * 3)),
     clock: {
       init: NumberInt(0 + intRandom(10800)),
-      inc: NumberInt(0 + intRandom(180))
+      inc: NumberInt(0 + intRandom(180)),
     },
     result: anyOf(results),
     date: new Date(Date.now() - intRandom(118719488)),
-    analysed: !!intRandom(2)
+    analysed: !!intRandom(2),
   });
   if (i % 1000 == 0) print(`${i} / ${nbGames}`);
 }
 
 const indexes = [
-  {users:1},
-  {winner:1},
-  {loser:1},
-  {winColor: 1},
-  {avgRating: 1},
-  {source: 1},
-  {variants: 1},
-  {mode: 1},
-  {turns: 1},
-  {minutes: 1},
-  {'clock.init':1},
-  {'clock.inc': 1},
-  {result: 1},
-  {date: 1},
-  {analysed: 1}
+  { users: 1 },
+  { winner: 1 },
+  { loser: 1 },
+  { winColor: 1 },
+  { avgRating: 1 },
+  { source: 1 },
+  { variants: 1 },
+  { mode: 1 },
+  { turns: 1 },
+  { minutes: 1 },
+  { 'clock.init': 1 },
+  { 'clock.inc': 1 },
+  { result: 1 },
+  { date: 1 },
+  { analysed: 1 },
 ];
 
-print("Adding indexes");
+print('Adding indexes');
 indexes.forEach(index => {
   printjson(index);
   db.game_search.createIndex(index);
 });
 
-print("Searching");
-db.game_search.find({
-  avgRating: { $gt: 1000 },
-  turns: { $lt: 250 },
-  'clock.init': { $gt: 1 },
-  minutes: { $gt: 2, $lt: 150 },
-}).sort({
-  date: -1
-}).limit(20).explain('executionStats');
-
+print('Searching');
+db.game_search
+  .find({
+    avgRating: { $gt: 1000 },
+    turns: { $lt: 250 },
+    'clock.init': { $gt: 1 },
+    minutes: { $gt: 2, $lt: 150 },
+  })
+  .sort({
+    date: -1,
+  })
+  .limit(20)
+  .explain('executionStats');
 
 /*
    "executionStats": {

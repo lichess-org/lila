@@ -1,9 +1,10 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import lila.common.ThreadLocalRandom
 import scala.util.chaining._
 
+import lila.common.config.MaxPerPage
+import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class Topic(
@@ -37,7 +38,9 @@ case class Topic(
   def open          = !closed
   def visibleOnHome = !hidden
 
-  def isTooBig = nbPosts > 50 && Categ.slugToTeamId(categId).isEmpty
+  def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
+
+  def looksLikeTeamForum = Categ.isTeamSlug(categId)
 
   def isSticky = ~sticky
 
@@ -54,6 +57,9 @@ case class Topic(
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
   def isOld = updatedAt isBefore DateTime.now.minusMonths(1)
+
+  def lastPage(maxPerPage: MaxPerPage): Int =
+    (nbPosts + maxPerPage.value - 1) / maxPerPage.value
 }
 
 object Topic {

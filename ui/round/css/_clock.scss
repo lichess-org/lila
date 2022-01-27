@@ -10,7 +10,6 @@
     z-index: 1;
   }
 
-
   /* overflow: hidden; is not possible because of clock bars and shadows */
   @include breakpoint($mq-col2) {
     justify-content: space-between;
@@ -20,7 +19,6 @@
       z-index: 0;
     }
   }
-
 
   &-turn {
     align-self: center;
@@ -34,7 +32,6 @@
         white-space: nowrap;
       }
     }
-
 
     @include breakpoint($mq-col2) {
       height: 2.2em;
@@ -73,7 +70,6 @@
     }
   }
 
-
   .time {
     @extend %roboto, %box-shadow;
 
@@ -99,20 +95,18 @@
       box-shadow: none;
     }
 
-
     @include breakpoint($mq-col2) {
       align-items: flex-end;
       line-height: 1.2em;
     }
 
-
     @include breakpoint($mq-xx-small $mq-tall) {
       font-size: 3.6em;
-      letter-spacing: .12em;
+      letter-spacing: 0.12em;
 
       &.hour {
         font-size: 2.9em;
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
       }
     }
   }
@@ -133,7 +127,6 @@
       line-height: 1.5em;
     }
 
-
     @include breakpoint($mq-xx-small) {
       font-size: 1.9em;
     }
@@ -141,7 +134,7 @@
 
   tenths {
     font-size: 70%;
-    margin-bottom: -.18em;
+    margin-bottom: -0.18em;
   }
 
   huns {
@@ -156,7 +149,7 @@
 
   sep {
     opacity: 0.5;
-    font-size: .8em;
+    font-size: 0.8em;
 
     &.low {
       opacity: 0.15;
@@ -180,7 +173,7 @@
 
   .go-berserk {
     font-size: 2.2em;
-    padding: 0 .3em;
+    padding: 0 0.3em;
 
     &:hover {
       color: $c-accent !important;
@@ -200,9 +193,8 @@
       display: flex;
       flex: 0 1 auto;
       font-size: 1.7em;
-      padding: 0 .3em;
+      padding: 0 0.3em;
     }
-
 
     @include breakpoint($mq-col2) {
       order: inherit;
@@ -212,7 +204,7 @@
   .tour-rank {
     @extend %page-text;
 
-    opacity: .65;
+    opacity: 0.65;
   }
 
   .moretime {

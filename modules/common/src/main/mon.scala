@@ -34,7 +34,6 @@ object mon {
       counter("http.csrf.error").withTags(Map("type" -> tpe, "action" -> action, "client" -> client))
     val fingerPrint          = timer("http.fingerPrint.time").withoutTags()
     def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
-    val imageBytes           = histogram("http.image.bytes").withoutTags()
   }
   object syncache {
     def miss(name: String)    = counter("syncache.miss").withTag("name", name)
@@ -147,6 +146,7 @@ object mon {
         val coefVar                   = histogram("round.move.lag.coef_var_1000").withoutTags()
         val compEstStdErr             = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
         val compEstOverErr            = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        val moveComp                  = timer("round.move.lag.comped").withoutTags()
       }
       val time = timer("round.move.time").withoutTags()
     }
@@ -169,7 +169,7 @@ object mon {
     object expiration {
       val count = counter("round.expiration.count").withoutTags()
     }
-    val ductCount = gauge("round.duct.count").withoutTags()
+    val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
@@ -201,8 +201,14 @@ object mon {
         )
       )
   }
-  object duct {
-    def overflow(name: String) = counter("duct.overflow").withTag("name", name)
+  object asyncActor {
+    def overflow(name: String)  = counter("asyncActor.overflow").withTag("name", name)
+    def queueSize(name: String) = histogram("asyncActor.queueSize").withTag("name", name)
+  }
+  object irc {
+    object zulip {
+      def say(stream: String) = future("irc.zulip.say", Map("stream" -> stream))
+    }
   }
   object user {
     val online = gauge("user.online").withoutTags()
@@ -252,6 +258,15 @@ object mon {
       def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
       def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
     }
+    object kaladin {
+      def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
+      def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
+      def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
+      def error(errKind: String)        = counter("mod.kaladin.error").withTag("error", errKind)
+      val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
+      val report                        = counter("mod.report.kaladin.report").withoutTags()
+      val mark                          = counter("mod.report.kaladin.mark").withoutTags()
+    }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     }
@@ -281,16 +296,15 @@ object mon {
   }
   object email {
     object send {
-      private val c           = counter("email.send")
-      val resetPassword       = c.withTag("type", "resetPassword")
-      val magicLink           = c.withTag("type", "magicLink")
-      val reopen              = c.withTag("type", "reopen")
-      val fix                 = c.withTag("type", "fix")
-      val change              = c.withTag("type", "change")
-      val confirmation        = c.withTag("type", "confirmation")
-      val welcome             = c.withTag("type", "welcome")
-      val time                = timer("email.send.time").withoutTags()
-      def error(name: String) = counter("email.error").withTag("name", name)
+      private val c     = counter("email.send")
+      val resetPassword = c.withTag("type", "resetPassword")
+      val magicLink     = c.withTag("type", "magicLink")
+      val reopen        = c.withTag("type", "reopen")
+      val fix           = c.withTag("type", "fix")
+      val change        = c.withTag("type", "change")
+      val confirmation  = c.withTag("type", "confirmation")
+      val welcome       = c.withTag("type", "welcome")
+      val time          = timer("email.send.time").withoutTags()
     }
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   }
@@ -316,9 +330,9 @@ object mon {
     }
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
-    object recaptcha {
+    object hCaptcha {
       def hit(client: String, result: String) =
-        counter("recaptcha.hit").withTags(Map("client" -> client, "result" -> result))
+        counter("hcaptcha.hit").withTags(Map("client" -> client, "result" -> result))
     }
   }
   object tv {
@@ -327,13 +341,6 @@ object mon {
       def youTube            = future("tv.streamer.youtube")
       def twitch             = future("tv.streamer.twitch")
     }
-  }
-  object crosstable {
-    val create                      = future("crosstable.create.time")
-    def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
-    val duplicate                   = counter("crosstable.create.duplicate").withoutTags()
-    val found                       = counter("crosstable.create.found").withoutTags()
-    val createNbGames               = histogram("crosstable.create.nbGames").withoutTags()
   }
   object playTime {
     val create         = future("playTime.create.time")
@@ -352,8 +359,14 @@ object mon {
     }
   }
   object clas {
-    def studentCreate(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
-    def studentInvite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+    object student {
+      def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
+      def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+      object bloomFilter {
+        val count = gauge("clas.student.bloomFilter.count").withoutTags()
+        val fu    = future("clas.student.bloomFilter.future")
+      }
+    }
   }
   object tournament {
     object pairing {
@@ -368,15 +381,20 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
-    val created        = gauge("tournament.count").withTag("type", "created")
-    val started        = gauge("tournament.count").withTag("type", "started")
-    val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags()
+    val created                        = gauge("tournament.count").withTag("type", "created")
+    val started                        = gauge("tournament.count").withTag("type", "started")
+    def waitingPlayers(tourId: String) = histogram("tournament.waitingPlayers").withTag("tourId", tourId)
     object startedOrganizer {
       val tick         = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
     }
     object createdOrganizer {
       val tick = future("tournament.createdOrganizer.tick")
+    }
+    object lilaHttp {
+      val tick     = future("tournament.lilaHttp.tick")
+      val fullSize = histogram("tournament.lilaHttp.fullSize").withoutTags()
+      val nbTours  = gauge("tournament.lilaHttp.nbTours").withoutTags()
     }
     def standingOverload = counter("tournament.standing.overload").withoutTags()
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
@@ -387,6 +405,9 @@ object mon {
           "client"  -> client
         )
       )
+    def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
+    def action(tourId: String, action: String) =
+      timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
     def standingOverload      = counter("swiss.standing.overload").withoutTags()
@@ -404,6 +425,18 @@ object mon {
     val goal    = gauge("plan.goal").withoutTags()
     val current = gauge("plan.current").withoutTags()
     val percent = gauge("plan.percent").withoutTags()
+    object charge {
+      def first(service: String) = counter("plan.charge.first").withTag("service", service)
+      def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
+        histogram("plan.charge.country.cents").withTags(
+          Map(
+            "country"  -> country,
+            "currency" -> currency.getCurrencyCode,
+            "service"  -> service,
+            "gift"     -> gift
+          )
+        )
+    }
   }
   object forum {
     object post {
@@ -414,25 +447,38 @@ object mon {
     }
     def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
   }
-  object team {
-    def massPm(teamId: String) = histogram("team.mass-pm").withTag("from", teamId)
+  object msg {
+    def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
+      Map("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
+    )
+    def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
+    def clasBulk(clasId: String) = histogram("msg.bulk.clas").withTag("id", clasId)
   }
   object puzzle {
     object selector {
       object user {
-        def puzzle(theme: String, retries: Int, vote: Int) =
-          timer("puzzle.selector.user.puzzle").withTags(
-            Map("theme" -> theme, "retries" -> retries, "vote" -> vote)
+        def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
+        def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
+        def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
+        def ratingDiff(theme: String, difficulty: String) =
+          histogram("puzzle.selector.user.ratingDiff").withTags(
+            Map("theme" -> theme, "difficulty" -> difficulty)
+          )
+        def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
+        def tier(t: String, theme: String, difficulty: String) =
+          counter("puzzle.selector.user.tier").withTags(
+            Map("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
           )
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       }
       object anon {
-        def puzzle(vote: Int) = timer("puzzle.selector.anon.puzzle").withTag("vote", vote)
-        def batch(nb: Int)    = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
+        def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
       }
-      def nextPuzzleResult(theme: String, difficulty: String, position: Int, result: String) =
-        timer("puzzle.selector.user.puzzle").withTags(
-          Map("theme" -> theme, "difficulty" -> difficulty, "position" -> position, "result" -> result)
+      def nextPuzzleResult(theme: String, difficulty: String, result: String) =
+        timer("puzzle.selector.user.puzzleResult").withTags(
+          Map("theme" -> theme, "difficulty" -> difficulty, "result" -> result)
         )
     }
     object path {
@@ -442,8 +488,8 @@ object mon {
             "theme"         -> theme,
             "tier"          -> tier,
             "difficulty"    -> difficulty,
-            "previousPaths" -> previousPaths,
-            "compromise"    -> compromise
+            "previousPaths" -> previousPaths.toString,
+            "compromise"    -> compromise.toString
           )
         )
     }
@@ -456,19 +502,62 @@ object mon {
       val solve = counter("puzzle.batch.solve").withoutTags()
     }
     object round {
-      def attempt(user: Boolean, theme: String) =
-        counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
+      def attempt(user: Boolean, theme: String, rated: Boolean) =
+        counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme, "rated" -> rated))
     }
-    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTag("up", up)
-    def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
-      counter("puzzle.selector.voteTheme").withTags(
+    object vote {
+      def count(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
         Map(
-          "up"    -> up.fold("cancel")(_.toString),
-          "theme" -> key,
-          "win"   -> win
+          "up"  -> up,
+          "win" -> win
         )
       )
+      def theme(key: String, up: Option[Boolean], win: Boolean) =
+        counter("puzzle.vote.theme").withTags(
+          Map(
+            "up"    -> up.fold("cancel")(_.toString),
+            "theme" -> key,
+            "win"   -> win
+          )
+        )
+      val future = mon.future("puzzle.vote.future")
+    }
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
+  }
+  object storm {
+    object selector {
+      val time                    = timer("storm.selector.time").withoutTags()
+      val count                   = histogram("storm.selector.count").withoutTags()
+      val rating                  = histogram("storm.selector.rating").withoutTags()
+      def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)
+    }
+    object run {
+      def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
+      def sign(cause: String)  = counter("storm.run.sign").withTag("cause", cause)
+    }
+  }
+  object racer {
+    private def tpe(lobby: Boolean) = if (lobby) "lobby" else "friend"
+    def race(lobby: Boolean)        = counter("racer.lobby.race").withTag("tpe", tpe(lobby))
+    def players(lobby: Boolean) =
+      histogram("racer.lobby.players").withTag("tpe", tpe(lobby))
+    def score(lobby: Boolean, auth: Boolean) = histogram("racer.player.score").withTags(
+      Map(
+        "tpe"  -> tpe(lobby),
+        "auth" -> auth
+      )
+    )
+  }
+  object streak {
+    object selector {
+      val time                    = timer("streak.selector.time").withoutTags()
+      val count                   = histogram("streak.selector.count").withoutTags()
+      val rating                  = histogram("streak.selector.rating").withoutTags()
+      def ratingSlice(index: Int) = histogram("streak.selector.ratingSlice").withTag("index", index)
+    }
+    object run {
+      def score(auth: Boolean) = histogram("streak.run.score").withTag("auth", auth)
+    }
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
@@ -528,7 +617,8 @@ object mon {
         val accept = send("challengeAccept") _
       }
     }
-    val googleTokenTime = timer("push.send.googleToken").withoutTags()
+    val googleTokenTime             = timer("push.send.googleToken").withoutTags()
+    def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
   }
   object fishnet {
     object client {
@@ -538,7 +628,6 @@ object mon {
           c.withTags(Map("client" -> client, "result" -> r))
         val success     = apply("success") _
         val failure     = apply("failure") _
-        val weak        = apply("weak") _
         val timeout     = apply("timeout") _
         val notFound    = apply("notFound") _
         val notAcquired = apply("notAcquired") _
@@ -570,19 +659,40 @@ object mon {
     object http {
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     }
+    def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
+    def openingBook(level: Int, variant: String, ply: Int, hit: Boolean, success: Boolean) =
+      timer("fishnet.opening.hit").withTags(
+        Map(
+          "level"   -> level.toLong,
+          "variant" -> variant,
+          "ply"     -> ply.toLong,
+          "hit"     -> hitTag(hit),
+          "success" -> successTag(success)
+        )
+      )
+  }
+  object study {
+    object tree {
+      val read  = timer("study.tree.read").withoutTags()
+      val write = timer("study.tree.write").withoutTags()
+    }
+    object sequencer {
+      val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
+    }
   }
   object api {
     val userGames = counter("api.cost").withTag("endpoint", "userGames")
     val users     = counter("api.cost").withTag("endpoint", "users")
     val game      = counter("api.cost").withTag("endpoint", "game")
     val activity  = counter("api.cost").withTag("endpoint", "activity")
-  }
-  object export {
-    object pgn {
-      val game         = counter("export.pgn").withTag("type", "game")
-      val study        = counter("export.pgn").withTag("type", "study")
-      val studyChapter = counter("export.pgn").withTag("type", "studyChapter")
+    object challenge {
+      object bulk {
+        def scheduleNb(byUserId: String) = counter("api.challenge.bulk.schedule.nb").withTag("by", byUserId)
+        def createNb(byUserId: String)   = counter("api.challenge.bulk.create.nb").withTag("by", byUserId)
+      }
     }
+  }
+  object `export` {
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")
@@ -605,6 +715,17 @@ object mon {
       )
     def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
   }
+  object markdown {
+    val time = timer("markdown.time").withoutTags()
+  }
+  object ublog {
+    def create(user: String) = counter("ublog.create").withTag("user", user)
+    def view(user: String)   = counter("ublog.view").withTag("user", user)
+  }
+  object picfit {
+    def uploadTime(user: String) = future("picfit.upload.time", Map("user" -> user))
+    def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
+  }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
 
@@ -617,6 +738,8 @@ object mon {
   private def histogram(name: String) = kamon.Kamon.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
+  private def future(name: String, tags: Map[String, String]) = (success: Boolean) =>
+    timer(name).withTags(tags + ("success" -> successTag(success)))
   private def future(name: String, segment: String) =
     (success: Boolean) =>
       timer(name).withTags(
@@ -624,6 +747,7 @@ object mon {
       )
 
   private def successTag(success: Boolean) = if (success) "success" else "failure"
+  private def hitTag(hit: Boolean)         = if (hit) "hit" else "miss"
 
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 

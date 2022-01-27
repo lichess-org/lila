@@ -6,11 +6,15 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "snabbdom": "^0.7.4"
+    "common": "2.0.0",
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "dev": "rollup --config",

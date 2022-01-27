@@ -14,7 +14,7 @@ object CrudForm {
   import TournamentForm._
   import lila.common.Form.UTCDate._
 
-  val maxHomepageHours = 72
+  val maxHomepageHours = 24
 
   lazy val apply = Form(
     mapping(
@@ -28,7 +28,7 @@ object CrudForm {
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
-      "description"    -> text(minLength = 10, maxLength = 400),
+      "description"    -> nonEmptyText,
       "conditions"     -> Condition.DataForm.all(Nil),
       "berserkable"    -> boolean,
       "streakable"     -> boolean,

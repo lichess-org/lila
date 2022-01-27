@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swissTournaments">स्विस प्रतियोगिता</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">दौर देखें</item>
+    <item quantity="other">सभी %s दौर देखें</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s दौर</item>
+    <item quantity="other">%s दौर</item>
+  </plurals>
+  <string name="nextRound">अगला दौर</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">चल रहा खेल</item>
+    <item quantity="other">चल रहा खेल</item>
+  </plurals>
+  <string name="tournStartDate">प्रतियोगिता का प्रारंभ तिथि</string>
+  <string name="numberOfRounds">दौर की संख्या</string>
+  <string name="numberOfRoundsHelp">दौर की एक विषम संख्या इष्टतम रंग संतुलन की अनुमति देता है।</string>
+  <string name="newSwiss">नई स्विस प्रतियोगिता</string>
+  <string name="identicalForbidden">निषिद्ध</string>
+  <string name="pauseSwiss">हाँ, परन्तु यह दौर की संख्या को कम कर सकता है</string>
+</resources>

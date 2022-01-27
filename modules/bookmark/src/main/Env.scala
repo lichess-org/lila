@@ -11,7 +11,6 @@ import lila.hub.actorApi.bookmark._
 @Module
 final private class BookmarkConfig(
     @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
-    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
 )
 

@@ -16,15 +16,16 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   private lazy val minifiedAssets = env.net.minifiedAssets
   lazy val vapidPublicKey         = env.push.vapidPublicKey
 
+  lazy val picfitUrl = env.memo.picfitUrl
+
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
   def assetVersion = AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-
-  def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
   def cssTag(name: String)(implicit ctx: Context): Frag =
     cssTagWithTheme(name, ctx.currentBg)
@@ -54,6 +55,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def analyseTag                            = jsModule("analysisBoard")
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
+  def puzzleTag                            = jsModule("puzzle")
+  def puzzleNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
+
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
@@ -77,11 +81,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       val protocol = if (req.secure) "wss://" else "ws://"
       s"$protocol$socketDomain"
     }
+    val localDev = "http://127.0.0.1:3000"
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
-      connectSrc = "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: Nil,
+      connectSrc =
+        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev :: Nil,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),

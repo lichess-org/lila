@@ -16,4 +16,21 @@ class EmailTest extends Specification {
     }
   }
 
+  "from" should {
+    "accept valid addresses" in {
+      EmailAddress.from("Hello.World+suffix1+suffix2@gmail.com") must beSome
+      EmailAddress.from("kebab-case@example.com") must beSome
+      EmailAddress.from("snake_case@example.com") must beSome
+      EmailAddress.from("_leading.underscore@example.com") must beSome
+      EmailAddress.from("trailing.dash-@example.com") must beSome
+    }
+    "reject invalid addresses" in {
+      EmailAddress.from(".leading.dot@example.com") must beNone
+      EmailAddress.from("trailing.dot.@example.com") must beNone
+      EmailAddress.from("underscore.in@domain_name.com") must beNone
+      EmailAddress.from("consecutive..dots@example.com") must beNone
+      EmailAddress.from("invalid<character@example.com") must beNone
+    }
+  }
+
 }

@@ -2,18 +2,27 @@ package lila.hub
 
 import akka.actor._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
+
+import lila.log.Logger
 
 /** Runs the work then waits cooldown
   * only runs once at a time per id.
   * Guarantees that work is ran as early as possible.
   * Also saves work and runs it after cooldown.
   */
-final class EarlyMultiThrottler(
-    logger: lila.log.Logger
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends Actor {
+final class EarlyMultiThrottler(logger: Logger)(implicit ec: ExecutionContext, system: ActorSystem) {
 
-  import EarlyMultiThrottler._
+  private val actor = system.actorOf(Props(new EarlyMultiThrottlerActor(logger)))
+
+  def apply(id: String, cooldown: FiniteDuration)(run: => Funit) =
+    actor ! EarlyMultiThrottlerActor.Work(id, run = () => run, cooldown)
+}
+
+// actor based implementation
+final private class EarlyMultiThrottlerActor(logger: Logger)(implicit ec: ExecutionContext) extends Actor {
+
+  import EarlyMultiThrottlerActor._
 
   var running = Set.empty[String]
   var planned = Map.empty[String, Work]
@@ -45,13 +54,11 @@ final class EarlyMultiThrottler(
     lila.common.Future.makeItLast(work.cooldown) { work.run() }
 }
 
-object EarlyMultiThrottler {
-
+private object EarlyMultiThrottlerActor {
   case class Work(
       id: String,
       run: () => Funit,
       cooldown: FiniteDuration // how long to wait after running, before next run
   )
-
   private case class Done(id: String)
 }

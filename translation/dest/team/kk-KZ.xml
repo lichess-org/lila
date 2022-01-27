@@ -12,14 +12,12 @@
   <string name="noTeamFound">Ешбір топ табылмады</string>
   <string name="joinTeam">Топқа қосылу</string>
   <string name="quitTeam">Топтан шығу</string>
-  <string name="anyoneCanJoin">Барлыққа ашық</string>
-  <string name="aConfirmationIsRequiredToJoin">Қосылу растауды қажет етеді</string>
-  <string name="joiningPolicy">Қосылудың қағидасы</string>
+  <string name="manuallyReviewAdmissionRequests">Қабылдау туралы сұраныстарды жеке қарау</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Егер қосулы болса, ойыншылар топқа қосылу үшін сұраныс жазулары міндет. Ол сұранысты қабылдау не қабылдамауды сіз шешесіз.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Топ жетекшісі</item>
     <item quantity="other">Топ жетекшілері</item>
   </plurals>
-  <string name="teamBestPlayers">Ең үздік ойыншылар</string>
   <string name="teamRecentMembers">Кейінгі мүшелер</string>
   <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
   <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
@@ -44,4 +42,5 @@
   <string name="leadersChat">Жетекшілер чаты</string>
   <string name="closeTeam">Топты жабу</string>
   <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
+  <string name="teamAlreadyExists">Осындай топ бұрыннан бар.</string>
 </resources>

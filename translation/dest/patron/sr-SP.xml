@@ -16,13 +16,11 @@
   <string name="lifetime">Доживотно</string>
   <string name="payLifetimeOnce">Плати %s једном. Буди Личес Патрон заувек!</string>
   <string name="lifetimePatron">Доживотни Личес Патрон</string>
-  <string name="makeExtraDonation">Направи додатну донацију?</string>
   <string name="monthly">Месечно</string>
   <string name="recurringBilling">Поновно наплаћивање, обнављајући твоја Патрон крила сваког месеца.</string>
   <string name="onetime">Једноктратно</string>
   <string name="singleDonation">Једнократна донација која ти даје Патрон крила један месец.</string>
   <string name="otherAmount">Остало</string>
-  <string name="pleaseEnterAmount">Молимо унесите износ у USD</string>
   <string name="withCreditCard">Кредитна Картица</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ми смо мали тим, па твоја подршка прави велику разлику!</string>
@@ -38,7 +36,6 @@
   <string name="contactSupport">контактирати Личес подршку</string>
   <string name="otherMethods">Остали методи донација?</string>
   <string name="bankTransfers">Такође прихватамо банковне трансфере</string>
-  <string name="bitcoin">А ево и наше биткоин адресе: %s</string>
   <string name="patronFeatures">Да ли су неке могућности дозвољене само Патронима?</string>
   <string name="noPatronFeatures">Не, јер је Lichess потпуно бесплатан, заувек и за све. То је обећање.
 Ипак, Патрони добијају права да се хвале својом новом кул иконом на профилу.</string>
@@ -53,11 +50,10 @@
   <string name="nextPayment">Следећа уплата</string>
   <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
   <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
+  <string name="cancelSupport">откажи твоју пордшку</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
   <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
-  <string name="paymentHistory">Историја плаћања</string>
-  <string name="paid">Плаћено</string>
   <string name="viewOthers">Погледај остале Личес Патроне</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>

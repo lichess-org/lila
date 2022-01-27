@@ -54,12 +54,12 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
       .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
 
   def followingLike(userId: ID, term: String): Fu[List[ID]] =
-    User.couldBeUsername(term) ?? {
+    User.validateId(term) ?? { valid =>
       coll.secondaryPreferred.distinctEasy[ID, List](
         "u2",
         $doc(
           "u1" -> userId,
-          "u2" $startsWith term.toLowerCase,
+          "u2" $startsWith valid,
           "r" -> Follow
         )
       )
@@ -107,7 +107,6 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
         upsert = true
       )
       .void
-      .recover(lila.db.ignoreDuplicateKey)
 
   def remove(u1: ID, u2: ID): Funit = coll.delete.one($id(makeId(u1, u2))).void
 

@@ -73,31 +73,13 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0 !=)
 
-    def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+    def idsMap[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[D]] =
-      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
-        ids.view.flatMap(m.get).toList
-      }
-
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
-        ids: Iterable[I],
-        projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[Option[D]]] =
-      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
-        ids.view.map(m.get).toList
-      }
-
-    private def mapByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
-        ids: Iterable[I],
-        projection: Option[Bdoc],
-        readPreference: ReadPreference
     )(docId: D => I): Fu[Map[I, D]] =
       projection
-        .fold(coll.find($inIds(ids))) { proj =>
+        .fold(coll find $inIds(ids)) { proj =>
           coll.find($inIds(ids), proj.some)
         }
         .cursor[D](readPreference)
@@ -106,12 +88,22 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           _.view.map(u => docId(u) -> u).toMap
         }
 
-    def idsMap[D: BSONDocumentReader, I: BSONWriter](
+    def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
+        projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[Map[I, D]] =
-      byIds[D, I](ids, readPreference) map { docs =>
-        docs.view.map(u => docId(u) -> u).to(Map)
+    )(docId: D => I): Fu[List[D]] =
+      idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.flatMap(m.get).toList
+      }
+
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc] = None,
+        readPreference: ReadPreference = ReadPreference.primary
+    )(docId: D => I): Fu[List[Option[D]]] =
+      idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.map(m.get).toList
       }
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
@@ -197,6 +189,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)
+
+    def updateOrUnsetField[V: BSONWriter](selector: Bdoc, field: String, value: Option[V]): Fu[Int] =
+      value match {
+        case None    => unsetField(selector, field).dmap(_.n)
+        case Some(v) => updateField(selector, field, v).dmap(_.n)
+      }
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
       one[D](selector) flatMap {

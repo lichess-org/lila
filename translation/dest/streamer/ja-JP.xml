@@ -18,6 +18,8 @@
   <string name="rule1">Lichess について配信する際にはタイトルにキーワード「lichess.org」を入れてください。</string>
   <string name="rule2">Lichess 以外について配信する際にはキーワードを入れないように。</string>
   <string name="rule3">Lichess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">あなたの配信中に全員がフェアプレイを守れるよう %s を読んでおくこと。</string>
+  <string name="streamingFairplayFAQ">配信フェアプレイ FAQ</string>
   <string name="perks">キーワードを入れた配信に対する特典</string>
   <string name="perk1">Lichess のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>
@@ -26,8 +28,8 @@
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
-  <string name="whenReady">Lichess 配信者登録の用意ができたら、%s</string>
-  <string name="requestReview">モデレーターによる審査を求めます</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 配信者登録の用意ができたら、%s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">モデレーターによる審査を求めます</string>
   <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。Lichess の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="optionalOrEmpty">任意。なければ空白</string>
@@ -44,8 +46,5 @@
   <string name="xStreamerPicture">%s 配信者画像</string>
   <string name="changePicture">写真の変更／削除</string>
   <string name="uploadPicture">写真をアップロード</string>
-  <string name="deletePicture">写真を削除</string>
   <string name="maxSize">最大サイズ：%s</string>
-  <string name="installBlocker">マルウェア対策ソフトをインストールして！</string>
-  <string name="beSafe">Twitch、YouTube に蔓延する広告やトラッカーを防ぎましょう。Lichess では無料でオープンソースの「uBlock Origin」を推奨しています。</string>
 </resources>

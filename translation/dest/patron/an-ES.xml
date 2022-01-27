@@ -17,13 +17,11 @@
   <string name="lifetime">De per vida</string>
   <string name="payLifetimeOnce">Paga %s una vegada. Sé un Patrón d\'a Lichess pa cutio!</string>
   <string name="lifetimePatron">Patrón de Lichess de per vida</string>
-  <string name="makeExtraDonation">Fer una donación adicional?</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturación recurrent, renovando las suyas alas de Patrón cada mes.</string>
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una sola donación que t\'atorga las alas de patrón entre un mes.</string>
   <string name="otherAmount">Unatro</string>
-  <string name="pleaseEnterAmount">Per favor, introduz la cantidat en dolars de EEUU</string>
   <string name="withCreditCard">Tarcheta de credito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo chicot, per ixo lo tuyo emparo marca una gran diferencia!</string>
@@ -40,7 +38,6 @@ U puetz %s.</string>
   <string name="contactSupport">meter-te en contacto con o suporte de Lichess</string>
   <string name="otherMethods">I hai atras trazas de donar?</string>
   <string name="bankTransfers">Tamién acceptamos transferencias bancarias</string>
-  <string name="bitcoin">Y aquí ye la nuestra adreza de bitcoin: %s</string>
   <string name="patronFeatures">I hai qualques caracteristicas reservadas a los patrones?</string>
   <string name="noPatronFeatures">No, perque Lichess ye completament gratuito, pa siempre y pa totz. Ixo ye una promesa.
 Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perfil.</string>
@@ -62,8 +59,6 @@ Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perf
   <string name="decideHowMuch">Decide quanto vale Lichess pa tu:</string>
   <string name="stopPayments">Retira la tuya tarcheta de credito y deixa de pagar:</string>
   <string name="noLongerSupport">Ya no suporta Lichess</string>
-  <string name="paymentHistory">Historial de pagos</string>
-  <string name="paid">Pagau</string>
   <string name="viewOthers">Veyer atros Patrones de Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Cantidat</string>

@@ -15,7 +15,9 @@ case class Modlog(
   def isLichess = mod == lila.user.User.lichessId
 
   def notable      = action != Modlog.terminateTournament
-  def notableSlack = notable && !isLichess
+  def notableZulip = notable && !isLichess
+
+  def gameId = details.ifTrue(action == Modlog.cheatDetected).??(_.split(' ').lift(1))
 
   def showAction =
     action match {
@@ -36,6 +38,8 @@ case class Modlog(
       case Modlog.hideTopic           => "unfeature topic"
       case Modlog.stickyTopic         => "sticky topic"
       case Modlog.unstickyTopic       => "un-sticky topic"
+      case Modlog.postAsAnonMod       => "post as a lichess moderator"
+      case Modlog.editAsAnonMod       => "edit a lichess moderator post"
       case Modlog.setTitle            => "set FIDE title"
       case Modlog.removeTitle         => "remove FIDE title"
       case Modlog.setEmail            => "set email address"
@@ -58,11 +62,14 @@ case class Modlog(
       case Modlog.cheatDetected       => "game lost by cheat detection"
       case Modlog.cli                 => "run CLI command"
       case Modlog.garbageCollect      => "garbage collect"
+      case Modlog.streamerDecline     => "decline streamer"
       case Modlog.streamerList        => "list streamer"
       case Modlog.streamerUnlist      => "unlist streamer"
       case Modlog.streamerFeature     => "feature streamer"   // BC
       case Modlog.streamerUnfeature   => "unfeature streamer" // BC
       case Modlog.streamerTier        => "set streamer tier"
+      case Modlog.blogTier            => "set blog tier"
+      case Modlog.blogPostEdit        => "edit blog post"
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
       case Modlog.appealPost          => "posted in appeal"
@@ -103,6 +110,8 @@ object Modlog {
   val hideTopic           = "hideTopic"
   val stickyTopic         = "stickyTopic"
   val unstickyTopic       = "unstickyTopic"
+  val postAsAnonMod       = "postAsAnonMod"
+  val editAsAnonMod       = "editAsAnonMod"
   val setTitle            = "setTitle"
   val removeTitle         = "removeTitle"
   val setEmail            = "setEmail"
@@ -110,8 +119,8 @@ object Modlog {
   val deleteTeam          = "deleteTeam"
   val disableTeam         = "disableTeam"
   val enableTeam          = "enableTeam"
-  val terminateTournament = "terminateTournament "
-  val chatTimeout         = "chatTimeout "
+  val terminateTournament = "terminateTournament"
+  val chatTimeout         = "chatTimeout"
   val kickFromRankings    = "kickFromRankings"
   val reportban           = "reportban"
   val unreportban         = "unreportban"
@@ -122,11 +131,14 @@ object Modlog {
   val cheatDetected       = "cheatDetected"
   val cli                 = "cli"
   val garbageCollect      = "garbageCollect"
+  val streamerDecline     = "streamerDecline"
   val streamerList        = "streamerList"
   val streamerUnlist      = "streamerunlist"
   val streamerFeature     = "streamerFeature"   // BC
   val streamerUnfeature   = "streamerUnfeature" // BC
   val streamerTier        = "streamerTier"
+  val blogTier            = "blogTier"
+  val blogPostEdit        = "blogPostEdit"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
   val appealPost          = "appealPost"

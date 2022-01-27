@@ -9,21 +9,20 @@
     <item quantity="other">%s חברים</item>
   </plurals>
   <string name="allTeams">כל הקבוצות</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">קבוצות שאתה ראשן</string>
   <string name="newTeam">קבוצה חדשה</string>
   <string name="myTeams">הקבוצות שלי</string>
   <string name="noTeamFound">לא נמצאה קבוצה</string>
   <string name="joinTeam">הצטרף לקבוצה</string>
   <string name="quitTeam">צא מהקבוצה</string>
-  <string name="anyoneCanJoin">כל אחד יכול להצטרף</string>
-  <string name="aConfirmationIsRequiredToJoin">בשביל להצטרף נדרש אישור</string>
-  <string name="joiningPolicy">תנאי ההצטרפות</string>
+  <string name="manuallyReviewAdmissionRequests">אשר מצטרפים לקבוצה באופן ידני</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">אם שדה זה סומן, שחקנים יצטרכו לכתוב בקשה להצטרפות לקבוצה, ואתה תוכל לאשר או לדחות אותה.</string>
   <plurals name="teamLeaders">
-    <item quantity="one">מוביל הקבוצה</item>
-    <item quantity="two">מובילי הקבוצה</item>
-    <item quantity="many">מובילי הקבוצה</item>
-    <item quantity="other">מובילי הקבוצה</item>
+    <item quantity="one">מנהיג הקבוצה</item>
+    <item quantity="two">מנהיגי הקבוצה</item>
+    <item quantity="many">מנהיגי הקבוצה</item>
+    <item quantity="other">מנהיגי הקבוצה</item>
   </plurals>
-  <string name="teamBestPlayers">השחקנים הטובים ביותר של הקבוצה</string>
   <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
   <string name="kickSomeone">הסר מישהו מהקבוצה</string>
   <string name="whoToKick">את מי אתה רוצה להסיר מהקבוצה?</string>
@@ -35,10 +34,13 @@
   </plurals>
   <string name="willBeReviewed">בקשת ההצטרפות שלך תיבדק ע\"י מנהיג הקבוצה.</string>
   <string name="beingReviewed">בקשת ההצטרפות שלך תיבדק ע\"י מנהיג הקבוצה.</string>
+  <string name="requestDeclined">בקשת ההצטרפות שלך נדחתה ע\"י ראשי הקבוצה.</string>
+  <string name="subToTeamMessages">הירשם לעדכוני הקבוצה</string>
   <string name="teamBattle">קרב קבוצות</string>
   <string name="teamBattleOverview">קרב של קבוצות מרובות, כל שחקן משיג נקודות לקבוצה שלו</string>
   <string name="teamTournament">טורניר קבוצות</string>
   <string name="teamTournamentOverview">טורניר ארנה שרק חברים בצוות שלך יכולים להצטרף אליו</string>
+  <string name="swissTournamentOverview">טורניר שוויצרי שרק חברי הקבוצה שלך יוכלו להצטרף אליו</string>
   <string name="messageAllMembers">תשלח הודעה לכל המשתתפים</string>
   <string name="messageAllMembersOverview">שלח הודעה פרטית לכל חבר של הקבוצה</string>
   <string name="messageAllMembersLongDescription">שלח הודעה פרטית לכל החברים של הקבוצה.
@@ -48,4 +50,13 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">אולי תרצה לקשר אחד מהטורנירים הבאים הקרובים?</string>
   <string name="usersWhoCanManageThisTeam">משתמשים אשר יכולים לנהל קבוצה זו</string>
   <string name="leadersChat">צ\'אט המנהלים</string>
+  <string name="closeTeam">סגור את הקבוצה</string>
+  <string name="closeTeamDescription">שדה זה סוגר את הקבוצה לעד.</string>
+  <string name="entryCode">סיסמת הקבוצה</string>
+  <string name="entryCodeDescriptionForLeader">(אופציונלי) סיסמא שמשתמשים חדשים יצטרכו לדעת כדי להצטרף לקבוצה זו.</string>
+  <string name="incorrectEntryCode">סיסמא שגויה.</string>
+  <string name="teamAlreadyExists">שם הקבוצה תפוס.</string>
+  <string name="upcomingTourns">טורנירים קרובים</string>
+  <string name="completedTourns">טורנירים שהשלמת</string>
+  <string name="declinedRequests">בקשות שנדחתו</string>
 </resources>

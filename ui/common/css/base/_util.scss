@@ -15,13 +15,13 @@
 .rp::before {
   @extend %data-icon;
 
-  margin-right: .2em;
-  content: 'N';
+  margin-right: 0.2em;
+  content: '';
 }
 
 bad.rp {
   &::before {
-    content: 'M';
+    content: '';
   }
 }
 

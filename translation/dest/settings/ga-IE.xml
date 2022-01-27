@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="settings">Socruithe</string>
+  <string name="closeAccount">Dún cuntas</string>
+  <string name="closingIsDefinitive">Tá clabhsúr glan. Níl aon dul ar ais. An bhfuil tú cinnte?</string>
+  <string name="cantOpenSimilarAccount">Ní cheadófar duit cuntas nua a oscailt leis an ainm céanna, fiú má tá an cás difriúil.</string>
+  <string name="changedMindDoNotCloseAccount">D’athraigh mé m’intinn, ná dún mo chuntas</string>
+  <string name="closeAccountExplanation">An bhfuil tú cinnte gur mhaith leat do chuntas a dhúnadh? Is buancinneadh é do chuntas a dhúnadh. NÍ bheidh tú riamh in ann logáil isteach RIAMH ARÍS.</string>
+  <string name="thisAccountIsClosed">Tá an cuntas seo dúnta.</string>
+</resources>

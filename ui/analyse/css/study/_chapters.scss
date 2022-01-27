@@ -1,7 +1,7 @@
 $span-width: 1.7em;
 
 .study__chapters {
-  @extend %study-list;
+  @extend %study-list, %study-list-ongoing;
 
   max-height: 18em;
 
@@ -11,7 +11,7 @@ $span-width: 1.7em;
     flex: 1 1 100%;
     font-size: 1em;
     line-height: 1;
-    margin: .5em 0;
+    margin: 0.5em 0;
     align-self: center;
   }
 
@@ -21,11 +21,6 @@ $span-width: 1.7em;
     &.active,
     &:active {
       color: $c-font-clear;
-
-      > span {
-        color: $c-primary-over;
-        background: $c-primary;
-      }
     }
 
     > span {
@@ -36,8 +31,16 @@ $span-width: 1.7em;
       color: $c-link;
       font-weight: bold;
       height: auto;
-      margin-right: .4em;
-      opacity: .8;
+      margin-right: 0.4em;
+      opacity: 0.8;
+    }
+
+    res {
+      @extend %flex-center;
+      align-self: center;
+      font-size: 0.9em;
+      white-space: nowrap;
+      margin-right: 0.7rem;
     }
   }
 
@@ -47,7 +50,7 @@ $span-width: 1.7em;
   }
 
   .sortable-ghost {
-    opacity: .7;
+    opacity: 0.7;
 
     &,
     .status {

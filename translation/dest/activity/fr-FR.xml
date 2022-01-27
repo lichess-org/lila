@@ -39,7 +39,7 @@
     <item quantity="other">A commencé à suivre %s joueurs</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">A obtenu %s nouveau suiveur</item>
+    <item quantity="one">A gagné %s nouveau suiveur</item>
     <item quantity="other">A gagné %s nouveaux suiveurs</item>
   </plurals>
   <plurals name="hostedNbSimuls">
@@ -62,6 +62,11 @@
     <item quantity="one">Classé #%1$s (pourcentage: %2$s%%) avec %3$s partie en %4$s</item>
     <item quantity="other">Classé #%1$s (pourcentage: %2$s%%) avec %3$s parties en %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">A participé à %s tournoi(s) suisse(s)</item>
+    <item quantity="other">A participé à %s tournois suisses</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Classé %1$s dans le tournoi %2$s</string>
   <string name="signedUp">S\'est inscrit(e) à lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">A rejoint %s équipe</item>

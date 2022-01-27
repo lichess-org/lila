@@ -20,21 +20,28 @@ object config {
         div(cls := "practice_config page-menu__content box box-pad")(
           h1("Practice config"),
           div(cls := "both")(
-            postForm(action := routes.Practice.configSave())(
+            postForm(action := routes.Practice.configSave)(
               textarea(cls := "practice_text", name := "text")(form("text").value),
               errMsg(form("text")),
-              submitButton(cls := "button button-fat text", dataIcon := "E")("Save")
+              submitButton(cls := "button button-fat text", dataIcon := "")("Save")
             ),
             div(cls := "preview")(
               ol(
                 structure.sections.map { section =>
                   li(
-                    h2(s"${section.name} (#${section.id})"),
+                    h2(section.name, "#", section.id, section.hide ?? " [hidden]"),
                     ol(
                       section.studies.map { stud =>
                         li(
                           i(cls := s"practice icon ${stud.id}")(
-                            h3(a(href := routes.Study.show(stud.id.value))(s"${stud.name} (#${stud.id})")),
+                            h3(
+                              a(href := routes.Study.show(stud.id.value))(
+                                stud.name,
+                                "#",
+                                stud.id,
+                                stud.hide ?? " [hidden]"
+                              )
+                            ),
                             em(stud.desc),
                             ol(
                               stud.chapters.map { cha =>

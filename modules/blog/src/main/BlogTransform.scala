@@ -1,6 +1,5 @@
 package lila.blog
 
-import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration._
 import scala.util.matching.Regex
 
@@ -16,16 +15,27 @@ object BlogTransform {
     private type Text = String
     private type Html = String
 
-    private val renderer = new lila.common.Markdown
+    private val renderer = new lila.common.Markdown(table = true)
 
-    private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterWrite(15 minutes)
-      .maximumSize(32)
-      .build((text: Text) => renderer(text.replace("<br>", "\n")))
+    // hash code collisions can't be a vector of attack here,
+    // since only lichess team members can write these blog posts
+    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(20 minutes)
+      .maximumSize(64)
+      .build[Int, String]()
 
     private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
     def apply(html: Html): Html =
-      PreRegex.replaceAllIn(html, m => Regex.quoteReplacement(cache get m.group(1)))
+      PreRegex.replaceAllIn(
+        html,
+        m => {
+          val markdown = m group 1
+          val markup =
+            cache.get(markdown.hashCode, _ => renderer("prismic")(markdown.replace("<br>", "\n")))
+          Regex.quoteReplacement(markup)
+        }
+      )
+
   }
 }

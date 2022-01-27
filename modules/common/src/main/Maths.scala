@@ -23,6 +23,10 @@ object Maths {
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
   }
 
+  def roundDownAt(n: Double, p: Int): BigDecimal = {
+    BigDecimal(n).setScale(p, BigDecimal.RoundingMode.DOWN)
+  }
+
   def closestMultipleOf(mult: Int, v: Int): Int =
     ((2 * v + mult) / (2 * mult)) * mult
 

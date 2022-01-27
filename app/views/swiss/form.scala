@@ -14,14 +14,14 @@ object form {
 
   def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "New Swiss tournament",
+      title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new SwissFields(form)
+      val fields = new SwissFields(form, none)
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
-          h1("New Swiss tournament"),
+          h1(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
@@ -33,13 +33,14 @@ object form {
             ),
             form3.split(
               fields.chatFor,
-              fields.password
+              fields.entryCode
             ),
             condition(form, fields, swiss = none),
+            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "g".some)
+              form3.submit(trans.createANewTournament(), icon = "".some)
             )
           )
         )
@@ -52,7 +53,7 @@ object form {
       moreCss = cssTag("swiss.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new SwissFields(form)
+      val fields = new SwissFields(form, swiss.some)
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
           h1("Edit ", swiss.name),
@@ -67,18 +68,19 @@ object form {
             ),
             form3.split(
               fields.chatFor,
-              fields.password
+              fields.entryCode
             ),
             condition(form, fields, swiss = swiss.some),
+            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
-              form3.submit(trans.save(), icon = "g".some)
+              form3.submit(trans.save(), icon = "".some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
-            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
-              "Cancel the tournament"
+            submitButton(dataIcon := "", cls := "text button button-red confirm")(
+              trans.cancelTournament()
             )
           )
         )
@@ -88,30 +90,32 @@ object form {
   private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
+        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
           form3.select(_, SwissCondition.DataForm.nbRatedGameChoices)
         ),
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
           form3.checkbox(
             form("conditions.titled"),
-            frag("Only titled players"),
-            help = frag("Require an official title to join the tournament").some,
+            trans.onlyTitled(),
+            help = trans.onlyTitledHelp().some,
             half = true
           )
         }
       ),
       form3.split(
-        form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
+        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
           form3.select(_, SwissCondition.DataForm.minRatingChoices)
         ),
-        form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
+        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
           form3.select(_, SwissCondition.DataForm.maxRatingChoices)
         )
       )
     )
 }
 
-final private class SwissFields(form: Form[_])(implicit ctx: Context) {
+final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ctx: Context) {
+
+  private def disabledAfterStart = swiss.exists(!_.isCreated)
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -129,8 +133,8 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
   def nbRounds =
     form3.group(
       form("nbRounds"),
-      "Number of rounds",
-      help = raw("An odd number of rounds allows optimal color balance.").some,
+      trans.swiss.numberOfRounds(),
+      help = trans.swiss.numberOfRoundsHelp().some,
       half = true
     )(
       form3.input(_, typ = "number")
@@ -141,34 +145,36 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       form3.checkbox(
         form("rated"),
         trans.rated(),
-        help = raw("Games are rated<br>and impact players ratings").some
+        help = trans.ratedFormHelp().some
       ),
       st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
-      form3.select(_, translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2))
+      form3.select(
+        _,
+        translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2),
+        disabled = disabledAfterStart
+      )
     )
   def clock =
     form3.split(
       form3.group(form("clock.limit"), trans.clockInitialTime(), half = true)(
-        form3.select(_, SwissForm.clockLimitChoices)
+        form3.select(_, SwissForm.clockLimitChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
-        form3.select(_, TournamentForm.clockIncrementChoices)
+        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
       )
     )
   def roundInterval =
-    form3.group(form("roundInterval"), frag("Interval between rounds"), half = true)(
+    form3.group(form("roundInterval"), trans.swiss.roundInterval(), half = true)(
       form3.select(_, SwissForm.roundIntervalChoices)
     )
   def description =
     form3.group(
       form("description"),
-      frag("Tournament description"),
-      help = frag(
-        "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
-      ).some,
+      trans.tournDescription(),
+      help = trans.tournDescriptionHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
   def position =
@@ -177,34 +183,43 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = views.html.tournament.form.positionInputHelp.some
+      help =
+        trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(form3.input(_))
   def startsAt =
     form3.group(
       form("startsAt"),
-      frag("Tournament start date"),
-      help = frag("In your own local timezone").some,
+      trans.swiss.tournStartDate(),
+      help = trans.inYourLocalTimezone().some,
       half = true
     )(form3.flatpickr(_))
 
   def chatFor =
-    form3.group(form("chatFor"), frag("Tournament chat"), half = true) { f =>
+    form3.group(form("chatFor"), trans.tournChat(), half = true) { f =>
       form3.select(
         f,
         Seq(
-          Swiss.ChatFor.NONE    -> "No chat",
-          Swiss.ChatFor.LEADERS -> "Only team leaders",
-          Swiss.ChatFor.MEMBERS -> "Only team members",
-          Swiss.ChatFor.ALL     -> "All Lichess players"
+          Swiss.ChatFor.NONE    -> trans.noChat.txt(),
+          Swiss.ChatFor.LEADERS -> trans.onlyTeamLeaders.txt(),
+          Swiss.ChatFor.MEMBERS -> trans.onlyTeamMembers.txt(),
+          Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
         )
       )
     }
 
-  def password =
+  def entryCode =
     form3.group(
       form("password"),
-      trans.password(),
+      trans.tournamentEntryCode(),
       help = trans.makePrivateTournament().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
+
+  def forbiddenPairings =
+    form3.group(
+      form("forbiddenPairings"),
+      trans.swiss.forbiddenPairings(),
+      help = trans.swiss.forbiddenPairingsHelp().some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
 }

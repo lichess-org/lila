@@ -2,6 +2,7 @@ package lila.user
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
@@ -25,6 +26,7 @@ private class UserConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
@@ -44,7 +46,8 @@ final class Env(
   val lightUserSync              = lightUserApi.sync
   val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
 
-  lazy val botIds = new GetBotIds(() => cached.botIds.get {})
+  lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
+  lazy val rankingsOf = new RankingsOf(cached.rankingsOf)
 
   lazy val jsonView = wire[JsonView]
 
@@ -55,10 +58,9 @@ final class Env(
 
   lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
-  lazy val rankingApi = {
-    def mk = (coll: Coll) => wire[RankingApi]
-    mk(db(config.collectionRanking))
-  }
+  private lazy val rankingColl = yoloDb(config.collectionRanking).failingSilently()
+
+  lazy val rankingApi = wire[RankingApi]
 
   lazy val cached: Cached = wire[Cached]
 
@@ -78,15 +80,11 @@ final class Env(
       repo.setRoles(userId, Nil).unit
     },
     "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      rankingApi.remove(userId).unit
+      rankingApi remove userId
+      repo.setRoles(userId, Nil).unit
     },
     "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
       rankingApi.remove(userId).unit
-    },
-    "gdprErase" -> { case User.GDPRErase(user) =>
-      repo erase user
-      noteApi erase user
-      ()
     }
   )
 }

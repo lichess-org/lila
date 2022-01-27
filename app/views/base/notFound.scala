@@ -23,7 +23,7 @@ object notFound {
             strong("Page not found!"),
             p(
               "Return to ",
-              a(href := routes.Lobby.home())("the homepage"),
+              a(href := routes.Lobby.home)("the homepage"),
               span(cls := "or-play")(" or play this mini-game")
             )
           )
@@ -32,8 +32,8 @@ object notFound {
           iframe(
             src := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
-            width := 400,
-            height := 500
+            widthA := 400,
+            heightA := 500
           ),
           p(cls := "credits")(
             a(href := "https://github.com/Saturnyn/ChessPursuit")("ChessPursuit"),

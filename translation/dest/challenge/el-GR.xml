@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Προκλήσεις</string>
+  <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
+  <string name="challengeDeclined">Η πρόκληση απορρίφθηκε</string>
+  <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
+  <string name="challengeCanceled">Η πρόκληση ακυρώθηκε.</string>
+  <string name="registerToSendChallenges">Εγγραφείτε για να στείλετε προκλήσεις.</string>
+  <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε τον %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s δε δέχεται προκλήσεις.</string>
+  <string name="yourXRatingIsTooFarFromY">Η βαθμολογία σας στο %1$s διαφέρει σημαντικά από αυτήν του χρήστη %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής βαθμολογίας στο %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
+  <string name="declineGeneric">Δε δέχομαι προκλήσεις αυτή τη στιγμή.</string>
+  <string name="declineLater">Δεν είμαι διαθέσιμος αυτήν τη στιγμή, ρωτήστε με ξανά αργότερα.</string>
+  <string name="declineTooFast">Αυτός ο χρόνος είναι πολύ γρήγορος για μένα, προκαλέστε με ξανά με έναν πιο αργό.</string>
+  <string name="declineTooSlow">Αυτός ο χρόνος είναι πολύ αργός για μένα, προκαλέστε με ξανά με έναν πιο γρήγορο.</string>
+  <string name="declineTimeControl">Δεν δέχομαι προκλήσεις με τέτοιους χρόνους.</string>
+  <string name="declineRated">Στείλτε μου μία βαθμολογημένη και όχι φιλική πρόκληση.</string>
+  <string name="declineCasual">Στείλτε μου μία φιλική και όχι βαθμολογημένη πρόκληση.</string>
+  <string name="declineStandard">Δεν δέχομαι προκλήσεις με παραλλαγές αυτή τη στιγμή.</string>
+  <string name="declineVariant">Δεν είμαι πρόθυμος να παίξω αυτήν την παραλλαγή αυτή τη στιγμή.</string>
+  <string name="declineNoBot">Δεν δέχομαι προκλήσεις από bots.</string>
+  <string name="declineOnlyBot">Δέχομαι προκλήσεις μόνο από bots.</string>
+</resources>

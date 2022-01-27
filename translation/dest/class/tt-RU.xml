@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="features">Үзенчәлекләр</string>
+  <string name="reopen">Яңадан ачу</string>
+  <string name="passwordX">Парол: %s</string>
+  <string name="lastActiveDate">Актив</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s мөгаллим</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">%s шәкерт</item>
+  </plurals>
+  <string name="progress">Alğa kiteş</string>
+  <string name="winrate">Җиңүләр</string>
+  <string name="na">Юк</string>
+</resources>

@@ -36,14 +36,14 @@
   }
 
   &__players {
-    margin-top: .3rem;
+    margin-top: 0.3rem;
     font-size: 90%;
   }
 
   .bookmark {
     position: absolute;
     right: 0;
-    z-index: z("game-bookmark");
+    z-index: z('game-bookmark');
     color: $c-font-dim;
 
     ::before {
@@ -69,7 +69,7 @@
 
     font-size: 2em;
     text-align: center;
-    margin-top: .2em;
+    margin-top: 0.2em;
   }
 }
 

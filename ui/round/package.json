@@ -13,16 +13,20 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "ab": "https://github.com/lichess-org/ab-stub",
     "chat": "2.0.0",
-    "chessground": "^7.9.2",
+    "chess": "2.0.0",
+    "chessground": "^8.2.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   },
   "scripts": {
     "dev": "rollup --config",

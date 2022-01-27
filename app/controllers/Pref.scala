@@ -1,10 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
-import views._
+import lila.common.HTTPRequest
 
 final class Pref(env: Env) extends LilaController(env) {
 
@@ -17,7 +18,7 @@ final class Pref(env: Env) extends LilaController(env) {
         JsonOk {
           import play.api.libs.json._
           import lila.pref.JsonView._
-          Json.obj("prefs" -> prefs)
+          Json.obj("prefs" -> prefs).add("language" -> me.lang)
         }
       }
     }
@@ -52,7 +53,11 @@ final class Pref(env: Env) extends LilaController(env) {
   def set(name: String) =
     OpenBody { implicit ctx =>
       if (name == "zoom") {
-        Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+        Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).fuccess
+      } else if (name == "agreement") {
+        ctx.me ?? api.agree inject {
+          if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
+        }
       } else {
         implicit val req = ctx.body
         (setters get name) ?? { case (form, fn) =>
@@ -63,21 +68,6 @@ final class Pref(env: Env) extends LilaController(env) {
           }
         }
       }
-    }
-
-  def verifyTitle =
-    AuthBody { implicit ctx => me =>
-      import play.api.data._, Forms._
-      implicit val req = ctx.body
-      Form(single("v" -> boolean))
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(Redirect(routes.User.show(me.username))),
-          v =>
-            api.saveTag(me, _.verifyTitle, v) inject Redirect {
-              if (v) routes.Page.master() else routes.User.show(me.username)
-            }
-        )
     }
 
   private lazy val setters = Map(

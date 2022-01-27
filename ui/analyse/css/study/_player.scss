@@ -1,3 +1,5 @@
+@import '../../../common/css/component/material';
+
 $player-height: 1.6rem;
 
 .analyse.has-players {
@@ -11,7 +13,6 @@ $player-height: 1.6rem;
     }
   }
 
-
   @include breakpoint($mq-col1) {
     .analyse__controls {
       margin-top: $player-height;
@@ -23,9 +24,9 @@ $player-height: 1.6rem;
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
   position: absolute;
-  left: 0;
   right: 0;
   font-weight: bold;
+  width: var(--cg-width, 100%);
   height: $player-height;
   white-space: nowrap;
 
@@ -33,33 +34,41 @@ $player-height: 1.6rem;
     @extend %box-radius-top;
 
     top: #{-$player-height};
+
+    .is3d & {
+      @extend %box-radius;
+
+      top: calc(#{-$player-height} - 35px);
+    }
   }
 
   &-bot {
     @extend %box-radius-bottom;
 
-    bottom: #{-$player-height};
+    top: var(--cg-height, 100%);
   }
 
   .left {
     flex: 1 1 100%;
     display: flex;
+    overflow: hidden;
   }
 
   .result {
     flex: 0 0 auto;
-    margin-left: .8em;
-    padding-right: .8em;
+    margin-left: 0.8em;
+    padding-right: 0.8em;
     border-right: $border;
   }
 
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
 
-    align-self: stretch;
+    height: 100%;
     font-size: 1.2em;
-    padding: 0 .8em;
+    padding: 0 0.8em 0 0.4em;
     border-radius: 0 4px 0 0;
+    box-shadow: none;
   }
 
   &-bot .analyse__clock {
@@ -74,10 +83,49 @@ $player-height: 1.6rem;
 
   .info {
     margin-left: 10px;
+    display: flex;
+    overflow: hidden;
+
+    > * {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: fit-content;
+      flex: 1;
+    }
+  }
+
+  .name {
+    margin-left: 0.5ch;
+    flex: 3;
   }
 
   .elo {
-    margin-left: .5em;
+    margin-left: 0.5em;
     font-weight: normal;
   }
+}
+
+.material {
+  padding: 0 6px;
+
+  mpiece {
+    width: 20px;
+    height: 20px;
+
+    &.pawn {
+      margin-left: -10px;
+    }
+  }
+
+  score {
+    color: #777;
+  }
+}
+
+.material-top {
+  margin-top: 0.2em;
+}
+
+.material-bottom {
+  margin-top: 0.15em;
 }

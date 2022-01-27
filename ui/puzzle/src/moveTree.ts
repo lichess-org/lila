@@ -12,7 +12,7 @@ export function pgnToTree(pgn: San[]): Tree.Node {
     ply: 0,
     id: '',
     fen: INITIAL_FEN,
-    children: []
+    children: [],
   } as Tree.Node;
   let current = root;
   pgn.forEach((san, i) => {
@@ -30,22 +30,22 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
   const pos = Chess.fromSetup(parseFen(initialNode.fen).unwrap()).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
-    const move = parseUci(uci)!;
+    const move = pos.normalizeMove(parseUci(uci)!);
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
-    if ((pov == 'white') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
+    if ((pov == 'white') == (node.ply % 2 == 1)) node.puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Chess, move: Move, ply: number, san: San) => ({
+const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => ({
   ply,
   san,
   fen: makeFen(pos.toSetup()),
   id: scalachessCharPair(move),
   uci: makeUci(move),
   check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
-  children: []
+  children: [],
 });

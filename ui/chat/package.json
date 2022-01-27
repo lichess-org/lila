@@ -3,20 +3,27 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chat ui",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
-    "dev": "yarn run compile && rollup --config",
-    "prod": "yarn run compile && rollup --config --config-prod"
+    "compile": "tsc --incremental --declaration --inlineSourceMap",
+    "dev": "$npm_execpath run compile && rollup --config",
+    "prod": "$npm_execpath run compile && rollup --config --config-prod"
   },
   "dependencies": {
-    "snabbdom": "^0.7.4"
+    "common": "2.0.0",
+    "palantir": "2.0.0",
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/cash": "8.0.0",
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   }
 }

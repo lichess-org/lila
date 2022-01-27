@@ -5,9 +5,10 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.clas.IsTeacherOf
+import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
+import lila.hub.actorApi.user.{ KidId, NonKidId }
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
@@ -36,7 +37,7 @@ final private class MsgSecurity(
       if (u.isApiHog) hog
       else if (u.isVerified) verified
       else if (u isDaysOld 3) normal
-      else if (u isHoursOld 3) normal * 2
+      else if (u isHoursOld 12) normal * 2
       else normal * 4
   }
 
@@ -51,6 +52,8 @@ final private class MsgSecurity(
     duration = 1 minute,
     key = "msg_reply.user"
   )
+
+  private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
 
   object can {
 
@@ -67,6 +70,7 @@ final private class MsgSecurity(
           case false => fuccess(Block)
           case _ =>
             isLimited(contacts, isNew, unlimited) orElse
+              isFakeTeamMessage(rawText, unlimited) orElse
               isSpam(text) orElse
               isTroll(contacts) orElse
               isDirt(contacts.orig, text, isNew) getOrElse
@@ -79,12 +83,16 @@ final private class MsgSecurity(
           case verdict => fuccess(verdict)
         } addEffect {
           case Dirt =>
-            Bus.publish(
-              AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
-              "autoFlag"
-            )
+            if (dirtSpamDedup(text))
+              Bus.publish(
+                AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+                "autoFlag"
+              )
+
           case Spam =>
-            logger.warn(s"PM spam from ${contacts.orig.id}: $text")
+            if (dirtSpamDedup(text))
+              logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
+
           case _ =>
         }
     }
@@ -103,11 +111,15 @@ final private class MsgSecurity(
           ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
         }
 
+    private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
+        fuccess(FakeTeamMessage.some)
+
     private def isSpam(text: String): Fu[Option[Verdict]] =
       spam.detect(text) ?? fuccess(Spam.some)
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      (contacts.orig.isTroll && !contacts.dest.isTroll) ?? fuccess(Troll.some)
+      contacts.orig.isTroll ?? fuccess(Troll.some)
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
@@ -143,23 +155,26 @@ final private class MsgSecurity(
     // unless they deleted the thread.
     private def reply(contacts: User.Contacts): Fu[Boolean] =
       colls.thread.exists(
-        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++ $or(
-          "del" $ne contacts.dest.id,
-          $doc(
-            "lastMsg.user" -> contacts.dest.id,
-            "lastMsg.date" $gt DateTime.now.minusDays(3)
-          )
-        )
+        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
+          $doc("del" $ne contacts.dest.id)
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (contacts.orig.isKid && isNew) isTeacherOf(contacts)
-      else if (!contacts.dest.isKid) fuTrue
-      else isTeacherOf(contacts)
+      if (!isNew || !contacts.hasKid) fuTrue
+      else
+        (contacts.orig.clasId, contacts.dest.clasId) match {
+          case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
+          case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
+          case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
+          case _                       => fuFalse
+        }
   }
 
-  private def isTeacherOf(contacts: User.Contacts) =
-    Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+  private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
+    isTeacherOf(contacts.orig.id, contacts.dest.id)
+
+  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
+    Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
@@ -172,11 +187,12 @@ private object MsgSecurity {
   sealed abstract class Send(val mute: Boolean) extends Verdict
   sealed abstract class Mute                    extends Send(true)
 
-  case object Ok      extends Send(false)
-  case object Troll   extends Mute
-  case object Spam    extends Mute
-  case object Dirt    extends Mute
-  case object Block   extends Reject
-  case object Limit   extends Reject
-  case object Invalid extends Reject
+  case object Ok              extends Send(false)
+  case object Troll           extends Mute
+  case object Spam            extends Mute
+  case object Dirt            extends Mute
+  case object FakeTeamMessage extends Reject
+  case object Block           extends Reject
+  case object Limit           extends Reject
+  case object Invalid         extends Reject
 }

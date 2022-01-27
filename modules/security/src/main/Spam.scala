@@ -17,13 +17,19 @@ final class Spam(spamKeywords: () => lila.common.Strings) {
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
       "chess.com/membership?ref_id=",
+      "go.chess.com/",
       "decodechess.com/ref/",
-      "aimchess.com/i/"
+      "aimchess.com/i/",
+      "vvv.cash/?ref="
     )
 
   private lazy val staticBlacklist = List(
     "chess-bot.com",
-    "/auth/magic-link/login/"
+    "chessbotx",
+    "/auth/magic-link/login/",
+    "/auth/token/",
+    "/signup/confirm/",
+    "/password/reset/confirm/"
   ) ::: bannedYoutubeIds ::: referBlacklist
 
   def replace(text: String) =
@@ -36,6 +42,8 @@ final class Spam(spamKeywords: () => lila.common.Strings) {
     """chess24.com\?ref=\w+""".r           -> "chess24.com",
     """chess.com/register\?refId=\w+""".r  -> "chess.com",
     """chess.com/register\?ref_id=\w+""".r -> "chess.com",
+    """go.chess.com/\w+""".r               -> "chess.com",
+    """vvv.cash/?ref=\w+""".r              -> "vvv.cash",
     """\bchess-bot(\.com)?[^\s]*""".r      -> "[redacted]"
   ) ::: bannedYoutubeIds.map { id =>
     id.r -> "7orFjhLkcxA"

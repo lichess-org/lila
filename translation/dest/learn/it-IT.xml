@@ -183,6 +183,12 @@ Il re è inestimabile! Perdere il re significa essere sconfitti.</string>
   <string name="queenOverBishop">Cattura il pezzo
 con il più alto valore!
 Regina &gt; Alfiere</string>
+  <string name="pieceValueExchange">Cattura il pezzo con il valore più alto!
+ Non scambiare
+ un pezzo di valore più alto con uno meno valido.</string>
+  <string name="pieceValueLegal">Cattura il pezzo
+con il valore più alto!
+Assicurati che la tua mossa sia legale!</string>
   <string name="takeThePieceWithTheHighestValue">Cattura il pezzo 
 con il valore più alto!</string>
   <string name="pieceValueComplete">Congratulazioni! Ora conosci il valore dei pezzi! 

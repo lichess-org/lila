@@ -3,6 +3,7 @@ package lila.bot
 import play.api.i18n.Lang
 import play.api.libs.json._
 
+import lila.common.Json._
 import lila.common.Json.jodaWrites
 import lila.game.JsonView._
 import lila.game.{ Game, GameRepo, Pov }
@@ -54,10 +55,12 @@ final class BotJsonView(
           "btime"  -> millisOf(game.blackPov),
           "winc"   -> game.clock.??(_.config.increment.millis),
           "binc"   -> game.clock.??(_.config.increment.millis),
-          "wdraw"  -> game.whitePlayer.isOfferingDraw,
-          "bdraw"  -> game.blackPlayer.isOfferingDraw,
           "status" -> game.status.name
         )
+        .add("wdraw" -> game.whitePlayer.isOfferingDraw)
+        .add("bdraw" -> game.blackPlayer.isOfferingDraw)
+        .add("wtakeback" -> game.whitePlayer.isProposingTakeback)
+        .add("btakeback" -> game.blackPlayer.isProposingTakeback)
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.of(game.id))
     }

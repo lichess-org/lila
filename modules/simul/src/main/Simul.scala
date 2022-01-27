@@ -19,6 +19,7 @@ case class Simul(
     variants: List[Variant],
     position: Option[FEN],
     createdAt: DateTime,
+    estimatedStartAt: Option[DateTime] = None,
     hostId: User.ID,
     hostRating: Int,
     hostGameId: Option[String], // game the host is focusing on
@@ -27,7 +28,8 @@ case class Simul(
     hostSeenAt: Option[DateTime],
     color: Option[String],
     text: String,
-    team: Option[String]
+    team: Option[String],
+    featurable: Option[Boolean]
 ) {
   def id = _id
 
@@ -136,6 +138,8 @@ case class Simul(
   def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
+
+  def pairingOf(userId: User.ID) = pairings.find(_ is userId)
 }
 
 object Simul {
@@ -152,7 +156,9 @@ object Simul {
       position: Option[FEN],
       color: String,
       text: String,
-      team: Option[String]
+      estimatedStartAt: Option[DateTime],
+      team: Option[String],
+      featurable: Option[Boolean]
   ): Simul =
     Simul(
       _id = lila.common.ThreadLocalRandom nextString 8,
@@ -171,6 +177,7 @@ object Simul {
       },
       hostGameId = none,
       createdAt = DateTime.now,
+      estimatedStartAt = estimatedStartAt,
       variants = if (position.isDefined) List(chess.variant.Standard) else variants,
       position = position,
       applicants = Nil,
@@ -180,6 +187,7 @@ object Simul {
       hostSeenAt = DateTime.now.some,
       color = color.some,
       text = text,
-      team = team
+      team = team,
+      featurable = featurable
     )
 }

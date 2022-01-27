@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Ottieni un\'app per l\'autenticazione a due fattori, ad esempio Google Authenticator per %1$s o %2$s.</string>
   <string name="scanTheCode">Scansiona il codice QR con l\'app.</string>
   <string name="enterPassword">Inserisci la tua password e il codice di autenticazione generato dall\'app per completare l\'installazione. Avrai bisogno di un codice di autenticazione ogni volta che effettui l\'accesso.</string>
+  <string name="ifYouCannotScanEnterX">Se non riesci a scansionare il codice, inserisci il codice segreto %s nell\'app.</string>
   <string name="authenticationCode">Codice di autenticazione</string>
   <string name="ifYouLoseAccess">Nota: Se perdi l\'accesso ai tuoi codici di autenticazione a due fattori, puoi reimpostare la password via email.</string>
   <string name="enableTwoFactor">Abilita l\'autenticazione a due fattori</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">Autenticazione a due fattori attivata</string>
   <string name="twoFactorDisable">Hai bisogno della tua password e di un codice di autenticazione dalla tua app di autenticazione per disattivare l\'autenticazione a due fattori.
 Se hai perso l\'accesso ai tuoi codici di autenticazione, puoi anche reimpostare la password per email.</string>
+  <string name="openTwoFactorApp">Apri l\'app di autenticazione a due fattori sul tuo dispositivo per visualizzare il tuo codice di autenticazione e verificare la tua identità.</string>
 </resources>

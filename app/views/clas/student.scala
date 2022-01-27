@@ -15,12 +15,12 @@ object student {
   def show(
       clas: Clas,
       students: List[Student],
-      s: Student.WithUser,
+      s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
-      top(clas, s),
+      top(clas, s.withUser),
       div(cls := "box__pad")(
         standardFlash(),
         ctx.flash("password").map { password =>
@@ -43,13 +43,6 @@ object student {
         s.student.managed option div(cls := "student-show__managed")(
           p(trans.clas.thisStudentAccountIsManaged()),
           div(cls := "student-show__managed__actions")(
-            postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
-              form3.submit(if (s.user.kid) trans.disableKidMode() else trans.enableKidMode(), icon = none)(
-                s.student.isArchived option disabled,
-                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                title := trans.kidModeExplanation.txt()
-              )
-            ),
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
@@ -63,14 +56,22 @@ object student {
               title := trans.clas.upgradeFromManaged.txt()
             )(trans.clas.release())
           )
-        ),
+        ) orElse s.managingClas.map { managingClas =>
+          div(cls := "student-show__managed")(
+            p(trans.clas.thisStudentAccountIsManaged()),
+            a(href := routes.Clas.studentShow(managingClas.id.value, s.user.username))(
+              "Class: ",
+              managingClas.name
+            )
+          )
+        },
         views.html.activity(s.user, activities)
       )
     )
 
   private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
     div(cls := "student-show__top")(
-      h1(dataIcon := "r")(
+      h1(dataIcon := "")(
         span(
           strong(s.user.username),
           em(s.student.realName)
@@ -133,7 +134,7 @@ object student {
             ),
             p(trans.clas.makeSureToCopy()),
             pre(
-              trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
+              trans.clas.studentCredentials(student.realName, titleNameOrId(student.userId), password.value)
             )
           )
         )
@@ -169,7 +170,8 @@ object student {
             h2(trans.clas.createANewLichessAccount()),
             p(trans.clas.createDesc1()),
             p(trans.clas.createDesc2()),
-            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4())
+            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
+            badTag(strong(trans.clas.createStudentWarning()))
           ),
           postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id.value))(
             form3.group(
@@ -228,7 +230,7 @@ object student {
               created map { case Student.WithPassword(student, password) =>
                 tr(
                   td(student.realName),
-                  td(usernameOrId(student.userId)),
+                  td(titleNameOrId(student.userId)),
                   td(password.value)
                 )
               }
@@ -237,6 +239,7 @@ object student {
         )
       ),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+        p(badTag(strong(trans.clas.createStudentWarning()))),
         postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
           form3.globalError(form),
           form3.group(
@@ -255,7 +258,7 @@ object student {
     p(dataIcon := "", cls := "text")(
       s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
       "To manage more students, ",
-      a(href := routes.Clas.form())("create more classes"),
+      a(href := routes.Clas.form)("create more classes"),
       "."
     )
 
@@ -276,16 +279,21 @@ object student {
             form3.submit(trans.apply())
           )
         ),
-        s.student.isActive option frag(
-          hr,
-          postForm(
-            action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true),
-            cls := "student-show__archive"
-          )(
-            form3.submit(trans.clas.removeStudent(), icon = none)(
-              cls := "confirm button-red button-empty"
-            )
-          )
+        hr,
+        div(cls := "student-show__other-actions")(
+          s.student.isActive option
+            postForm(
+              action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true)
+            )(
+              form3.submit(trans.clas.removeStudent(), icon = none)(
+                cls := "confirm button-red button-empty"
+              )
+            ),
+          s.student.managed option a(
+            href := routes.Clas.studentClose(clas.id.value, s.user.username),
+            cls := "button button-empty button-red",
+            title := trans.clas.closeDesc1.txt()
+          )(trans.clas.closeStudent())
         )
       )
     )
@@ -313,6 +321,27 @@ object student {
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())
+          )
+        )
+      )
+    )
+
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(implicit
+      ctx: Context
+  ) =
+    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+      cls := "student-show student-edit",
+      top(clas, s),
+      div(cls := "box__pad")(
+        h2(trans.clas.closeTheAccount()),
+        p(strong(badTag(trans.clas.closeDesc1()))),
+        p(
+          a(href := routes.Clas.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id.value, s.user.username))(
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            form3.submit(trans.clas.closeTheAccount(), icon = "".some)(cls := "button-red confirm")
           )
         )
       )

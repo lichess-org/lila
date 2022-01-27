@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Hvad kan vi hjælpe dig med?</string>
   <string name="visitThisPage">Besøg denne side for at løse problemet</string>
   <string name="iCantLogIn">Jeg kan ikke logge ind</string>
-  <string name="noConfirmationEmail">Jeg modtager ikke min bekræftelsesmail</string>
+  <string name="noConfirmationEmail">Jeg modtog ikke min bekræftelsesmail</string>
   <string name="forgotPassword">Jeg har glemt min adgangskode</string>
   <string name="forgotUsername">Jeg har glemt mit brugernavn</string>
   <string name="youCanLoginWithEmail">Du kan logge ind med den e-mailadresse, som du tilmeldte dig med</string>
@@ -16,10 +16,10 @@
   <string name="visitTitleConfirmation">For at vise din titel på din Lichess-profil og deltage i Titled Arenas skal du besøge bekræftelsessiden</string>
   <string name="wantCloseAccount">Jeg vil lukke min konto</string>
   <string name="closeYourAccount">Du kan lukke din konto på denne side</string>
-  <string name="doNotAskByEmail">Bed os ikke på e-mail om at lukke en konto, vi vil ikke gøre det.</string>
+  <string name="doNotAskByEmail">Bed os ikke om at lukke en konto på e-mail. Vi vil ikke gøre det.</string>
   <string name="wantReopen">Jeg vil genåbne min konto</string>
   <string name="reopenOnThisPage">Du kan genåbne din konto på denne side. Det virker kun én gang.</string>
-  <string name="doNotAskByEmailToReopen">Bed os ikke på e-mail om at genåbne en konto, vi vil ikke gøre det.</string>
+  <string name="doNotAskByEmailToReopen">Bed os ikke om at genåbne en konto på e-mail. Vi vil ikke gøre det.</string>
   <string name="wantChangeUsername">Jeg vil ændre mit brugernavn</string>
   <string name="changeUsernameCase">Besøg denne side for at ændre skriftstørrelse i dit brugernavn</string>
   <string name="cantChangeMore">Vi vil ikke ændre andet end skriftstørrelsen. Af tekniske årsager er det simpelthen ikke muligt.</string>
@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Jeg vil slette min historik eller rating</string>
   <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikopgaver eller ratinger.</string>
   <string name="wantReport">Jeg vil anmelde en spiller</string>
-  <string name="cheating">snyd</string>
-  <string name="sandbagging">tabe med vilje</string>
-  <string name="trolling">trolle</string>
-  <string name="insults">fornærmelser</string>
-  <string name="otherReason">en anden grund</string>
-  <string name="toReportAPlayer">For at anmelde en spiller for %s, brug anmeldelsesformularen</string>
+  <string name="toReportAPlayerUseForm">Brug anmeldelsesformularen for at anmelde en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme frem til den side ved at klikke på %s anmeldelsesknappen på en profilside.</string>
   <string name="doNotReportInForum">Anmeld ikke spillere i forummet.</string>
   <string name="doNotSendReportEmails">Send os ikke anmeldelsesmails.</string>
@@ -51,15 +46,16 @@
   <string name="castlingPrevented">Rokade forhindres kun, hvis kongen passerer gennem et kontrolleret felt.</string>
   <string name="castlingRules">Vær sikker på, at du forstår reglerne for rokade</string>
   <string name="tryCastling">Prøve dette lille interaktive spil for at øve rokade i skak</string>
-  <string name="castlingImported">Sikr dig, at du har indstillet rokade-rettighederne korrekt, hvis du har importeret partiet eller startet det fra en position.</string>
+  <string name="castlingImported">Sikr dig, at du har indstillet rokade-rettighederne korrekt, hvis du har importeret partiet eller startet det fra en stilling.</string>
   <string name="insufficientMaterial">Utilstrækkeligt materiale til at sætte mat</string>
   <string name="fideMate">Ifølge FIDEs regler for skak §6.9, er et parti ikke remis, hvis en skakmat er mulig med en lovlig rækkefølge af træk</string>
   <string name="knightMate">Det er muligt at sætte skakmat med blot en springer eller løber, hvis modstanderen har mere end en konge på brættet.</string>
   <string name="noRatingPoints">Ingen ratingpoint blev givet</string>
   <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
+  <string name="botRatingAbuse">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
   <string name="errorPage">Fejlside</string>
   <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Appellere en udelukkelse eller IP-restriktion</string>
+  <string name="banAppeal">Appellere en udelukkelse eller IP-restriktion</string>
   <string name="engineAppeal">Skakcomputer eller snyde-anmærkning</string>
   <string name="sendAppealTo">Du kan sende en appel til %s.</string>
   <string name="falsePositives">Falske positiver forekommer, hvilket vi beklager.</string>

@@ -61,11 +61,10 @@ object Bus {
   }
 
   private val bus = new EventBus[Any, Channel, Tellable](
-    initialCapacity = 65535,
+    initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )
 
-  def keys = bus.keys
   def size = bus.size
 
   case class AskTimeout(message: String) extends lila.base.LilaException
@@ -109,7 +108,5 @@ final private class EventBus[Event, Channel, Subscriber](
       }
     }
 
-  def keys: Set[Channel]       = entries.keySet.asScala.toSet
-  def size                     = entries.size
-  def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
+  def size = entries.size
 }

@@ -3,7 +3,20 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org common utils",
-  "main": "common.js",
+  "module": "common.js",
+  "type": "module",
+  "typings": "common",
+  "exports": {
+    ".": "./dist/common.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "chess",
     "lichess"
@@ -11,13 +24,19 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "compile": "tsc",
+    "dev": "$npm_execpath run compile",
+    "prod": "$npm_execpath run compile"
+  },
+  "dependencies": {
+    "chessground": "^8.2.0",
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@types/cash": "8.0.0",
+    "@types/dom-screen-wake-lock": "1.0.0",
     "@types/lichess": "2.0.0",
-    "typescript": "^4.0.3"
+    "@types/web": "=0.0.32",
+    "typescript": "^4.4.3"
   }
 }

@@ -1,13 +1,13 @@
 /* Common imports for all embedded widgets */
 
-@import "../../../node_modules/breakpoint-sass/stylesheets/breakpoint";
+@import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
 
-@import "abstract/all";
-@import "base/elements";
-@import "base/fonts";
-@import "base/typography";
-@import "base/data-icon";
+@import 'abstract/all';
+@import 'base/elements';
+@import 'base/fonts';
+@import 'base/typography';
+@import 'base/data-icon';
 
 @include theme-style;
 
-@import "vendor/chessground/chessground";
+@import 'vendor/chessground/chessground';

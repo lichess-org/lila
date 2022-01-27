@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">הבלוג של %s</string>
+  <string name="newPost">פוסט חדש</string>
+  <string name="editYourBlogPost">ערוך את הפוסט שלך</string>
+  <string name="saveDraft">שמור טיוטה</string>
+  <string name="postTitle">כותרת הפוסט</string>
+  <string name="postIntro">מבוא הפוסט</string>
+  <string name="postBody">גוף הפוסט</string>
+  <string name="drafts">טיוטות</string>
+  <string name="published">פורסם</string>
+  <string name="publishOnYourBlog">פרסם לבלוג שלך</string>
+  <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך.</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">פרסם פוסט</item>
+    <item quantity="two">פרסמו %s פוסטים</item>
+    <item quantity="many">פרסמו %s פוסטים</item>
+    <item quantity="other">פרסמו %s פוסטים</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">צפייה אחת</item>
+    <item quantity="two">%s צפיות</item>
+    <item quantity="many">%s צפיות</item>
+    <item quantity="other">%s צפיות</item>
+  </plurals>
+  <string name="xPublishedY">%1$s פרסם את הפוסט: \"%2$s\"</string>
+  <string name="thisPostIsPublished">הפוסט פורסם</string>
+  <string name="thisIsADraft">זוהי טיוטה</string>
+  <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
+  <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
+  <string name="noDrafts">אין טיוטות. נדמה ששלחת את כל מה שהיית צריך.</string>
+  <string name="latestBlogPosts">פוסטים אחרונים</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">צפה בפוסט אחד</item>
+    <item quantity="two">צפה בכל הפוסטים של %s</item>
+    <item quantity="many">צפה בכל הפוסטים של %s</item>
+    <item quantity="other">צפה בכל הפוסטים של %s</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">העלה תמונה לפוסט שלך</string>
+  <string name="imageAlt">תיאור התמונה</string>
+  <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
+</resources>

@@ -1,4 +1,4 @@
-@import "../component/subnav";
+@import '../component/subnav';
 
 .page-menu {
   display: grid;
@@ -9,7 +9,6 @@
     grid-template-rows: min-content;
     grid-template-areas: 'menu content';
   }
-
 
   &.page-small {
     max-width: 1000px;
@@ -25,7 +24,6 @@
     height: 100%;
 
     // overflow: hidden; /* fixes crazy text overflow on Fx */
- 
   }
 
   &__content.box {

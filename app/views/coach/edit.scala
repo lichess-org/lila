@@ -44,14 +44,14 @@ object edit {
             if (c.coach.hasPicture)
               a(
                 cls := "upload_picture",
-                href := routes.Coach.picture(),
+                href := routes.Coach.picture,
                 title := "Change/delete your profile picture"
               )(
-                widget.pic(c, 250)
+                picture.thumbnail(c, 250)
               )
             else
               div(cls := "upload_picture")(
-                a(cls := "button", href := routes.Coach.picture())("Upload a profile picture")
+                a(cls := "button", href := routes.Coach.picture)("Upload a profile picture")
               )
           ),
           div(cls := "overview")(
@@ -64,12 +64,12 @@ object edit {
               a(
                 href := routes.Coach.show(c.user.username),
                 cls := "button button-empty text",
-                dataIcon := "v"
+                dataIcon := ""
               )("Preview coach page")
             )
           )
         ),
-        postForm(cls := "box__pad form3 async", action := routes.Coach.edit())(
+        postForm(cls := "box__pad form3 async", action := routes.Coach.edit)(
           div(cls := "tabs")(
             div(dataTab := "basics", cls := "active")("Basics"),
             div(dataTab := "texts")("Texts"),
@@ -182,14 +182,14 @@ object edit {
                   ),
                   div(cls := "actions btn-rack")(
                     r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := "E"),
-                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "L")
+                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := ""),
+                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "")
                   )
                 )
               }
             )
           ),
-          div(cls := "status text", dataIcon := "E")("Your changes have been saved.")
+          div(cls := "status text", dataIcon := "")("Your changes have been saved.")
         )
       )
     )

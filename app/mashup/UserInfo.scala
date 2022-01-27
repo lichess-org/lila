@@ -9,6 +9,7 @@ import lila.forum.PostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
+import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Trophies, TrophyApi, User }
 
 case class UserInfo(
@@ -18,8 +19,8 @@ case class UserInfo(
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
     nbFollowers: Int,
-    nbBlockers: Option[Int],
-    nbPosts: Int,
+    nbForumPosts: Int,
+    ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
     trophies: Trophies,
     shields: List[lila.tournament.TournamentShield.Award],
@@ -67,18 +68,19 @@ object UserInfo {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
         ctx.me.?? { me =>
-          noteApi
-            .get(u, me, Granter(_.ModNote)(me))
-            .mon(_.user segment "notes")
+          fetchNotes(u, me).mon(_.user segment "notes")
         } zip
         ctx.isAuth.?? {
           prefApi.followable(u.id).mon(_.user segment "followable")
         } zip
         ctx.userId.?? { myId =>
           relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
-        } dmap { case relation ~ notes ~ followable ~ blocked =>
+        } dmap { case (((relation, notes), followable), blocked) =>
           Social(relation, notes, followable, blocked)
         }
+
+    def fetchNotes(u: User, me: User) =
+      noteApi.get(u, me, Granter(_.ModNote)(me))
   }
 
   case class NbGames(
@@ -102,7 +104,7 @@ object UserInfo {
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
         gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
         bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
-          case crosstable ~ playing ~ imported ~ bookmark =>
+          case (((crosstable, playing), imported), bookmark) =>
             NbGames(
               crosstable,
               playing = playing,
@@ -118,6 +120,7 @@ object UserInfo {
       shieldApi: lila.tournament.TournamentShieldApi,
       revolutionApi: lila.tournament.RevolutionApi,
       postApi: PostApi,
+      ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
       ratingChartApi: lila.history.RatingChartApi,
       userCached: lila.user.Cached,
@@ -129,47 +132,52 @@ object UserInfo {
       playbanApi: lila.playban.PlaybanApi
   )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
-      (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
+      ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
-        (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) dmap some })
-          .mon(_.user segment "nbBlockers") zip
-        postApi.nbByUser(user.id).mon(_.user segment "nbPosts") zip
-        studyRepo.countByOwner(user.id).mon(_.user segment "nbStudies") zip
+        !(user.is(User.lichessId) || user.isBot) ??
+        postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
+        ublogApi.userBlogPreviewFor(user, 3, ctx.me) zip
+        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip
         revolutionApi.active(user).mon(_.user segment "revolutions") zip
-        teamCached.teamIdsList(user.id).mon(_.user segment "teamIds") zip
+        teamCached
+          .teamIdsList(user.id)
+          .map(_.take(lila.team.Team.maxJoinCeiling))
+          .mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
-        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
-        userCached.rankingsOf(user.id) map {
-          case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ hasSimul ~ ranks =>
-            new UserInfo(
-              user = user,
-              ranks = ranks,
-              nbs = nbs,
-              hasSimul = hasSimul,
-              ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
-              nbBlockers = nbBlockers,
-              nbPosts = nbPosts,
-              nbStudies = nbStudies,
-              trophies = trophies ::: trophyApi.roleBasedTrophies(
-                user,
-                Granter(_.PublicMod)(user),
-                Granter(_.Developer)(user),
-                Granter(_.Verified)(user)
-              ),
-              shields = shields,
-              revolutions = revols,
-              teamIds = teamIds,
-              isStreamer = isStreamer,
-              isCoach = isCoach,
-              insightVisible = insightVisible,
-              completionRate = completionRate
-            )
+        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
+          // format: off
+          case (((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul) =>
+          // format: on
+          new UserInfo(
+            user = user,
+            ranks = userCached.rankingsOf(user.id),
+            nbs = nbs,
+            hasSimul = hasSimul,
+            ratingChart = ratingChart,
+            nbFollowers = nbFollowers,
+            nbForumPosts = nbForumPosts,
+            ublog = ublog,
+            nbStudies = nbStudies,
+            trophies = trophies ::: trophyApi.roleBasedTrophies(
+              user,
+              Granter(_.PublicMod)(user),
+              Granter(_.Developer)(user),
+              Granter(_.Verified)(user),
+              Granter(_.ContentTeam)(user)
+            ),
+            shields = shields,
+            revolutions = revols,
+            teamIds = teamIds,
+            isStreamer = isStreamer,
+            isCoach = isCoach,
+            insightVisible = insightVisible,
+            completionRate = completionRate
+          )
         }
   }
 }

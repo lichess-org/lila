@@ -113,18 +113,18 @@ Viņa iet uz savas krāsas lauciņa.</string>
 Tieši blakus dāmai.</string>
   <string name="pawnsFormTheFrontLine">Bandinieki veido priekšējo līniju.
 Veiciet jebkādu gājienu lai turpinātu.</string>
-  <string name="boardSetupComplete">Apveicam! Tagad zinat kā uzstādīt šaha galdiņu.</string>
+  <string name="boardSetupComplete">Apsveicam! Tagad zināt, kā uzstādīt šaha galdiņu.</string>
   <string name="castling">Rokāde</string>
   <string name="theSpecialKingMove">Īpašais karaļa gājiens</string>
   <string name="castlingIntro">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā!</string>
-  <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem lai roķētu karaļa spārnā!</string>
+  <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem, lai roķētu karaļa spārnā!</string>
   <string name="castleQueenSide">Pārvietojiet karali par diviem lauciņiem lai roķētu dāmas spārnā!</string>
-  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvietojiet to, tad roķējies karaļa spārnā.</string>
+  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvietojiet to, tad veiciet rokādi karaļa spārnā.</string>
   <string name="castleKingSideMovePiecesFirst">Roķējieties karaļa spārnā! Vispirms nepieciešams izlaist ārā figūras.</string>
   <string name="castleQueenSideMovePiecesFirst">Roķējieties dāmas spārnā! Vispirms vajadzēs izlaist figūras.</string>
   <string name="youCannotCastleIfMoved">Nedrīkst veikt rokādi, ja karalis vai tornis jau ir izdarījis gājienu.</string>
   <string name="youCannotCastleIfAttacked">Nedrīkst veikt rokādi, ja pa ceļam karalis tiek apdraudēts. Nobloķējiet šahu un tad - rokāde!</string>
-  <string name="findAWayToCastleKingSide">Atrodiet veidu kā roķēties karaļa spārnā!</string>
+  <string name="findAWayToCastleKingSide">Izdomājiet, kā roķēties karaļa spārnā!</string>
   <string name="findAWayToCastleQueenSide">Atrodiet veidu kā roķēties dāmas spārnā!</string>
   <string name="castlingComplete">Apsveicam! Rokāde ir ieteicama gandrīz katrā spēlē.</string>
   <string name="enPassant">Garāmejot</string>
@@ -136,7 +136,7 @@ Veiciet jebkādu gājienu lai turpinātu.</string>
   <string name="takeAllThePawnsEnPassant">Nosit visus bandiniekus garāmejot!</string>
   <string name="enPassantComplete">Apsveicam. Tagad vari sist garāmejot.</string>
   <string name="stalemate">Pats</string>
-  <string name="theGameIsADraw">Spēle ir neizšķirts</string>
+  <string name="theGameIsADraw">Spēle ir neizšķirta</string>
   <string name="stalemateIntro">Kad spēlētājam nav pieteikts šahs un viņš nevar izdarīt legālu gājienu, tad ir pats. Spēle beidzas neizšķirti: neviens neuzvar, neviens nezaudē.</string>
   <string name="stalemateGoal">Lai melniem būtu pats:
 - Melnie nevar izdarīt gājienu
@@ -155,6 +155,10 @@ Karalis ir nenovērtējams! To zaudējot tiek zaudēta spēle.</string>
   <string name="queenOverBishop">Sit figūru
 ar lielāko vērtību!
 Dāma &gt; Laidnis</string>
+  <string name="pieceValueExchange">Nositiet figūru ar augstāko vērtību!
+ Neapmainiet augstāk vērtētu figūru pret ko mazāk vērtīgu.</string>
+  <string name="pieceValueLegal">Nositiet figūru ar augstāko vērtību!
+Pārliecinieties, ka gājiens ir atļauts!</string>
   <string name="takeThePieceWithTheHighestValue">Sit figūru ar lielāko vērtību!</string>
   <string name="pieceValueComplete">Apsveicam. Tu tagad zini resursu vērtību!
 Dāma = 9

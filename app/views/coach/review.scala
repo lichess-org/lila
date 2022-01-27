@@ -13,7 +13,13 @@ object review {
 
   def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
-      h2(studentReviews(reviews.list.size)),
+      h2(
+        studentReviews(reviews.list.size),
+        iconTag("")(
+          cls := "coach-show__reviews__disclaimer",
+          st.title := "Comments are approved by the coach. Negative comments are reviewed by moderators."
+        )
+      ),
       reviews.list.map { r =>
         div(cls := "coach-review")(
           div(cls := "top")(
@@ -39,8 +45,8 @@ object review {
           p(thankYouForReview()),
           p(xWillApproveIt(c.user.realNameOrUsername))
         )
-      else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a review")
-      else a(href := s"${routes.Auth.login()}?referrer=${ctx.req.path}", cls := "button")(reviewCoach()),
+      else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a comment")
+      else a(href := s"${routes.Auth.login}?referrer=${ctx.req.path}", cls := "button")(reviewCoach()),
       postForm(action := routes.Coach.review(c.user.username))(
         barRating(selected = mine.map(_.score), enabled = true),
         textarea(

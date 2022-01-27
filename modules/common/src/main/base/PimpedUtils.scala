@@ -24,8 +24,6 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
   def err(message: => String): A = self.getOrElse(sys.error(message))
 
-  def ifNone(n: => Unit): Unit = if (self.isEmpty) n
-
   def has(a: A) = self contains a
 }
 

@@ -29,12 +29,9 @@ object bits {
 
   def details(c: Challenge)(implicit ctx: Context) =
     div(cls := "details")(
-      div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '*' else c.perfType.iconChar))(
+      div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '' else c.perfType.iconChar))(
         div(
-          if (c.variant.exotic)
-            views.html.game.bits.variantLink(c.variant, variantName(c.variant))
-          else
-            c.perfType.trans,
+          views.html.game.bits.variantLink(c.variant, c.perfType.some, c.initialFen),
           br,
           span(cls := "clock")(
             c.daysPerTurn map { days =>
@@ -44,6 +41,8 @@ object bits {
           )
         )
       ),
-      div(cls := "mode")(modeName(c.mode))
+      div(cls := "mode")(
+        s"${c.colorChoice.toString()} • ${modeName(c.mode)}"
+      )
     )
 }

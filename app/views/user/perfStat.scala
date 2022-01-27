@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.{ Perf, PerfType }
-import lila.perfStat.PerfStat
+import lila.perfStat.{ PerfStat, PerfStatData }
 import lila.user.User
 
 import controllers.routes
@@ -16,15 +16,13 @@ object perfStat {
   import trans.perfStat._
 
   def apply(
-      u: User,
-      rankMap: lila.rating.UserRankMap,
-      perfType: lila.rating.PerfType,
-      percentile: Option[Double],
-      stat: PerfStat,
+      data: PerfStatData,
       ratingChart: Option[String]
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context) = {
+    import data._
+    import stat.perfType
     views.html.base.layout(
-      title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
+      title = s"${user.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
       moreJs = frag(
         jsModule("user"),
@@ -32,7 +30,7 @@ object perfStat {
           frag(
             jsTag("chart/ratingHistory.js"),
             embedJsUnsafeLoadThen(
-              s"lichess.ratingHistoryChart($rc,'${perfType.trans(lila.i18n.defaultLang)}');"
+              s"lichess.ratingHistoryChart($rc,{singlePerfName:'${perfType.trans(lila.i18n.defaultLang)}'});"
             )
           )
         }
@@ -40,37 +38,40 @@ object perfStat {
       moreCss = cssTag("perf-stat")
     ) {
       main(cls := s"page-menu")(
-        st.aside(cls := "page-menu__menu")(show.side(u, rankMap, perfType.some)),
+        st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
-            h1(
-              a(href := routes.User.show(u.username))(u.username),
-              span(perfStats(perfType.trans))
+            div(cls := "box__top__title")(
+              bits.perfTrophies(user, ranks.view.filterKeys(perfType.==).toMap),
+              h1(
+                a(href := routes.User.show(user.username))(user.username),
+                span(perfStats(perfType.trans))
+              )
             ),
             div(cls := "box__top__actions")(
-              u.perfs(perfType).nb > 0 option a(
+              user.perfs(perfType).nb > 0 option a(
                 cls := "button button-empty text",
                 dataIcon := perfType.iconChar,
-                href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
-              )(viewTheGames()),
-              bits.perfTrophies(u, rankMap.view.filterKeys(perfType.==).toMap)
+                href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+              )(viewTheGames())
             )
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
           div(cls := "box__pad perf-stat__content")(
-            glicko(u, perfType, u.perfs(perfType), percentile),
+            glicko(user, perfType, user.perfs(perfType), percentile),
             counter(stat.count),
             highlow(stat),
             resultStreak(stat.resultStreak),
-            result(stat),
+            result(stat, user),
             playStreakNb(stat.playStreak),
             playStreakTime(stat.playStreak)
           )
         )
       )
     }
+  }
 
-  private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
+  private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit
       ctx: Context
@@ -95,14 +96,14 @@ object perfStat {
           span(cls := "details")(
             if (ctx is u) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
+                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
+                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             }
           )
@@ -112,14 +113,18 @@ object perfStat {
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if (perf.progress > 0) tag("green")(dataIcon := "N")(perf.progress)
-          else if (perf.progress < 0) tag("red")(dataIcon := "M")(-perf.progress)
+          if (perf.progress > 0) tag("green")(dataIcon := "")(perf.progress)
+          else if (perf.progress < 0) tag("red")(dataIcon := "")(-perf.progress)
           else "-"
         ),
         ". ",
         ratingDeviation(
           strong(
-            title := ratingDeviationHelp.txt(lila.rating.Glicko.provisionalDeviation)
+            title := ratingDeviationTooltip.txt(
+              lila.rating.Glicko.provisionalDeviation,
+              lila.rating.Glicko.standardRankableDeviation,
+              lila.rating.Glicko.variantRankableDeviation
+            )
           )(decimal(perf.glicko.deviation).toString)
         )
       )
@@ -254,7 +259,9 @@ object perfStat {
       resultStreakSide(streak.loss, losingStreak(), "red")
     )
 
-  private def resultTable(results: lila.perfStat.Results, title: Frag)(implicit lang: Lang): Frag =
+  private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(implicit
+      lang: Lang
+  ): Frag =
     div(
       table(
         thead(
@@ -266,17 +273,21 @@ object perfStat {
           results.results map { r =>
             tr(
               td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
-              td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at)))
+              td(
+                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}")(
+                  absClientDateTime(r.at)
+                )
+              )
             )
           }
         )
       )
     )
 
-  private def result(stat: PerfStat)(implicit lang: Lang): Frag =
+  private def result(stat: PerfStat, user: User)(implicit lang: Lang): Frag =
     st.section(cls := "result split")(
-      resultTable(stat.bestWins, bestRated()),
-      resultTable(stat.worstLosses, worstRated())
+      resultTable(stat.bestWins, bestRated(), user),
+      resultTable(stat.worstLosses, worstRated(), user)
     )
 
   private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =

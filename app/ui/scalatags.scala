@@ -1,4 +1,5 @@
 package lila.app
+
 package ui
 
 import ornicar.scalalib.Zero
@@ -11,23 +12,28 @@ import lila.user.Title
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  val dataTag        = attr("data-tag")
-  val dataIcon       = attr("data-icon")
-  val dataHref       = attr("data-href")
-  val dataCount      = attr("data-count")
-  val dataEnableTime = attr("data-enable-time")
-  val datatime24h    = attr("data-time_24h")
-  val dataColor      = attr("data-color")
-  val dataFen        = attr("data-fen")
-  val dataRel        = attr("data-rel")
-  val novalidate     = attr("novalidate").empty
-  val datetimeAttr   = attr("datetime")
-  val dataBotAttr    = attr("data-bot").empty
-  val deferAttr      = attr("defer").empty
+  val dataTag      = attr("data-tag")
+  val dataIcon     = attr("data-icon")
+  val dataHref     = attr("data-href")
+  val dataCount    = attr("data-count")
+  val dataColor    = attr("data-color")
+  val dataFen      = attr("data-fen")
+  val dataRel      = attr("data-rel")
+  val novalidate   = attr("novalidate").empty
+  val datetimeAttr = attr("datetime")
+  val dataBotAttr  = attr("data-bot").empty
+  val deferAttr    = attr("defer").empty
+  val downloadAttr = attr("download").empty
+  val viewBoxAttr  = attr("viewBox")
+
   object frame {
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
   }
+
+  val dataSortNumberTh = th(attr("data-sort-method") := "number")
+  val dataSort         = attr("data-sort")
+  val dataSortDefault  = attr("data-sort-default").empty
 }
 
 // collection of lila snippets
@@ -48,6 +54,10 @@ trait ScalatagsSnippets extends Cap {
   val goodTag                                = tag("good")
   val badTag                                 = tag("bad")
   val timeTag                                = tag("time")
+  val dialog                                 = tag("dialog")
+  val svgTag                                 = tag("svg")
+  val svgGroupTag                            = tag("g")
+  val svgTextTag                             = tag("text")
 
   def userTitleTag(t: Title) =
     span(
@@ -89,15 +99,16 @@ trait ScalatagsPrefix {
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
-    extends Styles
-    with ScalatagsBundle
+    extends ScalatagsBundle
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
     with ScalatagsPrefix {
 
-  val trans = lila.i18n.I18nKeys
-  def main  = scalatags.Text.tags2.main
+  val trans     = lila.i18n.I18nKeys
+  def main      = scalatags.Text.tags2.main
+  def cssWidth  = scalatags.Text.styles.width
+  def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
@@ -115,7 +126,8 @@ trait ScalatagsExtensions {
       t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
   }
 
-  implicit val charAttr = genericAttr[Char]
+  implicit val charAttr       = genericAttr[Char]
+  implicit val bigDecimalAttr = genericAttr[BigDecimal]
 
   implicit val optionStringAttr = new AttrValue[Option[String]] {
     def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
@@ -138,12 +150,14 @@ trait ScalatagsExtensions {
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
-    // links, because there can be a small peformance advantage and lila does
+    // links, because there can be a small performance advantage and lila does
     // not use window.opener anywhere. Will not be overwritten by additional
     // rels.
     t.setAttr("rel", Builder.GenericAttrValueSource("noopener"))
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
   }
+
+  val noFollow = rel := "nofollow"
 
   def ariaTitle(v: String): Modifier = (t: Builder) => {
     val value = Builder.GenericAttrValueSource(v)

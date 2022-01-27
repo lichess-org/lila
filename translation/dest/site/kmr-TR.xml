@@ -9,8 +9,8 @@
   <string name="yourTurn">Dora te ye</string>
   <string name="aiNameLevelAiLevel">%1$s asta %2$s</string>
   <string name="level">Ast</string>
+  <string name="strength">Hêz</string>
   <string name="toggleTheChat">Axaftinê bigire</string>
-  <string name="toggleSound">Dengê bigire</string>
   <string name="chat">Axaftin</string>
   <string name="resign">Vekişe</string>
   <string name="checkmate">Şahmat</string>
@@ -37,8 +37,7 @@
     <item quantity="one">Reqîbê te dev ji lîstikê berda. Tu dikarî di %s sanîyan de serkeftinê bixwazî.</item>
     <item quantity="other">Hemberê te, dev ji lîstokê berda. Tu dikari di %s saniya bi serkevi.</item>
   </plurals>
-  <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
-  <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
+  <string name="opponentLeftChoices">Reqîb çû. Tu dikarî serkeftin an jî wekheviyê bixwazî an jî bisekinî.</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
   <string name="forceDraw">Wekheviyê bixwaze</string>
   <string name="talkInChat">Ji kerema xwe kibar bin di axaftinê de!</string>
@@ -47,9 +46,6 @@
   <string name="blackResigned">Reş vekişiya</string>
   <string name="whiteLeftTheGame">Spî dev ji lîstikê berda</string>
   <string name="blackLeftTheGame">Reş dev ji lîstikê berda</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Vê Girêdankê parve bike da ku temaşevan bikaribin lîstikê temaşe bikin</string>
-  <string name="theComputerAnalysisHasFailed">Analîza kombersê bi ser neket</string>
-  <string name="viewTheComputerAnalysis">Analîzên kombersê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîzên kompîtûrê</string>
   <string name="computerAnalysisAvailable">Analîzên kombersê hazir in</string>
@@ -66,7 +62,7 @@
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
-  <string name="move">Pêngav</string>
+  <string name="move">Hemle</string>
   <string name="variantLoss">Windakirina varyantê</string>
   <string name="variantWin">Rêya serkeftinê</string>
   <string name="insufficientMaterial">Kevirên kişikê têrî serketinê nake</string>
@@ -77,19 +73,15 @@
   <string name="losing">Têk diçe</string>
   <string name="drawn">Wekhevî</string>
   <string name="unknown">Nedîyar</string>
-  <string name="database">Zaniyarîdank</string>
+  <string name="database">Agahîdank</string>
   <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
   <string name="averageRatingX">Nirxandina navîn: %s</string>
   <string name="recentGames">Lîstikên herî dawî</string>
   <string name="topGames">Lîstikên sereke</string>
   <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
+    <item quantity="one">Mat dibe di %s vîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Gava piştre yê xwarin an piyonê di %s nîv-hemleyî de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
-    <item quantity="other">Gava piştre yê xwarin an piyonê di %s nîv-hemleyan de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
   </plurals>
   <string name="noGameFound">Ti lîstik nehat dîtin</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
@@ -114,11 +106,20 @@
   <string name="infiniteAnalysis">Analîza bêdawî</string>
   <string name="removesTheDepthLimit">Sînora kûrahiyê radike, û kombersa te germ digire</string>
   <string name="blunder">Şelipan</string>
-  <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
-  <string name="mistakes">Çewtî</string>
   <string name="inaccuracy">Hemleya nerast</string>
-  <string name="inaccuracies">Hemleyên nerast</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s şelipan</item>
+    <item quantity="other">%s şelipan</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s çewtî</item>
+    <item quantity="other">%s çewtî</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nerastî</item>
+    <item quantity="other">%s nerastî</item>
+  </plurals>
   <string name="moveTimes">Demên hemleyan</string>
   <string name="flipBoard">Texteyê biqulipîne</string>
   <string name="threefoldRepetition">Tekrarkirina sêcarî</string>
@@ -129,7 +130,7 @@
     <item quantity="one">%s lîzer</item>
     <item quantity="other">%s lîzer</item>
   </plurals>
-  <string name="currentGames">Lîstikên niha</string>
+  <string name="currentGames">Lîstikên vê gavê</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
@@ -152,12 +153,12 @@
   <string name="friends">Hevalan</string>
   <string name="discussions">Nîqaşan</string>
   <string name="today">Îro</string>
-  <string name="yesterday">Duh</string>
+  <string name="yesterday">Doh</string>
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
   <string name="timeControl">Kontrola demê</string>
-  <string name="realTime">Zemanê heqîqî</string>
+  <string name="realTime">Dema heqîqî</string>
   <string name="correspondence">Lîstika bi nivîs</string>
   <string name="daysPerTurn">Rojên ji bo her dorekê</string>
   <string name="oneDay">Yek roj</string>
@@ -199,8 +200,9 @@
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
   <string name="cancel">Betal bike</string>
+  <string name="whiteTimeOut">Dema Spî qedîya</string>
+  <string name="blackTimeOut">Dema Reş qedîya</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
-  <string name="drawOfferDeclined">Teklîfa wekheviyê hate redkirin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
   <string name="drawOfferCanceled">Teklîfa wekheviyê hate betalkirin</string>
   <string name="whiteOffersDraw">Ya spî wekheviyê teklîf dike</string>
@@ -226,8 +228,6 @@
   <string name="thisGameIsRated">Ev lîstik bipuan e</string>
   <string name="rematch">Cardin bilîze</string>
   <string name="rematchOfferSent">Teklîfa cardinlîstinê hate şandin</string>
-  <string name="rematchOfferSentWhite">Spî cardinlîstinê teklîf dike</string>
-  <string name="rematchOfferSentBlack">Reş cardinlîstinê teklîf dike</string>
   <string name="rematchOfferAccepted">Teklîfa cardinlîstinê hate qebûlkirin</string>
   <string name="rematchOfferCanceled">Teklîfa cardinlîstinê hate betalkirin</string>
   <string name="rematchOfferDeclined">Teklîfa cardinlîstinê hate redkirin</string>
@@ -241,15 +241,12 @@
   <string name="youHaveBeenTimedOut">Te ji gotûbêjê hate mehrûmkirin.</string>
   <string name="spectatorRoom">Jûra temaşevanan</string>
   <string name="composeMessage">Peyameke binivîsîne</string>
-  <string name="noNewMessages">Peyamên nû tine</string>
   <string name="subject">Mijar</string>
-  <string name="recipient">Wergir</string>
-  <string name="send">Bişîne</string>
-  <string name="incrementInSeconds">Li ser hemleyekê çend sanîye tê zêdekirin</string>
-  <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
-  <string name="spectators">Temaşevan:</string>
+  <string name="send">Bişeyne</string>
+  <string name="incrementInSeconds">Evqas sanîye tê zêde kirin</string>
+  <string name="freeOnlineChess">Kişika Belaş a Serxet</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puan</item>
+    <item quantity="one">%s pûan</item>
     <item quantity="other">%s puan</item>
   </plurals>
   <plurals name="nbWins">
@@ -257,8 +254,8 @@
     <item quantity="other">%s serkeftin</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s mexlûbiyet</item>
-    <item quantity="other">%s mexlûbiyet</item>
+    <item quantity="one">%s binkevtin</item>
+    <item quantity="other">%s binketin</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s wekhevî</item>
@@ -271,10 +268,9 @@
   <string name="exportGames">Lîstikan derxîne</string>
   <string name="ratingRange">Navbera reytîngê</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">%s çirke bike</item>
-    <item quantity="other">%s çirke bike</item>
+    <item quantity="one">%s çirke bide</item>
+    <item quantity="other">%s çirke bide</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
@@ -285,17 +281,17 @@
   <string name="yourOpponentProposesATakeback">Reqîbê te vegerandina hemleyê teklîf kir</string>
   <string name="bookmarkThisGame">Vê lîstikê bike bijare</string>
   <string name="tournament">Turnuwa</string>
-  <string name="tournaments">Turnuwa</string>
-  <string name="tournamentPoints">Puanên turnuwayê</string>
+  <string name="tournaments">Pêşbirk</string>
+  <string name="tournamentPoints">Pûanên pêşbirkê</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s poînta turnuwayê</item>
-    <item quantity="other">%s puanên turnuwayê</item>
+    <item quantity="one">%s pûanên pêşbirkê</item>
+    <item quantity="other">%s puanên pêşbirkê</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s Xebat</item>
     <item quantity="other">Xebatên %s</item>
   </plurals>
-  <string name="viewTournament">Turnuwayê bibîne</string>
+  <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
   <plurals name="moreThanNbRatedGames">
@@ -303,20 +299,20 @@
     <item quantity="other">≥ %s lîstikên bipuan</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s lîstika %2$s ya bipuan</item>
-    <item quantity="other">≥ %1$s lîstikên %2$s ya bipuan</item>
+    <item quantity="one">≥ %1$s lîstika %2$s ya bipûan</item>
+    <item quantity="other">≥ %1$s lîstikên %2$s ya bipûan</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Divê tu %1$s lîstika din a bipuan ya %2$s bilîzî</item>
-    <item quantity="other">Divê tu %1$s lîstikên din ên bipuan ya %2$s bilîzî</item>
+    <item quantity="one">Divê tu %1$s lîstikên din ên bipûan a %2$s bilîzî</item>
+    <item quantity="other">Divê tu %1$s lîstikên din ên bipûan ya %2$s bilîzî</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Divê tu %s lîstika din a bipuan bilîzî</item>
+    <item quantity="one">Divê tu %s lîstikên din ên bipûan bilîzî</item>
     <item quantity="other">Divê tu %s lîstikên din ên bipuan bilîzî</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Puana te ya %s demkî ye</string>
+  <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Puana te ya heftane a %1$s (%2$s) pir bilind e</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Pûana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
   <string name="ratedMoreThanInPerf">Divê puana te ≥ %1$s bibe li %2$s</string>
   <string name="ratedLessThanInPerf">Divê puana te ≤ %1$s bibe li %2$s</string>
@@ -357,8 +353,6 @@
     <item quantity="one">%s heval serhêl e</item>
     <item quantity="other">%s heval serhêl in</item>
   </plurals>
-  <string name="noFriendsOnline">Ti hevalek tê ne serhêl e</string>
-  <string name="findFriends">Hevalan bibîne</string>
   <string name="favoriteOpponents">Dijberên favorî</string>
   <string name="follow">Bişopîne</string>
   <string name="following">Dişopînî</string>
@@ -379,7 +373,6 @@
   <string name="more">Zêdetir</string>
   <string name="memberSince">Ji vê demê ve endam e</string>
   <string name="lastSeenActive">Çalakiya dawîn %s</string>
-  <string name="challengeToPlay">Vexwîne lîstikek</string>
   <string name="player">Lîzer</string>
   <string name="list">Lîste</string>
   <string name="graph">Grafîk</string>
@@ -393,7 +386,7 @@
   <string name="winner">Yê biserketî</string>
   <string name="standing">Rêz</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
-  <string name="tournamentCalendar">Teqwîma pêşbirkan</string>
+  <string name="tournamentCalendar">Salnameya pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
   <string name="advancedSettings">Sazkariyên pêşketî</string>
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
@@ -408,7 +401,6 @@
   <string name="points">Poînt</string>
   <string name="wins">Serkeftin</string>
   <string name="losses">Mexlûbiyet</string>
-  <string name="winStreak">Zincîreya serkeftinan</string>
   <string name="createdBy">Hate çêkirin ji aliyê</string>
   <string name="tournamentIsStarting">Pêşbirk dest pê dike</string>
   <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
@@ -417,20 +409,18 @@
   <string name="winRate">Rêjeya serkeftinê</string>
   <string name="berserkRate">Rêjeya Berserk-ê</string>
   <string name="performance">Performans</string>
-  <string name="tournamentComplete">Pêşbirk temam bû</string>
+  <string name="tournamentComplete">Pêşbirk qedîya</string>
   <string name="movesPlayed">Hemleyên lîstî</string>
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
   <string name="draws">Wekhevî</string>
   <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="averageOpponent">Dijbera averaj</string>
-  <string name="membersOnly">Tenê endam</string>
   <string name="boardEditor">Edîtorê texteyê</string>
   <string name="setTheBoard">Texteyê bisazîne</string>
   <string name="popularOpenings">Destpêkên binavûdeng</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="clearBoard">Texteyê paqij bike</string>
-  <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
   <string name="isPrivate">Taybet</string>
   <string name="reportXToModerators">%s-ê ragihîne moderatoran</string>
@@ -443,43 +433,14 @@
   <string name="firstName">Nav</string>
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
-  <string name="country">Welat</string>
+  <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
-  <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
   <string name="onlinePlayers">Lîzerên serhêl</string>
-  <string name="activeToday">Yên îro çalak bûn</string>
   <string name="activePlayers">Lîzerên aktîv</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Baldar be, lîstik bi reytîng e lê sînorek wextê tine!</string>
-  <string name="yourPuzzleRatingX">Reytînga te ya pazilê: %s</string>
-  <string name="findTheBestMoveForWhite">Hemleya çêtirîn bibîne ji bo spî.</string>
-  <string name="findTheBestMoveForBlack">Hemleya çêtirîn bibîne ji bo reş.</string>
-  <string name="toTrackYourProgress">Ji bo şopandina pêşveçûna xwe:</string>
-  <string name="puzzleId">Pazil %s</string>
-  <string name="puzzleOfTheDay">Pazila rojê</string>
-  <string name="clickToSolve">Bo çareserkirinê bitikîne</string>
-  <string name="goodMove">Hemleya baş</string>
-  <string name="butYouCanDoBetter">Lê tu dikarî yê çêtir bikî.</string>
-  <string name="bestMove">Hemleya çêtirîn!</string>
-  <string name="keepGoing">Bidomîne…</string>
-  <string name="puzzleFailed">Pazil hel nebû</string>
-  <string name="butYouCanKeepTrying">Lê tu dikarî dewam bikî ceribandinên xwe.</string>
   <string name="success">Çêbû</string>
-  <string name="wasThisPuzzleAnyGood">Ev pazil çawa bû?</string>
-  <string name="pleaseVotePuzzle">Bi dengdanê alî Lichessê bike da ku bi pêş bikeve, bo dengdanê tîrên jêrî û jorî bi kar bîne:</string>
-  <string name="thankYou">Spas!</string>
-  <string name="ratingX">Reytîng: %s</string>
-  <string name="hidden">veşartî</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s carî hate lîstin</item>
-    <item quantity="other">%s caran hate lîstin</item>
-  </plurals>
-  <string name="fromGameLink">Ji lîstika %s</string>
-  <string name="continueTraining">Dewam bike perwerdeyê</string>
-  <string name="retryThisPuzzle">Vê pazilê nû bike</string>
-  <string name="thisPuzzleIsCorrect">Ev pazil rast û balkêş e</string>
-  <string name="thisPuzzleIsWrong">Ev pazil xelet û acizker e</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tê lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
@@ -487,7 +448,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Piştî hemleyê jixweber derbasî lîstika din bibe</string>
   <string name="autoSwitch">Otomatîk biguherîne</string>
   <string name="puzzles">Pazil</string>
-  <string name="latestUpdates">Hildemandinên dawîn</string>
   <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
   <string name="name">Nav</string>
   <string name="description">Danasîn</string>
@@ -516,9 +476,7 @@
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
-  <string name="theming">Dîzayn</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Pirs &amp; Bersiv</string>
   <string name="notes">Notên te</string>
   <string name="typePrivateNotesHere">Notên xwe yên taybet li vir binivîsîne</string>
   <string name="invalidUsernameOrPassword">Navê bikarhêneriyê an pêborîn nederbasdar e</string>
@@ -544,13 +502,7 @@
   <string name="onSlowGames">Di lîstikên hêdî de</string>
   <string name="always">Hertim</string>
   <string name="never">Qet</string>
-  <string name="difficultyEasy">Hêsan</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Zehmet</string>
   <string name="xCompetesInY">%1$s tevlî %2$s bûye</string>
-  <string name="xAskedY">%1$s %2$s pirsî</string>
-  <string name="xAnsweredY">%1$s cewab da %2$s</string>
-  <string name="xCommentedY">%1$s şîrove kir %2$s</string>
   <string name="victory">Serkeftin</string>
   <string name="defeat">Mexlûbiyet</string>
   <string name="victoryVsYInZ">%1$s dijî %2$s li %3$s</string>
@@ -559,7 +511,6 @@
   <string name="timeline">Demname</string>
   <string name="starting">Destpêk:</string>
   <string name="allInformationIsPublicAndOptional">Hemû agahî giştî ne û bi daxwazê ne.</string>
-  <string name="yourCityRegionOrDepartment">Bajar, herêm, an eyaleta tê.</string>
   <string name="biographyDescription">Behsa xwe bike, meraqên te, ji çi hez dikî di kişikê de, hoste, destpêkên te yên bijare...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Zêdetirîn %s karakter.</item>
@@ -574,13 +525,6 @@
   <string name="computer">Kombers</string>
   <string name="side">Alî</string>
   <string name="clock">Saet</string>
-  <string name="unauthorizedError">Gihaştin bêdestûr e.</string>
-  <string name="noInternetConnection">Girêdana înternetê tine. Tu hê jî dikarî derhêl bilîzî ji menuyê.</string>
-  <string name="connectedToLichess">Te vêga hatî girêdan li Lichess.org-ê</string>
-  <string name="signedOut">Te jê derketiye</string>
-  <string name="loginSuccessful">Tı vêga têketî yî</string>
-  <string name="playOnTheBoardOffline">Ji ser texteyê</string>
-  <string name="playOfflineComputer">Kombers</string>
   <string name="opponent">Dijber</string>
   <string name="learnMenu">Hîn bibe</string>
   <string name="studyMenu">Xebat</string>
@@ -588,16 +532,7 @@
   <string name="community">Civat</string>
   <string name="tools">Amûr</string>
   <string name="increment">Zêdebûn</string>
-  <string name="sharePGN">PGNê parve bike</string>
-  <string name="playOnline">Serhêl bilîze</string>
-  <string name="playOffline">Derhêl bilîze</string>
-  <string name="allowAnalytics">Destûr bide statîstîkên anonîm</string>
-  <string name="shareGameURL">URLya lîstikê parve bike</string>
   <string name="error.required">Ev der pêwîst e</string>
-  <string name="error.email">Ev navnîşana epeyamê nederbasdar e</string>
-  <string name="error.email_acceptable">Ev navnîşana epeyamê ne meqbûl e</string>
-  <string name="error.email_unique">Ew adresa e-peyamê jixwe hatiye standin</string>
-  <string name="error.email_different">Ev epeyam jixwe ya te ye</string>
   <string name="ifRatingIsPlusMinusX">Ger reytîng ± %s be</string>
   <string name="onlyFriends">Tenê hevalan</string>
   <string name="menu">Menu</string>
@@ -644,7 +579,6 @@
   <string name="simulHostExtraTime">Wextê ekstra yê ji bo mêvandarê</string>
   <string name="lichessTournaments">Pêşbirkên lichess-ê</string>
   <string name="tournamentFAQ">PPPya pêşbirka Arenayê</string>
-  <string name="tournamentOfficial">Fermî</string>
   <string name="timeBeforeTournamentStarts">Wextê berî destpêkirina pêşbirkê</string>
   <string name="averageCentipawnLoss">Windabûna sentîpeyayê (centipawn loss) ya averaj</string>
   <string name="keyboardShortcuts">Kurterêyên textekilîlê</string>
@@ -676,12 +610,12 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ger te epeyamê nedîtibe, cihên din ên ku dibe ku lê be kontrol bike, wek negirîng, spam, civakî, an pekdankên din.</string>
   <string name="weHaveSentYouAnEmailTo">Em epeyamekê şandin %s. Bitikîne lînka di epeyamê de ji bo nûkirina pêborîna xwe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bi qeydbûnê, tu qebûl dikî ku girêdayî %s ya me bibî.</string>
+  <string name="readAboutOur">Di derbarê %s bixwîne.</string>
   <string name="networkLagBetweenYouAndLichess">Derengmayîna torê yê di navbera te û lichessê de</string>
   <string name="timeToProcessAMoveOnLichessServer">Dema te ya bicihanîna hemleyekê, li ser rajekarê lichessê</string>
   <string name="downloadAnnotated">Awayê notgirtî daxîne</string>
   <string name="downloadRaw">Awayê sade daxîne</string>
   <string name="downloadImported">Yê têxistî daxîne</string>
-  <string name="printFriendlyPDF">PDFa bo çapkirinê</string>
   <string name="crosstable">Tabloya çeperast</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Herwiha tu dikarî ji bo hemlekirinê çerxa mişkê kaş bikî.</string>
   <string name="analysisShapesHowTo">Pêlî shift+click an right-click bike ji bo xêzkirina xelekan û tîrikan li ser texteyê.</string>
@@ -690,15 +624,12 @@
   <string name="withNobody">Bi tikesî re</string>
   <string name="withFriends">Bi hevalan re</string>
   <string name="withEverybody">Bi herkesî re</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Te jixwe xwe bi vê epeyamê qeyd kiriye: %s</string>
   <string name="kidMode">Moda zarokan</string>
   <string name="kidModeExplanation">Ev derbarê ewlehiyê de ye. Di moda zarokan de, hemû komunîkasyonên malperê neçalak in. Ji bo ku zarokên xwe û xwendekarên dibistanan ji bikarhênerên din ên înternetê biparêzî, vê çalak bike.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Di moda zarokan de, logoya lichessê îkona %s digire, bi vî awayî haya te jê çêdibe ku zarok ewle ne.</string>
   <string name="enableKidMode">Moda zarokan aktîv bike</string>
   <string name="disableKidMode">Moda zarokan neçalak bike</string>
   <string name="security">Ewlehî</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ev lîsteyeke amûrên ku têketine hesaba te ne. Danişînên ku tu nas nakî betal bike.</string>
-  <string name="alternativelyYouCanX">Alternatîven tu dikarî %s.</string>
   <string name="revokeAllSessions">hemû danişînan betal bikî</string>
   <string name="playChessEverywhere">Kişikê bilîze li her derî</string>
   <string name="asFreeAsLichess">Bi qasî lichessê azad</string>
@@ -720,7 +651,6 @@
   <string name="xHostsY">%1$s mêvandariya %2$s kir</string>
   <string name="xJoinsY">%1$s tevlî %2$s bû</string>
   <string name="xLikesY">%1$s %2$s eciband</string>
-  <string name="xCreatesStudyY">%1$s xebata %2$s çêkir</string>
   <string name="quickPairing">Lihevanîna bilez</string>
   <string name="lobby">Lobî</string>
   <string name="anonymous">Anonîm</string>
@@ -741,20 +671,13 @@
   <string name="usernameSuffixInvalid">Divê navê bikarhêneriyê bi tîpekê an bi hejmarekê xelas bibe.</string>
   <string name="usernameCharsInvalid">Divê navê bikarhêneriyê tenê tîpan, hejmaran, jêrexêzan, û bendikan bihewîne.</string>
   <string name="usernameUnacceptable">Navê bikarhêneriyê neqebûlbar e.</string>
-  <string name="directlySupportLichess">Piştevaniya Lichessê Bike</string>
   <string name="playChessInStyle">Kişikê bi stîleke bilîze</string>
   <string name="chessBasics">Esasatê kişikê</string>
   <string name="coaches">Mamoste</string>
   <string name="invalidPgn">PGNa nederbasdar</string>
   <string name="invalidFen">FENa nederbasdar</string>
-  <string name="error.minLength">Dirêjahiya maksîmum %s ye</string>
-  <string name="error.maxLength">Dirêjahiya mînîmum: %s</string>
-  <string name="error.min">Divê mestir an wekhevî %s be</string>
-  <string name="error.max">Divê biçûktir an wekhevî %s be</string>
-  <string name="error.unknown">Çewtî</string>
   <string name="custom">Xisûsî</string>
   <string name="notifications">Danezan</string>
-  <string name="challenges">Teklîfên lîstinê</string>
   <string name="perfRatingX">Reytîng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s çirke ji bo lîstina hemleya pêşîn</item>
@@ -801,12 +724,6 @@
   <string name="opening">Destpêk</string>
   <string name="middlegame">Nîvlîstik</string>
   <string name="endgame">Dawiya lîstikê</string>
-  <string name="registerToSendChallenges">Ji kerema xwe qeyd bibe ji bo şandina teklîfan.</string>
-  <string name="youCannotChallengeX">Tu nikarî teklîfa lîstinê bişînî %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s teklîfên lîstinê qebûl nake.</string>
-  <string name="yourXRatingIsTooFarFromY">Reytînga te ya %1$s pir dûr e ji %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ji ber reytînga te ya demkî ya %s, nikare vexwîne lîstinê.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tenê ji hevalên xwe teklîfan qebûl dike.</string>
   <string name="conditionalPremoves">Pêşhemleyên mercdar</string>
   <string name="addCurrentVariation">Varyasyona heyî tevlî bike</string>
   <string name="playVariationToCreateConditionalPremoves">Varyasyonekê bilîze da ku pêşheleyên mercdar çêbikî</string>
@@ -847,4 +764,20 @@
   <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
   <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
   <string name="puzzleDesc">Rahênerê taktîkên kişikê</string>
+  <string name="important">Girîng</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Dibe ku pirsa te berê hatibe bersivandin %1$s</string>
+  <string name="inTheFAQ">li P.B.P.</string>
+  <string name="subscribe">Bibe abone</string>
+  <string name="unsubscribe">Ji abonetîyê derkeve</string>
+  <string name="mentionedYouInX">qala te kir li %1$s.</string>
+  <string name="xMentionedYouInY">%1$s qala te kir li %2$s.</string>
+  <string name="invitedYouToX">te vexwend %1$s.</string>
+  <string name="xInvitedYouToY">%1$s te vexwend %2$s.</string>
+  <string name="youAreNowPartOfTeam">Tu niha endamê komekê yî.</string>
+  <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>
+  <string name="someoneYouReportedWasBanned">Kesê ku te gilî kiribû hat qedexe kirin</string>
+  <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
+  <string name="gameVsX">Lîstika hemberî %1$s</string>
+  <string name="resVsX">%1$s hmb %2$s</string>
+  <string name="timeAlmostUp">Dem heme hema qedîya!</string>
 </resources>

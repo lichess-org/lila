@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.Centis
-import chess.format.FEN
+import chess.format.{ FEN, Uci }
 import play.api.i18n.Lang
 
 trait Iso[A, B] {
@@ -16,11 +16,12 @@ trait Iso[A, B] {
 
 object Iso {
 
-  type StringIso[B]  = Iso[String, B]
-  type IntIso[B]     = Iso[Int, B]
-  type BooleanIso[B] = Iso[Boolean, B]
-  type DoubleIso[B]  = Iso[Double, B]
-  type FloatIso[B]   = Iso[Float, B]
+  type StringIso[B]     = Iso[String, B]
+  type IntIso[B]        = Iso[Int, B]
+  type BooleanIso[B]    = Iso[Boolean, B]
+  type DoubleIso[B]     = Iso[Double, B]
+  type FloatIso[B]      = Iso[Float, B]
+  type BigDecimalIso[B] = Iso[BigDecimal, B]
 
   def apply[A, B](f: A => B, t: B => A): Iso[A, B] =
     new Iso[A, B] {
@@ -53,7 +54,7 @@ object Iso {
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
 
-  implicit val ipAddressIso = string[IpAddress](IpAddress.apply, _.value)
+  implicit val ipAddressIso = string[IpAddress](IpAddress.unchecked, _.value)
 
   implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
 

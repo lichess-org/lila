@@ -19,8 +19,6 @@ final private class PlaybanFeedback(
   def sitting(pov: Pov): Unit =
     tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
 
-  def sandbag(pov: Pov): Unit = tell(pov, s"Warning, {user}. Losing games on purpose will result in a ban.")
-
   private def tell(pov: Pov, template: String): Unit =
     pov.player.userId foreach { userId =>
       lightUser(userId) foreach { light =>

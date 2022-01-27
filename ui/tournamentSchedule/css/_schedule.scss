@@ -1,12 +1,12 @@
-$c-tour: #303E43;
+$c-tour: #303e43;
 $c-tour-user: #888;
-$c-tour-hourly: #3D9333;
-$c-tour-daily: #0072B2;
-$c-tour-weekly: #D55E00;
-$c-tour-monthly: #C93D3D;
+$c-tour-hourly: #3d9333;
+$c-tour-daily: #0072b2;
+$c-tour-weekly: #d55e00;
+$c-tour-monthly: #c93d3d;
 $c-tour-yearly: $c-brag;
 $c-tour-weekend: $c-brag;
-$c-tour-marathon: #66558C;
+$c-tour-marathon: #66558c;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
 
@@ -46,7 +46,7 @@ $c-tour-max-rating: #8572ff;
     display: inline;
     height: 100%;
     border-left: 1px dashed $c-border;
-    padding: 3px 6px;
+    padding: 5px 6px;
 
     &.hour {
       font-weight: bold;
@@ -54,10 +54,21 @@ $c-tour-max-rating: #8572ff;
     }
 
     &.now {
-      top: 1.6em;
+      top: 24px;
       height: calc(100% - 1.6em);
       margin-left: 1px;
       border-left: 3px dashed $c-accent;
+      &::after {
+        content: '';
+        position: absolute;
+        top: -24px;
+        left: -10px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid $c-accent;
+      }
     }
   }
 }
@@ -71,7 +82,8 @@ $c-tour-max-rating: #8572ff;
   white-space: nowrap;
   color: #fff;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: #fff;
   }
 
@@ -80,7 +92,7 @@ $c-tour-max-rating: #8572ff;
   }
 
   &-finished {
-    opacity: 0.7;
+    opacity: 0.4;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
   }
 
@@ -156,14 +168,15 @@ $c-tour-max-rating: #8572ff;
   .icon {
     font-size: 2.4em;
     line-height: 1;
-    margin: 0 .2em 0 .2em;
+    margin: 0 0.2em 0 0.2em;
 
     &::before {
       vertical-align: middle;
     }
   }
 
-  .name, .body {
+  .name,
+  .body {
     @extend %nowrap-ellipsis;
   }
 

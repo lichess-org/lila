@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess insights",
-  "main": "src/main.js",
+  "type": "module",
+  "module": "src/main.js",
   "keywords": [
     "chess",
     "lichess",
@@ -13,12 +14,19 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0"
+    "@build/rollupProject": "2.0.0",
+    "@types/cash": "8.0.0",
+    "@types/highcharts": "=4.2.57",
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "highcharts": "=4.2.5",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "common": "2.0.0",
-    "mithril": "github:ornicar/mithril.js#lila-1",
-    "numeral": "^1.5"
+    "numeral": "^1.5",
+    "snabbdom": "^3.0.1"
   },
   "scripts": {
     "dev": "rollup --config",

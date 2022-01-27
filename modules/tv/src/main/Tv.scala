@@ -2,24 +2,29 @@ package lila.tv
 
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.Trouper
+import lila.hub.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,
-    trouper: Trouper,
+    trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Tv._
-  import ChannelTrouper._
+  import ChannelSyncActor._
 
   private def roundProxyGame = gameProxyRepo.game _
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[Game.ID]](TvTrouper.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+
+  def getReplacementGame(channel: Tv.Channel, oldId: Game.ID, exclude: List[Game.ID]): Fu[Option[Game]] =
+    trouper
+      .ask[Option[Game.ID]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
+      .flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    trouper.ask[GameIdAndHistory](TvTrouper.GetGameIdAndHistory(channel, _)) flatMap {
+    trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for {
           game <- gameId ?? roundProxyGame
@@ -35,16 +40,19 @@ final class Tv(
     }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    trouper.ask[List[Game.ID]](TvTrouper.GetGameIds(channel, max, _)) flatMap {
+    getGameIds(channel, max) flatMap {
       _.map(roundProxyGame).sequenceFu.map(_.flatten)
     }
+
+  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
+    trouper.ask[List[Game.ID]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
-    trouper.ask[Champions](TvTrouper.GetChampions.apply)
+    trouper.ask[Champions](TvSyncActor.GetChampions.apply)
 }
 
 object Tv {
@@ -79,7 +87,7 @@ object Tv {
     case object Best
         extends Channel(
           name = "Top Rated",
-          icon = "C",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -177,14 +185,14 @@ object Tv {
     case object Bot
         extends Channel(
           name = "Bot",
-          icon = "n",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case object Computer
         extends Channel(
           name = "Computer",
-          icon = "n",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )
@@ -226,4 +234,17 @@ object Tv {
     game.finished && !game.olderThan(7)
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
+
+  private[tv] val titleScores = Map(
+    "GM"  -> 500,
+    "WGM" -> 500,
+    "IM"  -> 300,
+    "WIM" -> 300,
+    "FM"  -> 200,
+    "WFM" -> 200,
+    "NM"  -> 100,
+    "CM"  -> 100,
+    "WCM" -> 100,
+    "WNM" -> 100
+  )
 }

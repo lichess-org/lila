@@ -14,6 +14,10 @@ case class IrwinReport(
 ) {
 
   def suspectId = SuspectId(_id)
+
+  def note: String = games.sortBy(-_.activation).map { g =>
+    s"#${g.gameId} = ${g.activation}"
+  } mkString ", "
 }
 
 object IrwinReport {
@@ -46,5 +50,12 @@ object IrwinReport {
       report.games.flatMap { gameReport =>
         povs get gameReport.gameId map { GameReport.WithPov(gameReport, _) }
       }
+  }
+
+  case class Dashboard(recent: List[IrwinReport]) {
+
+    def lastSeenAt = recent.headOption.map(_.date)
+
+    def seenRecently = lastSeenAt.??(DateTime.now.minusMinutes(15).isBefore)
   }
 }

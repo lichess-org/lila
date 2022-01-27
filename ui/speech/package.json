@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org speech synthesis",
-  "main": "dist/main.js",
-  "types": "dist/main",
   "keywords": [
     "chess",
     "lichess",
@@ -16,7 +14,10 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "dev": "rollup --config",

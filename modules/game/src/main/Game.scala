@@ -61,6 +61,8 @@ case class Game(
   def hasUserIds(userId1: User.ID, userId2: User.ID) =
     playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
+  def hasUserId(userId: User.ID) = playerByUserId(userId).isDefined
+
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)
@@ -315,15 +317,21 @@ case class Game(
       blackPlayer = f(blackPlayer)
     )
 
+  def drawOffers = metadata.drawOffers
+
   def playerCanOfferDraw(color: Color) =
     started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
-      !playerHasOfferedDraw(color)
+      !playerHasOfferedDrawRecently(color)
 
-  def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer ?? (_ >= turns - 20)
+  def playerHasOfferedDrawRecently(color: Color) =
+    drawOffers.lastBy(color) ?? (_ >= turns - 20)
+
+  def offerDraw(color: Color) = copy(
+    metadata = metadata.copy(drawOffers = drawOffers.add(color, turns))
+  ).updatePlayer(color, _.offerDraw)
 
   def playerCouldRematch =
     finishedOrAborted &&
@@ -427,6 +435,7 @@ case class Game(
   def fromPool   = source contains Source.Pool
   def fromLobby  = source contains Source.Lobby
   def fromFriend = source contains Source.Friend
+  def fromApi    = source contains Source.Api
 
   def winner = players find (_.wins)
 
@@ -449,7 +458,7 @@ case class Game(
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
+      started && playable && {
         c.outOfTime(turnColor, withGrace) || {
           !c.isRunning && c.players.exists(_.elapsed.centis > 0)
         }
@@ -543,13 +552,7 @@ case class Game(
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
-  def abandoned =
-    (status <= Status.Started) && {
-      movedAt isBefore {
-        if (hasAi && !hasCorrespondenceClock) Game.aiAbandonedDate
-        else Game.abandonedDate
-      }
-    }
+  def abandoned = (status <= Status.Started) && (movedAt isBefore Game.abandonedDate)
 
   def forecastable = started && playable && isCorrespondence && !hasAi
 
@@ -611,6 +614,14 @@ case class Game(
 
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
+  def drawReason = {
+    if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
+    else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
+    else if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
+    else None
+  }
+
   override def toString = s"""Game($id)"""
 }
 
@@ -631,7 +642,8 @@ object Game {
 
   val syntheticId = "synthetic"
 
-  val maxPlayingRealtime = 100 // plus 200 correspondence games
+  val maxPlaying         = 200 // including correspondence
+  val maxPlayingRealtime = 100
 
   val maxPlies = 600 // unlimited can cause StackOverflowError
 
@@ -663,7 +675,11 @@ object Game {
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
-    chess.variant.FromPosition
+    chess.variant.FromPosition,
+    chess.variant.Antichess,
+    chess.variant.Atomic,
+    chess.variant.RacingKings,
+    chess.variant.Horde
   )
 
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
@@ -674,7 +690,10 @@ object Game {
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {
-      clock ?? { _.estimateTotalTime >= Centis(3000) }
+      clock ?? { c =>
+        c.estimateTotalTime >= Centis(3000) &&
+        c.limitSeconds > 0 || c.incrementSeconds > 1
+      }
     }
 
   val gameIdSize   = 8
@@ -688,28 +707,24 @@ object Game {
   val abandonedDays = 21
   def abandonedDate = DateTime.now minusDays abandonedDays
 
-  val aiAbandonedHours = 6
-  def aiAbandonedDate  = DateTime.now minusHours aiAbandonedHours
-
   def takeGameId(fullId: String)   = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
-
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
-      isBoardCompatible(c.config, game.mode)
+      isBoardCompatible(c.config) || {
+        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
+      }
     }
 
-  def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
-    if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+  def isBoardCompatible(clock: Clock.Config): Boolean =
+    chess.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.source.contains(Source.Friend)
+    game.hasAi || game.fromFriend || game.fromApi
   } && isBotCompatible(game.speed)
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
@@ -737,14 +752,7 @@ object Game {
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
-        metadata = Metadata(
-          source = source.some,
-          pgnImport = pgnImport,
-          tournamentId = none,
-          swissId = none,
-          simulId = none,
-          analysed = false
-        ),
+        metadata = metadata(source).copy(pgnImport = pgnImport),
         createdAt = createdAt,
         movedAt = createdAt
       )
@@ -758,7 +766,8 @@ object Game {
       tournamentId = none,
       swissId = none,
       simulId = none,
-      analysed = false
+      analysed = false,
+      drawOffers = GameDrawOffers.empty
     )
 
   object BSONFields {
@@ -802,6 +811,7 @@ object Game {
     val initialFen        = "if"
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
+    val drawOffers        = "do"
   }
 }
 
@@ -852,4 +862,12 @@ case class ClockHistory(
       firstMoveBy.fold(white, black),
       firstMoveBy.fold(black, white)
     )
+}
+
+sealed trait DrawReason
+object DrawReason {
+  case object MutualAgreement      extends DrawReason
+  case object FiftyMoves           extends DrawReason
+  case object ThreefoldRepetition  extends DrawReason
+  case object InsufficientMaterial extends DrawReason
 }

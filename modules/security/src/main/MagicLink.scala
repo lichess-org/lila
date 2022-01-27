@@ -6,44 +6,44 @@ import scalatags.Text.all._
 import lila.common.config._
 import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(
-    mailgun: Mailgun,
+    mailer: Mailer,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def send(user: User, email: EmailAddress): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url           = s"$baseUrl/auth/magic-link/login/$token"
       implicit val lang = user.realLang | lila.i18n.defaultLang
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}
-
-${Mailgun.txt.serviceNote}
-""",
+${trans.common_orPaste.txt()}"""),
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
-          potentialAction(metaName("Log in"), Mailgun.html.url(url)),
+          potentialAction(metaName("Log in"), Mailer.html.url(url)),
           serviceNote
         ).some
       )
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId }
+    tokener read token flatMap { _ ?? userRepo.enabledById } map {
+      _.filter(_.canFullyLogin)
+    }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
 }
@@ -59,19 +59,19 @@ object MagicLink {
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 5,
     duration = 1 hour,
-    key = "email.confirms.ip"
+    key = "login.magicLink.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.user"
+    key = "login.magicLink.user"
   )
 
   private lazy val rateLimitPerEmail = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.email"
+    key = "login.magicLink.email"
   )
 
   def rateLimit[A: Zero](user: User, email: EmailAddress, req: RequestHeader)(

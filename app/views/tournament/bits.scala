@@ -20,24 +20,24 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
+        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
       )
     }
 
-  def enterable(tours: List[Tournament]) =
+  def enterable(tours: List[Tournament])(implicit ctx: Context) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
-              tour.name
+              tour.name(full = false)
             )
           ),
           tour.schedule.fold(td) { s =>
             td(momentFromNow(s.at))
           },
           td(tour.durationString),
-          td(dataIcon := "r", cls := "text")(tour.nbPlayers)
+          td(dataIcon := "", cls := "text")(tour.nbPlayers)
         )
       }
     )
@@ -45,9 +45,9 @@ object bits {
   def userPrizeDisclaimer(ownerId: lila.user.User.ID) =
     !env.prizeTournamentMakers.get().value.contains(ownerId) option
       div(cls := "tour__prize")(
-        "This tournament is NOT organized by Lichess.",
+        "This tournament is not organized by Lichess.",
         br,
-        "If it has prizes, Lichess is NOT responsible for paying them."
+        "If it has prizes, Lichess is not responsible for paying them."
       )
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
@@ -78,6 +78,7 @@ object bits {
     trans.averageOpponent,
     trans.ratedTournament,
     trans.casualTournament,
-    trans.password
+    trans.tournamentEntryCode,
+    trans.arena.viewAllXTeams
   ).map(_.key)
 }

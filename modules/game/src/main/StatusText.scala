@@ -16,9 +16,13 @@ object StatusText {
       case Stalemate                => "Draw by stalemate."
       case Timeout if win.isDefined => s"${loser(win)} left the game."
       case Timeout | Draw           => "The game is a draw."
-      case Outoftime                => s"${winner(win)} wins on time."
-      case NoStart                  => s"${loser(win)} wins by forfeit."
-      case Cheat                    => "Cheat detected."
+      case Outoftime =>
+        win match {
+          case Some(value) => s"${value} wins on time."
+          case None        => "Draw by time and insufficient material."
+        }
+      case NoStart => s"${loser(win)} wins by forfeit."
+      case Cheat   => "Cheat detected."
       case VariantEnd =>
         variant match {
           case chess.variant.KingOfTheHill => s"${winner(win)} brings the king in the center."

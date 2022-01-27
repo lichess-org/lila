@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Po datumu (najstarije)</string>
   <string name="recentlyUpdated">Nedavno objavljene</string>
   <string name="mostPopular">Najpopularnije</string>
+  <string name="alphabetical">Abecednim redom</string>
   <string name="addNewChapter">Dodaj novo poglavlje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavlje</item>
@@ -43,6 +44,7 @@
   <string name="youAreNowASpectator">Postao si gledatelj</string>
   <string name="pgnTags">PGN oznake</string>
   <string name="like">Sviđa mi se</string>
+  <string name="unlike">Ne sviđa mi se</string>
   <string name="newTag">Nova oznaka</string>
   <string name="commentThisPosition">Komentiraj ovu poziciju</string>
   <string name="commentThisMove">Komentiraj ovaj potez</string>
@@ -65,15 +67,13 @@
   <string name="chapterPgn">PGN poglavlja</string>
   <string name="downloadGame">Preuzmi igru</string>
   <string name="studyUrl">Studiraj URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Emitiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
-  <string name="currentGameUrl">URL trenutne igre</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
   <string name="startAtInitialPosition">Kreni s početne pozicije</string>
   <string name="startAtX">Započni na %s</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu ili blog</string>
   <string name="readMoreAboutEmbedding">Pročitajte više o ugradnji</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Samo javne studije mogu biti uključene!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Samo javne studije mogu biti uključene!</string>
   <string name="open">Otvori</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
@@ -131,6 +131,41 @@
   <string name="clearChat">Očistite razgovor</string>
   <string name="deleteTheStudyChatHistory">Dali želite obrisati povijest razgovora? Nakon ovoga nema povratka!</string>
   <string name="deleteStudy">Izbriši studiju</string>
-  <string name="deleteTheEntireStudy">Dali želite obrisati cijelu studiju? Nakon ovoga nema povratka!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Izbrisati cijelu studiju? Nema povratka! Ukucajte naziv studije da potvrdite: %s</string>
   <string name="whereDoYouWantToStudyThat">Gdje želiš to studirati?</string>
+  <string name="goodMove">Dobar potez</string>
+  <string name="mistake">Greška</string>
+  <string name="brilliantMove">Briljantan potez</string>
+  <string name="blunder">Gruba greška</string>
+  <string name="interestingMove">Zanimljiv potez</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Sumnjiv potez</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jedini potez</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Iznudica</string>
+  <string name="equalPosition">Jednaka pozicija</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Nejasna pozicija</string>
+  <string name="whiteIsSlightlyBetter">Bijeli je u blagoj prednosti</string>
+  <string name="blackIsSlightlyBetter">Crni je u blagoj prednosti</string>
+  <string name="whiteIsBetter">Bijeli je bolji</string>
+  <string name="blackIsBetter">Crni je bolji</string>
+  <string name="whiteIsWinning">Bijeli dobija</string>
+  <string name="blackIsWinning">Crni dobija</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nov potez</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Razvoj</string>
+  <string name="initiative">Inicijativa</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Napad</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Protunapad</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vremenska nevolja</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">S kompenzacijom</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">S idejom</string>
+  <string name="nextChapter">Sljedeće poglavlje</string>
+  <string name="prevChapter">Prethodno poglavlje</string>
+  <string name="studyActions">Studijske radnje</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Teme</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Moje teme</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Popularne teme</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Upravljaj temama</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Nazad</string>
+  <string name="playAgain">Igraj ponovno</string>
+  <string name="whatWouldYouPlay">Što bi igrali u ovoj poziciji?</string>
+  <string name="youCompletedThisLesson">Čestitamo! Završili ste lekciju.</string>
 </resources>

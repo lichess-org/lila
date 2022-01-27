@@ -1,58 +1,63 @@
-import debounce from "common/debounce";
+import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { notNull } from 'common';
 import spinnerHtml from './component/spinner';
-import Tagify from '@yaireo/tagify'
+import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
+  const $editor = $('.coach-edit');
 
-  var $editor = $('.coach-edit');
+  const todo = (function () {
+    const $overview = $editor.find('.overview');
+    const $el = $overview.find('.todo');
+    const $listed = $editor.find('#form3-listed');
 
-  var todo = (function() {
+    const must = [
+      {
+        html: '<a href="/account/profile">Complete your lichess profile</a>',
+        check() {
+          return $el.data('profile');
+        },
+      },
+      {
+        html: 'Upload a profile picture',
+        check() {
+          return $editor.find('img.picture').length;
+        },
+      },
+      {
+        html: 'Fill in basic information',
+        check() {
+          for (const name of ['profile.headline', 'languages']) {
+            if (!$editor.find('[name="' + name + '"]').val()) return false;
+          }
+          return true;
+        },
+      },
+      {
+        html: 'Fill at least 3 description texts',
+        check() {
+          return (
+            $editor.find('.panel.texts textarea').filter(function (this: HTMLTextAreaElement) {
+              return !!$(this).val();
+            }).length >= 3
+          );
+        },
+      },
+    ];
 
-    var $overview = $editor.find('.overview');
-    var $el = $overview.find('.todo');
-    var $listed = $editor.find('#form3-listed');
-
-    var must = [{
-      html: '<a href="/account/profile">Complete your lichess profile</a>',
-      check() {
-        return $el.data('profile');
-      }
-    }, {
-      html: 'Upload a profile picture',
-      check() {
-        return $editor.find('img.picture').length;
-      }
-    }, {
-      html: 'Fill in basic information',
-      check() {
-        for (let name of ['profile.headline', 'languages']) {
-          if (!$editor.find('[name="' + name + '"]').val()) return false;
-        }
-        return true;
-      }
-    }, {
-      html: 'Fill at least 3 description texts',
-      check() {
-        return $editor.find('.panel.texts textarea').filter(function(this: HTMLTextAreaElement) {
-          return !!$(this).val();
-        }).length >= 3;
-      }
-    }];
-
-    return function() {
+    return function () {
       const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
       const $ul = $el.find('ul').empty();
       points.forEach(p => $ul.append(p));
-      var fail = !!points.length;
+      const fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
       if (fail) $listed.prop('checked', false);
       $listed.prop('disabled', fail);
     };
   })();
 
-  $editor.find('.tabs > div').on('click', function(this: HTMLElement) {
+  $editor.find('.tabs > div').on('click', function (this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
@@ -67,61 +72,44 @@ lichess.load.then(() => {
       todo();
     });
   }, 1000);
-  $editor.find('input, textarea, select')
-    .on("input paste change keyup", function() {
-      $editor.find('div.status').removeClass('saved');
-      submit();
-    });
+  $editor.find('input, textarea, select').on('input paste change keyup', function () {
+    $editor.find('div.status').removeClass('saved');
+    submit();
+  });
 
-  if ($editor.find('.reviews .review').length)
-    $editor.find('.tabs div[data-tab=reviews]').trigger('click');
+  if ($editor.find('.reviews .review').length) $editor.find('.tabs div[data-tab=reviews]').trigger('click');
 
   const $reviews = $editor.find('.reviews');
-  $reviews.find('.actions a').on('click', function(this: HTMLAnchorElement) {
+  $reviews.find('.actions a').on('click', function (this: HTMLAnchorElement) {
     const $review = $(this).parents('.review');
-    xhr.text(
-      $review.data('action') + '?v=' + $(this).data('value'),
-      { method: 'post' }
-    );
+    xhr.text($review.data('action') + '?v=' + $(this).data('value'), { method: 'post' });
     $review.hide();
-    $editor.find('.tabs div[data-tab=reviews]').data('count', ($reviews.find('.review').length - 1));
+    $editor.find('.tabs div[data-tab=reviews]').data('count', $reviews.find('.review').length - 1);
     return false;
   });
 
-  $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
+  $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
     $('.picture_wrap').html(spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
-  const langInput = document.getElementById('form3-languages');
+  const langInput = document.getElementById('form3-languages') as HTMLInputElement;
+  const whitelistJson = langInput.getAttribute('data-all');
+  const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
   const tagify = new Tagify(langInput, {
-    delimiters: null,
     maxTags: 10,
-    whitelist: JSON.parse(langInput?.getAttribute('data-all') || ''),
-    templates: {
-      tag: function(this: any, v, tagData) {
-        return `<tag title='${v}' contenteditable='false' spellcheck="false" class='tagify__tag ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
-                <x title='remove tag' class='tagify__tag__removeBtn'></x>
-                <div>
-                    <span class='tagify__tag-text'>${v}</span>
-                </div>
-            </tag>`;
-      },
-      dropdownItem: function(tagData) {
-        return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}'>
-                  <span>${tagData.value}</span>
-              </div>`;
-      }
-    },
+    whitelist,
     enforceWhitelist: true,
     dropdown: {
-      enabled: 1
-    }
+      enabled: 1,
+    },
   });
   tagify.addTags(
-    langInput?.getAttribute('data-value')?.split(',').map(code =>
-      tagify.settings.whitelist.find(l => l.code == code)
-    ).filter(notNull)
+    langInput
+      .getAttribute('data-value')
+      ?.split(',')
+      .map(code => whitelist?.find(l => l.code == code))
+      .filter(notNull) as Tagify.TagData[]
   );
 
   todo();

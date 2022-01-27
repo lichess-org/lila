@@ -1,40 +1,42 @@
 import { Dests } from '../interfaces';
-import { sanWriter, SanToUci } from './sanWriter';
+import { sanWriter, SanToUci } from 'chess';
 import { KeyboardMove } from '../keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
-const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
+const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqNBRQ]$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 
 interface Opts {
   input: HTMLInputElement;
   ctrl: KeyboardMove;
 }
 interface SubmitOpts {
+  isTrusted: boolean;
   force?: boolean;
-  server?: boolean;
   yourMove?: boolean;
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-lichess.keyboardMove = function(opts: Opts) {
+lichess.keyboardMove = function (opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
 
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
-  const submit: Submit = function(v: string, submitOpts: SubmitOpts) {
+  const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
+    if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
-    if (v == 'resign') {
-      opts.ctrl.resign(true, true);
-      clear();
-    }
-    else if (legalSans && foundUci) {
+    if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
+      if (v.toLowerCase() === 'resign') {
+        opts.ctrl.resign(true, true);
+        clear();
+      }
+    } else if (legalSans && foundUci) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
@@ -54,9 +56,12 @@ lichess.keyboardMove = function(opts: Opts) {
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
-      if (v.length === 3) v = 'P' + v;
-      opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
-      clear();
+      // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.
+      if (v.length > 3 || (v.length > 2 && v.startsWith('@'))) {
+        if (v.length === 3) v = 'P' + v;
+        opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
+        clear();
+      }
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         readClocks(opts.ctrl.clock());
@@ -65,8 +70,7 @@ lichess.keyboardMove = function(opts: Opts) {
     } else if (submitOpts.yourMove && v.length > 1) {
       setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
-    }
-    else {
+    } else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
       opts.input.classList.toggle('wrong', !!wrong);
@@ -80,13 +84,13 @@ lichess.keyboardMove = function(opts: Opts) {
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
-      server: true,
-      yourMove: yourMove
+      isTrusted: true,
+      yourMove: yourMove,
     });
   };
-}
+};
 
-function makeBindings(opts: any, submit: Submit, clear: Function) {
+function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
@@ -99,16 +103,17 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
     if (v.includes('/')) {
       focusChat();
       clear();
-    }
-    else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
-    else submit(v, {
-      force: e.which === 13
-    });
+    } else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
+    else
+      submit(v, {
+        force: e.which === 13,
+        isTrusted: e.isTrusted,
+      });
   });
   opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
   opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
   // prevent default on arrow keys: they only replay moves
-  opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
+  opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.which > 36 && e.which < 41) {
       if (e.which == 37) opts.ctrl.jump(-1);
       else if (e.which == 38) opts.ctrl.jump(-999);
@@ -122,15 +127,14 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
 function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in legalSans)
-    if (i.toLowerCase() === lowered) return legalSans[i];
+  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 
 function sanCandidates(san: string, legalSans: SanToUci): San[] {
   // replace '=' in promotion moves (#7326)
   const lowered = san.replace('=', '').toLowerCase();
-  return Object.keys(legalSans).filter(function(s) {
+  return Object.keys(legalSans).filter(function (s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }
@@ -138,7 +142,7 @@ function sanCandidates(san: string, legalSans: SanToUci): San[] {
 function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
-    d.forEach(function(dest) {
+    d.forEach(function (dest) {
       ucis.push(orig + dest);
     });
   }
@@ -155,10 +159,13 @@ function readClocks(clockCtrl: any | undefined) {
   const msgs = ['white', 'black'].map(color => {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
-    const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') + ' ' +
+    const msg =
+      (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
+      ' ' +
+      simplePlural(date.getUTCMinutes(), 'minute') +
+      ' ' +
       simplePlural(date.getUTCSeconds(), 'second');
-    return `${color}: ${msg}`;
+    return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
 }

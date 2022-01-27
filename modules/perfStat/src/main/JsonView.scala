@@ -5,6 +5,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json._
 
+import lila.common.Json.{ jodaWrites => _, _ }
 import lila.common.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
@@ -23,6 +24,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   }
 
   implicit val ratingAtWrites                      = Json.writes[RatingAt]
+  implicit val gameAtWrites                        = Json.writes[GameAt]
   implicit val resultWrites                        = Json.writes[Result]
   implicit val resultsWrites                       = Json.writes[Results]
   implicit val streakWrites                        = Json.writes[Streak]
@@ -32,24 +34,19 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   implicit val countWrites                         = Json.writes[Count]
   implicit def perfStatWrites(implicit lang: Lang) = Json.writes[PerfStat]
 
-  def apply(
-      user: User,
-      stat: PerfStat,
-      rank: Option[Int],
-      percentile: Option[Double]
-  )(implicit lang: Lang) =
+  def apply(data: PerfStatData)(implicit lang: Lang) =
     Json.obj(
-      "user"       -> user,
-      "perf"       -> user.perfs(stat.perfType),
-      "rank"       -> rank,
-      "percentile" -> percentile,
-      "stat"       -> stat
+      "user"       -> data.user,
+      "perf"       -> data.user.perfs(data.stat.perfType),
+      "rank"       -> data.rank,
+      "percentile" -> data.percentile,
+      "stat"       -> data.stat
     )
 }
 
 object JsonView {
 
-  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundAt(v, depth)
+  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundDownAt(v, depth)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
   implicit private val dateWriter: Writes[DateTime] = Writes { d =>

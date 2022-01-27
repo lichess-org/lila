@@ -21,6 +21,7 @@ object LangList {
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
+    Lang("de", "CH")  -> "Schwiizerdüütsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
@@ -59,6 +60,7 @@ object LangList {
     Lang("ko", "KR")  -> "한국어",
     Lang("ky", "KG")  -> "кыргызча",
     Lang("la", "LA")  -> "lingua Latina",
+    Lang("lb", "LU")  -> "Lëtzebuergesch",
     Lang("lt", "LT")  -> "lietuvių kalba",
     Lang("lv", "LV")  -> "latviešu valoda",
     Lang("mg", "MG")  -> "fiteny malagasy",
@@ -101,7 +103,17 @@ object LangList {
     Lang("zu", "ZA")  -> "isiZulu"
   )
 
-  lazy val popular: List[Lang] = {
+  val defaultRegions = Map[String, Lang](
+    "de" -> Lang("de", "DE"),
+    "en" -> Lang("en", "US"),
+    "pt" -> Lang("pt", "PT"),
+    "zh" -> Lang("zh", "CN")
+  )
+
+  def removeRegion(lang: Lang): Lang =
+    defaultRegions.get(lang.language) | lang
+
+  private lazy val popular: List[Lang] = {
     // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
     val langs =
       "en-US en-GB ru-RU es-ES tr-TR fr-FR de-DE pt-BR it-IT pl-PL ar-SA fa-IR nl-NL id-ID nb-NO el-GR sv-SE uk-UA cs-CZ vi-VN sr-SP hr-HR hu-HU pt-PT he-IL fi-FI ca-ES da-DK ro-RO zh-CN bg-BG sk-SK ko-KR az-AZ ja-JP sl-SI lt-LT ka-GE mn-MN bs-BA hy-AM zh-TW lv-LV et-EE th-TH gl-ES sq-AL eu-ES hi-IN mk-MK uz-UZ be-BY ms-MY bn-BD is-IS af-ZA nn-NO ta-IN as-IN la-LA kk-KZ tl-PH mr-IN eo-UY gu-IN ky-KG kn-IN ml-IN cy-GB no-NO fo-FO zu-ZA jv-ID ga-IE ur-PK ur-IN te-IN sw-KE am-ET ia-IA sa-IN si-LK ps-AF mg-MG kmr-TR ne-NP tk-TM fy-NL pa-PK br-FR tt-RU cv-CU tg-TJ tp-TP yo-NG frp-IT pi-IN my-MM pa-IN kab-DZ io-EN gd-GB jbo-EN io-IO ckb-IR ceb-PH an-ES"
@@ -113,25 +125,23 @@ object LangList {
   }
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if noRegion(l) == l => l
+    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
-  private def noRegion(lang: Lang): Lang =
-    lang.language match {
-      case "en" => Lang("en", "GB")
-      case "pt" => Lang("pt", "PT")
-      case "zh" => Lang("zh", "CN")
-      case _    => lang
-    }
+  // lazy val popularNoRegionByLanguage: Map[String, Lang] =
+  //   popularNoRegion.view.map { l =>
+  //     l.language -> l
+  //   }.toMap
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
-  lazy val choices: List[(String, String)] = all.toList
+  lazy val allChoices: List[(String, String)] = all.view
     .map { case (l, name) =>
       l.code -> name
     }
+    .toList
     .sortBy(_._1)
 }

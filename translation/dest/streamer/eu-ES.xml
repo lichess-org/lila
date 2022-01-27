@@ -18,6 +18,8 @@
   <string name="rule1">Gehitu lichess.org hitz gakoa zure emanaldiaren izenburuan Lichessen emanaldia egiten ari zarenean.</string>
   <string name="rule2">Ezabatu hitz-gakoa Lichessekoa ez den zerbait ematen ari zarenean.</string>
   <string name="rule3">Lichessek zure emanaldia automatikoki detektatuko du eta zera aktibatuko du:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Irakurri gure %s guztion joko garbia bermatzeko.</string>
+  <string name="streamingFairplayFAQ">joko garbiaren galdera-erantzunak</string>
   <string name="perks">Hitz gakoarekin emanaldia egitearen onurak</string>
   <string name="perk1">Zure Lichess profilean ikono bat.</string>
   <string name="perk2">Streamerren zerrendan gorago agertuko zara.</string>
@@ -26,8 +28,8 @@
   <string name="approved">Zure emanaldia onartu egin da.</string>
   <string name="pendingReview">Zure emanaldia moderatzaileak ikuskatzeko zain dago.</string>
   <string name="pleaseFillIn">Bete zure informazioa eta kargatu irudia.</string>
-  <string name="whenReady">Lichess streamer gisa zerrendatzeko prest zaudenean, %s</string>
-  <string name="requestReview">moderatzaileek ikuskatzea eskatu</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess streamer gisa zerrendatzeko prest zaudenean, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatzaileek ikuskatzea eskatu</string>
   <string name="anotherLanguage">Ingelesa ez den hizkuntza baten egiten baduzu emanaldia, gehitu hizkuntzaren etiketa (%s) kortxete artean zure emanaldiaren izenburuan.
 Adibidez, gehitu \"[EU]\" euskararentzat \"[ES]\" gaztelaniarentzat edo \"[FR]\" frantsesarentzat.
 Gehitu zure emanaldiaren izenburuan Twich edo YouTube orrialdean, ez Lichesseko ezarpenetan. 
@@ -48,11 +50,5 @@ Zure emanaldia ingelesez bada, ez duzu zertan hizkuntza etiketa gehitu.</string>
   <string name="xStreamerPicture">%s streamerraren argazkiak</string>
   <string name="changePicture">Zure argazkiak aldatu/ezabatu</string>
   <string name="uploadPicture">Argazkia kargatu</string>
-  <string name="deletePicture">Argazkia ezabatu</string>
   <string name="maxSize">Gehienezko tamaina: %s</string>
-  <string name="installBlocker">Malware blokeatzailea instalatu!</string>
-  <string name="beSafe">Twitch eta YouTuben dauden
-iragarki eta trackerrengandik babestu.
-Lichessek uBlock Origin erabiltzea
-gomendatzen dizu, doakoa eta librea da.</string>
 </resources>

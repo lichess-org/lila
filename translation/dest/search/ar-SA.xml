@@ -32,4 +32,20 @@
   <string name="sortBy">ترتيب حسب</string>
   <string name="analysis">تحليل</string>
   <string name="onlyAnalysed">فقط المباريات التي يتوفر تحليل الكمبيوتر لها</string>
+  <string name="color">اللون</string>
+  <string name="evaluation">التقييم</string>
+  <string name="maxNumber">أقصى رقم</string>
+  <string name="maxNumberExplanation">الحد الأقصى لعدد الألعاب المراد إرجاعها</string>
+  <string name="include">تضمين</string>
+  <string name="descending">تنازلي</string>
+  <string name="ascending">تصاعدي</string>
+  <plurals name="gamesFound">
+    <item quantity="zero">لم يتم إيجاد أي لعبة</item>
+    <item quantity="one">تم إيجاد %s لعبة</item>
+    <item quantity="two">تم إيجاد %s لعبة</item>
+    <item quantity="few">تم إيجاد %s لعبة</item>
+    <item quantity="many">تم إيجاد %s لعبة</item>
+    <item quantity="other">تم إيجاد %s لعبة</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">متوسط التقييم لكلا اللاعبين</string>
 </resources>

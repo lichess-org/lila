@@ -48,13 +48,13 @@ final private[tournament] class ApiActor(
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId).unit
 
-    case lila.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId).unit
+    case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).unit
 
     case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
   }
 
   private def ejectFromEnterable(userId: User.ID) =
-    tournamentRepo.withdrawableIds(userId) flatMap {
+    tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)
       }.sequenceFu

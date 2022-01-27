@@ -8,7 +8,7 @@
   <string name="youWillLoseAllYourProgress">수정사항은 저장되지 않습니다. 괜찮으시겠어요?</string>
   <string name="play">시작하기!</string>
   <string name="chessPieces">체스 기물</string>
-  <string name="theRook">루크</string>
+  <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
   <string name="rookIntro">루크는 강한 기물입니다. 사용할 준비되셨나요?</string>
   <string name="rookGoal">루크를 클릭해서 별로 이동시키세요!</string>
@@ -20,14 +20,14 @@
   <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
   <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>
   <string name="youNeedBothBishops">밝은 칸 비숍 한 개, 어두운 칸 비숍 한 개 모두 필요합니다!</string>
-  <string name="bishopComplete">치하! 감독에게 명령 할 수 있습니다.</string>
+  <string name="bishopComplete">축하드립니다! 당신은 비숍을 조종할 수 있습니다.</string>
   <string name="theQueen">퀸</string>
   <string name="queenCombinesRookAndBishop">퀸 = 룩 + 비숍</string>
-  <string name="queenIntro">가장 강력한 체스 조각이 들어갑니다. 폐하 여왕 폐하!</string>
-  <string name="queenComplete">가장 강력한 체스 조각이 들어갑니다. 폐하 여왕 폐하!</string>
+  <string name="queenIntro">가장 강력한 체스 기물이 입장하십니다. 퀸 여왕 폐하!</string>
+  <string name="queenComplete">축하드립니다! 이제 당신은 퀸에 대해 모르는 것이 없습니다.</string>
   <string name="theKing">킹</string>
   <string name="theMostImportantPiece">제일 중요한 기물</string>
-  <string name="kingIntro">너는 왕이다. 너가 전투 안에 떨어지면, 게임은 분실된다.</string>
+  <string name="kingIntro">킹은 왕입니다. 킹이 전투에서 잡히면, 게임은 패배합니다.</string>
   <string name="theKingIsSlow">킹은 느립니다.</string>
   <string name="lastOne">마지막!</string>
   <string name="kingComplete">이제 지휘관에게 명령 할 수 있습니다!</string>
@@ -167,6 +167,12 @@
 
 힌트: 
 퀸 &gt; 비숍</string>
+  <string name="pieceValueExchange">가장 가치가 높은 기물을 잡으세요!
+ 가치가 높은 기물을 더 낮은 기물과
+ 교환하지 마세요.</string>
+  <string name="pieceValueLegal">가장 가치가 높은
+기물을 잡으세요!
+가능한 수인지 확인하세요!</string>
   <string name="takeThePieceWithTheHighestValue">가장 높은 가치의 기물을 잡으세요!</string>
   <string name="pieceValueComplete">축하드립니다! 이제 기물의 가치를 아시네요!
 킹 = ∞

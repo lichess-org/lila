@@ -14,19 +14,20 @@ final class Prismic(
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
       case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
-      case _         => routes.Lobby.home().url
+      case _         => routes.Lobby.home.url
     }
 
   private def getDocument(id: String): Fu[Option[Document]] =
-    prismicApi flatMap { api =>
-      api
-        .forms("everything")
-        .query(s"""[[:d = at(document.id, "$id")]]""")
-        .ref(api.master.ref)
-        .submit() dmap {
-        _.results.headOption
+    lila.blog.BlogApi.looksLikePrismicId(id) ??
+      prismicApi.flatMap { api =>
+        api
+          .forms("everything")
+          .query(s"""[[:d = at(document.id, "$id")]]""")
+          .ref(api.master.ref)
+          .submit() dmap {
+          _.results.headOption
+        }
       }
-    }
 
   def getBookmark(name: String) =
     prismicApi flatMap { api =>

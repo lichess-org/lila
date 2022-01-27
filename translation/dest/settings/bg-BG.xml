@@ -2,9 +2,9 @@
 <resources>
   <string name="settings">Настройки</string>
   <string name="closeAccount">Закриване на регистрацията</string>
-  <string name="closingIsDefinitive">Затварянето е окончателно. Няма връщане назад. Сигурен ли си?</string>
-  <string name="cantOpenSimilarAccount">Няма да ви бъде позволено да отворите нов акаунт със същото име, дори случаят да е различен.</string>
+  <string name="closingIsDefinitive">Затварянето е окончателно. Няма връщане назад. Сигурни ли сте?</string>
+  <string name="cantOpenSimilarAccount">Няма да Ви бъде позволено да направите нова регистрация със същото име, дори и с различна големина на буквите.</string>
   <string name="changedMindDoNotCloseAccount">Промених намерението си, не закривайте моята регистрация</string>
-  <string name="closeAccountExplanation">Наистина ли искате да затворите акаунта си? Затварянето на вашия акаунт е постоянно решение. НИКОГА няма да можете да влезете ВЕЧЕ ОТНОВО.</string>
+  <string name="closeAccountExplanation">Наистина ли искате да затворите регистрацията си? Затварянето на регистрация е необратимо. Профилът Ви няма да бъде достъпен НИКОГА ПОВЕЧЕ.</string>
   <string name="thisAccountIsClosed">Тази регистрация е закрита.</string>
 </resources>

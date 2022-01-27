@@ -20,7 +20,7 @@ case class Plan(
   def enable =
     copy(
       active = true,
-      months = months max 1,
+      months = months atLeast 1,
       since = since orElse DateTime.now.some
     )
 

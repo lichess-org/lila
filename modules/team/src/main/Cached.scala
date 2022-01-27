@@ -1,7 +1,10 @@
 package lila.team
 
+import reactivemongo.api.bson.BSONNull
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import lila.db.dsl._
 import lila.memo.Syncache
 import lila.user.User
 
@@ -28,7 +31,42 @@ final class Cached(
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
     initialCapacity = 65536,
-    compute = u => memberRepo.teamIdsByUser(u).dmap(ids => Team.IdsStr(ids take 100)),
+    compute = u =>
+      memberRepo.coll
+        .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match($doc("_id" $startsWith s"$u@")) -> List(
+            Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.size + 1, -1)))),
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from" -> teamRepo.coll.name,
+                  "as"   -> "team",
+                  "let"  -> $doc("id" -> "$_id"),
+                  "pipeline" -> $arr(
+                    $doc(
+                      "$match" -> $doc(
+                        "$expr" -> $doc(
+                          "$and" -> $arr(
+                            $doc("$eq" -> $arr("$_id", "$$id")),
+                            $doc("$eq" -> $arr("$enabled", true))
+                          )
+                        )
+                      )
+                    ),
+                    $doc("$project" -> $doc($id(true)))
+                  )
+                )
+              )
+            ),
+            UnwindField("team"),
+            ReplaceRootField("team"),
+            Group(BSONNull)("ids" -> PushField("_id"))
+          )
+        }
+        .map { doc =>
+          Team.IdsStr(~doc.flatMap(_.getAsOpt[List[Team.ID]]("ids")))
+        },
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterWrite(1 hour)

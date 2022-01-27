@@ -17,7 +17,7 @@ trait Granter {
 
   private def canForum(u: User) =
     !u.isBot && {
-      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
+      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =

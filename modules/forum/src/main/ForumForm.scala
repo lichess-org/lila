@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.common.Form.clean
+import lila.common.Form.cleanText
 import play.api.data._
 import play.api.data.Forms._
 import lila.user.User
@@ -24,10 +24,10 @@ final private[forum] class ForumForm(
 
   def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
 
-  def postEdit(user: User, inOwnTeam: Boolean) =
+  def postEdit(user: User, inOwnTeam: Boolean, previousText: String) =
     Form(
       mapping(
-        "changes" -> userTextMapping(user, inOwnTeam)
+        "changes" -> userTextMapping(user, inOwnTeam, previousText.some)
       )(PostEdit.apply)(PostEdit.unapply)
     )
 
@@ -36,16 +36,20 @@ final private[forum] class ForumForm(
   def topic(user: User, inOwnTeam: Boolean) =
     Form(
       mapping(
-        "name" -> clean(text(minLength = 3, maxLength = 100)),
+        "name" -> cleanText(minLength = 3, maxLength = 100),
         "post" -> postMapping(user, inOwnTeam)
       )(TopicData.apply)(TopicData.unapply)
     )
 
-  private def userTextMapping(user: User, inOwnTeam: Boolean) =
-    clean(text(minLength = 3))
+  val deleteWithReason = Form(
+    single("reason" -> optional(nonEmptyText))
+  )
+
+  private def userTextMapping(user: User, inOwnTeam: Boolean, previousText: Option[String] = None) =
+    cleanText(minLength = 3)
       .verifying(
-        "You have reached the maximum amount of links per day, which you can post to the forum",
-        t => inOwnTeam || promotion.test(user)(t)
+        "You have reached the daily maximum for links in forum posts.",
+        t => inOwnTeam || promotion.test(user)(t, previousText)
       )
 }
 

@@ -1,14 +1,14 @@
 package views.html.streamer
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
 
-object bits extends Context.ToLang {
+object bits {
 
   import trans.streamer._
 
@@ -18,7 +18,7 @@ object bits extends Context.ToLang {
       icon = Some(""),
       moreCss = cssTag("streamer.form").some
     )(
-      postForm(cls := "streamer-new", action := routes.Streamer.create())(
+      postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2(doYouHaveStream()),
         br,
         br,
@@ -31,26 +31,6 @@ object bits extends Context.ToLang {
       )
     )
 
-  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) =
-    s.picturePath match {
-      case Some(path) =>
-        img(
-          width := size,
-          height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lichess streamer picture"
-        )
-      case _ =>
-        img(
-          width := size,
-          height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess streamer picture"
-        )
-    }
-
   def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
@@ -60,11 +40,11 @@ object bits extends Context.ToLang {
             st.streamer.name
           ),
           (ctx.is(st.user) || isGranted(_.Streamers)) option
-            a(cls := active.active("edit"), href := s"${routes.Streamer.edit()}?u=${st.streamer.id.value}")(
+            a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
               editPage()
             )
         )
-      } getOrElse a(href := routes.Streamer.edit())(yourPage()),
+      } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
         cls := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
@@ -75,9 +55,23 @@ object bits extends Context.ToLang {
       a(href := "/about")(downloadKit())
     )
 
+  def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
+    isStreaming match {
+      case Some(false) => a(href := routes.Streamer.show(username))
+      case _ =>
+        a(
+          href := routes.Streamer.redirect(username),
+          targetBlank,
+          noFollow
+        )
+    }
+
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      a(cls := "stream highlight", href := routes.Streamer.show(s.streamer.id.value), title := s.status)(
+      redirectLink(s.streamer.id.value)(
+        cls := "stream highlight",
+        title := s.status
+      )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
         s.status
@@ -85,8 +79,8 @@ object bits extends Context.ToLang {
     }
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
-    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.show(userId))(
-      xIsStreaming(usernameOrId(userId))
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
+      xIsStreaming(titleNameOrId(userId))
     )
 
   def rules(implicit lang: Lang) =
@@ -95,7 +89,8 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule3())
+        li(rule4(a(href := routes.Page.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))),
+        li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
       ul(

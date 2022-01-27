@@ -9,8 +9,8 @@ import scala.util.chaining._
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.LightUser
 
 final class Api(
     env: Env,
@@ -35,7 +35,7 @@ final class Api(
   val status = Action { req =>
     val appVersion  = get("v", req)
     val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade
-    Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
+    JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
   }
 
   def index =
@@ -45,8 +45,11 @@ final class Api(
 
   def user(name: String) =
     CookieBasedApiRequest { ctx =>
-      userApi.extended(name, ctx.me) map toApiResult
+      userApi.extended(name, ctx.me, userWithFollows(ctx.req)) map toApiResult
     }
+
+  private[controllers] def userWithFollows(req: RequestHeader) =
+    HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "users.api.ip",
@@ -58,31 +61,34 @@ final class Api(
 
   def usersByIds =
     Action.async(parse.tolerantText) { req =>
-      val usernames = req.body.split(',').take(300).toList
+      val usernames = req.body.replace("\n", "").split(',').take(300).map(_.trim).toList
       val ip        = HTTPRequest ipAddress req
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
-        env.user.repo nameds usernames map {
-          _.map { env.user.jsonView(_, none) }
+        env.user.repo named usernames map {
+          _.map { env.user.jsonView.full(_, none, withOnline = false, withRating = true) }
         } map toApiResult map toHttp
       }(rateLimitedFu)
     }
 
   def usersStatus =
     ApiRequest { req =>
-      val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
-      env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
+      val ids = get("ids", req).??(_.split(',').take(100).toList map lila.user.User.normalize)
+      env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
-        toApiResult {
-          users.map { u =>
-            lila.common.LightUser.lightUserWrites
-              .writes(u)
-              .add("online" -> env.socket.isOnline(u.id))
-              .add("playing" -> env.round.playing(u.id))
-              .add("streaming" -> streamingIds(u.id))
+        def toJson(u: LightUser) =
+          lila.common.LightUser.lightUserWrites
+            .writes(u)
+            .add("online" -> env.socket.isOnline(u.id))
+            .add("playing" -> env.round.playing(u.id))
+            .add("streaming" -> streamingIds(u.id))
+        if (getBool("withGameIds", req)) users.map { u =>
+          (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
+            toJson(u).add("playingId", gameId)
           }
-        }
+        }.sequenceFu map toApiResult
+        else fuccess(toApiResult(users map toJson))
       }
     }
 
@@ -174,7 +180,7 @@ final class Api(
       CrosstableRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         import lila.user.User.normalize
         val (u1, u2) = (normalize(name1), normalize(name2))
-        env.game.crosstableApi.fetchOrEmpty(u1, u2) flatMap { ct =>
+        env.game.crosstableApi(u1, u2) flatMap { ct =>
           (ct.results.nonEmpty && getBool("matchup", req)).?? {
             env.game.crosstableApi.getMatchup(u1, u2)
           } map { matchup =>
@@ -206,7 +212,8 @@ final class Api(
             getTeamName = env.team.getTeamName.apply,
             playerInfoExt = none,
             socketVersion = none,
-            partial = false
+            partial = false,
+            withScores = true
           )(reqLang) map some
         }
       } map toApiResult
@@ -216,6 +223,7 @@ final class Api(
     Action.async { req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
+          val onlyUserId = get("player", req) map lila.user.User.normalize
           val config = GameApiV2.ByTournamentConfig(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
@@ -223,14 +231,11 @@ final class Api(
             perSecond = MaxPerSecond(20)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-            env.api.gameApiV2.exportByTournament(config)
+            env.api.gameApiV2.exportByTournament(config, onlyUserId)
           ) { source =>
             val filename = env.api.gameApiV2.filename(tour, config.format)
             Ok.chunked(source)
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
+              .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
               .as(gameC gameContentType config)
           }.fuccess
         }
@@ -239,15 +244,17 @@ final class Api(
 
   def tournamentResults(id: String) =
     Action.async { implicit req =>
-      env.tournament.tournamentRepo byId id flatMap {
+      val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
+      env.tournament.tournamentRepo byId id map {
         _ ?? { tour =>
           import lila.tournament.JsonView.playerResultWrites
-          val nb = getInt("nb", req) | Int.MaxValue
-          jsonStream {
+          val source =
             env.tournament.api
-              .resultStream(tour, MaxPerSecond(50), nb)
-              .map(playerResultWrites.writes)
-          }.fuccess
+              .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
+          val result =
+            if (csv) csvStream(lila.tournament.TournamentCsv(source))
+            else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))
+          result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
         }
       }
     }
@@ -256,7 +263,7 @@ final class Api(
     Action.async {
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
-          env.tournament.jsonView.getTeamStanding(tour) map { arr =>
+          env.tournament.jsonView.apiTeamStanding(tour) map { arr =>
             JsonOk(
               Json.obj(
                 "id"    -> tour.id,
@@ -268,15 +275,15 @@ final class Api(
       }
     }
 
-  def tournamentsByOwner(name: String) =
+  def tournamentsByOwner(name: String, status: List[Int]) =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      (name != "lichess") ?? env.user.repo.named(name) flatMap {
+      (name != lila.user.User.lichessId) ?? env.user.repo.named(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
             env.tournament.api
-              .byOwnerStream(user, MaxPerSecond(20), nb)
+              .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
               .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           }.fuccess
         }
@@ -298,36 +305,42 @@ final class Api(
           ) { source =>
             val filename = env.api.gameApiV2.filename(swiss, config.format)
             Ok.chunked(source)
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
+              .pipe(asAttachmentStream(filename))
               .as(gameC gameContentType config)
           }.fuccess
         }
       }
     }
 
-  def swissResults(id: String) =
-    Action.async { implicit req =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
-        _ ?? { swiss =>
-          jsonStream {
-            env.swiss.api
-              .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
-              .mapAsync(8) { case (player, rank) =>
-                env.swiss.json.playerResult(player, rank.toInt)
-              }
-          }.fuccess
-        }
+  def swissResults(id: String) = Action.async { implicit req =>
+    val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
+    env.swiss.api byId lila.swiss.Swiss.Id(id) map {
+      _ ?? { swiss =>
+        val source = env.swiss.api
+          .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
+          .mapAsync(8) { p =>
+            env.user.lightUserApi.asyncFallback(p.player.userId) map p.withUser
+          }
+        val result =
+          if (csv) csvStream(lila.swiss.SwissCsv(source))
+          else jsonStream(source.map(env.swiss.json.playerResult))
+        result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if (csv) "csv" else "ndjson")))
       }
     }
+  }
 
   def gamesByUsersStream =
-    AnonOrScopedBody(parse.tolerantText)()(
-      anon = gamesByUsers(300),
-      scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
-    )
+    AnonOrScopedBody(parse.tolerantText)() { req => me =>
+      val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
+      GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+        addKeepAlive(
+          env.game.gamesByUsersStream(
+            userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
+            withCurrentGames = getBool("withCurrentGames", req)
+          )
+        )
+      )(sourceToNdJsonOption).fuccess
+    }
 
   def cloudEval =
     Action.async { req =>
@@ -341,11 +354,6 @@ final class Api(
         )
       }
     }
-
-  private def gamesByUsers(max: Int)(req: Request[String]) = {
-    val userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet
-    jsonStreamWithKeepAlive(env.game.gamesByUsersStream(userIds))(req).fuccess
-  }
 
   def eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
@@ -377,6 +385,32 @@ final class Api(
       }(fuccess(Limited))
     }
 
+  private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
+    new lila.memo.ConcurrencyLimit[IpAddress](
+      name = "API concurrency per IP",
+      key = "round.apiMoveStream.ip",
+      ttl = 20.minutes,
+      maxConcurrency = 8
+    )
+
+  def moveStream(gameId: String) =
+    Action.async { req =>
+      env.round.proxyRepo.gameIfPresent(gameId) map {
+        case None => NotFound
+        case Some(game) =>
+          ApiMoveStreamGlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+            addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq(req)))
+          )(sourceToNdJsonOption)
+      }
+    }
+
+  def perfStat(username: String, perfKey: String) = ApiRequest { req =>
+    implicit val lang = reqLang(req)
+    env.perfStat.api.data(username, perfKey, none) map {
+      _.fold[ApiResult](NoData) { data => Data(env.perfStat.jsonView(data)) }
+    }
+  }
+
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =
     Open { ctx =>
       js(ctx) map toHttp
@@ -391,41 +425,47 @@ final class Api(
       else fuccess(NotFound)
     }
 
-  lazy val tooManyRequests =
-    Results.TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult    = Data(JsArray(json))
 
   def toHttp(result: ApiResult): Result =
     result match {
-      case Limited        => tooManyRequests
-      case NoData         => NotFound
-      case Custom(result) => result
-      case Data(json)     => Ok(json) as JSON
+      case Limited          => rateLimitedJson
+      case ClientError(msg) => BadRequest(jsonError(msg))
+      case NoData           => NotFound
+      case Custom(result)   => result
+      case Done             => jsonOkResult
+      case Data(json)       => JsonOk(json)
     }
 
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJson)
 
-  def jsonStreamWithKeepAlive(
-      makeSource: => Source[Option[JsValue], _]
-  )(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJsonOption)
+  def addKeepAlive(source: Source[JsValue, _]): Source[Option[JsValue], _] =
+    source
+      .map(some)
+      .keepAlive(60.seconds, () => none) // play's idleTimeout = 75s
 
-  def sourceToNdJson(source: Source[JsValue, _]) =
+  def sourceToNdJson(source: Source[JsValue, _]): Result =
     sourceToNdJsonString {
       source.map { o =>
         Json.stringify(o) + "\n"
       }
     }
 
-  def sourceToNdJsonOption(source: Source[Option[JsValue], _]) =
+  def sourceToNdJsonOption(source: Source[Option[JsValue], _]): Result =
     sourceToNdJsonString {
       source.map { _ ?? Json.stringify + "\n" }
     }
 
-  private def sourceToNdJsonString(source: Source[String, _]) =
+  private def sourceToNdJsonString(source: Source[String, _]): Result =
     Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+
+  def csvStream(makeSource: => Source[String, _])(implicit req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToCsv)
+
+  private def sourceToCsv(source: Source[String, _]): Result =
+    Ok.chunked(source.map(_ + "\n")).as(csvContentType) pipe noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",
@@ -462,8 +502,10 @@ final class Api(
 private[controllers] object Api {
 
   sealed trait ApiResult
-  case class Data(json: JsValue)    extends ApiResult
-  case object NoData                extends ApiResult
-  case object Limited               extends ApiResult
-  case class Custom(result: Result) extends ApiResult
+  case class Data(json: JsValue)      extends ApiResult
+  case class ClientError(msg: String) extends ApiResult
+  case object NoData                  extends ApiResult
+  case object Done                    extends ApiResult
+  case object Limited                 extends ApiResult
+  case class Custom(result: Result)   extends ApiResult
 }

@@ -9,15 +9,20 @@
     <item quantity="other">%s удзельнікаў</item>
   </plurals>
   <string name="allTeams">Усе каманды</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Каманды пад вашым лідарствам</string>
   <string name="newTeam">Новая каманда</string>
   <string name="myTeams">Мае каманды</string>
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="quitTeam">Выйсці з каманды</string>
-  <string name="anyoneCanJoin">Адкрыта для ўсіх</string>
-  <string name="aConfirmationIsRequiredToJoin">Па пацверджанні</string>
-  <string name="joiningPolicy">Умовы далучэння</string>
-  <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
+  <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Калі абрана, гульцы будуць павінны напісаць запыт, каб далучыцца да каманды, яго можна будзе адхіліць або пацвердзіць.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Лідар каманды</item>
+    <item quantity="few">Лідары каманды</item>
+    <item quantity="many">Лідары каманды</item>
+    <item quantity="other">Лідары каманды</item>
+  </plurals>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
   <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
@@ -29,10 +34,29 @@
   </plurals>
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
-  <string name="teamBattle">Міжгрупная сутычка</string>
-  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае ачкі для сваёй каманды</string>
-  <string name="teamTournament">Групны турнір</string>
+  <string name="requestDeclined">Ваш запыт на далучэнне быў адхілены лідэрам каманды.</string>
+  <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
+  <string name="teamBattle">Камандная бітва</string>
+  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
+  <string name="teamTournament">Камандны турнір</string>
   <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
+  <string name="swissTournamentOverview">Турнір па швейцарскай сістэме, да якога могуць далучыцца толькі чальці вашай каманды</string>
   <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>
   <string name="messageAllMembersOverview">Напісаць асобнае паведамленне ўсім удзельнікам каманды</string>
+  <string name="messageAllMembersLongDescription">Даслаць асабістае паведамленне да ЎСІХ чальцоў каманды.
+Гэта можна выкарыстоўваць, каб паклікаць далучыцца да турніру або каманднай гульні.
+Гульцы, якія ня любяць такія паведамленні могуць пакінуць каманду.</string>
+  <string name="teamsIlead">Каманды, лідарам якіх я з\'яўляюся</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
+  <string name="usersWhoCanManageThisTeam">Карыстальнікі, якія могуць кіраваць камандай</string>
+  <string name="leadersChat">Чат лідараў</string>
+  <string name="closeTeam">Зачыніць каманду</string>
+  <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
+  <string name="entryCode">Код далучэння да каманды</string>
+  <string name="entryCodeDescriptionForLeader">(Неабавязкова) Код далучэння, якія новыя ўдзельнікі павінны ведаць, каб далучыцца да каманды.</string>
+  <string name="incorrectEntryCode">Няправільны код далучэння.</string>
+  <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
+  <string name="upcomingTourns">Надыходзячыя турніры</string>
+  <string name="completedTourns">Завершаныя турніры</string>
+  <string name="declinedRequests">Адхіленыя запыты</string>
 </resources>

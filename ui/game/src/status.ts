@@ -1,6 +1,6 @@
 import { GameData } from './interfaces';
 
-// https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala
+// https://github.com/lichess-org/scalachess/blob/master/src/main/scala/Status.scala
 
 export const ids = {
   created: 10,
@@ -14,7 +14,7 @@ export const ids = {
   outoftime: 35,
   cheat: 36,
   noStart: 37,
-  variantEnd: 60
+  variantEnd: 60,
 };
 
 export function started(data: GameData): boolean {

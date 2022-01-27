@@ -43,7 +43,7 @@ object Work {
     override def toString = s"by $userId at $date"
   }
 
-  case class Game(
+  private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
       initialFen: Option[FEN],
       studyId: Option[String],
@@ -102,7 +102,6 @@ object Work {
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
-    def weak    = copy(acquired = none)
 
     def isOutOfTries = tries >= 2
 
@@ -110,7 +109,8 @@ object Work {
 
     def nbMoves = game.moves.count(' ' ==) + 1
 
-    override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
+    override def toString =
+      s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)

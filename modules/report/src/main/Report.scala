@@ -14,7 +14,7 @@ case class Report(
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
     open: Boolean,
-    processedBy: Option[User.ID]
+    done: Option[Report.Done]
 ) extends Reason.WithReason {
 
   import Report.{ Atom, Score }
@@ -36,7 +36,7 @@ case class Report(
             atoms = {
               existing.copy(
                 at = atom.at,
-                score = atom.score,
+                score = atom.score atLeast existing.score,
                 text = s"${existing.text}\n\n${atom.text}"
               ) :: atoms.toList.filterNot(_.by == atom.by)
             }.toNel | atoms
@@ -67,7 +67,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      processedBy = by.id.some
+      done = Report.Done(by.id, DateTime.now).some
     )
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
@@ -75,15 +75,9 @@ case class Report(
   def isRecentComm                 = room == Room.Comm && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
-  def boostWith: Option[User.ID] =
-    (reason == Reason.Boost) ?? {
-      atoms.toList.withFilter(_.byLichess).flatMap(_.text.linesIterator).collectFirst {
-        case Report.farmWithRegex(userId)    => userId
-        case Report.sandbagWithRegex(userId) => userId
-      }
-    }
-
   def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
+
+  def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
 }
 
 object Report {
@@ -92,11 +86,14 @@ object Report {
 
   case class Score(value: Double) extends AnyVal {
     def +(s: Score) = Score(s.value + value)
+    def *(m: Int)   = Score(value * m)
     def color =
       if (value >= 150) "red"
       else if (value >= 100) "orange"
       else if (value >= 50) "yellow"
       else "green"
+    def atLeast(v: Int)   = Score(value atLeast v)
+    def atLeast(s: Score) = Score(value atLeast s.value)
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
@@ -112,6 +109,8 @@ object Report {
 
     def byLichess = by == ReporterId.lichess
   }
+
+  case class Done(by: User.ID, at: DateTime)
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 
@@ -136,8 +135,9 @@ object Report {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic          = reporter.id == ReporterId.lichess
     def isAutoComm           = isAutomatic && isComm
+    def isAutoBoost          = isAutomatic && isBoost
+    def isIrwinCheat         = reporter.id == ReporterId.irwin && isCheat
     def isCoachReview        = isOther && text.contains("COACH REVIEW")
-    def isCommFlag           = text contains Reason.Comm.flagText
   }
 
   object Candidate {
@@ -169,12 +169,10 @@ object Report {
             score = score,
             inquiry = none,
             open = true,
-            processedBy = none
+            done = none
           )
         )(_ add c.atom)
     }
 
-  private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
-  private val sandbagWithRegex =
-    s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+  private[report] case class SnoozeKey(snoozerId: User.ID, reportId: Report.ID) extends lila.memo.Snooze.Key
 }

@@ -21,10 +21,11 @@ final class SwissTrf(
 
   def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, _] =
     SwissPlayer.fields { f =>
-      tournamentLines(swiss) concat sheetApi
-        .source(swiss, sort = sorted.??($doc(f.rating -> -1)))
-        .map((playerLine(swiss, playerIds) _).tupled)
-        .map(formatLine)
+      tournamentLines(swiss) concat
+        forbiddenPairings(swiss, playerIds) concat sheetApi
+          .source(swiss, sort = sorted.??($doc(f.rating -> -1)))
+          .map((playerLine(swiss, playerIds) _).tupled)
+          .map(formatLine)
     }
 
   private def tournamentLines(swiss: Swiss) =
@@ -62,13 +63,15 @@ final class SwissTrf(
           99 -> {
             import SwissSheet._
             outcome match {
-              case Absent  => "-"
-              case Late    => "H"
-              case Bye     => "U"
-              case Draw    => "="
-              case Win     => "1"
-              case Loss    => "0"
-              case Ongoing => "Z"
+              case Absent      => "-"
+              case Late        => "H"
+              case Bye         => "U"
+              case Draw        => "="
+              case Win         => "1"
+              case Loss        => "0"
+              case Ongoing     => "Z"
+              case ForfeitLoss => "-"
+              case ForfeitWin  => "+"
             }
           }
         ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
@@ -110,5 +113,21 @@ final class SwissTrf(
               (userId, index + 1)
             }.toMap
           }
+      }
+
+  private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, _] =
+    if (swiss.settings.forbiddenPairings.isEmpty) Source.empty[String]
+    else
+      Source.fromIterator { () =>
+        swiss.settings.forbiddenPairings.linesIterator.flatMap {
+          _.trim.toLowerCase.split(' ').map(_.trim) match {
+            case Array(u1, u2) if u1 != u2 =>
+              for {
+                id1 <- playerIds.get(u1)
+                id2 <- playerIds.get(u2)
+              } yield s"XXP $id1 $id2"
+            case _ => none
+          }
+        }
       }
 }

@@ -88,7 +88,7 @@ final class Cached(
 
   def getTop50Online = top50OnlineCache.getUnit
 
-  def rankingsOf(userId: User.ID): Fu[Map[PerfType, Int]] = rankingApi.weeklyStableRanking of userId
+  def rankingsOf(userId: User.ID): lila.rating.UserRankMap = rankingApi.weeklyStableRanking of userId
 
   private[user] val botIds = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(10 minutes)
@@ -98,8 +98,8 @@ final class Cached(
   private def userIdsLikeFetch(text: String) =
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
-  private val userIdsLikeCache = cacheApi[String, List[User.ID]](64, "user.like") {
-    _.expireAfterWrite(3 minutes).buildAsyncFuture(userIdsLikeFetch)
+  private val userIdsLikeCache = cacheApi[String, List[User.ID]](1024, "user.like") {
+    _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
   }
 
   def userIdsLike(text: String): Fu[List[User.ID]] = {

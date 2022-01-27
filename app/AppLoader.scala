@@ -96,7 +96,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val appeal: Appeal                 = wire[Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
-  lazy val bookmark: Bookmark             = wire[Bookmark]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
@@ -106,7 +105,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val dev: Dev                       = wire[Dev]
   lazy val editor: Editor                 = wire[Editor]
   lazy val event: Event                   = wire[Event]
-  lazy val export: Export                 = wire[Export]
+  lazy val `export`: Export               = wire[Export]
   lazy val fishnet: Fishnet               = wire[Fishnet]
   lazy val forumCateg: ForumCateg         = wire[ForumCateg]
   lazy val forumPost: ForumPost           = wire[ForumPost]
@@ -121,8 +120,9 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val main: Main                     = wire[Main]
   lazy val msg: Msg                       = wire[Msg]
   lazy val mod: Mod                       = wire[Mod]
+  lazy val gameMod: GameMod               = wire[GameMod]
   lazy val notifyC: Notify                = wire[Notify]
-  lazy val oAuthApp: OAuthApp             = wire[OAuthApp]
+  lazy val oAuth: OAuth                   = wire[OAuth]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]
   lazy val options: Options               = wire[Options]
   lazy val page: Page                     = wire[Page]
@@ -133,13 +133,13 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val push: Push                     = wire[Push]
   lazy val puzzle: Puzzle                 = wire[Puzzle]
   lazy val relation: Relation             = wire[Relation]
-  lazy val relay: Relay                   = wire[Relay]
+  lazy val relay: RelayRound              = wire[RelayRound]
+  lazy val relayTour: RelayTour           = wire[RelayTour]
   lazy val report: Report                 = wire[Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]
   lazy val setup: Setup                   = wire[Setup]
   lazy val simul: Simul                   = wire[Simul]
-  lazy val stat: Stat                     = wire[Stat]
   lazy val streamer: Streamer             = wire[Streamer]
   lazy val study: Study                   = wire[Study]
   lazy val team: Team                     = wire[Team]
@@ -153,6 +153,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val video: Video                   = wire[Video]
   lazy val swiss: Swiss                   = wire[Swiss]
   lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
+  lazy val storm: Storm                   = wire[Storm]
+  lazy val racer: Racer                   = wire[Racer]
+  lazy val ublog: Ublog                   = wire[Ublog]
+  lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
 
   // eagerly wire up all controllers
   val router: Router = {
@@ -162,6 +166,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
-    kamon.Kamon.loadModules()
+    kamon.Kamon.init()
   }
 }

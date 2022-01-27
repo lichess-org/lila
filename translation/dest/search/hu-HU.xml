@@ -24,4 +24,16 @@
   <string name="sortBy">Rendezés</string>
   <string name="analysis">Elemzés</string>
   <string name="onlyAnalysed">Csak azok a játszmák, ahol számítógépes elemzés elérhető</string>
+  <string name="color">Szín</string>
+  <string name="evaluation">Kiértékelés</string>
+  <string name="maxNumber">Legfeljebb</string>
+  <string name="maxNumberExplanation">A megjelenő találatok maximális száma</string>
+  <string name="include">Tartalmaz</string>
+  <string name="descending">Csökkenő</string>
+  <string name="ascending">Növekvő</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s talált játszma</item>
+    <item quantity="other">%s talált játszma</item>
+  </plurals>
+  <string name="ratingExplanation">Mindkét játékos átlagos értékszáma</string>
 </resources>

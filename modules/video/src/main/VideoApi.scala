@@ -76,8 +76,8 @@ final private[video] class VideoApi(
         )
         .void
 
-    def removeNotIn(ids: List[Video.ID]) =
-      videoColl.delete.one($doc("_id" $nin ids)).void
+    def removeNotIn(ids: List[Video.ID]): Fu[Int] =
+      videoColl.delete.one($doc("_id" $nin ids)).map(_.n)
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
       videoColl.update

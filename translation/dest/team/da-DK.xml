@@ -7,19 +7,18 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle hold</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Holdleder</string>
   <string name="newTeam">Nyt hold</string>
-  <string name="myTeams">Mit hold</string>
+  <string name="myTeams">Mine hold</string>
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
-  <string name="anyoneCanJoin">Alle kan tilmelde sig</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekræftelse er nødvendig for at kunne tilmelde sig holdet</string>
-  <string name="joiningPolicy">Tilmeldelsepolitik</string>
+  <string name="manuallyReviewAdmissionRequests">Gennemgå anmodninger om optagelse manuelt</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Hvis markeret, skal spillere skriftligt anmode om optagelse på holdet, hvilket du kan afvise eller acceptere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
     <item quantity="other">Holdledere</item>
   </plurals>
-  <string name="teamBestPlayers">De bedste spillere på holdet</string>
   <string name="teamRecentMembers">Nye holdmedlemmer</string>
   <string name="kickSomeone">Smid nogen af holdet</string>
   <string name="whoToKick">Hvem vil du smide af holdet?</string>
@@ -29,12 +28,15 @@
   </plurals>
   <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
   <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
+  <string name="requestDeclined">Din tilmeldingsanmodning blev afvist af holdlederen.</string>
+  <string name="subToTeamMessages">Abonner på holdbeskeder</string>
   <string name="teamBattle">Holdkamp</string>
   <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
   <string name="teamTournament">Holdturnering</string>
   <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
+  <string name="swissTournamentOverview">En schweizerturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="messageAllMembers">Send besked til alle medlemmer</string>
-  <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
+  <string name="messageAllMembersOverview">Send en privat besked til alle medlemmer på holdet</string>
   <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.
 Du kan bruge dette til at opfordre spillere til at tilmelde sig en turnering eller en holdkamp.
 Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.</string>
@@ -44,4 +46,11 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="leadersChat">Holdleder-chat</string>
   <string name="closeTeam">Luk hold</string>
   <string name="closeTeamDescription">Luk holdet for evigt.</string>
+  <string name="entryCode">Holdadgangskode</string>
+  <string name="entryCodeDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at melde sig til dette hold.</string>
+  <string name="incorrectEntryCode">Forkert adgangskode.</string>
+  <string name="teamAlreadyExists">Dette hold findes allerede.</string>
+  <string name="upcomingTourns">Kommende turneringer</string>
+  <string name="completedTourns">Afsluttede turneringer</string>
+  <string name="declinedRequests">Afviste anmodninger</string>
 </resources>

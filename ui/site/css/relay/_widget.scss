@@ -2,26 +2,39 @@
   @extend %flex-center-nowrap, %break-word;
 
   border-bottom: $border;
-  padding: 2em var(--box-padding);
+  padding: 2em var(--box-padding) 2em 0;
   position: relative;
 
   @include transition;
 
   &::before {
-    color: mix($c-link, $c-bg-box, 80%);
+    color: $c-font-dimmer;
     font-size: 5em;
-    margin-right: .4em;
+    width: 12rem;
+    text-align: center;
 
     @include transition;
-    @include breakpoint($mq-not-xx-small) {
+  }
+
+  @include breakpoint($mq-not-xx-small) {
+    &::before {
       display: none;
     }
+    padding-left: var(--box-padding);
+  }
+
+  &--active::before {
+    color: mix($c-link, $c-bg-box, 80%);
   }
 
   &:hover {
     background: mix($c-link, $c-bg-box, 10%);
+    h2 {
+      @include transition;
+      color: $c-link;
+    }
 
-    &::before {
+    &--active::before {
       color: mix($c-link, $c-bg-box, 100%);
     }
   }
@@ -30,13 +43,40 @@
     @extend %link-overlay;
   }
 
-  h3 {
-    @include fluid-size("font-size", 23px, 35px);
-
-    color: $c-link;
+  & > div {
+    flex: 1 1 100%;
   }
 
   p {
-    margin: .5em 0 0 0;
+    margin: 0.5em 0 0 0;
+    &:first-child {
+      margin-right: 1em;
+    }
+  }
+
+  &__info {
+    @extend %flex-between-nowrap;
+    &__meta {
+      white-space: nowrap;
+      text-align: right;
+    }
+  }
+
+  &.tour-tier {
+    &--3 {
+      &::before {
+        font-size: 3.5em;
+      }
+      h2 {
+        @include fluid-size('font-size', 13px, 23px);
+      }
+    }
+    &--5 {
+      @extend %box-neat;
+      border: 3px solid $c-border;
+      &.relay-widget--active {
+        border-color: $c-primary;
+      }
+    }
   }
 }

@@ -27,7 +27,6 @@ final class TeamSearchApi(
     Json.obj(
       Fields.name        -> team.name,
       Fields.description -> team.description.take(10000),
-      Fields.location    -> team.location,
       Fields.nbMembers   -> team.nbMembers
     )
 

@@ -7,7 +7,7 @@ $c-support: $c-brag;
     background: $c-bg-box;
     font-size: 1.3em;
     margin-bottom: $block-gap;
-    padding: .2em .5em;
+    padding: 0.2em 0.5em;
 
     @include transition;
 
@@ -23,10 +23,10 @@ $c-support: $c-brag;
 
   i {
     flex: 0 0 auto;
-    margin: 0 .5em;
+    margin: 0 0.5em;
 
     &::before {
-      margin-right: .15em;
+      margin-right: 0.15em;
       color: $c-support;
       font-size: 2.6em;
 
@@ -49,7 +49,7 @@ $c-support: $c-brag;
       @extend %nowrap-ellipsis;
 
       display: block;
-      font-size: .8em;
+      font-size: 0.8em;
     }
   }
 }

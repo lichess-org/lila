@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
   <string name="level">Шай</string>
   <string name="toggleTheChat">Чатӑн кантӑка кӑтарт</string>
-  <string name="toggleSound">Саса ҫут / сӳнтер</string>
   <string name="chat">Ҫырса яр</string>
   <string name="resign">Парӑн</string>
   <string name="checkmate">Мат</string>
@@ -31,7 +30,6 @@
   <string name="whitePlays">Шуррисен ҫӳремелле</string>
   <string name="blackPlays">Хурисен ҫӳремелле</string>
   <string name="opponentLeftChoices">Тепӗр вӑйӑҫ вӑййинчен тухнӑ пек турӗ. Ҫӗнтерӳ, парма-пар ҫинчен пӗлтер йе кӗтсе тӑр.</string>
-  <string name="makeYourOpponentResign">Ӑмӑртуҫуна парӑнтаттар</string>
   <string name="forceResignation">Ҫӗнтерӳ пирки пӗлтер</string>
   <string name="forceDraw">Парма-пар пирки пӗлтер</string>
   <string name="talkInChat">Калаҫура сӑпайлӑ пул!</string>
@@ -40,9 +38,6 @@
   <string name="blackResigned">Хурисем парӑнчӗҫ</string>
   <string name="whiteLeftTheGame">Шуррисем вӑййинчен тухрӗҫ</string>
   <string name="blackLeftTheGame">Хурисем вӑййинчен тухрӗҫ</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Вӑййине сӑнма ирӗк парас тесе каҫҫине пайлаш</string>
-  <string name="theComputerAnalysisHasFailed">Компуйтӑр тишкерӗвӗ ӑнӑҫланман</string>
-  <string name="viewTheComputerAnalysis">Компуйтӑр тишкереве патне</string>
   <string name="requestAComputerAnalysis">Компйутӑр тишкервне ыйт</string>
   <string name="computerAnalysis">Компйутӑр тишкерӗвӗ</string>
   <string name="analysis">Тишкерӳ хӑми</string>
@@ -55,11 +50,8 @@
   <string name="noGameFound">Пӗр вӑйӑ та тупӑнман</string>
   <string name="delete">Катерт</string>
   <string name="enable">Пултар</string>
-  <string name="blunders">Тӳрккес йӑнӑшсем</string>
   <string name="mistake">Йӑнӑш</string>
-  <string name="mistakes">Йӑнӑшсем</string>
   <string name="inaccuracy">Кӳрӗнмелле йӑнӑш</string>
-  <string name="inaccuracies">Кӳрӗнмелле йӑнӑшсем</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
   <string name="flipBoard">Хӑмана валтӑрт</string>
   <string name="threefoldRepetition">Пӗр лартӑмах виҫ хут лекни</string>
@@ -119,7 +111,6 @@
   </plurals>
   <string name="cancel">Пӑрахӑҫла</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
-  <string name="drawOfferDeclined">Парма-пар сӗннине сирнӗ</string>
   <string name="drawOfferAccepted">Парма-пар сӗннине йышӑннӑ</string>
   <string name="drawOfferCanceled">Парма-пар сӗннине пӑрахӑҫланӑ</string>
   <string name="whiteOffersDraw">Шуррисем парма-паршӑн</string>
@@ -143,8 +134,6 @@
   <string name="thisGameIsRated">Ку хаклавшӑн вӑййи</string>
   <string name="rematch">Рематч сӗн</string>
   <string name="rematchOfferSent">Рематч сӗнни йанӑ</string>
-  <string name="rematchOfferSentWhite">Шуррисем тепре выльасшӑн</string>
-  <string name="rematchOfferSentBlack">Хурисем тепре выльасшӑн</string>
   <string name="rematchOfferAccepted">Рематч сӗннине йышӑннӑ</string>
   <string name="rematchOfferCanceled">Рематч сӗннине пӑрахӑҫланӑ</string>
   <string name="rematchOfferDeclined">Рематч сӗннине сирнӗ</string>
@@ -155,13 +144,10 @@
   <string name="chatRoom">Калаҫу ани</string>
   <string name="spectatorRoom">Сӑнавҫӑ ани</string>
   <string name="composeMessage">Ҫыру ҫыр</string>
-  <string name="noNewMessages">Ҫӗнӗ ҫырусӑр</string>
   <string name="subject">Ҫыру ӑшӗ</string>
-  <string name="recipient">Илекенни</string>
   <string name="send">Йар</string>
   <string name="incrementInSeconds">Ҫеккунт инкременчӗ</string>
   <string name="freeOnlineChess">Тӳлевсӗр Онлайн Шахмат</string>
-  <string name="spectators">Сӑнавҫӑ:</string>
   <plurals name="nbWins">
     <item quantity="other">%s ҫӗнтерӳ</item>
   </plurals>
@@ -176,7 +162,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s ҫеккунт пар</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ҫак вӑйӑҫӑ хӑйӗн рейтингне йури ӳстерет / чакарать</string>
   <string name="takeback">Тавӑрасси</string>
   <string name="proposeATakeback">Тавӑрасси ыйт</string>
   <string name="takebackPropositionSent">Тавӑрасси ыйтнине йанӑ</string>
@@ -213,8 +198,6 @@
   <string name="notACheckmate">Мат туни мар</string>
   <string name="retry">Тепӗр хут</string>
   <string name="reconnecting">Ҫӗнӗрен ҫыхӑнасси</string>
-  <string name="noFriendsOnline">Тетелти тус ҫук</string>
-  <string name="findFriends">Тус тупар</string>
   <string name="follow">Ҫырӑн</string>
   <string name="following">Ҫырӑнса тӑни</string>
   <string name="unfollow">Ҫырӑнма пӑрах</string>
@@ -232,7 +215,6 @@
   <string name="more">Тата</string>
   <string name="memberSince">Регистратсиленнӗ кун:</string>
   <string name="lastSeenActive">%s кӗрсе тухнӑ</string>
-  <string name="challengeToPlay">Вӑйа чӗнтер</string>
   <string name="player">Вӑйӑҫӑ</string>
   <string name="list">Тапӑл</string>
   <string name="graph">Графӗк</string>
@@ -251,18 +233,15 @@
   <string name="points">Пӑнчӑ шучӗ</string>
   <string name="wins">Ҫӗнтерӳ шучӗ</string>
   <string name="losses">Парӑну шучӗ</string>
-  <string name="winStreak">Ҫӗнтерӳ йарӑмӗ</string>
   <string name="createdBy">Йӗркелӳҫӗ</string>
   <string name="tournamentIsStarting">Турнир кӗҫех пуҫланать</string>
   <string name="berserkRate">Берҫерк хаклавӗ</string>
   <string name="whiteWins">Шуррисем ҫӗнтерни</string>
   <string name="blackWins">Хурисем ҫӗнтерни</string>
   <string name="draws">Парма-пар</string>
-  <string name="membersOnly">Регистратсиленӗ вӑйӑҫсемшӗн</string>
   <string name="boardEditor">Хӑма хайласси</string>
   <string name="startPosition">Пуҫламӑш поҫитси</string>
   <string name="clearBoard">Хӑмана тасат</string>
-  <string name="savePosition">Поҫитсине упра</string>
   <string name="loadPosition">Поҫитсине ларт</string>
   <string name="isPrivate">Харкам</string>
   <string name="reportXToModerators">Модӑратӑра %s ҫинчен пӗлтер</string>
@@ -271,46 +250,18 @@
   <string name="firstName">Йат</string>
   <string name="lastName">Хушамат</string>
   <string name="biography">Биографи</string>
-  <string name="country">Ҫӗр-шыв</string>
-  <string name="watchLichessTV">Lichess TV кур</string>
+  <string name="thankYou">Тавах!</string>
   <string name="previouslyOnLichessTV">Lichess TV паҫӑр кӑтартни</string>
   <string name="onlinePlayers">Тетелти вӑйӑҫӑ</string>
-  <string name="activeToday">Пайан тимлисем</string>
   <string name="activePlayers">Тимлӗ вӑйӑҫӑ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Асту, ку хаклавшӑн вӑййи сехетсӗр!</string>
-  <string name="yourPuzzleRatingX">Санӑн лартӑм рейтингӗ: %s</string>
-  <string name="findTheBestMoveForWhite">Шуррисемшӗн чи ҫӳрени туп.</string>
-  <string name="findTheBestMoveForBlack">Хурисемшӗн чи ҫӳрени туп.</string>
-  <string name="toTrackYourProgress">Ӳсӗмне сӑнас тесен:</string>
-  <string name="puzzleId">%s. лартӑм</string>
-  <string name="puzzleOfTheDay">Пайанхи лартӑм</string>
-  <string name="clickToSolve">Шутлас тесен чӑкӑл ту</string>
-  <string name="goodMove">Лайӑх ҫӳрени</string>
-  <string name="butYouCanDoBetter">Анчах та тӑрӑшсан, пултарӑн.</string>
-  <string name="bestMove">Чи аван ҫӳрени!</string>
-  <string name="keepGoing">Малаллах выља...</string>
-  <string name="puzzleFailed">Лартӑма выљаса йанӑ</string>
-  <string name="butYouCanKeepTrying">Ҫапах та малалла хӑтланма пултаратӑн.</string>
   <string name="success">Ӑнӑҫуллӑ</string>
-  <string name="wasThisPuzzleAnyGood">Ку лартӑм лайӑх пулнӑ-и мӗн?</string>
-  <string name="pleaseVotePuzzle">Lichess лайӑхлатас тесен, ҫи йе ай йӗппипе усӑ курса хак пар:</string>
-  <string name="thankYou">Тавах!</string>
-  <string name="ratingX">Рейтинг: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">%s хут выљанӑ</item>
-  </plurals>
-  <string name="fromGameLink">%s вӑйӑран</string>
-  <string name="continueTraining">Хӑнӑхтарӑва малалла тӑс</string>
-  <string name="retryThisPuzzle">Лартӑм ҫӗнерен шутла</string>
-  <string name="thisPuzzleIsCorrect">Ку лартӑм тӗрӗс тата кӑсӑклӑ</string>
-  <string name="thisPuzzleIsWrong">Ку лартӑм тӗрӗс мар йе йӑлӑхтармӑш</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s вӑйӑ пырать</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Ҫӳрени хыҫҫӑн тепӗр вӑйӑ патне хӑй халлӗн куҫ</string>
   <string name="autoSwitch">Хӑй халлӗн куҫарас</string>
   <string name="puzzles">Лартӑмсем</string>
-  <string name="latestUpdates">Кайранхи ҫӗнетнисем</string>
   <string name="tournamentWinners">Турнирти ҫӗнтерӳҫсем</string>
   <string name="name">Йат</string>
   <string name="description">Каласа кӑтартни</string>
@@ -337,9 +288,7 @@
   <string name="other">Ытти</string>
   <string name="by">%s тунӑ</string>
   <string name="thisTopicIsNowClosed">Ҫак темӑ хупӑннӑ.</string>
-  <string name="theming">Калӑплани</string>
   <string name="blog">Блог</string>
-  <string name="questionsAndAnswers">Ыйту-Хурав</string>
   <string name="notes">Сӑнӑм</string>
   <string name="typePrivateNotesHere">Кунта харпӑр сӑнӑм ҫыр</string>
   <string name="invalidUsernameOrPassword">Тӗрӗс мар йатлӑх йе кӗме сӑмах</string>
@@ -361,18 +310,11 @@
   <string name="onSlowGames">Вӑрах вӑйӑра</string>
   <string name="always">Йалан</string>
   <string name="never">Нихӑҫан</string>
-  <string name="difficultyEasy">Ансат</string>
-  <string name="difficultyNormal">Виҫеллӗ</string>
-  <string name="difficultyHard">Кӑткӑс</string>
   <string name="xCompetesInY">%1$s усӑҫ %2$s хутшӑнать</string>
-  <string name="xAskedY">%1$s усӑҫ %2$s ыйтнӑ</string>
-  <string name="xAnsweredY">%1$s усӑҫ %2$s хуравланӑ</string>
-  <string name="xCommentedY">%1$s усӑҫ %2$s шухӑш хушнӑ</string>
   <string name="victory">Ҫӗнтерӳ!</string>
   <string name="timeline">Кун-ҫул</string>
   <string name="starting">Пуҫланниччен:</string>
   <string name="allInformationIsPublicAndOptional">Пур хыпар-пӗлтерӳ уҫӑ тата тивӗҫлӗ мар.</string>
-  <string name="yourCityRegionOrDepartment">Санӑн хула, тӑрӑх йе регион.</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Чи нумай: %s паллӑ.</item>
   </plurals>
@@ -384,27 +326,12 @@
   <string name="computer">Компйутӑр</string>
   <string name="side">Тӗс</string>
   <string name="clock">Сехет</string>
-  <string name="unauthorizedError">Сайт ҫине кӗмен.</string>
-  <string name="noInternetConnection">Интернет ҫыхӑнӑвӗ ҫук. Ҫапах та менӳрен офлайн та выльама пултаратӑн.</string>
-  <string name="connectedToLichess">Lichess.org сайтпа ҫыхӑнтарнӑ</string>
-  <string name="signedOut">Есӗ аккаунтран тухрӑн</string>
-  <string name="loginSuccessful">Есӗ аккаунта кӗтӗн</string>
-  <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
-  <string name="playOfflineComputer">Компйутӑр</string>
   <string name="opponent">Ӑмӑртуҫӑ</string>
   <string name="learnMenu">Вӗренӳ</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
   <string name="increment">Инкремент</string>
-  <string name="sharePGN">PGN пайлаш</string>
-  <string name="playOnline">Онлайн вӑйӑ</string>
-  <string name="playOffline">Офлайн вӑйӑ</string>
-  <string name="allowAnalytics">Йатсӑр статистике пултар</string>
-  <string name="shareGameURL">Вӑйӑ каҫҫине пайлаш</string>
   <string name="error.required">Тивӗҫлӗ ани</string>
-  <string name="error.email">Ку ел. пуштӑ йурӑхсӑр</string>
-  <string name="error.email_acceptable">Ку ел. пуштӑна йышӑнма ҫук</string>
-  <string name="error.email_unique">Ҫак ел. пуштӑпа усӑ кураҫҫӗ ӗнтӗ</string>
   <string name="ifRatingIsPlusMinusX">Рейтингӗ ± %s пулсан</string>
   <string name="onlyFriends">Тус кӑна</string>
   <string name="menu">Менӳ</string>
@@ -438,7 +365,6 @@
   <string name="whenCreateSimul">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
   <string name="lichessTournaments">Lichess турнирӗсем</string>
   <string name="tournamentFAQ">Аренӑ турнирӗн ТЛЫӗ</string>
-  <string name="tournamentOfficial">Офиссаллӑ</string>
   <string name="timeBeforeTournamentStarts">Турнир пуҫланиччен хушши</string>
   <string name="averageCentipawnLoss">Вӑтам сантисалтак ҫухатӑвӗ</string>
   <string name="keyboardShortcuts">Хӑвӑрт пускӑчсем</string>
@@ -464,12 +390,10 @@
   <string name="downloadAnnotated">Ӑнлантаруллă</string>
   <string name="downloadRaw">Ӑнлантарусӑр</string>
   <string name="downloadImported">Оригиналлӑ</string>
-  <string name="printFriendlyPDF">Пичетмелли PDF</string>
   <string name="crosstable">Пӑнчӑ тапӑлӗ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вӑййинче ҫӳрес тесе хӑма ҫийӗнчен пӑркалама та пултаратӑн.</string>
   <string name="analysisShapesHowTo">Хӑма ҫинче ҫаврашка тата йӗпӗ ӳкерес тесе shift+click йе right-click ҫине пус.</string>
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Есӗ ҫак пуштӑпа регистратсиленнӗ-ха: %s</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>
   <string name="playChessEverywhere">Шахматла пур ҫӗрте выљасси</string>
   <string name="asFreeAsLichess">Lichess пекех тӳлевсӗр</string>
@@ -502,8 +426,6 @@
   <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
-  <string name="error.unknown">Йӑнӑш</string>
-  <string name="challenges">Чӗнтерӳ</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
   </plurals>

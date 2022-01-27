@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">Dewisiadau</string>
   <string name="closeAccount">Cau cyfrif</string>
+  <string name="closingIsDefinitive">Mae cau cyfrif yn derfynol. Nid yw\'n bosib ail-newid. Ydych chi\'n siwr?</string>
+  <string name="cantOpenSimilarAccount">Ni fydd hawl gennych i agor cyfrif gyda\'r un enw, hyd yn oed os ydy\'r anodi yn wahannol.</string>
   <string name="changedMindDoNotCloseAccount">Dw i wedi ailystyried, paid â chau fy nghyfrif</string>
+  <string name="closeAccountExplanation">Ydych chi\'n siwr eich bod eisiau cau eich cyfrif? Mae cau eich cyfrif yn ddewis terfynol. Ni fyddwch BYTH yn gallu mewngofnodi eto.</string>
   <string name="thisAccountIsClosed">Mae\'r cyfrif ma wedi\'i gau.</string>
 </resources>

@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">שידורים</string>
+  <string name="liveBroadcasts">משדר משחקים חיים</string>
+  <string name="newBroadcast">משדר חי חדש</string>
+  <string name="addRound">הוסף סבב</string>
+  <string name="ongoing">כרגע</string>
+  <string name="upcoming">בקרוב</string>
+  <string name="completed">שהושלמו</string>
+  <string name="roundName">שם סבב</string>
+  <string name="roundNumber">מספר סבב</string>
+  <string name="tournamentName">שם הטורניר</string>
+  <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
+  <string name="fullDescription">תיאור מלא של הטורניר</string>
+</resources>

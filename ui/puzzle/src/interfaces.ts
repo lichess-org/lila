@@ -2,15 +2,18 @@ import PuzzleSession from './session';
 import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
-import { Outcome } from 'chessops/types';
+import { Deferred } from 'common/defer';
+import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
+import PuzzleStreak from './streak';
+import { PromotionCtrl } from 'chess/promotion';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
+export type PuzzleId = string;
 
 export type Redraw = () => void;
 
@@ -22,6 +25,8 @@ export interface KeyboardController {
   toggleCeval(): void;
   toggleThreatMode(): void;
   playBestMove(): void;
+  flip(): void;
+  flipped(): boolean;
 }
 
 export type ThemeKey = string;
@@ -41,6 +46,7 @@ export interface Controller extends KeyboardController {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
+  playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;
@@ -57,14 +63,26 @@ export interface Controller extends KeyboardController {
   pref: PuzzlePrefs;
   difficulty?: PuzzleDifficulty;
   userMove(orig: Key, dest: Key): void;
-  promotion: any;
+  promotion: PromotionCtrl;
   autoNext: StoredBooleanProp;
   autoNexting: () => boolean;
+  rated: StoredBooleanProp;
+  toggleRated: () => void;
   session: PuzzleSession;
   allThemes?: AllThemes;
+  showRatings: boolean;
+
+  streak?: PuzzleStreak;
+  skip(): void;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
+
+  nvui?: NvuiPlugin;
+}
+
+export interface NvuiPlugin {
+  render(ctrl: Controller): VNode;
 }
 
 export interface Vm {
@@ -75,7 +93,7 @@ export interface Vm {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  next: DeferPromise.Deferred<PuzzleData>;
+  next: Deferred<PuzzleData>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
@@ -93,22 +111,22 @@ export interface Vm {
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
-  i18n: { [key: string]: string | undefined };
+  i18n: I18nDict;
   difficulty?: PuzzleDifficulty;
   themes?: {
     dynamic: string;
     static: string;
-  }
+  };
+  showRatings: boolean;
 }
 
 export interface PuzzlePrefs {
-  coords: 0 | 1 | 2;
+  coords: Prefs.Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;
   moveEvent: number;
   highlight: boolean;
-  resizeHandle: number;
   animation: {
     duration: number;
   };
@@ -127,6 +145,14 @@ export interface PuzzleData {
   theme: Theme;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
+  replay?: PuzzleReplay;
+  streak?: string;
+}
+
+export interface PuzzleReplay {
+  i: number;
+  of: number;
+  days: number;
 }
 
 export interface PuzzleGame {
@@ -136,18 +162,26 @@ export interface PuzzleGame {
     name: string;
   };
   rated: boolean;
-  players: Array<{ userId: string, name: string, color: Color }>;
+  players: [PuzzlePlayer, PuzzlePlayer];
   pgn: string;
   clock: string;
 }
 
+export interface PuzzlePlayer {
+  userId: string;
+  name: string;
+  title?: string;
+  color: Color;
+}
+
 export interface PuzzleUser {
+  id: string;
   rating: number;
   provisional?: boolean;
 }
 
 export interface Puzzle {
-  id: string;
+  id: PuzzleId;
   solution: Uci[];
   rating: number;
   plays: number;
@@ -158,6 +192,7 @@ export interface Puzzle {
 export interface PuzzleResult {
   round?: PuzzleRound;
   next: PuzzleData;
+  replayComplete?: boolean;
 }
 
 export interface RoundThemes {
@@ -170,14 +205,8 @@ export interface PuzzleRound {
   themes?: RoundThemes;
 }
 
-export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
-  cancel(): void;
-  view(): MaybeVNode;
-}
-
 export interface MoveTest {
-  move: Move,
+  move: Move;
   fen: Fen;
   path: Tree.Path;
 }

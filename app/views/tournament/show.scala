@@ -40,7 +40,8 @@ object show {
                 resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
                 localMod = ctx.userId has tour.createdBy
               )
-            }
+            },
+            "showRatings" -> ctx.pref.showRatings
           )
         )})""")
       ),
@@ -57,7 +58,7 @@ object show {
             s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
               s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
               tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
-                s"${usernameOrId(winnerId)} takes the prize home!"
+                s"${titleNameOrId(winnerId)} takes the prize home!"
               }
         )
         .some

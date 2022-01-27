@@ -8,10 +8,10 @@ import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config._
-import lila.common.Json.jodaWrites
+import lila.common.Json._
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.db.paginator.Adapter
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.JsonView._
@@ -39,39 +39,37 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new CachedAdapter(
-        adapter = new Adapter[Game](
-          collection = gameRepo.coll,
-          selector = {
-            if (~playing) lila.game.Query.nowPlaying(user.id)
-            else
-              $doc(
-                G.playerUids -> user.id,
-                G.status $gte chess.Status.Mate.id,
-                G.analysed -> analysed.map[BSONValue] {
-                  case true => BSONBoolean(true)
-                  case _    => $doc("$exists" -> false)
-                }
-              )
-          } ++ $doc(
-            G.rated -> rated.map[BSONValue] {
-              case true => BSONBoolean(true)
-              case _    => $doc("$exists" -> false)
-            }
-          ),
-          projection = none,
-          sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
-        ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(user.id)
+      adapter = new Adapter[Game](
+        collection = gameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlaying(user.id)
           else
-            fuccess {
-              rated.fold(user.count.game) {
-                case true => user.count.rated
-                case _    => user.count.casual
+            $doc(
+              G.playerUids -> user.id,
+              G.status $gte chess.Status.Mate.id,
+              G.analysed -> analysed.map[BSONValue] {
+                case true => BSONBoolean(true)
+                case _    => $doc("$exists" -> false)
               }
+            )
+        } ++ $doc(
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _    => $doc("$exists" -> false)
+          }
+        ),
+        projection = none,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ).withNbResults(
+        if (~playing) gameCache.nbPlaying(user.id)
+        else
+          fuccess {
+            rated.fold(user.count.game) {
+              case true => user.count.rated
+              case _    => user.count.casual
             }
+          }
       ),
       currentPage = page,
       maxPerPage = nb
@@ -98,32 +96,30 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new CachedAdapter(
-        adapter = new Adapter[Game](
-          collection = gameRepo.coll,
-          selector = {
-            if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
-            else
-              lila.game.Query.opponents(users._1, users._2) ++ $doc(
-                G.status $gte chess.Status.Mate.id,
-                G.analysed -> analysed.map[BSONValue] {
-                  case true => BSONBoolean(true)
-                  case _    => $doc("$exists" -> false)
-                }
-              )
-          } ++ $doc(
-            G.rated -> rated.map[BSONValue] {
-              case true => BSONBoolean(true)
-              case _    => $doc("$exists" -> false)
-            }
-          ),
-          projection = none,
-          sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+      adapter = new Adapter[Game](
+        collection = gameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
+          else
+            lila.game.Query.opponents(users._1, users._2) ++ $doc(
+              G.status $gte chess.Status.Mate.id,
+              G.analysed -> analysed.map[BSONValue] {
+                case true => BSONBoolean(true)
+                case _    => $doc("$exists" -> false)
+              }
+            )
+        } ++ $doc(
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _    => $doc("$exists" -> false)
+          }
         ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(users._1.id)
-          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
+        projection = none,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ).withNbResults(
+        if (~playing) gameCache.nbPlaying(users._1.id)
+        else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
       ),
       currentPage = page,
       maxPerPage = nb

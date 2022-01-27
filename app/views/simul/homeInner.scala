@@ -31,7 +31,7 @@ object homeInner {
               tr(cls := "scheduled")(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := "r")(sim.applicants.size)
+                td(cls := "players text", dataIcon := "")(sim.applicants.size)
               )
             }
           )
@@ -48,12 +48,12 @@ object homeInner {
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := "r")(sim.applicants.size)
+              td(cls := "players text", dataIcon := "")(sim.applicants.size)
             )
           },
           ctx.isAuth option tr(cls := "create")(
             td(colspan := "4")(
-              a(href := routes.Simul.form(), cls := "action button text")(trans.hostANewSimul())
+              a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
             )
           )
         ),
@@ -70,7 +70,7 @@ object homeInner {
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := "r")(sim.pairings.size)
+                td(cls := "players text", dataIcon := "")(sim.pairings.size)
               )
             }
           )
@@ -87,7 +87,7 @@ object homeInner {
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := "r")(sim.pairings.size)
+              td(cls := "players text", dataIcon := "")(sim.pairings.size)
             )
           }
         )
@@ -102,10 +102,12 @@ object homeInner {
       )
     )
 
-  private def simHost(sim: lila.simul.Simul)(implicit lang: Lang) =
+  private def simHost(sim: lila.simul.Simul)(implicit ctx: Context) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
-      br,
-      strong(sim.hostRating)
+      ctx.pref.showRatings option frag(
+        br,
+        strong(sim.hostRating)
+      )
     )
 }

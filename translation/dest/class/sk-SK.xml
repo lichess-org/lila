@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Viditeľné aj pre učiteľov aj pre študentov triedy</string>
   <string name="teachersOfTheClass">Učitelia triedy</string>
   <string name="addLichessUsernames">Pridať Lichess užívateľov za účelom ich pozvania ako učiteľov. Jeden na riadok.</string>
-  <string name="theyMustFirstApply">Najprv sa musia uchádzať o pozíciu Lichess učiteľa.</string>
   <string name="resetPassword">Obnoviť heslo</string>
   <string name="makeSureToCopy">Teraz si zkopírujte alebo zapíšte heslo! Nebude možné aby ste ho videli znovu.</string>
   <string name="passwordX">Heslo: %s</string>
@@ -53,13 +52,12 @@ Heslo: %3$s</string>
 Tu je link pre prístup ku kurzu.</string>
   <string name="invitationToClass">Si pozvaný aby si sa ako študent pripojil ku kurzu \"%s\".</string>
   <string name="clickToViewInvitation">Kliknutím na link si pozri pozvánku:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">%s čakajúca pozvánka</item>
     <item quantity="few">%s čakajúce pozvánky</item>
     <item quantity="many">%s čakajúcich pozvánok</item>
     <item quantity="other">%s čakajúcich pozvánok</item>
   </plurals>
-  <string name="noPendingInvitations">Žiadne čakajúce pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
   <string name="lastActiveDate">Aktívny</string>
   <string name="managed">Spravovaný</string>
@@ -70,6 +68,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
   <string name="releaseDesc2">Študent ostane v triede po uvoľnení jeho účtu.</string>
   <string name="realUniqueEmail">Skutočná, unikátna email adresa študenta. Pošleme na ňu potvrdzovací email s linkom na uvoľnenie účtu.</string>
+  <string name="closeStudent">Zrušiť účet</string>
   <string name="teachers">Učitelia</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učiteľ</item>
@@ -87,6 +86,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>
   <string name="noRemovedStudents">Žiadni odstránení študenti.</string>
+  <string name="overDays">Počas dní</string>
   <string name="timePlaying">Odohraný čas</string>
   <string name="variantXOverLastY">%1$s za posledných %2$s</string>
   <string name="winrate">Pomer výhier</string>
@@ -99,5 +99,4 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="newsEdit2">Pridajte nedávne správy na vrch. Nemažte predošlé správy.</string>
   <string name="newsEdit3">Oddelujte novinky s ---
 To zobrazí horizontálnu čiaru.</string>
-  <string name="markdownAvailable">%s je dostupný pre viac pokročilý syntax.</string>
 </resources>

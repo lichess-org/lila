@@ -41,4 +41,12 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="shareUrl">Podijelite ovaj link da se ljudi mogu pridružiti: %s</string>
   <string name="drawStreak">Nizovi remija: Kad igrač ima uzastopne remije u nekoj areni, bodove će dobiti samo za prvi remi ili za remi-partije duže od %s poteza. Niz može biti prekinut samo pobjedom.</string>
   <string name="history">Historija Arene</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Pogledajte tim</item>
+    <item quantity="few">Pogledajte sve timove %s</item>
+    <item quantity="other">Pogledajte sve timove %s</item>
+  </plurals>
+  <string name="allowChatHelp">Igrači mogu diskutovati u chat room-u</string>
+  <string name="arenaStreaks">Nizovi u Areni</string>
+  <string name="arenaStreaksHelp">Nakon dvije uzastopne pobjede, dalje uzastopne pobjede donose 4 poena umjesto 2.</string>
 </resources>

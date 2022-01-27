@@ -1,5 +1,8 @@
 package lila.common
 
+import io.mola.galimatias.IPv4Address.parseIPv4Address
+import io.mola.galimatias.IPv6Address.parseIPv6Address
+import scala.util.Try
 import scala.concurrent.duration._
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
@@ -14,26 +17,33 @@ case class AssetVersion(value: String) extends AnyVal with StringValue
 object AssetVersion {
   var current = random
   def change() = { current = random }
-  private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
+  private def random = AssetVersion(SecureRandom nextString 6)
 }
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
-case class IpAddress(value: String) extends AnyVal with StringValue
+case class Bearer(secret: String) extends AnyVal {
+  override def toString = "Bearer(***)"
+}
+object Bearer {
+  def random()         = Bearer(s"lio_${SecureRandom.nextString(32)}")
+  def randomPersonal() = Bearer(s"lip_${SecureRandom.nextString(20)}")
+}
+
+sealed trait IpAddress {
+  def value: String
+  override def toString = value
+}
+case class IpV4Address(value: String) extends IpAddress
+case class IpV6Address(value: String) extends IpAddress
 
 object IpAddress {
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Regex =
-    """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
-  // ipv6 address in standard form (no compression, no leading zeros)
-  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}+):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
-
-  def isv4(a: IpAddress) = ipv4Regex matches a.value
-  def isv6(a: IpAddress) = ipv6Regex matches a.value
-
-  def from(str: String): Option[IpAddress] = {
-    ipv4Regex.matches(str) || ipv6Regex.matches(str)
-  } option IpAddress(str)
+  private def parse(str: String): Try[IpAddress] = Try {
+    if (str.contains(".")) IpV4Address(parseIPv4Address(str).toString)
+    else IpV6Address(parseIPv6Address(str).toString)
+  }
+  def from(str: String): Option[IpAddress] = parse(str).toOption
+  def unchecked(str: String): IpAddress    = parse(str).get
 }
 
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
@@ -44,8 +54,10 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
       case Array(user, domain) => s"${user take 3}*****@$domain"
       case _                   => value
     }
+
   def normalize =
     NormalizedEmailAddress {
+      // changing normalization requires database migration!
       val lower = value.toLowerCase
       lower.split('@') match {
         case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
@@ -56,6 +68,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
         case _ => lower
       }
     }
+
   def domain: Option[Domain] =
     value split '@' match {
       case Array(_, domain) => Domain from domain.toLowerCase
@@ -76,23 +89,20 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  // adding normalized domains requires database migration!
   private val gmailLikeNormalizedDomains =
     Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
-  private def hasDotAt(str: String)           = str contains ".@"  // mailgun will reject it
-  private def hasConsecutiveDots(str: String) = str contains ".."  // mailgun will reject it
-  private def startsWithDot(str: String)      = str startsWith "." // mailgun will reject it
-
-  def matches(str: String): Boolean =
-    regex.find(str) &&
-      !hasDotAt(str) &&
-      !hasConsecutiveDots(str) &&
-      !startsWithDot(str)
+  def isValid(str: String) =
+    str.sizeIs < 320 &&
+      regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
   def from(str: String): Option[EmailAddress] =
-    matches(str) option EmailAddress(str)
+    isValid(str) option EmailAddress(str)
 
   private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
+
+  val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {
@@ -126,3 +136,13 @@ case class Ints(value: List[Int])       extends AnyVal
 
 case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal
+
+case class Template(value: String) extends AnyVal
+
+case class Preload[A](value: Option[A]) extends AnyVal {
+  def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)
+}
+object Preload {
+  def apply[A](value: A): Preload[A] = Preload(value.some)
+  def none[A]                        = Preload[A](None)
+}

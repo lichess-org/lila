@@ -12,14 +12,12 @@
   <string name="noTeamFound">Jamoa topilmadi</string>
   <string name="joinTeam">Jamoaga qo\'shilish</string>
   <string name="quitTeam">Jamoani tark etish</string>
-  <string name="anyoneCanJoin">Xamma uchun ochiq</string>
-  <string name="aConfirmationIsRequiredToJoin">Qo\'shilish uchun tasdiqlash talab qilingan</string>
-  <string name="joiningPolicy">Qo\'shilish shartlari</string>
+  <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>
   </plurals>
-  <string name="teamBestPlayers">Zo\'r o\'yinchilar</string>
   <string name="teamRecentMembers">Yangi a\'zolar</string>
   <string name="kickSomeone">Jamoadan kimnidir chiqaring</string>
   <string name="whoToKick">Kimni jamoadan chiqarishni xohlaysiz?</string>
@@ -42,4 +40,7 @@ Xabarlaringizni qabul qilishni yoqtirmaydigan oʻyinchilar jamoani tark etishlar
   <string name="youWayWantToLinkOneOfTheseTournaments">Bo\'lajak musobaqalardan birini ulashni xohlaysizmi?</string>
   <string name="usersWhoCanManageThisTeam">Ushbu jamoani boshqaradigan foydalanuvchilar</string>
   <string name="leadersChat">Sardorlar suhbati</string>
+  <string name="closeTeam">Jamoani yopish</string>
+  <string name="closeTeamDescription">Jamoani butunlay yopish.</string>
+  <string name="teamAlreadyExists">Ushbu jamoa mavjud.</string>
 </resources>

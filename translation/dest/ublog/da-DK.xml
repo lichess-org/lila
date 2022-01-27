@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog - %s</string>
+  <string name="newPost">Nyt indlæg</string>
+  <string name="editYourBlogPost">Rediger dit blogindlæg</string>
+  <string name="saveDraft">Gem udkast</string>
+  <string name="postTitle">Indlægstitel</string>
+  <string name="postIntro">Indlægsintro</string>
+  <string name="postBody">Indlæggets hovedtekst</string>
+  <string name="drafts">Udkast</string>
+  <string name="published">Publiceret</string>
+  <string name="publishOnYourBlog">Publicér på din blog</string>
+  <string name="publishHelp">Hvis markeret, vil indlægget blive vist på din blog. Hvis ikke, vil det være privat i dine udkast</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicerede et blogindlæg</item>
+    <item quantity="other">Publicerede %s blogindlæg</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Én visning</item>
+    <item quantity="other">%s visninger</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicerede %2$s</string>
+  <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
+  <string name="thisIsADraft">Dette er et udkast</string>
+  <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
+  <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
+  <string name="noDrafts">Ingen udkast at vise.</string>
+  <string name="latestBlogPosts">Seneste blog-indlæg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Se et indlæg</item>
+    <item quantity="other">Se alle %s indlæg</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Upload et billede til dit indlæg</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Billede alternativ tekst</string>
+  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Billedkreditering</string>
+</resources>

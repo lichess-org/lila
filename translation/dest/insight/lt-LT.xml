@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">%s šachmatų įžvalgos</string>
+  <string name="xHasNoChessInsights">%s dar neturi šachmatų įžvalgų!</string>
+  <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">%s šachmatų įžvalgos yra apsaugotos</string>
+  <string name="cantSeeInsights">Atsiprašome, jūs negalite matyti %s šachmatų įžvalgų.</string>
+  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">Sugeneruoti %s šachmatų įžvalgas.</string>
+  <string name="crunchingData" comment="crunchingData&#10;&#10;For chess insights, when you ask to create a new set of chess insights based on your/another player's game history.">Išskirtinai jums uoliai apdorojami duomenys!</string>
+  <string name="maybeAskThemToChangeTheir" comment="maybeAskThemToChangeTheir&#10;%s is the translation for 'insights settings'.&#10;&#10;Your settings control privacy for your chess insights, and determine who can and cannot see them.">Gal reikėtų jų paprašyti pakeisti savo %s?</string>
+  <string name="insightsSettings" comment="insightsSettings&#10;In the context of 'Maybe ask them to change their insight settings?' - separate string available for translation.">įžvalgų nustatymai</string>
+</resources>

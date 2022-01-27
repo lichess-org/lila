@@ -12,7 +12,6 @@ $user-list-width: 30ch;
     grid-template-areas: 'online leaders' 'online .';
   }
 
-
   h2 {
     font-size: 1.7em;
     margin-bottom: 2rem;
@@ -35,7 +34,7 @@ $user-list-width: 30ch;
     grid-area: online;
 
     li {
-      padding: .6rem 0;
+      padding: 0.6rem 0;
     }
 
     .user-link {
@@ -63,7 +62,7 @@ $user-list-width: 30ch;
         font-size: 1.45em;
         line-height: 2.5em;
         letter-spacing: -1px;
-        padding-left: .8rem;
+        padding-left: 0.8rem;
         text-transform: uppercase;
         margin: 0;
         background: $c-lead;
@@ -75,7 +74,7 @@ $user-list-width: 30ch;
       }
 
       li {
-        padding: .7rem 1.2rem .7rem .5rem;
+        padding: 0.7rem 1.2rem 0.7rem 0.5rem;
       }
 
       li:nth-child(even) {
@@ -86,21 +85,54 @@ $user-list-width: 30ch;
 }
 
 .bots {
-  td:nth-child(3), td:nth-child(4) {
+  .box {
+    margin-bottom: 2vh;
+  }
+
+  &__about {
+    margin-top: 1rem;
+  }
+
+  table.slist {
+    border: none;
+
+    p {
+      margin: 0;
+      line-height: 2em;
+    }
+  }
+
+  &__featured td {
+    padding: 2rem 1rem;
+  }
+
+  tr:last-child td {
+    padding-bottom: 2vh;
+  }
+
+  td:nth-child(2) {
+    @extend %break-word;
+  }
+
+  td:nth-child(3),
+  td:nth-child(4) {
     white-space: nowrap;
   }
 
-  img {
-    display: none;
+  @include breakpoint($mq-not-small) {
+    td.rating {
+      display: none;
+    }
+  }
+  @include breakpoint($mq-not-x-large) {
+    td:nth-child(4) {
+      display: none;
+    }
   }
 
   .rating {
     span {
-      &::before {
-        margin: 0;
-      }
-
-      margin: 0 .3em;
+      display: block;
     }
   }
 }

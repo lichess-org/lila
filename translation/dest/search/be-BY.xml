@@ -28,4 +28,17 @@
   <string name="sortBy">Сартаваць па</string>
   <string name="analysis">Аналіз</string>
   <string name="onlyAnalysed">Толькі гульні, для якіх даступны камп\'ютарны аналіз</string>
+  <string name="color">Колер</string>
+  <string name="evaluation">Ацэнка</string>
+  <string name="maxNumber">Максімальная колькасць</string>
+  <string name="maxNumberExplanation">Максімальная колькасць гульняў, якія будуць вернуты</string>
+  <string name="include">Уключыць</string>
+  <string name="descending">Па змяншэнні</string>
+  <string name="ascending">Па ўзрастанні</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s гульня знойдзена</item>
+    <item quantity="few">%s гульні знойдзены</item>
+    <item quantity="many">%s гульняў знойдзена</item>
+    <item quantity="other">%s гульняў знойдзена</item>
+  </plurals>
 </resources>

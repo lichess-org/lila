@@ -5,7 +5,7 @@
   }
 
   .ua {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   .icon span {
@@ -25,6 +25,13 @@
 
   .slist {
     @extend %break-word;
+  }
+
+  .box {
+    margin-bottom: 4em;
+    > p {
+      padding-bottom: 2em;
+    }
   }
 }
 
@@ -50,7 +57,7 @@
     background: rgba(128, 128, 128, 0.1);
 
     td {
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       font-family: monospace;
     }
   }
@@ -65,7 +72,7 @@
 
   h2 {
     font-size: 1.2em;
-    margin: -1em 0 .5em 0;
+    margin: -1em 0 0.5em 0;
   }
 
   .scopes {
@@ -79,6 +86,11 @@
       label {
         margin-left: 1rem;
         cursor: pointer;
+      }
+      em {
+        @extend %roboto;
+        margin-left: 1rem;
+        color: $c-font-dimmer;
       }
     }
   }
@@ -109,7 +121,6 @@
   @include breakpoint($mq-subnav-side) {
     min-height: 100%;
   }
-
 
   h1 {
     color: $c-accent;
@@ -162,11 +173,15 @@
     }
   }
 
-
   .kiddo {
     color: $c-font-dim;
     font-size: 1.1em;
     font-weight: bold;
+  }
+
+  .help {
+    margin-top: 0.5em;
+    color: $c-font-dim;
   }
 }
 

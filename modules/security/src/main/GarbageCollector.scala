@@ -9,9 +9,9 @@ import lila.user.User
 
 // codename UGC
 final class GarbageCollector(
-    userSpy: UserSpyApi,
+    userLogins: UserLoginsApi,
     ipTrust: IpTrust,
-    slack: lila.slack.SlackApi,
+    irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
 )(implicit
@@ -42,14 +42,14 @@ final class GarbageCollector(
               retries = 5,
               logger = none
             )
-            .nevermind >> apply(applyData)
+            .recoverDefault >> apply(applyData)
           ()
         }
         .unit
     }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
-    userSpy userHasPrint data.user flatMap {
+    userLogins userHasPrint data.user flatMap {
       case false => fufail("No print available yet")
       case _     => funit
     }
@@ -58,7 +58,7 @@ final class GarbageCollector(
     data match {
       case ApplyData(user, ip, email, req) =>
         for {
-          spy    <- userSpy(user, 300)
+          spy    <- userLogins(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
           _ <- {
             val printOpt = spy.prints.headOption
@@ -68,7 +68,7 @@ final class GarbageCollector(
               "userSignup"
             )
             printOpt.filter(_.banned).map(_.fp.value) match {
-              case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
+              case Some(print) => collect(user, email, msg = s"Print ban: `${print.value}`")
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
@@ -97,25 +97,31 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit =
-    justOnce(user.id) ?? {
-      val armed = isArmed()
-      val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
-      val message =
-        s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
-      logger.info(message)
-      noteApi.lichessWrite(user, s"Garbage collected because of $msg")
-      slack.garbageCollector(message) >>- {
-        if (armed) {
-          doInitialSb(user)
-          system.scheduler
-            .scheduleOnce(wait) {
-              doCollect(user)
-            }
-            .unit
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
+    hasBeenCollectedBefore(user) flatMap {
+      case true => funit
+      case _ =>
+        val armed = isArmed()
+        val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
+        val message =
+          s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
+        logger.info(message)
+        noteApi.lichessWrite(user, s"Garbage collected because of $msg")
+        irc.garbageCollector(message) >>- {
+          if (armed) {
+            doInitialSb(user)
+            system.scheduler
+              .scheduleOnce(wait) {
+                doCollect(user)
+              }
+              .unit
+          }
         }
-      }
     }
+  }
+
+  private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
+    noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))
 
   private def doInitialSb(user: User): Unit =
     Bus.publish(

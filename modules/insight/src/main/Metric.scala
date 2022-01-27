@@ -11,7 +11,7 @@ sealed abstract class Metric(
     val position: Position,
     val per: Position,
     val dataType: Metric.DataType,
-    val description: Frag
+    val description: String
 )
 
 object Metric {
@@ -28,7 +28,7 @@ object Metric {
 
   import DataType._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl
       extends Metric(
@@ -38,7 +38,18 @@ object Metric {
         Move,
         Move,
         Average,
-        raw("""Precision of your moves. Lower is better.""")
+        """Precision of your moves. Lower is better."""
+      )
+
+  case object CplBucket
+      extends Metric(
+        "cplBucket",
+        "Centipawn loss bucket",
+        F moves "c",
+        Move,
+        Move,
+        Percent,
+        Dimension.CplRange.description
       )
 
   case object Movetime
@@ -74,7 +85,7 @@ object Metric {
         Game,
         Game,
         Average,
-        raw("The amount of rating points you win or lose when the game ends.")
+        "The amount of rating points you win or lose when the game ends."
       )
 
   case object OpponentRating
@@ -85,7 +96,7 @@ object Metric {
         Game,
         Game,
         Average,
-        raw("The average rating of your opponent for the relevant variant.")
+        "The average rating of your opponent for the relevant variant."
       )
 
   case object NbMoves
@@ -96,7 +107,7 @@ object Metric {
         Move,
         Game,
         Average,
-        raw("Number of moves you play in the game. Doesn't count the opponent moves.")
+        "Number of moves you play in the game. Doesn't count the opponent moves."
       )
 
   case object PieceRole
@@ -118,9 +129,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        raw(
-          "How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."
-        )
+        "How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."
       )
 
   case object Luck
@@ -131,9 +140,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        raw(
-          "How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."
-        )
+        "How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."
       )
 
   case object Material
@@ -155,7 +162,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        raw("How often moves are preceded by a window blur.")
+        "How often moves are preceded by a window blur."
       )
 
   case object TimeVariance
@@ -166,11 +173,12 @@ object Metric {
         Move,
         Move,
         Average,
-        raw("Low variance means consistent move times")
+        "Low variance means consistent move times"
       )
 
   val all = List(
     MeanCpl,
+    CplBucket,
     Movetime,
     Result,
     Termination,
@@ -190,8 +198,9 @@ object Metric {
 
   def requiresAnalysis(m: Metric) =
     m match {
-      case MeanCpl => true
-      case _       => false
+      case MeanCpl   => true
+      case CplBucket => true
+      case _         => false
     }
 
   def requiresStableRating(m: Metric) =
@@ -206,6 +215,7 @@ object Metric {
       case Result      => true
       case Termination => true
       case PieceRole   => true
+      case CplBucket   => true
       case _           => false
     }
 
@@ -222,6 +232,10 @@ object Metric {
       case PieceRole =>
         chess.Role.all.reverse.map { r =>
           MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
+        }
+      case CplBucket =>
+        lila.insight.CplRange.all.map { cpl =>
+          MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
         }
       case _ => Nil
     }

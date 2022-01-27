@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s kelas %2$s</string>
   <string name="level">tingkatan</string>
   <string name="toggleTheChat">alihke obrolan</string>
-  <string name="toggleSound">alihke suara</string>
   <string name="chat">obrolan</string>
   <string name="resign">kabur</string>
   <string name="checkmate">sekakmat</string>
@@ -27,7 +26,6 @@
   <string name="whitePlays">putih mulai</string>
   <string name="blackPlays">ireng mulai</string>
   <string name="opponentLeftChoices">lawanmu lagi ninggalke dulanan. kowe meksa ngundurke diri opo ditunggu</string>
-  <string name="makeYourOpponentResign">gawe pemain lawanmu ngundurke diri</string>
   <string name="forceResignation">peksa menyerah</string>
   <string name="forceDraw">pekso seri</string>
   <string name="talkInChat">wicara ing obrolan</string>
@@ -36,8 +34,6 @@
   <string name="blackResigned">ireng ngalah</string>
   <string name="whiteLeftTheGame">putih kabur seko dulanan</string>
   <string name="blackLeftTheGame">ireng kabur seko dulanan</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">sebarke alamat URL iki kanggo wong sing pengen ndelok dulanan</string>
-  <string name="viewTheComputerAnalysis">Ndelok analisa tekan komputer</string>
   <string name="computerAnalysis">AnalisaKomputer</string>
   <string name="fromPosition">seka posisi</string>
   <string name="continueFromHere">lanjut seka kene</string>

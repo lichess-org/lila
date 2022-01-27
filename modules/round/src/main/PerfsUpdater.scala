@@ -26,38 +26,37 @@ final class PerfsUpdater(
           (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
             val ratingsW = mkRatings(white.perfs)
             val ratingsB = mkRatings(black.perfs)
-            val result   = resultOf(game)
             game.ratingVariant match {
               case chess.variant.Chess960 =>
-                updateRatings(ratingsW.chess960, ratingsB.chess960, result)
+                updateRatings(ratingsW.chess960, ratingsB.chess960, game)
               case chess.variant.KingOfTheHill =>
-                updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result)
+                updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
               case chess.variant.ThreeCheck =>
-                updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result)
+                updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
               case chess.variant.Antichess =>
-                updateRatings(ratingsW.antichess, ratingsB.antichess, result)
+                updateRatings(ratingsW.antichess, ratingsB.antichess, game)
               case chess.variant.Atomic =>
-                updateRatings(ratingsW.atomic, ratingsB.atomic, result)
+                updateRatings(ratingsW.atomic, ratingsB.atomic, game)
               case chess.variant.Horde =>
-                updateRatings(ratingsW.horde, ratingsB.horde, result)
+                updateRatings(ratingsW.horde, ratingsB.horde, game)
               case chess.variant.RacingKings =>
-                updateRatings(ratingsW.racingKings, ratingsB.racingKings, result)
+                updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
               case chess.variant.Crazyhouse =>
-                updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result)
+                updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
               case chess.variant.Standard =>
                 game.speed match {
                   case Speed.Bullet =>
-                    updateRatings(ratingsW.bullet, ratingsB.bullet, result)
+                    updateRatings(ratingsW.bullet, ratingsB.bullet, game)
                   case Speed.Blitz =>
-                    updateRatings(ratingsW.blitz, ratingsB.blitz, result)
+                    updateRatings(ratingsW.blitz, ratingsB.blitz, game)
                   case Speed.Rapid =>
-                    updateRatings(ratingsW.rapid, ratingsB.rapid, result)
+                    updateRatings(ratingsW.rapid, ratingsB.rapid, game)
                   case Speed.Classical =>
-                    updateRatings(ratingsW.classical, ratingsB.classical, result)
+                    updateRatings(ratingsW.classical, ratingsB.classical, game)
                   case Speed.Correspondence =>
-                    updateRatings(ratingsW.correspondence, ratingsB.correspondence, result)
+                    updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
                   case Speed.UltraBullet =>
-                    updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result)
+                    updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
                 }
               case _ =>
             }
@@ -114,14 +113,12 @@ final class PerfsUpdater(
       correspondence = perfs.correspondence.toRating
     )
 
-  private def resultOf(game: Game): Glicko.Result =
-    game.winnerColor match {
+  private def updateRatings(white: Rating, black: Rating, game: Game): Unit = {
+    val result = game.winnerColor match {
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
     }
-
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -131,7 +128,7 @@ final class PerfsUpdater(
     try {
       Glicko.system.updateRatings(results, true)
     } catch {
-      case e: Exception => logger.error("update ratings", e)
+      case e: Exception => logger.error(s"update ratings #${game.id}", e)
     }
   }
 

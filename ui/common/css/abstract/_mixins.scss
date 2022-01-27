@@ -33,10 +33,12 @@
   overflow-y: auto;
 
   @media (hover: hover) {
-    overflow: hidden;
+    &:not(:hover) {
+      scrollbar-width: none;
 
-    &:hover {
-      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }
@@ -63,13 +65,6 @@
 @mixin crosstable-small {
   .crosstable__users {
     flex: 1 1 auto;
-  }
-}
-
-/* atm only chrome supports min-content, max-content */
-@mixin proper-grid {
-  @supports (height: max-content) {
-    @content;
   }
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Tìm kiếm</string>
-  <string name="advancedSearch">Tìm kiến nâng cao</string>
+  <string name="advancedSearch">Tìm kiếm nâng cao</string>
   <plurals name="searchInXGames">
     <item quantity="other">Tìm kiếm trong %s ván cờ</item>
   </plurals>
@@ -22,4 +22,7 @@
   <string name="sortBy">Sắp xếp theo</string>
   <string name="analysis">Phân tích</string>
   <string name="onlyAnalysed">Chỉ những game mà máy tính phân tích sẵn sàng</string>
+  <string name="color">Màu sắc</string>
+  <string name="maxNumber">Số lượng tối đa</string>
+  <string name="maxNumberExplanation">Số trận đấu tối đa để tải</string>
 </resources>

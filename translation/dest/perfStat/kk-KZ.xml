@@ -2,11 +2,10 @@
 <resources>
   <string name="perfStats">%s статистикасы</string>
   <string name="viewTheGames">Ойындарын көру</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">болжамалы</string>
+  <string name="provisional">болжамалы</string>
   <string name="notEnoughRatedGames">Тұрақты рейтингке ие болу үшін бағаламалы ойын саны жеткіліксіз.</string>
-  <string name="progressOverLastXGames">Кейінгі %s ойын нәтижесіндегі жетістігі:</string>
+  <string name="progressOverLastXGames">Кейінгі %s ойынның қорытындысы:</string>
   <string name="ratingDeviation">Рейтинг ауытқуы: %s.</string>
-  <string name="ratingDeviationHelp">Аз мәндер рейтингтің тұрақтырақ екенін білдіреді. %s-ден жоғары болса, рейтинг болжамалы деген сөз.</string>
   <string name="totalGames">Барлық ойындар</string>
   <string name="ratedGames">Бағаланатын ойындар</string>
   <string name="tournamentGames">Жарыс ойындары</string>

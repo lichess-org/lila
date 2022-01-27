@@ -1,10 +1,9 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom'
-import { modal } from './modal';
-import { spinner } from './util';
-import { VNode } from 'snabbdom/vnode'
+import { h, VNode } from 'snabbdom';
+import { snabModal } from 'common/modal';
+import spinner from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;
@@ -53,14 +52,15 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.studyPractice) return;
+    else if (ctrl.practice || ctrl.studyPractice) return;
     else if (ctrl.ceval.enabled()) ctrl.playBestMove();
     else ctrl.toggleCeval();
   });
 
   if (ctrl.studyPractice) return;
 
-  kbd.bind('f', ctrl.flip)
+  kbd
+    .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
@@ -78,31 +78,33 @@ export const bind = (ctrl: AnalyseCtrl) => {
   if (ctrl.study) {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, () => {
-        $(selector).each(function(this: HTMLElement) {
+        $(selector).each(function (this: HTMLElement) {
           this.dispatchEvent(new Event('mousedown'));
         });
       });
     };
     keyToMousedown('d', '.study__buttons .comments');
     keyToMousedown('g', '.study__buttons .glyphs');
+
+    // navigation for next and prev chapters
+    kbd.bind('p', ctrl.study.goToPrevChapter);
+    kbd.bind('n', ctrl.study.goToNextChapter);
   }
-}
+};
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return modal({
+  return snabModal({
     class: 'keyboard-help',
-    onInsert(el: HTMLElement) {
+    onInsert($wrap: Cash) {
       lichess.loadCssPath('analyse.keyboard');
       xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
-        el.querySelector('.scrollable')!.innerHTML = html
+        $wrap.find('.scrollable').html(html);
       });
     },
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [
-      h('div.scrollable', spinner())
-    ]
+    content: [h('div.scrollable', spinner())],
   });
 }

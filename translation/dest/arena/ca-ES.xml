@@ -11,15 +11,16 @@
 Si guanyes dos jocs consecutius començaràs una série de doble puntuació, representada per una flama.
 Els següents jocs tindran doble puntuació fins que no guanyis un joc.
 Així doncs una victòria valdrà 4 punts, un empat 2 punts, i res una derrota.
+
 Per exemple, dos victòries seguides d’un empat valdrà 6 punts: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Mode Berserk</string>
-  <string name="berserkAnswer">Quan un jugador pulsa el botó de berserk al principi d’una partida, perd la meitat delmseu temps, però la victòria val un punt adicional.
+  <string name="berserkAnswer">Quan un jugador clica el botó de berserk al principi d’una partida, perd la meitat del seu temps, però la victòria val un punt adicional.
 
 En controls de temps que tenen increment, l’opció berserk també cancel. la l’increment (1+2 és una excepció, ja que només es calcel. la l’increment, però no es parteix el temps a la meitat, resultant en 1+0).
 
-El mode berserk no està disponible en controls de temps amb temps inicial zero com 0+1 o 0+2.
+El mode berserk no està disponible en controls de temps amb temps inicial zero com (0+1 o 0+2).
 
-El modo berserk només proporciona un punt adicional per cada victòria si juegues al menys 7 moviments en la partida.</string>
+El mode berserk només proporciona un punt adicional per cada victòria si juegues al menys 7 moviments en la partida.</string>
   <string name="howIsTheWinnerDecided">Com es decideix el guanyador?</string>
   <string name="howIsTheWinnerDecidedAnswer">El jugador(s) amb més punts a la conclusió del temps màxim del torneig serà(n) anomenat(s) guanyador(s).</string>
   <string name="howDoesPairingWork">Com va l\'emparellament?</string>
@@ -36,5 +37,17 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="thisIsPrivate">Aquest és un torneig privat</string>
   <string name="shareUrl">Comparteix aquest enllaç perquè altres persones s\'uneixin: %s</string>
   <string name="drawStreak">Ratxa de taules: Quan un jugador té taules consecutives en un arena, només la primera compta com a punt, o les que tinguin més de %s moviments. La ratxa només es trenca amb una victòria, ni perdent o fent taules.</string>
-  <string name="history">Historial de tornejos</string>
+  <string name="history">Historial de torneigs Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Veure l\'equip</item>
+    <item quantity="other">Veure els %s equips</item>
+  </plurals>
+  <string name="newTeamBattle">Nova batalla d\'equips</string>
+  <string name="customStartDate">Data d\'inici personalitzada</string>
+  <string name="customStartDateHelp">En la teva zona horaria local. Això sobreescriu la configuració de \"Temps abans de que comenci el torneig\"</string>
+  <string name="allowBerserk">Es permet Berserk</string>
+  <string name="allowBerserkHelp">Permet que els jugadors redueixin el seu temps de partida a la mitat per a guanyar un punt extra</string>
+  <string name="allowChatHelp">Permet que els jugadors es comuniquin en una sala de chat</string>
+  <string name="arenaStreaks">Ratxes de tornejos</string>
+  <string name="arenaStreaksHelp">Despres de 2 victories consecutives, cada victoria consecutiva otorga 4 punts en comptes de 2.</string>
 </resources>

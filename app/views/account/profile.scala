@@ -4,15 +4,16 @@ package account
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import play.api.i18n.Lang
 
 import controllers.routes
 
 object profile {
 
-  private val linksHelp = frag(
+  private def linksHelp()(implicit lang: Lang) = frag(
     "Twitter, Facebook, GitHub, Chess.com, ...",
     br,
-    "One URL per line."
+    trans.oneUrlPerLine()
   )
 
   def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
@@ -23,10 +24,10 @@ object profile {
       div(cls := "account box box-pad")(
         h1(trans.editProfile()),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.profileApply())(
+        postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
-            form3.group(form("country"), trans.country(), half = true) { f =>
+            form3.group(form("country"), trans.countryOrFlag(), half = true) { f =>
               form3.select(f, lila.user.Countries.allPairs, default = "".some)
             },
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
@@ -40,7 +41,7 @@ object profile {
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
           ),
           form3.split(
-            List("fide", "uscf", "ecf").map { rn =>
+            List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map { rn =>
               form3.group(
                 form(s"${rn}Rating"),
                 trans.xRating(rn.toUpperCase),
@@ -49,7 +50,7 @@ object profile {
               )(form3.input(_, typ = "number"))
             }
           ),
-          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp)) { f =>
+          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp())) { f =>
             form3.textarea(f)(rows := 5)
           },
           form3.action(form3.submit(trans.apply()))

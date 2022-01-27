@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Przekaż datek</string>
+  <string name="donateAsX">Wesprzyj jako %s</string>
   <string name="lichessPatron">Patron Lichess</string>
   <string name="freeAccount">Darmowe konto</string>
   <string name="becomePatron">Zostań patronem Lichess</string>
   <string name="xBecamePatron">%s został patronem Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s jest patronem Lichess na %2$s miesiąc</item>
+    <item quantity="few">%1$s jest patronem Lichess na %2$s miesiące</item>
+    <item quantity="many">%1$s jest patronem Lichess na %2$s miesiący</item>
+    <item quantity="other">%1$s jest patronem Lichess na %2$s miesiący</item>
+  </plurals>
   <string name="newPatrons">Nowi patroni</string>
   <string name="freeChess">Darmowe szachy dla wszystkich i na zawsze!</string>
   <string name="noAdsNoSubs">Bez reklam, bez abonamentu, za to z otwartym kodem i pełne pasji.</string>
@@ -17,13 +24,12 @@
   <string name="lifetime">Dożywotnie</string>
   <string name="payLifetimeOnce">Wpłać %s raz. Bądź patronem Lichess na zawsze!</string>
   <string name="lifetimePatron">Dożywotni patron Lichess</string>
-  <string name="makeExtraDonation">Wykonać dodatkową darowiznę?</string>
   <string name="monthly">Co miesiąc</string>
   <string name="recurringBilling">Powtarzające się wpłaty, odnawiające skrzydła patrona co miesiąc.</string>
   <string name="onetime">Jednorazowo</string>
   <string name="singleDonation">Pojedyncza darowizna, która daje Ci skrzydła patrona na jeden miesiąc.</string>
   <string name="otherAmount">Inne</string>
-  <string name="pleaseEnterAmount">Wprowadź proszę kwotę w USD</string>
+  <string name="pleaseEnterAmountInX">Wprowadź kwotę w %s</string>
   <string name="withCreditCard">Karta płatnicza</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc Twoje wsparcie ma ogromne znaczenie!</string>
@@ -40,7 +46,6 @@ Możesz też w tej sprawie %s.</string>
   <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
   <string name="bankTransfers">Akceptujemy przelewy bankowe</string>
-  <string name="bitcoin">A to nasz adres bitcoin: %s</string>
   <string name="patronFeatures">Czy niektóre funkcje są dostępne tylko dla patronów?</string>
   <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie darmowy, na zawsze i dla wszystkich. To obietnica.
 Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
@@ -57,6 +62,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nextPayment">Następna płatność</string>
   <string name="youWillBeChargedXOnY">Zostaniesz obciążony %1$s %2$s.</string>
   <string name="makeAdditionalDonation">Dokonaj dodatkowej darowizny teraz</string>
+  <string name="giftPatronWings">Podaruj skrzydła patrona innemu graczowi</string>
   <string name="update">Aktualizuj</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
   <string name="cancelSupport">anuluj wsparcie</string>
@@ -64,8 +70,6 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
   <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
   <string name="noLongerSupport">Nie wspieraj już Lichess</string>
-  <string name="paymentHistory">Historia płatności</string>
-  <string name="paid">Zapłacone</string>
   <string name="viewOthers">Zobacz innych patronów Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Kwota</string>
@@ -75,4 +79,5 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nowLifetime">Jesteś teraz dożywotnim patronem Lichess!</string>
   <string name="nowOneMonth">Jesteś teraz patronem Lichess na jeden miesiąc!</string>
   <string name="downgradeNextMonth">W tym miesiącu NIE zostaniesz ponownie obciążony, a Twoje konto Lichess pozostanie darmowe.</string>
+  <string name="changeCurrency">Zmień walutę</string>
 </resources>

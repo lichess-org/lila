@@ -1,0 +1,22 @@
+name: Lint code
+
+on:
+  push:
+    branches-ignore:
+      - 'l10n_master'
+  pull_request:
+    paths-ignore:
+      - 'translation/dest/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: yarn
+      - run: yarn install
+      - run: yarn run lint
+      - run: yarn run check-format

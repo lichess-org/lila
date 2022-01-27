@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { GameData, Status } from 'game';
 import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
@@ -36,9 +36,11 @@ export interface SocketDrop {
   b?: 1;
 }
 
-export type EncodedDests = string | {
-  [key: string]: string;
-}
+export type EncodedDests =
+  | string
+  | {
+      [key: string]: string;
+    };
 export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
@@ -87,7 +89,7 @@ export interface RoundOpts {
   onChange(d: RoundData): void;
   element: HTMLElement;
   crosstableEl: HTMLElement;
-  i18n: any;
+  i18n: I18nDict;
   chat?: ChatOpts;
 }
 
@@ -117,7 +119,7 @@ export interface ApiMove extends Step {
     white: Seconds;
     black: Seconds;
     lag?: Centis;
-  }
+  };
   status: Status;
   winner?: Color;
   check: boolean;
@@ -130,10 +132,6 @@ export interface ApiMove extends Step {
   promotion?: {
     key: cg.Key;
     pieceClass: cg.Role;
-  };
-  enpassant?: {
-    key: cg.Key;
-    color: Color;
   };
   castle?: {
     king: [cg.Key, cg.Key];
@@ -155,32 +153,32 @@ export interface ApiEnd {
   clock?: {
     wc: Centis;
     bc: Centis;
-  }
+  };
 }
 
-export interface StepCrazy extends Untyped {
-}
+export interface StepCrazy extends Untyped {}
 
 export interface Pref {
   animationDuration: number;
-  autoQueen: 1 | 2 | 3;
+  autoQueen: Prefs.AutoQueen;
   blindfold: boolean;
   clockBar: boolean;
   clockSound: boolean;
-  clockTenths: 0 | 1 | 2;
+  clockTenths: Prefs.ShowClockTenths;
   confirmResign: boolean;
-  coords: 0 | 1 | 2;
+  coords: Prefs.Coords;
   destination: boolean;
   enablePremove: boolean;
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
-  moveEvent: 0 | 1 | 2;
-  replay: 0 | 1 | 2;
+  moveEvent: Prefs.MoveEvent;
+  // ratings: boolean;
+  replay: Prefs.Replay;
   rookCastle: boolean;
   showCaptured: boolean;
   submitMove: boolean;
-  resizeHandle: 0 | 1 | 2;
+  resizeHandle: Prefs.ShowResizeHandle;
 }
 
 export interface MoveMetadata {
@@ -190,15 +188,3 @@ export interface MoveMetadata {
 }
 
 export type Position = 'top' | 'bottom';
-
-export interface MaterialDiffSide {
-  [role: string]: number;
-}
-export interface MaterialDiff {
-  white: MaterialDiffSide;
-  black: MaterialDiffSide;
-}
-export interface CheckCount {
-  white: number;
-  black: number;
-}

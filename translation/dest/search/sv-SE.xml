@@ -24,4 +24,9 @@
   <string name="sortBy">Sortera efter</string>
   <string name="analysis">Analys</string>
   <string name="onlyAnalysed">Endast partier där en datoranalys finns tillgänglig</string>
+  <string name="color">Färg</string>
+  <string name="evaluation">Utvärdering</string>
+  <string name="maxNumber">Maximalt antal</string>
+  <string name="maxNumberExplanation">Det maximala antalet paartier att visa</string>
+  <string name="include">Inkludera</string>
 </resources>

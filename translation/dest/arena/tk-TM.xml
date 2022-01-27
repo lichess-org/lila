@@ -3,7 +3,7 @@
   <string name="isItRated">Reýtinglimi?</string>
   <string name="willBeNotified">Bäsleşik başlanda duýdurylarsyňyz, garaşýarkaňyz başga panelde oýnamak mümkin.</string>
   <string name="isRated">Bu bäsleşik reýtinglidir we reýtingiňize täsir eder.</string>
-  <string name="isNotRated">Bu bäsleşik reýtingli *däl* we reýtingiňize täsir *etmez.*</string>
+  <string name="isNotRated">Bu bäsleşik reýtingli *däl* we reýtingiňize täsir *etmez*.</string>
   <string name="someRated">Käbir bäsleşikler reýtinglidir we o bäsleşikler reýtingiňize täsir eder.</string>
   <string name="howAreScoresCalculated">Utuklar nähili hasaplanýar?</string>
   <string name="howAreScoresCalculatedAnswer">Ýeňiş 2 utukdyr, deňlik: 1 utuk, utulyş üçin utuk ýok.

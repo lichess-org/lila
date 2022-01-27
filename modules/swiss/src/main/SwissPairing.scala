@@ -10,7 +10,8 @@ case class SwissPairing(
     round: SwissRound.Number,
     white: User.ID,
     black: User.ID,
-    status: SwissPairing.Status
+    status: SwissPairing.Status,
+    isForfeit: Boolean = false
 ) {
   def apply(c: Color)             = c.fold(white, black)
   def gameId                      = id
@@ -24,6 +25,8 @@ case class SwissPairing(
   def whiteWins                   = status == Right(Some(Color.White))
   def blackWins                   = status == Right(Some(Color.Black))
   def isDraw                      = status == Right(None)
+  def strResultOf(color: Color)   = status.fold(_ => "*", _.fold("1/2")(c => if (c == color) "1" else "0"))
+  def forfeit(userId: User.ID)    = copy(status = Right(Some(!colorOf(userId))), isForfeit = true)
 }
 
 object SwissPairing {
@@ -47,20 +50,21 @@ object SwissPairing {
   case class View(pairing: SwissPairing, player: SwissPlayer.WithUser)
 
   object Fields {
-    val id      = "_id"
-    val swissId = "s"
-    val round   = "r"
-    val gameId  = "g"
-    val players = "p"
-    val status  = "t"
+    val id        = "_id"
+    val swissId   = "s"
+    val round     = "r"
+    val gameId    = "g"
+    val players   = "p"
+    val status    = "t"
+    val isForfeit = "f"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
     pairings.foldLeft[PairingMap](Map.empty) { case (acc, pairing) =>
       pairing.players.foldLeft(acc) { case (acc, player) =>
-        acc.updatedWith(player) { acc =>
-          (~acc).updated(pairing.round, pairing).some
+        acc.updatedWith(player) { playerPairings =>
+          (~playerPairings).updated(pairing.round, pairing).some
         }
       }
     }

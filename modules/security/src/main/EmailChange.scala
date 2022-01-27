@@ -5,15 +5,16 @@ import lila.common.config._
 import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
+import lila.mailer.Mailer
 
 final class EmailChange(
     userRepo: UserRepo,
-    mailgun: Mailgun,
+    mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def send(user: User, email: EmailAddress): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
@@ -21,23 +22,21 @@ final class EmailChange(
       implicit val lang = user.realLang | lila.i18n.defaultLang
       val url           = s"$baseUrl/account/email/confirm/$token"
       lila.log("auth").info(s"Change email URL ${user.username} $email $url")
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = trans.emailChange_subject.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.emailChange_intro.txt()}
 ${trans.emailChange_click.txt()}
 
 $url
 
 ${trans.common_orPaste.txt()}
-
-${Mailgun.txt.serviceNote}
-""",
+"""),
         htmlBody = emailMessage(
           pDesc(trans.emailChange_intro()),
           p(trans.emailChange_click()),
-          potentialAction(metaName("Change email address"), Mailgun.html.url(url)),
+          potentialAction(metaName("Change email address"), Mailer.html.url(url)),
           serviceNote
         ).some
       )
@@ -48,7 +47,7 @@ ${Mailgun.txt.serviceNote}
     tokener read token dmap (_.flatten) flatMap {
       _ ?? { case TokenPayload(userId, email) =>
         userRepo.email(userId) flatMap { previous =>
-          (userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId))
+          (userRepo.setEmail(userId, email).recoverDefault >> userRepo.byId(userId))
             .map2(_ -> previous)
         }
       }

@@ -1,0 +1,69 @@
+.oauth {
+  width: 100%;
+  margin: auto;
+
+  @include breakpoint($mq-x-small) {
+    width: 40em;
+  }
+
+  ul {
+    margin: 25px;
+  }
+  li {
+    list-style: disc outside;
+  }
+
+  strong {
+    color: $c-brag;
+  }
+  code {
+    word-wrap: anywhere;
+  }
+
+  &__top {
+    text-align: center;
+    margin-bottom: 4em;
+  }
+
+  &__logo {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+  }
+
+  h1 {
+    @extend %break-word;
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  &__scopes {
+    li {
+      margin: 0.7em 0;
+    }
+    .danger {
+      &::before {
+        @extend %data-icon;
+
+        margin-right: 0.2em;
+        content: '';
+        color: $c-bad;
+      }
+    }
+  }
+
+  .form-actions {
+    margin: 1.5rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $c-border;
+  }
+
+  &__footer {
+    color: $c-font-dim;
+    font-size: 0.9em;
+    text-align: center;
+
+    strong {
+      @extend %break-word;
+    }
+  }
+}

@@ -16,12 +16,11 @@
       margin: 2em 0 0 0;
     }
 
-
     a {
       font-size: 1.1em;
       text-align: center;
-      margin: .2em 0;
-      padding: .5em;
+      margin: 0.2em 0;
+      padding: 0.5em;
 
       &.disabled {
         opacity: 0.2;
@@ -49,14 +48,12 @@
       padding: 0;
     }
 
-
     @include breakpoint($mq-col4) {
       flex-flow: column;
       align-items: flex-start;
       position: absolute;
       bottom: 0;
     }
-
 
     a {
       color: $c-font-page;

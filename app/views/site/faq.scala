@@ -43,7 +43,7 @@ object faq {
           ),
           p(
             whyIsLilaCalledLila(
-              a(href := "https://github.com/ornicar/lila")("lila"),
+              a(href := "https://github.com/lichess-org/lila")("lila"),
               a(href := "https://www.scala-lang.org/")("Scala")
             )
           )
@@ -54,9 +54,9 @@ object faq {
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
             findMoreAndSeeHowHelp(
-              a(href := routes.Plan.index())(beingAPatron()),
-              a(href := routes.Main.costs())(breakdownOfOurCosts()),
-              a(href := routes.Page.help())(otherWaysToHelp())
+              a(href := routes.Plan.index)(beingAPatron()),
+              a(href := routes.Main.costs)(breakdownOfOurCosts()),
+              a(href := routes.Page.help)(otherWaysToHelp())
             )
           )
         ),
@@ -73,17 +73,11 @@ object faq {
           ul(
             li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
             li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
-            li(a(href := "https://lidraughts.org")("lidraughts.org"))
+            li(a(href := "https://lidraughts.org")("lidraughts.org")),
+            li(a(href := "https://lishogi.org")("lishogi.org"))
           )
         ),
         h2(fairPlay()),
-        question(
-          "marks",
-          whyFlaggedRatingManipulationOrCheater.txt(),
-          p(
-            cheatDetectionMethods(contactEmail)
-          )
-        ),
         question(
           "rating-refund",
           whenAmIEligibleRatinRefund.txt(),
@@ -132,7 +126,7 @@ object faq {
           whatVariantsCanIplay.txt(),
           p(
             lichessSupportChessAnd(
-              a(href := routes.Page.variantHome())(eightVariants())
+              a(href := routes.Page.variantHome)(eightVariants())
             )
           )
         ),
@@ -157,8 +151,15 @@ object faq {
             explainingEnPassant(
               a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
               a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
-              a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
+              a(href := s"${routes.Learn.index}#/15")(lichessTraining())
             )
+          ),
+          p(
+            "Watch International Master Eric Rosen ",
+            a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
+              "checkmate en passant"
+            ),
+            "."
           )
         ),
         question(
@@ -189,7 +190,7 @@ object faq {
           titlesAvailableOnLichess.txt(),
           p(
             lichessRecognizeAllOTBtitles(
-              a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
+              a(href := "https://github.com/lichess-org/lila/wiki/Handling-title-verification-requests")(
                 asWellAsManyNMtitles()
               )
             )
@@ -206,7 +207,7 @@ object faq {
           ),
           p(
             showYourTitle(
-              a(href := routes.Main.verifyTitle())(verificationForm()),
+              a(href := routes.Main.verifyTitle)(verificationForm()),
               a(href := "#lm")("Lichess master (LM)")
             )
           )
@@ -222,9 +223,14 @@ object faq {
           whatUsernameCanIchoose.txt(),
           p(
             usernamesNotOffensive(
-              a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
+              a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(guidelines())
             )
           )
+        ),
+        question(
+          "change-username",
+          canIChangeMyUsername.txt(),
+          p(usernamesCannotBeChanged.txt())
         ),
         question(
           "trophies",
@@ -256,6 +262,9 @@ object faq {
           whichRatingSystemUsedByLichess.txt(),
           p(
             ratingSystemUsedByLichess()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(
@@ -281,7 +290,7 @@ object faq {
           howDoLeaderoardsWork.txt(),
           p(
             inOrderToAppearsYouMust(
-              a(href := routes.User.list())(ratingLeaderboards())
+              a(href := routes.User.list)(ratingLeaderboards())
             )
           ),
           ol(
@@ -304,6 +313,9 @@ object faq {
           whyAreRatingHigher.txt(),
           p(
             whyAreRatingHigherExplanation()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(
@@ -330,6 +342,19 @@ object faq {
           p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
             lichessCanOptionnalySendPopUps()
+          )
+        ),
+        question(
+          "make-a-bot",
+          "Make a Lichess bot?",
+          p(
+            "To learn how to create a ",
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            ", please read ",
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+              "this blog post"
+            ),
+            "."
           )
         )
       )

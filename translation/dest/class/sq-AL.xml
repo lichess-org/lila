@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">E dukshme edhe nga mësuesit edhe nga nxënësit</string>
   <string name="teachersOfTheClass">Mësuesit</string>
   <string name="addLichessUsernames">Shto emra të përdoruesve të Lichess për ti ftuar ata si mësues. Një për linjë.</string>
-  <string name="theyMustFirstApply">Ata duhet te aplikojne per te qene Mesues Lichessi ne fillim.</string>
   <string name="resetPassword">Rivendos fjalëkalimin</string>
   <string name="makeSureToCopy">Sigurohu qe e kopjove ose e shkruajte dikund fjalekalimin tani. S\'do te keni mundesi ta shifni perseri!</string>
   <string name="passwordX">Fjalekalimi: %s</string>
@@ -53,11 +52,10 @@ Fjalekalimi: %3$s</string>
 Kjo eshte adresa per tu futur ne klase.</string>
   <string name="invitationToClass">Jeni i ftuar per t\'ju bashkangjitur klasses \"%s\" si student.</string>
   <string name="clickToViewInvitation">Klikoni adresen per te pare ftesen:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Nje ftese ne pritje</item>
     <item quantity="other">%s ftesa ne pritje</item>
   </plurals>
-  <string name="noPendingInvitations">Ska ftesa ne pritje</string>
   <string name="onlyVisibleToTeachers">E dukshme vetem nga mesuesi i klases</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">E menaxhuar</string>
@@ -86,4 +84,12 @@ Kjo eshte adresa per tu futur ne klase.</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
   <string name="winrate">Perqindja e fitoreve</string>
   <string name="na">Nuk aplikohet</string>
+  <string name="news">Lajmet e klasave</string>
+  <string name="editNews">Redakto lajmet</string>
+  <string name="notifyAllStudents">Njoftojini të gjithë studentët</string>
+  <string name="nothingHere">Asgjë këtu, ende.</string>
+  <string name="newsEdit1">Të gjitha lajmet e klasave në një fushë të vetme.</string>
+  <string name="newsEdit2">Shtoni lajmet e fundit në krye. Mos fshini lajmet e mëparshme.</string>
+  <string name="newsEdit3">Lajme të ndara me ---
+Do të shfaqë një vijë horizontale.</string>
 </resources>

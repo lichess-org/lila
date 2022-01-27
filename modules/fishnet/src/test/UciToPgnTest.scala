@@ -208,9 +208,8 @@ final class UciToPgnTest extends Specification {
           Info(29, Eval(None, Some(Mate(-2)), None), List())
         ),
         0,
-        None,
-        None,
-        now
+        now,
+        None
       )
 
       val pgn =
@@ -288,7 +287,7 @@ final class UciToPgnTest extends Specification {
         "Qxg5#"
       )
       val rep         = Replay(pgn, None, chess.variant.KingOfTheHill).map(evenIncomplete).toOption.get
-      val uciAnalysis = Analysis("g5hX8efz", None, Nil, 0, None, None, now)
+      val uciAnalysis = Analysis("g5hX8efz", None, Nil, 0, now, None)
       UciToPgn(rep, uciAnalysis) match {
         case (_, errs) => errs must beEmpty
       }

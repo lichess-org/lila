@@ -23,8 +23,8 @@
 Un fou de cases noires.
 Vous avez besoin des deux !</string>
   <string name="bishopComplete">Félicitations ! Vous maîtrisez les déplacements du Fou.</string>
-  <string name="theQueen">La Dame</string>
-  <string name="queenCombinesRookAndBishop">Une dame = une tour + un fou</string>
+  <string name="theQueen">La dame</string>
+  <string name="queenCombinesRookAndBishop">Dame = tour + fou</string>
   <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Dame !</string>
   <string name="queenComplete">Félicitations ! La Dame n\'a plus de secret pour vous.</string>
   <string name="theKing">Le Roi</string>
@@ -170,6 +170,12 @@ Le Roi est irremplaçable ! Le perdre signifie perdre la partie.</string>
   <string name="queenOverBishop">Prenez la pièce avec
 la valeur la plus élevée !
 Dame &gt; Fou</string>
+  <string name="pieceValueExchange">Prenez la pièce de plus grande valeur !
+ N\'échangez pas
+ une pièce de valeur supérieure contre une pièce de moindre valeur.</string>
+  <string name="pieceValueLegal">Prenez la pièce
+de plus grande valeur !
+Assurez-vous que votre déplacement est légal !</string>
   <string name="takeThePieceWithTheHighestValue">Prenez la pièce avec
 la valeur la plus élevée !</string>
   <string name="pieceValueComplete">Félicitations ! Vous connaissez la valeur des pièces !
@@ -179,7 +185,7 @@ Fou = 3
 Cavalier = 3
 Pion = 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
-  <string name="twoMovesToGiveCheck">Donnez un échec en deux coups</string>
+  <string name="twoMovesToGiveCheck">Mettez échec en deux coups</string>
   <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec !</string>
   <string name="checkInTwoGoal">Menacez le Roi adverse
 en deux coups !</string>

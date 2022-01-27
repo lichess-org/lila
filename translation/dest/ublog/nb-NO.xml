@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Bloggen til %s</string>
+  <string name="newPost">Nytt innlegg</string>
+  <string name="editYourBlogPost">Rediger blogginnlegget ditt</string>
+  <string name="saveDraft">Lagre utkast</string>
+  <string name="postTitle">Tittel</string>
+  <string name="postIntro">Ingress</string>
+  <string name="postBody">Tekst</string>
+  <string name="drafts">Utkast</string>
+  <string name="published">Publisert</string>
+  <string name="publishOnYourBlog">Publiser på bloggen din</string>
+  <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Har publisert et blogginnlegg</item>
+    <item quantity="other">Har publisert %s blogginnlegg</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">En visning</item>
+    <item quantity="other">%s visninger</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publiserte %2$s</string>
+  <string name="thisPostIsPublished">Dette innlegget er publisert</string>
+  <string name="thisIsADraft">Dette er et utkast</string>
+  <string name="moreBlogPostsBy">Flere blogginnlegg av %s</string>
+  <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
+  <string name="noDrafts">Ingen utkast å vise.</string>
+  <string name="latestBlogPosts">Siste blogginnlegg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Vis ett innlegg</item>
+    <item quantity="other">Vis alle %s innleggene</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Last opp et bilde til innlegget ditt</string>
+  <string name="imageAlt">Alternativ tekst for bildet</string>
+  <string name="imageCredit">Bildekreditering</string>
+</resources>

@@ -9,20 +9,20 @@ import lila.common.config.CollName
 final class Env(
     appConfig: Configuration,
     messenger: lila.msg.MsgApi,
+    reporter: lila.hub.actors.Report,
     chatApi: lila.chat.ChatApi,
     userRepo: lila.user.UserRepo,
+    noteApi: lila.user.NoteApi,
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   private lazy val playbanColl = db(
     CollName(appConfig.get[String]("playban.collection.playban"))
   )
 
   private lazy val feedback = wire[PlaybanFeedback]
-
-  private lazy val sandbag = wire[SandbagWatch]
 
   lazy val api = wire[PlaybanApi]
 }

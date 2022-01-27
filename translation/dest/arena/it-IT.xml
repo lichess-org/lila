@@ -46,4 +46,16 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
   <string name="drawStreak">Serie di patte: quando in un\'arena un giocatore pareggia in partite consecutive viene assegnato un punto solo per il primo pareggio o per ogni patta in cui sono state effettuate più di %s mosse. La serie di patte può essere interrotta solo da una vittoria, non da una sconfitta o da un\'ulteriore patta.</string>
   <string name="history">Cronologia dell\'Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Visualizza la squadra</item>
+    <item quantity="other">Visualizza tutte le %s squadre</item>
+  </plurals>
+  <string name="newTeamBattle">Nuova Battaglia di Squadra</string>
+  <string name="customStartDate">Data iniziale personalizzata</string>
+  <string name="customStartDateHelp">Nel tuo fuso orario locale. Questo sovrascrive l\'impostazione \"Tempo prima dell\'inizio del torneo\"</string>
+  <string name="allowBerserk">Consenti Berserk</string>
+  <string name="allowBerserkHelp">Consenti ai giocatori di dimezzare il loro tempo d\'orologio per ottenere un punto extra</string>
+  <string name="allowChatHelp">Consenti ai giocatori di discutere nella chat room</string>
+  <string name="arenaStreaks">Serie dell\'arena</string>
+  <string name="arenaStreaksHelp">Dopo 2 vittorie, le vittorie consecutive concedono 4 punti invece di 2.</string>
 </resources>

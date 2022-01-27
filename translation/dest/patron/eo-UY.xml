@@ -17,13 +17,11 @@
   <string name="lifetime">Dumviva</string>
   <string name="payLifetimeOnce">Pagu %s unufoje. Estu Patrono de Lichess por ĉiam!</string>
   <string name="lifetimePatron">Dumviva Lichess Patrono</string>
-  <string name="makeExtraDonation">Ĉu fari kroman donacon?</string>
   <string name="monthly">Ĉiumonate</string>
   <string name="recurringBilling">Recidiva fakturo, renovigante viajn Patron flugilojn ĉiumonate.</string>
   <string name="onetime">Unu foje</string>
   <string name="singleDonation">Ununura donaco, kiu donas al vi la Patron-flugilojn dum unu monato.</string>
   <string name="otherAmount">Alia</string>
-  <string name="pleaseEnterAmount">Bonvolu enmeti sumon en USD</string>
   <string name="withCreditCard">Kreditkarto</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ni estas malgranda teamo, tial via subteno faras grandegan diferencon!</string>
@@ -40,7 +38,6 @@ Aŭ vi povas %s.</string>
   <string name="contactSupport">kontaktu la subtenon de Lichess</string>
   <string name="otherMethods">Ĉu estas aliaj metodoj por donaci?</string>
   <string name="bankTransfers">Ni ankaŭ akceptas bankmandatojn</string>
-  <string name="bitcoin">Kaj jen nia bitcoin adreso: %s</string>
   <string name="patronFeatures">Ĉu iuj funkcioj estas rezervitaj por Patronoj?</string>
   <string name="noPatronFeatures">Ne, ĉar Lichess estas tute senpaga, por ĉiam kaj por ĉiuj. Tio estas promeso. 
 Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
@@ -62,8 +59,6 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="decideHowMuch">Decidu, kiom valoras Lichess por vi:</string>
   <string name="stopPayments">Retiru vian kreditkarton kaj ĉesu pagojn:</string>
   <string name="noLongerSupport">Ne plu subtenas Lichess</string>
-  <string name="paymentHistory">Pago-historio</string>
-  <string name="paid">Pagita</string>
   <string name="viewOthers">Rigardi aliajn Lichess Patronojn</string>
   <string name="date">Dato</string>
   <string name="amount">Sumo</string>

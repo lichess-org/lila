@@ -1,3 +1,5 @@
+@import 'themes';
+
 $td-outer-height-ratio: 476 / 512;
 $td-outer-height-percent: $td-outer-height-ratio * 100%;
 $td-inner-height-ratio: 464.5 / 512;
@@ -6,10 +8,9 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
 @include breakpoint($mq-col1-uniboard) {
   .is3d {
     /* horiz scroll caused by 3d pieces overflowing the board */
-    overflow: hidden;
+    overflow-x: clip;
   }
 }
-
 
 .main-board {
   padding-bottom: $td-outer-height-percent;
@@ -17,18 +18,6 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
   .cg-wrap {
     height: $td-inner-relative-percent;
   }
-}
-
-cg-helper {
-  // Default (from 2D boards) would be 12.5% of width.
-  padding-bottom: $td-inner-height-ratio * 12.5%;
-
-  // The "display: table" hack is not useful here, because the board is not
-  // square. So heights corresponding to rounded widths are not always
-  // integers, much less have the desired effect.
-  // Additionally behavior with non-integer heights varies across Chrome
-  // versions.
-  display: block;
 }
 
 piece {
@@ -60,11 +49,6 @@ cg-board::before {
 
 .is2d {
   /* override miniboards */
-  cg-helper {
-    padding-bottom: 12.5%;
-    display: table;
-  }
-
   cg-board {
     top: 0;
     height: 100%;
@@ -75,29 +59,52 @@ cg-board::before {
   }
 }
 
-$board-files: "Black-White-Aluminium", "Brushed-Aluminium", "China-Blue", "China-Green", "China-Grey", "China-Scarlet", "China-Yellow", "Classic-Blue", "Transparent-Glass", "Gold-Silver", "Green-Glass", "Light-Wood", "Power-Coated", "Purple-Black", "Rosewood", "Wood-Glass", "Wax", "Jade", "Marble", "Woodi";
+@each $name, $theme in $board-themes-3d {
+  .#{$name} .is3d {
+    cg-board::before {
+      background-image: img-url('staunton/board/#{$name}.png');
+    }
 
-@each $name in $board-files {
-  .#{$name} cg-board::before {
-    background-image: img-url("staunton/board/#{$name}.png");
+    $coord-color-white: map-get($theme, coord-color-white);
+    $coord-color-black: map-get($theme, coord-color-black);
+
+    @if $coord-color-white and $coord-color-black {
+      coords {
+        --cg-ccw: #{$coord-color-white};
+        --cg-ccb: #{$coord-color-black};
+        --cg-cs: none;
+      }
+    }
   }
 }
 
-$piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": true, "Metal": true, "ModernJade": true, "ModernWood": true, "RedVBlue": true, "Trimmed": true, "Wood": true, "CubesAndPi": true);
+$piece-files: (
+  'Staunton': false,
+  'Basic': true,
+  'Experimental': true,
+  'Glass': true,
+  'Metal': true,
+  'ModernJade': true,
+  'ModernWood': true,
+  'RedVBlue': true,
+  'Trimmed': true,
+  'Wood': true,
+  'CubesAndPi': true,
+);
 
 @each $name, $flips in $piece-files {
-  @each $color in "White", "Black" {
-    @each $type in "Pawn", "Bishop", "Knight", "Rook", "Queen", "King" {
+  @each $color in 'White', 'Black' {
+    @each $type in 'Pawn', 'Bishop', 'Knight', 'Rook', 'Queen', 'King' {
       .#{$name} .#{to-lower-case($type)}.#{to-lower-case($color)} {
-        background-image: img-url("staunton/piece/#{$name}/#{$color}-#{$type}.png");
+        background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}.png');
       }
     }
 
     @if $flips {
-      @each $color, $orientation in ("White": "black", "Black": "white") {
-        @each $type in "Bishop", "Knight" {
+      @each $color, $orientation in ('White': 'black', 'Black': 'white') {
+        @each $type in 'Bishop', 'Knight' {
           .#{$name} .main-board .orientation-#{$orientation} .#{to-lower-case($type)}.#{to-lower-case($color)} {
-            background-image: img-url("staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png");
+            background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png');
           }
         }
       }
@@ -114,7 +121,8 @@ $piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": 
   background-position: 0 -6px;
 }
 
-.main-board, .eval-gauge {
+.main-board,
+.eval-gauge {
   margin-top: 4vh;
 }
 
@@ -122,6 +130,6 @@ $piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": 
   $resize-width: 20px;
 
   @include breakpoint($mq-col2-uniboard) {
-    bottom: #{28px - $resize-width}!important;
+    bottom: #{28px - $resize-width} !important;
   }
 }

@@ -31,7 +31,7 @@ final class ExplorerImporter(
     }
 
   private def fetchPgn(id: String): Fu[Option[String]] = {
-    ws.url(s"$endpoint/master/pgn/$id").get() map {
+    ws.url(s"$endpoint/masters/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _                        => None
     }

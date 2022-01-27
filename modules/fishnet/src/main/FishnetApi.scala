@@ -27,7 +27,8 @@ final class FishnetApi(
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers._
 
-  private val workQueue = new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
+  private val workQueue =
+    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
@@ -91,14 +92,10 @@ final class FishnetApi(
           data.completeOrPartial match {
             case complete: CompleteAnalysis =>
               {
-                if (complete.weak && work.game.variant.standard) {
-                  Monitor.weak(work, client, complete)
-                  repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
-                } else
-                  analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
-                    monitor.analysis(work, client, complete)
-                    repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
-                  }
+                analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
+                  monitor.analysis(work, client, complete)
+                  repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
+                }
               } recoverWith { case e: Exception =>
                 Monitor.failure(work, client, e)
                 repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
@@ -187,10 +184,6 @@ object FishnetApi {
       offlineMode: Boolean,
       analysisNodes: Int
   )
-
-  case class WeakAnalysis(client: Client) extends LilaException {
-    val message = s"$client: Analysis nodes per move is too low"
-  }
 
   case object WorkNotFound extends LilaException {
     val message = "The work has disappeared"

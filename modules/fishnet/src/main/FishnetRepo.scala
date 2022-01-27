@@ -43,14 +43,6 @@ final private class FishnetRepo(
       )
     )
 
-  def lichessClients =
-    clientColl.list[Client](
-      $doc(
-        "enabled" -> true,
-        "userId" $startsWith "lichess-"
-      )
-    )
-
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void

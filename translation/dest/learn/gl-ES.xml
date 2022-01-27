@@ -188,6 +188,12 @@ O rei ten un valor incalculable! Perdelo significa perder a partida.</string>
   <string name="queenOverBishop">Toma a peza
 de maior valor!
 Dama &gt; Bispo</string>
+  <string name="pieceValueExchange">Toma a peza co valor máis alto!
+Non cambies
+unha peza por outra dunha menor valor.</string>
+  <string name="pieceValueLegal">Toma a peza
+co valor máis alto!
+Asegúrate que o teu movemento é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Toma a peza
 de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Sabes o valor do material!

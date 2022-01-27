@@ -7,12 +7,14 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo
+    noteApi: lila.user.NoteApi,
+    userRepo: lila.user.UserRepo,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val coll = db(CollName("appeal"))
 
-  lazy val forms = wire[AppealForm]
+  private lazy val snoozer = new lila.memo.Snoozer[Appeal.SnoozeKey](cacheApi)
 
   lazy val api: AppealApi = wire[AppealApi]
 }

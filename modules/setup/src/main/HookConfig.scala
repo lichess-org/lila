@@ -122,11 +122,13 @@ object HookConfig extends BaseHumanConfig {
     )
   }
 
-  val default = HookConfig(
+  def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
+
+  private val default = HookConfig(
     variant = variantDefault,
     timeMode = TimeMode.RealTime,
     time = 5d,
-    increment = 8,
+    increment = 3,
     days = 2,
     mode = Mode.default,
     ratingRange = RatingRange.default,

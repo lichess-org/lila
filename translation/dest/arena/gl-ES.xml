@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Torneos</string>
   <string name="isItRated">É puntuado?</string>
   <string name="willBeNotified">Serás notificado cando o torneo comece, polo que podes xogar sen problema noutra pestaña mentres agardas.</string>
   <string name="isRated">Este torneo é puntuado e afectará á túa puntuación.</string>
@@ -29,6 +30,25 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
   <string name="howDoesItEnd">Como remata?</string>
   <string name="howDoesItEndAnswer">O torneo ten unha conta atrás de tempo. Cando chega a cero, a clasificación do torneo se conxela, e o gañador é proclamado. As partidas en curso nese momento deben ser rematadas, pero non contan para a clasificación do torneo.</string>
   <string name="otherRules">Outras regras importantes</string>
+  <string name="thereIsACountdown">Hai unha conta atrás para o teu primer movemento. Non executalo neste tempo dará a partida ao teu opoñente.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Se a partida remata en táboas no primero movemento, non se concederán puntos a ningún dos xogadores.</item>
+    <item quantity="other">Se a partida remata en táboas durante os primeros %s movementos, non se concederán puntos a ningún dos xogadores.</item>
+  </plurals>
   <string name="thisIsPrivate">Este é un torneo privado</string>
   <string name="shareUrl">Comparte esta URL para que a xente se una: %s</string>
+  <string name="drawStreak">Secuencia de táboas: Cando un xogador fai táboas en varias partidas consecutivas nun torneo, só conceden un punto a primera delas e as que duraran %s movemientos ou máis. Una secuencia de táboas só pode romperse mediante unha vitoria, non serven nin una derrota nin unhas táboas.</string>
+  <string name="history">Historial de torneos Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Ver o equipo</item>
+    <item quantity="other">Ver todos os %s equipos</item>
+  </plurals>
+  <string name="newTeamBattle">Nova batalla por equipos</string>
+  <string name="customStartDate">Fecha de comezo persoalizada</string>
+  <string name="customStartDateHelp">Na túa zona de tempo local. Isto sobreescribe a preferencia \"Tempo antes de que o torneo comece\"</string>
+  <string name="allowBerserk">Berserk permitido</string>
+  <string name="allowBerserkHelp">Deixa ás xogadoras que reduzan á metade o seu tempo para gañar un ponto extra</string>
+  <string name="allowChatHelp">Deixa ás xogadoras falar nunha sala de chat</string>
+  <string name="arenaStreaks">Racha de victorias no Torneo</string>
+  <string name="arenaStreaksHelp">Despois de 2 victorias, as seguintes victorias consecutivas dan 4 pontos en lugar de 2.</string>
 </resources>

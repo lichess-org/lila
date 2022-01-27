@@ -17,13 +17,11 @@
   <string name="lifetime">Pergjithmone</string>
   <string name="payLifetimeOnce">Paguani %s një herë. Bëhuni Patron në Lichess përgjithmonë!</string>
   <string name="lifetimePatron">Patron i përjetshëm i Lichessit</string>
-  <string name="makeExtraDonation">Bëni një donacion shtesë?</string>
   <string name="monthly">Çdo muaj</string>
   <string name="recurringBilling">Faturim i përsëritur, duke ripërtërirë krahët e juaj të Patronit çdo muaj.</string>
   <string name="onetime">Një herë</string>
   <string name="singleDonation">Një donacion i vetëm që u mundëson krahët e Patronit për një muaj.</string>
   <string name="otherAmount">Tjetër</string>
-  <string name="pleaseEnterAmount">Ju lutemi shënoni një shumë në USD</string>
   <string name="withCreditCard">Kartë krediti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ne jemi ekip i vogël, andaj përkrahja juaj bën dallim të madh!</string>
@@ -40,7 +38,6 @@ Ose mund të %s.</string>
   <string name="contactSupport">kontaktoni supportin e Lichess</string>
   <string name="otherMethods">Metoda tjera për të bërë donacion?</string>
   <string name="bankTransfers">Ne po ashtu pranojmë edhe transfere bankare</string>
-  <string name="bitcoin">Dhe këtu është adresa jonë e bitcoin-it: %s</string>
   <string name="patronFeatures">A janë disa opsione të rezervuara për Patronët?</string>
   <string name="noPatronFeatures">Jo, sepse Lichess është krejtësisht falas, përgjithmonë, dhe për të gjithë. Iu premtojmë.
 Sidoqoftë, Patronët mund të mburren me një ikonë të re profili.</string>
@@ -62,8 +59,6 @@ Sidoqoftë, Patronët mund të mburren me një ikonë të re profili.</string>
   <string name="decideHowMuch">Vendosni se sa vlen Lichess për ju:</string>
   <string name="stopPayments">Tërhiqni kredit kartelën tuaj dhe ndalni pagesat:</string>
   <string name="noLongerSupport">Mos e mbështesni Lichess-in më</string>
-  <string name="paymentHistory">Historia e pagesave</string>
-  <string name="paid">E paguar</string>
   <string name="viewOthers">Shikoni Patronët tjerë të Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Shuma</string>

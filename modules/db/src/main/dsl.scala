@@ -34,9 +34,7 @@ trait dsl {
 
   def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
 
-  def $arr(elements: Producer[BSONValue]*): Barr = {
-    BSONArray(elements: _*)
-  }
+  def $arr(elements: Producer[BSONValue]*): Barr = BSONArray(elements: _*)
 
   def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
 
@@ -64,6 +62,10 @@ trait dsl {
 
   def $nor(expressions: Bdoc*): Bdoc = {
     $doc("$nor" -> expressions)
+  }
+
+  def $not(expression: Bdoc): Bdoc = {
+    $doc("$not" -> expression)
   }
   // End of Top Level Logical Operators
   //**********************************************************************************************//
@@ -293,13 +295,6 @@ trait dsl {
 
   }
 
-  trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: String => Expression[Bdoc]): SimpleExpression[Bdoc] = {
-      val expression = f(field)
-      SimpleExpression(field, $doc("$not" -> expression.value))
-    }
-  }
-
   trait ElementOperators { self: ElementBuilder =>
     def $exists(v: Boolean): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$exists" -> v))
@@ -342,7 +337,40 @@ trait dsl {
 
     val createdAsc  = asc("createdAt")
     val createdDesc = desc("createdAt")
-    val updatedDesc = desc("updatedAt")
+  }
+
+  object $lookup {
+    def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
+      "$lookup" -> $doc(
+        "from"         -> from,
+        "as"           -> as,
+        "localField"   -> local,
+        "foreignField" -> foreign
+      )
+    )
+    def simple(from: Coll, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name, as, local, foreign)
+    def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name.value, as, local, foreign)
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      $doc(
+        "$lookup" -> $doc(
+          "from" -> from,
+          "as"   -> as,
+          "let"  -> $doc("local" -> s"$$$local"),
+          "pipeline" -> {
+            $doc(
+              "$match" -> $doc(
+                "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+              )
+            ) :: pipe
+          }
+        )
+      )
+    def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name, as, local, foreign, pipe)
+    def pipeline(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name.value, as, local, foreign, pipe)
   }
 
   implicit class ElementBuilderLike(val field: String)
@@ -350,7 +378,6 @@ trait dsl {
       with ComparisonOperators
       with ElementOperators
       with EvaluationOperators
-      with LogicalOperators
       with ArrayOperators
 
   implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =

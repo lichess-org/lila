@@ -11,6 +11,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.game.Game
 import lila.user.User
+import lila.history.RatingChartApi
 
 object page {
 
@@ -34,7 +35,7 @@ object page {
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10
     ) {
@@ -53,7 +54,8 @@ object page {
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[_]],
-      social: lila.app.mashup.UserInfo.Social
+      social: lila.app.mashup.UserInfo.Social,
+      notes: Map[Game.ID, String]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title =
@@ -63,7 +65,7 @@ object page {
       moreCss = frag(
         cssTag("user.show"),
         filters.current.name == "search" option cssTag("user.show.search"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10
     ) {
@@ -71,7 +73,7 @@ object page {
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           views.html.user.show.header(u, info, Angle.Games(searchForm), social),
-          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
+          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name, notes))
         )
       )
     }
@@ -83,11 +85,13 @@ object page {
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart)")
+          embedJsUnsafeLoadThen(
+            s"lichess.ratingHistoryChart($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
+          )
         )
       },
       withSearch option jsModule("gameSearch"),
-      isGranted(_.UserSpy) option jsModule("mod.user")
+      isGranted(_.UserModView) option jsModule("mod.user")
     )
 
   def disabled(u: User)(implicit ctx: Context) =

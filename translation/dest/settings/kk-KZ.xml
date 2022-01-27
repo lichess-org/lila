@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">Баптаулар</string>
-  <string name="closeAccount">Аккаунтты жабу</string>
+  <string name="closeAccount">Тіркелгіні жабу</string>
   <string name="closingIsDefinitive">Жабу - түпкілікті! Кері жол жоқ. Сенімдісіз бе?</string>
-  <string name="cantOpenSimilarAccount">Аттары бірдей аккаунт жасауға жол жоқ (әріптер үлкендігі әр-түрлі болса да).</string>
-  <string name="changedMindDoNotCloseAccount">Мен ойымды өзгерттім, аккаунтымды жаппаңызшы</string>
-  <string name="closeAccountExplanation">Сіз өз аккаунтыңызды жабуды растайсыз ба? Аккаут жабу - қайтарымсыз әрекет. Қайтадан аккаунтқа ЕШҚАШАН КІРЕ АЛМАЙСЫЗ.</string>
-  <string name="thisAccountIsClosed">Бұл аккаунт жабылды.</string>
+  <string name="cantOpenSimilarAccount">Аттары бірдей тіркелгі жасауға жол жоқ (әріптер үлкендігі әр-түрлі болса да).</string>
+  <string name="changedMindDoNotCloseAccount">Мен ойымды өзгерттім, тіркелгімді жаппаңызшы</string>
+  <string name="closeAccountExplanation">Сіз өз тіркелгіңіздің жабуын растайсыз ба? Тіркелгі жабу - қайтарымсыз әрекет. Тіркелгіге қайтадан ЕШҚАШАН КІРЕ АЛМАЙСЫЗ.</string>
+  <string name="thisAccountIsClosed">Бұл тіркелгі жабылды.</string>
 </resources>

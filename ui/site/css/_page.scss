@@ -1,10 +1,13 @@
 .page {
   .body {
     font-size: 1.1em;
-    text-align: justify;
+    overflow-wrap: anywhere;
 
     h2 {
-      margin-top: 1.3em;
+      margin: 1.8em 0 0.5em 0;
+      border-bottom: 1px solid $c-brag;
+      line-height: 1.5em;
+      padding-bottom: 0.5em;
     }
 
     p,
@@ -15,12 +18,12 @@
 
     ul li {
       list-style: disc outside;
-      margin: .5em 0 0 1.5em;
+      margin: 0.5em 0 0 1.5em;
     }
 
     ol li {
       list-style: decimal inside;
-      margin: .5em 0;
+      margin: 0.5em 0;
     }
 
     li {
@@ -30,7 +33,9 @@
     h3 {
       @extend %roboto;
 
-      font-size: 1.3em;
+      font-size: 1.5em;
+      line-height: 1.5em;
+      margin-top: 1.3em;
     }
 
     h4 {
@@ -45,9 +50,20 @@
       width: 100%;
     }
 
+    img,
     .block-img {
-      margin: 1em auto;
+      max-width: 100%;
+    }
+
+    .block-img {
+      margin: 2em auto 1em auto;
       text-align: center;
+
+      img {
+        @extend %box-neat-force;
+        width: auto;
+        height: auto;
+      }
     }
 
     .center {

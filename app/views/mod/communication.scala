@@ -1,32 +1,39 @@
 package views.html.mod
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
+import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
-
-import controllers.routes
+import lila.mod.IpRender.RenderIp
+import lila.user.{ Holder, User }
+import lila.shutup.Analyser
 
 object communication {
 
   def apply(
-      u: lila.user.User,
+      mod: Holder,
+      u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
-      convos: List[lila.msg.MsgConvo],
+      convos: List[lila.msg.ModMsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
+      logins: lila.security.UserLogins.TableData,
+      appeals: List[lila.appeal.Appeal],
       priv: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
         cssTag("mod.communication"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsModule("mod.user")
+        isGranted(_.UserModView) option jsModule("mod.user")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
@@ -51,7 +58,12 @@ object communication {
             }
           )
         ),
-        isGranted(_.UserSpy) option div(cls := "mod-zone none"),
+        isGranted(_.UserModView) option frag(
+          div(cls := "mod-zone mod-zone-full none"),
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+            cls := "mod-zone communication__logins"
+          )
+        ),
         history.nonEmpty option frag(
           h2("Moderation history"),
           div(cls := "history")(
@@ -74,8 +86,14 @@ object communication {
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
-              (isGranted(_.Doxing) || !note.dox) option
-                div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
+              (isGranted(_.Admin) || !note.dox) option
+                div(
+                  userIdLink(note.from.some),
+                  " ",
+                  momentFromNowOnce(note.date),
+                  ": ",
+                  richText(note.text)
+                )
             }
           )
         ),
@@ -84,7 +102,7 @@ object communication {
         else
           ul(cls := "public_chats")(
             publicLines.reverse.map { line =>
-              li(
+              li(cls := "line author")(
                 line.date.fold[Frag]("[OLD]")(momentFromNowOnce),
                 " ",
                 line.from.map {
@@ -95,8 +113,8 @@ object communication {
                   case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
-                " ",
-                line.text
+                nbsp,
+                span(cls := "message")(highlightBad(line.text))
               )
             }
           ),
@@ -113,7 +131,7 @@ object communication {
                   ),
                   title := pov.game.fromFriend.option("Friend game")
                 )(
-                  usernameOrAnon(pov.opponent.userId),
+                  titleNameOrAnon(pov.opponent.userId),
                   " – ",
                   momentFromNowOnce(pov.game.movedAt)
                 ),
@@ -125,9 +143,9 @@ object communication {
                         "author" -> (line.author.toLowerCase == u.id)
                       )
                     )(
-                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      richText(line.text)
+                      span(cls := "message")(highlightBad(line.text))
                     )
                   }
                 )
@@ -136,17 +154,20 @@ object communication {
           ),
           div(cls := "threads")(
             h2("Recent inbox messages"),
-            convos.map { convo =>
+            convos.map { modConvo =>
               div(cls := "thread")(
-                p(cls := "title")(strong(lightUserLink(convo.contact))),
+                p(cls := "title")(strong(userLink(modConvo.contact), showSbMark(modConvo.contact))),
                 table(cls := "slist")(
                   tbody(
-                    convo.msgs.reverse.map { msg =>
+                    modConvo.truncated option div(cls := "truncated-convo")(
+                      s"Truncated, showing last ${modConvo.msgs.length} messages"
+                    ),
+                    modConvo.msgs.reverse.map { msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
-                        td(strong(if (author) u.username else convo.contact.name)),
-                        td(richText(msg.text))
+                        td(strong(if (author) u.username else modConvo.contact.username)),
+                        td(cls := "message")(highlightBad(msg.text))
                       )
                     }
                   )
@@ -157,4 +178,17 @@ object communication {
         )
       )
     }
+
+  // incompatible with richText
+  def highlightBad(text: String): Frag = {
+    val words = Analyser(text).badWords
+    if (words.isEmpty) frag(text)
+    else {
+      val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
+      def tag(word: String) = s"<bad>$word</bad>"
+      raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
+    }
+  }
+
+  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
 }

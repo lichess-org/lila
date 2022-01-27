@@ -19,17 +19,19 @@ sealed trait UserContext {
 
   def is(user: User): Boolean = me contains user
 
+  def isUserId(id: User.ID): Boolean = userId contains id
+
   def userId = me.map(_.id)
 
   def username = me.map(_.username)
 
   def usernameOrAnon = username | "Anonymous"
 
-  def troll = me.??(_.marks.troll)
+  def troll = me.exists(_.marks.troll)
 
   def ip = lila.common.HTTPRequest ipAddress req
 
-  def kid   = me.??(_.kid)
+  def kid   = me.exists(_.kid)
   def noKid = !kid
 }
 
@@ -61,6 +63,7 @@ trait UserContextWrapper extends UserContext {
   val impersonatedBy = userContext.impersonatedBy
   def isBot          = me.exists(_.isBot)
   def noBot          = !isBot
+  def isAppealUser   = me.exists(!_.enabled)
 }
 
 object UserContext {

@@ -42,7 +42,6 @@ final object RawHtml {
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
   // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
-  // TODO(isaac): support @user/<subpath> syntax
   val atUsernameRegex = """@(?<![\w@#/]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 
   private[this] val atUsernamePat = atUsernameRegex.pattern
@@ -64,7 +63,7 @@ final object RawHtml {
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
-  def addLinks(text: String): String =
+  def addLinks(text: String, expandImg: Boolean = true): String =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -117,7 +116,7 @@ final object RawHtml {
             val url    = (if (isHttp) "http://" else "https://") + allButScheme
             val text   = if (isHttp) url else allButScheme
             val imgHtml = {
-              if (end < sArr.length && sArr(end) == '"') None
+              if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
               else imgUrl(url)
             }
             sb.append(

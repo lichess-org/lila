@@ -42,7 +42,7 @@ object created {
                   td(cls := "winner")(
                     t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false)
                   ),
-                  td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := "")(t.nbPlayers.localize)
                 )
               },
               pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Überträgigä</string>
+  <string name="liveBroadcasts">Live-Turnierüberträgigä</string>
+  <string name="newBroadcast">Neui Liveüberträgigä</string>
+  <string name="addRound">Ä Rundi hinzuefüegä</string>
+  <string name="ongoing">Am Laufä</string>
+  <string name="upcoming">Demnächscht</string>
+  <string name="completed">Beändät</string>
+  <string name="roundName">Rundäname</string>
+  <string name="roundNumber">Rundänummer</string>
+  <string name="tournamentName">Turniernamä</string>
+  <string name="tournamentDescription">Churzi Turnierbeschrybig</string>
+  <string name="fullDescription">Vollschtändigi Ereignisbeschrybig</string>
+  <string name="fullDescriptionHelp">Optionali, usfüehrlichi Beschrybig vode Überträgig. %1$s isch verfügbar. D\'Beschrybig mues chürzer als %2$s Zeichä sy.</string>
+  <string name="sourceUrlOrGameIds">Quell-URL oder Partie-IDs</string>
+  <string name="sourceUrlHelp">URL wo Lichess abfrogt, um PGN Aktualisierigä z\'becho. Si mues öffentlich usem Internet zuegänglich sy.</string>
+  <string name="gameIdsHelp">Alternativ chasch bis zu 64 dur Läärzeichä trennti Lichess-Partie-IDs ygäh.</string>
+  <string name="startDate">Startdatum in diner eigenä Zytzone</string>
+  <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afoht</string>
+  <string name="credits">Erwähn d\'Quellä</string>
+  <string name="resetRound">Diä Rundi zrüggsetzä</string>
+  <string name="deleteRound">Diä Rundi löschä</string>
+  <string name="broadcastUrl">Veröffentlichungs-URL</string>
+  <string name="currentRoundUrl">URL vode laufendä Rundi</string>
+  <string name="currentGameUrl">URL vode laufendä Partie</string>
+  <string name="downloadAllRounds">Alli Rundänä abäladä</string>
+</resources>

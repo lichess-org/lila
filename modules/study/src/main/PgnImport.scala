@@ -31,6 +31,7 @@ object PgnImport {
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {
           case (shapes, _, comments) =>
+            val sans = parsedPgn.sans.value take Node.MAX_PLIES
             val root = Node.Root(
               ply = replay.setup.turns,
               fen = initialFen | game.variant.initialFen,
@@ -41,10 +42,10 @@ object PgnImport {
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = Node.Children {
-                val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
+                val variations = makeVariations(sans, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
-                  sans = parsedPgn.sans.value,
+                  sans = sans,
                   annotator = annotator
                 ).fold(variations)(_ :: variations).toVector
               }

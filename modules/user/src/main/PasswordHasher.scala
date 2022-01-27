@@ -1,11 +1,11 @@
 package lila.user
 
-import java.security.SecureRandom
 import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits._
 
+import lila.common.SecureRandom
 import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
@@ -54,14 +54,12 @@ final private class PasswordHasher(
   import org.mindrot.BCrypt
   import User.ClearPassword
 
-  private val prng = new SecureRandom()
-  private val aes  = new Aes(secret)
+  private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
   def hash(p: ClearPassword): HashedPassword = {
-    val salt = new Array[Byte](16)
-    prng.nextBytes(salt)
+    val salt = SecureRandom.nextBytes(16)
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 
@@ -81,7 +79,7 @@ object PasswordHasher {
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 40 * 2, // double cost in case of hash check failure
-    duration = 8 minutes,
+    duration = 5 minutes,
     key = "password.hashes.ip"
   )
 
@@ -92,7 +90,7 @@ object PasswordHasher {
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
-    credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
+    credits = 6 * 10 * 60, // max out 6 cores for 60 seconds
     duration = 1 minute,
     key = "password.hashes.global"
   )

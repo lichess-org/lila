@@ -30,7 +30,7 @@ this.setSelectionRange(this.value.length, this.value.length);
             "If you provide an email and a username, it will set the email to that user, ",
             "but only if the user has not yet confirmed their email."
           ),
-          st.form(cls := "search", action := routes.Mod.emailConfirm(), method := "GET")(
+          st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
             input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
           ),
           user.map { u =>
@@ -60,8 +60,8 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),
                   td(style := "font-size:2em")(
-                    if (!u.everLoggedIn) iconTag("E")(cls := "is-green")
-                    else iconTag("L")(cls := "is-red")
+                    if (!u.everLoggedIn) iconTag("")(cls := "is-green")
+                    else iconTag("")(cls := "is-red")
                   )
                 )
               )

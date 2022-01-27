@@ -144,6 +144,12 @@
 البيدق = 1
 الملك لا يقدر بثمن! فقدانه يعني خسارة المباراة.</string>
   <string name="queenOverBishop">خذ القطعة ذات أعلى قيمة! الملكة &gt; الفيل</string>
+  <string name="pieceValueExchange">كل القطعة التي لها أعلى قيمة!
+لا تستبدل
+قطعة ذات قيمة عليا بأخرى أدنى قيمة.</string>
+  <string name="pieceValueLegal">كل القطعة
+التي لها أعلى قيمة!
+تأكد من أن نقلتك قانونية!</string>
   <string name="takeThePieceWithTheHighestValue">خذ القطعة ذات أعلى قيمة!</string>
   <string name="pieceValueComplete">تهانينا! أنت تعرف القيم المادية!
 الملكة =9

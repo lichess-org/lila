@@ -89,11 +89,10 @@ object Study {
   implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
 
   case class IdName(_id: Id, name: Name) {
-
     def id = _id
   }
 
-  def toName(str: String) = Name(str.trim take 100)
+  def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
 
   sealed trait Visibility {
     lazy val key = toString.toLowerCase

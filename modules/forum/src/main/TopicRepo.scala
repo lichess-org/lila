@@ -1,12 +1,16 @@
 package lila.forum
 
+import org.joda.time.DateTime
 import Filter._
 import lila.db.dsl._
 import lila.user.User
+import scala.concurrent.duration._
 
 final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
+
+  import BSONHandlers.TopicBSONHandler
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
@@ -14,8 +18,6 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     })
   def withFilter(f: Filter) = if (f == filter) this else new TopicRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
-
-  import BSONHandlers.TopicBSONHandler
 
   private val noTroll = $doc("troll" -> false)
   private val trollFilter = filter match {
@@ -26,6 +28,8 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   private lazy val notStickyQuery = $doc("sticky" $ne true)
   private lazy val stickyQuery    = $doc("sticky" -> true)
+
+  def byId(id: Topic.ID): Fu[Option[Topic]] = coll.byId[Topic](id)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void

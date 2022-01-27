@@ -7,6 +7,13 @@
     font-size: 1.5em;
     margin-bottom: -10px;
   }
+
+  &__disclaimer {
+    color: $c-font-dimmer;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    vertical-align: top;
+  }
 }
 
 .coach-review {
@@ -53,7 +60,7 @@
   }
 
   rate-stars {
-    font-size: .5em;
+    font-size: 0.5em;
     star {
       padding: 0;
     }
@@ -73,10 +80,10 @@
   .button {
     display: block;
     width: 100%;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 
   .br-widget {
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
 }

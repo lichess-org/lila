@@ -9,11 +9,14 @@ object Analyser {
     TextAnalysis(
       lower,
       (
-        enBigRegex.findAllMatchIn(latinify(lower)).toList :::
+        latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
           ruBigRegex.findAllMatchIn(lower).toList
       ).map(_.toString)
     )
   }
+
+  def isCritical(raw: String) =
+    criticalRegex.matches(latinify(raw.toLowerCase))
 
   private def latinify(text: String): String =
     text map {
@@ -27,21 +30,37 @@ object Analyser {
       case c   => c
     }
 
-  private def enWordsRegexes =
+  private def latinWordsRegexes =
     Dictionary.en.map { word =>
       word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
     } ++
+      Dictionary.es.map { word =>
+        word + (if (word endsWith "e") "" else "e?+") + "s?+"
+      } ++
+      Dictionary.hi ++
+      Dictionary.fr ++
+      Dictionary.de.map { word =>
+        word + (if (word endsWith "e") "" else "e?+") + "[nrs]?+"
+      } ++
+      Dictionary.tr ++
+      Dictionary.it ++
       bannedYoutubeIds
 
-  private val enBigRegex = {
+  private val latinBigRegex = {
     """(?i)\b""" +
-      enWordsRegexes.mkString("(", "|", ")") +
+      latinWordsRegexes.mkString("(", "|", ")") +
       """\b"""
   }.r
 
   private val ruBigRegex = {
-    """(?i)\b""" +
+    """(?iu)\b""" +
       Dictionary.ru.mkString("(", "|", ")") +
+      """\b"""
+  }.r
+
+  private val criticalRegex = {
+    """(?i)\b""" +
+      Dictionary.critical.mkString("(", "|", ")") +
       """\b"""
   }.r
 }

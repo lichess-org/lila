@@ -34,7 +34,7 @@
   <string name="theKnight">Jezdec</string>
   <string name="itMovesInAnLShape">Pohybuje se ve tvaru písmene „L”</string>
   <string name="knightIntro">A nyní výzva pro vás. Jezdec je... velmi obtížná figura.</string>
-  <string name="knightsHaveAFancyWay">Jezdci mají bláznivé cesty na skákání okolo!</string>
+  <string name="knightsHaveAFancyWay">Jezdci bláznivě skáčkou okolo!</string>
   <string name="knightsCanJumpOverObstacles">Jezdci mohou skákat přes překážky! Utečte z pasti a dobyjte hvězdy!</string>
   <string name="knightComplete">Gratulace! Zvládáte manipulovat s jezdcem.</string>
   <string name="thePawn">Pěšec</string>
@@ -129,8 +129,7 @@ když je váš pěšec na páté řadě.</string>
   <string name="enPassantComplete">Gratulace! Nyní již ovládáte pravidlo braní mimochodem.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Hra končí remízou</string>
-  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
-nikdo neprohrál.</string>
+  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál, nikdo neprohrál.</string>
   <string name="stalemateGoal">Pro zapatování černého:
 - Černý se nikam nemůže pohnout
 - Černý král není v šachu.</string>
@@ -148,6 +147,12 @@ Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie.</str
   <string name="queenOverBishop">Vyberte figuru
 s nejvyšší hodnotou!
 Dáma &gt; Střelec</string>
+  <string name="pieceValueExchange">Vyberte figuru s nejvyšší hodnotou!
+ Nevyměňujte
+ figuru s vyšší hodnotou za figuru s menší hodnotou.</string>
+  <string name="pieceValueLegal">Vyberte figuru
+s nejvyšší hodnotou!
+Ujistěte se, že je váš tah legální!</string>
   <string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
   <string name="pieceValueComplete">Blahopřejeme! Nyní znáte hodnotu materiálu!
 Dáma = 9

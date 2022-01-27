@@ -5,6 +5,7 @@
   <string name="twoFactorApp">दो-चरण प्रमाणीकरण के लिए एक ऐप प्राप्त करें, उदाहरण के लिए %1$s या %2$s के लिए Google Authenticator।</string>
   <string name="scanTheCode">एप्लिकेशन से QR कोड स्कैन करें।</string>
   <string name="enterPassword">सेटअप पूरा करने के लिए अपना पासवर्ड और ऐप द्वारा जेनरेट किया गया ऑथेंटिकेशन कोड डालें। लॉग इन करने पर आपको हर बार प्रमाणीकरण कोड की आवश्यकता होगी।</string>
+  <string name="ifYouCannotScanEnterX">यदि आप कोड को स्कैन नहीं कर सकते हैं, तो अपने ऐप में गुप्त%s दर्ज करें।</string>
   <string name="authenticationCode">प्रमाणीकरण कोड</string>
   <string name="ifYouLoseAccess">नोट: यदि आप अपने दो-चरण प्रमाणीकरण कोड तक पहुंच खो देते हैं, तो आप ईमेल के माध्यम से पासवर्ड रीसेट कर सकते हैं।</string>
   <string name="enableTwoFactor">दो-चरण प्रमाणीकरण सक्षम करें</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">दो-चरण प्रमाणीकरण सक्षम</string>
   <string name="twoFactorDisable">दो-चरण प्रमाणीकरण को अक्षम करने के लिए आपको अपने प्रमाणक ऐप से अपना पासवर्ड और एक प्रमाणीकरण कोड चाहिए।
 यदि आपने अपने प्रमाणीकरण कोड तक पहुंच खो दी है, तो आप ईमेल के माध्यम से पासवर्ड रीसेट भी कर सकते हैं।</string>
+  <string name="openTwoFactorApp">अपना प्रमाणीकरण कोड देखने और अपनी पहचान सत्यापित करने के लिए अपने डिवाइस पर दो-कारक प्रमाणीकरण ऐप खोलें।</string>
 </resources>

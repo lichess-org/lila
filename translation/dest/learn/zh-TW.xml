@@ -162,6 +162,10 @@
 國王無價！你失去國王就輸了棋局。</string>
   <string name="queenOverBishop">吃掉價值高的棋子！
 皇后　&gt;　主教</string>
+  <string name="pieceValueExchange">吃掉對手價值最高的棋子！
+不要拿價值高的棋子去換價值低的棋子</string>
+  <string name="pieceValueLegal">吃掉對手價值最高的棋子！
+要確定自己的走棋沒有違反規則</string>
   <string name="takeThePieceWithTheHighestValue">吃掉價值高的棋子！</string>
   <string name="pieceValueComplete">恭喜！你知道各棋子的價值了！
 皇后 = 9

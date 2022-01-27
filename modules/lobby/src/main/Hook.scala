@@ -60,7 +60,7 @@ case class Hook(
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
   def rating: Option[Int]          = perf.map(_.rating)
 
-  def render(implicit lang: Lang): JsObject =
+  def render: JsObject =
     Json
       .obj(
         "id"    -> id,
@@ -76,7 +76,7 @@ case class Hook(
       .add("variant" -> realVariant.exotic.option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
       .add("c" -> chess.Color.fromName(color).map(_.name))
-      .add("perf" -> perfType.map(_.trans))
+      .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 

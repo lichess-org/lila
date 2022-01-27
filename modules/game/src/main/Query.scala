@@ -34,7 +34,9 @@ object Query {
 
   val notFinished: Bdoc = F.status $lte Status.Started.id
 
-  def analysed(an: Boolean): Bdoc = F.analysed $eq an
+  def analysed(an: Boolean): Bdoc =
+    if (an) F.analysed $eq true
+    else F.analysed $ne true
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
@@ -120,15 +122,17 @@ object Query {
     F.variant $ne chess.variant.FromPosition.id
 
   def createdSince(d: DateTime): Bdoc =
-    F.createdAt $gt d
+    F.createdAt $gte d
 
   def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc =
     (since, until) match {
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until
-      case (Some(since), Some(until)) => F.createdAt $gt since $lt until
+      case (Some(since), Some(until)) => F.createdAt $gte since $lt until
       case _                          => $empty
     }
+
+  val notSimul = F.simulId $exists false
 
   val sortCreated: Bdoc           = $sort desc F.createdAt
   val sortChronological: Bdoc     = $sort asc F.createdAt

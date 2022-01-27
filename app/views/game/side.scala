@@ -45,17 +45,9 @@ object side {
                   views.html.bookmark.toggle(game, bookmarked),
                   if (game.imported)
                     div(
-                      a(href := routes.Importer.importGame(), title := trans.importGame.txt())("IMPORT"),
+                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
                       separator,
-                      if (game.variant.exotic)
-                        bits.variantLink(
-                          game.variant,
-                          (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
-                           else game.variant.name).toUpperCase,
-                          initialFen = initialFen
-                        )
-                      else
-                        game.variant.name.toUpperCase
+                      bits.variantLink(game.variant, initialFen = initialFen, shortName = true)
                     )
                   else
                     frag(
@@ -63,17 +55,7 @@ object side {
                       separator,
                       (if (game.rated) trans.rated else trans.casual).txt(),
                       separator,
-                      if (game.variant.exotic)
-                        bits.variantLink(
-                          game.variant,
-                          (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
-                           else game.variant.name).toUpperCase,
-                          initialFen = initialFen
-                        )
-                      else
-                        game.perfType.map { pt =>
-                          span(title := pt.desc)(pt.trans)
-                        }
+                      bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
@@ -115,25 +97,28 @@ object side {
             }
           )
         },
-        initialFen
-          .ifTrue(game.variant.chess960)
-          .flatMap {
-            chess.variant.Chess960.positionNumber
-          }
-          .map { number =>
-            st.section(
-              "Chess960 start position: ",
-              strong(number)
-            )
-          },
+        game.variant.chess960 ??
+          chess.variant.Chess960
+            .positionNumber(initialFen | chess.format.Forsyth.initial)
+            .map { number =>
+              st.section(
+                trans.chess960StartPosition(
+                  a(
+                    href := routes.UserAnalysis.parseArg(
+                      s"chess960/${(initialFen | chess.format.Forsyth.initial).value.replace(" ", "_")}"
+                    )
+                  )(number)
+                )
+              )
+            },
         userTv.map { u =>
           st.section(cls := "game__tv")(
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "1")(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "")(u.titleUsername)
           )
         },
         tour.map { t =>
           st.section(cls := "game__tournament")(
-            a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
+            a(cls := "text", dataIcon := "", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
             div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
           )
         } orElse game.tournamentId.map { tourId =>

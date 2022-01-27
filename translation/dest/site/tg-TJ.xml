@@ -6,21 +6,25 @@
   <string name="gameOver">Бозӣ тамом шуд</string>
   <string name="waitingForOpponent">Интизори ҳариф</string>
   <string name="waiting">Интизор шавед</string>
-  <string name="yourTurn">Гашти шумо</string>
+  <string name="yourTurn">Навбати гашти шумо</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Дараҷаи</string>
   <string name="toggleTheChat">Чатро нишон додан</string>
-  <string name="toggleSound">Хомуш кардани садо</string>
   <string name="chat">Чат</string>
   <string name="resign">Таслим</string>
   <string name="checkmate">Мот</string>
   <string name="stalemate">Пот</string>
   <string name="white">Сафедҳо</string>
   <string name="black">Сиеҳҳо</string>
+  <string name="asWhite">бо сафедхо</string>
+  <string name="asBlack">бо сиёхо</string>
   <string name="randomColor">Тарафи тасодуфӣ</string>
   <string name="createAGame">Бозии нав</string>
   <string name="whiteIsVictorious">Ғалабаи сафедҳо</string>
   <string name="blackIsVictorious">Ғалабаи сиеҳҳо</string>
+  <string name="youPlayTheWhitePieces">Шумо бо мухрахаи сафед бози мекунед</string>
+  <string name="youPlayTheBlackPieces">шумо бо мухрахаи сафед бози мекунед</string>
+  <string name="itsYourTurn">Навбати шумо!</string>
   <string name="kingInTheCenter">Шоҳ дар марказ аст</string>
   <string name="threeChecks">Се шоҳ</string>
   <string name="raceFinished">Рониш тамом шуд</string>
@@ -31,7 +35,6 @@
   <string name="whitePlays">Гашти сафедҳо</string>
   <string name="blackPlays">Гашти сиеҳҳо</string>
   <string name="opponentLeftChoices">Ҳарифи шумо аз бози баромад. Шумо метованед ғалаба ё дуранг эълон кунед.</string>
-  <string name="makeYourOpponentResign">Ғалабаро эълон кардан</string>
   <string name="forceResignation">Ғалаба</string>
   <string name="forceDraw">Дуранг</string>
   <string name="talkInChat">Дар диалог якдигарро эҳтиром кунед!</string>
@@ -40,5 +43,7 @@
   <string name="blackResigned">Сиеҳҳо таслим кардан</string>
   <string name="whiteLeftTheGame">Сафедҳо аз бози баромадан</string>
   <string name="blackLeftTheGame">Сиеҳҳо аз бози баромадан</string>
-  <string name="viewTheComputerAnalysis">Анализи компютериро тамошо кардан</string>
+  <string name="unknown">Ношинос</string>
+  <string name="database">Бойгони</string>
+  <string name="noGameFound">Бози ёфт нашуд</string>
 </resources>

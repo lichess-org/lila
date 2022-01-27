@@ -17,14 +17,10 @@ export function prev(ctrl: KeyboardController): void {
 
 export function last(ctrl: KeyboardController): void {
   const toInit = !treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
-  ctrl.userJump(
-    toInit ? ctrl.vm.initialPath : treePath.fromNodeList(ctrl.vm.mainline)
-  );
+  ctrl.userJump(toInit ? ctrl.vm.initialPath : treePath.fromNodeList(ctrl.vm.mainline));
 }
 
 export function first(ctrl: KeyboardController): void {
   const toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
-  ctrl.userJump(
-    toInit ? ctrl.vm.initialPath : treePath.root
-  );
+  ctrl.userJump(toInit ? ctrl.vm.initialPath : treePath.root);
 }

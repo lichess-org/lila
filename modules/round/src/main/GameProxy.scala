@@ -10,7 +10,8 @@ import lila.game.{ Game, GameRepo, Pov, Progress }
 // NOT thread safe
 final private class GameProxy(
     id: Game.ID,
-    dependencies: GameProxy.Dependencies
+    dependencies: GameProxy.Dependencies,
+    private[this] var cache: Fu[Option[Game]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import GameProxy._
@@ -94,10 +95,6 @@ final private class GameProxy(
       dirtyProgress = none
     }
   }
-
-  private[this] var cache: Fu[Option[Game]] = fetch
-
-  private[this] def fetch = gameRepo game id
 }
 
 private object GameProxy {
@@ -107,7 +104,7 @@ private object GameProxy {
       val scheduler: Scheduler
   )
 
-  // must be way under the round duct termination delay (60s)
+  // must be way under the round asyncActor termination delay (60s)
   private val scheduleDelay = 30.seconds
 
   private val emptyCancellable = new Cancellable {

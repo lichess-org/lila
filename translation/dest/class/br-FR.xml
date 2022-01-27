@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">A c\'hall bezañ gwelet gant ar gelennerien hag ar studierien</string>
   <string name="teachersOfTheClass">Kelennerien ar c\'hlas</string>
   <string name="addLichessUsernames">Ouzhpennit o anvioù implijer Lichess evit pediñ anezhe da gelennerien. Unan dre linenn.</string>
-  <string name="theyMustFirstApply">Ret eo dezhe lakaat o anv evit bezañ Kelennerien Lichess da gentañ.</string>
   <string name="resetPassword">Cheñch ger-tremen</string>
   <string name="makeSureToCopy">Bezit sur da gopiañ pe da vizskrivañ ar ger-tremen bremañ. N\'ho po ket tro d\'hen ober diwezhatoc\'h!</string>
   <string name="passwordX">Ger-tremen: %s</string>
@@ -53,14 +52,13 @@ Ger-tremen: %3$s</string>
 Amañ emañ al liamm evit mont ennañ.</string>
   <string name="invitationToClass">Pedet oc\'h da vezañ ezel eus ar c\'hlas \"%s\" evel studier.</string>
   <string name="clickToViewInvitation">Klikit war al liamm da welet ar bedadenn:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Ur bedadenn o c\'hortoz ur respont</item>
     <item quantity="two">%s bedadenn o c\'hortoz ur respont</item>
     <item quantity="few">%s pedadenn o c\'hortoz ur respont</item>
     <item quantity="many">%s pedadenn o c\'hortoz ur respont</item>
     <item quantity="other">%s pedadenn o c\'hortoz ur respont</item>
   </plurals>
-  <string name="noPendingInvitations">Pedadenn ebet o c\'hortoz ur respont</string>
   <string name="onlyVisibleToTeachers">Gwelet e vo gant ar gelennerien hepken</string>
   <string name="lastActiveDate">Oberiant</string>
   <string name="managed">Meret</string>
@@ -71,6 +69,9 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="releaseDesc1">Ur wech dieubet ur gont ne c\'halloc\'h ket mui bezañ mestr warni. Gallout a ray ar studier lazhañ ar mod evit ar vugale ha cheñch ar ger-tremen e-unan.</string>
   <string name="releaseDesc2">Ezel eus ar c\'hlasad e chomo ar studier ur wech dieubet e gont.</string>
   <string name="realUniqueEmail">Chomlec\'h postel nemetañ ha gwir ar studier. Ur gemennadenn gadarnaat a vo kaset gant ul liamm da glikañ warnañ evit dieubiñ ar gont.</string>
+  <string name="closeStudent">Serriñ ar gont</string>
+  <string name="closeTheAccount">Serriñ kont ar studier da viken.</string>
+  <string name="closeDesc1">Ne c\'hallo ket ar studier implijout ar gont-mañ ken. Peurbadus eo serriñ. Bezit sur eo bet komprenet hag asantet gant ar studier.</string>
   <string name="teachers">Kelennerien</string>
   <plurals name="nbTeachers">
     <item quantity="one">Kelenner</item>
@@ -103,5 +104,4 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="newsEdit2">En nec\'h emañ ar c\'heleier nevez. Ne ziverkit ket ar c\'heleier kozh.</string>
   <string name="newsEdit3">Rannit ar c\'heleier gant ---
 Mod-se ho po ul linenn a-blaen.</string>
-  <string name="markdownAvailable">Bez\' eus %s evit mont pelloc\'h gant an ereadurezh.</string>
 </resources>

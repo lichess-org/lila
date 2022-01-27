@@ -6,7 +6,8 @@ import scala.concurrent.duration._
 import views._
 
 import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
+import lila.user.Holder
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
@@ -42,7 +43,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                       BadRequest(html.forum.topic.form(categ, err, captcha))
                     },
                   data =>
-                    CreateRateLimit(HTTPRequest ipAddress ctx.req) {
+                    CreateRateLimit(ctx.ip) {
                       topicApi.makeTopic(categ, data, me) map { topic =>
                         Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                       }
@@ -65,7 +66,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               env.team.cached.isLeader(teamId, me.id)
             }
             form <- ctx.me.ifTrue(
-              !posts.hasNextPage && canWrite && topic.open && !topic.isOld
+              canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
             canModCateg <- isGrantedMod(categ.slug)
             _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
@@ -78,7 +79,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     Auth { implicit ctx => me =>
       CategGrantMod(categSlug) {
         OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-          topicApi.toggleClose(categ, topic, me) inject
+          topicApi.toggleClose(categ, topic, Holder(me)) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
         }
       }
@@ -96,7 +97,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     Auth { implicit ctx => me =>
       CategGrantMod(categSlug) {
         OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-          topicApi.toggleSticky(categ, topic, me) inject
+          topicApi.toggleSticky(categ, topic, Holder(me)) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
         }
       }

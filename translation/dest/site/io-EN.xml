@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s rango %2$s</string>
   <string name="level">Rango</string>
   <string name="toggleTheChat">Swichar la babilado</string>
-  <string name="toggleSound">Swichar sono</string>
   <string name="chat">Babilado</string>
   <string name="resign">Rezignar</string>
   <string name="checkmate">Mortoshako</string>
@@ -25,7 +24,6 @@
   <string name="whitePlays">Blanko strokas</string>
   <string name="blackPlays">Nigro strokas</string>
   <string name="opponentLeftChoices">La altra ludero livis la ludo. Vu povas igar lua rezigno, o vartar lu.</string>
-  <string name="makeYourOpponentResign">Igar vua adverso rezignar</string>
   <string name="forceResignation">Igar rezigno</string>
   <string name="talkInChat">Konversar en babilado...</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La unesma persono arivanta an ica URL ludos kun vu.</string>
@@ -33,7 +31,6 @@
   <string name="blackResigned">Nigro rezignis</string>
   <string name="whiteLeftTheGame">Blanko livis la ludo</string>
   <string name="blackLeftTheGame">Nigro livis la ludo</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partigez ica URL por permisar spekteri vidar la ludo</string>
   <string name="flipBoard">Rotacar tabulo</string>
   <string name="threefoldRepetition">Triopla repeto</string>
   <string name="claimADraw">Asertar egaligo</string>
@@ -65,7 +62,6 @@
   <string name="gamesPlayed">Ludi ludita</string>
   <string name="cancel">Abrogar</string>
   <string name="drawOfferSent">Egaligo-ofro sendita</string>
-  <string name="drawOfferDeclined">Egaligo-ofro refuzita</string>
   <string name="drawOfferAccepted">Egaligo-ofro aceptita</string>
   <string name="drawOfferCanceled">Egaligo-ofro abrogita</string>
   <string name="yourOpponentOffersADraw">Vua adverso ofras egaligo</string>
@@ -94,7 +90,6 @@
   <string name="composeMessage">Kompozar mesajo</string>
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
   <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
-  <string name="spectators">Spekteri:</string>
   <plurals name="nbWins">
     <item quantity="one">%s vinko</item>
     <item quantity="other">%s vinki</item>

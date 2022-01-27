@@ -1,6 +1,7 @@
-@import "default";
+@import 'default';
 
-$theme: "light";
+$theme: 'light';
+$color-scheme: 'light';
 $theme-light: true;
 $theme-dark: false;
 
@@ -20,7 +21,11 @@ $theme-dark: false;
 }
 
 @mixin page-metal {
-  background: linear-gradient(to bottom, mix($c-link, hsl(0, 0%, 100%), 20%) 0%, mix($c-link, hsl(0, 0%, 94%), 20%) 100%);
+  background: linear-gradient(
+    to bottom,
+    mix($c-link, hsl(0, 0%, 100%), 20%) 0%,
+    mix($c-link, hsl(0, 0%, 94%), 20%) 100%
+  );
   text-shadow: $text-shadow;
 }
 
@@ -29,4 +34,5 @@ $theme-dark: false;
   text-shadow: $text-shadow;
 }
 
-@mixin theme-style {}
+@mixin theme-style {
+}

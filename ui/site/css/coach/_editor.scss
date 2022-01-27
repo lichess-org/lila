@@ -1,5 +1,5 @@
-@import "layout";
-@import "rate";
+@import 'layout';
+@import 'rate';
 
 .coach-edit,
 .coach-picture {
@@ -159,7 +159,7 @@
       font-size: 1.4em;
 
       a {
-        padding: .5em .7em;
+        padding: 0.5em 0.7em;
       }
 
       .yes {

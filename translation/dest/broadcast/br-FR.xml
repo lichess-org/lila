@@ -6,16 +6,12 @@
   <string name="ongoing">O ren</string>
   <string name="upcoming">A-benn nebeut</string>
   <string name="completed">Tremenet</string>
-  <string name="eventName">Anv an abadenn</string>
-  <string name="eventDescription">Deskrivadur an abadenn a berr gomzoù</string>
+  <string name="roundNumber">Niverenn ar batalm</string>
   <string name="fullDescription">Deskrivadur an abadenn a-bezh</string>
   <string name="fullDescriptionHelp">Deskrivadur hir ar skignañ war-eeun ma fell deoc\'h.%1$s zo dijabl. Ne vo ket hiroc\'h evit %2$s sin.</string>
-  <string name="sourceUrl">Mammenn URL</string>
   <string name="sourceUrlHelp">An URL a ray Lichess ganti evit kaout hizivadurioù ar PGN. Ret eo dezhi bezañ digor d\'an holl war Internet.</string>
-  <string name="roundNumber">Niverenn ar batalm</string>
+  <string name="gameIdsHelp">A-hend all e c\'hallit lakaat betek 64 ID partienn Lichess, dispartiet gant spasoù.</string>
   <string name="startDate">Eur kregiñ en ho kwerzhid-eur</string>
   <string name="startDateHelp">Diret eo, ma ouzit pegoulz e krogo</string>
   <string name="credits">Orin ar vammenn</string>
-  <string name="cloneBroadcast">Klonañ ar skignañ war-eeun</string>
-  <string name="resetBroadcast">Adlañsañ ar skignañ war-eeun</string>
 </resources>

@@ -46,21 +46,32 @@ object replay {
       )
     }
     val pgnLinks = div(
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
+      a(
+        dataIcon := "",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?literate=1",
+        downloadAttr
+      )(
         trans.downloadAnnotated()
       ),
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(
+      a(
+        dataIcon := "",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
+        downloadAttr
+      )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
-        dataIcon := "x",
+        dataIcon := "",
         cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1"
+        href := s"${routes.Game.exportOne(game.id)}?imported=1",
+        downloadAttr
       )(trans.downloadImported()),
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
+        a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
-          dataIcon := "$",
+          dataIcon := "",
           cls := "text",
           targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
@@ -83,16 +94,13 @@ object replay {
         embedJsUnsafeLoadThen(s"""LichessAnalyse.boot(${safeJsonValue(
           Json
             .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson,
-              "explorer" -> Json.obj(
-                "endpoint"          -> explorerEndpoint,
-                "tablebaseEndpoint" -> tablebaseEndpoint
-              )
+              "data"     -> data,
+              "i18n"     -> jsI18n(),
+              "userId"   -> ctx.userId,
+              "chat"     -> chatJson,
+              "explorer" -> views.html.board.bits.explorerConfig
             )
-            .add("hunter" -> isGranted(_.Hunter))
+            .add("hunter" -> isGranted(_.ViewBlurs))
         )})""")
       ),
       openGraph = povOpenGraph(pov).some
@@ -157,10 +165,7 @@ object replay {
                 game.analysable option
                   span(
                     cls := "computer-analysis",
-                    dataPanel := "computer-analysis",
-                    title := analysis.map { a =>
-                      s"Provided by ${usernameOrId(a.providedBy)}"
-                    }
+                    dataPanel := "computer-analysis"
                   )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
@@ -174,7 +179,11 @@ object replay {
         if (ctx.blind)
           div(cls := "blind-content none")(
             h2("PGN downloads"),
-            pgnLinks
+            pgnLinks,
+            input(tpe := "hidden", value := pgn, cls := "game-pgn"),
+            button(cls := "copy-pgn", dataRel := "game-pgn")(
+              "Copy PGN to clipboard"
+            )
           )
       )
     )

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s ay ang username sa magdudula</string>
-  <string name="emailConfirm_click">Pag-klik sa link aron mahimo ang imong Lichess account:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Pag-klik sa link aron mahimo ang imong Lichess account:</string>
   <string name="emailConfirm_ignore">Kung wala ka magparehistro sa Lichess pwede nimung ibaliwala kini nga mensahe.</string>
   <string name="passwordReset_subject">I-reset ang imong password sa lichess.org, %s</string>
   <string name="passwordReset_intro">Nakadawat kami usa ka hangyo nga i-reset ang password alang sa imong account.</string>

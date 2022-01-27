@@ -6,10 +6,13 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
+import scala.util.Try
 
 final class BlogApi(
     config: BlogConfig
 )(implicit ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
+
+  import BlogApi.looksLikePrismicId
 
   private def collection = config.collection
 
@@ -18,7 +21,7 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       ref: Option[String]
-  ): Fu[Option[Paginator[Document]]] =
+  ): Fu[Option[Paginator[Document]]] = Try {
     api
       .forms(collection)
       .ref(ref | api.master.ref)
@@ -28,6 +31,9 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
+  } recover { case _: NoSuchElementException =>
+    fuccess(none)
+  } get
 
   def recent(
       prismic: BlogApi.Context,
@@ -37,11 +43,12 @@ final class BlogApi(
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
-    api
+    looksLikePrismicId(id) ?? api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
-      .submit() map (_.results.headOption)
+      .submit()
+      .map(_.results.headOption)
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 
@@ -91,9 +98,7 @@ final class BlogApi(
       } getOrElse reqRef
     }
 
-  private val prismicBuilder = new Prismic
-
-  def prismicApi = prismicBuilder.get(config.apiUrl)
+  def prismicApi = (new Prismic).get(config.apiUrl)
 }
 
 object BlogApi {
@@ -111,4 +116,8 @@ object BlogApi {
   case class Context(api: Api, ref: String, linkResolver: DocumentLinkResolver) {
     def maybeRef = Option(ref).filterNot(_ == api.master.ref)
   }
+
+  private val idRegex = """^[\w-]{16}$""".r
+
+  def looksLikePrismicId(id: String) = idRegex.matches(id)
 }

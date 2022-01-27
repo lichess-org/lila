@@ -28,4 +28,8 @@
   <string name="sortBy">Seřadit podle</string>
   <string name="analysis">Analýza</string>
   <string name="onlyAnalysed">Pouze hry, kde je k dispozici počítačová analýza</string>
+  <string name="color">Barva</string>
+  <string name="evaluation">Hodnocení počítače</string>
+  <string name="maxNumber">Maximální počet</string>
+  <string name="include">Zahrnout</string>
 </resources>

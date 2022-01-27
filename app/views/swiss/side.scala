@@ -13,7 +13,12 @@ object side {
 
   private val separator = " • "
 
-  def apply(s: Swiss, verdicts: SwissCondition.All.WithVerdicts, chat: Boolean)(implicit
+  def apply(
+      s: Swiss,
+      verdicts: SwissCondition.All.WithVerdicts,
+      streamers: List[lila.user.User.ID],
+      chat: Boolean
+  )(implicit
       ctx: Context
   ) =
     frag(
@@ -23,24 +28,19 @@ object side {
             p(
               s.clock.show,
               separator,
-              if (s.variant.exotic) {
-                views.html.game.bits.variantLink(
-                  s.variant,
-                  if (s.variant == chess.variant.KingOfTheHill) s.variant.shortName
-                  else s.variant.name
-                )
-              } else s.perfType.trans,
+              views.html.game.bits.variantLink(s.variant, s.perfType.some, shortName = true),
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),
             p(
-              span(cls := "swiss__meta__round")(s"${s.round}/${s.settings.nbRounds}"),
-              " rounds",
+              span(cls := "swiss__meta__round")(
+                trans.swiss.nbRounds.plural(s.settings.nbRounds, s"${s.round}/${s.settings.nbRounds}")
+              ),
               separator,
-              a(href := routes.Swiss.home())("Swiss"),
+              a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))
+                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag(""))
               )
             ),
             bits.showInterval(s)
@@ -65,7 +65,8 @@ object side {
         teamLink(s.teamId),
         if (verdicts.relevant)
           st.section(
-            dataIcon := "7",
+            dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
+                         else ""),
             cls := List(
               "conditions" -> true,
               "accepted"   -> (ctx.isAuth && verdicts.accepted),
@@ -77,16 +78,20 @@ object side {
               verdicts.list map { v =>
                 p(
                   cls := List(
-                    "condition text" -> true,
-                    "accepted"       -> v.verdict.accepted,
-                    "refused"        -> !v.verdict.accepted
-                  )
+                    "condition" -> true,
+                    "accepted"  -> (ctx.isAuth && v.verdict.accepted),
+                    "refused"   -> (ctx.isAuth && !v.verdict.accepted)
+                  ),
+                  title := v.verdict.reason.map(_(ctx.lang))
                 )(v.condition.name(s.perfType))
               }
             )
           )
         else br,
         absClientDateTime(s.startsAt)
+      ),
+      streamers.nonEmpty option div(cls := "context-streamers")(
+        streamers map views.html.streamer.bits.contextual
       ),
       chat option views.html.chat.frag
     )

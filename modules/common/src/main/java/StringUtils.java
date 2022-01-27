@@ -1,5 +1,7 @@
 package lila.common.base;
 
+import java.text.Normalizer;
+
 public class StringUtils {
     private static final char[] DIGITS = {
         '0' , '1' , '2' , '3' , '4' , '5' ,

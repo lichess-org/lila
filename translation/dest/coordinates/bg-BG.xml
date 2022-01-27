@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Координати</string>
-  <string name="coordinateTraining">Упражнение по kоординати</string>
+  <string name="coordinateTraining">Упражнение по координати</string>
   <string name="averageScoreAsWhiteX">Среден резултат с белите: %s</string>
   <string name="averageScoreAsBlackX">Среден резултат с черните: %s</string>
   <string name="knowingTheChessBoard">Познаването на координатите на шахматната дъска е много важно умение:</string>
-  <string name="mostChessCourses">Повечето шахматни уроци и упражнения използват изобилно алгебричната нотация.</string>
-  <string name="talkToYourChessFriends">Това улеснява шахматният разговор с приятели, тъй като вие разбирате \"езика на шахмата\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате една игра по-ефективно ако бързо можете да намерите изображението на всеки координат.</string>
-  <string name="aSquareNameAppears">Един координат се поевява на дъската и вие трябва да кликнете на съответното поле. Имате 30 секунди да намерите правилното изображение на колкото се може повече координати!</string>
+  <string name="mostChessCourses">Повечето шахматни уроци и упражнения използват алгебричната нотация.</string>
+  <string name="talkToYourChessFriends">Това улеснява шахматния разговор с приятели, тъй като всички разбирате \"езика на шахмата\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Ако разпознавате координатите бързо, ще можете да анализирате игрите по-ефективно.</string>
+  <string name="aSquareNameAppears">Когато на дъската се появят координати, щракнете върху съответния квадрат. Имате 30 секунди да разпознаете колкото се може повече квадрата!</string>
   <string name="startTraining">Започни упражнението</string>
 </resources>

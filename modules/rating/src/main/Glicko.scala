@@ -12,9 +12,8 @@ case class Glicko(
     volatility: Double
 ) {
 
-  def intRating           = rating.toInt
-  def intDeviation        = deviation.toInt
-  def intDeviationDoubled = (deviation * 2).toInt
+  def intRating    = rating.toInt
+  def intDeviation = deviation.toInt
 
   def intervalMin = (rating - deviation * 2).toInt
   def intervalMax = (rating + deviation * 2).toInt
@@ -84,8 +83,11 @@ case object Glicko {
   val default = Glicko(1500d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
-  val defaultManaged       = Glicko(1200d, 400d, defaultVolatility)
+  val defaultManaged       = Glicko(1100d, 400d, defaultVolatility)
   val defaultManagedPuzzle = Glicko(1000d, 400d, defaultVolatility)
+
+  // bot accounts (usually a stockfish instance)
+  val defaultBot = Glicko(2000d, maxDeviation, defaultVolatility)
 
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700

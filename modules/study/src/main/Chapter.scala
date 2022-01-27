@@ -1,11 +1,11 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
+import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.Variant
 import chess.{ Centis, Color }
 import org.joda.time.DateTime
 
-import chess.opening.{ FullOpening, FullOpeningDB }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
@@ -74,7 +74,13 @@ case class Chapter(
       createdAt = DateTime.now
     )
 
-  def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
+  def metadata = Chapter.Metadata(
+    _id = _id,
+    name = name,
+    setup = setup,
+    resultColor = tags.resultColor.isDefined option tags.resultColor,
+    hasRelayPath = relay.exists(!_.path.isEmpty)
+  )
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
@@ -145,8 +151,15 @@ object Chapter {
   case class Metadata(
       _id: Id,
       name: Name,
-      setup: Setup
-  ) extends Like
+      setup: Setup,
+      resultColor: Option[Option[Option[Color]]],
+      hasRelayPath: Boolean
+  ) extends Like {
+
+    def looksOngoing = resultColor.exists(_.isEmpty) && hasRelayPath
+
+    def resultStr: Option[String] = resultColor.map(_.fold("*")(chess.Color.showResult).replace("1/2", "½"))
+  }
 
   case class IdName(id: Id, name: Name)
 
@@ -159,7 +172,7 @@ object Chapter {
   private val defaultNameRegex = """Chapter \d+""".r
   def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  def fixName(n: Name) = Name(n.value.trim take 80)
+  def fixName(n: Name) = Name(lila.common.String.fullCleanUp(n.value) take 80)
 
   val idSize = 8
 

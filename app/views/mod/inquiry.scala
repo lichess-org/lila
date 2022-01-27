@@ -1,39 +1,46 @@
 package views.html.mod
 
+import cats.data.NonEmptyList
+import controllers.routes
 import scala.util.matching.Regex
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
+import lila.report.Reason
+import lila.report.Report
+import lila.user.User
 
 object inquiry {
 
   // simul game study relay tournament
-  private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""".r
+  private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r
 
-  def renderAtomText(atom: lila.report.Report.Atom) =
-    richText(
-      commFlagRegex.replaceAllIn(
-        atom.simplifiedText,
-        m => {
-          val id = m.group(2)
-          val path = m.group(1) match {
-            case "game"       => routes.Round.watcher(id, "white")
-            case "relay"      => routes.Relay.show("-", id)
-            case "tournament" => routes.Tournament.show(id)
-            case "swiss"      => routes.Swiss.show(id)
-            case _            => s"/${m.group(1)}/$id"
+  private def renderAtomText(text: String, highlight: Boolean) =
+    text.split("\n").map { line =>
+      val (link, text) = line match {
+        case commFlagRegex(tpe, id, text) =>
+          val path = tpe match {
+            case "game"       => routes.Round.watcher(id, "white").url
+            case "relay"      => routes.RelayRound.show("-", "-", id).url
+            case "tournament" => routes.Tournament.show(id).url
+            case "swiss"      => routes.Swiss.show(id).url
+            case _            => s"/$tpe/$id"
           }
-          Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")
-        }
+          a(href := path)(path).some -> text
+        case text => None -> text
+      }
+      frag(
+        link,
+        " ",
+        if (highlight) communication.highlightBad(text) else frag(text),
+        " "
       )
-    )
+    }
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
-    def renderReport(r: lila.report.Report) =
+    def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
           div(cls := "atom")(
@@ -45,15 +52,9 @@ object inquiry {
               " ",
               momentFromNow(atom.at)
             ),
-            p(renderAtomText(atom))
+            p(renderAtomText(atom.simplifiedText, r.isComm))
           )
         }
-      )
-
-    def renderNote(r: lila.user.Note)(implicit ctx: Context) =
-      (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
-        h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text))
       )
 
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
@@ -101,52 +102,29 @@ object inquiry {
             )
           )
         ),
-        div(
-          cls := List(
-            "dropper counter notes" -> true,
-            "empty"                 -> in.notes.isEmpty
-          )
-        )(
-          span(
-            countTag(in.notes.size),
-            "Notes"
-          ),
-          div(
-            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
-              textarea(name := "text", placeholder := "Write a mod note"),
-              input(tpe := "hidden", name := "mod", value := "true"),
-              div(cls := "submission")(
-                submitButton(cls := "button thin")("SEND")
-              )
-            ),
-            in.notes.map(renderNote)
-          )
-        )
+        noteZone(in.user, in.notes)
       ),
       div(cls := "links")(
-        in.report.boostWith
-          .map { userId =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=$userId")("View", br, "Games")
+        isGranted(_.MarkBooster) option {
+          boostOpponents(in.report, in.allReports, in.user) map { opponents =>
+            a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
+              "View",
+              br,
+              "Games"
+            )
           }
-          .getOrElse {
-            in.report.bestAtomByHuman.map { atom =>
-              a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")(
-                "View",
-                br,
-                "Games"
-              )
-            }
-          },
+        },
         isGranted(_.Shadowban) option
-          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
+          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
+        in.report.isAppeal option a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal")
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
-          iconTag("e"),
+          iconTag(""),
           div(
-            env.mod.presets.pmPresets.get().value.map { preset =>
+            env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-                submitButton(cls := "fbt")(preset.name),
+                submitButton(cls := "fbt", title := preset.text)(preset.name),
                 autoNextInput
               )
             }
@@ -155,8 +133,8 @@ object inquiry {
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
-            postForm(action := url, title := "Mark as cheat")(
-              markButton(in.user.marks.engine)(dataIcon := "n"),
+            postForm(action := url, cls := "main", title := "Mark as cheat")(
+              markButton(in.user.marks.engine)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -166,7 +144,7 @@ object inquiry {
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              markButton(in.user.marks.boost)(dataIcon := "9"),
+              markButton(in.user.marks.boost)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -180,7 +158,7 @@ object inquiry {
               title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls := "main"
             )(
-              markButton(in.user.marks.troll)(dataIcon := "c"),
+              markButton(in.user.marks.troll)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -197,17 +175,29 @@ object inquiry {
           )
         },
         div(cls := "dropper more buttons")(
-          iconTag("u"),
+          iconTag(""),
           div(
-            postForm(action := routes.Mod.notifySlack(in.user.id))(
-              submitButton(cls := "fbt")("Notify Slack")
-            ),
+            isGranted(_.SendToZulip) option {
+              val url =
+                if (in.report.isAppeal) routes.Appeal.sendToZulip(in.user.username)
+                else routes.Mod.inquiryToZulip
+              postForm(action := url)(
+                submitButton(cls := "fbt")("Send to Zulip")
+              )
+            },
             postForm(action := routes.Report.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"
               ),
               autoNextInput
-            )
+            ),
+            div(cls := "separator"),
+            lila.memo.Snooze.Duration.all.map { snooze =>
+              postForm(action := snoozeUrl(in.report, snooze.toString))(
+                submitButton(cls := "fbt")(s"Snooze ${snooze.name}"),
+                autoNextInput
+              )
+            }
           )
         )
       ),
@@ -219,10 +209,10 @@ object inquiry {
         ),
         postForm(
           action := routes.Report.process(in.report.id),
-          title := "Dismiss this report as processed.",
+          title := "Dismiss this report as processed. (Hotkey: d)",
           cls := "process"
         )(
-          submitButton(dataIcon := "E", cls := "fbt"),
+          submitButton(dataIcon := "", cls := "fbt"),
           autoNextInput
         ),
         postForm(
@@ -230,11 +220,73 @@ object inquiry {
           title := "Cancel the inquiry, re-instore the report",
           cls := "cancel"
         )(
-          submitButton(dataIcon := "L", cls := "fbt")
+          submitButton(dataIcon := "", cls := "fbt")(in.alreadyMarked option disabled)
         )
       )
     )
   }
+
+  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
+    cls := List(
+      "dropper counter notes" -> true,
+      "empty"                 -> notes.isEmpty
+    )
+  )(
+    span(
+      countTag(notes.size),
+      "Notes"
+    ),
+    div(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
+        form3.textarea(lila.user.UserForm.note("text"))(
+          placeholder := "Write a mod note"
+        ),
+        input(tpe := "hidden", name := "mod", value := "true"),
+        isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
+          div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
+          label(`for` := "dox-inquiry")("Doxing info")
+        ),
+        div(cls := "submission")(
+          submitButton(cls := "button thin")("SEND")
+        )
+      ),
+      notes map { note =>
+        (!note.dox || isGranted(_.Admin)) option div(cls := "doc note")(
+          h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
+          p(richText(note.text, expandImg = false))
+        )
+      }
+    )
+  )
+
+  private def snoozeUrl(report: Report, duration: String): String =
+    if (report.isAppeal) routes.Appeal.snooze(report.user, duration).url
+    else routes.Report.snooze(report.id, duration).url
+
+  private def boostOpponents(
+      report: Report,
+      allReports: List[Report],
+      reportee: User
+  ): Option[NonEmptyList[User.ID]] =
+    (report.reason == Reason.Boost || reportee.marks.boost) ?? {
+      allReports
+        .filter(_.reason == Reason.Boost)
+        .flatMap(_.atoms.toList)
+        .withFilter(_.byLichess)
+        .flatMap(_.text.linesIterator)
+        .collect {
+          case farmWithRegex(userId)     => List(userId)
+          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.trim.replace("@", ""))
+        }
+        .flatten
+        .distinct
+        .toNel
+    }
+
+  private val farmWithRegex =
+    ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+  private val sandbagWithRegex =
+    "^Sandbagging: throws games to (.+)".r.unanchored
 
   private def thenForms(url: String, button: Tag) =
     div(

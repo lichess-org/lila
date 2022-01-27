@@ -9,8 +9,8 @@
   <string name="yourTurn">தங்கள் முறை</string>
   <string name="aiNameLevelAiLevel">%1$s நிலைமட்டம் %2$s</string>
   <string name="level">நிலைமட்டம்</string>
+  <string name="strength">வலிமை</string>
   <string name="toggleTheChat">உரையாடலை மாற்று</string>
-  <string name="toggleSound">ஒலியை மாற்று</string>
   <string name="chat">உரையாடு</string>
   <string name="resign">விலகு</string>
   <string name="checkmate">முழுத்தடை</string>
@@ -38,7 +38,6 @@
     <item quantity="other">உங்கள் எதிரி ஆட்டத்தை விட்டு தொலைந்தனர். இன்னும் %s வினாடிகளில் நீங்கள் வெற்றிக் கொள்ளலாம்.</item>
   </plurals>
   <string name="opponentLeftChoices">எதிராளி ஆட்டத்தை விட்டுவிட்டார். அவரை விலக வற்புறுத்தலாம் அல்லது காத்திருக்கலாம்</string>
-  <string name="makeYourOpponentResign">எதிராளியை விலகவை</string>
   <string name="forceResignation">வலுக்கட்டாயமாக விலகவை</string>
   <string name="forceDraw">சமன் செய்ய கோரு</string>
   <string name="talkInChat">உரையாடலில் உரையாடு</string>
@@ -47,9 +46,6 @@
   <string name="blackResigned">கருப்பு விலகிற்று</string>
   <string name="whiteLeftTheGame">வெள்ளை ஆட்டத்தை விட்டது</string>
   <string name="blackLeftTheGame">கருப்பு ஆட்டத்தை விட்டது</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">பார்வையாளர்கள் ஆட்டத்தைப் பார்க்க இந்தச் சுட்டியைத் தெரிவி</string>
-  <string name="theComputerAnalysisHasFailed">கணினிப் பகுப்பாய்வு தடைபட்டது</string>
-  <string name="viewTheComputerAnalysis">கணினிப் பகுப்பாய்வினைக் காண்க</string>
   <string name="requestAComputerAnalysis">கணினிப் பகுப்பாய்வு கோருக</string>
   <string name="computerAnalysis">கணினிப் பகுப்பாய்வு</string>
   <string name="computerAnalysisAvailable">கணினி பகுப்பாய்வு கிடைக்கும்</string>
@@ -87,12 +83,8 @@
     <item quantity="one">%s ஆட்டத்தில் முடிவுரை</item>
     <item quantity="other">%s ஆட்டங்களில் முடிவுரை</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s ஆட்டத்தில் காயவெட்டு (ஐம்பது ஆட்டம் அவகாசம்)</item>
-    <item quantity="other">%s ஆட்டங்களில் காயவெட்டு (ஐம்பது ஆட்டம் அவகாசம்)</item>
-  </plurals>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை  காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள் </string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
   <string name="winPreventedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் வெற்றி தடுப்புதல்</string>
@@ -114,11 +106,12 @@
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
   <string name="blunder">பெரிய தவறு</string>
-  <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistake">தவறு</string>
-  <string name="mistakes">பிழைகள்</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
-  <string name="inaccuracies">கச்சிதப்பிழைகள்</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s பெரிய தவறு</item>
+    <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
@@ -199,8 +192,9 @@
     <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
   </plurals>
   <string name="cancel">கழி</string>
+  <string name="whiteTimeOut">வெள்ளை நேரம் முடிந்தது</string>
+  <string name="blackTimeOut">கருப்பு நேரம் முடிந்தது</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
-  <string name="drawOfferDeclined">இழுபறி முன்வரவு மறுப்பு</string>
   <string name="drawOfferAccepted">இழுபறி முன்வரவு எற்பு</string>
   <string name="drawOfferCanceled">இழுபறி முன்வரவு கழிப்பு</string>
   <string name="whiteOffersDraw">வெள்ளை சமநிலை வாய்ப்பளிக்கிறது</string>
@@ -226,8 +220,6 @@
   <string name="thisGameIsRated">இந்த ஆட்டம் மதிப்பிடுகின்றது</string>
   <string name="rematch">மறுவாட்டம்</string>
   <string name="rematchOfferSent">மறுவாட்ட அளிப்புத் தெரிவிப்பு</string>
-  <string name="rematchOfferSentWhite">வெள்ளை நிறம் ஆட்டக்காரர் மறுபரிசீலனை சலுகை அனுப்பப்பட்டது</string>
-  <string name="rematchOfferSentBlack">கருப்பு நிறம் ஆட்டக்காரர் மறுபரிசீலனை சலுகை அனுப்பப்பட்டது</string>
   <string name="rematchOfferAccepted">மறுவாட்ட அளிப்பு ஏற்பு</string>
   <string name="rematchOfferCanceled">மறுவாட்ட அளிப்புக் கழிப்பு</string>
   <string name="rematchOfferDeclined">மறுவாட்ட அளிப்பு மறுப்பு</string>
@@ -241,13 +233,10 @@
   <string name="youHaveBeenTimedOut">உரையாடுவதிலிருந்து நீங்கள் தடை செய்யப்பட்டுள்ளன.</string>
   <string name="spectatorRoom">பார்வையாளர் அறை</string>
   <string name="composeMessage">செய்தி இயற்று</string>
-  <string name="noNewMessages">புதுச்செய்திகள் ஏதுமில்லை</string>
   <string name="subject">தலைப்பு</string>
-  <string name="recipient">பெறுநர்</string>
   <string name="send">அனுப்பு</string>
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
   <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
-  <string name="spectators">பார்வையாளர்கள்</string>
   <plurals name="nbRated">
     <item quantity="one">%s முக்கியமான விளையாட்டுகள்</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள்</item>
@@ -275,7 +264,6 @@
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
   <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
   <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
@@ -308,6 +296,9 @@
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
+  <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்கள் சிறந்த வாராந்திர %1$s மதிப்பீடு (%2$s) மிக அதிகமாக உள்ளது</string>
+  <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
@@ -333,8 +324,6 @@
   <string name="notACheckmate">முழுத்தடையன்று</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
-  <string name="noFriendsOnline">இணையத் தோழர் யாருமிலர்</string>
-  <string name="findFriends">தோழர்களைத் தேடு</string>
   <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>
   <string name="follow">பின்தொடர்</string>
   <string name="following">பின்தொடர்கின்றார்</string>
@@ -355,7 +344,6 @@
   <string name="more">மேலும்</string>
   <string name="memberSince">உறுப்பினரான காலம்</string>
   <string name="lastSeenActive">கடைசி உள்நுழைவு %s</string>
-  <string name="challengeToPlay">ஆட அழை</string>
   <string name="player">ஆடி</string>
   <string name="list">வரிசை</string>
   <string name="graph">வரைவு</string>
@@ -371,12 +359,13 @@
   <string name="createANewTournament">புதுப்போட்டி ஒன்றைப் படை</string>
   <string name="conditionOfEntry">நுழைவதற்கு தேவை:</string>
   <string name="advancedSettings">மேம்பட்ட அமைப்புகள்</string>
+  <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
+  <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
   <string name="points">புள்ளிகள்</string>
   <string name="wins">வெல்கின்றார்</string>
   <string name="losses">தோல்விகள்</string>
-  <string name="winStreak">வெற்றித் தொடர்கள்</string>
   <string name="createdBy">படைத்தவர்</string>
   <string name="tournamentIsStarting">போட்டி தொடங்குகின்றது</string>
   <string name="performance">செயல்திறன்</string>
@@ -384,11 +373,9 @@
   <string name="whiteWins">வெள்ளை வெற்றிபெற்றது</string>
   <string name="blackWins">கருப்பு வெற்றிபெற்றது</string>
   <string name="draws">சமநிலை</string>
-  <string name="membersOnly">உறுப்பினர் மட்டும்</string>
   <string name="boardEditor">பலகை அமைப்பாளி</string>
   <string name="startPosition">தொடக்க நிலை</string>
   <string name="clearBoard">பலகையை ஒழி</string>
-  <string name="savePosition">நிலைமையைச் சேமி</string>
   <string name="loadPosition">இருக்கும் நிலையை எடு</string>
   <string name="isPrivate">தனிப்பட்ட</string>
   <string name="reportXToModerators">\"%s\" உரிமையாளரிடம் தெரிவி</string>
@@ -399,40 +386,11 @@
   <string name="firstName">முதல் பெயர்</string>
   <string name="lastName">கடைசி பெயர்</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
-  <string name="country">நாடு</string>
-  <string name="watchLichessTV">லிசெஸ் தொலைகாட்சியை பார்க்க</string>
+  <string name="thankYou">நன்றி</string>
   <string name="previouslyOnLichessTV">முன்பு லிசெஸ் தொலைகாட்சியில்</string>
   <string name="onlinePlayers">இணைய விளையாட்டாளர்கள்</string>
-  <string name="activeToday">இன்று பங்குபெற்றவர்கள்</string>
   <string name="activePlayers">பங்குபெற்ற விளையாட்டாளர்கள்</string>
   <string name="bewareTheGameIsRatedButHasNoClock">எச்சரிக்கை, மதிப்போடான இவ்விளையாட்டில் கடிகாரம் இல்லை</string>
-  <string name="yourPuzzleRatingX">உங்கள் புதிர் மதிப்பீடு: %s</string>
-  <string name="findTheBestMoveForWhite">வெள்ளைக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்</string>
-  <string name="findTheBestMoveForBlack">கருப்புக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்</string>
-  <string name="toTrackYourProgress">உங்கள் முன்னேற்றத்தைக் கண்காணிக்க:</string>
-  <string name="puzzleId">புதிர் %s</string>
-  <string name="puzzleOfTheDay">இன்றைய தினத்திற்கான புதிர்</string>
-  <string name="clickToSolve">தீர்வுகாண அழுத்தவும்</string>
-  <string name="goodMove">நல்ல நகர்த்தல்</string>
-  <string name="butYouCanDoBetter">ஆனால் நீங்கள் மேலும் சிறப்பாக செய்ய முடியும்</string>
-  <string name="bestMove">சிறந்த நகர்த்தல்!</string>
-  <string name="keepGoing">தொடருங்கள்...</string>
-  <string name="puzzleFailed">புதிரில் தோல்வியடைந்தீர்கள்</string>
-  <string name="butYouCanKeepTrying">ஆனால் நீங்கள் மீண்டும் முயற்சிக்கலாம்</string>
-  <string name="wasThisPuzzleAnyGood">இந்த புதிர் எப்படி இருந்தது?</string>
-  <string name="pleaseVotePuzzle">மேல் அல்லது கீழ் அம்புக்குறிகளின் மூலம் வாக்களித்து லிசெஸுக்கு உதவுங்கள்:</string>
-  <string name="thankYou">நன்றி</string>
-  <string name="ratingX">மதிப்பீடு: %s</string>
-  <string name="hidden">மறைக்கப்பட்டுள்ளது</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
-    <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
-  </plurals>
-  <string name="fromGameLink">%s விளையாட்டில் இருந்து</string>
-  <string name="continueTraining">பயிற்சியை தொடர்</string>
-  <string name="retryThisPuzzle">இப்புதிரை மீண்டும் முயற்சிக்கவும்</string>
-  <string name="thisPuzzleIsCorrect">இப்புதிர் சரியானது மற்றும் சுவாரசியமானது</string>
-  <string name="thisPuzzleIsWrong">இப்புதிர் தவறானது மற்றும் சலிப்பூட்டுவது</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s விளையாட்டுக்கள்</item>
     <item quantity="other">%s விளையாட்டுக்கள்</item>
@@ -440,7 +398,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">நகரும் பிறகு தானாகவே அடுத்த விளையாட்டு தொடர</string>
   <string name="autoSwitch">ஆட்டம் மாற</string>
   <string name="puzzles">புதிர்கள்</string>
-  <string name="latestUpdates">சமீபத்திய மேம்படுத்தல்</string>
   <string name="tournamentWinners">போட்டி வெற்றியாளர்கள்</string>
   <string name="name">பெயர்</string>
   <string name="description">விவரணம்</string>
@@ -468,7 +425,6 @@
   <string name="reportDescriptionHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்த பயனர் நடத்தை பற்றி தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி எங்களுக்கு சொல்ல. ஆங்கிலத்தில் எழுதப்பட்ட என்றால் உங்கள் அறிக்கை வேகமாக செயல்படுத்தப்படும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="blog">வலைப்பதிவு</string>
-  <string name="questionsAndAnswers">கேள்வி பதில்கள்</string>
   <string name="notes">குறிப்புகள்</string>
   <string name="typePrivateNotesHere">இரகசிய குறிப்புகள் இங்கே வைக்கலாம்</string>
   <string name="invalidUsernameOrPassword">தவறான பயனர்பெயர் அல்லது கடவுச்சொல்</string>
@@ -484,26 +440,18 @@
   <string name="slow">மெதுவாக</string>
   <string name="always">எப்போதும்</string>
   <string name="never">ஒருபோதும்</string>
-  <string name="difficultyEasy">எளிதாக</string>
-  <string name="difficultyNormal">இயல்பு</string>
-  <string name="difficultyHard">கடின</string>
   <string name="victory">வெற்றி!</string>
   <string name="defeat">தோல்வி</string>
   <string name="timeline">காலவரிசை</string>
   <string name="starting">தொடக்கம்:</string>
-  <string name="yourCityRegionOrDepartment">உங்கள் நகரம், வட்டாரம் அல்லது மாகாணம்.</string>
   <string name="human">மனித</string>
   <string name="computer">கணினி</string>
   <string name="side">பக்கம்</string>
   <string name="clock">கடிகாரம்</string>
-  <string name="unauthorizedError">அங்கீகரிக்கப்படாத அணுகல் உள்ளது.</string>
-  <string name="playOnTheBoardOffline">பலகையின் மீது</string>
-  <string name="playOfflineComputer">கணினி</string>
   <string name="opponent">எதிர் போட்டியாளர்</string>
   <string name="learnMenu">கற்றுக்கொள்</string>
   <string name="community">சமூகம்</string>
   <string name="tools">கருவிகள்</string>
-  <string name="sharePGN">PGNஐ பகிர்ந்த்துகொள்</string>
   <string name="watch">பார்க்கவும்</string>
   <string name="videoLibrary">வீடியோ நூலகம்</string>
   <string name="mobileApp">மொபைல் பயன்பாடு</string>

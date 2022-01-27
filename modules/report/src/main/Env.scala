@@ -25,9 +25,9 @@ final class Env(
     lightUserAsync: lila.common.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
-    userSpyApi: lila.security.UserSpyApi,
+    userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.slack.SlackApi,
+    ircApi: lila.irc.IrcApi,
     captcher: lila.hub.actors.Captcher,
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
@@ -43,16 +43,18 @@ final class Env(
 
   lazy val scoreThresholdsSetting = ReportThresholds makeScoreSetting settingStore
 
-  lazy val slackScoreThresholdSetting = ReportThresholds makeSlackSetting settingStore
+  lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
 
   private val thresholds = Thresholds(
     score = scoreThresholdsSetting.get _,
-    slack = slackScoreThresholdSetting.get _
+    discord = discordScoreThresholdSetting.get _
   )
 
   lazy val forms = wire[ReportForm]
 
   private lazy val autoAnalysis = wire[AutoAnalysis]
+
+  private lazy val snoozer = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
 
   lazy val api = wire[ReportApi]
 
@@ -64,17 +66,15 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.report.Cheater(userId, text) =>
           api.autoCheatReport(userId, text).unit
-        case lila.hub.actorApi.report.Shutup(userId, text) =>
-          api.autoInsultReport(userId, text).unit
-        case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
-          api.autoBoostReport(winnerId, loserId).unit
+        case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
+          api.autoCommReport(userId, text, critical).unit
       }
     }),
     name = config.actorName
   )
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {
-    case lila.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId).unit
+    case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins).unit
     case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text) =>
       api.autoCommFlag(SuspectId(suspectId), resource, text).unit
   }

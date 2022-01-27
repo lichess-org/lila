@@ -26,13 +26,13 @@
   <string name="approved">Сіздің стриміңіз расталды.</string>
   <string name="pendingReview">Сіздің стриміңіз модераторлардың тексеруінде.</string>
   <string name="pleaseFillIn">Стример мәліметтерін толтырып, суретіңізді жүктеп салыңыз.</string>
-  <string name="whenReady">Личес стримерлер қатарына қосылу үшін %s</string>
-  <string name="requestReview">модератор тексеруін сұраңыз</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Личес стримерлер қатарына қосылу үшін %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">модератор тексеруін сұраңыз</string>
   <string name="anotherLanguage">Егер стримді ағылшын тілінен өзге тілде жүргізсеңіз, тақырыптың басына шаршы жақшаға алынған сәйкес тілдің тэгін (%s) қосыңыз.
 Мысалы, қазақ тілі үшін \"[KZ]\", түрік тілі үшін \"[TR]\", француз тілі үшін \"[FR]\", т. с. с.
 Бұны Личес сайтында емес, Twitch не YouTube бетінде стрим тақырыбының басына қосуыңыз керек.
 Егер стрим ағылшын тілінде өтетін болса, тіл тэгін қосуының керегі жоқ.</string>
-  <string name="twitchUsername">Twitch аккаунт атыңыз немесе URL</string>
+  <string name="twitchUsername">Twitch тіркелгі атыңыз немесе URL</string>
   <string name="optionalOrEmpty">Міндетті емес. Жоқ болса, бос қалдырыңыз</string>
   <string name="youtubeChannel">YouTube арнаңыздағы ID не URL</string>
   <string name="streamerName">Личестегі стример атыңыз</string>
@@ -48,11 +48,5 @@
   <string name="xStreamerPicture">%s стримердің суреті</string>
   <string name="changePicture">Суретті өзгерту/жою</string>
   <string name="uploadPicture">Суретті жүктеп салу</string>
-  <string name="deletePicture">Суретті жою</string>
   <string name="maxSize">Өлшемнің шегі: %s</string>
-  <string name="installBlocker">Зиянкестен қорғаушыны орнатыңыз!</string>
-  <string name="beSafe">Twitch пен YouTube-ті шарлап жүрген
-жарнама мен трекерлерден сақ болыңыз.
-Личес uBlock Origin програмын ұсынады,
-ол тегін әрі коды ашық.</string>
 </resources>

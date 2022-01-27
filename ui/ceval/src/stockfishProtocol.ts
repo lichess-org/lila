@@ -1,55 +1,70 @@
-import { lichessVariantRules } from 'chessops/compat';
-import { WorkerOpts, Work } from './types';
-import { defer } from 'common/defer';
+import { lichessRules } from 'chessops/compat';
+import { ProtocolOpts, Work } from './types';
+import { Deferred, defer } from 'common/defer';
+import { Sync, sync } from 'common/sync';
 
-const EVAL_REGEX = new RegExp(''
-  + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
-  + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
-  + /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source
-  + /pv (.+)/.source);
+const evalRegex = new RegExp(
+  '' +
+    /^info depth (\d+) seldepth \d+ multipv (\d+) /.source +
+    /score (cp|mate) ([-\d]+) /.source +
+    /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source +
+    /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source +
+    /pv (.+)/.source
+);
+
+const minDepth = 6;
+const MAX_STOCKFISH_PLIES = 245;
 
 export default class Protocol {
-  private work: Work | null = null;
-  private curEval: Tree.ClientEval | null = null;
+  private engineNameDeferred: Deferred<string> = defer();
+  public engineName: Sync<string> = sync(this.engineNameDeferred.promise);
+
+  private options = new Map<string, string | number>([
+    ['Threads', 1],
+    ['Hash', 16],
+    ['MultiPV', 1],
+    ['UCI_Variant', 'chess'],
+  ]);
+
+  private work: Work | undefined;
+  private currentEval: Tree.LocalEval | undefined;
   private expectedPvs = 1;
-  private stopped: DeferPromise.Deferred<void> | null;
 
-  public engineName: string | undefined;
+  private nextWork: Work | undefined;
 
-  constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
-    this.stopped = defer<void>();
-    this.stopped.resolve();
-  }
+  constructor(private send: (cmd: string) => void, private opts: ProtocolOpts) {}
 
   init(): void {
-    // get engine name/version
+    // Get engine name/version.
     this.send('uci');
 
-    // analyse without contempt
-    this.setOption('UCI_Chess960', 'true');
+    // Analyse without contempt.
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
-    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    // Affects notation only. Life would be easier if everyone would always
+    // unconditionally use this mode.
+    this.setOption('UCI_Chess960', 'true');
   }
 
   private setOption(name: string, value: string | number): void {
-    this.send(`setoption name ${name} value ${value}`);
+    if (this.options.get(name) !== value) {
+      this.send(`setoption name ${name} value ${value}`);
+      this.options.set(name, value);
+    }
   }
 
   received(text: string): void {
-    if (text.startsWith('id name ')) this.engineName = text.substring('id name '.length);
+    if (text.startsWith('id name ')) this.engineNameDeferred.resolve(text.substring('id name '.length));
     else if (text.startsWith('bestmove ')) {
-      if (!this.stopped) this.stopped = defer<void>();
-      this.stopped.resolve();
-      if (this.work && this.curEval) this.work.emit(this.curEval);
+      if (this.work && this.currentEval) this.work.emit(this.currentEval);
+      this.work = undefined;
+      this.swapWork();
       return;
     }
-    if (!this.work) return;
+    if (!this.work || this.work.stopRequested) return;
 
-    const matches = text.match(EVAL_REGEX);
+    const matches = text.match(evalRegex);
     if (!matches) return;
 
     const depth = parseInt(matches[1]),
@@ -67,15 +82,13 @@ export default class Protocol {
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
-    if (depth < this.opts.minDepth) return;
+    if (depth < minDepth) return;
 
     const pivot = this.work.threatMode ? 0 : 1;
-    const ev = (this.work.ply % 2 === pivot) ? -povEv : povEv;
+    const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
-    // The exception is for multiPV, sometimes non-primary PVs
-    // only have an upperbound.
-    // See: https://github.com/ddugovic/Stockfish/issues/228
+    // However non-primary pvs may only have an upperbound.
     if (evalType && multiPv === 1) return;
 
     const pvData = {
@@ -86,7 +99,7 @@ export default class Protocol {
     };
 
     if (multiPv === 1) {
-      this.curEval = {
+      this.currentEval = {
         fen: this.work.currentFen,
         maxDepth: this.work.maxDepth,
         depth,
@@ -95,53 +108,70 @@ export default class Protocol {
         cp: isMate ? undefined : ev,
         mate: isMate ? ev : undefined,
         pvs: [pvData],
-        millis: elapsedMs
+        millis: elapsedMs,
       };
-    } else if (this.curEval) {
-      this.curEval.pvs.push(pvData);
-      this.curEval.depth = Math.min(this.curEval.depth, depth);
+    } else if (this.currentEval) {
+      this.currentEval.pvs.push(pvData);
+      this.currentEval.depth = Math.min(this.currentEval.depth, depth);
     }
 
-    if (multiPv === this.expectedPvs && this.curEval) {
-      this.work.emit(this.curEval);
+    if (multiPv === this.expectedPvs && this.currentEval) {
+      this.work.emit(this.currentEval);
+
+      // Depth limits are nice in the user interface, but in clearly decided
+      // positions the usual depth limits are reached very quickly due to
+      // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
+      // manually ensuring Stockfish gets to spend a minimum amount of
+      // time/nodes on each position.
+      if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
+        this.stop();
     }
   }
 
-  start(w: Work): void {
-    if (!this.stopped) {
-      // TODO: Work is started by basically doing stop().then(() => start(w)).
-      // There is a race condition where multiple callers are waiting for
-      // completion of the same stop future, and so they will start work at
-      // the same time.
-      // This can lead to all kinds of issues, including deadlocks. Instead
-      // we ignore all but the first request. The engine will show as loading
-      // indefinitely. Until this is fixed, it is still better than a
-      // possible deadlock.
-      console.log('ceval: tried to start analysing before requesting stop');
-      return;
+  private swapWork(): void {
+    this.stop();
+
+    if (!this.work) {
+      this.work = this.nextWork;
+      this.nextWork = undefined;
+
+      if (this.work) {
+        this.currentEval = undefined;
+        this.expectedPvs = 1;
+
+        this.setOption(
+          'UCI_Variant',
+          this.opts.variant === 'antichess'
+            ? 'giveaway' // for old asmjs fallback
+            : lichessRules(this.opts.variant)
+        );
+        this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
+        this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
+        this.setOption('MultiPV', this.work.multiPv);
+
+        this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
+        this.send(
+          this.work.maxDepth >= 99
+            ? `go depth ${MAX_STOCKFISH_PLIES}` // 'go infinite' would not finish even if entire tree search completed
+            : 'go movetime 90000'
+        );
+      }
     }
-    this.work = w;
-    this.curEval = null;
-    this.stopped = null;
-    this.expectedPvs = 1;
-    if (this.opts.threads) this.setOption('Threads', this.opts.threads());
-    if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
-    this.setOption('MultiPV', this.work.multiPv);
-    this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-    if (this.work.maxDepth >= 99) this.send('go depth 99');
-    else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }
 
-  stop(): Promise<void> {
-    if (!this.stopped) {
-      this.work = null;
-      this.stopped = defer<void>();
+  start(nextWork: Work): void {
+    this.nextWork = nextWork;
+    this.swapWork();
+  }
+
+  stop(): void {
+    if (this.work && !this.work.stopRequested) {
+      this.work.stopRequested = true;
       this.send('stop');
     }
-    return this.stopped.promise;
   }
 
   isComputing(): boolean {
-    return !this.stopped;
+    return !!this.work && !this.work.stopRequested;
   }
 }

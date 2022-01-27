@@ -3,8 +3,8 @@
   <string name="settings">Beállítások</string>
   <string name="closeAccount">Fiók zárolása</string>
   <string name="closingIsDefinitive">A fiók törlése végleges. Nem lehet visszavonni. Biztos benne?</string>
-  <string name="cantOpenSimilarAccount">Nem fog tudni új fiókot nyitni ugyanezzel a névvel, még eltérő kis- és nagybetűkkel sem.</string>
+  <string name="cantOpenSimilarAccount">Nem fogsz tudni új fiókot nyitni ugyanezzel a névvel, még eltérő kis- és nagybetűkkel sem.</string>
   <string name="changedMindDoNotCloseAccount">Meggondoltam magam, mégsem zárolom a fiókomat</string>
-  <string name="closeAccountExplanation">Biztos, hogy zárolni akarja a fiókját? A döntés végleges és visszavonhatatlan. Nem fog tudni belépni SOHA TÖBBÉ.</string>
+  <string name="closeAccountExplanation">Biztos, hogy zárolni akarod a fiókod? A döntés végleges és visszavonhatatlan. Nem fogsz tudni belépni SOHA TÖBBÉ.</string>
   <string name="thisAccountIsClosed">Ez a fiók zárolva van.</string>
 </resources>

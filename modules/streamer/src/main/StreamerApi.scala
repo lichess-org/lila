@@ -1,19 +1,19 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.Photographer
 import lila.memo.CacheApi._
+import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    photographer: Photographer,
+    picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -68,7 +68,8 @@ final class StreamerApi(
       cache.listedIds.invalidateUnit() inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
+          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
+          decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
         )
         import lila.notify.Notification.Notifies
         import lila.notify.Notification
@@ -77,7 +78,7 @@ final class StreamerApi(
             Notification.make(
               Notifies(streamer.userId),
               lila.notify.GenericLink(
-                url = s"/streamer/edit",
+                url = "/streamer/edit",
                 title = "Listed on /streamer".some,
                 text = "Your streamer page is public".some,
                 icon = ""
@@ -100,6 +101,9 @@ final class StreamerApi(
       )
       .void
 
+  def delete(user: User): Funit =
+    coll.delete.one($id(user.id)).void
+
   def create(u: User): Funit =
     coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
 
@@ -112,13 +116,11 @@ final class StreamerApi(
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
-    photographer(s.id.value, picture).flatMap { pic =>
-      coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
+  def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
+    picfitApi
+      .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
+      coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
-
-  def deletePicture(s: Streamer): Funit =
-    coll.update.one($id(s.id), $unset("picturePath")).void
 
   // unapprove after a week if you never streamed
   def autoDemoteFakes: Funit =
@@ -154,6 +156,25 @@ final class StreamerApi(
         )
       )
   }
+
+  def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
+    coll
+      .find(
+        $doc(
+          "$or" -> List(
+            streamer.twitch.map(_.userId).map { t =>
+              $doc("twitch.userId" -> t)
+            },
+            streamer.youTube.map(_.channelId).map { t =>
+              $doc("youTube.channelId" -> t)
+            }
+          ).flatten,
+          "_id" $ne streamer.userId
+        )
+      )
+      .sort($sort desc "createdAt")
+      .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
+      .list(10)
 
   private object cache {
 

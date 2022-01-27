@@ -10,19 +10,26 @@ final class Dev(env: Env) extends LilaController(env) {
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
-    env.irwin.irwinThresholdsSetting,
+    env.mailer.mailerSecondaryPermilleSetting,
+    env.irwin.irwinApi.thresholds,
+    env.irwin.kaladinApi.thresholds,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdsSetting,
-    env.report.slackScoreThresholdSetting,
+    env.report.discordScoreThresholdSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
-    env.streamer.twitchCredentialsSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
+    env.plan.paymentMethodsSetting,
     env.apiTimelineSetting,
+    env.apiExplorerGamesPerSecond,
+    env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
-    env.prizeTournamentMakers
+    env.prizeTournamentMakers,
+    env.pieceImageExternal,
+    env.evalCache.enable,
+    env.tournament.reloadEndpointSetting
   )
 
   def settings =
@@ -38,7 +45,7 @@ final class Dev(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings())
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
           )
       }
     }

@@ -21,7 +21,7 @@ object checkYourEmail {
       main(
         cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
       )(
-        h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
         p(trans.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(
@@ -31,7 +31,7 @@ object checkYourEmail {
               h3("Make sure your email address is correct:"),
               br,
               br,
-              postForm(action := routes.Auth.fixEmail())(
+              postForm(action := routes.Auth.fixEmail)(
                 input(
                   id := "new-email",
                   tpe := "email",
@@ -67,7 +67,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
             "Did you wait 5 minutes?",
             br,
             "If so, ",
-            a(href := routes.Account.emailConfirmHelp())("proceed to this page to solve the issue"),
+            a(href := routes.Account.emailConfirmHelp)("proceed to this page to solve the issue"),
             "."
           )
         )

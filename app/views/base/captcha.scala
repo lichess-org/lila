@@ -54,11 +54,16 @@ object captcha {
             trans.help(),
             " ",
             a(title := trans.viewTheSolution.txt(), targetBlank, href := s"${url}#last")(url),
-            div(cls := "result success text", dataIcon := "E")(trans.checkmate()),
-            div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate()),
+            div(cls := "result success text", dataIcon := "")(trans.checkmate()),
+            div(cls := "result failure text", dataIcon := "")(trans.notACheckmate()),
             form3.hidden(form("move"))
           )
         )
       }
     )
+
+  def hiddenEmpty(form: lila.common.Form.FormLike) = frag(
+    form3.hidden(form("gameId")),
+    form3.hidden(form("move"))
+  )
 }

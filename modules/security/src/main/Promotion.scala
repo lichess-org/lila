@@ -8,12 +8,13 @@ import lila.common.config.NetDomain
 
 final class PromotionApi(domain: NetDomain) {
 
-  def test(user: User)(text: String): Boolean =
+  def test(user: User)(text: String, prevText: Option[String] = None): Boolean =
     user.isVerified || user.isAdmin || {
       val promotions = extract(text)
       promotions.isEmpty || {
-        val prev   = ~cache.getIfPresent(user.id)
-        val accept = prev.sizeIs < 3 && !prev.exists(promotions.contains)
+        val prevTextPromotion = prevText ?? extract
+        val prev              = ~cache.getIfPresent(user.id) -- prevTextPromotion
+        val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
         if (!accept) logger.info(s"Promotion @${user.username} ${identify(text) mkString ", "}")
         accept
       }
@@ -21,7 +22,7 @@ final class PromotionApi(domain: NetDomain) {
 
   def save(user: User, text: String): Unit = {
     val promotions = extract(text)
-    if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ extract(text))
+    if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ promotions)
   }
 
   private type Id = String
@@ -37,6 +38,7 @@ final class PromotionApi(domain: NetDomain) {
     s"$domain/swiss/(\\w+)",
     s"$domain/simul/(\\w+)",
     s"$domain/study/(\\w+)",
+    s"$domain/class/(\\w+)",
     """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""",
     """youtube\.com/channel/([\w-]{24})""",
     """twitch\.tv/([a-zA-Z0-9](?:\w{2,24}+))"""

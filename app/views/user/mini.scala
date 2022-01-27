@@ -36,32 +36,34 @@ object mini {
           ),
           ping map bits.signalBars
         ),
-        if (u.marks.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
+        if (u.lame && !ctx.me.has(u) && !isGranted(_.UserModView))
           div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
-          div(cls := "upt__info__ratings")(u.best8Perfs map { showPerfRating(u, _) })
+          ctx.pref.showRatings option div(cls := "upt__info__ratings")(u.best8Perfs map {
+            showPerfRating(u, _)
+          })
       ),
       ctx.userId map { myId =>
         frag(
           (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
             a(
-              dataIcon := "1",
+              dataIcon := "",
               cls := "btn-rack__btn",
               title := trans.watchGames.txt(),
               href := routes.User.tv(u.username)
             ),
             !blocked option frag(
               a(
-                dataIcon := "c",
+                dataIcon := "",
                 cls := "btn-rack__btn",
                 title := trans.chat.txt(),
                 href := routes.Msg.convo(u.username)
               ),
               a(
-                dataIcon := "U",
+                dataIcon := "",
                 cls := "btn-rack__btn",
-                title := trans.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home()}?user=${u.username}#friend"
+                title := trans.challenge.challengeToPlay.txt(),
+                href := s"${routes.Lobby.home}?user=${u.username}#friend"
               )
             ),
             views.html.relation.mini(u.id, blocked, followable, rel)
@@ -76,7 +78,7 @@ object mini {
           }
         )
       },
-      isGranted(_.UserSpy) option div(cls := "upt__mod")(
+      isGranted(_.UserModView) option div(cls := "upt__mod")(
         span(
           trans.nbGames.plural(u.count.game, u.count.game.localize),
           " ",

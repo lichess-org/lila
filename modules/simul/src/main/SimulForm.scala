@@ -3,6 +3,7 @@ package lila.simul
 import cats.implicits._
 import chess.format.FEN
 import chess.StartingPosition
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
@@ -34,19 +35,12 @@ object SimulForm {
   val colorDefault = "white"
 
   private def nameType(host: User) =
-    eventName(2, 40).verifying(
-      Constraint[String] { (t: String) =>
-        if (t.toLowerCase contains "lichess")
-          validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
-        else validation.Valid
-      },
+    eventName(2, 40, host.isVerifiedOrAdmin).verifying(
       Constraint[String] { (t: String) =>
         if (
           t.toUpperCase.split(' ').exists { word =>
             lila.user.Title.all.exists { case (title, name) =>
-              !host.title.has(title) && {
-                title.value == word || name.toUpperCase == word
-              }
+              !host.title.has(title) && (title.value == word || name.toUpperCase == word)
             }
           }
         )
@@ -65,6 +59,7 @@ object SimulForm {
       position = none,
       color = colorDefault,
       text = "",
+      estimatedStartAt = none,
       team = none,
       featured = host.hasTitle.some
     )
@@ -79,8 +74,9 @@ object SimulForm {
       position = simul.position,
       color = simul.color | "random",
       text = simul.text,
+      estimatedStartAt = simul.estimatedStartAt,
       team = simul.team,
-      featured = host.hasTitle.some
+      featured = simul.featurable
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
@@ -105,11 +101,12 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position" -> optional(lila.common.Form.fen.playableStrict),
-        "color"    -> stringIn(colorChoices),
-        "text"     -> clean(text),
-        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
-        "featured" -> optional(boolean)
+        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "color"            -> stringIn(colorChoices),
+        "text"             -> cleanText,
+        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "featured"         -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
     )
 
@@ -130,6 +127,7 @@ object SimulForm {
       position: Option[FEN],
       color: String,
       text: String,
+      estimatedStartAt: Option[DateTime] = None,
       team: Option[String],
       featured: Option[Boolean]
   ) {

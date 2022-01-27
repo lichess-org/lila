@@ -15,11 +15,11 @@ final class Env(
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val tvTrouper = wire[TvTrouper]
+  private val tvSyncActor = wire[TvSyncActor]
 
   lazy val tv = wire[Tv]
 
   system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds) { () =>
-    tvTrouper ! TvTrouper.Select
+    tvSyncActor ! TvSyncActor.Select
   }
 }

@@ -13,7 +13,7 @@
   <string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
   <string name="rookGoal">Натисніть на туру й доведіть її до зірки!</string>
   <string name="grabAllTheStars">Зберіть всі зірки!</string>
-  <string name="theFewerMoves">Чим менше ходів Ви зробите, тим більше очок ви отримаєте!</string>
+  <string name="theFewerMoves">Чим менше ходів ви зробите, тим більше очок ви отримаєте!</string>
   <string name="useTwoRooks">Використовуйте дві тури, аби прискорити процес!</string>
   <string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
   <string name="theBishop">Слон</string>
@@ -53,7 +53,7 @@
   <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
   <string name="pawnPromotion">Перетворення пішака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>
-  <string name="itNowPromotesToAStrongerPiece">Зараз вона перетворюється на фігуру сильніше.</string>
+  <string name="itNowPromotesToAStrongerPiece">Зараз він перетвориться на фігуру сильніше.</string>
   <string name="selectThePieceYouWant">Оберіть фігуру, яку захочете!</string>
   <string name="fundamentals">Основи</string>
   <string name="capture">Взяття</string>
@@ -89,10 +89,10 @@
   <string name="youCanGetOutOfCheckByTaking">Ви можете піти від шаха,
 з\'ївши атакуючу фігуру.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Цей кінь ставить шах,
-минаючи твій захист!</string>
+минаючи Ваш захист!</string>
   <string name="escapeOrBlock">Виведіть короля
 або закрийтеся!</string>
-  <string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
+  <string name="outOfCheckComplete">Вітаємо! Ваш король не може бути взятим, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
   <string name="defeatTheOpponentsKing">Поразка короля противника</string>
   <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>
@@ -135,7 +135,7 @@
   <string name="theSpecialPawnMove">Особливий хід пішаком</string>
   <string name="enPassantIntro">Коли пішак суперника зробив хід на два поля, Ви можете взяти його, ніби він зробив хід лише на одне.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Чорні щойно сходили пішаком на два поля! Візьміть його на проході.</string>
-  <string name="enPassantOnlyWorksImmediately">Взяття на проході можливо тільки безпосередньо після того, як суперник зробив хід пішаком.</string>
+  <string name="enPassantOnlyWorksImmediately">Взяття на проході можливо лише безпосередньо після того, як суперник зробив хід пішаком.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Взяття на проході можна зробити, якщо ваш пішак на п\'ятому рядку.</string>
   <string name="takeAllThePawnsEnPassant">Візьміть всі пішаки на проході!</string>
   <string name="enPassantComplete">Вітаємо! Тепер ви можете робити взяття на проході.</string>
@@ -154,10 +154,14 @@
 Тура = 5 пішаків
 Слон = 3 пішаки
 Кінь = 3 пішаки
-Пішка = 1 пішак
+Пішак = 1 пішак
 Король безцінний! Його втрата означає, що гру програно.</string>
   <string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
+  <string name="pieceValueExchange">Побийте найціннішу фігуру!
+Не розмінюйте дорожчі фігури на менш цінні.</string>
+  <string name="pieceValueLegal">Побийте найціннішу фігуру!
+Переконайтесь що ваш хід можливий!</string>
   <string name="takeThePieceWithTheHighestValue">Атакуйте фігури з найбільшою цінністю!</string>
   <string name="pieceValueComplete">Вітаємо! Ви знаєте цінність фігур!
 Ферзь = 9 пішаків

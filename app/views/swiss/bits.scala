@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nKeys => trans }
 import lila.swiss.Swiss
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -14,7 +15,7 @@ object bits {
   def link(swissId: Swiss.Id): Frag = link(swissId, idToName(swissId))
   def link(swissId: Swiss.Id, name: String): Frag =
     a(
-      dataIcon := "g",
+      dataIcon := "",
       cls := "text",
       href := routes.Swiss.show(swissId.value).url
     )(name)
@@ -32,7 +33,7 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
+        a(href := routes.Swiss.home)(trans.returnToTournamentsHomepage())
       )
     }
 
@@ -64,24 +65,34 @@ object bits {
             td(cls := "infos")(
               momentFromNowOnce(s.startsAt)
             ),
-            td(cls := "text", dataIcon := "r")(s.nbPlayers.localize)
+            td(cls := "text", dataIcon := "")(s.nbPlayers.localize)
           )
         }
       )
     )
 
-  def showInterval(s: Swiss): Frag =
+  def showInterval(s: Swiss)(implicit lang: Lang): Frag =
     s.settings.dailyInterval match {
-      case Some(1)                         => frag("One round per day")
-      case Some(d)                         => frag(s"One round every $d days")
-      case None if s.settings.manualRounds => frag("Rounds are started manually")
+      case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
+      case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
-        frag(
-          if (s.settings.intervalSeconds < 60) pluralize("second", s.settings.intervalSeconds)
-          else pluralize("minute", s.settings.intervalSeconds / 60),
-          " between rounds"
-        )
+        if (s.settings.intervalSeconds < 60)
+          trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
+        else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
     }
+
+  def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
+    a(href := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
+      iconTag(iconChar(s))(cls := "img icon"),
+      span(cls := "content")(
+        span(cls := "name")(s.name, " Swiss"),
+        span(cls := "more")(
+          trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
+          " • ",
+          if (s.isStarted) trans.eventInProgress() else momentFromNow(s.startsAt)
+        )
+      )
+    )
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
@@ -101,6 +112,11 @@ object bits {
     trans.standByX,
     trans.averageOpponent,
     trans.tournamentComplete,
-    trans.password
+    trans.tournamentEntryCode,
+    trans.swiss.viewAllXRounds,
+    trans.swiss.ongoingGames,
+    trans.swiss.startingIn,
+    trans.swiss.nextRound,
+    trans.team.joinTeam
   ).map(_.key)
 }

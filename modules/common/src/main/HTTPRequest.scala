@@ -28,8 +28,7 @@ object HTTPRequest {
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
     "http://localhost",      // android
-    "http://localhost:8080", // local dev
-    "file://"                // old app
+    "http://localhost:8080"  // local dev
   )
 
   def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
@@ -46,20 +45,21 @@ object HTTPRequest {
 
   private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
   def isChrome(req: RequestHeader)                        = uaContains(req, "Chrome/")
+  val isChrome96OrMore                                    = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
-    IpAddress {
-      req.remoteAddress.split(", ").lastOption | req.remoteAddress
+    IpAddress.unchecked {
+      req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
     }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 
   val isCrawler = UaMatcher {
-    """(?i)googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +
+    """(?i)googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|python-requests|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +
       """voyager|cyberpatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|ezooms|dotbot|mail\.ru|discobot|zombie\.js|heritrix|findthatfile|europarchive\.org|nerdbynature\.bot|sistrixcrawler|ahrefsbot|aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|yeti|retrevopageanalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|duckduckbot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnamgnamspider|web-archive-net\.com\.bot|backlinkcrawler|""" +
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
   }
@@ -92,10 +92,17 @@ object HTTPRequest {
   def printClient(req: RequestHeader) =
     s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 
-  def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
+  def bearer(req: RequestHeader): Option[Bearer] =
+    req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
+      val prefix = "Bearer "
+      authorization.startsWith(prefix) option Bearer(authorization.stripPrefix(prefix))
+    }
+
+  def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
+  def acceptsCsv(req: RequestHeader)    = req.headers get HeaderNames.ACCEPT contains "text/csv"
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
@@ -108,6 +115,12 @@ object HTTPRequest {
       case _                          => none
     }
   }
+
+  private def isDataDump(req: RequestHeader)    = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader)      = req.path.startsWith("/appeal")
+  private def isStudyExport(req: RequestHeader) = "^/study/by/[^/]{2,}/export.pgn$".r matches req.path
+
+  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req) || isStudyExport(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

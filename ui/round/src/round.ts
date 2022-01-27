@@ -9,7 +9,6 @@ export const lastStep = (d: RoundData): Step => d.steps[d.steps.length - 1];
 export const plyStep = (d: RoundData, ply: number): Step => d.steps[ply - firstPly(d)];
 
 export const massage = (d: RoundData): void => {
-
   if (d.clock) {
     d.clock.showTenths = d.pref.clockTenths;
     d.clock.showBar = d.pref.clockBar;

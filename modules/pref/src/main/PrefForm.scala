@@ -51,7 +51,9 @@ object PrefForm {
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "insightShare" -> numberIn(Set(0, 1, 2))
+      "mention"      -> optional(booleanNumber),
+      "insightShare" -> numberIn(Set(0, 1, 2)),
+      "ratings"      -> optional(booleanNumber)
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -95,7 +97,9 @@ object PrefForm {
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
-      insightShare: Int
+      mention: Option[Int],
+      insightShare: Int,
+      ratings: Option[Int]
   ) {
 
     def apply(pref: Pref) =
@@ -119,11 +123,13 @@ object PrefForm {
         premove = behavior.premove == 1,
         animation = display.animation,
         submitMove = behavior.submitMove,
+        mention = mention.fold(Pref.default.mention)(_ == 1),
         insightShare = insightShare,
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
+        ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
@@ -167,7 +173,9 @@ object PrefForm {
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
-        insightShare = pref.insightShare
+        mention = (if (pref.mention) 1 else 0).some,
+        insightShare = pref.insightShare,
+        ratings = pref.ratings.some
       )
   }
 
@@ -211,7 +219,10 @@ object PrefForm {
 
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText
+      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
+        .verifying { url =>
+          url.startsWith("https://") || url.startsWith("//")
+        }
     )
   )
 

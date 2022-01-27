@@ -16,7 +16,8 @@ object gamesContent {
       nbs: lila.app.mashup.UserInfo.NbGames,
       pager: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
-      filterName: String
+      filterName: String,
+      notes: Map[Game.ID, String]
   )(implicit ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
@@ -35,15 +36,15 @@ object gamesContent {
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
-                strong(pager.nbResults.localize, " games found")
+                strong(trans.search.gamesFound.plural(pager.nbResults, pager.nbResults.localize))
               ),
               div(cls := "search__rows infinite-scroll")(
-                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+                views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
           else
-            div(cls := "search__status")(strong("No game found"))
+            div(cls := "search__status")(strong(trans.noGameFound.txt()))
         } else
           div(
             cls := List(
@@ -55,7 +56,8 @@ object gamesContent {
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
                 views.html.game.mini(pov)(ctx)(cls := "paginated")
               }
-            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+            else
+              views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )

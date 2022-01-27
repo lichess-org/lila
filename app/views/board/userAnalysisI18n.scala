@@ -21,7 +21,7 @@ object userAnalysisI18n {
       } ++ {
         withForecast ?? forecastTranslations
       } ++ {
-        withAdvantageChart ?? advantageChartTranslations
+        withAdvantageChart ?? advantageTranslations
       }
     )
 
@@ -33,6 +33,8 @@ object userAnalysisI18n {
     trans.checkmate,
     trans.whiteResigned,
     trans.blackResigned,
+    trans.whiteDidntMove,
+    trans.blackDidntMove,
     trans.stalemate,
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
@@ -42,9 +44,13 @@ object userAnalysisI18n {
     trans.playingRightNow,
     trans.whiteIsVictorious,
     trans.blackIsVictorious,
+    trans.cheatDetected,
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding,
+    trans.drawByMutualAgreement,
+    trans.fiftyMovesWithoutProgress,
+    trans.insufficientMaterial,
     trans.whitePlays,
     trans.blackPlays,
     trans.gameOver,
@@ -53,11 +59,7 @@ object userAnalysisI18n {
     trans.computerAnalysis,
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
-    trans.inaccuracies,
-    trans.mistakes,
-    trans.blunders,
     trans.viewTheSolution,
-    trans.spectators,
     // action menu
     trans.menu,
     trans.boardEditor,
@@ -103,7 +105,7 @@ object userAnalysisI18n {
     trans.puzzle.findTheBestMoveForBlack
   ).map(_.key)
 
-  private val cevalTranslations: Vector[MessageKey] = Vector(
+  val cevalWidget: Vector[MessageKey] = Vector(
     // also uses gameOver
     trans.depthX,
     trans.usingServerAnalysis,
@@ -113,6 +115,10 @@ object userAnalysisI18n {
     trans.showThreat,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
+    trans.computerAnalysisDisabled
+  ).map(_.key)
+
+  private val cevalTranslations: Vector[MessageKey] = cevalWidget ++ Vector(
     // ceval menu
     trans.computerAnalysis,
     trans.enable,
@@ -125,7 +131,7 @@ object userAnalysisI18n {
     trans.memory
   ).map(_.key)
 
-  private val explorerTranslations: Vector[MessageKey] = Vector(
+  val explorerTranslations: Vector[MessageKey] = Vector(
     // also uses gameOver, checkmate, stalemate, draw, variantEnding
     trans.openingExplorerAndTablebase,
     trans.openingExplorer,
@@ -151,12 +157,26 @@ object userAnalysisI18n {
     trans.averageRatingX,
     trans.masterDbExplanation,
     trans.mateInXHalfMoves,
-    trans.nextCaptureOrPawnMoveInXHalfMoves,
+    trans.dtzWithRounding,
+    trans.winOr50MovesByPriorMistake,
+    trans.lossOr50MovesByPriorMistake,
+    trans.unknownDueToRounding,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
     trans.lossSavedBy50MoveRule,
-    trans.allSet
+    trans.allSet,
+    trans.study.searchByUsername,
+    trans.mode,
+    trans.rated,
+    trans.casual,
+    trans.since,
+    trans.until,
+    trans.switchSides,
+    trans.lichessDbExplanation,
+    trans.player,
+    trans.asWhite,
+    trans.asBlack
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(
@@ -168,10 +188,19 @@ object userAnalysisI18n {
     trans.andSaveNbPremoveLines
   ).map(_.key)
 
-  private val advantageChartTranslations: Vector[MessageKey] = Vector(
+  val advantageChartTranslations = Vector(
     trans.advantage,
+    trans.nbSeconds,
     trans.opening,
     trans.middlegame,
     trans.endgame
   ).map(_.key)
+
+  private val advantageTranslations: Vector[MessageKey] =
+    advantageChartTranslations ++
+      Vector(
+        trans.nbInaccuracies,
+        trans.nbMistakes,
+        trans.nbBlunders
+      ).map(_.key)
 }

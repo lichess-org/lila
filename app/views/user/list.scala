@@ -26,7 +26,7 @@ object list {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess players and leaderboards",
-          url = s"$netBaseUrl${routes.User.list().url}",
+          url = s"$netBaseUrl${routes.User.list.url}",
           description =
             "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
         )
@@ -40,7 +40,7 @@ object list {
             ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
-                showBestPerf(u)
+                ctx.pref.showRatings option showBestPerf(u)
               )
             })
           ),
@@ -52,7 +52,7 @@ object list {
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-              userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
+              userTopActive(nbAllTime, trans.activePlayers(), icon = ''.some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),
@@ -70,8 +70,8 @@ object list {
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := "g")(
-        a(href := routes.Tournament.leaderboard())(trans.tournament())
+      h2(cls := "text", dataIcon := "")(
+        a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>
         li(
@@ -83,7 +83,7 @@ object list {
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit lang: Lang) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -91,7 +91,7 @@ object list {
       ol(users map { l =>
         li(
           lightUserLink(l.user),
-          l.rating
+          ctx.pref.showRatings option l.rating
         )
       })
     )

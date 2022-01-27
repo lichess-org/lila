@@ -15,11 +15,12 @@
   <string name="dateAddedOldest">Dodano (starejše)</string>
   <string name="recentlyUpdated">Nazadnje objavljeno</string>
   <string name="mostPopular">Najbolj popularno</string>
+  <string name="alphabetical">Po abecednem redu</string>
   <string name="addNewChapter">Dodaj poglavje</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s poglavje</item>
-    <item quantity="two">%s poglavji</item>
-    <item quantity="few">%s poglavja</item>
+    <item quantity="one">%s Poglavje</item>
+    <item quantity="two">%s Poglavji</item>
+    <item quantity="few">%s Poglavja</item>
     <item quantity="other">%s poglavij</item>
   </plurals>
   <plurals name="nbGames">
@@ -46,6 +47,7 @@
   <string name="youAreNowASpectator">Sedaj ste opazovalec</string>
   <string name="pgnTags">PGN oznake</string>
   <string name="like">Všečkaj</string>
+  <string name="unlike">Ni mi všeč</string>
   <string name="newTag">Nova oznaka</string>
   <string name="commentThisPosition">Komentiraj to pozicijo</string>
   <string name="commentThisMove">Komentiraj to potezo</string>
@@ -68,15 +70,13 @@
   <string name="chapterPgn">PGN poglavja</string>
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL oddaje</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
-  <string name="currentGameUrl">URL trenutno igrane igre</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">To lahko prilepite na forum, da vstavite</string>
+  <string name="youCanPasteThisInTheForumToEmbed">To lahko prilepite na forum, da vstavite</string>
   <string name="startAtInitialPosition">Začni v začetni poziciji</string>
   <string name="startAtX">Začni z %s</string>
   <string name="embedInYourWebsite">Vstavite v vašo spletno stran ali blog</string>
   <string name="readMoreAboutEmbedding">Preberite več o vstavljanju</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Vdelati je mogoče le javni študij!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vdelati je mogoče le javni študij!</string>
   <string name="open">Odpri</string>
   <string name="xBroughtToYouByY">%1$s vam ponuja %2$s</string>
   <string name="studyNotFound">Študije nismo našli</string>
@@ -113,7 +113,7 @@
   <string name="urlOfTheGame">URL igre</string>
   <string name="loadAGameFromXOrY">Naloži partijo iz %1$s ali %2$s</string>
   <string name="createChapter">Ustvari poglavje</string>
-  <string name="configureLiveBroadcast">Nastavite oddajanje v živo</string>
+  <string name="configureLiveBroadcast">Nastavite prenose v živo</string>
   <string name="createStudy">Ustvarite študijo</string>
   <string name="editStudy">Uredite študijo</string>
   <string name="visibility">Vidnost</string>
@@ -135,6 +135,41 @@
   <string name="clearChat">Počisti klepet</string>
   <string name="deleteTheStudyChatHistory">Brisanje zgodovine klepeta? Poti nazaj več ni!</string>
   <string name="deleteStudy">Izbriši študijo</string>
-  <string name="deleteTheEntireStudy">Izbriši celotno študijo? Poti nazaj več ni!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Želite izbrisati celotno študijo? Ni poti nazaj! Za potrditev vnesite ime študije: %s</string>
   <string name="whereDoYouWantToStudyThat">Kje želite to študirati?</string>
+  <string name="goodMove">Dobra poteza</string>
+  <string name="mistake">Napakica</string>
+  <string name="brilliantMove">Briljantna poteza</string>
+  <string name="blunder">Napaka</string>
+  <string name="interestingMove">Zanimiva poteza</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dvomljiva poteza</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Edina poteza</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Nujnica</string>
+  <string name="equalPosition">Enaka pozicija</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Nejasna pozicija</string>
+  <string name="whiteIsSlightlyBetter">Beli je nekoliko boljši</string>
+  <string name="blackIsSlightlyBetter">Črni je nekoliko boljši</string>
+  <string name="whiteIsBetter">Beli je boljši</string>
+  <string name="blackIsBetter">Črni je boljši</string>
+  <string name="whiteIsWinning">Beli zmaguje</string>
+  <string name="blackIsWinning">Črni zmaguje</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novost</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Razvoj</string>
+  <string name="initiative">Iniciativa</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Napad</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Protinapad</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Časovna stiska</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">S kompenzacijo</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Z idejo</string>
+  <string name="nextChapter">Naslednje poglavje</string>
+  <string name="prevChapter">Prejšnje poglavje</string>
+  <string name="studyActions">Študijske akcije</string>
+  <string name="topics">Teme</string>
+  <string name="myTopics">Moje teme</string>
+  <string name="popularTopics">Priljubljene teme</string>
+  <string name="manageTopics">Upravljaj teme</string>
+  <string name="back">Nazaj</string>
+  <string name="playAgain">Igrajte ponovno</string>
+  <string name="whatWouldYouPlay">Kaj bi igrali v tem položaju?</string>
+  <string name="youCompletedThisLesson">Čestitke! Končali ste to lekcijo.</string>
 </resources>

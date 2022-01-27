@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Izazovi</string>
+  <string name="challengeToPlay">Poziv na partiju</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
+  <string name="registerToSendChallenges">Registriraj se za slanje izazova.</string>
+  <string name="youCannotChallengeX">Ne možeš izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
+  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između tvog i %2$s %1$s rejtinga.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog prevelike razlike u %s rejtingu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvaća izazove isključivo od prijatelja.</string>
+  <string name="declineGeneric">Trenutačno ne prihvaćam izazove.</string>
+  <string name="declineLater">Trenutačno ne mogu prihvatiti izazov, molim te da pokušaš kasnije.</string>
+  <string name="declineTooFast">Ovaj vremenski format je prebrz za mene, izazovi me na sporiji format.</string>
+  <string name="declineTooSlow">Ovaj vremenski format je prespor za mene, izazovi me na brži format.</string>
+  <string name="declineTimeControl">Ne prihvaćam izazove u ovom vremenskom formatu.</string>
+  <string name="declineRated">Radije me izazovi na bodovanu partiju.</string>
+  <string name="declineCasual">Radije me izazovi na ležernu partiju.</string>
+  <string name="declineStandard">Ne prihvaćam izazove u ovoj varijanti.</string>
+  <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
+  <string name="declineNoBot">Ne prihvaćam izazove od botova.</string>
+  <string name="declineOnlyBot">Prihvaćam izazove isključivo od botova.</string>
+</resources>

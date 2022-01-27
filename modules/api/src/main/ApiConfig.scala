@@ -10,24 +10,26 @@ final class ApiConfig(
     val influxEventEnv: String,
     val isStage: Boolean,
     val prismicApiUrl: String,
-    val editorAnimationDuration: FiniteDuration,
     val explorerEndpoint: String,
     val tablebaseEndpoint: String,
-    val accessibility: ApiConfig.Accessibility
+    val accessibility: ApiConfig.Accessibility,
+    val pagerDuty: ApiConfig.PagerDuty
 )
 
 object ApiConfig {
 
   final class Accessibility(
       val blindCookieName: String,
-      val blindCookieMaxAge: FiniteDuration,
       blindCookieSalt: Secret
   ) {
+    val blindCookieMaxAge = 365 days
     def hash(implicit ctx: lila.user.UserContext) = {
       import com.roundeights.hasher.Implicits._
       (ctx.userId | "anon").salt(blindCookieSalt.value).md5.hex
     }
   }
+
+  final class PagerDuty(val serviceId: String, val apiKey: Secret)
 
   def loadFrom(c: play.api.Configuration) =
     new ApiConfig(
@@ -36,13 +38,15 @@ object ApiConfig {
       c.get[String]("api.influx_event.env"),
       c.get[Boolean]("app.stage"),
       c.get[String]("prismic.api_url"),
-      c.get[FiniteDuration]("editor.animation.duration"),
       c.get[String]("explorer.endpoint"),
       c.get[String]("explorer.tablebase.endpoint"),
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
-        c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
         c.get[Secret]("accessibility.blind.cookie.salt")
+      ),
+      new PagerDuty(
+        c.get[String]("pagerDuty.serviceId"),
+        c.get[Secret]("pagerDuty.apiKey")
       )
     )
 }

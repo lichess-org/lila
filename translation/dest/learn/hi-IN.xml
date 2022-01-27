@@ -18,15 +18,15 @@
   <string name="useTwoRooks">Use two rooks
 to speed things up!</string>
   <string name="rookComplete">बधाई हो! आपने हाथियों का प्रयोग करना सफलतापूर्वक सीख लिया है</string>
-  <string name="theBishop">ऊंट</string>
+  <string name="theBishop">ऊँट</string>
   <string name="itMovesDiagonally">यह तिरछे चलता है</string>
-  <string name="bishopIntro">अब हम ऊंट के चाल को सीखेंगे</string>
-  <string name="youNeedBothBishops">आपको दोनों सफ़ेद और काले रंग के ऊंट की ज़रूरत पड़ेगी</string>
-  <string name="bishopComplete">बधाई हो! आपने ऊंट की चाल चलना सीख लिया है</string>
-  <string name="theQueen">रानी</string>
-  <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
-  <string name="queenIntro">क्वीन की जानकारी</string>
-  <string name="queenComplete">बधाई हो! रानी आपके लिए कोई रहस्य नहीं है।</string>
+  <string name="bishopIntro">अब हम ऊँट के चाल को सीखेंगे</string>
+  <string name="youNeedBothBishops">आपको दोनों सफ़ेद और काले रंग के ऊँट की ज़रूरत पड़ेगी</string>
+  <string name="bishopComplete">बधाई हो! आपने ऊँट की चाल चलना सीख लिया है</string>
+  <string name="theQueen">वज़ीर</string>
+  <string name="queenCombinesRookAndBishop">वज़ीर = हाथी + ऊँट</string>
+  <string name="queenIntro">वज़ीर की जानकारी</string>
+  <string name="queenComplete">बधाई हो! वज़ीर आपके लिए कोई रहस्य नहीं है।</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सबसे महत्वपूर्ण टुकड़ा</string>
   <string name="kingIntro">यदि राजा युद्ध में पराजित हो गया तो आप खेल हार जायेंगे!</string>
@@ -44,7 +44,7 @@ to speed things up!</string>
   <string name="pawnIntro">प्यादे कमजोर हैं, लेकिन वे बहुत क्षमता पैक करते हैं</string>
   <string name="pawnsMoveOneSquareOnly">प्यादा केवल एक कदम आगे बढ़ सकता है।
 लेकिन जब वे बोर्ड के दूसरी तरफ पहुंचते हैं, तो वे एक शक्तिशाली मोहरा बन जाते हैं!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">ज्यादातर समय एक प्यादे को रानी मैं पदोनत करना अच्छा है.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ज्यादातर समय एक प्यादे को वज़ीर मैं पदोनत करना अच्छा है.
 लेकिन कभी-कभी घोडा भी काम आ सकता है!</string>
   <string name="pawnsMoveForward">प्यादे सीधा चलते है, लेकिन मारते तिरछा है!</string>
   <string name="captureThenPromote">कब्जा, फिर बढ़ावा दें!</string>
@@ -110,10 +110,10 @@ to speed things up!</string>
 इन्हे हाथी के बगल में रखे!</string>
   <string name="placeTheBishops">ऊँटो को जगह पर रखे 
 वे घोड़ो के पास रखे जायेंगे</string>
-  <string name="placeTheQueen">रानी को रखे!
+  <string name="placeTheQueen">वज़ीर को रखे!
 वह अपने रंग वाले खाने पे रखी जाती है</string>
   <string name="placeTheKing">राजा को रखे!
-ठीक उसकी रानी के बगल में।</string>
+ठीक उसकी वज़ीर के बगल में।</string>
   <string name="pawnsFormTheFrontLine">प्यादे सामने वाली कतार में रखे जाते है
 जारी रखने के लिए कोई भी मोहरा चलाये</string>
   <string name="boardSetupComplete">बधाई हो अब आप जानते है शतरंज के मोहरे कैसे जमाये जाते है</string>
@@ -123,17 +123,17 @@ to speed things up!</string>
   <string name="castleKingSide">राजा को दो कदम बढ़ाये 
 कैसल किंग साइड!</string>
   <string name="castleQueenSide">राजा को दो कदम बढाए 
-कैसल क्वीन साइड</string>
+कैसल वज़ीर साइड</string>
   <string name="theKnightIsInTheWay">घोड़े को रास्ते से हटा कर किंग साइड कैसल करे</string>
   <string name="castleKingSideMovePiecesFirst">किंग साइड कैसल करे
 इसके लिए आपको बिच के मोहरे हटाने पड़ेंगे</string>
-  <string name="castleQueenSideMovePiecesFirst">क्वीन साइड कैसल करे
-इसके लिए आपको बिच के मोहरे हटाने पड़ेंगे</string>
+  <string name="castleQueenSideMovePiecesFirst">वज़ीर साइड कैसल करे
+इसके लिए आपको बिच के मोहरे हटाने पड़ेंगेवज़ीर</string>
   <string name="youCannotCastleIfMoved">कैसल तभी मुमकिन जब राजा या हाथी अपनी शुरुआती स्थिति से हिले ना हो</string>
   <string name="youCannotCastleIfAttacked">अगर कैसेल के रस्ते मैं कोई खतरा है तो कैसेल नही हो सकता
 पहले शह रोके फिर कैसेल करे</string>
   <string name="findAWayToCastleKingSide">किंग साइड कैसेल करने का रास्ता खोजे</string>
-  <string name="findAWayToCastleQueenSide">क्वीन साइड कैसेल करने का रास्ता खोजे</string>
+  <string name="findAWayToCastleQueenSide">वज़ीर साइड कैसेल करने का रास्ता खोजे</string>
   <string name="castlingComplete">बधाई हो! अब आप कैसेल करने का तरीका जान चुके है</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
@@ -154,18 +154,20 @@ to speed things up!</string>
   <string name="pieceValue">टुकड़ा मूल्य</string>
   <string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>
   <string name="pieceValueIntro">उच्च गतिशीलता वाले मोहरों का उच्च मूल्य है!
-रानी = 9
+वज़ीर = 9
 हाथी = 5
-ऊंट = 3
-घोडा = 3
+ऊँट = 3
+घोड़ा = 3
 प्यादा = 1
 राजा अनमोल है! इसे खोने का मतलब है खेल को खोना।</string>
   <string name="queenOverBishop">उच्च मूल्य वाले मोहरे को लेवे रानी &gt; ऊंट</string>
+  <string name="pieceValueExchange">उच्चतम मूल्य के साथ मोहर ले लो! एक कम मूल्यवान के लिए एक उच्च मूल्यवान मोहर विनिमय न करें।</string>
+  <string name="pieceValueLegal">उच्चतम मूल्य के साथ वाला मोहर ले लो! सुनिश्चित करें कि आपका कदम कानूनी है!</string>
   <string name="takeThePieceWithTheHighestValue">उच्च मूल्य वाले मोहरे को लेवे!</string>
   <string name="pieceValueComplete">बधाई हो! आप मोहरों का मूल्य जानते हैं!
-रानी = 9
+वज़ीर = 9
 हाथी = 5
-ऊंट = 3
+ऊँट = 3
 घोड़ा = 3
 प्यादा = 1</string>
   <string name="checkInTwo">दो चाल मैं शह</string>

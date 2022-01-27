@@ -1,7 +1,6 @@
-export default function() {
-
+export default function () {
   const form = document.getElementById('dgt-config') as HTMLFormElement,
-    voiceSelector = document.getElementById("dgt-speech-voice") as HTMLSelectElement;
+    voiceSelector = document.getElementById('dgt-speech-voice') as HTMLSelectElement;
 
   (function populateVoiceList() {
     if (typeof speechSynthesis === 'undefined') return;
@@ -11,31 +10,31 @@ export default function() {
       option.textContent = voice.name + ' (' + voice.lang + ')';
       if (voice.default) option.textContent += ' -- DEFAULT';
       voiceSelector.appendChild(option);
-      if (voice.name == localStorage.getItem("dgt-speech-voice")) voiceSelector.selectedIndex = i;
+      if (voice.name == localStorage.getItem('dgt-speech-voice')) voiceSelector.selectedIndex = i;
     });
     speechSynthesis.onvoiceschanged = populateVoiceList;
   })();
 
   const defaultSpeechKeywords = {
-    "K": "King",
-    "Q": "Queen",
-    "R": "Rook",
-    "B": "Bishop",
-    "N": "Knight",
-    "P": "Pawn",
-    "x": "Takes",
-    "+": "Check",
-    "#": "Checkmate",
-    "(=)": "Game ends in draw",
-    "O-O-O": "Castles queenside",
-    "O-O": "Castles kingside",
-    "white": "White",
-    "black": "Black",
-    "wins by": "wins by",
-    "timeout": "timeout",
-    "resignation": "resignation",
-    "illegal": "illegal",
-    "move": "move"
+    K: 'King',
+    Q: 'Queen',
+    R: 'Rook',
+    B: 'Bishop',
+    N: 'Knight',
+    P: 'Pawn',
+    x: 'Takes',
+    '+': 'Check',
+    '#': 'Checkmate',
+    '(=)': 'Game ends in draw',
+    'O-O-O': 'Castles queenside',
+    'O-O': 'Castles kingside',
+    white: 'White',
+    black: 'Black',
+    'wins by': 'wins by',
+    timeout: 'timeout',
+    resignation: 'resignation',
+    illegal: 'illegal',
+    move: 'move',
   };
 
   function ensureDefaults() {
@@ -45,15 +44,15 @@ export default function() {
       ['dgt-speech-synthesis', 'true'],
       ['dgt-speech-announce-all-moves', 'true'],
       ['dgt-speech-announce-move-format', 'san'],
-      ['dgt-verbose', 'false']
+      ['dgt-verbose', 'false'],
     ].forEach(([k, v]) => {
-      if (!localStorage.getItem(k)) localStorage.setItem(k, v)
+      if (!localStorage.getItem(k)) localStorage.setItem(k, v);
     });
   }
 
   function populateForm() {
     ['dgt-livechess-url', 'dgt-speech-keywords'].forEach(k => {
-      form[k].value = localStorage.getItem(k)
+      form[k].value = localStorage.getItem(k);
     });
     ['dgt-speech-synthesis', 'dgt-speech-announce-all-moves', 'dgt-verbose'].forEach(k =>
       [true, false].forEach(v => {

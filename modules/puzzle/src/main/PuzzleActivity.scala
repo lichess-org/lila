@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
@@ -30,8 +29,7 @@ final class PuzzleActivity(
           .sort($sort desc PuzzleRound.BSONFields.date)
           .batchSize(config.perSecond.value)
           .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
-          .documentSource()
-          .take(config.max | Int.MaxValue)
+          .documentSource(config.max | Int.MaxValue)
           .grouped(config.perSecond.value)
           .throttle(1, 1 second)
           .mapAsync(1)(enrich)

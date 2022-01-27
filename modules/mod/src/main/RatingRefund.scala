@@ -20,7 +20,7 @@ final private class RatingRefund(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
-    perfStat: lila.perfStat.Env
+    perfStat: lila.perfStat.PerfStatApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RatingRefund._
@@ -76,10 +76,7 @@ final private class RatingRefund(
                   curRating = user.perfs(ref.perf).intRating,
                   perfs = perfs
                 )
-                (points > 0) ?? {
-                  logger.info(s"Refunding $ref -> $points")
-                  refundPoints(Victim(user), ref.perf, points)
-                }
+                (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
               }
             }
           }

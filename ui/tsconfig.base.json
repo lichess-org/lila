@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
-    "strictNullChecks": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
     "noUnusedLocals": true,
-    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "target": "ES2016",
-    "module": "commonjs",
-    "lib": ["DOM", "ES2016", "DOM.iterable"],
-    "types": ["lichess", "cash", "defer-promise"]
+    "target": "ES2018",
+    "module": "esnext",
+    "lib": ["ES2018"],
+    "types": ["lichess", "web"]
   }
 }

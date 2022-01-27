@@ -2,30 +2,34 @@ package lila.perfStat
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import play.api.Configuration
 
 import lila.common.config._
 
+@Module
 final class Env(
-    appConfig: Configuration,
     lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
-    db: lila.db.Db
+    userRepo: lila.user.UserRepo,
+    rankingsOf: lila.user.RankingsOf,
+    rankingApi: lila.user.RankingApi,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
-  lazy val storage = new PerfStatStorage(
-    coll = db(appConfig.get[CollName]("perfStat.collection.perf_stat"))
+  private lazy val storage = new PerfStatStorage(
+    coll = yoloDb(CollName("perf_stat")).failingSilently()
   )
 
   lazy val indexer = wire[PerfStatIndexer]
 
-  lazy val jsonView = wire[JsonView]
+  lazy val api = wire[PerfStatApi]
 
-  def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
-    storage.find(user.id, perfType) getOrElse indexer.userPerf(user, perfType)
+  lazy val jsonView = wire[JsonView]
 
   lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>

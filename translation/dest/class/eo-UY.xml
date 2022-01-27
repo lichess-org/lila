@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>
   <string name="teachersOfTheClass">Instruistoj de la leciono</string>
   <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
-  <string name="theyMustFirstApply">Ili devas unua kandidatiĝi por esti Lichess Instruistoj.</string>
   <string name="resetPassword">Rekomencigi Pasvorton</string>
   <string name="makeSureToCopy">Certigu nun kopii aŭ noti la pasvorton nun. Vi ne povos vidi ĝin denove!</string>
   <string name="passwordX">Pasvorto: %s</string>
@@ -53,11 +52,10 @@ Pasvorto: %3$s</string>
 Jen la ligo por aliri la klason.</string>
   <string name="invitationToClass">Vi estas invitita aliĝi al la klaso \"%s\" kiel studento.</string>
   <string name="clickToViewInvitation">Alklaku la ligilon por vidi la inviton:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Unu pritraktota invito</item>
     <item quantity="other">%s pritraktotaj invitoj</item>
   </plurals>
-  <string name="noPendingInvitations">Neniu pritraktota invito</string>
   <string name="onlyVisibleToTeachers">Nur videbla por la instruistoj de la klaso</string>
   <string name="lastActiveDate">Aktiva</string>
   <string name="managed">Administrita</string>
@@ -94,5 +92,4 @@ Jen la ligo por aliri la klason.</string>
   <string name="newsEdit2">Aldonu la lastajn novaĵojn ĉe la supro. Ne forigu antaŭajn novaĵojn.</string>
   <string name="newsEdit3">Apartaj novaĵoj kun ---
 Ĝi aperos horizontala linio.</string>
-  <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
 </resources>

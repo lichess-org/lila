@@ -15,9 +15,6 @@
   <string name="noTeamFound">Skipailh ebet</string>
   <string name="joinTeam">Kejañ ouzh ar skipailh</string>
   <string name="quitTeam">Kuitaat ar skipailh</string>
-  <string name="anyoneCanJoin">Digor d\'an holl</string>
-  <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
-  <string name="joiningPolicy">Reolennoù emezelañ</string>
   <plurals name="teamLeaders">
     <item quantity="one">Mestr ar skipailh</item>
     <item quantity="two">Mistri ar skipailh</item>
@@ -25,7 +22,6 @@
     <item quantity="many">Mistri ar skipailh</item>
     <item quantity="other">Mistri ar skipailh</item>
   </plurals>
-  <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
   <string name="whoToKick">Piv a vo skarzhet er-maez deus ar skipailh ganeoc\'h?</string>
@@ -50,4 +46,7 @@ Gallout a rit gervel anezhe da gemer perzh e-barzh ur tournamant pe un emgann sk
   <string name="youWayWantToLinkOneOfTheseTournaments">Intereset e vefec\'h da gas liamm un tournamant bennak a vo a-benn nebeut?</string>
   <string name="usersWhoCanManageThisTeam">Ar re a c\'hall plediñ gant ar skipailh-mañ</string>
   <string name="leadersChat">Lec\'h flapañ ar vistri skipailh</string>
+  <string name="entryCode">Boneg mont e-barzh ar skipailh</string>
+  <string name="entryCodeDescriptionForLeader">(Diret) Ur c\'hod diret a rank bezañ anavet gant an izili nevez evit dont er skipailh.</string>
+  <string name="incorrectEntryCode">Kod mont e-barzh direizh.</string>
 </resources>

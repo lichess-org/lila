@@ -5,7 +5,7 @@
   "description": "lichess.org type declarations",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
+  "dependencies": {
     "@types/cash": "8.0.0"
   }
 }

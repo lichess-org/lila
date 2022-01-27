@@ -188,6 +188,12 @@ The king is priceless! Losing it means losing the game.</string>
   <string name="queenOverBishop">Take the piece
 with the highest value!
 Queen > Bishop</string>
+    <string name="pieceValueExchange">Take the piece with the highest value!
+ Do not exchange
+ a higher valued piece for a less valuable one.</string>
+   <string name="pieceValueLegal">Take the piece
+with the highest value!
+Make sure your move is legal!</string>
   <string name="takeThePieceWithTheHighestValue">Take the piece
 with the highest value!</string>
   <string name="pieceValueComplete">Congratulations! You know the value of material!

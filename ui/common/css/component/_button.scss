@@ -3,17 +3,19 @@
 
   background: $c-primary;
   text-transform: uppercase;
-  padding: .8em 1em;
+  padding: 0.8em 1em;
   border: none;
   cursor: pointer;
   text-align: center;
   user-select: none;
   white-space: nowrap;
+  display: inline-block;
 
   @include transition;
 
   &,
-  &:visited {
+  &:visited,
+  &:focus {
     color: $c-primary-over;
   }
 
@@ -33,7 +35,7 @@
   }
 
   &-thin {
-    padding: .1em 1em;
+    padding: 0.1em 1em;
     font-size: 90%;
   }
 
@@ -54,6 +56,18 @@
 
     &:not(.disabled):hover {
       background: lighten($c-error, 11);
+    }
+  }
+
+  &-link {
+    @extend %button-none;
+
+    color: $c-link;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $c-link-hover;
     }
   }
 
@@ -105,7 +119,7 @@
   }
 
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 

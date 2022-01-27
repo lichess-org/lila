@@ -1,13 +1,12 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
-import lila.memo.CacheApi
 import lila.user.User
+import org.joda.time.DateTime
 
-object PuzzlePath {
+private object PuzzlePath {
 
   case class Id(value: String) {
 
@@ -42,14 +41,12 @@ final private class PuzzlePathApi(
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          val rating = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
-          val ratingDelta = compromise match {
-            case 0 => 0
-            case 1 => 300
-            case 2 => 800
-            case _ => 2000
-          }
-          Match(select(theme, actualTier, (rating - ratingDelta) to (rating + ratingDelta))) -> List(
+          val rating     = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
+          val ratingFlex = (100 + math.abs(1500 - rating) / 4) * compromise.atMost(4)
+          Match(
+            select(theme, actualTier, (rating - ratingFlex) to (rating + ratingFlex)) ++
+              ((compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths))
+          ) -> List(
             Sample(1),
             Project($id(true))
           )
@@ -61,7 +58,7 @@ final private class PuzzlePathApi(
           nextFor(user, theme, PuzzleTier.Good, difficulty, previousPaths)
         case _ if actualTier == PuzzleTier.Good && compromise == 2 =>
           nextFor(user, theme, PuzzleTier.All, difficulty, previousPaths, compromise = 1)
-        case _ if compromise < 4 =>
+        case _ if compromise < 5 =>
           nextFor(user, theme, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
       }
@@ -69,6 +66,11 @@ final private class PuzzlePathApi(
 
   def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",
-    "max" $gt f"${theme}_${tier}_${rating.min}%04d"
+    "max" $gte f"${theme}_${tier}_${rating.min}%04d"
   )
+
+  def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
+    _.fold(true)(_ < DateTime.now.minusDays(1).getMillis)
+  }
+
 }

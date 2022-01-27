@@ -34,7 +34,8 @@
   }
 }
 
-.trophy, .shield-trophy {
+.trophy,
+.shield-trophy {
   transition: transform 0.2s;
 
   &:not(.patron):hover {
@@ -55,7 +56,8 @@
 }
 
 .fire-trophy {
-  &, &:hover {
+  &,
+  &:hover {
     color: if($theme-light, $c-font-dim, $c-font-clear);
   }
 
@@ -69,8 +71,7 @@
 
   &.marathonWinner,
   &.marathonTopTen,
-  &.marathonTopFifty,
-  &.marathonTopHundred {
+  &.marathonTopFifty {
     filter: hue-rotate(190deg);
     color: adjust-color($c-link, $hue: -190deg, $saturation: -70%);
   }
@@ -83,7 +84,8 @@
   }
 
   &.marathonTopFifty,
-  &.marathonTopHundred {
+  &.marathonTopHundred,
+  &.marathonTopFivehundred {
     font-size: 50px;
     height: 50px;
     width: 50px;
@@ -97,11 +99,11 @@
 
   &.marathonTopHundred {
     text-shadow: none;
-    color: #cd4606 !important;
+    color: #066ccd;
   }
 
-  &.bongcloudWarrior {
-    filter: hue-rotate(70deg);
+  &.marathonTopFivehundred {
+    text-shadow: none;
   }
 }
 

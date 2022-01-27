@@ -7,7 +7,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.2"
-  val globalScalaVersion = "2.13.4"
+  val globalScalaVersion = "2.13.8"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -20,12 +20,14 @@ object BuildSettings {
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       // No bloop project for tests
-      bloopGenerate in Test := None,
+      Test / bloopGenerate := None,
       // disable publishing doc and sources
-      sources in (Compile, doc) := Seq.empty,
-      publishArtifact in (Compile, packageDoc) := false,
-      publishArtifact in (Compile, packageSrc) := false,
-      javaOptions ++= Seq("-Xms64m", "-Xmx256m")
+      Compile / doc / sources := Seq.empty,
+      Compile / packageDoc / publishArtifact := false,
+      Compile / packageSrc / publishArtifact := false,
+      javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
+      // com.typesafe.play:play-ahc-ws-standalone_2.13:2.1.3 brings in 0.9.0, but we want 1.0.0:
+      libraryDependencySchemes += "org.scala-lang.modules" %% "scala-java8-compat" % "always"
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
@@ -67,7 +69,7 @@ object BuildSettings {
     "-language:postfixOps",
     "-Ymacro-annotations",
     // Warnings as errors!
-    // "-Xfatal-warnings",
+    "-Xfatal-warnings",
     // Linting options
     "-unchecked",
     "-Xcheckinit",
@@ -91,15 +93,15 @@ object BuildSettings {
     // "-Wunused:imports",
     // "-Wunused:locals",
     "-Wunused:patvars",
-    // "-Wunused:privates", // unfortunately doesn't work with macros
-    // "-Wunused:implicits",
-    // "-Wunused:params"
+    // "-Wunused:privates",  // unfortunately doesn't work with wire macros
+    // "-Wunused:implicits", // unfortunately doesn't work with wire macros
+    // "-Wunused:params"     // unfortunately doesn't work with wire macros
     "-Wvalue-discard"
   )
 
   val srcMain = Seq(
-    scalaSource in Compile := (sourceDirectory in Compile).value,
-    scalaSource in Test := (sourceDirectory in Test).value
+    Compile / scalaSource := (Compile / sourceDirectory).value,
+    Test / scalaSource := (Test / sourceDirectory).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Ике-факторлы аутһентикация</string>
+  <string name="twoFactorHelp">Ике факторлы аутентификация сезнең хисапка тагын бер куркынычсызлык катламы өсти.</string>
+  <string name="twoFactorApp">Ике факторлы аутентификация өчен әсбап куегыз, мәсәлән, %1$s andOTP өчен яки %2$s Google Authenticator өчен.</string>
+  <string name="scanTheCode">Әсбап белән QR кодыгызны төшерегез.</string>
+  <string name="enterPassword">Урнаштыруны тәмамлау өчен серсүзне һәм кушымта ясаган аутһентикация кодын кертегез. Сез кергән саен аутһентикация коды кирәк булачак.</string>
+  <string name="ifYouCannotScanEnterX">Әгәр дә сез кодны төшерә алмыйсыз икән, кушымтагызга %s серен кертегез.</string>
+  <string name="authenticationCode">Аутһентикаөия коды</string>
+  <string name="ifYouLoseAccess">Искәрмә: Әгәр сез ике факторлы аутһентитикация кодларына керү мөмкинлеген югалтсагыз, серсүзне электрон почта аша яңадан урнаштыра аласыз.</string>
+  <string name="enableTwoFactor">Кабызырга ике-факторлы аутһентикация</string>
+  <string name="disableTwoFactor">Сүндерергә ике-факторлы аутһентикация</string>
+  <string name="twoFactorEnabled">Ике-факторлы аутһентикация кабызылган</string>
+  <string name="twoFactorDisable">Ике факторлы аутһентикацияне сүндерү өчен сезгә серсүз һәм аутһентикация әсбабын аутһентикация коды кирәк.
+Әгәр дә сез аутһентикация кодларына керү мөмкинлеген югалтсагыз, сез шулай ук серсүзне электрон почта аша яңадан урнаштыра аласыз.</string>
+  <string name="openTwoFactorApp">Сезнең аутһентикация кодын карау һәм шәхесегезне тикшерү өчен җайланмагызда ике факторлы аутһентикация әсбабын ачыгыз.</string>
+</resources>

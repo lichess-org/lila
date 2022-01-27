@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lila.common.Bus
 
 final class BoardApiHookStream(
-    trouper: LobbyTrouper
+    trouper: LobbySyncActor
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private case object SetOnline

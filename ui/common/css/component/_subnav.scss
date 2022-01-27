@@ -17,8 +17,8 @@
       display: flex;
       align-items: center;
       color: $c-font;
-      padding: .6rem 0 .6rem .5rem;
-      letter-spacing: -.06em;
+      padding: 0.6rem 0 0.6rem 0.5rem;
+      letter-spacing: -0.06em;
       background: $c-bg-high;
 
       &:hover {
@@ -36,22 +36,19 @@
     }
   }
 
-
   @include breakpoint($mq-subnav-side) {
     margin-top: 5px;
-    z-index: z("subnav-side");
+    z-index: z('subnav-side');
 
     /* active border must go over the page content */
     a {
       display: block;
       color: $c-font-page;
-      padding: .7rem 2vw .7rem .8rem;
+      padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
 
-      @include transition;
-
       &::after {
-        content: "";
+        content: '';
         background: fade-out($c-accent, 0.4);
         width: 3px;
         position: absolute;

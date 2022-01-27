@@ -10,6 +10,7 @@ import lila.user.LightUserApi
 final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
     for {
@@ -56,7 +57,9 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
         "perf"       -> perfJson(tour.perfType)
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
-      .add("hasMaxRating", tour.conditions.maxRating.isDefined)
+      .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
+      .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
+      .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(positionJson))
       .add("schedule", tour.schedule map scheduleJson)
@@ -88,11 +91,11 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
   }.zipWithIndex.toMap
 
   private def perfJson(p: PerfType)(implicit lang: Lang) =
-    Json.obj(
-      "icon"     -> p.iconChar.toString,
-      "key"      -> p.key,
-      "name"     -> p.trans,
-      "position" -> ~perfPositions.get(p)
-    )
-
+    Json
+      .obj(
+        "key"      -> p.key,
+        "name"     -> p.trans,
+        "position" -> ~perfPositions.get(p)
+      )
+      .add("icon" -> mobileBcIcons.get(p)) // mobile BC only
 }

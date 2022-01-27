@@ -18,6 +18,7 @@ case class UserRecord(
   def rageSit                   = c | RageSit.empty
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
+  def banMinutes  = bans.lastOption.map(_.remainingMinutes)
 
   def nbOutcomes = outcomes.size
 
@@ -66,10 +67,7 @@ case class UserRecord(
     }
 }
 
-case class TempBan(
-    date: DateTime,
-    mins: Int
-) {
+case class TempBan(date: DateTime, mins: Int) {
 
   def endsAt = date plusMinutes mins
 

@@ -10,6 +10,7 @@ import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.SendTo
 import lila.memo.CacheApi._
 import lila.user.UserRepo
+import lila.i18n.I18nLangPicker
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -46,7 +47,7 @@ final class NotifyApi(
     }
 
   private val unreadCountCache = cacheApi[Notification.Notifies, Int](32768, "notify.unreadCountCache") {
-    _.expireAfterAccess(20 minutes)
+    _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.unreadNotificationsCount)
   }
 
@@ -67,7 +68,7 @@ final class NotifyApi(
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
 
-  def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
+  def remove(notifies: Notification.Notifies, selector: Bdoc = $empty): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
 
   def markRead(notifies: Notification.Notifies, selector: Bdoc): Funit =
@@ -88,9 +89,7 @@ final class NotifyApi(
     }
 
   /** Inserts notification into the repository.
-    *
     * If the user already has an unread notification on the topic, discard it.
-    *
     * If the user does not already have an unread notification on the topic, returns it unmodified.
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
@@ -101,7 +100,17 @@ final class NotifyApi(
 
   private def notifyUser(notifies: Notification.Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
-      import play.api.libs.json.Json
-      Bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), "socketUsers")
+      Bus.publish(
+        SendTo.async(
+          notifies.value,
+          "notifications",
+          () => {
+            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { implicit lang =>
+              jsonHandlers(msg)
+            }
+          }
+        ),
+        "socketUsers"
+      )
     }
 }

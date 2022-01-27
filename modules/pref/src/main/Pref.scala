@@ -1,5 +1,9 @@
 package lila.pref
 
+import org.joda.time.DateTime
+
+import lila.user.User
+
 case class Pref(
     _id: String, // user id
     bg: Int,
@@ -32,13 +36,16 @@ case class Pref(
     coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
+    mention: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
+    ratings: Int,
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
+    agreement: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -58,8 +65,7 @@ case class Pref(
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
   def coordsClass    = Coords classOf coords
 
-  def hasSeenVerifyTitle = tags contains Tag.verifyTitle
-  def hasDgt             = tags contains Tag.dgt
+  def hasDgt = tags contains Tag.dgt
 
   def set(name: String, value: String): Option[Pref] =
     name match {
@@ -90,13 +96,20 @@ case class Pref(
       case _     => none
     }
 
-  def animationFactor =
+  def animationMillis: Int =
     animation match {
       case Animation.NONE   => 0
-      case Animation.FAST   => 0.5f
-      case Animation.NORMAL => 1
-      case Animation.SLOW   => 2
-      case _                => 1
+      case Animation.FAST   => 120
+      case Animation.NORMAL => 250
+      case Animation.SLOW   => 500
+      case _                => 250
+    }
+
+  def animationMillisForSpeedPuzzles: Int =
+    animation match {
+      case Animation.NONE => 0
+      case Animation.SLOW => 120
+      case _              => 70
     }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
@@ -107,7 +120,13 @@ case class Pref(
 
   def isZen = zen == Zen.YES
 
+  val showRatings = ratings == Ratings.YES
+
   def is2d = !is3d
+
+  def agreementNeededSince: Option[DateTime] = agreement < Agreement.current option Agreement.changedAt
+
+  def agree = copy(agreement = Agreement.current)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -157,8 +176,7 @@ object Pref {
   }
 
   object Tag {
-    val verifyTitle = "verifyTitle"
-    val dgt         = "dgt"
+    val dgt = "dgt"
   }
 
   object Color {
@@ -212,6 +230,8 @@ object Pref {
       EVERYBODY -> "With everybody"
     )
   }
+
+  object Mention extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -369,7 +389,7 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
+      NEVER  -> "Only existing conversations",
       FRIEND -> "Only friends",
       ALWAYS -> "Always"
     )
@@ -399,13 +419,27 @@ object Pref {
     )
   }
 
-  object Zen extends BooleanPref {}
+  object Agreement {
+    val current   = 2
+    val changedAt = new DateTime(2021, 12, 28, 8, 0)
+  }
 
-  def create(id: String) = default.copy(_id = id)
+  object Zen     extends BooleanPref {}
+  object Ratings extends BooleanPref {}
+
+  val darkByDefaultSince = new DateTime(2021, 11, 7, 8, 0)
+
+  def create(id: User.ID) = default.copy(_id = id)
+
+  def create(user: User) = default.copy(
+    _id = user.id,
+    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT,
+    agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
+  )
 
   lazy val default = Pref(
     _id = "",
-    bg = Bg.LIGHT,
+    bg = Bg.DARK,
     bgImg = none,
     is3d = false,
     theme = Theme.default.name,
@@ -435,13 +469,16 @@ object Pref {
     coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
+    mention = true,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
+    ratings = Ratings.YES,
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
+    agreement = Agreement.current,
     tags = Map.empty
   )
 

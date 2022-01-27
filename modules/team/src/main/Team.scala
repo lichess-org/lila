@@ -4,19 +4,23 @@ import org.joda.time.DateTime
 import scala.util.chaining._
 
 import lila.user.User
+import org.joda.time.Days
 
 case class Team(
     _id: Team.ID, // also the url slug
     name: String,
-    location: Option[String],
+    password: Option[String],
     description: String,
+    descPrivate: Option[String],
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Team.ChatFor
+    chat: Team.Access,
+    forum: Team.Access,
+    hideMembers: Option[Boolean]
 ) {
 
   def id = _id
@@ -25,18 +29,38 @@ case class Team(
 
   def disabled = !enabled
 
-  def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
-    chat == f(Team.ChatFor)
+  def isChatFor(f: Team.Access.type => Team.Access) =
+    chat == f(Team.Access)
+
+  def isForumFor(f: Team.Access.type => Team.Access) =
+    forum == f(Team.Access)
+
+  def publicMembers: Boolean = !hideMembers.has(true)
+
+  def passwordMatches(pw: String) =
+    password.forall(teamPw =>
+      teamPw.size == pw.size && teamPw.zip(pw).foldLeft(0) { case (acc, (a, b)) =>
+        acc | (a ^ b) // constant time
+      } == 0
+    )
 }
 
 object Team {
 
-  val maxJoin = 100
+  case class Mini(id: Team.ID, name: String)
+
+  val maxJoinCeiling = 50
+
+  def maxJoin(u: User) =
+    if (u.isVerified) maxJoinCeiling * 2
+    else {
+      15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+    } atMost maxJoinCeiling
 
   type ID = String
 
-  type ChatFor = Int
-  object ChatFor {
+  type Access = Int
+  object Access {
     val NONE    = 0
     val LEADERS = 10
     val MEMBERS = 20
@@ -69,23 +93,27 @@ object Team {
   def make(
       id: String,
       name: String,
-      location: Option[String],
+      password: Option[String],
       description: String,
+      descPrivate: Option[String],
       open: Boolean,
       createdBy: User
   ): Team =
     new Team(
       _id = id,
       name = name,
-      location = location,
+      password = password,
       description = description,
+      descPrivate = descPrivate,
       nbMembers = 1,
       enabled = true,
       open = open,
       createdAt = DateTime.now,
       createdBy = createdBy.id,
       leaders = Set(createdBy.id),
-      chat = ChatFor.MEMBERS
+      chat = Access.MEMBERS,
+      forum = Access.MEMBERS,
+      hideMembers = none
     )
 
   def nameToId(name: String) =

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Conferma il tuo account su lichess.org, %s</string>
-  <string name="emailConfirm_click">Clicca sul link per attivare il tuo account:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Clicca sul link per attivare il tuo account:</string>
   <string name="emailConfirm_ignore">Se non ti sei registrato su Lichess, puoi ignorare questo messaggio.</string>
   <string name="passwordReset_subject">Reimposta la tua password di lichess.org, %s</string>
   <string name="passwordReset_intro">Abbiamo ricevuto una richiesta di reset della password del tuo account.</string>
   <string name="passwordReset_clickOrIgnore">Se hai fatto questa richiesta clicca sul link sottostante. Altrimenti puoi ignorare questa email.</string>
   <string name="emailChange_subject">Conferma il nuovo indirizzo email, %s</string>
   <string name="emailChange_intro">Hai richiesto di cambiare il tuo indirizzo email.</string>
-  <string name="emailChange_click">Per confermare che hai accesso a questa email, clicca sul link sottostante:</string>
+  <string name="emailChange_click">Per confermare che hai accesso a questo indirizzo email, clicca sul link sottostante:</string>
   <string name="welcome_subject">Benvenuto su lichess.org, %s</string>
   <string name="welcome_text">Hai creato con successo un account su https://lichess.org.
 

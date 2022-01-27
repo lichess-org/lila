@@ -2,4 +2,24 @@
 <resources>
   <string name="search">Leita</string>
   <string name="advancedSearch">Ítarleit</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Leita í %s skákleik</item>
+    <item quantity="other">Leita í %s skákleikum</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Einn leikur fannst</item>
+    <item quantity="other">%s leikir fannst</item>
+  </plurals>
+  <string name="opponentName">Nafn mótleikara</string>
+  <string name="loser">Tapari</string>
+  <string name="from">Frá</string>
+  <string name="to">Til</string>
+  <string name="humanOrComputer">Hvort að mótleikari var manneskja eða tölva</string>
+  <string name="aiLevel">A.I. stig</string>
+  <string name="result">Niðurstöður</string>
+  <string name="winnerColor">Vinnara litur</string>
+  <string name="date">Dagsetning</string>
+  <string name="sortBy">Raða eftir</string>
+  <string name="analysis">Greining</string>
+  <string name="onlyAnalysed">Aðeins leikir þar sem má fá tölvugreining</string>
 </resources>

@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Adakozz</string>
+  <string name="donateAsX">Adakozás mint %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Ingyenes fiók</string>
-  <string name="becomePatron">Legyél Te is Lichess Patron</string>
-  <string name="xBecamePatron">%s már Lichess Patron</string>
-  <string name="newPatrons">Új Patronok</string>
+  <string name="becomePatron">Támogasd a Lichesst</string>
+  <string name="xBecamePatron">%s már Lichess támogató</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s Lichess Patron %2$s hónapja</item>
+    <item quantity="other">%1$s Lichess Patron %2$s hónapja</item>
+  </plurals>
+  <string name="newPatrons">Új támogatók</string>
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
   <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
-  <string name="youHaveLifetime">Neked Életre szóló Patron fiókod van. Ez azért elég vagány!</string>
-  <string name="patronUntil">Patron fiókod van eddig a napig: %s.</string>
-  <string name="ifNotRenewed">Ha nem lesz megújítva, visszatérsz az ingyenes fiókhoz.</string>
+  <string name="youHaveLifetime">Neked életreszóló támogató fiókod van. Ez azért elég vagány!</string>
+  <string name="patronUntil">Támogató fiókod van eddig a napig: %s.</string>
+  <string name="ifNotRenewed">Ha nem újítod meg, ismét ingyenes fiókod lesz.</string>
   <string name="weAreNonProfit">Non-profit szervezet vagyunk, mert hiszünk egy mindenki számára elérhető, ingyenes és világszínvonalú sakk platformban.</string>
   <string name="weRelyOnSupport">Hozzád hasonló hozzájárulókra támaszkodunk, hogy ezt megvalósítsuk. Ha tetszik a Lichess légyszíves fontold meg támogatásunkat adománnyal és légy Te is Patron!</string>
   <string name="lifetime">Életre szóló</string>
   <string name="payLifetimeOnce">Adakozz %s egyszer. Legyél Lichess Patron örökre!</string>
   <string name="lifetimePatron">Életre szóló Lichess Patron</string>
-  <string name="makeExtraDonation">Extra felajánlást tennél?</string>
   <string name="monthly">Havonta</string>
   <string name="recurringBilling">Rendszeres számlázás, megújítva a Patron szárnyakat minden hónapban.</string>
   <string name="onetime">Egyszeri</string>
   <string name="singleDonation">Egyszeri hozzájárulás, ami Patron szárnyakat biztosít egy hónapig.</string>
   <string name="otherAmount">Egyéb</string>
-  <string name="pleaseEnterAmount">Adj meg egy összeged USD-ben</string>
+  <string name="pleaseEnterAmountInX">Adj meg egy %s összeget</string>
   <string name="withCreditCard">Bankkártya</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi egy kis csapat vagyunk, a támogatásod nagyon sokat jelent!</string>
@@ -40,7 +44,6 @@ Vagy ezügyben %s.</string>
   <string name="contactSupport">keress fel minket</string>
   <string name="otherMethods">Más adakozási lehetőségek?</string>
   <string name="bankTransfers">Elfogadunk banki átutalást is</string>
-  <string name="bitcoin">Ez pedig a bitcoin címünk: %s</string>
   <string name="patronFeatures">Vannak csak Patronok számára elérhető funkciók?</string>
   <string name="noPatronFeatures">Nincsenek, mivel a Lichess teljesen ingyenes, mindig, mindenkinek. Ezt megígérjük.
 Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
@@ -55,6 +58,7 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="nextPayment">Következő fizetés</string>
   <string name="youWillBeChargedXOnY">%1$s-t fogunk levonni ezen a napon: %2$s.</string>
   <string name="makeAdditionalDonation">Egészítsd ki az adományod most</string>
+  <string name="giftPatronWings">Ajándékozz Patron szárnyakat</string>
   <string name="update">Frissítés</string>
   <string name="changeMonthlyAmount">Havi összeg módosítása (%s)</string>
   <string name="cancelSupport">támogatás visszavonása</string>
@@ -62,8 +66,6 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
   <string name="noLongerSupport">A Lichess támogatásának leállítása</string>
-  <string name="paymentHistory">Fizetési előzmények</string>
-  <string name="paid">Fizetve</string>
   <string name="viewOthers">A többi Patron böngészése</string>
   <string name="date">Dátum</string>
   <string name="amount">Összeg</string>
@@ -73,4 +75,5 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="nowLifetime">Te mostmár örökös Lichess Patron vagy!</string>
   <string name="nowOneMonth">Te mostmár Lichess Patron vagy egy hónapig!</string>
   <string name="downgradeNextMonth">Egy hónap múlva NEM terheljük újra a számládat, hanem a fiókod visszaalakul hagyományos fiókká.</string>
+  <string name="changeCurrency">Pénznem módosítása</string>
 </resources>

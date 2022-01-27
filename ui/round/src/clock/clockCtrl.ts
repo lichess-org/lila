@@ -1,5 +1,5 @@
 import { updateElements } from './clockView';
-import { RoundData } from '../interfaces'
+import { RoundData } from '../interfaces';
 import * as game from 'game';
 
 export type Seconds = number;
@@ -7,12 +7,10 @@ export type Centis = number;
 export type Millis = number;
 
 interface ClockOpts {
-  onFlag(): void
-  soundColor?: Color
-  nvui: boolean
+  onFlag(): void;
+  soundColor?: Color;
+  nvui: boolean;
 }
-
-export type TenthsPref = 0 | 1 | 2;
 
 export interface ClockData {
   running: boolean;
@@ -21,7 +19,7 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
-  showTenths: TenthsPref;
+  showTenths: Prefs.ShowClockTenths;
   showBar: boolean;
   moretime: number;
 }
@@ -45,7 +43,7 @@ export interface ClockElements {
 interface EmergSound {
   play(): void;
   next?: number;
-  delay: Millis,
+  delay: Millis;
   playable: {
     white: boolean;
     black: boolean;
@@ -53,27 +51,26 @@ interface EmergSound {
 }
 
 export class ClockController {
-
   emergSound: EmergSound = {
     play: () => lichess.sound.play('lowTime'),
     delay: 20000,
     playable: {
       white: true,
-      black: true
-    }
+      black: true,
+    },
   };
 
   showTenths: (millis: Millis) => boolean;
   showBar: boolean;
   times: Times;
 
-  barTime: number
-  timeRatioDivisor: number
+  barTime: number;
+  timeRatioDivisor: number;
   emergMs: Millis;
 
   elements = {
     white: {},
-    black: {}
+    black: {},
   } as ColorMap<ClockElements>;
 
   private tickCallback?: number;
@@ -81,43 +78,42 @@ export class ClockController {
   constructor(d: RoundData, readonly opts: ClockOpts) {
     const cdata = d.clock!;
 
-    if (cdata.showTenths === 0) this.showTenths = () => false;
+    if (cdata.showTenths === Prefs.ShowClockTenths.Never) this.showTenths = () => false;
     else {
-      const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
-      this.showTenths = (time) => time < cutoff;
+      const cutoff = cdata.showTenths === Prefs.ShowClockTenths.Below10Secs ? 10000 : 3600000;
+      this.showTenths = time => time < cutoff;
     }
 
     this.showBar = cdata.showBar && !this.opts.nvui;
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
-    this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
+    this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
 
     this.setClock(d, cdata.white, cdata.black);
   }
 
-  timeRatio = (millis: number): number =>
-    Math.min(1, millis * this.timeRatioDivisor);
+  timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
-    delayMs = delay * 10;
+      delayMs = delay * 10;
 
     this.times = {
       white: white * 1000,
       black: black * 1000,
       activeColor: isClockRunning ? d.game.player : undefined,
-      lastUpdate: performance.now() + delayMs
+      lastUpdate: performance.now() + delayMs,
     };
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {
-    this.times[color] += time * 10
-  }
+    this.times[color] += time * 10;
+  };
 
-  stopClock = (): Millis|void => {
+  stopClock = (): Millis | void => {
     const color = this.times.activeColor;
     if (color) {
       const curElapse = this.elapsed();
@@ -125,9 +121,9 @@ export class ClockController {
       this.times.activeColor = undefined;
       return curElapse;
     }
-  }
+  };
 
-  hardStopClock = (): void => this.times.activeColor = undefined;
+  hardStopClock = (): void => (this.times.activeColor = undefined);
 
   private scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
@@ -135,8 +131,9 @@ export class ClockController {
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 1000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
-  }
+      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay
+    );
+  };
 
   // Should only be invoked by scheduleTick.
   private tick = (): void => {
@@ -167,10 +164,8 @@ export class ClockController {
 
   elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
 
-  millisOf = (color: Color): Millis => (this.times.activeColor === color ?
-     Math.max(0, this.times[color] - this.elapsed()) :
-     this.times[color]
-  );
+  millisOf = (color: Color): Millis =>
+    this.times.activeColor === color ? Math.max(0, this.times[color] - this.elapsed()) : this.times[color];
 
   isRunning = () => this.times.activeColor !== undefined;
 }

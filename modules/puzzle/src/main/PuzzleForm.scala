@@ -7,8 +7,26 @@ import lila.common.Form.{ numberIn, stringIn }
 
 object PuzzleForm {
 
+  case class RoundData(
+      win: Boolean,
+      rated: Boolean,
+      replayDays: Option[Int],
+      streakId: Option[String],
+      streakScore: Option[Int]
+  ) {
+    def result         = Result(win)
+    def streakPuzzleId = streakId flatMap Puzzle.toId
+    def mode           = chess.Mode(rated)
+  }
+
   val round = Form(
-    single("win" -> number)
+    mapping(
+      "win"         -> boolean,
+      "rated"       -> boolean,
+      "replayDays"  -> optional(numberIn(PuzzleDashboard.dayChoices)),
+      "streakId"    -> optional(nonEmptyText),
+      "streakScore" -> optional(number(min = 0, max = 250))
+    )(RoundData.apply)(RoundData.unapply)
   )
 
   val vote = Form(
@@ -24,6 +42,12 @@ object PuzzleForm {
   )
 
   object bc {
+
+    val round = Form(
+      mapping(
+        "win" -> text
+      )(w => RoundData(win = w == "1" || w == "true", rated = true, none, none, none))(r => none)
+    )
 
     val vote = Form(
       single("vote" -> numberIn(Set(0, 1)))

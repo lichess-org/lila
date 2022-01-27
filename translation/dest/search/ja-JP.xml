@@ -12,7 +12,7 @@
   <string name="loser">敗者</string>
   <string name="from">From</string>
   <string name="to">To</string>
-  <string name="humanOrComputer">対局相手が人間かAIか</string>
+  <string name="humanOrComputer">対戦相手が人間かコンピュータか</string>
   <string name="aiLevel">AI レベル</string>
   <string name="source">検索対象</string>
   <string name="nbTurns">手数</string>
@@ -22,4 +22,15 @@
   <string name="sortBy">並べ替え基準</string>
   <string name="analysis">解析</string>
   <string name="onlyAnalysed">コンピュータ解析のある棋譜だけが対象</string>
+  <string name="color">色</string>
+  <string name="evaluation">評価値</string>
+  <string name="maxNumber">最大局数</string>
+  <string name="maxNumberExplanation">表示するゲームの最大数</string>
+  <string name="include">含める</string>
+  <string name="descending">降順</string>
+  <string name="ascending">昇順</string>
+  <plurals name="gamesFound">
+    <item quantity="other">%s 局ありました</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">両プレイヤーのレーティング平均</string>
 </resources>

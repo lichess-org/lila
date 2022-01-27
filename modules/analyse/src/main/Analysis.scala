@@ -3,22 +3,16 @@ package lila.analyse
 import chess.Color
 
 import org.joda.time.DateTime
+import lila.user.User
 
 case class Analysis(
-    id: String, // game ID, or chapter ID if studyId is set
+    id: Analysis.ID, // game ID, or chapter ID if studyId is set
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    uid: Option[String], // requester lichess ID
-    by: Option[String],  // analyser lichess ID
-    date: DateTime
+    date: DateTime,
+    fk: Option[Analysis.FishnetKey]
 ) {
-
-  def requestedBy = uid | "lichess"
-
-  def providedBy = by | "lichess"
-
-  def providedByLichess = by exists (_ startsWith "lichess-")
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
@@ -52,9 +46,10 @@ object Analysis {
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
-  type ID = String
+  type ID         = String
+  type FishnetKey = String
 
-  implicit private[analyse] val analysisBSONHandler = new BSON[Analysis] {
+  implicit val analysisBSONHandler = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {
       val startPly = r intD "ply"
       val raw      = r str "data"
@@ -63,20 +58,18 @@ object Analysis {
         studyId = r strO "studyId",
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
-        uid = r strO "uid",
-        by = r strO "by",
-        date = r date "date"
+        date = r date "date",
+        fk = r strO "fk"
       )
     }
-    def writes(w: BSON.Writer, o: Analysis) =
+    def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
-        "_id"     -> o.id,
-        "studyId" -> o.studyId,
-        "data"    -> Info.encodeList(o.infos),
-        "ply"     -> w.intO(o.startPly),
-        "uid"     -> o.uid,
-        "by"      -> o.by,
-        "date"    -> w.date(o.date)
+        "_id"     -> a.id,
+        "studyId" -> a.studyId,
+        "data"    -> Info.encodeList(a.infos),
+        "ply"     -> w.intO(a.startPly),
+        "date"    -> w.date(a.date),
+        "fk"      -> a.fk
       )
   }
 }

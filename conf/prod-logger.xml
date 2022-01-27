@@ -20,7 +20,7 @@
     <encoder><pattern>%date %-5level %logger{30} %message%n%xException{50}</pattern></encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>/var/log/lichess/all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-      <maxHistory>14</maxHistory>
+      <maxHistory>30</maxHistory>
     </rollingPolicy>
   </appender>
 
@@ -104,16 +104,6 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="pool" level="INFO">
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lichess/pool.log</file>
-      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
-      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lichess/pool-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
-      </rollingPolicy>
-    </appender>
-  </logger>
   <logger name="tournament" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/tournament.log</file>
@@ -170,27 +160,7 @@
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>/var/log/lichess/plan-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>365</maxHistory>
-      </rollingPolicy>
-    </appender>
-  </logger>
-  <logger name="csrf" level="INFO">
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lichess/csrf.log</file>
-      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
-      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lichess/csrf-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
-      </rollingPolicy>
-    </appender>
-  </logger>
-  <logger name="http" level="INFO">
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lichess/http.log</file>
-      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
-      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lichess/http-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
+        <maxHistory>60</maxHistory>
       </rollingPolicy>
     </appender>
   </logger>
@@ -200,7 +170,7 @@
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>/var/log/lichess/auth-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
+        <maxHistory>14</maxHistory>
       </rollingPolicy>
     </appender>
   </logger>
@@ -230,7 +200,7 @@
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>/var/log/lichess/security-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
+        <maxHistory>14</maxHistory>
       </rollingPolicy>
     </appender>
   </logger>
@@ -243,6 +213,8 @@
   <logger name="play.core.server.netty.NettyModelConversion" level="ERROR" />
   <!-- TolerantText body parser tried to parse request 108654561 as text body with charset UTF-8, but it contains invalid characters! -->
   <logger name="play.api.mvc.PlayBodyParsers" level="ERROR" />
+  <!-- p.s.a.o.a.n.h.i.Unauthorized401Interceptor Can't handle 401 with Basic realm as auth was preemptive and already performed -->
+  <logger name="play.shaded.ahc.org.asynchttpclient.netty.handler.intercept.Unauthorized401Interceptor" level="WARNING" />
   <!-- allows failing async computations instead of returning null, without seeing the WARN -->
   <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
     <appender-ref ref="STDOUT" />

@@ -11,15 +11,13 @@ final private class ReportScore(
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
     } map
-      impl.fixedAutoCommPrintScore(candidate) map
-      impl.commFlagScore(candidate) map { score =>
+      impl.fixedAutoScore(candidate) map { score =>
         candidate scored Report.Score(score atLeast 5 atMost 100)
       }
 
   private object impl {
 
-    val baseScore               = 20
-    val baseScoreAboveThreshold = 50
+    val baseScore = 20
 
     def accuracyScore(a: Option[Accuracy]): Double =
       a ?? { accuracy =>
@@ -30,15 +28,12 @@ final private class ReportScore(
 
     def autoScore(candidate: Report.Candidate) = candidate.isAutomatic ?? 25d
 
-    // https://github.com/ornicar/lila/issues/4093
-    // https://github.com/ornicar/lila/issues/4587
-    def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoComm) baseScore
-      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
-      else score
-
-    def commFlagScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isCommFlag) score / 2
+    // https://github.com/lichess-org/lila/issues/4587
+    def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoBoost) baseScore * 1.5
+      else if (c.isAutoComm) 42d
+      else if (c.isIrwinCheat) 60d
+      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
       else score
   }
 }

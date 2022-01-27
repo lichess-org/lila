@@ -5,6 +5,11 @@
   <string name="freeAccount">Besplatni korisnički račun</string>
   <string name="becomePatron">Postanite Lichess Pokrovitelj</string>
   <string name="xBecamePatron">%s je postao/la Lichess Pokrovitelj</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s je patron Lichessa %2$s mjesec</item>
+    <item quantity="few">%1$s je patron Lichessa %2$s mjeseca</item>
+    <item quantity="other">%1$s je patron Lichessa %2$s mjeseci</item>
+  </plurals>
   <string name="newPatrons">Novi Pokrovitelji</string>
   <string name="freeChess">Uvijek besplatan šah za sve!</string>
   <string name="noAdsNoSubs">Bez reklama i pretplate; sa otvorenim kodom i potpunom posvećenosti.</string>
@@ -17,13 +22,12 @@
   <string name="lifetime">Doživotno</string>
   <string name="payLifetimeOnce">Platite %s jednom. Budite Lichess Pokrovitelj zauvijek!</string>
   <string name="lifetimePatron">Doživotni Lichess Pokrovitelj</string>
-  <string name="makeExtraDonation">Da li želite dati dodatnu donaciju?</string>
   <string name="monthly">Mjesečno</string>
   <string name="recurringBilling">Mjesečna pretplata, obnavljate Vaša pokroviteljska krila svakog mjeseca.</string>
   <string name="onetime">Jednom</string>
   <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
   <string name="otherAmount">Drugo</string>
-  <string name="pleaseEnterAmount">Molimo Vas da unesete iznos u USD</string>
+  <string name="pleaseEnterAmountInX">Molimo da unesete iznos u %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi smo mali tim, tako da nam Vaša podrška puno znači!</string>
@@ -40,7 +44,6 @@ Ili možete %s.</string>
   <string name="contactSupport">kontaktirati Lichess podršku</string>
   <string name="otherMethods">Da li postoje neke druge metode doniranja?</string>
   <string name="bankTransfers">Mi takođe prihvaćamo i bankovne transfere</string>
-  <string name="bitcoin">A evo i naše bitcoin adrese: %s</string>
   <string name="patronFeatures">Da li su neke karakteristike rezervisane samo za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, jer je Lichess u potpunosti besplatan, zauvijek i za sve. To je naše obećanje.
 Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom profilu.</string>
@@ -56,6 +59,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nextPayment">Naredna uplata</string>
   <string name="youWillBeChargedXOnY">Dana %2$s naplatit će Vam se %1$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
+  <string name="giftPatronWings">Dajte igraču krila patrona</string>
   <string name="update">Ažurirajte</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
   <string name="cancelSupport">otkažite Vašu podršku</string>
@@ -63,8 +67,6 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="decideHowMuch">Odlučite koliko Vam vrijedi Lichess:</string>
   <string name="stopPayments">Povucite kreditnu karticu i zaustavite plaćanja:</string>
   <string name="noLongerSupport">Više ne podržava Lichess</string>
-  <string name="paymentHistory">Istorija uplata</string>
-  <string name="paid">Plaćeno</string>
   <string name="viewOthers">Pogledajte ostale Lichess Pokrovitelje</string>
   <string name="date">Datum</string>
   <string name="amount">Iznos</string>
@@ -74,4 +76,5 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nowLifetime">Od sada ste doživotni Lichess Pokrovitelj!</string>
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na period od mjesec dana!</string>
   <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
+  <string name="changeCurrency">Promijenite valutu</string>
 </resources>

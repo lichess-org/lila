@@ -4,7 +4,8 @@ import scala.concurrent.duration._
 import views._
 
 import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
+import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
@@ -14,7 +15,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
       NotForKids {
-        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index()).fuccess
+        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
         else env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
       }
     }
@@ -43,7 +44,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                           .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
                       ),
                     data =>
-                      CreateRateLimit(HTTPRequest ipAddress ctx.req) {
+                      CreateRateLimit(ctx.ip) {
                         postApi.makePost(categ, topic, data, me) map { post =>
                           Redirect(routes.ForumPost.redirect(post.id))
                         }
@@ -60,26 +61,49 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       implicit val req = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
         teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-          forms
-            .postEdit(me, inOwnTeam)
-            .bindFromRequest()
-            .fold(
-              _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-              data =>
-                CreateRateLimit(HTTPRequest ipAddress ctx.req) {
-                  postApi.editPost(postId, data.changes, me).map { post =>
-                    Redirect(routes.ForumPost.redirect(post.id))
-                  }
-                }(rateLimitedFu)
-            )
+          postApi getPost postId flatMap {
+            _ ?? { post =>
+              forms
+                .postEdit(me, inOwnTeam, post.text)
+                .bindFromRequest()
+                .fold(
+                  _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+                  data =>
+                    CreateRateLimit(ctx.ip) {
+                      postApi.editPost(postId, data.changes, me).map { post =>
+                        Redirect(routes.ForumPost.redirect(post.id))
+                      }
+                    }(rateLimitedFu)
+                )
+
+            }
+          }
         }
       }
     }
 
   def delete(categSlug: String, id: String) =
-    Auth { implicit ctx => me =>
-      CategGrantMod(categSlug) {
-        postApi.delete(categSlug, id, me) map { Ok(_) }
+    AuthBody { implicit ctx => me =>
+      postApi getPost id flatMap {
+        _ ?? { post =>
+          if (me.id == ~post.userId && !post.erased)
+            postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
+          else
+            CategGrantMod(categSlug) {
+              postApi.delete(categSlug, id, me) inject {
+                implicit val req = ctx.body
+                for {
+                  userId    <- post.userId
+                  reasonOpt <- forms.deleteWithReason.bindFromRequest().value
+                  reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
+                  preset =
+                    if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
+                    else MsgPreset.forumDeletion.byTeamLeader
+                } env.msg.api.systemPost(userId, preset(reason))
+                NoContent
+              }
+            }
+        }
       }
     }
 

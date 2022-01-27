@@ -58,11 +58,17 @@
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
   <string name="studyPgn">Studie PGN</string>
+  <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
+  <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">U kan dit in die forum plak om in te bed</string>
   <string name="startAtInitialPosition">Begin by die oorspronklike posisie</string>
   <string name="startAtX">Begin by %s</string>
+  <string name="embedInYourWebsite">Bed in u webwerf of blog</string>
+  <string name="readMoreAboutEmbedding">Lees meer oor inbedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Slegs openbare studies kan ingebed word!</string>
   <string name="open">Maak oop</string>
   <string name="xBroughtToYouByY">%1$s, aan jou beskikbaar gestel deur %2$s</string>
   <string name="studyNotFound">Studie kon nie gevind word nie</string>
@@ -119,6 +125,13 @@
   <string name="clearChat">Maak die gesprek skoon</string>
   <string name="deleteTheStudyChatHistory">Vee die gesprek uit? Onthou, jy kan dit nie terug kry nie!</string>
   <string name="deleteStudy">Vee die studie uit</string>
-  <string name="deleteTheEntireStudy">Vee die hele studie uit? Onthou, jy kan dit nie terug kry nie!</string>
   <string name="whereDoYouWantToStudyThat">Waar wil jy dit bestudeer?</string>
+  <string name="topics">Onderwerpe</string>
+  <string name="myTopics">My onderwerpe</string>
+  <string name="popularTopics">Gewilde onderwerpe</string>
+  <string name="manageTopics">Bestuur onderwerpe</string>
+  <string name="back">Terug</string>
+  <string name="playAgain">Speel weer</string>
+  <string name="whatWouldYouPlay">Wat sal jy in hierdie posisie speel?</string>
+  <string name="youCompletedThisLesson">Geluk! Jy het hierdie les voltooi.</string>
 </resources>

@@ -7,6 +7,7 @@ import chess.Mode
 import chess.{ variant => V }
 import lila.rating.RatingRange
 import lila.lobby.Color
+import chess.format.FEN
 
 private object Mappings {
 
@@ -29,7 +30,7 @@ private object Mappings {
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
   val increment                = number.verifying(HookConfig validateIncrement _)
-  val days                     = number(min = 1, max = 14)
+  val days                     = lila.common.Form.numberIn(List(1, 2, 3, 5, 7, 10, 14))
   def timeMode                 = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =
@@ -40,5 +41,10 @@ private object Mappings {
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
-  val fenField    = optional(nonEmptyText)
+  val fenField = optional {
+    import lila.common.Form.fen._
+    of[FEN]
+      .transform[FEN](f => FEN(f.value.trim), identity)
+      .transform[FEN](truncateMoveNumber, identity)
+  }
 }

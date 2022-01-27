@@ -21,6 +21,7 @@
     cursor: pointer;
     border-right: $border;
     color: $c-font;
+    white-space: nowrap;
 
     &:hover {
       @extend %metal-hover;
@@ -46,7 +47,7 @@
   }
 
   &__btn {
-    padding: 0 .6em;
+    padding: 0 0.6em;
 
     &.active {
       @extend %active;

@@ -7,8 +7,8 @@ final class Irwin(env: Env) extends LilaController(env) {
   import lila.irwin.JSONHandlers.reportReader
 
   def dashboard =
-    Secure(_.SeeReport) { implicit ctx => _ =>
-      env.irwin.api.dashboard map { d =>
+    Secure(_.MarkEngine) { implicit ctx => _ =>
+      env.irwin.irwinApi.dashboard map { d =>
         Ok(views.html.irwin.dashboard(d))
       }
     }
@@ -20,7 +20,7 @@ final class Irwin(env: Env) extends LilaController(env) {
           .validate[lila.irwin.IrwinReport]
           .fold(
             err => fuccess(BadRequest(err.toString)),
-            report => env.irwin.api.reports.insert(report) inject Ok
+            report => env.irwin.irwinApi.reports.insert(report) inject Ok
           ) map (_ as TEXT)
       }
     }
@@ -28,7 +28,14 @@ final class Irwin(env: Env) extends LilaController(env) {
   def eventStream =
     Scoped() { req => me =>
       IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.irwin.stream())).fuccess
+        noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).fuccess
+      }
+    }
+
+  def kaladin =
+    Secure(_.MarkEngine) { implicit ctx => _ =>
+      env.irwin.kaladinApi.dashboard map { d =>
+        Ok(views.html.kaladin.dashboard(d))
       }
     }
 }

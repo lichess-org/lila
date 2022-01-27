@@ -26,4 +26,16 @@
   <string name="sortBy">Sortiraj po</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije u kojima je dostupna računarska analiza</string>
+  <string name="color">Boja</string>
+  <string name="evaluation">Evaluacija</string>
+  <string name="maxNumber">Maksimalni broj</string>
+  <string name="maxNumberExplanation">Maksimalni broj partija za vraćanje</string>
+  <string name="include">Uključite</string>
+  <string name="descending">Silazno</string>
+  <string name="ascending">Uzlazno</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partija nađena</item>
+    <item quantity="few">%s partija nađeno</item>
+    <item quantity="other">%s partije nađene</item>
+  </plurals>
 </resources>

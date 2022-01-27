@@ -1,5 +1,5 @@
 main {
-  @include fluid-size("--gauge-gap", 8px, 17px);
+  @include fluid-size('--gauge-gap', 8px, 17px);
 }
 
 .eval-gauge {
@@ -11,7 +11,6 @@ main {
   @include breakpoint($mq-col1-uniboard) {
     display: none;
   }
-
 
   &.reverse {
     transform: rotateX(180deg);

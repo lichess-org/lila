@@ -2,15 +2,15 @@
 <resources>
   <string name="perfStats">%s מדדים</string>
   <string name="viewTheGames">צפה במשחקים</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">זמני</string>
+  <string name="provisional">זמני</string>
   <string name="notEnoughRatedGames">לא ניתן לקבוע דירוג אמין, מפני שלא שוחקו מספיק משחקים מדורגים.</string>
   <string name="progressOverLastXGames">התקדמות לאורך %s המשחקים האחרונים:</string>
   <string name="ratingDeviation">סטיית תקן בדירוג: %s.</string>
-  <string name="ratingDeviationHelp">ערך נמוך משמעו שהדירוג יציב יותר. מעל %s, הדירוג נחשב זמני.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">ערך נמוך יותר אומר שהדירוג יציב יותר. מעל %1$s, הדירוג נחשב זמני. כדי להיכלל בדירוג, ערך זה צריך להיות מתחת ל-%2$s (שחמט רגיל) או %3$s (וריאנטים).</string>
   <string name="totalGames">סך כל המשחקים</string>
   <string name="ratedGames">משחקים מדורגים</string>
   <string name="tournamentGames">משחקי טורניר</string>
-  <string name="berserkedGames">משחקי \'ברסרק\'</string>
+  <string name="berserkedGames">משחקי \'אטרף\'</string>
   <string name="timeSpentPlaying">זמן במשחק</string>
   <string name="averageOpponent">יריב ממוצע</string>
   <string name="victories">נצחונות</string>

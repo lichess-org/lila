@@ -28,8 +28,9 @@ final class UserAnalysis(
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
         Variant.byKey get key match {
-          case Some(variant)                              => load(fen, variant)
+          case Some(variant) if variant != Standard       => load(fen, variant)
           case _ if FEN.clean(fen) == Standard.initialFen => load(arg, Standard)
+          case Some(Standard)                             => load(fen, FromPosition)
           case _                                          => load(arg, FromPosition)
         }
       case _ => load("", Standard)
@@ -113,15 +114,21 @@ final class UserAnalysis(
       val owner = isMyPov(pov)
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap { case _ ~ analysis ~ crosstable =>
+        env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
           import lila.game.JsonView.crosstableWrites
           env.api.roundApi.review(
             pov,
             apiVersion,
             tv = none,
             analysis,
-            initialFenO = initialFen.some,
-            withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true),
+            initialFen = initialFen,
+            withFlags = WithFlags(
+              division = true,
+              opening = true,
+              clocks = true,
+              movetimes = true,
+              rating = ctx.pref.showRatings
+            ),
             owner = owner
           ) map { data =>
             Ok(data.add("crosstable", crosstable))
@@ -141,7 +148,7 @@ final class UserAnalysis(
             env.importer.importer
               .inMemory(data)
               .fold(
-                err => BadRequest(jsonError(err)).fuccess,
+                err => BadRequest(jsonError(err)).as(JSON).fuccess,
                 { case (game, fen) =>
                   val pov = Pov(game, chess.White)
                   env.api.roundApi.userAnalysisJson(
@@ -151,13 +158,10 @@ final class UserAnalysis(
                     pov.color,
                     owner = false,
                     me = ctx.me
-                  ) map { data =>
-                    Ok(data)
-                  }
+                  ) map JsonOk
                 }
               )
         )
-        .map(_ as JSON)
     }
 
   def forecasts(fullId: String) =
@@ -173,10 +177,9 @@ final class UserAnalysis(
               forecasts =>
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
-                    case None     => Ok(Json.obj("none" -> true))
-                    case Some(fc) => Ok(Json toJson fc) as JSON
+                    _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
                   } recover { case Forecast.OutOfSync =>
-                    Ok(Json.obj("reload" -> true))
+                    JsonOk(Json.obj("reload" -> true))
                   }
             )
       }

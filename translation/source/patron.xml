@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="donate">Donate</string>
+  <string name="donateAsX">Donate as %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Free account</string>
   <string name="becomePatron">Become a Lichess Patron</string>
   <string name="xBecamePatron">%s became a Lichess Patron</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s is a Lichess Patron for %2$s month</item>
+    <item quantity="other">%1$s is a Lichess Patron for %2$s months</item>
+  </plurals>
   <string name="newPatrons">New Patrons</string>
   <string name="freeChess">Free chess for everyone, forever!</string>
   <string name="noAdsNoSubs">No ads, no subscriptions; but open-source and passion.</string>
@@ -17,13 +22,12 @@
   <string name="lifetime">Lifetime</string>
   <string name="payLifetimeOnce">Pay %s once. Be a Lichess Patron forever!</string>
   <string name="lifetimePatron">Lifetime Lichess Patron</string>
-  <string name="makeExtraDonation">Make an extra donation?</string>
   <string name="monthly">Monthly</string>
   <string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
   <string name="onetime">One-time</string>
   <string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
   <string name="otherAmount">Other</string>
-  <string name="pleaseEnterAmount">Please enter an amount in USD</string>
+  <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
@@ -41,7 +45,6 @@ Or you can %s.</string>
   <string name="contactSupport">contact Lichess support</string>
   <string name="otherMethods">Other methods of donation?</string>
   <string name="bankTransfers">We also accept bank transfers</string>
-  <string name="bitcoin">And here's our bitcoin address: %s</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That's a promise.
 However, Patrons get bragging rights with a cool new profile icon.</string>
@@ -55,7 +58,8 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="currentStatus">Current status</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
-  <string name="makeAdditionalDonation">Make an additional donation now</string>
+  <string name="makeAdditionalDonation">Make an additional donation</string>
+  <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>
@@ -63,8 +67,6 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
-  <string name="paymentHistory">Payment history</string>
-  <string name="paid">Paid</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>
   <string name="amount">Amount</string>
@@ -74,4 +76,5 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="nowLifetime">You are now a lifetime Lichess Patron!</string>
   <string name="nowOneMonth">You are now a Lichess Patron for one month!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
+  <string name="changeCurrency">Change currency</string>
 </resources>

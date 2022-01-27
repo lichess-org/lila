@@ -1,4 +1,6 @@
-@import "side";
+@import 'side';
+
+@include body-fixed-scroll;
 
 .tv-games {
   .page-menu__content {

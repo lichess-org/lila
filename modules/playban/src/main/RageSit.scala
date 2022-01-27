@@ -9,6 +9,7 @@ case class RageSit(counter: Int) extends AnyVal {
   def isBad      = counter <= -40
   def isVeryBad  = counter <= -80
   def isTerrible = counter <= -160
+  def isLethal   = counter <= -200
 
   def goneWeight: Float =
     if (!isBad) 1f
@@ -30,10 +31,10 @@ object RageSit {
       {
         import chess.variant._
         (game.chess.board.materialImbalance, game.variant) match {
-          case (_, Crazyhouse | Horde) => 0
-          case (a, _) if a >= 4        => 1
-          case (a, _) if a <= -4       => -1
-          case _                       => 0
+          case (_, Crazyhouse | Horde | Antichess) => 0
+          case (a, _) if a >= 4                    => 1
+          case (a, _) if a <= -4                   => -1
+          case _                                   => 0
         }
       } * {
         if (loser.white) 1 else -1

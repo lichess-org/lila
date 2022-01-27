@@ -10,8 +10,6 @@ import lila.user.User
 
 object studentDashboard {
 
-  import bits.{ dataSort, sortNumberTh }
-
   def apply(
       c: Clas,
       wall: Frag,
@@ -21,7 +19,7 @@ object studentDashboard {
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
-        h1(dataIcon := "f", cls := "text")(c.name),
+        h1(dataIcon := "", cls := "text")(c.name),
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc))
       ),
       c.archived map { archived =>
@@ -68,10 +66,10 @@ object studentDashboard {
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
-          th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
-          sortNumberTh(trans.rating()),
-          sortNumberTh(trans.games()),
-          sortNumberTh(trans.puzzles()),
+          th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+          dataSortNumberTh(trans.rating()),
+          dataSortNumberTh(trans.games()),
+          dataSortNumberTh(trans.puzzles()),
           th
         )
       ),
@@ -88,7 +86,7 @@ object studentDashboard {
                 withTitle = false
               )
             ),
-            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
+            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.bestAny3Perfs.map {
               showPerfRating(user, _)
             }),
             td(user.count.game.localize),
@@ -105,10 +103,10 @@ object studentDashboard {
       val online = isOnline(user.id)
       td(
         a(
-          dataIcon := "U",
+          dataIcon := "",
           cls := List("button button-empty text" -> true, "disabled" -> !online),
-          title := trans.challengeToPlay.txt(),
-          href := online option s"${routes.Lobby.home()}?user=${user.username}#friend"
+          title := trans.challenge.challengeToPlay.txt(),
+          href := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
     }

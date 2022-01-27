@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 import lila.common.Iso
 import lila.common.Json._
-import lila.game.JsonView.colorWrites
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.simul.Simul
@@ -59,6 +58,9 @@ final class JsonView(
       }
     implicit def toursWrites(implicit lang: Lang) = Json.writes[ActivityView.Tours]
     implicit val puzzlesWrites                    = Json.writes[Puzzles]
+    implicit val stormWrites                      = Json.writes[Storm]
+    implicit val racerWrites                      = Json.writes[Racer]
+    implicit val streakWrites                     = Json.writes[Streak]
     implicit def simulWrites(user: User) =
       OWrites[Simul] { s =>
         Json.obj(
@@ -101,6 +103,9 @@ final class JsonView(
         .obj("interval" -> a.interval)
         .add("games", a.games)
         .add("puzzles", a.puzzles)
+        .add("storm", a.storm)
+        .add("racer", a.racer)
+        .add("streak", a.streak)
         .add("tournaments", a.tours)
         .add(
           "practice",
@@ -128,7 +133,7 @@ final class JsonView(
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)
         .add("teams" -> a.teams)
-        .add("posts" -> a.posts.map(_ map { case (topic, posts) =>
+        .add("posts" -> a.forumPosts.map(_ map { case (topic, posts) =>
           Json.obj(
             "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,

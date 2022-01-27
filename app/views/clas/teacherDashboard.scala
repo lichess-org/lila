@@ -11,8 +11,6 @@ import lila.user.User
 
 object teacherDashboard {
 
-  import bits.{ dataSort, sortNumberTh }
-
   private[clas] def layout(
       c: Clas,
       students: List[Student.WithUser],
@@ -21,7 +19,7 @@ object teacherDashboard {
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
-        h1(dataIcon := "f", cls := "text")(c.name),
+        h1(dataIcon := "", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
           a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
@@ -59,7 +57,7 @@ object teacherDashboard {
           a(
             href := routes.Clas.studentForm(c.id.value),
             cls := "button button-clas text",
-            dataIcon := "O"
+            dataIcon := ""
           )(trans.clas.addStudent())
         )
       ),
@@ -140,13 +138,13 @@ object teacherDashboard {
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(
+              th(dataSortDefault)(
                 trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
-                sortNumberTh(trans.rating()),
-                sortNumberTh(trans.clas.progress()),
-                sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
-                if (progress.isPuzzle) sortNumberTh(trans.clas.winrate())
-                else sortNumberTh(trans.clas.timePlaying())
+                dataSortNumberTh(trans.rating()),
+                dataSortNumberTh(trans.clas.progress()),
+                dataSortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
+                if (progress.isPuzzle) dataSortNumberTh(trans.clas.winrate())
+                else dataSortNumberTh(trans.clas.timePlaying())
               )
             ),
             tbody(
@@ -184,11 +182,11 @@ object teacherDashboard {
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(
+              th(dataSortDefault)(
                 trans.clas.nbStudents.pluralSame(students.size),
-                sortNumberTh(trans.chessBasics()),
-                sortNumberTh(trans.practice()),
-                sortNumberTh(trans.coordinates.coordinates())
+                dataSortNumberTh(trans.chessBasics()),
+                dataSortNumberTh(trans.practice()),
+                dataSortNumberTh(trans.coordinates.coordinates())
               )
             ),
             tbody(
@@ -259,19 +257,19 @@ object teacherDashboard {
       table(cls := "slist slist-pad sortable")(
         thead(
           tr(
-            th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
-            sortNumberTh(trans.rating()),
-            sortNumberTh(trans.games()),
-            sortNumberTh(trans.puzzles()),
-            sortNumberTh(trans.clas.lastActiveDate()),
-            th(iconTag("5")(title := trans.clas.managed.txt()))
+            th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+            dataSortNumberTh(trans.rating()),
+            dataSortNumberTh(trans.games()),
+            dataSortNumberTh(trans.puzzles()),
+            dataSortNumberTh(trans.clas.lastActiveDate()),
+            th(iconTag("")(title := trans.clas.managed.txt()))
           )
         ),
         tbody(
           students.sortBy(_.user.username).map { case s @ Student.WithUser(student, user) =>
             tr(
               studentTd(c, s),
-              td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
+              td(dataSort := user.perfs.bestRating, cls := "rating")(user.bestAny3Perfs.map {
                 showPerfRating(user, _)
               }),
               td(user.count.game.localize),
@@ -279,7 +277,7 @@ object teacherDashboard {
               td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
                 dataSort := (if (student.managed) 1 else 0),
-                student.managed option iconTag("5")(title := trans.clas.managed.txt())
+                student.managed option iconTag("")(title := trans.clas.managed.txt())
               )
             )
           }

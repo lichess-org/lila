@@ -13,38 +13,26 @@ final class AutoPairing(
     onStart: Game.ID => Unit
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(
-      tour: Tournament,
-      pairing: Pairing,
-      playersMap: Map[User.ID, Player],
-      ranking: Ranking
-  ): Fu[Game] = {
-    val player1 = playersMap get pairing.user1 err s"Missing pairing player1 $pairing"
-    val player2 = playersMap get pairing.user2 err s"Missing pairing player2 $pairing"
-    val clock   = tour.clock.toClock
+  def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] = {
+    val clock = tour.clock.toClock
     val game = Game
       .make(
-        chess = chess.Game(
-          variantOption = Some {
-            if (tour.position.isEmpty) tour.variant
-            else chess.variant.FromPosition
-          },
-          fen = tour.position
-        ) pipe { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = clock.some,
-            turns = turns,
-            startedAtTurn = turns
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (tour.position.isEmpty) tour.variant
+              else chess.variant.FromPosition
+            },
+            fen = tour.position
           )
-        },
-        whitePlayer = makePlayer(White, player1),
-        blackPlayer = makePlayer(Black, player2),
+          .copy(clock = clock.some),
+        whitePlayer = makePlayer(White, pairing.player1),
+        blackPlayer = makePlayer(Black, pairing.player2),
         mode = tour.mode,
         source = Source.Tournament,
         pgnImport = None
       )
-      .withId(pairing.gameId)
+      .withId(pairing.pairing.gameId)
       .withTournamentId(tour.id)
       .start
     (gameRepo insertDenormalized game) >>- {
@@ -52,8 +40,8 @@ final class AutoPairing(
       duelStore.add(
         tour = tour,
         game = game,
-        p1 = usernameOf(pairing.user1) -> ~game.whitePlayer.rating,
-        p2 = usernameOf(pairing.user2) -> ~game.blackPlayer.rating,
+        p1 = usernameOf(pairing.player1.userId) -> ~game.whitePlayer.rating,
+        p2 = usernameOf(pairing.player2.userId) -> ~game.blackPlayer.rating,
         ranking = ranking
       )
     } inject game

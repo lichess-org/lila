@@ -44,6 +44,7 @@ object PgnTags {
       Site,
       Event,
       Round,
+      Board,
       Annotator
     )
   }

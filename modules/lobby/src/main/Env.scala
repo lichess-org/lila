@@ -25,8 +25,6 @@ final class Env(
     idGenerator: lila.game.IdGenerator
 ) {
 
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
-
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
     archiveColl = db(CollName("seek_archive")),
@@ -38,11 +36,11 @@ final class Env(
 
   lazy val boardApiHookStream = wire[BoardApiHookStream]
 
-  private lazy val lobbyTrouper = LobbyTrouper.start(
+  private lazy val lobbySyncActor = LobbySyncActor.start(
     broomPeriod = 2 seconds,
     resyncIdsPeriod = 25 seconds
   ) { () =>
-    wire[LobbyTrouper]
+    wire[LobbySyncActor]
   }
 
   private lazy val abortListener = wire[AbortListener]

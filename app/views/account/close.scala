@@ -17,11 +17,11 @@ object close {
       active = "close"
     ) {
       div(cls := "account box box-pad")(
-        h1(dataIcon := "j", cls := "text")(closeAccount()),
+        h1(dataIcon := "", cls := "text")(closeAccount()),
         if (managed)
           p("Your account is managed, and cannot be closed.")
         else
-          postForm(cls := "form3", action := routes.Account.closeConfirm())(
+          postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(closeAccountExplanation()),
             div(cls := "form-group")(cantOpenSimilarAccount()),
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
@@ -30,10 +30,9 @@ object close {
                 a(href := routes.User.show(u.username))(changedMindDoNotCloseAccount()),
                 form3.submit(
                   closeAccount(),
-                  icon = "j".some,
-                  confirm = closingIsDefinitive.txt().some,
-                  klass = "button-red"
-                )
+                  icon = "".some,
+                  confirm = closingIsDefinitive.txt().some
+                )(cls := "button-red")
               )
             )
           )

@@ -11,6 +11,7 @@ $mq-not-xx-small: max-width 499px;
 $mq-not-x-small: max-width 649px;
 $mq-not-small: max-width 799px;
 $mq-not-medium: max-width 979px;
+$mq-not-large: max-width 1119px;
 $mq-not-x-large: max-width 1259px;
 
 /* Heights */
@@ -29,7 +30,7 @@ $mq-landscape: orientation landscape;
 
 /* Capabilities */
 
-$mq-hover-yes: "hover: hover";
+$mq-hover-yes: 'hover: hover';
 $mq-hover-no: hover none;
 
 /* Aliases */

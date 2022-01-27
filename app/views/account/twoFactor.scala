@@ -27,7 +27,7 @@ object twoFactor {
       div(cls := "account twofactor box box-pad")(
         h1(twoFactorAuth()),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.setupTwoFactor())(
+        postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
           div(cls := "form-group")(twoFactorHelp()),
           div(cls := "form-group")(
             twoFactorApp(
@@ -39,6 +39,11 @@ object twoFactor {
           ),
           div(cls := "form-group")(scanTheCode()),
           qrCode,
+          div(cls := "form-group")(
+            ifYouCannotScanEnterX(
+              span(style := "background:black;color:black;")(~form("secret").value)
+            )
+          ),
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
           form3.passwordModified(form("passwd"), trans.password())(
@@ -62,11 +67,11 @@ object twoFactor {
     ) {
       div(cls := "account twofactor box box-pad")(
         h1(
-          i(cls := "is-green text", dataIcon := "E"),
+          i(cls := "is-green text", dataIcon := ""),
           twoFactorEnabled()
         ),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.disableTwoFactor())(
+        postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
           p(twoFactorDisable()),
           form3.passwordModified(form("passwd"), trans.password())(autocomplete := "current-password"),
           form3.group(form("token"), authenticationCode())(

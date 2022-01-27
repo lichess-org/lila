@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Thách đấu</string>
+  <string name="challengeToPlay">Yêu cầu chơi</string>
+  <string name="challengeDeclined">Lời thách đấu bị từ chối</string>
+  <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
+  <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
+  <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
+  <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s không chấp nhận những lời thách đấu.</string>
+  <string name="yourXRatingIsTooFarFromY">Xếp hạng %1$s của bạn quá cách biệt so với %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
+  <string name="declineGeneric">Hiện tại tôi đang không chấp nhận thách đấu.</string>
+  <string name="declineLater">Tôi chưa sẵn sàng, hãy hỏi lại sau.</string>
+  <string name="declineTooFast">Tùy chọn thời gian quá nhanh cho tôi, hãy thách đấu lại với một tùy chọn chậm hơn.</string>
+  <string name="declineTooSlow">Tùy chọn thời gian quá chậm cho tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
+  <string name="declineTimeControl">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
+  <string name="declineRated">Hãy gửi yêu cầu thách đấu có tính elo cho tôi.</string>
+  <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
+  <string name="declineStandard">Tôi không muốn chơi biến thể bây giờ.</string>
+  <string name="declineVariant">Tôi sẽ không chơi biến thể này bây giờ.</string>
+  <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>
+  <string name="declineOnlyBot">Tôi chỉ chấp nhận thách đấu từ bot.</string>
+</resources>

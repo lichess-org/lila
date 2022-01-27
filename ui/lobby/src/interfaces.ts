@@ -1,40 +1,73 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom';
 
 export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[]
+export type MaybeVNodes = MaybeVNode[];
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 
-interface Untyped {
-  [key: string]: any;
+export interface Hook {
+  id: string;
+  sri: string;
+  clock: string;
+  t: number; // time
+  s: number; // speed
+  i: number; // increment
+  variant: VariantKey;
+  perf: Exclude<Perf, 'fromPosition'>;
+  prov?: true; // is rating provisional
+  u?: string; // username
+  rating?: number;
+  ra?: 1; // rated
+  c?: Color;
+  action: 'cancel' | 'join';
+  disabled?: boolean;
 }
 
-export interface Hook extends Untyped {
-}
-
-export interface Seek extends Untyped {
+export interface Seek {
+  id: string;
+  username: string;
+  rating: number;
+  mode: number;
+  days?: number;
+  color: string;
+  perf: {
+    key: Exclude<Perf, 'fromPosition'>;
+  };
+  provisional?: boolean;
+  variant?: string;
+  action: 'joinSeek' | 'cancelSeek';
 }
 
 export interface Pool {
   id: PoolId;
   lim: number;
   inc: number;
-  perf: string
+  perf: string;
 }
 
-export interface LobbyOpts extends Untyped {
+export interface LobbyOpts {
   element: HTMLElement;
   socketSend: SocketSend;
   pools: Pool[];
   blindMode: boolean;
+  playban: boolean;
+  showRatings: boolean;
+  data: LobbyData;
+  i18n: I18nDict;
+  trans: Trans;
 }
 
-export interface LobbyData extends Untyped {
+export interface LobbyData {
   hooks: Hook[];
   seeks: Seek[];
+  nbNowPlaying: number;
   nowPlaying: NowPlaying[];
+  me?: {
+    isBot: boolean;
+    username: string;
+  };
 }
 
 export interface NowPlaying {
@@ -42,7 +75,7 @@ export interface NowPlaying {
   gameId: string;
   fen: Fen;
   color: Color;
-  lastMove: String;
+  lastMove: string;
   variant: {
     key: string;
     name: string;

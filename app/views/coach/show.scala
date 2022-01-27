@@ -15,7 +15,7 @@ object show {
   private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
     text.map { t =>
       st.section(
-        h2(title),
+        h2(cls := "coach-show__title")(title),
         div(cls := "content")(richText(t.value))
       )
     }
@@ -24,6 +24,7 @@ object show {
       c: lila.coach.Coach.WithUser,
       coachReviews: lila.coach.CoachReview.Reviews,
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
+      posts: Seq[lila.ublog.UblogPost.PreviewPost],
       myReview: Option[lila.coach.CoachReview]
   )(implicit ctx: Context) = {
     val profile   = c.coach.profile
@@ -39,7 +40,7 @@ object show {
           description = shorten(~(c.coach.profile.headline), 152),
           url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
           `type` = "profile",
-          image = c.coach.picturePath.map(p => dbImageUrl(p.value))
+          image = c.coach.picture.isDefined option picture.thumbnail.url(c.coach)
         )
         .some
     ) {
@@ -50,14 +51,14 @@ object show {
           ),
           if (ctx.me.exists(c.coach.is))
             frag(
-              if (c.coach.isListed) p("This page is now public.")
+              if (c.coach.listed.value) p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit(), cls := "text", dataIcon := "m")("Edit my coach profile")
+              a(href := routes.Coach.edit, cls := "text", dataIcon := "")("Edit my coach profile")
             )
           else
             a(
               cls := "text button button-empty",
-              dataIcon := "c",
+              dataIcon := "",
               href := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
           ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
@@ -73,8 +74,14 @@ object show {
             section(bestSkills(), profile.skills),
             section(teachingMethod(), profile.methodology)
           ),
+          posts.nonEmpty option st.section(cls := "coach-show__posts")(
+            h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
+            div(cls := "ublog-post-cards ")(
+              posts map { views.html.ublog.post.card(_, showAuthor = false) }
+            )
+          ),
           studies.nonEmpty option st.section(cls := "coach-show__studies")(
-            h2(publicStudies()),
+            h2(cls := "coach-show__title")(publicStudies()),
             div(cls := "studies")(
               studies.map { s =>
                 st.article(cls := "study")(study.bits.widget(s, h3))
@@ -82,16 +89,16 @@ object show {
             )
           ),
           profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
-            h2(
+            h2(cls := "coach-show__title")(
               profile.youtubeChannel.map { url =>
-                a(href := url, targetBlank, rel := "nofollow")(youtubeVideos())
+                a(href := url, targetBlank, noFollow)(youtubeVideos())
               } getOrElse youtubeVideos()
             ),
             div(cls := "list")(
               profile.youtubeUrls.map { url =>
                 iframe(
-                  width := "256",
-                  height := "192",
+                  widthA := "256",
+                  heightA := "192",
                   src := url.value,
                   attr("frameborder") := "0",
                   frame.allowfullscreen

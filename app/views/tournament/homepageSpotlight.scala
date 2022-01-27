@@ -21,9 +21,9 @@ object homepageSpotlight {
           spot.iconImg map { i =>
             img(cls := "img", src := assetUrl(s"images/$i"))
           } getOrElse {
-            spot.iconFont.fold[Frag](iconTag("g")(cls := "img")) {
-              case "\\" => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-              case i    => iconTag(i)(cls := "img")
+            spot.iconFont.fold[Frag](iconTag("")(cls := "img")) {
+              case "" => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+              case i   => iconTag(i)(cls := "img")
             }
           },
           span(cls := "content")(

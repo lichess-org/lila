@@ -14,6 +14,7 @@ import lila.user.User
 final class Gamify(
     logRepo: ModlogRepo,
     reportApi: lila.report.ReportApi,
+    modApi: lila.mod.ModApi,
     cacheApi: lila.memo.CacheApi,
     historyRepo: HistoryRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -85,22 +86,24 @@ final class Gamify(
   }
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
-    actionLeaderboard(after, before) zip reportLeaderboard(after, before) map { case (actions, reports) =>
-      actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
-        ModMixed(
-          modId,
-          action = actions.find(_.modId == modId) ?? (_.count),
-          report = reports.find(_.modId == modId) ?? (_.count)
-        )
-      } sortBy (-_.score)
-    }
+    for {
+      actions <- actionLeaderboard(after, before)
+      reports <- reportLeaderboard(after, before)
+      modList <- modApi.allMods
+    } yield actions.map(_.modId) intersect modList.map(_.id) diff hidden map { modId =>
+      ModMixed(
+        modId,
+        action = actions.find(_.modId == modId) ?? (_.count),
+        report = reports.find(_.modId == modId) ?? (_.count)
+      )
+    } sortBy (-_.score)
 
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
     $doc("$gte" -> from) ++ toOption.?? { to =>
       $doc("$lt" -> to)
     }
 
-  private val notHidden = $nin(User.lichessId, "slanchevbyarg")
+  private val hidden = List(User.lichessId, "irwin")
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
@@ -109,7 +112,7 @@ final class Gamify(
         Match(
           $doc(
             "date" -> dateRange(after, before),
-            "mod"  -> notHidden
+            "mod"  -> $nin(hidden)
           )
         ) -> List(
           GroupField("mod")("nb" -> SumAll),
@@ -132,26 +135,27 @@ final class Gamify(
         import framework._
         Match(
           $doc(
-            "atoms.0.at" -> dateRange(after, before),
-            "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
-            "processedBy" -> notHidden
+            "done.at" -> dateRange(after, before),
+            "done.by" -> $nin(hidden),
+            "open"    -> false
           )
         ) -> List(
-          GroupField("processedBy")(
+          GroupField("done.by")(
             "nb" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("room", Room.Cheat.key)), 3, 1)
+                "$cond" -> $arr($doc("$eq" -> $arr("$room", Room.Cheat.key)), 3, 1)
               )
             )
           ),
           Sort(Descending("nb"))
         )
       }
-      .map {
-        _.flatMap { obj =>
-          import cats.implicits._
-          (obj.string("_id"), obj.int("nb")) mapN ModCount.apply
-        }
+      .map { docs =>
+        for {
+          doc <- docs
+          id  <- doc.string("_id")
+          nb  <- doc.int("nb")
+        } yield ModCount(id, nb)
       }
 }
 

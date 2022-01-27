@@ -3,8 +3,8 @@
   <string name="settings">Подешавања</string>
   <string name="closeAccount">Затворите налог</string>
   <string name="closingIsDefinitive">Затварање је коначно. Нема повратка. Да ли сте сигурни?</string>
-  <string name="cantOpenSimilarAccount">Нећеш моћи да отвориш нови налог са истим именом, чак и ако користиш друга велика или мала слова.</string>
-  <string name="changedMindDoNotCloseAccount">Предомислио сам се, не затварај мој налог</string>
-  <string name="closeAccountExplanation">Јесте ли сигурни? Затварање налога је трајна одлука. Више нећете моћи да се пријавите на свој налог и ваша страница профила више неће бити доступна.</string>
-  <string name="thisAccountIsClosed">Овај налог је затворен</string>
+  <string name="cantOpenSimilarAccount">Неће Вам бити допуштено да отворите нови налог са истим именом, чак и ако капитализација слова буде другачија.</string>
+  <string name="changedMindDoNotCloseAccount">Предомислио/ла сам се, немојте затворити мој налог</string>
+  <string name="closeAccountExplanation">Да ли сте сигурни да желите затворити Ваш налог? Затварање Вашег налога је трајна одлука. Више се НИКАДА нећете моћи пријавити.</string>
+  <string name="thisAccountIsClosed">Овај налог је затворен.</string>
 </resources>

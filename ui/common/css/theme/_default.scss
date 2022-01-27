@@ -1,4 +1,4 @@
-@import "../abstract/functions";
+@import '../abstract/functions';
 
 /* Colors */
 
@@ -80,6 +80,10 @@ $c-warn-over: $c-brag-over;
 /* Bad: red */
 $c-bad: $c-error;
 $c-bad-over: $c-error-over;
+
+/* Heart: red */
+$c-heart: $c-error;
+$c-heart-over: $c-error-over;
 
 /* Fancy: pink */
 $c-fancy: hsl(294, 61%, 62%);

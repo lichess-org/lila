@@ -2,7 +2,8 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-/** side effect throttler that allows X ops per Y unit of time
+/** Throttler that allows X operations per Y unit of time
+  * Not thread safe
   */
 final class RateLimit[K](
     credits: Int,
@@ -60,6 +61,10 @@ object RateLimit {
 
     def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A
   }
+
+  sealed trait Result
+  case object Through extends Result
+  case object Limited extends Result
 
   def composite[K](
       key: String,

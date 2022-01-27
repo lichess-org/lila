@@ -1,56 +1,67 @@
 package lila.relay
 
-import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.Json.jodaWrites
+import lila.study.Chapter
 
-final class JsonView(baseUrl: BaseUrl) {
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
+  import lila.study.JsonView.chapterMetadataWrites
 
-  private val markdown = new lila.common.Markdown
-  private val markdownCache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(10 minutes)
-    .maximumSize(64)
-    .build(markdown.apply)
-
-  implicit private val relayWrites = OWrites[Relay] { r =>
+  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
       .obj(
-        "id"          -> r.id,
-        "url"         -> s"$baseUrl/broadcast/${r.slug}/${r.id}",
-        "name"        -> r.name,
-        "description" -> r.description
+        "tour" -> Json
+          .obj(
+            "id"          -> trs.tour.id,
+            "name"        -> trs.tour.name,
+            "slug"        -> trs.tour.slug,
+            "description" -> trs.tour.description
+          )
+          .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
+          .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
+        "rounds" -> trs.rounds.map { round =>
+          if (withUrls) withUrl(round withTour trs.tour) else apply(round)
+        }
       )
-      .add("credit", r.credit)
-      .add("markup" -> r.markup.map(markdownCache.get))
-      .add("startsAt" -> r.startsAt)
-      .add("startedAt" -> r.startedAt)
-      .add("official" -> r.official.option(true))
-      .add("finished" -> r.finished.option(true))
-  }
+
+  def apply(round: RelayRound): JsObject =
+    Json
+      .obj(
+        "id"   -> round.id,
+        "name" -> round.name,
+        "slug" -> round.slug
+      )
+      .add("finished" -> round.finished)
+      .add("ongoing" -> (round.hasStarted && !round.finished))
+      .add("startsAt" -> round.startsAt.orElse(round.startedAt))
+
+  def withUrl(rt: RelayRound.WithTour): JsObject =
+    apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
+
+  def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
+    withUrl(rt) ++ Json.obj("games" -> games.map { g =>
+      chapterMetadataWrites.writes(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+    })
+
+  def sync(round: RelayRound) = syncWrites writes round.sync
 
   def makeData(
-      relay: Relay,
+      trs: RelayTour.WithRounds,
+      currentRoundId: RelayRound.Id,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) =
     JsData(
-      relay = if (canContribute) admin(relay) else public(relay),
+      relay = apply(trs)
+        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync))),
       study = studyData.study,
       analysis = studyData.analysis
     )
-
-  def public(r: Relay) = relayWrites writes r
-
-  def admin(r: Relay) =
-    public(r)
-      .add("markdown" -> r.markup)
-      .add("throttle" -> r.sync.delay)
-      .add("sync" -> r.sync.some)
 }
 
 object JsonView {
@@ -59,15 +70,22 @@ object JsonView {
 
   implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
 
-  implicit val idWrites: Writes[Relay.Id] = Writes[Relay.Id] { id =>
+  implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)
   }
 
-  implicit private val syncWrites: OWrites[Relay.Sync] = OWrites[Relay.Sync] { s =>
+  implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
+    JsString(id.value)
+  }
+
+  implicit private val syncWrites: OWrites[RelayRound.Sync] = OWrites[RelayRound.Sync] { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
-      "log"     -> s.log.events,
-      "url"     -> s.upstream.map(_.url)
-    )
+      "log"     -> s.log.events
+    ) ++
+      s.upstream.?? {
+        case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
+        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
+      }
   }
 }

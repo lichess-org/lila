@@ -2,6 +2,7 @@ package controllers
 
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
+import chess.variant.Variant
 import play.api.libs.json._
 import views._
 
@@ -20,23 +21,29 @@ final class Editor(env: Env) extends LilaController(env) {
     })
   }
 
+  private lazy val endgamePositionsJson = lila.common.String.html.safeJsonValue {
+    JsArray(chess.EndgamePosition.positions map { p =>
+      Json.obj(
+        "name" -> p.name,
+        "fen"  -> p.fen
+      )
+    })
+  }
+
   def index = load("")
 
   def load(urlFen: String) =
     Open { implicit ctx =>
-      val fenStr = lila.common.String
+      val fen = lila.common.String
         .decodeUriPath(urlFen)
         .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
-        .orElse(get("fen"))
       fuccess {
-        val situation = readFen(fenStr)
         Ok(
           html.board.editor(
-            sit = situation,
-            fen = Forsyth >> situation,
+            fen,
             positionsJson,
-            animationDuration = env.api.config.editorAnimationDuration
+            endgamePositionsJson
           )
         )
       }
@@ -45,28 +52,26 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val situation = readFen(get("fen"))
-        Ok(
-          html.board.bits.jsData(
-            sit = situation,
-            fen = Forsyth >> situation,
-            animationDuration = env.api.config.editorAnimationDuration
-          )
-        ) as JSON
+        JsonOk(
+          html.board.bits.editorJsData()
+        )
       }
     }
-
-  private def readFen(fen: Option[String]): Situation =
-    fen.map(_.trim).filter(_.nonEmpty).map(FEN.clean).flatMap(Forsyth.<<<).map(_.situation) |
-      Situation(chess.variant.Standard)
 
   def game(id: String) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
-          if (game.playable) routes.Round.watcher(game.id, "white")
-          else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess).value)
+          if (game.playable) routes.Round.watcher(game.id, "white").url
+          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN.apply), game.variant)
         }
       }
+    }
+
+  private[controllers] def editorUrl(fen: FEN, variant: Variant): String =
+    if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
+    else {
+      val params = variant.exotic ?? s"?variant=${variant.key}"
+      routes.Editor.load(fen.value.replace(" ", "_")).url + params
     }
 }

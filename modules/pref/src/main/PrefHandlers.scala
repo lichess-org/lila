@@ -42,13 +42,16 @@ private object PrefHandlers {
         coordColor = r.getD("coordColor", Pref.default.coordColor),
         submitMove = r.getD("submitMove", Pref.default.submitMove),
         confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
+        mention = r.getD("mention", Pref.default.mention),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
         zen = r.getD("zen", Pref.default.zen),
+        ratings = r.getD("ratings", Pref.default.ratings),
         rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
         pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
+        agreement = r.getD("agreement", 0),
         tags = r.getD("tags", Pref.default.tags)
       )
 
@@ -85,13 +88,16 @@ private object PrefHandlers {
         "coordColor"    -> o.coordColor,
         "submitMove"    -> o.submitMove,
         "confirmResign" -> o.confirmResign,
+        "mention"       -> o.mention,
         "insightShare"  -> o.insightShare,
         "keyboardMove"  -> o.keyboardMove,
         "zen"           -> o.zen,
+        "ratings"       -> o.ratings,
         "rookCastle"    -> o.rookCastle,
         "moveEvent"     -> o.moveEvent,
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle"  -> o.resizeHandle,
+        "agreement"     -> o.agreement,
         "tags"          -> o.tags
       )
   }

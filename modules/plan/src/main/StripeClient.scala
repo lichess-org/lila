@@ -1,5 +1,7 @@
 package lila.plan
 
+import java.util.Currency
+import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.JsonBodyReadables._
@@ -10,38 +12,68 @@ import lila.user.User
 
 final private class StripeClient(
     ws: StandaloneWSClient,
-    config: StripeClient.Config
+    config: StripeClient.Config,
+    paymentMethods: StripePaymentMethods
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import StripeClient._
   import JsonHandlers._
 
-  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
-    List(
-      "payment_method_types[]" -> "card",
-      "success_url"            -> data.success_url,
-      "cancel_url"             -> data.cancel_url,
-      "customer"               -> data.customer_id.value
-    )
+  private val STRIPE_VERSION = "2020-08-27"
+  // private val STRIPE_VERSION = "2016-07-06"
 
-  def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
-    val args = sessionArgs(data) ++ List(
-      "line_items[][name]"     -> "One-time payment",
-      "line_items[][quantity]" -> 1,
-      "line_items[][amount]"   -> data.checkout.amount.value,
-      "line_items[][currency]" -> "usd",
-      "line_items[][description]" -> {
-        if (data.checkout.amount.value >= 25000)
-          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!"
-        else
-          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!"
-      }
-    )
+  def sessionArgs(
+      mode: String,
+      customerId: CustomerId,
+      currency: Currency,
+      urls: NextUrls
+  ): List[(String, Any)] =
+    paymentMethods(mode, currency).toList.zipWithIndex.map { case (method, index) =>
+      s"payment_method_types[$index]" -> method
+    } :::
+      List(
+        "mode"        -> mode,
+        "success_url" -> urls.success,
+        "cancel_url"  -> urls.cancel,
+        "customer"    -> customerId.value
+      )
+
+  def createOneTimeSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] = {
+    val args = sessionArgs("payment", data.customerId, data.checkout.money.currency, data.urls) ::: List(
+      "line_items[0][price_data][product]" -> {
+        if (data.giftTo.isDefined) config.products.gift
+        else config.products.onetime
+      },
+      "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
+      "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.smallestCurrencyUnit,
+      "line_items[0][quantity]"                -> 1
+    ) ::: data.isLifetime.?? {
+      List(
+        "line_items[0][description]" ->
+          lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
+      )
+    } ::: data.giftTo.?? { giftTo =>
+      List(
+        "metadata[giftTo]"                      -> giftTo.id,
+        "payment_intent_data[metadata][giftTo]" -> giftTo.id, // so we can get it from charge.metadata.giftTo
+        "line_items[0][description]"            -> s"Gift Patron wings to ${giftTo.username}"
+      )
+    }
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createMonthlySession(data: CreateStripeSession, plan: StripePlan): Fu[StripeSession] = {
-    val args = sessionArgs(data) ++ List("subscription_data[items][][plan]" -> plan.id)
+  private def recurringPriceArgs(name: String, money: Money) = List(
+    s"$name[0][price_data][product]"                   -> config.products.monthly,
+    s"$name[0][price_data][currency]"                  -> money.currencyCode,
+    s"$name[0][price_data][unit_amount]"               -> money.toStripeAmount.smallestCurrencyUnit,
+    s"$name[0][price_data][recurring][interval]"       -> "month",
+    s"$name[0][price_data][recurring][interval_count]" -> 1,
+    s"$name[0][quantity]"                              -> 1
+  )
+
+  def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] = {
+    val args = sessionArgs("subscription", data.customerId, data.checkout.money.currency, data.urls) ++
+      recurringPriceArgs("line_items", data.checkout.money)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
@@ -49,29 +81,23 @@ final private class StripeClient(
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
-      "description" -> user.username
-    )
-
-  def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
-    postOne[StripeCustomer](
-      "customers",
-      "plan"        -> plan.id,
-      "email"       -> data.email,
-      "description" -> "Anonymous"
+      "description" -> user.username,
+      "expand[]"    -> "subscriptions"
     )
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
-    getOne[StripeCustomer](s"customers/${id.value}")
+    getOne[StripeCustomer](s"customers/${id.value}", "expand[]" -> "subscriptions")
 
-  def updateSubscription(
-      sub: StripeSubscription,
-      plan: StripePlan
-  ): Fu[StripeSubscription] =
+  def updateSubscription(sub: StripeSubscription, money: Money): Fu[StripeSubscription] = {
+    val args = recurringPriceArgs("items", money) ++ List(
+      "items[0][id]"       -> sub.item.id,
+      "proration_behavior" -> "none"
+    )
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      "plan"    -> plan.id,
-      "prorate" -> false
+      args: _*
     )
+  }
 
   def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
     deleteOne[StripeSubscription](
@@ -83,46 +109,34 @@ final private class StripeClient(
     getOne[JsObject](s"events/$id")
 
   def getNextInvoice(customerId: CustomerId): Fu[Option[StripeInvoice]] =
-    getOne[StripeInvoice](s"invoices/upcoming", "customer" -> customerId.value)
+    getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
-  def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
-    getList[StripeInvoice]("invoices", "customer" -> customerId.value)
+  def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
+    sub.default_payment_method ?? { id =>
+      getOne[StripePaymentMethod](s"payment_methods/$id")
+    }
 
-  def getPlan(cents: Cents, freq: Freq): Fu[Option[StripePlan]] =
-    getOne[StripePlan](s"plans/${StripePlan.make(cents, freq).id}")
-
-  def makePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
-    postOne[StripePlan](
-      "plans",
-      "id"       -> StripePlan.make(cents, freq).id,
-      "amount"   -> cents.value,
-      "currency" -> "usd",
-      "interval" -> "month",
-      "name"     -> StripePlan.make(cents, freq).name
+  def createPaymentUpdateSession(sub: StripeSubscription, urls: NextUrls): Fu[StripeSession] = {
+    val args = sessionArgs("setup", sub.customer, sub.item.price.currency, urls) ++ List(
+      "setup_intent_data[metadata][subscription_id]" -> sub.id
     )
+    postOne[StripeSession]("checkout/sessions", args: _*)
+  }
 
-  //   def chargeAnonCard(data: Checkout): Funit =
-  //     postOne[StripePlan]("charges",
-  //       "amount" -> data.cents.value,
-  //       "currency" -> "usd",
-  //       "source" -> data.source.value,
-  //       "description" -> "Anon one-time",
-  //       "metadata" -> Map("email" -> data.email),
-  //       "receipt_email" -> data.email).void
+  def getSession(id: String): Fu[Option[StripeSessionWithIntent]] =
+    getOne[StripeSessionWithIntent](s"checkout/sessions/$id", "expand[]" -> "setup_intent")
 
-  // charge without changing the customer plan
-  def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
-    postOne[StripeCharge](
-      "charges",
-      "customer"      -> customer.id.value,
-      "amount"        -> amount.value,
-      "currency"      -> "usd",
-      "description"   -> "Monthly customer adds a one-time",
-      "receipt_email" -> customer.email
+  def setCustomerPaymentMethod(customerId: CustomerId, paymentMethod: String): Funit =
+    postOne[JsObject](
+      s"customers/${customerId.value}",
+      "invoice_settings[default_payment_method]" -> paymentMethod
     ).void
 
+  def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
+    postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
+
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
-    get[A](url, queryString) dmap Some.apply recover {
+    get[A](url, queryString) dmap some recover {
       case _: NotFoundException => None
       case e: DeletedException =>
         play.api.Logger("stripe").warn(e.getMessage)
@@ -153,7 +167,11 @@ final private class StripeClient(
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
+    ws.url(s"${config.endpoint}/$url")
+      .withHttpHeaders(
+        "Authorization"  -> s"Bearer ${config.secretKey.value}",
+        "Stripe-Version" -> STRIPE_VERSION
+      )
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
@@ -167,13 +185,13 @@ final private class StripeClient(
             },
           fuccess
         )
-      case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
-      case x if x >= 400 && x < 500 =>
+      case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
+      case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
-          case None        => fufail { new InvalidRequestException(res.body) }
-          case Some(error) => fufail { new InvalidRequestException(error) }
+          case None        => fufail { new InvalidRequestException(status, res.body) }
+          case Some(error) => fufail { new InvalidRequestException(status, error) }
         }
-      case status => fufail { new StatusException(s"[stripe] Response status: $status") }
+      case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
     }
 
   private def isDeleted(js: JsValue): Boolean =
@@ -196,17 +214,19 @@ final private class StripeClient(
 
 object StripeClient {
 
-  class StripeException(msg: String)         extends Exception(msg)
-  class DeletedException(msg: String)        extends StripeException(msg)
-  class StatusException(msg: String)         extends StripeException(msg)
-  class NotFoundException(msg: String)       extends StatusException(msg)
-  class InvalidRequestException(msg: String) extends StatusException(msg)
+  class StripeException(msg: String)                      extends Exception(msg)
+  class DeletedException(msg: String)                     extends StripeException(msg)
+  class StatusException(status: Int, msg: String)         extends StripeException(s"$status $msg")
+  class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
+  class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
 
   import io.methvin.play.autoconfig._
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: Secret
+      @ConfigName("keys.secret") secretKey: Secret,
+      products: StripeProducts
   )
-  implicit private[plan] val configLoader = AutoConfig.loader[Config]
+  implicit private[plan] val productsLoader     = AutoConfig.loader[StripeProducts]
+  implicit private[plan] val stripeConfigLoader = AutoConfig.loader[Config]
 }

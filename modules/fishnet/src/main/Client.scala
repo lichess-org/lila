@@ -1,8 +1,7 @@
 package lila.fishnet
 
-import ornicar.scalalib.Random
 import com.gilt.gfc.semver.SemVer
-import lila.common.IpAddress
+import lila.common.{ IpAddress, SecureRandom }
 import scala.util.{ Failure, Success, Try }
 
 import org.joda.time.DateTime
@@ -98,5 +97,5 @@ object Client {
       }
   }
 
-  def makeKey = Key(Random.secureString(8))
+  def makeKey = Key(SecureRandom.nextString(8))
 }

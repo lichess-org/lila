@@ -15,7 +15,7 @@ object mini {
   private val dataLive  = attr("data-live")
   private val dataState = attr("data-state")
   private val dataTime  = attr("data-time")
-  private val cgWrap    = span(cls := "cg-wrap")(cgWrapContent)
+  val cgWrap            = span(cls := "cg-wrap")(cgWrapContent)
 
   def apply(
       pov: Pov,
@@ -32,36 +32,35 @@ object mini {
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov),
+      renderPlayer(!pov, withRating = ctx.pref.showRatings),
       cgWrap,
-      renderPlayer(pov)
+      renderPlayer(pov, withRating = ctx.pref.showRatings)
     )
   }
 
-  def noCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
+  def noCtx(pov: Pov, tv: Boolean = false): Tag = {
     val game   = pov.game
     val isLive = game.isBeingPlayed
     a(
-      href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
-      blank option targetBlank,
+      href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       cls := s"mini-game mini-game-${game.id} mini-game--init is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov)(defaultLang),
+      renderPlayer(!pov, withRating = true)(defaultLang),
       cgWrap,
-      renderPlayer(pov)(defaultLang)
+      renderPlayer(pov, withRating = true)(defaultLang)
     )
   }
 
-  private def renderState(pov: Pov) =
+  def renderState(pov: Pov) =
     dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov)(implicit lang: Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player, withRating = false),
-        span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if (pov.game.finished) renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }

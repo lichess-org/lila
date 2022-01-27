@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s patlh%2$s</string>
   <string name="level">mIw</string>
   <string name="toggleTheChat">choH QumwI\'</string>
-  <string name="toggleSound">choH wab</string>
   <string name="chat">QumwI\'</string>
   <string name="resign">jegh</string>
   <string name="checkmate">Doghjey</string>
@@ -38,7 +37,6 @@
     <item quantity="other">mejpu\' ghollI\'. bIQap \'e\' DamaqmeH, qaStaHvIS %s lup bIloSnIS.</item>
   </plurals>
   <string name="opponentLeftChoices">mejta\' gohollI. bIQap, pagh Qap pagh \'e\' DamaqlaH, pagh bIloSlaH.</string>
-  <string name="makeYourOpponentResign">ghollI\' yIpajmoH</string>
   <string name="forceResignation">bIQap \'e\' yImaq</string>
   <string name="forceDraw">Qap pagh \'e\' yImaq</string>
   <string name="talkInChat">batlh Sujawchuqjaj!</string>
@@ -47,9 +45,6 @@
   <string name="blackResigned">pajpu\' HurghwI\'</string>
   <string name="whiteLeftTheGame">mejpu\' chISwI\'</string>
   <string name="blackLeftTheGame">mejpu\' HurghwI\'</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Qujvam lubejlaHmeH bejwI\'pu\', tlharwIlvam tInob</string>
-  <string name="theComputerAnalysisHasFailed">pojHa\'pu\' De\'wI\'</string>
-  <string name="viewTheComputerAnalysis">De\'wI\' poj yIlegh</string>
   <string name="requestAComputerAnalysis">poj De\'wI\' \'e\' yItlhob</string>
   <string name="computerAnalysis">De\'wI\' poj</string>
   <string name="computerAnalysisAvailable">SaH De\'wI\' poj</string>
@@ -57,7 +52,5 @@
   <string name="depthX">%s Saw\'</string>
   <string name="usingServerAnalysis">turwI\' poj lo\'taH</string>
   <string name="blunder">Qagh</string>
-  <string name="blunders">Qaghpu\'</string>
   <string name="inaccuracy">QaghHom</string>
-  <string name="inaccuracies">QaghHompu\'</string>
 </resources>

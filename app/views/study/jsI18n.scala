@@ -35,6 +35,9 @@ object jsI18n {
       youAreNowASpectator,
       pgnTags,
       like,
+      unlike,
+      topics,
+      manageTopics,
       newTag,
       commentThisPosition,
       commentThisMove,
@@ -57,9 +60,7 @@ object jsI18n {
       chapterPgn,
       downloadGame,
       studyUrl,
-      broadcastUrl,
       currentChapterUrl,
-      currentGameUrl,
       youCanPasteThisInTheForumToEmbed,
       startAtInitialPosition,
       startAtX,
@@ -119,12 +120,19 @@ object jsI18n {
       clearChat,
       deleteTheStudyChatHistory,
       deleteStudy,
-      deleteTheEntireStudy,
+      confirmDeleteStudy,
       whereDoYouWantToStudyThat,
       nbChapters,
       nbGames,
       nbMembers,
-      pasteYourPgnTextHereUpToNbGames
+      pasteYourPgnTextHereUpToNbGames,
+      // gamebook play
+      back,
+      playAgain,
+      nextChapter,
+      trans.retry,
+      whatWouldYouPlay,
+      youCompletedThisLesson
     ).map(_.key)
   }
 }

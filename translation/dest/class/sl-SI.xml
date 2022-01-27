@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Vidno tako za učitelje, kot za učence razreda</string>
   <string name="teachersOfTheClass">Učitelji razreda</string>
   <string name="addLichessUsernames">Dodajte Lichess uporabniška imena, da jih povabite kot učitelje. Po enega na vrstico.</string>
-  <string name="theyMustFirstApply">Najprej se morajo prijaviti kot Lichess Učitelji.</string>
   <string name="resetPassword">Ponastavi geslo</string>
   <string name="makeSureToCopy">Skrbno si zapišite geslo. Nikoli več ga ne boste videli!</string>
   <string name="passwordX">Geslo: %s</string>
@@ -47,19 +46,19 @@ Geslo: %3$s</string>
   <string name="createDesc2">Ne potrebuje email naslova. Ustvarjeno bo geslo in prenesti ga morate k učencu, da se lahko prijavi.</string>
   <string name="createDesc3">Pomembno: Učenec ne sme imeti več računov.</string>
   <string name="createDesc4">Če račun že imajo, uporabite obrazec za povabilo.</string>
+  <string name="createStudentWarning">Ustvarite račune samo za prave študente. Tega ne uporabljajte za ustvarjanje več računov. Dobili bi prepoved.</string>
   <string name="lichessUsername">Lichess uporabniško ime</string>
   <string name="generateANewUsername">Ustvarite novo uporabniško ime</string>
   <string name="welcomeToClass">Dobrodošli v razred: %s
 Tukaj je povezava za dostop do razreda.</string>
   <string name="invitationToClass">Povabljen si, da se pridružiš razredu \"%s\" kot študent.</string>
   <string name="clickToViewInvitation">Kliknite povezavo za ogled povabila:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Povabilo na čakanju</item>
     <item quantity="two">2 pobili na čakanju</item>
     <item quantity="few">%s povabila na čakanju</item>
     <item quantity="other">%s povabil na čakanju</item>
   </plurals>
-  <string name="noPendingInvitations">Ni čakajočih povabil</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
   <string name="managed">Upravljan</string>
@@ -70,6 +69,10 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="releaseDesc1">Objavljen račun ne more biti spet upravljan. Študent bo lahko sam preklopil način za otroke in ponastavil geslo.</string>
   <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
   <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
+  <string name="closeStudent">Zapri račun</string>
+  <string name="closeTheAccount">Trajno zaprite študentski račun.</string>
+  <string name="closeDesc1">Študent tega računa ne bo mogel več uporabljati. Zaprtje je dokončno. Prepričajte se, da študent razume in se strinja.</string>
+  <string name="closeDesc2">Namesto tega boste morda želeli študentu dati nadzor nad računom, da ga bo lahko še naprej uporabljal.</string>
   <string name="teachers">Učitelji</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učitelj</item>
@@ -100,5 +103,4 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="newsEdit2">Dodajte zadnje novice na vrh. Ne izbrišite prejšnjih novic.</string>
   <string name="newsEdit3">Ločene novice s ---
 Prikazal bo horizontalno črto.</string>
-  <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
 </resources>

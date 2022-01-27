@@ -18,6 +18,8 @@
   <string name="rule1">Uključite ključnu riječ \"lichess.org\" u naslov i koristite kategoriju \"šah\" kada emitirate na Lichess-u.</string>
   <string name="rule2">Uklonite ključnu riječ kada emitirate sadržaj koji nije vezan za Lichess.</string>
   <string name="rule3">Lichess će automatski otkriti Vaše emitiranje i omogućiti sljedeće prednosti:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Pročitaj %s da bi osiguro poštenu igru za sve u tvom prijenosu.</string>
+  <string name="streamingFairplayFAQ">Često postavljana pitanja o poštenoj igri tijekom prijenosa</string>
   <string name="perks">Prednosti emitiranja sa ključnom riječi</string>
   <string name="perk1">Dobiti ćete vatrenu ikonicu emitera na svom Lichess profilu.</string>
   <string name="perk2">Probiti ćete se na vrh liste emitera.</string>
@@ -26,8 +28,8 @@
   <string name="approved">Vaš kanal za emitiranje je odobren.</string>
   <string name="pendingReview">Moderatori pregledavaju Vaš kanal za emitiranje.</string>
   <string name="pleaseFillIn">Molimo Vas da popunite Vaše informacije o emiteru i da stavite Vašu sliku.</string>
-  <string name="whenReady">Kada budete spremni da budete izlistani kao Lichess emiter, %s</string>
-  <string name="requestReview">zatražite pregled moderatora</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kada budete spremni da budete izlistani kao Lichess emiter, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">zatražite pregled moderatora</string>
   <string name="anotherLanguage">Ako Vaše emitiranje nije na engleskom nego na nekom drugom jeziku, na početku naslova Vašeg emitiranja uključite ispravnu oznaku jezika (%s), zatvorenu u kvadratne zagrade.
 Na primjer, navedite \"[RU]\" za ruski, \"[TR]\" za turski, \"[FR]\" za francuski, itd.
 Stavite ovu oznaku jezika na Twitch ili YouTube stranicu, a ne u postavkama za Lichess emiterski kanal.
@@ -49,11 +51,5 @@ Ako je Vaše emitiranje na engleskom jeziku, onda nema potrebe da dodate oznaku 
   <string name="xStreamerPicture">%s slika emitera</string>
   <string name="changePicture">Promjenite / izbrišite Vašu sliku</string>
   <string name="uploadPicture">Učitajte sliku</string>
-  <string name="deletePicture">Obrišite sliku</string>
   <string name="maxSize">Maksimalna veličina: %s</string>
-  <string name="installBlocker">Instalirajte zaštitu protiv zlonamjernog softvera!</string>
-  <string name="beSafe">Zaštitite se od oglasa i tragača
-koji su preplavili Twitch i YouTube.
-Lichess preporučuje uBlock Origin
-besplatni alat otvorenog koda.</string>
 </resources>

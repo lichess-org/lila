@@ -12,7 +12,7 @@ case class Puzzle(
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
-    vote: Int,
+    vote: Float, // denormalized ratio of voteUp/voteDown
     themes: Set[PuzzleTheme.Key]
 ) {
   // ply after "initial move" when we start solving
@@ -29,6 +29,8 @@ case class Puzzle(
   } err s"Can't apply puzzle $id first move"
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
+
+  def hasTheme(theme: PuzzleTheme) = themes(theme.key)
 }
 
 object Puzzle {
@@ -36,6 +38,8 @@ object Puzzle {
   val idSize = 5
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  def toId(id: String) = id.size == idSize option Id(id)
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
@@ -51,13 +55,14 @@ object Puzzle {
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Id = Id {
-      powers.reverse
+    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
+      val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
+      (str.size == idSize) option Id(str)
     }
 
     private def charToInt(c: Char) = {
@@ -82,16 +87,18 @@ object Puzzle {
   )
 
   object BSONFields {
-    val id     = "_id"
-    val gameId = "gameId"
-    val fen    = "fen"
-    val line   = "line"
-    val glicko = "glicko"
-    val vote   = "vote"
-    val plays  = "plays"
-    val themes = "themes"
-    val day    = "day"
-    val dirty  = "dirty" // themes need to be denormalized
+    val id       = "_id"
+    val gameId   = "gameId"
+    val fen      = "fen"
+    val line     = "line"
+    val glicko   = "glicko"
+    val vote     = "vote"
+    val voteUp   = "vu"
+    val voteDown = "vd"
+    val plays    = "plays"
+    val themes   = "themes"
+    val day      = "day"
+    val dirty    = "dirty" // themes need to be denormalized
   }
 
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

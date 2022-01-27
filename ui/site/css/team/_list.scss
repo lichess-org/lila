@@ -11,17 +11,39 @@
   }
 
   .team-name {
+    @extend %flex-center;
+
     font-size: 1.5em;
-    display: block;
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
 
     &.mine {
       color: $c-brag;
     }
+
+    em {
+      @extend %box-radius;
+
+      padding: 1px 5px;
+      background: $c-primary;
+      color: $c-primary-over;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-left: 1em;
+    }
+  }
+
+  .team__quit {
+    opacity: 0;
+    @include transition(0.1s);
+  }
+
+  tr:hover .team__quit {
+    opacity: 1;
+    @include transition(0.6s);
   }
 
   .info {
-    font-size: .9em;
+    font-size: 0.9em;
     white-space: nowrap;
     display: none;
 

@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum přidání (nejstarší)</string>
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Nejoblíbenější</string>
+  <string name="alphabetical">Abecedně</string>
   <string name="addNewChapter">Přidat novou kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitola</item>
@@ -68,15 +69,13 @@
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Adresa vysílání</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>
-  <string name="currentGameUrl">Adresa právě probíhající hry</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Tento odkaz můžete vložit např. do diskusního fóra</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Tento odkaz můžete vložit např. do diskusního fóra</string>
   <string name="startAtInitialPosition">Začít ve výchozí pozici</string>
   <string name="startAtX">Začít u tahu %s</string>
   <string name="embedInYourWebsite">Vložte vaší stránku nebo blog</string>
   <string name="readMoreAboutEmbedding">Přečtěte si více o vkládání</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Lze vložit pouze veřejné studie!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Lze vložit pouze veřejné studie!</string>
   <string name="open">Otevřít</string>
   <string name="xBroughtToYouByY">%1$s vám přináší %2$s</string>
   <string name="studyNotFound">Studie nenalezena</string>
@@ -135,6 +134,32 @@
   <string name="clearChat">Vyčistit chat</string>
   <string name="deleteTheStudyChatHistory">Opravdu chcete vymazat historii chatu? Operaci nelze vrátit!</string>
   <string name="deleteStudy">Smazat studii</string>
-  <string name="deleteTheEntireStudy">Opravdu chcete odstranit celou studii? Operaci nelze vrátit!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Opravdu chcete smazat celou studii? Akci nelze vrátit zpět. Zadejte název studie pro potvrzení: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde chcete tuto pozici studovat?</string>
+  <string name="goodMove">Dobrý tah</string>
+  <string name="mistake">Chyba</string>
+  <string name="brilliantMove">Výborný tah</string>
+  <string name="blunder">Hrubá chyba</string>
+  <string name="interestingMove">Zajímavý tah</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Pochybný tah</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jediný tah</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Rovná pozice</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Nejasná pozice</string>
+  <string name="whiteIsSlightlyBetter">Bílý stojí o něco lépe</string>
+  <string name="blackIsSlightlyBetter">Černý stojí o něco lépe</string>
+  <string name="whiteIsBetter">Bílý stojí lépe</string>
+  <string name="blackIsBetter">Černý stojí lépe</string>
+  <string name="whiteIsWinning">Bílý má rozhodující výhodu</string>
+  <string name="blackIsWinning">Černý má rozhodující výhodu</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novinka</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Vývin</string>
+  <string name="initiative">S iniciativou</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">S útokem</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">S protihrou</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Časová tíseň</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">S kompenzací</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">S ideou</string>
+  <string name="nextChapter">Další kapitola</string>
+  <string name="prevChapter">Předchozí kapitola</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s님, 귀하의 lichess.org 계정을 확인하십시오.</string>
-  <string name="emailConfirm_click">이 링크를 클릭해서 Lichess 계정을 활성화 하십시오.</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">이 링크를 클릭해서 Lichess 계정을 활성화 하십시오.</string>
   <string name="emailConfirm_ignore">Lichess에 계정을 만드시지 않으셨으면 이 이메일을 무시하셔도 됩니다.</string>
   <string name="passwordReset_subject">%s님, lichess.org 비밀번호를 재설정하십시오.</string>
   <string name="passwordReset_intro">귀하의 계정의 비밀번호 재설정 요청을 받았습니다.</string>

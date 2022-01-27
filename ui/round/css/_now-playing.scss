@@ -2,7 +2,7 @@
   h3 {
     @extend %flex-between;
 
-    margin: 1em 0 .5em 0;
+    margin: 1em 0 0.5em 0;
 
     @include breakpoint($mq-col1) {
       margin: 1em $block-gap 0.5em $block-gap;
@@ -12,7 +12,7 @@
   .simul {
     span {
       font-weight: bold;
-      margin: 0 .5em;
+      margin: 0 0.5em;
     }
 
     .win {

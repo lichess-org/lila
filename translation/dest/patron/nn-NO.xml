@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donér</string>
+  <string name="donateAsX">Gje som %s</string>
   <string name="lichessPatron">Bidragsytar til Lichess</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli ein bidragsytar til Lichess</string>
   <string name="xBecamePatron">%s vart bidragsytar til Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s har støtta Lichess økonomisk i %2$s månad</item>
+    <item quantity="other">%1$s har støtta Lichess økonomisk i %2$s månader</item>
+  </plurals>
   <string name="newPatrons">Nye bidragsytarar</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonsar, ingen abonnement; men open-kjeldekode og glødande engasjement.</string>
@@ -17,13 +22,12 @@
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s éin gong og ver Lichess bidragsytar for alltid!</string>
   <string name="lifetimePatron">Lichess-mesén på livstid</string>
-  <string name="makeExtraDonation">Gje eit ekstra bidrag?</string>
   <string name="monthly">Månadleg</string>
   <string name="recurringBilling">Tilbakevendande fakturering, forny bidragsytar-vingane dine kvar månad.</string>
   <string name="onetime">Ein gong</string>
   <string name="singleDonation">Eit enkelt bidrag vil gje deg bidragsytar-vingar i ein månad.</string>
   <string name="otherAmount">Anna</string>
-  <string name="pleaseEnterAmount">Ver venleg og skriv inn eit beløp i USA-dollar (USD)</string>
+  <string name="pleaseEnterAmountInX">Ver venleg å oppgje eit beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
@@ -40,14 +44,13 @@ Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-hjelpa</string>
   <string name="otherMethods">Andre måtar å bidra på?</string>
   <string name="bankTransfers">Vi tek òg mot bankoverføringar</string>
-  <string name="bitcoin">Og her er bitcoin-adressa vår: %s</string>
   <string name="patronFeatures">Er nokre funksjonar reservert bidragsytarar?</string>
   <string name="noPatronFeatures">Nei, for Lichess er heilt gratis, for alltid og for alle. Det er ein lovnad.
 Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Sjå ein detaljert samanlikning av funksjonar</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess-mesén for ein månad</item>
-    <item quantity="other">Lichess-mesén for %s månader</item>
+    <item quantity="one">Lichess-mesén i ein månad</item>
+    <item quantity="other">Lichess-mesén i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du støttar lichess.org med %s i månaden.</string>
   <string name="tyvm">Mange takk for støtta di. Du er sjef!</string>
@@ -55,6 +58,7 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="nextPayment">Neste betaling</string>
   <string name="youWillBeChargedXOnY">Du vil bli trekt %1$s, %2$s.</string>
   <string name="makeAdditionalDonation">Legg inn ei ekstra pengegåve no</string>
+  <string name="giftPatronWings">Gje ein spelar gjevar-venger</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månadleg beløp (%s)</string>
   <string name="cancelSupport">avslutt støtta di</string>
@@ -62,8 +66,6 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
   <string name="noLongerSupport">Avslutt å støtte Lichess</string>
-  <string name="paymentHistory">Betalingshistorikk</string>
-  <string name="paid">Betalt</string>
   <string name="viewOthers">Sjå andre Lichess-mesenar</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>
@@ -73,4 +75,5 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="nowLifetime">Du er no livslang Lichess-mesen!</string>
   <string name="nowOneMonth">Du er no Lichess-mesen for ein månad!</string>
   <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og Lichess-kontoen din blir gradert ned til gratis-nivået.</string>
+  <string name="changeCurrency">Endra valuta</string>
 </resources>

@@ -38,8 +38,6 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
       ratingBonus(user) +
       titleBonus(user) +
       patronBonus(user) +
-      nbGamesBonus(user) +
-      nbPuzzlesBonus(user) +
       modBonus(user) +
       lameBonus(user)
   }.toInt
@@ -49,7 +47,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   // 1 year = 3.46
   // 2 years = 4.89
   private def seniorityBonus(user: User) =
-    math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30)
+    math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30) atMost 5
 
   private def titleBonus(user: User) = user.hasTitle ?? 20
 
@@ -61,17 +59,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     (rating - 1500) / 300
   } atLeast 0
 
-  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 20
-
-  // 0 games    = 0
-  // 100 games  = 1
-  // 200 games  = 2.41
-  // 1000 games = 3.16
-  private def nbGamesBonus(user: User) =
-    math.sqrt(user.count.game / 100)
-
-  private def nbPuzzlesBonus(user: User) =
-    math.sqrt(user.perfs.puzzle.nb / 100)
+  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 15
 
   private def modBonus(user: User) =
     if (user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR")) 100
@@ -80,5 +68,5 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     else 0
 
   private def lameBonus(user: User) =
-    if (user.lame) -10 else 0
+    if (user.lameOrTroll) -30 else 0
 }

@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -12,8 +12,9 @@ export interface SwissOpts {
   $side: Cash;
   socketSend: SocketSend;
   chat: any;
-  i18n: any;
+  i18n: I18nDict;
   classes: string | null;
+  showRatings: boolean;
 }
 
 export interface SwissData {
@@ -42,11 +43,11 @@ export interface SwissData {
   nextRound?: {
     at: string;
     in: number;
-  }
+  };
   greatPlayer?: {
     name: string;
     url: string;
-  }
+  };
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
   stats?: Stats;
@@ -82,7 +83,7 @@ export interface Standing {
   players: Player[];
 }
 
-export type Outcome = "absent" | "late" | "bye";
+export type Outcome = 'absent' | 'late' | 'bye';
 
 export interface BasePlayer {
   user: LightUser;
@@ -96,7 +97,7 @@ export interface BasePlayer {
 }
 
 export interface PodiumPlayer extends BasePlayer {
-  engine?: boolean;
+  lame?: boolean;
 }
 
 export interface Player extends BasePlayer {
@@ -115,7 +116,7 @@ export interface Board {
   clock?: {
     white: number;
     black: number;
-  }
+  };
   winner?: Color;
 }
 
@@ -144,7 +145,7 @@ export interface Pager {
 export type Page = Player[];
 
 export interface Pages {
-  [n: number]: Page
+  [n: number]: Page;
 }
 
 export interface PlayerExt extends Player {

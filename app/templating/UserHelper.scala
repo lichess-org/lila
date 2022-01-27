@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 
@@ -79,23 +79,36 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def lightUser = env.user.lightUserSync
 
-  def usernameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
-  def usernameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
+  def usernameOrId(userId: String)            = lightUser(userId).fold(userId)(_.name)
+  def titleNameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
+  def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
   def isOnline(userId: String) = env.socket isOnline userId
 
   def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
 
+  def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
+    span(
+      cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
+    )(
+      if (modIcon)
+        frag(
+          moderatorIcon,
+          User.anonMod
+        )
+      else User.anonymous
+    )
+
   def userIdLink(
-      userIdOption: Option[String],
+      userIdOption: Option[User.ID],
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
-  )(implicit lang: Lang): Frag =
-    userIdOption.flatMap(lightUser).fold[Frag](User.anonymous) { user =>
+  )(implicit ctx: Lang): Tag =
+    userIdOption.flatMap(lightUser).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
       userIdNameLink(
         userId = user.id,
         username = user.name,
@@ -116,7 +129,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -128,11 +141,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       params = params,
       modIcon = false
     )
-
-  def userIdLink(
-      userId: String,
-      cssClass: Option[String]
-  )(implicit lang: Lang): Frag = userIdLink(userId.some, cssClass)
 
   def titleTag(title: Option[Title]): Option[Frag] =
     title map { t =>
@@ -150,7 +158,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       title: Option[Title],
       params: String,
       modIcon: Boolean
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
@@ -170,7 +178,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withPerfRating: Option[PerfType] = None,
       name: Option[Frag] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
@@ -201,7 +209,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Frag = {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Tag = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(
@@ -232,40 +240,45 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case _ => ""
     }
 
-  private def userUrl(username: String, params: String = "") =
-    s"""${routes.User.show(username)}$params"""
+  private def userUrl(username: String, params: String = ""): Option[String] =
+    (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
-  protected def userClass(
+  def userClass(
       userId: String,
       cssClass: Option[String],
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
-      "user-link" -> true,
-      ~cssClass   -> cssClass.isDefined,
-      "ulpt"      -> withPowerTip
-    )
+    if (userId == "ghost") List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    else
+      (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+        "user-link" -> true,
+        ~cssClass   -> cssClass.isDefined,
+        "ulpt"      -> withPowerTip
+      )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
   ): Frag =
-    if (filter == GameFilter.Search) frag(br, trans.search.advancedSearch())
+    if (filter == GameFilter.Search) frag(iconTag(""), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
+
+  private def transLocalize(key: I18nKey, number: Int)(implicit lang: Lang) =
+    key.pluralSameTxt(number)
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
   ): String =
     filter match {
-      case GameFilter.All      => trans.nbGames.pluralSameTxt(u.count.game)
-      case GameFilter.Me       => nbs.withMe ?? trans.nbGamesWithYou.pluralSameTxt
-      case GameFilter.Rated    => trans.nbRated.pluralSameTxt(u.count.rated)
-      case GameFilter.Win      => trans.nbWins.pluralSameTxt(u.count.win)
-      case GameFilter.Loss     => trans.nbLosses.pluralSameTxt(u.count.loss)
-      case GameFilter.Draw     => trans.nbDraws.pluralSameTxt(u.count.draw)
-      case GameFilter.Playing  => trans.nbPlaying.pluralSameTxt(nbs.playing)
-      case GameFilter.Bookmark => trans.nbBookmarks.pluralSameTxt(nbs.bookmark)
-      case GameFilter.Imported => trans.nbImportedGames.pluralSameTxt(nbs.imported)
+      case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
+      case GameFilter.Me       => nbs.withMe ?? { transLocalize(trans.nbGamesWithYou, _) }
+      case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
+      case GameFilter.Win      => transLocalize(trans.nbWins, u.count.win)
+      case GameFilter.Loss     => transLocalize(trans.nbLosses, u.count.loss)
+      case GameFilter.Draw     => transLocalize(trans.nbDraws, u.count.draw)
+      case GameFilter.Playing  => transLocalize(trans.nbPlaying, nbs.playing)
+      case GameFilter.Bookmark => transLocalize(trans.nbBookmarks, nbs.bookmark)
+      case GameFilter.Imported => transLocalize(trans.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
     }
 
@@ -279,7 +292,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"$name played $nbGames games since $createdAt.$currentRating"
   }
 
-  val patronIconChar = ""
+  val patronIconChar = ""
   val lineIconChar   = ""
 
   val lineIcon: Frag = i(cls := "line")
