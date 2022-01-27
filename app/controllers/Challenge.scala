@@ -362,11 +362,7 @@ final class Challenge(
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: Option[UserModel]) = {
     import lila.challenge.Challenge._
-    val timeControl = config.clock map {
-      TimeControl.Clock.apply
-    } orElse config.days.map {
-      TimeControl.Correspondence.apply
-    } getOrElse TimeControl.Unlimited
+    val timeControl = TimeControl.make(config.clock, config.days)
     lila.challenge.Challenge
       .make(
         variant = config.variant,
