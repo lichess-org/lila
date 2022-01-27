@@ -423,8 +423,7 @@ final class Challenge(
                 .make(
                   variant = config.variant,
                   initialFen = config.position,
-                  timeControl =
-                    config.clock.fold[TimeControl](TimeControl.Unlimited)(TimeControl.Clock.apply),
+                  timeControl = TimeControl.make(config.clock, config.days),
                   mode = chess.Mode(config.rated),
                   color = "random",
                   challenger = Challenger.Open,

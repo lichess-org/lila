@@ -187,6 +187,7 @@ object SetupForm {
         "name" -> optional(lila.common.Form.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
+        "days"  -> optional(days),
         "rated" -> boolean,
         "fen"   -> fenField
       )(OpenConfig.from)(_ => none)
