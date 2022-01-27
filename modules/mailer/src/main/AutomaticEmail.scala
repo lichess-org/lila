@@ -1,11 +1,14 @@
 package lila.mailer
 
+import org.joda.time.Period
 import play.api.i18n.Lang
 import scala.util.chaining._
+import scalatags.Text.all._
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
+import lila.i18n.PeriodLocales.showPeriod
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 import lila.base.LilaException
@@ -173,6 +176,51 @@ To make a new donation, head to $baseUrl/patron"""
         }.unit
       }
     }
+
+  def dailyCorrespondenceNotice(
+      userId: User.ID,
+      opponents: List[lila.hub.actorApi.mailer.CorrespondenceOpponent]
+  ): Funit =
+    !opponents.pp("opponents").isEmpty ?? {
+      userRepo named userId flatMap {
+        _ ?? { user =>
+          userRepo email userId flatMap {
+            _ ?? { email =>
+              implicit val lang = userLang(user)
+              val disableSettingNotice =
+                "You are received this email you have correspondence email notification turned on. You can turn it off in your settings."
+              mailer send Mailer.Message(
+                to = email,
+                subject = "Daily correspondence notice",
+                text = Mailer.txt.addServiceNote(
+                  s"""${opponents map { opponent =>
+                    showGame(opponent) + s" $baseUrl/${opponent.gameId}"
+                  } mkString "\n\n"}
+
+$disableSettingNotice"""
+                ),
+                htmlBody = emailMessage(
+                  opponents map { opponent =>
+                    li(
+                      showGame(opponent),
+                      Mailer.html.url(s"$baseUrl/${opponent.gameId}")
+                    )
+                  },
+                  disableSettingNotice,
+                  serviceNote
+                ).some
+              )
+            }
+          }
+        }
+      }
+    }
+
+  private def showGame(opponent: lila.hub.actorApi.mailer.CorrespondenceOpponent)(implicit lang: Lang) = {
+    opponent.remainingTime.fold(s"It's your turn against ${opponent.opponentId} in:")(remainingTime =>
+      s"You have ${showPeriod(remainingTime)} remaining against ${opponent.opponentId} in your game:"
+    )
+  }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
     implicit val lang = userLang(user)

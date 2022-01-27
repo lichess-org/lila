@@ -50,6 +50,10 @@ final class Env(
     },
     "planExpire" -> { case lila.hub.actorApi.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId).unit
+    },
+    "dailyCorrespondenceNotif" -> {
+      case lila.hub.actorApi.mailer.CorrespondenceOpponents(userId, opponents) =>
+        automaticEmail.dailyCorrespondenceNotice(userId, opponents).unit
     }
   )
 }

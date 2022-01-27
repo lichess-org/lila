@@ -81,6 +81,10 @@ final class PrefApi(
     coll.update.one($id(pref.id), pref, upsert = true).void >>-
       cache.put(pref.id, fuccess(pref.some))
 
+  def corresEmailNotifUsers: Fu[List[User.ID]] =
+    // db.pref.createIndex({corresEmailNotif:1},{partialFilterExpression:{corresEmailNotif:true}})
+    coll.secondaryPreferred.primitive[User.ID]($doc("corresEmailNotif" -> true), "_id")
+
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref
 

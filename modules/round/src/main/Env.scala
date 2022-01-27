@@ -125,6 +125,12 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
+  scheduler.scheduleAtFixedRate(1 minute, 1 minute) { () =>
+    prefApi.corresEmailNotifUsers flatMap userRepo.byIds flatMap proxyRepo.correspondenceGamesToPlayOf foreach {
+      _ foreach { opps => Bus.publish(opps, "dailyCorrespondenceNotif") }
+    }
+  }
+
   lazy val selfReport = wire[SelfReport]
 
   lazy val recentTvGames = wire[RecentTvGames]
