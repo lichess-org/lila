@@ -107,7 +107,8 @@ object discussion {
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
               renderUser(appeal, msg.by, modData.isDefined),
-              momentFromNowOnce(msg.at)
+              if (modData.isEmpty) momentFromNowOnce(msg.at)
+              else momentFromNowServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
