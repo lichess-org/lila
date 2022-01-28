@@ -93,7 +93,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
   def momentFromNowServer(date: DateTime): Frag =
-    timeTag(title := showEnglishDateTime(date))(momentFromNowServerText(date))
+    timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
   def momentFromNowServerText(date: DateTime): Frag = {
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
