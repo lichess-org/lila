@@ -39,7 +39,8 @@ final class NoteApi(
               $doc("from" -> me.id),
               $doc("mod"  -> true)
             )
-          else $doc("from" -> me.id)
+          else
+            $doc("from" -> me.id, "mod" -> false)
         }
       )
       .sort($sort desc "date")
