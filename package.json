@@ -5,7 +5,7 @@
   "description": "lishogi.org: the forever free, adless and open source shogi server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ornicar/lila.git"
+    "url": "https://github.com/lichess-org/lila.git"
   },
   "keywords": [
     "shogi",
@@ -14,7 +14,7 @@
   "author": "Thibault Duplessis and the gang (lichess)",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
+    "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lishogi.org",
   "engines": {

@@ -55,9 +55,9 @@ SERVER_FILES = [
     ".sbtopts.default",
 ]
 
-ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
+ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs"
 
-SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
+SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
@@ -274,7 +274,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
 
     session = requests.Session()
     session.headers["Authorization"] = f"token {github_api_token}"
-    session.headers["User-Agent"] = "ornicar/lila"
+    session.headers["User-Agent"] = "lichess-org/lila"
 
     try:
         wanted_hash = hash_files(commit.tree, profile["files"])

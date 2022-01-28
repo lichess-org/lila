@@ -5,7 +5,7 @@ Any file in this project that does not state otherwise and is not listed as an
 exception below is part of lila and copyright (c) 2012-2019 the lila authors.
 
 For a list of the authors see the commit log or
-https://github.com/ornicar/lila/graphs/contributors.
+https://github.com/lichess-org/lila/graphs/contributors.
 
 Lila is free software; you can redistribute and/or modify it under the terms
 of the GNU Affero General Public License as published by the Free Software

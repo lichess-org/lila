@@ -35,7 +35,7 @@ Use [GitHub issues](https://github.com/WandererXII/lishogi/issues) for bug repor
 
 ## Credits
 
-This code exists because of [ornicar](https://github.com/ornicar), and the whole [Lichess project](https://github.com/ornicar/lila)
+This code exists because of [ornicar](https://github.com/ornicar), and the whole [Lichess project](https://github.com/lichess-org/lila)
 
 ## Supported browsers
 

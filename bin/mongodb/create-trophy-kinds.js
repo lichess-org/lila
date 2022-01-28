@@ -4,7 +4,7 @@ db.trophyKind.insert({
   _id: "developer",
   name: "Lishogi developer",
   icon: "\ue000",
-  url: "https://github.com/ornicar/lila/graphs/contributors",
+  url: "https://github.com/lichess-org/lila/graphs/contributors",
   klass: "icon3d",
   order: NumberInt(100),
   withCustomImage: false,

@@ -124,7 +124,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
   window.Mousetrap(chatEl).bind('esc', () => chatEl.blur());
 
   // Ensure clicks remove chat focus.
-  // See ornicar/shogiground#109
+  // See lichess-org/chessground#109
 
   const mouchEvents = ['touchstart', 'mousedown'];
 
