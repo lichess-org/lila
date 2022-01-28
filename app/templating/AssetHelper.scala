@@ -81,11 +81,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       val protocol = if (req.secure) "wss://" else "ws://"
       s"$protocol$socketDomain"
     }
-    val localDev = "http://127.0.0.1:3000"
+    val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc =
-        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev :: Nil,
+        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
