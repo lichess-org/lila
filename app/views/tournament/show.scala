@@ -61,7 +61,8 @@ object show {
                 s"${titleNameOrId(winnerId)} takes the prize home!"
               }
         )
-        .some
+        .some,
+      csp = defaultCsp.withLilaHttp.some
     )(
       main(cls := s"tour${tour.schedule
         .?? { sched =>
