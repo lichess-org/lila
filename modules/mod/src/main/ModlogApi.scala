@@ -8,6 +8,7 @@ import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
 import lila.irc.IrcApi
+import lila.game.Game
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -230,10 +231,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
     }
 
-  def cheatDetected(user: User.ID, gameId: String) =
+  def cheatDetected(user: User.ID, gameId: Game.ID) =
     add {
       Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
     }
+
+  def cheatDetectedAndCount(user: User.ID, gameId: Game.ID): Fu[Int] = for {
+    prevCount <- countRecentCheatDetected(user)
+    _         <- cheatDetected(user, gameId)
+  } yield prevCount + 1
 
   def cli(by: User.ID, command: String) =
     add {
