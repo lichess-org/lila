@@ -76,7 +76,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
+    val assets = assetDomain.value
     val sockets = socketDomains map { socketDomain =>
       val protocol = if (req.secure) "wss://" else "ws://"
       s"$protocol$socketDomain"
@@ -87,7 +87,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       connectSrc =
         "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
+      frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
