@@ -16,7 +16,7 @@ object Analyser {
   }
 
   def isCritical(raw: String) =
-    criticalRegex.matches(latinify(raw.toLowerCase))
+    criticalRegex.find(latinify(raw.toLowerCase))
 
   private def latinify(text: String): String =
     text map {
