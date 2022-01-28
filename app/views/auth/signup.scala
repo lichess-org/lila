@@ -57,15 +57,15 @@ object signup {
           "You must agree to the Lichess policies listed below:"
         )
       ),
-      agreements.map { case (field, i18n) =>
-        form3.checkbox(form(field), i18n())
+      agreements.map { case (field, text) =>
+        form3.checkbox(form(field), text)
       }
     )
 
-  private val agreements = List(
-    "assistance" -> trans.agreementAssistance,
-    "nice"       -> trans.agreementNice,
-    "account"    -> trans.agreementAccount,
-    "policy"     -> trans.agreementPolicy
+  private def agreements(implicit ctx: Context) = List(
+    "assistance" -> trans.agreementAssistance(),
+    "nice"       -> trans.agreementNice(),
+    "account"    -> trans.agreementMultipleAccounts(a(href := routes.Page.tos)(trans.termsOfService())),
+    "policy"     -> trans.agreementPolicy()
   )
 }
