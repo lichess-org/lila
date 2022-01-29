@@ -23,7 +23,7 @@ object embed {
       title = s"${s.name} ${chapter.name}",
       cssModule = "analyse.embed"
     )(
-      div(cls := "is2d")(
+      div(cls    := "is2d")(
         main(cls := "analyse")
       ),
       footer {
@@ -40,10 +40,10 @@ object embed {
           ),
           a(
             targetBlank,
-            cls := "open",
+            cls      := "open",
             dataIcon := "",
-            href := url,
-            title := trans.study.open.txt()
+            href     := url,
+            title    := trans.study.open.txt()
           )
         )
       },

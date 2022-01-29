@@ -26,9 +26,9 @@ object pref {
           input(
             st.id := s"$prefix$id",
             checked option st.checked,
-            tpe := "radio",
+            tpe   := "radio",
             value := v._1.toString,
-            name := field.name
+            name  := field.name
           ),
           label(`for` := s"$prefix$id")(v._2)
         )

@@ -11,7 +11,7 @@ import lila.app._
 import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
-import lila.tournament.{ TournamentForm, VisibleTournaments, Tournament => Tour }
+import lila.tournament.{ Tournament => Tour, TournamentForm, VisibleTournaments }
 import lila.user.{ User => UserModel }
 
 final class Tournament(

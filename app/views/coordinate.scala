@@ -30,11 +30,11 @@ object coordinate {
       playing = true
     )(
       main(
-        id := "trainer",
-        cls := "coord-trainer training init",
-        attr("data-color-pref") := ctx.pref.coordColorName,
+        id                       := "trainer",
+        cls                      := "coord-trainer training init",
+        attr("data-color-pref")  := ctx.pref.coordColorName,
         attr("data-resize-pref") := ctx.pref.resizeHandle,
-        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score.url)
+        attr("data-score-url")   := ctx.isAuth.option(routes.Coordinate.score.url)
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
@@ -44,18 +44,18 @@ object coordinate {
             }
           ),
           form(
-            cls := "color buttons",
-            action := routes.Coordinate.color,
-            method := "post",
+            cls          := "color buttons",
+            action       := routes.Coordinate.color,
+            method       := "post",
             autocomplete := "off"
           )(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(
                   input(
-                    tpe := "radio",
+                    tpe   := "radio",
                     st.id := s"coord_color_$id",
-                    name := "color",
+                    name  := "color",
                     value := id,
                     (id == ctx.pref.coordColor) option checked
                   ),
