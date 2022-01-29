@@ -145,7 +145,7 @@ object SetupForm {
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
     lazy val message = optional(
-      nonEmptyText.verifying(
+      nonEmptyText(maxLength = 8_000).verifying(
         "The message must contain {game}, which will be replaced with the game URL.",
         _ contains "{game}"
       )
