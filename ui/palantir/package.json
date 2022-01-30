@@ -16,12 +16,12 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "=0.0.32",
+    "@types/web": "^0.0.51",
     "rollup": "^2.66.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@types/webrtc": "^0.0.27",
+    "@types/webrtc": "^0.0.31",
     "snabbdom": "^3.0.1"
   },
   "scripts": {
