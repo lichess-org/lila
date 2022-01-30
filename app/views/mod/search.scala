@@ -68,7 +68,7 @@ object search {
               )(if (blocked) "Banned" else "Ban this print")
             )
           ),
-          div(cls := "box__pad")(
+          isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
             ul(uas map { ua =>
               li(ua)
