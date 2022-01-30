@@ -21,7 +21,7 @@
   "dependencies": {
     "common": "2.0.0",
     "date-fns": "^2.14.0",
-    "snabbdom": "^3.0.1"
+    "snabbdom": "^3.3.1"
   },
   "scripts": {
     "dev": "rollup --config",

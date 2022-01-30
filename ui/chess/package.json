@@ -31,7 +31,7 @@
   "dependencies": {
     "chessground": "^8.2.0",
     "common": "2.0.0",
-    "snabbdom": "^3.0.1"
+    "snabbdom": "^3.3.1"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",

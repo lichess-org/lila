@@ -14,7 +14,7 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/cash": "8.0.0",
-    "@types/chart.js": "^2.9.29",
+    "@types/chart.js": "^2.9.35",
     "@types/lichess": "2.0.0",
     "@types/web": "^0.0.51",
     "rollup": "^2.66.1",
@@ -22,13 +22,13 @@
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chart.js": "^2.9",
+    "chart.js": "^2.9.4",
     "chess": "2.0.0",
     "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessops": "^0.10.4",
     "common": "2.0.0",
     "nvui": "2.0.0",
-    "snabbdom": "^3.0.1",
+    "snabbdom": "^3.3.1",
     "tree": "2.0.0"
   },
   "scripts": {

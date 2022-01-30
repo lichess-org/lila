@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@toast-ui/editor": "^3.1",
+    "@toast-ui/editor": "^3.1.2",
     "@yaireo/tagify": "^4.7",
-    "apexcharts": "^3.27.1",
+    "apexcharts": "^3.33.0",
     "chat": "2.0.0",
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
@@ -35,7 +35,7 @@
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
-    "tablesort": "^5.1",
+    "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {

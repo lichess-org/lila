@@ -173,11 +173,12 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@toast-ui/editor@^3.1":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-3.1.0.tgz#48febab0b9102ad6e9fb2bd3ed3a1207003a6bd8"
-  integrity sha512-ewNsl0eefMejVYwY3SP6n/gx9Ppf+K2iOSUJPIEcLeoeIoodd4JAS0gyBvfx+/nLY0feVj9CjqMfbuAezssDYg==
+"@toast-ui/editor@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-3.1.2.tgz#b7d73c69e9bc0b6da346b9171b81df12f3dde49c"
+  integrity sha512-3If4pnDULrduyiWP9gLZKNqeK2FatzNa8APU6eV/bEDAXJqbCJFahNDivMPtR5k7iZMtkdE1ez1FphueHyjmUQ==
   dependencies:
+    dompurify "^2.3.3"
     prosemirror-commands "^1.1.9"
     prosemirror-history "^1.1.3"
     prosemirror-inputrules "^1.1.3"
@@ -191,10 +192,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@types/chart.js@^2.9.29":
-  version "2.9.33"
-  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.33.tgz#59c6de80b8134379156f4ba7b96c0928a721c1ab"
-  integrity sha512-vB6ZFx1cA91aiCoVpreLQwCQHS/Cj+9YtjBTwFlTjKXyY0douXV2KV4+fluxdI+grDZ6hTCQeg2HY/aQ9NeLHA==
+"@types/chart.js@^2.9.35":
+  version "2.9.35"
+  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.35.tgz#10ddee097ab9320f8eabd8a31017fda3644d9218"
+  integrity sha512-MWx/zZlh4wHBbM4Tm4YsZyYGb1/LkTiFLFwX/FXb0EJCvXX2xWTRHwlJ2RAAEXWxLrOdaAWP8vFtJXny+4CpEw==
   dependencies:
     moment "^2.10.2"
 
@@ -546,10 +547,10 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apexcharts@^3.27.1:
-  version "3.27.1"
-  resolved "https://registry.yarnpkg.com/apexcharts/-/apexcharts-3.27.1.tgz#b0e6dd3b3ace028f29b32fcd88e19a2420a18089"
-  integrity sha512-2pfw3pxeWhI0ap5lfxyfGNGoGScfEwfc8XnTpbnzgRdr1AOH5JJN9hh3MvfwrC9TQQfJYC2TZc8P/q9qXUj1bQ==
+apexcharts@^3.33.0:
+  version "3.33.0"
+  resolved "https://registry.yarnpkg.com/apexcharts/-/apexcharts-3.33.0.tgz#8fb807fb6c5a55a37a1168f0dbf0548d1ae69fdb"
+  integrity sha512-gOc0qZijuomtXTThLbb0sKn+mZJkVQADyK/Zw9vQ0JjKVbMYxzek61xk40hT49i1Sq6/MUqsz0WgUXYpqqf8Mg==
   dependencies:
     svg.draggable.js "^2.2.2"
     svg.easing.js "^2.0.0"
@@ -1026,7 +1027,7 @@ chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chart.js@^2.9:
+chart.js@^2.9.4:
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.9.4.tgz#0827f9563faffb2dc5c06562f8eb10337d5b9684"
   integrity sha512-B07aAzxcrikjAPyV+01j7BmOpxtQETxTSlQ26BEYJ+3iUkbNKaOJ/nDbT6JjyqYxseM0ON12COHYdU2cTIjC7A==
@@ -1066,10 +1067,10 @@ chessground@^8.2.0:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.2.0.tgz#11fe0393e53f94759fdaa6c407ebc64b4ce1bfd6"
   integrity sha512-vEJCVD+ea9KZy0HuPvHA9QUhxElbaBChId44UZ0+cl90svP2EImgqeJkuX8ExC+dBKYn1FvzpNh10jrNX81jcQ==
 
-chessops@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.10.2.tgz#65623e17194b4dda76d243ab77302c206613eee7"
-  integrity sha512-7Kc1PfEBLq9BDjM8XGUsbvITw1tR/v6PU2ktNImT6Ze1ghCjqu2/qhwW4qHo7o1cEru0SFxJs/1UZwHLik9guA==
+chessops@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.10.4.tgz#a5bc17e4fc5047a84f0eea510980bddc8aeda0f4"
+  integrity sha512-n84zaa2qwBJ+Tj2OM9rHN/3pyC+VUe5YkkMCk4lFif1d/GdgR9IOY7nkYZ9Z8mTawxQRlfr8ar2VJEx2l1xiyw==
   dependencies:
     "@badrap/result" "^0.2"
 
@@ -1484,6 +1485,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+dompurify@^2.3.3:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.5.tgz#c83ed5a3ae5ce23e52efe654ea052ffb358dd7e3"
+  integrity sha512-kD+f8qEaa42+mjdOpKeztu9Mfx5bv9gVLO6K9jRx4uGvh6Wv06Srn4jr1wPNY2OOUGGSKHNFN+A8MA3v0E0QAQ==
 
 dragscroll@^0.0.8:
   version "0.0.8"
@@ -4999,10 +5005,10 @@ smart-buffer@^4.1.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snabbdom@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-3.0.3.tgz#13ff22fbdd1c971ace1af55d4831bdb4972aafd0"
-  integrity sha512-+HEwNccHj1lTKx3I7vKm7La+FhhcJFJloPkmPE0pwYQFq6aZSx2SCJrUKotD/+L8kA+EHcXRmBe5Yd2LX1WlQQ==
+snabbdom@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-3.3.1.tgz#a2fb9a1c85cc19d6dc11c4c5e4c78cbbbaafff1f"
+  integrity sha512-FR9u20dCkktPd+qbedqwYNjMXzYhizhqlKTQzYZimLNeCJY0/5qgs0DtLVSmzIEL1bN3Dyb9sQpiHGCxUjyLnQ==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -5430,10 +5436,10 @@ svg.select.js@^3.0.1:
   dependencies:
     svg.js "^2.6.5"
 
-tablesort@^5.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/tablesort/-/tablesort-5.2.1.tgz#722f6f8b13062709ac22aa16bc03c126c6ccf558"
-  integrity sha512-AmNSrtzyba5Bd+Fm8oJJj/xS2bj5acoHEsDHxER2/4Tzo+5noPORpEsSLT9dI15X2MIuXlNnj+BBQcpMsoeTXQ==
+tablesort@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/tablesort/-/tablesort-5.3.0.tgz#899534f40f5395c1ec4d00f7b9d026c6e21ccc3f"
+  integrity sha512-WkfcZBHsp47gVH9CBHG0ZXopriG01IA87arGrchvIe868d4RiXVvoYPS1zMq9IdW05kBs5iGsqxTABqLyWonbg==
 
 tar@^6.0.2, tar@^6.1.2:
   version "6.1.11"

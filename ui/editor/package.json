@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessops": "^0.10.4",
     "common": "2.0.0",
-    "snabbdom": "^3.0.1"
+    "snabbdom": "^3.3.1"
   },
   "scripts": {
     "dev": "rollup --config",
