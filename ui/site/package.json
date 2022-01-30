@@ -12,7 +12,7 @@
     "@types/fnando__sparkline": "^0.3.4",
     "@types/lichess": "2.0.0",
     "@types/web": "^0.0.51",
-    "@types/yaireo__tagify": "^4.7",
+    "@types/yaireo__tagify": "^4.9.0",
     "@types/zxcvbn": "^4.4.0",
     "chessground": "^8.2.0",
     "rollup": "^2.66.1",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@toast-ui/editor": "^3.1.2",
-    "@yaireo/tagify": "^4.7",
+    "@yaireo/tagify": "^4.9.5",
     "apexcharts": "^3.33.0",
     "chat": "2.0.0",
     "common": "2.0.0",

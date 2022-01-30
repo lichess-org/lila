@@ -19,7 +19,7 @@
     "@types/highcharts": "=4.2.57",
     "@types/lichess": "2.0.0",
     "@types/web": "^0.0.51",
-    "@types/yaireo__tagify": "^4.7",
+    "@types/yaireo__tagify": "^4.9.0",
     "highcharts": "=4.2.5",
     "prop-types": "^15.8.1",
     "rollup": "^2.66.1",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2",
-    "@yaireo/tagify": "^4.7",
+    "@yaireo/tagify": "^4.9.5",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",

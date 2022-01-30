@@ -325,10 +325,10 @@
     "@types/react" "*"
     "@types/yaireo__tagify" "*"
 
-"@types/yaireo__tagify@^4.7":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@types/yaireo__tagify/-/yaireo__tagify-4.7.0.tgz#3676230c56a56f831687771b755962b16ec0f458"
-  integrity sha512-4PeGSqkX9IMCOkaKS2RqQBnvOuxh6up+YrKO+SS5RCmTVKX6JeGpAgaWwgKSOULe4nPRKqPXQCcAzk6ypDZQXQ==
+"@types/yaireo__tagify@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@types/yaireo__tagify/-/yaireo__tagify-4.9.0.tgz#59e75003250b5108d4114f14dc1073812bbbf46d"
+  integrity sha512-SkdzftHApljvA2v7HEk8/vNgNRKRpqpx/inAHQbIRnYWskzZBl/8DSoNDNBBhvBcdFVSjHllkD/CxgeAxEoDHQ==
   dependencies:
     "@types/react" "*"
     "@types/yaireo__tagify" "*"
@@ -418,10 +418,10 @@
     "@typescript-eslint/types" "5.10.1"
     eslint-visitor-keys "^3.0.0"
 
-"@yaireo/tagify@^4.7":
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.7.2.tgz#589b29c91d5685abab915404892db23289c832b6"
-  integrity sha512-05pyg5EPZ/Wvl6ZcDjvlhnaQa/kTgcjyzbfrTHPh9xkrcO6JYiZuoD1nghqTn2z/c4vLX7PDvybPJoQJELNVMA==
+"@yaireo/tagify@^4.9.5":
+  version "4.9.5"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.9.5.tgz#adc49639b3595a5a35c80a25dfbb588deaa13fdb"
+  integrity sha512-PspJ8BWawLk+vg025Qrdj34IvtVMmovslbMTi+GsZT6ZGZDAS98RZVjYGN08Ifmc5c8CqBnvfDd52n+1u6g+xA==
 
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
