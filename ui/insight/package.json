@@ -20,8 +20,8 @@
     "@types/lichess": "2.0.0",
     "@types/web": "=0.0.32",
     "highcharts": "=4.2.5",
-    "rollup": "^2.56.2",
-    "typescript": "^4.4.3"
+    "rollup": "^2.66.1",
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "common": "2.0.0",
