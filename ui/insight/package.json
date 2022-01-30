@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "numeral": "^1.5",
+    "numeral": "^2.0.6",
     "snabbdom": "^3.3.1"
   },
   "scripts": {
