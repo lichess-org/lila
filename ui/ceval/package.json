@@ -28,7 +28,7 @@
   "dependencies": {
     "chessops": "^0.10.2",
     "common": "2.0.0",
-    "idb-keyval": "^5.0.4",
+    "idb-keyval": "^6.1.0",
     "snabbdom": "^3.0.1"
   }
 }
