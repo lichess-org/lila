@@ -59,14 +59,16 @@ object search {
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
             h1("Fingerprint: ", fh.value),
-            postForm(cls := "box__top__actions", action := routes.Mod.printBan(!blocked, fh.value))(
-              submitButton(
-                cls := List(
-                  "button text" -> true,
-                  "active"      -> blocked
-                )
-              )(if (blocked) "Banned" else "Ban this print")
-            )
+            if (isGranted(_.Admin))
+              postForm(cls := "box__top__actions", action := routes.Mod.printBan(!blocked, fh.value))(
+                submitButton(
+                  cls := List(
+                    "button text" -> true,
+                    "active"      -> blocked
+                  )
+                )(if (blocked) "Banned" else "Ban this print")
+              )
+            else if (blocked) div(cls := "banned")("BANNED")
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
@@ -98,14 +100,16 @@ object search {
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
             h1("IP address: ", renderIp(address)),
-            postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
-              submitButton(
-                cls := List(
-                  "button text" -> true,
-                  "active"      -> blocked
-                )
-              )(if (blocked) "Banned" else "Ban this IP")
-            )
+            if (isGranted(_.Admin))
+              postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
+                submitButton(
+                  cls := List(
+                    "button text" -> true,
+                    "active"      -> blocked
+                  )
+                )(if (blocked) "Banned" else "Ban this IP")
+              )
+            else if (blocked) div(cls := "banned")("BANNED")
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
