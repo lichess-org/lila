@@ -54,10 +54,14 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queueOf(me.user) zip env.report.api.inquiries.allBySuspect zip reportC.getScores map {
+      env.appeal.api.queueOf(
+        me.user
+      ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
-          Ok(html.appeal.queue(appeals, inquiries, scores, streamers, nbAppeals))
+          env.mod.logApi.wereMarkedBy(me.id, appeals.map(_.user.id)) map { markedByMap =>
+            Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
+          }
       }
     }
 

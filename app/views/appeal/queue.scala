@@ -15,6 +15,7 @@ object queue {
   def apply(
       appeals: List[Appeal.WithUser],
       inquiries: Map[User.ID, Inquiry],
+      markedByMeMap: Map[User.ID, Boolean],
       scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int
@@ -34,6 +35,7 @@ object queue {
               td(
                 userIdLink(appeal.id.some),
                 br,
+                ~markedByMeMap.get(appeal.id) option span(dataIcon := "", cls := "marked_by_me")("My mark"),
                 views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption map { msg =>
