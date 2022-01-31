@@ -12,6 +12,7 @@ case class Bookmark(game: lila.game.Game, user: lila.user.User)
 final class BookmarkApi(
     coll: Coll,
     gameRepo: GameRepo,
+    gameProxyRepo: lila.round.GameProxyRepo,
     paginator: PaginatorBuilder
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -45,7 +46,10 @@ final class BookmarkApi(
     exists(gameId, userId) flatMap { e =>
       (if (e) remove(gameId, userId) else add(gameId, userId, DateTime.now)) inject !e
     } flatMap { bookmarked =>
-      gameRepo.incBookmarks(gameId, if (bookmarked) 1 else -1)
+      val inc = if (bookmarked) 1 else -1
+      gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(
+        _.incBookmarks(inc)
+      )
     }
 
   def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
