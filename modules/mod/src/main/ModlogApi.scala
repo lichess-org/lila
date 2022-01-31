@@ -228,28 +228,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  def wereMarkedBy(mod: User.ID, users: List[User.ID]): Fu[Map[User.ID, Boolean]] =
-    coll
-      .aggregateList(maxDocs = users.length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
-        Match(
-          $doc(
-            "user" $in users,
-            "mod" -> mod,
-            "action" $in markActions
-          )
-        ) -> List(
-          GroupField("user")("nb" -> SumAll)
-        )
-      }
-      .map { docs =>
-        for {
-          doc      <- docs
-          userId   <- doc.string("_id")
-          nbMarked <- doc.int("nb")
-        } yield (userId, nbMarked > 0)
-      }
-      .map(_.toMap)
+  def wereMarkedBy(mod: User.ID, users: List[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctEasy[User.ID, Set](
+      "user",
+      $doc(
+        "user" $in users,
+        "mod" -> mod,
+        "action" $in markActions
+      ),
+      readPreference = ReadPreference.secondaryPreferred
+    )
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) =
     add {
