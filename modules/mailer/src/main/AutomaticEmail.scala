@@ -8,6 +8,7 @@ import scalatags.Text.all._
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
+import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.i18n.PeriodLocales.showPeriod
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
@@ -179,7 +180,7 @@ To make a new donation, head to $baseUrl/patron"""
 
   def dailyCorrespondenceNotice(
       userId: User.ID,
-      opponents: List[lila.hub.actorApi.mailer.CorrespondenceOpponent]
+      opponents: List[CorrespondenceOpponent]
   ): Funit =
     !opponents.pp("opponents").isEmpty ?? {
       userRepo named userId flatMap {
