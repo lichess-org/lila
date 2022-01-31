@@ -3,7 +3,7 @@
   <string name="advancedPawn">Vorgruckte Puur</string>
   <string name="advancedPawnDescription">En Puur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutz diini Chance, en entscheidende Vorteil z\'erlange</string>
+  <string name="advantageDescription">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpuure ≤ Bewertung ≤ 600 Hundertstelpuure)</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>
   <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, um de König, zwüschet em Brättrand und sine eigene Figure, z\'verwütsche.</string>
   <string name="arabianMate">Arabischs Matt</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Find de gägnerisch Patzer und chumm zu vernichtendem Vorteil</string>
+  <string name="crushingDescription">Find de gegnerisch Patzer und chumm zu vernichtendem Vorteil. (Bewertig ≥ 600 Hundertschtel-Puure)</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei aagriifendi Läufer, uf näbenand liggende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
   <string name="dovetailMateDescription">Mit de Dame - diräkt bim König - matt setze, wobi sini Fluchtfälder dur eigeni Figure verschtellt sind.</string>
   <string name="equality">Uusgliich</string>
-  <string name="equalityDescription">Befrei dich us verlorener Schtellig und sicher dir es Remis oder e usglicheni Schtellig</string>
+  <string name="equalityDescription">Befrei dich us verlorener Schtellig und sicherä dir es Remis oder en usglicheni Schtellig. (Bewertig ≤ 200 Hundertstelpuure)</string>
   <string name="kingsideAttack">Aagriff am Königsflügel</string>
   <string name="kingsideAttackDescription">En Aagriff uf de gägnerisch König, nachdem er am Königsflügel d\'Rochade gmacht hät.</string>
   <string name="clearance">Öffnig</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">En gsunde Mix</string>
   <string name="healthyMixDescription">Es bitzli vu Allem, me weiss nöd, was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiil.</string>
   <string name="playerGames">Schpiller Partie</string>
-  <string name="playerGamesDescription">Suech nach Ufgabe us diine Schpiil oder Ufgabe us Schpiil vu Andere.</string>
+  <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpiil oder Ufgabe us Schpiil vu Andere.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
 </resources>

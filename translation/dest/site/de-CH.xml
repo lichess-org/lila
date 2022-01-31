@@ -12,7 +12,7 @@
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Chat aa und abschalte</string>
   <string name="chat">Chat</string>
-  <string name="resign">Schpiil ufgeh</string>
+  <string name="resign">Ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">Du bisch draa!</string>
   <string name="cheatDetected">Betrug bemerkt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">3 Schachgebot</string>
+  <string name="threeChecks">Three checks</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
@@ -42,8 +42,8 @@
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
   <string name="forceResignation">De Sieg beaschpruche</string>
-  <string name="forceDraw">Remis erchläre</string>
-  <string name="talkInChat">Im Chat bitte nett sii!</string>
+  <string name="forceDraw">Remis mälde</string>
+  <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
@@ -115,12 +115,12 @@
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>
-  <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet diin Computer warm</string>
-  <string name="blunder">En grobe Patzer</string>
+  <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet din Computer warm</string>
+  <string name="blunder">En Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s grobe Patzer</item>
+    <item quantity="one">%s Patzer</item>
     <item quantity="other">%s Patzer</item>
   </plurals>
   <plurals name="nbMistakes">
@@ -195,7 +195,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chliischriibig verändere, z. B. \"hansmuster\" in \"HansMuster\".</string>
-  <string name="changeUsernameDescription">Änder diin Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
+  <string name="changeUsernameDescription">Änder din Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -210,7 +210,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s Ufgab</item>
-    <item quantity="other">%s Ufgabä</item>
+    <item quantity="other">%s Ufgabe</item>
   </plurals>
   <string name="gamesPlayed">Gschpillti Partie</string>
   <plurals name="nbGamesWithYou">
@@ -272,7 +272,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Siig</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s Niderlaag</item>
+    <item quantity="one">%s Niederlag</item>
     <item quantity="other">%s Niderlagä</item>
   </plurals>
   <plurals name="nbDraws">
@@ -363,7 +363,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach Captcha.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewiis das du en Mänsch bisch.</string>
-  <string name="captcha.fail">Bitte lös die Schach-Ufgab.</string>
+  <string name="captcha.fail">Bitte lös die Schach Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
   <string name="blackCheckmatesInOneMove">Schwarz setzt i eim Zug Matt</string>
@@ -408,27 +408,27 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="winner">Sieger</string>
   <string name="standing">Tabällä</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
-  <string name="tournamentCalendar">Turnier-Kaländer</string>
+  <string name="tournamentCalendar">Turnier Kaländer</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
-  <string name="advancedSettings">Erwiiterti Iischtellige</string>
+  <string name="advancedSettings">Erwiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
-  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu diim Konto fühere.</string>
+  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
   <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
-  <string name="join">Teilnää</string>
+  <string name="join">Mach mit</string>
   <string name="withdraw">Zruggzieh</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
-  <string name="losses">Niderlaage</string>
+  <string name="losses">Niederlage</string>
   <string name="createdBy">Erschtellt vo</string>
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiil meh gschpillt.</string>
   <string name="standByX">Stand by %s, Paarige werded gmacht, mach dich bereit!</string>
   <string name="youArePlaying">Dis Schpiil fangt aa!</string>
-  <string name="winRate">Sieg-Rate</string>
+  <string name="winRate">Gwünn Rate</string>
   <string name="berserkRate">Bärsärkratä</string>
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
@@ -459,11 +459,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="biography">Biografii</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
-  <string name="socialMediaLinks">Social-Media-Links</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
+  <string name="socialMediaLinks">Social Media Links</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
-  <string name="onlinePlayers">Online-Schpiller</string>
+  <string name="onlinePlayers">Online Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwertet, aber ohni Ziitlimit!</string>
   <string name="success">Korräkt</string>
@@ -474,11 +474,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier-Sieger</string>
+  <string name="tournamentWinners">Turnier Sieger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Tegscht wo nur Team-Mitgliider gsehnd. Wänn usgfüllt, ersetzt er für Team-Mitgliider de öffentlich Tegscht.</string>
+  <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie öffentlich Tegscht.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
@@ -568,7 +568,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="error.email">Die E-Mail-Adrässe isch ungültig</string>
   <string name="error.email_acceptable">Die E-Mail-Adrässe wird nöd akzeptiert. Bitte überprüef sie und probiers nomal.</string>
   <string name="error.email_unique">Die E-Mail-Adrässe isch ungültig oder bereits benutzt worde</string>
-  <string name="error.email_different">Das isch bereits diini E-Mail-Adrässe</string>
+  <string name="error.email_different">Das isch bereits dini E-Mail-Adrässe</string>
   <string name="error.minLength">Muess mindeschtens %s Zeiche lang sii</string>
   <string name="error.maxLength">Dörf höchschtens %s Zeiche lang sii</string>
   <string name="error.min">Muess mindeschtens %s sii</string>
@@ -603,7 +603,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="host">Simultanschpiller</string>
   <string name="hostColorX">Farb Simultanschpiller: %s</string>
   <string name="createdSimuls">Neu kreierts Simultanschach</string>
-  <string name="hostANewSimul">Mach diir es Simultanschach</string>
+  <string name="hostANewSimul">Mach dir es Simultanschach</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
@@ -613,7 +613,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="aboutSimulRules">Wie bi reale Simultanschach Veraaschteltige, gaht de Simultanschpiller vu eim Simultangägner zum Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du diir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
+  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
@@ -621,7 +621,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
-  <string name="averageCentipawnLoss">Durchschnittliche Verluscht vu Hundertstel-Puure</string>
+  <string name="averageCentipawnLoss">Durchschnittlichi Verluscht vo Hundertstelpuure</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
@@ -640,8 +640,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%1$s %2$s Schpiller i dere Wuche.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wertig isch %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu %2$s-Schpiller.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu allne %2$s-Schpiller.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo allne %3$s-Schpiller.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei fixi %s-Wertig.</string>
   <string name="yourRating">Dini Wertig</string>
   <string name="cumulative">Summiert</string>
@@ -649,7 +649,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt: Klick de Link i de Nachricht, zum dis Konto aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech wiiteri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
-  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz diis Passwort zrugg.</string>
+  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und Lichess (lag)</string>
@@ -663,12 +663,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
   <string name="receiveForumNotifications">Benachrichtigt chunnt, wänn du im Forum erwähnt worde bisch</string>
-  <string name="shareYourInsightsData">Teil diini persönliche Schpilldate</string>
+  <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
   <string name="withNobody">Mit niemertem</string>
   <string name="withFriends">Mit Fründe</string>
   <string name="withEverybody">Mit allne</string>
   <string name="kidMode">Chinder-Modus</string>
-  <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz diini Chind vor andere Internetbenutzer.</string>
+  <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
@@ -688,8 +688,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="viewTheSolution">Lueg d\'Lösig aa</string>
   <string name="followAndChallengeFriends">Folg Fründe und forder sie zum Schpiil</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Verfüegbar i %s Sprache!</item>
-    <item quantity="other">Verfüegbar i %s Sprache!</item>
+    <item quantity="one">Verfüegbar i %s Schprach!</item>
+    <item quantity="other">Verfüegbar i %s Schprache!</item>
   </plurals>
   <string name="gameAnalysis">Schpiil-Analyse</string>
   <string name="xHostsY">%1$s hät %2$s erschtellt</string>
@@ -697,8 +697,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="xLikesY">%1$s gfallt %2$s</string>
   <string name="quickPairing">Schnälli Paarig</string>
   <string name="lobby">Lobby</string>
-  <string name="anonymous">Anonym schpille</string>
-  <string name="yourScore">Diin Punkteschtand: %s</string>
+  <string name="anonymous">Anonym</string>
+  <string name="yourScore">Din Punkteschtand: %s</string>
   <string name="language">Sproch</string>
   <string name="background">Hindergrund</string>
   <string name="light">Hell</string>
@@ -709,14 +709,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="boardTheme">Brättdesign</string>
   <string name="boardSize">Brättgrössi</string>
   <string name="pieceSet">Figureart</string>
-  <string name="embedInYourWebsite">I diini Website integriere</string>
+  <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>
   <string name="usernamePrefixInvalid">De Benutzername muess mit eme Buechschtabe aafange.</string>
   <string name="usernameSuffixInvalid">De Benutzername muess mit eme Buechschtabe oder ere Zahl ände.</string>
   <string name="usernameCharsInvalid">De Benutzername dörf nu Buechschtabe, Zahle, Understrich und Bindestrich ha. Nach enand folgendi Understrich oder Bindestrich sind nöd erlaubt.</string>
   <string name="usernameUnacceptable">De Benutzername wird nöd akzeptiert.</string>
   <string name="playChessInStyle">Schpill Schach mit Schtiil</string>
-  <string name="chessBasics">Schach Grundlage</string>
+  <string name="chessBasics">Grundlage</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fähler im PGN</string>
   <string name="invalidFen">Fähler im FEN</string>
@@ -740,7 +740,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="evaluatingYourMove">Din Zug wird gwertet ...</string>
   <string name="whiteWinsGame">Wiss günnt</string>
   <string name="blackWinsGame">Schwarz günnt</string>
-  <string name="learnFromYourMistakes">Lern us diine Fähler</string>
+  <string name="learnFromYourMistakes">Lern us dine Fähler</string>
   <string name="learnFromThisMistake">Lern us dem Fähler</string>
   <string name="skipThisMove">Überschpring de Zug</string>
   <string name="next">Zum Nächschte</string>
@@ -804,7 +804,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ultraBulletDesc">Wahnsinnig schnälli Schpiil: weniger als 30 Sekunde</string>
   <string name="bulletDesc">Sehr schnälli Schpiil: weniger als 3 Minute</string>
   <string name="blitzDesc">Schnälli Schpiil: 3 bis 8 Minute</string>
-  <string name="rapidDesc">Schnäll-Schach: 8 bis 25 Minute</string>
+  <string name="rapidDesc">Schnällschach: 8 bis 25 Minute</string>
   <string name="classicalDesc">Klassischi Schpiil: 25 Minute und meh</string>
   <string name="correspondenceDesc">Fernschach Partie: 1 oder mehreri Täg pro Zug</string>
   <string name="puzzleDesc">Schach-Taktik Trainer</string>
@@ -847,7 +847,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="tournDescription">Turnier Beschriibig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Partie sind gwertet
-und beiiflussed diini Wertig</string>
+und beiiflussed dini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
   <string name="noRestriction">Kei Iischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
@@ -863,7 +863,7 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
   <string name="simulFeatured">Uf %s zeige</string>
-  <string name="simulFeaturedHelp">Zeig allne uf %s diis Simultanschach. Privats Simultanschach deaktiviert.</string>
+  <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschriibig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
@@ -882,10 +882,10 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
-  <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance diis Konto wider zrugg z\'hole.</string>
+  <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance dis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>
-  <string name="cantDoThisTwice">Wänn du diis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
-  <string name="emailAssociatedToaccount">E-Mail-Adrässe vu diim Konto</string>
+  <string name="cantDoThisTwice">Wänn du dis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
+  <string name="emailAssociatedToaccount">Mit dim Konto verbundeni E-Mail-Adrässe</string>
   <string name="sentEmailWithLink">Mir hän dir e E-Mail mit eme Link gschickt.</string>
   <string name="tournamentEntryCode">Turnier-Biitrittscode</string>
   <string name="hangOn">En Momänt!</string>
@@ -895,6 +895,6 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die no Laufendi nöd fertig gschpillt isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess-Schpiller</string>
+  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
 </resources>

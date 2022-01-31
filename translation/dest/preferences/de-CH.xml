@@ -39,7 +39,7 @@
   <string name="moveConfirmation">Zugsbeschtätigung</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
-  <string name="confirmResignationAndDrawOffers">Beschtätig Ufgab und Remis-Aagebot</string>
+  <string name="confirmResignationAndDrawOffers">Ufgab und Remis Aagebot beschtätige</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade Usfüherig</string>
   <string name="castleByMovingTwoSquares">Zieh de König 2 Fälder</string>
   <string name="castleByMovingOntoTheRook">Zieh de König zum Turm</string>

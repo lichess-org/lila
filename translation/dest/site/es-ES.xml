@@ -715,7 +715,7 @@
   <string name="usernameCharsInvalid">El nombre de usuario debe contener sólo letras, números, guiones bajos y guiones.</string>
   <string name="usernameUnacceptable">Este nombre de usuario no es válido.</string>
   <string name="playChessInStyle">Juega al ajedrez con estilo</string>
-  <string name="chessBasics">Fundamentos de ajedrez</string>
+  <string name="chessBasics">Fundamentos del ajedrez</string>
   <string name="coaches">Entrenadores</string>
   <string name="invalidPgn">PGN inválido</string>
   <string name="invalidFen">FEN inválido</string>

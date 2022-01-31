@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Turnier nach \"Schweizer System\"</string>
+  <string name="swissTournaments">Turnier nach Schweizer System</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">D\'Rundi aaluege</item>
     <item quantity="other">Alli %s Runde aaluege</item>
@@ -63,7 +63,7 @@ Doch er chann jederziit wieder is Turnier iischtiige.</string>
   <string name="lateJoinQ">Chönd Schpiller au schpöter is Turnier iischtiige?</string>
   <string name="lateJoinA">Ja - sogar bis d\'Helfti vu de Runde gschpillt sind. Mer chann z. B. bi me 11-rundige Turnier vor em Schtart vu Rundi 6 und bi me 12-rundige, vor Beginn vu rundi 7 no iischtiige.
 So \"Nachzügler\" erhalted en halbe Punkt, obwohl sie mehreri Runde verpasst händ.</string>
-  <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena-Turnier ersetze?</string>
+  <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - sie sind nur e zusätzlichi Spillmöglichkeit.</string>
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
   <string name="roundRobinA">Mir würdet das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
