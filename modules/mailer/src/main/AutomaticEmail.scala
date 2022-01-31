@@ -182,7 +182,7 @@ To make a new donation, head to $baseUrl/patron"""
       userId: User.ID,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
-    !opponents.pp("opponents").isEmpty ?? {
+    !opponents.isEmpty ?? {
       userRepo named userId flatMap {
         _ ?? { user =>
           userRepo email userId flatMap {
