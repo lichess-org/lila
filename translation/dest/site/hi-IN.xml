@@ -21,8 +21,8 @@
   <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
-  <string name="whiteIsVictorious">सफेद विजय हुआ</string>
-  <string name="blackIsVictorious">काले की जय</string>
+  <string name="whiteIsVictorious">सफेद जीता</string>
+  <string name="blackIsVictorious">काला जीता</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
   <string name="itsYourTurn">यह आपकी बारी है!</string>
@@ -99,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
   <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
   <string name="lossOr50MovesByPriorMistake">हार​ अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
+  <string name="unknownDueToRounding">जीत/नुकसान की गारंटी केवल तभी दी जाती है जब Syzygy टेबलबेस में DTZ मानों के संभावित राउंडिंग के कारण अंतिम कैप्चर या पॉन मूव के बाद से अनुशंसित टेबलबेस लाइन का पालन किया गया हो।</string>
   <string name="allSet">सब तैयार!</string>
   <string name="importPgn">PGN आयात करें</string>
   <string name="delete">हटाएँ</string>
@@ -764,7 +765,7 @@
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड</item>
+    <item quantity="other">%s सेकंड समय बचे है ।</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>

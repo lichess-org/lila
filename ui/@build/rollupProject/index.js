@@ -12,28 +12,31 @@ module.exports = targets => {
       input: target.input,
       external: target.external,
       output: [
-        prod
-          ? {
-              file: `../../public/compiled/${target.output}.min.js`,
-              format: 'iife',
-              name: target.name,
-              globals: target.globals,
-              plugins: [
-                terser({
-                  safari10: true,
-                  output: {
-                    comments: false,
-                  },
-                  numWorkers: 1,
-                }),
-              ],
-            }
-          : {
-              file: `../../public/compiled/${target.output}.js`,
-              format: 'iife',
-              name: target.name,
-              globals: target.globals,
-            },
+        {
+          format: 'iife',
+          name: target.name,
+          globals: target.globals,
+          generatedCode: {
+            preset: 'es2015',
+            constBindings: false, // for window[target.name]
+          },
+          ...(prod
+            ? {
+                file: `../../public/compiled/${target.output}.min.js`,
+                plugins: [
+                  terser({
+                    safari10: true,
+                    output: {
+                      comments: false,
+                    },
+                    numWorkers: 1,
+                  }),
+                ],
+              }
+            : {
+                file: `../../public/compiled/${target.output}.js`,
+              }),
+        },
       ],
       plugins: [
         ...(target.plugins || []),

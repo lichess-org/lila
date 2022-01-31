@@ -240,7 +240,7 @@
   <string name="loginToChat">聊天请登录</string>
   <string name="youHaveBeenTimedOut">您暂时被禁言。</string>
   <string name="spectatorRoom">观众室</string>
-  <string name="composeMessage">撰写信息</string>
+  <string name="composeMessage">发消息</string>
   <string name="subject">主题</string>
   <string name="send">发送</string>
   <string name="incrementInSeconds">每步加时（秒）</string>

@@ -63,7 +63,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
   def cashTag             = jsAt("javascripts/vendor/cash.min.js")
   def fingerprintTag      = jsAt("javascripts/fipr.js")
-  def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 

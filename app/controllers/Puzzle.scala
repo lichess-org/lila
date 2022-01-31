@@ -331,13 +331,15 @@ final class Puzzle(
         .fuccess
     }
 
-  def apiDashboard(days: Int) =
-    Scoped(_.Puzzle.Read) { implicit req => me =>
-      implicit val lang = reqLang
-      JsonOptionOk {
-        env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
-      }
+  def apiDashboard(days: Int) = {
+    def render(me: lila.user.User)(implicit lang: play.api.i18n.Lang) = JsonOptionOk {
+      env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     }
+    AuthOrScoped(_.Puzzle.Read)(
+      auth = ctx => me => render(me)(ctx.lang),
+      scoped = req => me => render(me)(reqLang(req))
+    )
+  }
 
   def dashboard(days: Int, path: String = "home") =
     Auth { implicit ctx => me =>
@@ -366,6 +368,22 @@ final class Puzzle(
         case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
         case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
       }
+    }
+
+  def mobileHistory(page: Int) =
+    Auth { implicit ctx => me =>
+      negotiate(
+        html = notFound,
+        _ => {
+          import lila.puzzle.JsonView._
+          Reasonable(page) {
+            env.puzzle.history(me, page) map { historyPaginator =>
+              Ok(lila.common.paginator.PaginatorJson(historyPaginator))
+            }
+          }
+        }
+      )
+
     }
 
   def history(page: Int) =
