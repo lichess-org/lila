@@ -17,7 +17,8 @@ import lila.base.LilaException
 final class AutomaticEmail(
     userRepo: UserRepo,
     mailer: Mailer,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
+    lightUser: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailer.html._
@@ -218,8 +219,8 @@ $disableSettingNotice"""
     }
 
   private def showGame(opponent: lila.hub.actorApi.mailer.CorrespondenceOpponent)(implicit lang: Lang) = {
-    opponent.remainingTime.fold(s"It's your turn against ${opponent.opponentId} in:")(remainingTime =>
-      s"You have ${showPeriod(remainingTime)} remaining against ${opponent.opponentId} in your game:"
+    opponent.remainingTime.fold(s"It's your turn against ${lightUser.syncFallback(opponent.opponentId).name} in:")(remainingTime =>
+      s"You have ${showPeriod(remainingTime)} remaining against ${lightUser.syncFallback(opponent.opponentId).name} in your game:"
     )
   }
 
