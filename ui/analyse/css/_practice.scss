@@ -91,4 +91,20 @@
     color: $c-link;
     transition: 0.3s;
   }
+  .comment .next {
+    border: 0;
+    background: mix($c-primary, $c-bg-box, 80%);
+    color: $c-primary-over;
+    width: 100%;
+
+    @include transition;
+
+    &:hover {
+      background: $c-primary;
+    }
+
+    &::before {
+      margin-right: 0.3em;
+    }
+  }
 }

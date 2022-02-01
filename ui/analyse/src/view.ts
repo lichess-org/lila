@@ -16,7 +16,7 @@ import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
-import { path as treePath } from 'tree';
+import { ops as treeOps, path as treePath } from 'tree';
 import { render as acplView } from './acpl';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
@@ -93,11 +93,30 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
+  const showNextChapter =
+    !ctrl.embed && ctrl.study?.nextChapter() && !ctrl.study?.members.canContribute() && !ctrl.practice;
+  const onFinalMove = !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline);
   return h(
     'div.analyse__moves.areplay',
     [
       ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
       renderTreeView(ctrl, concealOf),
+      ctrl.study && showNextChapter
+        ? h(
+            'button.next',
+            {
+              attrs: {
+                'data-icon': '',
+                type: 'button',
+              },
+              hook: bind('click', ctrl.study.goToNextChapter),
+              class: {
+                highlighted: onFinalMove,
+              },
+            },
+            ctrl.trans.noarg('goToNextChapter')
+          )
+        : null,
     ].concat(renderResult(ctrl))
   );
 }
