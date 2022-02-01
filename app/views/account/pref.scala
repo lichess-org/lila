@@ -144,9 +144,11 @@ object pref {
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
             ),
-            setting(
-              correspondenceEmailNotification(),
-              radios(form("behavior.corresEmailNotif"), booleanChoices)
+            div(id := "correspondence-email-notif")(
+              setting(
+                correspondenceEmailNotification(),
+                radios(form("behavior.corresEmailNotif"), booleanChoices)
+              )
             ),
             setting(
               inputMovesWithTheKeyboard(),

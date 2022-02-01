@@ -189,7 +189,8 @@ To make a new donation, head to $baseUrl/patron"""
           userWithEmail.emails.current ?? { email =>
             implicit val lang = userLang(userWithEmail.user)
             val disableSettingNotice =
-              "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings."
+              "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
+            val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
             mailer send Mailer.Message(
               to = email,
               subject = "Daily correspondence notice",
@@ -198,7 +199,7 @@ To make a new donation, head to $baseUrl/patron"""
                   s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
                 } mkString "\n\n"}
 
-$disableSettingNotice"""
+$disableSettingNotice $disableLink"""
               ),
               htmlBody = emailMessage(
                 opponents map { opponent =>
@@ -208,6 +209,7 @@ $disableSettingNotice"""
                   )
                 },
                 disableSettingNotice,
+                Mailer.html.url(disableLink),
                 serviceNote
               ).some
             )
