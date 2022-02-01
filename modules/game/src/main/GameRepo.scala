@@ -170,13 +170,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           PipelineOperator(
             $lookup.simple(
               from = userColl,
-              as = "_id",
+              as = "user",
               local = "_id",
               foreign = "_id"
             )
           ),
-          Match($doc("_id.enabled" -> true)),
-          Project($id("$_id._id")),
+          Match($doc("user.enabled" -> true)),
+          Project($id("$user._id")),
           Unwind("_id"),
           PipelineOperator(
             $lookup.simple(
