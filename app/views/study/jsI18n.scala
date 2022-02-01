@@ -80,6 +80,7 @@ object jsI18n {
       deleteChapter,
       deleteThisChapter,
       clearAllCommentsInThisChapter,
+      goToNextChapter,
       rightUnderTheBoard,
       noPinnedComment,
       normalAnalysis,
