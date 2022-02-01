@@ -15,6 +15,6 @@ final class Env(
   val api = new PrefApi(db(CollName("pref")), cacheApi)
 
   system.scheduler.scheduleWithFixedDelay(10 minute, 10 minute) { () =>
-    api.corresEmailNotifUsers foreach { lila.mon.pref.emailNotifNbUsers.update(_)}
+    api.corresEmailNotifUsers foreach { lila.mon.pref.emailNotifNbUsers.update(_) }
   }
 }

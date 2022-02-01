@@ -16,7 +16,7 @@ final class Env(
     net: NetConfig,
     userRepo: UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
-    lightUser: lila.user.LightUserApi,
+    lightUser: lila.user.LightUserApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,

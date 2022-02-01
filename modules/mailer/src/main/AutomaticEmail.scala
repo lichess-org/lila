@@ -219,7 +219,9 @@ $disableSettingNotice"""
     }
 
   private def showGame(opponent: lila.hub.actorApi.mailer.CorrespondenceOpponent)(implicit lang: Lang) = {
-    opponent.remainingTime.fold(s"It's your turn against ${lightUser.syncFallback(opponent.opponentId).name} in:")(remainingTime =>
+    opponent.remainingTime.fold(
+      s"It's your turn against ${lightUser.syncFallback(opponent.opponentId).name} in:"
+    )(remainingTime =>
       s"You have ${showPeriod(remainingTime)} remaining against ${lightUser.syncFallback(opponent.opponentId).name} in your game:"
     )
   }
