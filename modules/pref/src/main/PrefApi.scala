@@ -9,7 +9,7 @@ import lila.memo.CacheApi._
 import lila.user.User
 
 final class PrefApi(
-    coll: Coll,
+    val coll: Coll,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
