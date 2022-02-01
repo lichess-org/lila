@@ -184,35 +184,33 @@ To make a new donation, head to $baseUrl/patron"""
       opponents: List[CorrespondenceOpponent]
   ): Funit =
     !opponents.isEmpty ?? {
-      userRepo named userId flatMap {
-        _ ?? { user =>
-          userRepo email userId flatMap {
-            _ ?? { email =>
-              implicit val lang = userLang(user)
-              val disableSettingNotice =
-                "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings."
-              mailer send Mailer.Message(
-                to = email,
-                subject = "Daily correspondence notice",
-                text = Mailer.txt.addServiceNote(
-                  s"""${opponents map { opponent =>
-                    showGame(opponent) + s" $baseUrl/${opponent.gameId}"
-                  } mkString "\n\n"}
+      userRepo withEmails userId flatMap {
+        _ ?? { userWithEmail =>
+          userWithEmail.emails.current ?? { email =>
+            implicit val lang = userLang(userWithEmail.user)
+            val disableSettingNotice =
+              "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings."
+            mailer send Mailer.Message(
+              to = email,
+              subject = "Daily correspondence notice",
+              text = Mailer.txt.addServiceNote(
+                s"""${opponents map { opponent =>
+                  showGame(opponent) + s" $baseUrl/${opponent.gameId}"
+                } mkString "\n\n"}
 
 $disableSettingNotice"""
-                ),
-                htmlBody = emailMessage(
-                  opponents map { opponent =>
-                    li(
-                      showGame(opponent),
-                      Mailer.html.url(s"$baseUrl/${opponent.gameId}")
-                    )
-                  },
-                  disableSettingNotice,
-                  serviceNote
-                ).some
-              )
-            }
+              ),
+              htmlBody = emailMessage(
+                opponents map { opponent =>
+                  li(
+                    showGame(opponent),
+                    Mailer.html.url(s"$baseUrl/${opponent.gameId}")
+                  )
+                },
+                disableSettingNotice,
+                serviceNote
+              ).some
+            )
           }
         }
       }
