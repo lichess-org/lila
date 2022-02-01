@@ -190,7 +190,7 @@ To make a new donation, head to $baseUrl/patron"""
             _ ?? { email =>
               implicit val lang = userLang(user)
               val disableSettingNotice =
-                "You are received this email you have correspondence email notification turned on. You can turn it off in your settings."
+                "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings."
               mailer send Mailer.Message(
                 to = email,
                 subject = "Daily correspondence notice",
