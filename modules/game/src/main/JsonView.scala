@@ -6,6 +6,7 @@ import chess.format.{ FEN, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Clock, Color }
 import lila.common.Json._
+import lila.common.LightUser
 
 final class JsonView(rematches: Rematches) {
 
@@ -37,6 +38,37 @@ final class JsonView(rematches: Rematches) {
       .add("check" -> game.situation.checkSquare.map(_.key))
       .add("rematch" -> rematches.of(game.id))
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
+
+  def ownerPreview(pov: Pov)(lightUserSync: LightUser.GetterSync) =
+    Json
+      .obj(
+        "fullId"   -> pov.fullId,
+        "gameId"   -> pov.gameId,
+        "fen"      -> (Forsyth >> pov.game.chess),
+        "color"    -> (if (pov.game.variant.racingKings) chess.White else pov.color).name,
+        "lastMove" -> ~pov.game.lastMoveKeys,
+        "source"   -> pov.game.source,
+        "variant" -> Json.obj(
+          "key"  -> pov.game.variant.key,
+          "name" -> pov.game.variant.name
+        ),
+        "speed"    -> pov.game.speed.key,
+        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "rated"    -> pov.game.rated,
+        "hasMoved" -> pov.hasMoved,
+        "opponent" -> Json
+          .obj(
+            "id" -> pov.opponent.userId,
+            "username" -> lila.game.Namer
+              .playerTextBlocking(pov.opponent, withRating = false)(lightUserSync)
+          )
+          .add("rating" -> pov.opponent.rating)
+          .add("ai" -> pov.opponent.aiLevel),
+        "isMyTurn" -> pov.isMyTurn
+      )
+      .add("secondsLeft" -> pov.remainingSeconds)
+      .add("tournamentId" -> pov.game.tournamentId)
+      .add("swissId" -> pov.game.tournamentId)
 }
 
 object JsonView {
