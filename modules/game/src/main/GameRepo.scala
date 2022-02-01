@@ -197,6 +197,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
             .flatMap(Pov.ofUserId(_, userId))
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
             .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
+          if !povs.isEmpty
           opponents = povs
             .map(pov =>
               CorrespondenceOpponent(

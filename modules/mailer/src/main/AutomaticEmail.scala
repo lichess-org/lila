@@ -183,7 +183,6 @@ To make a new donation, head to $baseUrl/patron"""
       userId: User.ID,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
-    !opponents.isEmpty ?? {
       userRepo withEmails userId flatMap {
         _ ?? { userWithEmail =>
           userWithEmail.emails.current ?? { email =>
@@ -216,7 +215,6 @@ $disableSettingNotice $disableLink"""
           }
         }
       }
-    }
 
   private def showGame(opponent: lila.hub.actorApi.mailer.CorrespondenceOpponent)(implicit lang: Lang) = {
     opponent.remainingTime.fold(
