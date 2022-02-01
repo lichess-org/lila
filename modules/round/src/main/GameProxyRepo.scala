@@ -61,29 +61,4 @@ final class GameProxyRepo(
         }
       }
     }
-
-  def correspondenceGamesToPlayOf(
-      users: List[lila.user.User]
-  ): Fu[List[CorrespondenceOpponents]] =
-    (users map { user =>
-      gameRepo urgentPovsUnsorted user flatMap {
-        _.map { pov =>
-          gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }
-        }.sequenceFu map { povs =>
-          CorrespondenceOpponents(
-            user.id,
-            povs
-              .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
-              .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
-              .map(pov =>
-                CorrespondenceOpponent(
-                  pov.opponent.userId getOrElse "unknown",
-                  pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
-                  pov.game.id
-                )
-              )
-          )
-        }
-      }
-    }).sequenceFu
 }
