@@ -64,7 +64,7 @@ final class ReportApi(
           )
           .flatMap { prev =>
             val report = Report.make(scored, prev)
-            lila.mon.mod.report.create(report.reason.key).increment()
+            lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
             if (
               report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
