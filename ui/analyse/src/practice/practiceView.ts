@@ -107,7 +107,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     running
       ? h(
           'div.comment',
-          (end ? renderNextChapter(root) : null) ||
+          (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
               ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
                   commentBest(comment, root, ctrl)
