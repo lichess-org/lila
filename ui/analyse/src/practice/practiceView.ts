@@ -3,6 +3,7 @@ import { h, VNode } from 'snabbdom';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { PracticeCtrl, Comment } from './practiceCtrl';
 import AnalyseCtrl from '../ctrl';
+import { renderNextChapter } from '../view';
 
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
@@ -106,23 +107,12 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     running
       ? h(
           'div.comment',
-          end && root.study?.hasNextChapter()
-            ? h(
-                'button.next',
-                {
-                  attrs: {
-                    'data-icon': '',
-                    type: 'button',
-                  },
-                  hook: bind('click', root.study.goToNextChapter),
-                },
-                root.trans.noarg('nextChapter')
-              )
-            : comment
-            ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
-                commentBest(comment, root, ctrl)
-              )
-            : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]
+          (end ? renderNextChapter(root) : null) ||
+            (comment
+              ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
+                  commentBest(comment, root, ctrl)
+                )
+              : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))])
         )
       : null,
   ]);

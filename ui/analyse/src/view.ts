@@ -92,8 +92,8 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   return undefined;
 }
 
-const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && !ctrl.practice && ctrl.study?.hasNextChapter()
+export const renderNextChapter = (ctrl: AnalyseCtrl) =>
+  !ctrl.embed && ctrl.study?.hasNextChapter()
     ? h(
         'button.next',
         {
@@ -114,7 +114,7 @@ const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
   h('div.analyse__moves.areplay', [
     ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
     renderTreeView(ctrl, concealOf),
-    renderNextChapter(ctrl),
+    !ctrl.practice ? renderNextChapter(ctrl) : null,
     ...renderResult(ctrl),
   ]);
 
