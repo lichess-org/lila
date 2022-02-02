@@ -53,6 +53,7 @@ object jsI18n {
       previous,
       next,
       last,
+      nextChapter,
       shareAndExport,
       cloneStudy,
       studyPgn,

@@ -392,6 +392,10 @@ export default function (
     const i = chs.findIndex(ch => ch.id === vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
   });
+  const hasNextChapter = () => {
+    const chs = chapters.list();
+    return chs[chs.length - 1].id != vm.chapterId;
+  };
 
   const socketHandlers: Handlers = {
     path(d) {
@@ -686,6 +690,7 @@ export default function (
     gamebookPlay: () => gamebookPlay,
     prevChapter,
     nextChapter,
+    hasNextChapter,
     goToPrevChapter() {
       const chapter = prevChapter();
       if (chapter) setChapter(chapter.id);

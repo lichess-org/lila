@@ -16,7 +16,7 @@ import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
-import { path as treePath } from 'tree';
+import { ops as treeOps, path as treePath } from 'tree';
 import { render as acplView } from './acpl';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
@@ -92,15 +92,31 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   return undefined;
 }
 
-function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  return h(
-    'div.analyse__moves.areplay',
-    [
-      ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-      renderTreeView(ctrl, concealOf),
-    ].concat(renderResult(ctrl))
-  );
-}
+export const renderNextChapter = (ctrl: AnalyseCtrl) =>
+  !ctrl.embed && ctrl.study?.hasNextChapter()
+    ? h(
+        'button.next.text',
+        {
+          attrs: {
+            'data-icon': '',
+            type: 'button',
+          },
+          hook: bind('click', ctrl.study.goToNextChapter),
+          class: {
+            highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline),
+          },
+        },
+        ctrl.trans.noarg('nextChapter')
+      )
+    : null;
+
+const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
+  h('div.analyse__moves.areplay', [
+    ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
+    renderTreeView(ctrl, concealOf),
+    !ctrl.practice ? renderNextChapter(ctrl) : null,
+    ...renderResult(ctrl),
+  ]);
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
   if (ctrl.gamebookPlay()) return;
