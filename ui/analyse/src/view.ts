@@ -95,7 +95,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>
   !ctrl.embed && ctrl.study?.hasNextChapter()
     ? h(
-        'button.next',
+        'button.next.text',
         {
           attrs: {
             'data-icon': '',
