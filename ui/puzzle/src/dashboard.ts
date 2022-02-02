@@ -1,4 +1,6 @@
-import { Chart } from 'chart.js';
+import { Chart, LineElement, PointElement, RadarController, RadialLinearScale, Tooltip, Filler } from 'chart.js';
+
+Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Tooltip, Filler);
 
 interface RadarData {
   radar: {
@@ -29,25 +31,27 @@ export function renderRadar(data: RadarData) {
     type: 'radar',
     data: d,
     options: {
-      legend: {
-        display: false,
-      },
-      scale: {
-        ticks: {
+      aspectRatio: 2,
+      scales: {
+        r: {
           beginAtZero: false,
           suggestedMin: Math.min(...d.datasets[0].data) - 100,
-          fontColor,
-          showLabelBackdrop: false, // hide square behind text
-        },
-        pointLabels: {
-          fontSize: window.innerWidth < 500 ? 11 : 16,
-          fontColor,
-        },
-        gridLines: {
-          color: lineColor,
-        },
-        angleLines: {
-          color: lineColor,
+          ticks: {
+            color: fontColor,
+            showLabelBackdrop: false, // hide square behind text
+          },
+          pointLabels: {
+            color: fontColor,
+            font: {
+              size: window.innerWidth < 500 ? 11 : 16,
+            },
+          },
+          grid: {
+            color: lineColor,
+          },
+          angleLines: {
+            color: lineColor,
+          },
         },
       },
     },

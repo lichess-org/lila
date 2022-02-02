@@ -391,7 +391,7 @@ lazy val clas = module("clas",
 )
 
 lazy val bookmark = module("bookmark",
-  Seq(common, memo, db, hub, user, game),
+  Seq(common, memo, db, hub, user, game, round),
   reactivemongo.bundle
 )
 

@@ -13,6 +13,7 @@
   <string name="pgnLetter">Harf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="showPlayerRatings">Oyuncu puanlarını göster</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Bu, satranca odaklanmaya yardımcı olmak için tüm derecelendirmeleri web sitesinden gizlemeye izin verir. Oyunlar yine de derecelendirilebilir, bu yalnızca göreceğiniz şeylerle ilgilidir.</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
   <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Otomatik tanıtımı geçici olarak devre dışı bırakmak için tanıtım sırasında &lt;ctrl&gt; tuşuna basılı tutun</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>

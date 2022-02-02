@@ -13,6 +13,7 @@
   <string name="pgnLetter">Літера (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Дзен</string>
   <string name="showPlayerRatings">Показувати рейтинги гравців</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Дозволяє приховувати всі рейтинги з сайту, щоб допомогти зосередитись на шахах. Ігри все ще рейтингові, це лише для того, щоб його не бачити.</string>
   <string name="displayBoardResizeHandle">Показувати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Лише в початковій позиції</string>
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Можливість переходити (за згоди суперника)</string>
   <string name="inCasualGamesOnly">Тільки у товариських іграх</string>
   <string name="promoteToQueenAutomatically">Перетворення пішака завжди на ферзя</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Утримуйте клавішу &lt;ctrl&gt; під час перетворення, щоб тимчасово вимкнути автоматичне перетворення</string>
   <string name="whenPremoving">Для ходів на випередження</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>

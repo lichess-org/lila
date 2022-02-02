@@ -9,14 +9,16 @@ import scala.concurrent.duration._
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.game.actorApi.{ FinishGame, StartGame }
-import lila.game.Game
-import lila.user.{ User, UserRepo }
+import lila.game.{ Game, Pov }
+import lila.user.{ LightUserApi, User, UserRepo }
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
     challengeMaker: lila.challenge.ChallengeMaker,
     onlineApiUsers: lila.bot.OnlineApiUsers,
-    userRepo: UserRepo
+    userRepo: UserRepo,
+    gameJsonView: lila.game.JsonView,
+    lightUserApi: LightUserApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -37,7 +39,7 @@ final class EventStream(
     Bus.publish(PoisonPill, s"eventStreamFor:${me.id}")
 
     blueprint mapMaterializedValue { queue =>
-      gamesInProgress map gameJson("gameStart", me) map some foreach queue.offer
+      gamesInProgress map { gameJson(_, "gameStart", me) } foreach queue.offer
       challenges map challengeJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
@@ -96,9 +98,9 @@ final class EventStream(
             }
             .unit
 
-        case StartGame(game) => queue.offer(gameJson("gameStart", me)(game).some).unit
+        case StartGame(game) => queue.offer(gameJson(game, "gameStart", me)).unit
 
-        case FinishGame(game, _, _) => queue.offer(gameJson("gameFinish", me)(game).some).unit
+        case FinishGame(game, _, _) => queue.offer(gameJson(game, "gameFinish", me)).unit
 
         case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
           val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
@@ -124,18 +126,22 @@ final class EventStream(
         c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
     }
 
-  private def gameJson(tpe: String, me: User)(game: Game) =
-    Json.obj(
-      "type" -> tpe,
-      "game" -> {
-        Json
-          .obj("id" -> game.id)
-          .add("source" -> game.source.map(_.name)) ++ compatJson(
-          bot = me.isBot && Game.isBotCompatible(game),
-          board = Game.isBoardCompatible(game)
-        )
-      }
-    )
+  private def gameJson(game: Game, tpe: String, me: User) =
+    Pov(game, me) map { pov =>
+      Json.obj(
+        "type" -> tpe,
+        "game" -> {
+          gameJsonView
+            .ownerPreview(pov)(lightUserApi.sync)
+            .add("source" -> game.source.map(_.name)) ++ compatJson(
+            bot = me.isBot && Game.isBotCompatible(game),
+            board = Game.isBoardCompatible(game)
+          ) ++ Json.obj(
+            "id" -> game.id // API BC
+          )
+        }
+      )
+    }
 
   private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(

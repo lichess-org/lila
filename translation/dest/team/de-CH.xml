@@ -28,13 +28,13 @@
   </plurals>
   <string name="willBeReviewed">Dini Biitrittsafrag wird bald vume Teamleiter prüeft.</string>
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
-  <string name="requestDeclined">Diini Biitritts-Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
+  <string name="requestDeclined">Dini Biitritts Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
   <string name="teamTournament">Team-Turnier</string>
-  <string name="teamTournamentOverview">Es Arenaturnier, zu däm nur Mitglieder vo dim Team biitrettä chönd</string>
-  <string name="swissTournamentOverview">Es Schwiizer-System-Turnier, zu däm nur Mitglieder vo dim Team bitrettä chönd</string>
+  <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitgliider vu dim Team biiträtte chönd</string>
+  <string name="swissTournamentOverview">Es Turnier nach \"Schweizer System\", wo nur Mitgliider vu dim Team biiträtte chönd</string>
   <string name="messageAllMembers">Benochrichtigä alli Mitgliider</string>
   <string name="messageAllMembersOverview">Schick ä privati Nochricht an alli Mitgliider vom Team</string>
   <string name="messageAllMembersLongDescription">Schick e privati Nachricht an ALLI Mitgliider vu dem Team. Du chasch die Funkzion benutze, um Schpiller ufzfordere sich ame Turnier oder ame Team-Kampf z\'beteilige. Schpiller wo die Nachrichte nöd wänd empfange, chönd s\'Team verlah.</string>

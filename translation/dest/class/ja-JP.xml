@@ -3,9 +3,9 @@
   <string name="lichessClasses">Lichess 教室</string>
   <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
-  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成する</string>
+  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成</string>
   <string name="trackStudentProgress">対局やタクティクス問題での生徒の進歩を表示</string>
-  <string name="messageAllStudents">新しい教材について全生徒に通知する</string>
+  <string name="messageAllStudents">新しい教材について全生徒に通知</string>
   <string name="freeForAllForever">誰にでも永久に完全無料、広告・トラッカーなし</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
   <string name="noClassesYet">まだ教室がありません。</string>

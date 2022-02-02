@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Ақ</string>
   <string name="black">Қара</string>
+  <string name="asWhite">ақпен</string>
+  <string name="asBlack">қарамен</string>
   <string name="randomColor">Кез-келген түс</string>
   <string name="createAGame">Ойын бастау</string>
   <string name="whiteIsVictorious">Ақ жеңді</string>

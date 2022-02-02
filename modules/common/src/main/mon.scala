@@ -245,9 +245,14 @@ object mon {
   }
   object mod {
     object report {
-      val highest                = gauge("mod.report.highest").withoutTags()
-      val close                  = counter("mod.report.close").withoutTags()
-      def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
+      val highest = gauge("mod.report.highest").withoutTags()
+      val close   = counter("mod.report.close").withoutTags()
+      def create(reason: String, score: Int) = counter("mod.report.create").withTags(
+        Map(
+          "reason" -> reason,
+          "score"  -> score
+        )
+      )
     }
     object log {
       val create = counter("mod.log.create").withoutTags()

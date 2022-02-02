@@ -13,6 +13,9 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的對弈邀請</string>
   <string name="declineGeneric">我目前不接受對弈</string>
   <string name="declineLater">我現在不接受對弈，請晚點再詢問</string>
+  <string name="declineTooFast">這個時間控制對我來說太快了，請用慢一點的遊戲再次挑戰。</string>
+  <string name="declineTooSlow">這個時間控制對我來說太慢了，請用快一點的遊戲再次挑戰。</string>
+  <string name="declineTimeControl">我不接受這個挑戰的時間控制。</string>
   <string name="declineRated">請向我發送積分對弈。</string>
   <string name="declineCasual">請向我發送休閒對弈。</string>
   <string name="declineStandard">我不接受變體對弈。</string>

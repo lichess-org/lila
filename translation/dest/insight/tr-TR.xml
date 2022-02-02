@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">%s kişisinin satranç görüşleri</string>
+  <string name="xHasNoChessInsights">%s kişisinin henüz satranç görüşü yok!</string>
+  <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">%s kişisinin satranç görüşleri korumalı</string>
+  <string name="cantSeeInsights">Üzgünüz, %s kişisinin satranç görüşlerini göremezsiniz.</string>
+  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">%s kişisinin satranç görüşlerini oluştur.</string>
+</resources>
