@@ -100,14 +100,13 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold ? { winner: undefined } : root.outcome();
-  const showNextChapter = root.study?.nextChapter() && !root.study?.members.canContribute();
   return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     h('div.title', root.trans.noarg('practiceWithComputer')),
     h('div.feedback', !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl)),
     running
       ? h(
           'div.comment',
-          end && root.study && showNextChapter
+          end && root.study?.hasNextChapter()
             ? h(
                 'button.next',
                 {

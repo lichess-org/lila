@@ -93,7 +93,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && ctrl.study?.nextChapter() && !ctrl.practice
+  !ctrl.embed && !ctrl.practice && ctrl.study?.hasNextChapter()
     ? h(
         'button.next',
         {
