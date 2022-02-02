@@ -114,7 +114,7 @@ function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
                 highlighted: onFinalMove,
               },
             },
-            ctrl.trans.noarg('goToNextChapter')
+            ctrl.trans.noarg('nextChapter')
           )
         : null,
     ].concat(renderResult(ctrl))

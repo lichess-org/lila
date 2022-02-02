@@ -117,7 +117,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
                   },
                   hook: bind('click', root.study.goToNextChapter),
                 },
-                root.trans.noarg('goToNextChapter')
+                root.trans.noarg('nextChapter')
               )
             : comment
             ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
