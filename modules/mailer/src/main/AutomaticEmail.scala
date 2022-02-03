@@ -218,8 +218,8 @@ $disableSettingNotice $disableLink"""
 
   private def showGame(opponent: CorrespondenceOpponent)(implicit lang: Lang) = {
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
-    opponent.remainingTime.fold(s"It's your turn against $opponentName in:") { remainingTime =>
-      s"You have ${showPeriod(remainingTime)} remaining against $opponentName in your game:"
+    opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
+      s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"
     }
   }
 
