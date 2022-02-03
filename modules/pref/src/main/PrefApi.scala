@@ -9,7 +9,7 @@ import lila.memo.CacheApi._
 import lila.user.User
 
 final class PrefApi(
-    coll: Coll,
+    val coll: Coll,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -80,6 +80,10 @@ final class PrefApi(
   def setPref(pref: Pref): Funit =
     coll.update.one($id(pref.id), pref, upsert = true).void >>-
       cache.put(pref.id, fuccess(pref.some))
+
+  def corresEmailNotifUsers: Fu[Int] =
+    // db.pref.createIndex({corresEmailNotif:1},{partialFilterExpression:{corresEmailNotif:true}})
+    coll.secondaryPreferred.countSel($doc("corresEmailNotif" -> true))
 
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref

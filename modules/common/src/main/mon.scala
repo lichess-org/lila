@@ -170,6 +170,10 @@ object mon {
       val count = counter("round.expiration.count").withoutTags()
     }
     val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
+    object correspondenceEmail {
+      val emails = histogram("round.correspondenceEmail.emails").withoutTags()
+      val time   = future("round.correspondenceEmail.time")
+    }
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
@@ -240,6 +244,10 @@ object mon {
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")
   }
+  object pref {
+    val emailNotifNbUsers = gauge("pref.emailNotifNbUsers").withoutTags()
+  }
+
   object trouper {
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   }

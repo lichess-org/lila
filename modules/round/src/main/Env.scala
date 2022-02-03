@@ -125,6 +125,10 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
+  private lazy val correspondenceEmail = wire[CorrespondenceEmail]
+
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { correspondenceEmail.tick _ }
+
   lazy val selfReport = wire[SelfReport]
 
   lazy val recentTvGames = wire[RecentTvGames]

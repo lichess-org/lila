@@ -2,7 +2,7 @@ package lila.hub
 package actorApi
 
 import chess.format.Uci
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Period }
 import play.api.libs.json._
 import scala.concurrent.Promise
 
@@ -117,6 +117,11 @@ package captcha {
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)
+}
+
+package mailer {
+  case class CorrespondenceOpponent(opponentId: Option[String], remainingTime: Option[Period], gameId: String)
+  case class CorrespondenceOpponents(userId: String, opponents: List[CorrespondenceOpponent])
 }
 
 package irc {
