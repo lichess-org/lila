@@ -179,49 +179,48 @@ To make a new donation, head to $baseUrl/patron"""
       }
     }
 
-  def dailyCorrespondenceNotice(
+  private[mailer] def dailyCorrespondenceNotice(
       userId: User.ID,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
-      userRepo withEmails userId flatMap {
-        _ ?? { userWithEmail =>
-          userWithEmail.emails.current ?? { email =>
-            implicit val lang = userLang(userWithEmail.user)
-            val disableSettingNotice =
-              "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
-            val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
-            mailer send Mailer.Message(
-              to = email,
-              subject = "Daily correspondence notice",
-              text = Mailer.txt.addServiceNote(
-                s"""${opponents map { opponent =>
-                  s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
-                } mkString "\n\n"}
+    userRepo withEmails userId flatMap {
+      _ ?? { userWithEmail =>
+        userWithEmail.emails.current.filterNot(_.isNoReply) ?? { email =>
+          implicit val lang = userLang(userWithEmail.user)
+          val disableSettingNotice =
+            "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
+          val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
+          mailer send Mailer.Message(
+            to = email,
+            subject = "Daily correspondence notice",
+            text = Mailer.txt.addServiceNote(
+              s"""${opponents map { opponent =>
+                s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
+              } mkString "\n\n"}
 
 $disableSettingNotice $disableLink"""
-              ),
-              htmlBody = emailMessage(
-                opponents map { opponent =>
-                  li(
-                    showGame(opponent),
-                    Mailer.html.url(s"$baseUrl/${opponent.gameId}")
-                  )
-                },
-                disableSettingNotice,
-                Mailer.html.url(disableLink),
-                serviceNote
-              ).some
-            )
-          }
+            ),
+            htmlBody = emailMessage(
+              opponents map { opponent =>
+                li(
+                  showGame(opponent),
+                  Mailer.html.url(s"$baseUrl/${opponent.gameId}")
+                )
+              },
+              disableSettingNotice,
+              Mailer.html.url(disableLink),
+              serviceNote
+            ).some
+          )
         }
       }
+    }
 
-  private def showGame(opponent: lila.hub.actorApi.mailer.CorrespondenceOpponent)(implicit lang: Lang) = {
-    opponent.remainingTime.fold(
-      s"It's your turn against ${lightUser.syncFallback(opponent.opponentId).name} in:"
-    )(remainingTime =>
-      s"You have ${showPeriod(remainingTime)} remaining against ${lightUser.syncFallback(opponent.opponentId).name} in your game:"
-    )
+  private def showGame(opponent: CorrespondenceOpponent)(implicit lang: Lang) = {
+    val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
+    opponent.remainingTime.fold(s"It's your turn against $opponentName in:") { remainingTime =>
+      s"You have ${showPeriod(remainingTime)} remaining against $opponentName in your game:"
+    }
   }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {

@@ -120,7 +120,7 @@ package simul {
 }
 
 package mailer {
-  case class CorrespondenceOpponent(opponentId: String, remainingTime: Option[Period], gameId: String)
+  case class CorrespondenceOpponent(opponentId: Option[String], remainingTime: Option[Period], gameId: String)
   case class CorrespondenceOpponents(userId: String, opponents: List[CorrespondenceOpponent])
 }
 

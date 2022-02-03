@@ -18,10 +18,13 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   def tick() = {
     val now = LocalTime.now
-    (now.isAfter(runAfter) && now.isBefore(runBefore)) ?? fetchOpponents foreach {
+    if (now.isAfter(runAfter) && now.isBefore(runBefore)) run()
+  }
+
+  private def run() =
+    fetchOpponents foreach {
       _ foreach { Bus.publish(_, "dailyCorrespondenceNotif") }
     }
-  }
 
   private def fetchOpponents =
     prefApi.coll
@@ -64,14 +67,13 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
             .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
           if !povs.isEmpty
-          opponents = povs
-            .map(pov =>
-              CorrespondenceOpponent(
-                pov.opponent.userId getOrElse "unknown",
-                pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
-                pov.game.id
-              )
+          opponents = povs map { pov =>
+            CorrespondenceOpponent(
+              pov.opponent.userId,
+              pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
+              pov.game.id
             )
+          }
         } yield CorrespondenceOpponents(userId, opponents)
       }
 }
