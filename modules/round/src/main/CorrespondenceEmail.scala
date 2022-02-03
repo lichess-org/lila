@@ -1,9 +1,12 @@
 package lila.round
 
+import akka.stream.scaladsl._
 import org.joda.time.{ LocalTime, Period }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
+import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.mailer._
@@ -11,27 +14,32 @@ import lila.pref.PrefApi
 import lila.user.UserRepo
 
 final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
 ) {
 
   private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
 
-  def tick() = {
+  def tick(): Unit = {
     val now = LocalTime.now
     if (now.isAfter(runAfter) && now.isBefore(runBefore)) run()
-  }
+  }.unit
 
   private def run() =
-    fetchOpponents foreach {
-      _ foreach { Bus.publish(_, "dailyCorrespondenceNotif") }
-    }
+    opponentStream
+      .map { Bus.publish(_, "dailyCorrespondenceNotif") }
+      .toMat(LilaStream.sinkCount)(Keep.right)
+      .run()
+      .addEffect(lila.mon.round.correspondenceEmail.emails.record(_).unit)
+      .monSuccess(_.round.correspondenceEmail.time)
 
-  private def fetchOpponents =
+  private def opponentStream =
     prefApi.coll
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { framework =>
+      .aggregateWith(readPreference = ReadPreference.secondaryPreferred) { framework =>
         import framework._
         // hit partial index
-        Match($doc("corresEmailNotif" -> true)) -> List(
+        List(
+          Match($doc("corresEmailNotif" -> true)),
           Project($id(true)),
           PipelineOperator(
             $lookup.pipeline(
@@ -56,10 +64,10 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           )
         )
       }
-      .map { docs =>
+      .documentSource()
+      .mapConcat { doc =>
         import lila.game.BSONHandlers._
-        for {
-          doc    <- docs
+        (for {
           userId <- doc string "_id"
           games  <- doc.getAsOpt[List[Game]]("games")
           povs = games
@@ -74,6 +82,6 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
               pov.game.id
             )
           }
-        } yield CorrespondenceOpponents(userId, opponents)
+        } yield CorrespondenceOpponents(userId, opponents)).toList
       }
 }
