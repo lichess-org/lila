@@ -361,7 +361,7 @@ trait dsl {
           "pipeline" -> {
             $doc(
               "$match" -> $doc(
-                "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+                "$expr" -> $doc("$eq" -> $arr(s"$$$foreign", "$$local"))
               )
             ) :: pipe
           }
