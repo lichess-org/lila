@@ -8,7 +8,8 @@ import lila.lobby.SeekApi
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxyRepo: lila.round.GameProxyRepo,
+    gameJson: lila.game.JsonView
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
@@ -27,33 +28,5 @@ final class LobbyApi(
         }
       }
 
-  def nowPlaying(pov: Pov) =
-    Json
-      .obj(
-        "fullId"   -> pov.fullId,
-        "gameId"   -> pov.gameId,
-        "fen"      -> chess.format.Forsyth.exportBoard(pov.game.board),
-        "color"    -> (if (pov.game.variant.racingKings) chess.White else pov.color).name,
-        "lastMove" -> ~pov.game.lastMoveKeys,
-        "variant" -> Json.obj(
-          "key"  -> pov.game.variant.key,
-          "name" -> pov.game.variant.name
-        ),
-        "speed"    -> pov.game.speed.key,
-        "perf"     -> lila.game.PerfPicker.key(pov.game),
-        "rated"    -> pov.game.rated,
-        "hasMoved" -> pov.hasMoved,
-        "opponent" -> Json
-          .obj(
-            "id" -> pov.opponent.userId,
-            "username" -> lila.game.Namer
-              .playerTextBlocking(pov.opponent, withRating = false)(lightUserApi.sync)
-          )
-          .add("rating" -> pov.opponent.rating)
-          .add("ai" -> pov.opponent.aiLevel),
-        "isMyTurn" -> pov.isMyTurn
-      )
-      .add("secondsLeft" -> pov.remainingSeconds)
-      .add("tournamentId" -> pov.game.tournamentId)
-      .add("swissId" -> pov.game.tournamentId)
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
 }
