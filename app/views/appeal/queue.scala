@@ -35,7 +35,9 @@ object queue {
               td(
                 userIdLink(appeal.id.some),
                 br,
-                markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked_by_me")("My mark"),
+                markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked-by-me text")(
+                  "My mark"
+                ),
                 views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption map { msg =>

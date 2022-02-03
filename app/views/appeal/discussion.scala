@@ -114,7 +114,7 @@ object discussion {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        modData.exists(_.markedByMe) option div(dataIcon := "", cls := "marked_by_me")(
+        modData.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
           "You have marked this user. Appeal should be handled by another moderator"
         ),
         if (modData.isEmpty && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
