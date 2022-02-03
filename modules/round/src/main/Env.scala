@@ -4,7 +4,6 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import org.joda.time.LocalTime
 import play.api.Configuration
 import scala.concurrent.duration._
 
@@ -126,19 +125,9 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { () =>
-    {
-      val now = LocalTime.now
-      (now.isAfter(LocalTime.parse("05:00"))
-        &&
-          now.isBefore(LocalTime.parse("05:11"))) ?? gameRepo.getCorrespondenceGamesEmailNotif(
-        userRepo.coll,
-        prefApi.coll
-      ) foreach {
-        _ foreach { Bus.publish(_, "dailyCorrespondenceNotif") }
-      }
-    }
-  }
+  private lazy val correspondenceEmail = wire[CorrespondenceEmail]
+
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { correspondenceEmail.tick _ }
 
   lazy val selfReport = wire[SelfReport]
 

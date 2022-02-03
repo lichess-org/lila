@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
@@ -13,7 +13,6 @@ import lila.common.ThreadLocalRandom
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.isDuplicateKey
-import lila.hub.actorApi.mailer._
 import lila.user.User
 
 final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
@@ -159,56 +158,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Game] =
     coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
-
-  def getCorrespondenceGamesEmailNotif(userColl: Coll, prefColl: Coll) =
-    prefColl
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
-        // hit partial index
-        Match($doc("corresEmailNotif" -> true)) -> List(
-          Project($id(true)),
-          PipelineOperator(
-            $lookup.simple(
-              from = userColl,
-              as = "user",
-              local = "_id",
-              foreign = "_id"
-            )
-          ),
-          Match($doc("user.enabled" -> true)),
-          Project($id("$user._id")),
-          Unwind("_id"),
-          PipelineOperator(
-            $lookup.simple(
-              from = coll,
-              as = "games",
-              local = "_id",
-              foreign = F.playingUids // hit index
-            )
-          )
-        )
-      }
-      .map { docs =>
-        for {
-          doc    <- docs
-          userId <- doc string "_id"
-          games  <- doc.getAsOpt[List[Game]]("games")
-          povs = games
-            .flatMap(Pov.ofUserId(_, userId))
-            .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
-            .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
-          if !povs.isEmpty
-          opponents = povs
-            .map(pov =>
-              CorrespondenceOpponent(
-                pov.opponent.userId getOrElse "unknown",
-                pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
-                pov.game.id
-              )
-            )
-        } yield CorrespondenceOpponents(userId, opponents)
-
-      }
 
   def byIdsCursor(ids: Iterable[Game.ID]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
