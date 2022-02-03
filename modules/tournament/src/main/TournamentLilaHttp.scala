@@ -34,7 +34,7 @@ final class TournamentLilaHttp(
     if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
   private val isOnLilaHttp = new ExpireSetMemo(3 hours)
-  private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 30 seconds)
+  private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 20 seconds)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
