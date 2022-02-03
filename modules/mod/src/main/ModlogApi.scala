@@ -1,6 +1,7 @@
 package lila.mod
 
 import org.joda.time.DateTime
+import reactivemongo.api._
 
 import lila.db.dsl._
 import lila.msg.MsgPreset
@@ -18,6 +19,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+
+  private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
   def streamerDecline(mod: Mod, streamerId: User.ID) =
     add {
@@ -215,6 +218,26 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
 
   def wasUnteachered(user: User.ID): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
+
+  def wasMarkedBy(mod: User.ID, user: User.ID): Fu[Boolean] =
+    coll.secondaryPreferred.exists(
+      $doc(
+        "user" -> user,
+        "mod"  -> mod,
+        "action" $in markActions
+      )
+    )
+
+  def wereMarkedBy(mod: User.ID, users: List[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctEasy[User.ID, Set](
+      "user",
+      $doc(
+        "user" $in users,
+        "mod" -> mod,
+        "action" $in markActions
+      ),
+      readPreference = ReadPreference.secondaryPreferred
+    )
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) =
     add {

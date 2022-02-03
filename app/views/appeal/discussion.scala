@@ -24,7 +24,8 @@ object discussion {
       logins: lila.security.UserLogins.TableData,
       appeals: List[lila.appeal.Appeal],
       renderIp: RenderIp,
-      inquiry: Option[Inquiry]
+      inquiry: Option[Inquiry],
+      markedByMe: Boolean
   )
 
   def apply(appeal: Appeal, textForm: Form[String])(implicit ctx: Context) =
@@ -113,6 +114,9 @@ object discussion {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
+        modData.exists(_.markedByMe) option div(dataIcon := "", cls := "marked_by_me")(
+          "You have marked this user. Appeal should be handled by another moderator"
+        ),
         if (modData.isEmpty && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
         else
           modData.fold(true)(_.inquiry.isDefined) option renderForm(
