@@ -31,16 +31,18 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
         Match($doc("corresEmailNotif" -> true)) -> List(
           Project($id(true)),
           PipelineOperator(
-            $lookup.simple(
+            $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "_id",
-              foreign = "_id"
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc("enabled" -> true)),
+                $doc("$project" -> $id(true))
+              )
             )
           ),
-          Match($doc("user.enabled" -> true)),
-          Project($id("$user._id")),
-          Unwind("_id"),
+          Unwind("user"),
           PipelineOperator(
             $lookup.simple(
               from = gameRepo.coll,
