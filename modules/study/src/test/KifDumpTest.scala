@@ -35,7 +35,7 @@ class KifDumpTest extends Specification {
     "one move" in {
       val tree = root.copy(children = children(node(1, "e3e4", "Pe4")))
       P.toMoves(tree, variant.Standard) must beLike { case Vector(move) =>
-        move.usiWithRole.usi.usi must_== "Pe4"
+        move.usiWithRole.usi.uci must_== "Pe4"
         move.variations must beEmpty
       }
     }
@@ -47,9 +47,9 @@ class KifDumpTest extends Specification {
         )
       )
       P.toMoves(tree, variant.Standard) must beLike { case Vector(move) =>
-        move.usiWithRole.usi.usi must_== "Pe4"
+        move.usiWithRole.usi.uci must_== "Pe4"
         move.variations must beLike { case List(List(move)) =>
-          move.usiWithRole.usi.usi must_== "Sd2"
+          move.usiWithRole.usi.uci must_== "Sd2"
           move.variations must beEmpty
         }
       }
@@ -69,12 +69,12 @@ class KifDumpTest extends Specification {
         )
       )
       P.toMoves(tree, variant.Standard) must beLike { case Vector(sente, gote) =>
-        sente.usiWithRole.usi.usi must_== "Pe4"
+        sente.usiWithRole.usi.uci must_== "Pe4"
         sente.variations must beLike { case List(List(move)) =>
-          move.usiWithRole.usi.usi must_== "Sd2"
+          move.usiWithRole.usi.uci must_== "Sd2"
           move.variations must beEmpty
         }
-        gote.usiWithRole.usi.usi must_== "Pd6"
+        gote.usiWithRole.usi.uci must_== "Pd6"
         gote.variations must beEmpty
       }
     }
@@ -95,14 +95,14 @@ class KifDumpTest extends Specification {
       )
 
       P.toMoves(tree, variant.Standard) must beLike { case Vector(sente, gote) =>
-        sente.usiWithRole.usi.usi must_== "Pe4"
+        sente.usiWithRole.usi.uci must_== "Pe4"
         sente.variations must beLike { case List(List(move)) =>
-          move.usiWithRole.usi.usi must_== "Sd2"
+          move.usiWithRole.usi.uci must_== "Sd2"
           move.variations must beEmpty
         }
-        gote.usiWithRole.usi.usi must_== "Pd6"
+        gote.usiWithRole.usi.uci must_== "Pd6"
         gote.variations must beLike { case List(List(move)) =>
-          move.usiWithRole.usi.usi must_== "Sd8"
+          move.usiWithRole.usi.uci must_== "Sd8"
           move.variations must beEmpty
         }
       }
@@ -154,26 +154,26 @@ class KifDumpTest extends Specification {
       )
 
       P.toMoves(tree, variant.Standard) must beLike { case Vector(s1, g1, s2) =>
-        s1.usiWithRole.usi.usi must_== "Pe4"
+        s1.usiWithRole.usi.uci must_== "Pe4"
         s1.variations must beLike { case List(List(w, b)) =>
-          w.usiWithRole.usi.usi must_== "Sd2"
+          w.usiWithRole.usi.uci must_== "Sd2"
           w.variations must beEmpty
-          b.usiWithRole.usi.usi must_== "Pa6"
+          b.usiWithRole.usi.uci must_== "Pa6"
           b.variations must beLike { case List(List(b, w)) =>
-            b.usiWithRole.usi.usi must_== "Pb6"
-            w.usiWithRole.usi.usi must_== "Pc4"
+            b.usiWithRole.usi.uci must_== "Pb6"
+            w.usiWithRole.usi.uci must_== "Pc4"
           }
         }
-        g1.usiWithRole.usi.usi must_== "Pd6"
+        g1.usiWithRole.usi.uci must_== "Pd6"
         g1.variations must beLike { case List(List(b, w)) =>
-          b.usiWithRole.usi.usi must_== "Sd8"
+          b.usiWithRole.usi.uci must_== "Sd8"
           b.variations must beEmpty
-          w.usiWithRole.usi.usi must_== "Ph4"
+          w.usiWithRole.usi.uci must_== "Ph4"
           b.variations must beEmpty
         }
-        s2.usiWithRole.usi.usi must_== "Pa4"
+        s2.usiWithRole.usi.uci must_== "Pa4"
         s2.variations must beLike { case List(List(move)) =>
-          move.usiWithRole.usi.usi must_== "Pb4"
+          move.usiWithRole.usi.uci must_== "Pb4"
           move.variations must beEmpty
         }
       }
