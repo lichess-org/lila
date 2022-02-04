@@ -30,7 +30,7 @@ class KifModelTest extends ShogiTest {
     renderSetup(
       Minishogi,
       Some(shogi.format.FEN("rbsgk/4p/5/P4/KGSBR b - 1"))
-    ) must_== """手合割：五々将棋"""
+    ) must_== """手合割：5五将棋"""
   }
 
   "render kif situation - minishogi" in {
