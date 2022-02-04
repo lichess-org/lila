@@ -14,7 +14,7 @@ final case class DecayingStats(
 
     copy(
       mean = value + decay * delta,
-      deviation = decay * deviation + (1 - decay) * Math.abs(delta)
+      deviation = decay * deviation + (1 - decay) * math.abs(delta)
     )
   }
 

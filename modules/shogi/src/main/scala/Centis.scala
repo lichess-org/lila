@@ -10,7 +10,7 @@ final case class Centis(centis: Int) extends AnyVal with Ordered[Centis] {
 
   def roundTenths: Int =
     if (centis > 0) (centis + 5) / 10 else (centis - 4) / 10
-  def roundSeconds: Int = Math.round(centis * 0.01f)
+  def roundSeconds: Int = math.round(centis * 0.01f)
 
   def toSeconds: BigDecimal = java.math.BigDecimal.valueOf(centis, 2)
   def millis: Long          = centis * 10L
@@ -31,10 +31,10 @@ final case class Centis(centis: Int) extends AnyVal with Ordered[Centis] {
 
   def compare(other: Centis) = Integer.compare(centis, other.centis)
 
-  def atMost(o: Centis)  = Centis(Math.min(centis, o.centis))
-  def atLeast(o: Centis) = Centis(Math.max(centis, o.centis))
+  def atMost(o: Centis)  = Centis(math.min(centis, o.centis))
+  def atLeast(o: Centis) = Centis(math.max(centis, o.centis))
 
-  def nonNeg = Centis(Math.max(centis, 0))
+  def nonNeg = Centis(math.max(centis, 0))
 }
 
 object Centis {
@@ -69,8 +69,8 @@ object Centis {
       else d.toMillis
     }
 
-  def apply(f: Float): Centis  = Centis(Math.round(f))
-  def apply(d: Double): Centis = Centis(Math.round(d))
+  def apply(f: Float): Centis  = Centis(math.round(f))
+  def apply(d: Double): Centis = Centis(math.round(d))
 
   def ofSeconds(s: Int) = Centis(100 * s)
   def ofMillis(i: Int)  = Centis((if (i > 0) i + 5 else i - 4) / 10)

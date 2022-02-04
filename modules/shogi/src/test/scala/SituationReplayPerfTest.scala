@@ -1,27 +1,23 @@
 package shogi
 
-import shogi.format.usi._
+import format.usi._
 
-class BoardReplayPerfTest extends ShogiTest {
+class SituationReplayPerfTest extends ShogiTest {
 
   //args(skipAll = true)
 
   val nb         = 100
   val iterations = 10
-  // val nb = 1
-  // val iterations = 1
 
-  val usis   = Usi.readList(format.usi.Fixtures.fromProd2).get
-  def runOne = Replay.boards(usis, None, variant.Standard)
-  def run(): Unit = { for (_ <- 1 to nb) runOne }
+  val usis = format.usi.Fixtures.prod500standard.take(nb).map(Usi.readList(_).get)
+  def runOne(usis: List[Usi]) =
+    Replay.situations(usis, None, variant.Standard)
+  def run() = { usis foreach runOne }
 
   "playing a game" should {
     "many times" in {
-      runOne must beValid
-      if (nb * iterations > 1) {
-        println("warming up")
-        run()
-      }
+      println("warming up")
+      run()
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis

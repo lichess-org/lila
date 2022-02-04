@@ -17,7 +17,7 @@ class CsaParserTest extends ShogiTest {
   }
 
   "move" in {
-    parseMove("5948OU") must beValid.like { case a: CsaStd =>
+    parseMove("5948OU") must beValid.like { case a: CsaMove =>
       a.dest === Pos.SQ4H
       a.orig === Pos.SQ5I
       a.role === King
@@ -27,7 +27,7 @@ class CsaParserTest extends ShogiTest {
   "basic" should {
     "move" in {
       parser("PI,+5948OU") must beValid.like { case p =>
-        p.parsedMoves.value.headOption must beSome.like { case a: CsaStd =>
+        p.parsedMoves.value.headOption must beSome.like { case a: CsaMove =>
           a.dest === Pos.SQ4H
           a.orig === Pos.SQ5I
           a.role === King
@@ -47,7 +47,7 @@ class CsaParserTest extends ShogiTest {
       +7776FU,T12
       -8384FU,T5
       """) must beValid.like { case p =>
-        p.parsedMoves.value.lastOption must beSome.like { case a: CsaStd =>
+        p.parsedMoves.value.lastOption must beSome.like { case a: CsaMove =>
           a.dest === Pos.SQ8D
           a.orig === Pos.SQ8C
           a.role === Pawn
@@ -178,7 +178,7 @@ P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
     """) must beValid.like { case ParsedNotation(_, Tags(tags), _) =>
       tags.size must_== 6
       tags must not contain { (tag: Tag) =>
-        tag.name == Tag.FEN
+        tag.name == Tag.Sfen
       }
       tags must contain { (tag: Tag) =>
         tag.name == Tag.Sente && tag.value == "鈴木大介 九段"

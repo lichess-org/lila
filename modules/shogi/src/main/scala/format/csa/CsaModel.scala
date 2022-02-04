@@ -3,7 +3,8 @@ package format
 package csa
 
 import cats.syntax.option._
-import variant.Standard
+
+import shogi.variant.Standard
 import shogi.format.usi.Usi
 
 case class Csa(
@@ -20,7 +21,7 @@ case class Csa(
 
   private def renderMainline(moveline: List[NotationMove], turn: Color): String =
     moveline
-      .foldLeft((List[String](), turn)) { case ((acc, curTurn), cur) =>
+      .foldLeft[(List[String], Color)]((Nil, turn)) { case ((acc, curTurn), cur) =>
         ((Csa.renderNotationMove(cur, curTurn.some) :: acc), !curTurn)
       }
       ._1
@@ -32,10 +33,8 @@ case class Csa(
         initial.comments.map(Csa.fixComment _).mkString("")
       else ""
     val header = Csa renderHeader tags
-    val setup  = (Forsyth << (tags.fen.fold(Forsyth.initial)(_.value))).fold("")(Csa renderSituation _)
-    val startColor: Color = tags.fen.fold[Color](Sente) { fen =>
-      Forsyth.getColor(fen.value).getOrElse(Sente)
-    }
+    val setup  = tags.sfen.getOrElse(Standard.initialSfen).toSituation(Standard).fold("")(Csa renderSituation _)
+    val startColor: Color = tags.sfen.flatMap(_.color) | Sente
     val movesStr = renderMainline(moves, startColor)
     List(
       header,
@@ -52,7 +51,7 @@ object Csa {
 
   def renderNotationMove(cur: NotationMove, turn: Option[Color]) = {
     val csaMove     = renderCsaMove(cur.usiWithRole, turn)
-    val timeStr     = clockString(cur).getOrElse("")
+    val timeStr     = clockString(cur) | ""
     val commentsStr = cur.comments.map { text => s"\n'${fixComment(text)}" }.mkString("")
     val resultStr   = cur.result.fold("")(t => s"\n$t")
     s"$csaMove$timeStr$commentsStr$resultStr"
@@ -63,7 +62,7 @@ object Csa {
       case Usi.Drop(role, pos) =>
         s"${turn.fold("")(_.fold("+", "-"))}00${pos.numberKey}${role.csa}"
       case Usi.Move(orig, dest, prom) => {
-        val finalRole = Standard.promote(usiWithRole.role).filter(_ => prom).getOrElse(usiWithRole.role)
+        val finalRole = Standard.promote(usiWithRole.role).filter(_ => prom) | usiWithRole.role
         s"${turn.fold("")(_.fold("+", "-"))}${orig.numberKey}${dest.numberKey}${finalRole.csa}"
       }
     }
@@ -94,32 +93,32 @@ object Csa {
 
   def renderSituation(sit: Situation): String = {
     val csaBoard = new scala.collection.mutable.StringBuilder(256)
-    for (y <- 1 to 9) {
-      csaBoard append ("P" + y)
-      for (x <- 9 to 1 by -1) {
+    for (y <- 0 to 8) {
+      csaBoard append ("P" + (y + 1))
+      for (x <- 8 to 0 by -1) {
         sit.board(x, y) match {
           case None => csaBoard append " * "
           case Some(piece) =>
             csaBoard append s"${piece.csa}"
         }
       }
-      if (y < 9) csaBoard append '\n'
+      if (y < 8) csaBoard append '\n'
     }
     List(
       csaBoard.toString,
-      sit.board.handData.fold("")(hs => renderHand(hs(Sente), "P+")),
-      sit.board.handData.fold("")(hs => renderHand(hs(Gote), "P-")),
-      if (sit.color == Gote) "-" else "+"
+      renderHand(sit.hands(Sente), "P+"),
+      renderHand(sit.hands(Gote), "P-"),
+      if (sit.color.gote) "-" else "+"
     ).filter(_.nonEmpty).mkString("\n")
   }
 
   private def renderHand(hand: Hand, prefix: String): String = {
-    if (hand.size == 0) ""
+    if (hand.isEmpty) ""
     else
       Standard.handRoles
         .map { r =>
           val cnt = hand(r)
-          s"00${r.csa}".repeat(Math.min(cnt, 81))
+          s"00${r.csa}".repeat(math.min(cnt, 81))
         }
         .filter(_.nonEmpty)
         .mkString(prefix, "", "")
@@ -135,9 +134,9 @@ object Csa {
       case Aborted | NoStart                                                         => "%CHUDAN".some
       case Timeout | Outoftime                                                       => "%TIME_UP".some
       case Resign if !winnerTurn                                                     => "%TORYO".some
-      case PerpetualCheck if winnerColor.exists(_ == Sente)                          => "%-ILLEGAL_ACTION".some
+      case PerpetualCheck if winnerColor.contains(Sente)                          => "%-ILLEGAL_ACTION".some
       case PerpetualCheck                                                            => "%+ILLEGAL_ACTION".some
-      case Mate if winnerTurn && winnerColor.exists(_ == Sente)                      => "%-ILLEGAL_ACTION".some // pawn checkmate
+      case Mate if winnerTurn && winnerColor.contains(Sente)                      => "%-ILLEGAL_ACTION".some // pawn checkmate
       case Mate if winnerTurn                                                        => "%+ILLEGAL_ACTION".some // pawn checkmate
       case Mate | Stalemate                                                          => "%TSUMI".some
       case Draw                                                                      => "%SENNICHITE".some

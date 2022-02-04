@@ -23,25 +23,25 @@ object Division {
 }
 
 sealed trait DividerData
-final case class NotFound(senteInvadersInGotesCamp: Int = 0, goteInvadersInSentesCamp: Int = 0)
+final case class NotFound(senteInvadersInGotesCamp: Int, goteInvadersInSentesCamp: Int)
     extends DividerData
 final case class Found(index: Int) extends DividerData
 
 object Divider {
 
-  def apply(boards: List[Board]): Division = {
+  def apply(sits: Seq[Situation]): Division = {
 
-    val indexedBoards: List[(Board, Int)] = boards.zipWithIndex
+    val indexedSits = sits.zipWithIndex
 
-    val midGame = indexedBoards.foldLeft(NotFound(): DividerData) {
+    val midGame = indexedSits.foldLeft[DividerData](NotFound(0, 0)) {
       case (found: Found, _) => found
-      case (NotFound(lastSenteInvaders, lastGoteInvaders), (board, index)) => {
-        val curSenteInvaders = countInvaders(board, Sente)
-        val curGoteInvaders  = countInvaders(board, Gote)
+      case (NotFound(lastSenteInvaders, lastGoteInvaders), (sit, index)) => {
+        val curSenteInvaders = countInvaders(sit, Sente)
+        val curGoteInvaders  = countInvaders(sit, Gote)
         if (
           // every piece except pawns and king
-          majorsAndMinors(board) <= 17 ||
-          isBackrankSparse(board) ||
+          majorsAndMinors(sit) <= 17 ||
+          isBackrankSparse(sit) ||
           // if one piece invades the opposing camp and is not immediately captured
           (curSenteInvaders >= 1 && lastSenteInvaders >= 1) ||
           (curGoteInvaders >= 1 && lastGoteInvaders >= 1)
@@ -53,18 +53,18 @@ object Divider {
     }
 
     val midGameOption = midGame match {
-      case Found(index) => Option(index)
+      case Found(index) => Some(index)
       case _            => None
     }
 
     val endGame =
-      if (midGameOption.isDefined) indexedBoards.foldLeft(NotFound(): DividerData) {
+      if (midGameOption.isDefined) indexedSits.foldLeft[DividerData](NotFound(0, 0)) {
         case (found: Found, _) => found
-        case (NotFound(lastSenteInvaders, lastGoteInvaders), (board, index)) => {
-          val curSenteInvaders = countInvaders(board, Sente)
-          val curGoteInvaders  = countInvaders(board, Gote)
+        case (NotFound(lastSenteInvaders, lastGoteInvaders), (sit, index)) => {
+          val curSenteInvaders = countInvaders(sit, Sente)
+          val curGoteInvaders  = countInvaders(sit, Gote)
           if (
-            (majorsAndMinors(board) <= 3 && board.pieces.size <= 12) ||
+            (majorsAndMinors(sit) <= 3 && sit.board.pieces.size <= 12) ||
             (curSenteInvaders >= 2 && lastSenteInvaders >= 2) ||
             (curGoteInvaders >= 2 && lastGoteInvaders >= 2)
           ) Found(index)
@@ -72,32 +72,32 @@ object Divider {
             NotFound(curSenteInvaders, curGoteInvaders)
         }
       }
-      else NotFound()
+      else NotFound(0, 0)
 
     val endGameOption = endGame match {
-      case Found(index) => Option(index)
+      case Found(index) => Some(index)
       case _            => None
     }
 
     Division(
       midGameOption.filter(m => endGameOption.fold(true)(m <)),
       endGameOption,
-      boards.size
+      sits.size
     )
   }
 
-  private def countInvaders(board: Board, color: Color): Int =
-    board.pieces.count { case (pos, piece) =>
-      piece.color == color && board.variant.promotionRanks(color).contains(pos.y)
+  private def countInvaders(sit: Situation, color: Color): Int =
+    sit.board.pieces.count { case (pos, piece) =>
+      piece.color == color && sit.variant.promotionRanks(color).contains(pos.rank)
     }
 
-  private def majorsAndMinors(board: Board): Int =
-    board.pieces.values.count(p => p.role != Pawn && p.role != King)
+  private def majorsAndMinors(sit: Situation): Int =
+    sit.board.pieces.values.count(p => p.role != Pawn && p.role != King)
 
   // Sparse back-rank indicates that pieces have been developed
-  private def isBackrankSparse(board: Board): Boolean =
-    board.pieces.count { case (pos, piece) =>
-      board.variant.backrank(!piece.color) == pos.y
+  private def isBackrankSparse(sit: Situation): Boolean =
+    sit.board.pieces.count { case (pos, piece) =>
+      sit.variant.backrank(!piece.color) == pos.rank
     } < 4
 
 }

@@ -19,20 +19,22 @@ class KingTest extends ShogiTest {
     "move behind pawn barrier" in {
       """
 P P P P P P P P P
-L N . G K . . N L""" destsFrom SQ5I must bePoss(SQ4I)
+L N . G K . . N L""" moveDestsFrom SQ5I must bePoss(SQ4I)
     }
 
     "not move to positions that are occupied by the same colour" in {
-      val board = """
+      val situation = """
 . . . P . . . . .
 N P K L . . . P .
 . . . . . . . . .
 P . P . P P P . P
 . . . . . . . . .
 . . S G K G S N L
+Hands:
+Turn:Sente
 """
-      board destsFrom SQ7E must bePoss(
-        board,
+      situation moveDestsFrom SQ7E must bePoss(
+        situation,
         """
 . . . . . . . . .
 . . . . . . . . .
@@ -43,12 +45,14 @@ N P K L . . . P .
 P . P . P P P . P
 . . . . . . . . .
 . . S G K G S N L
+Hands:
+Turn:Sente
 """
       )
     }
 
     "capture hanging opponent pieces" in {
-      val board = """
+      val situation = """
 k . . . . . . . .
 . . . . . . . . .
 . . . . . . . . .
@@ -58,9 +62,11 @@ k . . . . . . . .
 . . K p . . . . .
 . p . . . . . . .
 l . . . . . . . .
+Hands:
+Turn:Sente
 """
-      board destsFrom SQ7G must bePoss(
-        board,
+      situation moveDestsFrom SQ7G must bePoss(
+        situation,
         """
 k . . . . . . . .
 . . . . . . . . .
@@ -71,11 +77,13 @@ k . . . . . . . .
 . x K p . . . . .
 . x x . . . . . .
 l . . . . . . . .
+Hands:
+Turn:Sente
 """
       )
     }
     "threaten" in {
-      val board = """
+      val situation = """
 k . B . . . . . .
 . . . . . . . . .
 . b . B . . . . .
@@ -85,22 +93,24 @@ b p p . . . . . .
 P P . . . P P P P
 . . . . . . . . .
 L N S G . G S N L
+Hands:
+Turn:Sente
 """
       "a reachable enemy" in {
-        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt SQ7E map (_ threatens SQ9D) must beSome(false)
+        situation moveActorAt SQ7E map (_ threatens SQ9D) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt SQ7E map (_ threatens SQ7F) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ7F) must beSome(true)
       }
     }
     "not move near from the other king" in {
       """
 . . . k
 . K . .
-""" destsFrom SQ8I must bePoss(SQ9I, SQ9H, SQ8H)
+""" moveDestsFrom SQ8I must bePoss(SQ9I, SQ9H, SQ8H)
     }
   }
 }

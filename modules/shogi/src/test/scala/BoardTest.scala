@@ -4,7 +4,7 @@ import Pos._
 
 class BoardTest extends ShogiTest {
 
-  val board = makeBoard
+  val board = makeSituation.board
 
   "a board" should {
 
@@ -59,7 +59,7 @@ class BoardTest extends ShogiTest {
 
     "allow a piece to be placed" in {
       board.place(Sente - Rook, SQ5E) must beSome.like { case b =>
-        b(SQ5E) mustEqual Option(Sente - Rook)
+        b(SQ5E) mustEqual Some(Sente - Rook)
       }
     }
 
@@ -71,7 +71,7 @@ class BoardTest extends ShogiTest {
 
     "allow a piece to move" in {
       board.move(SQ5G, SQ5F) must beSome.like { case b =>
-        b(SQ5F) mustEqual Option(Sente - Pawn)
+        b(SQ5F) mustEqual Some(Sente - Pawn)
       }
     }
 
@@ -79,66 +79,55 @@ class BoardTest extends ShogiTest {
       board.move(SQ5E, SQ5D) must beNone
     }
 
-    "not allow a piece to move to an occupied position" in {
-      board.move(SQ9I, SQ9G) must beNone
+    "allow a piece to move to an occupied position" in {
+      board.move(SQ9I, SQ9G) must beSome.like { case b =>
+        b(SQ9G) mustEqual Some(Sente - Lance)
+      }
     }
 
     "allow a pawn to be promoted" in {
-      makeEmptyBoard.place(Gote.pawn, SQ9C) flatMap (_ promote SQ9C) must beSome.like { case b =>
-        b(SQ9C) must beSome(Gote.tokin)
+      makeEmptySituation.board.place(Gote.pawn, SQ9F) flatMap (_.promote(SQ9F, SQ9G, _ => Some(Tokin))) must beSome.like { case b =>
+        b(SQ9G) must beSome(Gote.tokin)
       }
     }
 
     "allow chaining actions" in {
-      makeEmptyBoard.seq(
+      makeEmptySituation.board.seq(
         _.place(Sente - Pawn, SQ9H),
         _.place(Sente - Pawn, SQ9G),
         _.move(SQ9H, SQ9F)
       ) must beSome.like { case b =>
-        b(SQ9F) mustEqual Option(Sente - Pawn)
+        b(SQ9F) mustEqual Some(Sente - Pawn)
       }
     }
 
     "fail on bad actions chain" in {
-      makeEmptyBoard.seq(
+      makeEmptySituation.board.seq(
         _.place(Sente - Pawn, SQ9H),
         _.place(Sente - Pawn, SQ7G),
         _.move(SQ8G, SQ8F)
       ) must beNone
     }
 
-    "provide occupation map" in {
-      makeBoard(
-        SQ9H -> (Sente - Pawn),
-        SQ9G -> (Sente - Pawn),
-        SQ6I -> (Sente - King),
-        SQ5B -> (Gote - King),
-        SQ2F -> (Gote - Rook)
-      ).occupation must_== Color.Map(
-        sente = Set(SQ9H, SQ9G, SQ6I),
-        gote = Set(SQ5B, SQ2F)
-      )
-    }
-
     "navigate in pos based on pieces" in {
       "right to end" in {
         val board: Board = """
-R . . . K . . . R"""
+R . . . K . . . R""".board
         SQ5I >| (p => board.pieces contains p) must_== List(SQ4I, SQ3I, SQ2I, SQ1I)
       }
       "right to next" in {
         val board: Board = """
-R . . . K B . . R"""
+R . . . K B . . R""".board
         SQ5I >| (p => board.pieces contains p) must_== List(SQ4I)
       }
       "left to end" in {
         val board: Board = """
-R . . . K . . . R"""
+R . . . K . . . R""".board
         SQ5I |< (p => board.pieces contains p) must_== List(SQ6I, SQ7I, SQ8I, SQ9I)
       }
       "right to next" in {
         val board: Board = """
-R . . B K . . . R"""
+R . . B K . . . R""".board
         SQ5I |< (p => board.pieces contains p) must_== List(SQ6I)
       }
     }

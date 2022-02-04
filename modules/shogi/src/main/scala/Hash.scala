@@ -56,45 +56,42 @@ object Hash {
   private def pieceIndex(piece: Piece) =
     roleIndex(piece.role) * 2 + piece.color.fold(1, 0)
 
-  private def actorIndex(actor: Actor) =
+  private def actorIndex(actor: MoveActor) =
     81 * pieceIndex(actor.piece) + actor.pos.hashCode
 
-  private def get(situation: Situation, table: ZobristConstants): Long = {
+  private def get(sit: Situation, table: ZobristConstants): Long = {
 
     def handMask(role: Role, colorshift: Int, count: Int) = {
       // There should be no kings or promoted pieces (7 roles) and at most 18 pieces(2*9 pawns)
-      // of any given type in a pocket.
+      // of any given type.
       // 18+ pieces in hand will get hashed as (18+)%19. Theoretically some false positives for repetition
       val minCount = count % 19
       if (minCount > 0 && roleIndex(role) < 7)
-        Option(
+        Some(
           table.handMasks(18 * roleIndex(role) + minCount + colorshift)
         )
       else None
     }
 
-    val board = situation.board
-    val hturn = situation.color.fold(table.senteTurnMask, 0L)
+    val hturn = sit.color.fold(table.senteTurnMask, 0L)
 
-    val hactors = board.actors.values.view
+    val hactors = sit.moveActors.values.view
       .map {
         table.actorMasks compose actorIndex _
       }
       .fold(hturn)(_ ^ _)
 
-    // Hash in hand data.
-    val hhand = board.handData.fold(hactors) { hands =>
-      Color.all
-        .flatMap { color =>
+    // Hash in hand data if there is something to hash
+    if (sit.hands.nonEmpty) {
+      Color.all.flatMap { color =>
           val colorshift = color.fold(125, -1)
-          hands(color).handMap flatMap { case (role, rolecount) =>
+          sit.hands(color).handMap flatMap { case (role, rolecount) =>
             handMask(role, colorshift, rolecount)
           }
         }
         .fold(hactors)(_ ^ _)
     }
-
-    hhand
+    else hactors
   }
 
   private val h = new Hash(size)

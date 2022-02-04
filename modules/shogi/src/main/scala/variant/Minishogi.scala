@@ -1,7 +1,8 @@
 package shogi
 package variant
 
-import Pos._
+import shogi.Pos._
+import shogi.format.forsyth.Sfen
 
 case object Minishogi
     extends Variant(
@@ -9,11 +10,17 @@ case object Minishogi
       key = "minishogi",
       name = "Minishogi",
       shortName = "Minishogi",
-      title = "Same rules, smaller board",
-      standardInitialPosition = false
+      title = "Same rules, smaller board"
     ) {
 
-  def pieces =
+  val initialSfen = Sfen("rbsgk/4p/5/P4/KGSBR b - 1")
+
+  val numberOfRanks = 5
+  val numberOfFiles = 5
+
+  val allPositions = (SQ5E upTo SQ1A).toList
+
+  val pieces =
     Map(
       SQ5E -> Sente.king,
       SQ4E -> Sente.gold,
@@ -28,28 +35,10 @@ case object Minishogi
       SQ5A -> Gote.rook,
       SQ1B -> Gote.pawn
     )
+  
+  val hands = Map.empty
 
-  def hand =
-    Map(
-      Rook   -> 0,
-      Bishop -> 0,
-      Gold   -> 0,
-      Silver -> 0,
-      Pawn   -> 0
-    )
-
-  override val initialFen = "rbsgk/4p/5/P4/KGSBR b - 1"
-
-  val allSquares = Pos.all5x5
-
-  val numberOfRanks = 5
-  val numberOfFiles = 5
-
-  def promotionRanks(color: Color) = List(backrank(color))
-
-  override def impasse(sit: Situation): Boolean = false
-
-  override val allRoles = List(
+  val allRoles = List(
     Pawn,
     Silver,
     Gold,
@@ -62,12 +51,22 @@ case object Minishogi
     Tokin
   )
 
-  override val handRoles: List[Role] = List(
+  val handRoles = List(
     Rook,
     Bishop,
     Gold,
     Silver,
     Pawn
   )
+
+  def promote(role: Role) = Standard.promote(role)
+  def unpromote(role: Role) = Standard.unpromote(role)
+
+  def backrank(color: Color) =
+    if (color.sente) Rank.A else Rank.E
+
+  def promotionRanks(color: Color) = List(backrank(color))
+
+  override def impasse(sit: Situation): Boolean = false
 
 }

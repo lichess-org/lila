@@ -1,61 +1,43 @@
 package shogi
 package format.usi
 
-case class UsiCharPair(a: Char, b: Char) {
+import shogi.variant.Variant
 
+// We are trying to map every possible legal usi in a given situation to a unique char pair
+case class UsiCharPair(a: Char, b: Char) {
   override def toString = s"$a$b"
 }
 
+// While char is 16 bit
+// we don't want to go above one byte
+// and 251-255 reserved for some special cases
 object UsiCharPair {
 
-  import implementation._
-
-  def apply(usi: Usi): UsiCharPair = {
+  def apply(usi: Usi, variant: Variant): UsiCharPair =
     usi match {
-      case Usi.Move(orig, dest, false) => UsiCharPair(toChar(orig), toChar(dest))
-      case Usi.Move(orig, dest, true)  => UsiCharPair(toChar(orig), toChar(dest, true))
+      case Usi.Move(orig, dest, false) => 
+        UsiCharPair(posToChar(variant, orig), posToChar(variant, dest))
+      // If we are moving from orig to dest, we know it's not possible to move from dest to orig
+      // Therefore that combination can be used for promotions
+      case Usi.Move(orig, dest, true) =>
+        UsiCharPair(posToChar(variant, dest), posToChar(variant, orig))
       case Usi.Drop(role, pos) =>
         UsiCharPair(
-          toChar(pos),
-          dropRole2charMap.getOrElse(role, voidChar)
+          posToChar(variant, pos),
+          roleToChar(variant, role)
         )
     }
-  }
 
-  private[format] object implementation {
+    val charOffset = 35        // Start at Char(35) == '#'
+    val voidChar   = 33.toChar // '!'
 
-    type File = Int
+    def posToChar(variant: Variant, pos: Pos): Char =
+      (charOffset + pos.rank.index * variant.numberOfFiles + pos.file.index).toChar
 
-    val charShift = 34        // Start at Char(34) == '"'
-    val voidChar  = 33.toChar // '!'
+    def roleToChar(variant: Variant, role: Role): Char =
+      variant.handRoles.zipWithIndex
+        .find(_._1 == role)
+        .map { case (_, i) => (charOffset + variant.allPositions.size + i).toChar }
+        .getOrElse(voidChar)
 
-    val pos2charMap: Map[Pos, Char] = Pos.all9x9
-      .map { pos =>
-        pos -> (pos.hashCode + charShift).toChar
-      }
-      .to(Map)
-
-    def toChar(pos: Pos) = pos2charMap.getOrElse(pos, voidChar)
-
-    def toChar(pos: Pos, prom: Boolean): Char = {
-      if (prom) (toChar(pos) + 128).toChar else toChar(pos)
-    }
-
-    val dropRole2charMap: Map[Role, Char] =
-      Role.all
-        .filterNot(r =>
-          r == King ||
-            r == Tokin ||
-            r == PromotedLance ||
-            r == PromotedKnight ||
-            r == PromotedSilver ||
-            r == Horse ||
-            r == Dragon
-        ) // todo nicer - res size -> 7
-        .zipWithIndex
-        .map { case (role, index) =>
-          role -> (charShift + pos2charMap.size + 128 + index).toChar
-        }
-        .to(Map)
-  }
 }

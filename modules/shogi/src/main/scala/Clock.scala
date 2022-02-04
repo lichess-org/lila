@@ -81,7 +81,7 @@ case class Clock(
     )
 
   def step(
-      metrics: MoveMetrics = MoveMetrics(),
+      metrics: MoveMetrics = MoveMetrics.empty,
       gameActive: Boolean = true
   ) =
     (timer match {
@@ -287,12 +287,12 @@ object Clock {
       str
         .takeWhile(_ != '時')
         .toIntOption
-        .map(_ * 3600 + parseJPTime(str.reverse.takeWhile(_ != '間').reverse).getOrElse(0))
+        .map(_ * 3600 + (parseJPTime(str.reverse.takeWhile(_ != '間').reverse) | 0))
     else if (str contains "分")
       str
         .takeWhile(_ != '分')
         .toIntOption
-        .map(_ * 60 + parseJPTime(str.reverse.takeWhile(_ != '分').reverse).getOrElse(0))
+        .map(_ * 60 + (parseJPTime(str.reverse.takeWhile(_ != '分').reverse) | 0))
     else str.filterNot(_ == '秒').toIntOption
   }
 
@@ -305,9 +305,9 @@ object Clock {
       case KifClkRegex(initStr, byoStr, perStr, incStr) =>
         for {
           init <- parseJPTime(initStr)
-          byo  <- if (byoStr == null) 0.some else parseJPTime(byoStr)
-          per  <- if (perStr == null) 1.some else perStr.toIntOption
-          inc  <- if (incStr == null) 0.some else parseJPTime(incStr)
+          byo  <- Option(byoStr).fold(0.some)(parseJPTime _)
+          per  <- Option(perStr).fold(1.some)(_ toIntOption)
+          inc  <- Option(incStr).fold(0.some)(parseJPTime _)
         } yield Config(init, inc, byo, per)
       case _ => none
     }

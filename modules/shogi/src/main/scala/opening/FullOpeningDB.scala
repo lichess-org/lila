@@ -1,34 +1,25 @@
 package shogi
 package opening
 
-import format.FEN
 import cats.syntax.option._
+
+import shogi.format.forsyth.Sfen
 
 object FullOpeningDB {
 
-  private def all: Vector[FullOpening] =
-    FullOpeningPartA.db
-
-  private lazy val byFen: collection.Map[String, FullOpening] =
+  private lazy val bySfen: collection.Map[String, FullOpening] =
     all
       .map { o =>
-        o.fen -> o
+        o.sfen -> o
       }
-      .to(Map)
+      .toMap
 
-  def findByFen(fen: FEN): Option[FullOpening] =
-    fen.value.split(' ').take(3) match {
-      case Array(boardPocket, turn, pocket) =>
-        val board =
-          if (boardPocket.count('/' ==) == 9) boardPocket.split('/').take(9).mkString("/")
-          else boardPocket
-        byFen get List(board, turn, pocket).mkString(" ")
-      case _ => None
-    }
+  def findBySfen(sfen: Sfen): Option[FullOpening] =
+    bySfen get sfen.truncate.value
 
   val SEARCH_MAX_PLIES = 40
 
-  // assumes standard initial FEN and variant
+  // assumes standard initial SFEN and variant
   def search(usis: Seq[shogi.format.usi.Usi]): Option[FullOpening.AtPly] =
     shogi.Replay
       .situations(
@@ -38,18 +29,25 @@ object FullOpeningDB {
       )
       .toOption
       .flatMap {
-        _.zipWithIndex.tail.foldRight(none[FullOpening.AtPly]) {
-          case ((situation, ply), None) =>
-            // val color = if (ply % 2 == 0) " b " else " w "
-            val fen = format.Forsyth.exportSituation(situation)
-            byFen get fen map (_ atPly ply)
-          case (_, found) => found
+        _.zipWithIndex.tail.reverse.foldLeft[Option[FullOpening.AtPly]](None) {
+          case (None, (situation, ply)) =>
+            val sfen = situation.toSfen.truncate
+            bySfen get sfen.value map (_ atPly ply)
+          case (found, _) => found
         }
       }
 
-  def searchInFens(fens: List[FEN]): Option[FullOpening] =
-    fens.foldRight(none[FullOpening]) {
-      case (fen, None) => findByFen(fen)
+  def searchInSfens(sfens: Seq[Sfen]): Option[FullOpening] =
+    sfens.foldRight(none[FullOpening]) {
+      case (sfen, None) => findBySfen(sfen)
       case (_, found)  => found
     }
+
+  // todo
+  // format: off
+  private def all: Vector[FullOpening] =
+    Vector(
+      new FullOpening("角換わり", "Bishop Exchange", "rn1qkbnr/ppp2ppp/8/3p4/5p2/6PB/PPPPP2P/RNBQK2R w KQkq -"),
+      new FullOpening("3三角", "Bishop-33 opening", "rn1qkbnr/ppp2ppp/8/3p4/5p2/6PB/PPPPP2P/RNBQK2R w KQkq -"),
+    )
 }

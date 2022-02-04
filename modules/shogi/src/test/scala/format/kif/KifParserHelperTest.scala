@@ -2,18 +2,20 @@ package shogi
 package format
 package kif
 
+import forsyth.Sfen
 import KifParserHelper._
+
 
 class KifParserHelperTest extends ShogiTest {
 
-  def parseAndCompare(source: String, handicap: Option[String], resFen: String) =
+  def parseAndCompare(source: String, handicap: Option[String], resSfen: Sfen) =
     parseSituation(source, handicap) must beValid.like { case s =>
-      Forsyth.exportSituation(s) must_== resFen
+      s.toSfen.truncate must_== resSfen
     }
 
   "Handicap" in {
-    parseAndCompare("", Option("平手"), "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -")
-    parseAndCompare("", Option("二枚落ち"), "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -")
+    parseAndCompare("", Some("平手"), Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -"))
+    parseAndCompare("", Some("二枚落ち"), Sfen("lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -"))
   }
 
   "BOARD" in {
@@ -36,7 +38,7 @@ class KifParserHelperTest extends ShogiTest {
       先手：先手
       先手の持駒：なし""",
       None,
-      "3n5/kBp+B5/9/N2p5/+pn2p4/2R1+s4/pN7/1L7/1s2+R4 b 4g2s3l13p"
+      Sfen("3n5/kBp+B5/9/N2p5/+pn2p4/2R1+s4/pN7/1L7/1s2+R4 b 4g2s3l13p")
     )
   }
 }

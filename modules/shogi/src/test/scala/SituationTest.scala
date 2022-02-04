@@ -9,14 +9,14 @@ class SituationTest extends ShogiTest {
       "by rook" in {
         ("""
 K . . r . . . . .
-""" as Sente).check must beTrue
+""").check must beTrue
       }
       "by knight" in {
         ("""
 . n . . . . . . .
 . . . . . . . . .
 K . . . . . . . .
-""" as Sente).check must beTrue
+""").check must beTrue
       }
       "by bishop" in {
         ("""
@@ -24,20 +24,20 @@ K . . . . . . . .
 . . . . . . . . .
 . . . . . . . . .
 . . . . . K . . .
-""" as Sente).check must beTrue
+""").check must beTrue
       }
       "by pawn" in {
         ("""
 . . . . p . . . .
 . . . . K . . . .
-""" as Sente).check must beTrue
+""").check must beTrue
       }
       "not" in {
         ("""
 K . . . . . . . .
 . . . . . . . . .
 .+n . . . . . . .
-""" as Sente).check must beFalse
+""").check must beFalse
       }
     }
     "detect check mate" in {
@@ -45,21 +45,21 @@ K . . . . . . . .
         ("""
 P P . . . . . . .
 K . . r . . . . .
-""" as Sente).checkMate must beTrue
+""").checkmate must beTrue
       }
       "by knight" in {
         ("""
 . n . . . . . . .
 P B . . . . . . .
 K R . . . . . . .
-""" as Sente).checkMate must beTrue
+""").checkmate must beTrue
       }
       "not" in {
         ("""
 . n . . . . . . .
 . . . . . . . . .
 K . . . . . . . .
-""" as Sente).checkMate must beFalse
+""").checkmate must beFalse
       }
     }
     "stale mate" in {
@@ -67,13 +67,13 @@ K . . . . . . . .
         ("""
 b r r . . . . . .
 K . . . . . . . .
-""" as Sente).staleMate must beTrue
+""").stalemate must beTrue
       }
       "not" in {
         ("""
 . . b . . . . . .
 K . . . . . . . .
-""" as Sente).staleMate must beFalse
+""").stalemate must beFalse
       }
     }
 
@@ -82,11 +82,11 @@ K . . . . . . . .
         """
 P P . . . . . . .
 K . . r . . . . .
-""" as Sente
+"""
 
-      game.checkMate must beTrue
+      game.checkmate must beTrue
       game.winner must beSome.like { case color =>
-        color == Gote
+        color.gote
       }
     }
 
@@ -94,7 +94,7 @@ K . . r . . . . .
       val game = """
 . . . . p . . . .
 . . . . . K . . .
-""" as Sente
+"""
 
       game.winner must beNone
 
@@ -103,14 +103,14 @@ K . . r . . . . .
     "not be playable" in {
       "with touching kings" in {
         val game = "k K . B N . . . ." as Gote
-        game.playable(true) must beFalse
-        game.playable(false) must beFalse
+        game.playable(strict = true, withImpasse = true) must beFalse
+        game.playable(strict = false, withImpasse = true) must beFalse
       }
 
       "with other side in check" in {
-        val game = "k . R . K . . . ." as Sente
-        game.playable(true) must beFalse
-        game.playable(false) must beFalse
+        val game = "k . R . K . . . ."
+        game.playable(strict = true, withImpasse = true) must beFalse
+        game.playable(strict = false, withImpasse = true) must beFalse
       }
 
       "with doubled pawns" in {
@@ -120,9 +120,9 @@ k . . . . . . . .
 P p . . . . . . .
 P . . . . . . . .
 K . . . . . . . .
-""" as Sente
-        game.playable(true) must beFalse
-        game.playable(false) must beFalse
+"""
+        game.playable(strict = true, withImpasse = true) must beFalse
+        game.playable(strict = false, withImpasse = true) must beFalse
       }
     }
 

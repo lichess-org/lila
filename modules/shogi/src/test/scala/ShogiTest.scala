@@ -8,43 +8,44 @@ import org.specs2.mutable.Specification
 
 import scala.annotation.nowarn
 
-import shogi.format.{ Forsyth, Visual }
-import shogi.variant._
+import format.forsyth.{ Sfen, Visual }
+import format.usi.Usi
+import variant._
 
 trait ShogiTest extends Specification with ValidatedMatchers {
 
-  implicit def stringToBoard(str: String): Board = (Visual << str).get
+  implicit def stringToSituation(str: String): Situation = (Visual parse str).get
 
-  implicit def stringToSituationBuilder(str: String) =
+  implicit def colorChanger(str: String) =
     new {
 
-      def as(color: Color): Situation = Situation((Visual << str).get, color)
+      def as(color: Color): Situation = ((Visual parse str).get).copy(color = color)
     }
 
-  case class RichActor(actor: Actor) {
+  case class RichActor(actor: MoveActor) {
     def threatens(to: Pos): Boolean =
       actor.piece.eyes(actor.pos, to) && {
-        (!actor.piece.longRangeDirs.nonEmpty) ||
-        (actor.pos touches to) ||
+        (actor.piece.projectionDirs.isEmpty) ||
+        (actor.piece.directDirs.exists(_(actor.pos).contains(to))) ||
         actor.piece.role.dir(actor.pos, to).exists {
-          Actor.longRangeThreatens(actor.board, actor.pos, _, to)
+          actor.situation.variant.longRangeThreatens(actor.situation.board, actor.pos, _, to)
         }
       }
   }
 
-  implicit def richActor(actor: Actor) = RichActor(actor)
+  implicit def richActor(actor: MoveActor) = RichActor(actor)
 
   case class RichGame(game: Game) {
 
-    def as(color: Color): Game = game.withPlayer(color)
+    def as(color: Color): Game = game.withColor(color)
 
-    def playMoves(moves: (Pos, Pos)*): Validated[String, Game] = playMoveList(moves)
+    def playMoves(moves: (Pos, Pos, Boolean)*): Validated[String, Game] = playMoveList(moves)
 
-    @nowarn def playMoveList(moves: Seq[(Pos, Pos)]): Validated[String, Game] = {
-      val vg = moves.foldLeft(Validated.valid(game): Validated[String, Game]) { (vg, move) =>
-        vg.foreach { _.situation.destinations }
+    @nowarn def playMoveList(moves: Seq[(Pos, Pos, Boolean)]): Validated[String, Game] = {
+      val vg = moves.foldLeft[Validated[String, Game]](Validated.valid(game)) { case (vg, (orig, dest, prom)) =>
+        vg.foreach { _.situation.moveDestinations }
         val ng = vg flatMap { g =>
-          g(move._1, move._2) map (_._1)
+          g(Usi.Move(orig, dest, prom))
         }
         ng
       }
@@ -56,92 +57,59 @@ trait ShogiTest extends Specification with ValidatedMatchers {
         dest: Pos,
         promotion: Boolean = false
     ): Validated[String, Game] =
-      game.apply(orig, dest, promotion) map (_._1)
+      game.apply(Usi.Move(orig, dest, promotion))
 
     def playDrop(
         role: Role,
         dest: Pos
     ): Validated[String, Game] =
-      game.drop(role, dest) map (_._1)
+      game.apply(Usi.Drop(role, dest))
 
-    def withClock(c: Clock) = game.copy(clock = Option(c))
+    def withClock(c: Clock) = game.copy(clock = Some(c))
   }
 
   implicit def richGame(game: Game) = RichGame(game)
 
-  def fenToGame(positionString: String, variant: Variant = shogi.variant.Standard) = {
-    val situation = Forsyth << positionString
-    situation map { sit =>
-      sit.color -> sit.withVariant(variant).board
-    } toValid "Could not construct situation from SFEN" map { case (color, board) =>
+  def sfenToGame(sfen: Sfen, variant: Variant = shogi.variant.Standard) =
+    sfen.toSituation(variant) toValid "Could not construct situation from SFEN" map { sit =>
       Game(variant).copy(
-        situation = Situation(board, color)
+        situation = sit
       )
     }
-  }
 
-  def makeBoard(pieces: (Pos, Piece)*): Board =
-    Board(pieces toMap, History(), shogi.variant.Standard)
+  def makeSituation(pieces: (Pos, Piece)*): Situation =
+    Situation(shogi.variant.Standard).withBoard(Board(pieces))
 
-  def makeBoard(str: String, variant: Variant) =
-    (Visual.<<@(str, variant)).get
+  def makeSituation: Situation = Situation(shogi.variant.Standard)
 
-  def makeBoard: Board = Board init shogi.variant.Standard
-
-  def makeEmptyBoard: Board = Board empty shogi.variant.Standard
+  def makeEmptySituation: Situation = Situation(shogi.variant.Standard).withBoard(Board.empty)
 
   def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] =
     beSome.like { case p =>
       sortPoss(p.toList) must_== sortPoss(poss.toList)
     }
 
-  def makeGame: Game = Game(makeBoard, Sente)
+  def makeGame: Game = Game(makeSituation)
 
-  def makeHand(
-      pawn: Int = 0,
-      lance: Int = 0,
-      knight: Int = 0,
-      silver: Int = 0,
-      gold: Int = 0,
-      bishop: Int = 0,
-      rook: Int = 0
-  ): Hand =
-    Hand(
-      Map(
-        Pawn   -> pawn,
-        Lance  -> lance,
-        Knight -> knight,
-        Silver -> silver,
-        Gold   -> gold,
-        Bishop -> bishop,
-        Rook   -> rook
-      )
-    )
-
-  def bePoss(board: Board, visual: String): Matcher[Option[Iterable[Pos]]] =
+  def bePoss(situation: Situation, visual: String): Matcher[Option[Iterable[Pos]]] =
     beSome.like { case p =>
-      Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
-    }
-
-  def beBoard(visual: String): Matcher[Validated[String, Board]] =
-    beValid.like { case b =>
-      b.visual must_== ((Visual << visual).get).visual
+      Visual.addNewLines(Visual.render(situation, Map(p -> 'x'))) must_== visual
     }
 
   def beSituation(visual: String): Matcher[Validated[String, Situation]] =
     beValid.like { case s =>
-      s.board.visual must_== ((Visual << visual).get).visual
+      s.visual must_== ((Visual parse visual).get).visual
     }
 
   def beGame(visual: String): Matcher[Validated[String, Game]] =
     beValid.like { case g =>
-      g.board.visual must_== ((Visual << visual).get).visual
+      g.situation.visual must_== ((Visual parse visual).get).visual
     }
 
   def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)
 
-  def pieceMoves(piece: Piece, pos: Pos): Option[List[Pos]] =
-    (makeEmptyBoard.place(piece, pos)) flatMap { b =>
-      b actorAt pos map (_.destinations.distinct)
-    }
+  def pieceMoves(piece: Piece, pos: Pos): Option[List[Pos]] = {
+    val sit = makeEmptySituation
+    sit.withBoard(sit.board.place(piece, pos).get).moveActorAt(pos) map (_.destinations)
+  }
 }

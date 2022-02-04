@@ -1,17 +1,17 @@
 package shogi
 package format.usi
 
-import variant.Variant
+import shogi.variant.Variant
 
 object Binary {
 
-  def decodeMoves(variant: Variant, bs: Seq[Byte]): Vector[Usi] = 
-    Reader.decode(variant, bs)
-  def decodeMoves(variant: Variant, bs: Seq[Byte], nb: Int): Vector[Usi] = 
-    Reader.decode(variant, bs, nb)
+  def decodeMoves(bs: Seq[Byte], variant: Variant): Vector[Usi] = 
+    Reader.decode(bs, variant)
+  def decodeMoves(bs: Seq[Byte], variant: Variant,  nb: Int): Vector[Usi] = 
+    Reader.decode(bs, variant, nb)
 
-  def encodeMoves(variant: Variant, ms: Seq[Usi]): Array[Byte] = 
-    Writer.encode(variant, ms)
+  def encodeMoves(ms: Seq[Usi], variant: Variant): Array[Byte] = 
+    Writer.encode(ms, variant)
 
   private object Encoding {
     val roleToInt: Map[Role, Int] = Map(
@@ -36,30 +36,30 @@ object Binary {
   private object Reader {
     private val maxPlies = 600
 
-    def decode(variant: Variant, bs: Seq[Byte]): Vector[Usi] =
-      decode(variant, bs, maxPlies * 2)
-    def decode(variant: Variant, bs: Seq[Byte], nb: Int): Vector[Usi] =
-      decodeMovesAndDrops(variant, bs take (nb * 2) map toInt)
+    def decode(bs: Seq[Byte], variant: Variant): Vector[Usi] =
+      decode(bs, variant, maxPlies * 2)
+    def decode(bs: Seq[Byte], variant: Variant, nb: Int): Vector[Usi] =
+      decodeMovesAndDrops(bs take (nb * 2) map toInt, variant)
 
-    private def decodeMovesAndDrops(variant: Variant, mds: Seq[Int]): Vector[Usi] =
+    private def decodeMovesAndDrops(mds: Seq[Int], variant: Variant): Vector[Usi] =
       mds.grouped(2)
         .map {
           case Seq(i1, i2) =>
-            if (bitAt(i1, 7) && variant.hasHandData)
-              decodeDrop(variant, i1, i2)
-            else decodeMove(variant, i1, i2)
+            if (bitAt(i1, 7) && variant.supportsDrops)
+              decodeDrop(i1, i2, variant)
+            else decodeMove(i1, i2, variant)
           case x => !!(x map showByte mkString ",")
         }.toVector
 
-    private def decodeMove(variant: Variant, i1: Int, i2: Int): Usi =
-      Usi.Move(pos(variant, right(i1, 7)), pos(variant, right(i2, 7)), bitAt(i2, 7))
+    private def decodeMove(i1: Int, i2: Int, variant: Variant): Usi =
+      Usi.Move(pos(right(i1, 7), variant.numberOfFiles), pos(right(i2, 7), variant.numberOfFiles), bitAt(i2, 7))
 
-    private def decodeDrop(variant: Variant, i1: Int, i2: Int): Usi =
-      Usi.Drop(Encoding.intToRole(right(i1, 7)), pos(variant, right(i2, 7)))
+    private def decodeDrop(i1: Int, i2: Int, variant: Variant): Usi =
+      Usi.Drop(Encoding.intToRole(right(i1, 7)), pos(right(i2, 7), variant.numberOfFiles))
 
-    private def pos(variant: Variant, i: Int): Pos =
-      Pos.at(i % variant.numberOfFiles + 1, i / variant.numberOfFiles + 1) getOrElse !!(
-        s"Invalid position (${variant.name}, ${showByte(i)})"
+    private def pos(i: Int, files: Int): Pos =
+      Pos.at(i % files, i / files) getOrElse !!(
+        s"Invalid position (files: $files, byte: ${showByte(i)})"
       )
 
     // right x bits
@@ -75,29 +75,29 @@ object Binary {
 
   private object Writer {
 
-    def encode(variant: Variant, usis: Seq[Usi]): Array[Byte] =
-      usis.flatMap(encode(variant, _)).toArray
+    def encode(usis: Seq[Usi], variant: Variant): Array[Byte] =
+      usis.flatMap(encode(_, variant)).toArray
 
-    private def encode(variant: Variant, usi: Usi): Seq[Byte] =
+    private def encode(usi: Usi, variant: Variant): Seq[Byte] =
       usi match {
-        case Usi.Move(orig, dest, prom) => encodeMove(variant, orig, dest, prom)
-        case Usi.Drop(role, pos)        => encodeDrop(variant, role, pos)
+        case Usi.Move(orig, dest, prom) => encodeMove(orig, dest, prom, variant)
+        case Usi.Drop(role, pos)        => encodeDrop(role, pos, variant)
       }
 
-    private def encodeMove(variant: Variant, orig: Pos, dest: Pos, prom: Boolean): Seq[Byte] =
+    private def encodeMove(orig: Pos, dest: Pos, prom: Boolean, variant: Variant): Seq[Byte] =
       Seq(
-        posInt(variant, orig),
-        (if (prom) (1 << 7) else 0) | posInt(variant, dest)
+        posInt(orig, variant.numberOfFiles),
+        (if (prom) (1 << 7) else 0) | posInt(dest, variant.numberOfFiles)
       ).map(_.toByte)
 
-    private def encodeDrop(variant: Variant, role: Role, pos: Pos): Seq[Byte] =
+    private def encodeDrop(role: Role, pos: Pos, variant: Variant): Seq[Byte] =
       Seq(
         (1 << 7) | Encoding.roleToInt(role),
-        posInt(variant, pos)
+        posInt(pos, variant.numberOfFiles)
       ).map(_.toByte)
 
-    private def posInt(variant: Variant, pos: Pos): Int =
-      (variant.numberOfFiles * (pos.y - 1)) + (pos.x - 1)
+    private def posInt(pos: Pos, files: Int): Int =
+      files * pos.rank.index + pos.file.index
   }
 
 }

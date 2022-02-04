@@ -5,11 +5,11 @@ class HistoryTest extends ShogiTest {
   "fourfold repetition" should {
     def toHash(a: Int) = Array(a.toByte, 0.toByte, 0.toByte)
     def makeHistory(positions: List[Int]) =
-      (positions map toHash).foldLeft(History()) { case (history, hash) =>
+      (positions map toHash).foldLeft(History.empty) { case (history, hash) =>
         history.copy(positionHashes = hash ++ history.positionHashes)
       }
     "empty history" in {
-      History().fourfoldRepetition must_== false
+      History.empty.fourfoldRepetition must_== false
     }
     "not 4 same elements" in {
       val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 16, 2, 23, 55))

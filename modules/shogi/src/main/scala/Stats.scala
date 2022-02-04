@@ -1,7 +1,6 @@
 package shogi
 
 // Welford's numerically stable online variance.
-//
 sealed trait Stats {
   def samples: Int
   def mean: Float
@@ -14,7 +13,7 @@ sealed trait Stats {
       s record n.toFloat(v)
     }
 
-  def stdDev = variance.map { Math.sqrt(_).toFloat }
+  def stdDev = variance.map { math.sqrt(_).toFloat }
 
   def total = samples * mean
 }

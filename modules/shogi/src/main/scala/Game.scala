@@ -1,125 +1,100 @@
 package shogi
 
 import cats.data.Validated
-import format.usi.Usi
+
+import shogi.format.forsyth.Sfen
+import shogi.format.ParsedMove
+import shogi.format.usi.Usi
 
 case class Game(
     situation: Situation,
-    usiMoves: Vector[Usi] = Vector(),
+    usiMoves: Vector[Usi] = Vector.empty,
     clock: Option[Clock] = None,
-    turns: Int = 0,         // plies - todo rename
-    startedAtTurn: Int = 0, // plies
+    plies: Int = 0,
+    startedAtPly: Int = 0,
     startedAtMove: Int = 1
 ) {
-  def apply(
-      orig: Pos,
-      dest: Pos,
-      promotion: Boolean = false,
-      metrics: MoveMetrics = MoveMetrics()
-  ): Validated[String, (Game, Move)] = {
-    situation.move(orig, dest, promotion).map(_ withMetrics metrics) map { move =>
-      apply(move) -> move
-    }
-  }
 
-  def apply(move: Move): Game = {
-    val newSituation = move situationAfter
-
+  private def applySituation(sit: Situation, metrics: MoveMetrics = MoveMetrics.empty): Game = 
     copy(
-      situation = newSituation,
-      turns = turns + 1,
-      usiMoves = usiMoves :+ move.toUsi,
-      clock = applyClock(move.metrics, newSituation.status.isEmpty)
-    )
-  }
-
-  def drop(
-      role: Role,
-      pos: Pos,
-      metrics: MoveMetrics = MoveMetrics()
-  ): Validated[String, (Game, Drop)] =
-    situation.drop(role, pos).map(_ withMetrics metrics) map { drop =>
-      applyDrop(drop) -> drop
-    }
-
-  def applyDrop(drop: Drop): Game = {
-    val newSituation = drop situationAfter
-
-    copy(
-      situation = newSituation,
-      turns = turns + 1,
-      usiMoves = usiMoves :+ drop.toUsi,
-      clock = applyClock(drop.metrics, newSituation.status.isEmpty)
-    )
-  }
-
-  private def applyClock(metrics: MoveMetrics, gameActive: Boolean) =
-    clock.map { c =>
-      {
-        val newC = c.step(metrics, gameActive)
-        if (turns - startedAtTurn == 1) newC.start else newC
+      situation = sit,
+      plies = plies + 1,
+      usiMoves = sit.history.lastMove.fold(usiMoves)(usiMoves :+ _),
+      clock = clock map { c =>
+        val newC = c.step(metrics, sit.status.isEmpty)
+        if (plies - startedAtPly == 1) newC.start else newC
       }
-    }
+    )
 
-  def apply(usi: Usi.Move): Validated[String, (Game, Move)] = apply(usi.orig, usi.dest, usi.promotion)
-  def apply(usi: Usi.Drop): Validated[String, (Game, Drop)] = drop(usi.role, usi.pos)
-  def apply(usi: Usi): Validated[String, (Game, MoveOrDrop)] = {
-    usi match {
-      case u: Usi.Move => apply(u) map { case (g, m) => g -> Left(m) }
-      case u: Usi.Drop => apply(u) map { case (g, d) => g -> Right(d) }
-    }
-  }
+  def apply(usi: Usi, metrics: MoveMetrics): Validated[String, Game] =
+    situation(usi).map(applySituation(_, metrics))
+  
+  def apply(usi: Usi): Validated[String, Game] =
+    situation(usi).map(applySituation(_))
 
-  def player = situation.color
+  def apply(parsedMove: ParsedMove, metrics: MoveMetrics): Validated[String, Game] =
+    situation(parsedMove).map(applySituation(_, metrics))
+
+  
+  def apply(parsedMove: ParsedMove): Validated[String, Game] =
+    situation(parsedMove).map(applySituation(_))
 
   def board = situation.board
 
-  def isStandardInit = board.pieces == shogi.variant.Standard.pieces
+  def hands = situation.hands
 
-  // Fullmove number: The number of the full move.
+  def color = situation.color
+
+  def history = situation.history
+
+  def variant = situation.variant
+
   // It starts at 1, and is incremented after Gote's move.
-  def fullMoveNumber: Int = 1 + turns / 2
+  def fullTurnNumber: Int = 1 + plies / 2
 
-  def playedPlies: Int = turns - startedAtTurn
+  def playedPlies: Int = plies - startedAtPly
 
   def moveNumber: Int = startedAtMove + playedPlies
 
   def withBoard(b: Board) = copy(situation = situation.copy(board = b))
 
-  def updateBoard(f: Board => Board) = withBoard(f(board))
+  def withHands(hs: Hands) = copy(situation = situation.copy(hands = hs))
 
-  def withPlayer(c: Color) = copy(situation = situation.copy(color = c))
+  def withColor(c: Color) = copy(situation = situation.copy(color = c))
 
-  def withTurns(t: Int) = copy(turns = t)
+  def withClock(c: Option[Clock]) = copy(clock = c)
+
+  def withPlies(p: Int) = copy(plies = p)
+
+  def toSfen: Sfen = Sfen(this)
 }
 
 object Game {
+  def apply(situation: Situation): Game =
+    new Game(situation)
+  
   def apply(variant: shogi.variant.Variant): Game =
-    new Game(
-      Situation(Board init variant, Sente)
-    )
+    Game(Situation(variant))
 
-  def apply(board: Board): Game = apply(board, Sente)
-
-  def apply(board: Board, color: Color): Game = new Game(Situation(board, color))
-
-  def apply(variantOption: Option[shogi.variant.Variant], fen: Option[String]): Game = {
+  def apply(variantOption: Option[shogi.variant.Variant], sfen: Option[Sfen]): Game = {
     val variant = variantOption | shogi.variant.Standard
     val g       = apply(variant)
-    fen
+    sfen
+      .filterNot(_.initialOf(variant))
       .flatMap {
-        format.Forsyth.<<<@(variant, _)
+        _.toSituationPlus(variant)
       }
       .fold(g) { parsed =>
         g.copy(
           situation = Situation(
-            board = parsed.situation.board withVariant g.board.variant withHandData {
-              parsed.situation.board.handData orElse g.board.handData
-            },
-            color = parsed.situation.color
+            board = parsed.situation.board,
+            hands = parsed.situation.hands,
+            color = parsed.situation.color,
+            history = History.empty,
+            variant = g.variant
           ),
-          turns = parsed.turns,
-          startedAtTurn = parsed.turns,
+          plies = parsed.plies,
+          startedAtPly = parsed.plies,
           startedAtMove = parsed.moveNumber
         )
       }

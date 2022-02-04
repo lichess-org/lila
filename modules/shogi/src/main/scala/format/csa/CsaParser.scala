@@ -2,12 +2,12 @@ package shogi
 package format
 package csa
 
-import variant.Standard
-
 import scala.util.parsing.combinator._
 import cats.data.Validated
 import cats.data.Validated.{ invalid, valid }
 import cats.implicits._
+
+import shogi.variant.Standard
 
 // https://gist.github.com/Marken-Foo/b1047990ee0c65537582ebe591e2b6d7
 object CsaParser {
@@ -39,15 +39,12 @@ object CsaParser {
         .mkString("\n")
       for {
         splitted <- splitHeaderAndMoves(preprocessed)
-        headerStr = splitted._1
-        movesStr  = splitted._2
+        (headerStr, movesStr) = splitted
         splitted3 <- splitMetaAndBoard(headerStr)
-        metaStr  = splitted3._1
-        boardStr = splitted3._2
+        (metaStr, boardStr) = splitted3
         preTags     <- TagParser(metaStr)
         parsedMoves <- MovesParser(movesStr)
-        strMoves          = parsedMoves._1
-        terminationOption = parsedMoves._2
+        (strMoves, terminationOption) = parsedMoves
         init      <- getComments(headerStr)
         situation <- CsaParserHelper.parseSituation(boardStr)
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
@@ -74,17 +71,17 @@ object CsaParser {
       nbMoves: Int,
       moveTermTag: Option[Tag]
   ): Tags = {
-    val fenTag = Forsyth.exportSituation(sit).some.collect {
-      case sfen if !Forsyth.compareTruncated(sfen, Forsyth.initial) => Tag(_.FEN, sfen)
+    val sfenTag = sit.toSfen.some.collect {
+      case sfen if (sfen.truncate != sit.variant.initialSfen.truncate) => Tag(_.Sfen, sfen.truncate)
     }
     val termTag = (tags(_.Termination) orElse moveTermTag.map(_.value)).map(t => Tag(_.Termination, t))
     val resultTag = CsaParserHelper
       .createResult(
         termTag,
-        Color.fromSente((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
+        Color.fromSente((nbMoves + { if (sit.color.gote) 1 else 0 }) % 2 == 0)
       )
 
-    List(fenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
+    List(sfenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
   }
 
   trait Logging { self: Parsers =>
@@ -197,13 +194,11 @@ object CsaParser {
               else invalid(s"$role not supported in standard shogi")
             dest <- Pos.allNumberKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
             orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
-          } yield CsaStd(
+          } yield CsaMove(
             dest = dest,
             role = role,
             orig = orig,
             metas = Metas(
-              check = false,
-              checkmate = false,
               comments = Nil,
               glyphs = Glyphs.empty,
               variations = Nil,
@@ -223,8 +218,6 @@ object CsaParser {
             role = role,
             pos = pos,
             metas = Metas(
-              check = false,
-              checkmate = false,
               comments = Nil,
               glyphs = Glyphs.empty,
               variations = Nil,
@@ -281,14 +274,14 @@ object CsaParser {
     Tag.csaNameToTag.get(str).fold(str)(_.lowercase)
 
   private def getComments(csa: String): Validated[String, InitialPosition] =
-    augmentString(csa).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line =>
+    augmentString(csa).linesIterator.toList.map(_.trim).filter(_.nonEmpty) filter { line =>
       line.startsWith("'")
     } match {
       case (comms) => valid(InitialPosition(comms.map(_.drop(1).trim)))
     }
 
   private def splitHeaderAndMoves(csa: String): Validated[String, (String, String)] =
-    augmentString(csa).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
+    augmentString(csa).linesIterator.toList.map(_.trim).filter(_.nonEmpty) span { line =>
       !(moveOrDropRegex.matches(line))
     } match {
       case (headerLines, moveLines) => valid(headerLines.mkString("\n") -> moveLines.mkString("\n"))
@@ -296,7 +289,7 @@ object CsaParser {
 
   private def splitMetaAndBoard(csa: String): Validated[String, (String, String)] =
     augmentString(csa).linesIterator
-      .to(List)
+      .toList
       .map(_.trim)
       .filter(l => l.nonEmpty && !l.startsWith("'")) partition { line =>
       !((line startsWith "P") || (line == "+") || (line == "-"))

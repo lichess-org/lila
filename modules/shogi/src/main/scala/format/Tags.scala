@@ -12,8 +12,8 @@ case class Tag(name: TagType, value: String) {
 sealed trait TagType {
   lazy val name      = toString
   lazy val lowercase = name.toLowerCase
-  lazy val kifName   = Tag.tagToKifName.get(this).getOrElse(name)
-  lazy val csaName   = Tag.tagToCsaName.get(this).getOrElse(name.toUpperCase)
+  lazy val kifName   = Tag.tagToKifName.get(this) | name
+  lazy val csaName   = Tag.tagToCsaName.get(this) | name.toUpperCase
   val isUnknown      = false
 }
 
@@ -49,7 +49,7 @@ case class Tags(value: List[Tag]) extends AnyVal {
       case _                       => None
     }
 
-  def fen: Option[format.FEN] = apply(_.FEN) map format.FEN.apply
+  def sfen: Option[format.forsyth.Sfen] = apply(_.Sfen) map format.forsyth.Sfen.apply
 
   def exists(which: Tag.type => TagType): Boolean =
     value.exists(_.name == which(Tag))
@@ -96,7 +96,7 @@ object Tag {
   case object SenteTeam   extends TagType
   case object GoteTeam    extends TagType
   case object Result      extends TagType
-  case object FEN         extends TagType
+  case object Sfen        extends TagType
   case object Variant     extends TagType
   case object Opening     extends TagType
   case object Termination extends TagType
@@ -147,7 +147,7 @@ object Tag {
     SenteTeam,
     GoteTeam,
     Result,
-    FEN,
+    Sfen,
     Variant,
     Opening,
     Termination,
@@ -161,7 +161,7 @@ object Tag {
       .map { t =>
         t.lowercase -> t
       }
-      .to(Map)
+      .toMap
 
   def apply(name: String, value: Any): Tag =
     new Tag(

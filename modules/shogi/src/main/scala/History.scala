@@ -1,32 +1,10 @@
 package shogi
 
-import format.usi.Usi
-
-// Checks received by the respective side.
-case class CheckCount(sente: Int = 0, gote: Int = 0) {
-  def add(color: Color) =
-    copy(
-      sente = sente + color.fold(1, 0),
-      gote = gote + color.fold(0, 1)
-    )
-
-  def nonEmpty = sente > 0 || gote > 0
-
-  def apply(color: Color) = color.fold(sente, gote)
-
-  def reset(color: Color) = {
-    if (color.sente) {
-      copy(sente = 0)
-    } else {
-      copy(gote = 0)
-    }
-  }
-}
+import shogi.format.usi.Usi
 
 case class History(
-    lastMove: Option[Usi] = None,
-    positionHashes: PositionHash = Array.empty,
-    checkCount: CheckCount = CheckCount(0, 0)
+    lastMove: Option[Usi],
+    positionHashes: PositionHash
 ) {
 
   private def isRepetition(times: Int) =
@@ -43,17 +21,11 @@ case class History(
       }
     }
 
-  def fourfoldRepetition = isRepetition(4)
+  lazy val fourfoldRepetition = isRepetition(4)
 
-  def perpetualCheck =
-    fourfoldRepetition && (checkCount.sente >= 4 || checkCount.gote >= 4)
+  def withLastMove(u: Usi) = copy(lastMove = Some(u))
 
-  def withLastMove(m: Usi) = copy(lastMove = Option(m))
-
-  def withCheck(color: Color, v: Boolean) =
-    if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount reset color)
-
-  def withCheckCount(cc: CheckCount) = copy(checkCount = cc)
+  def withPositionHashes(h: PositionHash) = copy(positionHashes = h)
 
   override def toString = {
     val positions = (positionHashes grouped Hash.size).toList
@@ -63,11 +35,13 @@ case class History(
 
 object History {
 
-  def make(
-      lastMove: Option[String] // a2a4
+  def empty: History = History(None, Array.empty)
+
+  def apply(
+      lastMove: Option[String]
   ): History =
     History(
       lastMove = lastMove flatMap Usi.apply,
-      positionHashes = Array()
+      positionHashes = Array.empty
     )
 }

@@ -37,7 +37,7 @@ final case class LagTracker(
     val e = lagEstimator.record((lag atMost quotaMax).centis.toFloat)
     copy(
       lagEstimator = e,
-      compEstimate = Option(
+      compEstimate = Some(
         Centis(e.mean - .8f * e.deviation).nonNeg atMost quota
       )
     )
@@ -48,7 +48,7 @@ final case class LagTracker(
   def lagMean: Option[Centis] = moves > 0 option Centis(lagStats.mean)
 
   def compEstStdErr: Option[Float] =
-    moves > 2 option Math.sqrt(compEstSqErr).toFloat / (moves - 2)
+    moves > 2 option math.sqrt(compEstSqErr).toFloat / (moves - 2)
 
   def compAvg: Option[Centis] = totalComp / moves
 

@@ -42,11 +42,11 @@ class ClockTest extends ShogiTest {
     val clock = Clock(5 * 60 * 1000, 0, 0, 0)
     val game  = makeGame withClock clock.start
     "new game" in {
-      game.clock map { _.color } must_== Option(Sente)
+      game.clock map { _.color } must_== Some(Sente)
     }
     "one move played" in {
-      game.playMoves(SQ7G -> SQ7F) must beValid.like { case g: Game =>
-        g.clock map { _.color } must_== Option(Gote)
+      game.playMoves((SQ7G, SQ7F, false)) must beValid.like { case g: Game =>
+        g.clock map { _.color } must_== Some(Gote)
       }
     }
   }
@@ -76,7 +76,7 @@ class ClockTest extends ShogiTest {
     }
   }
   "lag compensation" should {
-    def durOf(lag: Int) = MoveMetrics(clientLag = Option(Centis(lag)))
+    def durOf(lag: Int) = MoveMetrics(clientLag = Some(Centis(lag)))
 
     def clockStep(clock: Clock, wait: Int, lags: Int*) = {
       (lags.foldLeft(clock) { (clk, lag) =>
@@ -238,28 +238,28 @@ class ClockTest extends ShogiTest {
 
   "kif config" in {
     "everything" in {
-      Clock.readKifConfig("10分|20秒(1)+0秒") must_== Option(Clock.Config(600, 0, 20, 1))
+      Clock.readKifConfig("10分|20秒(1)+0秒") must_== Some(Clock.Config(600, 0, 20, 1))
     }
     "without inc" in {
-      Clock.readKifConfig("10分|20秒(1)") must_== Option(Clock.Config(600, 0, 20, 1))
+      Clock.readKifConfig("10分|20秒(1)") must_== Some(Clock.Config(600, 0, 20, 1))
     }
     "without per" in {
-      Clock.readKifConfig("10分|20秒+10秒") must_== Option(Clock.Config(600, 10, 20, 1))
+      Clock.readKifConfig("10分|20秒+10秒") must_== Some(Clock.Config(600, 10, 20, 1))
     }
     "without per and inc" in {
-      Clock.readKifConfig("10分|20秒") must_== Option(Clock.Config(600, 0, 20, 1))
+      Clock.readKifConfig("10分|20秒") must_== Some(Clock.Config(600, 0, 20, 1))
     }
     "without per and inc" in {
-      Clock.readKifConfig("10分+20秒") must_== Option(Clock.Config(600, 0, 20, 1))
+      Clock.readKifConfig("10分+20秒") must_== Some(Clock.Config(600, 0, 20, 1))
     }
     "mix of mins and secs" in {
-      Clock.readKifConfig("10分20秒") must_== Option(Clock.Config(620, 0, 0, 1))
+      Clock.readKifConfig("10分20秒") must_== Some(Clock.Config(620, 0, 0, 1))
     }
     "hours" in {
-      Clock.readKifConfig("1時間+20秒") must_== Option(Clock.Config(3600, 0, 20, 1))
+      Clock.readKifConfig("1時間+20秒") must_== Some(Clock.Config(3600, 0, 20, 1))
     }
     "mix of hours mins and secs" in {
-      Clock.readKifConfig("1時間10分20秒+20秒") must_== Option(Clock.Config(4220, 0, 20, 1))
+      Clock.readKifConfig("1時間10分20秒+20秒") must_== Some(Clock.Config(4220, 0, 20, 1))
     }
   }
 }

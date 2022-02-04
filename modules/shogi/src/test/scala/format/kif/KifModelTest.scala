@@ -2,13 +2,14 @@ package shogi
 package format
 package kif
 
-import Kif._
+import forsyth.Sfen
 import variant._
+import Kif._
 
 class KifModelTest extends ShogiTest {
   "render kif situation - board, hands, turn, from random sfen" in {
     renderSituation(
-      (shogi.format.Forsyth << "lnG6/2+P4+Sn/kp3+S3/2p6/1n7/9/9/7K1/9 w GS2r2b2gsn3l15p").get
+      Sfen("lnG6/2+P4+Sn/kp3+S3/2p6/1n7/9/9/7K1/9 w GS2r2b2gsn3l15p").toSituation(Standard).get
     ) must_== """後手の持駒：飛二　角二　金二　銀　桂　香三　歩十五
   ９ ８ ７ ６ ５ ４ ３ ２ １
 +---------------------------+
@@ -28,14 +29,14 @@ class KifModelTest extends ShogiTest {
 
   "render kif situation - default minishogi" in {
     renderSetup(
-      Minishogi,
-      Some(shogi.format.FEN("rbsgk/4p/5/P4/KGSBR b - 1"))
+      Some(Sfen("rbsgk/4p/5/P4/KGSBR b - 1")),
+      Minishogi
     ) must_== """手合割：5五将棋"""
   }
 
   "render kif situation - minishogi" in {
     renderSituation(
-      (shogi.format.Forsyth.<<@(Minishogi, "rbsgk/4p/P4/5/KGSBR w - 2")).get
+      Sfen("rbsgk/4p/P4/5/KGSBR w - 2").toSituation(Minishogi).get
     ) must_== """後手の持駒：なし
   ５ ４ ３ ２ １
 +---------------+

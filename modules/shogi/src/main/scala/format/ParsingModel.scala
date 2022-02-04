@@ -2,6 +2,9 @@ package shogi
 package format
 
 import cats.data.Validated
+import cats.data.Validated.valid
+
+import shogi.format.usi.Usi
 
 case class ParsedNotation(
     initialPosition: InitialPosition,
@@ -17,9 +20,9 @@ object ParsedMoves {
 
 sealed trait ParsedMove {
 
-  def apply(situation: Situation): Validated[String, MoveOrDrop]
+  def toUsi(sit: Situation): Validated[String, Usi]
 
-  def getDest: Pos
+  def positions: List[Pos]
 
   def metas: Metas
 
@@ -39,9 +42,10 @@ sealed trait ParsedMove {
     withMetas(
       metas.withGlyphs(metas.glyphs merge glyphs)
     )
+
 }
 
-case class KifStd(
+case class KifMove(
     dest: Pos,
     orig: Pos,
     role: Role,
@@ -49,46 +53,29 @@ case class KifStd(
     metas: Metas = Metas.empty
 ) extends ParsedMove {
 
-  def apply(situation: Situation) = move(situation) map Left.apply
+  def toUsi(sit: Situation) = valid(Usi.Move(orig, dest, promotion))
 
   def withMetas(m: Metas) = copy(metas = m)
 
-  def getDest = dest
-
-  def move(situation: Situation): Validated[String, shogi.Move] =
-    situation.board.actorAt(orig) flatMap { a =>
-      a.trustedMoves find { m =>
-        m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
-      }
-    } match {
-      case None       => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) => Validated valid move
-    }
+  def positions = List(orig, dest)
 
 }
 
-case class CsaStd(
+case class CsaMove(
     dest: Pos,
     orig: Pos,
     role: Role,
     metas: Metas = Metas.empty
 ) extends ParsedMove {
 
-  def apply(situation: Situation) = move(situation) map Left.apply
+  def toUsi(sit: Situation): Validated[String, Usi] =
+    Validated.fromOption(sit.board(orig), s"No piece at $orig") map { p =>
+      Usi.Move(orig, dest, role != p.role)
+    }
 
   def withMetas(m: Metas) = copy(metas = m)
 
-  def getDest = dest
-
-  def move(situation: Situation): Validated[String, shogi.Move] =
-    situation.board.actorAt(orig) flatMap { a =>
-      a.trustedMoves find { m =>
-        m.dest == dest && m.promotion == (role != m.piece.role) && a.board.variant.kingSafety(a, m)
-      }
-    } match {
-      case None       => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) => Validated valid move
-    }
+  def positions = List(orig, dest)
 
 }
 
@@ -99,14 +86,12 @@ case class Drop(
     metas: Metas = Metas.empty
 ) extends ParsedMove {
 
-  def apply(situation: Situation) = drop(situation) map Right.apply
-
-  def getDest = pos
+  def toUsi(sit: Situation) =
+    valid(Usi.Drop(role, pos))
 
   def withMetas(m: Metas) = copy(metas = m)
 
-  def drop(situation: Situation): Validated[String, shogi.Drop] =
-    situation.drop(role, pos)
+  def positions = List(pos)
 }
 
 case class InitialPosition(
@@ -114,8 +99,6 @@ case class InitialPosition(
 )
 
 case class Metas(
-    check: Boolean,
-    checkmate: Boolean,
     comments: List[String],
     glyphs: Glyphs,
     variations: List[ParsedMoves],
@@ -140,7 +123,7 @@ case class Metas(
 }
 
 object Metas {
-  val empty = Metas(false, false, Nil, Glyphs.empty, Nil, None, None)
+  val empty = Metas(Nil, Glyphs.empty, Nil, None, None)
 }
 
 case class Suffixes(

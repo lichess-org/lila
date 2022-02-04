@@ -14,7 +14,7 @@ case class Glyphs(
 
   def isEmpty = this == Glyphs.empty
 
-  def nonEmpty: Option[Glyphs] = if (isEmpty) None else Option(this)
+  def nonEmpty: Option[Glyphs] = if (isEmpty) None else Some(this)
 
   def toggle(glyph: Glyph) =
     glyph match {
@@ -71,7 +71,7 @@ object Glyph {
       .map { g =>
         g.id -> g
       }
-      .to(Map)
+      .toMap
 
     def display = all
   }
@@ -102,7 +102,7 @@ object Glyph {
       .map { g =>
         g.id -> g
       }
-      .to(Map)
+      .toMap
 
     def display = all
   }
@@ -124,7 +124,7 @@ object Glyph {
       .map { g =>
         g.id -> g
       }
-      .to(Map)
+      .toMap
 
     def display = all
   }

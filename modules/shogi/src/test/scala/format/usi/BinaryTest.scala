@@ -10,9 +10,8 @@ class BinaryTest extends ShogiTest {
   import BinaryTestUtils._
 
   def compareStrAndBin(usisStr: String) = {
-    val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get)
-    (Binary.decodeMoves(Standard, bin.toVector) map (_.usi) mkString " ") must_== usisStr
-    bin.size must be_<=(usisStr.length)
+    val bin = Binary.encodeMoves(Usi.readList(usisStr).get, Standard).toVector
+    Binary.decodeMoves(bin, Standard).map(_.usi).mkString(" ") must_== usisStr
   }
 
   "binary encoding" should {
@@ -59,8 +58,8 @@ class BinaryTest extends ShogiTest {
     "write many moves" in {
       "all games" in {
         forall(format.usi.Fixtures.prod500standard) { usisStr =>
-          val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get).toList
-          bin.length must be_<=(usisStr.length)
+          val bin = Binary.encodeMoves(Usi.readList(usisStr).get, Standard).toList
+          bin.size must be_<=(usisStr.size)
         }
       }
     }
@@ -91,8 +90,8 @@ class BinaryTest extends ShogiTest {
     }
     "for all move combinations" in {
       val allMoves = for {
-        orig <- Pos.all9x9
-        dest <- Pos.all9x9
+        orig <- Pos.all
+        dest <- Pos.all
       } yield Usi.Move(orig, dest, true)
       forall(allMoves.map(_.usiKeys))(compareStrAndBin)
       forall(allMoves.map(_.usi))(compareStrAndBin)
@@ -100,7 +99,7 @@ class BinaryTest extends ShogiTest {
     "for all drop combinations" in {
       val allDrops = for {
         role <- Role.all
-        pos  <- Pos.all9x9
+        pos  <- Pos.all
       } yield Usi.Drop(role, pos)
       forall(allDrops.map(_.usi))(compareStrAndBin)
     }
@@ -116,16 +115,16 @@ object BinaryTestUtils {
     }.toBinaryString.toInt
 
   def encodeMove(m: String, variant: Variant = Standard): String =
-    Binary.encodeMoves(variant, List(Usi(m).get)) map showByte mkString ","
+    Binary.encodeMoves(List(Usi(m).get), variant) map showByte mkString ","
 
   def decodeMove(m: String, variant: Variant = Standard): String =
     decodeMoves(m, variant).head
 
   def decodeMoves(m: String, variant: Variant = Standard): Seq[String] =
-    Binary.decodeMoves(variant, m.split(',').toList.map(parseBinary)).map(_.usi)
+    Binary.decodeMoves(m.split(',').toList.map(parseBinary), variant).map(_.usi)
 
   def parseBinary(s: String): Byte = {
-    var i    = s.length - 1
+    var i    = s.size - 1
     var sum  = 0
     var mult = 1
     while (i >= 0) {

@@ -13,7 +13,7 @@ class DecayingStatsTest extends Specification {
   def realVar(elts: Seq[Float]): Float = {
     val mean = realMean(elts).toDouble
     (elts map { x =>
-      Math.pow(x - mean, 2)
+      math.pow(x - mean, 2)
     } sum).toFloat / (elts.size - 1)
   }
 

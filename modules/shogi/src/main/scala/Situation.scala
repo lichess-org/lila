@@ -3,95 +3,164 @@ package shogi
 import cats.data.Validated
 import cats.implicits._
 
-import format.usi.Usi
+import shogi.format.forsyth.Sfen
+import shogi.format.ParsedMove
+import shogi.format.usi.Usi
+import shogi.variant.Variant
 
-case class Situation(board: Board, color: Color) {
 
-  lazy val actors = board actorsOf color
+case class Situation(
+    board: Board,
+    hands: Hands,
+    color: Color,
+    history: History,
+    variant: Variant
+) {
 
-  lazy val moves: Map[Pos, List[Move]] =
-    actors
-      .collect {
-        case actor if actor.moves.nonEmpty => actor.pos -> actor.moves
-      }
-      .to(Map)
-
-  lazy val destinations: Map[Pos, List[Pos]] = moves.view.mapValues { _ map (_.dest) }.to(Map)
-
-  def drops: Option[List[Pos]] =
-    board.variant match {
-      case v if v.hasHandData => v possibleDrops this
-      case _                  => None
+  def apply(usi: Usi): Validated[String, Situation] =
+    usi match {
+      case u: Usi.Move => variant.move(this, u)
+      case u: Usi.Drop => variant.drop(this, u)
     }
 
-  lazy val kingPos: Option[Pos] = board kingPosOf color
+  def apply(parsedMove: ParsedMove): Validated[String, Situation] =
+    parsedMove.toUsi(this) andThen (apply _) 
 
-  lazy val check: Boolean = board check color
+  // Moves
 
-  def checkSquare = if (check) kingPos else None
+  lazy val moveActors: Map[Pos, MoveActor] = board.pieces map { case (pos, piece) =>
+    (pos, MoveActor(piece, pos, this))
+  }
 
-  def history = board.history
+  lazy val moveActorsOf: Color.Map[List[MoveActor]] = {
+    val (s, g) = moveActors.values.toList.partition { _.color.sente }
+    Color.Map(s, g)
+  }
 
-  def checkMate: Boolean = board.variant checkmate this
+  def moveActorAt(at: Pos): Option[MoveActor] = moveActors get at
 
-  def staleMate: Boolean = board.variant staleMate this
+  lazy val moveDestinations: Map[Pos, List[Pos]] =
+    moveActorsOf(color)
+      .collect {
+        case actor if actor.destinations.nonEmpty => actor.pos -> actor.destinations
+      }
+      .toMap
 
-  def autoDraw: Boolean = board.autoDraw || board.variant.specialDraw(this)
+  lazy val hasMoveDestinations: Boolean =
+    moveActorsOf(color)
+      .exists(_.destinations.nonEmpty)
 
-  def opponentHasInsufficientMaterial: Boolean = board.variant.opponentHasInsufficientMaterial(this)
+  def moveDestsFrom(from: Pos): Option[List[Pos]] = moveActorAt(from) map (_.destinations)
 
-  def perpetualCheck: Boolean = history perpetualCheck
+  // Drops
 
-  def variantEnd = board.variant specialEnd this
+  lazy val dropActors: Map[Piece, DropActor] = (hands.pieces map { piece: Piece =>
+    (piece, DropActor(piece, this))
+  }).toMap
 
-  def impasse = board.variant impasse this
+  lazy val dropActorsOf: Color.Map[List[DropActor]] = {
+    val (s, g) = dropActors.values.toList.partition { _.color.sente }
+    Color.Map(s, g)
+  }
 
-  // impasse isn't here to allow studies to continue even after impasse
-  def end: Boolean = checkMate || staleMate || autoDraw || perpetualCheck || variantEnd
+  def dropActorOf(piece: Piece): Option[DropActor] = dropActors get piece
 
-  def winner: Option[Color] = board.variant.winner(this)
+  lazy val dropDestinations: Map[Piece, List[Pos]] =
+    dropActorsOf(color)
+      .collect {
+        case actor if actor.destinations.nonEmpty => actor.piece -> actor.destinations
+      }
+      .toMap
 
-  def playable(strict: Boolean): Boolean =
-    (board valid strict) && !end && !copy(color = !color).check
+  lazy val hasDropDestinations: Boolean =
+    dropActorsOf(color)
+      .exists(_.destinations.nonEmpty)
 
-  def playableNoImpasse(strict: Boolean): Boolean =
-    playable(strict) && !impasse
+  def dropDestsOf(piece: Piece): Option[List[Pos]] = dropActorOf(piece) map (_.destinations)
+
+  // King safety
+
+  def check: Boolean = checkOf(color)
+
+  private def checkOf(c: Color): Boolean = c.fold(checkSente, checkGote)
+
+  lazy val checkSente = variant.check(board, Sente)
+  lazy val checkGote  = variant.check(board, Gote)
+
+  def checkSquares = variant checkSquares this
+
+  // Not taking into account specific drop rules
+  lazy val possibleDropDests: List[Pos] = 
+    if (check) board.kingPosOf(color).fold[List[Pos]](Nil)(DropActor.blockades(this, _))
+    else variant.allPositions.filterNot(board.pieces contains _)
+
+  // Results
+
+  def checkmate: Boolean = variant checkmate this
+
+  def stalemate: Boolean = variant stalemate this
+
+  def perpetualCheck: Boolean = variant perpetualCheck this
+
+  def autoDraw: Boolean =
+    (history.fourfoldRepetition && !perpetualCheck) || 
+    variant.specialDraw(this) ||
+    variant.isInsufficientMaterial(this)
+
+  def opponentHasInsufficientMaterial: Boolean = variant opponentHasInsufficientMaterial this
+
+  def variantEnd = variant specialEnd this
+
+  def impasse = variant impasse this
+
+  def end(withImpasse: Boolean): Boolean = 
+    checkmate || stalemate || autoDraw || perpetualCheck || variantEnd || (withImpasse && impasse)
+
+  def winner: Option[Color] = variant.winner(this)
+
+  def materialImbalance: Int = variant.materialImbalance(this)
+
+  def valid(strict: Boolean) = variant.valid(this, strict)
+
+  def playable(strict: Boolean, withImpasse: Boolean): Boolean =
+    valid(strict) && !end(withImpasse) && !copy(color = !color).check
 
   lazy val status: Option[Status] =
-    if (checkMate) Status.Mate.some
+    if (checkmate) Status.Mate.some
     else if (variantEnd) Status.VariantEnd.some
-    else if (staleMate) Status.Stalemate.some
+    else if (stalemate) Status.Stalemate.some
     else if (impasse) Status.Impasse27.some
     else if (perpetualCheck) Status.PerpetualCheck.some
     else if (autoDraw) Status.Draw.some
     else none
 
-  def move(from: Pos, to: Pos, promotion: Boolean): Validated[String, Move] =
-    board.variant.move(this, from, to, promotion)
+  // Util
 
-  def move(usi: Usi.Move): Validated[String, Move] =
-    board.variant.move(this, usi.orig, usi.dest, usi.promotion)
+  def withBoard(board: Board) = copy(board = board)
+  def withHands(hands: Hands) = copy(hands = hands)
+  def withHistory(history: History) = copy(history = history)
+  def withVariant(variant: shogi.variant.Variant) = copy(variant = variant)
 
-  def drop(role: Role, pos: Pos): Validated[String, Drop] =
-    board.variant.drop(this, role, pos)
+  def switch = copy(color = !color)
 
-  def drop(usi: Usi.Drop): Validated[String, Drop] =
-    board.variant.drop(this, usi.role, usi.pos)
+  def visual: String = format.forsyth.Visual render this
 
-  def withHistory(history: History) =
-    copy(
-      board = board withHistory history
-    )
+  def toSfen: Sfen = Sfen(this)
 
-  def withVariant(variant: shogi.variant.Variant) =
-    copy(
-      board = board withVariant variant
-    )
-
-  def unary_! = copy(color = !color)
+  override def toString = s"${variant.name}\n$visual\nLast Move: ${history.lastMove.fold("-")(_.usi)}\n"
 }
 
 object Situation {
 
-  def apply(variant: shogi.variant.Variant): Situation = Situation(Board init variant, Sente)
+  def apply(variant: shogi.variant.Variant): Situation =
+    Situation(
+      Board(variant),
+      Hands(variant),
+      Sente,
+      History.empty,
+      variant
+    )
+
+  def apply(board: Board, hands: Hands, color: Color, variant: Variant): Situation =
+    Situation(board, hands, color, History.empty, variant)
 }

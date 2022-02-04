@@ -2,56 +2,36 @@ package shogi
 package format
 package kif
 
-import variant._
+import shogi.variant._
 
 object KifUtils {
   def toDigit(c: Char): Char = {
     c match {
-      case '１' | '一' | 'a' =>
-        return '1'
-      case '２' | '二' | 'b' =>
-        return '2'
-      case '３' | '三' | 'c' =>
-        return '3'
-      case '４' | '四' | 'd' =>
-        return '4'
-      case '５' | '五' | 'e' =>
-        return '5'
-      case '６' | '六' | 'f' =>
-        return '6'
-      case '７' | '七' | 'g' =>
-        return '7'
-      case '８' | '八' | 'h' =>
-        return '8'
-      case '９' | '九' | 'i' =>
-        return '9'
-      case _ =>
-        return c
+      case '１' | '一' | 'a' => '1'
+      case '２' | '二' | 'b' => '2'
+      case '３' | '三' | 'c' => '3'
+      case '４' | '四' | 'd' => '4'
+      case '５' | '五' | 'e' => '5'
+      case '６' | '六' | 'f' => '6'
+      case '７' | '七' | 'g' => '7'
+      case '８' | '八' | 'h' => '8'
+      case '９' | '九' | 'i' => '9'
+      case _ => c
     }
   }
 
   def toKanjiDigit(c: Char): Char = {
     c match {
-      case '1' =>
-        return '一'
-      case '2' =>
-        return '二'
-      case '3' =>
-        return '三'
-      case '4' =>
-        return '四'
-      case '5' =>
-        return '五'
-      case '6' =>
-        return '六'
-      case '7' =>
-        return '七'
-      case '8' =>
-        return '八'
-      case '9' =>
-        return '九'
-      case _ =>
-        return c
+      case '1' => '一'
+      case '2' => '二'
+      case '3' => '三'
+      case '4' => '四'
+      case '5' => '五'
+      case '6' => '六'
+      case '7' => '七'
+      case '8' => '八'
+      case '9' => '九'
+      case _ => c
     }
   }
 
@@ -61,7 +41,7 @@ object KifUtils {
       if (ord == "") 1
       else if (ord.contains('十')) 10 * orderHelper(ord.filterNot(_ == '十'))
       else if (ord.contains('百')) 100 * orderHelper(ord.filterNot(_ == '百'))
-      else ord.map(toDigit _).toIntOption.getOrElse(0)
+      else ord.map(toDigit _).toIntOption | 0
     }
     str.split("""(?<=(百|十))""").foldLeft(0) { (acc, cur) =>
       acc + orderHelper(cur)
@@ -80,7 +60,6 @@ object KifUtils {
   // head used in kif model
   val defaultHandicaps: Map[Variant, List[String]] = Map(
     Minishogi    -> List("5五将棋", "五々将棋", "５五将棋"),
-    FromPosition -> List("平手"),
     Standard     -> List("平手")
   )
 

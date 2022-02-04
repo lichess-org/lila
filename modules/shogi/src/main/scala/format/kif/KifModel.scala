@@ -3,8 +3,10 @@ package format
 package kif
 
 import cats.syntax.option._
-import variant._
+
+import shogi.variant._
 import shogi.format.usi.Usi
+import shogi.format.forsyth.Sfen
 
 case class Kif(
     tags: Tags,
@@ -20,8 +22,8 @@ case class Kif(
 
   def renderMovesAndVariations(moveline: List[NotationMove]): String = {
     val mainline = moveline
-      .foldLeft((List[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
-        ((Kif.renderNotationMove(cur, lastDest) :: acc), cur.usiWithRole.usi.origDest._2.some)
+      .foldLeft[(List[String], Option[Pos])]((Nil, None)) { case ((acc, lastDest), cur) =>
+        ((Kif.renderNotationMove(cur, lastDest) :: acc), cur.usiWithRole.usi.positions.lastOption)
       }
       ._1
       .reverse mkString "\n"
@@ -51,7 +53,7 @@ object Kif {
   def renderNotationMove(cur: NotationMove, lastDest: Option[Pos]): String = {
     val resultStr   = cur.result.fold("")(r => s"\n${moveNumberOffset(cur.moveNumber + 1)}$offset$r")
     val kifMove     = renderKifMove(cur.usiWithRole, lastDest)
-    val timeStr     = clockString(cur).getOrElse("")
+    val timeStr     = clockString(cur) | ""
     val glyphsNames = cur.glyphs.toList.map(_.name)
     val commentsStr = (glyphsNames ::: cur.comments).map { text => s"\n* ${fixComment(text)}" }.mkString("")
     s"${moveNumberOffset(cur.moveNumber)}$offset$kifMove$timeStr$commentsStr$resultStr"
@@ -74,15 +76,15 @@ object Kif {
       .map { tag =>
         // we need these even empty
         if (tag == Tag.Sente || tag == Tag.Gote) {
-          val playerName = tags(tag.name).getOrElse("")
+          val playerName = tags(tag.name) | ""
           val playerTag = {
-            if (!StartingPosition.isFENHandicap(tags.fen)) tag.kifName
+            if (!StartingPosition.isSfenHandicap(tags.sfen)) tag.kifName
             else if (tag == Tag.Sente) "下手"
             else "上手"
           }
           s"$playerTag：${if (playerName == "?") "" else playerName}"
         } else if (tag == Tag.Handicap) {
-          renderSetup(tags.variant | Standard, tags.fen)
+          renderSetup(tags.sfen, tags.variant | Standard)
         } else {
           tags(tag.name).fold("")(tagValue => {
             if (tagValue != "?" && tagValue != "") s"${tag.kifName}：$tagValue"
@@ -93,47 +95,47 @@ object Kif {
       .filter(_.nonEmpty)
       .mkString("\n")
 
-  def renderSetup(variant: Variant, fen: Option[FEN]): String =
-    fen
-      .filterNot(f => Forsyth.compareTruncated(variant.initialFen, f.value))
+  def renderSetup(sfen: Option[Sfen], variant: Variant): String =
+    sfen
+      .filterNot(f => variant.initialSfen.truncate == f.truncate)
       .fold {
-        val handicapName = KifUtils.defaultHandicaps.get(variant).flatMap(_.headOption).getOrElse("")
+        val handicapName = KifUtils.defaultHandicaps.get(variant).flatMap(_.headOption) | ""
         s"${Tag.Handicap.kifName}：$handicapName"
-      } { fen =>
-        getHandicapName(fen).fold((Forsyth << fen.value).fold("")(renderSituation _))(hc =>
+      } { sf =>
+        getHandicapName(sf).fold(sf.toSituation(variant).fold("")(renderSituation _))(hc =>
           s"${Tag.Handicap.kifName}：$hc"
         )
       }
 
   def renderSituation(sit: Situation): String = {
     val kifBoard = new scala.collection.mutable.StringBuilder(256)
-    val nbRanks  = sit.board.variant.numberOfRanks
-    val nbFiles  = sit.board.variant.numberOfFiles
-    for (y <- 1 to nbRanks) {
+    val nbRanks  = sit.variant.numberOfRanks - 1
+    val nbFiles  = sit.variant.numberOfFiles - 1
+    for (y <- 0 to nbRanks) {
       kifBoard append "|"
-      for (x <- nbFiles to 1 by -1) {
+      for (x <- nbFiles to 0 by -1) {
         sit.board(x, y) match {
           case None => kifBoard append " ・"
           case Some(piece) =>
             kifBoard append piece.kif
         }
       }
-      kifBoard append s"|${KifUtils.intToKanji(y)}"
+      kifBoard append s"|${KifUtils.intToKanji(y + 1)}"
       if (y < nbRanks) kifBoard append '\n'
     }
     List(
-      sit.board.handData.fold("")(hs => "後手の持駒：" + renderHand(hs(Gote))),
-      s" ${" ９ ８ ７ ６ ５ ４ ３ ２ １".takeRight(nbFiles * 2)}",
-      s"+${"-" * (nbFiles * 3)}+",
+      s"後手の持駒：${renderHand(sit.hands(Gote))}",
+      s" ${" ９ ８ ７ ６ ５ ４ ３ ２ １".takeRight((nbFiles + 1) * 2)}",
+      s"+${"-" * ((nbFiles + 1) * 3)}+",
       kifBoard.toString,
-      s"+${"-" * (nbFiles * 3)}+",
-      sit.board.handData.fold("")(hs => "先手の持駒：" + renderHand(hs(Sente))),
-      if (sit.color == Gote) "後手番" else ""
+      s"+${"-" * ((nbFiles + 1) * 3)}+",
+      s"先手の持駒：${renderHand(sit.hands(Sente))}",
+      if (sit.color.gote) "後手番" else ""
     ).filter(_.nonEmpty).mkString("\n")
   }
 
   private def renderHand(hand: Hand): String = {
-    if (hand.size == 0) "なし"
+    if (hand.isEmpty) "なし"
     else
       Standard.handRoles
         .map { r =>
@@ -177,11 +179,11 @@ object Kif {
     Tag.Opening
   )
 
-  private def makeDestSquare(sq: Pos): String =
-    s"${((sq.x) + 48 + 65248).toChar}${KifUtils.intToKanji(sq.y)}"
+  private def makeDestSquare(pos: Pos): String =
+    s"${((pos.file.index) + 49 + 65248).toChar}${KifUtils.intToKanji(pos.rank.index + 1)}"
 
-  private def getHandicapName(fen: FEN): Option[String] =
-    StartingPosition.searchHandicapByFen(fen.some).map(t => t.eco)
+  private def getHandicapName(sfen: Sfen): Option[String] =
+    StartingPosition.searchHandicapBySfen(sfen.some).map(t => t.japanese)
 
   private def clockString(cur: NotationMove): Option[String] =
     cur.secondsSpent.map(spent =>
