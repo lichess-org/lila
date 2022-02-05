@@ -194,10 +194,9 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
                 root.find('.copy-pgn').on('click', () => {
-                  (root.find('.game-pgn').attr('type', 'text')[0] as HTMLInputElement).select();
-                  document.execCommand('copy');
-                  root.find('.game-pgn').attr('type', 'hidden');
-                  notify.set('PGN copied into clipboard.');
+                  navigator.clipboard
+                    .writeText(root.find('.game-pgn').first().val() as string)
+                    .then(() => notify.set('PGN copied into clipboard.'));
                 });
               },
             },
