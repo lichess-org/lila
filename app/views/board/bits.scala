@@ -30,7 +30,7 @@ object bits {
       animationDuration: Duration
   )(implicit ctx: Context) =
     Json.obj(
-      "sfen"    -> sfen.value.split(" ").take(3).mkString(" "),
+      "sfen"    -> sfen.truncate.value,
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
       "animation" -> Json.obj(

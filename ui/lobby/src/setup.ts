@@ -150,7 +150,6 @@ export default class Setup {
       $daysInput = $form.find('.days_choice [name=days]'),
       typ = $form.data('type'),
       $ratings = $modal.find('.ratings > div'),
-      randomColorVariants = $form.data('random-color-variants').split(','),
       $submits = $form.find('.color-submits__button'),
       $submitsError = $form.find('.submit-error-message'),
       toggleButtons = function () {
@@ -176,7 +175,7 @@ export default class Setup {
         if (timeOk && ratedOk && aiOk) {
           $submits.toggleClass('nope', false);
           $submitsError.html('');
-          $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+          $submits.filter(':not(.random)').toggle(!rated);
         } else {
           $submits.toggleClass('nope', true);
           $submitsError.html('Invalid time control!');
@@ -398,12 +397,14 @@ export default class Setup {
 
     var validateSfen = li.debounce(function () {
       $sfenInput.removeClass('success failure');
-      var sfen = $sfenInput.val();
+      const sfen = $sfenInput.val();
+      const variant = $variantSelect.val();
       if (sfen) {
         $.ajax({
           url: $sfenInput.parent().data('validate-url'),
           data: {
             sfen: sfen,
+            variant: variant,
           },
           success: function (data) {
             $sfenInput.addClass('success');

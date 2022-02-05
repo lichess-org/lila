@@ -51,7 +51,7 @@ object userAnalysis {
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            shogi.variant.Variant.all.filter(shogi.variant.FromPosition.!=).map { v =>
+            shogi.variant.Variant.all.map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls := (pov.game.variant == v).option("current"),

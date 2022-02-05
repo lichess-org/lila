@@ -28,7 +28,6 @@ object replay {
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialSfen: Option[shogi.format.forsyth.Sfen],
       kif: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -54,7 +53,7 @@ object replay {
     }
     val exportLinks = div(
       ctx.noBlind option frag(
-        pov.game.variant.standardBased option a(
+        pov.game.variant.standard option a(
           dataIcon := "$",
           cls := "text",
           target := "_blank",
@@ -103,7 +102,7 @@ object replay {
         trans.downloadImported()
       )
     )
-    val csaLinks = pov.game.variant.standardBased option div(
+    val csaLinks = pov.game.variant.standard option div(
       a(
         dataIcon := "x",
         cls := "text",
@@ -153,7 +152,6 @@ object replay {
             views.html.game
               .side(
                 pov,
-                initialSfen,
                 none,
                 simul = simul,
                 userTv = userTv,

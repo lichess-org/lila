@@ -53,7 +53,6 @@ final class JsonView(
       pref: Pref,
       apiVersion: ApiVersion,
       playerUser: Option[User],
-      initialSfen: Option[Sfen],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
@@ -64,7 +63,7 @@ final class JsonView(
         import pov._
         Json
           .obj(
-            "game" -> gameJsonView(game, initialSfen),
+            "game" -> gameJsonView(game),
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id"      -> playerId,
@@ -148,7 +147,6 @@ final class JsonView(
       apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
-      initialSfen: Option[Sfen] = None,
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
@@ -156,9 +154,9 @@ final class JsonView(
         import pov._
         Json
           .obj(
-            "game" -> gameJsonView(game, initialSfen)
+            "game" -> gameJsonView(game)
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
-              .add("division" -> withFlags.division.option(divider(game, initialSfen)))
+              .add("division" -> withFlags.division.option(divider(game)))
               .add("opening" -> game.opening)
               .add("importedBy" -> game.notationImport.flatMap(_.user)),
             "clock"          -> game.clock.map(clockJson),
@@ -207,7 +205,6 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialSfen: Option[Sfen],
       orientation: shogi.Color,
       owner: Boolean,
       me: Option[User],
@@ -221,7 +218,7 @@ final class JsonView(
             "id"            -> gameId,
             "variant"       -> game.variant,
             "opening"       -> game.opening,
-            "initialSfen"   -> (initialSfen | game.variant.initialSfen),
+            "initialSfen"   -> (game.initialSfen | game.variant.initialSfen),
             "sfen"          -> game.shogi.toSfen,
             "plies"         -> game.plies,
             "player"        -> game.turnColor.name,

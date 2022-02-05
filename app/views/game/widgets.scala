@@ -40,7 +40,7 @@ object widgets {
                   frag(
                     showClock(g),
                     separator,
-                    g.perfType.fold(shogi.variant.FromPosition.name)(_.trans),
+                    g.perfType.fold("SFEN")(_.trans),
                     separator,
                     if (g.rated) trans.rated.txt() else trans.casual.txt()
                   )

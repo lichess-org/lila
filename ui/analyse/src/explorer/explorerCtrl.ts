@@ -16,7 +16,6 @@ function pieceCount(sfen: Sfen) {
 function tablebasePieces(variant: VariantKey) {
   switch (variant) {
     case 'standard':
-    case 'fromPosition':
       return 7;
     default:
       return 0;
@@ -50,7 +49,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
   }
   const data = root.data,
     withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
-    effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
+    effectiveVariant = data.game.variant.key,
     config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
   const fetch = window.lishogi.debounce(

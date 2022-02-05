@@ -99,16 +99,14 @@ final private class Takebacker(
 
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
-      sfen     <- gameRepo initialSfen game
-      progress <- Rewind(game, sfen).toFuture
+      progress <- Rewind(game).toFuture
       events   <- saveAndNotify(progress)
     } yield events
 
   private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
-      sfen   <- gameRepo initialSfen game
-      prog1 <- Rewind(game, sfen).toFuture
-      prog2 <- Rewind(prog1.game, sfen).toFuture dmap { progress =>
+      prog1 <- Rewind(game).toFuture
+      prog2 <- Rewind(prog1.game).toFuture dmap { progress =>
         prog1 withGame progress.game
       }
       events <- saveAndNotify(prog2)

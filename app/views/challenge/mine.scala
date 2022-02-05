@@ -80,7 +80,7 @@ object mine {
                     )
                   )
               },
-              c.notableInitialSfen.map { sfen =>
+              c.initialSfen.map { sfen =>
                 frag(
                   br,
                   div(

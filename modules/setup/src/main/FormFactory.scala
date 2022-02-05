@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.Variant
+import shogi.variant.{ Variant, Standard }
 import lila.rating.RatingRange
 import lila.user.UserContext
 
@@ -14,9 +14,9 @@ final class FormFactory {
 
   val filter = Form(single("local" -> text))
 
-  def aiFilled(sfen: Option[Sfen]): Form[AiConfig] =
+  def aiFilled(sfen: Option[Sfen], variant: Option[Variant]): Form[AiConfig] =
     ai fill sfen.foldLeft(AiConfig.default) { case (config, f) =>
-      config.copy(sfen = f.some, variant = shogi.variant.FromPosition)
+      config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }
 
   lazy val ai = Form(
@@ -36,15 +36,15 @@ final class FormFactory {
       .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
   )
 
-  def friendFilled(sfen: Option[Sfen])(implicit ctx: UserContext): Form[FriendConfig] =
+  def friendFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit ctx: UserContext): Form[FriendConfig] =
     friend(ctx) fill sfen.foldLeft(FriendConfig.default) { case (config, f) =>
-      config.copy(sfen = f.some, variant = shogi.variant.FromPosition)
+      config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }
 
   def friend(ctx: UserContext) =
     Form(
       mapping(
-        "variant"   -> variantWithSfenAndVariants,
+        "variant"   -> variants,
         "timeMode"  -> timeMode,
         "time"      -> time,
         "increment" -> increment,
@@ -65,7 +65,7 @@ final class FormFactory {
   def hook(implicit ctx: UserContext) = {
     Form(
       mapping(
-        "variant"     -> variantWithVariants,
+        "variant"     -> variants,
         "timeMode"    -> timeMode,
         "time"        -> time,
         "increment"   -> increment,

@@ -22,7 +22,7 @@ object forms {
       routes.Setup.hook("sri-placeholder")
     ) {
       frag(
-        renderVariant(form, translatedVariantChoicesWithVariants),
+        renderVariant(form, translatedVariantChoices),
         renderTimeMode(form),
         ctx.isAuth option frag(
           div(cls := "mode_choice buttons")(
@@ -50,7 +50,7 @@ object forms {
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
-        renderVariant(form, translatedAiVariantChoices),
+        renderVariant(form, translatedAiChoices),
         sfenInput(form, true, validSfen),
         renderTimeMode(form),
         if (ctx.blind)
@@ -93,7 +93,7 @@ object forms {
         user.map { u =>
           userLink(u, cssClass = "target".some)
         },
-        renderVariant(form, translatedVariantChoicesWithVariantsAndSfen),
+        renderVariant(form, translatedVariantChoices),
         sfenInput(form, false, validSfen),
         renderTimeMode(form),
         ctx.isAuth option div(cls := "mode_choice buttons")(
@@ -129,7 +129,6 @@ object forms {
           postForm(
             action := route,
             novalidate,
-            dataRandomColorVariants,
             dataType := typ,
             dataAnon := ctx.isAnon.option("1")
           )(

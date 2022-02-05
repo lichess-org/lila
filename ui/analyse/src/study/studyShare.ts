@@ -185,7 +185,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
       ),
-      ['standard', 'fromPosition'].includes(chapter.variant)
+      ['standard'].includes(chapter.variant)
         ? h(
             'a.button.text',
             {
@@ -198,7 +198,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
           )
         : null,
-      ['standard', 'fromPosition'].includes(chapter.variant)
+      ['standard'].includes(chapter.variant)
         ? h(
             'a.button.text',
             {

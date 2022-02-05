@@ -35,11 +35,12 @@ final class Setup(
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms aiFilled get("sfen").map(Sfen.clean)) map { form =>
+        fuccess(forms.aiFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))) map { form =>
+          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard 
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("sfen").value map Sfen.clean flatMap ValidSfen(getBool("strict"))
+            form("sfen").value map Sfen.clean flatMap ValidSfen(getBool("strict"), variant)
           )
         }
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
@@ -53,8 +54,9 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        fuccess(forms friendFilled get("sfen").map(Sfen.clean)) flatMap { form =>
-          val validSfen = form("sfen").value map Sfen.clean flatMap ValidSfen(false)
+        fuccess(forms.friendFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))) flatMap { form =>
+          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
+          val validSfen = form("sfen").value map Sfen.clean flatMap ValidSfen(false, variant)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validSfen)).fuccess
             case Some(user) =>
@@ -222,7 +224,7 @@ final class Setup(
             config =>
               env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
                 val uniqId = s"sri:${me.id}"
-                config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+                config.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
                   case Left(hook) =>
                     PostRateLimit(HTTPRequest lastRemoteAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
@@ -242,7 +244,11 @@ final class Setup(
 
   def validateSfen =
     Open { implicit ctx =>
-      get("sfen") map Sfen.clean flatMap ValidSfen(getBool("strict")) match {
+      (for {
+        sfen    <- get("sfen") map Sfen.clean
+        variant <- get("variant").flatMap(_.toIntOption) flatMap shogi.variant.Variant.apply
+        valid   <- ValidSfen.apply(getBool("strict"), variant)(sfen)
+      } yield valid) match {
         case None    => BadRequest.fuccess
         case Some(v) => Ok(html.game.bits.miniBoard(v.sfen)).fuccess
       }
@@ -258,7 +264,7 @@ final class Setup(
             jsonFormError,
             config =>
               processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView(pov.game, config.sfen)) as JSON
+                Created(env.game.jsonView(pov.game)) as JSON
               }
           )
       }(rateLimitedFu)

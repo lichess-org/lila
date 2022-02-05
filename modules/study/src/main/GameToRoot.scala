@@ -6,12 +6,12 @@ import lila.round.JsonView.WithFlags
 
 private object GameToRoot {
 
-  def apply(game: Game, initialSfen: Option[Sfen], withClocks: Boolean): Node.Root = {
+  def apply(game: Game, withClocks: Boolean): Node.Root = {
     val root = Node.Root.fromRoot {
       lila.round.TreeBuilder(
         game = game,
         analysis = none,
-        initialSfen = initialSfen | game.variant.initialSfen,
+        initialSfen = game.initialSfen | game.variant.initialSfen,
         withFlags = WithFlags(clocks = withClocks)
       )
     }

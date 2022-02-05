@@ -47,7 +47,7 @@ final class GameSearchApi(
           case s if s.is(_.NoStart) => shogi.Status.Resign
           case _                    => game.status
         }).id,
-        Fields.turns         -> (game.plies + 1) / 2,
+        Fields.plies         -> (game.plies + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.map(_.id),
         Fields.uids          -> game.userIds.toArray.some.filterNot(_.isEmpty),

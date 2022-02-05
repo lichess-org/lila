@@ -1,7 +1,7 @@
 package lila.challenge
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ FromPosition, Minishogi, Variant }
+import shogi.variant.{ Minishogi, Variant }
 import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
@@ -84,12 +84,6 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialSfen: Option[Sfen] =
-    variant match {
-      case FromPosition | Minishogi => initialSfen
-      case _                        => none
-    }
-
   def isOpen = ~open
 
   lazy val perfType = perfTypeOf(variant, timeControl)
@@ -164,9 +158,6 @@ object Challenge {
           case _                             => none
         }
       )
-      .orElse {
-        (variant == FromPosition) option perfTypeOf(shogi.variant.Standard, timeControl)
-      }
       .|(PerfType.Correspondence)
 
   private val idSize = 8
@@ -194,17 +185,16 @@ object Challenge {
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
-      case _                                                                           => mode
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(initialSfen, clock.some, variant)
+        => Mode.Casual
+      case _ => mode
     }
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialSfen =
-        if (variant == FromPosition) initialSfen
-        else !variant.standard option variant.initialSfen,
+      initialSfen = initialSfen.filterNot(_.initialOf(variant)),
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

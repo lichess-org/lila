@@ -18,7 +18,6 @@ final private class PovToEntry(
   case class RichPov(
       pov: Pov,
       provisional: Boolean,
-      initialSfen: Option[Sfen],
       analysis: Option[lila.analyse.Analysis],
       division: shogi.Division,
       moveAccuracy: Option[List[Int]],
@@ -44,34 +43,32 @@ final private class PovToEntry(
     if (removeWrongAnalysis(game)) fuccess(none)
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
-        gameRepo.initialSfen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (sfen, an) =>
-            for {
-              situations <-
-                shogi.Replay
-                  .situations(
-                    usis = game.usiMoves,
-                    initialSfen = sfen,
-                    variant = game.variant
-                  )
-                  .toOption
-              movetimes <- game.moveTimes(pov.color).flatMap(_.toNel)
-            } yield RichPov(
-              pov = pov,
-              provisional = provisional,
-              initialSfen = sfen,
-              analysis = an,
-              division = shogi.Divider(situations.toList),
-              moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
-              situations = situations,
-              movetimes = movetimes,
-              advices = an.?? {
-                _.advices.view.map { a =>
-                  a.info.ply -> a
-                }.toMap
-              }
-            )
-          }
+        (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { an =>
+          for {
+            situations <-
+              shogi.Replay
+                .situations(
+                  usis = game.usiMoves,
+                  initialSfen = game.initialSfen,
+                  variant = game.variant
+                )
+                .toOption
+            movetimes <- game.moveTimes(pov.color).flatMap(_.toNel)
+          } yield RichPov(
+            pov = pov,
+            provisional = provisional,
+            analysis = an,
+            division = shogi.Divider(situations.toList),
+            moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
+            situations = situations,
+            movetimes = movetimes,
+            advices = an.?? {
+              _.advices.view.map { a =>
+                a.info.ply -> a
+              }.toMap
+            }
+          )
+        }
       }
 
   private def makeMoves(from: RichPov): List[Move] = {
@@ -86,7 +83,7 @@ final private class PovToEntry(
       shogi.Replay
         .usiWithRoleWhilePossible(
           from.pov.game.usiMoves,
-          from.initialSfen,
+          from.pov.game.initialSfen,
           from.pov.game.variant
         )
         .map(_.role)

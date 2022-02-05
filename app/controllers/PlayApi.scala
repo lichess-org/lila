@@ -69,9 +69,7 @@ final class PlayApi(
   private object impl {
 
     def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
-      env.game.gameRepo.withInitialSfen(pov.game) map { wf =>
-        apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
-      }
+      apiC.sourceToNdJsonOption(env.bot.gameStateStream(pov.game, pov.color, me)).fuccess
 
     def move(me: UserModel, pov: Pov, usi: String, offeringDraw: Option[Boolean]) =
       env.bot.player(pov, me, usi, offeringDraw) pipe toResult

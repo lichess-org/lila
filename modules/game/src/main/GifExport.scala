@@ -22,8 +22,8 @@ final class GifExport(
   private val targetMedianTime = Centis(100)
   private val targetMaxTime    = Centis(250)
 
-  def fromPov(pov: Pov, initialSfen: Option[Sfen]): Fu[Option[Source[ByteString, _]]] = {
-    if (pov.game.variant.standardBased)
+  def fromPov(pov: Pov): Fu[Option[Source[ByteString, _]]] = {
+    if (pov.game.variant.standard)
       lightUserApi preloadMany pov.game.userIds flatMap { _ =>
         ws.url(s"${url}/game.gif")
           .withMethod("POST")
@@ -35,7 +35,7 @@ final class GifExport(
               "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
               "orientation" -> pov.color.engName,
               "delay"       -> targetMedianTime.centis, // default delay for frames
-              "frames"      -> frames(pov.game, initialSfen)
+              "frames"      -> frames(pov.game)
             )
           )
           .stream() flatMap {
@@ -49,7 +49,7 @@ final class GifExport(
   }
 
   def gameThumbnail(game: Game): Fu[Option[Source[ByteString, _]]] = {
-    if (game.variant.standardBased) {
+    if (game.variant.standard) {
       val query = List(
         "sfen"        -> game.shogi.toSfen.value,
         "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
@@ -57,7 +57,7 @@ final class GifExport(
         "orientation" -> game.firstColor.engName
       ) ::: List(
         game.lastMoveKeys.map { "lastMove" -> _ },
-        game.situation.checkSquare.map { "check" -> _.usiKey }
+        game.situation.checkSquares.headOption.map { "check" -> _.usiKey }
       ).flatten
 
       lightUserApi preloadMany game.userIds flatMap { _ =>
@@ -108,10 +108,10 @@ final class GifExport(
     }
   }
 
-  private def frames(game: Game, initialSfen: Option[Sfen]) = {
+  private def frames(game: Game) = {
     Replay.gamesWhileValid(
       game.usiMoves,
-      initialSfen,
+      game.initialSfen,
       game.variant
     ) match {
       case (games, _) =>
@@ -139,6 +139,6 @@ final class GifExport(
         "sfen"     -> situation.toSfen,
         "lastMove" -> usi.map(_.usi)
       )
-      .add("check", situation.checkSquare.map(_.usiKey))
+      .add("check", situation.checkSquares.headOption.map(_.usiKey))
       .add("delay", delay.map(_.centis))
 }

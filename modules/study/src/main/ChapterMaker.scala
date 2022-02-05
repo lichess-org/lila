@@ -59,7 +59,7 @@ final private class ChapterMaker(
         none,
         parsed.variant,
         data.realOrientation,
-        fromNotation = true.some
+        fromNotation = true
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -98,7 +98,7 @@ final private class ChapterMaker(
             none,
             variant,
             data.realOrientation,
-            fromSfen = Some(isFromSfen)
+            fromSfen = isFromSfen
           ),
           root = root,
           tags = Tags.empty,
@@ -116,17 +116,16 @@ final private class ChapterMaker(
       game: Game,
       data: Data,
       order: Int,
-      userId: User.ID,
-      initialSfen: Option[Sfen] = None
+      userId: User.ID
   ): Fu[Chapter] =
     for {
-      root <- game2root(game, initialSfen)
-      tags <- notationDump.tags(game, initialSfen, withOpening = true, csa = false)
+      tags <- notationDump.tags(game, withOpening = true, csa = false)
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
         else fuccess(data.name)
       }
+      root = GameToRoot(game, withClocks = true)
       _ = notifyChat(study, game, userId)
     } yield Chapter.make(
       studyId = study.id,
@@ -155,11 +154,6 @@ final private class ChapterMaker(
         _.Study
       )
     }
-
-  private[study] def game2root(game: Game, initialSfen: Option[Sfen]): Fu[Node.Root] =
-    initialSfen.fold(gameRepo initialSfen game) { sfen =>
-      fuccess(sfen.some)
-    } map { GameToRoot(game, _, withClocks = true) }
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")

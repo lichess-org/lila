@@ -11,10 +11,9 @@ case class ValidSfen(
 }
 
 object ValidSfen {
-  def apply(strict: Boolean)(sfen: Sfen): Option[ValidSfen] =
+  def apply(strict: Boolean, variant: shogi.variant.Variant)(sfen: Sfen): Option[ValidSfen] =
     for {
-      parsed <- sfen.toSituationPlus(shogi.variant.Standard)
+      parsed <- sfen.toSituationPlus(variant)
       if parsed.situation.playable(strict = strict, withImpasse = true)
-      validated = parsed.toSfen
-    } yield ValidSfen(validated, parsed.situation)
+    } yield ValidSfen(parsed.toSfen, parsed.situation)
 }

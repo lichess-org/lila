@@ -579,6 +579,8 @@ export default class AnalyseCtrl {
 
   reset(): void {
     this.showGround();
+    this.justPlayedUsi = undefined;
+    this.justCaptured = undefined;
     this.redraw();
   }
 

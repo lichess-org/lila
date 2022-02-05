@@ -37,8 +37,7 @@ final private[setup] class Processor(
       blocking: Set[String]
   )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
     import Processor.HookResult._
-    val config = configBase.fixColor
-    config.hook(sri, ctx.me, sid, blocking) match {
+    configBase.hook(sri, ctx.me, sid, blocking) match {
       case Left(hook) =>
         fuccess {
           Bus.publish(AddHook(hook), "lobbyTrouper")

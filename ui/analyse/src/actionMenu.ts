@@ -160,8 +160,7 @@ export class Ctrl {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
-    canContinue =
-      !ctrl.ongoing && !ctrl.embed && (d.game.variant.key === 'standard' || d.game.variant.key === 'fromPosition'),
+    canContinue = !ctrl.ongoing && !ctrl.embed,
     ceval = ctrl.getCeval(),
     mandatoryCeval = ctrl.mandatoryCeval();
 

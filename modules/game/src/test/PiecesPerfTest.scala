@@ -11,7 +11,7 @@ class PiecesPerfTest extends Specification {
   val iterations = 10
 
   val usis   = Usi.readList(lila.game.Fixtures.fromProd3).get.toVector
-  def runOne = BinaryFormat.pieces.read(Standard)(usis, None)
+  def runOne = BinaryFormat.pieces.read(usis, None, Standard)
   def run(): Unit = { for (_ <- 1 to nb) runOne }
 
   "playing a game" should {

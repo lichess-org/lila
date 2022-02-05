@@ -50,8 +50,7 @@ function fourfoldSfen(sfen: Sfen) {
 export function detectFourfold(nodeList: Tree.Node[], node: Tree.Node): void {
   if (defined(node.fourfold)) return;
   const currentSfen = fourfoldSfen(node.sfen);
-  let nbSimilarPositions = 0,
-    i;
-  for (i in nodeList) if (fourfoldSfen(nodeList[i].sfen) === currentSfen) nbSimilarPositions++;
+  let nbSimilarPositions = 0;
+  for (const i in nodeList) if (fourfoldSfen(nodeList[i].sfen) === currentSfen) nbSimilarPositions++;
   node.fourfold = nbSimilarPositions > 3;
 }

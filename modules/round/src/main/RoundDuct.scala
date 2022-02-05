@@ -208,7 +208,7 @@ final private[round] class RoundDuct(
                     usiMoves = a.game.usiMoves,
                     variant = a.variant,
                     analysis = a.analysis.some,
-                    initialSfen = a.initialSfen,
+                    initialSfen = a.game.initialSfen | a.variant.initialSfen,
                     withFlags = JsonView.WithFlags(),
                     clocks = none
                   )

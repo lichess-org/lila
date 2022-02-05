@@ -184,7 +184,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         ),
       ]),
     ]),
-    ['fromPosition', 'standard'].includes(ctrl.data.game.variant.key)
+    ['standard'].includes(ctrl.data.game.variant.key)
       ? h('div.csa', [
           h('div.pair', [
             h('label.name', 'CSA'),

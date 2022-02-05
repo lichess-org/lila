@@ -29,10 +29,10 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
   }
 
   def add(user: User, game: Game, perfs: Perfs): Funit = {
-    val isStd = game.ratingVariant.standard
+    val isStd = game.variant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
-      game.ratingVariant.minishogi.option("minishogi"                       -> perfs.minishogi),
+      game.variant.minishogi.option("minishogi"                       -> perfs.minishogi),
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet"       -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet"                 -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz"                   -> perfs.blitz),

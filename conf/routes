@@ -350,7 +350,7 @@ GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
-GET   /setup/validate-sfen              controllers.Setup.validateSfen
+GET   /setup/validate-sfen             controllers.Setup.validateSfen
 
 # Challenge
 GET   /challenge                       controllers.Challenge.all

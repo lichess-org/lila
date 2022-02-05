@@ -41,16 +41,15 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match {
       case None =>
-        gameRepo gameWithInitialSfen analysis.id map {
-          _ ?? { case (game, initialSfen) =>
+        gameRepo game analysis.id map {
+          _ ?? { case (game) =>
             Bus.publish(
               TellIfExists(
                 analysis.id,
                 actorApi.AnalysisProgress(
-                  analysis = analysis,
                   game = game,
                   variant = game.variant,
-                  initialSfen = initialSfen | game.variant.initialSfen
+                  analysis = analysis
                 )
               ),
               "roundSocket"

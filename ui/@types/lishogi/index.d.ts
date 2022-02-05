@@ -196,11 +196,11 @@ interface Navigator {
   deviceMemory: number;
 }
 
-declare type VariantKey = 'standard' | 'fromPosition' | 'minishogi';
+declare type VariantKey = 'standard' | 'minishogi';
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 
-declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'fromPosition' | 'minishogi';
+declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'minishogi';
 
 declare type Color = 'sente' | 'gote';
 
@@ -273,8 +273,6 @@ declare namespace Tree {
     children: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;
-    dests?: string;
-    drops?: string | null;
     check?: Key;
     threat?: ClientEval;
     ceval?: ClientEval;

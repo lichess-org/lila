@@ -6,7 +6,7 @@ object Sorting {
 
   val fields = List(
     Fields.date          -> "Date",
-    Fields.turns         -> "Moves",
+    Fields.plies         -> "Moves",
     Fields.averageRating -> "Rating"
   )
 

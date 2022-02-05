@@ -129,7 +129,6 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialSfen").asOpt[String].map(shogi.format.forsyth.Sfen.apply),
       tour,
       simul = simul,
       userTv = userTv,

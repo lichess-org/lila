@@ -56,7 +56,7 @@ object TreeBuilder {
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findBySfen
           else _ => None
-        val sfen                 = init.toSfen
+        val sfen                = init.toSfen
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.??(_.advices.view.map { a =>
           a.ply -> a

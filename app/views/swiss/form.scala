@@ -125,7 +125,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
-      form3.select(_, translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2))
+      form3.select(_, translatedVariantChoices(_.key).map(x => x._1 -> x._2))
     )
   def clock =
     form3.split(

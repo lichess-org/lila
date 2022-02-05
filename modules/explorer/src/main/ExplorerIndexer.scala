@@ -98,7 +98,7 @@ final private class ExplorerIndexer(
     game.finished &&
       game.rated &&
       game.plies >= 10 &&
-      game.variant != shogi.variant.FromPosition
+      game.initialSfen.isEmpty
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
@@ -128,8 +128,8 @@ final private class ExplorerIndexer(
     ~(for {
       senteRating <- stableRating(game.sentePlayer)
       goteRating  <- stableRating(game.gotePlayer)
-      minPlayerRating  = if (game.variant.exotic) 1400 else 1500
-      minAverageRating = if (game.variant.exotic) 1520 else 1600
+      minPlayerRating  = if (!game.variant.standard) 1400 else 1500
+      minAverageRating = if (!game.variant.standard) 1520 else 1600
       if senteRating >= minPlayerRating
       if goteRating >= minPlayerRating
       averageRating = (senteRating + goteRating) / 2
@@ -137,13 +137,12 @@ final private class ExplorerIndexer(
       if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
-    } yield gameRepo initialSfen game flatMap { initialSfen =>
-      userRepo.usernamesByIds(game.userIds) map { usernames =>
+    } yield userRepo.usernamesByIds(game.userIds) map { usernames =>
         def username(color: shogi.Color) =
           game.player(color).userId flatMap { id =>
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
-        val sfenTags = initialSfen.?? { sfen =>
+        val sfenTags = game.initialSfen.?? { sfen =>
           List(s"$$SFEN:$sfen]")
         }
         val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
@@ -161,7 +160,7 @@ final private class ExplorerIndexer(
         val allTags = sfenTags ::: otherTags
         s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
       }
-    })
+    )
 
   private val logger = lila.log("explorer")
 }

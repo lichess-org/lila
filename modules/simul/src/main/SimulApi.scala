@@ -55,7 +55,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
-      position = setup.realPosition,
+      position = setup.position,
       host = me,
       color = setup.color,
       text = setup.text,
@@ -72,7 +72,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
-      position = setup.realPosition,
+      position = setup.position,
       color = setup.color.some,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
@@ -227,13 +227,11 @@ final class SimulApi(
           game1 = Game.make(
             shogi = shogi
               .Game(
-                variantOption = Some {
-                  if (simul.position.isEmpty) pairing.player.variant
-                  else shogi.variant.FromPosition
-                },
-                sfen = simul.position
+                Some(pairing.player.variant),
+                simul.position
               )
               .copy(clock = clock.start.some),
+            initialSfen = simul.position,
             sentePlayer = lila.game.Player.make(shogi.Sente, senteUser.some, perfPicker),
             gotePlayer = lila.game.Player.make(shogi.Gote, goteUser.some, perfPicker),
             mode = shogi.Mode.Casual,

@@ -9,7 +9,6 @@ object replayBot {
 
   def apply(
       pov: Pov,
-      initialSfen: Option[shogi.format.forsyth.Sfen],
       kif: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
@@ -22,7 +21,7 @@ object replayBot {
     ) {
       main(cls := "analyse")(
         st.aside(cls := "analyse__side")(
-          views.html.game.side(pov, initialSfen, none, simul = simul, bookmarked = false)
+          views.html.game.side(pov, none, simul = simul, bookmarked = false)
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard),
         div(cls := "analyse__tools")(div(cls := "ceval")),

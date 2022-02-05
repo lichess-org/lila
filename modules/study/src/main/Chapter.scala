@@ -115,13 +115,9 @@ object Chapter {
       gameId: Option[lila.game.Game.ID],
       variant: Variant,
       orientation: Color,
-      fromSfen: Option[Boolean] = None,
-      fromNotation: Option[Boolean] = None
-  ) {
-    def isFromSfen     = ~fromSfen
-    def isFromNotation = ~fromNotation
-
-  }
+      fromSfen: Boolean = false,
+      fromNotation: Boolean = false
+  ) {}
 
   case class Relay(
       index: Int, // game index in the source URL

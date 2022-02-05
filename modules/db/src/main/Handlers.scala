@@ -116,5 +116,5 @@ trait Handlers {
 
   implicit val colorBoolHandler = BSONBooleanHandler.as[shogi.Color](shogi.Color.fromSente, _.sente)
 
-  implicit val SFENHandler: BSONHandler[Sfen] = stringAnyValHandler[Sfen](_.value, Sfen.apply)
+  implicit val SfenHandler: BSONHandler[Sfen] = stringAnyValHandler[Sfen](_.value, Sfen.apply)
 }

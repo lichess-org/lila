@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import shogi.variant.{ FromPosition, Standard, Variant }
+import shogi.variant.{ Standard, Variant }
 import lila.db.dsl._
 import Schedule.{ Freq, Speed }
 
@@ -150,8 +150,5 @@ final class WinnersApi(
 
 object WinnersApi {
 
-  val variants = Variant.all.filter {
-    case Standard | FromPosition => false
-    case _                       => true
-  }
+  val variants = Variant.all.filterNot(_.standard)
 }

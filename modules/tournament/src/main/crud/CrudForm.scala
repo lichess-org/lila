@@ -26,7 +26,7 @@ object CrudForm {
       "periods"        -> numberIn(periodsChoices),
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
-      "position"       -> optional(lila.common.Form.sfen.playableStrict),
+      "position"       -> optional(lila.common.Form.sfen.clean),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
@@ -37,6 +37,7 @@ object CrudForm {
     )(CrudForm.Data.apply)(CrudForm.Data.unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
+      .verifying("Custom position is not valid", _.isCustomPositionValid)
   ) fill CrudForm.Data(
     name = "",
     homepageHours = 0,
@@ -77,9 +78,12 @@ object CrudForm {
 
     def realVariant = Variant orDefault variant
 
-    def realPosition = position ifTrue realVariant.standard
-
     def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
+
+    def isCustomPositionValid =
+      position.fold(true) { sfen =>
+        sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
+      }
 
     def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 

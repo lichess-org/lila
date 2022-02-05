@@ -73,6 +73,7 @@ final private class Biter(
           situation = Situation(hook.realVariant),
           clock = clock.some
         ),
+        initialSfen = None,
         sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
         gotePlayer = Player.make(shogi.Gote, goteUser, perfPicker),
         mode = hook.realMode,
@@ -90,6 +91,7 @@ final private class Biter(
           situation = Situation(seek.realVariant),
           clock = none
         ),
+        initialSfen = None,
         sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
         gotePlayer = Player.make(shogi.Gote, goteUser, perfPicker),
         mode = seek.realMode,

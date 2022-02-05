@@ -129,35 +129,29 @@ trait SetupHelper { self: I18nHelper =>
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
 
+  def standardChoice(implicit lang: Lang): SelectChoice =
+    standardChoice(encodeId)
+
+  def standardChoice(encode: Variant => String)(implicit lang: Lang): SelectChoice =
+    (encode(shogi.variant.Standard), trans.standard.txt(), shogi.variant.Standard.title.some)
+
   def translatedVariantChoices(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoices(encodeId)
+    standardChoice ::
+      List(
+        shogi.variant.Minishogi
+      ).map(variantTupleId)
 
-  def translatedVariantChoices(encode: Variant => String)(implicit lang: Lang): List[SelectChoice] =
-    List(
-      (encode(shogi.variant.Standard), trans.standard.txt(), shogi.variant.Standard.title.some)
-    )
-
-  def translatedVariantChoicesWithVariants(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoicesWithVariants(encodeId)
-
-  def translatedVariantChoicesWithVariants(
+  def translatedVariantChoices(
       encode: Variant => String
   )(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoices(encode) ::: List(
+    standardChoice(encode) :: List(
       shogi.variant.Minishogi
     ).map(variantTuple(encode))
 
-  def translatedVariantChoicesWithSfen(implicit lang: Lang) =
-    translatedVariantChoices
-
-  def translatedAiVariantChoices(implicit lang: Lang) =
-    translatedVariantChoices :+
-      variantTupleId(shogi.variant.Minishogi) :+
-      variantTupleId(shogi.variant.FromPosition)
-
-  def translatedVariantChoicesWithVariantsAndSfen(implicit lang: Lang) =
-    translatedVariantChoicesWithVariants :+
-      variantTupleId(shogi.variant.FromPosition)
+  def translatedAiChoices(implicit lang: Lang) =
+    standardChoice :: List(
+      shogi.variant.Minishogi
+    ).map(variantTuple(encodeId))
 
   def translatedSpeedChoices(implicit lang: Lang) =
     Speed.limited map { s =>

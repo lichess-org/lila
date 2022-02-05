@@ -3,7 +3,7 @@ package lila.gameSearch
 private[gameSearch] object Fields {
 
   val status        = "s"
-  val turns         = "t"
+  val plies         = "t"
   val rated         = "r"
   val perf          = "p"
   val uids          = "u"

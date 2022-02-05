@@ -112,7 +112,7 @@ object EvalCacheEntry {
   object SmallSfen {
     private[evalCache] def raw(str: String) = new SmallSfen(str)
     def make(variant: Variant, sfen: Sfen): SmallSfen = {
-      val base = sfen.value.split(' ').take(3).mkString("").filter { c =>
+      val base = sfen.truncate.value.filter { c =>
         c != '/' && c != '-' && c != 'b'
       }
       new SmallSfen(base)

@@ -43,7 +43,7 @@ object list {
                     span(cls := "setup")(
                       e.tour.clock.show,
                       " • ",
-                      if (e.tour.variant.exotic) e.tour.variant.name else e.tour.perfType.map(_.trans),
+                      if (!e.tour.variant.standard) e.tour.variant.name else e.tour.perfType.map(_.trans),
                       " • ",
                       momentFromNow(e.tour.startsAt)
                     )

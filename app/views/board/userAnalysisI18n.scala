@@ -59,6 +59,7 @@ object userAnalysisI18n {
     trans.goodMove,
     trans.viewTheSolution,
     trans.spectators,
+    trans.fromPosition,
     // action menu
     trans.menu,
     trans.boardEditor,

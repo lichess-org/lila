@@ -35,17 +35,6 @@ case class HookConfig(
 
   def makeSpeed = shogi.Speed(makeClock)
 
-  def fixColor =
-    copy(
-      color =
-        if (
-          mode == Mode.Rated &&
-          lila.game.Game.variantsWhereSenteIsBetter(variant) &&
-          color != Color.Random
-        ) Color.Random
-        else color
-    )
-
   def >> =
     (
       variant.id,
@@ -82,7 +71,7 @@ case class HookConfig(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if (lila.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,
+            mode = if (lila.game.Game.allowRated(None, clock.some, variant)) mode else Mode.Casual,
             color = color.name,
             user = user,
             blocking = blocking,

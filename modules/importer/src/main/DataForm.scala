@@ -29,7 +29,6 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialSfen: Option[Sfen],
     parsed: ParsedNotation
 )
 
@@ -82,17 +81,8 @@ case class ImportData(notation: String, analyse: Option[String]) {
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(init, state) =>
-        val fromPosition = !parsed.tags.sfen.exists(_.initialOf(shogi.variant.Standard))
-        val variant = {
-          parsed.tags.variant | {
-            if (fromPosition) shogi.variant.FromPosition
-            else shogi.variant.Standard
-          }
-        } match {
-          case shogi.variant.FromPosition if parsed.tags.sfen.isEmpty => shogi.variant.Standard
-          case shogi.variant.Standard if fromPosition                => shogi.variant.FromPosition
-          case v                                                     => v
-        }
+      
+        val variant = parsed.tags.variant | shogi.variant.Standard
         val game = state.copy(situation = state.situation withVariant variant, clock = None)
 
         val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
@@ -109,6 +99,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
         val dbGame = Game
           .make(
             shogi = game,
+            initialSfen = init.toSfen.some,
             sentePlayer = Player.make(shogi.Sente, None) withName name(_.Sente, _.SenteElo),
             gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
@@ -141,7 +132,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
           }
         }
 
-        Preprocessed(NewGame(dbGame), replay.copy(state = game), init.toSfen.some, parsed)
+        Preprocessed(NewGame(dbGame), replay.copy(state = game), parsed)
       }
     }
 }

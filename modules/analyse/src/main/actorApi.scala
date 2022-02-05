@@ -8,7 +8,6 @@ case class AnalysisReady(game: Game, analysis: Analysis)
 case class AnalysisProgress(
     game: Game,
     variant: shogi.variant.Variant,
-    initialSfen: shogi.format.forsyth.Sfen,
     analysis: Analysis
 )
 

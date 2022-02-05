@@ -118,13 +118,14 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position"         -> optional(lila.common.Form.sfen.playableStrict),
+        "position"         -> optional(lila.common.Form.sfen.clean),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
-        .verifying("Custom position allowed only with standard variant", _.canHaveCustomPosition)
+        .verifying("Custom position allowed only with one variant", _.canHaveCustomPosition)
+        .verifying("Custom position is not valid", _.isCustomPositionValid)
     )
 
   val positions = StartingPosition.allWithInitial.map(_.sfen)
@@ -155,10 +156,15 @@ object SimulForm {
         hostExtraTime = clockExtra * 60
       )
 
-    def canHaveCustomPosition = actualVariants.forall(_.standard) || !realPosition.isDefined
+    def canHaveCustomPosition = 
+      actualVariants.size == 1 || !position.isDefined
 
-    def actualVariants = variants.flatMap { shogi.variant.Variant(_) }
+    def isCustomPositionValid =
+      position.fold(true) { sfen =>
+        sfen.toSituation(actualVariants.head).exists(_.playable(strict = true, withImpasse = true))
+      }
 
-    def realPosition = position.filterNot(_.initialOf(shogi.variant.Standard))
+    def actualVariants = variants.flatMap(shogi.variant.Variant(_)).distinct
+
   }
 }

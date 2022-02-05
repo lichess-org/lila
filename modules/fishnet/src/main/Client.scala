@@ -3,6 +3,7 @@ package lila.fishnet
 import ornicar.scalalib.Random
 import com.gilt.gfc.semver.SemVer
 import lila.common.IpAddress
+import shogi.format.forsyth.Sfen
 import scala.util.{ Failure, Success, Try }
 
 import org.joda.time.DateTime
@@ -37,12 +38,21 @@ case class Client(
       case Client.Evaluation.NNUE => true
       case _                      => false
     }
-
-  def getVariants =
+  
+  def supportedVariants =
     evaluation match {
       case Client.Evaluation.NNUE  => List(shogi.variant.Standard)
-      case Client.Evaluation.FAIRY => List(shogi.variant.FromPosition, shogi.variant.Minishogi)
+      case Client.Evaluation.FAIRY => List(shogi.variant.Standard, shogi.variant.Minishogi)
     }
+
+  def canHandle(initialSfen: Option[Sfen], variant: shogi.variant.Variant) =
+    supportedVariants.contains(variant) && { evaluation match {
+      case Client.Evaluation.NNUE 
+        => initialSfen.isEmpty
+      case Client.Evaluation.FAIRY
+        => initialSfen.isDefined || !variant.standard
+    }
+  }
 
   override def toString = s"$key by $userId"
 }

@@ -34,7 +34,7 @@ final class NotationDump(
         chapter.root.shapes
       ).toList
     )
-    if (flags.csa && chapter.setup.variant.standardBased) Csa(tags, moves, initial)
+    if (flags.csa && chapter.setup.variant.standard) Csa(tags, moves, initial)
     else Kif(tags, moves, initial)
   }
 

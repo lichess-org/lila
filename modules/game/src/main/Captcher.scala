@@ -105,6 +105,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         .toOption
 
     // only board
-    private def sfen(game: ShogiGame): String = game.situation.toSfen.value.split(' ').take(3).mkString(" ")
+    private def sfen(game: ShogiGame): String = game.situation.toSfen.value.split(' ').take(1).mkString(" ")
   }
 }

@@ -32,7 +32,7 @@ object finishedList {
         span(cls := "setup")(
           t.clock.show,
           " • ",
-          if (t.variant.exotic) t.variant.name else t.perfType.map(_.trans),
+          if (!t.variant.standard) t.variant.name else t.perfType.map(_.trans),
           t.position.isDefined option frag(" • ", trans.thematic()),
           " • ",
           t.mode.fold(trans.casualTournament, trans.ratedTournament)(),

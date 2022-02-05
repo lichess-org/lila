@@ -3,7 +3,7 @@ package controllers
 import shogi.format.forsyth.Sfen.SituationPlus
 import shogi.format.forsyth.Sfen
 import shogi.Situation
-import shogi.variant.{ FromPosition, Standard, Variant }
+import shogi.variant.{ Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -30,9 +30,8 @@ final class UserAnalysis(
       case Array(key) => load("", Variant orDefault key)
       case Array(key, sfen) =>
         Variant.byKey get key match {
-          case Some(variant)                                => load(sfen, variant)
-          case _ if Sfen.clean(sfen) == Standard.initialSfen => load(arg, Standard)
-          case _                                            => load(arg, FromPosition)
+          case Some(variant) => load(sfen, variant)
+          case _             => load(arg, Standard)
         }
       case _ => load("", Standard)
     }
@@ -49,7 +48,6 @@ final class UserAnalysis(
         .userAnalysisJson(
           pov,
           ctx.pref,
-          pov.game.shogi.toSfen.some,
           orientation,
           owner = false,
           me = ctx.me
@@ -75,6 +73,7 @@ final class UserAnalysis(
             startedAtPly = from.plies,
             startedAtMove = from.moveNumber
           ),
+          initialSfen = Some(from.toSfen),
           sentePlayer = lila.game.Player.make(shogi.Sente, none),
           gotePlayer = lila.game.Player.make(shogi.Gote, none),
           mode = shogi.Mode.Casual,
@@ -96,10 +95,9 @@ final class UserAnalysis(
               else {
                 val owner = isMyPov(pov)
                 for {
-                  initialSfen <- env.game.gameRepo initialSfen game.id
                   data <-
                     env.api.roundApi
-                      .userAnalysisJson(pov, ctx.pref, initialSfen, pov.color, owner = owner, me = ctx.me)
+                      .userAnalysisJson(pov, ctx.pref, pov.color, owner = owner, me = ctx.me)
                 } yield NoCache(
                   Ok(
                     html.board
@@ -120,23 +118,20 @@ final class UserAnalysis(
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit
       ctx: Context
   ): Fu[Result] =
-    env.game.gameRepo initialSfen pov.gameId flatMap { initialSfen =>
-      gameC.preloadUsers(pov.game) zip
-        (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
-          import lila.game.JsonView.crosstableWrites
-          env.api.roundApi.review(
-            pov,
-            apiVersion,
-            tv = none,
-            analysis,
-            initialSfenO = initialSfen.some,
-            withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)
-          ) map { data =>
-            Ok(data.add("crosstable", crosstable))
-          }
+    gameC.preloadUsers(pov.game) zip
+      env.analyse.analyser.get(pov.game) zip
+      env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
+        import lila.game.JsonView.crosstableWrites
+        env.api.roundApi.review(
+          pov,
+          apiVersion,
+          tv = none,
+          analysis,
+          withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)
+        ) map { data =>
+          Ok(data.add("crosstable", crosstable))
         }
-    }
+      }
 
   // XHR only
   def notation =
@@ -151,13 +146,12 @@ final class UserAnalysis(
               .userAnalysis(data.notation)
               .fold(
                 err => BadRequest(err).fuccess,
-                { case (game, initialSfen, root, tags) =>
+                { case (game, root, tags) =>
                   val pov = Pov(game, shogi.Sente)
                   val baseData = env.round.jsonView
                     .userAnalysisJson(
                       pov,
                       ctx.pref,
-                      initialSfen,
                       pov.color,
                       owner = false,
                       me = ctx.me

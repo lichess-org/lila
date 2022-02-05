@@ -4,7 +4,7 @@ import shogi.Color.{ Gote, Sente }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.opening.{ FullOpening, FullOpeningDB }
-import shogi.variant.{ FromPosition, Standard, Variant }
+import shogi.variant.{ Standard, Variant }
 import shogi.{
   Centis,
   Clock,
@@ -27,6 +27,7 @@ case class Game(
     sentePlayer: Player,
     gotePlayer: Player,
     shogi: ShogiGame,
+    initialSfen: Option[Sfen], // None for variant default position
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -91,9 +92,6 @@ case class Game(
 
   def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
-  def isHandicap(initialSfen: Option[Sfen]): Boolean =
-    if (variant == Standard) false else StartingPosition isSfenHandicap initialSfen
-
   def tournamentId = metadata.tournamentId
   def simulId      = metadata.simulId
   def swissId      = metadata.swissId
@@ -106,6 +104,9 @@ case class Game(
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && !isSimul && nonAi
+
+  // Only for defined handicaps in shogi/StartingPosition
+  lazy val isHandicap: Boolean = StartingPosition isSfenHandicap initialSfen
 
   // we can't rely on the clock,
   // because if moretime was given,
@@ -333,8 +334,8 @@ case class Game(
   def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
-      !boosted && ! {
-        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      !boosted && {
+        nonAi || initialSfen.isEmpty || !(clock.exists(_.config.limitSeconds < 60))
       }
 
   def playerCanProposeTakeback(color: Color) =
@@ -422,11 +423,8 @@ case class Game(
     replayable && playedPlies > 4 &&
       Game.analysableVariants(variant)
 
-  def ratingVariant =
-    if (isTournament && variant.fromPosition) Standard
-    else variant
-
-  def fromPosition = variant.fromPosition || source.??(Source.Position ==)
+  def fromPosition = 
+    initialSfen.isDefined || source.??(Source.Position ==)
 
   def imported = source contains Source.Import
 
@@ -633,8 +631,6 @@ object Game {
   }
   case class PlayerId(value: String) extends AnyVal with StringValue
 
-  case class WithInitialSfen(game: Game, sfen: Option[Sfen])
-
   val syntheticId = "synthetic"
 
   val maxPlayingRealtime = 100 // plus 200 correspondence games
@@ -643,21 +639,17 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
-    shogi.variant.FromPosition,
     shogi.variant.Minishogi
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
-  val variantsWhereSenteIsBetter: Set[Variant] = Set()
-
   val blindModeVariants: Set[Variant] = Set(
-    shogi.variant.Standard,
-    shogi.variant.FromPosition
+    shogi.variant.Standard
   )
 
-  def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-    clock.fold(variant.standard) { c =>
+  def allowRated(initialSfen: Option[Sfen], clock: Option[Clock.Config], variant: Variant) =
+    initialSfen.filterNot(_.initialOf(variant)).isEmpty && clock.fold(variant.standard) { c =>
       c.periodsTotal <= 1 && (!c.hasByoyomi || !c.hasIncrement)
     }
 
@@ -699,6 +691,7 @@ object Game {
 
   def make(
       shogi: ShogiGame,
+      initialSfen: Option[Sfen],
       sentePlayer: Player,
       gotePlayer: Player,
       mode: Mode,
@@ -713,6 +706,7 @@ object Game {
         sentePlayer = sentePlayer,
         gotePlayer = gotePlayer,
         shogi = shogi,
+        initialSfen = initialSfen.filterNot(_.initialOf(shogi.variant)),
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,

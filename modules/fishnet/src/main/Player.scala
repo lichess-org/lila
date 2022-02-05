@@ -49,31 +49,32 @@ final class Player(
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation.playable(true, true))
-      if (game.plies <= maxPlies) gameRepo.initialSfen(game) map { initialSfen =>
-        Work.Move(
-          _id = Work.makeId,
-          game = Work.Game(
-            id = game.id,
-            initialSfen = initialSfen,
-            studyId = none,
-            variant = game.variant,
-            moves = game.usiMoves.map(_.usi) mkString " "
-          ),
-          level = level,
-          clock = game.clock.map { clk =>
-            Work.Clock(
-              btime = clk.currentClockFor(Sente).time.centis,
-              wtime = clk.currentClockFor(Gote).time.centis,
-              inc = clk.incrementSeconds,
-              byo = clk.byoyomiSeconds
-            )
-          },
-          tries = 0,
-          lastTryByKey = none,
-          acquired = none,
-          createdAt = DateTime.now
+      if (game.plies <= maxPlies)
+       fuccess(
+          Work.Move(
+            _id = Work.makeId,
+            game = Work.Game(
+              id = game.id,
+              initialSfen = game.initialSfen,
+              studyId = none,
+              variant = game.variant,
+              moves = game.usiMoves.map(_.usi) mkString " "
+            ),
+            level = level,
+            clock = game.clock.map { clk =>
+              Work.Clock(
+                btime = clk.currentClockFor(Sente).time.centis,
+                wtime = clk.currentClockFor(Gote).time.centis,
+                inc = clk.incrementSeconds,
+                byo = clk.byoyomiSeconds
+              )
+            },
+            tries = 0,
+            lastTryByKey = none,
+            acquired = none,
+            createdAt = DateTime.now
+          )
         )
-      }
       else fufail(s"[fishnet] Too many moves (${game.plies}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
 }

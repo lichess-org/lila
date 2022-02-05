@@ -34,9 +34,8 @@ export function opening(
 }
 
 export function tablebase(endpoint: string, variant: VariantKey, sfen: Sfen): JQueryPromise<TablebaseData> {
-  const effectiveVariant = variant === 'fromPosition' ? 'standard' : variant;
   return $.ajax({
-    url: endpoint + '/' + effectiveVariant,
+    url: endpoint + '/' + variant,
     data: { sfen },
     cache: true,
   }).then((data: Partial<TablebaseData>) => {

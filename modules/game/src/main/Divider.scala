@@ -13,8 +13,8 @@ final class Divider {
     .expireAfterAccess(5 minutes)
     .build[Game.ID, Division]()
 
-  def apply(game: Game, initialSfen: Option[Sfen]): Division =
-    apply(game.id, game.usiMoves, game.variant, initialSfen)
+  def apply(game: Game): Division =
+    apply(game.id, game.usiMoves, game.variant, game.initialSfen)
 
   def apply(id: Game.ID, usiMoves: => UsiMoves, variant: Variant, initialSfen: Option[Sfen]) =
     if (!Variant.divisionSensibleVariants(variant)) Division.empty

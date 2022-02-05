@@ -20,8 +20,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
 
   private val blueprint = Source
     .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
-    .mapAsync(1)(gameRepo.withInitialSfen)
-    .map(gameWithInitialSfenWriter.writes)
+    .map(gameWriter.writes)
     .map(some)
     .keepAlive(keepAliveInterval, () => none)
 
@@ -41,12 +40,11 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
       }
     }
 
-  implicit private val sfenWriter: Writes[Sfen] = Writes[Sfen] { f =>
-    JsString(f.value)
+  implicit private val sfenWriter: Writes[Sfen] = Writes[Sfen] { sf =>
+    JsString(sf.value)
   }
 
-  private val gameWithInitialSfenWriter: OWrites[Game.WithInitialSfen] = OWrites {
-    case Game.WithInitialSfen(g, initialSfen) =>
+  private val gameWriter: OWrites[Game] = OWrites { g =>
       Json
         .obj(
           "id"        -> g.id,
@@ -65,7 +63,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
               .add("provisional" -> p.provisional)
           })
         )
-        .add("initialSfen" -> initialSfen)
+        .add("initialSfen" -> g.initialSfen)
         .add("clock" -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,

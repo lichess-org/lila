@@ -1,7 +1,7 @@
 package lila.setup
 
 import shogi.{ Game => ShogiGame, Situation, Clock, Speed }
-import shogi.variant.{ FromPosition, Variant }
+import shogi.variant.Variant
 import shogi.format.forsyth.Sfen
 
 import lila.game.Game
@@ -37,11 +37,6 @@ private[setup] trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame(v: Variant): ShogiGame =
-    ShogiGame(situation = Situation(v), clock = makeClock.map(_.toClock))
-
-  def makeGame: ShogiGame = makeGame(variant)
-
   def validClock = !hasClock || clockHasTime
 
   def clockHasTime = time + increment + byoyomi > 0
@@ -51,7 +46,7 @@ private[setup] trait Config {
   protected def justMakeClock = Clock.Config(
     (time * 60).toInt,
     if (clockHasTime) increment else 0,
-    if (clockHasTime) byoyomi else 5,
+    if (clockHasTime) byoyomi else 10,
     periods
   )
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
@@ -65,63 +60,22 @@ trait Positional { self: Config =>
 
   def strictSfen: Boolean
 
-  lazy val validSfen = variant != FromPosition || {
-    sfen exists { f =>
-      (f.toSituationPlus(shogi.variant.Standard)).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
+  lazy val validSfen = 
+    sfen.fold(true) { sf =>
+      sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
-  }
 
-  def sfenGame(builder: ShogiGame => Game): Game = {
-    val baseState = sfen ifTrue (variant.fromPosition) flatMap {
-      _.toSituationPlus(FromPosition)
-    }
-    val (shogiGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
-      case sit @ SituationPlus(s, _) =>
-        val game = ShogiGame(
-          situation = s,
-          plies = sit.plies,
-          startedAtPly = sit.plies,
-          startedAtMove = sit.moveNumber,
-          clock = makeClock.map(_.toClock)
-        )
-        if (game.toSfen.initialOf(shogi.variant.Standard))
-          makeGame(shogi.variant.Standard) -> none
-        else game -> baseState
-    }
-    val game = builder(shogiGame)
-    state.fold(game) {
-      case parsed @ SituationPlus(sit, _) => {
-        game.copy(
-          shogi = game.shogi.copy(
-            situation = game.situation.copy(
-              board   = sit.board,
-              hands   = sit.hands,
-              history = sit.history,
-              variant = FromPosition,
-            ),
-            plies = parsed.plies,
-            startedAtMove = parsed.moveNumber
-          )
-        )
-      }
-    }
-  }
+  def makeGame = ShogiGame(variant.some, sfen).withClock(makeClock.map(_.toClock))
+
 }
 
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val variants       = List(shogi.variant.Standard.id)
   val variantDefault = shogi.variant.Standard
-
-  val variantsWithSfen = variants :+ FromPosition.id
-  val aiVariants = variants :+
-    shogi.variant.Minishogi.id :+
-    shogi.variant.FromPosition.id
-  val variantsWithVariants =
-    variants :+ shogi.variant.Minishogi.id
-  val variantsWithSfenAndVariants =
-    variantsWithVariants :+ FromPosition.id
+  val variants       = List(shogi.variant.Standard.id, shogi.variant.Minishogi.id)
+  val aiVariants =
+    List(shogi.variant.Standard.id, shogi.variant.Minishogi.id)
 
   val speeds = Speed.all.map(_.id)
 
@@ -139,7 +93,7 @@ trait BaseConfig {
   private val byoyomiMax      = 180
   def validateByoyomi(i: Int) = i >= byoyomiMin && i <= byoyomiMax
 
-  private val periodsMin      = 0 // todo 1
+  private val periodsMin      = 0
   private val periodsMax      = 5
   def validatePeriods(i: Int) = i >= periodsMin && i <= periodsMax
 }

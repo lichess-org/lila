@@ -84,7 +84,7 @@ object form {
             views.html.setup.filter.renderCheckboxes(
               form,
               "variants",
-              translatedVariantChoicesWithVariants,
+              translatedVariantChoices,
               checks = form.value
                 .fold(
                   form.data.filter(_._1 startsWith "variants").map(_._2)

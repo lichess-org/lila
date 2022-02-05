@@ -109,7 +109,7 @@ final class DataForm {
       "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
       "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"         -> optional(lila.common.Form.sfen.playableStrict),
+      "position"         -> optional(lila.common.Form.sfen.clean),
       "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
       "rated"            -> optional(boolean),
       "password"         -> optional(nonEmptyText),
@@ -121,6 +121,7 @@ final class DataForm {
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid starting position", _.validPosition)
       .verifying("Games with this time control cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
@@ -199,13 +200,15 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
 
+  def validPosition = position.fold(true) { sfen =>
+    sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
+  }
+
   def realMode =
-    if (realPosition.isDefined) Mode.Casual
+    if (position.filterNot(_.initialOf(realVariant)).isDefined) Mode.Casual
     else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | shogi.variant.Standard
-
-  def realPosition = position ifTrue realVariant.standard
 
   def clockConfig = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
 
@@ -213,7 +216,7 @@ private[tournament] case class TournamentSetup(
 
   def validRatedVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig.some)
+      lila.game.Game.allowRated(position, clockConfig.some, realVariant)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150

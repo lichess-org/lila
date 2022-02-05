@@ -15,6 +15,7 @@ import shogi.format.usi.Usi
 import JsonView._
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
+import lila.common.Json._
 
 sealed trait Event {
   def typ: String

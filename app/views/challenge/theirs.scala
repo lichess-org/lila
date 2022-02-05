@@ -39,7 +39,7 @@ object theirs {
                   )
               ),
               bits.details(c),
-              c.notableInitialSfen.map { sfen =>
+              c.initialSfen.map { sfen =>
                 div(
                   cls := "board-preview",
                   views.html.game.bits.miniBoard(sfen, color = !c.finalColor, variant = c.variant)

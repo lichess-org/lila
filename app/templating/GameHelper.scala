@@ -30,11 +30,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     )
 
   def gameThumbnail(p: Pov) =
-    p.game.variant.standardBased option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
+    p.game.variant.standard option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
 
   def titleGame(g: Game) = {
     val speed   = shogi.Speed(g.clock.map(_.config)).name
-    val variant = g.variant.exotic ?? s" ${g.variant.name}"
+    val variant = !g.variant.standard ?? s" ${g.variant.name}"
     s"$speed$variant Shogi - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
@@ -50,8 +50,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
     val mode = game.mode.name
     val variant =
-      if (game.variant == shogi.variant.FromPosition) "position setup shogi"
-      else if (game.variant.exotic) game.variant.name
+      if (game.initialSfen.isDefined) "position setup shogi"
+      else if (!game.variant.standard) game.variant.name
       else "shogi"
     import shogi.Status._
     val result = (game.winner, game.loser, game.status) match {
@@ -205,7 +205,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val clock = game.clock ?? { c =>
       " • " + c.config.show
     }
-    val variant = game.variant.exotic ?? s" • ${game.variant.name}"
+    val variant = !game.variant.standard ?? s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
   }
 
@@ -281,7 +281,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speed = c.clock.map(_.config).fold(shogi.Speed.Correspondence.name) { clock =>
       s"${shogi.Speed(clock).name} (${clock.show})"
     }
-    val variant = c.variant.exotic ?? s" ${c.variant.name}"
+    val variant = !c.variant.standard ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(User.anonymous) { reg =>
       s"${usernameOrId(reg.id)} (${reg.rating.show})"
     }

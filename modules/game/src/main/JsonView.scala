@@ -10,7 +10,7 @@ final class JsonView(rematches: Rematches) {
 
   import JsonView._
 
-  def apply(game: Game, initialSfen: Option[Sfen]) =
+  def apply(game: Game) =
     Json
       .obj(
         "id"            -> game.id,
@@ -18,7 +18,7 @@ final class JsonView(rematches: Rematches) {
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "initialSfen"   -> (initialSfen | game.variant.initialSfen),
+        "initialSfen"   -> (game.initialSfen | game.variant.initialSfen),
         "sfen"          -> game.shogi.toSfen,
         "player"        -> game.turnColor,
         "plies"         -> game.plies,
@@ -32,7 +32,7 @@ final class JsonView(rematches: Rematches) {
       .add("tournamentId" -> game.tournamentId)
       .add("winner" -> game.winnerColor)
       .add("lastMove" -> game.lastMoveKeys)
-      .add("check" -> game.situation.checkSquare.map(_.usiKey))
+      .add("check" -> game.situation.checkSquares.headOption.map(_.usiKey))
       .add("rematch" -> rematches.of(game.id))
 }
 

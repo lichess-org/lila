@@ -315,7 +315,7 @@ object Schedule {
       // Special cases.
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2, 0, 1)
 
-      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2, 0, 1)
+      case (Shield, variant, Blitz) if !variant.standard => TC(3 * 60, 2, 0, 1)
 
       case (_, _, UltraBullet) => TC(30, 0, 0, 1)       // 30
       case (_, _, HyperBullet) => TC(60, 1, 0, 1)       // 2 * 60

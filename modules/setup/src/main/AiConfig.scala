@@ -5,6 +5,8 @@ import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
+import scala.util.chaining._
+
 case class AiConfig(
     variant: shogi.variant.Variant,
     timeMode: TimeMode,
@@ -35,7 +37,7 @@ case class AiConfig(
   ).some
 
   def game(user: Option[User]) = {
-    sfenGame { shogiGame =>
+    makeGame pipe { shogiGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         shogi.Speed(shogiGame.clock.map(_.config)),
         shogiGame.variant,
@@ -44,6 +46,7 @@ case class AiConfig(
       Game
         .make(
           shogi = shogiGame,
+          initialSfen = sfen,
           sentePlayer = creatorColor.fold(
             Player.make(shogi.Sente, user, perfPicker),
             Player.make(shogi.Sente, level.some)
@@ -53,7 +56,7 @@ case class AiConfig(
             Player.make(shogi.Gote, user, perfPicker)
           ),
           mode = shogi.Mode.Casual,
-          source = if (shogiGame.variant.fromPosition) Source.Position else Source.Ai,
+          source = if (sfen.isDefined) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           notationImport = None
         )

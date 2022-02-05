@@ -29,9 +29,9 @@ final class Export(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       OnlyHumansAndFacebookOrTwitter {
         ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-          OptionFuResult(env.game.gameRepo gameWithInitialSfen id) { case (game, initialSfen) =>
+          OptionFuResult(env.game.gameRepo game id) { game =>
             val pov = Pov(game, Color.fromName(color) | Color.sente)
-            env.game.gifExport.fromPov(pov, initialSfen) map
+            env.game.gifExport.fromPov(pov) map
               stream("image/gif") map
               gameImageCacheSeconds(game)
           }

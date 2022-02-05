@@ -23,7 +23,7 @@ trait ScalatagsAttrs {
   val dataEnableTime   = attr("data-enable-time")
   val datatime24h      = attr("data-time_24h")
   val dataColor        = attr("data-color")
-  val dataSfen          = attr("data-sfen")
+  val dataSfen         = attr("data-sfen")
   val dataRel          = attr("data-rel")
   val novalidate       = attr("novalidate").empty
   val datetimeAttr     = attr("datetime")

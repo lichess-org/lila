@@ -15,7 +15,7 @@ final class ChallengeMaker(
         game.opponentByUserId(dest.id).flatMap(_.userId) ?? userRepo.byId flatMap {
           _ ?? { challenger =>
             Pov(game, challenger) ?? { pov =>
-              makeRematch(pov, challenger, dest) dmap some
+              fuccess(makeRematch(pov, challenger, dest)) dmap some
             }
           }
         }
@@ -26,14 +26,13 @@ final class ChallengeMaker(
     Pov.ofUserId(game, challenger.id) ?? { pov =>
       pov.opponent.userId ?? userRepo.byId flatMap {
         _ ?? { dest =>
-          makeRematch(pov, challenger, dest) dmap some
+          fuccess(makeRematch(pov, challenger, dest)) dmap some
         }
       }
     }
 
   // pov of the challenger
-  private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] =
-    gameRepo initialSfen pov.game map { initialSfen =>
+  private def makeRematch(pov: Pov, challenger: User, dest: User): Challenge = {
       val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
         case (Some(clock), _) => TimeControl.Clock(clock.config)
         case (_, Some(days))  => TimeControl.Correspondence(days)
@@ -41,7 +40,7 @@ final class ChallengeMaker(
       }
       Challenge.make(
         variant = pov.game.variant,
-        initialSfen = initialSfen,
+        initialSfen = pov.game.initialSfen,
         timeControl = timeControl,
         mode = pov.game.mode,
         color = (!pov.color).name,

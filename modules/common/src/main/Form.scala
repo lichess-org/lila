@@ -137,15 +137,9 @@ object Form {
   }
 
   object sfen {
-    implicit private val sfenFormat = formatter.stringFormatter[Sfen](_.value, Sfen.apply)
-    val playableStrict              = playable(strict = true)
-    def playable(strict: Boolean)   = of[Sfen](sfenFormat)
-      .transform[Sfen](f => Sfen(f.value.trim), identity)
-      .verifying(
-        "Invalid position", sfen => (sfen.toSituation(shogi.variant.Standard))
-          .exists(_.playable(strict = strict, withImpasse = false))
-      )
-    }
+    implicit private val sfenFormat = formatter.stringFormatter[Sfen](_.value, Sfen.clean)
+    def clean = of[Sfen](sfenFormat)
+  }
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(

@@ -13,7 +13,7 @@ object jsI18n {
         if (g.isCorrespondence) correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        g.variant.exotic ?? variantTranslations
+        !g.variant.standard ?? variantTranslations
       } ++ {
         g.isTournament ?? tournamentTranslations
       } ++ {
@@ -98,6 +98,7 @@ object jsI18n {
     trans.itsYourTurn,
     trans.enteringKing,
     trans.invadingPieces,
-    trans.totalImpasseValue
+    trans.totalImpasseValue,
+    trans.fromPosition
   ).map(_.key)
 }

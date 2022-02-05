@@ -109,7 +109,7 @@ object Query {
   lazy val variantStandard = variant(shogi.variant.Standard)
 
   val notFromPosition: Bdoc =
-    F.variant $ne shogi.variant.FromPosition.id
+    F.initialSfen $exists(false)
 
   def createdSince(d: DateTime): Bdoc =
     F.createdAt $gt d

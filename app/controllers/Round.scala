@@ -191,10 +191,9 @@ final class Round(
                 }
             else
               for { // web crawlers don't need the full thing
-                initialSfen <- env.game.gameRepo.initialSfen(pov.gameId)
                 kif <- env.api
-                  .notationDump(pov.game, initialSfen, none, NotationDump.WithFlags(clocks = false))
-              } yield Ok(html.round.watcher.crawler(pov, initialSfen, kif))
+                  .notationDump(pov.game, none, NotationDump.WithFlags(clocks = false))
+              } yield Ok(html.round.watcher.crawler(pov, kif))
           },
           api = apiVersion =>
             for {
@@ -278,11 +277,10 @@ final class Round(
       OptionFuResult(proxyPov(gameId, color)) { pov =>
         env.tournament.api.gameView.withTeamVs(pov.game) zip
           (pov.game.simulId ?? env.simul.repo.find) zip
-          env.game.gameRepo.initialSfen(pov.game) zip
           env.game.crosstableApi.withMatchup(pov.game) zip
           env.bookmark.api.exists(pov.game, ctx.me) map {
-            case ((((tour, simul), initialSfen), crosstable), bookmarked) =>
-              Ok(html.game.bits.sides(pov, initialSfen, tour, crosstable, simul, bookmarked = bookmarked))
+            case (((tour, simul), crosstable), bookmarked) =>
+              Ok(html.game.bits.sides(pov, tour, crosstable, simul, bookmarked = bookmarked))
           }
       }
     }

@@ -378,7 +378,7 @@ function show(ctrl: AnalyseCtrl) {
 }
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
-  if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
+  if (variant.key === 'standard') return ctrl.trans.noarg('openingExplorer');
   return ctrl.trans('xOpeningExplorer', variant.name);
 }
 

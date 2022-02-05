@@ -2,10 +2,12 @@ package lila.setup
 
 import shogi.Clock
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ FromPosition, Variant }
+import shogi.variant.Variant
 import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
+
+import scala.util.chaining._
 
 final case class ApiAiConfig(
     variant: Variant,
@@ -32,7 +34,7 @@ final case class ApiAiConfig(
     else TimeMode.Unlimited
 
   def game(user: Option[User]) =
-    sfenGame { shogiGame =>
+    makeGame pipe { shogiGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         shogi.Speed(shogiGame.clock.map(_.config)),
         shogiGame.variant,
@@ -41,6 +43,7 @@ final case class ApiAiConfig(
       Game
         .make(
           shogi = shogiGame,
+          initialSfen = sfen,
           sentePlayer = creatorColor.fold(
             Player.make(shogi.Sente, user, perfPicker),
             Player.make(shogi.Sente, level.some)
@@ -50,7 +53,7 @@ final case class ApiAiConfig(
             Player.make(shogi.Gote, user, perfPicker)
           ),
           mode = shogi.Mode.Casual,
-          source = if (shogiGame.variant.fromPosition) Source.Position else Source.Ai,
+          source = if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           notationImport = None
         )
@@ -59,14 +62,9 @@ final case class ApiAiConfig(
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
 
-  def autoVariant =
-    if (variant.standard && sfen.exists(!_.initialOf(variant))) copy(variant = FromPosition)
-    else this
 }
 
 object ApiAiConfig extends BaseConfig {
-
-  // lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
   def from(
       l: Int,
@@ -74,7 +72,7 @@ object ApiAiConfig extends BaseConfig {
       cl: Option[Clock.Config],
       d: Option[Int],
       c: Option[String],
-      pos: Option[String]
+      sf: Option[String]
   ) =
     new ApiAiConfig(
       variant = shogi.variant.Variant.orDefault(~v),
@@ -82,6 +80,6 @@ object ApiAiConfig extends BaseConfig {
       daysO = d,
       color = Color.orDefault(~c),
       level = l,
-      sfen = pos map Sfen.apply
-    ).autoVariant
+      sfen = sf map Sfen.clean
+    )
 }

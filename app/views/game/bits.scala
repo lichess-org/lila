@@ -48,9 +48,9 @@ object bits {
 
   def gameIcon(game: Game): Char =
     game.perfType match {
-      case _ if game.fromPosition         => '*'
+      case _ if game.initialSfen.isDefined => '*'
       case _ if game.imported             => '/'
-      case Some(p) if game.variant.exotic => p.iconChar
+      case Some(p) if !game.variant.standard => p.iconChar
       case _ if game.hasAi                => 'n'
       case Some(p)                        => p.iconChar
       case _                              => '9'
@@ -58,7 +58,6 @@ object bits {
 
   def sides(
       pov: Pov,
-      initialSfen: Option[shogi.format.forsyth.Sfen],
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
@@ -66,7 +65,7 @@ object bits {
       bookmarked: Boolean
   )(implicit ctx: Context) =
     div(
-      side.meta(pov, initialSfen, tour, simul, userTv, bookmarked = bookmarked),
+      side.meta(pov, tour, simul, userTv, bookmarked = bookmarked),
       cross.map { c =>
         div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
       }
@@ -89,13 +88,9 @@ object bits {
       st.title := title
     )(name)
 
-    if (variant.exotic)
+    if (!variant.standard)
       link(
-        href = (variant match {
-          case shogi.variant.FromPosition =>
-            s"""${routes.Editor.index}?sfen=${initialSfen.??(_.value.replace(' ', '_'))}"""
-          case v => routes.Page.variant(v.key).url
-        }),
+        href = routes.Page.variant(variant.key).url,
         title = variant.title,
         name = variant.name.toUpperCase
       )

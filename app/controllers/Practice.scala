@@ -107,7 +107,6 @@ final class Practice(
             .userAnalysisJson(
               pov,
               ctx.pref,
-              initialSfen,
               chapter.setup.orientation,
               owner = false,
               me = ctx.me

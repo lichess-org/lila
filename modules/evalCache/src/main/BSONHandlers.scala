@@ -25,7 +25,7 @@ private object BSONHandlers {
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Usi writeList moves.value.toList
+    private def movesWrite(moves: Moves): String = moves.value.toList.map(_.usi) mkString " "
     private def movesRead(str: String): Option[Moves] =
       Usi readList str flatMap (_.toNel) map Moves.apply
     private val scoreSeparator = '@'
@@ -74,7 +74,7 @@ private object BSONHandlers {
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant.fromPosition) x.smallSfen.value
+        if (x.variant.standard) x.smallSfen.value
         else s"${x.variant.id}:${x.smallSfen.value}"
       }
   )

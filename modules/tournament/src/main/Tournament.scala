@@ -137,8 +137,6 @@ case class Tournament(
 
   def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
-  def ratingVariant = if (variant.fromPosition) shogi.variant.Standard else variant
-
   def startingPosition = position flatMap Thematic.bySfen
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")

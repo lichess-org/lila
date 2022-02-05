@@ -181,11 +181,9 @@ final private[api] class GameApi(
     val allAnalysis =
       if (withFlags.analysis) analysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
-    allAnalysis flatMap { analysisOptions =>
-      (games map gameRepo.initialSfen).sequenceFu map { initialSfens =>
-        games zip analysisOptions zip initialSfens map { case ((g, analysisOption), initialSfen) =>
-          gameToJson(g, analysisOption, initialSfen, checkToken(withFlags))
-        }
+    allAnalysis map { analysisOptions =>
+      (games zip analysisOptions) map { case (g, analysisOption) =>
+        gameToJson(g, analysisOption, checkToken(withFlags))
       }
     }
   }
@@ -195,13 +193,12 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialSfen: Option[Sfen],
       withFlags: WithFlags
   ) =
     Json
       .obj(
         "id"         -> g.id,
-        "initialSfen" -> initialSfen,
+        "initialSfen" -> g.initialSfen,
         "rated"      -> g.rated,
         "variant"    -> g.variant.key,
         "speed"      -> g.speed.key,
@@ -241,7 +238,7 @@ final private[api] class GameApi(
           shogi.Replay
             .situations(
               usis = g.usiMoves,
-              initialSfen = initialSfen,
+              initialSfen = g.initialSfen,
               variant = g.variant
             ).toOption map { sits =>
             JsArray(sits.toList.map(_.toSfen.value) map JsString.apply)

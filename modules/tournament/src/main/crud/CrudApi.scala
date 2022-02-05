@@ -95,7 +95,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
         variant = realVariant,
-        position = realPosition,
+        position = position,
         at = date
       ).some,
       spotlight = Spotlight(
@@ -105,7 +105,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = data.realPosition,
+      position = data.position,
       noBerserk = !data.berserkable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
     ) pipe { tour =>

@@ -2,7 +2,6 @@ package lila.setup
 
 import shogi.Clock
 import shogi.format.forsyth.Sfen
-import shogi.variant.FromPosition
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.game.PerfPicker
@@ -13,28 +12,23 @@ final case class ApiConfig(
     days: Option[Int],
     rated: Boolean,
     color: Color,
-    position: Option[Sfen] = None,
+    sfen: Option[Sfen] = None,
     acceptByToken: Option[String] = None
 ) {
 
   val strictSfen = false
 
-  def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
+  def >> = (variant.key.some, clock, days, rated, color.name.some, sfen.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, days)
 
   def validSfen =
-    variant != FromPosition || {
-      position ?? { f =>
-        ~(f.toSituationPlus(shogi.variant.Standard)).map(_.situation.playable(strict = strictSfen, withImpasse = true))
-      }
+    sfen.fold(true) { sf =>
+      sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
 
   def mode = shogi.Mode(rated)
 
-  def autoVariant =
-    if (variant.standard && position.exists(!_.initialOf(shogi.variant.Standard))) copy(variant = FromPosition)
-    else this
 }
 
 object ApiConfig extends BaseHumanConfig {
@@ -47,7 +41,7 @@ object ApiConfig extends BaseHumanConfig {
       d: Option[Int],
       r: Boolean,
       c: Option[String],
-      pos: Option[String],
+      sf: Option[String],
       tok: Option[String]
   ) =
     new ApiConfig(
@@ -56,7 +50,7 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map Sfen.apply,
+      sfen = sf map Sfen.apply,
       acceptByToken = tok
-    ).autoVariant
+    )
 }

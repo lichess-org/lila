@@ -6,12 +6,12 @@ import shogi.format.usi.Usi
 import org.specs2.mutable._
 
 import lila.db.ByteArray
-import shogi.variant.Standard
+import shogi.variant.{ Variant, Standard }
 
 // todo
 class BinaryPieceTest extends Specification {
   val usis   = Usi.readList(Fixtures.fromProd3).get.toVector
-  def runOne = BinaryFormat.pieces.read(Standard)(usis, None)
+  def fromUsis(usis: Vector[Usi], variant: Variant = Standard) = BinaryFormat.pieces.read(usis, None, variant)
 
   "Piece map reader" should {
 

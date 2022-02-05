@@ -29,11 +29,12 @@ object StudyForm {
       mapping(
         "gameId"      -> optional(nonEmptyText),
         "orientation" -> optional(nonEmptyText),
-        "sfen"        -> optional(lila.common.Form.sfen.playable(strict = false)),
+        "sfen"        -> optional(lila.common.Form.sfen.clean),
         "notation"    -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
+      .verifying("Invalid SFEN", _.validSfen)
     )
 
     case class Data(
@@ -46,6 +47,13 @@ object StudyForm {
     ) {
 
       def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
+
+      def variant = (variantStr flatMap shogi.variant.Variant.apply) | shogi.variant.Standard
+
+      def validSfen =
+        sfen.fold(true) { sf =>
+          sf.toSituation(variant).exists(_.playable(strict = false, withImpasse = false))
+        }
 
       def as: As =
         asStr match {

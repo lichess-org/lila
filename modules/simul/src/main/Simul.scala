@@ -177,7 +177,7 @@ object Simul {
       hostGameId = none,
       createdAt = DateTime.now,
       estimatedStartAt = estimatedStartAt,
-      variants = if (position.isDefined) List(shogi.variant.Standard) else variants,
+      variants = if (position.isDefined) variants.take(1) else variants,
       position = position,
       applicants = Nil,
       pairings = Nil,

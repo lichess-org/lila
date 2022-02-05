@@ -285,23 +285,6 @@ object Node {
       }
     }
 
-  def destString(dests: Map[Pos, List[Pos]]): String = {
-    val sb    = new java.lang.StringBuilder(80)
-    var first = true
-    dests foreach {
-      case (orig, dests) =>
-        if (first) first = false
-        else sb append " "
-        sb append orig.usiKey
-        dests foreach { sb append _.usiKey }
-    }
-    sb.toString
-  }
-
-  implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
-    JsString(destString(dests))
-  }
-
   val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
     JsArray {
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)

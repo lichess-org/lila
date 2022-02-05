@@ -98,7 +98,7 @@ object crud {
       ),
       form3.split(
         form3.group(form("variant"), raw("Variant"), half = true) { f =>
-          form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+          form3.select(f, translatedVariantChoices.map(x => x._1 -> x._2))
         },
         form3.group(form("minutes"), raw("Duration in minutes"), half = true)(form3.input(_, typ = "number"))
       ),

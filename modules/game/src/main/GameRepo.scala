@@ -345,24 +345,18 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialSfen: Option[shogi.format.forsyth.Sfen] = None): Funit = {
+  def insertDenormalized(g: Game): Funit = {
     val g2 =
-      if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
+      if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.initialSfen, g.clock.map(_.config), g.variant)))
         g.copy(mode = shogi.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val sfen: Option[Sfen] = initialSfen orElse {
-      (!g2.variant.standard)
-        .option(g2.shogi.toSfen)
-        .filterNot(_.initialOf(g2.variant))
-    }
     val checkInHours =
       if (g2.isNotationImport) none
       else if (g2.hasClock) 1.some
       else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
       else (24 * 10).some
     val bson = (gameBSONHandler write g2) ++ $doc(
-      F.initialSfen -> sfen,
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
@@ -390,31 +384,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setImportCreatedAt(g: Game) =
     coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
 
-  def initialSfen(gameId: ID): Fu[Option[Sfen]] =
-    coll.primitiveOne[Sfen]($id(gameId), F.initialSfen)
-
-  def initialSfen(game: Game): Fu[Option[Sfen]] =
-    initialSfen(game.id) dmap {
-      case None => game.variant.initialSfen.some
-      case sfen  => sfen
-    }
-
-  def gameWithInitialSfen(gameId: ID): Fu[Option[(Game, Option[Sfen])]] =
-    game(gameId) flatMap {
-      _ ?? { game =>
-        initialSfen(game) dmap { sfen =>
-          Option(game -> sfen)
-        }
-      }
-    }
-
-  def withInitialSfen(game: Game): Fu[Game.WithInitialSfen] =
-    initialSfen(game) dmap { Game.WithInitialSfen(game, _) }
-
-  def withInitialSfens(games: List[Game]): Fu[List[(Game, Option[Sfen])]] =
-    games.map { game =>
-      initialSfen(game) dmap { game -> _ }
-    }.sequenceFu
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

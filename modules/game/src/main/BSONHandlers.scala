@@ -94,6 +94,7 @@ object BSONHandlers {
         sentePlayer = light.sentePlayer,
         gotePlayer = light.gotePlayer,
         shogi = shogiGame,
+        initialSfen = initialSfen,
         loadClockHistory = clk =>
           for {
             bs <- senteClockHistory
@@ -149,7 +150,8 @@ object BSONHandlers {
         F.periodsSente      -> periodEntries(Sente, o.clockHistory),
         F.periodsGote       -> periodEntries(Gote, o.clockHistory),
         F.rated             -> w.boolO(o.mode.rated),
-        F.variant           -> o.variant.exotic.option(w int o.variant.id),
+        F.initialSfen       -> o.initialSfen,
+        F.variant           -> (!o.variant.standard).option(w int o.variant.id),
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),

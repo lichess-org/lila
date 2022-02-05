@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.analyse.AnalysisRepo
 import lila.game.Game
@@ -28,7 +29,7 @@ final class Analyser(
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
-            makeWork(game, sender) flatMap { work =>
+            makeWork(game, sender) pipe { work =>
               workQueue {
                 repo getSimilarAnalysis work flatMap {
                   // already in progress, do nothing
@@ -70,12 +71,7 @@ final class Analyser(
                 id = chapterId,
                 initialSfen = initialSfen,
                 studyId = studyId.some,
-                variant =
-                  if (
-                    variant.standard &&
-                    !initialSfen.exists(_.initialOf(shogi.variant.Standard))
-                  ) shogi.variant.FromPosition
-                  else variant,
+                variant = variant,
                 moves = moves take maxPlies map (_.usi) mkString " "
               ),
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
@@ -99,20 +95,18 @@ final class Analyser(
       }
     }
 
-  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialSfen(game) map { initialSfen =>
-      makeWork(
-        game = Work.Game(
-          id = game.id,
-          initialSfen = initialSfen,
-          studyId = none,
-          variant = game.variant,
-          moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
-        ),
-        startPly = game.shogi.startedAtPly,
-        sender = sender
-      )
-    }
+  private def makeWork(game: Game, sender: Work.Sender): Work.Analysis =
+    makeWork(
+      game = Work.Game(
+        id = game.id,
+        initialSfen = game.initialSfen,
+        studyId = none,
+        variant = game.variant,
+        moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
+      ),
+      startPly = game.shogi.startedAtPly,
+      sender = sender
+    )
 
   private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
     Work.Analysis(

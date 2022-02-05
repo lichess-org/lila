@@ -8,18 +8,18 @@ import shogi.format.forsyth.Sfen
 
 object Rewind {
 
-  private def createTags(sfen: Option[Sfen], game: Game) = {
+  private def createTags(game: Game) = {
     val variantTag = Some(Tag(_.Variant, game.variant.name))
-    val sfenTag    = sfen.map(f => Tag(_.Sfen, f.value))
+    val sfenTag    = game.initialSfen.map(sf => Tag(_.Sfen, sf.value))
 
     Tags(List(variantTag, sfenTag).flatten)
   }
 
-  def apply(game: Game, initialSfen: Option[Sfen]): Validated[String, Progress] =
+  def apply(game: Game): Validated[String, Progress] =
     Reader
       .fromUsi(
         usis = game.usiMoves.dropRight(1),
-        tags = createTags(initialSfen, game)
+        tags = createTags(game)
       )
       .valid
       .map { replay =>

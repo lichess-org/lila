@@ -69,13 +69,9 @@ final class FishnetApi(
           } ++ {
             slow ?? $doc("sender.system" -> true)
           } ++ {
-            $or(
-              repo.selectVariants(client.getVariants.map(_.id)), // only variants client supports
-              $doc(
-                "game.variant" $eq shogi.variant.FromPosition.id,
-                "tries" $lt 1
-              )
-            )
+            client.isNNUE ?? $doc("game.initialSfen" $exists(false))
+          } ++ {// todo, so fairy can't get nnue work
+            repo.selectVariants(client.supportedVariants.map(_.id)) // only variants client supports
           }
         )
         .sort(
