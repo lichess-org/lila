@@ -3,7 +3,7 @@ package lila.forum
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.clean
+import lila.common.Form.cleanText
 
 final private[forum] class DataForm(
     val captcher: lila.hub.actors.Captcher
@@ -13,7 +13,7 @@ final private[forum] class DataForm(
   import DataForm._
 
   val postMapping = mapping(
-    "text"    -> clean(text(minLength = 3)),
+    "text"    -> cleanText(minLength = 3),
     "gameId"  -> text,
     "move"    -> text,
     "modIcon" -> optional(boolean)
@@ -28,7 +28,7 @@ final private[forum] class DataForm(
 
   val topic = Form(
     mapping(
-      "name" -> clean(text(minLength = 3, maxLength = 100)),
+      "name" -> cleanText(minLength = 3, maxLength = 100),
       "post" -> postMapping
     )(TopicData.apply)(TopicData.unapply)
   )

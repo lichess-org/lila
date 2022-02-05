@@ -76,6 +76,28 @@ public class StringUtils {
         sb.append(sArr, start, end - start);
     }
 
+    public static String removeGarbageChars(final String s) {
+        final char[] sArr = s.toCharArray();
+        final int size = sArr.length;
+        final StringBuilder sb = new StringBuilder(size);
+        for (int i = 0; i < size; i++) {
+            final char c = sArr[i];
+            switch (c) {
+              case '\u200b':
+              case '\u200c':
+              case '\u200d':
+              case '\u200e':
+              case '\u200f':
+              case '\u202e':
+              case '\u1160': 
+                break;
+              default:
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     /**
      * https://github.com/tdebatty/java-string-similarity/blob/master/src/main/java/info/debatty/java/stringsimilarity/Levenshtein.java
      *

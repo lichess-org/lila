@@ -43,7 +43,7 @@ object SimulForm {
   val colorDefault = "gote"
 
   private def nameType(host: User) =
-    clean(text).verifying(
+    cleanText.verifying(
       Constraints minLength 2,
       Constraints maxLength 40,
       Constraints.pattern(
@@ -120,7 +120,7 @@ object SimulForm {
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
-        "text"             -> clean(text),
+        "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
