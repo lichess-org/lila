@@ -26,6 +26,7 @@ object passwd {
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
             autocomplete := "new-password"
           ),
+          form3.globalError(form),
           form3.action(form3.submit(trans.apply()))
         )
       )
