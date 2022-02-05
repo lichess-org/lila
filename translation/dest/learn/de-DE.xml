@@ -11,24 +11,29 @@
 	<string name="theIntroduction">Einführung</string>
 	<string name="introBasics">Lass uns ein paar Grundlagen lernen.</string>
 	<string name="introIntro">Deine Reise beginnt hier.</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">Es ist wichtig, dass du deine Figuren voneinander unterscheiden kannst, also stell sicher, dass du den richtigen Figurenstil wählst.
 Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) und klicke dann auf \'Figurenstil\'.</string>
 	<string name="promotionZone">Wenn einige deiner Figuren eine der ersten drei Reihen im Territorium deines Gegners erreichen oder verlassen, kannst die gezogene Figur befördern und sie somit stärker machen.</string>
 	<string name="senteGoesFirst">In Shogi nennt man den Spieler, der zuerst zieht, Sente und den Spieler, der als Zweites zieht, Gote. Der Sente wird manchmal durch die Farbe Schwarz dargestellt und Gote durch Weiß. Mache einen beliebigen Zug um fortzufahren.</string>
 	<string name="introComplete">Du kennst jetzt einige Grundlagen, aber dieser Teil des Tutorials ist noch im Aufbau. Lerne erstmal wie die einzelnen Figuren ziehen.</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">Der Turm</string>
 	<string name="itMovesInStraightLines">Er bewegt sich in geraden Linien</string>
 	<string name="rookIntro">Der Turm ist eine mächtige Figur. Bist du bereit, ihn zu befehligen?</string>
 	<string name="rookGoal">Klicke auf den Turm, um den Stern zu bekommen!</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">Der Turm wird zu dem mächtigen Drachen befördert. Vergiss nicht, dass du deine Figur auch befördern kannst, wenn sie die Beförderungszone verlässt.</string>
 	<string name="rookSummary">Der Turm kann nach oben, unten, links oder rechts so weit ziehen, wie er möchte.</string>
 	<string name="dragonSummary">Er kann sich genauso bewegen wie der unbeförderte Turm oder ein Feld in diagonaler Richtung. Dadurch ist er deutlich stärker.</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">Schnappe dir alle Sterne!</string>
 	<string name="theFewerMoves">Je weniger Züge du machst, desto mehr Punkte gewinnst du!</string>
 	<string name="rookComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Turm.</string>
 	<string name="theBishop">Der Läufer</string>
 	<string name="itMovesDiagonally">Er bewegt sich diagonal</string>
 	<string name="bishopIntro">Als Nächstes lernen wir, einen Läufer zu manövrieren!</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Die Beförderung deines Läufers macht ihn stärker, er wird zu einer Figur, die \"Pferd\" genannt wird.</string>
 	<string name="bishopSummary">Der Läufer läuft in eine der diagonalen Richtungen.</string>
 	<string name="horseSummary">Der beförderte Läufer bewegt sich auch diagonal, aber er kann auch ein Feld nach oben, unten, links oder rechts gehen.</string>
@@ -63,6 +68,7 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="lancePromotion">Nachdem die Lanze befördert wurde, bewegt sie sich anders, aber du hast das schon irgendwo gesehen - beim Goldgeneral.</string>
 	<string name="lanceSummary">Sie bewegt sich geradeaus. Wirklich einfach.</string>
 	<string name="planceSummary">Wie beim Goldgeneral.</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">Gute Arbeit!</string>
 	<string name="theGold">Der Goldgeneral</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">Der Goldgeneral bewegt sich in eine beliebige Richtung AUẞER diagonal rückwärts</string>
@@ -87,13 +93,22 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="captureIntro">Finde die ungedeckten Figuren deines Gegners und schlage sie!</string>
 	<string name="takeTheBlackPieces">Schlage die schwarzen Figuren!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Schlage die schwarzen Figuren! Und verliere deine nicht.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">Herzlichen Glückwunsch! Du weißt jetzt wie man mit Shogi-Figuren kämpft!</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Beschützen</string>
 	<string name="keepYourPiecesSafe">Beschütze deine Figuren</string>
 	<string name="protectionIntro">Finde die Figuren, die dein Gegner angreift und beschütze sie!</string>
 	<string name="protectionComplete">Herzlichen Glückwunsch! Eine nicht verlorene Figur ist eine gewonnene Figur!</string>
 	<string name="escape">Du wirst angegriffen! Entkomme der Bedrohung!</string>
 	<string name="noEscape">Es gibt kein Entrinnen, aber du kannst dich verteidigen!</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">Lasse nicht zu, dass eine ungedeckte Figur geschlagen wird!</string>
 	<string name="combat">Kampf</string>
 	<string name="captureAndDefendPieces">Schlage und verteidige die Figuren</string>
@@ -107,23 +122,46 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="outOfCheck">Aus dem Schach heraus</string>
 	<string name="defendYourKing">Verteidige deinen König</string>
 	<string name="outOfCheckIntro">Du befindest dich im Schach! Du musst fliehen oder den Angriff blocken.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">Entkomme mit dem König!</string>
 	<string name="theKingCannotEscapeButBlock">Der König kann nicht entkommen, aber du kannst den Angriff blocken!</string>
 	<string name="youCanGetOutOfCheckByTaking">Du kannst dem Schach entkommen, indem du die angreifende Figur schlägst.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">Dieser Springer bietet durch deine Verteidigung hindurch Schach!</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">Entkomme mit dem König oder blocke den Angriff!</string>
 	<string name="outOfCheckComplete">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
 	<string name="mateInOne">Matt in einem Zug</string>
 	<string name="defeatTheOpponentsKing">Besiege den gegnerischen König</string>
 	<string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Greife den gegnerischen König so an, dass er sich nicht verteidigen kann!</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">Herzlichen Glückwunsch! So gewinnt man im Shogi!</string>
 	<string name="intermediate">Mittleres Niveau</string>
 	<string name="boardSetup">Aufstellung</string>
 	<string name="howTheGameStarts">Wie das Spiel beginnt</string>
 	<string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
 	<string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Shogi-Partie. Mache einen beliebigen Zug, um fortzufahren.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man die Shogi-Figuren aufstellt.</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">Patt</string>
 	<string name="theGameIsADraw">Das Spiel ist Remis</string>
 	<string name="stalemateIntro">Wenn ein Spieler nicht im Schach steht und über keinen zulässigen Zug verfügt, ist es ein Patt. Das Spiel endet Remis: Niemand gewinnt, niemand verliert.</string>
@@ -134,11 +172,26 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="advanced">Fortgeschritten</string>
 	<string name="pieceValue">Figurenwerte</string>
 	<string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">Schach in zwei Zügen</string>
 	<string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
 	<string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>

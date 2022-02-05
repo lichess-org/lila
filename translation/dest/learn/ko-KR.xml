@@ -11,24 +11,29 @@
 	<string name="theIntroduction">입문하기</string>
 	<string name="introBasics">쇼기의 기초를 배워봅시다</string>
 	<string name="introIntro">당신의 여정은 지금부터 시작입니다</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">자신의 기물을 구분할 수 있는 것이 중요하므로 반드시 자신에게 맞는 기물을 골라보세요.
 톱니바퀴 또는 사용자 이름(오른쪽 상단 모서리)을 클릭한 다음 \'기물 세트\'를 클릭합니다.</string>
 	<string name="promotionZone">당신의 말중 몇 종류는 상대편 진영의 3줄 안에 들어갔을때, 말을 승급시켜서 더 강하게 만들 수 있습니다.</string>
 	<string name="senteGoesFirst">쇼기에서는 처음에 두는 사람을 \'선수[先手]\'라고 부르고, 다음에 두는 사람을 \'후수[後手]\'라고 합니다. \'선수\'는 흑, \'후수\'는 백이라고 할 수 있습니다. 계속하시려면 \'선수\'로 원하는 수를 둬주세요.</string>
 	<string name="introComplete">이것으로 기본적인 것은 아셨다고 생각합니다만, 튜토리얼의 이 부분은 아직 작성 중입니다. 지금은 각각의 말이 어떤식으로 움직이는지를 배우세요.</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">\'비차[飛車]\'</string>
 	<string name="itMovesInStraightLines">이 말은 직선으로 움직입니다</string>
 	<string name="rookIntro">\'비차[飛車]\'는 강력한 말입니다. 사용할 준비가 되셨나요?</string>
 	<string name="rookGoal">\'비차[飛車]\'를 클릭해서 별표지점까지 이동시켜보세요.</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">\'비차[飛車]\'는 강력한 \'용[竜]\'이 될 수 있습니다. 말이 승급된 채로 상대방의 진지에서 나왔을때도 승급된 상태를 유지할 수 있음을 잊지 마세요.</string>
 	<string name="rookSummary">\'비차[飛車]\'는 상하좌우를 자유자재로 움직일 수 있는 말입니다.</string>
 	<string name="dragonSummary">\'용[竜]\'은, 승급시키지 않은 \'비차[飛車]\'와 상하좌우 똑같은 방향으로 움직일 수 있을 뿐만 아니라, 대각선 방향으로도 1칸을 이동하는 것이 가능하기 때문에 매우 강력해집니다.</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">모든 별을 잡아봅시다!</string>
 	<string name="theFewerMoves">움직임이 적을수록 더 많은 점수를 획득합니다!</string>
 	<string name="rookComplete">축하드립니다! \'비차[飛車]\'의 사용법을 성공적으로 마스터하셨습니다.</string>
 	<string name="theBishop">\'각행[角行]\'</string>
 	<string name="itMovesDiagonally">이 말은 대각선으로 움직입니다.</string>
 	<string name="bishopIntro">다음은 \'각행[角行]\'의 이동법을 배워볼까요?</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">각행[角行]이 승급하면 \'용마[竜馬]\'라는 더 강한 말로 변합니다.</string>
 	<string name="bishopSummary">\'각행[角行]\'은 대각선 방향으로 얼마든지 움직일 수 있습니다.</string>
 	<string name="horseSummary">\'용마[竜馬]\'는 대각선으로 움직이지만 상하좌우로도 한 칸씩 움직일 수 있습니다</string>
@@ -63,6 +68,7 @@
 	<string name="lancePromotion">향차는 승급한 후엔 기존과는 다르게 움직입니다. 하지만 어디선가 많이 본 움직임이죠? 그렇습니다. 금장[金将]과 똑같습니다.</string>
 	<string name="lanceSummary">그냥 앞으로 움직이세요. 정말 쉽습니다.</string>
 	<string name="planceSummary">움직임이 금장[金将]과 똑같습니다.</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">훌륭합니다!</string>
 	<string name="theGold">\'금장[金将]\'</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">\'금장[金将]\'은 대각선의 양쪽 뒷 방향을 제외하고는 어느 방향이든 움직일 수 있습니다</string>
@@ -87,7 +93,14 @@
 	<string name="captureIntro">무방비한 상대방의 말을 찾아서 잡아보세요!</string>
 	<string name="takeTheBlackPieces">\'후수[後手]\'의 말을 빼앗아보세요!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">\'후수[後手]\'의 말을 전부 빼앗았습니다. 내 말을 상대한테 뺏기지 않도록 하세요.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">축하합니다! 어떻게 상대의 말을 잡는지를 배웠습니다!</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">보호</string>
 	<string name="keepYourPiecesSafe">당신의 말을 보호하세요</string>
 	<string name="protectionIntro">상대한테서 공격받을 수 있는 말을 찾아서 보호하세요!</string>
@@ -95,6 +108,8 @@
 	<string name="escape">공격받고 있습니다!
 위협에서 벗어나세요!</string>
 	<string name="noEscape">공격권에서 벗어날순 없더라도 막을 순 있어요!</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">상대한테서 그 어떤 말도 그냥 뺏기지 않도록 하세요!</string>
 	<string name="combat">전투</string>
 	<string name="captureAndDefendPieces">공격하면서 방어하세요</string>
@@ -108,18 +123,26 @@
 	<string name="outOfCheck">체크[王手]에서 벗어나기</string>
 	<string name="defendYourKing">왕을 보호하세요</string>
 	<string name="outOfCheckIntro">체크[王手]당했습니다! 도망치거나 공격을 막으세요.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">왕을 피신시키십시오!</string>
 	<string name="theKingCannotEscapeButBlock">왕이 탈출할 수 없더라도,
 다른 말로 공격을 막을 수는 있습니다!</string>
 	<string name="youCanGetOutOfCheckByTaking">최선의 방어는 공격입니다.
 왕을 공격하는 말을 공격하세요!</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">\'계마[桂馬]\'가 당신의 방어를 뚫고 체크합니다!</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">왕을 피신시키거나 공격을 막으세요!</string>
 	<string name="outOfCheckComplete">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
 	<string name="mateInOne">한 수 안에 \'체크메이트[詰み]\'하기</string>
 	<string name="defeatTheOpponentsKing">상대의 왕을 굴복시키세요</string>
 	<string name="mateInOneIntro">\'체크메이트[詰み]\'란 더 이상 방어할 수 없는 체크 상태입니다. 한마디로 승리죠!</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">어떤 방법으로도 체크를 피할 수 없도록 상대방의 왕을 빈틈없이 공격하세요!</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">축하합니다! 그게 바로 쇼기의 승리방법입니다!</string>
 	<string name="intermediate">중급</string>
 	<string name="boardSetup">쇼기판과 말의 셋팅</string>
@@ -127,7 +150,22 @@
 	<string name="boardSetupIntro">두 군대가 맞서 싸울 준비를 합니다</string>
 	<string name="thisIsTheInitialPosition">이것이 쇼기의 맨처음 배치입니다.
 계속하려면 원하는 다음 수를 둬보세요.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">축하합니다! 쇼기판을 셋팅하는 법을 배우셨습니다!</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">스테일메이트[Stalemate, 무승부]</string>
 	<string name="theGameIsADraw">이 게임은 무승부입니다</string>
 	<string name="stalemateIntro">체크에 걸리지도 않았지만 움직일 수 있는 수가 없는 상황은 무승부, 스테일메이트입니다.</string>
@@ -138,10 +176,25 @@
 	<string name="advanced">상급</string>
 	<string name="pieceValue">기물의 가치</string>
 	<string name="evaluatePieceStrength">말의 강함을 대략 평가해봅시다</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">가장 높은 가치가 있는 말을 잡으세요!
 힌트: 
 금장/은장[金将/銀将] &gt; 각행[角行]</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">가장 높은 가치가 있는 말을 잡으세요!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">두 수 안에 체크하기</string>
 	<string name="twoMovesToGiveCheck">두 수 만에 위협하기</string>
 	<string name="checkInTwoIntro">두 수 만에 상대의 왕을 체크시킬 방법을 찾아내세요!</string>

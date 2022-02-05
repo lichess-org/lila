@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
-  <string name="isItRated">Is it rated?</string>
-  <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
-  <string name="isRated">This tournament is rated and will affect your rating.</string>
-  <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
-  <string name="someRated">Some tournaments are rated and will affect your rating.</string>
-  <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
-The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+  <string name="arenaTournaments">Arenaturneringer</string>
+  <string name="isItRated">Er den rangert?</string>
+  <string name="willBeNotified">Du blir varslet når turneringen starter, så det er bare å spille i en annen fane mens du venter.</string>
+  <string name="isRated">Denne turneringen er rangert og vil påvirke ratingen din.</string>
+  <string name="isNotRated">Denne turneringen er *ikke* rangert og vil *ikke* påvirke ratingen din.</string>
+  <string name="someRated">Noen turneringer er rangerte og vil påvirke ratingen din.</string>
+  <string name="howAreScoresCalculated">Hvordan beregnes poengene?</string>
+  <string name="howAreScoresCalculatedAnswer">En seier gir 2 poeng, mens et tap ikke er verdt noen.
+Vinner du to partier på rad starter du en seiersrekke – denne er representert av et flammeikon.
+Hver påfølgende seier er verdt dobbelt så mange poeng, helt til du taper et parti.
+Dvs. at en seier da er verdt 4 poeng, mens et tap fortsatt er verdt null.
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
+For eksempel er tre seiere 8 poeng: 2 + 2 + (2 x 2)</string>
+  <string name="berserk">Berserkmodus</string>
+  <string name="berserkAnswer">Når en spiller trykker på Berserkknappen på begynnelsen av et parti, mister de halvparten av tiden sin. Til gjengjeld er en seier verdt ett ekstra turneringspoeng. Går man Berserk i tidskontroller med tilleggstid eller byoyomi mistes dessuten disse.
+(Unntaket er 1+2 – det gir 1+0)
+Berserkmodus er ikke tilgjengelig for partier med null i starttid (eksempelvis 0+1 og 0+2).
+Berserkmodus gir kun ekstrapoeng om du spiller minst 7 trekk i partiet.</string>
+  <string name="howIsTheWinnerDecided">Hvordan avgjøres vinneren?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Spilleren(e) med flest poeng ved turneringen slutt kåres til vinner(e).
 
-Going Berserk in time controls with an increment and byoyomi also cancels the increment and byoyomi time (1+2 is an exception, it gives 1+0).
-
-Berserk is not available for games with zero initial time (0+1, 0+2).
-
-Berserk only grants an extra point if you play at least 7 moves in the game.</string>
-  <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament\'s set time limit will be announced winner(s).
-
-When two or more players have the same number of points, the tournament performance is the tie break.</string>
-  <string name="howDoesPairingWork">How does the pairing work?</string>
-  <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
-As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
-Play fast and return to the lobby to play more games and win more points.</string>
-  <string name="howDoesItEnd">How does it end?</string>
-  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don\'t count for the tournament.</string>
-  <string name="otherRules">Other important rules</string>
-  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+Når flere spillere ender turneringen på samme poengsum avgjør turneringsprestasjonen.</string>
+  <string name="howDoesPairingWork">Hvordan settes motstandere sammen?</string>
+  <string name="howDoesPairingWorkAnswer">Ved turneringsstart blir spillerene satt sammen på grunnlag av rating. Så snart du blir ferdig med et parti kan du gå tilbake til lobbyen: du vil bli satt sammen med en ny motstander – denne gang på grunnlag av turneringsplassering. Dette sikrer lavest mulig ventetid, men det kan hende at du ikke møter alle spillerene i turneringen.
+Spill raskt, gå tilbake til lobbyen for å spille flere partier, og vinn flere poeng.</string>
+  <string name="howDoesItEnd">Hvordan slutter turneringen?</string>
+  <string name="howDoesItEndAnswer">Turneringen har en klokke som teller ned. Når den når null fryses turneringsplasseringene og vinnerene blir annonsert. Fortsatt pågående partier må ferdigspilles, men de gir ikke turneringspoeng.</string>
+  <string name="otherRules">Andre viktige regler</string>
+  <string name="thereIsACountdown">Det første trekket i hvert parti har en nedtelling. Trekker du ikke i tide taper du partiet.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
     <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
   </plurals>
-  <string name="thisIsPrivate">This is a private tournament</string>
-  <string name="shareUrl">Share this URL to let people join: %s</string>
+  <string name="thisIsPrivate">Dette er en privat turnering</string>
+  <string name="shareUrl">Del denne lenken med andre spillere for å la dem bli med: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

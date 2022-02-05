@@ -11,23 +11,28 @@
 	<string name="theIntroduction">介紹</string>
 	<string name="introBasics">讓我們從基礎開始。</string>
 	<string name="introIntro">您的旅程從這裡開始</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">可以分辨不同的棋子是很重要的，所以請確認您使用適合的「棋子」外觀。如果要調整，請點選您的用戶名稱以及齒輪圖案，然後再點選「棋子」。</string>
 	<string name="promotionZone">當您的某些棋子走到，或離開棋盤前三行的範圍（又稱作敵陣）時，您可以選擇升級它們，使它們變得更強。</string>
 	<string name="senteGoesFirst">一場將棋對局中，先走的一方稱為「先手」，而讓先的一方稱為「後手」。先手有時會以「黑方」表示，而後手以「白方」表示。以「先手」方走棋吧。</string>
 	<string name="introComplete">您現在知道一些基礎知識了，但這部分的教學還沒結束。現在學一下各種棋子的走法吧！</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">飛車</string>
 	<string name="itMovesInStraightLines">以直線移動</string>
 	<string name="rookIntro">飛車是一個強大的棋子，你準備好來指揮它了嗎？</string>
 	<string name="rookGoal">把飛車移到星號格吧!</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">飛車升變會變成強大的龍王。別忘記您也可以將棋子移出敵陣後同時升變</string>
 	<string name="rookSummary">飛車可以前後左右直衝無限格</string>
 	<string name="dragonSummary">它的走法跟飛車很像，但更強，因為它也可以任何方向斜走一格</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">吃掉所有的星星！</string>
 	<string name="theFewerMoves">花的手數越少，可以更高分喔！</string>
 	<string name="rookComplete">恭喜！你已經懂得如何使用飛車了。</string>
 	<string name="theBishop">角行</string>
 	<string name="itMovesDiagonally">它以斜線移動</string>
 	<string name="bishopIntro">接下來我們來學如何控制角行的移動。</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">角行升變之後會變得更強，它會變成{龍馬}</string>
 	<string name="bishopSummary">角行可以任何方向斜走無限格</string>
 	<string name="horseSummary">龍馬也可以斜衝，但它也可以前後左右走一格</string>
@@ -62,6 +67,7 @@
 	<string name="lancePromotion">香車升變之後，走法完全不同。沒錯，走法跟金將一樣</string>
 	<string name="lanceSummary">向前衝，有夠簡單的啦</string>
 	<string name="planceSummary">跟金將一樣。</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">太棒了！</string>
 	<string name="theGold">金將</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">金將可以走，除了斜後方以外，任何方向一格</string>
@@ -87,7 +93,14 @@
 	<string name="takeTheBlackPieces">吃掉敵方的棋駒！</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">吃掉對方的棋駒！
 然後不要失去你自己的棋子。</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">恭喜！你現在懂得使用各種棋子了！</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">保護</string>
 	<string name="keepYourPiecesSafe">保護您的棋駒</string>
 	<string name="protectionIntro">找出被對手攻擊的棋子，並保護它們！</string>
@@ -96,6 +109,8 @@
 逃離這個威脅！</string>
 	<string name="noEscape">你逃不掉了！
 但你可以防禦！</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">別讓對手吃掉
 任何未受保護的棋子！</string>
 	<string name="combat">攻防</string>
@@ -110,16 +125,24 @@
 	<string name="outOfCheck">應將</string>
 	<string name="defendYourKing">保護您的國王</string>
 	<string name="outOfCheckIntro">你被將軍了！你必須逃跑或是防禦。</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">讓你的王將逃跑！</string>
 	<string name="theKingCannotEscapeButBlock">國王逃不掉了，但你可以阻擋攻擊！</string>
 	<string name="youCanGetOutOfCheckByTaking">你可以藉由吃掉攻擊的棋子來應將。</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">騎士越過了你的防線來將你軍了！</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">讓國王逃跑，或是阻擋攻擊！</string>
 	<string name="outOfCheckComplete">恭喜！你的國王永遠不會被吃掉，但請確保你不會被王手！</string>
 	<string name="mateInOne">一步將死</string>
 	<string name="defeatTheOpponentsKing">攻擊敵方的國王</string>
 	<string name="mateInOneIntro">如果你的對手無法應將，這局勝利將由你拿下。</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">用一種對手不能防禦的方式攻擊對手！</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">恭喜！這就是你贏得棋局的方式！</string>
 	<string name="intermediate">中級</string>
 	<string name="boardSetup">開局擺設</string>
@@ -127,7 +150,22 @@
 	<string name="boardSetupIntro">兩方對峙，準備開戰。</string>
 	<string name="thisIsTheInitialPosition">這就是每一盤將棋開局的盤面！
 請走任意一步棋來繼續。</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">恭喜！你已經知道該如何準備一場將棋對局了。</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">逼和</string>
 	<string name="theGameIsADraw">這是一場平局</string>
 	<string name="stalemateIntro">當一個人沒有被將軍，但沒有任何一步棋合法，這就是逼和。沒人贏也沒人輸。</string>
@@ -137,9 +175,24 @@
 	<string name="advanced">高級</string>
 	<string name="pieceValue">棋子的價值</string>
 	<string name="evaluatePieceStrength">對棋子的價值進行評估</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">吃掉價值高的棋子！
 皇后　&gt;　主教</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">吃掉價值高的棋子！</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">兩步將</string>
 	<string name="twoMovesToGiveCheck">走兩步棋並將軍對方</string>
 	<string name="checkInTwoIntro">找出可以兩步將軍對手的正確組合！</string>
