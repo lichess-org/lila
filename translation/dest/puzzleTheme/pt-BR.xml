@@ -28,12 +28,12 @@
   <string name="mateDescription">Vença o jogo com estilo.</string>
   <string name="mateIn1">Mate em 1</string>
   <string name="mateIn1Description">Dê xeque-mate em um lance.</string>
-  <string name="mateIn2">Mate in 2</string>
-  <string name="mateIn2Description">Deliver checkmate in two moves.</string>
+  <string name="mateIn2">Mate em 2</string>
+  <string name="mateIn2Description">Dê xeque-mate em dois lances.</string>
   <string name="mateIn3">Mate em 3</string>
   <string name="mateIn3Description">Dê xeque-mate em três lances.</string>
-  <string name="mateIn4">Mate in 4</string>
-  <string name="mateIn4Description">Deliver checkmate in four moves.</string>
+  <string name="mateIn4">Mate em 4</string>
+  <string name="mateIn4Description">Dê xeque-mate em quatro lances.</string>
   <string name="mateIn5">Mate em 5</string>
   <string name="mateIn5Description">Dê xeque-mate em cinco lances.</string>
   <string name="mateIn7">Mate em 7</string>

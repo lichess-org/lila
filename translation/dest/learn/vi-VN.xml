@@ -11,24 +11,29 @@
 	<string name="theIntroduction">Giới thiệu</string>
 	<string name="introBasics">Hãy học những thứ cơ bản.</string>
 	<string name="introIntro">Cuộc hành trình của bạn bắt đầu từ đây</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">Việc bạn nhớ mặt quân rất quan trọng, nên hãy chắc chắn bạn chọn set quân cờ phù hợp.
 Để làm điều đó, nhấn vào hình bánh răng cưa hoặc vào tên người dùng của bạn ở góc trên phải, rồi chọn set quân cờ.</string>
 	<string name="promotionZone">Khi một quân của bạn chạm tới hoặc rời khỏi ba hàng đầu trong phần sân của đối phương, bạn có thể lựa chọn phong cấp quân và khiến chúng mạnh hơn.</string>
 	<string name="senteGoesFirst">Trong Shogi, người đi trước được gọi là Tiên thủ, đi sau gọi là Hậu thủ. Tiên thủ đôi khi được biểu diễn là Đen, Hậu thủ là Trắng. Thực hiện nước đi dưới vai trò Tiên thủ để tiếp tục.</string>
 	<string name="introComplete">Bạn có thể đã biết vài điều cơ bản, nhưng phần này của cơ bản vẫn đang trong quá trình xây dựng. Từ giờ, hãy học cách mà các quân cờ di chuyển.</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">Quân xe</string>
 	<string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
 	<string name="rookIntro">Quân xe là một quân cờ mạnh. Bạn đã sẵn sàng điều khiển nó chưa?</string>
 	<string name="rookGoal">Bấm vào quân Xe để đưa nó đến ngôi sao!</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">Phi Xa sẽ phong cấp trở thành Long Vương mạnh mẽ. Đừng quên rằng bạn cũng có thể phong cấp quân khi rời khỏi vùng phong cấp.</string>
 	<string name="rookSummary">Phi Xa có thể lên, xuống, sang trái phải bao nhiêu tùy thích.</string>
 	<string name="dragonSummary">Nó có thể di chuyển như quân Phi Xa chưa phong cấp, nhưng thêm một ô tại hướng chéo tùy ý, khiến nó trở nên mạnh hơn.</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">Lấy tất cả các ngôi sao!</string>
 	<string name="theFewerMoves">Bạn đi càng ít nước đi thì bạn sẽ càng được nhiều điểm!</string>
 	<string name="rookComplete">Chúc mừng! Bạn đã làm chủ được quân xe.</string>
 	<string name="theBishop">Quân tượng</string>
 	<string name="itMovesDiagonally">Nó đi chéo</string>
 	<string name="bishopIntro">Tiếp theo chúng ta sẽ học cách điều khiển quân tượng!</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Phong cấp Giác Hành sẽ khiến nó mạnh hơn, trở thành Long Mã.</string>
 	<string name="bishopSummary">Giác Hành di chuyển theo bất kì hướng chéo nào.</string>
 	<string name="horseSummary">Long Mã cũng di chuyển như Giác Hành, nhưng thêm một ô lên xuống trái phải!</string>
@@ -64,6 +69,7 @@ Bạn đã nắm mọi bí mật của quân Tốt.</string>
 	<string name="lancePromotion">Sau khi Hương Xa được phong cấp, nó di chuyển thật sự khác, nhưng trông nó quen quen - giống như Kim Tướng.</string>
 	<string name="lanceSummary">Đi thẳng, dễ lắm đấy.</string>
 	<string name="planceSummary">Giống y hệt Kim Tướng.</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">Làm tốt lắm!</string>
 	<string name="theGold">Kim Tướng</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">Kim Tướng di chuyển theo bất cứ hướng nào TRỪ LÙI LẠI THẲNG.</string>
@@ -89,13 +95,22 @@ Bạn đã nắm mọi bí mật của quân Tốt.</string>
 	<string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Bắt lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Phòng thủ</string>
 	<string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
 	<string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
 	<string name="protectionComplete">Chúc mừng! Giờ thì từng con quân sẽ không bị mất đi một cách vô nghĩa nữa!</string>
 	<string name="escape">Bạn đang bị tấn công! Hãy thoát khỏi mối đe dọa đó!</string>
 	<string name="noEscape">Không có nướ chạy thoát, nhưng bạn có thể phòng thủ!</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">Đừng để họ bắt bất kỳ quân nào không được bảo vệ!</string>
 	<string name="combat">Giao chiến</string>
 	<string name="captureAndDefendPieces">Bắt và bảo vệ quân</string>
@@ -109,23 +124,46 @@ Nhưng đừng để mất quân của bạn.</string>
 	<string name="outOfCheck">Thoát chiếu tướng</string>
 	<string name="defendYourKing">Phòng thủ Vua</string>
 	<string name="outOfCheckIntro">Bạn đang bị chiếu tướng! Bạn phải thoát khỏi vị trí chiếu hoặc khóa nước chiếu.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">Chạy Vua khỏi chiếu!</string>
 	<string name="theKingCannotEscapeButBlock">Quân Vua không thể thoát chiếu, nhưng bạn có thể chặn nước chiếu!</string>
 	<string name="youCanGetOutOfCheckByTaking">Bạn có thể thoát chiếu tướng bằng cách ăn quân đang chiếu.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">Quân mã này đang chiếu tướng!</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">Chạy quân Vua hoặc chặn nước chiếu!</string>
 	<string name="outOfCheckComplete">Chúc mừng! Quân Vua có thể không bao giờ bị bắt, hãy đảm bảo bạn có thể phòng thủ nước chiếu!</string>
 	<string name="mateInOne">Chiếu hết trong 1 nước</string>
 	<string name="defeatTheOpponentsKing">Đánh bại Vua đối phương</string>
 	<string name="mateInOneIntro">Bạn thắng khi đối phương không thể chống lại nước chiếu tướng.</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Tấn công Vua đối phương bằng cách không thể phòng thủ!</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">Chúc mừng! Đó là làm sao để bạn thắng ván cờ!</string>
 	<string name="intermediate">Trung cấp</string>
 	<string name="boardSetup">Cài đặt bàn cờ</string>
 	<string name="howTheGameStarts">Ván đấu bắt đầu như thế nào</string>
 	<string name="boardSetupIntro">Hai bên quân đối mặt với nhau, sẵn sàng cho cuộc chiến.</string>
 	<string name="thisIsTheInitialPosition">Đây là vị trí ban đầu của mọi ván cờ. Hãy đi nước bất kỳ để tiếp tục.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">Hòa pat</string>
 	<string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
 	<string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
@@ -136,10 +174,25 @@ Nhưng đừng để mất quân của bạn.</string>
 	<string name="advanced">Nâng cao</string>
 	<string name="pieceValue">Giá trị của quân</string>
 	<string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Chọn quân cờ giá trị cao nhất!
 Hậu &gt; Tượng</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">Hãy ăn quân
 với giá trị cao nhất!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">Chiếu trong hai nước</string>
 	<string name="twoMovesToGiveCheck">Hai nước để chiếu</string>
 	<string name="checkInTwoIntro">Timf sự kết hợp chính xác 2 nước đi để chiếu Vua đối phương!</string>

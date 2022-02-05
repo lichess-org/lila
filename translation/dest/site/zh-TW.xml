@@ -23,8 +23,8 @@
 	<string name="uwate">上手</string>
 	<string name="randomColor">隨機選色</string>
 	<string name="createAGame">開始對局</string>
-	<string name="whiteIsVictorious">後手勝</string>
-	<string name="blackIsVictorious">黑方勝</string>
+	<string name="whiteIsVictorious">後手勝利</string>
+	<string name="blackIsVictorious">先手勝利</string>
 	<string name="youPlayTheWhitePieces">您為後手</string>
 	<string name="youPlayTheBlackPieces">您使用黑棋</string>
 	<string name="itsYourTurn">您的回合!</string>

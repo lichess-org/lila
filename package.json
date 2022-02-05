@@ -1,11 +1,11 @@
 {
-  "name": "lila",
+  "name": "lishogi",
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org: the forever free, adless and open source shogi server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lichess-org/lila.git"
+    "url": "https://github.com/WandererXII/lishogi.git"
   },
   "keywords": [
     "shogi",
@@ -14,7 +14,7 @@
   "author": "Thibault Duplessis and the gang (lichess)",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/lichess-org/lila/issues"
+    "url": "https://github.com/WandererXII/lishogi/issues"
   },
   "homepage": "https://lishogi.org",
   "engines": {

@@ -22,10 +22,10 @@
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "snabbdom": "^0.7.4",
-    "shogiground": "7.8.1",
     "shogi": "2.0.0",
-    "shogiops": "^0.5.0"
+    "shogiground": "7.8.1",
+    "shogiops": "^0.5.0",
+    "snabbdom": "^0.7.4"
   },
   "scripts": {
     "dev": "rollup --config && rollup --config --config-plugin nvui && rollup --config --config-plugin keyboardMove",
