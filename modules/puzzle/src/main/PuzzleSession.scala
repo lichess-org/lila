@@ -72,7 +72,7 @@ final class PuzzleSessionApi(
         nextPuzzleResult(user, session)
           .flatMap {
             case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
-            case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
+            case PathMissing | PathEnded => fufail(s"Puzzle path missing or ended for ${user.id}")
             case PuzzleMissing(id) =>
               logger.warn(s"Puzzle missing: $id")
               sessions.put(user.id, fuccess(session.next))

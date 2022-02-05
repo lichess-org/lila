@@ -32,7 +32,7 @@ object WMMatching {
       }
     }
 
-  //founds minimum-weighted matching amoung maximum-cardinality matchings
+  // founds minimum-weighted matching amoung maximum-cardinality matchings
   private[this] def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
     val (endpoint, weights) = fullGraph(nvertex, pairScore)
     if (endpoint.isEmpty) Nil
@@ -150,8 +150,8 @@ object WMMatching {
   private class Impl(endpoint: Array[Int], weights: Array[Int], maxcardinality: Boolean) {
     type Label = Byte
     private[this] val nvertex = 1 + endpoint.max
-    //If v is a vertex,
-    //neighbend(v) is the list of remote endpoints of the edges attached to v.
+    // If v is a vertex,
+    // neighbend(v) is the list of remote endpoints of the edges attached to v.
     private[this] val neighbend: Array[List[Int]] = Array.fill(nvertex)(Nil)
     endpoint.zipWithIndex.reverseIterator.foreach { p => neighbend(p._1) ::= p._2 ^ 1 }
 
@@ -245,7 +245,7 @@ object WMMatching {
       val maxweight = weights.max
       Array.tabulate[Int](2 * nvertex) { i => if (i < nvertex) maxweight else 0 }
     }
-    //slack function optimization
+    // slack function optimization
     private[this] val dw = weights.map { _ * 2 }
 
     // If allowedge(k) is true, edge k has zero slack in the optimization
@@ -284,7 +284,7 @@ object WMMatching {
       bestedge(w) = -1
       bestedge(b) = -1
       if (t == 1) {
-        //b became an S-vertex/blossom; add it(s vertices) to the queue.
+        // b became an S-vertex/blossom; add it(s vertices) to the queue.
         blossomLeaves(b).foreach(queue ::= _)
       } else {
         // b became a T-vertex/blossom; assign label S to its mate.
@@ -297,7 +297,7 @@ object WMMatching {
     // Trace back from v and w, placing breadcrumbs as we go.
     @tailrec
     private[this] def scan(v: Int, w: Int, path: List[Int]): (Int, List[Int]) = {
-      if (v == -1 && w == -1) (-1, path) //not found
+      if (v == -1 && w == -1) (-1, path) // not found
       else {
         // Look for a breadcrumb in v's blossom or put a new breadcrumb.
         val b = inblossom(v)
@@ -422,7 +422,7 @@ object WMMatching {
         if (s < nvertex)
           inblossom(s) = s
         else if (endstage && dualvar(s) == 0)
-          //Recursively expand this sub-blossom.
+          // Recursively expand this sub-blossom.
           expandBlossom(s, endstage)
         else
           blossomLeaves(s).foreach(inblossom(_) = s)
@@ -437,8 +437,8 @@ object WMMatching {
         // obtained its label initially.
         val entrychild = inblossom(endpoint(labelend(b) ^ 1))
         // Decide in which direction we will go round the blossom.
-        var j                  = blossomchilds(b).indexOf(entrychild)
-        val l1                 = blossomchilds(b).length - 1
+        var j  = blossomchilds(b).indexOf(entrychild)
+        val l1 = blossomchilds(b).length - 1
         val (jstep, endptrick) =
           // Start index is odd; go forward and wrap.
           if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)
@@ -447,11 +447,11 @@ object WMMatching {
         // Move along the blossom until we get to the base.
         var p = labelend(b)
         while (j != 0) {
-          //Relabel the T-sub-blossom.
+          // Relabel the T-sub-blossom.
           label(endpoint(p ^ 1)) = 0
           label(endpoint(blossomendps(b)(j - endptrick) ^ endptrick ^ 1)) = 0
           assignLabel(endpoint(p ^ 1), 2, p)
-          //Step to the next S-sub-blossom and note its forward endpoint.
+          // Step to the next S-sub-blossom and note its forward endpoint.
           allowedge(blossomendps(b)(j - endptrick) >> 1) = true
           j = jstep(j)
           p = blossomendps(b)(j - endptrick) ^ endptrick
@@ -564,17 +564,17 @@ object WMMatching {
         mate(s) = p
         // Trace one step back.
         if (labelend(bs) == -1) {
-          //Reached single vertex; stop.
+          // Reached single vertex; stop.
         } else {
           val t  = endpoint(labelend(bs))
           val bt = inblossom(t)
           // Trace one step back.
           val ns = endpoint(labelend(bt))
           val j  = endpoint(labelend(bt) ^ 1)
-          //Augment through the T-blossom from j to base.
+          // Augment through the T-blossom from j to base.
           if (bt >= nvertex)
             augmentBlossom(bt, j)
-          //Update mate(j)
+          // Update mate(j)
           mate(j) = labelend(bt)
           // Keep the opposite endpoint;
           // it will be assigned to mate(s) in the next step.
@@ -597,7 +597,7 @@ object WMMatching {
           val w = endpoint(p)
           // w is a neighbour to v
           if (inblossom(v) == inblossom(w)) {
-            //this edge is internal to a blossom; ignore it
+            // this edge is internal to a blossom; ignore it
             false
           } else {
             var kslack = 0
@@ -727,10 +727,10 @@ object WMMatching {
           label(inblossom(v)) match {
             case 0 => ()
             case 1 =>
-              //S-vertex: 2*u = 2*u - 2*delta
+              // S-vertex: 2*u = 2*u - 2*delta
               dualvar(v) -= dt.delta
             case 2 =>
-              //T-vertex: 2*u = 2*u + 2*delta
+              // T-vertex: 2*u = 2*u + 2*delta
               dualvar(v) += dt.delta
           }
         }

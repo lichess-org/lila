@@ -18,13 +18,13 @@ object bits {
     frag(
       jsModule("challengePage"),
       embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
-        Json.obj(
-          "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-          "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
-          "owner"     -> owner,
-          "data"      -> json
-        )
-      )})""")
+          Json.obj(
+            "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
+            "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
+            "owner"     -> owner,
+            "data"      -> json
+          )
+        )})""")
     )
 
   def details(c: Challenge)(implicit ctx: Context) =

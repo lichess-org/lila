@@ -195,8 +195,8 @@ To make a new donation, head to $baseUrl/patron"""
             subject = "Daily correspondence notice",
             text = Mailer.txt.addServiceNote(
               s"""${opponents map { opponent =>
-                s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
-              } mkString "\n\n"}
+                  s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
+                } mkString "\n\n"}
 
 $disableSettingNotice $disableLink"""
             ),

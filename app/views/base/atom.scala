@@ -24,8 +24,8 @@ object atom {
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(s"$netBaseUrl$htmlCall"),
-      link(rel := "alternate", tpe := "text/html", href := s"${netBaseUrl}$htmlCall"),
-      link(rel := "self", tpe := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
+      link(rel := "alternate", tpe := "text/html", href            := s"${netBaseUrl}$htmlCall"),
+      link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
       tag("updated")(updated map atomDate),
       elems.map { el =>

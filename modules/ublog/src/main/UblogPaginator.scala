@@ -43,8 +43,8 @@ final class UblogPaginator(
   def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost] {
-        val select                          = $doc("live" -> true) ++ lang.?? { l => $doc("language" -> l.code) }
-        def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
+        val select             = $doc("live" -> true) ++ lang.?? { l => $doc("language" -> l.code) }
+        def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       },
       currentPage = page,

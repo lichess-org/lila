@@ -31,20 +31,20 @@ object insight {
         jsTag("insight-refresh.js"),
         embedJsUnsafeLoadThen(
           s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
-            Json.obj(
-              "ui"              -> ui,
-              "initialQuestion" -> question,
-              "i18n"            -> Json.obj(),
-              "myUserId"        -> ctx.userId,
-              "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
-                "nbGames" -> cache.count,
-                "stale"   -> stale,
-                "shareId" -> prefId
-              )),
-              "pageUrl" -> routes.Insight.index(u.username).url,
-              "postUrl" -> routes.Insight.json(u.username).url
-            )
-          )})"""
+              Json.obj(
+                "ui"              -> ui,
+                "initialQuestion" -> question,
+                "i18n"            -> Json.obj(),
+                "myUserId"        -> ctx.userId,
+                "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+                  "nbGames" -> cache.count,
+                  "stale"   -> stale,
+                  "shareId" -> prefId
+                )),
+                "pageUrl" -> routes.Insight.index(u.username).url,
+                "postUrl" -> routes.Insight.json(u.username).url
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("insight")
