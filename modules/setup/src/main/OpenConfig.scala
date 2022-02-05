@@ -1,7 +1,7 @@
 package lila.setup
 
 import shogi.Clock
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant.FromPosition
 import lila.rating.PerfType
 import lila.game.PerfPicker
@@ -9,24 +9,24 @@ import lila.game.PerfPicker
 final case class OpenConfig(
     variant: shogi.variant.Variant,
     clock: Option[Clock.Config],
-    position: Option[FEN] = None
+    position: Option[Sfen] = None
 ) {
 
-  val strictFen = false
+  val strictSfen = false
 
   def >> = (variant.key.some, clock, position.map(_.value)).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, none)
 
-  def validFen =
+  def validSfen =
     variant != FromPosition || {
       position ?? { f =>
-        ~(Forsyth <<< f.value).map(_.situation playableNoImpasse strictFen)
+        ~(f.toSituationPlus(shogi.variant.Standard)).map(_.situation.playable(strict = strictSfen, withImpasse = true))
       }
     }
 
   def autoVariant =
-    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.initialOf(variant))) copy(variant = FromPosition)
     else this
 }
 
@@ -36,6 +36,6 @@ object OpenConfig {
     new OpenConfig(
       variant = shogi.variant.Variant.orDefault(~v),
       clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement || c.hasByoyomi),
-      position = pos map FEN
+      position = pos map Sfen.apply
     ).autoVariant
 }

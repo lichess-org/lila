@@ -17,7 +17,7 @@ export type Role =
 export type Key = '00' | `${File}${Rank}`;
 export type File = typeof files[number];
 export type Rank = typeof ranks[number];
-export type FEN = string;
+export type Sfen = string;
 export type Pos = [number, number];
 export interface Piece {
   role: Role;

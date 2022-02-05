@@ -137,10 +137,10 @@ export default class Setup {
       $casual = $modeChoices.eq(0),
       $rated = $modeChoices.eq(1),
       $variantSelect = $form.find('#sf_variant'),
-      $fenPosition = $form.find('.fen_position'),
-      $fenInput = $fenPosition.find('input'),
-      $handicapSelect = $fenPosition.find('.handicap select'),
-      forceFromPosition = !!$fenInput.val(),
+      $sfenPosition = $form.find('.sfen_position'),
+      $sfenInput = $sfenPosition.find('input'),
+      $handicapSelect = $sfenPosition.find('.handicap select'),
+      forceFromPosition = !!$sfenInput.val(),
       $timeInput = $form.find('.time_choice [name=time]'),
       $incrementInput = $form.find('.increment_choice [name=increment]'),
       $byoyomiInput = $form.find('.byoyomi_choice [name=byoyomi]'),
@@ -218,7 +218,7 @@ export default class Setup {
           if (k === 'timeMode' && input.value !== '1') return;
           if (input.type == 'checkbox') input.checked = true;
           else if (input.type == 'radio') input.checked = input.value == c[k];
-          else if (k != 'fen' || !input.value) input.value = c[k];
+          else if (k != 'sfen' || !input.value) input.value = c[k];
         });
       });
     }
@@ -396,24 +396,24 @@ export default class Setup {
       })
       .trigger('change');
 
-    var validateFen = li.debounce(function () {
-      $fenInput.removeClass('success failure');
-      var fen = $fenInput.val();
-      if (fen) {
+    var validateSfen = li.debounce(function () {
+      $sfenInput.removeClass('success failure');
+      var sfen = $sfenInput.val();
+      if (sfen) {
         $.ajax({
-          url: $fenInput.parent().data('validate-url'),
+          url: $sfenInput.parent().data('validate-url'),
           data: {
-            fen: fen,
+            sfen: sfen,
           },
           success: function (data) {
-            $fenInput.addClass('success');
-            $fenPosition.find('.preview').html(data);
-            $fenPosition.find('a.board_editor').each(function (this: HTMLElement) {
+            $sfenInput.addClass('success');
+            $sfenPosition.find('.preview').html(data);
+            $sfenPosition.find('a.board_editor').each(function (this: HTMLElement) {
               $(this).attr(
                 'href',
                 $(this)
                   .attr('href')
-                  .replace(/editor\/.+$/, 'editor/' + fen)
+                  .replace(/editor\/.+$/, 'editor/' + sfen)
               );
             });
             $submits.removeClass('nope');
@@ -421,8 +421,8 @@ export default class Setup {
             li.pubsub.emit('content_loaded');
           },
           error: function () {
-            $fenInput.addClass('failure');
-            $fenPosition.find('.preview').html('');
+            $sfenInput.addClass('failure');
+            $sfenPosition.find('.preview').html('');
             $submits.addClass('nope');
             $submitsError.html('Invalid sfen!');
           },
@@ -430,19 +430,19 @@ export default class Setup {
       }
     }, 200);
 
-    var validateFenWrapper = function (changeHandicapSelect) {
+    var validateSfenWrapper = function (changeHandicapSelect) {
       return function () {
         if (changeHandicapSelect) $handicapSelect.val('');
-        validateFen();
+        validateSfen();
       };
     };
-    $fenInput.on('keyup', validateFenWrapper(true));
+    $sfenInput.on('keyup', validateSfenWrapper(true));
 
     var setHandicap = function () {
       const hcSfen = $handicapSelect.val();
       if (hcSfen) {
-        $fenInput.val($handicapSelect.val());
-        validateFenWrapper(false)();
+        $sfenInput.val($handicapSelect.val());
+        validateSfenWrapper(false)();
       }
     };
     $handicapSelect.on('change', setHandicap);
@@ -450,10 +450,10 @@ export default class Setup {
     if (forceFromPosition) $variantSelect.val(3);
     $variantSelect
       .on('change', function (this: HTMLElement) {
-        var isFen = $(this).val() == '3';
-        $fenPosition.toggle(isFen);
-        $modeChoicesWrap.toggle(!isFen);
-        if (isFen) {
+        var isSfen = $(this).val() == '3';
+        $sfenPosition.toggle(isSfen);
+        $modeChoicesWrap.toggle(!isSfen);
+        if (isSfen) {
           $casual.click();
           requestAnimationFrame(() => li.dispatchEvent(document.body, 'shogiground.resize'));
         }

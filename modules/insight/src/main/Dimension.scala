@@ -5,7 +5,6 @@ import play.api.libs.json._
 import reactivemongo.api.bson._
 import scalatags.Text.all._
 
-import shogi.opening.EcopeningDB
 import shogi.{ Color, Role }
 import lila.db.dsl._
 import lila.rating.PerfType
@@ -94,15 +93,6 @@ object Dimension {
         raw("The side you are playing: Sente or Gote.")
       )
 
-  case object Opening
-      extends Dimension[shogi.opening.Ecopening](
-        "opening",
-        "Opening",
-        F.eco,
-        Game,
-        raw("ECO identification of the initial moves, like \"A58 Benko Gambit\".")
-      )
-
   case object OpponentStrength
       extends Dimension[RelativeStrength](
         "opponentStrength",
@@ -185,7 +175,6 @@ object Dimension {
       case Result           => lila.insight.Result.all
       case Termination      => lila.insight.Termination.all
       case Color            => shogi.Color.all
-      case Opening          => EcopeningDB.all
       case OpponentStrength => RelativeStrength.all
       case PieceRole        => shogi.Role.all.reverse
       case MovetimeRange    => lila.insight.MovetimeRange.all
@@ -204,7 +193,6 @@ object Dimension {
       case Result           => key.toIntOption flatMap lila.insight.Result.byId.get
       case Termination      => key.toIntOption flatMap lila.insight.Termination.byId.get
       case Color            => shogi.Color.fromName(key)
-      case Opening          => EcopeningDB.allByEco get key
       case OpponentStrength => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole        => shogi.Role.all.find(_.name == key)
       case MovetimeRange    => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
@@ -230,7 +218,6 @@ object Dimension {
       case Result           => v.id
       case Termination      => v.id
       case Color            => v.name
-      case Opening          => v.eco
       case OpponentStrength => v.id
       case PieceRole        => v.name
       case MovetimeRange    => v.id
@@ -249,7 +236,6 @@ object Dimension {
       case Result           => JsString(v.name)
       case Termination      => JsString(v.name)
       case Color            => JsString(v.toString)
-      case Opening          => JsString(v.ecoName)
       case OpponentStrength => JsString(v.name)
       case PieceRole        => JsString(v.toString)
       case MovetimeRange    => JsString(v.name)

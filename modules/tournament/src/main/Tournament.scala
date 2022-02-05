@@ -1,6 +1,6 @@
 package lila.tournament
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import org.joda.time.{ DateTime, Duration, Interval }
 import lila.common.ThreadLocalRandom
 import play.api.i18n.Lang
@@ -21,7 +21,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: shogi.variant.Variant,
-    position: Option[FEN],
+    position: Option[Sfen],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -139,7 +139,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) shogi.variant.Standard else variant
 
-  def startingPosition = position flatMap Thematic.byFen
+  def startingPosition = position flatMap Thematic.bySfen
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
@@ -160,7 +160,7 @@ object Tournament {
       clock: ClockConfig,
       minutes: Int,
       variant: shogi.variant.Variant,
-      position: Option[FEN],
+      position: Option[Sfen],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
@@ -174,7 +174,7 @@ object Tournament {
     Tournament(
       id = makeId,
       name = name | (position match {
-        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.shortName)
+        case Some(pos) => Thematic.bySfen(pos).fold("Custom position")(_.shortName)
         case None      => Animal.randomName
       }),
       status = Status.Created,

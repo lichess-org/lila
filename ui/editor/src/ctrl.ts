@@ -37,18 +37,18 @@ export default class EditorCtrl {
     this.selected = prop('pointer');
     this.extraPositions = [
       {
-        fen: INITIAL_SFEN,
+        sfen: INITIAL_SFEN,
         epd: INITIAL_EPD,
-        name: this.trans('startPosition'),
+        english: this.trans('startPosition'),
       },
       {
-        fen: 'prompt',
-        name: this.trans('loadPosition'),
+        sfen: 'prompt',
+        english: this.trans('loadPosition'),
       },
     ];
 
     if (cfg.positions) {
-      cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
+      cfg.positions.forEach(p => (p.epd = p.sfen.split(' ').splice(0, 4).join(' ')));
     }
 
     window.Mousetrap.bind('f', (e: Event) => {
@@ -80,18 +80,18 @@ export default class EditorCtrl {
       !this.cfg.embed && window.history.state && window.history.state.rules ? window.history.state.rules : 'shogi';
 
     this.redraw = () => {};
-    this.setFen(cfg.fen);
+    this.setSfen(cfg.sfen);
     this.redraw = redraw;
   }
 
   onChange(): void {
-    const fen = this.getFen();
-    this.cfg.fen = fen;
+    const sfen = this.getSfen();
+    this.cfg.sfen = sfen;
     if (!this.cfg.embed) {
-      if (fen == INITIAL_SFEN) window.history.replaceState('', '', '/editor');
-      else window.history.replaceState('', '', this.makeUrl('/editor/', fen));
+      if (sfen == INITIAL_SFEN) window.history.replaceState('', '', '/editor');
+      else window.history.replaceState('', '', this.makeUrl('/editor/', sfen));
     }
-    this.options.onChange && this.options.onChange(fen);
+    this.options.onChange && this.options.onChange(sfen);
     setTimeout(() => {
       this.shogiground!.state.draggable.lastDropOff = undefined;
     }, 500);
@@ -99,8 +99,8 @@ export default class EditorCtrl {
   }
 
   private getSetup(): Setup {
-    const boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
-    const board = parseSfen(boardFen).unwrap(
+    const boardSfen = this.shogiground ? this.shogiground.getSfen() : this.cfg.sfen;
+    const board = parseSfen(boardSfen).unwrap(
       setup => setup.board,
       _ => Board.empty()
     );
@@ -112,11 +112,11 @@ export default class EditorCtrl {
     };
   }
 
-  getFen(): string {
+  getSfen(): string {
     return makeSfen(this.getSetup());
   }
 
-  private getLegalFen(): string | undefined {
+  private getLegalSfen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
       pos => {
         return makeSfen(pos.toSetup());
@@ -134,22 +134,22 @@ export default class EditorCtrl {
 
   getState(): EditorState {
     return {
-      fen: this.getFen(),
-      legalFen: this.getLegalFen(),
+      sfen: this.getSfen(),
+      legalSfen: this.getLegalSfen(),
       playable: this.rules == 'shogi' && this.isPlayable(),
     };
   }
 
-  makeAnalysisUrl(legalFen: string): string {
-    return this.makeUrl(`/analysis/`, this.encodeFen(legalFen).replace(/%2B/g, '+'));
+  makeAnalysisUrl(legalSfen: string): string {
+    return this.makeUrl(`/analysis/`, this.encodeSfen(legalSfen).replace(/%2B/g, '+'));
   }
 
-  encodeFen(fen: string): string {
-    return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  encodeSfen(sfen: string): string {
+    return encodeURIComponent(sfen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  makeUrl(baseUrl: string, fen: string): string {
-    return baseUrl + this.encodeFen(fen).replace(/%2B/g, '+');
+  makeUrl(baseUrl: string, sfen: string): string {
+    return baseUrl + this.encodeSfen(sfen).replace(/%2B/g, '+');
   }
 
   bottomColor(): Color {
@@ -162,25 +162,25 @@ export default class EditorCtrl {
   }
 
   startPosition(): void {
-    this.setFen(INITIAL_SFEN);
+    this.setSfen(INITIAL_SFEN);
   }
 
   clearBoard(): void {
-    this.setFen(EMPTY_SFEN);
+    this.setSfen(EMPTY_SFEN);
   }
 
-  loadNewFen(fen: string | 'prompt'): void {
-    if (fen === 'prompt') {
-      fen = (prompt('Paste SFEN position') || '').trim();
-      if (!fen) return;
+  loadNewSfen(sfen: string | 'prompt'): void {
+    if (sfen === 'prompt') {
+      sfen = (prompt('Paste SFEN position') || '').trim();
+      if (!sfen) return;
     }
-    this.setFen(fen);
+    this.setSfen(sfen);
   }
 
-  setFen(fen: string): boolean {
-    return parseSfen(fen).unwrap(
+  setSfen(sfen: string): boolean {
+    return parseSfen(sfen).unwrap(
       setup => {
-        if (this.shogiground) this.shogiground.set({ fen });
+        if (this.shogiground) this.shogiground.set({ sfen });
         this.hands = setup.hands;
         this.turn = setup.turn;
         this.fullmoves = setup.fullmoves;

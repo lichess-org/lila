@@ -3,6 +3,8 @@ package views.html.board
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
+import shogi.format.forsyth.Sfen
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -13,22 +15,22 @@ object bits {
 
   private val dataState = attr("data-state")
 
-  def mini(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
+  def mini(sfen: Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
       cls := "mini-board mini-board--init cg-wrap",
-      dataState := s"${fen.value},${color.name},$lastMove"
+      dataState := s"${sfen.value},${color.name},$lastMove"
     )(cgWrapContent)
 
-  def miniSpan(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "") =
-    mini(fen, color, lastMove)(span)
+  def miniSpan(sfen: Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "") =
+    mini(sfen, color, lastMove)(span)
 
   def jsData(
       sit: shogi.Situation,
-      fen: String,
+      sfen: Sfen,
       animationDuration: Duration
   )(implicit ctx: Context) =
     Json.obj(
-      "fen"     -> fen.split(" ").take(4).mkString(" "),
+      "sfen"    -> sfen.value.split(" ").take(3).mkString(" "),
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
       "animation" -> Json.obj(

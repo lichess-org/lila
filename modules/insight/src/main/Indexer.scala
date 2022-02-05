@@ -54,7 +54,7 @@ final private class Indexer(
     Query.user(user.id) ++
       Query.rated ++
       Query.finished ++
-      Query.turnsGt(2) ++
+      Query.pliesGt(2) ++
       Query.notFromPosition
 
   private val maxGames = 10 * 1000

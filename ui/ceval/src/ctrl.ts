@@ -117,7 +117,7 @@ export default function (opts: CevalOpts): CevalCtrl {
         ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' &&
         Math.abs(ev.cp) < 500 &&
-        ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
+        ev.sfen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
       );
     };
     return function (ev: Tree.ClientEval) {
@@ -141,16 +141,16 @@ export default function (opts: CevalOpts): CevalCtrl {
     };
   })();
 
-  let lastEmitFen: string | null = null;
+  let lastEmitSfen: string | null = null;
 
   const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'sente' : 'gote');
     npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
-    if (ev.fen !== lastEmitFen) {
-      lastEmitFen = ev.fen;
-      li.storage.fire('ceval.fen', ev.fen);
+    if (ev.sfen !== lastEmitSfen) {
+      lastEmitSfen = ev.sfen;
+      li.storage.fire('ceval.sfen', ev.sfen);
     }
   });
 
@@ -173,9 +173,9 @@ export default function (opts: CevalOpts): CevalCtrl {
     if (existing && existing.depth >= maxD) return;
 
     const work: Work = {
-      initialFen: steps[0].fen,
+      initialSfen: steps[0].sfen,
       moves: [],
-      currentFen: step.fen,
+      currentSfen: step.sfen,
       path,
       ply: step.ply,
       maxDepth: maxD,
@@ -188,9 +188,9 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     if (threatMode) {
       const c = step.ply % 2 === 1 ? 'b' : 'w';
-      const fen = step.fen.replace(/ (b|w) /, ' ' + c + ' ');
-      work.currentFen = fen;
-      work.initialFen = fen;
+      const sfen = step.sfen.replace(/ (b|w) /, ' ' + c + ' ');
+      work.currentSfen = sfen;
+      work.initialSfen = sfen;
     } else {
       for (let i = 1; i < steps.length; i++) {
         const s = steps[i];
@@ -224,7 +224,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   // ask other tabs if a game is in progress
   if (enabled()) {
-    li.storage.fire('ceval.fen', 'start');
+    li.storage.fire('ceval.sfen', 'start');
     li.storage.make('round.ongoing').listen(_ => {
       enabled(false);
       opts.redraw();
@@ -245,11 +245,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     maxHashSize,
     infinite,
     hovering,
-    setHovering(fen: Fen, usi?: Usi) {
+    setHovering(sfen: Sfen, usi?: Usi) {
       hovering(
         usi
           ? {
-              fen,
+              sfen,
               usi,
             }
           : null

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -8,6 +8,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
+import lila.common.Json._
 import lila.common.{ Animal, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
@@ -274,7 +275,7 @@ final class JsonView(
     }
     Json.obj(
       "id"       -> game.id,
-      "fen"      -> (shogi.format.Forsyth exportSituation game.situation),
+      "sfen"     -> game.situation.toSfen,
       "color"    -> game.firstColor.name,
       "lastMove" -> ~game.lastMoveKeys,
       "variant"  -> game.variant.key,
@@ -510,21 +511,21 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(fen: FEN): JsObject =
-    Thematic.byFen(fen.value) match {
+  private[tournament] def positionJson(sfen: Sfen): JsObject =
+    Thematic.bySfen(sfen) match {
       case Some(pos) =>
         Json
           .obj(
-            "eco"      -> pos.eco,
-            "name"     -> pos.name,
+            "japanese" -> pos.japanese,
+            "english"  -> pos.english,
             "wikiPath" -> pos.wikiPath,
-            "fen"      -> pos.fen
+            "sfen"     -> pos.sfen
           )
       case None =>
         Json
           .obj(
             "name" -> "Custom position",
-            "fen"  -> fen.value
+            "sfen"  -> sfen
           )
     }
 

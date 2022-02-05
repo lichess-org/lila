@@ -33,7 +33,7 @@ final class ChallengeMaker(
 
   // pov of the challenger
   private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] =
-    gameRepo initialFen pov.game map { initialFen =>
+    gameRepo initialSfen pov.game map { initialSfen =>
       val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
         case (Some(clock), _) => TimeControl.Clock(clock.config)
         case (_, Some(days))  => TimeControl.Correspondence(days)
@@ -41,7 +41,7 @@ final class ChallengeMaker(
       }
       Challenge.make(
         variant = pov.game.variant,
-        initialFen = initialFen,
+        initialSfen = initialSfen,
         timeControl = timeControl,
         mode = pov.game.mode,
         color = (!pov.color).name,

@@ -191,7 +191,7 @@ export function impasseHelp(ctrl: RoundController) {
 
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
   const rules = lishogiVariantRules(ctrl.data.game.variant.key);
-  const shogi = parseSfen(lastStep.fen).chain(s => setupPosition(rules, s, false));
+  const shogi = parseSfen(lastStep.sfen).chain(s => setupPosition(rules, s, false));
 
   if (shogi.isErr) return null;
 

@@ -8,8 +8,8 @@ import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 
-function pieceCount(fen: Fen) {
-  const parts = fen.split(/\s/);
+function pieceCount(sfen: Sfen) {
+  const parts = sfen.split(/\s/);
   return parts[0].split(/[nbrqkp]/i).length - 1;
 }
 
@@ -23,12 +23,12 @@ function tablebasePieces(variant: VariantKey) {
   }
 }
 
-export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
-  return pieceCount(fen) <= tablebasePieces(variant);
+export function tablebaseGuaranteed(variant: VariantKey, sfen: Sfen) {
+  return pieceCount(sfen) <= tablebasePieces(variant);
 }
 
-function tablebaseRelevant(variant: VariantKey, fen: Fen) {
-  return pieceCount(fen) - 1 <= tablebasePieces(variant);
+function tablebaseRelevant(variant: VariantKey, sfen: Sfen) {
+  return pieceCount(sfen) - 1 <= tablebasePieces(variant);
 }
 
 export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
@@ -55,15 +55,15 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
 
   const fetch = window.lishogi.debounce(
     function () {
-      const fen = root.node.fen;
+      const sfen = root.node.sfen;
       const request: JQueryPromise<ExplorerData> =
-        withGames && tablebaseRelevant(effectiveVariant, fen)
-          ? xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen)
+        withGames && tablebaseRelevant(effectiveVariant, sfen)
+          ? xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, sfen)
           : xhr.opening(
               opts.endpoint,
               effectiveVariant,
-              fen,
-              root.nodeList[0].fen,
+              sfen,
+              root.nodeList[0].sfen,
               root.nodeList.slice(1).map(s => s.usi!),
               config.data,
               withGames
@@ -71,7 +71,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
 
       request.then(
         (res: ExplorerData) => {
-          cache[fen] = res;
+          cache[sfen] = res;
           movesAway(res.moves.length ? 0 : movesAway() + 1);
           loading(false);
           failing(false);
@@ -97,10 +97,10 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
     if (!enabled()) return;
     gameMenu(null);
     const node = root.node;
-    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
-      cache[node.fen] = empty;
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.sfen)) {
+      cache[node.sfen] = empty;
     }
-    const cached = cache[node.fen];
+    const cached = cache[node.sfen];
     if (cached) {
       movesAway(cached.moves.length ? 0 : movesAway() + 1);
       loading(false);
@@ -122,7 +122,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
     config,
     withGames,
     gameMenu,
-    current: () => cache[root.node.fen],
+    current: () => cache[root.node.sfen],
     toggle() {
       movesAway(0);
       enabled(!enabled());
@@ -136,11 +136,11 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
         root.autoScroll();
       }
     },
-    setHovering(fen, usi) {
+    setHovering(sfen, usi) {
       hovering(
         usi
           ? {
-              fen,
+              sfen,
               usi,
             }
           : null
@@ -149,14 +149,14 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
     },
     fetchMasterOpening: (function () {
       const masterCache = {};
-      return (fen: Fen): JQueryPromise<OpeningData> => {
-        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
+      return (sfen: Sfen): JQueryPromise<OpeningData> => {
+        if (masterCache[sfen]) return $.Deferred().resolve(masterCache[sfen]).promise() as JQueryPromise<OpeningData>;
         return xhr
           .opening(
             opts.endpoint,
             'standard',
-            fen,
-            fen,
+            sfen,
+            sfen,
             [],
             {
               db: {
@@ -166,19 +166,19 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
             false
           )
           .then((res: OpeningData) => {
-            masterCache[fen] = res;
+            masterCache[sfen] = res;
             return res;
           });
       };
     })(),
-    fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
-      return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
+    fetchTablebaseHit(sfen: Sfen): JQueryPromise<SimpleTablebaseHit> {
+      return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, sfen).then((res: TablebaseData) => {
         const move = res.moves[0];
         if (move && move.dtz == null) throw 'unknown tablebase position';
         return {
-          fen: fen,
+          sfen: sfen,
           best: move && move.usi,
-          winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+          winner: res.checkmate ? opposite(colorOf(sfen)) : res.stalemate ? undefined : winnerOf(sfen, move!),
         } as SimpleTablebaseHit;
       });
     },

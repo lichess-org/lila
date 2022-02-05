@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi.{ FinishGame, StartGame }
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.common.Bus
 import lila.common.Json.jodaWrites
 import lila.game.Game
@@ -20,8 +20,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
 
   private val blueprint = Source
     .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
-    .mapAsync(1)(gameRepo.withInitialFen)
-    .map(gameWithInitialFenWriter.writes)
+    .mapAsync(1)(gameRepo.withInitialSfen)
+    .map(gameWithInitialSfenWriter.writes)
     .map(some)
     .keepAlive(keepAliveInterval, () => none)
 
@@ -41,12 +41,12 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
       }
     }
 
-  implicit private val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  implicit private val sfenWriter: Writes[Sfen] = Writes[Sfen] { f =>
     JsString(f.value)
   }
 
-  private val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
-    case Game.WithInitialFen(g, initialFen) =>
+  private val gameWithInitialSfenWriter: OWrites[Game.WithInitialSfen] = OWrites {
+    case Game.WithInitialSfen(g, initialSfen) =>
       Json
         .obj(
           "id"        -> g.id,
@@ -65,7 +65,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
               .add("provisional" -> p.provisional)
           })
         )
-        .add("initialFen" -> initialFen)
+        .add("initialSfen" -> initialSfen)
         .add("clock" -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,

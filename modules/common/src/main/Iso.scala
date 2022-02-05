@@ -1,7 +1,7 @@
 package lila.common
 
 import play.api.i18n.Lang
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.Centis
 
 trait Iso[A, B] {
@@ -49,6 +49,6 @@ object Iso {
 
   implicit val langIso = string[Lang](Lang.apply, _.toString)
 
-  implicit val fenIso = string[FEN](FEN.apply, _.value)
+  implicit val sfenIso = string[Sfen](Sfen.apply, _.value)
 
 }

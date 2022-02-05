@@ -5,7 +5,7 @@ import cats.data.Validated.valid
 import cats.implicits._
 
 import shogi.format.usi.Usi
-import shogi.{ Drop, Move, Replay, Situation }
+import shogi.{ Replay, Game }
 
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
@@ -15,7 +15,15 @@ private object VariationValidation {
 
   type WithErrors[A] = (A, List[Exception])
 
-  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
+  def apply(game: Work.Game, analysis: Analysis): WithErrors[Analysis] = {
+
+    lazy val games = Replay.gamesWhileValid(
+      game.usiList,
+      game.initialSfen,
+      game.variant
+    )._1.toList
+
+    lazy val init = games.head
 
     val pliesWithAdviceAndVariation: Set[Int] = analysis.advices.view.collect {
       case a if a.info.hasVariation => a.ply
@@ -26,32 +34,26 @@ private object VariationValidation {
       else info.dropVariation
     }
 
-    def validateUsi(ply: Int, variation: List[String]): Validated[String, List[String]] =
+    def validateUsi(ply: Int, variation: List[String]): Validated[String, List[Usi]] =
       for {
-        situation <-
-          if (ply == replay.setup.startedAtTurn + 1) valid(replay.setup.situation)
-          else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
+        game <- games lift (ply - init.startedAtPly - 1) toValid s"No game at $ply. ply"
         usis <- variation.map(Usi.apply).sequence toValid "Invalid USI moves " + variation
-        moves <-
-          usis.foldLeft[Validated[String, (Situation, List[Either[Move, Drop]])]](valid(situation -> Nil)) {
-            case (Validated.Valid((sit, moves)), usi: Usi.Move) =>
-              sit.move(usi.orig, usi.dest, usi.promotion).leftMap(e => s"ply $ply $e") map { move =>
-                move.situationAfter -> (Left(move) :: moves)
-              }
-            case (Validated.Valid((sit, moves)), usi: Usi.Drop) =>
-              sit.drop(usi.role, usi.pos).leftMap(e => s"ply $ply $e") map { drop =>
-                drop.situationAfter -> (Right(drop) :: moves)
+        validatedUsis <-
+          usis.foldLeft[Validated[String, (Game, List[Usi])]](valid((game, Nil))) {
+            case (Validated.Valid((game, usis)), usi) =>
+              game(usi).leftMap(e => s"ply $ply $e") map { g =>
+                (g, usi :: usis)
               }
             case (failure, _) => failure
           }
-      } yield moves._2.reverse map (_.fold(_.toUsi.usi, _.toUsi.usi))
+      } yield validatedUsis._2.reverse
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
         validateUsi(info.ply, info.variation).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
-          usi => (info.copy(variation = usi) :: infos, errs)
+          usis => (info.copy(variation = usis.map(_.usi)) :: infos, errs)
         )
     } match {
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors

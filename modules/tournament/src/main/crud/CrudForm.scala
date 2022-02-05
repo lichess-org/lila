@@ -7,7 +7,7 @@ import play.api.data.Forms._
 
 import shogi.variant.Variant
 import lila.common.Form._
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 
 object CrudForm {
 
@@ -26,7 +26,7 @@ object CrudForm {
       "periods"        -> numberIn(periodsChoices),
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
-      "position"       -> optional(lila.common.Form.fen.playableStrict),
+      "position"       -> optional(lila.common.Form.sfen.playableStrict),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
@@ -65,7 +65,7 @@ object CrudForm {
       periods: Int,
       minutes: Int,
       variant: Int,
-      position: Option[FEN],
+      position: Option[Sfen],
       date: DateTime,
       image: String,
       headline: String,

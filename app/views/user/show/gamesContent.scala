@@ -64,7 +64,7 @@ object gamesContent {
             if (filterName == "playing" && pager.nbResults > 2)
               pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
                 a(href := gameLink(p), cls := "paginated")(
-                  gameFen(p, withLink = false),
+                  gameSfen(p, withLink = false),
                   views.html.game.bits.vstext(p)(ctx.some)
                 )
               }

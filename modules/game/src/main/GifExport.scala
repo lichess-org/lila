@@ -5,11 +5,12 @@ import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
+import lila.common.Json._
 import lila.common.Maths
 import lila.common.config.BaseUrl
 
 import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
 final class GifExport(
@@ -21,7 +22,7 @@ final class GifExport(
   private val targetMedianTime = Centis(100)
   private val targetMaxTime    = Centis(250)
 
-  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Option[Source[ByteString, _]]] = {
+  def fromPov(pov: Pov, initialSfen: Option[Sfen]): Fu[Option[Source[ByteString, _]]] = {
     if (pov.game.variant.standardBased)
       lightUserApi preloadMany pov.game.userIds flatMap { _ =>
         ws.url(s"${url}/game.gif")
@@ -34,7 +35,7 @@ final class GifExport(
               "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
               "orientation" -> pov.color.engName,
               "delay"       -> targetMedianTime.centis, // default delay for frames
-              "frames"      -> frames(pov.game, initialFen)
+              "frames"      -> frames(pov.game, initialSfen)
             )
           )
           .stream() flatMap {
@@ -50,7 +51,7 @@ final class GifExport(
   def gameThumbnail(game: Game): Fu[Option[Source[ByteString, _]]] = {
     if (game.variant.standardBased) {
       val query = List(
-        "sfen"        -> (Forsyth >> game.shogi),
+        "sfen"        -> game.shogi.toSfen.value,
         "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
         "white"       -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
         "orientation" -> game.firstColor.engName
@@ -73,7 +74,7 @@ final class GifExport(
     } else fuccess(none)
   }
 
-  def thumbnail(sfen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
+  def thumbnail(sfen: Sfen, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
     val query = List(
       "sfen"        -> sfen.value,
       "orientation" -> orientation.engName
@@ -107,10 +108,10 @@ final class GifExport(
     }
   }
 
-  private def frames(game: Game, initialFen: Option[FEN]) = {
+  private def frames(game: Game, initialSfen: Option[Sfen]) = {
     Replay.gamesWhileValid(
       game.usiMoves,
-      initialFen,
+      initialSfen,
       game.variant
     ) match {
       case (games, _) =>
@@ -135,7 +136,7 @@ final class GifExport(
   private def frame(situation: Situation, usi: Option[Usi], delay: Option[Centis]) =
     Json
       .obj(
-        "sfen"     -> (Forsyth >> situation),
+        "sfen"     -> situation.toSfen,
         "lastMove" -> usi.map(_.usi)
       )
       .add("check", situation.checkSquare.map(_.usiKey))

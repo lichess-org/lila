@@ -50,7 +50,7 @@ final class JsonView(
   def otherSourcesJson(puzzle: Puzzle) =
     Json
       .obj(
-        "fen" -> puzzle.fen
+        "sfen" -> puzzle.sfen
       )
       .add("author" -> puzzle.author)
       .add("description" -> puzzle.description)
@@ -173,7 +173,7 @@ final class JsonView(
       "realId"     -> puzzle.id,
       "rating"     -> puzzle.glicko.intRating,
       "attempts"   -> puzzle.plays,
-      "fen"        -> puzzle.fen,
+      "sfen"       -> puzzle.sfen,
       "color"      -> puzzle.color.name,
       "initialPly" -> (puzzle.initialPly + 1),
       "gameId"     -> puzzle.gameId,
@@ -192,18 +192,17 @@ final class JsonView(
     )
 
     private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
-      val init     = shogi.Game(none, puzzle.fenAfterInitialMove.value.some).withTurns(puzzle.initialPly + 1)
+      val init     = shogi.Game(none, puzzle.sfenAfterInitialMove.some).withPlies(puzzle.initialPly + 1)
       val solution = puzzle.gameId.fold(puzzle.line.toList)(_ => puzzle.line.tail)
       val (_, branchList) = solution.foldLeft[(shogi.Game, List[tree.Branch])]((init, Nil)) {
         case ((prev, branches), usi) =>
-          val (game, move) =
-            prev(usi)
-              .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
+          val game =
+            prev(usi).fold(err => sys error s"puzzle ${puzzle.id} $err", identity) // todo
           val branch = tree.Branch(
-            id = shogi.format.usi.UsiCharPair(move.fold(l => l.toUsi, r => r.toUsi)),
-            ply = game.turns,
-            usi = move.fold(l => l.toUsi, r => r.toUsi),
-            fen = shogi.format.Forsyth >> game,
+            id = shogi.format.usi.UsiCharPair(usi, shogi.variant.Standard),
+            ply = game.plies,
+            usi = usi,
+            sfen = game.toSfen,
             check = game.situation.check
           )
           (game, branch :: branches)

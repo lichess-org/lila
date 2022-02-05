@@ -75,7 +75,7 @@ $col2-panel-height: 240px;
   .future-game-analysis {
     text-align: center;
   }
-  .fen-notation {
+  .sfen-notation {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
@@ -108,7 +108,7 @@ $col2-panel-height: 240px;
       }
     }
   }
-  &__fen {
+  &__sfen {
     width: 100%;
     border: 0;
     background: none;

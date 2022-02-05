@@ -18,7 +18,7 @@ export default function (ctrl: Controller): VNode {
 function makeConfig(ctrl: Controller): CgConfig {
   const opts = ctrl.makeCgOpts();
   return {
-    fen: opts.fen,
+    sfen: opts.sfen,
     orientation: opts.orientation,
     turnColor: opts.turnColor,
     check: opts.check,

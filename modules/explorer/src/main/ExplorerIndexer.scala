@@ -39,7 +39,7 @@ final private class ExplorerIndexer(
           Query.createdSince(since) ++
             Query.rated ++
             Query.finished ++
-            Query.turnsGt(8) ++
+            Query.pliesGt(8) ++
             Query.noProvisional ++
             Query.bothRatingsGreaterThan(1501)
 
@@ -97,7 +97,7 @@ final private class ExplorerIndexer(
   private def valid(game: Game) =
     game.finished &&
       game.rated &&
-      game.turns >= 10 &&
+      game.plies >= 10 &&
       game.variant != shogi.variant.FromPosition
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
@@ -137,14 +137,14 @@ final private class ExplorerIndexer(
       if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
-    } yield gameRepo initialFen game flatMap { initialFen =>
+    } yield gameRepo initialSfen game flatMap { initialSfen =>
       userRepo.usernamesByIds(game.userIds) map { usernames =>
         def username(color: shogi.Color) =
           game.player(color).userId flatMap { id =>
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
-        val fenTags = initialFen.?? { fen =>
-          List(s"$$SFEN:$fen]")
+        val sfenTags = initialSfen.?? { sfen =>
+          List(s"$$SFEN:$sfen]")
         }
         val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
         val otherTags = List(
@@ -158,7 +158,7 @@ final private class ExplorerIndexer(
           s"$$Result ${NotationDump.result(game)}",
           s"$$Start${dateFormatter.print(game.createdAt)}"
         )
-        val allTags = fenTags ::: otherTags
+        val allTags = sfenTags ::: otherTags
         s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
       }
     })

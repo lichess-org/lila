@@ -70,7 +70,7 @@ final private[tv] class ChannelTrouper(
   private def wayBetter(game: Game, candidates: List[Game]) =
     bestOf(candidates) filter { isWayBetter(game, _) }
 
-  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.17)
+  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetPlies) > (score(g1.resetPlies) * 1.17)
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
@@ -98,7 +98,7 @@ final private[tv] class ChannelTrouper(
   private def ratingHeuristic(color: Color): Heuristic =
     game => ratingBox(game.player(color).rating.fold(1400f)(_.toFloat))
 
-  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.turns.toFloat)
+  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.plies.toFloat)
 
   // boxes and reduces to 0..1 range
   private def box(in: Range.Inclusive)(v: Float): Float =

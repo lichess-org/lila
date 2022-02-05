@@ -11,7 +11,7 @@ export function makeConfig(
   redraw: () => void
 ): CgConfig {
   return {
-    fen: opts.fen,
+    sfen: opts.sfen,
     orientation: opts.orientation,
     turnColor: opts.turnColor,
     check: opts.check,

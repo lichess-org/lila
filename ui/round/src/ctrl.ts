@@ -238,7 +238,7 @@ export default class RoundController {
     this.preDrop = undefined;
     const s = this.stepAt(ply),
       config: CgConfig = {
-        fen: s.fen,
+        sfen: s.sfen,
         lastMove: util.usi2move(s.usi),
         check: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
@@ -247,10 +247,10 @@ export default class RoundController {
     else {
       config.movable = {
         color: this.isPlaying() ? this.data.player.color : undefined,
-        dests: util.parsePossibleMoves(this.data.possibleMoves),
+        dests: this.isPlaying() ? util.getMoveDests(s.sfen, this.data.game.variant.key) : new Map(),
       };
       config.dropmode = {
-        dropDests: this.isPlaying() ? util.getDropDests(s.fen, this.data.game.variant.key) : new Map(),
+        dropDests: this.isPlaying() ? util.getDropDests(s.sfen, this.data.game.variant.key) : new Map(),
       };
     }
     this.shogiground.set(config);
@@ -362,7 +362,7 @@ export default class RoundController {
 
           const moveNotation = makeNotation(
             this.data.pref.pieceNotation,
-            prev_step.fen,
+            prev_step.sfen,
             this.data.game.variant.key,
             m_step.usi
           );
@@ -382,7 +382,7 @@ export default class RoundController {
     const d = this.data,
       playing = this.isPlaying();
 
-    d.game.turns = o.ply;
+    d.game.plies = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'sente' : 'gote';
     const playedColor = o.ply % 2 === 0 ? 'gote' : 'sente',
       activeColor = d.player.color === d.game.player;
@@ -390,8 +390,6 @@ export default class RoundController {
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('sente').offeringDraw = o.sDraw;
     this.playerByColor('gote').offeringDraw = o.gDraw;
-    d.possibleMoves = activeColor ? o.dests : undefined;
-    d.possibleDrops = activeColor ? o.drops : undefined;
     this.setTitle();
     const move = parseUsi(o.usi)!;
     if (!this.replaying()) {
@@ -408,17 +406,15 @@ export default class RoundController {
         // This block needs to be idempotent
         const keys = util.usi2move(o.usi)!;
         this.shogiground.move(keys[0], keys[1]);
-      }
-      if (o.promotion) {
-        ground.promote(this.shogiground, util.usi2move(o.usi)![1], this.data.game.variant.key);
+        if (move.promotion) ground.promote(this.shogiground, util.usi2move(o.usi)![1], this.data.game.variant.key);
       }
       this.shogiground.set({
         turnColor: d.game.player,
         movable: {
-          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
+          dests: playing && activeColor ? util.getMoveDests(o.sfen, d.game.variant.key) : new Map(),
         },
         dropmode: {
-          dropDests: playing && activeColor ? util.getDropDests(o.fen, d.game.variant.key) : new Map(),
+          dropDests: playing && activeColor ? util.getDropDests(o.sfen, d.game.variant.key) : new Map(),
         },
         check: !!o.check,
       });
@@ -428,7 +424,7 @@ export default class RoundController {
     }
     const step = {
       ply: round.lastPly(this.data) + 1,
-      fen: o.fen,
+      sfen: o.sfen,
       usi: o.usi,
       check: o.check,
     };
@@ -520,7 +516,7 @@ export default class RoundController {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (!d.player.spectator && d.game.turns > 1)
+    if (!d.player.spectator && d.game.plies > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
     //if(d.game.variant.key !== 'chushogi')
     handEndHook();

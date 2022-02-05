@@ -29,7 +29,7 @@ final class AutoPairing(
               if (tour.position.isEmpty) tour.variant
               else shogi.variant.FromPosition
             },
-            fen = tour.position.map(_.value)
+            sfen = tour.position
           )
           .copy(
             clock = clock.some

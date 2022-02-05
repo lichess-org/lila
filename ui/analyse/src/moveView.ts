@@ -39,7 +39,7 @@ export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNod
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
   const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
-  return [h('move-notation', node.notation)]
+  return [h('move-notation.color-icon.' + (node.ply % 2 ? 'sente' : 'gote'), node.notation)]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
     .concat(
       ctx.showEval

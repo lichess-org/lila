@@ -34,19 +34,12 @@ export interface SocketDrop {
   b?: 1;
 }
 
-export type EncodedDests =
-  | string
-  | {
-      [key: string]: string;
-    };
 export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
   pref: Pref;
   steps: Step[];
-  possibleMoves?: EncodedDests;
-  possibleDrops?: string;
   forecastCount?: number;
   correspondence: CorresClockData;
   url: {
@@ -94,13 +87,12 @@ export interface Chat {
 
 export interface Step {
   ply: Ply;
-  fen: Fen;
+  sfen: Sfen;
   usi: Usi;
   check?: boolean;
 }
 
 export interface ApiMove extends Step {
-  dests: EncodedDests;
   clock?: {
     sente: Seconds;
     gote: Seconds;
@@ -171,8 +163,4 @@ export interface MaterialDiffSide {
 export interface MaterialDiff {
   sente: MaterialDiffSide;
   gote: MaterialDiffSide;
-}
-export interface CheckCount {
-  sente: number;
-  gote: number;
 }

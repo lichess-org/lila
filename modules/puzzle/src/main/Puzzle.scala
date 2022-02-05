@@ -1,14 +1,15 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import shogi.format.{ FEN, Forsyth }
+import cats.implicits._
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
 import lila.rating.Glicko
 
 case class Puzzle(
     id: Puzzle.Id,
-    fen: String,
+    sfen: Sfen,
     line: NonEmptyList[Usi],
     glicko: Glicko,
     plays: Int,
@@ -19,34 +20,26 @@ case class Puzzle(
     description: Option[String] = None
 ) {
   // ply after "initial move" when we start solving
-  def initialPly: Int = {
-    fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
-      move - 1
+  def initialPly: Int =
+    sfen.moveNumber ?? { mn =>
+      mn - 1
     }
-  }
 
-  lazy val fenAfterInitialMove: FEN = {
+  lazy val sfenAfterInitialMove: Sfen = {
     gameId match {
       case Some(_) =>
         for {
-          sit1 <- Forsyth << fen
-          sit2 <- line.head match {
-            case Usi.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
-            case Usi.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
-          }
-        } yield FEN(Forsyth >> sit2)
-      case None =>
-        for {
-          sit1 <- Forsyth << fen
-        } yield FEN(Forsyth >> sit1)
+          sit1 <- sfen.toSituation(shogi.variant.Standard)
+          sit2 <- sit1(line.head).toOption
+        } yield sit2.toSfen
+      case None => sfen.some
     }
-
   } err s"Can't apply puzzle $id first move"
 
   def color: shogi.Color =
     gameId match {
-      case Some(_) => Forsyth.getColor(fen).fold[shogi.Color](shogi.Sente)(!_)
-      case None    => Forsyth.getColor(fen).getOrElse(shogi.Sente)
+      case Some(_) => sfen.color.fold[shogi.Color](shogi.Sente)(!_)
+      case None    => sfen.color.getOrElse(shogi.Sente)
     }
 
   def lastMove: String =
@@ -112,7 +105,7 @@ object Puzzle {
   object BSONFields {
     val id          = "_id"
     val gameId      = "gameId"
-    val fen         = "fen"
+    val sfen        = "fen"
     val line        = "line"
     val glicko      = "glicko"
     val vote        = "vote"

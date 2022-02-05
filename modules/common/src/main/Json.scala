@@ -2,7 +2,7 @@ package lila.common
 
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json => PlayJson, _ }
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 
 object Json {
 
@@ -41,5 +41,5 @@ object Json {
     JsNumber(time.getMillis)
   }
 
-  implicit val fenFormat: Format[FEN] = stringIsoFormat[FEN](Iso.fenIso)
+  implicit val sfenFormat: Format[Sfen] = stringIsoFormat[Sfen](Iso.sfenIso)
 }

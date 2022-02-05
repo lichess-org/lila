@@ -109,7 +109,7 @@ final class AssessApi(
         else if (game.mode.casual) false
         else if (Player.HoldAlert suspicious holdAlerts) true
         else if (game.isCorrespondence) false
-        else if (game.playedTurns < 40) false
+        else if (game.playedPlies < 40) false
         else if (game.players exists consistentMoveTimes(game)) true
         else if (game.createdAt isBefore bottomDate) false
         else true
@@ -189,9 +189,9 @@ final class AssessApi(
       // give up on correspondence games
       else if (game.isCorrespondence) fuccess(none)
       // stop here for short games
-      else if (game.playedTurns < 36) fuccess(none)
+      else if (game.playedPlies < 36) fuccess(none)
       // stop here for long games
-      else if (game.playedTurns > 90) fuccess(none)
+      else if (game.playedPlies > 90) fuccess(none)
       // stop here for casual games
       else if (!game.mode.rated) fuccess(none)
       // discard old games

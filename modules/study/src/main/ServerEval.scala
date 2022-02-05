@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.{ FEN, Forsyth, Glyphs }
+import shogi.format.Glyphs
 import shogi.format.usi.{ Usi, UsiCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -28,7 +28,7 @@ object ServerEval {
           fishnet ! StudyChapterRequest(
             studyId = study.id.value,
             chapterId = chapter.id.value,
-            initialFen = chapter.root.fen.some,
+            initialSfen = chapter.root.sfen.some,
             variant = chapter.setup.variant,
             moves = chapter.root.mainline.map(_.usi).toList,
             userId = userId
@@ -114,12 +114,12 @@ object ServerEval {
         id = chapter.id.value,
         usiMoves = chapter.root.mainline.map(_.usi).toVector,
         variant = chapter.setup.variant,
-        initialFen = chapter.root.fen.some
+        initialSfen = chapter.root.sfen.some
       )
 
     private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] = {
       val usis = ~Usi.readList(info.variation take 20)
-      shogi.Replay.gamesWhileValid(usis, root.fen.some, variant) match {
+      shogi.Replay.gamesWhileValid(usis, root.sfen.some, variant) match {
         case (games, error) =>
           error foreach { logger.info(_) }
           games.tail.zip(usis).reverse match {
@@ -135,10 +135,10 @@ object ServerEval {
 
     private def makeBranch(g: shogi.Game, usi: Usi) =
       Node(
-        id = UsiCharPair(usi),
-        ply = g.turns,
+        id = UsiCharPair(usi, g.variant),
+        ply = g.plies,
         usi = usi,
-        fen = FEN(Forsyth >> g),
+        sfen = g.toSfen,
         check = g.situation.check,
         clock = none,
         children = Node.emptyChildren,

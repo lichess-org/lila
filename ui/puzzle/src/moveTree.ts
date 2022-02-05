@@ -12,7 +12,7 @@ export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
   const root: Tree.Node = {
     ply: 0,
     id: '',
-    fen: INITIAL_SFEN,
+    sfen: INITIAL_SFEN,
     children: [],
   } as Tree.Node;
   let current = root;
@@ -29,12 +29,12 @@ export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
   return root;
 }
 
-export function fenToTree(sfen: string): Tree.Node {
+export function sfenToTree(sfen: string): Tree.Node {
   const startPly = parseInt(sfen.split(' ')[3]) - 1 ?? 0;
   return {
     ply: startPly,
     id: '',
-    fen: sfen,
+    sfen: sfen,
     children: [],
   } as Tree.Node;
 }
@@ -47,7 +47,7 @@ export function mergeSolution(
   notation: Notation
 ): void {
   const initialNode = root.nodeAtPath(initialPath);
-  const pos = Shogi.fromSetup(parseSfen(initialNode.fen).unwrap(), false).unwrap();
+  const pos = Shogi.fromSetup(parseSfen(initialNode.sfen).unwrap(), false).unwrap();
   const fromPly = initialNode.ply;
 
   let lastMove: Move | undefined = undefined;
@@ -65,7 +65,7 @@ export function mergeSolution(
 
 const makeNode = (pos: Shogi, move: Move, notation: MoveNotation, ply: number) => ({
   ply,
-  fen: makeSfen(pos.toSetup()),
+  sfen: makeSfen(pos.toSetup()),
   id: scalashogiCharPair(move),
   usi: makeUsi(move),
   notation: notation,

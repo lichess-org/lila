@@ -203,13 +203,13 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
-      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant, chapter.setup.isFromNotation)
+      pov = userAnalysisC.makePov(chapter.root.sfen.some, chapter.setup.variant, chapter.setup.isFromNotation)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData = env.round.jsonView.userAnalysisJson(
         pov,
         ctx.pref,
-        chapter.root.fen.some,
+        chapter.root.sfen.some,
         chapter.setup.orientation,
         owner = false,
         me = ctx.me,
@@ -350,12 +350,12 @@ final class Study(
               none
             )
             setup      = chapter.setup
-            initialFen = chapter.root.fen.some
-            pov        = userAnalysisC.makePov(initialFen, setup.variant)
+            initialSfen = chapter.root.sfen.some
+            pov        = userAnalysisC.makePov(initialSfen, setup.variant)
             baseData = env.round.jsonView.userAnalysisJson(
               pov,
               lila.pref.Pref.default,
-              initialFen,
+              initialSfen,
               setup.orientation,
               owner = false,
               me = none

@@ -2,8 +2,8 @@ package lila.challenge
 
 import scala.util.chaining._
 
-import shogi.format.Forsyth
-import shogi.format.Forsyth.SituationPlus
+import shogi.format.forsyth.Sfen
+import shogi.format.forsyth.Sfen.SituationPlus
 import shogi.{ Color, Mode, Situation }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
@@ -23,20 +23,21 @@ final private class Joiner(
           def makeShogi(variant: shogi.variant.Variant): shogi.Game =
             shogi.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
-          val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap { fen =>
-            Forsyth.<<<@(shogi.variant.FromPosition, fen.value)
+          val baseState = c.initialSfen.ifTrue(c.variant.fromPosition) flatMap {
+            _.toSituationPlus(shogi.variant.FromPosition)
           }
           val (shogiGame, state) = baseState.fold(makeShogi(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>
               val game = shogi.Game(
                 situation = s,
-                turns = sit.turns,
-                startedAtTurn = sit.turns,
+                plies = sit.plies,
+                startedAtPly = sit.plies,
                 startedAtMove = sit.moveNumber,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeShogi(shogi.variant.Standard) -> none
-              else game                                                                  -> baseState
+              if (c.variant.fromPosition && game.toSfen.initialOf(shogi.variant.Standard)) 
+                makeShogi(shogi.variant.Standard) -> none
+              else game -> baseState
           }
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game
@@ -44,23 +45,23 @@ final private class Joiner(
               shogi = shogiGame,
               sentePlayer = Player.make(shogi.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
               gotePlayer = Player.make(shogi.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
-              mode = if (shogiGame.board.variant.fromPosition) Mode.Casual else c.mode,
+              mode = if (shogiGame.variant.fromPosition) Mode.Casual else c.mode,
               source = Source.Friend,
               daysPerTurn = c.daysPerTurn,
               notationImport = None
             )
             .withId(c.id)
             .pipe { g =>
-              state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
+              state.fold(g) { case parsed @ SituationPlus(sit, _) =>
                 g.copy(
                   shogi = g.shogi.copy(
                     situation = g.situation.copy(
-                      board = g.board.copy(
-                        history = board.history,
-                        variant = shogi.variant.FromPosition
-                      )
+                      board = sit.board,
+                      hands = sit.hands,
+                      history = sit.history,
+                      variant = shogi.variant.FromPosition
                     ),
-                    turns = sit.turns
+                    plies = parsed.plies
                   )
                 )
               }

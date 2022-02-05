@@ -1,7 +1,7 @@
 package lila.simul
 
 import shogi.variant.Variant
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.{ Speed }
 import lila.rating.PerfType
 import lila.user.User
@@ -15,7 +15,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[FEN],
+    position: Option[Sfen],
     createdAt: DateTime,
     estimatedStartAt: Option[DateTime] = None,
     hostId: String,
@@ -153,7 +153,7 @@ object Simul {
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[FEN],
+      position: Option[Sfen],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime],

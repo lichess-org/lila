@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.game.{ Namer, Pov }
 import lila.user.User
 
@@ -12,8 +12,8 @@ final private class StudyMaker(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
-    (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user)
+    (data.form.gameId ?? gameRepo.gameWithInitialSfen).flatMap {
+      case Some((game, initialSfen)) => createFromPov(data, Pov(game, data.form.orientation), initialSfen, user)
       case None                     => createFromScratch(data, user)
     } map { sc =>
       // apply specified From if any
@@ -22,13 +22,13 @@ final private class StudyMaker(
 
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
-    chapterMaker.fromFenOrNotationOrBlank(
+    chapterMaker.fromSfenOrNotationOrBlank(
       study,
       ChapterMaker.Data(
         game = none,
         name = Chapter.Name("Chapter 1"),
         variant = data.form.variantStr,
-        fen = data.form.fenStr,
+        sfen = data.form.sfen,
         notation = data.form.notationStr,
         orientation = data.form.orientation.name,
         mode = ChapterMaker.Mode.Normal.key,
@@ -44,12 +44,12 @@ final private class StudyMaker(
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       user: User
   ): Fu[Study.WithChapter] = {
     for {
-      root <- chapterMaker.game2root(pov.game, initialFen)
-      tags <- notationDump.tags(pov.game, initialFen, withOpening = true, csa = false)
+      root <- chapterMaker.game2root(pov.game, initialSfen)
+      tags <- notationDump.tags(pov.game, initialSfen, withOpening = true, csa = false)
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
       chapter = Chapter.make(

@@ -1,11 +1,11 @@
 package lila.game
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 import shogi.{
-  CheckCount,
   Color,
   Clock,
+  Hands,
   Sente,
   Gote,
   Status,
@@ -23,10 +23,6 @@ import lila.db.dsl._
 object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
-
-  implicit private[game] val checkCountWriter = new BSONWriter[CheckCount] {
-    def writeTry(cc: CheckCount) = Success(BSONArray(cc.sente, cc.gote))
-  }
 
   implicit val StatusBSONHandler = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
@@ -47,14 +43,14 @@ object BSONHandlers {
 
       val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
 
-      val initialFen    = r.getO[FEN](F.initialFen)
-      val startedAtTurn = r intD F.startedAtTurn
-      val startedAtMove = initialFen.flatMap(Forsyth getMoveNumber _.value) | 1
-      val plies         = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
+      val initialSfen   = r.getO[Sfen](F.initialSfen)
+      val startedAtPly  = r intD F.startedAtPly
+      val startedAtMove = initialSfen.flatMap(_.moveNumber) | 1
+      val plies         = r int F.plies atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor     = Color.fromPly(plies)
       val createdAt     = r date F.createdAt
 
-      val playedPlies = plies - startedAtTurn
+      val playedPlies = plies - startedAtPly
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
       val periodEntries = BinaryFormat.periodEntries
@@ -64,33 +60,29 @@ object BSONHandlers {
         )
         .getOrElse(PeriodEntries.default)
 
-      val usiMoves = BinaryFormat.usi.read(gameVariant)(r bytesD F.usiMoves)
-      val pieces   = BinaryFormat.pieces.read(gameVariant)(usiMoves, initialFen)
+      val usiMoves = BinaryFormat.usi.read(r bytesD F.usiMoves, gameVariant)
+      val pieces   = BinaryFormat.pieces.read(usiMoves, initialSfen, gameVariant)
 
       val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
-      val checkCounts    = r.intsD(F.checkCount)
-      val hands          = r.strO(F.handData) map { Forsyth.readHands(gameVariant, _) }
+      val hands          = r.strO(F.hands) flatMap { Sfen.makeHandsFromString(_, gameVariant) }
 
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
-          shogi.Board(
-            pieces = pieces,
-            history = ShogiHistory(
-              lastMove = usiMoves.lastOption,
-              positionHashes = positionHashes,
-              checkCount = CheckCount(~checkCounts.headOption, ~checkCounts.lastOption)
-            ),
-            variant = gameVariant,
-            handData = hands
+          shogi.Board(pieces = pieces),
+          hands = hands.getOrElse(Hands.empty),
+          color = turnColor,
+          history = ShogiHistory(
+            lastMove = usiMoves.lastOption,
+            positionHashes = positionHashes
           ),
-          color = turnColor
+          variant = gameVariant
         ),
         usiMoves = usiMoves,
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
         } map (_(turnColor)),
-        turns = plies,
-        startedAtTurn = startedAtTurn,
+        plies = plies,
+        startedAtPly = startedAtPly,
         startedAtMove = startedAtMove
       )
 
@@ -145,8 +137,8 @@ object BSONHandlers {
           )
         ),
         F.status        -> o.status,
-        F.turns         -> o.shogi.turns,
-        F.startedAtTurn -> w.intO(o.shogi.startedAtTurn),
+        F.plies         -> o.shogi.plies,
+        F.startedAtPly -> w.intO(o.shogi.startedAtPly),
         F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),
@@ -157,7 +149,7 @@ object BSONHandlers {
         F.periodsSente      -> periodEntries(Sente, o.clockHistory),
         F.periodsGote       -> periodEntries(Gote, o.clockHistory),
         F.rated             -> w.boolO(o.mode.rated),
-        F.variant           -> o.board.variant.exotic.option(w int o.board.variant.id),
+        F.variant           -> o.variant.exotic.option(w int o.variant.id),
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
@@ -168,9 +160,8 @@ object BSONHandlers {
         F.simulId           -> o.metadata.simulId,
         F.analysed          -> w.boolO(o.metadata.analysed),
         F.positionHashes    -> o.history.positionHashes,
-        F.checkCount        -> o.history.checkCount,
-        F.handData          -> Forsyth.exportHands(o.board),
-        F.usiMoves          -> BinaryFormat.usi.write(o.board.variant)(o.usiMoves)
+        F.hands             -> Sfen.handsToString(o.hands, o.variant),
+        F.usiMoves          -> BinaryFormat.usi.write(o.usiMoves, o.variant)
       )
   }
 

@@ -156,7 +156,7 @@ export interface PuzzleGame {
   usi?: string;
   clock?: string;
   // From the outside
-  fen?: string;
+  sfen?: string;
   author?: string;
   description?: string;
 }
@@ -207,6 +207,6 @@ export interface Promotion {
 
 export interface MoveTest {
   move: Move;
-  fen: Fen;
+  sfen: Sfen;
   path: Tree.Path;
 }

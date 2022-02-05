@@ -22,7 +22,7 @@ case class Info(
 
   def encode: String =
     List(
-      best ?? (_.piotr),
+      best ?? (_.usi),
       variation take Info.LineMaxPlies mkString " ",
       mate ?? (_.value.toString),
       cp ?? (_.value.toString)
@@ -74,7 +74,7 @@ object Info {
       case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
       case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
       case Array(cp, ma, va, be) =>
-        Info(ply, Eval(strCp(cp), strMate(ma), Usi piotr be), va.split(' ').toList).some
+        Info(ply, Eval(strCp(cp), strMate(ma), Usi apply be), va.split(' ').toList).some
       case _ => none
     }
 

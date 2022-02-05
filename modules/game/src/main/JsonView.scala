@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json._
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.{ Clock, Color, Hand, Hands }
 import lila.common.Json.jodaWrites
 
@@ -10,7 +10,7 @@ final class JsonView(rematches: Rematches) {
 
   import JsonView._
 
-  def apply(game: Game, initialFen: Option[FEN]) =
+  def apply(game: Game, initialSfen: Option[Sfen]) =
     Json
       .obj(
         "id"            -> game.id,
@@ -18,12 +18,12 @@ final class JsonView(rematches: Rematches) {
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "initialFen"    -> initialFen.|(FEN(shogi.format.Forsyth.initial)),
-        "fen"           -> (Forsyth >> game.shogi),
+        "initialSfen"   -> (initialSfen | game.variant.initialSfen),
+        "sfen"          -> game.shogi.toSfen,
         "player"        -> game.turnColor,
-        "turns"         -> game.turns,
+        "plies"         -> game.plies,
         "startedAtMove" -> game.shogi.startedAtMove,
-        "startedAtTurn" -> game.shogi.startedAtTurn,
+        "startedAtPly"  -> game.shogi.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,
         "createdAt"     -> game.createdAt
@@ -112,9 +112,9 @@ object JsonView {
 
   implicit val openingWriter: OWrites[shogi.opening.FullOpening.AtPly] = OWrites { o =>
     Json.obj(
-      "eco"  -> o.opening.eco,
-      "name" -> o.opening.name,
-      "ply"  -> o.ply
+      "japanese" -> o.opening.japanese,
+      "english"  -> o.opening.english,
+      "ply"      -> o.ply
     )
   }
 
@@ -133,7 +133,7 @@ object JsonView {
     JsString(c.name)
   }
 
-  implicit val fenWrites: Writes[FEN] = Writes { f =>
+  implicit val sfenWrites: Writes[Sfen] = Writes { f =>
     JsString(f.value)
   }
 }

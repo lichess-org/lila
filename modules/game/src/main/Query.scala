@@ -97,7 +97,7 @@ object Query {
 
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e" $gt v, "p1.e" $gt v)
 
-  def turnsGt(nb: Int) = F.turns $gt nb
+  def pliesGt(nb: Int) = F.plies $gt nb
 
   def checkable = F.checkAt $lt DateTime.now
 

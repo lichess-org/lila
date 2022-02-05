@@ -2,7 +2,7 @@ package lila.game
 
 import lila.common.ThreadLocalRandom
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -108,7 +108,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           ++ Query.rated
           ++ Query.user(userId)
           ++ Query.analysed(true)
-          ++ Query.turnsGt(20)
+          ++ Query.pliesGt(20)
           ++ Query.clockHistory(true)
       )
       .sort($sort asc F.createdAt)
@@ -121,7 +121,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.finished
           ++ Query.rated
           ++ Query.user(userId)
-          ++ Query.turnsGt(22)
+          ++ Query.pliesGt(22)
           ++ Query.variantStandard
           ++ Query.clock(true)
       )
@@ -234,7 +234,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.user(user.id) ++
           Query.rated ++
           Query.finished ++
-          Query.turnsGt(2) ++
+          Query.pliesGt(2) ++
           Query.notFromPosition
       )
       .sort(Query.sortAntiChronological)
@@ -345,16 +345,16 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[shogi.format.FEN] = None): Funit = {
+  def insertDenormalized(g: Game, initialSfen: Option[shogi.format.forsyth.Sfen] = None): Funit = {
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
         g.copy(mode = shogi.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen = initialFen.map(_.value) orElse {
-      (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.shogi)
-        .filter(Forsyth.initial !=)
+    val sfen: Option[Sfen] = initialSfen orElse {
+      (!g2.variant.standard)
+        .option(g2.shogi.toSfen)
+        .filterNot(_.initialOf(g2.variant))
     }
     val checkInHours =
       if (g2.isNotationImport) none
@@ -362,7 +362,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
       else (24 * 10).some
     val bson = (gameBSONHandler write g2) ++ $doc(
-      F.initialFen  -> fen,
+      F.initialSfen -> sfen,
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
@@ -390,31 +390,30 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setImportCreatedAt(g: Game) =
     coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
 
-  def initialFen(gameId: ID): Fu[Option[FEN]] =
-    coll.primitiveOne[FEN]($id(gameId), F.initialFen)
+  def initialSfen(gameId: ID): Fu[Option[Sfen]] =
+    coll.primitiveOne[Sfen]($id(gameId), F.initialSfen)
 
-  def initialFen(game: Game): Fu[Option[FEN]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None => FEN(Forsyth.initial).some
-      case fen  => fen
+  def initialSfen(game: Game): Fu[Option[Sfen]] =
+    initialSfen(game.id) dmap {
+      case None => game.variant.initialSfen.some
+      case sfen  => sfen
     }
-    else fuccess(none)
 
-  def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] =
+  def gameWithInitialSfen(gameId: ID): Fu[Option[(Game, Option[Sfen])]] =
     game(gameId) flatMap {
       _ ?? { game =>
-        initialFen(game) dmap { fen =>
-          Option(game -> fen)
+        initialSfen(game) dmap { sfen =>
+          Option(game -> sfen)
         }
       }
     }
 
-  def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
-    initialFen(game) dmap { Game.WithInitialFen(game, _) }
+  def withInitialSfen(game: Game): Fu[Game.WithInitialSfen] =
+    initialSfen(game) dmap { Game.WithInitialSfen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] =
+  def withInitialSfens(games: List[Game]): Fu[List[(Game, Option[Sfen])]] =
     games.map { game =>
-      initialFen(game) dmap { game -> _ }
+      initialSfen(game) dmap { game -> _ }
     }.sequenceFu
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
@@ -499,7 +498,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.finished
           ++ Query.rated
           ++ Query.user(userId)
-          ++ Query.turnsGt(20)
+          ++ Query.pliesGt(20)
       )
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)

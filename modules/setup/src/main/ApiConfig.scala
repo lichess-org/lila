@@ -1,7 +1,7 @@
 package lila.setup
 
 import shogi.Clock
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant.FromPosition
 import lila.lobby.Color
 import lila.rating.PerfType
@@ -13,27 +13,27 @@ final case class ApiConfig(
     days: Option[Int],
     rated: Boolean,
     color: Color,
-    position: Option[FEN] = None,
+    position: Option[Sfen] = None,
     acceptByToken: Option[String] = None
 ) {
 
-  val strictFen = false
+  val strictSfen = false
 
   def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, days)
 
-  def validFen =
+  def validSfen =
     variant != FromPosition || {
       position ?? { f =>
-        ~(Forsyth <<< f.value).map(_.situation playableNoImpasse strictFen)
+        ~(f.toSituationPlus(shogi.variant.Standard)).map(_.situation.playable(strict = strictSfen, withImpasse = true))
       }
     }
 
   def mode = shogi.Mode(rated)
 
   def autoVariant =
-    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.initialOf(shogi.variant.Standard))) copy(variant = FromPosition)
     else this
 }
 
@@ -56,7 +56,7 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map FEN,
+      position = pos map Sfen.apply,
       acceptByToken = tok
     ).autoVariant
 }

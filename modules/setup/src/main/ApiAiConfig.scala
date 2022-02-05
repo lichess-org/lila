@@ -1,7 +1,7 @@
 package lila.setup
 
 import shogi.Clock
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant.{ FromPosition, Variant }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
@@ -13,13 +13,13 @@ final case class ApiAiConfig(
     daysO: Option[Int],
     color: Color,
     level: Int,
-    fen: Option[FEN] = None
+    sfen: Option[Sfen] = None
 ) extends Config
     with Positional {
 
-  val strictFen = false
+  val strictSfen = false
 
-  def >> = (level, variant.key.some, clock, daysO, color.name.some, fen.map(_.value)).some
+  def >> = (level, variant.key.some, clock, daysO, color.name.some, sfen.map(_.value)).some
 
   val days      = ~daysO
   val increment = clock.??(_.increment.roundSeconds)
@@ -32,10 +32,10 @@ final case class ApiAiConfig(
     else TimeMode.Unlimited
 
   def game(user: Option[User]) =
-    fenGame { shogiGame =>
+    sfenGame { shogiGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         shogi.Speed(shogiGame.clock.map(_.config)),
-        shogiGame.situation.board.variant,
+        shogiGame.variant,
         makeDaysPerTurn
       )
       Game
@@ -50,7 +50,7 @@ final case class ApiAiConfig(
             Player.make(shogi.Gote, user, perfPicker)
           ),
           mode = shogi.Mode.Casual,
-          source = if (shogiGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          source = if (shogiGame.variant.fromPosition) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           notationImport = None
         )
@@ -60,7 +60,7 @@ final case class ApiAiConfig(
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
 
   def autoVariant =
-    if (variant.standard && fen.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && sfen.exists(!_.initialOf(variant))) copy(variant = FromPosition)
     else this
 }
 
@@ -82,6 +82,6 @@ object ApiAiConfig extends BaseConfig {
       daysO = d,
       color = Color.orDefault(~c),
       level = l,
-      fen = pos map FEN
+      sfen = pos map Sfen.apply
     ).autoVariant
 }

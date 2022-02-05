@@ -21,42 +21,35 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       isPartial: Boolean = true
   ): Fu[Analysis] =
     evalCache.evals(work) flatMap { cachedFull =>
-      /* remove first eval in partial analysis
-       * to prevent the mobile app from thinking it's complete
-       * https://github.com/veloce/lichobile/issues/722
-       */
+      // remove first eval in partial analysis
+      // to prevent the mobile app from thinking it's complete
+      // https://github.com/veloce/lichobile/issues/722
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
-      shogi.Replay
-        .replay(work.game.usiList, work.game.initialFen, work.game.variant)
-        .fold(
-          fufail(_),
-          replay =>
-            VariationValidation(
-              replay,
-              Analysis(
-                id = work.game.id,
-                studyId = work.game.studyId,
-                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
-                startPly = work.startPly,
-                uid = work.sender.userId,
-                by = !client.lishogi option client.userId.value,
-                date = DateTime.now
-              )
-            ) match {
-              case (analysis, errors) =>
-                errors foreach { e =>
-                  logger.debug(s"[Variation validation] $debug $e")
-                }
-                if (analysis.valid) {
-                  if (!isPartial && analysis.emptyRatio >= 1d / 10)
-                    fufail(
-                      s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}"
-                    )
-                  else fuccess(analysis)
-                } else fufail(s"${work.game.variant.key} analysis $debug is empty")
-            }
+      VariationValidation(
+        work.game,
+        Analysis(
+          id = work.game.id,
+          studyId = work.game.studyId,
+          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
+          startPly = work.startPly,
+          uid = work.sender.userId,
+          by = !client.lishogi option client.userId.value,
+          date = DateTime.now
         )
+      ) match {
+        case (analysis, errors) =>
+          errors foreach { e =>
+            logger.debug(s"[Variation validation] $debug $e")
+          }
+          if (analysis.valid) {
+            if (!isPartial && analysis.emptyRatio >= 1d / 10)
+              fufail(
+                s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}"
+              )
+            else fuccess(analysis)
+          } else fufail(s"${work.game.variant.key} analysis $debug is empty")
+      }
     }
 
   private def mergeEvalsAndCached(

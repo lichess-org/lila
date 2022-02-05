@@ -98,7 +98,7 @@ export default class Protocol {
 
     if (multiPv === 1) {
       this.curEval = {
-        fen: this.work.currentFen,
+        sfen: this.work.currentSfen,
         maxDepth: this.work.maxDepth,
         depth,
         knps: nodes / elapsedMs,
@@ -137,14 +137,14 @@ export default class Protocol {
     this.expectedPvs = 1;
 
     const usiMoves = this.work.moves.map(m => pretendItsUsi(m));
-    console.log('sending this sfen: ', this.work.initialFen, 'and these moves', usiMoves);
+    console.log('sending this sfen: ', this.work.initialSfen, 'and these moves', usiMoves);
     console.log('for this variant: ', this.opts.variant);
 
     this.setOption('UCI_Variant', lishogiVariantRules(this.opts.variant));
     this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
     this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
     this.setOption('MultiPV', this.work.multiPv);
-    this.send(['position', 'sfen', this.work.initialFen, 'moves'].concat(usiMoves).join(' '));
+    this.send(['position', 'sfen', this.work.initialSfen, 'moves'].concat(usiMoves).join(' '));
     if (this.work.maxDepth >= 99) this.send('go depth 99');
     else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }

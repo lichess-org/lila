@@ -36,7 +36,7 @@ package round {
       promise: Option[Promise[Unit]] = None
   )
 
-  case class PlayResult(events: Events, fen: String, lastMove: Option[String])
+  case class PlayResult(events: Events, sfen: String, lastMove: Option[String])
 
   case object AbortForce
   case object ResignAi

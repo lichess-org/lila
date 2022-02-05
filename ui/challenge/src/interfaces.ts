@@ -17,7 +17,7 @@ export interface Ctrl {
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
 export type ChallengeDirection = 'in' | 'out';
-type FEN = string;
+type Sfen = string;
 
 export interface ChallengeUser {
   id: string;
@@ -45,7 +45,7 @@ export interface Challenge {
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
   variant: Variant;
-  initialFen: FEN;
+  initialSfen: Sfen;
   rated: boolean;
   timeControl: TimeControl;
   color: Color;

@@ -17,18 +17,18 @@ object Accuracy {
   case class PovLike(
       color: shogi.Color,
       startColor: shogi.Color,
-      startedAtTurn: Int
+      startedAtPly: Int
   )
 
   implicit def povToPovLike(pov: Pov): PovLike =
     PovLike(
       color = pov.color,
       startColor = pov.game.startColor,
-      startedAtTurn = pov.game.shogi.startedAtTurn
+      startedAtPly = pov.game.shogi.startedAtPly
     )
 
   def diffsList(pov: PovLike, analysis: Analysis): List[Int] = {
-    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    if (pov.color == pov.startColor) Info.start(pov.startedAtPly) :: analysis.infos
     else analysis.infos
   }.grouped(2)
     .foldLeft(List[Int]()) {
@@ -41,7 +41,7 @@ object Accuracy {
     .reverse
 
   def prevColorInfos(pov: PovLike, analysis: Analysis): List[Info] = {
-    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    if (pov.color == pov.startColor) Info.start(pov.startedAtPly) :: analysis.infos
     else analysis.infos
   }.zipWithIndex.collect {
     case (e, i) if (i % 2) == 0 => e

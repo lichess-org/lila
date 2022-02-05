@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 import lila.db.dsl._
 import lila.memo.CacheApi._
@@ -30,12 +30,12 @@ final class EvalCacheApi(
       }
     }
 
-  def getEvalJson(variant: Variant, fen: FEN, multiPv: Int): Fu[Option[JsObject]] =
+  def getEvalJson(variant: Variant, sfen: Sfen, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
-      id = Id(variant, SmallFen.make(variant, fen)),
+      id = Id(variant, SmallSfen.make(variant, sfen)),
       multiPv = multiPv
     ) map {
-      _.map { JsonHandlers.writeEval(_, fen) }
+      _.map { JsonHandlers.writeEval(_, sfen) }
     }
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate, sri: Option[Socket.Sri]): Funit =
@@ -43,14 +43,14 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
-  def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] =
+  def getSinglePvEval(variant: Variant, sfen: Sfen): Fu[Option[Eval]] =
     getEval(
-      id = Id(variant, SmallFen.make(variant, fen)),
+      id = Id(variant, SmallSfen.make(variant, sfen)),
       multiPv = 1
     )
 
-  private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
-    val id = Id(shogi.variant.Standard, SmallFen.make(variant, fen))
+  private[evalCache] def drop(variant: Variant, sfen: Sfen): Funit = {
+    val id = Id(shogi.variant.Standard, SmallSfen.make(variant, sfen))
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
@@ -74,14 +74,14 @@ final class EvalCacheApi(
   private def put(trustedUser: TrustedUser, input: Input, sri: Option[Socket.Sri]): Funit =
     Validator(input) match {
       case Some(error) =>
-        logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
+        logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.sfen}")
         funit
       case None =>
         getEntry(input.id) flatMap {
           case None =>
             val entry = EvalCacheEntry(
               _id = input.id,
-              nbMoves = destSize(input.fen),
+              nbMoves = destSize(input.sfen),
               evals = List(input.eval),
               usedAt = DateTime.now
             )
@@ -99,6 +99,9 @@ final class EvalCacheApi(
         }
     }
 
-  private def destSize(fen: FEN): Int =
-    shogi.Game(shogi.variant.Standard.some, fen.value.some).situation.destinations.size
+  private def destSize(sfen: Sfen): Int =
+    ~(sfen.toSituation(shogi.variant.Standard) map { sit =>
+      sit.moveDestinations.view.map(_._2.size).sum +
+      sit.dropDestinations.view.map(_._2.size).sum
+    })
 }

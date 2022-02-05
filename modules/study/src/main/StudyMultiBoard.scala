@@ -2,7 +2,8 @@ package lila.study
 
 import BSONHandlers._
 import shogi.Color
-import shogi.format.{ FEN, Tags }
+import shogi.format.Tags
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.{ Standard, Variant }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -89,7 +90,7 @@ final class StudyMultiBoard(
             name <- doc.getAsOpt[Chapter.Name]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[FEN]("fen")
+            sfen <- node.getAsOpt[Sfen]("fen")
             lastMove = node.getAsOpt[Usi]("usi")
             tags     = comp.getAsOpt[Tags]("tags")
           } yield ChapterPreview(
@@ -98,7 +99,7 @@ final class StudyMultiBoard(
             players = tags flatMap ChapterPreview.players,
             variant = doc.getAsOpt[Int]("variant").flatMap(v => Variant(v)) | Standard,
             orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
-            fen = fen,
+            sfen = sfen,
             lastMove = lastMove,
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
           )
@@ -131,7 +132,7 @@ object StudyMultiBoard {
       players: Option[ChapterPreview.Players],
       variant: Variant,
       orientation: Color,
-      fen: FEN,
+      sfen: Sfen,
       lastMove: Option[Usi],
       playing: Boolean
   )

@@ -17,32 +17,32 @@ object bits {
 
   def featuredJs(pov: Pov): Frag =
     frag(
-      gameFenNoCtx(pov, tv = true),
+      gameSfenNoCtx(pov, tv = true),
       vstext(pov)(none)
     )
 
   def mini(pov: Pov)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
-      gameFen(pov, withLink = false),
+      gameSfen(pov, withLink = false),
       vstext(pov)(ctx.some)
     )
 
   def miniBoard(
-      fen: shogi.format.FEN,
+      sfen: shogi.format.forsyth.Sfen,
       color: shogi.Color = shogi.Sente,
       variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
-      cls := s"mini-board parse-fen cg-wrap variant-${variant.key}",
+      cls := s"mini-board parse-sfen cg-wrap variant-${variant.key}",
       dataColor := color.name,
-      dataFen := fen.value
+      dataSfen := sfen.value
     )(cgWrapContent)
 
-  def miniTag(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
+  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
-      cls := "mini-board parse-fen cg-wrap",
+      cls := "mini-board parse-sfen cg-wrap",
       dataColor := color.name,
-      dataFen := fen.value,
+      dataSfen := sfen.value,
       dataLastmove := lastMove
     )(cgWrapContent)
 
@@ -58,7 +58,7 @@ object bits {
 
   def sides(
       pov: Pov,
-      initialFen: Option[shogi.format.FEN],
+      initialSfen: Option[shogi.format.forsyth.Sfen],
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
@@ -66,7 +66,7 @@ object bits {
       bookmarked: Boolean
   )(implicit ctx: Context) =
     div(
-      side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
+      side.meta(pov, initialSfen, tour, simul, userTv, bookmarked = bookmarked),
       cross.map { c =>
         div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
       }
@@ -75,7 +75,7 @@ object bits {
   def variantLink(
       variant: shogi.variant.Variant,
       perfType: Option[lila.rating.PerfType] = None,
-      initialFen: Option[shogi.format.FEN] = None
+      initialSfen: Option[shogi.format.forsyth.Sfen] = None
   )(implicit lang: Lang): Frag = {
     def link(
         href: String,
@@ -93,7 +93,7 @@ object bits {
       link(
         href = (variant match {
           case shogi.variant.FromPosition =>
-            s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
+            s"""${routes.Editor.index}?sfen=${initialSfen.??(_.value.replace(' ', '_'))}"""
           case v => routes.Page.variant(v.key).url
         }),
         title = variant.title,

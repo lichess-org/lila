@@ -1,20 +1,20 @@
 package lila.setup
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 
-case class ValidFen(
-    fen: FEN,
+case class ValidSfen(
+    sfen: Sfen,
     situation: shogi.Situation
 ) {
 
   def color = situation.color
 }
 
-object ValidFen {
-  def apply(strict: Boolean)(fen: String): Option[ValidFen] =
+object ValidSfen {
+  def apply(strict: Boolean)(sfen: Sfen): Option[ValidSfen] =
     for {
-      parsed <- shogi.format.Forsyth <<< fen
-      if parsed.situation playableNoImpasse strict
-      validated = shogi.format.Forsyth >> parsed
-    } yield ValidFen(FEN(validated), parsed.situation)
+      parsed <- sfen.toSituationPlus(shogi.variant.Standard)
+      if parsed.situation.playable(strict = strict, withImpasse = true)
+      validated = parsed.toSfen
+    } yield ValidSfen(validated, parsed.situation)
 }

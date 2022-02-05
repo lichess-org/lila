@@ -11,7 +11,7 @@ case class Pairing(
     user1: User.ID,
     user2: User.ID,
     winner: Option[User.ID],
-    turns: Option[Int],
+    plies: Option[Int],
     berserk1: Boolean,
     berserk2: Boolean
 ) {
@@ -32,10 +32,10 @@ case class Pairing(
   def finished = status >= shogi.Status.Mate
   def playing  = !finished
 
-  def quickFinish      = finished && turns.exists(20 >)
-  def quickDraw        = draw && turns.exists(20 >)
-  def notSoQuickFinish = finished && turns.exists(14 <=)
-  def longGame         = turns.exists(60 <=)
+  def quickFinish      = finished && plies.exists(20 >)
+  def quickDraw        = draw && plies.exists(20 >)
+  def notSoQuickFinish = finished && plies.exists(14 <=)
+  def longGame         = plies.exists(60 <=)
 
   def wonBy(user: User.ID): Boolean     = winner.has(user)
   def lostBy(user: User.ID): Boolean    = winner.exists(user !=)
@@ -74,7 +74,7 @@ private[tournament] object Pairing {
       user1 = u1,
       user2 = u2,
       winner = none,
-      turns = none,
+      plies = none,
       berserk1 = false,
       berserk2 = false
     )

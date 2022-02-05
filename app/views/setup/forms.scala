@@ -45,13 +45,13 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
+  def ai(form: Form[_], ratings: Map[Int, Int], validSfen: Option[lila.setup.ValidSfen])(implicit
       ctx: Context
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
-        fenInput(form, true, validFen),
+        sfenInput(form, true, validSfen),
         renderTimeMode(form),
         if (ctx.blind)
           frag(
@@ -81,7 +81,7 @@ object forms {
       form: Form[_],
       user: Option[User],
       error: Option[String],
-      validFen: Option[lila.setup.ValidFen]
+      validSfen: Option[lila.setup.ValidSfen]
   )(implicit ctx: Context) =
     layout(
       "friend",
@@ -93,8 +93,8 @@ object forms {
         user.map { u =>
           userLink(u, cssClass = "target".some)
         },
-        renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
-        fenInput(form, false, validFen),
+        renderVariant(form, translatedVariantChoicesWithVariantsAndSfen),
+        sfenInput(form, false, validSfen),
         renderTimeMode(form),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)

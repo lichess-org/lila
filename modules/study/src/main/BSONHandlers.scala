@@ -1,7 +1,8 @@
 package lila.study
 
-import shogi.format.{ FEN, Glyph, Glyphs, Tag, Tags }
+import shogi.format.{ Glyph, Glyphs, Tag, Tags }
 import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 import shogi.{ Centis, Piece, Pos, Role }
 import org.joda.time.DateTime
@@ -145,7 +146,7 @@ object BSONHandlers {
     for {
       ply <- doc.getAsOpt[Int](F.ply)
       usi <- doc.getAsOpt[Usi](F.usi)
-      fen <- doc.getAsOpt[FEN](F.fen)
+      sfen <- doc.getAsOpt[Sfen](F.sfen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
@@ -158,7 +159,7 @@ object BSONHandlers {
       id,
       ply,
       usi,
-      fen,
+      sfen,
       check,
       shapes,
       comments,
@@ -177,7 +178,7 @@ object BSONHandlers {
     $doc(
       ply            -> n.ply,
       usi            -> n.usi,
-      fen            -> n.fen,
+      sfen           -> n.sfen,
       check          -> w.boolO(n.check),
       shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
       comments       -> n.comments.value.nonEmpty.option(n.comments),
@@ -198,9 +199,9 @@ object BSONHandlers {
     def reads(fullReader: Reader) = {
       val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
-      val rootFen  = r.get[FEN](fen)
+      val rootSfen = r.get[Sfen](sfen)
       Root(
-        fen = rootFen,
+        sfen = rootSfen,
         ply = r int ply,
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
@@ -216,7 +217,7 @@ object BSONHandlers {
       StudyFlatTree.writer.rootChildren(r) appended {
         Path.rootDbKey -> $doc(
           ply      -> r.ply,
-          fen      -> r.fen,
+          sfen     -> r.sfen,
           check    -> r.check.some.filter(identity),
           shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
           comments -> r.comments.value.nonEmpty.option(r.comments),

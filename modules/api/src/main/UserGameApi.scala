@@ -3,7 +3,6 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import shogi.format.Forsyth
 import lila.common.Json.jodaWrites
 import lila.common.LightUser
 import lila.common.paginator.Paginator
@@ -41,7 +40,7 @@ final class UserGameApi(
         "speed"     -> g.speed.key,
         "perf"      -> PerfPicker.key(g),
         "timestamp" -> g.createdAt,
-        "turns"     -> g.turns,
+        "plies"     -> g.plies,
         "status"    -> g.status,
         "source"    -> g.source.map(_.name),
         "players" -> JsObject(g.players map { p =>
@@ -56,7 +55,7 @@ final class UserGameApi(
             .add("rating" -> p.rating)
             .add("ratingDiff" -> p.ratingDiff)
         }),
-        "fen"       -> Forsyth.exportSituation(g.situation),
+        "sfen"      -> g.situation.toSfen,
         "winner"    -> g.winnerColor.map(_.name),
         "bookmarks" -> g.bookmarks
       )

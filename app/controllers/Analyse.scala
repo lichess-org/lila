@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc._
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -37,8 +37,8 @@ final class Analyse(
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) replayBot(pov)
     else
-      env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
-        gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
+      env.game.gameRepo initialSfen pov.gameId flatMap { initialSfen =>
+        gameC.preloadUsers(pov.game) >> RedirectAtSfen(pov, initialSfen) {
           (env.analyse.analyser get pov.game) zip
             (!pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId)) zip
             (pov.game.simulId ?? env.simul.repo.find) zip
@@ -47,7 +47,7 @@ final class Analyse(
             env.bookmark.api.exists(pov.game, ctx.me) zip
             env.api.notationDump(
               pov.game,
-              initialFen,
+              initialSfen,
               analysis = none,
               NotationDump.WithFlags(clocks = false)
             ) flatMap {
@@ -59,7 +59,7 @@ final class Analyse(
                     lila.round.OnUserTv(u.id)
                   },
                   analysis,
-                  initialFenO = initialFen.some,
+                  initialSfenO = initialSfen.some,
                   withFlags = WithFlags(
                     movetimes = true,
                     clocks = true,
@@ -72,7 +72,7 @@ final class Analyse(
                       html.analyse.replay(
                         pov,
                         data,
-                        initialFen,
+                        initialSfen,
                         kif.render,
                         analysis,
                         analysisInProgress,
@@ -91,13 +91,13 @@ final class Analyse(
 
   def embed(gameId: String, color: String) =
     Action.async { implicit req =>
-      env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some((game, initialFen)) =>
+      env.game.gameRepo.gameWithInitialSfen(gameId) flatMap {
+        case Some((game, initialSfen)) =>
           val pov = Pov(game, shogi.Color.fromSente(color == "sente"))
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
-            initialFenO = initialFen.some,
+            initialSfenO = initialSfen.some,
             withFlags = WithFlags(opening = true)
           ) map { data =>
             Ok(html.analyse.embed(pov, data))
@@ -106,15 +106,15 @@ final class Analyse(
       } dmap EnableSharedArrayBuffer
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").fold(or) { atFen =>
+  private def RedirectAtSfen(pov: Pov, initialSfen: Option[Sfen])(or: => Fu[Result])(implicit ctx: Context) =
+    get("sfen").map(Sfen.clean).fold(or) { atSfen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         shogi.Replay
-          .plyAtFen(pov.game.usiMoves, initialFen, pov.game.variant, FEN(atFen))
+          .plyAtSfen(pov.game.usiMoves, initialSfen, pov.game.variant, atSfen)
           .fold(
             err => {
-              lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
+              lila.log("analyse").info(s"RedirectAtSfen: ${pov.gameId} $atSfen $err")
               Redirect(url)
             },
             ply => Redirect(s"$url#$ply")
@@ -124,15 +124,15 @@ final class Analyse(
 
   private def replayBot(pov: Pov)(implicit ctx: Context) =
     for {
-      initialFen <- env.game.gameRepo initialFen pov.gameId
+      initialSfen <- env.game.gameRepo initialSfen pov.gameId
       analysis   <- env.analyse.analyser get pov.game
       simul      <- pov.game.simulId ?? env.simul.repo.find
       crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-      kif        <- env.api.notationDump(pov.game, initialFen, analysis, NotationDump.WithFlags(clocks = false))
+      kif        <- env.api.notationDump(pov.game, initialSfen, analysis, NotationDump.WithFlags(clocks = false))
     } yield Ok(
       html.analyse.replayBot(
         pov,
-        initialFen,
+        initialSfen,
         kif.render,
         simul,
         crosstable

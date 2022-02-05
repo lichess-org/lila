@@ -173,7 +173,7 @@ interface StudyChapterSetup {
     name: string;
   };
   orientation: Color;
-  fromFen?: string;
+  fromSfen?: string;
   fromNotation?: string;
 }
 
@@ -211,7 +211,7 @@ export interface ChapterPreview {
   };
   orientation: Color;
   variant: Variant;
-  fen: string;
+  sfen: string;
   lastMove?: string;
   playing: boolean;
 }

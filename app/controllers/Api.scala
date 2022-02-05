@@ -125,7 +125,7 @@ final class Api(
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis", req),
       moves = getBool("with_moves", req),
-      fens = getBool("with_fens", req),
+      sfens = getBool("with_sfens", req),
       opening = getBool("with_opening", req),
       moveTimes = getBool("with_movetimes", req),
       token = get("token", req)
@@ -316,11 +316,11 @@ final class Api(
 
   def cloudEval =
     Action.async { req =>
-      get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
+      get("sfen", req).fold(notFoundJson("Missing SFEN")) { sfen =>
         JsonOptionOk(
           env.evalCache.api.getEvalJson(
             shogi.variant.Variant orDefault ~get("variant", req),
-            shogi.format.FEN(fen),
+            shogi.format.forsyth.Sfen.clean(sfen),
             getInt("multiPv", req) | 1
           )
         )

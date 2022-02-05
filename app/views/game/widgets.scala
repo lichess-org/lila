@@ -21,7 +21,7 @@ object widgets {
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
-          gameFen(Pov(g, firstPlayer), withLink = false, withTitle = false)
+          gameSfen(Pov(g, firstPlayer), withLink = false, withTitle = false)
         ),
         div(cls := "game-row__infos")(
           div(cls := "header", dataIcon := bits.gameIcon(g))(

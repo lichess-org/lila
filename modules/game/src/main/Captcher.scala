@@ -2,7 +2,8 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
-import shogi.format.{ Forsyth, Reader, Tags }
+import shogi.format.{ Reader, Tags }
+import shogi.format.forsyth.Sfen
 import shogi.{ Game => ShogiGame }
 import scala.util.Success
 import cats.data.NonEmptyList
@@ -76,21 +77,21 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations map { case (from, dests) =>
+        moves = rewinded.situation.moveDestinations map { case (from, dests) =>
           from.usiKey -> dests.mkString
         }
-      } yield Captcha(game.id, fen(rewinded), rewinded.player.sente, solutions, moves = moves)
+      } yield Captcha(game.id, sfen(rewinded), rewinded.color.sente, solutions, moves = moves)
 
-    // Won't find drop checkmates
+    // Not looking for drop checkmates or checking promotions
     private def solve(game: ShogiGame): Option[Captcha.Solutions] =
-      game.situation.moves.view
-        .flatMap { case (_, moves) =>
-          moves filter { move =>
-            (move.after situationOf !game.player).checkMate
+      game.situation.moveActorsOf(game.situation.color).view
+        .flatMap { case moveActor =>
+          moveActor.toUsis filter { usi =>
+            game.situation(usi).toOption.fold(false)(_.checkmate)
           }
         }
-        .to(List) map { move =>
-        s"${move.orig} ${move.dest}"
+        .to(List) map { usi =>
+        s"${usi.orig} ${usi.dest}"
       } toNel
 
     private def rewind(moves: UsiMoves): Option[ShogiGame] =
@@ -103,6 +104,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         .map(_.state)
         .toOption
 
-    private def fen(game: ShogiGame): String = Forsyth.exportBoard(game.situation.board)
+    // only board
+    private def sfen(game: ShogiGame): String = game.situation.toSfen.value.split(' ').take(3).mkString(" ")
   }
 }

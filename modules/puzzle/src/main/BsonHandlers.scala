@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import shogi.format.usi.Usi
+import shogi.format.forsyth.Sfen
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 
@@ -18,7 +19,7 @@ object BsonHandlers {
   implicit private[puzzle] val PuzzleBSONReader = new BSONDocumentReader[Puzzle] {
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id](F.id)
-      fen     <- r.getAsTry[String](F.fen)
+      sfen    <- r.getAsTry[Sfen](F.sfen)
       lineStr <- r.getAsTry[String](F.line)
       line    <- lineStr.split(' ').toList.flatMap(Usi.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Glicko](F.glicko)
@@ -30,7 +31,7 @@ object BsonHandlers {
       description = r.getAsOpt[String](F.description)
     } yield Puzzle(
       id = id,
-      fen = fen,
+      sfen = sfen,
       line = line,
       glicko = glicko,
       plays = plays,

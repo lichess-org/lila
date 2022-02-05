@@ -1,8 +1,11 @@
 package lila.tree
 
+import lila.common.Json._
+
 import play.api.libs.json._
 
 import shogi.format.{ Glyph, Glyphs }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening.FullOpening
 import shogi.{ Hands, Hand, Pos, Piece => ShogiPiece }
@@ -11,11 +14,8 @@ import shogi.Centis
 
 sealed trait Node {
   def ply: Int
-  def fen: String
+  def sfen: Sfen
   def check: Boolean
-  // None when not computed yet
-  def dests: Option[Map[Pos, List[Pos]]]
-  def drops: Option[List[Pos]]
   def eval: Option[Eval]
   def shapes: Node.Shapes
   def comments: Node.Comments
@@ -42,11 +42,8 @@ sealed trait Node {
 
 case class Root(
     ply: Int,
-    fen: String,
+    sfen: Sfen,
     check: Boolean,
-    // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]] = None,
-    drops: Option[List[Pos]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
@@ -71,11 +68,8 @@ case class Branch(
     id: UsiCharPair,
     ply: Int,
     usi: Usi,
-    fen: String,
+    sfen: Sfen,
     check: Boolean,
-    // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]] = None,
-    drops: Option[List[Pos]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
@@ -192,8 +186,8 @@ object Node {
 
   implicit val openingWriter: OWrites[shogi.opening.FullOpening] = OWrites { o =>
     Json.obj(
-      "eco"  -> o.eco,
-      "name" -> o.name
+      "japanese" -> o.japanese,
+      "english"  -> o.english
     )
   }
 
@@ -262,8 +256,8 @@ object Node {
         val comments = node.comments.list.flatMap(_.removeMeta)
         Json
           .obj(
-            "ply" -> ply,
-            "fen" -> fen
+            "ply"  -> ply,
+            "sfen" -> sfen
           )
           .add("id", idOption.map(_.toString))
           .add("usi", usiOption.map(_.usi))
@@ -274,13 +268,6 @@ object Node {
           .add("glyphs", glyphs.nonEmpty)
           .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
           .add("opening", opening)
-          .add("dests", dests)
-          .add(
-            "drops",
-            drops.map { drops =>
-              JsString(drops.map(_.usiKey).mkString)
-            }
-          )
           .add("clock", clock)
           .add("comp", comp)
           .add(
@@ -305,8 +292,8 @@ object Node {
       case (orig, dests) =>
         if (first) first = false
         else sb append " "
-        sb append orig.piotr
-        dests foreach { sb append _.piotr }
+        sb append orig.usiKey
+        dests foreach { sb append _.usiKey }
     }
     sb.toString
   }

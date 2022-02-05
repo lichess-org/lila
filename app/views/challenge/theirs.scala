@@ -39,10 +39,10 @@ object theirs {
                   )
               ),
               bits.details(c),
-              c.notableInitialFen.map { fen =>
+              c.notableInitialSfen.map { sfen =>
                 div(
                   cls := "board-preview",
-                  views.html.game.bits.miniBoard(fen, color = !c.finalColor, variant = c.variant)
+                  views.html.game.bits.miniBoard(sfen, color = !c.finalColor, variant = c.variant)
                 )
               },
               if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))

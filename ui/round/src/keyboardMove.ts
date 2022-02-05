@@ -9,7 +9,7 @@ import { onInsert } from './util';
 import { parseHands } from 'shogiops/sfen';
 import { lastStep } from './round';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export type KeyboardMoveHandler = (sfen: Sfen, dests?: cg.Dests, yourMove?: boolean) => void;
 
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
@@ -44,7 +44,7 @@ const sanToRole: { [key: string]: cg.Role } = {
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
-  let preHandlerBuffer = step.fen;
+  let preHandlerBuffer = step.sfen;
   let lastSelect = Date.now();
   const cgState = root.shogiground.state;
   const select = function (key: cg.Key): void {
@@ -59,7 +59,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     drop(key, piece) {
       const role = sanToRole[piece];
       const color = root.data.player.color;
-      const parsedHands = parseHands(lastStep(root.data).fen.split(' ')[2] || '-');
+      const parsedHands = parseHands(lastStep(root.data).sfen.split(' ')[2] || '-');
       // Square occupied
       if (!role || parsedHands.isErr || cgState.pieces[key]) return;
       // Piece not in hand
@@ -76,8 +76,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       sendPromotion(root, orig, dest, role, { premove: false });
     },
     update(step, yourMove: boolean = false) {
-      if (handler) handler(step.fen, cgState.movable.dests, yourMove);
-      else preHandlerBuffer = step.fen;
+      if (handler) handler(step.sfen, cgState.movable.dests, yourMove);
+      else preHandlerBuffer = step.sfen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;

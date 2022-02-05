@@ -14,10 +14,10 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function (fc) {
     return fc.length > 1;
   });
-  const initialFen = firstNode.fen;
+  const initialSfen = firstNode.sfen;
   const moveNotation = makeNotation(
     ctrl.data.pref.pieceNotation,
-    initialFen,
+    initialSfen,
     ctrl.data.game.variant.key,
     cNodes[0].usi
   );
@@ -39,11 +39,11 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
 }
 
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
-  const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns);
+  const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.plies);
   return fctrl.truncate(
     afterPly.map(node => ({
       ply: node.ply,
-      fen: node.fen,
+      sfen: node.sfen,
       usi: node.usi!,
       check: node.check,
     }))

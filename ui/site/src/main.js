@@ -156,7 +156,7 @@
   });
 
   lishogi.reverse = s => s.split('').reverse().join('');
-  lishogi.readServerFen = t => atob(lishogi.reverse(t));
+  lishogi.readServerSfen = t => atob(lishogi.reverse(t));
 
   lishogi.userAutocomplete = ($input, opts) => {
     opts = opts || {};
@@ -237,24 +237,24 @@
         lishogi.parseSfen($elem);
       }, 500); // if not loaded yet
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
-    if (!$elem || !$elem.each) $elem = $('.parse-fen');
+    if (!$elem || !$elem.each) $elem = $('.parse-sfen');
     $elem.each(function () {
-      var $this = $(this).removeClass('parse-fen');
+      var $this = $(this).removeClass('parse-sfen');
       var lm = $this.data('lastmove');
       var lastMove = lm && (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
-      var color = $this.data('color') || lishogi.readServerFen($(this).data('y'));
+      var color = $this.data('color') || lishogi.readServerSfen($(this).data('y'));
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
-      var fen = $this.data('fen') || lishogi.readServerFen($this.data('z'));
-      var pocketFromFen = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '';
+      var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
+      var pocketFromSfen = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        fen: fen,
+        sfen: sfen,
         hasPockets: true,
-        pockets: pocketFromFen,
+        pockets: pocketFromSfen,
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };

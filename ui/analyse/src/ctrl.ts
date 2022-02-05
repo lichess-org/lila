@@ -8,7 +8,6 @@ import { Ctrl as ActionMenuCtrl } from './actionMenu';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
-import * as shogiUtil from 'shogi';
 import { defined, pretendItsUsi, prop, Prop } from 'common';
 import throttle from 'common/throttle';
 import { storedProp, StoredBooleanProp } from 'common/storage';
@@ -19,7 +18,6 @@ import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpt
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
-import { valid as handValid } from './hands/handCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
@@ -34,7 +32,7 @@ import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { cancelDropMode } from 'shogiground/drop';
-import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
+import { lishogiVariantRules, shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
 import { makeSquare, opposite, parseUsi, roleToString } from 'shogiops/util';
 import { Outcome, isNormal } from 'shogiops/types';
 import { parseSfen } from 'shogiops/sfen';
@@ -74,8 +72,7 @@ export default class AnalyseCtrl {
   studyPractice?: StudyPracticeCtrl;
 
   // state flags
-  justPlayed?: string; // pos
-  justDropped?: string; // role
+  justPlayedUsi?: string;
   justCaptured?: JustCaptured;
   autoScrollRequested: boolean = false;
   redirecting: boolean = false;
@@ -101,7 +98,7 @@ export default class AnalyseCtrl {
   };
 
   // underboard inputs
-  fenInput?: string;
+  sfenInput?: string;
   kifInput?: string;
   csaInput?: string;
 
@@ -215,7 +212,7 @@ export default class AnalyseCtrl {
     this.node = treeOps.last(this.nodeList) as Tree.Node;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
-    this.fenInput = undefined;
+    this.sfenInput = undefined;
     this.kifInput = undefined;
     this.csaInput = undefined;
   };
@@ -265,7 +262,6 @@ export default class AnalyseCtrl {
 
   private showGround(): void {
     this.onChange();
-    if (!defined(this.node.dests)) this.getDests();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -273,18 +269,19 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttle(800, () => {
-    if (!this.embed && !defined(this.node.dests))
-      this.socket.sendAnaDests({
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      });
-  });
+  private getMoveDests(): cg.Dests {
+    if (this.embed) return new Map();
+    else
+      return this.position(this.node).unwrap(
+        pos => shogigroundDests(pos),
+        _ => new Map()
+      );
+  }
 
   private getDropDests(): cg.DropDests {
+    if (this.embed) return new Map();
     return this.position(this.node).unwrap(
-      s => shogigroundDropDests(s),
+      pos => shogigroundDropDests(pos),
       _ => new Map()
     );
   }
@@ -292,16 +289,16 @@ export default class AnalyseCtrl {
   makeCgOpts(): ShogigroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = shogiUtil.readDests(this.node.dests),
-      drops = shogiUtil.readDrops(this.node.drops),
+      dests = this.getMoveDests(),
+      drops = this.getDropDests(),
       movableColor =
         this.practice || this.gamebookPlay()
           ? this.bottomColor()
-          : !this.embed && ((dests && dests.size > 0) || drops === null || drops.length)
+          : !this.embed && (dests.size > 0 || drops.size > 0)
           ? color
           : undefined,
       config: ShogigroundConfig = {
-        fen: node.fen,
+        sfen: node.sfen,
         turnColor: color,
         movable: this.embed
           ? {
@@ -317,17 +314,18 @@ export default class AnalyseCtrl {
               dropDests: undefined,
             }
           : {
-              dropDests: (movableColor === color && this.getDropDests()) || new Map(),
+              dropDests: (movableColor === color && drops) || new Map(),
             },
         check: !!node.check,
         lastMove: this.usiToLastMove(node.usi),
       };
-    if (!dests && !node.check) {
-      // premove while dests are loading from server
-      // can't use when in check because it highlights the wrong king
-      config.turnColor = opposite(color);
-      config.movable!.color = color;
-    }
+    //if (!dests && !node.check) {
+    //  // premove while dests are loading from server
+    //  // can't use when in check because it highlights the wrong king
+    //  config.turnColor = opposite(color);
+    //  config.movable!.color = color;
+    //}
+
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
@@ -351,7 +349,7 @@ export default class AnalyseCtrl {
       };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    li.pubsub.emit('analysis.change', this.node.sfen, this.path, this.onMainline ? this.node.ply : false);
   });
 
   private updateHref: () => void = li.debounce(() => {
@@ -362,7 +360,7 @@ export default class AnalyseCtrl {
     this.autoScrollRequested = true;
   }
 
-  playedLastMoveMyself = () => !!this.justPlayed && !!this.node.usi && this.node.usi.startsWith(this.justPlayed);
+  playedLastMoveMyself = () => !!this.justPlayedUsi && !!this.node.usi && this.node.usi.startsWith(this.justPlayedUsi);
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
@@ -386,7 +384,7 @@ export default class AnalyseCtrl {
       this.startCeval();
       speech.node(this.node);
     }
-    this.justPlayed = this.justDropped = this.justCaptured = undefined;
+    this.justPlayedUsi = this.justCaptured = undefined;
     this.explorer.setNode();
     this.updateHref();
     this.autoScroll();
@@ -465,39 +463,35 @@ export default class AnalyseCtrl {
     });
   }
 
-  changeFen(fen: Fen): void {
+  changeSfen(sfen: Sfen): void {
     this.redirecting = true;
     window.location.href =
       '/analysis/' +
       this.data.game.variant.key +
       '/' +
-      encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+      encodeURIComponent(sfen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
   userNewPiece = (piece: cg.Piece, key: Key): void => {
-    if (handValid(this, piece, key)) {
-      this.justPlayed = roleToString(piece.role).toUpperCase() + '*' + key;
-      this.justDropped = piece.role;
-      this.justCaptured = undefined;
-      this.sound.move();
-      const drop = {
-        role: piece.role,
-        pos: key,
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      };
-      this.socket.sendAnaDrop(drop);
-      this.preparePremoving();
-    } else this.jump(this.path);
+    const usi = roleToString(piece.role).toUpperCase() + '*' + key;
+    this.justPlayedUsi = usi;
+    this.justCaptured = undefined;
+    this.sound.move();
+    const drop = {
+      usi: usi,
+      variant: this.data.game.variant.key,
+      sfen: this.node.sfen,
+      path: this.path,
+    };
+    this.socket.sendAnaUsi(drop);
+    this.preparePremoving();
     cancelDropMode(this.shogiground.state);
     this.dropmodeActive = false;
     this.redraw();
   };
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
-    this.justPlayed = orig;
-    this.justDropped = undefined;
+    this.justPlayedUsi = orig + dest;
     const isCapture = capture;
     this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
@@ -505,17 +499,14 @@ export default class AnalyseCtrl {
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: Boolean): void => {
     const move: any = {
-      orig,
-      dest,
+      usi: orig + dest + (prom ? '+' : ''),
       variant: this.data.game.variant.key,
-      fen: this.node.fen,
+      sfen: this.node.sfen,
       path: this.path,
     };
     if (capture) this.justCaptured = capture;
-    if (prom) move.promotion = prom;
-    else move.promotion = false;
     if (this.practice) this.practice.onUserMove();
-    this.socket.sendAnaMove(move);
+    this.socket.sendAnaUsi(move);
     this.preparePremoving();
     this.redraw();
   };
@@ -543,7 +534,7 @@ export default class AnalyseCtrl {
     if (node.usi)
       node.notation = makeNotation(
         this.data.pref.pieceNotation,
-        parent.fen,
+        parent.sfen,
         this.data.game.variant.key,
         node.usi,
         parent.usi
@@ -553,14 +544,6 @@ export default class AnalyseCtrl {
     this.shogiground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path): void {
-    this.tree.addDests(dests, path);
-    if (path === this.path) {
-      this.showGround();
-      if (this.outcome()) this.ceval.stop();
-    }
-    this.withCg(cg => cg.playPremove());
-  }
 
   deleteNode(path: Tree.Path): void {
     const node = this.tree.nodeAtPath(path);
@@ -599,8 +582,8 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  encodeNodeFen(): Fen {
-    return this.node.fen.replace(/\s/g, '_').replace(/\+/g, '%2B');
+  encodeNodeSfen(): Sfen {
+    return this.node.sfen.replace(/\s/g, '_').replace(/\+/g, '%2B');
   }
 
   currentEvals() {
@@ -621,7 +604,7 @@ export default class AnalyseCtrl {
   private initNotation = (notation: Notation, variant: VariantKey): void => {
     function update(node: Tree.Node, prev?: Tree.Node) {
       if (prev && node.usi && !node.notation)
-        node.notation = makeNotation(notation, prev.fen, variant, node.usi, prev.usi);
+        node.notation = makeNotation(notation, prev.sfen, variant, node.usi, prev.usi);
       node.children.forEach(c => update(c, node));
     }
     update(this.tree.root);
@@ -629,7 +612,7 @@ export default class AnalyseCtrl {
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
-      if (node.fen !== ev.fen && !isThreat) return;
+      if (node.sfen !== ev.sfen && !isThreat) return;
       if (isThreat) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
@@ -679,8 +662,9 @@ export default class AnalyseCtrl {
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
-    const setup = parseSfen(node.fen).unwrap();
-    return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup, false);
+    return parseSfen(node.sfen).chain(setup =>
+      setupPosition(lishogiVariantRules(this.data.game.variant.key), setup, false)
+    );
   }
 
   canUseCeval(): boolean {
@@ -855,12 +839,12 @@ export default class AnalyseCtrl {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support fourfold repetition
-    const fens = new Set();
+    const sfens = new Set();
     for (let i = this.nodeList.length - 1; i >= 0; i--) {
       const node = this.nodeList[i];
-      const fen = node.fen.split(' ').slice(0, 3).join(' ');
-      if (fens.has(fen)) return false;
-      fens.add(fen);
+      const sfen = node.sfen.split(' ').slice(0, 3).join(' ');
+      if (sfens.has(sfen)) return false;
+      sfens.add(sfen);
     }
     return true;
   }
@@ -925,7 +909,7 @@ export default class AnalyseCtrl {
   // so instead of sending both
   // let's just count the offset
   plyOffset = (): number => {
-    return this.data.game.startedAtTurn - (this.data.game.startedAtMove - 1);
+    return this.data.game.startedAtPly - (this.data.game.startedAtMove - 1);
   };
 
   // Ideally we would just use node.clock

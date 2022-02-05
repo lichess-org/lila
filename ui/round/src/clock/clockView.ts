@@ -160,7 +160,7 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
 }
 
 function showBerserk(ctrl: RoundController, color: Color): boolean {
-  return !!ctrl.goneBerserk[color] && ctrl.data.game.turns <= 1 && game.playable(ctrl.data);
+  return !!ctrl.goneBerserk[color] && ctrl.data.game.plies <= 1 && game.playable(ctrl.data);
 }
 
 function renderBerserk(ctrl: RoundController, color: Color, position: Position) {

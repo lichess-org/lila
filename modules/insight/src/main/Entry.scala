@@ -1,6 +1,5 @@
 package lila.insight
 
-import shogi.opening.Ecopening
 import shogi.{ Color, Role }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
@@ -13,7 +12,6 @@ case class Entry(
     userId: String,
     color: Color,
     perf: PerfType,
-    eco: Option[Ecopening],
     opponentRating: Int,
     opponentStrength: RelativeStrength,
     moves: List[Move],
@@ -39,7 +37,6 @@ case object Entry {
     val userId                   = "u"
     val color                    = "c"
     val perf                     = "p"
-    val eco                      = "e"
     val opponentRating           = "or"
     val opponentStrength         = "os"
     val moves: String            = "m"

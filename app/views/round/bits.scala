@@ -104,7 +104,7 @@ object bits {
         playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
           (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
             a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
-              gameFen(pov, withLink = false, withTitle = false, withLive = false),
+              gameSfen(pov, withLink = false, withTitle = false, withLive = false),
               span(cls := "meta")(
                 playerText(pov.opponent, withRating = false),
                 span(cls := "indicator")(
@@ -129,7 +129,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(shogi.format.FEN),
+      (data \ "game" \ "initialSfen").asOpt[String].map(shogi.format.forsyth.Sfen.apply),
       tour,
       simul = simul,
       userTv = userTv,

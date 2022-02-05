@@ -117,7 +117,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                 },
                 hook: onInsert(e => {
                   // tsume starts always from sente side
-                  miniBoard.initWith(e, round.puzzle.fen, 'sente');
+                  miniBoard.initWith(e, round.puzzle.sfen, 'sente');
                 }),
               }),
               h('span.storm--end__history__round__meta', [

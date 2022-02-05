@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.{ CheckCount, Clock, Color, Gote, Sente }
+import shogi.{ Clock, Color, Hands, Gote, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -74,23 +74,18 @@ object GameDiff {
         ByteArrayBSONHandler.writeOpt(BinaryFormat.periodEntries.writeSide(x))
       }
 
-    dTry(
+    d(
       usiMoves,
       _.usiMoves,
-      writeBytes compose BinaryFormat.usi.write(a.board.variant)
+      (usis: UsiMoves) => w.bytes(BinaryFormat.usi.write(usis, a.variant).value)
     )
     d(positionHashes, _.history.positionHashes, w.bytes)
-    dOpt(
-      checkCount,
-      _.history.checkCount,
-      (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
-    )
     d(
-      handData,
-      shogi.format.Forsyth exportHands _.board,
-      w.str
+      hands,
+      _.hands,
+      (hs: Hands) => w.str(shogi.format.forsyth.Sfen.handsToString(hs, a.variant))
     )
-    d(turns, _.turns, w.int)
+    d(plies, _.plies, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
     dOpt(senteClockHistory, getClockHistory(Sente), clockHistoryToBytes)
     dOpt(goteClockHistory, getClockHistory(Gote), clockHistoryToBytes)
@@ -120,5 +115,4 @@ object GameDiff {
 
   private val bTrue = BSONBoolean(true)
 
-  private val writeBytes = ByteArrayBSONHandler.writeTry _
 }

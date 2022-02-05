@@ -2,7 +2,7 @@ package lila.setup
 
 import shogi.{ Game => ShogiGame, Situation, Clock, Speed }
 import shogi.variant.{ FromPosition, Variant }
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 
 import lila.game.Game
 import lila.lobby.Color
@@ -59,48 +59,48 @@ private[setup] trait Config {
 
 trait Positional { self: Config =>
 
-  import shogi.format.Forsyth, Forsyth.SituationPlus
+  import shogi.format.forsyth.Sfen.SituationPlus
 
-  def fen: Option[FEN]
+  def sfen: Option[Sfen]
 
-  def strictFen: Boolean
+  def strictSfen: Boolean
 
-  lazy val validFen = variant != FromPosition || {
-    fen exists { f =>
-      (Forsyth <<< f.value).exists(_.situation playableNoImpasse strictFen)
+  lazy val validSfen = variant != FromPosition || {
+    sfen exists { f =>
+      (f.toSituationPlus(shogi.variant.Standard)).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
   }
 
-  def fenGame(builder: ShogiGame => Game): Game = {
-    val baseState = fen ifTrue (variant.fromPosition) flatMap { f =>
-      Forsyth.<<<@(FromPosition, f.value)
+  def sfenGame(builder: ShogiGame => Game): Game = {
+    val baseState = sfen ifTrue (variant.fromPosition) flatMap {
+      _.toSituationPlus(FromPosition)
     }
     val (shogiGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit @ SituationPlus(s, _) =>
         val game = ShogiGame(
           situation = s,
-          turns = sit.turns,
-          startedAtTurn = sit.turns,
+          plies = sit.plies,
+          startedAtPly = sit.plies,
           startedAtMove = sit.moveNumber,
           clock = makeClock.map(_.toClock)
         )
-        if (Forsyth.>>(game) == Forsyth.initial) makeGame(shogi.variant.Standard) -> none
-        else game                                                                 -> baseState
+        if (game.toSfen.initialOf(shogi.variant.Standard))
+          makeGame(shogi.variant.Standard) -> none
+        else game -> baseState
     }
     val game = builder(shogiGame)
     state.fold(game) {
-      case sit @ SituationPlus(Situation(board, _), _) => {
+      case parsed @ SituationPlus(sit, _) => {
         game.copy(
           shogi = game.shogi.copy(
             situation = game.situation.copy(
-              board = game.board.copy(
-                history = board.history,
-                variant = FromPosition,
-                handData = board.handData
-              )
+              board   = sit.board,
+              hands   = sit.hands,
+              history = sit.history,
+              variant = FromPosition,
             ),
-            turns = sit.turns,
-            startedAtMove = sit.moveNumber
+            plies = parsed.plies,
+            startedAtMove = parsed.moveNumber
           )
         )
       }
@@ -114,13 +114,13 @@ trait BaseConfig {
   val variants       = List(shogi.variant.Standard.id)
   val variantDefault = shogi.variant.Standard
 
-  val variantsWithFen = variants :+ FromPosition.id
+  val variantsWithSfen = variants :+ FromPosition.id
   val aiVariants = variants :+
     shogi.variant.Minishogi.id :+
     shogi.variant.FromPosition.id
   val variantsWithVariants =
     variants :+ shogi.variant.Minishogi.id
-  val variantsWithFenAndVariants =
+  val variantsWithSfenAndVariants =
     variantsWithVariants :+ FromPosition.id
 
   val speeds = Speed.all.map(_.id)

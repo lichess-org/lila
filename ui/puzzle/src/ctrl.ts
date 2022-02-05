@@ -16,7 +16,7 @@ import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { defer } from 'common/defer';
 import { defined, pretendItsSquare, pretendItsUsi, prop, Prop } from 'common';
 import { parseSfen, makeSfen } from 'shogiops/sfen';
-import { usiToTree, mergeSolution, fenToTree } from './moveTree';
+import { usiToTree, mergeSolution, sfenToTree } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Move, Outcome, Role } from 'shogiops/types';
 import { storedProp } from 'common/storage';
@@ -63,7 +63,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     data = fromData;
     tree = data.game.usi
       ? treeBuild(usiToTree(data.game.usi.split(' '), opts.pref.pieceNotation))
-      : treeBuild(fenToTree(data.game.fen!));
+      : treeBuild(sfenToTree(data.game.sfen!));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
     vm.next = defer();
@@ -101,7 +101,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function position(): Shogi {
-    const setup = parseSfen(vm.node.fen).unwrap();
+    const setup = parseSfen(vm.node.sfen).unwrap();
     return Shogi.fromSetup(setup, false).unwrap();
   }
 
@@ -130,7 +130,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           dropDests: new Map(),
         };
     const config = {
-      fen: node.fen,
+      sfen: node.sfen,
       orientation: vm.pov,
       turnColor: color,
       movable: movable,
@@ -164,7 +164,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function userDrop(piece: Piece, dest: Key): void {
-    if (handValid(vm.node.fen, piece, dest)) {
+    if (handValid(vm.node.sfen, piece, dest)) {
       vm.justDropped = piece;
       playUserDrop(piece, dest);
     } else {
@@ -207,7 +207,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     addNode(
       {
         ply: pos.fullmoves - 1,
-        fen: makeSfen(pos.toSetup()),
+        sfen: makeSfen(pos.toSetup()),
         id: scalashogiCharPair(move),
         usi: makeUsi(move),
         notation: notationMove,
@@ -277,7 +277,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress) {
       vm.lastFeedback = 'good';
       setTimeout(() => {
-        const pos = Shogi.fromSetup(parseSfen(progress.fen).unwrap(), false).unwrap();
+        const pos = Shogi.fromSetup(parseSfen(progress.sfen).unwrap(), false).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
@@ -11,7 +11,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[FEN],
+    position: Option[Sfen],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ) {
@@ -73,7 +73,7 @@ case class Schedule(
         case (_, Some(max))         => s"<${max.rating} ${speed.name}"
       }
     else if (variant.standard) {
-      val n = position.flatMap(Thematic.byFen).fold(speed.name) { pos =>
+      val n = position.flatMap(Thematic.bySfen).fold(speed.name) { pos =>
         s"${pos.shortName} ${speed.name}"
       }
       if (full) xArena.txt(n) else n

@@ -131,7 +131,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    //if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
+    //if (tablebaseGuaranteed(variant, node.sfen) && !defined(node.tbhit)) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -164,10 +164,10 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function checkCevalOrTablebase() {
-    //if (tablebaseGuaranteed(variant, root.node.fen))
-    //  root.explorer.fetchTablebaseHit(root.node.fen).then(
+    //if (tablebaseGuaranteed(variant, root.node.sfen))
+    //  root.explorer.fetchTablebaseHit(root.node.sfen).then(
     //    hit => {
-    //      if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
+    //      if (hit && root.node.sfen === hit.sfen) root.node.tbhit = hit;
     //      checkCeval();
     //    },
     //    () => {

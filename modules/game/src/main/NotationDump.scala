@@ -1,10 +1,10 @@
 package lila.game
 
 import shogi.Replay
-import shogi.format.Forsyth
+import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
-import shogi.format.{ FEN, Notation, NotationMove, Tag, Tags }
+import shogi.format.{ Notation, NotationMove, Tag, Tags }
 import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -21,13 +21,13 @@ final class NotationDump(
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
   ): Fu[Notation] = {
     val tagsFuture =
       if (flags.tags)
-        tags(game, initialFen, withOpening = flags.opening, csa = flags.csa, teams = teams)
+        tags(game, initialSfen, withOpening = flags.opening, csa = flags.csa, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
@@ -41,7 +41,7 @@ final class NotationDump(
         val clockOffset = game.startColor.fold(0, 1)
         val extendedMoves = Replay.usiWithRoleWhilePossible(
           game.usiMoves,
-          initialFen,
+          initialSfen,
           game.variant
         )
         extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
@@ -104,7 +104,7 @@ final class NotationDump(
 
   def tags(
       game: Game,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       withOpening: Boolean,
       csa: Boolean,
       teams: Option[Color.Map[String]] = None
@@ -143,11 +143,11 @@ final class NotationDump(
           }
         } ::: customStartPosition(game.variant).??(
           List(
-            Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
+            Tag(_.Sfen, (initialSfen | game.variant.initialSfen).value)
           )
         ) ::: (withOpening && game.opening.isDefined) ?? (
           List(
-            Tag(_.Opening, game.opening.fold("")(_.opening.eco))
+            Tag(_.Opening, game.opening.fold("")(_.opening.japanese))
           )
         )
       }

@@ -5,7 +5,8 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import shogi.format.{ FEN, Tag }
+import shogi.format.Tag
+import shogi.format.forsyth.Sfen
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
@@ -49,13 +50,13 @@ final class GameApiV2(
       case _ =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
-          (game, initialFen, analysis) <- enrich(config.flags)(game)
+          (game, initialSfen, analysis) <- enrich(config.flags)(game)
           export <- config.format match {
-            case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
+            case Format.JSON => toJson(game, initialSfen, analysis, config.flags) dmap Json.stringify
             case Format.NOTATION =>
               notationDump(
                 game,
-                initialFen,
+                initialSfen,
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
@@ -186,9 +187,9 @@ final class GameApiV2(
           .mapAsync(4) { case (game, pairing, teams) =>
             enrich(config.flags)(game) dmap { (_, pairing, teams) }
           }
-          .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
+          .mapAsync(4) { case ((game, sfen, analysis), pairing, teams) =>
             config.format match {
-              case Format.NOTATION => notationDump.formatter(config.flags)(game, fen, analysis, teams, none)
+              case Format.NOTATION => notationDump.formatter(config.flags)(game, sfen, analysis, teams, none)
               case Format.JSON =>
                 def addBerserk(color: shogi.Color)(json: JsObject) =
                   if (pairing berserkOf color)
@@ -196,7 +197,7 @@ final class GameApiV2(
                       "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
                     )
                   else json
-                toJson(game, fen, analysis, config.flags, teams) dmap
+                toJson(game, sfen, analysis, config.flags, teams) dmap
                   addBerserk(shogi.Sente) dmap
                   addBerserk(shogi.Gote) dmap { json =>
                     s"${Json.stringify(json)}\n"
@@ -217,11 +218,11 @@ final class GameApiV2(
       .mapAsync(1)(gameRepo.gamesFromSecondary)
       .mapConcat(identity)
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { case (game, sfen, analysis) =>
         config.format match {
-          case Format.NOTATION => notationDump.formatter(config.flags)(game, fen, analysis, none, none)
+          case Format.NOTATION => notationDump.formatter(config.flags)(game, sfen, analysis, none, none)
           case Format.JSON =>
-            toJson(game, fen, analysis, config.flags, None) dmap { json =>
+            toJson(game, sfen, analysis, config.flags, None) dmap { json =>
               s"${Json.stringify(json)}\n"
             }
         }
@@ -230,14 +231,14 @@ final class GameApiV2(
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
-        formatterFor(config)(game, fen, analysis, None, realPlayers)
+      .mapAsync(4) { case (game, sfen, analysis) =>
+        formatterFor(config)(game, sfen, analysis, None, realPlayers)
       }
 
   private def enrich(flags: WithFlags)(game: Game) =
-    gameRepo initialFen game flatMap { initialFen =>
+    gameRepo initialSfen game flatMap { initialSfen =>
       (flags.evals ?? analysisRepo.byGame(game)) dmap {
-        (game, initialFen, _)
+        (game, initialSfen, _)
       }
     }
 
@@ -256,18 +257,18 @@ final class GameApiV2(
   private def jsonFormatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[FEN],
+        initialSfen: Option[Sfen],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) =>
-      toJson(game, initialFen, analysis, flags, teams) dmap { json =>
+      toJson(game, initialSfen, analysis, flags, teams) dmap { json =>
         s"${Json.stringify(json)}\n"
       }
 
   private def toJson(
       g: Game,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       analysisOption: Option[Analysis],
       withFlags: WithFlags,
       teams: Option[GameTeams] = None
@@ -276,7 +277,7 @@ final class GameApiV2(
       lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
       notation <-
         withFlags.notationInJson ?? notationDump
-          .apply(g, initialFen, analysisOption, withFlags)
+          .apply(g, initialSfen, analysisOption, withFlags)
           .dmap(notationDump.toNotationString)
           .dmap(some)
     } yield Json
@@ -303,7 +304,7 @@ final class GameApiV2(
         // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
         })
       )
-      .add("initialFen" -> initialFen.map(_.value))
+      .add("initialSfen" -> initialSfen)
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "))

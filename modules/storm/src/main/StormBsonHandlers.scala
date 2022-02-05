@@ -1,6 +1,7 @@
 package lila.storm
 
 import shogi.format.usi.Usi
+import shogi.format.forsyth.Sfen
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
@@ -15,11 +16,11 @@ private object StormBsonHandlers {
   implicit val StormPuzzleBSONReader = new BSONDocumentReader[StormPuzzle] {
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id]("_id")
-      fen     <- r.getAsTry[String]("fen")
+      sfen    <- r.getAsTry[Sfen]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Usi.apply).toNel.toTry("Empty move list?!")
       rating  <- r.getAsTry[Int]("rating")
-    } yield StormPuzzle(id, fen, line, rating)
+    } yield StormPuzzle(id, sfen, line, rating)
   }
 
   implicit lazy val stormDayIdHandler = {

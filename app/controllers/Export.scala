@@ -29,9 +29,9 @@ final class Export(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       OnlyHumansAndFacebookOrTwitter {
         ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-          OptionFuResult(env.game.gameRepo gameWithInitialFen id) { case (game, initialFen) =>
+          OptionFuResult(env.game.gameRepo gameWithInitialSfen id) { case (game, initialSfen) =>
             val pov = Pov(game, Color.fromName(color) | Color.sente)
-            env.game.gifExport.fromPov(pov, initialFen) map
+            env.game.gifExport.fromPov(pov, initialSfen) map
               stream("image/gif") map
               gameImageCacheSeconds(game)
           }
@@ -60,7 +60,7 @@ final class Export(env: Env) extends LilaController(env) {
       ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.puzzle.api.puzzle find Id(id)) { puzzle =>
           env.game.gifExport.thumbnail(
-            sfen = puzzle.fenAfterInitialMove,
+            sfen = puzzle.sfenAfterInitialMove,
             lastMove = Usi(puzzle.lastMove) map { _.usi },
             orientation = puzzle.color
           ) map { source =>

@@ -23,7 +23,7 @@ private[game] case object NewCaptcha
 
 case class MoveGameEvent(
     game: Game,
-    fen: String,
+    sfen: String,
     move: String
 )
 object MoveGameEvent {

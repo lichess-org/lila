@@ -39,22 +39,22 @@ final class Player(
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
         delay = (clock.currentClockFor(pov.color).time.centis atMost totalTime) * delayFactor
-        accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
+        accel = 1 - ((g.plies - 20) atLeast 0 atMost 100) / 150f
         sleep = (delay * accel) atMost 500
         if sleep > 25
         millis     = sleep * 10
         randomized = approximately(0.5f)(millis)
-        divided    = randomized / (if (g.turns > 9) 1 else 2)
+        divided    = randomized / (if (g.plies > 9) 1 else 2)
       } yield divided.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
-    if (game.situation playable true)
-      if (game.turns <= maxPlies) gameRepo.initialFen(game) map { initialFen =>
+    if (game.situation.playable(true, true))
+      if (game.plies <= maxPlies) gameRepo.initialSfen(game) map { initialSfen =>
         Work.Move(
           _id = Work.makeId,
           game = Work.Game(
             id = game.id,
-            initialFen = initialFen,
+            initialSfen = initialSfen,
             studyId = none,
             variant = game.variant,
             moves = game.usiMoves.map(_.usi) mkString " "
@@ -74,6 +74,6 @@ final class Player(
           createdAt = DateTime.now
         )
       }
-      else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
+      else fufail(s"[fishnet] Too many moves (${game.plies}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
 }

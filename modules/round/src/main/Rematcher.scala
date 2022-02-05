@@ -1,6 +1,6 @@
 package lila.round
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant._
 import shogi.{ Game => ShogiGame, Board, Color => ShogiColor, Clock, Situation, Hands }
 import ShogiColor.{ Gote, Sente }
@@ -70,9 +70,9 @@ final private class Rematcher(
     rematches.of(pov.gameId) match {
       case None =>
         for {
-          initialFen <- gameRepo initialFen pov.game
-          isHandicap = pov.game isHandicap initialFen
-          nextGame <- returnGame(pov, initialFen, isHandicap) map (_.start)
+          initialSfen <- gameRepo initialSfen pov.game
+          isHandicap = pov.game isHandicap initialSfen
+          nextGame <- returnGame(pov, initialSfen, isHandicap) map (_.start)
           _ = offers invalidate pov.game.id
           _ = rematches.cache.put(pov.gameId, nextGame.id)
           _ <- gameRepo insertDenormalized nextGame
@@ -96,34 +96,17 @@ final private class Rematcher(
     List(Event.RematchOffer(by = pov.color.some))
   }
 
-  private def returnGame(pov: Pov, initialFen: Option[FEN], isHandicap: Boolean): Fu[Game] =
+  private def returnGame(pov: Pov, initialSfen: Option[Sfen], isHandicap: Boolean): Fu[Game] =
     for {
       users <- userRepo byIds pov.game.userIds
-      situation = initialFen flatMap { fen =>
-        Forsyth <<< fen.value
-      }
-      pieces = pov.game.variant match {
-        case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-        case variant      => variant.pieces
-      }
+      shogiGame = ShogiGame(pov.game.variant.some, initialSfen)
+        .copy(clock = pov.game.clock map { c =>
+          Clock(c.config)
+        })
       sPlayer = returnPlayer(pov.game, Sente, users)
       gPlayer = returnPlayer(pov.game, Gote, users)
       game <- Game.make(
-        shogi = ShogiGame(
-          situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withHandData {
-              situation
-                .fold[Option[shogi.Hands]](Some(Hands.init(pov.game.variant)))(_.situation.board.handData)
-            },
-            color = situation.fold[shogi.Color](Sente)(_.situation.color)
-          ),
-          clock = pov.game.clock map { c =>
-            Clock(c.config)
-          },
-          turns = situation ?? (_.turns),
-          startedAtTurn = situation ?? (_.turns),
-          startedAtMove = situation.map(_.moveNumber) | 1
-        ),
+        shogi = shogiGame,
         sentePlayer = if (isHandicap) gPlayer else sPlayer,
         gotePlayer = if (isHandicap) sPlayer else gPlayer,
         mode = if (users.exists(_.lame)) shogi.Mode.Casual else pov.game.mode,
@@ -161,7 +144,7 @@ final private class Rematcher(
     if (game.variant == Standard)
       fuccess(false)
     else
-      gameRepo initialFen game fallbackTo fuccess(None) map { game isHandicap _ }
+      gameRepo initialSfen game fallbackTo fuccess(None) map { game isHandicap _ }
 }
 
 private object Rematcher {

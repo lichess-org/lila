@@ -3,7 +3,7 @@ package lila.evalCache
 import cats.implicits._
 import play.api.libs.json._
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import lila.common.Json._
 import lila.evalCache.EvalCacheEntry._
@@ -15,9 +15,9 @@ object JsonHandlers {
   implicit private val mateWriter   = intAnyValWriter[Mate](_.value)
   implicit private val knodesWriter = intAnyValWriter[Knodes](_.value)
 
-  def writeEval(e: Eval, fen: FEN) =
+  def writeEval(e: Eval, sfen: Sfen) =
     Json.obj(
-      "fen"    -> fen.value,
+      "sfen"   -> sfen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
       "pvs"    -> e.pvs.toList.map(writePv)
@@ -36,7 +36,7 @@ object JsonHandlers {
 
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
     for {
-      fen    <- d str "fen"
+      sfen   <- d str "sfen"
       knodes <- d int "knodes"
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"
@@ -44,7 +44,7 @@ object JsonHandlers {
       variant = shogi.variant.Variant orDefault ~d.str("variant")
     } yield Input.Candidate(
       variant,
-      fen,
+      sfen,
       Eval(
         pvs = pvs,
         knodes = Knodes(knodes),

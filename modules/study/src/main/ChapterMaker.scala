@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.Tags
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
@@ -19,16 +19,16 @@ final private class ChapterMaker(
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
-      case None       => fromFenOrNotationOrBlank(study, data, order, userId)
+      case None       => fromSfenOrNotationOrBlank(study, data, order, userId)
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrNotationOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  def fromSfenOrNotationOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.notation.filter(_.trim.nonEmpty) match {
       case Some(notation) => fromNotation(study, notation, data, order, userId)
-      case None           => fuccess(fromFenOrBlank(study, data, order, userId))
+      case None           => fuccess(fromSfenOrBlank(study, data, order, userId))
     }
 
   private def fromNotation(
@@ -70,29 +70,27 @@ final private class ChapterMaker(
       conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
     )
 
-  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
+  private def fromSfenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
-    (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
-      Forsyth.<<<@(variant, fenStr)
-    } match {
-      case Some(sit) =>
+    (data.sfen.filterNot(_.initialOf(variant)).flatMap { _.toSituationPlus(variant) } match {
+      case Some(parsed) =>
         Node.Root(
-          ply = sit.turns,
-          fen = FEN(Forsyth.>>(sit)),
-          check = sit.situation.check,
+          ply = parsed.plies,
+          sfen = parsed.toSfen,
+          check = parsed.situation.check,
           clock = none,
           children = Node.emptyChildren
         ) -> true
       case None =>
         Node.Root(
           ply = 0,
-          fen = FEN(variant.initialFen),
+          sfen = variant.initialSfen,
           check = false,
           clock = none,
           children = Node.emptyChildren
         ) -> false
     }) match {
-      case (root, isFromFen) =>
+      case (root, isFromSfen) =>
         Chapter.make(
           studyId = study.id,
           name = data.name,
@@ -100,7 +98,7 @@ final private class ChapterMaker(
             none,
             variant,
             data.realOrientation,
-            fromFen = isFromFen option true
+            fromSfen = Some(isFromSfen)
           ),
           root = root,
           tags = Tags.empty,
@@ -119,11 +117,11 @@ final private class ChapterMaker(
       data: Data,
       order: Int,
       userId: User.ID,
-      initialFen: Option[FEN] = None
+      initialSfen: Option[Sfen] = None
   ): Fu[Chapter] =
     for {
-      root <- game2root(game, initialFen)
-      tags <- notationDump.tags(game, initialFen, withOpening = true, csa = false)
+      root <- game2root(game, initialSfen)
+      tags <- notationDump.tags(game, initialSfen, withOpening = true, csa = false)
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
@@ -158,9 +156,9 @@ final private class ChapterMaker(
       )
     }
 
-  private[study] def game2root(game: Game, initialFen: Option[FEN]): Fu[Node.Root] =
-    initialFen.fold(gameRepo initialFen game) { fen =>
-      fuccess(fen.some)
+  private[study] def game2root(game: Game, initialSfen: Option[Sfen]): Fu[Node.Root] =
+    initialSfen.fold(gameRepo initialSfen game) { sfen =>
+      fuccess(sfen.some)
     } map { GameToRoot(game, _, withClocks = true) }
 
   private val UrlRegex = {
@@ -207,7 +205,7 @@ private[study] object ChapterMaker {
       name: Chapter.Name,
       game: Option[String] = None,
       variant: Option[String] = None,
-      fen: Option[String] = None,
+      sfen: Option[Sfen] = None,
       notation: Option[String] = None,
       orientation: String = "sente",
       mode: String = ChapterMaker.Mode.Normal.key,

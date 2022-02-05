@@ -5,6 +5,7 @@ import cats.data.Validated
 import actorApi.Who
 import shogi.Centis
 import shogi.format.{ Glyph, Glyphs }
+import shogi.opening.FullOpeningDB
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -12,7 +13,7 @@ import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri }
-import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
+import lila.socket.{ AnaAny, AnaUsi }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.user.User
 
@@ -77,13 +78,9 @@ final private class StudySocket(
           (o \ "d" \ "liked").asOpt[Boolean] foreach { v =>
             who foreach api.like(studyId, v)
           }
-        case "anaMove" =>
-          AnaMove parse o foreach { move =>
+        case "anaUsi" =>
+          AnaUsi parse o foreach { move =>
             who foreach moveOrDrop(studyId, move, MoveOpts parse o)
-          }
-        case "anaDrop" =>
-          AnaDrop parse o foreach { drop =>
-            who foreach moveOrDrop(studyId, drop, MoveOpts parse o)
           }
         case "deleteNode" =>
           reading[AtPosition](o) { position =>
@@ -279,8 +276,7 @@ final private class StudySocket(
       sticky: Boolean,
       relay: Option[Chapter.Relay],
       who: Who
-  ) = {
-    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
+  ) =
     version(
       "addNode",
       Json
@@ -288,13 +284,14 @@ final private class StudySocket(
           "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
           "p" -> pos,
           "w" -> who,
-          "d" -> dests.dests,
-          "o" -> dests.opening,
+          "o" -> shogi.variant.Variant.openingSensibleVariants(variant) ?? {
+            FullOpeningDB findBySfen node.sfen
+          },
           "s" -> sticky
         )
         .add("relay", relay)
     )
-  }
+
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
     version(

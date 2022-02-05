@@ -47,7 +47,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     opts = ctrl.makeCgOpts();
   const config = {
     turnColor: opts.turnColor,
-    fen: opts.fen,
+    sfen: opts.sfen,
     check: opts.check,
     lastMove: opts.lastMove,
     orientation: ctrl.bottomColor(),

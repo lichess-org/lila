@@ -3,11 +3,12 @@ package lila.fishnet
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 
 import lila.common.{ IpAddress, Maths }
+import lila.common.Json._
 import lila.fishnet.{ Work => W }
 import lila.tree.Eval.JsonHandlers._
 import lila.tree.Eval.{ Cp, Mate }
@@ -150,7 +151,7 @@ object JsonApi {
 
   case class Game(
       game_id: String,
-      position: FEN,
+      position: Sfen,
       variant: Variant,
       moves: String
   )
@@ -158,7 +159,7 @@ object JsonApi {
   def fromGame(g: W.Game) =
     Game(
       game_id = if (g.studyId.isDefined) "" else g.id,
-      position = g.initialFen | FEN(g.variant.initialFen),
+      position = g.initialSfen | g.variant.initialSfen,
       variant = g.variant,
       moves = g.moves
     )
@@ -230,9 +231,6 @@ object JsonApi {
   object writers {
     implicit val VariantWrites = Writes[Variant] { v =>
       JsString(v.key)
-    }
-    implicit val FENWrites = Writes[FEN] { fen =>
-      JsString(fen.value)
     }
     implicit val ClockWrites: Writes[Work.Clock] = Json.writes[Work.Clock]
     implicit val GameWrites: Writes[Game]        = Json.writes[Game]

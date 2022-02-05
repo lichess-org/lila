@@ -24,9 +24,9 @@ function miniPairing(ctrl) {
         m(
           'span',
           {
-            class: 'mini-board mini-board-' + game.id + ' parse-fen' + ' variant-' + game.variant,
+            class: 'mini-board mini-board-' + game.id + ' parse-sfen' + ' variant-' + game.variant,
             'data-color': game.orient,
-            'data-fen': game.fen,
+            'data-sfen': game.sfen,
             'data-lastmove': game.lastMove,
             config: function (el, isUpdate) {
               if (!isUpdate) lishogi.parseSfen($(el));

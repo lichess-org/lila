@@ -26,7 +26,7 @@ function miniBoard(board: Board) {
         href: '/' + board.id,
         'data-live': board.id,
         'data-color': 'sente',
-        'data-fen': board.fen,
+        'data-sfen': board.sfen,
         'data-lastmove': board.lastMove,
       },
       hook: {

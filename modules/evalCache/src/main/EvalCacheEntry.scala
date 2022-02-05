@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 import org.joda.time.DateTime
@@ -107,29 +107,29 @@ object EvalCacheEntry {
 
   case class TrustedUser(trust: Trust, user: User)
 
-  final class SmallFen private (val value: String) extends AnyVal with StringValue
+  final class SmallSfen private (val value: String) extends AnyVal with StringValue
 
-  object SmallFen {
-    private[evalCache] def raw(str: String) = new SmallFen(str)
-    def make(variant: Variant, fen: FEN): SmallFen = {
-      val base = fen.value.split(' ').take(3).mkString("").filter { c =>
+  object SmallSfen {
+    private[evalCache] def raw(str: String) = new SmallSfen(str)
+    def make(variant: Variant, sfen: Sfen): SmallSfen = {
+      val base = sfen.value.split(' ').take(3).mkString("").filter { c =>
         c != '/' && c != '-' && c != 'b'
       }
-      new SmallFen(base)
+      new SmallSfen(base)
     }
-    def validate(variant: Variant, fen: FEN): Option[SmallFen] =
-      Forsyth.<<@(variant, fen.value).exists(_ playable false) option make(variant, fen)
+    def validate(variant: Variant, sfen: Sfen): Option[SmallSfen] =
+      sfen.toSituation(variant).exists(_.playable(false, false)) option make(variant, sfen)
   }
 
-  case class Id(variant: Variant, smallFen: SmallFen)
+  case class Id(variant: Variant, smallSfen: SmallSfen)
 
-  case class Input(id: Id, fen: FEN, eval: Eval)
+  case class Input(id: Id, sfen: Sfen, eval: Eval)
 
   object Input {
-    case class Candidate(variant: Variant, fen: String, eval: Eval) {
+    case class Candidate(variant: Variant, sfen: String, eval: Eval) {
       def input =
-        SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
-          Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
+        SmallSfen.validate(variant, Sfen(sfen)) ifTrue eval.looksValid map { smallSfen =>
+          Input(Id(variant, smallSfen), Sfen(sfen), eval.truncatePvs)
         }
     }
   }

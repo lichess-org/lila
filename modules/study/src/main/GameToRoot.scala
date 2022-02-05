@@ -1,17 +1,17 @@
 package lila.study
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.game.Game
 import lila.round.JsonView.WithFlags
 
 private object GameToRoot {
 
-  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root = {
+  def apply(game: Game, initialSfen: Option[Sfen], withClocks: Boolean): Node.Root = {
     val root = Node.Root.fromRoot {
       lila.round.TreeBuilder(
         game = game,
         analysis = none,
-        initialFen = initialFen | FEN(game.variant.initialFen),
+        initialSfen = initialSfen | game.variant.initialSfen,
         withFlags = WithFlags(clocks = withClocks)
       )
     }

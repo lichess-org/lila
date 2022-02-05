@@ -3,8 +3,8 @@ package lila.insight
 import scala.util.chaining._
 import cats.data.NonEmptyList
 
-import shogi.format.FEN
-import shogi.{ Board, Centis, Stats }
+import shogi.format.forsyth.Sfen
+import shogi.{ Centis, Situation, Stats }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 
@@ -18,11 +18,11 @@ final private class PovToEntry(
   case class RichPov(
       pov: Pov,
       provisional: Boolean,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       analysis: Option[lila.analyse.Analysis],
       division: shogi.Division,
       moveAccuracy: Option[List[Int]],
-      boards: NonEmptyList[Board],
+      situations: NonEmptyList[Situation],
       movetimes: NonEmptyList[Centis],
       advices: Map[Ply, Advice]
   )
@@ -44,14 +44,14 @@ final private class PovToEntry(
     if (removeWrongAnalysis(game)) fuccess(none)
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
-        gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
+        gameRepo.initialSfen(game) zip
+          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (sfen, an) =>
             for {
-              boards <-
+              situations <-
                 shogi.Replay
-                  .boards(
+                  .situations(
                     usis = game.usiMoves,
-                    initialFen = fen,
+                    initialSfen = sfen,
                     variant = game.variant
                   )
                   .toOption
@@ -59,11 +59,11 @@ final private class PovToEntry(
             } yield RichPov(
               pov = pov,
               provisional = provisional,
-              initialFen = fen,
+              initialSfen = sfen,
               analysis = an,
-              division = shogi.Divider(boards.toList),
+              division = shogi.Divider(situations.toList),
               moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
-              boards = boards,
+              situations = situations,
               movetimes = movetimes,
               advices = an.?? {
                 _.advices.view.map { a =>
@@ -86,13 +86,13 @@ final private class PovToEntry(
       shogi.Replay
         .usiWithRoleWhilePossible(
           from.pov.game.usiMoves,
-          from.initialFen,
+          from.initialSfen,
           from.pov.game.variant
         )
         .map(_.role)
-    val boards = {
+    val situations = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
-      from.boards.toList.zipWithIndex.collect {
+      from.situations.toList.zipWithIndex.collect {
         case (e, i) if (i % 2) == pivot => e
       }
     }
@@ -101,8 +101,8 @@ final private class PovToEntry(
       bools ++ Array.fill(movetimes.size - bools.size)(false)
     }
     val timeCvs = slidingMoveTimesCvs(movetimes)
-    movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
-      case (((((movetime, role), board), blur), timeCv), i) =>
+    movetimes.zip(roles).zip(situations).zip(blurs).zip(timeCvs).zipWithIndex.map {
+      case (((((movetime, role), sit), blur), timeCv), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
@@ -128,7 +128,7 @@ final private class PovToEntry(
           eval = prevInfo.flatMap(_.cp).map(_.ceiled.centipawns),
           mate = prevInfo.flatMap(_.mate).map(_.moves),
           cpl = cpDiffs lift i,
-          material = board.materialImbalance * from.pov.color.fold(1, -1),
+          material = sit.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck,
           blur = blur,
@@ -160,10 +160,10 @@ final private class PovToEntry(
 
   private def queenTrade(from: RichPov) =
     QueenTrade {
-      from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
-        case Some(board) =>
+      from.division.end.fold(from.situations.last.some)(from.situations.toList.lift) match {
+        case Some(sit) =>
           shogi.Color.all.forall { color =>
-            !board.hasPiece(shogi.Piece(color, shogi.Lance))
+            !sit.board.hasPiece(shogi.Piece(color, shogi.Lance))
           }
         case _ =>
           logger.warn(s"https://lishogi.org/${from.pov.gameId} missing endgame board")
@@ -185,9 +185,6 @@ final private class PovToEntry(
       userId = myId,
       color = pov.color,
       perf = perfType,
-      eco =
-        if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else shogi.opening.Ecopening fromGame game.usiMoves.toList,
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
       moves = makeMoves(from),

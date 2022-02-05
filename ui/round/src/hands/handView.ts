@@ -16,7 +16,7 @@ const eventNames3 = ['contextmenu'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: Position) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
-  const parsedHands = parseHands(step.fen.split(' ')[2] || '');
+  const parsedHands = parseHands(step.sfen.split(' ')[2] || '');
   const hands = parsedHands.isErr ? Hands.empty() : parsedHands.value;
   const hand = hands[color];
 

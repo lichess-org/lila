@@ -1,6 +1,6 @@
 package lila.round
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 import lila.socket.Step
@@ -15,29 +15,25 @@ object StepBuilder {
       id: String,
       usiMoves: Vector[Usi],
       variant: Variant,
-      initialFen: Option[FEN]
+      initialSfen: Option[Sfen]
   ): JsArray = {
-    shogi.Replay.gamesWhileValid(usiMoves, initialFen, variant) match {
+    shogi.Replay.gamesWhileValid(usiMoves, initialSfen, variant) match {
       case (games, error) =>
         error foreach logShogiError(id)
         val init = games.head
         JsArray {
           val initStep = Step(
-            ply = init.turns,
+            ply = init.plies,
             usi = none,
-            fen = Forsyth >> init,
-            check = init.situation.check,
-            dests = None,
-            drops = None
+            sfen = init.toSfen,
+            check = init.situation.check
           )
           val moveSteps = games.tail.zip(usiMoves).map { case (g, u) =>
             Step(
-              ply = g.turns,
+              ply = g.plies,
               usi = u.some,
-              fen = Forsyth >> g,
-              check = g.situation.check,
-              dests = None,
-              drops = None
+              sfen = g.toSfen,
+              check = g.situation.check
             )
           }
           (initStep :: moveSteps).map(_.toJson)

@@ -1,7 +1,7 @@
 import { pos2key, invFiles } from './util';
 import * as cg from './types';
 
-export const initial: cg.FEN = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL';
+export const initial: cg.Sfen = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL';
 
 const roles: { [letter: string]: cg.Role } = {
   p: 'pawn',
@@ -43,13 +43,13 @@ const letters = {
   dragon: '+r',
 };
 
-export function getDimensions(sfen: cg.FEN): cg.Dimensions {
+export function getDimensions(sfen: cg.Sfen): cg.Dimensions {
   // todo only if we ever need non square boards...
   const ranks = sfen.split('/').length;
   return { files: ranks, ranks: ranks };
 }
 
-export function read(sfen: cg.FEN, dims: cg.Dimensions): cg.Pieces {
+export function read(sfen: cg.Sfen, dims: cg.Dimensions): cg.Pieces {
   if (sfen === 'start') sfen = initial;
   const pieces: cg.Pieces = new Map();
   let x = dims.files - 1,
@@ -83,7 +83,7 @@ export function read(sfen: cg.FEN, dims: cg.Dimensions): cg.Pieces {
   return pieces;
 }
 
-export function write(pieces: cg.Pieces): cg.FEN {
+export function write(pieces: cg.Pieces): cg.Sfen {
   return cg.ranks
     .map(y =>
       invFiles

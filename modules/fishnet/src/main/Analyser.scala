@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import shogi.format.Forsyth
+import shogi.format.forsyth.Sfen
 import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
@@ -68,18 +68,18 @@ final class Analyser(
             val work = makeWork(
               game = Work.Game(
                 id = chapterId,
-                initialFen = initialFen,
+                initialSfen = initialSfen,
                 studyId = studyId.some,
                 variant =
                   if (
                     variant.standard &&
-                    initialFen.exists(_.value != Forsyth.initial)
+                    !initialSfen.exists(_.initialOf(shogi.variant.Standard))
                   ) shogi.variant.FromPosition
                   else variant,
                 moves = moves take maxPlies map (_.usi) mkString " "
               ),
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
+              startPly = initialSfen.flatMap(_.color).??(_.fold(0, 1)),
               sender = sender
             )
             workQueue {
@@ -100,16 +100,16 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) map { initialFen =>
+    gameRepo.initialSfen(game) map { initialSfen =>
       makeWork(
         game = Work.Game(
           id = game.id,
-          initialFen = initialFen,
+          initialSfen = initialSfen,
           studyId = none,
           variant = game.variant,
           moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
         ),
-        startPly = game.shogi.startedAtTurn,
+        startPly = game.shogi.startedAtPly,
         sender = sender
       )
     }

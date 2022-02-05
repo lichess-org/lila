@@ -191,10 +191,10 @@ final class Round(
                 }
             else
               for { // web crawlers don't need the full thing
-                initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+                initialSfen <- env.game.gameRepo.initialSfen(pov.gameId)
                 kif <- env.api
-                  .notationDump(pov.game, initialFen, none, NotationDump.WithFlags(clocks = false))
-              } yield Ok(html.round.watcher.crawler(pov, initialFen, kif))
+                  .notationDump(pov.game, initialSfen, none, NotationDump.WithFlags(clocks = false))
+              } yield Ok(html.round.watcher.crawler(pov, initialSfen, kif))
           },
           api = apiVersion =>
             for {
@@ -278,11 +278,11 @@ final class Round(
       OptionFuResult(proxyPov(gameId, color)) { pov =>
         env.tournament.api.gameView.withTeamVs(pov.game) zip
           (pov.game.simulId ?? env.simul.repo.find) zip
-          env.game.gameRepo.initialFen(pov.game) zip
+          env.game.gameRepo.initialSfen(pov.game) zip
           env.game.crosstableApi.withMatchup(pov.game) zip
           env.bookmark.api.exists(pov.game, ctx.me) map {
-            case ((((tour, simul), initialFen), crosstable), bookmarked) =>
-              Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+            case ((((tour, simul), initialSfen), crosstable), bookmarked) =>
+              Ok(html.game.bits.sides(pov, initialSfen, tour, crosstable, simul, bookmarked = bookmarked))
           }
       }
     }
@@ -309,9 +309,9 @@ final class Round(
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect(
-          "%s?fen=%s#%s".format(
+          "%s?sfen=%s#%s".format(
             routes.Lobby.home,
-            get("fen") | (shogi.format.Forsyth >> game.shogi),
+            get("sfen") | (game.shogi.toSfen).value,
             mode
           )
         )

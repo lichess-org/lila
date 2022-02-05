@@ -224,7 +224,7 @@ final class Challenge(
                   } getOrElse TimeControl.Unlimited
                   val challenge = lila.challenge.Challenge.make(
                     variant = config.variant,
-                    initialFen = config.position,
+                    initialSfen = config.position,
                     timeControl = timeControl,
                     mode = config.mode,
                     color = config.color.name,
@@ -275,7 +275,7 @@ final class Challenge(
               case Some(g) =>
                 Ok(
                   Json.obj(
-                    "game" -> env.game.jsonView(g, challenge.initialFen)
+                    "game" -> env.game.jsonView(g, challenge.initialSfen)
                   )
                 )
             }
@@ -296,7 +296,7 @@ final class Challenge(
               val challenge = lila.challenge.Challenge
                 .make(
                   variant = config.variant,
-                  initialFen = config.position,
+                  initialSfen = config.position,
                   timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
                     TimeControl.Clock.apply
                   },

@@ -6,6 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ Animal, LightUser }
+import lila.common.Json._
 import lila.db.dsl._
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
@@ -16,7 +17,7 @@ final class SwissJson(
     colls: SwissColls,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
-    boardApi: SwissBoardApi,
+    situationApi: SwissSituationApi,
     statsApi: SwissStatsApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
@@ -42,7 +43,7 @@ final class SwissJson(
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
-      boards   <- boardApi(swiss.id)
+      situations  <- situationApi(swiss.id)
       stats    <- statsApi(swiss)
     } yield swissJsonBase(swiss) ++ Json
       .obj(
@@ -51,7 +52,7 @@ final class SwissJson(
           (myInfo.isEmpty && swiss.isEnterable && isInTeam)
         },
         "standing" -> standing,
-        "boards"   -> boards.map(boardJson)
+        "situations" -> situations.map(situationJson)
       )
       .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
@@ -254,16 +255,16 @@ object SwissJson {
         "absent" -> i.player.absent
       )
 
-  private[swiss] def boardJson(b: SwissBoard.WithGame) =
+  private[swiss] def situationJson(b: SwissSituation.WithGame) =
     Json.obj(
       "id"       -> b.game.id,
-      "fen"      -> (shogi.format.Forsyth exportSituation b.game.situation),
+      "sfen"     -> b.game.situation.toSfen,
       "lastMove" -> ~b.game.lastMoveKeys,
       "sente"    -> boardPlayerJson(b.board.sente),
       "gote"     -> boardPlayerJson(b.board.gote)
     )
 
-  private def boardPlayerJson(player: SwissBoard.Player) =
+  private def boardPlayerJson(player: SwissSituation.Player) =
     Json.obj(
       "rank"   -> player.rank,
       "rating" -> player.rating,

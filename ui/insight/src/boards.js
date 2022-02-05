@@ -9,9 +9,9 @@ function miniGame(game) {
     },
     [
       m('span', {
-        class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-fen',
+        class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-sfen',
         'data-color': game.color,
-        'data-fen': game.fen,
+        'data-sfen': game.sfen,
         'data-lastmove': game.lastMove,
         config: function (el, isUpdate) {
           if (!isUpdate) lishogi.parseSfen($(el));

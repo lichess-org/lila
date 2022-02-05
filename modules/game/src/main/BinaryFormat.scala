@@ -3,7 +3,7 @@ package lila.game
 import org.joda.time.DateTime
 import scala.util.Try
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 import shogi._
@@ -14,13 +14,13 @@ import lila.db.ByteArray
 object BinaryFormat {
 
   object usi {
-    def write(variant: Variant)(moves: UsiMoves): ByteArray =
+    def write(moves: UsiMoves, variant: Variant): ByteArray =
       ByteArray {
-        format.usi.Binary.encodeMoves(variant, moves)
+        format.usi.Binary.encodeMoves(moves, variant)
       }
 
-    def read(variant: Variant)(ba: ByteArray): UsiMoves =
-      format.usi.Binary.decodeMoves(variant, ba.value.toList)
+    def read(ba: ByteArray, variant: Variant): UsiMoves =
+      format.usi.Binary.decodeMoves(ba.value.toList, variant)
 
   }
 
@@ -76,12 +76,12 @@ object BinaryFormat {
         .toArray
     }
 
-    def read(ba: ByteArray, turns: Int): Vector[Centis] = {
+    def read(ba: ByteArray, plies: Int): Vector[Centis] = {
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.view.take(turns).map(Centis.apply).toVector
+    }.view.take(plies).map(Centis.apply).toVector
   }
 
   case class clock(start: Timestamp) {
@@ -219,12 +219,13 @@ object BinaryFormat {
   }
 
   object pieces {
-    def read(variant: Variant)(
+    def read(
         usis: UsiMoves,
-        initialFen: Option[FEN]
+        initialSfen: Option[Sfen],
+        variant: Variant
     ): PieceMap = {
-      val init = initialFen.flatMap { fen =>
-        format.Forsyth.<<@(variant, fen.value)
+      val init = initialSfen.flatMap { sfen =>
+        sfen.toSituation(variant)
       } | Situation(variant)
       val mm    = collection.mutable.Map(init.board.pieces.toSeq: _*)
       var color = init.color

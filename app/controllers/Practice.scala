@@ -101,13 +101,13 @@ final class Practice(
     us match {
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
-          val initialFen = chapter.root.fen.some
-          val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
+          val initialSfen = chapter.root.sfen.some
+          val pov        = userAnalysisC.makePov(initialSfen, chapter.setup.variant)
           val baseData = env.round.jsonView
             .userAnalysisJson(
               pov,
               ctx.pref,
-              initialFen,
+              initialSfen,
               chapter.setup.orientation,
               owner = false,
               me = ctx.me

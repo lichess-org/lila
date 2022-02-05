@@ -2,7 +2,8 @@ package lila.study
 
 import cats.data.Validated
 
-import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags }
+import shogi.format.{ Glyphs, ParsedMove, ParsedNotation, Tags }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.UsiCharPair
 
 import lila.common.LightUser
@@ -29,13 +30,13 @@ object NotationImport {
 
   def apply(notation: String, contributors: List[LightUser]): Validated[String, Result] =
     ImportData(notation, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedNotation) =>
+      case Preprocessed(game, replay, initialSfen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, contributors)
         parseComments(parsedNotation.initialPosition.comments, annotator) match {
           case (shapes, comments) =>
             val root = Node.Root(
-              ply = replay.setup.turns,
-              fen = initialFen | FEN(game.variant.initialFen),
+              ply = replay.setup.plies,
+              sfen = initialSfen | game.variant.initialSfen,
               check = replay.setup.situation.check,
               shapes = shapes,
               comments = comments,
@@ -73,15 +74,15 @@ object NotationImport {
         }
     }
 
-  def userAnalysis(notation: String): Validated[String, (Game, Option[FEN], Node.Root, Tags)] =
+  def userAnalysis(notation: String): Validated[String, (Game, Option[Sfen], Node.Root, Tags)] =
     ImportData(notation, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedNotation) =>
+      case Preprocessed(game, replay, initialSfen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, Nil)
         parseComments(parsedNotation.initialPosition.comments, annotator) match {
           case (shapes, comments) =>
             val root = Node.Root(
-              ply = replay.setup.turns,
-              fen = initialFen | FEN(game.variant.initialFen),
+              ply = replay.setup.plies,
+              sfen = initialSfen | game.variant.initialSfen,
               check = replay.setup.situation.check,
               shapes = shapes,
               comments = comments,
@@ -96,7 +97,7 @@ object NotationImport {
                 ).fold(variations)(_ :: variations).toVector
               }
             )
-            (game withId "synthetic", initialFen, root, parsedNotation.tags)
+            (game withId "synthetic", initialSfen, root, parsedNotation.tags)
         }
     }
 
@@ -155,36 +156,35 @@ object NotationImport {
       parsedMoves match {
         case Nil => none
         case parsedMove :: rest =>
-          parsedMove(prev.situation).fold(
+          prev(parsedMove).fold(
             _ => none, // illegal move; stop here.
-            moveOrDrop => {
-              val game = moveOrDrop.fold(prev.apply, prev.applyDrop)
-              val usi  = moveOrDrop.fold(_.toUsi, _.toUsi)
-              parseComments(parsedMove.metas.comments, annotator) match {
-                case (shapes, comments) =>
-                  Node(
-                    id = UsiCharPair(usi),
-                    ply = game.turns,
-                    usi = usi,
-                    fen = FEN(Forsyth >> game),
-                    check = game.situation.check,
-                    shapes = shapes,
-                    comments = comments,
-                    glyphs = parsedMove.metas.glyphs,
-                    // Normally we store time remaining after turn,
-                    // which is actually pretty useless with byo...
-                    // for imports we are gonna store time spent on this move
-                    clock = parsedMove.metas.timeSpent,
-                    children = removeDuplicatedChildrenFirstNode {
-                      val variations = makeVariations(rest, game, annotator)
-                      Node.Children {
-                        makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
-                      }
-                    },
-                    forceVariation = false
-                  ).some
+            game =>
+              game.history.lastMove flatMap { usi =>
+                parseComments(parsedMove.metas.comments, annotator) match {
+                  case (shapes, comments) =>
+                    Node(
+                      id = UsiCharPair(usi, game.variant),
+                      ply = game.plies,
+                      usi = usi,
+                      sfen = game.toSfen,
+                      check = game.situation.check,
+                      shapes = shapes,
+                      comments = comments,
+                      glyphs = parsedMove.metas.glyphs,
+                      // Normally we store time remaining after turn,
+                      // which is pretty useless with byo...
+                      // for imports we are gonna store time spent on this move
+                      clock = parsedMove.metas.timeSpent,
+                      children = removeDuplicatedChildrenFirstNode {
+                        val variations = makeVariations(rest, game, annotator)
+                        Node.Children {
+                          makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
+                        }
+                      },
+                      forceVariation = false
+                    ).some
+                }
               }
-            }
           )
       }
     } catch {

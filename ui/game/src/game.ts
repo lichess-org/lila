@@ -27,12 +27,12 @@ export function mandatory(data: GameData): boolean {
   return !!data.tournament || !!data.simul || !!data.swiss;
 }
 
-export function playedTurns(data: GameData): number {
-  return data.game.turns - (data.game.startedAtTurn || 0);
+export function playedPlies(data: GameData): number {
+  return data.game.plies - (data.game.startedAtPly || 0);
 }
 
 export function bothPlayersHavePlayed(data: GameData): boolean {
-  return playedTurns(data) > 1;
+  return playedPlies(data) > 1;
 }
 
 export function abortable(data: GameData): boolean {
@@ -50,7 +50,7 @@ export function takebackable(data: GameData): boolean {
 }
 
 export function drawable(data: GameData): boolean {
-  return playable(data) && data.game.turns >= 2 && !data.player.offeringDraw && !hasAi(data);
+  return playable(data) && data.game.plies >= 2 && !data.player.offeringDraw && !hasAi(data);
 }
 
 export function resignable(data: GameData): boolean {
@@ -112,7 +112,7 @@ export function setGone(data: GameData, color: Color, gone: number | boolean): v
 }
 
 export function nbMoves(data: GameData, color: Color): number {
-  return Math.floor((data.game.turns + (color == 'sente' ? 1 : 0)) / 2);
+  return Math.floor((data.game.plies + (color == 'sente' ? 1 : 0)) / 2);
 }
 
 export function isSwitchable(data: GameData): boolean {

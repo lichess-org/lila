@@ -22,7 +22,7 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {
 
   def dropEvents = copy(events = Nil)
 
-  override def toString = s"Progress ${game.id}: ${origin.turns} -> ${game.turns} ${game.status}"
+  override def toString = s"Progress ${game.id}: ${origin.plies} -> ${game.plies} ${game.status}"
 }
 
 object Progress {

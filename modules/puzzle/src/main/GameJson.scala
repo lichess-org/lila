@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import shogi.format.Forsyth
+import lila.common.Json._
 import shogi.format.usi.UsiCharPair
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -101,16 +101,16 @@ final private class GameJson(
           for {
             usi <- usiMoves.lastOption
             situation = shogi.Replay
-              .situations(usiMoves, None, game.variant)
+              .situations(usiMoves, None, shogi.variant.Standard)
               .valueOr { err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")
               }
               .last
           } yield Json.obj(
-            "fen" -> Forsyth.>>(situation),
-            "ply" -> (plies + 1),
-            "usi" -> usi.usi,
-            "id"  -> UsiCharPair(usi).toString
+            "sfen" -> situation.toSfen,
+            "ply"  -> (plies + 1),
+            "usi"  -> usi.usi,
+            "id"   -> UsiCharPair(usi, shogi.variant.Standard).toString
           )
         }
       )

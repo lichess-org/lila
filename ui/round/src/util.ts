@@ -2,9 +2,9 @@ import { h } from 'snabbdom';
 import { VNodeData } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import * as cg from 'shogiground/types';
-import { Redraw, EncodedDests, Dests } from './interfaces';
+import { Redraw } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';
-import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
+import { lishogiVariantRules, shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
 import { setupPosition } from 'shogiops/variant';
 
 export function justIcon(icon: string): VNodeData {
@@ -43,19 +43,17 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw, 
   });
 }
 
-export function parsePossibleMoves(dests?: EncodedDests): Dests {
-  const dec = new Map();
-  if (!dests) return dec;
-  if (typeof dests == 'string')
-    for (const ds of dests.split(' ')) {
-      dec.set(ds.slice(0, 2), ds.slice(2).match(/.{2}/g) as cg.Key[]);
-    }
-  else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
-  return dec;
+export function getMoveDests(sfen: string, variant: VariantKey): cg.Dests {
+  return parseSfen(sfen)
+    .chain(s => setupPosition(lishogiVariantRules(variant), s, false))
+    .unwrap(
+      p => shogigroundDests(p),
+      _ => new Map()
+    );
 }
 
-export function getDropDests(fen: string, variant: VariantKey): cg.DropDests {
-  return parseSfen(fen)
+export function getDropDests(sfen: string, variant: VariantKey): cg.DropDests {
+  return parseSfen(sfen)
     .chain(s => setupPosition(lishogiVariantRules(variant), s, false))
     .unwrap(
       p => shogigroundDropDests(p),

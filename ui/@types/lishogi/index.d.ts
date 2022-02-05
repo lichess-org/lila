@@ -50,7 +50,7 @@ interface Lishogi {
     (url: string, version: number | false, cfg: any): any;
     defaults: {
       events: {
-        fen(e: any): void;
+        sfen(e: any): void;
       };
     };
   };
@@ -210,7 +210,7 @@ declare type Key = '00' | `${Files}${Ranks}`;
 
 declare type MoveNotation = string;
 declare type Usi = string;
-declare type Fen = string;
+declare type Sfen = string;
 declare type Ply = number;
 
 interface Variant {
@@ -234,7 +234,7 @@ declare namespace Tree {
   export type Path = string;
 
   export interface ClientEval {
-    fen: Fen;
+    sfen: Sfen;
     maxDepth: number;
     depth: number;
     knps: number;
@@ -269,7 +269,7 @@ declare namespace Tree {
     ply: Ply;
     usi?: Usi;
     notation?: string;
-    fen: Fen;
+    sfen: Sfen;
     children: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;

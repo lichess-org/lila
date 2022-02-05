@@ -5,13 +5,13 @@ import play.api.libs.json.Json
 import play.api.mvc.Results
 import scala.concurrent.duration._
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.setup.Processor.HookResult
-import lila.setup.ValidFen
+import lila.setup.ValidSfen
 import lila.socket.Socket.Sri
 import views._
 
@@ -35,11 +35,11 @@ final class Setup(
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms aiFilled get("fen").map(FEN)) map { form =>
+        fuccess(forms aiFilled get("sfen").map(Sfen.clean)) map { form =>
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("fen").value flatMap ValidFen(getBool("strict"))
+            form("sfen").value map Sfen.clean flatMap ValidSfen(getBool("strict"))
           )
         }
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
@@ -53,14 +53,14 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        fuccess(forms friendFilled get("fen").map(FEN)) flatMap { form =>
-          val validFen = form("fen").value flatMap ValidFen(false)
+        fuccess(forms friendFilled get("sfen").map(Sfen.clean)) flatMap { form =>
+          val validSfen = form("sfen").value map Sfen.clean flatMap ValidSfen(false)
           userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
+            case None => Ok(html.setup.forms.friend(form, none, none, validSfen)).fuccess
             case Some(user) =>
               env.challenge.granter(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen))
+                case None         => Ok(html.setup.forms.friend(form, user.some, none, validSfen))
               }
           }
         }
@@ -101,7 +101,7 @@ final class Setup(
                     } getOrElse TimeControl.Unlimited
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
-                      initialFen = config.fen,
+                      initialSfen = config.sfen,
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
@@ -240,11 +240,11 @@ final class Setup(
       fuccess(html.setup.filter(forms.filter))
     }
 
-  def validateFen =
+  def validateSfen =
     Open { implicit ctx =>
-      get("fen") flatMap ValidFen(getBool("strict")) match {
+      get("sfen") map Sfen.clean flatMap ValidSfen(getBool("strict")) match {
         case None    => BadRequest.fuccess
-        case Some(v) => Ok(html.game.bits.miniBoard(v.fen)).fuccess
+        case Some(v) => Ok(html.game.bits.miniBoard(v.sfen)).fuccess
       }
     }
 
@@ -258,7 +258,7 @@ final class Setup(
             jsonFormError,
             config =>
               processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView(pov.game, config.fen)) as JSON
+                Created(env.game.jsonView(pov.game, config.sfen)) as JSON
               }
           )
       }(rateLimitedFu)

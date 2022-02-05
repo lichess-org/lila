@@ -80,12 +80,12 @@ object mine {
                     )
                   )
               },
-              c.notableInitialFen.map { fen =>
+              c.notableInitialSfen.map { sfen =>
                 frag(
                   br,
                   div(
                     cls := "board-preview",
-                    views.html.game.bits.miniBoard(fen, color = c.finalColor, variant = c.variant)
+                    views.html.game.bits.miniBoard(sfen, color = c.finalColor, variant = c.variant)
                   )
                 )
               },

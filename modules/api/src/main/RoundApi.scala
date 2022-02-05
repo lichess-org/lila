@@ -1,6 +1,6 @@
 package lila.api
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -34,8 +34,8 @@ final private[api] class RoundApi(
       ctx: Context
   ): Fu[JsObject] =
     gameRepo
-      .initialFen(pov.game)
-      .flatMap { initialFen =>
+      .initialSfen(pov.game)
+      .flatMap { initialSfen =>
         implicit val lang = ctx.lang
         jsonView.playerJson(
           pov,
@@ -43,7 +43,7 @@ final private[api] class RoundApi(
           apiVersion,
           ctx.me,
           withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
-          initialFen = initialFen,
+          initialSfen = initialSfen,
           nvui = ctx.blind
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
@@ -56,7 +56,7 @@ final private[api] class RoundApi(
                 withTournament(pov, tour) _ compose
                   withSwiss(swiss) compose
                   withSimul(simul) compose
-                  withSteps(pov, initialFen) compose
+                  withSteps(pov, initialSfen) compose
                   withNote(note) compose
                   withBookmark(bookmarked) compose
                   withForecastCount(forecast.map(_.steps.size))
@@ -70,11 +70,11 @@ final private[api] class RoundApi(
       tour: Option[TourView],
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv],
-      initialFenO: Option[Option[FEN]] = None
+      initialSfenO: Option[Option[Sfen]] = None
   )(implicit ctx: Context): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
+    initialSfenO
+      .fold(gameRepo initialSfen pov.game)(fuccess)
+      .flatMap { initialSfen =>
         implicit val lang = ctx.lang
         jsonView.watcherJson(
           pov,
@@ -82,7 +82,7 @@ final private[api] class RoundApi(
           apiVersion,
           ctx.me,
           tv,
-          initialFen = initialFen,
+          initialSfen = initialSfen,
           withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
@@ -95,7 +95,7 @@ final private[api] class RoundApi(
                 withSimul(simul) compose
                 withNote(note) compose
                 withBookmark(bookmarked) compose
-                withSteps(pov, initialFen)
+                withSteps(pov, initialSfen)
             )(json)
           }
       }
@@ -106,12 +106,12 @@ final private[api] class RoundApi(
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
+      initialSfenO: Option[Option[Sfen]] = None,
       withFlags: WithFlags
   )(implicit ctx: Context): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
+    initialSfenO
+      .fold(gameRepo initialSfen pov.game)(fuccess)
+      .flatMap { initialSfen =>
         implicit val lang = ctx.lang
         jsonView.watcherJson(
           pov,
@@ -119,7 +119,7 @@ final private[api] class RoundApi(
           apiVersion,
           ctx.me,
           tv,
-          initialFen = initialFen,
+          initialSfen = initialSfen,
           withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
         ) zip
           tourApi.gameView.analysis(pov.game) zip
@@ -134,7 +134,7 @@ final private[api] class RoundApi(
                   withSimul(simul) compose
                   withNote(note) compose
                   withBookmark(bookmarked) compose
-                  withTree(pov, analysis, initialFen, withFlags) compose
+                  withTree(pov, analysis, initialSfen, withFlags) compose
                   withAnalysis(pov.game, analysis)
               )(json)
           }
@@ -145,23 +145,23 @@ final private[api] class RoundApi(
       pov: Pov,
       apiVersion: ApiVersion,
       analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
+      initialSfenO: Option[Option[Sfen]] = None,
       withFlags: WithFlags
   ): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
+    initialSfenO
+      .fold(gameRepo initialSfen pov.game)(fuccess)
+      .flatMap { initialSfen =>
         jsonView.watcherJson(
           pov,
           Pref.default,
           apiVersion,
           none,
           none,
-          initialFen = initialFen,
+          initialSfen = initialSfen,
           withFlags = withFlags
         ) map { json =>
           (
-            withTree(pov, analysis, initialFen, withFlags) _ compose
+            withTree(pov, analysis, initialSfen, withFlags) _ compose
               withAnalysis(pov.game, analysis) _
           )(json)
         }
@@ -171,15 +171,15 @@ final private[api] class RoundApi(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       orientation: shogi.Color,
       owner: Boolean,
       me: Option[User]
   ) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
-          jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
+        withTree(pov, analysis = none, initialSfen, WithFlags(opening = true)) {
+          jsonView.userAnalysisJson(pov, pref, initialSfen, orientation, owner = owner, me = me)
         }
       }
     }
@@ -187,15 +187,15 @@ final private[api] class RoundApi(
   def freeStudyJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       orientation: shogi.Color,
       me: Option[User]
   ) =
-    withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
-      jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)
+    withTree(pov, analysis = none, initialSfen, WithFlags(opening = true))(
+      jsonView.userAnalysisJson(pov, pref, initialSfen, orientation, owner = false, me = me)
     )
 
-  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(
+  private def withTree(pov: Pov, analysis: Option[Analysis], initialSfen: Option[Sfen], withFlags: WithFlags)(
       obj: JsObject
   ) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
@@ -204,18 +204,18 @@ final private[api] class RoundApi(
         usiMoves = pov.game.usiMoves,
         variant = pov.game.variant,
         analysis = analysis,
-        initialFen = initialFen | FEN(pov.game.variant.initialFen),
+        initialSfen = initialSfen | pov.game.variant.initialSfen,
         withFlags = withFlags,
         clocks = withFlags.clocks ?? pov.game.bothClockStates
       )
     ))
 
-  private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
+  private def withSteps(pov: Pov, initialSfen: Option[Sfen])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.gameId,
       usiMoves = pov.game.usiMoves,
       variant = pov.game.variant,
-      initialFen = initialFen
+      initialSfen = initialSfen
     ))
 
   private def withNote(note: String)(json: JsObject) =

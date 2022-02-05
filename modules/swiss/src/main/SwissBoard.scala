@@ -5,18 +5,18 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 import lila.game.Game
 
-private case class SwissBoard(
+private case class SwissSituation(
     gameId: Game.ID,
-    sente: SwissBoard.Player,
-    gote: SwissBoard.Player
+    sente: SwissSituation.Player,
+    gote: SwissSituation.Player
 )
 
-private object SwissBoard {
+private object SwissSituation {
   case class Player(user: LightUser, rank: Int, rating: Int)
-  case class WithGame(board: SwissBoard, game: Game)
+  case class WithGame(board: SwissSituation, game: Game)
 }
 
-final private class SwissBoardApi(
+final private class SwissSituationApi(
     rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
@@ -27,13 +27,13 @@ final private class SwissBoardApi(
 
   private val boardsCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, List[SwissBoard]]()
+    .build[Swiss.Id, List[SwissSituation]]()
 
-  def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
+  def apply(id: Swiss.Id): Fu[List[SwissSituation.WithGame]] =
     boardsCache.getIfPresent(id) ?? {
       _.map { board =>
         gameProxyRepo.game(board.gameId) map2 {
-          SwissBoard.WithGame(board, _)
+          SwissSituation.WithGame(board, _)
         }
       }.sequenceFu
         .dmap(_.flatten)
@@ -66,10 +66,10 @@ final private class SwissBoardApi(
                     u2 <- lightUserApi sync p2.userId
                     r1 <- ranks get p1.userId
                     r2 <- ranks get p2.userId
-                  } yield SwissBoard(
+                  } yield SwissSituation(
                     pairing.gameId,
-                    sente = SwissBoard.Player(u1, r1, p1.rating),
-                    gote = SwissBoard.Player(u2, r2, p2.rating)
+                    sente = SwissSituation.Player(u1, r1, p1.rating),
+                    gote = SwissSituation.Player(u2, r2, p2.rating)
                   )
                 }
             )

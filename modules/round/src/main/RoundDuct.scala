@@ -186,10 +186,10 @@ final private[round] class RoundDuct(
             lila
               .log("cheat")
               .info(
-                s"hold alert $ip https://lishogi.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+                s"hold alert $ip https://lishogi.org/${pov.gameId}/${pov.color.name}#${pov.game.plies} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
               )
             lila.mon.cheat.holdAlert.increment()
-            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
+            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.plies, mean = mean, sd = sd)).void
         } inject Nil
       }
 
@@ -208,7 +208,7 @@ final private[round] class RoundDuct(
                     usiMoves = a.game.usiMoves,
                     variant = a.variant,
                     analysis = a.analysis.some,
-                    initialFen = a.initialFen,
+                    initialSfen = a.initialSfen,
                     withFlags = JsonView.WithFlags(),
                     clocks = none
                   )
@@ -454,7 +454,7 @@ final private[round] class RoundDuct(
   private def getPlayer(color: Color): Player = color.fold(sentePlayer, gotePlayer)
 
   private def recordLag(pov: Pov): Unit =
-    if ((pov.game.playedTurns & 30) == 10) {
+    if ((pov.game.playedPlies & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {

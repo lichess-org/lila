@@ -89,7 +89,7 @@ final class StudyApi(
       chapterRepo existsByStudy study.id flatMap {
         case true => funit
         case _ =>
-          chapterMaker.fromFenOrNotationOrBlank(
+          chapterMaker.fromSfenOrNotationOrBlank(
             study,
             ChapterMaker.Data(Chapter.Name("Chapter 1")),
             order = 1,

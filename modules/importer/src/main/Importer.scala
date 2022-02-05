@@ -10,9 +10,9 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
       gameRepo.findNotationImport(data.notation) flatMap { _.fold(processing)(fuccess) }
 
     gameExists {
-      (data preprocess user).toFuture flatMap { case Preprocessed(g, _, initialFen, _) =>
+      (data preprocess user).toFuture flatMap { case Preprocessed(g, _, initialSfen, _) =>
         val game = forceId.fold(g.sloppy)(g.withId)
-        (gameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
+        (gameRepo.insertDenormalized(game, initialSfen = initialSfen)) >> {
           game.notationImport.flatMap(_.user).isDefined ?? gameRepo.setImportCreatedAt(game)
         } >> {
           gameRepo.finish(

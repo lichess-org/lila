@@ -14,13 +14,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
-    inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
+    inputSfen = document.querySelector('.analyse__underboard__sfen') as HTMLInputElement,
     unselect = chart => {
       chart.getSelectedPoints().forEach(function (point) {
         point.select(false);
       });
     };
-  let lastFen: string;
+  let lastSfen: string;
 
   if (!li.AnalyseNVUI) {
     li.pubsub.on('analysis.comp.toggle', (v: boolean) => {
@@ -28,13 +28,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown');
       }, 50);
     });
-    li.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
+    li.pubsub.on('analysis.change', (sfen: Sfen, _, mainlinePly: Ply | false) => {
       let chart,
         point,
         $chart = $('#acpl-chart');
-      if (fen && fen !== lastFen) {
-        inputFen.value = fen;
-        lastFen = fen;
+      if (sfen && sfen !== lastSfen) {
+        inputSfen.value = sfen;
+        lastSfen = sfen;
       }
       if ($chart.length) {
         chart = window.Highcharts && $chart.highcharts();
@@ -42,7 +42,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
             else {
-              point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtTurn];
+              point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtPly];
               if (defined(point)) point.select();
               else unselect(chart);
             }
@@ -58,7 +58,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
             else {
               const sente = mainlinePly % 2 !== 0;
               const serie = sente ? 0 : 1;
-              const turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
+              const turn = Math.floor((mainlinePly - 1 - data.game.startedAtPly) / 2);
               point = chart.series[serie].data[turn];
               if (defined(point)) point.select();
               else unselect(chart);

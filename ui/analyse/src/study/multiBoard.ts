@@ -18,7 +18,7 @@ export class MultiBoardCtrl {
   addNode(pos: Position, node: Tree.Node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp && cp.playing) {
-      cp.fen = node.fen;
+      cp.sfen = node.sfen;
       cp.lastMove = node.usi;
       this.redraw();
     }
@@ -164,20 +164,20 @@ function makeCg(preview: ChapterPreview): VNode {
           resizable: false,
           viewOnly: true,
           orientation: preview.orientation,
-          fen: preview.fen,
+          sfen: preview.sfen,
           hasPockets: true,
-          pockets: preview.fen && preview.fen.split(' ').length > 2 ? preview.fen.split(' ')[2] : '',
+          pockets: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
           lastMove: usiToLastMove(preview.lastMove),
         });
-        vnode.data!.cp = { cg, fen: preview.fen };
+        vnode.data!.cp = { cg, sfen: preview.sfen };
       },
       postpatch(old, vnode) {
-        if (old.data!.cp.fen !== preview.fen) {
+        if (old.data!.cp.sfen !== preview.sfen) {
           old.data!.cp.cg.set({
-            fen: preview.fen,
+            sfen: preview.sfen,
             lastMove: usiToLastMove(preview.lastMove),
           });
-          old.data!.cp.fen = preview.fen;
+          old.data!.cp.sfen = preview.sfen;
         }
         vnode.data!.cp = old.data!.cp;
       },

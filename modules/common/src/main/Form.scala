@@ -1,6 +1,5 @@
 package lila.common
 
-import shogi.format.FEN
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.FieldMapping
 import play.api.data.validation.Constraints
@@ -11,7 +10,7 @@ import play.api.data.JodaForms._
 import play.api.data.validation.Constraint
 import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
-import shogi.format.Forsyth
+import shogi.format.forsyth.Sfen
 
 import lila.common.base.StringUtils
 
@@ -137,11 +136,16 @@ object Form {
       }
   }
 
-  object fen {
-    implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict = of[FEN](fenFormat)
-      .verifying("Invalid position", fen => (Forsyth <<< fen.value).exists(_.situation playable true))
-  }
+  object sfen {
+    implicit private val sfenFormat = formatter.stringFormatter[Sfen](_.value, Sfen.apply)
+    val playableStrict              = playable(strict = true)
+    def playable(strict: Boolean)   = of[Sfen](sfenFormat)
+      .transform[Sfen](f => Sfen(f.value.trim), identity)
+      .verifying(
+        "Invalid position", sfen => (sfen.toSituation(shogi.variant.Standard))
+          .exists(_.playable(strict = strict, withImpasse = false))
+      )
+    }
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(

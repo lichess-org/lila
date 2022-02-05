@@ -66,7 +66,7 @@ export default function (opts: Opts): DrawShape[] {
     color = opts.ground.state.movable.color,
     turnColor = opts.ground.state.turnColor;
   let shapes: DrawShape[] = [];
-  if (hovering && hovering.fen === n.fen)
+  if (hovering && hovering.sfen === n.sfen)
     shapes = shapes.concat(makeAutoShapesFromUsi(hovering.usi, turnColor, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'paleGreen'));

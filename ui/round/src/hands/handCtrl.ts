@@ -79,7 +79,7 @@ export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key): boolea
 
   if (!isPlayerTurn(data)) return false;
 
-  const pos = parseSfen(lastStep.fen).chain(s => setupPosition(lishogiVariantRules(data.game.variant.key), s, false));
+  const pos = parseSfen(lastStep.sfen).chain(s => setupPosition(lishogiVariantRules(data.game.variant.key), s, false));
   if (pos.isErr) return false;
   return pos.value.isLegal(move);
 }
@@ -108,7 +108,7 @@ export function init(ctrl: RoundController) {
           handKeys[handKeys.length - 1] - 1
         ],
         color = ctrl.data.player.color,
-        parsedHands = parseHands(lastStep(ctrl.data).fen.split(' ')[2] || '-');
+        parsedHands = parseHands(lastStep(ctrl.data).sfen.split(' ')[2] || '-');
       if (parsedHands.isErr) return;
 
       const nb = parsedHands.value[color][role];

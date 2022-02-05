@@ -7,11 +7,11 @@ import shogi.{
   Pos,
   Color,
   Situation,
-  Move => ShogiMove,
-  Drop => ShogiDrop,
   Clock => ShogiClock,
   Status
 }
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
 import JsonView._
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -36,142 +36,42 @@ object Event {
     def typ = "start"
   }
 
-  object MoveOrDrop {
-
-    def data(
-        fen: String,
-        check: Boolean,
-        state: State,
-        clock: Option[ClockEvent],
-        possibleMoves: Map[Pos, List[Pos]],
-        possibleDrops: Option[List[Pos]]
-    )(extra: JsObject) = {
-      extra ++ Json
-        .obj(
-          "fen"   -> fen,
-          "ply"   -> state.turns,
-          "dests" -> PossibleMoves.oldJson(possibleMoves)
-        )
-        .add("clock" -> clock.map(_.data))
-        .add("status" -> state.status)
-        .add("winner" -> state.winner)
-        .add("check" -> check)
-        .add("sDraw" -> state.senteOffersDraw)
-        .add("gDraw" -> state.goteOffersDraw)
-        .add("drops" -> possibleDrops.map { squares =>
-          JsString(squares.map(_.usiKey).mkString)
-        })
-    }
-  }
-
-  case class Move(
-      orig: Pos,
-      dest: Pos,
-      fen: String,
+  case class UsiEvent(
+      usi: Usi,
+      sfen: Sfen,
       check: Boolean,
-      promotion: Boolean,
       state: State,
-      clock: Option[ClockEvent],
-      possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]]
+      clock: Option[ClockEvent]
   ) extends Event {
-    def typ = "move"
-    def data = {
-      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
-        Json
-          .obj(
-            "usi" -> s"${orig.usiKey}${dest.usiKey}${if (promotion) "+" else ""}"
-          )
-          .add("promotion" -> promotion)
-      }
-    }
+    def typ = "usi"
+    def data = Json
+      .obj(
+        "usi"  -> usi.usi,
+        "sfen" -> sfen,
+        "ply"  -> state.plies
+      )
+      .add("clock" -> clock.map(_.data))
+      .add("status" -> state.status)
+      .add("winner" -> state.winner)
+      .add("check" -> check)
+
     override def moveBy = Some(!state.color)
   }
-  object Move {
+
+  object UsiEvent {
     def apply(
-        move: ShogiMove,
+        usi: Usi,
         situation: Situation,
         state: State,
         clock: Option[ClockEvent]
-    ): Move =
-      Move(
-        orig = move.orig,
-        dest = move.dest,
-        fen = shogi.format.Forsyth.exportSituation(situation),
-        check = situation.check,
-        promotion = move.promotion,
-        state = state,
-        clock = clock,
-        possibleMoves = situation.destinations,
-        possibleDrops = situation.drops
-      )
-  }
-
-  case class Drop(
-      role: shogi.Role,
-      pos: Pos,
-      fen: String,
-      check: Boolean,
-      state: State,
-      clock: Option[ClockEvent],
-      possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]]
-  ) extends Event {
-    def typ = "drop"
-    def data =
-      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
-        Json.obj(
-          // "role" -> role.name, ?
-          "usi" -> s"${role.forsythUpper}*${pos.usiKey}"
-        )
-      }
-    override def moveBy = Some(!state.color)
-  }
-  object Drop {
-    def apply(
-        drop: ShogiDrop,
-        situation: Situation,
-        state: State,
-        clock: Option[ClockEvent]
-    ): Drop =
-      Drop(
-        role = drop.piece.role,
-        pos = drop.pos,
-        fen = shogi.format.Forsyth.exportSituation(situation),
+    ): UsiEvent =
+      UsiEvent(
+        usi = usi,
+        sfen = situation.toSfen,
         check = situation.check,
         state = state,
-        clock = clock,
-        possibleMoves = situation.destinations,
-        possibleDrops = situation.drops
+        clock = clock
       )
-  }
-
-  object PossibleMoves {
-
-    def json(moves: Map[Pos, List[Pos]], apiVersion: ApiVersion) =
-      if (apiVersion gte 4) newJson(moves)
-      else oldJson(moves)
-
-    def newJson(moves: Map[Pos, List[Pos]]) =
-      if (moves.isEmpty) JsNull
-      else {
-        val sb    = new java.lang.StringBuilder(128)
-        var first = true
-        moves foreach { case (orig, dests) =>
-          if (first) first = false
-          else sb append " "
-          sb append orig.usiKey
-          dests foreach { sb append _.usiKey }
-        }
-        JsString(sb.toString)
-      }
-
-    def oldJson(moves: Map[Pos, List[Pos]]) =
-      if (moves.isEmpty) JsNull
-      else
-        moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
-          res + (o.usiKey -> JsString(d map (_.usiKey) mkString))
-        }
   }
 
   case class RedirectOwner(
@@ -324,34 +224,21 @@ object Event {
       CorrespondenceClock(clock.senteTime, clock.goteTime)
   }
 
-  case class CheckCount(sente: Int, gote: Int) extends Event {
-    def typ = "checkCount"
-    def data =
-      Json.obj(
-        "sente" -> sente,
-        "gote"  -> gote
-      )
-  }
-
   case class State(
       color: Color,
-      turns: Int,
+      plies: Int,
       status: Option[Status],
-      winner: Option[Color],
-      senteOffersDraw: Boolean,
-      goteOffersDraw: Boolean
+      winner: Option[Color]
   ) extends Event {
     def typ = "state"
     def data =
       Json
         .obj(
           "color" -> color,
-          "turns" -> turns
+          "plies" -> plies
         )
         .add("status" -> status)
         .add("winner" -> winner)
-        .add("sDraw" -> senteOffersDraw)
-        .add("gDraw" -> goteOffersDraw)
   }
 
   case class TakebackOffers(

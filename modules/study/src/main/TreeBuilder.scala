@@ -6,24 +6,15 @@ import lila.tree
 
 object TreeBuilder {
 
-  private val initialStandardDests = shogi.Game(shogi.variant.Standard).situation.destinations
-
-  def apply(root: Node.Root, variant: Variant): tree.Root = {
-    val dests =
-      if (variant.standard && root.fen.value == shogi.format.Forsyth.initial) initialStandardDests
-      else {
-        val sit = shogi.Game(variant.some, root.fen.value.some).situation
-        sit.playable(false) ?? sit.destinations
-      }
-    makeRoot(root, variant).copy(dests = dests.some)
-  }
+  def apply(root: Node.Root, variant: Variant): tree.Root =
+    makeRoot(root, variant)
 
   def toBranch(node: Node, variant: Variant): tree.Branch =
     tree.Branch(
       id = node.id,
       ply = node.ply,
       usi = node.usi,
-      fen = node.fen.value,
+      sfen = node.sfen,
       check = node.check,
       shapes = node.shapes,
       comments = node.comments,
@@ -32,14 +23,14 @@ object TreeBuilder {
       clock = node.clock,
       eval = node.score.map(_.eval),
       children = toBranches(node.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen),
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findBySfen(node.sfen),
       forceVariation = node.forceVariation
     )
 
   def makeRoot(root: Node.Root, variant: Variant): tree.Root =
     tree.Root(
       ply = root.ply,
-      fen = root.fen.value,
+      sfen = root.sfen,
       check = root.check,
       shapes = root.shapes,
       comments = root.comments,
@@ -48,7 +39,7 @@ object TreeBuilder {
       clock = root.clock,
       eval = root.score.map(_.eval),
       children = toBranches(root.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen)
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findBySfen(root.sfen)
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =

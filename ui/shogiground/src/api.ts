@@ -1,6 +1,6 @@
 import { State } from './state';
 import * as board from './board';
-import { write as fenWrite } from './fen';
+import { write as sfenWrite } from './sfen';
 import { Config, configure } from './config';
 import { anim, render } from './anim';
 import { cancel as dragCancel, dragNewPiece } from './drag';
@@ -15,8 +15,8 @@ export interface Api {
   // read shogiground state; write at your own risks.
   state: State;
 
-  // get the position as a FEN string (only contains pieces, no flags)
-  getFen(): cg.FEN;
+  // get the position as a Sfen string (only contains pieces, no flags)
+  getSfen(): cg.Sfen;
 
   // change the view angle
   toggleOrientation(): void;
@@ -81,12 +81,12 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
   return {
     set(config): void {
       if (config.orientation && config.orientation !== state.orientation) toggleOrientation();
-      (config.fen ? anim : render)(state => configure(state, config), state);
+      (config.sfen ? anim : render)(state => configure(state, config), state);
     },
 
     state,
 
-    getFen: () => fenWrite(state.pieces),
+    getSfen: () => sfenWrite(state.pieces),
 
     toggleOrientation,
 

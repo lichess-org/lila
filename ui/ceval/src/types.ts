@@ -22,8 +22,8 @@ export interface Work {
   multiPv: number;
   ply: number;
   threatMode: boolean;
-  initialFen: string;
-  currentFen: string;
+  initialSfen: string;
+  currentSfen: string;
   moves: string[];
   emit: (ev: Tree.ClientEval) => void;
 }
@@ -46,7 +46,7 @@ export interface CevalOpts {
 }
 
 export interface Hovering {
-  fen: string;
+  sfen: string;
   usi: string;
 }
 
@@ -67,7 +67,7 @@ export interface CevalCtrl {
   isComputing(): boolean;
   engineName(): string | undefined;
   variant: Variant;
-  setHovering: (fen: string, usi?: string) => void;
+  setHovering: (sfen: string, usi?: string) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
   stop(): void;
@@ -111,7 +111,7 @@ export interface NodeEvals {
 
 export interface Step {
   ply: number;
-  fen: string;
+  sfen: string;
   usi?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;

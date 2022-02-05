@@ -46,29 +46,35 @@ export function makeNotationLineWithPosition(
   return moveLine;
 }
 
-export function makeNotation(notation: Notation, fen: Fen, variant: VariantKey, usi: Usi, lastUsi?: Usi): MoveNotation {
-  const pos = createPosition(fen, variant);
+export function makeNotation(
+  notation: Notation,
+  sfen: Sfen,
+  variant: VariantKey,
+  usi: Usi,
+  lastUsi?: Usi
+): MoveNotation {
+  const pos = createPosition(sfen, variant);
   const lastMove = lastUsi ? parseUsi(lastUsi)! : undefined;
   return makeNotationWithPosition(notation, pos, parseUsi(usi)!, lastMove);
 }
 
 export function makeMoveNotationLine(
   notation: Notation,
-  fen: Fen,
+  sfen: Sfen,
   variant: VariantKey,
   usis: Usi[],
   lastUsi?: Usi
 ): MoveNotation[] {
   return makeNotationLineWithPosition(
     notation,
-    createPosition(fen, variant),
+    createPosition(sfen, variant),
     usis.map(u => parseUsi(u)!),
     lastUsi ? parseUsi(lastUsi) : undefined
   );
 }
 
-function createPosition(fen: Fen, variant: VariantKey): Position {
+function createPosition(sfen: Sfen, variant: VariantKey): Position {
   const rules = lishogiVariantRules(variant);
-  const setup = parseSfen(fen).unwrap();
+  const setup = parseSfen(sfen).unwrap();
   return setupPosition(rules, setup, false).unwrap();
 }

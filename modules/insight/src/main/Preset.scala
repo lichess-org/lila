@@ -59,20 +59,6 @@ object Preset {
       )
     ),
     Preset(
-      "What is the Win-Rate of my favourite openings as sente?",
-      Question(
-        D.Opening,
-        M.Result,
-        List(
-          Filter(
-            D.Perf,
-            List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-          ),
-          Filter(D.Color, List(shogi.Sente))
-        )
-      )
-    ),
-    Preset(
       "How often do I punish blunders made by my opponent during each game phase?",
       Question(D.Phase, M.Opportunism, Nil)
     ),

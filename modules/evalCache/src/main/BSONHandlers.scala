@@ -25,9 +25,9 @@ private object BSONHandlers {
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Usi writeListPiotr moves.value.toList
+    private def movesWrite(moves: Moves): String = Usi writeList moves.value.toList
     private def movesRead(str: String): Option[Moves] =
-      Usi readListPiotr str flatMap (_.toNel) map Moves.apply
+      Usi readList str flatMap (_.toNel) map Moves.apply
     private val scoreSeparator = '@'
     private val pvSeparator    = '?'
     private val pvSeparatorStr = pvSeparator.toString
@@ -61,12 +61,12 @@ private object BSONHandlers {
   implicit val EntryIdHandler = tryHandler[Id](
     { case BSONString(value) =>
       value split '@' match {
-        case Array(fen) => Success(Id(shogi.variant.Standard, SmallFen raw fen))
-        case Array(variantId, fen) =>
+        case Array(sfen) => Success(Id(shogi.variant.Standard, SmallSfen raw sfen))
+        case Array(variantId, sfen) =>
           Success(
             Id(
               variantId.toIntOption flatMap shogi.variant.Variant.apply err s"Invalid evalcache variant $variantId",
-              SmallFen raw fen
+              SmallSfen raw sfen
             )
           )
         case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id ${value}")
@@ -74,8 +74,8 @@ private object BSONHandlers {
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant == shogi.variant.FromPosition) x.smallFen.value
-        else s"${x.variant.id}:${x.smallFen.value}"
+        if (x.variant.standard || x.variant.fromPosition) x.smallSfen.value
+        else s"${x.variant.id}:${x.smallSfen.value}"
       }
   )
 

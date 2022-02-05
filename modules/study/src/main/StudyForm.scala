@@ -4,6 +4,8 @@ import play.api.data._
 import play.api.data.Forms._
 
 import lila.common.Form.cleanNonEmptyText
+import shogi.format.forsyth.Sfen
+
 
 object StudyForm {
 
@@ -27,7 +29,7 @@ object StudyForm {
       mapping(
         "gameId"      -> optional(nonEmptyText),
         "orientation" -> optional(nonEmptyText),
-        "fen"         -> optional(nonEmptyText),
+        "sfen"        -> optional(lila.common.Form.sfen.playable(strict = false)),
         "notation"    -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
@@ -37,7 +39,7 @@ object StudyForm {
     case class Data(
         gameId: Option[String] = None,
         orientationStr: Option[String] = None,
-        fenStr: Option[String] = None,
+        sfen: Option[Sfen] = None,
         notationStr: Option[String] = None,
         variantStr: Option[String] = None,
         asStr: Option[String] = None
@@ -56,7 +58,7 @@ object StudyForm {
           name = Chapter.Name(""),
           game = gameId,
           variant = variantStr,
-          fen = fenStr,
+          sfen = sfen,
           notation = notationStr,
           orientation = orientation.name,
           mode = ChapterMaker.Mode.Normal.key,

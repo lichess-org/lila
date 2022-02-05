@@ -64,25 +64,25 @@ $c-slider: $c-setup;
       flex-grow: 1;
     }
   }
-  .fen_position {
+  .sfen_position {
     display: none;
     .board_editor {
       display: block;
       width: 50%;
       margin: 0.5em auto;
     }
-    .fen_form {
+    .sfen_form {
       margin-top: 0.5em;
       @extend %flex-center-nowrap;
     }
-    .fen_form input {
+    .sfen_form input {
       flex: 1 1 100%;
     }
   }
-  input#fen.success {
+  input#sfen.success {
     border-color: $c-good;
   }
-  input#fen.failure {
+  input#sfen.failure {
     border-color: $c-bad;
   }
   .ui-slider {

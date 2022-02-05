@@ -236,8 +236,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   );
 }
 
-function getElFen(el: HTMLElement): string {
-  return el.getAttribute('data-fen')!;
+function getElSfen(el: HTMLElement): string {
+  return el.getAttribute('data-sfen')!;
 }
 
 function getElUsi(e: MouseEvent): string | undefined {
@@ -248,7 +248,7 @@ function getElUsi(e: MouseEvent): string | undefined {
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   window.lishogi.requestIdleCallback(() => {
-    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-usi'));
+    instance.setHovering(getElSfen(el), $(el).find('div.pv:hover').attr('data-usi'));
   });
 }
 
@@ -257,7 +257,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
-    setup = parseSfen(node.fen).unwrap();
+    setup = parseSfen(node.sfen).unwrap();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {
@@ -275,15 +275,15 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   return h(
     'div.pv_box',
     {
-      attrs: { 'data-fen': node.fen },
+      attrs: { 'data-sfen': node.sfen },
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
-            instance.setHovering(getElFen(el), getElUsi(e));
+            instance.setHovering(getElSfen(el), getElUsi(e));
           });
           el.addEventListener('mouseout', () => {
-            instance.setHovering(getElFen(el));
+            instance.setHovering(getElSfen(el));
           });
           el.addEventListener('mousedown', (e: MouseEvent) => {
             const usi = getElUsi(e);

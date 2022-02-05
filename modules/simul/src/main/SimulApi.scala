@@ -231,7 +231,7 @@ final class SimulApi(
                   if (simul.position.isEmpty) pairing.player.variant
                   else shogi.variant.FromPosition
                 },
-                fen = simul.position.map(_.value)
+                sfen = simul.position
               )
               .copy(clock = clock.start.some),
             sentePlayer = lila.game.Player.make(shogi.Sente, senteUser.some, perfPicker),

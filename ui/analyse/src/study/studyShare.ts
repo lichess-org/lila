@@ -156,7 +156,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
-            value: ctrl.currentNode().fen,
+            value: ctrl.currentNode().sfen,
           },
         }),
       ]),

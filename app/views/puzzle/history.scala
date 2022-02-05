@@ -44,7 +44,7 @@ object history {
 
   private def renderRound(r: SessionRound)(implicit ctx: Context) =
     a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
-      views.html.game.bits.miniTag(r.puzzle.fenAfterInitialMove, r.puzzle.color, r.puzzle.lastMove)(
+      views.html.game.bits.miniTag(r.puzzle.sfenAfterInitialMove, r.puzzle.color, r.puzzle.lastMove)(
         span(cls := "puzzle-history__round__puzzle")
       ),
       span(cls := "puzzle-history__round__meta")(

@@ -76,24 +76,22 @@ object show {
                 case Some("sente") => trans.black.txt() + "/" + trans.shitate.txt()
                 case _             => trans.randomColor()
               }),
-              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
+              sim.position.flatMap(lila.tournament.Thematic.bySfen) map { pos =>
                 frag(
                   br,
                   a(target := "_blank", rel := "noopener", href := pos.url)(
-                    strong(pos.eco),
+                    strong(pos.japanese),
                     " ",
-                    pos.name
+                    pos.english
                   ),
                   " • ",
-                  a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
-                    trans.analysis()
-                  )
+                  views.html.base.bits.sfenAnalysisLink(pos.sfen)
                 )
-              } orElse sim.position.map { fen =>
+              } orElse sim.position.map { sfen =>
                 frag(
                   br,
                   "Custom position • ",
-                  a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+                  views.html.base.bits.sfenAnalysisLink(sfen)
                 )
               }
             ),

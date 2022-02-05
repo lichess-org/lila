@@ -37,18 +37,8 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   })
 );
 
-function renderMove(moveNotation: MoveNotation, moveNumber: number, activeMoveNumber: number) {
-  return h(
-    moveTag,
-    {
-      class: { active: moveNumber === activeMoveNumber },
-    },
-    moveNotation
-  );
-}
-
 function plyOffset(ctrl: RoundController): number {
-  return (ctrl.data.game.startedAtTurn || 0) - ((ctrl.data.game.startedAtMove || 1) - 1);
+  return (ctrl.data.game.startedAtPly || 0) - ((ctrl.data.game.startedAtMove || 1) - 1);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -90,18 +80,26 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const usis = steps.slice(1).map(s => s.usi);
   const movesNotation: MoveNotation[] = makeMoveNotationLine(
     ctrl.data.pref.pieceNotation,
-    ctrl.data.game.initialFen || INITIAL_SFEN,
+    ctrl.data.game.initialSfen || INITIAL_SFEN, // todo initial sfen of variant
     ctrl.data.game.variant.key,
     usis
   );
 
-  const els: MaybeVNodes = [],
-    curMove = ctrl.ply - (ctrl.data.game.startedAtTurn || 0) + (ctrl.data.game.startedAtMove ?? 1);
+  const els: MaybeVNodes = [];
+  const curMove = ctrl.ply - (ctrl.data.game.startedAtPly || 0) + (ctrl.data.game.startedAtMove ?? 1) - 1;
 
   movesNotation.forEach((m, i) => {
     const moveNumber = i + (ctrl.data.game.startedAtMove || 1);
     els.push(h('index', moveNumber));
-    els.push(renderMove(m, moveNumber, curMove));
+    els.push(
+      h(
+        moveTag,
+        {
+          class: { active: moveNumber === curMove },
+        },
+        m
+      )
+    );
   });
   els.push(renderResult(ctrl));
 
@@ -185,7 +183,7 @@ function renderButtons(ctrl: RoundController) {
 }
 
 function initMessage(d: RoundData, trans: TransNoArg) {
-  return game.playable(d) && d.game.turns === 0 && !d.player.spectator
+  return game.playable(d) && d.game.plies === 0 && !d.player.spectator
     ? h('div.message', util.justIcon(''), [
         h('div', [
           trans(d.player.color === 'sente' ? 'youPlayTheBlackPieces' : 'youPlayTheWhitePieces'),

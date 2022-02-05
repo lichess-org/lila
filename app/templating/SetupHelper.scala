@@ -147,7 +147,7 @@ trait SetupHelper { self: I18nHelper =>
       shogi.variant.Minishogi
     ).map(variantTuple(encode))
 
-  def translatedVariantChoicesWithFen(implicit lang: Lang) =
+  def translatedVariantChoicesWithSfen(implicit lang: Lang) =
     translatedVariantChoices
 
   def translatedAiVariantChoices(implicit lang: Lang) =
@@ -155,7 +155,7 @@ trait SetupHelper { self: I18nHelper =>
       variantTupleId(shogi.variant.Minishogi) :+
       variantTupleId(shogi.variant.FromPosition)
 
-  def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =
+  def translatedVariantChoicesWithVariantsAndSfen(implicit lang: Lang) =
     translatedVariantChoicesWithVariants :+
       variantTupleId(shogi.variant.FromPosition)
 

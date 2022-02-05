@@ -52,7 +52,7 @@ export default function (ctrl: Controller): VNode {
       h('a', {
         attrs: {
           'data-icon': '',
-          href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
+          href: `/analysis/${ctrl.vm.node.sfen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
           title: ctrl.trans.noarg('playWithTheMachine'),
         },
       }),

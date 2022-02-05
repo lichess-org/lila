@@ -12,19 +12,19 @@ private object bits {
 
   val prefix = "sf_"
 
-  def fenInput(form: Form[_], strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
+  def sfenInput(form: Form[_], strict: Boolean, validSfen: Option[lila.setup.ValidSfen])(implicit
       ctx: Context
   ) = {
     val handicapChoices: List[SelectChoice] =
       List(
         ("", trans.selectHandicap.txt(), None),
-        (shogi.StartingPosition.initial.fen, "平手 - Even", Some("default"))
+        (shogi.StartingPosition.initial.sfen.value, "平手 - Even", Some("default"))
       ) ++
         shogi.StartingPosition.categories(0).positions.map { v =>
-          (v.fen, v.fullName, None)
+          (v.sfen.value, v.fullName, None)
         }
-    val url = form("fen").value.fold(routes.Editor.index)(routes.Editor.load).url
-    div(cls := "fen_position optional_config")(
+    val url = form("sfen").value.fold(routes.Editor.index)(routes.Editor.load).url
+    div(cls := "sfen_position optional_config")(
       frag(
         div(cls := "handicap label_select")(
           renderLabel(form("handicap"), trans.handicap.txt()),
@@ -38,19 +38,19 @@ private object bits {
           )
         ),
         div(
-          cls := "fen_form",
-          dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
+          cls := "sfen_form",
+          dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
         )(
-          form3.input(form("fen"))(st.placeholder := trans.pasteTheFenStringHere.txt()),
+          form3.input(form("sfen"))(st.placeholder := trans.pasteTheSfenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
         ),
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(
-            validFen.map { vf =>
+            validSfen.map { vf =>
               div(
-                cls := "mini-board cg-wrap parse-fen",
+                cls := "mini-board cg-wrap parse-sfen",
                 dataColor := vf.color.name,
-                dataFen := vf.fen.value,
+                dataSfen := vf.sfen.value,
                 dataResizable := "1"
               )(cgWrapContent)
             }

@@ -54,7 +54,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
   }
 
   for (const m of mainline.reverse()) {
-    const newPos = makePosition(m.fen, pos.rules);
+    const newPos = makePosition(m.sfen, pos.rules);
     if (newPos.isOk) {
       for (const m2 of m.children.slice(1)) {
         res.push('\n変化：' + m2.ply + '手');
@@ -68,7 +68,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
 
 export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
-  const setup = parseSfen(g.initialFen ?? INITIAL_SFEN).unwrap();
+  const setup = parseSfen(g.initialSfen ?? INITIAL_SFEN).unwrap();
   const offset = ctrl.plyOffset();
 
   const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
@@ -76,7 +76,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
 
   const tags = ctrl.data.tags ?? [];
   // We either don't want to display these or we display them through other means
-  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割', '図', 'FEN', 'Result', 'Variant'];
+  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割', '図', 'SFEN', 'Result', 'Variant'];
   const otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => t[0] + '：' + t[1]);
 
   // We want these even empty
@@ -148,7 +148,7 @@ function processCsaTags(tags: string[][]): string[] {
   // CSA shouldn't contain non-ascii characters (except for comments)
   // allow non-ascii characters in values, but not in keys
   const asciiTags = tags
-    .filter(t => /^[\x20-\x7F]+$/.test(t[0]) && !['FEN', 'Result'].includes(t[0]))
+    .filter(t => /^[\x20-\x7F]+$/.test(t[0]) && !['SFEN', 'Result'].includes(t[0]))
     .map(t => `$${t[0]}:${t[1]}`);
   return tags
     .map(t => kifTagToCsaTag(t))
@@ -157,14 +157,14 @@ function processCsaTags(tags: string[][]): string[] {
     .concat(asciiTags);
 }
 
-function makePosition(initialFen: Fen, rules: Rules): Result<Position, PositionError> {
-  return parseSfen(initialFen).chain(s => setupPosition(rules, s));
+function makePosition(initialSfen: Sfen, rules: Rules): Result<Position, PositionError> {
+  return parseSfen(initialSfen).chain(s => setupPosition(rules, s));
 }
 
 export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const tags = processCsaTags(ctrl.data.tags ?? []);
-  const setup = parseSfen(g.initialFen ?? INITIAL_SFEN).unwrap();
+  const setup = parseSfen(g.initialSfen ?? INITIAL_SFEN).unwrap();
   const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
   const moves = makeCsaMainline(ctrl.tree.root, pos).join('\n');
   return [...tags, makeCsaHeader(setup), moves].join('\n');
@@ -172,12 +172,12 @@ export function renderFullCsa(ctrl: AnalyseCtrl): string {
 
 export function renderNodesHtml(nodes: ForecastStep[], notation: number, variant: VariantKey): MaybeVNodes {
   if (!nodes[0]) return [];
-  const initialFen = nodes[0].fen;
+  const initialSfen = nodes[0].sfen;
   if (!nodes[0].usi) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
   const usis = nodes.map(n => n.usi);
-  const movesNotation = makeMoveNotationLine(notation, initialFen, variant, usis);
+  const movesNotation = makeMoveNotationLine(notation, initialSfen, variant, usis);
   movesNotation.forEach((notation, index) => {
     tags.push(h('index', index + 1 + '.'));
     tags.push(h('move-notation', notation));

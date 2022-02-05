@@ -226,7 +226,7 @@ package fishnet {
   case class StudyChapterRequest(
       studyId: String,
       chapterId: String,
-      initialFen: Option[shogi.format.FEN],
+      initialSfen: Option[shogi.format.forsyth.Sfen],
       variant: shogi.variant.Variant,
       moves: List[Usi],
       userId: String
@@ -240,8 +240,8 @@ package user {
 package round {
   case class MoveEvent(
       gameId: String,
-      fen: String,
-      move: String
+      sfen: String,
+      usi: String
   )
   case class CorresMoveEvent(
       move: MoveEvent,

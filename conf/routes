@@ -350,7 +350,7 @@ GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
-GET   /setup/validate-fen              controllers.Setup.validateFen
+GET   /setup/validate-sfen              controllers.Setup.validateSfen
 
 # Challenge
 GET   /challenge                       controllers.Challenge.all
@@ -525,7 +525,7 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: Strin
 
 # Edit
 GET   /editor.json                     controllers.Editor.data
-GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
+GET   /editor/*urlSfen                 controllers.Editor.load(urlSfen: String)
 GET   /editor                          controllers.Editor.index
 
 # Report

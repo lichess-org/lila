@@ -29,7 +29,7 @@ export interface StudyChapterNewFormCtrl {
     initial: Prop<boolean>;
     tab: StoredProp<string>;
     editor: any;
-    editorFen: Prop<Fen | null>;
+    editorSfen: Prop<Sfen | null>;
   };
   open(): void;
   openInitial(): void;
@@ -53,7 +53,7 @@ export function ctrl(
     initial: prop(false),
     tab: storedProp('study.form.tab', 'init'),
     editor: null,
-    editorFen: prop(null),
+    editorSfen: prop(null),
   };
 
   function loadVariants() {
@@ -152,7 +152,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         {
           hook: bindSubmit(e => {
             const o: any = {
-              fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
+              sfen: fieldValue(e, 'sfen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorSfen() : null),
               isDefaultName: isDefaultName,
             };
             'name game variant notation orientation mode'.split(' ').forEach(field => {
@@ -191,7 +191,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
-            makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace('FEN', 'SFEN')),
+            makeTab('sfen', 'SFEN', noarg('loadAPositionFromSfen')),
             makeTab('notation', 'KIF/CSA', noarg('loadAGameFromKifCsa')),
           ]),
           activeTab === 'edit'
@@ -205,16 +205,16 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           'compiled/lishogi.editor' + ($('body').data('dev') ? '' : '.min') + '.js'
                         ),
                         $.get('/editor.json', {
-                          fen: ctrl.root.node.fen,
+                          sfen: ctrl.root.node.sfen,
                         })
                       ).then(function (_, b) {
                         const data = b[0];
                         data.embed = true;
                         data.options = {
-                          onChange: ctrl.vm.editorFen,
+                          onChange: ctrl.vm.editorSfen,
                         };
                         ctrl.vm.editor = window['LishogiEditor'](vnode.elm as HTMLElement, data);
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        ctrl.vm.editorSfen(ctrl.vm.editor.getSfen());
                       });
                     },
                     destroy: _ => {
@@ -239,12 +239,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 }),
               ])
             : null,
-          activeTab === 'fen'
+          activeTab === 'sfen'
             ? h('div.form-group', [
-                h('input#chapter-fen.form-control', {
+                h('input#chapter-sfen.form-control', {
                   attrs: {
-                    value: ctrl.root.node.fen,
-                    placeholder: noarg('loadAPositionFromFen'),
+                    value: ctrl.root.node.sfen,
+                    placeholder: noarg('loadAPositionFromSfen'),
                   },
                 }),
               ])

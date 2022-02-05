@@ -29,7 +29,7 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: shogi.Color, u: lila.user.User)(implicit
+  def apply(init: Game.WithInitialSfen, as: shogi.Color, u: lila.user.User)(implicit
       lang: Lang
   ): Source[Option[JsObject], _] = {
 
@@ -50,7 +50,7 @@ final class GameStateStream(
   private def uniqChan(pov: Pov) = s"gameStreamFor:${pov.fullId}"
 
   private def mkActor(
-      init: Game.WithInitialFen,
+      init: Game.WithInitialSfen,
       as: shogi.Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
@@ -115,7 +115,7 @@ final class GameStateStream(
       }
 
       def pushState(g: Game): Funit =
-        queue offer jsonView.gameState(Game.WithInitialFen(g, init.fen)).some void
+        queue offer jsonView.gameState(Game.WithInitialSfen(g, init.sfen)).some void
 
       def pushChatLine(username: String, text: String, player: Boolean): Funit =
         queue offer jsonView.chatLine(username, text, player).some void

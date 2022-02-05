@@ -1,7 +1,7 @@
 package lila.simul
 
 import cats.implicits._
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.StartingPosition
 
 import org.joda.time.DateTime
@@ -118,7 +118,7 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "position"         -> optional(lila.common.Form.sfen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
@@ -127,11 +127,11 @@ object SimulForm {
         .verifying("Custom position allowed only with standard variant", _.canHaveCustomPosition)
     )
 
-  val positions = StartingPosition.allWithInitial.map(_.fen)
+  val positions = StartingPosition.allWithInitial.map(_.sfen)
   val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
+    p.sfen -> p.fullName
   }
-  val positionDefault = StartingPosition.initial.fen
+  val positionDefault = StartingPosition.initial.sfen
 
   def setText = Form(single("text" -> text))
 
@@ -143,7 +143,7 @@ object SimulForm {
       periods: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[FEN],
+      position: Option[Sfen],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
@@ -159,6 +159,6 @@ object SimulForm {
 
     def actualVariants = variants.flatMap { shogi.variant.Variant(_) }
 
-    def realPosition = position.filterNot(Forsyth.initial === _.value)
+    def realPosition = position.filterNot(_.initialOf(shogi.variant.Standard))
   }
 }

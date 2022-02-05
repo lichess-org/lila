@@ -137,7 +137,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('notation', ''),
       hiddenInput('orientation', ctrl.shogiground.state.orientation),
       hiddenInput('variant', ctrl.data.game.variant.key),
-      hiddenInput('fen', ctrl.tree.root.fen),
+      hiddenInput('sfen', ctrl.tree.root.sfen),
       h(
         'button.button.button-empty',
         {
@@ -182,8 +182,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
             {
               attrs: {
                 href: d.userAnalysis
-                  ? '/editor?fen=' + ctrl.encodeNodeFen()
-                  : '/' + d.game.id + '/edit?fen=' + ctrl.encodeNodeFen(),
+                  ? '/editor?sfen=' + ctrl.encodeNodeSfen()
+                  : '/' + d.game.id + '/edit?sfen=' + ctrl.encodeNodeSfen(),
                 rel: 'nofollow',
                 target: ctrl.embed ? '_blank' : '',
                 'data-icon': 'm',
@@ -350,8 +350,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 {
                   attrs: {
                     href: d.userAnalysis
-                      ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                      : contRoute(d, 'ai') + '?fen=' + ctrl.encodeNodeFen(),
+                      ? '/?sfen=' + ctrl.encodeNodeSfen() + '#ai'
+                      : contRoute(d, 'ai') + '?sfen=' + ctrl.encodeNodeSfen(),
                     rel: 'nofollow',
                   },
                 },
@@ -362,8 +362,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 {
                   attrs: {
                     href: d.userAnalysis
-                      ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                      : contRoute(d, 'friend') + '?fen=' + ctrl.encodeNodeFen(),
+                      ? '/?sfen=' + ctrl.encodeNodeSfen() + '#friend'
+                      : contRoute(d, 'friend') + '?sfen=' + ctrl.encodeNodeSfen(),
                     rel: 'nofollow',
                   },
                 },

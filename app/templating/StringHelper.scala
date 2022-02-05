@@ -39,7 +39,7 @@ trait StringHelper { self: NumberHelper =>
     }
   }
 
-  def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
+  def encodeSfen(sfen: String) = lila.common.String.base64.encode(sfen).reverse
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"

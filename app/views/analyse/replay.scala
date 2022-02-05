@@ -28,7 +28,7 @@ object replay {
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[shogi.format.FEN],
+      initialSfen: Option[shogi.format.forsyth.Sfen],
       kif: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -153,7 +153,7 @@ object replay {
             views.html.game
               .side(
                 pov,
-                initialFen,
+                initialSfen,
                 none,
                 simul = simul,
                 userTv = userTv,
@@ -180,15 +180,15 @@ object replay {
                     )
                 ),
                 div(cls := "move-times")(
-                  (game.turns > 1 && !game.isNotationImport) option div(id := "movetimes-chart")
+                  (game.plies > 1 && !game.isNotationImport) option div(id := "movetimes-chart")
                 ),
-                div(cls := "fen-notation")(
+                div(cls := "sfen-notation")(
                   div(
                     strong("SFEN"),
                     input(
                       readonly,
                       spellcheck := false,
-                      cls := "copyable autoselect analyse__underboard__fen"
+                      cls := "copyable autoselect analyse__underboard__sfen"
                     )
                   ),
                   div(cls := "notation-options")(
@@ -223,12 +223,12 @@ object replay {
                     }
                   )(trans.computerAnalysis()),
                 !game.isNotationImport option frag(
-                  (game.turns > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(
+                  (game.plies > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(
                     trans.moveTimes()
                   ),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
                 ),
-                span(dataPanel := "fen-notation")(trans.export())
+                span(dataPanel := "sfen-notation")(trans.export())
               )
             )
           )

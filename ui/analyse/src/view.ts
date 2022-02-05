@@ -113,19 +113,19 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.copyables', [
     h('div.pair', [
       h('label.name', 'SFEN'),
-      h('input.copyable.autoselect.analyse__underboard__fen', {
+      h('input.copyable.autoselect.analyse__underboard__sfen', {
         attrs: { spellCheck: false },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;
-            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.value = defined(ctrl.sfenInput) ? ctrl.sfenInput : ctrl.node.sfen;
             el.addEventListener('change', _ => {
-              if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
+              if (el.value !== ctrl.node.sfen && el.reportValidity()) ctrl.changeSfen(el.value.trim());
             });
             el.addEventListener('input', _ => {
-              ctrl.fenInput = el.value;
+              ctrl.sfenInput = el.value;
               el.addEventListener('input', _ => {
-                ctrl.fenInput = el.value;
+                ctrl.sfenInput = el.value;
                 const setup = parseSfen(el.value.trim());
                 el.setCustomValidity(
                   setup.isOk &&
@@ -138,11 +138,11 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
-            if (!defined(ctrl.fenInput)) {
-              el.value = ctrl.node.fen;
+            if (!defined(ctrl.sfenInput)) {
+              el.value = ctrl.node.sfen;
               el.setCustomValidity('');
-            } else if (el.value != ctrl.fenInput) {
-              el.value = ctrl.fenInput;
+            } else if (el.value != ctrl.sfenInput) {
+              el.value = ctrl.sfenInput;
             }
           },
         },

@@ -1,7 +1,7 @@
 package lila.setup
 
 import shogi.Mode
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.game.PerfPicker
@@ -16,11 +16,11 @@ case class FriendConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    fen: Option[FEN] = None
+    sfen: Option[Sfen] = None
 ) extends HumanConfig
     with Positional {
 
-  val strictFen = false
+  val strictSfen = false
 
   def >> = (
     variant.id,
@@ -32,7 +32,7 @@ case class FriendConfig(
     days,
     mode.id.some,
     color.name,
-    fen.map(_.value)
+    sfen.map(_.value)
   ).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
@@ -52,7 +52,7 @@ object FriendConfig extends BaseHumanConfig {
       d: Int,
       m: Option[Int],
       c: String,
-      fen: Option[String]
+      sfen: Option[String]
   ) =
     new FriendConfig(
       variant = shogi.variant.Variant(v) err "Invalid game variant " + v,
@@ -64,7 +64,7 @@ object FriendConfig extends BaseHumanConfig {
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
-      fen = fen map FEN
+      sfen = sfen map Sfen.apply
     )
 
   val default = FriendConfig(
@@ -95,7 +95,7 @@ object FriendConfig extends BaseHumanConfig {
         days = r int "d",
         mode = Mode orDefault (r int "m"),
         color = Color.Sente,
-        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+        sfen = r.getO[Sfen]("f") filter (_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =
@@ -108,7 +108,7 @@ object FriendConfig extends BaseHumanConfig {
         "p"  -> o.periods,
         "d"  -> o.days,
         "m"  -> o.mode.id,
-        "f"  -> o.fen
+        "f"  -> o.sfen
       )
   }
 }

@@ -43,15 +43,15 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
   return found;
 }
 
-function fourfoldFen(fen: Fen) {
-  return fen.split(' ').slice(0, 3).join(' ');
+function fourfoldSfen(sfen: Sfen) {
+  return sfen.split(' ').slice(0, 3).join(' ');
 }
 
 export function detectFourfold(nodeList: Tree.Node[], node: Tree.Node): void {
   if (defined(node.fourfold)) return;
-  const currentFen = fourfoldFen(node.fen);
+  const currentSfen = fourfoldSfen(node.sfen);
   let nbSimilarPositions = 0,
     i;
-  for (i in nodeList) if (fourfoldFen(nodeList[i].fen) === currentFen) nbSimilarPositions++;
+  for (i in nodeList) if (fourfoldSfen(nodeList[i].sfen) === currentSfen) nbSimilarPositions++;
   node.fourfold = nbSimilarPositions > 3;
 }

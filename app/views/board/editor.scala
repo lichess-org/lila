@@ -1,5 +1,7 @@
 package views.html.board
 
+import shogi.format.forsyth.Sfen
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,7 +13,7 @@ object editor {
 
   def apply(
       sit: shogi.Situation,
-      fen: String,
+      sfen: Sfen,
       positionsJson: String,
       animationDuration: scala.concurrent.duration.Duration
   )(implicit ctx: Context) =
@@ -20,7 +22,7 @@ object editor {
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafe(
-          s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
+          s"""var data=${safeJsonValue(bits.jsData(sit, sfen, animationDuration))};data.positions=$positionsJson;
 LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),

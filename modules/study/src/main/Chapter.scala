@@ -6,6 +6,7 @@ import shogi.{ Centis, Color }
 import org.joda.time.DateTime
 
 import shogi.opening.FullOpening
+import shogi.opening.FullOpeningDB
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
@@ -60,10 +61,9 @@ case class Chapter(
   def forceVariation(force: Boolean, path: Path): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[FullOpening] = None
-  // no openings in lishogi right now
-  //if (!Variant.openingSensibleVariants(setup.variant)) none
-  //else FullOpeningDB searchInFens root.mainline.map(_.fen)
+  def opening: Option[FullOpening] = 
+    if (!Variant.openingSensibleVariants(setup.variant)) none
+    else FullOpeningDB searchInSfens root.mainline.map(_.sfen)
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
@@ -115,10 +115,10 @@ object Chapter {
       gameId: Option[lila.game.Game.ID],
       variant: Variant,
       orientation: Color,
-      fromFen: Option[Boolean] = None,
+      fromSfen: Option[Boolean] = None,
       fromNotation: Option[Boolean] = None
   ) {
-    def isFromFen      = ~fromFen
+    def isFromSfen     = ~fromSfen
     def isFromNotation = ~fromNotation
 
   }

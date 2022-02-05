@@ -13,15 +13,15 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) map gameFull
+  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialSfen(game) map gameFull
 
-  def gameFull(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject =
+  def gameFull(wf: Game.WithInitialSfen)(implicit lang: Lang): JsObject =
     gameImmutable(wf) ++ Json.obj(
       "type"  -> "gameFull",
       "state" -> gameState(wf)
     )
 
-  def gameImmutable(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject = {
+  def gameImmutable(wf: Game.WithInitialSfen)(implicit lang: Lang): JsObject = {
     import wf._
     Json
       .obj(
@@ -38,12 +38,12 @@ final class BotJsonView(
         "white"      -> playerJson(game.sentePov), // backwards support
         "gote"       -> playerJson(game.gotePov),
         "black"      -> playerJson(game.gotePov), // backwards support
-        "initialFen" -> fen.fold("startpos")(_.value)
+        "initialSfen" -> sfen.fold("startpos")(_.value)
       )
       .add("tournamentId" -> game.tournamentId)
   }
 
-  def gameState(wf: Game.WithInitialFen): JsObject = {
+  def gameState(wf: Game.WithInitialSfen): JsObject = {
     import wf._
     Json
       .obj(

@@ -1,7 +1,7 @@
 package lila.tournament
 
 import cats.implicits._
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.{ Mode, StartingPosition }
 import org.joda.time.DateTime
 import play.api.data._
@@ -109,7 +109,7 @@ final class DataForm {
       "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
       "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"         -> optional(lila.common.Form.fen.playableStrict),
+      "position"         -> optional(lila.common.Form.sfen.playableStrict),
       "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
       "rated"            -> optional(boolean),
       "password"         -> optional(nonEmptyText),
@@ -160,11 +160,11 @@ object DataForm {
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 5
 
-  val positions = StartingPosition.allWithInitial.map(_.fen)
+  val positions = StartingPosition.allWithInitial.map(_.sfen)
   val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
+    p.sfen -> p.fullName
   }
-  val positionDefault = StartingPosition.initial.fen
+  val positionDefault = StartingPosition.initial.sfen
 
   val validVariants =
     List(Standard, Minishogi)
@@ -185,7 +185,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[FEN],
+    position: Option[Sfen],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],

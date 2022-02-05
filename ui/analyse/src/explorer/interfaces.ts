@@ -2,7 +2,7 @@ import { Prop } from 'common';
 import { StoredProp, StoredJsonProp } from 'common/storage';
 
 export interface Hovering {
-  fen: Fen;
+  sfen: Sfen;
   usi: Usi;
 }
 
@@ -38,7 +38,7 @@ export interface ExplorerConfigCtrl {
 }
 
 export interface ExplorerData {
-  fen: Fen;
+  sfen: Sfen;
   moves: MoveStats[];
   isOpening?: true;
   tablebase?: true;
@@ -52,8 +52,8 @@ export interface OpeningData extends ExplorerData {
 }
 
 export interface Opening {
-  eco: string;
-  name: string;
+  japanese: string;
+  english: string;
 }
 
 export interface OpeningGame {
@@ -111,7 +111,7 @@ export function isTablebase(m: ExplorerData): m is TablebaseData {
 }
 
 export interface SimpleTablebaseHit {
-  fen: Fen;
+  sfen: Sfen;
   best?: Usi; // no move if checkmate/stalemate
   winner: Color | undefined;
 }
@@ -130,7 +130,7 @@ export interface ExplorerCtrl {
   setNode();
   toggle();
   disable();
-  setHovering(fen: Fen, usi: Usi | null);
-  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>;
-  fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit>;
+  setHovering(sfen: Sfen, usi: Usi | null);
+  fetchMasterOpening(sfen: Sfen): JQueryPromise<OpeningData>;
+  fetchTablebaseHit(sfen: Sfen): JQueryPromise<SimpleTablebaseHit>;
 }

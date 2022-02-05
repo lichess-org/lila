@@ -68,8 +68,8 @@ window.lishogi.keyboardMove = function (opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function (fen: string, dests: Dests | undefined, yourMove: boolean) {
-    sans = dests && dests.size > 0 ? sanWriter(fen, destsToUsis(dests)) : null;
+  return function (sfen: string, dests: Dests | undefined, yourMove: boolean) {
+    sans = dests && dests.size > 0 ? sanWriter(sfen, destsToUsis(dests)) : null;
     submit(opts.input.value, {
       server: true,
       yourMove: yourMove,

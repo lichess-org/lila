@@ -77,8 +77,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
-    move: ctrl.apiMove,
-    drop: ctrl.apiMove,
+    usi: ctrl.apiMove,
     reload,
     redirect: ctrl.setRedirecting,
     clockInc(o) {
@@ -123,11 +122,6 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     gone: ctrl.setGone,
     goneIn: ctrl.setGone,
-    checkCount(e) {
-      ctrl.data.player.checks = ctrl.data.player.color == 'sente' ? e.sente : e.gote;
-      ctrl.data.opponent.checks = ctrl.data.opponent.color == 'sente' ? e.sente : e.gote;
-      ctrl.redraw();
-    },
     simulPlayerMove(gameId: string) {
       if (
         ctrl.opts.userId &&

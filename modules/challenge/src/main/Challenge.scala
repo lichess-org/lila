@@ -1,6 +1,6 @@
 package lila.challenge
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.variant.{ FromPosition, Minishogi, Variant }
 import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
@@ -13,7 +13,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[FEN],
+    initialSfen: Option[Sfen],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -84,9 +84,9 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[FEN] =
+  def notableInitialSfen: Option[Sfen] =
     variant match {
-      case FromPosition | Minishogi => initialFen
+      case FromPosition | Minishogi => initialSfen
       case _                        => none
     }
 
@@ -180,7 +180,7 @@ object Challenge {
 
   def make(
       variant: Variant,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       timeControl: TimeControl,
       mode: Mode,
       color: String,
@@ -202,9 +202,9 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen =
-        if (variant == FromPosition) initialFen
-        else !variant.standardInitialPosition option FEN(variant.initialFen),
+      initialSfen =
+        if (variant == FromPosition) initialSfen
+        else !variant.standard option variant.initialSfen,
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

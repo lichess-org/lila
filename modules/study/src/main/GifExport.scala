@@ -46,7 +46,7 @@ final class GifExport(
           tail,
           arr :+ Json
             .obj(
-              "sfen" -> node.fen.value
+              "sfen" -> node.sfen.value
             )
             .add("check", node.check option true)
             .add("lastMove", node.usiOption.map(_.usi))

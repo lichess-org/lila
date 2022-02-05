@@ -9,7 +9,7 @@ object replayBot {
 
   def apply(
       pov: Pov,
-      initialFen: Option[shogi.format.FEN],
+      initialSfen: Option[shogi.format.forsyth.Sfen],
       kif: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
@@ -22,17 +22,17 @@ object replayBot {
     ) {
       main(cls := "analyse")(
         st.aside(cls := "analyse__side")(
-          views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false)
+          views.html.game.side(pov, initialSfen, none, simul = simul, bookmarked = false)
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard),
         div(cls := "analyse__tools")(div(cls := "ceval")),
         div(cls := "analyse__controls"),
         div(cls := "analyse__underboard")(
           div(cls := "analyse__underboard__panels")(
-            div(cls := "fen-notation active")(
+            div(cls := "sfen-notation active")(
               div(
                 strong("SFEN"),
-                input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+                input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__sfen")
               ),
               div(cls := "kif")(kif)
             ),

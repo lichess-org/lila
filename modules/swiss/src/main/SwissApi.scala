@@ -26,7 +26,7 @@ final class SwissApi(
     scoring: SwissScoring,
     rankingApi: SwissRankingApi,
     standingApi: SwissStandingApi,
-    boardApi: SwissBoardApi,
+    situationApi: SwissSituationApi,
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
@@ -449,7 +449,7 @@ final class SwissApi(
       _ ?? { res =>
         rankingApi.update(res)
         standingApi.update(res) >>
-          boardApi.update(res) >>-
+          situationApi.update(res) >>-
           socket.reload(id)
       }
     }

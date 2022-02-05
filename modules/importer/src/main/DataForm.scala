@@ -3,7 +3,8 @@ package lila.importer
 import cats.data.Validated
 import shogi.format.kif.KifParser
 import shogi.format.csa.CsaParser
-import shogi.format.{ FEN, Forsyth, ParsedNotation, Reader, Tag, TagType }
+import shogi.format.{ ParsedNotation, Reader, Tag, TagType }
+import shogi.format.forsyth.Sfen
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
@@ -28,7 +29,7 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialFen: Option[FEN],
+    initialSfen: Option[Sfen],
     parsed: ParsedNotation
 )
 
@@ -80,23 +81,19 @@ case class ImportData(notation: String, analyse: Option[String]) {
       Reader.fromParsedNotation(
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
-      ) pipe evenIncomplete pipe { case replay @ Replay(_, _, state) =>
-        val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
-        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
+      ) pipe evenIncomplete pipe { case replay @ Replay(init, state) =>
+        val fromPosition = !parsed.tags.sfen.exists(_.initialOf(shogi.variant.Standard))
         val variant = {
           parsed.tags.variant | {
             if (fromPosition) shogi.variant.FromPosition
             else shogi.variant.Standard
           }
         } match {
-          case shogi.variant.FromPosition if parsed.tags.fen.isEmpty => shogi.variant.Standard
+          case shogi.variant.FromPosition if parsed.tags.sfen.isEmpty => shogi.variant.Standard
           case shogi.variant.Standard if fromPosition                => shogi.variant.FromPosition
           case v                                                     => v
         }
         val game = state.copy(situation = state.situation withVariant variant, clock = None)
-        val initialFen = parsed.tags.fen.map(_.value) flatMap {
-          Forsyth.<<<@(variant, _)
-        } map Forsyth.>> map FEN.apply
 
         val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 
@@ -144,7 +141,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
           }
         }
 
-        Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
+        Preprocessed(NewGame(dbGame), replay.copy(state = game), init.toSfen.some, parsed)
       }
     }
 }
