@@ -7,7 +7,7 @@ object Dependencies {
 
     val sonatype  = Resolver.sonatypeRepo("releases")
     val sonatypeS = Resolver.sonatypeRepo("snapshots")
-    val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
+    val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
     val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }

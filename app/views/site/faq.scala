@@ -102,7 +102,7 @@ object faq {
           whatUsernameCanIchoose.txt(),
           p(
             usernamesNotOffensive(
-              a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
+              a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(guidelines())
             )
           )
         ),

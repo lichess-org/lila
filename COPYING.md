@@ -5,6 +5,7 @@ Any file in this project that does not state otherwise and is not listed as an
 exception below is part of lila and copyright (c) 2019 onwards the li[shogi in sca]la authors.
 
 For a list of the authors see the commit log or
+https://github.com/lichess-org/lila/graphs/contributors,
 https://github.com/WandererXII/lishogi/graphs/contributors.
 
 Lishogi is free software; you can redistribute and/or modify it under the terms
