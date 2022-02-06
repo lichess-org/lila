@@ -50,7 +50,10 @@ object home {
         .some
     ) {
       main(
-        cls := List()
+        cls := List(
+          "lobby"            -> true,
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
+        )
       )(
         div(cls := "lobby__table")(
           div(cls := "bg-switch", title := "Dark mode")(
@@ -107,21 +110,21 @@ object home {
         ),
         currentGame.map(bits.currentGameInfo) orElse
           hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
-            else bits.lobbyApp
-          },
-        div(cls := "lobby__side")(
-          ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(
-            views.html.streamer.bits liveStreams streams,
-            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
-              trans.streamersMenu(),
-              " »"
-            )
-          )
-        )
-        // todo: turn me on!
+          playban.map(bits.playbanInfo),
+          // todo: turn me on!
+//          getOrElse {
+//            if (ctx.blind) blindLobby(blindGames)
+//            else bits.lobbyApp
+//          },
+//        div(cls := "lobby__side")(
+//          ctx.blind option h2("Highlights"),
+//          ctx.noKid option st.section(cls := "lobby__streams")(
+//            views.html.streamer.bits liveStreams streams,
+//            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+//              trans.streamersMenu(),
+//              " »"
+//            )
+//          ),
 //          div(cls := "lobby__spotlights")(
 //            events.map(bits.spotlight),
 //            !ctx.isBot option frag(
