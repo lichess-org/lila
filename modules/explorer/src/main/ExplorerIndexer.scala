@@ -138,29 +138,28 @@ final private class ExplorerIndexer(
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield userRepo.usernamesByIds(game.userIds) map { usernames =>
-        def username(color: shogi.Color) =
-          game.player(color).userId flatMap { id =>
-            usernames.find(_.toLowerCase == id)
-          } orElse game.player(color).userId getOrElse "?"
-        val sfenTags = game.initialSfen.?? { sfen =>
-          List(s"$$SFEN:$sfen]")
-        }
-        val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
-        val otherTags = List(
-          s"N+${username(shogi.Sente)}",
-          s"N-${username(shogi.Gote)}",
-          s"$$LishogiID:${game.id}",
-          s"$$Variant:${game.variant.name}",
-          s"[TimeControl $timeControl",
-          s"$$SenteElo $senteRating",
-          s"$$GoteElo $goteRating",
-          s"$$Result ${NotationDump.result(game)}",
-          s"$$Start${dateFormatter.print(game.createdAt)}"
-        )
-        val allTags = sfenTags ::: otherTags
-        s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
+      def username(color: shogi.Color) =
+        game.player(color).userId flatMap { id =>
+          usernames.find(_.toLowerCase == id)
+        } orElse game.player(color).userId getOrElse "?"
+      val sfenTags = game.initialSfen.?? { sfen =>
+        List(s"$$SFEN:$sfen]")
       }
-    )
+      val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
+      val otherTags = List(
+        s"N+${username(shogi.Sente)}",
+        s"N-${username(shogi.Gote)}",
+        s"$$LishogiID:${game.id}",
+        s"$$Variant:${game.variant.name}",
+        s"[TimeControl $timeControl",
+        s"$$SenteElo $senteRating",
+        s"$$GoteElo $goteRating",
+        s"$$Result ${NotationDump.result(game)}",
+        s"$$Start${dateFormatter.print(game.createdAt)}"
+      )
+      val allTags = sfenTags ::: otherTags
+      s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
+    })
 
   private val logger = lila.log("explorer")
 }

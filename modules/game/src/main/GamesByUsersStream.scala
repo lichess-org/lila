@@ -45,33 +45,33 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
   }
 
   private val gameWriter: OWrites[Game] = OWrites { g =>
-      Json
-        .obj(
-          "id"        -> g.id,
-          "rated"     -> g.rated,
-          "variant"   -> g.variant.key,
-          "speed"     -> g.speed.key,
-          "perf"      -> PerfPicker.key(g),
-          "createdAt" -> g.createdAt,
-          "status"    -> g.status.id,
-          "players" -> JsObject(g.players map { p =>
-            p.color.name -> Json
-              .obj(
-                "userId" -> p.userId,
-                "rating" -> p.rating
-              )
-              .add("provisional" -> p.provisional)
-          })
-        )
-        .add("initialSfen" -> g.initialSfen)
-        .add("clock" -> g.clock.map { clock =>
-          Json.obj(
-            "initial"   -> clock.limitSeconds,
-            "increment" -> clock.incrementSeconds,
-            "byoyomi"   -> clock.byoyomiSeconds,
-            "periods"   -> clock.periodsTotal
-          )
+    Json
+      .obj(
+        "id"        -> g.id,
+        "rated"     -> g.rated,
+        "variant"   -> g.variant.key,
+        "speed"     -> g.speed.key,
+        "perf"      -> PerfPicker.key(g),
+        "createdAt" -> g.createdAt,
+        "status"    -> g.status.id,
+        "players" -> JsObject(g.players map { p =>
+          p.color.name -> Json
+            .obj(
+              "userId" -> p.userId,
+              "rating" -> p.rating
+            )
+            .add("provisional" -> p.provisional)
         })
-        .add("daysPerTurn" -> g.daysPerTurn)
+      )
+      .add("initialSfen" -> g.initialSfen)
+      .add("clock" -> g.clock.map { clock =>
+        Json.obj(
+          "initial"   -> clock.limitSeconds,
+          "increment" -> clock.incrementSeconds,
+          "byoyomi"   -> clock.byoyomiSeconds,
+          "periods"   -> clock.periodsTotal
+        )
+      })
+      .add("daysPerTurn" -> g.daysPerTurn)
   }
 }

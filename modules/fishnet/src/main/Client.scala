@@ -38,7 +38,7 @@ case class Client(
       case Client.Evaluation.NNUE => true
       case _                      => false
     }
-  
+
   def supportedVariants =
     evaluation match {
       case Client.Evaluation.NNUE  => List(shogi.variant.Standard)
@@ -46,13 +46,12 @@ case class Client(
     }
 
   def canHandle(initialSfen: Option[Sfen], variant: shogi.variant.Variant) =
-    supportedVariants.contains(variant) && { evaluation match {
-      case Client.Evaluation.NNUE 
-        => initialSfen.isEmpty
-      case Client.Evaluation.FAIRY
-        => initialSfen.isDefined || !variant.standard
+    supportedVariants.contains(variant) && {
+      evaluation match {
+        case Client.Evaluation.NNUE  => initialSfen.isEmpty
+        case Client.Evaluation.FAIRY => initialSfen.isDefined || !variant.standard
+      }
     }
-  }
 
   override def toString = s"$key by $userId"
 }

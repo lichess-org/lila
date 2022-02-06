@@ -138,7 +138,7 @@ object Form {
 
   object sfen {
     implicit private val sfenFormat = formatter.stringFormatter[Sfen](_.value, Sfen.clean)
-    def clean = of[Sfen](sfenFormat)
+    def clean                       = of[Sfen](sfenFormat)
   }
 
   def inTheFuture(m: Mapping[DateTime]) =

@@ -37,11 +37,15 @@ class HashTest extends ShogiTest {
 
     "many rooks in hands" in {
       val goteRooks =
-        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 18r 3").toSituation(Standard).get
+        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 18r 3")
+          .toSituation(Standard)
+          .get
       val goteRooksHash = hash(goteRooks)
 
       val senteRooks =
-        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 18R 3").toSituation(Standard).get
+        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 18R 3")
+          .toSituation(Standard)
+          .get
       val senteRoksHash = hash(senteRooks)
 
       senteRoksHash mustNotEqual goteRooksHash
@@ -53,7 +57,9 @@ class HashTest extends ShogiTest {
       val goteRooksHash = hash(goteRooks)
 
       val senteRooks =
-        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 19R 3").toSituation(Standard).get
+        Sfen("lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b 19R 3")
+          .toSituation(Standard)
+          .get
       val senteRoksHash = hash(senteRooks)
 
       senteRoksHash mustEqual goteRooksHash

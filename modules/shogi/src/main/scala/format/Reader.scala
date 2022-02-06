@@ -32,20 +32,24 @@ object Reader {
   private def makeReplayFromUsi(game: Game, usis: Seq[Usi]): Result =
     usis.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), usi) =>
-        replay.state(usi).fold(
-          err => Result.Incomplete(replay, err),
-          game => Result.Complete(replay(game))
-        )
+        replay
+          .state(usi)
+          .fold(
+            err => Result.Incomplete(replay, err),
+            game => Result.Complete(replay(game))
+          )
       case (r: Result.Incomplete, _) => r
     }
 
   private def makeReplayFromParsedMoves(game: Game, parsedMoves: ParsedMoves): Result =
     parsedMoves.value.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), parsedMove) =>
-        replay.state(parsedMove).fold(
-          err => Result.Incomplete(replay, err),
-          game => Result.Complete(replay(game))
-        )
+        replay
+          .state(parsedMove)
+          .fold(
+            err => Result.Incomplete(replay, err),
+            game => Result.Complete(replay(game))
+          )
       case (r: Result.Incomplete, _) => r
     }
 

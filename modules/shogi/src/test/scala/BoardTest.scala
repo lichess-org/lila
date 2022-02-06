@@ -86,7 +86,8 @@ class BoardTest extends ShogiTest {
     }
 
     "allow a pawn to be promoted" in {
-      makeEmptySituation.board.place(Gote.pawn, SQ9F) flatMap (_.promote(SQ9F, SQ9G, _ => Some(Tokin))) must beSome.like { case b =>
+      makeEmptySituation.board
+        .place(Gote.pawn, SQ9F) flatMap (_.promote(SQ9F, SQ9G, _ => Some(Tokin))) must beSome.like { case b =>
         b(SQ9G) must beSome(Gote.tokin)
       }
     }

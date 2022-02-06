@@ -7,73 +7,73 @@ class SituationTest extends ShogiTest {
   "a game" should {
     "detect check" should {
       "by rook" in {
-        ("""
+        """
 K . . r . . . . .
-""").check must beTrue
+""".check must beTrue
       }
       "by knight" in {
-        ("""
+        """
 . n . . . . . . .
 . . . . . . . . .
 K . . . . . . . .
-""").check must beTrue
+""".check must beTrue
       }
       "by bishop" in {
-        ("""
+        """
 . . b . . . . . .
 . . . . . . . . .
 . . . . . . . . .
 . . . . . K . . .
-""").check must beTrue
+""".check must beTrue
       }
       "by pawn" in {
-        ("""
+        """
 . . . . p . . . .
 . . . . K . . . .
-""").check must beTrue
+""".check must beTrue
       }
       "not" in {
-        ("""
+        """
 K . . . . . . . .
 . . . . . . . . .
 .+n . . . . . . .
-""").check must beFalse
+""".check must beFalse
       }
     }
     "detect check mate" in {
       "by rook" in {
-        ("""
+        """
 P P . . . . . . .
 K . . r . . . . .
-""").checkmate must beTrue
+""".checkmate must beTrue
       }
       "by knight" in {
-        ("""
+        """
 . n . . . . . . .
 P B . . . . . . .
 K R . . . . . . .
-""").checkmate must beTrue
+""".checkmate must beTrue
       }
       "not" in {
-        ("""
+        """
 . n . . . . . . .
 . . . . . . . . .
 K . . . . . . . .
-""").checkmate must beFalse
+""".checkmate must beFalse
       }
     }
     "stale mate" in {
       "stuck in a corner" in {
-        ("""
+        """
 b r r . . . . . .
 K . . . . . . . .
-""").stalemate must beTrue
+""".stalemate must beTrue
       }
       "not" in {
-        ("""
+        """
 . . b . . . . . .
 K . . . . . . . .
-""").stalemate must beFalse
+""".stalemate must beFalse
       }
     }
 

@@ -156,7 +156,7 @@ object SimulForm {
         hostExtraTime = clockExtra * 60
       )
 
-    def canHaveCustomPosition = 
+    def canHaveCustomPosition =
       actualVariants.size == 1 || !position.isDefined
 
     def isCustomPositionValid =

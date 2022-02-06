@@ -69,8 +69,8 @@ final class FishnetApi(
           } ++ {
             slow ?? $doc("sender.system" -> true)
           } ++ {
-            client.isNNUE ?? $doc("game.initialSfen" $exists(false))
-          } ++ {// todo, so fairy can't get nnue work
+            client.isNNUE ?? $doc("game.initialSfen" $exists false)
+          } ++ {                                                    // todo, so fairy can't get nnue work
             repo.selectVariants(client.supportedVariants.map(_.id)) // only variants client supports
           }
         )

@@ -278,9 +278,8 @@ final class Round(
         env.tournament.api.gameView.withTeamVs(pov.game) zip
           (pov.game.simulId ?? env.simul.repo.find) zip
           env.game.crosstableApi.withMatchup(pov.game) zip
-          env.bookmark.api.exists(pov.game, ctx.me) map {
-            case (((tour, simul), crosstable), bookmarked) =>
-              Ok(html.game.bits.sides(pov, tour, crosstable, simul, bookmarked = bookmarked))
+          env.bookmark.api.exists(pov.game, ctx.me) map { case (((tour, simul), crosstable), bookmarked) =>
+            Ok(html.game.bits.sides(pov, tour, crosstable, simul, bookmarked = bookmarked))
           }
       }
     }

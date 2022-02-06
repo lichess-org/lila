@@ -5,16 +5,7 @@ import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.opening.{ FullOpening, FullOpeningDB }
 import shogi.variant.{ Standard, Variant }
-import shogi.{
-  Centis,
-  Clock,
-  Color,
-  Mode,
-  Speed,
-  Status,
-  Game => ShogiGame,
-  StartingPosition
-}
+import shogi.{ Centis, Clock, Color, Mode, Speed, Status, Game => ShogiGame, StartingPosition }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -423,7 +414,7 @@ case class Game(
     replayable && playedPlies > 4 &&
       Game.analysableVariants(variant)
 
-  def fromPosition = 
+  def fromPosition =
     initialSfen.isDefined || source.??(Source.Position ==)
 
   def imported = source contains Source.Import

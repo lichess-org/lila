@@ -5,12 +5,12 @@ import shogi.variant.Variant
 
 object Binary {
 
-  def decodeMoves(bs: Seq[Byte], variant: Variant): Vector[Usi] = 
+  def decodeMoves(bs: Seq[Byte], variant: Variant): Vector[Usi] =
     Reader.decode(bs, variant)
-  def decodeMoves(bs: Seq[Byte], variant: Variant,  nb: Int): Vector[Usi] = 
+  def decodeMoves(bs: Seq[Byte], variant: Variant, nb: Int): Vector[Usi] =
     Reader.decode(bs, variant, nb)
 
-  def encodeMoves(ms: Seq[Usi], variant: Variant): Array[Byte] = 
+  def encodeMoves(ms: Seq[Usi], variant: Variant): Array[Byte] =
     Writer.encode(ms, variant)
 
   private object Encoding {
@@ -42,17 +42,23 @@ object Binary {
       decodeMovesAndDrops(bs take (nb * 2) map toInt, variant)
 
     private def decodeMovesAndDrops(mds: Seq[Int], variant: Variant): Vector[Usi] =
-      mds.grouped(2)
+      mds
+        .grouped(2)
         .map {
           case Seq(i1, i2) =>
             if (bitAt(i1, 7) && variant.supportsDrops)
               decodeDrop(i1, i2, variant)
             else decodeMove(i1, i2, variant)
           case x => !!(x map showByte mkString ",")
-        }.toVector
+        }
+        .toVector
 
     private def decodeMove(i1: Int, i2: Int, variant: Variant): Usi =
-      Usi.Move(pos(right(i1, 7), variant.numberOfFiles), pos(right(i2, 7), variant.numberOfFiles), bitAt(i2, 7))
+      Usi.Move(
+        pos(right(i1, 7), variant.numberOfFiles),
+        pos(right(i2, 7), variant.numberOfFiles),
+        bitAt(i2, 7)
+      )
 
     private def decodeDrop(i1: Int, i2: Int, variant: Variant): Usi =
       Usi.Drop(Encoding.intToRole(right(i1, 7)), pos(right(i2, 7), variant.numberOfFiles))

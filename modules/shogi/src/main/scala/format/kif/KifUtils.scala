@@ -16,7 +16,7 @@ object KifUtils {
       case '７' | '七' | 'g' => '7'
       case '８' | '八' | 'h' => '8'
       case '９' | '九' | 'i' => '9'
-      case _ => c
+      case _               => c
     }
   }
 
@@ -31,7 +31,7 @@ object KifUtils {
       case '7' => '七'
       case '8' => '八'
       case '9' => '九'
-      case _ => c
+      case _   => c
     }
   }
 
@@ -59,8 +59,8 @@ object KifUtils {
 
   // head used in kif model
   val defaultHandicaps: Map[Variant, List[String]] = Map(
-    Minishogi    -> List("5五将棋", "五々将棋", "５五将棋"),
-    Standard     -> List("平手")
+    Minishogi -> List("5五将棋", "五々将棋", "５五将棋"),
+    Standard  -> List("平手")
   )
 
 }

@@ -60,7 +60,7 @@ trait Positional { self: Config =>
 
   def strictSfen: Boolean
 
-  lazy val validSfen = 
+  lazy val validSfen =
     sfen.fold(true) { sf =>
       sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }

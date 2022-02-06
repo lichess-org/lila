@@ -15,7 +15,13 @@ class AutodrawTest extends ShogiTest {
         makeSituation.autoDraw must_== false
       }
       "opened" in {
-        makeGame.playMoves((SQ5G, SQ5F, false), (SQ5C, SQ5D, false), (SQ7G, SQ7F, false), (SQ5D, SQ5E, false), (SQ5F, SQ5E, false)) map { g =>
+        makeGame.playMoves(
+          (SQ5G, SQ5F, false),
+          (SQ5C, SQ5D, false),
+          (SQ7G, SQ7F, false),
+          (SQ5D, SQ5E, false),
+          (SQ5F, SQ5E, false)
+        ) map { g =>
           g.situation.autoDraw
         } must beValid(false)
       }

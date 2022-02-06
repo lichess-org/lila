@@ -61,7 +61,7 @@ case class Chapter(
   def forceVariation(force: Boolean, path: Path): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[FullOpening] = 
+  def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
     else FullOpeningDB searchInSfens root.mainline.map(_.sfen)
 

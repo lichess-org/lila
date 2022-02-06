@@ -27,7 +27,8 @@ final class AutoPairing(
           .Game(
             variantOption = Some(tour.variant),
             sfen = tour.position
-          ).copy(clock = clock.some),
+          )
+          .copy(clock = clock.some),
         initialSfen = tour.position,
         sentePlayer = makePlayer(Sente, player1),
         gotePlayer = makePlayer(Gote, player2),

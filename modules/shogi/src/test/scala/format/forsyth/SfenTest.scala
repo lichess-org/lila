@@ -3,7 +3,7 @@ package format
 package forsyth
 
 import Pos._
-import variant.{ Standard, Minishogi }
+import variant.{ Minishogi, Standard }
 
 import cats.syntax.option._
 
@@ -17,7 +17,9 @@ class SfenTest extends ShogiTest {
           makeGame.toSfen must_== Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
         }
         "new game board only" in {
-          Sfen(Sfen.boardToString(makeSituation.board, Standard)) must_== Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL")
+          Sfen(Sfen.boardToString(makeSituation.board, Standard)) must_== Sfen(
+            "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL"
+          )
         }
         "one move" in {
           makeGame.playMoveList(moves take 1) must beValid.like { case g =>
@@ -90,7 +92,9 @@ class SfenTest extends ShogiTest {
       }
     }
     "promoted pieces in sfen" in {
-      Sfen("+l+n+sgkg+s+n+l/1r5+b1/+p+p+p+p+p+p+p+p+p/9/9/9/PPPP+PPPPP/1B5R1/LNSGKGSNL b - 1").toSituation(Standard) must beSome
+      Sfen("+l+n+sgkg+s+n+l/1r5+b1/+p+p+p+p+p+p+p+p+p/9/9/9/PPPP+PPPPP/1B5R1/LNSGKGSNL b - 1").toSituation(
+        Standard
+      ) must beSome
         .like { case s =>
           val ps = s.board.pieces.values.toList
           ps.count(_.role == Tokin) must_== 10
@@ -104,28 +108,36 @@ class SfenTest extends ShogiTest {
   "export to situation plus" should {
     "with plies" in {
       "starting" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1").toSituationPlus(Standard) must beSome.like { case s =>
-          s.situation.color must_== Sente 
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
+          s.situation.color must_== Sente
           s.plies must_== 0
           s.moveNumber must_== 1
         }
       }
       "sente to play" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 11").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 11").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.color must_== Sente
           s.plies must_== 10
           s.moveNumber must_== 11
         }
       }
       "gote to play" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.color must_== Gote
           s.plies must_== 1
           s.moveNumber must_== 2
         }
       }
       "gote to play starting at 1" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.color must_== Gote
           s.plies must_== 1
           s.moveNumber must_== 1
@@ -181,40 +193,52 @@ class SfenTest extends ShogiTest {
         }
       }
       "empty hand" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.hands must_== Hands.empty
         }
       }
       "simple hand" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b PNr 1").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b PNr 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.hands must_== Hands(Hand(Map(Knight -> 1, Pawn -> 1)), Hand(Map(Rook -> 1)))
         }
       }
       "hand with numbers" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 15P3Nr2LB7R3s230gG12pl 1").toSituationPlus(Standard) must beSome
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 15P3Nr2LB7R3s230gG12pl 1")
+          .toSituationPlus(Standard) must beSome
           .like { case s =>
             s.situation.hands must_== Hands(
-                Hand(Map(Rook -> 7, Bishop -> 1, Gold -> 1, Knight -> 3, Lance -> 2, Pawn -> 15)),
-                Hand(Map(Rook -> 1, Gold -> 81, Silver -> 3, Lance -> 1, Pawn -> 12))
-              )
+              Hand(Map(Rook -> 7, Bishop -> 1, Gold -> 1, Knight -> 3, Lance -> 2, Pawn -> 15)),
+              Hand(Map(Rook -> 1, Gold -> 81, Silver -> 3, Lance -> 1, Pawn -> 12))
+            )
           }
       }
       "hand repeating" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppBG15ppppP 1").toSituationPlus(Standard) must beSome.like {
-          case s =>
-            s.situation.hands must_== Hands(Hand(Map(Bishop -> 1, Gold -> 1, Pawn -> 1)), Hand(Map(Pawn -> 20)))
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppBG15ppppP 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
+          s.situation.hands must_== Hands(Hand(Map(Bishop -> 1, Gold -> 1, Pawn -> 1)), Hand(Map(Pawn -> 20)))
         }
       }
       "invalid roles" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b T13k10t 1").toSituationPlus(Standard) must beNone
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b T13k10t 1").toSituationPlus(
+          Standard
+        ) must beNone
       }
       "open number" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1").toSituationPlus(Standard) must beSome.like { case s =>
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1").toSituationPlus(
+          Standard
+        ) must beSome.like { case s =>
           s.situation.hands must_== Hands.empty
         }
       }
       "ignore wrong input" in {
-        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3P2ljk 1").toSituationPlus(Standard) must beNone
+        Sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3P2ljk 1").toSituationPlus(
+          Standard
+        ) must beNone
       }
     }
   }

@@ -25,7 +25,9 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, sfen: Sfen, multiPv: Int, path: String)(push: Push): Unit = {
+  def register(sri: Socket.Sri, variant: Variant, sfen: Sfen, multiPv: Int, path: String)(
+      push: Push
+  ): Unit = {
     members get sri.value foreach { wm =>
       unregisterEval(wm.setupId, sri)
     }

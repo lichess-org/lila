@@ -2,17 +2,7 @@ package lila.game
 
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{
-  Color,
-  Clock,
-  Hands,
-  Sente,
-  Gote,
-  Status,
-  Mode,
-  History => ShogiHistory,
-  Game => ShogiGame
-}
+import shogi.{ Color, Clock, Hands, Sente, Gote, Status, Mode, History => ShogiHistory, Game => ShogiGame }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
@@ -137,8 +127,8 @@ object BSONHandlers {
             (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.gotePlayer
           )
         ),
-        F.status        -> o.status,
-        F.plies         -> o.shogi.plies,
+        F.status       -> o.status,
+        F.plies        -> o.shogi.plies,
         F.startedAtPly -> w.intO(o.shogi.startedAtPly),
         F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption

@@ -6,11 +6,13 @@ import format.usi.Usi
 class PerftTest extends ShogiTest {
 
   def drops(sit: Situation): List[Usi] =
-    sit.dropActorsOf(sit.color)
+    sit
+      .dropActorsOf(sit.color)
       .flatMap(_.toUsis)
-  
+
   def moves(sit: Situation): List[Usi] =
-    sit.moveActorsOf(sit.color)
+    sit
+      .moveActorsOf(sit.color)
       .flatMap(_.toUsis)
 
   def perft(game: Game, depth: Int): Int =
@@ -22,7 +24,7 @@ class PerftTest extends ShogiTest {
     } else 1
 
   "starting position" should {
-    val game = Game(variant.Standard) 
+    val game = Game(variant.Standard)
     "1 depth" in {
       perft(game, 1) must be equalTo 30
     }

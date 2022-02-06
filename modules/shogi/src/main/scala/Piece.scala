@@ -13,8 +13,8 @@ case class Piece(color: Color, role: Role) {
   def csa: String     = if (color.sente) s"+${role.csa}" else s"-${role.csa}"
   def kif: String     = if (color.sente) s" ${role.kifSingle}" else s"v${role.kifSingle}"
 
-  def directDirs = if (color.sente) role.senteDirectDirs else role.goteDirectDirs
-  def projectionDirs  = if (color.sente) role.senteProjectionDirs else role.goteProjectionDirs
+  def directDirs     = if (color.sente) role.senteDirectDirs else role.goteDirectDirs
+  def projectionDirs = if (color.sente) role.senteProjectionDirs else role.goteProjectionDirs
 
   def updateRole(f: Role => Option[Role]): Option[Piece] =
     f(role).map(r => copy(role = r))

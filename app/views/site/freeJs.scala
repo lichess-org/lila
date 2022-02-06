@@ -8,7 +8,8 @@ object freeJs {
 
   private lazy val agpl = a(href := "https://www.gnu.org/licenses/agpl-3.0.en.html")("AGPL-3.0+")
 
-  private def github(path: String) = a(href := s"https://github.com/WandererXII/lishogi/tree/master/$path")(path)
+  private def github(path: String) =
+    a(href := s"https://github.com/WandererXII/lishogi/tree/master/$path")(path)
 
   private val uiModules = List(
     "analyse",

@@ -8,7 +8,6 @@ import shogi.format.ParsedMove
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 
-
 case class Situation(
     board: Board,
     hands: Hands,
@@ -24,7 +23,7 @@ case class Situation(
     }
 
   def apply(parsedMove: ParsedMove): Validated[String, Situation] =
-    parsedMove.toUsi(this) andThen (apply _) 
+    parsedMove.toUsi(this) andThen (apply _)
 
   // Moves
 
@@ -40,11 +39,9 @@ case class Situation(
   def moveActorAt(at: Pos): Option[MoveActor] = moveActors get at
 
   lazy val moveDestinations: Map[Pos, List[Pos]] =
-    moveActorsOf(color)
-      .collect {
-        case actor if actor.destinations.nonEmpty => actor.pos -> actor.destinations
-      }
-      .toMap
+    moveActorsOf(color).collect {
+      case actor if actor.destinations.nonEmpty => actor.pos -> actor.destinations
+    }.toMap
 
   lazy val hasMoveDestinations: Boolean =
     moveActorsOf(color)
@@ -66,11 +63,9 @@ case class Situation(
   def dropActorOf(piece: Piece): Option[DropActor] = dropActors get piece
 
   lazy val dropDestinations: Map[Piece, List[Pos]] =
-    dropActorsOf(color)
-      .collect {
-        case actor if actor.destinations.nonEmpty => actor.piece -> actor.destinations
-      }
-      .toMap
+    dropActorsOf(color).collect {
+      case actor if actor.destinations.nonEmpty => actor.piece -> actor.destinations
+    }.toMap
 
   lazy val hasDropDestinations: Boolean =
     dropActorsOf(color)
@@ -90,7 +85,7 @@ case class Situation(
   def checkSquares = variant checkSquares this
 
   // Not taking into account specific drop rules
-  lazy val possibleDropDests: List[Pos] = 
+  lazy val possibleDropDests: List[Pos] =
     if (check) board.kingPosOf(color).fold[List[Pos]](Nil)(DropActor.blockades(this, _))
     else variant.allPositions.filterNot(board.pieces contains _)
 
@@ -103,9 +98,9 @@ case class Situation(
   def perpetualCheck: Boolean = variant perpetualCheck this
 
   def autoDraw: Boolean =
-    (history.fourfoldRepetition && !perpetualCheck) || 
-    variant.specialDraw(this) ||
-    variant.isInsufficientMaterial(this)
+    (history.fourfoldRepetition && !perpetualCheck) ||
+      variant.specialDraw(this) ||
+      variant.isInsufficientMaterial(this)
 
   def opponentHasInsufficientMaterial: Boolean = variant opponentHasInsufficientMaterial this
 
@@ -113,7 +108,7 @@ case class Situation(
 
   def impasse = variant impasse this
 
-  def end(withImpasse: Boolean): Boolean = 
+  def end(withImpasse: Boolean): Boolean =
     checkmate || stalemate || autoDraw || perpetualCheck || variantEnd || (withImpasse && impasse)
 
   def winner: Option[Color] = variant.winner(this)
@@ -136,9 +131,9 @@ case class Situation(
 
   // Util
 
-  def withBoard(board: Board) = copy(board = board)
-  def withHands(hands: Hands) = copy(hands = hands)
-  def withHistory(history: History) = copy(history = history)
+  def withBoard(board: Board)                     = copy(board = board)
+  def withHands(hands: Hands)                     = copy(hands = hands)
+  def withHistory(history: History)               = copy(history = history)
   def withVariant(variant: shogi.variant.Variant) = copy(variant = variant)
 
   def switch = copy(color = !color)

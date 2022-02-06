@@ -41,17 +41,17 @@ final class SwissJson(
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
-      standing <- standingApi(swiss, page)
-      podium   <- podiumJson(swiss)
-      situations  <- situationApi(swiss.id)
-      stats    <- statsApi(swiss)
+      standing   <- standingApi(swiss, page)
+      podium     <- podiumJson(swiss)
+      situations <- situationApi(swiss.id)
+      stats      <- statsApi(swiss)
     } yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
           (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
           (myInfo.isEmpty && swiss.isEnterable && isInTeam)
         },
-        "standing" -> standing,
+        "standing"   -> standing,
         "situations" -> situations.map(situationJson)
       )
       .add("me" -> myInfo.map(myInfoJson))

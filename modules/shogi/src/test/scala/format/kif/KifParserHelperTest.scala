@@ -5,7 +5,6 @@ package kif
 import forsyth.Sfen
 import KifParserHelper._
 
-
 class KifParserHelperTest extends ShogiTest {
 
   def parseAndCompare(source: String, handicap: Option[String], resSfen: Sfen) =

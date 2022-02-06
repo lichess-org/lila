@@ -33,9 +33,10 @@ case class Csa(
         initial.comments.map(Csa.fixComment _).mkString("")
       else ""
     val header = Csa renderHeader tags
-    val setup  = tags.sfen.getOrElse(Standard.initialSfen).toSituation(Standard).fold("")(Csa renderSituation _)
+    val setup =
+      tags.sfen.getOrElse(Standard.initialSfen).toSituation(Standard).fold("")(Csa renderSituation _)
     val startColor: Color = tags.sfen.flatMap(_.color) | Sente
-    val movesStr = renderMainline(moves, startColor)
+    val movesStr          = renderMainline(moves, startColor)
     List(
       header,
       setup,
@@ -134,9 +135,9 @@ object Csa {
       case Aborted | NoStart                                                         => "%CHUDAN".some
       case Timeout | Outoftime                                                       => "%TIME_UP".some
       case Resign if !winnerTurn                                                     => "%TORYO".some
-      case PerpetualCheck if winnerColor.contains(Sente)                          => "%-ILLEGAL_ACTION".some
+      case PerpetualCheck if winnerColor.contains(Sente)                             => "%-ILLEGAL_ACTION".some
       case PerpetualCheck                                                            => "%+ILLEGAL_ACTION".some
-      case Mate if winnerTurn && winnerColor.contains(Sente)                      => "%-ILLEGAL_ACTION".some // pawn checkmate
+      case Mate if winnerTurn && winnerColor.contains(Sente)                         => "%-ILLEGAL_ACTION".some // pawn checkmate
       case Mate if winnerTurn                                                        => "%+ILLEGAL_ACTION".some // pawn checkmate
       case Mate | Stalemate                                                          => "%TSUMI".some
       case Draw                                                                      => "%SENNICHITE".some

@@ -1,14 +1,14 @@
 package shogi
 
 case class File private (val index: Int) extends AnyVal with Ordered[File] {
-  @inline def -(that: File): Int = index - that.index
+  @inline def -(that: File): Int           = index - that.index
   @inline override def compare(that: File) = this - that
 
   def offset(delta: Int): Option[File] =
     File(index + delta)
 
   @inline def char: Char = (49 + index).toChar
-  override def toString = char.toString
+  override def toString  = char.toString
 }
 
 object File {

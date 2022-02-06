@@ -10,8 +10,8 @@ import lila.lobby.Color
 
 private object Mappings {
 
-  val variants                  = number.verifying(Config.variants contains _)
-  val aiVariants                = number.verifying(Config.aiVariants contains _)
+  val variants   = number.verifying(Config.variants contains _)
+  val aiVariants = number.verifying(Config.aiVariants contains _)
   val boardApiVariants = Set(
     V.Standard.key,
     V.Minishogi.key

@@ -38,7 +38,9 @@ object bits {
       dataSfen := sfen.value
     )(cgWrapContent)
 
-  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
+  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(
+      tag: Tag
+  ): Tag =
     tag(
       cls := "mini-board parse-sfen cg-wrap",
       dataColor := color.name,
@@ -48,12 +50,12 @@ object bits {
 
   def gameIcon(game: Game): Char =
     game.perfType match {
-      case _ if game.initialSfen.isDefined => '*'
-      case _ if game.imported             => '/'
+      case _ if game.initialSfen.isDefined   => '*'
+      case _ if game.imported                => '/'
       case Some(p) if !game.variant.standard => p.iconChar
-      case _ if game.hasAi                => 'n'
-      case Some(p)                        => p.iconChar
-      case _                              => '9'
+      case _ if game.hasAi                   => 'n'
+      case Some(p)                           => p.iconChar
+      case _                                 => '9'
     }
 
   def sides(

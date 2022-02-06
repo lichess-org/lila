@@ -6,7 +6,6 @@ import play.api.data.Forms._
 import lila.common.Form.cleanNonEmptyText
 import shogi.format.forsyth.Sfen
 
-
 object StudyForm {
 
   object importFree {
@@ -34,7 +33,7 @@ object StudyForm {
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
-      .verifying("Invalid SFEN", _.validSfen)
+        .verifying("Invalid SFEN", _.validSfen)
     )
 
     case class Data(

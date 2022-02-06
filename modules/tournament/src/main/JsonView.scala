@@ -525,7 +525,7 @@ object JsonView {
         Json
           .obj(
             "name" -> "Custom position",
-            "sfen"  -> sfen
+            "sfen" -> sfen
           )
     }
 

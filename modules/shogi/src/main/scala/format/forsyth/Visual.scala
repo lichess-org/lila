@@ -25,7 +25,8 @@ object Visual {
     val clean = source.replaceAll("^\n|\n$| ", "")
     val lines = augmentString(clean).linesIterator.toList.map(_.trim).filter(_.nonEmpty)
     val hands = lines.find(_.toLowerCase.startsWith("hands")).flatMap(_.split(':').lift(1)) | ""
-    val turn  = if (lines.map(_.toLowerCase).exists(l => l.startsWith("turn") && l.contains("gote"))) "w" else "b"
+    val turn =
+      if (lines.map(_.toLowerCase).exists(l => l.startsWith("turn") && l.contains("gote"))) "w" else "b"
     val sfenReversed = lines
       .filterNot(_ contains ":")
       .mkString("/")
@@ -56,8 +57,8 @@ object Visual {
   } map (_.trim) mkString "\n" pipe { board =>
     List(
       board,
-      s"Hands:${Sfen.handsToString(sit.hands, sit.variant).filterNot('-'==)}",
-      s"Turn:${sit.color.name.capitalize}",
+      s"Hands:${Sfen.handsToString(sit.hands, sit.variant).filterNot('-' ==)}",
+      s"Turn:${sit.color.name.capitalize}"
     ) mkString "\n"
   }
 

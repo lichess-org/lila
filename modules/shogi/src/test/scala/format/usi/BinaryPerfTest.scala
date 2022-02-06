@@ -4,7 +4,7 @@ package usi
 
 class BinaryPerfTest extends ShogiTest {
 
-  val usis = format.usi.Fixtures.prod500standard.map(Usi.readList(_).get)
+  val usis       = format.usi.Fixtures.prod500standard.map(Usi.readList(_).get)
   val iterations = 15
 
   def runOne(usis: List[Usi]) =

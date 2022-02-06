@@ -50,7 +50,7 @@ final class Player(
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation.playable(true, true))
       if (game.plies <= maxPlies)
-       fuccess(
+        fuccess(
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(

@@ -1,14 +1,14 @@
 package shogi
 
 case class Rank private (val index: Int) extends AnyVal with Ordered[Rank] {
-  @inline def -(that: Rank): Int = index - that.index
+  @inline def -(that: Rank): Int           = index - that.index
   @inline override def compare(that: Rank) = this - that
 
- def offset(delta: Int): Option[Rank] =
-   Rank(index + delta)
+  def offset(delta: Int): Option[Rank] =
+    Rank(index + delta)
 
   @inline def char: Char = (97 + index).toChar
-  override def toString = char.toString
+  override def toString  = char.toString
 }
 
 object Rank {
@@ -30,6 +30,6 @@ object Rank {
   val H = new Rank(7)
   val I = new Rank(8)
 
-  val all = List(A, B, C, D, E, F, G, H, I)
+  val all                     = List(A, B, C, D, E, F, G, H, I)
   val allReversed: List[Rank] = all.reverse
 }

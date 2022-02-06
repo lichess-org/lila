@@ -41,7 +41,8 @@ P P P P P P P P .
 Hands:
 Turn:Sente
 """
-      val markedBoard = f render (situation.get, Map(Set(SQ8F, SQ6F, SQ8D, SQ6D, SQ9C, SQ5C, SQ4B, SQ3A) -> 'x'))
+      val markedBoard =
+        f render (situation.get, Map(Set(SQ8F, SQ6F, SQ8D, SQ6D, SQ9C, SQ5C, SQ4B, SQ3A) -> 'x'))
       f addNewLines markedBoard must_== """
 k . B . . . x . .
 . . . . . x . . .

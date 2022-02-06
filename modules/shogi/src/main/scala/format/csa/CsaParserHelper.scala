@@ -24,10 +24,10 @@ object CsaParserHelper {
       }(h => parseHandicap(h))
       for {
         pieces <- initPieces
-        board  = Board(pieces)
-        color  = Color.fromSente(!lines.contains("-"))
+        board     = Board(pieces)
+        color     = Color.fromSente(!lines.contains("-"))
         additions = lines.filter(l => l.startsWith("P") && l.lift(1).exists(List('+', '-') contains _))
-        sit = Situation(board, Hands.empty, color, Standard)
+        sit       = Situation(board, Hands.empty, color, Standard)
         sit2 <- parseAdditions(additions, sit)
       } yield sit2
     }
@@ -67,7 +67,7 @@ object CsaParserHelper {
         ) toValid s"Invalid board setup - too many squares"
         piece <- Piece.fromCsa(sq) toValid s"Non existent piece (${sq}) in board setup"
       } yield (pieces + (pos -> piece))
-    
+
     val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
     if (ranks.size != 9) invalid("Incorrect number of board ranks in board setup: %d/9".format(ranks.size))
     else if (squares.size != 81)

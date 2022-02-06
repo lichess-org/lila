@@ -168,7 +168,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               $doc(F.provisional $ne true)
             }
         ) -> /* sortDate :: */ {
-          sampleGames :: ((metric match {
+          sampleGames :: (metric match {
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -281,7 +281,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                   )
                 ) :::
                 List(includeSomeGameIds.some)
-          })).flatten
+          }).flatten
         }
         pipeline
       }

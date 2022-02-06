@@ -31,7 +31,7 @@ final case class MoveActor(
   def is(c: Color) = c == piece.color
 
   private def shortRange(dirs: Directions): List[Pos] =
-    dirs flatMap { _(pos) } filter { to => 
+    dirs flatMap { _(pos) } filter { to =>
       situation.variant.isInsideBoard(to) && situation.board.pieces.get(to).fold(true)(_.color != color)
     }
 

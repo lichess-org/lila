@@ -15,7 +15,7 @@ case class Game(
     startedAtMove: Int = 1
 ) {
 
-  private def applySituation(sit: Situation, metrics: MoveMetrics = MoveMetrics.empty): Game = 
+  private def applySituation(sit: Situation, metrics: MoveMetrics = MoveMetrics.empty): Game =
     copy(
       situation = sit,
       plies = plies + 1,
@@ -28,14 +28,13 @@ case class Game(
 
   def apply(usi: Usi, metrics: MoveMetrics): Validated[String, Game] =
     situation(usi).map(applySituation(_, metrics))
-  
+
   def apply(usi: Usi): Validated[String, Game] =
     situation(usi).map(applySituation(_))
 
   def apply(parsedMove: ParsedMove, metrics: MoveMetrics): Validated[String, Game] =
     situation(parsedMove).map(applySituation(_, metrics))
 
-  
   def apply(parsedMove: ParsedMove): Validated[String, Game] =
     situation(parsedMove).map(applySituation(_))
 
@@ -72,7 +71,7 @@ case class Game(
 object Game {
   def apply(situation: Situation): Game =
     new Game(situation)
-  
+
   def apply(variant: shogi.variant.Variant): Game =
     Game(Situation(variant))
 

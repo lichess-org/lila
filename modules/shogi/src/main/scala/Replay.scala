@@ -55,7 +55,7 @@ object Replay {
       initialSfen: Option[Sfen],
       variant: shogi.variant.Variant
   ): (NonEmptyList[Game], Option[String]) = {
-    
+
     @scala.annotation.tailrec
     def mk(games: NonEmptyList[Game], usis: List[Usi]): (NonEmptyList[Game], Option[String]) =
       usis match {
@@ -63,7 +63,7 @@ object Replay {
         case usi :: rest =>
           games.head(usi) match {
             case Valid(newGame) => mk(newGame :: games, rest)
-            case Invalid(err) => (games, err.some)
+            case Invalid(err)   => (games, err.some)
           }
       }
 

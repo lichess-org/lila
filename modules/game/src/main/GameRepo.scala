@@ -347,7 +347,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def insertDenormalized(g: Game): Funit = {
     val g2 =
-      if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.initialSfen, g.clock.map(_.config), g.variant)))
+      if (
+        g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(
+          g.initialSfen,
+          g.clock.map(_.config),
+          g.variant
+        ))
+      )
         g.copy(mode = shogi.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
@@ -383,7 +389,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
     coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
-
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

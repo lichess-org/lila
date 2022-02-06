@@ -266,16 +266,6 @@ final class JsonView(
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
- // private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
- //   (pov.game playableBy pov.player) option
- //     lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
-
- // private def possibleDrops(pov: Pov): Option[JsValue] =
- //   (pov.game playableBy pov.player) ?? {
- //     pov.game.situation.drops map { drops =>
- //       JsString(drops.map(_.usiKey).mkString)
- //     }
- //   }
 
   private def animationFactor(pref: Pref): Float =
     pref.animation match {

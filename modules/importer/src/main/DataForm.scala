@@ -81,9 +81,8 @@ case class ImportData(notation: String, analyse: Option[String]) {
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(init, state) =>
-      
         val variant = parsed.tags.variant | shogi.variant.Standard
-        val game = state.copy(situation = state.situation withVariant variant, clock = None)
+        val game    = state.copy(situation = state.situation withVariant variant, clock = None)
 
         val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 

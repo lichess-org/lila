@@ -126,7 +126,7 @@ final private class ChapterMaker(
         else fuccess(data.name)
       }
       root = GameToRoot(game, withClocks = true)
-      _ = notifyChat(study, game, userId)
+      _    = notifyChat(study, game, userId)
     } yield Chapter.make(
       studyId = study.id,
       name = name,

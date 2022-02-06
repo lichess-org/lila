@@ -58,15 +58,14 @@ object Sfen {
   def apply(game: Game): Sfen =
     apply(SituationPlus(game.situation, game.moveNumber))
 
-  def apply(sp: SituationPlus): Sfen = 
+  def apply(sp: SituationPlus): Sfen =
     Sfen(s"${situationToString(sp.situation)} ${sp.moveNumber}")
 
   def apply(sit: Situation): Sfen =
     Sfen(s"${situationToString(sit)}")
 
-
   case class SituationPlus(situation: Situation, moveNumber: Int) {
-    def plies = moveNumber - (if ((moveNumber % 2 == 1) == situation.color.sente) 1 else 0)
+    def plies        = moveNumber - (if ((moveNumber % 2 == 1) == situation.color.sente) 1 else 0)
     def toSfen: Sfen = apply(this)
   }
 
@@ -78,7 +77,7 @@ object Sfen {
     ) mkString " "
 
   def boardToString(board: Board, variant: Variant): String = {
-    val sfen   = new scala.collection.mutable.StringBuilder(256)
+    val sfen  = new scala.collection.mutable.StringBuilder(256)
     var empty = 0
     for (y <- 0 to (variant.numberOfRanks - 1)) {
       empty = 0
@@ -117,32 +116,33 @@ object Sfen {
 
     @scala.annotation.tailrec
     def piecesListRec(
-      pieces: List[(Pos, Piece)],
-      chars: List[Char],
-      x: Int,
-      y: Int
+        pieces: List[(Pos, Piece)],
+        chars: List[Char],
+        x: Int,
+        y: Int
     ): Option[List[(Pos, Piece)]] =
       chars match {
         case Nil => Some(pieces)
-        case '/' :: rest if y < variant.numberOfRanks => piecesListRec(pieces, rest, variant.numberOfFiles - 1, y + 1)
+        case '/' :: rest if y < variant.numberOfRanks =>
+          piecesListRec(pieces, rest, variant.numberOfFiles - 1, y + 1)
         case c :: rest if c.isDigit && x >= 0 => piecesListRec(pieces, rest, x - c.asDigit, y)
         case '+' :: c :: rest =>
           (for {
-            pos <- Pos.at(x, y)
-            _ <- Option.when(variant.isInsideBoard(pos))(())
+            pos   <- Pos.at(x, y)
+            _     <- Option.when(variant.isInsideBoard(pos))(())
             piece <- Piece.fromForsyth("+" + c)
           } yield (pos -> piece :: pieces)) match {
             case Some(ps) => piecesListRec(ps, rest, x - 1, y)
-            case _ => None
+            case _        => None
           }
         case c :: rest => {
           (for {
-            pos <- Pos.at(x, y)
-            _ <- Option.when(variant.isInsideBoard(pos))(())
+            pos   <- Pos.at(x, y)
+            _     <- Option.when(variant.isInsideBoard(pos))(())
             piece <- Piece.fromForsyth(c.toString)
           } yield (pos -> piece :: pieces)) match {
             case Some(ps) => piecesListRec(ps, rest, x - 1, y)
-            case _ => None
+            case _        => None
           }
         }
       }
@@ -155,17 +155,18 @@ object Sfen {
     @scala.annotation.tailrec
     def handsRec(hands: Hands, chars: List[Char], curCount: Option[Int]): Option[Hands] =
       chars match {
-        case Nil => Some(hands)
+        case Nil      => Some(hands)
         case '-' :: _ => Some(Hands.empty)
         case d :: rest if d.isDigit =>
           handsRec(hands, rest, curCount.map(_ * 10 + d.asDigit) orElse d.asDigit.some)
-        case p :: rest => Piece.fromForsyth(p.toString).filter(variant.handRoles contains _.role) match {
-          case Some(piece) =>
-            handsRec(hands.store(piece, curCount.fold(1)(math.min(_, 81))), rest, None)
-          case _ => None
-        }
+        case p :: rest =>
+          Piece.fromForsyth(p.toString).filter(variant.handRoles contains _.role) match {
+            case Some(piece) =>
+              handsRec(hands.store(piece, curCount.fold(1)(math.min(_, 81))), rest, None)
+            case _ => None
+          }
       }
-    
+
     handsRec(Hands.empty, handsStr.toList, None)
   }
 

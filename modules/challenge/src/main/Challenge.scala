@@ -185,8 +185,8 @@ object Challenge {
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(initialSfen, clock.some, variant)
-        => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(initialSfen, clock.some, variant) =>
+        Mode.Casual
       case _ => mode
     }
     val isOpen = challenger == Challenge.Challenger.Open

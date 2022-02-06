@@ -348,9 +348,9 @@ final class Study(
               chapter,
               none
             )
-            setup      = chapter.setup
+            setup       = chapter.setup
             initialSfen = chapter.root.sfen.some
-            pov        = userAnalysisC.makePov(initialSfen, setup.variant)
+            pov         = userAnalysisC.makePov(initialSfen, setup.variant)
             baseData = env.round.jsonView.userAnalysisJson(
               pov,
               lila.pref.Pref.default,

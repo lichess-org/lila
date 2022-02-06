@@ -15,8 +15,7 @@ object KifParserHelper {
       handicap: Option[String]
   ): Validated[String, Situation] = {
     val lines = augmentString(str).linesIterator.toList.map(_.trim.replace("：", ":").replace("　", " "))
-    val ranks = lines
-      .view
+    val ranks = lines.view
       .filter(l => (l lift 0 contains '|') && (l.size <= 42))
       .map(
         _.replace(".", "・")
@@ -35,7 +34,7 @@ object KifParserHelper {
     else if (ranks.size == variant.numberOfRanks)
       for {
         pieces <- parseBoard(ranks, variant)
-        board = Board(pieces)
+        board        = Board(pieces)
         senteHandStr = lines.find(l => l.startsWith("先手の持駒:") || l.startsWith("下手の持駒:"))
         goteHandStr  = lines.find(l => l.startsWith("後手の持駒:") || l.startsWith("上手の持駒:"))
         hands <- parseHands(senteHandStr, goteHandStr, variant)
@@ -65,20 +64,20 @@ object KifParserHelper {
         y: Int
     ): Validated[String, List[(Pos, Piece)]] =
       chars match {
-        case Nil  => valid(pieces)
-        case '・' :: rest => makePiecesList(pieces, rest, "", x - 1, y)
+        case Nil                                   => valid(pieces)
+        case '・' :: rest                           => makePiecesList(pieces, rest, "", x - 1, y)
         case (c @ ('v' | 'V' | '成' | '+')) :: rest => makePiecesList(pieces, rest, c.toString, x, y)
         case p :: rest =>
           (for {
             pos <- Pos.at(x, y) toValid s"Too many files in board setup on rank $y"
-            gote = pieceSoFar.toLowerCase.startsWith("v")
+            gote    = pieceSoFar.toLowerCase.startsWith("v")
             roleStr = if (gote) pieceSoFar.drop(1) + p else pieceSoFar + p
             role <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
-            _ <- Validated.cond(variant.allRoles contains role, (), s"$role is not valid $variant variant")
+            _    <- Validated.cond(variant.allRoles contains role, (), s"$role is not valid $variant variant")
             piece = Piece(Color.fromSente(!gote), role)
           } yield (pos -> piece :: pieces)) match {
             case cats.data.Validated.Valid(ps) => makePiecesList(ps, rest, "", x - 1, y)
-            case e => e
+            case e                             => e
           }
       }
     ranks.zipWithIndex.foldLeft[Validated[String, List[(Pos, Piece)]]](valid(Nil)) { case (acc, cur) =>
@@ -89,8 +88,12 @@ object KifParserHelper {
     } map (_.toMap)
   }
 
-  private def parseHands(sente: Option[String], gote: Option[String], variant: Variant): Validated[String, Hands] = {
-    
+  private def parseHands(
+      sente: Option[String],
+      gote: Option[String],
+      variant: Variant
+  ): Validated[String, Hands] = {
+
     def parseHand(str: String): Validated[String, Hand] = {
       def parseHandPiece(str: String, hand: Hand): Validated[String, Hand] =
         for {
@@ -112,7 +115,7 @@ object KifParserHelper {
     if (sente.isDefined || gote.isDefined)
       for {
         senteHand <- sente.fold[Validated[String, Hand]](valid(Hand.empty))(parseHand _)
-        goteHand  <-  gote.fold[Validated[String, Hand]](valid(Hand.empty))(parseHand _)
+        goteHand  <- gote.fold[Validated[String, Hand]](valid(Hand.empty))(parseHand _)
       } yield Hands(senteHand, goteHand)
     else valid(Hands(variant))
   }

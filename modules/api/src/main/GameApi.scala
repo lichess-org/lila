@@ -197,17 +197,17 @@ final private[api] class GameApi(
   ) =
     Json
       .obj(
-        "id"         -> g.id,
+        "id"          -> g.id,
         "initialSfen" -> g.initialSfen,
-        "rated"      -> g.rated,
-        "variant"    -> g.variant.key,
-        "speed"      -> g.speed.key,
-        "perf"       -> PerfPicker.key(g),
-        "createdAt"  -> g.createdAt,
-        "lastMoveAt" -> g.movedAt,
-        "plies"      -> g.plies,
-        "color"      -> g.turnColor.name,
-        "status"     -> g.status.name,
+        "rated"       -> g.rated,
+        "variant"     -> g.variant.key,
+        "speed"       -> g.speed.key,
+        "perf"        -> PerfPicker.key(g),
+        "createdAt"   -> g.createdAt,
+        "lastMoveAt"  -> g.movedAt,
+        "plies"       -> g.plies,
+        "color"       -> g.turnColor.name,
+        "status"      -> g.status.name,
         "clock" -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
@@ -240,7 +240,8 @@ final private[api] class GameApi(
               usis = g.usiMoves,
               initialSfen = g.initialSfen,
               variant = g.variant
-            ).toOption map { sits =>
+            )
+            .toOption map { sits =>
             JsArray(sits.toList.map(_.toSfen.value) map JsString.apply)
           }
         },

@@ -6,7 +6,6 @@ import Csa._
 import format.forsyth.Sfen
 import variant.Standard
 
-
 class CsaModelTest extends ShogiTest {
 
   "render csa situation - board, hands, turn, from random sfen" in {

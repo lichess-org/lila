@@ -72,7 +72,7 @@ object CsaParser {
       moveTermTag: Option[Tag]
   ): Tags = {
     val sfenTag = sit.toSfen.some.collect {
-      case sfen if (sfen.truncate != sit.variant.initialSfen.truncate) => Tag(_.Sfen, sfen.truncate)
+      case sfen if sfen.truncate != sit.variant.initialSfen.truncate => Tag(_.Sfen, sfen.truncate)
     }
     val termTag = (tags(_.Termination) orElse moveTermTag.map(_.value)).map(t => Tag(_.Termination, t))
     val resultTag = CsaParserHelper
@@ -288,8 +288,7 @@ object CsaParser {
     }
 
   private def splitMetaAndBoard(csa: String): Validated[String, (String, String)] =
-    augmentString(csa).linesIterator
-      .toList
+    augmentString(csa).linesIterator.toList
       .map(_.trim)
       .filter(l => l.nonEmpty && !l.startsWith("'")) partition { line =>
       !((line startsWith "P") || (line == "+") || (line == "-"))

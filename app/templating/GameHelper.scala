@@ -267,7 +267,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       title := gameTitle(pov.game, pov.color),
       cls := List(
         s"mini-board mini-board-${pov.gameId} cg-wrap parse-sfen variant-$variant" -> true,
-        s"live mini-board-${pov.gameId}"                                          -> isLive
+        s"live mini-board-${pov.gameId}"                                           -> isLive
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,

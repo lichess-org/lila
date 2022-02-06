@@ -8,11 +8,9 @@ import shogi.format.forsyth.Sfen
 object FullOpeningDB {
 
   private lazy val bySfen: collection.Map[String, FullOpening] =
-    all
-      .map { o =>
-        o.sfen -> o
-      }
-      .toMap
+    all.map { o =>
+      o.sfen -> o
+    }.toMap
 
   def findBySfen(sfen: Sfen): Option[FullOpening] =
     bySfen get sfen.truncate.value
@@ -40,7 +38,7 @@ object FullOpeningDB {
   def searchInSfens(sfens: Seq[Sfen]): Option[FullOpening] =
     sfens.foldRight(none[FullOpening]) {
       case (sfen, None) => findBySfen(sfen)
-      case (_, found)  => found
+      case (_, found)   => found
     }
 
   // todo

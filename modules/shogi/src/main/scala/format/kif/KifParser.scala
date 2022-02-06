@@ -4,7 +4,7 @@ package kif
 
 import scala.util.parsing.combinator._
 import cats.data.Validated
-import cats.data.Validated.{ invalid, valid, Valid, Invalid }
+import cats.data.Validated.{ invalid, valid, Invalid, Valid }
 import cats.implicits._
 
 import shogi.variant._
@@ -68,7 +68,7 @@ object KifParser {
         splitted <- splitKif(preprocessed)
         (headerStr, movesStr, variationStr) = splitted
         splitted2 <- splitMetaAndBoard(headerStr)
-        (metaStr, boardStr)  = splitted2
+        (metaStr, boardStr) = splitted2
         preTags     <- TagParser(metaStr)
         parsedMoves <- MovesParser(movesStr)
         (strMoves, terminationOption) = parsedMoves
@@ -101,10 +101,10 @@ object KifParser {
 
     @scala.annotation.tailrec
     def mk(
-      parsedMoves: List[ParsedMove],
-      strMoves: List[StrMove],
-      lastDest: Option[Pos],
-      ply: Int
+        parsedMoves: List[ParsedMove],
+        strMoves: List[StrMove],
+        lastDest: Option[Pos],
+        ply: Int
     ): Validated[String, List[ParsedMove]] =
       strMoves match {
         case Nil => valid(parsedMoves.reverse)
@@ -122,14 +122,14 @@ object KifParser {
                 }
                 if (uselessTimes) m1 else m1 withTimeSpent timeSpent withTimeTotal timeTotal
               } match {
-                case Valid(move) => mk(move :: parsedMoves, rest, move.positions.lastOption, ply + 1)
+                case Valid(move)  => mk(move :: parsedMoves, rest, move.positions.lastOption, ply + 1)
                 case Invalid(err) => invalid(err)
               }
             }
-        }
+          }
       }
 
-      mk(Nil, strMoves, startDest, startNum) map ParsedMoves.apply
+    mk(Nil, strMoves, startDest, startNum) map ParsedMoves.apply
   }
 
   def createVariations(vs: List[StrVariation]): List[StrVariation] = {
@@ -172,8 +172,8 @@ object KifParser {
       moveTermTag: Option[Tag]
   ): Tags = {
     val sfenTag = sit.toSfen.some.collect {
-      case sfen if (!sit.variant.standard || sfen.truncate != sit.variant.initialSfen.truncate)
-        => Tag(_.Sfen, sfen.truncate.value)
+      case sfen if !sit.variant.standard || sfen.truncate != sit.variant.initialSfen.truncate =>
+        Tag(_.Sfen, sfen.truncate.value)
     }
     val termTag = (tags(_.Termination) orElse moveTermTag.map(_.value)).map(t => Tag(_.Termination, t))
     val resultTag = KifParserHelper
@@ -460,8 +460,7 @@ object KifParser {
   }
 
   private def splitMetaAndBoard(kif: String): Validated[String, (String, String)] =
-    augmentString(kif).linesIterator
-      .toList
+    augmentString(kif).linesIterator.toList
       .map(_.trim)
       .filter(l => l.nonEmpty && !(l.startsWith("*") || l.startsWith("＊"))) partition { line =>
       (line contains ":") && !(line.tail startsWith "手の持駒")

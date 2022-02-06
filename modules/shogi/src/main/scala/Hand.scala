@@ -49,17 +49,17 @@ case class Hands(sente: Hand, gote: Hand) {
 }
 
 object Hands {
-  def apply(sente: Iterable[(Role, Int)], gote: Iterable[(Role, Int)]): Hands = 
+  def apply(sente: Iterable[(Role, Int)], gote: Iterable[(Role, Int)]): Hands =
     new Hands(Hand(sente), Hand(gote))
 
   def apply(variant: shogi.variant.Variant): Hands = {
     val (s, g) = variant.hands.partitionMap {
       case (piece, cnt) if piece.color.sente => Left(piece.role -> cnt)
-      case (piece, cnt) => Right(piece.role -> cnt)
+      case (piece, cnt)                      => Right(piece.role -> cnt)
     }
     Hands(s, g)
   }
-  
+
   def empty: Hands = Hands(Nil, Nil)
 }
 
@@ -100,9 +100,9 @@ case class Hand(handMap: HandMap) extends AnyVal {
 
 object Hand {
 
-  def apply(hand: Iterable[(Role, Int)]): Hand = 
+  def apply(hand: Iterable[(Role, Int)]): Hand =
     new Hand(hand.toMap)
-  
+
   def empty: Hand = Hand(Nil)
 
 }

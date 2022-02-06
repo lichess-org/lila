@@ -49,9 +49,9 @@ abstract class Variant private[variant] (
   // Used both for drops and moves without promotion
   def pieceInDeadZone(piece: Piece, pos: Pos): Boolean =
     piece.role match {
-      case Pawn | Knight | Lance if backrank(piece.color) == pos.rank => true
-      case Knight if math.abs(backrank(piece.color).index - pos.rank.index) == 1  => true
-      case _                                                       => false
+      case Pawn | Knight | Lance if backrank(piece.color) == pos.rank            => true
+      case Knight if math.abs(backrank(piece.color).index - pos.rank.index) == 1 => true
+      case _                                                                     => false
     }
 
   def canPromote(piece: Piece, orig: Pos, dest: Pos): Boolean =
@@ -68,7 +68,7 @@ abstract class Variant private[variant] (
   def posThreatened(board: Board, color: Color, pos: Pos, filter: Piece => Boolean = _ => true): Boolean =
     board.pieces exists {
       case (from, piece) if piece.color == color && filter(piece) && piece.eyes(from, pos) =>
-        piece.projectionDirs.isEmpty || piece.directDirs.exists(_(from).contains(pos)) || 
+        piece.projectionDirs.isEmpty || piece.directDirs.exists(_(from).contains(pos)) ||
           piece.role.dir(from, pos).exists {
             longRangeThreatens(board, from, _, pos)
           }
@@ -89,7 +89,7 @@ abstract class Variant private[variant] (
           !a.color,
           _,
           filter
-        ) 
+        )
       }
     }
   }
@@ -100,11 +100,12 @@ abstract class Variant private[variant] (
     }
 
   def checkSquares(sit: Situation): List[Pos] =
-     if (sit.check) sit.board.kingPosOf(sit.color).toList else Nil
-  
+    if (sit.check) sit.board.kingPosOf(sit.color).toList else Nil
+
   def longRangeThreatens(board: Board, p: Pos, dir: Direction, to: Pos): Boolean =
     dir(p) exists { next =>
-      (next == to || (isInsideBoard(next) && !board.pieces.contains(next) && longRangeThreatens(board, next, dir, to)))
+      (next == to || (isInsideBoard(next) && !board.pieces
+        .contains(next) && longRangeThreatens(board, next, dir, to)))
     }
 
   // For example, can't drop a pawn on a file with another pawn of the same color
@@ -113,11 +114,13 @@ abstract class Variant private[variant] (
       (a.piece is Pawn) && (
         a.situation.board.pieces.exists { case (pos, piece) =>
           a.piece == piece && pos.file == d.file
-        } || (
+        } ||
           a.situation.board.kingPosOf(!a.situation.color).fold(false) { kingPos =>
-            a.piece.eyes(d, kingPos) && a.situation.withBoard(a.situation.board.forcePlace(a.piece, d)).switch.checkmate
+            a.piece.eyes(d, kingPos) && a.situation
+              .withBoard(a.situation.board.forcePlace(a.piece, d))
+              .switch
+              .checkmate
           }
-        )
       )
     a.situation.possibleDropDests.filterNot { d =>
       pieceInDeadZone(a.piece, d) || illegalPawn(d)
@@ -138,18 +141,33 @@ abstract class Variant private[variant] (
   def move(sit: Situation, usi: Usi.Move): Validated[String, Situation] =
     for {
       actor <- sit.moveActorAt(usi.orig) toValid s"No piece on ${usi.orig}"
-      _ <- Validated.cond(actor is sit.color, (), s"Not my piece on ${usi.orig}")
-      _ <- Validated.cond(!usi.promotion || canPromote(actor.piece, usi.orig, usi.dest), (), s"${actor.piece} cannot promote")
-      _ <- Validated.cond(usi.promotion || !pieceInDeadZone(actor.piece, usi.dest), (), s"${actor.piece} needs to promote")
-      _ <- Validated.cond(actor.destinations.exists(_ == usi.dest), (), s"Piece on ${usi.orig} cannot move to ${usi.dest}")
+      _     <- Validated.cond(actor is sit.color, (), s"Not my piece on ${usi.orig}")
+      _ <- Validated.cond(
+        !usi.promotion || canPromote(actor.piece, usi.orig, usi.dest),
+        (),
+        s"${actor.piece} cannot promote"
+      )
+      _ <- Validated.cond(
+        usi.promotion || !pieceInDeadZone(actor.piece, usi.dest),
+        (),
+        s"${actor.piece} needs to promote"
+      )
+      _ <- Validated.cond(
+        actor.destinations.exists(_ == usi.dest),
+        (),
+        s"Piece on ${usi.orig} cannot move to ${usi.dest}"
+      )
       unpromotedCapture = sit.board(usi.dest).map(p => p.updateRole(unpromote) | p)
-      hands = 
+      hands =
         unpromotedCapture.filter(handRoles contains _.role).fold(sit.hands)(sit.hands store _.switch)
-      board <- 
-        (if (usi.promotion) 
-          sit.board.promote(usi.orig, usi.dest, promote)
-        else
-          sit.board.move(usi.orig, usi.dest)) toValid s"Can't update board with ${usi.usi} in \n${sit.toSfen}"
+      board <-
+        (if (usi.promotion)
+           sit.board.promote(usi.orig, usi.dest, promote)
+         else
+           sit.board.move(
+             usi.orig,
+             usi.dest
+           )) toValid s"Can't update board with ${usi.usi} in \n${sit.toSfen}"
     } yield finalizeSituation(sit, board, hands, usi)
 
   def drop(sit: Situation, usi: Usi.Drop): Validated[String, Situation] =
@@ -157,7 +175,7 @@ abstract class Variant private[variant] (
       _ <- Validated.cond(sit.variant.supportsDrops, (), "Variant doesn't support drops")
       piece = Piece(sit.color, usi.role)
       actor <- sit.dropActorOf(piece) toValid s"No actor of $piece"
-      _ <- Validated.cond(actor.destinations.contains(usi.pos), (), s"Dropping $piece is not valid")
+      _     <- Validated.cond(actor.destinations.contains(usi.pos), (), s"Dropping $piece is not valid")
       hands <- sit.hands.take(piece) toValid s"No $piece to drop on ${usi.pos}"
       board <- sit.board.place(piece, usi.pos) toValid s"Can't drop ${usi.role} on ${usi.pos}, it's occupied"
     } yield finalizeSituation(sit, board, hands, usi)
@@ -174,7 +192,7 @@ abstract class Variant private[variant] (
     }
 
     (sit.board.kingPosOf(sit.color) exists { pos => promotionRanks(sit.color) contains pos.rank }) &&
-      !sit.check && impasseEligible
+    !sit.check && impasseEligible
   }
 
   def perpetualCheck(sit: Situation): Boolean =
@@ -215,7 +233,6 @@ abstract class Variant private[variant] (
   def opponentHasInsufficientMaterial(sit: Situation) =
     (sit.hands(!sit.color).size + sit.board.piecesOf(!sit.color).size) <= 2
 
-
   protected def hasUnmovablePieces(board: Board) =
     board.pieces.exists { case (pos, piece) =>
       pieceInDeadZone(piece, pos)
@@ -239,14 +256,14 @@ abstract class Variant private[variant] (
     roles.count(_ == King) <= 1
   }
 
-  protected def validHands(hands: Hands) = 
+  protected def validHands(hands: Hands) =
     hands.roles.forall(handRoles contains _)
 
-  def valid(sit: Situation, strict: Boolean) = 
+  def valid(sit: Situation, strict: Boolean) =
     validHands(sit.hands) && Color.all.forall(validBoardSide(sit.board, strict) _)
 
-  def standard     = this == Standard
-  def minishogi    = this == Minishogi
+  def standard  = this == Standard
+  def minishogi = this == Minishogi
 
   override def toString = s"Variant($name)"
 

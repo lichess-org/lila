@@ -12,7 +12,7 @@ K . . . . . . . .
 Hands:
 Turn:Gote
 """
-    val game  = Game(situation)
+    val game      = Game(situation)
     "promote to a tokin" in {
       game.playMove(SQ7G, SQ7H, true) must beGame("""
 . . . . . . . . .
@@ -63,7 +63,7 @@ Turn:Sente
         """
 . . p . . . . . .
 K . R . . . . . .
-Turn:Gote""",
+Turn:Gote"""
       ).playMove(SQ7H, SQ7I, true) must beGame("""
 . . . . . . . . .
 . . . . . . . . .

@@ -59,10 +59,10 @@ object BSONHandlers {
 
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
-      val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
+      val variant                = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
       val position: Option[Sfen] = r.getO[Sfen]("fen").filterNot(_.initialOf(variant))
-      val startsAt   = r date "startsAt"
-      val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
+      val startsAt               = r date "startsAt"
+      val conditions             = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
         id = r str "_id",
         name = r str "name",

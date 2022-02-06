@@ -29,7 +29,7 @@ class DragonTest extends ShogiTest {
         SQ6F,
         SQ6D,
         SQ4F,
-        SQ4D,
+        SQ4D
       )
     }
 
@@ -68,7 +68,21 @@ P P P P P P P . P
 . . . . K . . . .
 Hands:
 Turn:Sente
-""" moveDestsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7B, SQ8E, SQ6E, SQ5E, SQ4E, SQ3E, SQ8F, SQ8D, SQ6F, SQ6D)
+""" moveDestsFrom SQ7E must bePoss(
+        SQ7F,
+        SQ7D,
+        SQ7C,
+        SQ7B,
+        SQ8E,
+        SQ6E,
+        SQ5E,
+        SQ4E,
+        SQ3E,
+        SQ8F,
+        SQ8D,
+        SQ6F,
+        SQ6D
+      )
     }
 
     "capture opponent pieces" in {
@@ -84,7 +98,22 @@ P P P P P P P P P
 . . . . K . . . .
 Hands:
 Turn:Sente
-""" moveDestsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7B, SQ8E, SQ9E, SQ6E, SQ5E, SQ4E, SQ3E, SQ8F, SQ8D, SQ6F, SQ6D)
+""" moveDestsFrom SQ7E must bePoss(
+        SQ7F,
+        SQ7D,
+        SQ7C,
+        SQ7B,
+        SQ8E,
+        SQ9E,
+        SQ6E,
+        SQ5E,
+        SQ4E,
+        SQ3E,
+        SQ8F,
+        SQ8D,
+        SQ6F,
+        SQ6D
+      )
     }
     "threaten" in {
       val situation = """

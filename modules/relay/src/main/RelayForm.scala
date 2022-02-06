@@ -23,9 +23,9 @@ final class RelayForm {
       "syncUrl" -> optional {
         nonEmptyText.verifying("Invalid source", validSource _)
       },
-      "credit"       -> optional(cleanNonEmptyText),
-      "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
-      "throttle"     -> optional(number(min = 2, max = 60))
+      "credit"   -> optional(cleanNonEmptyText),
+      "startsAt" -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "throttle" -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
   )
 

@@ -20,7 +20,7 @@ case object Standard
 
   val allPositions = Pos.all
 
-  val pieces = 
+  val pieces =
     Map(
       SQ9I -> Sente.lance,
       SQ8I -> Sente.knight,
@@ -63,7 +63,7 @@ case object Standard
       SQ2A -> Gote.knight,
       SQ1A -> Gote.lance
     )
-  
+
   val hands = Map.empty
 
   val allRoles = List(
@@ -118,7 +118,7 @@ case object Standard
   def backrank(color: Color) =
     if (color.sente) Rank.A else Rank.I
 
-  def promotionRanks(color: Color) = 
+  def promotionRanks(color: Color) =
     if (color.sente) List(Rank.A, Rank.B, Rank.C) else List(Rank.G, Rank.H, Rank.I)
 
 }

@@ -144,8 +144,8 @@ object BSONHandlers {
   def readNode(doc: Bdoc, id: UsiCharPair): Option[Node] = {
     import Node.{ BsonFields => F }
     for {
-      ply <- doc.getAsOpt[Int](F.ply)
-      usi <- doc.getAsOpt[Usi](F.usi)
+      ply  <- doc.getAsOpt[Int](F.ply)
+      usi  <- doc.getAsOpt[Usi](F.usi)
       sfen <- doc.getAsOpt[Sfen](F.sfen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty

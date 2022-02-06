@@ -5,7 +5,7 @@ import cats.data.Validated.valid
 import cats.implicits._
 
 import shogi.format.usi.Usi
-import shogi.{ Replay, Game }
+import shogi.{ Game, Replay }
 
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
@@ -17,11 +17,14 @@ private object VariationValidation {
 
   def apply(game: Work.Game, analysis: Analysis): WithErrors[Analysis] = {
 
-    lazy val games = Replay.gamesWhileValid(
-      game.usiList,
-      game.initialSfen,
-      game.variant
-    )._1.toList
+    lazy val games = Replay
+      .gamesWhileValid(
+        game.usiList,
+        game.initialSfen,
+        game.variant
+      )
+      ._1
+      .toList
 
     lazy val init = games.head
 

@@ -35,7 +35,7 @@ case object Minishogi
       SQ5A -> Gote.rook,
       SQ1B -> Gote.pawn
     )
-  
+
   val hands = Map.empty
 
   val allRoles = List(
@@ -59,7 +59,7 @@ case object Minishogi
     Pawn
   )
 
-  def promote(role: Role) = Standard.promote(role)
+  def promote(role: Role)   = Standard.promote(role)
   def unpromote(role: Role) = Standard.unpromote(role)
 
   def backrank(color: Color) =

@@ -34,7 +34,9 @@ case class Pos private (index: Int) extends AnyVal {
 
   // from down left corner to top right corner
   def upTo(other: Pos): Seq[Pos] =
-    min(rank.index, other.rank.index) to max(rank.index, other.rank.index) flatMap { Pos.at(file.index, _) } flatMap { _ <-> other }
+    min(rank.index, other.rank.index) to max(rank.index, other.rank.index) flatMap {
+      Pos.at(file.index, _)
+    } flatMap { _ <-> other }
 
   def touches(other: Pos): Boolean = xDist(other) <= 1 && yDist(other) <= 1
 
@@ -51,7 +53,7 @@ case class Pos private (index: Int) extends AnyVal {
   def usiKey    = file.toString + rank.toString
   def uciKey    = ((9 - file.index) + 96).toChar.toString + (9 - rank.index).toString // remove
   def numberKey = (file.index + 1).toString + (rank.index + 1).toString
-  
+
   override def toString = usiKey
 }
 
@@ -68,13 +70,12 @@ object Pos {
     new Pos(file.index + MaxFiles * rank.index)
 
   def at(x: Int, y: Int): Option[Pos] =
-    if (0 <= x && x < MaxFiles && 0 <= y && y < MaxRanks) 
+    if (0 <= x && x < MaxFiles && 0 <= y && y < MaxRanks)
       Some(new Pos(y * MaxFiles + x))
     else None
 
   def fromKey(key: String): Option[Pos] =
     allUsiKeys.get(key) orElse allUciKeys.get(key) orElse allNumberKeys.get(key)
-
 
   // 9a 8a 7a 6a 5a 4a 3a 2a 1a
   // 9b 8b 7b 6b 5b 4b 3b 2b 1b
@@ -181,22 +182,16 @@ object Pos {
   val allDirections: Directions =
     List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight, _.downLeft, _.downRight)
 
-  val allUsiKeys: Map[String, Pos] = all
-    .map { pos =>
-      pos.usiKey -> pos
-    }
-    .toMap
+  val allUsiKeys: Map[String, Pos] = all.map { pos =>
+    pos.usiKey -> pos
+  }.toMap
 
-  val allUciKeys: Map[String, Pos] = all
-    .map { pos =>
-      pos.uciKey -> pos
-    }
-    .toMap
+  val allUciKeys: Map[String, Pos] = all.map { pos =>
+    pos.uciKey -> pos
+  }.toMap
 
-  val allNumberKeys: Map[String, Pos] = all
-    .map { pos =>
-      pos.numberKey -> pos
-    }
-    .toMap
+  val allNumberKeys: Map[String, Pos] = all.map { pos =>
+    pos.numberKey -> pos
+  }.toMap
 
 }

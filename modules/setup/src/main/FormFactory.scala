@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ Variant, Standard }
+import shogi.variant.{ Standard, Variant }
 import lila.rating.RatingRange
 import lila.user.UserContext
 
@@ -36,7 +36,9 @@ final class FormFactory {
       .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
   )
 
-  def friendFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit ctx: UserContext): Form[FriendConfig] =
+  def friendFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit
+      ctx: UserContext
+  ): Form[FriendConfig] =
     friend(ctx) fill sfen.foldLeft(FriendConfig.default) { case (config, f) =>
       config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }

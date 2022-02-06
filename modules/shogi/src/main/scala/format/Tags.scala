@@ -157,11 +157,9 @@ object Tag {
   ) ++ tsumeTypes
 
   val tagTypesByLowercase: Map[String, TagType] =
-    tagTypes
-      .map { t =>
-        t.lowercase -> t
-      }
-      .toMap
+    tagTypes.map { t =>
+      t.lowercase -> t
+    }.toMap
 
   def apply(name: String, value: Any): Tag =
     new Tag(

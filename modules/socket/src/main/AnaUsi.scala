@@ -21,7 +21,7 @@ case class AnaUsi(
     sfen: Sfen,
     variant: Variant,
     path: String,
-    chapterId: Option[String],
+    chapterId: Option[String]
 ) extends AnaAny {
 
   def branch: Validated[String, Branch] = {
@@ -36,7 +36,7 @@ case class AnaUsi(
         check = parsed.situation.check,
         opening = (parsed.plies <= 30 && Variant.openingSensibleVariants(variant)) ?? {
           FullOpeningDB findBySfen sfen
-        },
+        }
       )
     }
   }

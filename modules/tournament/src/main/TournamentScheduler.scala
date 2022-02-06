@@ -250,9 +250,9 @@ Thank you all, you rock!"""
           case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
           case s2 =>
             (
-              !t.variant.standard ||  // overlapping non standard variant
-                s.hasMaxRating ||  // overlapping same rating limit
-                s.similarSpeed(s2) // overlapping similar
+              !t.variant.standard || // overlapping non standard variant
+                s.hasMaxRating ||    // overlapping same rating limit
+                s.similarSpeed(s2)   // overlapping similar
             ) && s.similarConditions(s2) && t.overlaps(t2)
         })
       }

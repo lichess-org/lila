@@ -35,8 +35,10 @@ final class Setup(
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms.aiFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))) map { form =>
-          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard 
+        fuccess(
+          forms.aiFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))
+        ) map { form =>
+          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
@@ -54,8 +56,10 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        fuccess(forms.friendFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))) flatMap { form =>
-          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
+        fuccess(
+          forms.friendFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))
+        ) flatMap { form =>
+          val variant   = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
           val validSfen = form("sfen").value map Sfen.clean flatMap ValidSfen(false, variant)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validSfen)).fuccess

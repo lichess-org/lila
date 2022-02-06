@@ -9,11 +9,9 @@ case class Board(pieces: PieceMap) {
   def apply(x: Int, y: Int): Option[Piece] = Pos.at(x, y) flatMap pieces.get
 
   def piecesOf(c: Color): List[Piece] =
-    pieces.values
-      .collect {
-        case piece if piece is c => piece
-      }
-      .toList
+    pieces.values.collect {
+      case piece if piece is c => piece
+    }.toList
 
   lazy val kingPos: Map[Color, Pos] = pieces.collect { case (pos, Piece(color, King)) =>
     color -> pos

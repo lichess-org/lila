@@ -83,15 +83,15 @@ object Hash {
 
     // Hash in hand data if there is something to hash
     if (sit.hands.nonEmpty) {
-      Color.all.flatMap { color =>
+      Color.all
+        .flatMap { color =>
           val colorshift = color.fold(125, -1)
           sit.hands(color).handMap flatMap { case (role, rolecount) =>
             handMask(role, colorshift, rolecount)
           }
         }
         .fold(hactors)(_ ^ _)
-    }
-    else hactors
+    } else hactors
   }
 
   private val h = new Hash(size)
