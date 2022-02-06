@@ -536,6 +536,11 @@ final class Team(
       }
     }
 
+  def apiRequests(id: String) =
+    Scoped(_.Team.Read) { _ => me =>
+      WithOwnedTeamEnabledApi(teamId, me) {
+    }
+
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
       req: Request[_]
   ): Either[Form[_], Fu[RateLimit.Result]] =
