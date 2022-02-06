@@ -49,16 +49,13 @@ object home {
         )
         .some
     ) {
-      main
-      // todo: turn me on!
-//      (
-//        cls := List(
-//          "lobby"            -> true,
-//          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
-//          "lobby--no-simuls" -> simuls.isEmpty
-//        )
-//      )
-      (
+      main(
+        cls := List(
+          "lobby"            -> false,
+          "lobby-nope"       -> false,
+          "lobby--no-simuls" -> false
+        )
+      )(
         div(cls := "lobby__table")(
           div(cls := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
