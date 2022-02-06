@@ -50,11 +50,7 @@ object home {
         .some
     ) {
       main(
-        cls := List(
-          "lobby"            -> false,
-          "lobby-nope"       -> false,
-          "lobby--no-simuls" -> false
-        )
+        cls := List()
       )(
         div(cls := "lobby__table")(
           div(cls := "bg-switch", title := "Dark mode")(
@@ -78,15 +74,16 @@ object home {
                 "disabled"                          -> currentGame.isDefined
               ),
               trans.playWithAFriend()
-            ),
-            a(
-              href := routes.Setup.aiForm,
-              cls := List(
-                "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
-              ),
-              trans.playWithTheMachine()
             )
+            // todo: turn me on!
+//            a(
+//              href := routes.Setup.aiForm,
+//              cls := List(
+//                "button button-metal config_ai" -> true,
+//                "disabled"                      -> currentGame.isDefined
+//              ),
+//              trans.playWithTheMachine()
+//            )
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
@@ -114,16 +111,17 @@ object home {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp
           },
-// todo: turn me on!
-//        div(cls := "lobby__side")(
-//          ctx.blind option h2("Highlights"),
-//          ctx.noKid option st.section(cls := "lobby__streams")(
-//            views.html.streamer.bits liveStreams streams,
-//            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
-//              trans.streamersMenu(),
-//              " »"
-//            )
-//          ),
+        div(cls := "lobby__side")(
+          ctx.blind option h2("Highlights"),
+          ctx.noKid option st.section(cls := "lobby__streams")(
+            views.html.streamer.bits liveStreams streams,
+            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+              trans.streamersMenu(),
+              " »"
+            )
+          )
+        )
+        // todo: turn me on!
 //          div(cls := "lobby__spotlights")(
 //            events.map(bits.spotlight),
 //            !ctx.isBot option frag(
