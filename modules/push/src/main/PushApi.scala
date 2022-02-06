@@ -5,6 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.challenge.Challenge
+import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
@@ -193,7 +194,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = t.lastMsg.text take 140,
+                body = shorten(t.lastMsg.text, 140),
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
