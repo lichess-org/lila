@@ -170,6 +170,7 @@ export const claimThreefold = (ctrl: RoundController): VNode =>
     'button.button.draw-yes',
     {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
+      attrs: { title: ctrl.noarg('claimADraw') },
     },
     h('span', '½')
   );
