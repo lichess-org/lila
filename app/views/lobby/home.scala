@@ -49,12 +49,7 @@ object home {
         )
         .some
     ) {
-      main(
-        cls := List(
-          "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
-        )
-      )(
+      main()(
         div(cls := "lobby__table")(
           div(cls := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
@@ -155,11 +150,11 @@ object home {
 //              a(href := "/about")(trans.aboutX("Lichess"), "...")
 //            )
 //        ),
-//        featured map { g =>
-//          div(cls := "lobby__tv")(
-//            views.html.game.mini(Pov naturalOrientation g, tv = true)
-//          )
-//        },
+        featured map { g =>
+          div(cls := "lobby__tv")(
+            views.html.game.mini(Pov naturalOrientation g, tv = true)
+          )
+        },
 //        puzzle map { p =>
 //          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
 //        },
