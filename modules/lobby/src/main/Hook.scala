@@ -75,7 +75,7 @@ case class Hook(
       .add("prov" -> perf.map(_.provisional).filter(identity))
       .add("u" -> user.map(_.username))
       .add("rating" -> rating)
-      .add("variant" -> realVariant.exotic.option(realVariant.key))
+      .add("variant" -> (!realVariant.standard).option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
       .add("c" -> shogi.Color.fromName(color).map(_.name))
       .add("perf" -> perfType.map(_.trans))

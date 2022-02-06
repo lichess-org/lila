@@ -57,8 +57,8 @@ export default function boot(cfg, element) {
           .toggle($('#enterable_simuls tr').length > 0);
         window.lishogi.pubsub.emit('content_loaded');
       },
-      fen: function (e) {
-        window.lishogi.StrongSocket.defaults.events.fen(e);
+      sfen: function (e) {
+        window.lishogi.StrongSocket.defaults.events.sfen(e);
         lobby.gameActivity(e.id);
       },
     },

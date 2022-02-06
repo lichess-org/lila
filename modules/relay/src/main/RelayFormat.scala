@@ -45,8 +45,8 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
         List(url)
       )(looksLikeJson) flatMap {
         _ ?? { index =>
-          val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-          val notationUrl  = (n: Int) => notationDoc(replaceLastPart(index, s"game-$n.kif"))
+          val jsonUrl     = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
+          val notationUrl = (n: Int) => notationDoc(replaceLastPart(index, s"game-$n.kif"))
           looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
             looksLikeNotation(notationUrl(1).url).map(_ option notationUrl) dmap2 {
               ManyFiles(index, _)
@@ -96,7 +96,7 @@ private object RelayFormat {
 
   case class Doc(url: Url, format: DocFormat)
 
-  def jsonDoc(url: Url) = Doc(url, DocFormat.Json)
+  def jsonDoc(url: Url)     = Doc(url, DocFormat.Json)
   def notationDoc(url: Url) = Doc(url, DocFormat.Notation)
 
   case class SingleFile(doc: Doc) extends RelayFormat

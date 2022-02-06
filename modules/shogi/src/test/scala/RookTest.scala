@@ -61,7 +61,9 @@ N . R . . . . P .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
-""" destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ6E, SQ5E, SQ4E, SQ3E)
+Hands:
+Turn:Sente
+""" moveDestsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7B, SQ8E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
 
     "capture opponent pieces" in {
@@ -75,10 +77,12 @@ n . R . . . p . .
 P P P P P P P P P
 . . . . . . . . .
 . . . . K . . . .
-""" destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ9E, SQ6E, SQ5E, SQ4E, SQ3E)
+Hands:
+Turn:Sente
+""" moveDestsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7B, SQ8E, SQ9E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
     "threaten" in {
-      val board = """
+      val situation = """
 k . B . . . . . .
 . . r . . r . . .
 p . . . . . . . .
@@ -88,24 +92,26 @@ n . R . . . . P .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
       "a reachable enemy to the left" in {
-        board actorAt SQ7E map (_ threatens SQ9E) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ9E) must beSome(true)
       }
       "a reachable enemy to the top" in {
-        board actorAt SQ7E map (_ threatens SQ7B) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ7B) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt SQ7E map (_ threatens SQ9C) must beSome(false)
+        situation moveActorAt SQ7E map (_ threatens SQ9C) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt SQ7E map (_ threatens SQ2E) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ2E) must beSome(true)
       }
       "nothing left" in {
-        board actorAt SQ7E map (_ threatens SQ8E) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ8E) must beSome(true)
       }
       "nothing up" in {
-        board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ7D) must beSome(true)
       }
     }
   }

@@ -32,8 +32,8 @@ class PosTest extends ShogiTest {
 
     "board sizes" in {
       "9x9" in {
-        Pos.all9x9 must have size 81
-        Pos.all9x9 must contain(
+        Pos.all must have size 81
+        Pos.all must contain(
           exactly(
             SQ9I,
             SQ8I,
@@ -120,8 +120,8 @@ class PosTest extends ShogiTest {
         )
       }
       "5x5" in {
-        Pos.all5x5 must have size 25
-        Pos.all5x5 must contain(
+        (SQ5E upTo SQ1A).toList must have size 25
+        (SQ5E upTo SQ1A).toList must contain(
           exactly(
             SQ5E,
             SQ4E,

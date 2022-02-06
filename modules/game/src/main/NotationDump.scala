@@ -1,10 +1,10 @@
 package lila.game
 
 import shogi.Replay
-import shogi.format.Forsyth
+import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
-import shogi.format.{ FEN, Notation, NotationMove, Tag, Tags }
+import shogi.format.{ Notation, NotationMove, Tag, Tags }
 import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -21,13 +21,12 @@ final class NotationDump(
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
   ): Fu[Notation] = {
     val tagsFuture =
       if (flags.tags)
-        tags(game, initialFen, withOpening = flags.opening, csa = flags.csa, teams = teams)
+        tags(game, withOpening = flags.opening, csa = flags.csa, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
@@ -41,7 +40,7 @@ final class NotationDump(
         val clockOffset = game.startColor.fold(0, 1)
         val extendedMoves = Replay.usiWithRoleWhilePossible(
           game.usiMoves,
-          initialFen,
+          game.initialSfen,
           game.variant
         )
         extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
@@ -85,9 +84,6 @@ final class NotationDump(
   def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lishogi AI level " + _)
 
-  private val customStartPosition: Set[shogi.variant.Variant] =
-    Set(shogi.variant.FromPosition)
-
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
     game.tournamentId.map { id =>
@@ -104,7 +100,6 @@ final class NotationDump(
 
   def tags(
       game: Game,
-      initialFen: Option[FEN],
       withOpening: Boolean,
       csa: Boolean,
       teams: Option[Color.Map[String]] = None
@@ -117,6 +112,7 @@ final class NotationDump(
           Tag(_.Site, gameUrl(game.id)),
           Tag(_.Sente, player(game.sentePlayer, wu)),
           Tag(_.Gote, player(game.gotePlayer, bu)),
+          Tag(_.Sfen, (game.initialSfen | game.variant.initialSfen).value),
           Tag(_.Variant, game.variant.name.capitalize),
           Tag(
             _.Event,
@@ -141,13 +137,9 @@ final class NotationDump(
                 Tag.timeControlKif(game.clock.map(_.config))
             )
           }
-        } ::: customStartPosition(game.variant).??(
+        } ::: (withOpening && game.opening.isDefined) ?? (
           List(
-            Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
-          )
-        ) ::: (withOpening && game.opening.isDefined) ?? (
-          List(
-            Tag(_.Opening, game.opening.fold("")(_.opening.eco))
+            Tag(_.Opening, game.opening.fold("")(_.opening.japanese))
           )
         )
       }

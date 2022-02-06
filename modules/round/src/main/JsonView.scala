@@ -10,7 +10,7 @@ import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.Clock
 
 import actorApi.SocketStatus
@@ -53,7 +53,6 @@ final class JsonView(
       pref: Pref,
       apiVersion: ApiVersion,
       playerUser: Option[User],
-      initialFen: Option[FEN],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
@@ -64,7 +63,7 @@ final class JsonView(
         import pov._
         Json
           .obj(
-            "game" -> gameJsonView(game, initialFen),
+            "game" -> gameJsonView(game),
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id"      -> playerId,
@@ -118,8 +117,8 @@ final class JsonView(
           .add("correspondence" -> game.correspondenceClock)
           .add("takebackable" -> takebackable)
           .add("moretimeable" -> moretimeable)
-          .add("possibleMoves" -> possibleMoves(pov, apiVersion))
-          .add("possibleDrops" -> possibleDrops(pov))
+          //.add("possibleMoves" -> possibleMoves(pov, apiVersion))
+          //.add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {
             Json.obj(
               "idleMillis"   -> (nowMillis - game.movedAt.getMillis),
@@ -148,7 +147,6 @@ final class JsonView(
       apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
-      initialFen: Option[FEN] = None,
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
@@ -156,9 +154,9 @@ final class JsonView(
         import pov._
         Json
           .obj(
-            "game" -> gameJsonView(game, initialFen)
+            "game" -> gameJsonView(game)
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
-              .add("division" -> withFlags.division.option(divider(game, initialFen)))
+              .add("division" -> withFlags.division.option(divider(game)))
               .add("opening" -> game.opening)
               .add("importedBy" -> game.notationImport.flatMap(_.user)),
             "clock"          -> game.clock.map(clockJson),
@@ -207,14 +205,12 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
       orientation: shogi.Color,
       owner: Boolean,
       me: Option[User],
       division: Option[shogi.Division] = none
   ) = {
     import pov._
-    val fen = Forsyth >> game.shogi
     Json
       .obj(
         "game" -> Json
@@ -222,14 +218,14 @@ final class JsonView(
             "id"            -> gameId,
             "variant"       -> game.variant,
             "opening"       -> game.opening,
-            "initialFen"    -> initialFen.fold(game.variant.initialFen)(_.value),
-            "fen"           -> fen,
-            "turns"         -> game.turns,
+            "initialSfen"   -> (game.initialSfen | game.variant.initialSfen),
+            "sfen"          -> game.shogi.toSfen,
+            "plies"         -> game.plies,
             "player"        -> game.turnColor.name,
             "status"        -> game.status,
             "source"        -> game.source,
             "startedAtMove" -> game.shogi.startedAtMove,
-            "startedAtTurn" -> game.shogi.startedAtTurn
+            "startedAtPly"  -> game.shogi.startedAtPly
           )
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
@@ -255,7 +251,7 @@ final class JsonView(
           .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold))
           .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
-        "path"         -> pov.game.turns,
+        "path"         -> pov.game.plies,
         "userAnalysis" -> true
       )
       .add("evalPut" -> me.??(evalCache.shouldPut))
@@ -270,16 +266,6 @@ final class JsonView(
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
-  private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
-    (pov.game playableBy pov.player) option
-      lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
-
-  private def possibleDrops(pov: Pov): Option[JsValue] =
-    (pov.game playableBy pov.player) ?? {
-      pov.game.situation.drops map { drops =>
-        JsString(drops.map(_.usiKey).mkString)
-      }
-    }
 
   private def animationFactor(pref: Pref): Float =
     pref.animation match {

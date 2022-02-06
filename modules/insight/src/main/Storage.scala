@@ -39,11 +39,6 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   def find(id: String) = coll(_.ext.find(selectId(id)).one[Entry])
 
-  def ecos(userId: String): Fu[Set[String]] =
-    coll {
-      _.distinctEasy[String, Set](F.eco, selectUserId(userId))
-    }
-
   def nbByPerf(userId: String): Fu[Map[PerfType, Int]] =
     coll {
       _.aggregateList(

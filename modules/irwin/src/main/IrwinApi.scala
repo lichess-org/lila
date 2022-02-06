@@ -127,7 +127,7 @@ final class IrwinApi(
         Query.variantStandard ++
         Query.rated ++
         Query.user(suspect.id.value) ++
-        Query.turnsGt(20) ++
+        Query.pliesGt(20) ++
         Query.createdSince(DateTime.now minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =

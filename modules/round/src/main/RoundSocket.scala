@@ -220,7 +220,7 @@ object RoundSocket {
         case _               => 1
       }
     } / {
-      pov.game.shogi.board.materialImbalance match {
+      pov.game.shogi.situation.materialImbalance match {
         case i if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
         case _                                                               => 1
       }

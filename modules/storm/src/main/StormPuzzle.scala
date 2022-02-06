@@ -1,7 +1,7 @@
 package lila.storm
 
 import cats.data.NonEmptyList
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
 import lila.puzzle.Puzzle
@@ -9,19 +9,18 @@ import lila.puzzle.Puzzle
 // Only tsume puzzles that are NOT from games
 case class StormPuzzle(
     id: Puzzle.Id,
-    fen: String,
+    sfen: Sfen,
     line: NonEmptyList[Usi],
     rating: Int
 ) {
   // ply after "initial move" when we start solving
-  def initialPly: Int = {
-    fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
-      move - 1
+  def initialPly: Int =
+    sfen.moveNumber ?? { mn =>
+      mn - 1
     }
-  }
 
-  lazy val fenAfterInitialMove: FEN = FEN(fen)
+  lazy val sfenAfterInitialMove: Sfen = sfen
 
   def color: shogi.Color =
-    Forsyth.getColor(fen).getOrElse(shogi.Sente)
+    sfen.color.getOrElse(shogi.Sente)
 }

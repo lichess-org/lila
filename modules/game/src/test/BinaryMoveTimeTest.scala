@@ -10,8 +10,8 @@ class BinaryMoveTimeTest extends Specification {
   val _0_ = "00000000"
   def write(c: Vector[Int]): List[String] =
     (BinaryFormat.moveTime write c.map(Centis(10) * _)).showBytes.split(',').toList
-  def read(bytes: List[String], turns: Int): Vector[Int] =
-    BinaryFormat.moveTime.read(ByteArray.parseBytes(bytes), turns) map (_.roundTenths)
+  def read(bytes: List[String], plies: Int): Vector[Int] =
+    BinaryFormat.moveTime.read(ByteArray.parseBytes(bytes), plies) map (_.roundTenths)
 
   "binary move times" should {
     "write" in {

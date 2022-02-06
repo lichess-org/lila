@@ -21,7 +21,7 @@ function qualityCheck(ev): boolean {
 // from client eval to server eval
 function toPutData(variant, ev) {
   const data: any = {
-    fen: ev.fen,
+    sfen: ev.sfen,
     knodes: Math.round(ev.nodes / 1000),
     depth: ev.depth,
     pvs: ev.pvs.map(pv => {
@@ -42,7 +42,7 @@ function toPutData(variant, ev) {
 // from server eval to client eval
 function toCeval(e) {
   const res: any = {
-    fen: e.fen,
+    sfen: e.sfen,
     nodes: e.knodes * 1000,
     depth: e.depth,
     pvs: e.pvs.map(function (from) {
@@ -62,26 +62,26 @@ function toCeval(e) {
 }
 
 export function make(opts): EvalCache {
-  const fetchedByFen = {};
+  const fetchedBySfen = {};
   const upgradable = prop(false);
   return {
     onCeval: throttle(500, function () {
       const node = opts.getNode(),
         ev = node.ceval;
-      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
+      if (ev && !ev.cloud && node.sfen in fetchedBySfen && qualityCheck(ev) && opts.canPut()) {
         opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;
-      const serverEval = fetchedByFen[node.fen];
+      const serverEval = fetchedBySfen[node.sfen];
       if (serverEval) return opts.receive(toCeval(serverEval), path);
-      else if (node.fen in fetchedByFen) return;
+      else if (node.sfen in fetchedBySfen) return;
       // waiting for response
-      else fetchedByFen[node.fen] = undefined; // mark as waiting
+      else fetchedBySfen[node.sfen] = undefined; // mark as waiting
       const obj: any = {
-        fen: node.fen,
+        sfen: node.sfen,
         path,
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
@@ -90,7 +90,7 @@ export function make(opts): EvalCache {
       opts.send('evalGet', obj);
     },
     onCloudEval(serverEval) {
-      fetchedByFen[serverEval.fen] = serverEval;
+      fetchedBySfen[serverEval.sfen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
     },
     upgradable,

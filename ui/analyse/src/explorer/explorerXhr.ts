@@ -3,15 +3,15 @@ import { OpeningData, TablebaseData } from './interfaces';
 export function opening(
   endpoint: string,
   variant: VariantKey,
-  fen: Fen,
-  rootFen: Fen,
+  sfen: Sfen,
+  rootSfen: Sfen,
   play: string[],
   config,
   withGames: boolean
 ): JQueryPromise<OpeningData> {
   let url: string;
   const params: any = {
-    fen: rootFen,
+    sfen: rootSfen,
     play: play.join(','),
   };
   if (!withGames) params.topGames = params.recentGames = 0;
@@ -28,20 +28,19 @@ export function opening(
     cache: true,
   }).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
-    data.fen = fen;
+    data.sfen = sfen;
     return data as OpeningData;
   });
 }
 
-export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): JQueryPromise<TablebaseData> {
-  const effectiveVariant = variant === 'fromPosition' ? 'standard' : variant;
+export function tablebase(endpoint: string, variant: VariantKey, sfen: Sfen): JQueryPromise<TablebaseData> {
   return $.ajax({
-    url: endpoint + '/' + effectiveVariant,
-    data: { fen },
+    url: endpoint + '/' + variant,
+    data: { sfen },
     cache: true,
   }).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
-    data.fen = fen;
+    data.sfen = sfen;
     return data as TablebaseData;
   });
 }

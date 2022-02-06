@@ -25,7 +25,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
   return {
     state() {
       const node = root.node;
-      if (!prev || prev!.id !== node.id) {
+      if (!prev || prev.id !== node.id) {
         prev = node;
         selected = 0;
       }

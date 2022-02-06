@@ -14,8 +14,8 @@ function squareDist(a, b) {
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
 
-function readFen(fen) {
-  var parts = fen.split(' ');
+function readSfen(sfen) {
+  var parts = sfen.split(' ');
   var board = {
     pieces: {},
     turn: parts[1] === 'b',
@@ -138,8 +138,8 @@ function sanOf(board, usi) {
 }
 
 // psuedo-short algebraic notation (contains 'x' or '-')
-export default function sanWriter(fen, usis) {
-  var board = readFen(fen);
+export default function sanWriter(sfen, usis) {
+  var board = readSfen(sfen);
   var lans = {};
   usis.forEach(function (usi) {
     var san = sanOf(board, usi);

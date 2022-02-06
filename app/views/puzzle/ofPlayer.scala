@@ -53,7 +53,7 @@ object ofPlayer {
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
                           views.html.game.bits.miniTag(
-                            fen = puzzle.fenAfterInitialMove,
+                            sfen = puzzle.sfenAfterInitialMove,
                             color = puzzle.color,
                             lastMove = puzzle.lastMove
                           )(

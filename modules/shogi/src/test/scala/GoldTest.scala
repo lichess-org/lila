@@ -17,7 +17,7 @@ class GoldTest extends ShogiTest {
     }
 
     "not move to positions that are occupied by the same colour" in {
-      val board = """
+      val situation = """
 k . B . . . . . .
 . . . . . . . . .
 . . . . . . . . .
@@ -27,9 +27,11 @@ k . B . . . . . .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
-      board destsFrom SQ7E must bePoss(
-        board,
+      situation moveDestsFrom SQ7E must bePoss(
+        situation,
         """
 k . B . . . . . .
 . . . . . . . . .
@@ -40,12 +42,14 @@ k . B . . . . . .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
       )
     }
 
     "capture opponent pieces" in {
-      val board = """
+      val situation = """
 k . B . . . . . .
 . . . . . . . . .
 . . . . . . . . .
@@ -55,9 +59,11 @@ N . G . . . . P .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
-      board destsFrom SQ7E must bePoss(
-        board,
+      situation moveDestsFrom SQ7E must bePoss(
+        situation,
         """
 k . B . . . . . .
 . . . . . . . . .
@@ -68,11 +74,13 @@ N x G x . . . P .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
       )
     }
     "threaten" in {
-      val board = """
+      val situation = """
 k . B . . . . . .
 . . r . r . . . .
 p . . . . . . . .
@@ -82,27 +90,29 @@ N . G . . . . P .
 P P P P P P P . P
 . . . . . . . . .
 . . . . K . . . .
+Hands:
+Turn:Sente
 """
       "a reachable enemy" in {
-        board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ7D) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt SQ7E map (_ threatens SQ9C) must beSome(false)
+        situation moveActorAt SQ7E map (_ threatens SQ9C) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt SQ7E map (_ threatens SQ7F) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ7F) must beSome(true)
       }
       "nothing left" in {
-        board actorAt SQ7E map (_ threatens SQ8E) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ8E) must beSome(true)
       }
       "nothing right" in {
-        board actorAt SQ7E map (_ threatens SQ6E) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ6E) must beSome(true)
       }
       "nothing left up" in {
-        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "nothing right up" in {
-        board actorAt SQ7E map (_ threatens SQ6D) must beSome(true)
+        situation moveActorAt SQ7E map (_ threatens SQ6D) must beSome(true)
       }
     }
   }

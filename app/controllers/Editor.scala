@@ -1,39 +1,40 @@
 package controllers
 
-import shogi.format.Forsyth
+import shogi.format.forsyth.Sfen
 import shogi.Situation
 import play.api.libs.json._
 
 import lila.app._
 import views._
+import lila.common.Json._
 
 final class Editor(env: Env) extends LilaController(env) {
 
   private lazy val positionsJson = lila.common.String.html.safeJsonValue {
     JsArray(shogi.StartingPosition.all map { p =>
       Json.obj(
-        "eco"  -> p.eco,
-        "name" -> p.name,
-        "fen"  -> p.fen
+        "japanese" -> p.japanese,
+        "english"  -> p.english,
+        "sfen"     -> p.sfen
       )
     })
   }
 
   def index = load("")
 
-  def load(urlFen: String) =
+  def load(urlSfen: String) =
     Open { implicit ctx =>
-      val fenStr = lila.common.String
-        .decodeUriPath(urlFen)
+      val sfenStr = lila.common.String
+        .decodeUriPath(urlSfen)
         .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
-        .orElse(get("fen"))
+        .orElse(get("sfen"))
       fuccess {
-        val situation = readFen(fenStr)
+        val situation = readSfen(sfenStr)
         Ok(
           html.board.editor(
             sit = situation,
-            fen = Forsyth >> situation,
+            sfen = situation.toSfen,
             positionsJson,
             animationDuration = env.api.config.editorAnimationDuration
           )
@@ -44,19 +45,19 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val situation = readFen(get("fen"))
+        val situation = readSfen(get("sfen"))
         Ok(
           html.board.bits.jsData(
             sit = situation,
-            fen = Forsyth >> situation,
+            sfen = situation.toSfen,
             animationDuration = env.api.config.editorAnimationDuration
           )
         ) as JSON
       }
     }
 
-  private def readFen(fen: Option[String]): Situation =
-    fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(
+  private def readSfen(sfen: Option[String]): Situation =
+    sfen.map(Sfen.clean).filter(_.value.nonEmpty).flatMap(_.toSituation(shogi.variant.Standard)) | Situation(
       shogi.variant.Standard
     )
 
@@ -65,7 +66,7 @@ final class Editor(env: Env) extends LilaController(env) {
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "sente")
-          else routes.Editor.load(get("fen") | (shogi.format.Forsyth >> game.shogi))
+          else routes.Editor.load(get("sfen") | (game.shogi.toSfen).value)
         }
       }
     }

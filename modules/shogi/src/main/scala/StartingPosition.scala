@@ -1,9 +1,11 @@
 package shogi
 
+import format.forsyth.Sfen
+
 case class StartingPosition(
-    eco: String,
-    name: String,
-    fen: String,
+    japanese: String,
+    english: String,
+    sfen: Sfen,
     wikiPath: String,
     moves: String,
     featurable: Boolean = true
@@ -11,11 +13,11 @@ case class StartingPosition(
 
   val url = s"https://en.wikipedia.org/wiki/$wikiPath"
 
-  val shortName = name takeWhile (':' !=)
+  val shortName = english takeWhile (':' !=)
 
-  val fullName = s"$eco - $name"
+  val fullName = s"$japanese ($english)"
 
-  val initial = fen == format.Forsyth.initial
+  val initial = sfen == variant.Standard.initialSfen
 }
 
 object StartingPosition {
@@ -29,7 +31,7 @@ object StartingPosition {
         StartingPosition(
           "香落ち",
           "Lance",
-          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -37,7 +39,7 @@ object StartingPosition {
         StartingPosition(
           "右香落ち",
           "Right Lance",
-          "1nsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("1nsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -45,7 +47,7 @@ object StartingPosition {
         StartingPosition(
           "角落ち",
           "Bishop",
-          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -53,7 +55,7 @@ object StartingPosition {
         StartingPosition(
           "飛車落ち",
           "Rook",
-          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -61,7 +63,7 @@ object StartingPosition {
         StartingPosition(
           "飛香落ち",
           "Rook-Lance",
-          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -69,7 +71,7 @@ object StartingPosition {
         StartingPosition(
           "二枚落ち",
           "2-piece",
-          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -77,7 +79,7 @@ object StartingPosition {
         StartingPosition(
           "四枚落ち",
           "4-piece",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -85,7 +87,7 @@ object StartingPosition {
         StartingPosition(
           "六枚落ち",
           "6-piece",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -93,7 +95,7 @@ object StartingPosition {
         StartingPosition(
           "八枚落ち",
           "8-piece",
-          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -101,7 +103,7 @@ object StartingPosition {
         StartingPosition(
           "十枚落ち",
           "10-piece",
-          "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -109,7 +111,7 @@ object StartingPosition {
         StartingPosition(
           "歩三兵",
           "3 Pawns",
-          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p 1",
+          Sfen("4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -117,7 +119,7 @@ object StartingPosition {
         StartingPosition(
           "裸玉",
           "Naked King",
-          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -125,7 +127,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋桂香",
           "Dragonfly + NL",
-          "ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -133,7 +135,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋香",
           "Dragonfly + L",
-          "l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -141,7 +143,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ",
           "Dragonfly",
-          "4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          Sfen("4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -149,7 +151,7 @@ object StartingPosition {
         StartingPosition(
           "香得",
           "Lance Gained",
-          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w L 1",
+          Sfen("lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w L 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -157,7 +159,7 @@ object StartingPosition {
         StartingPosition(
           "角得",
           "Bishop Gained",
-          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w B 1",
+          Sfen("lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w B 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -165,7 +167,7 @@ object StartingPosition {
         StartingPosition(
           "飛車得",
           "Rook Gained",
-          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w R 1",
+          Sfen("lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w R 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -173,7 +175,7 @@ object StartingPosition {
         StartingPosition(
           "飛香得",
           "Rook-Lance Gained",
-          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RL 1",
+          Sfen("lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RL 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -181,7 +183,7 @@ object StartingPosition {
         StartingPosition(
           "二枚得",
           "2-piece Gained",
-          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB 1",
+          Sfen("lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -189,7 +191,7 @@ object StartingPosition {
         StartingPosition(
           "四枚得",
           "4-piece Gained",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2L 1",
+          Sfen("1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2L 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -197,7 +199,7 @@ object StartingPosition {
         StartingPosition(
           "六枚得",
           "6-piece Gained",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2N2L 1",
+          Sfen("2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2N2L 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -205,7 +207,7 @@ object StartingPosition {
         StartingPosition(
           "八枚得",
           "8-piece Gained",
-          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2S2N2L 1",
+          Sfen("3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB2S2N2L 1"),
           "Handicap_(shogi)",
           "",
           false
@@ -216,7 +218,7 @@ object StartingPosition {
 
   val all: IndexedSeq[StartingPosition] = categories.flatMap(_.positions).toIndexedSeq
 
-  val initial = StartingPosition("---", "Initial position", format.Forsyth.initial, "Shogi", "")
+  val initial = StartingPosition("平手", "Initial position", variant.Standard.initialSfen, "Shogi", "")
 
   def allWithInitial = initial +: all
 
@@ -224,17 +226,17 @@ object StartingPosition {
 
   def randomFeaturable = featurable(scala.util.Random.nextInt(featurable.size))
 
-  def searchByEco(eco: String): Option[StartingPosition] =
-    all.find(_.eco == eco)
+  def searchByJapaneseName(japanese: String): Option[StartingPosition] =
+    all.find(_.japanese == japanese)
 
-  def searchHandicapByFen(fen: Option[format.FEN]): Option[StartingPosition] = {
-    fen flatMap { fe =>
+  def searchHandicapBySfen(sfen: Option[Sfen]): Option[StartingPosition] = {
+    sfen flatMap { sf =>
       categories find { _.name == "Handicaps" } flatMap { hcs =>
-        hcs.positions find { p => format.Forsyth.compareTruncated(p.fen, fe.value) }
+        hcs.positions find { p => p.sfen.truncate == sf.truncate }
       }
     }
   }
 
-  def isFENHandicap(fen: Option[format.FEN]): Boolean = searchHandicapByFen(fen).isDefined
+  def isSfenHandicap(sfen: Option[Sfen]): Boolean = searchHandicapBySfen(sfen).isDefined
 
 }

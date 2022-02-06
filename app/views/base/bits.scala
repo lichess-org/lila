@@ -1,5 +1,9 @@
 package views.html.base
 
+import shogi.format.forsyth.Sfen
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.app.ui.ScalatagsTemplate._
 
 object bits {
@@ -38,4 +42,7 @@ z-index: 99;
       a(href := "https://twitter.com/lishogi", rel := "nofollow")("Twitter"),
       a(href := "https://discord.gg/YFtpMGg3rR", rel := "nofollow")("Discord")
     )
+
+  def sfenAnalysisLink(sfen: Sfen)(implicit lang: Lang) =
+    a(href := routes.UserAnalysis.parseArg(sfen.value.replace(" ", "_")))(trans.analysis())
 }

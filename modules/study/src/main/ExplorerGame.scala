@@ -28,7 +28,7 @@ final private class ExplorerGame(
       importer(gameId) map {
         _ ?? { game =>
           position.node ?? { fromNode =>
-            GameToRoot(game, none, withClocks = false).pipe { root =>
+            GameToRoot(game, withClocks = false).pipe { root =>
               root.setCommentAt(
                 comment = gameComment(game),
                 path = Path(root.mainline.map(_.id))
@@ -43,9 +43,7 @@ final private class ExplorerGame(
       }
 
   private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] = {
-    val gameNodes = game.mainline.dropWhile(n =>
-      !shogi.format.Forsyth.compareTruncated(n.fen.value, fromNode.fen.value)
-    ) drop 1
+    val gameNodes = game.mainline.dropWhile(n => n.sfen.truncate != fromNode.sfen.truncate) drop 1
     val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode

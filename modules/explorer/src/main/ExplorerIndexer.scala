@@ -39,7 +39,7 @@ final private class ExplorerIndexer(
           Query.createdSince(since) ++
             Query.rated ++
             Query.finished ++
-            Query.turnsGt(8) ++
+            Query.pliesGt(8) ++
             Query.noProvisional ++
             Query.bothRatingsGreaterThan(1501)
 
@@ -97,8 +97,8 @@ final private class ExplorerIndexer(
   private def valid(game: Game) =
     game.finished &&
       game.rated &&
-      game.turns >= 10 &&
-      game.variant != shogi.variant.FromPosition
+      game.plies >= 10 &&
+      game.initialSfen.isEmpty
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
@@ -128,8 +128,8 @@ final private class ExplorerIndexer(
     ~(for {
       senteRating <- stableRating(game.sentePlayer)
       goteRating  <- stableRating(game.gotePlayer)
-      minPlayerRating  = if (game.variant.exotic) 1400 else 1500
-      minAverageRating = if (game.variant.exotic) 1520 else 1600
+      minPlayerRating  = if (!game.variant.standard) 1400 else 1500
+      minAverageRating = if (!game.variant.standard) 1520 else 1600
       if senteRating >= minPlayerRating
       if goteRating >= minPlayerRating
       averageRating = (senteRating + goteRating) / 2
@@ -137,30 +137,28 @@ final private class ExplorerIndexer(
       if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
-    } yield gameRepo initialFen game flatMap { initialFen =>
-      userRepo.usernamesByIds(game.userIds) map { usernames =>
-        def username(color: shogi.Color) =
-          game.player(color).userId flatMap { id =>
-            usernames.find(_.toLowerCase == id)
-          } orElse game.player(color).userId getOrElse "?"
-        val fenTags = initialFen.?? { fen =>
-          List(s"$$SFEN:$fen]")
-        }
-        val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
-        val otherTags = List(
-          s"N+${username(shogi.Sente)}",
-          s"N-${username(shogi.Gote)}",
-          s"$$LishogiID:${game.id}",
-          s"$$Variant:${game.variant.name}",
-          s"[TimeControl $timeControl",
-          s"$$SenteElo $senteRating",
-          s"$$GoteElo $goteRating",
-          s"$$Result ${NotationDump.result(game)}",
-          s"$$Start${dateFormatter.print(game.createdAt)}"
-        )
-        val allTags = fenTags ::: otherTags
-        s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
+    } yield userRepo.usernamesByIds(game.userIds) map { usernames =>
+      def username(color: shogi.Color) =
+        game.player(color).userId flatMap { id =>
+          usernames.find(_.toLowerCase == id)
+        } orElse game.player(color).userId getOrElse "?"
+      val sfenTags = game.initialSfen.?? { sfen =>
+        List(s"$$SFEN:$sfen]")
       }
+      val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
+      val otherTags = List(
+        s"N+${username(shogi.Sente)}",
+        s"N-${username(shogi.Gote)}",
+        s"$$LishogiID:${game.id}",
+        s"$$Variant:${game.variant.name}",
+        s"[TimeControl $timeControl",
+        s"$$SenteElo $senteRating",
+        s"$$GoteElo $goteRating",
+        s"$$Result ${NotationDump.result(game)}",
+        s"$$Start${dateFormatter.print(game.createdAt)}"
+      )
+      val allTags = sfenTags ::: otherTags
+      s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
     })
 
   private val logger = lila.log("explorer")

@@ -5,8 +5,9 @@ import { ApiMove, RoundData } from './interfaces';
 const li = window.lishogi;
 let found = false;
 
-function truncateFen(fen: Fen): string {
-  return fen.split(' ')[0];
+function truncateSfen(sfen: Sfen): string {
+  // todo
+  return sfen.split(' ')[0];
 }
 
 export function subscribe(ctrl: RoundController): void {
@@ -16,11 +17,11 @@ export function subscribe(ctrl: RoundController): void {
   if (!ctrl.data.game.rated && ctrl.opts.userId) return;
   // bots can cheat alright
   if (ctrl.data.player.user && ctrl.data.player.user.title === 'BOT') return;
-  li.storage.make('ceval.fen').listen(e => {
+  li.storage.make('ceval.sfen').listen(e => {
     if (e.value === 'start') return li.storage.fire('round.ongoing');
     const d = ctrl.data,
       step = lastStep(ctrl.data);
-    if (!found && step.ply > 14 && ctrl.isPlaying() && e.value && truncateFen(step.fen) === truncateFen(e.value)) {
+    if (!found && step.ply > 14 && ctrl.isPlaying() && e.value && truncateSfen(step.sfen) === truncateSfen(e.value)) {
       $.post('/jslog/' + d.game.id + d.player.id + '?n=ceval');
       found = true;
     }
@@ -29,5 +30,5 @@ export function subscribe(ctrl: RoundController): void {
 }
 
 export function publish(d: RoundData, move: ApiMove) {
-  if (d.opponent.ai) li.storage.fire('ceval.fen', move.fen);
+  if (d.opponent.ai) li.storage.fire('ceval.sfen', move.sfen);
 }

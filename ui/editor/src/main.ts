@@ -30,7 +30,7 @@ export default function LishogiEditor(element: HTMLElement, config: EditorConfig
   menuHover();
 
   return {
-    getFen: ctrl.getFen.bind(ctrl),
+    getSfen: ctrl.getSfen.bind(ctrl),
     setOrientation: ctrl.setOrientation.bind(ctrl),
   };
 }

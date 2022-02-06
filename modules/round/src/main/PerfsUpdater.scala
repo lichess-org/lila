@@ -27,7 +27,7 @@ final class PerfsUpdater(
             val ratingsW = mkRatings(sente.perfs)
             val ratingsB = mkRatings(gote.perfs)
             val result   = resultOf(game)
-            game.ratingVariant match {
+            game.variant match {
               case shogi.variant.Minishogi =>
                 updateRatings(ratingsW.minishogi, ratingsB.minishogi, result)
               case shogi.variant.Standard =>
@@ -112,7 +112,7 @@ final class PerfsUpdater(
       case (player, opponent) =>
         val perfs            = player.perfs
         val speed            = game.speed
-        val isStd            = game.ratingVariant.standard
+        val isStd            = game.variant.standard
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
           if (cond) {
@@ -121,7 +121,7 @@ final class PerfsUpdater(
             else p
           } else perf
         val perfs1 = perfs.copy(
-          minishogi = addRatingIf(game.ratingVariant.minishogi, perfs.minishogi, ratings.minishogi),
+          minishogi = addRatingIf(game.variant.minishogi, perfs.minishogi, ratings.minishogi),
           ultraBullet =
             addRatingIf(isStd && speed == Speed.UltraBullet, perfs.ultraBullet, ratings.ultraBullet),
           bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),

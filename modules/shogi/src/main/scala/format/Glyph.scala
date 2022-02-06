@@ -14,7 +14,7 @@ case class Glyphs(
 
   def isEmpty = this == Glyphs.empty
 
-  def nonEmpty: Option[Glyphs] = if (isEmpty) None else Option(this)
+  def nonEmpty: Option[Glyphs] = if (isEmpty) None else Some(this)
 
   def toggle(glyph: Glyph) =
     glyph match {
@@ -67,11 +67,9 @@ object Glyph {
     val zugzwang    = new Glyph(22, "⨀", "Zugzwang") with MoveAssessment
 
     val all = List(good, mistake, brillant, blunder, interesting, dubious, only, zugzwang)
-    val byId: Map[Int, Glyph] = all
-      .map { g =>
-        g.id -> g
-      }
-      .to(Map)
+    val byId: Map[Int, Glyph] = all.map { g =>
+      g.id -> g
+    }.toMap
 
     def display = all
   }
@@ -98,11 +96,9 @@ object Glyph {
       senteMuchBetter,
       goteMuchBetter
     )
-    val byId: Map[Int, Glyph] = all
-      .map { g =>
-        g.id -> g
-      }
-      .to(Map)
+    val byId: Map[Int, Glyph] = all.map { g =>
+      g.id -> g
+    }.toMap
 
     def display = all
   }
@@ -120,11 +116,9 @@ object Glyph {
     val withIdea     = new Glyph(140, "∆", "With the idea") with Observation
 
     val all = List(novelty, development, initiative, attack, counterplay, timeTrouble, compensation, withIdea)
-    val byId: Map[Int, Glyph] = all
-      .map { g =>
-        g.id -> g
-      }
-      .to(Map)
+    val byId: Map[Int, Glyph] = all.map { g =>
+      g.id -> g
+    }.toMap
 
     def display = all
   }

@@ -10,9 +10,8 @@ class BinaryTest extends ShogiTest {
   import BinaryTestUtils._
 
   def compareStrAndBin(usisStr: String) = {
-    val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get).toList
-    (Binary.decodeMoves(Standard, bin) map (_.usi) mkString " ") must_== usisStr
-    bin.size must be_<=(usisStr.length)
+    val bin = Binary.encodeMoves(Usi.readList(usisStr).get, Standard).toVector
+    Binary.decodeMoves(bin, Standard).map(_.usi).mkString(" ") must_== usisStr
   }
 
   "binary encoding" should {
@@ -22,18 +21,18 @@ class BinaryTest extends ShogiTest {
     }
     "write single move" in {
       "simple move" in {
-        encodeMove("1a1b")  must_== "00000000,00001001"
-        encodeMove("1b1a")  must_== "00001001,00000000"
-        encodeMove("1a2a")  must_== "00000000,00000001"
-        encodeMove("7g7f")  must_== "00111100,00110011"
-        encodeMove("8h2b")  must_== "01000110,00001010"
-        encodeMove("1i1h")  must_== "01001000,00111111"
-        encodeMove("1i2i")  must_== "01001000,01001001"
-        encodeMove("9a8a")  must_== "00001000,00000111"
-        encodeMove("9a9b")  must_== "00001000,00010001"
-        encodeMove("9i8i")  must_== "01010000,01001111"
-        encodeMove("9h9i")  must_== "01000111,01010000"
-        encodeMove("1a9i")  must_== "00000000,01010000"
+        encodeMove("1a1b") must_== "00000000,00001001"
+        encodeMove("1b1a") must_== "00001001,00000000"
+        encodeMove("1a2a") must_== "00000000,00000001"
+        encodeMove("7g7f") must_== "00111100,00110011"
+        encodeMove("8h2b") must_== "01000110,00001010"
+        encodeMove("1i1h") must_== "01001000,00111111"
+        encodeMove("1i2i") must_== "01001000,01001001"
+        encodeMove("9a8a") must_== "00001000,00000111"
+        encodeMove("9a9b") must_== "00001000,00010001"
+        encodeMove("9i8i") must_== "01010000,01001111"
+        encodeMove("9h9i") must_== "01000111,01010000"
+        encodeMove("1a9i") must_== "00000000,01010000"
       }
       "move with promotion symbols" in {
         encodeMove("8h2b+") must_== "01000110,10001010"
@@ -49,18 +48,18 @@ class BinaryTest extends ShogiTest {
         encodeMove("R*1i") must_== "10000111,01001000"
       }
       "simple move minishogi" in {
-        encodeMove("1a1b", Minishogi)  must_== "00000000,00000101"
-        encodeMove("1a2a", Minishogi)  must_== "00000000,00000001"
-        encodeMove("4e5e", Minishogi)  must_== "00010111,00011000"
-        encodeMove("5a1e", Minishogi)  must_== "00000100,00010100"
-        encodeMove("B*3d", Minishogi)  must_== "10000110,00010001"
+        encodeMove("1a1b", Minishogi) must_== "00000000,00000101"
+        encodeMove("1a2a", Minishogi) must_== "00000000,00000001"
+        encodeMove("4e5e", Minishogi) must_== "00010111,00011000"
+        encodeMove("5a1e", Minishogi) must_== "00000100,00010100"
+        encodeMove("B*3d", Minishogi) must_== "10000110,00010001"
       }
     }
     "write many moves" in {
       "all games" in {
         forall(format.usi.Fixtures.prod500standard) { usisStr =>
-          val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get).toList
-          bin.length must be_<=(usisStr.length)
+          val bin = Binary.encodeMoves(Usi.readList(usisStr).get, Standard).toList
+          bin.size must be_<=(usisStr.size)
         }
       }
     }
@@ -91,8 +90,8 @@ class BinaryTest extends ShogiTest {
     }
     "for all move combinations" in {
       val allMoves = for {
-        orig <- Pos.all9x9
-        dest <- Pos.all9x9
+        orig <- Pos.all
+        dest <- Pos.all
       } yield Usi.Move(orig, dest, true)
       forall(allMoves.map(_.usiKeys))(compareStrAndBin)
       forall(allMoves.map(_.usi))(compareStrAndBin)
@@ -100,7 +99,7 @@ class BinaryTest extends ShogiTest {
     "for all drop combinations" in {
       val allDrops = for {
         role <- Role.all
-        pos <- Pos.all9x9
+        pos  <- Pos.all
       } yield Usi.Drop(role, pos)
       forall(allDrops.map(_.usi))(compareStrAndBin)
     }
@@ -116,16 +115,16 @@ object BinaryTestUtils {
     }.toBinaryString.toInt
 
   def encodeMove(m: String, variant: Variant = Standard): String =
-    Binary.encodeMove(variant, Usi(m).get) map showByte mkString ","
+    Binary.encodeMoves(List(Usi(m).get), variant) map showByte mkString ","
 
   def decodeMove(m: String, variant: Variant = Standard): String =
     decodeMoves(m, variant).head
 
-  def decodeMoves(m: String, variant: Variant = Standard): List[String] =
-    Binary.decodeMoves(variant, m.split(',').toList.map(parseBinary)).map(_.usi)
+  def decodeMoves(m: String, variant: Variant = Standard): Seq[String] =
+    Binary.decodeMoves(m.split(',').toList.map(parseBinary), variant).map(_.usi)
 
   def parseBinary(s: String): Byte = {
-    var i    = s.length - 1
+    var i    = s.size - 1
     var sum  = 0
     var mult = 1
     while (i >= 0) {

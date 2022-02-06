@@ -1,12 +1,12 @@
 import { HeadlessState } from './state';
 import { setCheck, setSelected } from './board';
-import { getDimensions, read as fenRead } from './fen';
+import { getDimensions, read as sfenRead } from './sfen';
 import { DrawShape, DrawBrushes } from './draw';
 import { makePockets } from './pocket';
 import * as cg from './types';
 
 export interface Config {
-  fen?: cg.FEN; // shogi position in Forsyth notation
+  sfen?: cg.Sfen; // shogi position in Forsyth notation
   hasPockets?: boolean;
   pockets?: string;
   orientation?: cg.Color; // board orientation. sente | gote
@@ -106,11 +106,11 @@ export function configure(state: HeadlessState, config: Config): void {
 
   merge(state, config);
 
-  // if a fen was provided, replace the pieces
-  if (config.fen) {
-    state.dimensions = config.dimensions || getDimensions(config.fen);
+  // if a sfen was provided, replace the pieces
+  if (config.sfen) {
+    state.dimensions = config.dimensions || getDimensions(config.sfen);
     const pieceToDrop = state.pieces.get('00');
-    state.pieces = fenRead(config.fen, state.dimensions);
+    state.pieces = sfenRead(config.sfen, state.dimensions);
     if (pieceToDrop) state.pieces.set('00', pieceToDrop);
     state.drawable.shapes = [];
   }

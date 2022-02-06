@@ -2,7 +2,7 @@
 
 ## I want to contribute code to Lishogi
 
-- [Set up your development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding). Just replace https://github.com/ornicar/lila.git with https://github.com/WandererXII/lishogi.git and https://github.com/ornicar/lila-ws.git with https://github.com/WandererXII/lila-ws.git. Install gulp-cli too.
+- [Set up your development environment](https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding). Just replace https://github.com/lichess-org/lila.git with https://github.com/WandererXII/lishogi.git and https://github.com/lichess-org/lila-ws.git with https://github.com/WandererXII/lila-ws.git. Install gulp-cli too.
 - To play against AI and use server analysis install this as well https://github.com/WandererXII/shoginet. At least 4 GB RAM is needed to run it, 8 GB to work with lishogi + lila/ws + shoginet, and maybe 10 to run bloop + metals as well.
 - [Pick a GitHub issue to work on](https://github.com/WandererXII/lishogi/issues). The [High priority](https://github.com/WandererXII/lishogi/issues?q=is%3Aissue+is%3Aopen+label%3A%22High+priority%22) tag might be useful.
 - Communicate with other devs on [Lishogi's Official Discord](https://discord.gg/YFtpMGg3rR).

@@ -11,24 +11,29 @@
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
 To do that click on the cog wheel or your username(top right corner) and then click on \'piece set\'.</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
 	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">Тура</string>
 	<string name="itMovesInStraightLines">Рухається прямими лініями</string>
 	<string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
 	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">Зберіть всі зірки!</string>
 	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
 	<string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
 	<string name="theBishop">Слон</string>
 	<string name="itMovesDiagonally">Переміщається діагоналями</string>
 	<string name="bishopIntro">Далі ми навчимося ходити слоном!</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
 	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
 	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
@@ -63,6 +68,7 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
 	<string name="lanceSummary">Moves forward, this is really easy.</string>
 	<string name="planceSummary">It\'s the same as the gold general.</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">Great job!</string>
 	<string name="theGold">The gold general</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
@@ -87,7 +93,14 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="captureIntro">Визначте незахищені фігури противника й з\'їжте їх!</string>
 	<string name="takeTheBlackPieces">З\'їжте чорні фігури!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">З\'їжте всі чорні фігури! І не втратьте свої.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Захист</string>
 	<string name="keepYourPiecesSafe">Захищайте ваші фігури</string>
 	<string name="protectionIntro">Визначте, які ваші фігури атакує противник, і захистіть їх!</string>
@@ -95,6 +108,8 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="escape">Вас атакують! Усуньте загрозу!</string>
 	<string name="noEscape">Це не вихід,
 Але ви можете захистити!</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">Не дозвольте їм з\'їсти
 будь-яку незахищену фігуру!</string>
 	<string name="combat">Битва</string>
@@ -110,19 +125,27 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="outOfCheck">Відхід з-під шаха</string>
 	<string name="defendYourKing">Захистіть свого короля</string>
 	<string name="outOfCheckIntro">Вам шах! Ви маєте рятуватись або блокувати атаку.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">Втеча королем!</string>
 	<string name="theKingCannotEscapeButBlock">Король не може врятуватись, але ви можете блокувати атаку!</string>
 	<string name="youCanGetOutOfCheckByTaking">Ви можете піти від шаха,
 з\'ївши атакуючу фігуру.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">Цей кінь ставить шах,
 минаючи твій захист!</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">Виведіть короля
 або закрийтеся!</string>
 	<string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
 	<string name="mateInOne">Мат в один хід</string>
 	<string name="defeatTheOpponentsKing">Поразка короля противника</string>
 	<string name="mateInOneIntro">Ви виграєте, коли ваш опонент не може захищатися від шаха.</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Атакуйте короля вашого противника таким чином, аби його не можна було захистити!</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
 	<string name="intermediate">Проміжний етап</string>
 	<string name="boardSetup">Позиція на дошці</string>
@@ -131,7 +154,22 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">Пат</string>
 	<string name="theGameIsADraw">Гра є нічийною</string>
 	<string name="stalemateIntro">Коли гравцеві не поставлено шах і немає можливості зробити хід, це пат. Гра закінчується: без переможців та переможених.</string>
@@ -142,9 +180,24 @@ Make any move to continue.</string>
 	<string name="advanced">Просунутий етап</string>
 	<string name="pieceValue">Цінність фігур</string>
 	<string name="evaluatePieceStrength">Оцініть силу фігури</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">Атакуйте фігури з найбільшою цінністю!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">Шах в 2 ходи</string>
 	<string name="twoMovesToGiveCheck">Два ходи на те, щоб зробити шах</string>
 	<string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю супротивника!</string>

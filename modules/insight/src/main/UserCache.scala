@@ -10,7 +10,6 @@ import lila.user.User
 case class UserCache(
     _id: User.ID, // user id
     count: Int,   // nb insight entries
-    ecos: Set[String],
     date: DateTime,
     version: Option[Int]
 ) {
@@ -20,8 +19,8 @@ case class UserCache(
 
 object UserCache {
 
-  def make(userId: User.ID, count: Int, ecos: Set[String]) =
-    UserCache(userId, count, ecos, DateTime.now, latestVersion.some)
+  def make(userId: User.ID, count: Int) =
+    UserCache(userId, count, DateTime.now, latestVersion.some)
 }
 
 final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {

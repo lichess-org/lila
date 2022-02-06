@@ -1,4 +1,4 @@
-var shogi = require('shogiops');
+var shogi = require('shogiops/shogi');
 var sfen = require('shogiops/sfen');
 var util = require('shogiops/variantUtil');
 
@@ -9,7 +9,7 @@ $(function () {
       var $board = $captcha.find('.mini-board');
       var $input = $captcha.find('input').val('');
       var cg = $board.data('shogiground');
-      var destsJson = JSON.parse(lishogi.readServerFen($board.data('x')));
+      var destsJson = JSON.parse(lishogi.readServerSfen($board.data('x')));
       var dests = new Map();
       for (var k in destsJson) dests.set(k, destsJson[k].match(/.{2}/g));
       cg.set({
@@ -40,8 +40,8 @@ $(function () {
             if (data == 1) {
               const key = solution.slice(3, 5);
               const piece = cg.state.pieces.get(key);
-              const fen = cg.getFen() + (piece.color === 'sente' ? ' w' : ' b');
-              const pos = sfen.parseSfen(fen).chain(s => shogi.Shogi.fromSetup(s, false));
+              const sfen = cg.getSfen() + (piece.color === 'sente' ? ' w' : ' b');
+              const pos = sfen.parseSfen(sfen).chain(s => shogi.Shogi.fromSetup(s, false));
               if (pos.isOk && !pos.value.isCheckmate()) {
                 cg.setPieces(
                   new Map([

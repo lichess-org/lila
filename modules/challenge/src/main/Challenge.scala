@@ -1,7 +1,7 @@
 package lila.challenge
 
-import shogi.format.FEN
-import shogi.variant.{ FromPosition, Minishogi, Variant }
+import shogi.format.forsyth.Sfen
+import shogi.variant.{ Minishogi, Variant }
 import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
@@ -13,7 +13,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[FEN],
+    initialSfen: Option[Sfen],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -83,12 +83,6 @@ case class Challenge(
     )
 
   def speed = speedOf(timeControl)
-
-  def notableInitialFen: Option[FEN] =
-    variant match {
-      case FromPosition | Minishogi => initialFen
-      case _                        => none
-    }
 
   def isOpen = ~open
 
@@ -164,9 +158,6 @@ object Challenge {
           case _                             => none
         }
       )
-      .orElse {
-        (variant == FromPosition) option perfTypeOf(shogi.variant.Standard, timeControl)
-      }
       .|(PerfType.Correspondence)
 
   private val idSize = 8
@@ -180,7 +171,7 @@ object Challenge {
 
   def make(
       variant: Variant,
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       timeControl: TimeControl,
       mode: Mode,
       color: String,
@@ -194,17 +185,16 @@ object Challenge {
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
-      case _                                                                           => mode
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(initialSfen, clock.some, variant) =>
+        Mode.Casual
+      case _ => mode
     }
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen =
-        if (variant == FromPosition) initialFen
-        else !variant.standardInitialPosition option FEN(variant.initialFen),
+      initialSfen = initialSfen.filterNot(_.initialOf(variant)),
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

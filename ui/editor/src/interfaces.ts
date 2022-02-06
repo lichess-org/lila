@@ -1,15 +1,15 @@
 import { Role } from 'shogiground/types';
 
 export interface OpeningPosition {
-  eco?: string;
-  name: string;
-  fen: string;
+  japanese?: string;
+  english: string;
+  sfen: string;
   epd?: string;
 }
 
 export interface EditorConfig {
   baseUrl: string;
-  fen: string;
+  sfen: string;
   options?: EditorOptions;
   pieceNotation: number;
   animation: {
@@ -22,12 +22,12 @@ export interface EditorConfig {
 
 export interface EditorOptions {
   orientation?: Color;
-  onChange?: (fen: string) => void;
+  onChange?: (sfen: string) => void;
 }
 
 export interface EditorState {
-  fen: string;
-  legalFen: string | undefined;
+  sfen: string;
+  legalSfen: string | undefined;
   playable: boolean;
 }
 

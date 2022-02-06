@@ -2,7 +2,8 @@ package shogi
 package format
 
 import cats.data.Validated
-import format.usi.Usi
+
+import shogi.format.usi.Usi
 
 object Reader {
 
@@ -23,35 +24,39 @@ object Reader {
     makeReplayFromParsedMoves(makeGame(parsed.tags), op(parsed.parsedMoves))
 
   def fromUsi(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       tags: Tags
   ): Result =
-      makeReplayFromUsi(makeGame(tags), usis)
+    makeReplayFromUsi(makeGame(tags), usis)
 
-  private def makeReplayFromUsi(game: Game, usis: Iterable[Usi]): Result =
+  private def makeReplayFromUsi(game: Game, usis: Seq[Usi]): Result =
     usis.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), usi) =>
-        usi(replay.state.situation).fold(
-          err => Result.Incomplete(replay, err),
-          move => Result.Complete(replay addMove move)
-        )
+        replay
+          .state(usi)
+          .fold(
+            err => Result.Incomplete(replay, err),
+            game => Result.Complete(replay(game))
+          )
       case (r: Result.Incomplete, _) => r
     }
 
   private def makeReplayFromParsedMoves(game: Game, parsedMoves: ParsedMoves): Result =
     parsedMoves.value.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), parsedMove) =>
-        parsedMove(replay.state.situation).fold(
-          err => Result.Incomplete(replay, err),
-          move => Result.Complete(replay addMove move)
-        )
+        replay
+          .state(parsedMove)
+          .fold(
+            err => Result.Incomplete(replay, err),
+            game => Result.Complete(replay(game))
+          )
       case (r: Result.Incomplete, _) => r
     }
 
   private def makeGame(tags: Tags) =
     Game(
       variantOption = tags(_.Variant) flatMap shogi.variant.Variant.byName,
-      fen = tags(_.FEN)
+      sfen = tags.sfen
     ).copy(
       clock = tags.clockConfig map Clock.apply
     )

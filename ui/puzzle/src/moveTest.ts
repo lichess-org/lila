@@ -30,11 +30,11 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
 
   const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
     usi: node.usi,
-    fen: node.fen!,
+    sfen: node.sfen!,
   }));
 
   for (const i in nodes) {
-    const shogi = parseSfen(nodes[i].fen).chain(s => Shogi.fromSetup(s, false));
+    const shogi = parseSfen(nodes[i].sfen).chain(s => Shogi.fromSetup(s, false));
     if (shogi.isOk && shogi.value.isCheckmate()) return (vm.node.puzzle = 'win');
     const usi = nodes[i].usi!,
       solUsi = puzzle.solution[i];
@@ -51,7 +51,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
 
   return {
     move: parseUsi(pretendItsUsi(nextUsi))!,
-    fen: vm.node.fen,
+    sfen: vm.node.sfen,
     path: vm.path,
   };
 }

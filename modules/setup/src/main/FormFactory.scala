@@ -3,8 +3,8 @@ package lila.setup
 import play.api.data._
 import play.api.data.Forms._
 
-import shogi.format.FEN
-import shogi.variant.Variant
+import shogi.format.forsyth.Sfen
+import shogi.variant.{ Standard, Variant }
 import lila.rating.RatingRange
 import lila.user.UserContext
 
@@ -14,9 +14,9 @@ final class FormFactory {
 
   val filter = Form(single("local" -> text))
 
-  def aiFilled(fen: Option[FEN]): Form[AiConfig] =
-    ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
-      config.copy(fen = f.some, variant = shogi.variant.FromPosition)
+  def aiFilled(sfen: Option[Sfen], variant: Option[Variant]): Form[AiConfig] =
+    ai fill sfen.foldLeft(AiConfig.default) { case (config, f) =>
+      config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }
 
   lazy val ai = Form(
@@ -30,21 +30,23 @@ final class FormFactory {
       "days"      -> days,
       "level"     -> level,
       "color"     -> color,
-      "fen"       -> fenField
+      "sfen"      -> sfenField
     )(AiConfig.from)(_.>>)
-      .verifying("invalidFen", _.validFen)
+      .verifying("invalidSfen", _.validSfen)
       .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
   )
 
-  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
-    friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
-      config.copy(fen = f.some, variant = shogi.variant.FromPosition)
+  def friendFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit
+      ctx: UserContext
+  ): Form[FriendConfig] =
+    friend(ctx) fill sfen.foldLeft(FriendConfig.default) { case (config, f) =>
+      config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }
 
   def friend(ctx: UserContext) =
     Form(
       mapping(
-        "variant"   -> variantWithFenAndVariants,
+        "variant"   -> variants,
         "timeMode"  -> timeMode,
         "time"      -> time,
         "increment" -> increment,
@@ -53,10 +55,10 @@ final class FormFactory {
         "days"      -> days,
         "mode"      -> mode(withRated = ctx.isAuth),
         "color"     -> color,
-        "fen"       -> fenField
+        "sfen"      -> sfenField
       )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
-        .verifying("invalidFen", _.validFen)
+        .verifying("invalidSfen", _.validSfen)
     )
 
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
@@ -65,7 +67,7 @@ final class FormFactory {
   def hook(implicit ctx: UserContext) = {
     Form(
       mapping(
-        "variant"     -> variantWithVariants,
+        "variant"     -> variants,
         "timeMode"    -> timeMode,
         "time"        -> time,
         "increment"   -> increment,
@@ -136,9 +138,9 @@ final class FormFactory {
         "days"          -> optional(days),
         "rated"         -> boolean,
         "color"         -> optional(color),
-        "fen"           -> fenField,
+        "sfen"          -> sfenField,
         "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
     )
 
     lazy val ai = Form(
@@ -148,16 +150,16 @@ final class FormFactory {
         clock,
         "days"  -> optional(days),
         "color" -> optional(color),
-        "fen"   -> fenField
-      )(ApiAiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
+        "sfen"  -> sfenField
+      )(ApiAiConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
     )
 
     lazy val open = Form(
       mapping(
         variant,
         clock,
-        "fen" -> fenField
-      )(OpenConfig.from)(_.>>).verifying("invalidFen", _.validFen)
+        "sfen" -> sfenField
+      )(OpenConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
     )
   }
 }

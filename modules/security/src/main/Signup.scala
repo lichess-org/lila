@@ -56,7 +56,9 @@ final class Signup(
     }
   }
 
-  def website(blind: Boolean)(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  def website(
+      blind: Boolean
+  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.website
       .bindFromRequest()
       .fold[Fu[Signup.Result]](

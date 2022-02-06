@@ -75,7 +75,7 @@ final class TournamentApi(
       mode = setup.realMode,
       password = setup.password,
       variant = setup.realVariant,
-      position = setup.realPosition,
+      position = setup.position,
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -116,7 +116,7 @@ final class TournamentApi(
         startsAt = startDate | old.startsAt,
         password = data.password,
         position = variant.standard ?? {
-          if (old.isCreated || old.position.isDefined) data.realPosition
+          if (old.isCreated || old.position.isDefined) data.position
           else old.position
         },
         noBerserk = !(~berserkable),

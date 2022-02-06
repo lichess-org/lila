@@ -245,7 +245,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(form("variant"), trans.variant(), half = true)(
       form3.select(
         _,
-        translatedVariantChoicesWithVariants.map(x => x._1 -> x._2),
+        translatedVariantChoices.map(x => x._1 -> x._2),
         disabled = disabledAfterCreate
       )
     )

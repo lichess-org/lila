@@ -18,7 +18,7 @@ case class Forecast(
       copy(
         steps = steps.collect {
           case (fst :: snd :: rest)
-              if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove) && snd.is(move) =>
+              if rest.nonEmpty && g.plies == fst.ply && fst.is(lastMove) && snd.is(move) =>
             rest
         },
         date = DateTime.now
@@ -29,7 +29,7 @@ case class Forecast(
 
   private def nextMove(g: Game, last: Usi) =
     steps.foldLeft(none[Usi]) {
-      case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.usiMove
+      case (None, fst :: snd :: _) if g.plies == fst.ply && fst.is(last) => snd.usiMove
       case (move, _)                                                     => move
     }
 }
@@ -43,7 +43,7 @@ object Forecast {
   case class Step(
       ply: Int,
       usi: String,
-      fen: String,
+      sfen: String,
       check: Option[Boolean]
   ) {
 

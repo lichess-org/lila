@@ -92,7 +92,7 @@ object jsI18n {
       editor,
       startFromCustomPosition,
       loadAGameByUrl,
-      loadAPositionFromFen,
+      loadAPositionFromSfen,
       loadAGameFromKif,
       automatic,
       urlOfTheGame,

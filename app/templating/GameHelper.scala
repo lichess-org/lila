@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import shogi.format.Forsyth
 import shogi.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.api.i18n.Lang
@@ -16,7 +15,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   private val dataLive     = attr("data-live")
   private val dataColor    = attr("data-color")
-  private val dataFen      = attr("data-fen")
+  private val dataSfen     = attr("data-sfen")
   private val dataLastmove = attr("data-lastmove")
 
   def netBaseUrl: String
@@ -31,11 +30,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     )
 
   def gameThumbnail(p: Pov) =
-    p.game.variant.standardBased option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
+    p.game.variant.standard option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
 
   def titleGame(g: Game) = {
     val speed   = shogi.Speed(g.clock.map(_.config)).name
-    val variant = g.variant.exotic ?? s" ${g.variant.name}"
+    val variant = !g.variant.standard ?? s" ${g.variant.name}"
     s"$speed$variant Shogi - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
@@ -51,8 +50,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
     val mode = game.mode.name
     val variant =
-      if (game.variant == shogi.variant.FromPosition) "position setup shogi"
-      else if (game.variant.exotic) game.variant.name
+      if (game.initialSfen.isDefined) "position setup shogi"
+      else if (!game.variant.standard) game.variant.name
       else "shogi"
     import shogi.Status._
     val result = (game.winner, game.loser, game.status) match {
@@ -72,7 +71,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.shogi.turns} moves"
+    val moves = s"${game.shogi.plies} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
@@ -206,7 +205,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val clock = game.clock ?? { c =>
       " • " + c.config.show
     }
-    val variant = game.variant.exotic ?? s" • ${game.variant.name}"
+    val variant = !game.variant.standard ?? s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
   }
 
@@ -236,7 +235,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
 
-  def gameFen(
+  def gameSfen(
       pov: Pov,
       ownerLink: Boolean = false,
       tv: Boolean = false,
@@ -252,27 +251,27 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen $cssClass variant-$variant",
+      cls := s"mini-board mini-board-${game.id} cg-wrap parse-sfen $cssClass variant-$variant",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportSituation(game.situation),
+      dataSfen := game.situation.toSfen.value,
       dataLastmove := ~game.lastMoveKeys
     )(cgWrapContent)
   }
 
-  def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
+  def gameSfenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
     a(
       href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen variant-$variant" -> true,
-        s"live mini-board-${pov.gameId}"                                          -> isLive
+        s"mini-board mini-board-${pov.gameId} cg-wrap parse-sfen variant-$variant" -> true,
+        s"live mini-board-${pov.gameId}"                                           -> isLive
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportSituation(pov.game.situation),
+      dataSfen := pov.game.situation.toSfen.value,
       dataLastmove := ~pov.game.lastMoveKeys,
       target := blank.option("_blank")
     )(cgWrapContent)
@@ -282,7 +281,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speed = c.clock.map(_.config).fold(shogi.Speed.Correspondence.name) { clock =>
       s"${shogi.Speed(clock).name} (${clock.show})"
     }
-    val variant = c.variant.exotic ?? s" ${c.variant.name}"
+    val variant = !c.variant.standard ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(User.anonymous) { reg =>
       s"${usernameOrId(reg.id)} (${reg.rating.show})"
     }

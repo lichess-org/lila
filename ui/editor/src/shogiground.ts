@@ -122,7 +122,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
-    fen: ctrl.cfg.fen,
+    sfen: ctrl.cfg.sfen,
     orientation: ctrl.options.orientation || 'sente',
     coordinates: !ctrl.cfg.embed,
     movable: {

@@ -1,10 +1,10 @@
 function parseSfen($elem) {
   $elem.each(function () {
-    var $this = $(this).removeClass('parse-fen');
+    var $this = $(this).removeClass('parse-sfen');
     var lm = $this.data('lastmove');
     var dropOrMove = lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined;
-    var fen = $this.data('fen');
-    var hands = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '';
+    var sfen = $this.data('sfen');
+    var hands = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
     var color = $this.data('color');
     var ground = $this.data('shogiground');
     var config = {
@@ -14,7 +14,7 @@ function parseSfen($elem) {
       viewOnly: true,
       hasPockets: true,
       pockets: hands,
-      fen: fen,
+      sfen: sfen,
       lastMove: dropOrMove,
     };
     if (color) config.orientation = color;
@@ -47,8 +47,8 @@ $(function () {
       if (data.t == 'featured') {
         $featured.html(data.d.html).find('a').attr('target', '_blank');
         parseSfen(board());
-      } else if (data.t == 'fen') {
-        parseSfen(board().data('fen', data.d.fen).data('lastmove', data.d.lm));
+      } else if (data.t == 'sfen') {
+        parseSfen(board().data('sfen', data.d.sfen).data('lastmove', data.d.lm));
       }
     },
     false

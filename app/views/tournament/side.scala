@@ -91,15 +91,15 @@ object side {
         ),
         tour.startingPosition.map { pos =>
           p(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
+            a(targetBlank, href := pos.url)(strong(pos.japanese), " ", pos.english),
             separator,
-            a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(trans.analysis())
+            views.html.base.bits.sfenAnalysisLink(pos.sfen)
           )
-        } orElse tour.position.map { fen =>
+        } orElse tour.position.map { sfen =>
           p(
             "Custom position",
             separator,
-            a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+            views.html.base.bits.sfenAnalysisLink(sfen)
           )
         }
       ),

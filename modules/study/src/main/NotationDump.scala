@@ -1,11 +1,10 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
-import shogi.format.usi.Usi
-import shogi.format.{ Forsyth, Glyphs, Initial, NotationMove, Tag, Tags }
+import shogi.format.{ Glyphs, Initial, NotationMove, Tag, Tags }
 import shogi.variant.Variant
 import org.joda.time.format.DateTimeFormat
 
@@ -35,7 +34,7 @@ final class NotationDump(
         chapter.root.shapes
       ).toList
     )
-    if (flags.csa && chapter.setup.variant.standardBased) Csa(tags, moves, initial)
+    if (flags.csa && chapter.setup.variant.standard) Csa(tags, moves, initial)
     else Kif(tags, moves, initial)
   }
 
@@ -77,13 +76,13 @@ final class NotationDump(
         Tag(_.Event, s"${study.name} - ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
         Tag(_.Annotator, ownerName(study))
-      ) ::: (!Forsyth.compareTruncated(chapter.root.fen.value, Forsyth.initial)).??(
+      ) ::: (!chapter.root.sfen.initialOf(chapter.setup.variant)) ?? (
         List(
-          Tag(_.FEN, chapter.root.fen.value)
+          Tag(_.Sfen, chapter.root.sfen.value)
         )
       )
       opening
-        .fold(genTags)(o => Tag(_.Opening, o.eco) :: genTags)
+        .fold(genTags)(o => Tag(_.Opening, o.japanese) :: genTags)
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
           else tag :: tags
@@ -137,37 +136,44 @@ object NotationDump {
   }
 
   def toMoves(root: Node.Root, variant: Variant)(implicit flags: WithFlags): Vector[NotationMove] =
-    toMoves(root.mainline, root.fen, variant, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
+    toMoves(
+      root.mainline,
+      root.sfen,
+      variant,
+      root.children.variations,
+      root.ply,
+      root.hasMultipleCommentAuthors
+    )
 
   def toMoves(
       line: Vector[Node],
-      initialFen: FEN,
+      initialSfen: Sfen,
       variant: Variant,
       variations: Variations,
       startingPly: Int,
       showAuthors: Boolean
   )(implicit flags: WithFlags): Vector[NotationMove] = {
-    val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialFen.some, variant)
-    line.zip(enriched)
+    val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialSfen.some, variant)
+    line
+      .zip(enriched)
       .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), (node, usiWithRole)) =>
-        node.children.variations -> (
-          NotationMove(
-            moveNumber = node.ply - startingPly,
-            usiWithRole = usiWithRole,
-            glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-            comments = flags.comments ?? {
-              renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
-            },
-            result = none,
-            variations = flags.variations ?? {
-              variations.view.map { child =>
-                toMoves(child.mainline, child.fen, variant, noVariations, startingPly, showAuthors).toList
-              }.toList
-            }
-          ) +: moves)
+        node.children.variations -> (NotationMove(
+          moveNumber = node.ply - startingPly,
+          usiWithRole = usiWithRole,
+          glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+          comments = flags.comments ?? {
+            renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
+          },
+          result = none,
+          variations = flags.variations ?? {
+            variations.view.map { child =>
+              toMoves(child.mainline, child.sfen, variant, noVariations, startingPly, showAuthors).toList
+            }.toList
+          }
+        ) +: moves)
       }
       ._2
       .reverse
-    }
+  }
 
 }

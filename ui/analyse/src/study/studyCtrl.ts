@@ -106,7 +106,7 @@ export default function (
         isNew &&
         data.chapter.setup.variant.key === 'standard' &&
         ctrl.mainline.length === 1 &&
-        !data.chapter.setup.fromFen &&
+        !data.chapter.setup.fromSfen &&
         !relay
       )
         chapters.newForm.openInitial();
@@ -368,7 +368,6 @@ export default function (
       if (relay) relay.applyChapterRelay(data.chapter, d.relay);
       const newPath = ctrl.tree.addNode(node, position.path);
       if (!newPath) return xhrReload();
-      ctrl.tree.addDests(d.d, newPath);
       if (sticky) data.position.path = newPath;
       if (
         (sticky && vm.mode.sticky) ||

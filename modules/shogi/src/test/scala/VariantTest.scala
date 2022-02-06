@@ -6,8 +6,6 @@ import variant._
 
 class VariantTest extends ShogiTest {
 
-  val board = makeBoard
-
   "standard" should {
 
     "position pieces correctly" in {

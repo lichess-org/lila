@@ -11,23 +11,29 @@
 	<string name="theIntroduction">Wprowadzenie</string>
 	<string name="introBasics">Nauczmy się podstaw.</string>
 	<string name="introIntro">Twoja podróż zaczyna się tutaj.</string>
-	<string name="choosePieceDesign">Ważne jest, byś mógł rozróżniać swoje bierki, więc upewnij się, że wybrałeś prawidłowy zestaw bierek,\nAby to zrobić, kliknij na zębatkę lub swoją nazwę użytkownika (w górnym prawym rogu), a następnie kliknij \"zestaw bierek\".</string>
+	<string name="clickHereAfterYouveChosen">Kliknij tutaj po wybraniu zestawu bierek, który Ci się podoba.</string>
+	<string name="choosePieceDesign">Ważne jest, byś mógł rozróżniać swoje bierki, więc upewnij się, że wybrałeś prawidłowy zestaw bierek,
+Aby to zrobić, kliknij na zębatkę lub swoją nazwę użytkownika (w górnym prawym rogu), a następnie kliknij \"zestaw bierek\".</string>
 	<string name="promotionZone">Kiedy Twoje bierki osiągną lub opuszczą trzy pierwsze rzędy w terytorium przeciwnika, możesz wybrać, czy chcesz promować bierkę i uczynić ją silniejszą.</string>
 	<string name="senteGoesFirst">W shogi, gracz, który wykonuje ruch jako pierwszy, jest nazywany sente, a gracz, który wykonuje ruch jako drugi, jest nazywany gote. Sente jest czasami oznaczany kolorem czarnym, a gote białym. Wykonaj dowolny ruch jako sente, by kontynuować.</string>
 	<string name="introComplete">Znasz teraz kilka podstaw, ale ta część samouczka jest wciąż w budowie. Na razie możesz dowiedzieć się, jak poruszają się poszczególne bierki.</string>
+	<string name="introCompleteTwo">Poznałeś właśnie nieco podstaw! Teraz pora nauczyć się, jak poruszają się poszczególne bierki.</string>
 	<string name="theRook">Wieża</string>
 	<string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
 	<string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
 	<string name="rookGoal">Kliknij wieżę i przemieść ją na gwiazdkę!</string>
+	<string name="grabAllTheStarsRemember">Zbierz wszystkie gwiazdki! Pamiętaj, patrz poza szachownicę.</string>
 	<string name="rookPromotion">Wieża jest promowana na potężnego smoka. Nie zapomnij, że możesz też promować swoją bierkę, gdy opuszczasz strefę promocji.</string>
 	<string name="rookSummary">Wieża może poruszać się do przodu, do tyłu, w lewo lub prawo, ile tylko chce.</string>
 	<string name="dragonSummary">Smok może poruszać się jak niepromowana wieża, ale także o jedno pole na ukos w dowolnym kierunku, co czyni go znacznie silniejszym.</string>
+	<string name="dragonSummaryTwo">Smok może poruszać się jak niepromowana wieża, ale także o jedno pole na ukos w dowolnym kierunku, co czyni go znacznie silniejszym.</string>
 	<string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
 	<string name="theFewerMoves">Im mniej ruchów zrobisz, tym więcej punktów zdobędziesz!</string>
 	<string name="rookComplete">Gratulacje! Właśnie nauczyłeś się jak poruszać się wieżą.</string>
 	<string name="theBishop">Goniec</string>
 	<string name="itMovesDiagonally">Porusza się po skosach</string>
 	<string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Promowanie gońca uczyni go silniejszym, zmieni się w bierkę zwaną koniem.</string>
 	<string name="bishopSummary">Goniec porusza się na ukos w dowolnym kierunku.</string>
 	<string name="horseSummary">Promowany goniec porusza się również na ukos, ale może też poruszać się o jedno pole pionowo lub poziomo.</string>
@@ -62,6 +68,7 @@
 	<string name="lancePromotion">Po promowaniu lancy, porusza się ona inaczej, ale widziałeś już to wcześniej – tak samo jak złoty generał.</string>
 	<string name="lanceSummary">Porusza się do przodu, to naprawdę proste.</string>
 	<string name="planceSummary">Porusza się tak samo jak złoty generał.</string>
+	<string name="planceSummaryTwo">Promowana lanca porusza się tak samo, jak złoty generał.</string>
 	<string name="lanceComplete">Świetna robota!</string>
 	<string name="theGold">Złoty generał</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">Złoty generał porusza się w dowolnym kierunku OPRÓCZ na ukos do tyłu.</string>
@@ -86,13 +93,22 @@
 	<string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
 	<string name="takeTheBlackPieces">Zbij czarne bierki!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Zbij bierki przeciwnika!
+I nie strać swojej.</string>
 	<string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z bierkami przeciwnika!</string>
+	<string name="pieceDrops">Wstawianie bierek</string>
+	<string name="reuseCapturedPieces">Wykorzystaj zbite bierki!</string>
+	<string name="dropIntro">Ponownie zdobądź wszystkie bierki przeciwnika, nie tracąc swojej!</string>
+	<string name="capturedPiecesCanBeDropped">Zbite bierki mogą zostać wstawione w Twojej kolejce z powrotem na szachownicę.</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">Nie możesz mieć dwóch niepromowanych pionków w tej samej kolumnie.</string>
 	<string name="protection">Obrona</string>
 	<string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
 	<string name="protectionIntro">Znajdź figury które przeciwnik atakuje i obroń je!</string>
 	<string name="protectionComplete">Gratulacje! Figura nie stracona to figura wygrana!</string>
 	<string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
 	<string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
+	<string name="makeSureAllSafe">Upewnij się, że wszystkie Twoje bierki są bezpieczne!</string>
+	<string name="dontForgetYouCanDropToDefend">Nie zapomnij, że możesz wstawiać bierki dla obrony!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
 	<string name="combat">Walka</string>
 	<string name="captureAndDefendPieces">Bicie i obrona figur</string>
@@ -106,16 +122,24 @@
 	<string name="outOfCheck">Obrona przed szachem</string>
 	<string name="defendYourKing">Chroń swojego króla</string>
 	<string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">Uciekaj królem!</string>
 	<string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
 	<string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
+	<string name="getOutOfCheck">Ucieknij spod szacha!</string>
+	<string name="watchOutForYourOpponentsReply">Uważaj na odpowiedź przeciwnika!</string>
 	<string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
 	<string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
 	<string name="mateInOne">Mat w 1 ruchu</string>
 	<string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
 	<string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
+	<string name="toWinInShogi">Aby wygrać partię shogi, zaszachuj króla przeciwnika tak, aby nie mógł się obronić. Nazywa się to mat, inaczej tsume.</string>
+	<string name="dropsCommonDeliverMate">Wstawienie jest częstą metodą matowania.</string>
 	<string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób aby nie mógł się obronić!</string>
+	<string name="chooseYourPieceCarefully">Dobrze przemyśl wybór bierki!</string>
+	<string name="mateWithADroppedPawnIs">Mat przy pomocy wstawionego pionka jest niedozwolony – w prawdziwej partii uznane zostałoby to za złamanie zasad skutkujące Twoją przegraną.</string>
+	<string name="mateWithAPushedPawnIs">Mat przy pomocy posuniętego pionka jest w porządku.</string>
 	<string name="mateInOneComplete">Gratulacje! Tak wygrywa się w shogi!</string>
 	<string name="intermediate">Średnio zaawansowane</string>
 	<string name="boardSetup">Ustawienie początkowe</string>
@@ -124,7 +148,22 @@
 	<string name="thisIsTheInitialPosition">To jest początkowa pozycja
 każdej partii shogi!
 Wykonaj dowolny ruch, aby kontynuować.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać bierki na szachownicy.</string>
+	<string name="repetition">Powtórzenie</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Czterokrotne powtórzenie oznacza remis, CHYBA ŻE...</string>
+	<string name="repetitionIntro">Czterokrotne powtórzenie to remis. Wieczny szach to przegrana.</string>
+	<string name="ifTheSamePositionOccurs">Jeśli w shogi ta sama pozycja wystąpi 4 razy, oznacza to automatyczny remis. Tę sytuację nazywa się sennichite (千日手). Wykonaj jedyny legalny ruch.</string>
+	<string name="perpetualCheckIsALoss">Ale ciągłe szachowanie króla przeciwnika oznacza przegraną strony szachującej. Niefortunnie dla Twojego przeciwnika, on tego nie wie! Wykonaj jedyny legalny ruch.</string>
+	<string name="boardFlippedFindBestMove">Szachownica została właśnie odwrócona. Jaki jest teraz najlepszy ruch?</string>
+	<string name="repetitionComplete">Celem zasady, by wieczny szach był przegraną, jest to, by nikt nie mógł wymusić remisu.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Partia zakończona remisem</string>
 	<string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
@@ -135,9 +174,24 @@ Wykonaj dowolny ruch, aby kontynuować.</string>
 	<string name="advanced">Zaawansowane</string>
 	<string name="pieceValue">Wartości bierek</string>
 	<string name="evaluatePieceStrength">Oceń siłę bierek</string>
+	<string name="pieceValueIntroNew">Bierki z dużą mobilnością mają większą wartość.
+Król jest bezcenny! Jego utrata oznacza porażkę w całej grze.</string>
 	<string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
+	<string name="pawnsAreTheLeastValuable">Pionki są najmniej wartościowymi bierkami, drugie są lance. Skoczki mają nieco wyższą wartość niż lance.
+Zbij najbardziej wartościową bierkę.</string>
+	<string name="knightSilverGold">Skoczek &lt; Srebrny &lt; Złoty
+Zbij najbardziej wartościową bierkę, nie tracąc swojej.</string>
+	<string name="goldBishopRook">Złoty &lt; Goniec &lt; Wieża
+Zbij najbardziej wartościową bierkę.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Zbij wszystkie bierki w kolejności od najmniej wartościowej do najbardziej wartościowej!</string>
+	<string name="anExchangeIs">Wymiana polega na zbiciu jednej bierki i straceniu innej. Która wymiana jest lepsza? Srebrny generał za wieżę, czy złoty generał za skoczka?</string>
+	<string name="theOpponentJustGaveAway">Przeciwnik właśnie oddał swoją cenną wieżę za darmo! Czy ją zbijesz?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Dwaj generałowie mogą być warci więcej, niż jedna ciężka figura. Skoczek i lanca mogą być lepsi, niż generał. Znajdź sposób na poświęcenie gońca w zamian za dwóch generałów.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Czy pamiętasz, która bierka jest najbardziej wartościowa?</string>
 	<string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">Szach w 2 ruchach</string>
 	<string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
 	<string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>

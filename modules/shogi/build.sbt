@@ -2,7 +2,7 @@ name := "scalashogi"
 
 organization := "org.lishogi"
 
-version := "10.0.0"
+version := "1.0.0"
 
 scalaVersion := "2.13.6"
 
@@ -16,7 +16,7 @@ libraryDependencies ++= List(
 )
 
 resolvers ++= Seq(
-  "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
+  "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 )
 
 scalacOptions ++= Seq(

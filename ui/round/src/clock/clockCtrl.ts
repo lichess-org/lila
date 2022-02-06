@@ -132,7 +132,7 @@ export class ClockController {
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, sente: Seconds, gote: Seconds, sPer: number, gPer: number, delay: Centis = 0) => {
-    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+    const isClockRunning = game.playable(d) && (game.playedPlies(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
     this.times = {

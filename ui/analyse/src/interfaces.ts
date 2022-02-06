@@ -60,15 +60,15 @@ export interface Game {
   id: string;
   status: Status;
   player: Color;
-  turns: number;
-  startedAtTurn: number;
+  plies: number;
+  startedAtPly: number;
   startedAtMove: number;
   source: Source;
   speed: Speed;
   variant: Variant;
   winner?: Color;
   moveCentis?: number[];
-  initialFen?: string;
+  initialSfen?: string;
   importedBy?: string;
   division?: Division;
   opening?: Opening;
@@ -77,8 +77,8 @@ export interface Game {
 }
 
 export interface Opening {
-  name: string;
-  eco: string;
+  english: string;
+  japanese: string;
   ply: number;
 }
 

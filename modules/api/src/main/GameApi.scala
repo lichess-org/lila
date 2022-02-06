@@ -1,6 +1,6 @@
 package lila.api
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.bson._
@@ -128,7 +128,7 @@ final private[api] class GameApi(
       currentPage = page,
       maxPerPage = nb
     ) flatMap { pag =>
-      gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
+      gamesJson(withFlags.copy(sfens = false))(pag.currentPageResults) map { games =>
         PaginatorJson(pag withCurrentPageResults games)
       }
     }
@@ -170,7 +170,7 @@ final private[api] class GameApi(
       currentPage = page,
       maxPerPage = nb
     ) flatMap { pag =>
-      gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
+      gamesJson(withFlags.copy(sfens = false))(pag.currentPageResults) map { games =>
         PaginatorJson(pag withCurrentPageResults games)
       }
     }
@@ -181,11 +181,9 @@ final private[api] class GameApi(
     val allAnalysis =
       if (withFlags.analysis) analysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
-    allAnalysis flatMap { analysisOptions =>
-      (games map gameRepo.initialFen).sequenceFu map { initialFens =>
-        games zip analysisOptions zip initialFens map { case ((g, analysisOption), initialFen) =>
-          gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
-        }
+    allAnalysis map { analysisOptions =>
+      (games zip analysisOptions) map { case (g, analysisOption) =>
+        gameToJson(g, analysisOption, checkToken(withFlags))
       }
     }
   }
@@ -195,22 +193,21 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[FEN],
       withFlags: WithFlags
   ) =
     Json
       .obj(
-        "id"         -> g.id,
-        "initialFen" -> initialFen,
-        "rated"      -> g.rated,
-        "variant"    -> g.variant.key,
-        "speed"      -> g.speed.key,
-        "perf"       -> PerfPicker.key(g),
-        "createdAt"  -> g.createdAt,
-        "lastMoveAt" -> g.movedAt,
-        "turns"      -> g.turns,
-        "color"      -> g.turnColor.name,
-        "status"     -> g.status.name,
+        "id"          -> g.id,
+        "initialSfen" -> g.initialSfen,
+        "rated"       -> g.rated,
+        "variant"     -> g.variant.key,
+        "speed"       -> g.speed.key,
+        "perf"        -> PerfPicker.key(g),
+        "createdAt"   -> g.createdAt,
+        "lastMoveAt"  -> g.movedAt,
+        "plies"       -> g.plies,
+        "color"       -> g.turnColor.name,
+        "status"      -> g.status.name,
         "clock" -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
@@ -237,15 +234,15 @@ final private[api] class GameApi(
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "),
         "opening"  -> withFlags.opening.??(g.opening),
-        "fens" -> (withFlags.fens && g.finished) ?? {
+        "sfens" -> (withFlags.sfens && g.finished) ?? {
           shogi.Replay
             .situations(
               usis = g.usiMoves,
-              initialFen = initialFen,
+              initialSfen = g.initialSfen,
               variant = g.variant
             )
             .toOption map { sits =>
-            JsArray(sits.toList map shogi.format.Forsyth.exportSituation map JsString.apply)
+            JsArray(sits.toList.map(_.toSfen.value) map JsString.apply)
           }
         },
         "winner" -> g.winnerColor.map(_.name),
@@ -259,7 +256,7 @@ object GameApi {
   case class WithFlags(
       analysis: Boolean = false,
       moves: Boolean = false,
-      fens: Boolean = false,
+      sfens: Boolean = false,
       opening: Boolean = false,
       moveTimes: Boolean = false,
       blurs: Boolean = false,

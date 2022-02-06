@@ -48,7 +48,7 @@ export function makeShapesFromUsi(
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color = ctrl.node.fen.includes(' w ') ? 'gote' : 'sente';
+  const color = ctrl.node.sfen.includes(' w') ? 'gote' : 'sente';
   const rcolor = opposite(color);
   const pieces = ctrl.shogiground.state.pieces;
 
@@ -72,7 +72,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   const instance = ctrl.getCeval();
   const hovering = ctrl.explorer.hovering() || instance.hovering();
-  const { eval: nEval = {}, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
+  const { eval: nEval = {}, sfen: nSfen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
@@ -80,7 +80,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
-  if (hovering && hovering.fen === nFen)
+  if (hovering && hovering.sfen === nSfen)
     shapes = shapes.concat(makeShapesFromUsi(color, hovering.usi, 'paleGreen', pieces));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUsi(rcolor, nEval.best, 'paleGreen', pieces));

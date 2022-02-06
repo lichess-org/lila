@@ -13,16 +13,13 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) map gameFull
-
-  def gameFull(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject =
-    gameImmutable(wf) ++ Json.obj(
+  def gameFull(game: Game)(implicit lang: Lang): JsObject =
+    gameImmutable(game) ++ Json.obj(
       "type"  -> "gameFull",
-      "state" -> gameState(wf)
+      "state" -> gameState(game)
     )
 
-  def gameImmutable(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject = {
-    import wf._
+  def gameImmutable(game: Game)(implicit lang: Lang): JsObject = {
     Json
       .obj(
         "id"      -> game.id,
@@ -32,32 +29,31 @@ final class BotJsonView(
         "perf" -> game.perfType.map { p =>
           Json.obj("name" -> p.trans)
         },
-        "rated"      -> game.rated,
-        "createdAt"  -> game.createdAt,
-        "sente"      -> playerJson(game.sentePov),
-        "white"      -> playerJson(game.sentePov), // backwards support
-        "gote"       -> playerJson(game.gotePov),
-        "black"      -> playerJson(game.gotePov), // backwards support
-        "initialFen" -> fen.fold("startpos")(_.value)
+        "rated"       -> game.rated,
+        "createdAt"   -> game.createdAt,
+        "sente"       -> playerJson(game.sentePov),
+        "white"       -> playerJson(game.sentePov), // backwards support
+        "gote"        -> playerJson(game.gotePov),
+        "black"       -> playerJson(game.gotePov), // backwards support
+        "initialSfen" -> game.initialSfen.fold("startpos")(_.value)
       )
       .add("tournamentId" -> game.tournamentId)
   }
 
-  def gameState(wf: Game.WithInitialFen): JsObject = {
-    import wf._
+  def gameState(game: Game): JsObject = {
     Json
       .obj(
-        "type"   -> "gameState",
-        "moves"  -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
+        "type"     -> "gameState",
+        "moves"    -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
         "usiMoves" -> game.usiMoves.map(_.usi).mkString(" "),
-        "btime"  -> millisOf(game.sentePov),
-        "wtime"  -> millisOf(game.gotePov),
-        "binc"   -> game.clock.??(_.config.increment.millis),
-        "winc"   -> game.clock.??(_.config.increment.millis),
-        "byo"    -> game.clock.??(_.config.byoyomi.millis),
-        "sdraw"  -> game.sentePlayer.isOfferingDraw,
-        "gdraw"  -> game.gotePlayer.isOfferingDraw,
-        "status" -> game.status.name
+        "btime"    -> millisOf(game.sentePov),
+        "wtime"    -> millisOf(game.gotePov),
+        "binc"     -> game.clock.??(_.config.increment.millis),
+        "winc"     -> game.clock.??(_.config.increment.millis),
+        "byo"      -> game.clock.??(_.config.byoyomi.millis),
+        "sdraw"    -> game.sentePlayer.isOfferingDraw,
+        "gdraw"    -> game.gotePlayer.isOfferingDraw,
+        "status"   -> game.status.name
       )
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.of(game.id))

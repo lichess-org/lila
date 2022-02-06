@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.{ Pos, Piece => ShogiPiece }
 import play.api.libs.json._
@@ -150,7 +150,7 @@ object JsonView {
   implicit private[study] val colorWriter: Writes[shogi.Color] = Writes[shogi.Color] { c =>
     JsString(c.name)
   }
-  implicit private[study] val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  implicit private[study] val sfenWriter: Writes[Sfen] = Writes[Sfen] { f =>
     JsString(f.value)
   }
   implicit private[study] val sriWriter: Writes[Sri] = Writes[Sri] { sri =>

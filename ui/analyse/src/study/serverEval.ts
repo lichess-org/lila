@@ -26,7 +26,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     chart.getSelectedPoints().forEach(p => p.select(false));
   }
 
-  li.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
+  li.pubsub.on('analysis.change', (_sfen: string, _path: string, mainlinePly: number | false) => {
     if (!li.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
       el = chartEl();

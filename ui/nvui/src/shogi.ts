@@ -62,7 +62,7 @@ const letters = {
 };
 
 export function supportedVariant(key: string) {
-  return ['standard', 'fromPosition'].includes(key);
+  return ['standard'].includes(key);
 }
 
 export function styleSetting(): Setting<Style> {

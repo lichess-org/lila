@@ -86,7 +86,7 @@ object mini {
       ),
       (!ctx.pref.isBlindfold) ?? playing map { pov =>
         frag(
-          gameFen(pov),
+          gameSfen(pov),
           div(cls := "upt__game-legend")(
             i(dataIcon := pov.game.perfType.map(_.iconChar.toString), cls := "text")(
               pov.game.clock.map(_.config.show)

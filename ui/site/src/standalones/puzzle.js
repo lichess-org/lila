@@ -3,15 +3,15 @@ var board = el.querySelector('.mini-board');
 board.target = '_blank';
 var lm = board.getAttribute('data-lastmove');
 var dropOrMove = lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined;
-var fen = board.getAttribute('data-fen');
-var hands = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '';
+var sfen = board.getAttribute('data-sfen');
+var hands = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
 board.innerHTML = '<div class="cg-wrap mini-board">';
 Shogiground(board.firstChild, {
   coordinates: false,
   resizable: false,
   drawable: { enabled: false, visible: false },
   viewOnly: true,
-  fen: fen,
+  sfen: sfen,
   hasPockets: true,
   pockets: hands,
   lastMove: dropOrMove,

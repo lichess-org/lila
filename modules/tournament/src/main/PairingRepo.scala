@@ -175,7 +175,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           $set(
             "s" -> g.status.id,
             "w" -> g.winnerColor.map(_.sente),
-            "t" -> g.turns
+            "t" -> g.plies
           )
         )
         .void

@@ -1,6 +1,5 @@
 package lila.analyse
 
-import shogi.format.FEN
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
@@ -42,16 +41,15 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match {
       case None =>
-        gameRepo gameWithInitialFen analysis.id map {
-          _ ?? { case (game, initialFen) =>
+        gameRepo game analysis.id map {
+          _ ?? { case (game) =>
             Bus.publish(
               TellIfExists(
                 analysis.id,
                 actorApi.AnalysisProgress(
-                  analysis = analysis,
                   game = game,
                   variant = game.variant,
-                  initialFen = initialFen | FEN(game.variant.initialFen)
+                  analysis = analysis
                 )
               ),
               "roundSocket"

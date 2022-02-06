@@ -12,8 +12,8 @@ import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {
 
-  def daily(p: lila.puzzle.Puzzle, fen: shogi.format.FEN, lastMove: String) =
-    views.html.game.bits.miniTag(fen, p.color, lastMove)(span)
+  def daily(p: lila.puzzle.Puzzle, sfen: shogi.format.forsyth.Sfen, lastMove: String) =
+    views.html.game.bits.miniTag(sfen, p.color, lastMove)(span)
 
   def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys)
 

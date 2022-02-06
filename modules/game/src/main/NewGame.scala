@@ -10,6 +10,7 @@ case class NewGame(sloppy: Game) extends AnyVal {
 
   // Forward methods as needed, but do not expose the unchecked id.
   def variant     = sloppy.variant
+  def initialSfen = sloppy.initialSfen
   def finished    = sloppy.finished
   def winnerColor = sloppy.winnerColor
   def status      = sloppy.status

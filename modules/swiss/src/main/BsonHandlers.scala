@@ -34,16 +34,6 @@ private object BsonHandlers {
     },
     v => BSONString(v.key)
   )
-  private lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.fen -> p
-  }.toMap
-  implicit val startingPositionHandler = lila.db.dsl.quickHandler[StartingPosition](
-    {
-      case BSONString(v) => fenIndex.getOrElse(v, StartingPosition.initial)
-      case _             => StartingPosition.initial
-    },
-    v => BSONString(v.fen)
-  )
   implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
   implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
   implicit val swissPerformanceHandler =

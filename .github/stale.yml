@@ -1,9 +1,7 @@
 daysUntilStale: 730
 daysUntilClose: 14
 exemptLabels:
-  - prospect
-  - foundational
-  - want
+  - help wanted
   - bug
 staleLabel: stale
 markComment: >

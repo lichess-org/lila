@@ -25,15 +25,11 @@ final class AutoPairing(
       .make(
         shogi = shogi
           .Game(
-            variantOption = Some {
-              if (tour.position.isEmpty) tour.variant
-              else shogi.variant.FromPosition
-            },
-            fen = tour.position.map(_.value)
+            variantOption = Some(tour.variant),
+            sfen = tour.position
           )
-          .copy(
-            clock = clock.some
-          ),
+          .copy(clock = clock.some),
+        initialSfen = tour.position,
         sentePlayer = makePlayer(Sente, player1),
         gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,

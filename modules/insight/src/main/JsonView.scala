@@ -11,20 +11,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String], asMod: Boolean)(implicit lang: Lang) = {
-
-    val openingJson = Json.obj(
-      "key"         -> D.Opening.key,
-      "name"        -> D.Opening.name,
-      "position"    -> D.Opening.position,
-      "description" -> D.Opening.description.render,
-      "values" -> Dimension
-        .valuesOf(D.Opening)
-        .filter { o =>
-          ecos contains o.eco
-        }
-        .map(Dimension.valueToJson(D.Opening))
-    )
+  def ui(asMod: Boolean)(implicit lang: Lang) = {
 
     val dimensionCategs = List(
       Categ(
@@ -40,7 +27,6 @@ final class JsonView {
       Categ(
         "Game",
         List(
-          openingJson,
           Json.toJson(D.QueenTrade: Dimension[_])
         )
       ),

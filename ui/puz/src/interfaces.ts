@@ -27,7 +27,7 @@ export type UserDrop = (piece: Piece, dest: Key) => void;
 
 export interface Puzzle {
   id: string;
-  fen: string;
+  sfen: string;
   line: string;
   rating: number;
 }

@@ -126,7 +126,7 @@ export function impasse(ctrl: RoundController): VNode {
     {
       attrs: {
         title: ctrl.noarg('impasse'),
-        disabled: !['standard', 'fromPosition'].includes(ctrl.data.game.variant.key),
+        disabled: !['standard'].includes(ctrl.data.game.variant.key),
       },
       class: { active: ctrl.impasseHelp },
       hook: util.bind('click', _ => {
@@ -191,7 +191,7 @@ export function impasseHelp(ctrl: RoundController) {
 
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
   const rules = lishogiVariantRules(ctrl.data.game.variant.key);
-  const shogi = parseSfen(lastStep.fen).chain(s => setupPosition(rules, s, false));
+  const shogi = parseSfen(lastStep.sfen).chain(s => setupPosition(rules, s, false));
 
   if (shogi.isErr) return null;
 

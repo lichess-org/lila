@@ -11,23 +11,28 @@
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Anem a aprendre algunes coses bàsiques</string>
 	<string name="introIntro">El teu viatge comença aquí.</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">És important que puguis diferenciar les peces, estigues segur que tries l\'estil correcte.\nPer fer això, clica en l\'engranatge o el teu nom d\'usuari (cantonada superior dreta) i després clicar a conjunt de peces.</string>
 	<string name="promotionZone">Quan alguna de les teves peces arriba o deixa les tres primeres files en el territori del teu oponent pots escollir promocionar la peça i fer-la més forta.</string>
 	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">Ara coneixes alguns conceptes bàsics, però aquest tutorial encara està en construcció. Per ara aprèn com es mouen les peces individuals.</string>
+	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">La torre</string>
 	<string name="itMovesInStraightLines">Es mou en línies rectes</string>
 	<string name="rookIntro">La torre és una peça poderosa. Estàs preparat per dirigir-la?</string>
 	<string name="rookGoal">Clica a la torre per portar-la a l\'estrella!</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">La torre es promociona en un poderós drac. No t\'oblidis que també pots promocionar la teva peça quan deixes la zona de promoció.</string>
 	<string name="rookSummary">La torre pot pujar, baixar, anar a la dreta o esquerra tot lo que vulgui.</string>
 	<string name="dragonSummary">Es pot moure com la torre no promoguda, però també un quadrat en totes les diagonals, fent-la molt més forta.</string>
+	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">Captura totes les estrelles!</string>
 	<string name="theFewerMoves">Com menys moviments facis, més punts guanyes!</string>
 	<string name="rookComplete">Felicitats! Has aconseguit dominar la torre.</string>
 	<string name="theBishop">L\'àlfil</string>
 	<string name="itMovesDiagonally">Es mou en diagonal</string>
 	<string name="bishopIntro">A continuació anem a aprendre com fer anar l\'àlfil!</string>
+	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Promocionar el teu alfil el farà més fort, es tornarà en una peça anomenada \"el caball\"</string>
 	<string name="bishopSummary">L\'alfil es mou en qualsevol direcció diagonal.</string>
 	<string name="horseSummary">L\'alfil promogut també es mou diagonalment, però també pot moure\'s un quadrat endevant, enrerre, i cap als costats.</string>
@@ -62,6 +67,7 @@
 	<string name="lancePromotion">Després de promocionar la llança, es mou diferent, però ja has vist això en un altre lloc - igual que el general d\'or.</string>
 	<string name="lanceSummary">Es mou endevant, és força fàcil.</string>
 	<string name="planceSummary">Igual que el general d\'or.</string>
+	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">Bona feina!</string>
 	<string name="theGold">El general d\'or</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">El general d\'or es mou en totes direccions EXCEPTE diagonalment enrere.</string>
@@ -87,7 +93,14 @@
 	<string name="takeTheBlackPieces">Captura les peces negres!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Captura les peces negres!
 I no perdis les teves.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
+And don\'t lose yours.</string>
 	<string name="captureComplete">Feliçitats! Saps com capturar amb les peces de shogi!</string>
+	<string name="pieceDrops">Piece drops</string>
+	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Protecció</string>
 	<string name="keepYourPiecesSafe">Manté les teves peces segures</string>
 	<string name="protectionIntro">Identifica les peces que atacades pel teu oponent, i defen-les!</string>
@@ -95,6 +108,8 @@ I no perdis les teves.</string>
 	<string name="escape">Estàs atacat!
 Escapa de l\'amenaça!</string>
 	<string name="noEscape">No hi ha fugida, però et pots defendre!</string>
+	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
+	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">No permetis que et capturin
 cap peça no defesa!</string>
 	<string name="combat">Combat</string>
@@ -110,6 +125,7 @@ en un moviment!</string>
 	<string name="outOfCheck">Sortir de l\'escac</string>
 	<string name="defendYourKing">Defensa el teu rei</string>
 	<string name="outOfCheckIntro">Ets en escac! Has de fugir o bloquejar l\'atac.</string>
+	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
 	<string name="escapeWithTheKing">Escapa amb el rei!</string>
 	<string name="theKingCannotEscapeButBlock">El rei no pot fugir, 
 però pot bloquejar l\'atac!</string>
@@ -117,14 +133,21 @@ però pot bloquejar l\'atac!</string>
 prenent la peça atacant.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">El cavall et dóna escac 
 a través de les teves defenses!</string>
+	<string name="getOutOfCheck">Get out of check!</string>
+	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
 	<string name="escapeOrBlock">Escapa amb el rei 
 o bloqueja l\'atac!</string>
 	<string name="outOfCheckComplete">Felicitats! El teu rei no por ser mai capturat, assegura\'t que pots defendre\'l contra un escac!</string>
 	<string name="mateInOne">Escac i mat en un</string>
 	<string name="defeatTheOpponentsKing">Derrota el rei de l\'oponent</string>
 	<string name="mateInOneIntro">Guanyes quan el teu oponent no es pot defendre contra un escac.</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Ataca el rei del teu oponent 
 de forma que no es pugui defendre!</string>
+	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">Felicitats! Així és com es guanya al shogi!</string>
 	<string name="intermediate">Intermedi</string>
 	<string name="boardSetup">Configuració del tauler</string>
@@ -133,7 +156,22 @@ de forma que no es pugui defendre!</string>
 	<string name="thisIsTheInitialPosition">Aquesta és la posició inicial
 de cada partida de shogi!
 Fes un moviment per continuar.</string>
+	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
+	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
+	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
+	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
+	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Feliçitats! Saps com col·locar les peces de shogi.</string>
+	<string name="repetition">Repetition</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
+	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">Taules</string>
 	<string name="theGameIsADraw">El joc és un empat</string>
 	<string name="stalemateIntro">Quan un jugador no està en escac i no té un moviment legal, està ofegat. La partida és taules: ningú guanya ni perd.</string>
@@ -144,10 +182,25 @@ Fes un moviment per continuar.</string>
 	<string name="advanced">Avançat</string>
 	<string name="pieceValue">Valor de la peça</string>
 	<string name="evaluatePieceStrength">Avaluar la força de la peça</string>
+	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
+The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Captura la peça 
 amb el valor més alt!
 Dama &gt; Àlfil</string>
+	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
+Take the most valuable piece.</string>
+	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
+Take the most valuable piece without losing your own.</string>
+	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
+Take the most valuable piece.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
 	<string name="takeThePieceWithTheHighestValue">Captura la peça amb el valor més alt!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
 	<string name="checkInTwo">Escac en dos</string>
 	<string name="twoMovesToGiveCheck">Dos moviments per fer un escac</string>
 	<string name="checkInTwoIntro">Trobar la combinació correcta de dos moviments que posa en escac el rei del contrincant!</string>

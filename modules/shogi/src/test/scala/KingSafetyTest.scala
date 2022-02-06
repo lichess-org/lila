@@ -11,20 +11,20 @@ class KingSafetyTest extends ShogiTest {
 . . . . P . . . .
 P P P P . . n P P
 . . . G G . . . .
-L N S G K . . N L""" destsFrom SQ5I must bePoss(SQ4H)
+L N S G K . . N L""" moveDestsFrom SQ5I must bePoss(SQ4H)
       }
       "not commit suicide even if immobilized" in {
         """
 . . . .+b . n . .
 P P P P . . . P P
-L N S G K . . N L""" destsFrom SQ5I must bePoss()
+L N S G K . . N L""" moveDestsFrom SQ5I must bePoss()
       }
       "escape from danger" in {
         """
 . . . . r . . . .
 . . . . . . . . .
 P P P P . . . P P
-L N S G K . S N L""" destsFrom SQ5I must bePoss(SQ4I, SQ4H)
+L N S G K . S N L""" moveDestsFrom SQ5I must bePoss(SQ4I, SQ4H)
       }
     }
     "pieces" in {
@@ -35,7 +35,7 @@ L N S G K . S N L""" destsFrom SQ5I must bePoss(SQ4I, SQ4H)
 . . . . . . . . .
 P P P P . . . P P
 . . . . . . . . .
-L N S G K . . N L""" destsFrom SQ6I must bePoss(SQ5H)
+L N S G K . . N L""" moveDestsFrom SQ6I must bePoss(SQ5H)
         }
         "knight" in {
           """
@@ -43,14 +43,14 @@ L N S G K . . N L""" destsFrom SQ6I must bePoss(SQ5H)
 . . . . . . . . .
 P P P P . . . P P
 . . . N . . . . .
-L . S G K . S N L""" destsFrom SQ6H must bePoss(SQ5F)
+L . S G K . S N L""" moveDestsFrom SQ6H must bePoss(SQ5F)
         }
         "pawn" in {
           """
 . . K . . . . r .
 P P P P . . . P P
 . . . . . . . . .
-L N S G . G S N L""" destsFrom SQ6G must bePoss(SQ6F)
+L N S G . G S N L""" moveDestsFrom SQ6G must bePoss(SQ6F)
         }
       }
       "eat to defend" in {
@@ -59,21 +59,21 @@ L N S G . G S N L""" destsFrom SQ6G must bePoss(SQ6F)
 . . . . r . . . .
 . . . . . . . . .
 P P P P K . B . .
-R N B . . . . . L""" destsFrom SQ3H must bePoss(SQ5F)
+R N B . . . . . L""" moveDestsFrom SQ3H must bePoss(SQ5F)
         }
         "rook defender" in {
           """
 . . . . r . . . .
 . . . . . . . . .
 P P P P R . . . .
-R N B . K . . . L""" destsFrom SQ5H must bePoss(SQ5G, SQ5F)
+R N B . K . . . L""" moveDestsFrom SQ5H must bePoss(SQ5G, SQ5F)
         }
         "pawn" in {
           """
 K . . . . r . . .
 . . . . . P . . .
 P P P P . . . . .
-L N S G . G S N L""" destsFrom SQ4G must bePoss(SQ4F)
+L N S G . G S N L""" moveDestsFrom SQ4G must bePoss(SQ4F)
         }
       }
       "stay to defend" in {
@@ -82,7 +82,7 @@ L N S G . G S N L""" destsFrom SQ4G must bePoss(SQ4F)
 . . . . r . . . .
 . . . . . . . . .
 P P P P B . . . .
-R N B . K . . R .""" destsFrom SQ5H must bePoss()
+R N B . K . . R .""" moveDestsFrom SQ5H must bePoss()
         }
         "pawn" in {
           """
@@ -90,7 +90,7 @@ R N B . K . . R .""" destsFrom SQ5H must bePoss()
 . K . P . . r . .
 P P P . . . . . .
 . . . . . . . . .
-L N S G . . . . L""" destsFrom SQ6F must bePoss()
+L N S G . . . . L""" moveDestsFrom SQ6F must bePoss()
         }
       }
     }

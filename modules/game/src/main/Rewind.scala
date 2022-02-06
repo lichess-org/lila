@@ -3,26 +3,29 @@ package lila.game
 import org.joda.time.DateTime
 import cats.data.Validated
 
-import shogi.format.{ FEN, ParsedMoves, Reader, Tag, Tags }
+import shogi.format.{ Reader, Tag, Tags }
+import shogi.format.forsyth.Sfen
 
 object Rewind {
 
-  private def createTags(fen: Option[FEN], game: Game) = {
+  private def createTags(game: Game) = {
     val variantTag = Some(Tag(_.Variant, game.variant.name))
-    val fenTag     = fen map (f => Tag(_.FEN, f.value))
+    val sfenTag    = game.initialSfen.map(sf => Tag(_.Sfen, sf.value))
 
-    Tags(List(variantTag, fenTag).flatten)
+    Tags(List(variantTag, sfenTag).flatten)
   }
 
-  def apply(game: Game, initialFen: Option[FEN]): Validated[String, Progress] =
+  def apply(game: Game): Validated[String, Progress] =
     Reader
       .fromUsi(
         usis = game.usiMoves.dropRight(1),
-        tags = createTags(initialFen, game)
-      ).valid.map { replay =>
+        tags = createTags(game)
+      )
+      .valid
+      .map { replay =>
         val rewindedGame = replay.state
         val color        = game.turnColor
-        val turn         = rewindedGame.fullMoveNumber
+        val turn         = rewindedGame.fullTurnNumber
         val refundPeriod = ~(game.clockHistory map (_.countSpentPeriods(!color, turn)))
 
         val newClock = game.clock.map(_.refundPeriods(!color, refundPeriod).takeback) map { clk =>
@@ -41,7 +44,7 @@ object Rewind {
           gotePlayer = rewindPlayer(game.gotePlayer),
           shogi = rewindedGame.copy(clock = newClock),
           binaryMoveTimes = game.binaryMoveTimes.map { binary =>
-            val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
+            val moveTimes = BinaryFormat.moveTime.read(binary, game.playedPlies)
             BinaryFormat.moveTime.write(moveTimes.dropRight(1))
           },
           loadClockHistory = _ =>
@@ -51,5 +54,5 @@ object Rewind {
           movedAt = DateTime.now
         )
         Progress(game, newGame)
-    }
+      }
 }

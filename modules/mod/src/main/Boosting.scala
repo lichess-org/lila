@@ -43,7 +43,7 @@ final class BoostingApi(
     if (
       game.rated
       && game.accountable
-      && game.playedTurns <= 10
+      && game.playedPlies <= 10
       && !game.isTournament
       && game.winnerColor.isDefined
       && variants.contains(game.variant)

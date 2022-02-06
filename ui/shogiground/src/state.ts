@@ -1,4 +1,4 @@
-import * as fen from './fen';
+import * as sfen from './sfen';
 import { AnimCurrent } from './anim';
 import { DragCurrent } from './drag';
 import { Drawable } from './draw';
@@ -107,7 +107,7 @@ export interface State extends HeadlessState {
 
 export function defaults(): HeadlessState {
   return {
-    pieces: fen.read(fen.initial, { files: 9, ranks: 9 }),
+    pieces: sfen.read(sfen.initial, { files: 9, ranks: 9 }),
     orientation: 'sente',
     turnColor: 'sente',
     coordinates: true,

@@ -13,12 +13,12 @@ export default class CurrentPuzzle {
 
   constructor(readonly index: number, readonly puzzle: Puzzle) {
     this.line = puzzle.line.split(' ');
-    this.pov = parseSfen(puzzle.fen).unwrap().turn;
+    this.pov = parseSfen(puzzle.sfen).unwrap().turn;
     this.startAt = getNow();
   }
 
   position = (): Shogi => {
-    const pos = Shogi.fromSetup(parseSfen(this.puzzle.fen).unwrap(), false).unwrap();
+    const pos = Shogi.fromSetup(parseSfen(this.puzzle.sfen).unwrap(), false).unwrap();
     this.line.slice(0, this.moveIndex).forEach(usi => pos.play(parseUsi(pretendItsUsi(usi))!));
     return pos;
   };

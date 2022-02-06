@@ -38,9 +38,9 @@ export default function (ctrl: LobbyController) {
                   resizable: false,
                   viewOnly: true,
                   orientation: pov.color,
-                  fen: pov.fen,
+                  sfen: pov.sfen,
                   hasPockets: true,
-                  pockets: pov.fen && pov.fen.split(' ').length > 2 ? pov.fen.split(' ')[2] : '',
+                  pockets: pov.sfen && pov.sfen.split(' ').length > 2 ? pov.sfen.split(' ')[2] : '',
                   lastMove: lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined,
                 });
               },

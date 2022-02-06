@@ -233,7 +233,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           case Daily                      => 1 * 60
           case _                          => 30
         }
-        if (tour.variant.exotic) base / 3 else base
+        if (!tour.variant.standard) base / 3 else base
       }
     }
 

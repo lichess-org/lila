@@ -16,15 +16,15 @@ export interface Game {
   id: string;
   status: Status;
   player: Color;
-  turns: number;
-  startedAtTurn?: number;
+  plies: number;
+  startedAtPly?: number;
   startedAtMove?: number;
   source: Source;
   speed: Speed;
   variant: Variant;
   winner?: Color;
   moveCentis?: number[];
-  initialFen?: string;
+  initialSfen?: string;
   importedBy?: string;
   boosted?: boolean;
   rematch?: string;

@@ -163,13 +163,12 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
-            (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
             Metric.requiresAnalysis(metric).??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
         ) -> /* sortDate :: */ {
-          sampleGames :: ((metric match {
+          sampleGames :: (metric match {
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -282,10 +281,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                   )
                 ) :::
                 List(includeSomeGameIds.some)
-          }) ::: (dimension match {
-            case D.Opening => List(sortNb, limit(12))
-            case _         => Nil
-          })).flatten
+          }).flatten
         }
         pipeline
       }

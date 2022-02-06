@@ -2,6 +2,7 @@ package lila.api
 
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
+import lila.common.Json._
 import lila.game.Pov
 import lila.lobby.SeekApi
 
@@ -33,7 +34,7 @@ final class LobbyApi(
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (shogi.format.Forsyth exportSituation pov.game.situation),
+        "sfen"     -> pov.game.situation.toSfen,
         "color"    -> pov.color.name,
         "lastMove" -> ~pov.game.lastMoveKeys,
         "variant" -> Json.obj(

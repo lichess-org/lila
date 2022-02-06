@@ -75,7 +75,7 @@
 	<string name="insufficientMaterial">戦力不足</string>
 	<string name="pawnMove">歩兵の手</string>
 	<string name="capture">駒取り</string>
-	<string name="close">閉じる</string>
+	<string name="close">チームを解散する</string>
 	<string name="winning">勝勢</string>
 	<string name="losing">敗勢</string>
 	<string name="drawn">引き分け</string>

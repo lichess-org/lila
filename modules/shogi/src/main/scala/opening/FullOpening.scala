@@ -2,12 +2,12 @@ package shogi
 package opening
 
 final class FullOpening(
-    val eco: String,
-    val name: String,
-    val fen: String
+    val japanese: String,
+    val english: String,
+    val sfen: String
 ) {
 
-  def ecoName = s"$eco $name"
+  def ecoName = s"$japanese ($english)"
 
   override def toString = ecoName
 

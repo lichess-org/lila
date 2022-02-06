@@ -29,13 +29,13 @@ export function dataIcon(icon: string): Attrs {
 
 export function miniBoard(game) {
   return h(
-    'a.mini-board.parse-fen.mini-board-' + game.id + '.variant-' + game.variant,
+    'a.mini-board.parse-sfen.mini-board-' + game.id + '.variant-' + game.variant,
     {
       key: game.id,
       attrs: {
         href: '/' + game.id + (game.color === 'sente' ? '' : '/gote'),
         'data-color': game.color,
-        'data-fen': game.fen,
+        'data-sfen': game.sfen,
         'data-lastmove': game.lastMove,
       },
       hook: {

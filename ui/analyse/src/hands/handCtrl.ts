@@ -2,8 +2,7 @@ import { dragNewPiece } from 'shogiground/drag';
 import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import AnalyseCtrl from '../ctrl';
 import * as cg from 'shogiground/types';
-import { defined, pretendItsSquare } from 'common/common';
-import { parseSquare } from 'shogiops/util';
+import { defined } from 'common/common';
 
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
@@ -55,16 +54,4 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent):
   e.stopPropagation();
   e.preventDefault();
   ctrl.redraw();
-}
-
-export function valid(ctrl: AnalyseCtrl, piece: cg.Piece, to: Key): boolean {
-  const pos = ctrl.position(ctrl.node);
-  if (pos.isErr) return false;
-  return (
-    pos.value.turn === piece.color &&
-    pos.value.isLegal({
-      role: piece.role,
-      to: parseSquare(pretendItsSquare(to))!,
-    })
-  );
 }

@@ -45,7 +45,7 @@ final class Env(
 
   private val director = wire[SwissDirector]
 
-  private val boardApi = wire[SwissBoardApi]
+  private val situationApi = wire[SwissSituationApi]
 
   private val statsApi = wire[SwissStatsApi]
 

@@ -1,8 +1,7 @@
 package lila.round
 
-import shogi.format.Forsyth
 import shogi.format.usi.Usi
-import shogi.{ Centis, MoveMetrics, MoveOrDrop, Status }
+import shogi.{ Centis, MoveMetrics, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
@@ -18,8 +17,8 @@ final private class Player(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
-  private case object Flagged                                          extends MoveResult
-  private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
+  private case object Flagged                        extends MoveResult
+  private case class MoveApplied(progress: Progress) extends MoveResult
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(
       pov: Pov
@@ -27,7 +26,7 @@ final private class Player(
     play match {
       case HumanPlay(_, usi, blur, lag, _) =>
         pov match {
-          case Pov(game, _) if game.turns > Game.maxPlies =>
+          case Pov(game, _) if game.plies > Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
@@ -36,9 +35,9 @@ final private class Player(
               .fold(errs => fufail(ClientError(errs.toString)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress, moveOrDrop) =>
+                case MoveApplied(progress) =>
                   proxy.save(progress) >>
-                    postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+                    postHumanOrBotPlay(round, pov, progress, usi)
               }
           case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
           case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
@@ -49,7 +48,7 @@ final private class Player(
 
   private[round] def bot(usi: Usi, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
-      case Pov(game, _) if game.turns > Game.maxPlies =>
+      case Pov(game, _) if game.plies > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
@@ -57,8 +56,8 @@ final private class Player(
           .fold(errs => fufail(ClientError(errs.toString)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop) =>
-              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+            case MoveApplied(progress) =>
+              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, usi)
           }
       case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
       case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
@@ -70,33 +69,29 @@ final private class Player(
       round: RoundDuct,
       pov: Pov,
       progress: Progress,
-      moveOrDrop: MoveOrDrop
+      usi: Usi
   )(implicit proxy: GameProxy): Fu[Events] = {
-    notifyMove(moveOrDrop, progress.game)
+    notifyMove(usi, progress.game)
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
-      if (progress.game.forecastable)
-        moveOrDrop.fold(
-          move => round ! ForecastPlay(move.toUsi),
-          drop => round ! ForecastPlay(drop.toUsi)
-        )
+      if (progress.game.forecastable) round ! ForecastPlay(usi)
       scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
   }
 
   private[round] def fishnet(game: Game, ply: Int, usi: Usi)(implicit proxy: GameProxy): Fu[Events] = {
-    if (game.playable && game.player.isAi && game.playedTurns == ply) {
+    if (game.playable && game.player.isAi && game.playedPlies == ply) {
       applyUsi(game, usi, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.toString)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
-          case MoveApplied(progress, moveOrDrop) =>
+          case MoveApplied(progress) =>
             proxy.save(progress) >>-
-              notifyMove(moveOrDrop, progress.game) >> {
+              notifyMove(usi, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else
                   fuccess(progress.events :+ Event.Reload)
@@ -112,7 +107,7 @@ final private class Player(
 
   private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
     game.playableByAi ?? {
-      if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+      if (game.plies <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
     }
 
@@ -124,43 +119,25 @@ final private class Player(
       usi: Usi,
       blur: Boolean,
       metrics: MoveMetrics
-  ): Validated[String, MoveResult] = {
-    (usi match {
-      case Usi.Move(orig, dest, prom) => {
-        game.shogi(orig, dest, prom, metrics) map {
-          case (nsg, move) => {
-            nsg -> (Left(move): MoveOrDrop)
-          }
-        }
-      }
-      case Usi.Drop(role, pos) =>
-        game.shogi.drop(role, pos, metrics) map { case (nsg, drop) =>
-          nsg -> (Right(drop): MoveOrDrop)
-        }
-    }).map {
-      case (nsg, _) if nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) =>
-        Flagged
-      case (newShogiGame, moveOrDrop) =>
-        MoveApplied(
-          game.update(newShogiGame, moveOrDrop, blur),
-          moveOrDrop
-        )
+  ): Validated[String, MoveResult] =
+    game.shogi(usi) map { nsg =>
+      if (nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false))) Flagged
+      else MoveApplied(game.update(nsg, usi, blur))
     }
-  }
 
-  private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit = {
-    import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
-    val color = moveOrDrop.fold(_.color, _.color)
+  private def notifyMove(usi: Usi, game: Game): Unit = {
+    import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent } // todo UsiEvent
+    val color = !game.situation.color
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Forsyth exportSituation game.situation,
-      move = moveOrDrop.fold(_.toUsi.usiKeys, _.toUsi.usi)
+      sfen = game.situation.toSfen.value,
+      usi = usi.usi
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
     // also used for targeted TvBroadcast subscription
-    Bus.publish(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent makeChan game.id)
+    Bus.publish(MoveGameEvent(game, moveEvent.sfen, moveEvent.usi), MoveGameEvent makeChan game.id)
 
     // publish correspondence moves
     if (game.isCorrespondence && game.nonAi)

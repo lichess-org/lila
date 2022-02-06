@@ -32,7 +32,7 @@ final class DataForm(
 
   def emptyWithCaptcha = withCaptcha(empty)
 
-  private val anyEmail        = LilaForm.clean(text).verifying(Constraints.emailAddress)
+  private val anyEmail        = LilaForm.cleanNonEmptyText.verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
@@ -52,8 +52,7 @@ final class DataForm(
 
   object signup {
 
-    val username = LilaForm
-      .clean(nonEmptyText)
+    val username = LilaForm.cleanNonEmptyText
       .verifying(
         Constraints minLength 2,
         Constraints maxLength 20,
@@ -215,7 +214,7 @@ final class DataForm(
 
   val reopen = Form(
     mapping(
-      "username" -> LilaForm.clean(nonEmptyText),
+      "username" -> LilaForm.cleanNonEmptyText,
       "email"    -> sendableEmail, // allow unacceptable emails for BC
       "gameId"   -> text,
       "move"     -> text

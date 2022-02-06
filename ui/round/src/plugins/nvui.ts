@@ -173,7 +173,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     else {
       const d = ctrl.data,
         legalUsis = destsToUsis(ctrl.shogiground.state.movable.dests!);
-      //moves: Moves = sanWriter(plyStep(d, ctrl.ply).fen, legalUsis) as Moves;
+      //moves: Moves = sanWriter(plyStep(d, ctrl.ply).sfen, legalUsis) as Moves;
       let usi = input,
         promotion = '';
 

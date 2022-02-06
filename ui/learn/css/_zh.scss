@@ -22,7 +22,6 @@ $pocket-height: 60px;
   }
 }
 
-.analyse.variant-fromPosition,
 .analyse.variant-standard {
   grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto 50vh;
   grid-template-areas:

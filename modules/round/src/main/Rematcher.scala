@@ -1,6 +1,6 @@
 package lila.round
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.variant._
 import shogi.{ Game => ShogiGame, Board, Color => ShogiColor, Clock, Situation, Hands }
 import ShogiColor.{ Gote, Sente }
@@ -63,28 +63,23 @@ final private class Rematcher(
 
   private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
     gameRepo game nextId flatMap {
-      _.fold(rematchJoin(pov))(g => isHandicapOptimized(g) map { redirectEvents(g, _) })
+      _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] =
     rematches.of(pov.gameId) match {
       case None =>
         for {
-          initialFen <- gameRepo initialFen pov.game
-          isHandicap = pov.game isHandicap initialFen
-          nextGame <- returnGame(pov, initialFen, isHandicap) map (_.start)
+          nextGame <- returnGame(pov) map (_.start)
           _ = offers invalidate pov.game.id
           _ = rematches.cache.put(pov.gameId, nextGame.id)
           _ <- gameRepo insertDenormalized nextGame
         } yield {
           messenger.system(pov.game, trans.rematchOfferAccepted.txt())
           onStart(nextGame.id)
-          redirectEvents(nextGame, isHandicap)
+          redirectEvents(nextGame)
         }
-      case Some(rematchId) =>
-        gameRepo game rematchId flatMap {
-          _ ?? (g => isHandicapOptimized(g) map { redirectEvents(g, _) })
-        }
+      case Some(rematchId) => gameRepo game rematchId map { _ ?? redirectEvents }
     }
 
   private def rematchCreate(pov: Pov): Events = {
@@ -96,36 +91,20 @@ final private class Rematcher(
     List(Event.RematchOffer(by = pov.color.some))
   }
 
-  private def returnGame(pov: Pov, initialFen: Option[FEN], isHandicap: Boolean): Fu[Game] =
+  private def returnGame(pov: Pov): Fu[Game] =
     for {
       users <- userRepo byIds pov.game.userIds
-      situation = initialFen flatMap { fen =>
-        Forsyth <<< fen.value
-      }
-      pieces = pov.game.variant match {
-        case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-        case variant      => variant.pieces
-      }
+      shogiGame = ShogiGame(pov.game.variant.some, pov.game.initialSfen)
+        .copy(clock = pov.game.clock map { c =>
+          Clock(c.config)
+        })
       sPlayer = returnPlayer(pov.game, Sente, users)
       gPlayer = returnPlayer(pov.game, Gote, users)
       game <- Game.make(
-        shogi = ShogiGame(
-          situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withHandData {
-              situation
-                .fold[Option[shogi.Hands]](Some(Hands.init(pov.game.variant)))(_.situation.board.handData)
-            },
-            color = situation.fold[shogi.Color](Sente)(_.situation.color)
-          ),
-          clock = pov.game.clock map { c =>
-            Clock(c.config)
-          },
-          turns = situation ?? (_.turns),
-          startedAtTurn = situation ?? (_.turns),
-          startedAtMove = situation.map(_.moveNumber) | 1
-        ),
-        sentePlayer = if (isHandicap) gPlayer else sPlayer,
-        gotePlayer = if (isHandicap) sPlayer else gPlayer,
+        shogi = shogiGame,
+        initialSfen = pov.game.initialSfen,
+        sentePlayer = if (pov.game.isHandicap) gPlayer else sPlayer,
+        gotePlayer = if (pov.game.isHandicap) sPlayer else gPlayer,
         mode = if (users.exists(_.lame)) shogi.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
@@ -146,22 +125,17 @@ final private class Rematcher(
         )
     }
 
-  private def redirectEvents(game: Game, isHandicap: Boolean): Events = {
+  private def redirectEvents(game: Game): Events = {
     val senteId = game fullIdOf Sente
     val goteId  = game fullIdOf Gote
     List(
-      Event.RedirectOwner(if (isHandicap) Gote else Sente, goteId, AnonCookie.json(game pov Gote)),
-      Event.RedirectOwner(if (isHandicap) Sente else Gote, senteId, AnonCookie.json(game pov Sente)),
+      Event.RedirectOwner(if (game.isHandicap) Gote else Sente, goteId, AnonCookie.json(game pov Gote)),
+      Event.RedirectOwner(if (game.isHandicap) Sente else Gote, senteId, AnonCookie.json(game pov Sente)),
       // tell spectators about the rematch
       Event.RematchTaken(game.id)
     )
   }
 
-  private def isHandicapOptimized(game: Game): Fu[Boolean] =
-    if (game.variant == Standard)
-      fuccess(false)
-    else
-      gameRepo initialFen game fallbackTo fuccess(None) map { game isHandicap _ }
 }
 
 private object Rematcher {

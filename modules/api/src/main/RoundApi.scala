@@ -1,6 +1,6 @@
 package lila.api
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -32,154 +32,133 @@ final private[api] class RoundApi(
 
   def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(implicit
       ctx: Context
-  ): Fu[JsObject] =
-    gameRepo
-      .initialFen(pov.game)
-      .flatMap { initialFen =>
-        implicit val lang = ctx.lang
-        jsonView.playerJson(
-          pov,
-          ctx.pref,
-          apiVersion,
-          ctx.me,
-          withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
-          initialFen = initialFen,
-          nvui = ctx.blind
-        ) zip
-          (pov.game.simulId ?? simulApi.find) zip
-          swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
-          forecastApi.loadForDisplay(pov) zip
-          bookmarkApi.exists(pov.game, ctx.me) map {
-            case (((((json, simul), swiss), note), forecast), bookmarked) =>
-              (
-                withTournament(pov, tour) _ compose
-                  withSwiss(swiss) compose
-                  withSimul(simul) compose
-                  withSteps(pov, initialFen) compose
-                  withNote(note) compose
-                  withBookmark(bookmarked) compose
-                  withForecastCount(forecast.map(_.steps.size))
-              )(json)
-          }
+  ): Fu[JsObject] = {
+    implicit val lang = ctx.lang
+    jsonView.playerJson(
+      pov,
+      ctx.pref,
+      apiVersion,
+      ctx.me,
+      withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
+      nvui = ctx.blind
+    ) zip
+      (pov.game.simulId ?? simulApi.find) zip
+      swissApi.gameView(pov) zip
+      (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
+      forecastApi.loadForDisplay(pov) zip
+      bookmarkApi.exists(pov.game, ctx.me) map {
+        case (((((json, simul), swiss), note), forecast), bookmarked) =>
+          (
+            withTournament(pov, tour) _ compose
+              withSwiss(swiss) compose
+              withSimul(simul) compose
+              withSteps(pov) compose
+              withNote(note) compose
+              withBookmark(bookmarked) compose
+              withForecastCount(forecast.map(_.steps.size))
+          )(json)
       }
-      .mon(_.round.api.player)
+  }
+    .mon(_.round.api.player)
 
   def watcher(
       pov: Pov,
       tour: Option[TourView],
       apiVersion: ApiVersion,
-      tv: Option[lila.round.OnTv],
-      initialFenO: Option[Option[FEN]] = None
-  )(implicit ctx: Context): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
-        implicit val lang = ctx.lang
-        jsonView.watcherJson(
-          pov,
-          ctx.pref,
-          apiVersion,
-          ctx.me,
-          tv,
-          initialFen = initialFen,
-          withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
-        ) zip
-          (pov.game.simulId ?? simulApi.find) zip
-          swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
-          bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
-            (
-              withTournament(pov, tour) _ compose
-                withSwiss(swiss) compose
-                withSimul(simul) compose
-                withNote(note) compose
-                withBookmark(bookmarked) compose
-                withSteps(pov, initialFen)
-            )(json)
-          }
+      tv: Option[lila.round.OnTv]
+  )(implicit ctx: Context): Fu[JsObject] = {
+    implicit val lang = ctx.lang
+    jsonView.watcherJson(
+      pov,
+      ctx.pref,
+      apiVersion,
+      ctx.me,
+      tv,
+      withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
+    ) zip
+      (pov.game.simulId ?? simulApi.find) zip
+      swissApi.gameView(pov) zip
+      (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
+      bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
+        (
+          withTournament(pov, tour) _ compose
+            withSwiss(swiss) compose
+            withSimul(simul) compose
+            withNote(note) compose
+            withBookmark(bookmarked) compose
+            withSteps(pov)
+        )(json)
       }
-      .mon(_.round.api.watcher)
+  }
+    .mon(_.round.api.watcher)
 
   def review(
       pov: Pov,
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
       withFlags: WithFlags
-  )(implicit ctx: Context): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
-        implicit val lang = ctx.lang
-        jsonView.watcherJson(
-          pov,
-          ctx.pref,
-          apiVersion,
-          ctx.me,
-          tv,
-          initialFen = initialFen,
-          withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
-        ) zip
-          tourApi.gameView.analysis(pov.game) zip
-          (pov.game.simulId ?? simulApi.find) zip
-          swissApi.gameView(pov) zip
-          ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
-          bookmarkApi.exists(pov.game, ctx.me) map {
-            case (((((json, tour), simul), swiss), note), bookmarked) =>
-              (
-                withTournament(pov, tour) _ compose
-                  withSwiss(swiss) compose
-                  withSimul(simul) compose
-                  withNote(note) compose
-                  withBookmark(bookmarked) compose
-                  withTree(pov, analysis, initialFen, withFlags) compose
-                  withAnalysis(pov.game, analysis)
-              )(json)
-          }
+  )(implicit ctx: Context): Fu[JsObject] = {
+    implicit val lang = ctx.lang
+    jsonView.watcherJson(
+      pov,
+      ctx.pref,
+      apiVersion,
+      ctx.me,
+      tv,
+      withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
+    ) zip
+      tourApi.gameView.analysis(pov.game) zip
+      (pov.game.simulId ?? simulApi.find) zip
+      swissApi.gameView(pov) zip
+      ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
+      bookmarkApi.exists(pov.game, ctx.me) map { case (((((json, tour), simul), swiss), note), bookmarked) =>
+        (
+          withTournament(pov, tour) _ compose
+            withSwiss(swiss) compose
+            withSimul(simul) compose
+            withNote(note) compose
+            withBookmark(bookmarked) compose
+            withTree(pov, analysis, withFlags) compose
+            withAnalysis(pov.game, analysis)
+        )(json)
       }
-      .mon(_.round.api.watcher)
+  }
+    .mon(_.round.api.watcher)
 
   def embed(
       pov: Pov,
       apiVersion: ApiVersion,
       analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
       withFlags: WithFlags
-  ): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
-        jsonView.watcherJson(
-          pov,
-          Pref.default,
-          apiVersion,
-          none,
-          none,
-          initialFen = initialFen,
-          withFlags = withFlags
-        ) map { json =>
-          (
-            withTree(pov, analysis, initialFen, withFlags) _ compose
-              withAnalysis(pov.game, analysis) _
-          )(json)
-        }
-      }
-      .mon(_.round.api.embed)
+  ): Fu[JsObject] = {
+    jsonView.watcherJson(
+      pov,
+      Pref.default,
+      apiVersion,
+      none,
+      none,
+      withFlags = withFlags
+    ) map { json =>
+      (
+        withTree(pov, analysis, withFlags) _ compose
+          withAnalysis(pov.game, analysis) _
+      )(json)
+    }
+  }
+    .mon(_.round.api.embed)
 
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
       orientation: shogi.Color,
       owner: Boolean,
       me: Option[User]
   ) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
-          jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
+        withTree(pov, analysis = none, WithFlags(opening = true)) {
+          jsonView.userAnalysisJson(pov, pref, orientation, owner = owner, me = me)
         }
       }
     }
@@ -187,15 +166,14 @@ final private[api] class RoundApi(
   def freeStudyJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
       orientation: shogi.Color,
       me: Option[User]
   ) =
-    withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
-      jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)
+    withTree(pov, analysis = none, WithFlags(opening = true))(
+      jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me)
     )
 
-  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(
+  private def withTree(pov: Pov, analysis: Option[Analysis], withFlags: WithFlags)(
       obj: JsObject
   ) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
@@ -204,18 +182,18 @@ final private[api] class RoundApi(
         usiMoves = pov.game.usiMoves,
         variant = pov.game.variant,
         analysis = analysis,
-        initialFen = initialFen | FEN(pov.game.variant.initialFen),
+        initialSfen = pov.game.initialSfen | pov.game.variant.initialSfen,
         withFlags = withFlags,
         clocks = withFlags.clocks ?? pov.game.bothClockStates
       )
     ))
 
-  private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
+  private def withSteps(pov: Pov)(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.gameId,
       usiMoves = pov.game.usiMoves,
       variant = pov.game.variant,
-      initialFen = initialFen
+      initialSfen = pov.game.initialSfen
     ))
 
   private def withNote(note: String)(json: JsObject) =

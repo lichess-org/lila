@@ -33,15 +33,15 @@ object captcha {
         )(
           div(cls := "challenge")(
             div(
-              cls := "mini-board cg-wrap parse-fen",
+              cls := "mini-board cg-wrap parse-sfen",
               dataPlayable := "1",
-              dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
-              dataY := encodeFen(if (captcha.sente) {
+              dataX := encodeSfen(safeJsonValue(Json.toJson(captcha.moves))),
+              dataY := encodeSfen(if (captcha.sente) {
                 "sente"
               } else {
                 "gote"
               }),
-              dataZ := encodeFen(captcha.fen)
+              dataZ := encodeSfen(captcha.sfenBoard)
             )(cgWrapContent)
           ),
           div(cls := "captcha-explanation")(

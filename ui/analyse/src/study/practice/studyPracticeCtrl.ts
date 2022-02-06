@@ -26,7 +26,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     success(null);
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
-    analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
+    analysisUrl('/analysis/standard/' + root.node.sfen.replace(/ /g, '_') + '?color=' + root.bottomColor());
   }
   onLoad();
 

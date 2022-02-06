@@ -8,7 +8,7 @@ export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
   const cur = run.current;
   const pos = cur.position();
   return {
-    fen: makeSfen(pos.toSetup()),
+    sfen: makeSfen(pos.toSetup()),
     orientation: run.pov,
     turnColor: pos.turn,
     movable: {

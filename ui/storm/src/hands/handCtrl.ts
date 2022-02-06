@@ -57,8 +57,8 @@ export function selectToDrop(ctrl: StormCtrl, e: cg.MouchEvent): void {
   });
 }
 
-export function valid(fen: string, piece: cg.Piece, key: Key): boolean {
-  const setup = parseSfen(fen).unwrap();
+export function valid(sfen: string, piece: cg.Piece, key: Key): boolean {
+  const setup = parseSfen(sfen).unwrap();
   const shogi = Shogi.fromSetup(setup, false);
   return shogi.unwrap(
     s => {

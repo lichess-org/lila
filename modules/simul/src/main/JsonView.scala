@@ -3,6 +3,7 @@ package lila.simul
 import play.api.libs.json._
 
 import lila.common.LightUser
+import lila.common.Json._
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -127,7 +128,7 @@ final class JsonView(
       "id"       -> g.id,
       "status"   -> g.status.id,
       "variant"  -> g.variant.key,
-      "fen"      -> (shogi.format.Forsyth exportSituation g.situation),
+      "sfen"     -> g.situation.toSfen,
       "lastMove" -> ~g.lastMoveKeys,
       "orient"   -> g.playerByUserId(hostId).map(_.color)
     )

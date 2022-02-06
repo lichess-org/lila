@@ -69,7 +69,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       game.division &&
       (!game.division.middle || fault.node.ply < game.division.middle)
     ) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
+      root.explorer.fetchMasterOpening(prev.node.sfen).then((res: OpeningData) => {
         const cur = current();
         const usis: Usi[] = [];
         res!.moves.forEach(m => {

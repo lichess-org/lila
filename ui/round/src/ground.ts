@@ -18,7 +18,7 @@ export function makeConfig(ctrl: RoundController): Config {
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying();
   return {
-    fen: step.fen,
+    sfen: step.sfen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
     lastMove: util.usi2move(step.usi),
@@ -45,7 +45,7 @@ export function makeConfig(ctrl: RoundController): Config {
     movable: {
       free: false,
       color: playing ? data.player.color : undefined,
-      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
+      dests: playing ? util.getMoveDests(step.sfen, data.game.variant.key) : new Map(),
       showDests: data.pref.destination,
       events: {
         after: hooks.onUserMove,
@@ -76,7 +76,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     dropmode: {
       showDropDests: data.pref.destination && data.pref.dropDestination,
-      dropDests: playing ? util.getDropDests(step.fen, data.game.variant.key) : new Map(),
+      dropDests: playing ? util.getDropDests(step.sfen, data.game.variant.key) : new Map(),
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,

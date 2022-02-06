@@ -85,13 +85,13 @@ object Color {
   def fromSente(isSente: Boolean): Color = if (isSente) Sente else Gote
 
   def fromName(n: String): Option[Color] =
-    if (n == "black" || n == "sente") Option(Sente)
-    else if (n == "white" || n == "gote") Option(Gote)
+    if (n == "black" || n == "sente") Some(Sente)
+    else if (n == "white" || n == "gote") Some(Gote)
     else None
 
   def apply(c: Char): Option[Color] =
-    if (c == 'b') Option(Sente)
-    else if (c == 'w') Option(Gote)
+    if (c == 'b') Some(Sente)
+    else if (c == 'w') Some(Gote)
     else None
 
   val sente: Color = Sente
@@ -108,8 +108,8 @@ object Color {
 
   def fromResult(result: String): Option[Color] =
     result match {
-      case "1-0" => Option(shogi.Sente)
-      case "0-1" => Option(shogi.Gote)
+      case "1-0" => Some(shogi.Sente)
+      case "0-1" => Some(shogi.Gote)
       case _     => None
     }
 }

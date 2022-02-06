@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import shogi.format.FEN
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 import lila.common.IpAddress
@@ -46,7 +46,7 @@ object Work {
 
   case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[FEN],
+      initialSfen: Option[Sfen],
       studyId: Option[String],
       variant: Variant,
       moves: String

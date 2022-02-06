@@ -51,7 +51,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     volume(v: number) {
       api.setVolume(v);
       // plays a move sound if speech is off
-      api.move('knight F 7');
+      api.move('pawn 7 F');
     },
     redraw,
     trans,

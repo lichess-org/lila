@@ -1,6 +1,7 @@
 package shogi
 package format
-import format.usi.Usi
+
+import shogi.format.usi.Usi
 
 trait Notation {
 

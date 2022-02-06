@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.{ FEN, Glyph, Glyphs }
+import shogi.format.{ Glyph, Glyphs }
+import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
 
 import shogi.Centis
@@ -9,7 +10,7 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode {
   val ply: Int
-  val fen: FEN
+  val sfen: Sfen
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
@@ -19,7 +20,6 @@ sealed trait RootOrNode {
   val glyphs: Glyphs
   val score: Option[Score]
   def addChild(node: Node): RootOrNode
-  def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
   def color = shogi.Color.fromPly(ply)
   def usiOption: Option[Usi]
@@ -29,7 +29,7 @@ case class Node(
     id: UsiCharPair,
     ply: Int,
     usi: Usi,
-    fen: FEN,
+    sfen: Sfen,
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
@@ -235,7 +235,7 @@ object Node {
 
   case class Root(
       ply: Int,
-      fen: FEN,
+      sfen: Sfen,
       check: Boolean,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
@@ -329,7 +329,7 @@ object Node {
     def default(variant: shogi.variant.Variant) =
       Root(
         ply = 0,
-        fen = FEN(variant.initialFen),
+        sfen = variant.initialSfen,
         check = false,
         clock = none,
         children = emptyChildren
@@ -338,7 +338,7 @@ object Node {
     def fromRoot(b: lila.tree.Root): Root =
       Root(
         ply = b.ply,
-        fen = FEN(b.fen),
+        sfen = b.sfen,
         check = b.check,
         clock = b.clock,
         children = Children(b.children.view.map(fromBranch).toVector)
@@ -350,7 +350,7 @@ object Node {
       id = b.id,
       ply = b.ply,
       usi = b.usi,
-      fen = FEN(b.fen),
+      sfen = b.sfen,
       check = b.check,
       clock = b.clock,
       children = Children(b.children.view.map(fromBranch).toVector),
@@ -360,7 +360,7 @@ object Node {
   object BsonFields {
     val ply            = "p"
     val usi            = "u"
-    val fen            = "f"
+    val sfen           = "f"
     val check          = "c"
     val shapes         = "h"
     val comments       = "co"

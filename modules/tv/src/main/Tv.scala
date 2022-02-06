@@ -161,10 +161,9 @@ object Tv {
   private def minRating(min: Int)                     = (c: Candidate) => hasMinRating(c.game, min)
   private def speed(speed: shogi.Speed)               = (c: Candidate) => c.game.speed == speed
   private def variant(variant: shogi.variant.Variant) = (c: Candidate) => c.game.variant == variant
-  private def standardShogiRules(c: Candidate) =
-    c.game.variant == V.Standard || c.game.variant == V.FromPosition
-  private def computerStandardRules(c: Candidate) = c.game.hasAi && standardShogiRules(c)
-  private def hasBot(c: Candidate)                = c.hasBot
+  private def standardShogiRules(c: Candidate)        = c.game.variant == V.Standard
+  private def computerStandardRules(c: Candidate)     = c.game.hasAi && standardShogiRules(c)
+  private def hasBot(c: Candidate)                    = c.hasBot
 
   private def fresh(seconds: Int, game: Game): Boolean = {
     game.isBeingPlayed && !game.olderThan(seconds)

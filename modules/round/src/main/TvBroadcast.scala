@@ -47,12 +47,12 @@ final private class TvBroadcast extends Actor {
       featuredId = id.some
       queues.foreach(_ offer msg)
 
-    case MoveGameEvent(_, fen, move) if queues.nonEmpty =>
+    case MoveGameEvent(_, sfen, move) if queues.nonEmpty =>
       val msg = makeMessage(
-        "fen",
+        "sfen",
         Json.obj(
-          "fen" -> fen,
-          "lm"  -> move
+          "sfen" -> sfen,
+          "lm"   -> move
         )
       )
       queues.foreach(_ offer msg)

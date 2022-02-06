@@ -186,7 +186,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         attrs: { type: 'hidden', name: 'variant', value: ctrl.rules },
       }),
       h('input', {
-        attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' },
+        attrs: { type: 'hidden', name: 'sfen', value: state.legalSfen || '' },
       }),
       h(
         'button',
@@ -194,13 +194,13 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
           attrs: {
             type: 'submit',
             'data-icon': '4',
-            disabled: !state.legalFen,
+            disabled: !state.legalSfen,
           },
           class: {
             button: true,
             'button-empty': true,
             text: true,
-            disabled: !state.legalFen,
+            disabled: !state.legalSfen,
           },
         },
         ctrl.trans.noarg('toStudy')
@@ -215,11 +215,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       'option',
       {
         attrs: {
-          value: pos.epd || pos.fen,
-          'data-fen': pos.fen,
+          value: pos.epd || pos.sfen,
+          'data-sfen': pos.sfen,
         },
       },
-      pos.eco ? `${pos.eco} ${pos.name}` : pos.name
+      pos.japanese ? `${pos.japanese} ${pos.english}` : pos.english
     );
   };
   return h('div.board-editor__tools', [
@@ -231,14 +231,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'select.positions',
               {
                 props: {
-                  value: state.fen.split(' ').slice(0, 4).join(' '),
+                  value: state.sfen.split(' ').slice(0, 4).join(' '),
                 },
                 on: {
                   change(e) {
                     const el = e.target as HTMLSelectElement;
-                    let value = el.selectedOptions[0].getAttribute('data-fen');
+                    let value = el.selectedOptions[0].getAttribute('data-sfen');
                     if (value == 'prompt') value = (prompt('Paste SFEN') || '').trim();
-                    if (!value || !ctrl.setFen(value)) el.value = '';
+                    if (!value || !ctrl.setSfen(value)) el.value = '';
                   },
                 },
               },
@@ -376,13 +376,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: {
                   'data-icon': 'A',
                   rel: 'nofollow',
-                  ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {}),
+                  ...(state.legalSfen ? { href: ctrl.makeAnalysisUrl(state.legalSfen) } : {}),
                 },
                 class: {
                   button: true,
                   'button-empty': true,
                   text: true,
-                  disabled: !state.legalFen,
+                  disabled: !state.legalSfen,
                 },
               },
               ctrl.trans.noarg('analysis')
@@ -410,7 +410,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a.button',
               {
                 attrs: {
-                  href: '/?fen=' + ctrl.encodeFen(state.legalFen || '') + '#ai',
+                  href: '/?sfen=' + ctrl.encodeSfen(state.legalSfen || '') + '#ai',
                   rel: 'nofollow',
                 },
               },
@@ -420,7 +420,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a.button',
               {
                 attrs: {
-                  href: '/?fen=' + ctrl.encodeFen(state.legalFen || '') + '#friend',
+                  href: '/?sfen=' + ctrl.encodeSfen(state.legalSfen || '') + '#friend',
                   rel: 'nofollow',
                 },
               },
@@ -431,7 +431,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
+function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
   if (ctrl.cfg.embed) return;
   return h('div.copyables', [
     h('p', [
@@ -441,12 +441,12 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           spellcheck: false,
         },
         props: {
-          value: fen,
+          value: sfen,
         },
         on: {
           change(e) {
             const el = e.target as HTMLInputElement;
-            ctrl.setFen(el.value.trim());
+            ctrl.setSfen(el.value.trim());
             el.reportValidity();
           },
           input(e) {
@@ -456,7 +456,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           },
           blur(e) {
             const el = e.target as HTMLInputElement;
-            el.value = ctrl.getFen();
+            el.value = ctrl.getSfen();
             el.setCustomValidity('');
           },
         },
@@ -468,7 +468,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: ctrl.makeUrl(ctrl.cfg.baseUrl, fen),
+          value: ctrl.makeUrl(ctrl.cfg.baseUrl, sfen),
         },
       }),
     ]),
@@ -600,6 +600,6 @@ export default function (ctrl: EditorCtrl): VNode {
     pocket(ctrl, color, 'bottom'),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, state),
-    inputs(ctrl, state.fen),
+    inputs(ctrl, state.sfen),
   ]);
 }

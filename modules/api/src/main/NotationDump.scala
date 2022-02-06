@@ -1,6 +1,7 @@
 package lila.api
 
-import shogi.format.{ FEN, Notation }
+import shogi.format.Notation
+import shogi.format.forsyth.Sfen
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.NotationDump.WithFlags
@@ -18,13 +19,12 @@ final class NotationDump(
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
   ): Fu[Notation] =
-    dumper(game, initialFen, flags, teams) flatMap { notation =>
+    dumper(game, flags, teams) flatMap { notation =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName
           .orElse(game.tournamentId flatMap getTournamentName.get)
@@ -58,11 +58,10 @@ final class NotationDump(
   def formatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[FEN],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
-    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap toNotationString
+    ) => apply(game, analysis, flags, teams, realPlayers) dmap toNotationString
 
   def toNotationString(notation: Notation) = {
     s"$notation\n\n\n"

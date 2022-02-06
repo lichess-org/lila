@@ -275,9 +275,9 @@ lishogi.StrongSocket = function (url, version, settings) {
 
 lishogi.StrongSocket.defaults = {
   events: {
-    fen: function (e) {
+    sfen: function (e) {
       $('.mini-board-' + e.id).each(function () {
-        lishogi.parseSfen($(this).data('fen', e.fen).data('lastmove', e.lm));
+        lishogi.parseSfen($(this).data('sfen', e.sfen).data('lastmove', e.lm));
       });
     },
     challenges: function (d) {

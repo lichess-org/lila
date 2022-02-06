@@ -2,7 +2,9 @@ package lila.storm
 
 import play.api.libs.json._
 
+import lila.common.Json._
 import lila.user.User
+
 import org.joda.time.format.DateTimeFormat
 
 final class StormJson(sign: StormSign) {
@@ -59,7 +61,7 @@ object StormJson {
   implicit val puzzleWrites: OWrites[StormPuzzle] = OWrites { p =>
     Json.obj(
       "id"     -> p.id,
-      "fen"    -> p.fen,
+      "sfen"   -> p.sfen,
       "line"   -> p.line.toList.map(_.usi).mkString(" "),
       "rating" -> p.rating
     )

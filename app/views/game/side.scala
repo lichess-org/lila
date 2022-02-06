@@ -15,20 +15,18 @@ object side {
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[shogi.format.FEN],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
   )(implicit ctx: Context): Option[Frag] =
     ctx.noBlind option frag(
-      meta(pov, initialFen, tour, simul, userTv, bookmarked),
+      meta(pov, tour, simul, userTv, bookmarked),
       pov.game.userIds.filter(isStreaming) map views.html.streamer.bits.contextual
     )
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[shogi.format.FEN],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -47,7 +45,7 @@ object side {
                     div(
                       a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
                       separator,
-                      bits.variantLink(game.variant, game.perfType, initialFen)
+                      bits.variantLink(game.variant, game.perfType, game.initialSfen)
                     )
                   else
                     frag(
@@ -55,7 +53,7 @@ object side {
                       separator,
                       (if (game.rated) trans.rated else trans.casual).txt(),
                       separator,
-                      bits.variantLink(game.variant, initialFen = initialFen)
+                      bits.variantLink(game.variant, initialSfen = game.initialSfen)
                     )
                 ),
                 game.notationImport.flatMap(_.date).map(frag(_)) getOrElse {

@@ -81,10 +81,10 @@ final class JsonView(
         )
       )
       .add("direction" -> direction.map(_.name))
-      .add("initialFen" -> c.initialFen)
+      .add("initialSfen" -> c.initialSfen)
 
   private def iconChar(c: Challenge) =
-    if (c.variant == shogi.variant.FromPosition) '*'
+    if (c.initialSfen.isDefined) '*'
     else c.perfType.iconChar
 
   private val i18nKeys = List(

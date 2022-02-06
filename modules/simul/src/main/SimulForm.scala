@@ -1,7 +1,7 @@
 package lila.simul
 
 import cats.implicits._
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.forsyth.Sfen
 import shogi.StartingPosition
 
 import org.joda.time.DateTime
@@ -43,7 +43,7 @@ object SimulForm {
   val colorDefault = "gote"
 
   private def nameType(host: User) =
-    clean(text).verifying(
+    cleanText.verifying(
       Constraints minLength 2,
       Constraints maxLength 40,
       Constraints.pattern(
@@ -118,20 +118,21 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "position"         -> optional(lila.common.Form.sfen.clean),
         "color"            -> stringIn(colorChoices),
-        "text"             -> clean(text),
+        "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
-        .verifying("Custom position allowed only with standard variant", _.canHaveCustomPosition)
+        .verifying("Custom position allowed only with one variant", _.canHaveCustomPosition)
+        .verifying("Custom position is not valid", _.isCustomPositionValid)
     )
 
-  val positions = StartingPosition.allWithInitial.map(_.fen)
+  val positions = StartingPosition.allWithInitial.map(_.sfen)
   val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
+    p.sfen -> p.fullName
   }
-  val positionDefault = StartingPosition.initial.fen
+  val positionDefault = StartingPosition.initial.sfen
 
   def setText = Form(single("text" -> text))
 
@@ -143,7 +144,7 @@ object SimulForm {
       periods: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[FEN],
+      position: Option[Sfen],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
@@ -155,10 +156,15 @@ object SimulForm {
         hostExtraTime = clockExtra * 60
       )
 
-    def canHaveCustomPosition = actualVariants.forall(_.standard) || !realPosition.isDefined
+    def canHaveCustomPosition =
+      actualVariants.size == 1 || !position.isDefined
 
-    def actualVariants = variants.flatMap { shogi.variant.Variant(_) }
+    def isCustomPositionValid =
+      position.fold(true) { sfen =>
+        sfen.toSituation(actualVariants.head).exists(_.playable(strict = true, withImpasse = true))
+      }
 
-    def realPosition = position.filterNot(Forsyth.initial === _.value)
+    def actualVariants = variants.flatMap(shogi.variant.Variant(_)).distinct
+
   }
 }

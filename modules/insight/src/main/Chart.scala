@@ -3,6 +3,7 @@ package lila.insight
 import play.api.libs.json._
 import play.api.i18n.Lang
 
+import lila.common.Json._
 import lila.common.LightUser
 
 case class Chart(
@@ -54,7 +55,7 @@ object Chart {
       povs.map { pov =>
         Json.obj(
           "id"       -> pov.gameId,
-          "fen"      -> (shogi.format.Forsyth exportSituation pov.game.situation),
+          "sfen"     -> pov.game.situation.toSfen,
           "color"    -> pov.player.color.name,
           "lastMove" -> ~pov.game.lastMoveKeys,
           "user1"    -> gameUserJson(pov.player),
