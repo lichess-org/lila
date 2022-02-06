@@ -125,33 +125,36 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(
       encode: Variant => String
   )(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoices(encode) ::: List(
-      chess.variant.Crazyhouse,
-      chess.variant.Chess960,
-      chess.variant.KingOfTheHill,
-      chess.variant.ThreeCheck,
-      chess.variant.Antichess,
-      chess.variant.Atomic,
-      chess.variant.Horde,
-      chess.variant.RacingKings
-    ).map(variantTuple(encode))
+    translatedVariantChoices(encode)
+// todo: turn me on!
+//  ::: List(
+//      chess.variant.Crazyhouse,
+//      chess.variant.Chess960,
+//      chess.variant.KingOfTheHill,
+//      chess.variant.ThreeCheck,
+//      chess.variant.Antichess,
+//      chess.variant.Atomic,
+//      chess.variant.Horde,
+//      chess.variant.RacingKings
+//    ).map(variantTuple(encode))
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
-    translatedVariantChoices :+
-      variantTupleId(chess.variant.Chess960) :+
-      variantTupleId(chess.variant.FromPosition)
+    translatedVariantChoices :+ variantTupleId(chess.variant.FromPosition)
+// todo: turn me on!
+//      variantTupleId(chess.variant.Chess960) :+
 
   def translatedAiVariantChoices(implicit lang: Lang) =
-    translatedVariantChoices :+
-      variantTupleId(chess.variant.Crazyhouse) :+
-      variantTupleId(chess.variant.Chess960) :+
-      variantTupleId(chess.variant.KingOfTheHill) :+
-      variantTupleId(chess.variant.ThreeCheck) :+
-      variantTupleId(chess.variant.Antichess) :+
-      variantTupleId(chess.variant.Atomic) :+
-      variantTupleId(chess.variant.Horde) :+
-      variantTupleId(chess.variant.RacingKings) :+
-      variantTupleId(chess.variant.FromPosition)
+    translatedVariantChoices :+ variantTupleId(chess.variant.FromPosition)
+// todo: turn me on!
+//  :+
+//      variantTupleId(chess.variant.Crazyhouse) :+
+//      variantTupleId(chess.variant.Chess960) :+
+//      variantTupleId(chess.variant.KingOfTheHill) :+
+//      variantTupleId(chess.variant.ThreeCheck) :+
+//      variantTupleId(chess.variant.Antichess) :+
+//      variantTupleId(chess.variant.Atomic) :+
+//      variantTupleId(chess.variant.Horde) :+
+//      variantTupleId(chess.variant.RacingKings) :+
 
   def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =
     translatedVariantChoicesWithVariants :+

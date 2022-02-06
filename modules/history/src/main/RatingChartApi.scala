@@ -66,16 +66,17 @@ object RatingChartApi {
     Blitz,
     Rapid,
     Classical,
-    Correspondence,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings,
-    Crazyhouse,
-    Puzzle,
-    UltraBullet
+    // todo: turn me on!
+//    Correspondence,
+//    Chess960,
+//    KingOfTheHill,
+//    ThreeCheck,
+//    Antichess,
+//    Atomic,
+//    Horde,
+//    RacingKings,
+//    Crazyhouse,
+//    Puzzle,
+//    UltraBullet
   )
 }

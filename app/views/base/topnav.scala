@@ -27,45 +27,48 @@ object topnav {
         div(role := "group")(
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
-          ctx.noBot option frag(
-            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
-            a(href := routes.Swiss.home)(trans.swiss.swissTournaments()),
-            a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
-            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
-          )
+          // todo: turn me on!
+//          ctx.noBot option frag(
+//            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
+//            a(href := routes.Swiss.home)(trans.swiss.swissTournaments()),
+//            a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
+//            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
+//          )
         )
       ),
-      ctx.noBot option st.section(
-        linkTitle(routes.Puzzle.home.path, trans.puzzles()),
-        div(role := "group")(
-          a(href := routes.Puzzle.home)(trans.puzzles()),
-          a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
-          a(href := routes.Puzzle.streak)("Puzzle Streak"),
-          a(href := routes.Storm.home)("Puzzle Storm"),
-          a(href := routes.Racer.home)("Puzzle Racer")
-        )
-      ),
-      st.section(
-        linkTitle(routes.Practice.index.path, trans.learnMenu()),
-        div(role := "group")(
-          ctx.noBot option frag(
-            a(href := routes.Learn.index)(trans.chessBasics()),
-            a(href := routes.Practice.index)(trans.practice()),
-            a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
-          ),
-          a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
-        )
-      ),
+      // todo: turn me on!
+//      ctx.noBot option st.section(
+//        linkTitle(routes.Puzzle.home.path, trans.puzzles()),
+//        div(role := "group")(
+//          a(href := routes.Puzzle.home)(trans.puzzles()),
+//          a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
+//          a(href := routes.Puzzle.streak)("Puzzle Streak"),
+//          a(href := routes.Storm.home)("Puzzle Storm"),
+//          a(href := routes.Racer.home)("Puzzle Racer")
+//        )
+//      ),
+//      st.section(
+//        linkTitle(routes.Practice.index.path, trans.learnMenu()),
+//        div(role := "group")(
+//          ctx.noBot option frag(
+//            a(href := routes.Learn.index)(trans.chessBasics()),
+//            a(href := routes.Practice.index)(trans.practice()),
+//            a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
+//          ),
+//          a(href := routes.Study.allDefault(1))(trans.studyMenu()),
+//          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+//          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
+//        )
+//      ),
       st.section(
         linkTitle(routes.Tv.index.path, trans.watch()),
         div(role := "group")(
           a(href := routes.Tv.index)("Lichess TV"),
           a(href := routes.Tv.games)(trans.currentGames()),
           (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
-          a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
-          ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+          // todo: turn me on!
+//          a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+//          ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
         )
       ),
       st.section(
@@ -81,10 +84,11 @@ object topnav {
       st.section(
         linkTitle(routes.UserAnalysis.index.path, trans.tools()),
         div(role := "group")(
-          a(href := routes.UserAnalysis.index)(trans.analysis()),
-          a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
-          a(href := routes.Editor.index)(trans.boardEditor()),
-          a(href := routes.Importer.importGame)(trans.importGame()),
+          // todo: turn me on!
+//          a(href := routes.UserAnalysis.index)(trans.analysis()),
+//          a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
+//          a(href := routes.Editor.index)(trans.boardEditor()),
+//          a(href := routes.Importer.importGame)(trans.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())
         )
       )
