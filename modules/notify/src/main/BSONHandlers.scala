@@ -22,7 +22,7 @@ private object BSONHandlers {
   implicit val InvitedToStudyByHandler = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
   implicit val StudyNameHandler        = stringAnyValHandler[StudyName](_.value, StudyName.apply)
   implicit val StudyIdHandler          = stringAnyValHandler[StudyId](_.value, StudyId.apply)
-  implicit val ReadHandler             = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
+  implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   import PrivateMessage._
   implicit val PMSenderIdHandler     = stringAnyValHandler[Sender](_.value, Sender.apply)

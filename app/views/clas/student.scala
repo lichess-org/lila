@@ -46,13 +46,13 @@ object student {
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
-                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
+                cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
                 title := trans.clas.generateANewPassword.txt()
               )
             ),
             a(
-              href := routes.Clas.studentRelease(clas.id.value, s.user.username),
-              cls := "button button-empty",
+              href  := routes.Clas.studentRelease(clas.id.value, s.user.username),
+              cls   := "button button-empty",
               title := trans.clas.upgradeFromManaged.txt()
             )(trans.clas.release())
           )
@@ -89,15 +89,15 @@ object student {
         div(
           a(
             href := routes.Msg.convo(s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.message()),
           a(
             href := routes.Clas.studentEdit(clas.id.value, s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.edit()),
           a(
             href := routes.User.show(s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.profile())
         )
       )
@@ -290,8 +290,8 @@ object student {
               )
             ),
           s.student.managed option a(
-            href := routes.Clas.studentClose(clas.id.value, s.user.username),
-            cls := "button button-empty button-red",
+            href  := routes.Clas.studentClose(clas.id.value, s.user.username),
+            cls   := "button button-empty button-red",
             title := trans.clas.closeDesc1.txt()
           )(trans.clas.closeStudent())
         )

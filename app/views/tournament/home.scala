@@ -26,11 +26,11 @@ object home {
         infiniteScrollTag,
         jsModule("tournament.schedule"),
         embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
-          Json.obj(
-            "data" -> json,
-            "i18n" -> bits.jsI18n
-          )
-        )})""")
+            Json.obj(
+              "data" -> json,
+              "i18n" -> bits.jsI18n
+            )
+          )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -85,8 +85,8 @@ object home {
             h1(trans.tournaments()),
             ctx.isAuth option div(cls := "box__top__actions")(
               a(
-                href := routes.Tournament.form,
-                cls := "button button-green text",
+                href     := routes.Tournament.form,
+                cls      := "button button-green text",
                 dataIcon := ""
               )(trans.createANewTournament())
             )

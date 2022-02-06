@@ -23,18 +23,18 @@ object home {
         jsModule("lobby"),
         embedJsUnsafeLoadThen(
           s"""LichessLobby(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "playban" -> playban.map { pb =>
-                Json.obj(
-                  "minutes"          -> pb.mins,
-                  "remainingSeconds" -> (pb.remainingSeconds + 3)
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings,
-              "i18n"        -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+              Json.obj(
+                "data" -> data,
+                "playban" -> playban.map { pb =>
+                  Json.obj(
+                    "minutes"          -> pb.mins,
+                    "remainingSeconds" -> (pb.remainingSeconds + 3)
+                  )
+                },
+                "showRatings" -> ctx.pref.showRatings,
+                "i18n"        -> i18nJsObject(i18nKeys)
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("lobby"),
@@ -51,13 +51,13 @@ object home {
     ) {
       main(
         cls := List(
-          "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
+          "lobby"      -> true,
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
           "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
         div(cls := "lobby__table")(
-          div(cls := "bg-switch", title := "Dark mode")(
+          div(cls   := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
@@ -67,7 +67,7 @@ object home {
               href := routes.Setup.hookForm,
               cls := List(
                 "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
+                "disabled" -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
               ),
               trans.createAGame()
             ),
@@ -91,7 +91,7 @@ object home {
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
-              id := "nb_connected_players",
+              id   := "nb_connected_players",
               href := ctx.noBlind.option(routes.User.list.url)
             )(
               trans.nbPlayers(
@@ -99,7 +99,7 @@ object home {
               )
             ),
             a(
-              id := "nb_games_in_play",
+              id   := "nb_games_in_play",
               href := ctx.noBlind.option(routes.Tv.games.url)
             )(
               trans.nbGamesInPlay(
