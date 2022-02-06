@@ -49,7 +49,13 @@ object home {
         )
         .some
     ) {
-      main()(
+      main(
+        cls := List(
+          "lobby"            -> true,
+          "lobby-nope"       -> true,
+          "lobby--no-simuls" -> true
+        )
+      )(
         div(cls := "lobby__table")(
           div(cls := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
