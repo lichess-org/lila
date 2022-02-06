@@ -544,7 +544,6 @@ export default class AnalyseCtrl {
     this.shogiground.playPremove();
   }
 
-
   deleteNode(path: Tree.Path): void {
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
