@@ -135,7 +135,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   return shapes;
 }
 
-const prependDropShadow = (svgBase: string) => `
+const prependDropShadow = (svgBase: string) =>
+  `
 <defs>
   <filter id="shadow">
     <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" />
