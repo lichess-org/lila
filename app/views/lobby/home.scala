@@ -57,10 +57,11 @@ object home {
         )
       )(
         div(cls := "lobby__table")(
-          div(cls := "bg-switch", title := "Dark mode")(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
+          // todo: turn me on!
+//          div(cls := "bg-switch", title := "Dark mode")(
+//            div(cls := "bg-switch__track"),
+//            div(cls := "bg-switch__thumb")
+//          ),
           div(cls := "lobby__start")(
             ctx.blind option h2("Play"),
             a(
@@ -115,6 +116,7 @@ object home {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp
           },
+        // todo: turn me on!
 //        div(cls := "lobby__side")(
 //          ctx.blind option h2("Highlights"),
 //          ctx.noKid option st.section(cls := "lobby__streams")(
