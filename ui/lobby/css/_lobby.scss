@@ -181,7 +181,7 @@ body {
   padding-left: 35%;
   grid-template-columns: none;
   grid-template-rows: none;
-  grid-template-areas: 'table   app     app'  'support blog    blog ' 'about   simuls  simuls' '. forum forum ';
+  grid-template-areas: 'app' 'table'  'support' 'about';
 }
 
 .lobby__app {
