@@ -26,7 +26,7 @@ final class StudyPager(
 
   def all(me: Option[User], order: Order, page: Int) =
     paginator(
-      accessSelect(me),
+      me.isEmpty.??(noRelaySelect) ++ accessSelect(me),
       me,
       order,
       page,
@@ -96,6 +96,8 @@ final class StudyPager(
     me.fold(selectPublic) { u =>
       $or(selectPublic, selectMemberId(u.id))
     }
+
+  private val noRelaySelect = $doc("from" $ne "relay")
 
   private def paginator(
       selector: Bdoc,

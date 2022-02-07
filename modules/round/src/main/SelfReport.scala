@@ -54,14 +54,14 @@ final class SelfReport(
             _ ?? { pov =>
               if (!known) doLog()
               if (
-                Set("ceval", "rcb", "cma", "lga")(name) ||
+                Set("ceval", "rcb", "cma", "cma2", "lga")(name) ||
                 (name.startsWith("soc") && (
                   name.contains("stockfish") || name.contains("userscript") ||
                     name.contains("__puppeteer_evaluation_script__")
                 ))
               ) fuccess {
                 if (userId.isDefined) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
-                user.ifTrue(name == "cma") foreach { u =>
+                user.ifTrue(name == "cma" || name == "cma2") foreach { u =>
                   lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
                 }
               }

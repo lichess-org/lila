@@ -3,6 +3,7 @@ import idleTimer from './idle-timer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import once from './once';
 
 type Sri = string;
 type Tpe = string;
@@ -158,14 +159,18 @@ export default class StrongSocket {
 
     const message = JSON.stringify(msg);
     if (t == 'racerScore' && o.sign != this._sign) return;
-    if (t == 'move' && o.sign != this._sign) {
+    if (t == 'move' && o.sign != this._sign && once('socket.rep')) {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
+      if (!stack.includes('round.nvui'))
+        setTimeout(() => {
+          this.send('rep', { n: `soc: ${message} ${stack}` });
+          lichess.socket.destroy();
+        }, 10000);
     }
     this.debug('send ' + message);
     try {

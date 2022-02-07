@@ -1,6 +1,7 @@
 package controllers
 
 import cats.data.Validated
+import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.{ JsNull, JsObject, JsString, JsValue, Json }
@@ -164,11 +165,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
       val bearers = req.body.split(',').view.take(1000).toList
       testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
         env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
+          import lila.common.Json.jodaWrites
           Api.Data(JsObject(tokens.map { case (bearer, token) =>
             bearer.secret -> token.fold[JsValue](JsNull) { t =>
               Json.obj(
-                "userId" -> t.userId,
-                "scopes" -> t.scopes.map(_.key).mkString(",")
+                "userId"  -> t.userId,
+                "scopes"  -> t.scopes.map(_.key).mkString(","),
+                "expires" -> t.expiresOrFarFuture
               )
             }
           }))
