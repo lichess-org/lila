@@ -536,11 +536,21 @@ final class Team(
       }
     }
 
-  def apiRequests(id: String) =
+  def apiRequests(teamId: String) =
     Scoped(_.Team.Read) { _ => me =>
-      WithOwnedTeamEnabledApi(id, me) { team =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
         api.requestsWithUsers(team) map { reqs =>
           Api.Data(Json.arr(reqs map env.team.jsonView.requestWithUserWrites.writes))
+        }
+      }
+    }
+
+  def apiRequestProcess(teamId: String, userId: String, decision: String) =
+    Scoped(_.Team.Write) { req => me =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
+        api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
+          case None      => fuccess(Api.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision) inject Api.Done
         }
       }
     }
