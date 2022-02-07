@@ -210,7 +210,7 @@ export function config(ctrl: Controller): MaybeVNode {
             insert: vnode =>
               (vnode.elm as HTMLElement).addEventListener('change', () => {
                 ctrl.autoNext(!ctrl.autoNext());
-                if (ctrl.autoNext() && ctrl.vm.resultSent) {
+                if (ctrl.autoNext() && ctrl.vm.resultSent && !ctrl.streak) {
                   ctrl.nextPuzzle();
                 }
               }),
