@@ -52,8 +52,8 @@ object home {
       main(
         cls := List(
           "lobby"            -> true,
-          "lobby-nope"       -> true,
-          "lobby--no-simuls" -> true
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
+          "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
         div(cls := "lobby__table")(
@@ -111,12 +111,10 @@ object home {
         ),
         currentGame.map(bits.currentGameInfo) orElse
           hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo),
-          // todo: turn me on!
-//          getOrElse {
-//            if (ctx.blind) blindLobby(blindGames)
-//            else bits.lobbyApp
-//          },
+          playban.map(bits.playbanInfo) getOrElse {
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
 //        div(cls := "lobby__side")(
 //          ctx.blind option h2("Highlights"),
 //          ctx.noKid option st.section(cls := "lobby__streams")(
