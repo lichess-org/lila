@@ -15,13 +15,13 @@ object bits {
   )
 
   def underboards(
-                   tours: List[lila.tournament.Tournament],
-                   simuls: List[lila.simul.Simul],
-                   leaderboard: List[lila.user.User.LightPerf],
-                   tournamentWinners: List[lila.tournament.Winner]
-                 )(implicit ctx: Context) =
+      tours: List[lila.tournament.Tournament],
+      simuls: List[lila.simul.Simul],
+      leaderboard: List[lila.user.User.LightPerf],
+      tournamentWinners: List[lila.tournament.Winner]
+  )(implicit ctx: Context) =
     frag(
-      ctx.pref.showRatings option (div(cls := "lobby__leaderboard lobby__box")(
+      ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
@@ -41,8 +41,8 @@ object bits {
             )
           )
         )
-      )),
-      div(cls := "lobby__box " + (if(ctx.pref.showRatings) "lobby__winners" else "lobby__wide_winners"))(
+      ),
+      div(cls := s"lobby__box ${if (ctx.pref.showRatings) "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
