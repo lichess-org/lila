@@ -538,7 +538,11 @@ final class Team(
 
   def apiRequests(id: String) =
     Scoped(_.Team.Read) { _ => me =>
-      WithOwnedTeamEnabledApi(teamId, me) {
+      WithOwnedTeamEnabledApi(id, me) { team =>
+        api.requestsWithUsers(team) map { reqs =>
+          Api.Data(Json.arr(reqs map env.team.jsonView.requestWithUserWrites.writes))
+        }
+      }
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
