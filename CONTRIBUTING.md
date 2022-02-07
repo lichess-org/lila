@@ -14,7 +14,7 @@
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
 3. It is not a trivial problem or demand unrealistic dev time to fix.
 
-Report mobile-only bugs to [Lichess mobile](https://github.com/veloce/lichobile/).
+Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/lichobile/).
 
 ## I want to suggest a feature for Lichess
 

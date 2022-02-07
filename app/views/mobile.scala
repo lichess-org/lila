@@ -28,7 +28,7 @@ object mobile {
                 li(trans.builtForTheLoveOfChessNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+                li("Entirely ", a(href := "https://github.com/lichess-org/lichobile")("Open Source"))
               ),
               h2(trans.fullFeatured()),
               ul(cls := "block")(

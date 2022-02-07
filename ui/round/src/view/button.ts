@@ -165,7 +165,17 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
     fbtCancel(ctrl, ctrl.offerDraw),
   ]);
 
-export function threefoldClaimDraw(ctrl: RoundController) {
+export const claimThreefold = (ctrl: RoundController): VNode =>
+  h(
+    'button.button.draw-yes',
+    {
+      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
+      attrs: { title: ctrl.noarg('claimADraw') },
+    },
+    h('span', '½')
+  );
+
+export function threefoldSuggestion(ctrl: RoundController) {
   return ctrl.data.game.threefold
     ? h('div.suggestion', [
         h(
@@ -174,13 +184,6 @@ export function threefoldClaimDraw(ctrl: RoundController) {
             hook: onSuggestionHook,
           },
           ctrl.noarg('threefoldRepetition')
-        ),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
-          },
-          ctrl.noarg('claimADraw')
         ),
       ])
     : null;

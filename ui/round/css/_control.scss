@@ -51,6 +51,11 @@
     }
   }
 
+  .draw-yes.button {
+    font-size: 1.4em;
+    padding: 0.1em 1em;
+  }
+
   @keyframes flash-once {
     from {
       background: $c-accent;
