@@ -24,21 +24,24 @@ export default function (ctrl: Ctrl) {
     m('div.learn__screen', [
       m('div.stars', makeStars(scoring.getStageRank(stage, score))),
       m('h1', ctrl.trans('stageXComplete', stage.id)),
-      m('span.score', [
-        ctrl.trans.noarg('yourScore') + ': ',
-        m(
-          'span',
-          {
-            config: function (el: HTMLElement, isUpdate: boolean) {
-              if (!isUpdate)
-                setTimeout(function () {
-                  numberSpread(el, 50, 3000, 0)(score);
-                }, 300);
+      m(
+        'span.score',
+        ctrl.trans.vdom(
+          'yourScore',
+          m(
+            'span',
+            {
+              config: function (el: HTMLElement, isUpdate: boolean) {
+                if (!isUpdate)
+                  setTimeout(function () {
+                    numberSpread(el, 50, 3000, 0)(score);
+                  }, 300);
+              },
             },
-          },
-          '0'
-        ),
-      ]),
+            '0'
+          )
+        )
+      ),
       m('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
       m('div.buttons', [
         next
@@ -48,7 +51,7 @@ export default function (ctrl: Ctrl) {
                 href: '/' + next.id,
                 config: m.route,
               },
-              [ctrl.trans.noarg('next') + ': ', ctrl.trans.noarg(next.title) + ' ', m('i[data-icon=]')]
+              [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', m('i[data-icon=]')]
             )
           : null,
         m(
