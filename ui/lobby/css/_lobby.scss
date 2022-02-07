@@ -181,7 +181,7 @@ body {
   padding-left: 35%;
   grid-template-columns: none;
   grid-template-rows: none;
-  grid-template-areas: none;
+  grid-template-areas: 'table   app     app'  'side    app     app' 'tv      leader  winner' 'puzzle  tours   tours' 'support blog    blog ' 'about   simuls  simuls' '. forum forum ';
 }
 
 .lobby__app {
