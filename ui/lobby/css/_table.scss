@@ -51,7 +51,7 @@
     @include breakpoint($mq-col4) {
       flex-flow: column;
       align-items: flex-start;
-      position: absolute;
+      //position: absolute;
       bottom: 0;
     }
 
