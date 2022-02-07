@@ -2,6 +2,7 @@ package lila.team
 
 import lila.db.dsl._
 import lila.user.User
+
 final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -17,8 +18,8 @@ final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
   def countDeclinedByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamDeclinedQuery(teamId))
 
-  def findActiveByTeam(teamId: ID): Fu[List[Request]] =
-    coll.list[Request](teamActiveQuery(teamId))
+  def findActiveByTeam(teamId: ID, nb: Int): Fu[List[Request]] =
+    coll.list[Request](teamActiveQuery(teamId), nb)
 
   def findActiveByTeams(teamIds: List[ID]): Fu[List[Request]] =
     teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))

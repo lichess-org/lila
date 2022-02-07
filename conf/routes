@@ -395,6 +395,8 @@ GET   /api/team/:id                           controllers.Team.apiShow(id: Strin
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: String)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: String)
+GET   /api/team/:id/requests                  controllers.Team.apiRequests(id: String)
+POST  /api/team/:id/request/:userId/:decision controllers.Team.apiRequestProcess(id: String, userId: String, decision: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
