@@ -540,7 +540,7 @@ final class Team(
     Scoped(_.Team.Read) { _ => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api.requestsWithUsers(team) map { reqs =>
-          Api.Data(Json.arr(reqs map env.team.jsonView.requestWithUserWrites.writes))
+          Api.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
         }
       }
     }
