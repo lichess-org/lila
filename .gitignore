@@ -1,5 +1,9 @@
 .sbtopts
+.bloop/
+.metals/
+project/.bloop/
 .bsp
+
 conf/application.conf
 conf/version.conf
 .metals
