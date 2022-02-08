@@ -10,7 +10,7 @@
 Lila (li[chess in sca]la) is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
 
 It features a [search engine](https://lichess.org/games/search),
-[computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/niklasf/fishnet),
+[computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/lichess-org/fishnet),
 [tournaments](https://lichess.org/tournament),
 [simuls](https://lichess.org/simul),
 [forums](https://lichess.org/forum),
@@ -26,7 +26,7 @@ and relies on the [Play 2.8](https://www.playframework.com/) framework.
 Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
-Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
+Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
 It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
