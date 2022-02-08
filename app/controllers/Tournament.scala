@@ -296,7 +296,7 @@ final class Tournament(
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
@@ -365,7 +365,7 @@ final class Tournament(
       else doApiCreate(me)
     }
 
-  private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(implicit req: Request[_]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -645,6 +645,6 @@ final class Tournament(
       }
   }
 
-  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
+  private def getUserTeamIds(user: UserModel): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
 }
