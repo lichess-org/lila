@@ -67,7 +67,9 @@ lichess.keyboardMove = function (opts: Opts) {
         readClocks(opts.ctrl.clock());
         clear();
       }
-    } else if (submitOpts.yourMove && v.length > 1) {
+    } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
+      // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
+      // updates when it is still the player's turn
       setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
     } else {
