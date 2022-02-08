@@ -26,7 +26,7 @@ final class StudyPager(
 
   def all(me: Option[User], order: Order, page: Int) =
     paginator(
-      me.isEmpty.??(noRelaySelect) ++ accessSelect(me),
+      noRelaySelect ++ accessSelect(me),
       me,
       order,
       page,
