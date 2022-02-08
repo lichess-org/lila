@@ -1984,9 +1984,9 @@ cache-base@^1.0.1:
     unset-value "^1.0.0"
 
 cached-path-relative@^1.0.0, cached-path-relative@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/cached-path-relative/-/cached-path-relative-1.0.2.tgz#a13df4196d26776220cc3356eb147a52dba2c6db"
-  integrity sha512-5r2GqsoEb4qMTTN9J+WzXfjov+hjxT+j3u5K+kIVNIwAd99DLCJE9pBIMP1qVeybV6JiijL385Oz0DcYxfbOIg==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cached-path-relative/-/cached-path-relative-1.1.0.tgz#865576dfef39c0d6a7defde794d078f5308e3ef3"
+  integrity sha512-WF0LihfemtesFcJgO7xfOoOcnWzY/QHR4qeDqV44jPU3HTI54+LnfXK3SA27AVVGCdZFgjjFFaqUA9Jx7dMJZA==
 
 call-bind@^1.0.0:
   version "1.0.2"
@@ -5167,9 +5167,9 @@ nan@^2.12.1, nan@^2.13.2:
   integrity sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==
 
 nanoid@^3.1.23:
-  version "3.1.25"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.25.tgz#09ca32747c0e543f0e1814b7d3793477f9c8e152"
-  integrity sha512-rdwtIXaXCLFAQbnfqDRnI6jaRHp9fTcYBjtFKE8eezcZ7LuLjhUaQGNeMXf1HmRoCH32CLz6XwX0TtxEOS/A3Q==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
+  integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -6415,6 +6415,13 @@ shogiops@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.5.0.tgz#8ee34240050b5a6a76ef10df4022e23371402541"
   integrity sha512-POo505E9eERxvS9rzxH8IR/wg5JPUfsRcM6U8qPE7fTj4hI/380MG2ar42Ina6lW/2/9l8dqaklHiX4dOPOBrA==
+  dependencies:
+    "@badrap/result" "^0.2"
+
+shogiops@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.6.0.tgz#eaab96a1722e16915405d7beda86229e9b291582"
+  integrity sha512-iZPyYtm+l8zcnWjN4ZN2qlgorNPraZ0MgPJJxSBW4YFbi7vynvjOzvJGnmQ+KJaQQ4wkQxpmAHb7Y3v0kfrZHA==
   dependencies:
     "@badrap/result" "^0.2"
 
