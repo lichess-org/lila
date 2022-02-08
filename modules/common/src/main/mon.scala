@@ -254,7 +254,7 @@ object mon {
       def create(reason: String, score: Int) = counter("mod.report.create").withTags(
         Map(
           "reason" -> reason,
-          "score"  -> score
+          "score"  -> score.toString
         )
       )
     }
