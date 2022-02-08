@@ -210,18 +210,26 @@ final class Tournament(
       }
     }
 
+  private val JoinLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+    credits = 30,
+    duration = 10 minutes,
+    key = "tournament.user.join"
+  )
+
   def join(id: String) =
     AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
         NoPlayban {
-          val data = TournamentForm.TournamentJoin(
-            password = ctx.body.body.\("p").asOpt[String],
-            team = ctx.body.body.\("team").asOpt[String]
-          )
-          doJoin(id, data, me).dmap(_.error) map {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-          }
+          JoinLimitPerUser(me.id) {
+            val data = TournamentForm.TournamentJoin(
+              password = ctx.body.body.\("p").asOpt[String],
+              team = ctx.body.body.\("team").asOpt[String]
+            )
+            doJoin(id, data, me).dmap(_.error) map {
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+            }
+          }(rateLimitedJson.fuccess)
         }
       }
     }
@@ -229,17 +237,18 @@ final class Tournament(
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
-      else {
-        val data = TournamentForm.joinForm
-          .bindFromRequest()
-          .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
-        doJoin(id, data, me) map { result =>
-          result.error match {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("error" -> error))
+      else
+        JoinLimitPerUser(me.id) {
+          val data = TournamentForm.joinForm
+            .bindFromRequest()
+            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+          doJoin(id, data, me) map { result =>
+            result.error match {
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("error" -> error))
+            }
           }
-        }
-      }
+        }(rateLimitedJson.fuccess)
     }
 
   private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
