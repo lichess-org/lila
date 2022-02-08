@@ -211,7 +211,7 @@ final class Tournament(
     }
 
   def join(id: String) =
-    AuthBody(parse.json) { implicit ctx => implicit me =>
+    AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
         NoPlayban {
           val data = TournamentForm.TournamentJoin(
