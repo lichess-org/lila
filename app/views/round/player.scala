@@ -57,6 +57,7 @@ object player {
               "userId" -> ctx.userId,
               "chat"   -> chatJson
             )
+            .add("noab" -> ctx.me.exists(_.marks.engine))
         )})""")
       ),
       openGraph = povOpenGraph(pov).some,

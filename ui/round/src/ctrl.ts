@@ -160,7 +160,7 @@ export default class RoundController {
       }
     });
 
-    if (this.isPlaying()) ab.init(this);
+    if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
 
   private showExpiration = () => {
