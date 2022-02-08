@@ -1,6 +1,5 @@
 package lila.team
 
-
 import actorApi._
 import org.joda.time.DateTime
 import org.joda.time.Period
