@@ -244,10 +244,6 @@ object mon {
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")
   }
-  object pref {
-    val emailNotifNbUsers = gauge("pref.emailNotifNbUsers").withoutTags()
-  }
-
   object trouper {
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   }

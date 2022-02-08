@@ -1,8 +1,6 @@
 package lila.pref
 
-import akka.actor._
 import com.softwaremill.macwire.Module
-import scala.concurrent.duration._
 
 import lila.common.config.CollName
 
@@ -10,11 +8,7 @@ import lila.common.config.CollName
 final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val api = new PrefApi(db(CollName("pref")), cacheApi)
-
-  system.scheduler.scheduleWithFixedDelay(10 minute, 10 minute) { () =>
-    api.corresEmailNotifUsers foreach { lila.mon.pref.emailNotifNbUsers.update(_) }
-  }
 }
