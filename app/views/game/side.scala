@@ -67,8 +67,7 @@ object side {
               ),
               game.pgnImport.flatMap(_.user).map { user =>
                 small(
-                  "Imported ",
-                  trans.by(userIdLink(user.some, None, withOnline = false))
+                  trans.importedByX(userIdLink(user.some, None, withOnline = false))
                 )
               }
             )
