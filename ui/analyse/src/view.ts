@@ -112,10 +112,12 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
 
 const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
   h('div.analyse__moves.areplay', [
-    ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-    renderTreeView(ctrl, concealOf),
-    !ctrl.practice ? renderNextChapter(ctrl) : null,
-    ...renderResult(ctrl),
+    h('div', [
+      ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
+      renderTreeView(ctrl, concealOf),
+      ...renderResult(ctrl),
+    ]),
+    !ctrl.practice && !gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
   ]);
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
