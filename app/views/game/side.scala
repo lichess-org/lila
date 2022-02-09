@@ -65,12 +65,12 @@ object side {
                   )
                 }
               ),
-              game.pgnImport.exists(_.date.isDefined) option small(
-                "Imported ",
-                game.pgnImport.flatMap(_.user).map { user =>
+              game.pgnImport.flatMap(_.user).map { user =>
+                small(
+                  "Imported ",
                   trans.by(userIdLink(user.some, None, withOnline = false))
-                }
-              )
+                )
+              }
             )
           ),
           div(cls := "game__meta__players")(
