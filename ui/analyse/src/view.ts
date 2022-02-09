@@ -112,11 +112,9 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
 
 const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
   h('div.analyse__moves.areplay', [
-    h('div', [
-      ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-      renderTreeView(ctrl, concealOf),
-      ...renderResult(ctrl),
-    ]),
+    ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
+    renderTreeView(ctrl, concealOf),
+    ...renderResult(ctrl),
     !ctrl.practice && !gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
   ]);
 
