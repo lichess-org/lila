@@ -114,8 +114,8 @@ const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
   h('div.analyse__moves.areplay', [
     ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
     renderTreeView(ctrl, concealOf),
-    !ctrl.practice ? renderNextChapter(ctrl) : null,
     ...renderResult(ctrl),
+    !ctrl.practice ? renderNextChapter(ctrl) : null,
   ]);
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
