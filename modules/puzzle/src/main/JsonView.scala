@@ -107,7 +107,7 @@ final class JsonView(
 
   private def dashboardResults(res: PuzzleDashboard.Results) = Json.obj(
     "nb"              -> res.nb,
-    "firstWins"       -> res.wins,
+    "firstWins"       -> res.firstWins,
     "replayWins"      -> res.fixed,
     "puzzleRatingAvg" -> res.puzzleRatingAvg,
     "performance"     -> res.performance
