@@ -115,7 +115,7 @@ const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
     ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
     renderTreeView(ctrl, concealOf),
     ...renderResult(ctrl),
-    !ctrl.practice ? renderNextChapter(ctrl) : null,
+    !ctrl.practice && !gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
   ]);
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
