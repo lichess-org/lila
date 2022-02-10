@@ -186,7 +186,7 @@ export default class RoundController {
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && crazyValid(this.data, role, key)) {
+    if (!this.replaying() && (crazyValid(this.data, role, key) || newChess1Valid(this.data, role, key))) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
@@ -501,7 +501,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
-      return crazyValid(this.data, drop.role, drop.key);
+      return crazyValid(this.data, drop.role, drop.key) || newChess1Valid(this.data, role, key);
     });
   };
 
