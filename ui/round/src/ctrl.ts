@@ -399,7 +399,7 @@ export default class RoundController {
   apiMove = (o: ApiMove): true => {
     const d = this.data,
       playing = this.isPlaying();
-
+    console.log(o)
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
