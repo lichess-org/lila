@@ -61,7 +61,7 @@ export function makeConfig(ctrl: RoundController): Config {
       },
     },
     predroppable: {
-      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+      enabled: data.pref.enablePremove && (data.game.variant.key === 'crazyhouse' || data.game.variant.key === 'newchess1'),
       events: {
         set: hooks.onPredrop,
         unset() {
