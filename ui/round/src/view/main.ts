@@ -1,7 +1,7 @@
 import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
-import newChess1View from '../newChess1/newChess1View';
+import newChess1View from '../newchess1/newChess1View';
 import RoundController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
