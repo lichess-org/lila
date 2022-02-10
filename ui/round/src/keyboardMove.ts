@@ -4,6 +4,7 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as newChess1Valid } from './newChess1/newChess1Ctrl';
 import { onInsert } from './util';
 import { promote } from 'chess/promotion';
 
@@ -54,12 +55,19 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     drop(key, piece) {
       const role = sanToRole[piece];
       const crazyData = root.data.crazyhouse;
+      const newChess1Data = root.data.newChess1;
       const color = root.data.player.color;
       // Square occupied
-      if (!role || !crazyData || cgState.pieces.has(key)) return;
-      // Piece not in Pocket
-      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
-      if (!crazyValid(root.data, role, key)) return;
+      if (!role || !crazyData || !newChess1Data || cgState.pieces.has(key)) return;
+      if (crazyData) {
+        // Piece not in Pocket
+        if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
+        if (!crazyValid(root.data, role, key)) return;
+      } else if (newChess1Data) {
+        // Piece not in Pocket
+        if (!newChess1Data.pockets[color === 'white' ? 0 : 1][role]) return;
+        if (!newChess1Valid(root.data, role, key)) return;
+      }
       root.chessground.cancelMove();
       root.chessground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
