@@ -205,7 +205,7 @@ export default class EditorCtrl {
 
   setRules(rules: Rules): void {
     this.rules = rules;
-    if (rules != 'crazyhouse') this.pockets = undefined;
+    if (rules != 'crazyhouse' && rules != 'newchess1') this.pockets = undefined;
     else if (!this.pockets) this.pockets = Material.empty();
     if (rules != '3check') this.remainingChecks = undefined;
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();

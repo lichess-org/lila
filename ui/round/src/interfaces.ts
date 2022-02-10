@@ -120,6 +120,7 @@ export interface Step {
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
+  newChess1?: StepNewChess1;
 }
 
 export interface ApiMove extends Step {
@@ -166,6 +167,7 @@ export interface ApiEnd {
 }
 
 export interface StepCrazy extends Untyped {}
+export interface StepNewChess1 extends Untyped {}
 
 export interface Pref {
   animationDuration: number;

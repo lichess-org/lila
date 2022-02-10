@@ -1,6 +1,7 @@
 import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
+import newChess1View from '../newChess1/newChess1View';
 import RoundController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
@@ -47,8 +48,10 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
+        newChess1View(ctrl, topColor, 'top') || materialDiffs[0],
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
+        newChess1View(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
       ]);

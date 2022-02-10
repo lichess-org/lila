@@ -25,7 +25,7 @@ let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
 export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
-  if (crazyKeys.length === 0) dropWithDrag = true;
+  if (newChess1Keys.length === 0) dropWithDrag = true;
   else {
     dropWithKey = true;
     if (!mouseIconsLoaded) preloadMouseIcons(data);
@@ -33,9 +33,6 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (!isPlayerTurn(data)) return false;
 
-  if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
-
-  data.crazyhouse
   const backrank = data.game.player === 'white' ? '1' : '8';
 
   if (role === 'doom' && !(key[1] === backrank && (key[0] === 'd' || key[0] === 'e'))) return false;
@@ -50,7 +47,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd() {
-  const store = lichess.storage.make('crazyKeyHist');
+  const store = lichess.storage.make('newChess1KeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -59,7 +56,7 @@ export function onEnd() {
   }
 }
 
-export const crazyKeys: Array<number> = [];
+export const newChess1Keys: Array<number> = [];
 
 export function init(ctrl: RoundController) {
   const k = window.Mousetrap;
@@ -68,13 +65,13 @@ export function init(ctrl: RoundController) {
 
   const setDrop = () => {
     if (activeCursor) document.body.classList.remove(activeCursor);
-    if (crazyKeys.length > 0) {
-      const role = pieceRoles[crazyKeys[crazyKeys.length - 1] - 1],
+    if (newChess1Keys.length > 0) {
+      const role = pieceRoles[newChess1Keys[newChess1Keys.length - 1] - 1],
         color = ctrl.data.player.color,
-        crazyData = ctrl.data.crazyhouse;
-      if (!crazyData) return;
+        newChess1 = ctrl.data.newChess1;
+      if (!newChess1) return;
 
-      const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
+      const nb = newChess1.pockets[color === 'white' ? 0 : 1][role];
       setDropMode(ctrl.chessground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);
@@ -92,23 +89,23 @@ export function init(ctrl: RoundController) {
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
   lichess.pubsub.on('ply', () => {
-    if (crazyKeys.length > 0) setDrop();
+    if (newChess1Keys.length > 0) setDrop();
   });
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
     k.bind(iStr, () => {
-      if (!crazyKeys.includes(i)) {
-        crazyKeys.push(i);
+      if (!newChess1Keys.includes(i)) {
+        newChess1Keys.push(i);
         setDrop();
       }
     }).bind(
       iStr,
       () => {
-        const idx = crazyKeys.indexOf(i);
+        const idx = newChess1Keys.indexOf(i);
         if (idx >= 0) {
-          crazyKeys.splice(idx, 1);
-          if (idx === crazyKeys.length) {
+          newChess1Keys.splice(idx, 1);
+          if (idx === newChess1Keys.length) {
             setDrop();
           }
         }
@@ -118,8 +115,8 @@ export function init(ctrl: RoundController) {
   }
 
   const resetKeys = () => {
-    if (crazyKeys.length > 0) {
-      crazyKeys.length = 0;
+    if (newChess1Keys.length > 0) {
+      newChess1Keys.length = 0;
       setDrop();
     }
   };
@@ -135,7 +132,7 @@ export function init(ctrl: RoundController) {
     { capture: true }
   );
 
-  if (lichess.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
+  if (lichess.storage.get('newChess1KeyHist') !== '0') preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,

@@ -82,6 +82,7 @@ const allVariants: Array<[Rules, string]> = [
   ['antichess', 'Antichess'],
   ['atomic', 'Atomic'],
   ['crazyhouse', 'Crazyhouse'],
+  ['newchess1', 'NewChess1'],
   ['horde', 'Horde'],
   ['kingofthehill', 'King of the Hill'],
   ['racingkings', 'Racing Kings'],

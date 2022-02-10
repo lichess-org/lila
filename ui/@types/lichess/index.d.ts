@@ -423,6 +423,7 @@ declare namespace Tree {
     fail?: boolean;
     puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
+    newChess1?: NodeCrazy;
   }
 
   export interface NodeCrazy {

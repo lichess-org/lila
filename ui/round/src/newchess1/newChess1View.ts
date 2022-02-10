@@ -4,16 +4,16 @@ import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
 import * as round from '../round';
-import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
+import { newChess1Keys, drag, pieceRoles } from './newChess1Ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: Position) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
-  if (!step.crazy) return;
+  if (!step.newChess1) return;
   const droppedRole = ctrl.justDropped,
     preDropRole = ctrl.preDrop,
-    pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
+    pocket = step.newChess1.pockets[color === 'white' ? 0 : 1],
     usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
@@ -26,7 +26,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
       hook: onInsert(el =>
         eventNames.forEach(name =>
           el.addEventListener(name, (e: cg.MouchEvent) => {
-            if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length == 0) drag(ctrl, e);
+            if (position === (ctrl.flip ? 'top' : 'bottom') && newChess1Keys.length == 0) drag(ctrl, e);
           })
         )
       ),

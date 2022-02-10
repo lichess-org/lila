@@ -204,6 +204,9 @@ export default class Setup {
             else key = 'classical';
           }
           break;
+        case '11':
+          key = 'newchess1';
+          break;
         case '10':
           key = 'crazyhouse';
           break;
