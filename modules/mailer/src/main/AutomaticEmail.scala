@@ -187,19 +187,21 @@ To make a new donation, head to $baseUrl/patron"""
       _ ?? { userWithEmail =>
         userWithEmail.emails.current.filterNot(_.isNoReply) ?? { email =>
           implicit val lang = userLang(userWithEmail.user)
+          val hello =
+            "Hello and thank you for playing correspondence chess on Lichess!"
           val disableSettingNotice =
             "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
           val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
           mailer send Mailer.Message(
             to = email,
             subject = "Daily correspondence notice",
-            text = Mailer.txt.addServiceNote(
-              s"""${opponents map { opponent =>
-                s"${showGame(opponent)} $baseUrl/${opponent.gameId}"
-              } mkString "\n\n"}
+            text = Mailer.txt.addServiceNote {
+              s"""$hello
+
+${opponents map { opponent => s"${showGame(opponent)} $baseUrl/${opponent.gameId}" } mkString "\n\n"}
 
 $disableSettingNotice $disableLink"""
-            ),
+            },
             htmlBody = emailMessage(
               opponents map { opponent =>
                 li(
