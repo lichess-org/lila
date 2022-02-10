@@ -137,6 +137,7 @@ export interface ApiMove extends Step {
   wDraw: boolean;
   bDraw: boolean;
   crazyhouse?: CrazyData;
+  newChess1?: NewChess1Data;
   role?: cg.Role;
   drops?: string;
   promotion?: {

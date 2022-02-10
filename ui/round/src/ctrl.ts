@@ -22,6 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { valid as newChess1Valid, init as newChess1Init, onEnd as newChess1EndHook } from './newchess1/newChess1Ctrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
@@ -410,6 +411,7 @@ export default class RoundController {
     d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
+    d.newChess1 = o.newChess1;
     this.setTitle();
     if (!this.replaying()) {
       this.ply++;
@@ -453,6 +455,7 @@ export default class RoundController {
       uci: o.uci,
       check: o.check,
       crazy: o.crazyhouse,
+      newChess1: o.newChess1,
     };
     d.steps.push(step);
     this.justDropped = undefined;
@@ -553,6 +556,7 @@ export default class RoundController {
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
     if (d.crazyhouse) crazyEndHook();
+    if (d.newChess1) newChess1EndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -759,6 +763,7 @@ export default class RoundController {
         this.setTitle();
 
         if (d.crazyhouse) crazyInit(this);
+        if (d.newChess1) newChess1Init(this);
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;
