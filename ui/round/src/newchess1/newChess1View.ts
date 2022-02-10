@@ -10,6 +10,7 @@ const eventNames = ['mousedown', 'touchstart'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: Position) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
+  console.log(step);
   if (!step.newChess1) return;
   const droppedRole = ctrl.justDropped,
     preDropRole = ctrl.preDrop,
