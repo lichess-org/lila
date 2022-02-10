@@ -118,6 +118,7 @@ trait BaseConfig {
     chess.variant.FromPosition.id
   val variantsWithVariants =
     variants :+
+      chess.variant.NewChess1.id :+
       chess.variant.Crazyhouse.id :+
       chess.variant.KingOfTheHill.id :+
       chess.variant.ThreeCheck.id :+
