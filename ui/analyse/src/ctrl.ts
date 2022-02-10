@@ -567,6 +567,12 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
+  deleteAllVariations(): void {
+    // confirmation dialog
+    this.tree.deleteAllVariations();
+    // study stuff
+  }
+
   promote(path: Tree.Path, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);

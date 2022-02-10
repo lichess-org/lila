@@ -30,6 +30,7 @@ export interface TreeWrapper {
   merge(tree: Tree.Node): void;
   removeCeval(): void;
   removeComputerVariations(): void;
+  deleteAllVariations(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
 }
@@ -264,6 +265,11 @@ export function build(root: Tree.Node): TreeWrapper {
         n.children = n.children.filter(function (c) {
           return !c.comp;
         });
+      });
+    },
+    deleteAllVariations() {
+      ops.updateAll(root, node => {
+        node.children = node.children.slice(0, 1);
       });
     },
     parentNode,
