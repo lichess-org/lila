@@ -1,12 +1,11 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.Crazyhouse
-
+import chess.format.pgn.{Glyph, Glyphs}
+import chess.format.{FEN, Uci, UciCharPair}
+import chess.variant.{Crazyhouse, NewChess1}
 import chess.Centis
 import lila.tree.Eval.Score
-import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
+import lila.tree.Node.{Comment, Comments, Gamebook, Shapes}
 
 sealed trait RootOrNode {
   val ply: Int
