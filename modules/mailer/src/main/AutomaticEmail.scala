@@ -208,7 +208,7 @@ $disableSettingNotice $disableLink"""
                 opponents map { opponent =>
                   li(
                     showGame(opponent),
-                    Mailer.html.url(s"$baseUrl/${opponent.gameId}")
+                    Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
                   )
                 },
                 disableSettingNotice,
