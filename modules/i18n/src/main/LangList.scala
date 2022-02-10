@@ -128,6 +128,14 @@ object LangList {
     case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
+  // short code (fr) when possible, disambiguate only when necessary (pt-BR)
+  lazy val twentyPopularCodesDisambiguated: List[String] =
+    popular take 20 map { lang =>
+      defaultRegions.get(lang.language).fold(lang.language) { default =>
+        if (default == lang) lang.language else lang.code
+      }
+    }
+
   // lazy val popularNoRegionByLanguage: Map[String, Lang] =
   //   popularNoRegion.view.map { l =>
   //     l.language -> l
