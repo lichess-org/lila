@@ -17,6 +17,7 @@ case class Perfs(
     horde: Perf,
     racingKings: Perf,
     crazyhouse: Perf,
+    newChess1: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -40,6 +41,7 @@ case class Perfs(
       "horde"          -> horde,
       "racingKings"    -> racingKings,
       "crazyhouse"     -> crazyhouse,
+      "newChess1"      -> newChess1,
       "ultraBullet"    -> ultraBullet,
       "bullet"         -> bullet,
       "blitz"          -> blitz,
@@ -123,7 +125,8 @@ case class Perfs(
     "rapid"          -> rapid,
     "classical"      -> classical,
     "correspondence" -> correspondence,
-    "puzzle"         -> puzzle
+    "puzzle"         -> puzzle,
+    "newChess1"      -> newChess1
   )
 
   def ratingMap: Map[String, Int] = perfsMap.view.mapValues(_.intRating).toMap
@@ -150,6 +153,7 @@ case class Perfs(
       case PerfType.RacingKings    => racingKings
       case PerfType.Crazyhouse     => crazyhouse
       case PerfType.Puzzle         => puzzle
+      case PerfType.NewChess1      => newChess1
     }
 
   def inShort =
@@ -214,6 +218,7 @@ case object Perfs {
       p,
       p,
       p,
+      p,
       Perf.Storm.default,
       Perf.Racer.default,
       Perf.Streak.default
@@ -257,6 +262,7 @@ case object Perfs {
       case chess.variant.Horde         => Some(_.horde)
       case chess.variant.RacingKings   => Some(_.racingKings)
       case chess.variant.Crazyhouse    => Some(_.crazyhouse)
+      case chess.variant.NewChess1    => Some(_.newChess1)
       case _                           => none
     }
 
@@ -286,6 +292,7 @@ case object Perfs {
         horde = perf("horde"),
         racingKings = perf("racingKings"),
         crazyhouse = perf("crazyhouse"),
+        newChess1 = perf("newChess1"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -312,6 +319,7 @@ case object Perfs {
         "horde"          -> notNew(o.horde),
         "racingKings"    -> notNew(o.racingKings),
         "crazyhouse"     -> notNew(o.crazyhouse),
+        "newChess1"     -> notNew(o.newChess1),
         "ultraBullet"    -> notNew(o.ultraBullet),
         "bullet"         -> notNew(o.bullet),
         "blitz"          -> notNew(o.blitz),
@@ -332,6 +340,7 @@ case object Perfs {
       rapid: List[User.LightPerf],
       classical: List[User.LightPerf],
       crazyhouse: List[User.LightPerf],
+      newChess1: List[User.LightPerf],
       chess960: List[User.LightPerf],
       kingOfTheHill: List[User.LightPerf],
       threeCheck: List[User.LightPerf],
@@ -341,5 +350,5 @@ case object Perfs {
       racingKings: List[User.LightPerf]
   )
 
-  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 }
