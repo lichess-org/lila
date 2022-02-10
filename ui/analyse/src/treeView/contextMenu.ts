@@ -88,7 +88,7 @@ function view(opts: Opts, coords: Coords): VNode {
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
       .concat([onMainline ? action('', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) : null])
-      .concat([onMainline ? action('', "Delete all other previous variations", () => ctrl.deleteAllVariations()) : null])
+      .concat([onMainline ? action('', 'Delete all previous sidelines', () => ctrl.deleteAllSidelines()) : null])
   );
 }
 

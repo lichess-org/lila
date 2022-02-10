@@ -567,9 +567,9 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
-  deleteAllVariations(): void {
+  deleteAllSidelines(): void {
     // confirmation dialog
-    this.tree.deleteAllVariations();
+    this.tree.deleteAllSidelines();
     // study stuff
   }
 
