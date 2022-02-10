@@ -501,7 +501,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
-      return crazyValid(this.data, drop.role, drop.key) || newChess1Valid(this.data, role, key);
+      return crazyValid(this.data, drop.role, drop.key) || newChess1Valid(this.data, drop.role, drop.key);
     });
   };
 
