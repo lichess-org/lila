@@ -1,4 +1,4 @@
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { VNodeData } from 'snabbdom';
 import { Dests, EncodedDests } from './interfaces';
 

@@ -62,6 +62,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case chess.variant.Horde         => "Destroy the horde to win"
           case chess.variant.RacingKings   => "Race to the eighth rank to win"
           case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
+          case chess.variant.NewChess1     => "Drop the Doom piece on the board"
           case _                           => "Variant ending"
         }
       case _ => "Game is still being played"

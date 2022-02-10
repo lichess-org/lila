@@ -1,12 +1,12 @@
 import * as xhr from './xhr';
 import config from './config';
 import sign from 'puz/sign';
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
-import { parseUci } from 'chessops/util';
+import { parseUci } from 'chessops-newchess1-mod/util';
 import { prop, Prop } from 'common';
-import { Role } from 'chessground/types';
+import { Role } from 'chessground-newchess1-mod/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
 import { Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';

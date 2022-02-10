@@ -4,7 +4,7 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 
 export class MultiBoardCtrl {
@@ -171,7 +171,7 @@ function makeCg(preview: ChapterPreview): VNode {
       postpatch(old, vnode) {
         if (old.data!.fen !== preview.fen) {
           const lm = preview.lastMove!;
-          domData.get(vnode.elm as HTMLElement, 'chessground').set({
+          domData.get(vnode.elm as HTMLElement, 'chessground-newchess1-mod').set({
             fen: preview.fen,
             lastMove: [lm[0] + lm[1], lm[2] + lm[3]],
           });

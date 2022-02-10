@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { bind, onInsert } from 'common/snabbdom';
 import { player as renderPlayer } from './util';
 import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';

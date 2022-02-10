@@ -1,5 +1,5 @@
-import * as cg from 'chessground/types';
-import { Config as CgConfig } from 'chessground/config';
+import * as cg from 'chessground-newchess1-mod/types';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
 import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';

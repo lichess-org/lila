@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import RacerCtrl from './ctrl';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { RacerOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);

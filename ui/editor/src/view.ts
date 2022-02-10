@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { MouchEvent, NumberPair } from 'chessground/types';
-import { dragNewPiece } from 'chessground/drag';
-import { eventPosition, opposite } from 'chessground/util';
-import { Rules } from 'chessops/types';
-import { parseFen, EMPTY_FEN } from 'chessops/fen';
+import { MouchEvent, NumberPair } from 'chessground-newchess1-mod/types';
+import { dragNewPiece } from 'chessground-newchess1-mod/drag';
+import { eventPosition, opposite } from 'chessground-newchess1-mod/util';
+import { Rules } from 'chessops-newchess1-mod/types';
+import { parseFen, EMPTY_FEN } from 'chessops-newchess1-mod/fen';
 import modal from 'common/modal';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';

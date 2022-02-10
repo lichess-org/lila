@@ -1,9 +1,9 @@
-import { Chess } from 'chessops/chess';
-import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, parseSan } from 'chessops/san';
-import { NormalMove } from 'chessops/types';
-import { board } from 'chessops/debug';
-import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
+import { Chess } from 'chessops-newchess1-mod/chess';
+import { INITIAL_FEN, makeFen, parseFen } from 'chessops-newchess1-mod/fen';
+import { makeSan, parseSan } from 'chessops-newchess1-mod/san';
+import { NormalMove } from 'chessops-newchess1-mod/types';
+import { board } from 'chessops-newchess1-mod/debug';
+import { defaultSetup, fen, makeUci, parseUci } from 'chessops-newchess1-mod';
 
 export default function (token: string) {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;

@@ -4,7 +4,7 @@ import LichessChat from 'chat';
 import menuHover from 'common/menuHover';
 import MoveOn from './moveOn';
 import RoundController from './ctrl';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { main as view } from './view/main';
 import { RoundOpts } from './interfaces';
 

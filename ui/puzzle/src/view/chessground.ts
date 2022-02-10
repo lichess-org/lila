@@ -1,6 +1,6 @@
 import resizeHandle from 'common/resize';
-import { Chessground } from 'chessground';
-import { Config as CgConfig } from 'chessground/config';
+import { Chessground } from 'chessground-newchess1-mod';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 

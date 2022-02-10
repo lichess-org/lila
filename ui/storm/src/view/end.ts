@@ -1,11 +1,11 @@
 import * as miniBoard from 'common/mini-board';
 import StormCtrl from '../ctrl';
-import { Chess } from 'chessops/chess';
+import { Chess } from 'chessops-newchess1-mod/chess';
 import { getNow } from 'puz/util';
 import { h, VNode } from 'snabbdom';
 import { numberSpread } from 'common/number';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseUci } from 'chessops/util';
+import { parseFen, makeFen } from 'chessops-newchess1-mod/fen';
+import { parseUci } from 'chessops-newchess1-mod/util';
 import { onInsert } from 'common/snabbdom';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];

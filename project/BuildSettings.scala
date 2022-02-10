@@ -17,6 +17,7 @@ object BuildSettings {
       version := lilaVersion,
       organization := "org.lichess",
       resolvers += lilaMaven,
+      resolvers += Resolver.mavenLocal,
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       // No bloop project for tests

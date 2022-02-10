@@ -246,6 +246,7 @@ object BinaryFormat {
 
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match {
+        case 8 => Some(Doom)
         case 6 => Some(Pawn)
         case 1 => Some(King)
         case 2 => Some(Queen)
@@ -258,6 +259,7 @@ object BinaryFormat {
       }
     private def roleToInt(role: Role): Int =
       role match {
+        case Doom   => 8
         case Pawn   => 6
         case King   => 1
         case Queen  => 2

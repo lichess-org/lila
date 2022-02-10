@@ -2,7 +2,7 @@ import { init, attributesModule, eventListenersModule, classModule, propsModule 
 import EditorCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 

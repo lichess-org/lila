@@ -1,5 +1,5 @@
 import resizeHandle from 'common/resize';
-import { Config as CgConfig } from 'chessground/config';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
 import { PuzPrefs, UserMove } from '../interfaces';
 
 export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): CgConfig {

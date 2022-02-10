@@ -1,4 +1,4 @@
-import { lichessRules } from 'chessops/compat';
+import { lichessRules } from 'chessops-newchess1-mod/compat';
 import { ProtocolOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
 import { Sync, sync } from 'common/sync';

@@ -1,4 +1,4 @@
-import { parseFen } from 'chessops/fen';
+import { parseFen } from 'chessops-newchess1-mod/fen';
 import { defined, prop, Prop } from 'common';
 import { snabModal } from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';

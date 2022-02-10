@@ -8,8 +8,8 @@ import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
-import { Color } from 'chessground/types';
-import { opposite } from 'chessground/util';
+import { Color } from 'chessground-newchess1-mod/types';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];

@@ -1,4 +1,4 @@
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import * as xhr from './xhr';
 import debounce from './debounce';
 

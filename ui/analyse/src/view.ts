@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
-import { read as readFen } from 'chessground/fen';
-import { parseFen } from 'chessops/fen';
+import { read as readFen } from 'chessground-newchess1-mod/fen';
+import { parseFen } from 'chessops-newchess1-mod/fen';
 import { defined } from 'common';
 import {
   bind,

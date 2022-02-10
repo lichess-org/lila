@@ -1,4 +1,4 @@
-import { Outcome } from 'chessops/types';
+import { Outcome } from 'chessops-newchess1-mod/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 

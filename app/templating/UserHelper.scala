@@ -30,7 +30,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Correspondence,
     PerfType.Atomic,
     PerfType.Horde,
-    PerfType.Crazyhouse
+    PerfType.Crazyhouse,
+    PerfType.NewChess1
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, clueless: Boolean, icon: Char)(

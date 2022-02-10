@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import * as domData from 'common/data';
-import type { Api as ChessgroundApi } from 'chessground/api';
-import type { Key } from 'chessground/types';
+import type { Api as ChessgroundApi } from 'chessground-newchess1-mod/api';
+import type { Key } from 'chessground-newchess1-mod/types';
 
 function init() {
   let failed = false;
@@ -12,7 +12,7 @@ function init() {
     const $captcha = $(this),
       $board = $captcha.find('.mini-board'),
       $input = $captcha.find('input').val(''),
-      cg = domData.get($board[0]!, 'chessground') as ChessgroundApi;
+      cg = domData.get($board[0]!, 'chessground-newchess1-mod') as ChessgroundApi;
 
     if (!cg) {
       failed = true;
@@ -62,7 +62,7 @@ function init() {
       $input.val(solution);
       xhr.text(xhr.url($captcha.data('check-url'), { solution })).then(data => {
         $captcha.toggleClass('success', data == '1').toggleClass('failure', data != '1');
-        if (data == '1') domData.get($board[0]!, 'chessground').stop();
+        if (data == '1') domData.get($board[0]!, 'chessground-newchess1-mod').stop();
         else
           setTimeout(
             () =>

@@ -1,5 +1,5 @@
-import { Chess, opposite, parseUci } from 'chessops';
-import { parseFen } from 'chessops/fen';
+import { Chess, opposite, parseUci } from 'chessops-newchess1-mod';
+import { parseFen } from 'chessops-newchess1-mod/fen';
 import { Puzzle } from './interfaces';
 import { getNow } from './util';
 

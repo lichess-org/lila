@@ -13,7 +13,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "chessops": "^0.10.2"
+    "chessops-newchess1-mod": "^0.10.5-1"
   },
   "scripts": {
     "dev": "rollup --config",

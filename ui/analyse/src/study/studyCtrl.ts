@@ -1,5 +1,5 @@
-import { Config as CgConfig } from 'chessground/config';
-import { DrawShape } from 'chessground/draw';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
+import { DrawShape } from 'chessground-newchess1-mod/draw';
 import { prop } from 'common';
 import throttle from 'common/throttle';
 import debounce from 'common/debounce';

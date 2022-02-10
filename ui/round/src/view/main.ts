@@ -4,7 +4,7 @@ import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
-import { read as readFen } from 'chessground/fen';
+import { read as readFen } from 'chessground-newchess1-mod/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';

@@ -2,7 +2,7 @@ import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { h, VNode } from 'snabbdom';
 import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';

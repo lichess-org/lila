@@ -1,13 +1,13 @@
 import { h, VNode, VNodeChildren } from 'snabbdom';
-import { Dests, Pieces, Rank, File, files } from 'chessground/types';
-import { invRanks, allKeys } from 'chessground/util';
-import { Api } from 'chessground/api';
+import { Dests, Pieces, Rank, File, files } from 'chessground-newchess1-mod/types';
+import { invRanks, allKeys } from 'chessground-newchess1-mod/util';
+import { Api } from 'chessground-newchess1-mod/api';
 import { Setting, makeSetting } from './setting';
-import { parseFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
-import { SquareName, RULES, Rules } from 'chessops/types';
-import { setupPosition } from 'chessops/variant';
-import { parseUci } from 'chessops/util';
+import { parseFen } from 'chessops-newchess1-mod/fen';
+import { chessgroundDests } from 'chessops-newchess1-mod/compat';
+import { SquareName, RULES, Rules } from 'chessops-newchess1-mod/types';
+import { setupPosition } from 'chessops-newchess1-mod/variant';
+import { parseUci } from 'chessops-newchess1-mod/util';
 import { SanToUci, sanWriter } from 'chess';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -40,8 +40,8 @@ const anna: { [letter: string]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', D: 'doom' };
+const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k', doom: 'd' };
 
 const letterPiece: { [letter: string]: string } = {
   p: 'p',
@@ -50,12 +50,14 @@ const letterPiece: { [letter: string]: string } = {
   b: 'b',
   q: 'q',
   k: 'k',
+  d: 'd',
   P: 'p',
   R: 'r',
   N: 'n',
   B: 'b',
   Q: 'q',
   K: 'k',
+  D: 'd',
 };
 const whiteUpperLetterPiece: { [letter: string]: string } = {
   p: 'p',
@@ -64,12 +66,14 @@ const whiteUpperLetterPiece: { [letter: string]: string } = {
   b: 'b',
   q: 'q',
   k: 'k',
+  d: 'd',
   P: 'P',
   R: 'R',
   N: 'N',
   B: 'B',
   Q: 'Q',
   K: 'K',
+  D: 'D',
 };
 export const namePiece: { [letter: string]: string } = {
   p: 'pawn',
@@ -78,12 +82,14 @@ export const namePiece: { [letter: string]: string } = {
   b: 'bishop',
   q: 'queen',
   k: 'king',
+  d: 'doom',
   P: 'pawn',
   R: 'rook',
   N: 'knight',
   B: 'bishop',
   Q: 'queen',
   K: 'king',
+  D: 'doom',
 };
 const whiteUpperNamePiece: { [letter: string]: string } = {
   p: 'pawn',
@@ -92,12 +98,14 @@ const whiteUpperNamePiece: { [letter: string]: string } = {
   b: 'bishop',
   q: 'queen',
   k: 'king',
+  d: 'doom',
   P: 'Pawn',
   R: 'Rook',
   N: 'Knight',
   B: 'Bishop',
   Q: 'Queen',
   K: 'King',
+  D: 'Doom',
 };
 const skipToFile: { [letter: string]: string } = {
   '!': 'a',

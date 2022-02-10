@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';

@@ -1,5 +1,5 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
 import LichessChat from 'chat';

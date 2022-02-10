@@ -27,7 +27,7 @@ export const init = (node: HTMLElement) => {
       $el = $(node).removeClass('mini-game--init'),
       $cg = $el.find('.cg-wrap'),
       turnColor = fenColor(fen);
-    domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
+    domData.set($cg[0] as HTMLElement, 'chessground-newchess1-mod', window.Chessground($cg[0], config));
     ['white', 'black'].forEach(color =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
         $(this).clock({
@@ -50,7 +50,7 @@ export const update = (node: HTMLElement, data: UpdateData) => {
   const $el = $(node),
     lm = data.lm,
     lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
-    cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');
+    cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground-newchess1-mod');
   if (cg)
     cg.set({
       fen: data.fen,

@@ -2,13 +2,13 @@ import * as winningChances from './winningChances';
 import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
-import { Position } from 'chessops/chess';
-import { lichessRules } from 'chessops/compat';
-import { makeSanAndPlay } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
-import { parseFen, makeBoardFen } from 'chessops/fen';
+import { Position } from 'chessops-newchess1-mod/chess';
+import { lichessRules } from 'chessops-newchess1-mod/compat';
+import { makeSanAndPlay } from 'chessops-newchess1-mod/san';
+import { opposite, parseUci } from 'chessops-newchess1-mod/util';
+import { parseFen, makeBoardFen } from 'chessops-newchess1-mod/fen';
 import { renderEval } from './util';
-import { setupPosition } from 'chessops/variant';
+import { setupPosition } from 'chessops-newchess1-mod/variant';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>

@@ -1,8 +1,8 @@
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { h, VNode } from 'snabbdom';
 import { CheckCount, CheckState, MaterialDiff, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 
 function renderMaterialDiff(
   material: MaterialDiffSide,
@@ -25,8 +25,8 @@ function renderMaterialDiff(
 }
 
 const EMPTY_MATERIAL_DIFF: MaterialDiff = {
-  white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-  black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+  white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
+  black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
 };
 
 export function renderMaterialDiffs(

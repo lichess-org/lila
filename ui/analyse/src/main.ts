@@ -5,7 +5,7 @@ import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 
 export const patch = init([classModule, attributesModule]);
 

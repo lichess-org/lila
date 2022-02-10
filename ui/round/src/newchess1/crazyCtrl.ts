@@ -5,7 +5,7 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground-newchess1-mod/types';
 import { RoundData } from '../interfaces';
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: cg.Role[] = ['doom'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
@@ -34,6 +34,11 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
   if (!isPlayerTurn(data)) return false;
 
   if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
+
+  data.crazyhouse
+  const backrank = data.game.player === 'white' ? '1' : '8';
+
+  if (role === 'doom' && !(key[1] === backrank && (key[0] === 'd' || key[0] === 'e'))) return false;
 
   const dropStr = data.possibleDrops;
 

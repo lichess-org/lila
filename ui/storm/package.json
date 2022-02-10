@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessground-newchess1-mod": "^8.2.0-2",
+    "chessops-newchess1-mod": "^0.10.5-1",
     "common": "2.0.0",
     "puz": "2.0.0",
     "snabbdom": "^3.0.1"

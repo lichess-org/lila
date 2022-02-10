@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { Chessground } from 'chessground';
-import { Config as CgConfig } from 'chessground/config';
-import { MouchEvent } from 'chessground/types';
-import * as util from 'chessground/util';
+import { Chessground } from 'chessground-newchess1-mod';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
+import { MouchEvent } from 'chessground-newchess1-mod/types';
+import * as util from 'chessground-newchess1-mod/util';
 import EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {

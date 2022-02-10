@@ -7,11 +7,11 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 import { Cache } from './cache';
-import { parseFen } from 'chessops/fen';
-import { setupPosition } from 'chessops/variant';
-import { lichessRules } from 'chessops/compat';
-import { COLORS } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import { parseFen } from 'chessops-newchess1-mod/fen';
+import { setupPosition } from 'chessops-newchess1-mod/variant';
+import { lichessRules } from 'chessops-newchess1-mod/compat';
+import { COLORS } from 'chessops-newchess1-mod/types';
+import { SquareSet } from 'chessops-newchess1-mod/squareSet';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);

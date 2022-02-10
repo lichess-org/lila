@@ -23,14 +23,14 @@ import {
   Style,
   styleSetting,
 } from 'nvui/chess';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as control from '../control';
 import { bind, onInsert } from 'common/snabbdom';
-import { Api } from 'chessground/api';
+import { Api } from 'chessground-newchess1-mod/api';
 import throttle from 'common/throttle';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));

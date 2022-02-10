@@ -1,5 +1,5 @@
-import * as util from 'chessground/util';
-import * as cg from 'chessground/types';
+import * as util from 'chessground-newchess1-mod/util';
+import * as cg from 'chessground-newchess1-mod/types';
 import RoundController from './ctrl';
 
 export function capture(ctrl: RoundController, key: cg.Key) {

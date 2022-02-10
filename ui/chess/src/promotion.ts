@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
 import { MaybeVNode, bind, onInsert } from 'common/snabbdom';
-import { Api as CgApi } from 'chessground/api';
-import { DrawShape } from 'chessground/draw';
-import * as cgUtil from 'chessground/util';
-import * as cg from 'chessground/types';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
+import { DrawShape } from 'chessground-newchess1-mod/draw';
+import * as cgUtil from 'chessground-newchess1-mod/util';
+import * as cg from 'chessground-newchess1-mod/types';
 
 export type Callback = (orig: Key, dest: Key, role: cg.Role) => void;
 

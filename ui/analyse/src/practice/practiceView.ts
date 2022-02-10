@@ -1,4 +1,4 @@
-import { Outcome } from 'chessops/types';
+import { Outcome } from 'chessops-newchess1-mod/types';
 import { h, VNode } from 'snabbdom';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { PracticeCtrl, Comment } from './practiceCtrl';
