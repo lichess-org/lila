@@ -4,7 +4,7 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { valid as newChess1Valid } from './newChess1/newChess1Ctrl';
+import { valid as newChess1Valid } from './newchess1/newChess1Ctrl';
 import { onInsert } from './util';
 import { promote } from 'chess/promotion';
 
