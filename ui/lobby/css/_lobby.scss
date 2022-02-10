@@ -175,3 +175,19 @@ body {
     box-shadow: none;
   }
 }
+
+.lobby {
+  max-width: 70%;
+  padding-left: 35%;
+  grid-template-columns: none;
+  grid-template-rows: none;
+  grid-template-areas: 'app' 'tv' 'table'  'support' 'about';
+}
+
+.lobby__app {
+  height: 0;
+  width: 0;
+  min-width: 0;
+  min-height: 0;
+  visibility: hidden;
+}

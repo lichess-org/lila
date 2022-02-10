@@ -202,17 +202,18 @@ object Tv {
       Blitz,
       Rapid,
       Classical,
-      Crazyhouse,
-      Chess960,
-      KingOfTheHill,
-      ThreeCheck,
-      Antichess,
-      Atomic,
-      Horde,
-      RacingKings,
-      UltraBullet,
-      Bot,
-      Computer
+      // todo: turn me on!
+//      Crazyhouse,
+//      Chess960,
+//      KingOfTheHill,
+//      ThreeCheck,
+//      Antichess,
+//      Atomic,
+//      Horde,
+//      RacingKings,
+//      UltraBullet,
+//      Bot,
+//      Computer
     )
     val byKey = all.map { c =>
       c.key -> c

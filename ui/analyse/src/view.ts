@@ -226,7 +226,8 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'last') control.last(ctrl);
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
-            else if (action === 'menu') ctrl.actionMenu.toggle();
+            // todo: turn me on!
+            // else if (action === 'menu') ctrl.actionMenu.toggle();
           },
           ctrl.redraw
         );
@@ -250,30 +251,32 @@ function controls(ctrl: AnalyseCtrl) {
                   }),
                 ]
               : [
-                  h('button.fbt', {
-                    attrs: {
-                      title: noarg('openingExplorerAndTablebase'),
-                      'data-act': 'explorer',
-                      'data-icon': '',
-                    },
-                    class: {
-                      hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                      active: ctrl.explorer.enabled(),
-                    },
-                  }),
-                  ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
-                    ? h('button.fbt', {
-                        attrs: {
-                          title: noarg('practiceWithComputer'),
-                          'data-act': 'practice',
-                          'data-icon': '',
-                        },
-                        class: {
-                          hidden: menuIsOpen || !!ctrl.retro,
-                          active: !!ctrl.practice,
-                        },
-                      })
-                    : null,
+                    h('div.noop')
+                  // todo: turn me on!
+                  // h('button.fbt', {
+                  //   attrs: {
+                  //     title: noarg('openingExplorerAndTablebase'),
+                  //     'data-act': 'explorer',
+                  //     'data-icon': '',
+                  //   },
+                  //   class: {
+                  //     hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+                  //     active: ctrl.explorer.enabled(),
+                  //   },
+                  // }),
+                  // ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
+                  //   ? h('button.fbt', {
+                  //       attrs: {
+                  //         title: noarg('practiceWithComputer'),
+                  //         'data-act': 'practice',
+                  //         'data-icon': '',
+                  //       },
+                  //       class: {
+                  //         hidden: menuIsOpen || !!ctrl.retro,
+                  //         active: !!ctrl.practice,
+                  //       },
+                  //     })
+                  //   : null,
                 ]
           ),
       h('div.jumps', [
@@ -282,16 +285,18 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton('', 'next', canJumpNext),
         jumpButton('', 'last', canJumpNext),
       ]),
-      ctrl.studyPractice
-        ? h('div.noop')
-        : h('button.fbt', {
-            class: { active: menuIsOpen },
-            attrs: {
-              title: noarg('menu'),
-              'data-act': 'menu',
-              'data-icon': '',
-            },
-          }),
+      h('div.noop')
+      // todo: turn me on!
+      // ctrl.studyPractice
+      //   ? h('div.noop')
+      //   : h('button.fbt', {
+      //       class: { active: menuIsOpen },
+      //       attrs: {
+      //         title: noarg('menu'),
+      //         'data-act': 'menu',
+      //         'data-icon': '',
+      //       },
+      //     }),
     ]
   );
 }

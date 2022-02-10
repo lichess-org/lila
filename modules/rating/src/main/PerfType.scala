@@ -173,17 +173,18 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    Correspondence,
-    Standard,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings,
-    Puzzle
+    // todo: turn me on!
+//    Correspondence,
+//    Standard,
+//    Crazyhouse,
+//    Chess960,
+//    KingOfTheHill,
+//    ThreeCheck,
+//    Antichess,
+//    Atomic,
+//    Horde,
+//    RacingKings,
+//    Puzzle
   )
   val byKey = all map { p =>
     (p.key, p)
@@ -209,15 +210,16 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    Correspondence,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings
+    // todo: turn me on!
+//    Correspondence,
+//    Crazyhouse,
+//    Chess960,
+//    KingOfTheHill,
+//    ThreeCheck,
+//    Antichess,
+//    Atomic,
+//    Horde,
+//    RacingKings
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -225,14 +227,15 @@ object PerfType {
     Rapid,
     Classical,
     UltraBullet,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings
+    // todo: turn me on!
+//    Crazyhouse,
+//    Chess960,
+//    KingOfTheHill,
+//    ThreeCheck,
+//    Antichess,
+//    Atomic,
+//    Horde,
+//    RacingKings
   )
   val isLeaderboardable = leaderboardable.toSet
   val variants: List[PerfType] =

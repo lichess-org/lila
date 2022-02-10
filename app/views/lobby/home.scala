@@ -57,10 +57,11 @@ object home {
         )
       )(
         div(cls := "lobby__table")(
-          div(cls := "bg-switch", title := "Dark mode")(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
+          // todo: turn me on!
+//          div(cls := "bg-switch", title := "Dark mode")(
+//            div(cls := "bg-switch__track"),
+//            div(cls := "bg-switch__thumb")
+//          ),
           div(cls := "lobby__start")(
             ctx.blind option h2("Play"),
             a(
@@ -78,15 +79,16 @@ object home {
                 "disabled"                          -> currentGame.isDefined
               ),
               trans.playWithAFriend()
-            ),
-            a(
-              href := routes.Setup.aiForm,
-              cls := List(
-                "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
-              ),
-              trans.playWithTheMachine()
             )
+            // todo: turn me on!
+//            a(
+//              href := routes.Setup.aiForm,
+//              cls := List(
+//                "button button-metal config_ai" -> true,
+//                "disabled"                      -> currentGame.isDefined
+//              ),
+//              trans.playWithTheMachine()
+//            )
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
@@ -114,64 +116,65 @@ object home {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp
           },
-        div(cls := "lobby__side")(
-          ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(
-            views.html.streamer.bits liveStreams streams,
-            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
-              trans.streamersMenu(),
-              " »"
-            )
-          ),
-          div(cls := "lobby__spotlights")(
-            events.map(bits.spotlight),
-            !ctx.isBot option frag(
-              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
-                views.html.tournament.homepageSpotlight(_)
-              },
-              swiss map views.html.swiss.bits.homepageSpotlight,
-              simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
-            )
-          ),
-          if (ctx.isAuth)
-            div(cls := "timeline")(
-              ctx.blind option h2("Timeline"),
-              views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
-                trans.more(),
-                " »"
-              )
-            )
-          else
-            div(cls := "about-side")(
-              ctx.blind option h2("About"),
-              trans.xIsAFreeYLibreOpenSourceChessServer(
-                "Lichess",
-                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
-              ),
-              " ",
-              a(href := "/about")(trans.aboutX("Lichess"), "...")
-            )
-        ),
+        // todo: turn me on!
+//        div(cls := "lobby__side")(
+//          ctx.blind option h2("Highlights"),
+//          ctx.noKid option st.section(cls := "lobby__streams")(
+//            views.html.streamer.bits liveStreams streams,
+//            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+//              trans.streamersMenu(),
+//              " »"
+//            )
+//          ),
+//          div(cls := "lobby__spotlights")(
+//            events.map(bits.spotlight),
+//            !ctx.isBot option frag(
+//              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
+//                views.html.tournament.homepageSpotlight(_)
+//              },
+//              swiss map views.html.swiss.bits.homepageSpotlight,
+//              simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
+//            )
+//          ),
+//          if (ctx.isAuth)
+//            div(cls := "timeline")(
+//              ctx.blind option h2("Timeline"),
+//              views.html.timeline entries userTimeline,
+//              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
+//                trans.more(),
+//                " »"
+//              )
+//            )
+//          else
+//            div(cls := "about-side")(
+//              ctx.blind option h2("About"),
+//              trans.xIsAFreeYLibreOpenSourceChessServer(
+//                "Lichess",
+//                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
+//              ),
+//              " ",
+//              a(href := "/about")(trans.aboutX("Lichess"), "...")
+//            )
+//        ),
         featured map { g =>
           div(cls := "lobby__tv")(
             views.html.game.mini(Pov naturalOrientation g, tv = true)
           )
         },
-        puzzle map { p =>
-          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
-        },
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
-            h2(cls := "title text", dataIcon := "")(trans.latestForumPosts()),
-            span(cls := "more")(trans.more(), " »")
-          ),
-          div(cls := "lobby__box__content")(
-            views.html.forum.post recent forumRecent
-          )
-        ),
-        bits.lastPosts(lastPost, ublogPosts),
+//        puzzle map { p =>
+//          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
+//        },
+//        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+//        ctx.noKid option div(cls := "lobby__forum lobby__box")(
+//          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
+//            h2(cls := "title text", dataIcon := "")(trans.latestForumPosts()),
+//            span(cls := "more")(trans.more(), " »")
+//          ),
+//          div(cls := "lobby__box__content")(
+//            views.html.forum.post recent forumRecent
+//          )
+//        ),
+//        bits.lastPosts(lastPost, ublogPosts),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
@@ -180,24 +183,26 @@ object home {
               span(trans.patron.becomePatron())
             )
           ),
-          a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(""),
-            span(cls := "lobby__support__text")(
-              strong("Swag Store"),
-              span(trans.playChessInStyle())
-            )
-          )
+//          a(href := "https://shop.spreadshirt.com/lichess-org")(
+//            iconTag(""),
+//            span(cls := "lobby__support__text")(
+//              strong("Swag Store"),
+//              span(trans.playChessInStyle())
+//            )
+//          )
         ),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lichess")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
-          a(href := "/mobile")(trans.mobileApp()),
+// todo: turn me on!
+//          a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
-          a(href := "/ads")("Ads"),
+// todo: turn me on!
+//          a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
       )
