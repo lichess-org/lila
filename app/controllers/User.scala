@@ -296,7 +296,7 @@ final class User(
                   "classical"     -> leaderboards.classical,
                   "ultraBullet"   -> leaderboards.ultraBullet,
                   "crazyhouse"    -> leaderboards.crazyhouse,
-                  "newchess1"     -> leaderboards.newchess1,
+                  "newchess1"     -> leaderboards.newChess1,
                   "chess960"      -> leaderboards.chess960,
                   "kingOfTheHill" -> leaderboards.kingOfTheHill,
                   "threeCheck"    -> leaderboards.threeCheck,

@@ -91,6 +91,7 @@ final class RankingApi(
       horde         <- topPerf(PerfType.Horde.id, nb)
       racingKings   <- topPerf(PerfType.RacingKings.id, nb)
       crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
+      newChess1     <- topPerf(PerfType.NewChess1.id, nb)
     } yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
@@ -98,6 +99,7 @@ final class RankingApi(
       rapid = rapid,
       classical = classical,
       crazyhouse = crazyhouse,
+      newChess1 = newChess1,
       chess960 = chess960,
       kingOfTheHill = kingOfTheHill,
       threeCheck = threeCheck,

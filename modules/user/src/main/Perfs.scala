@@ -319,7 +319,7 @@ case object Perfs {
         "horde"          -> notNew(o.horde),
         "racingKings"    -> notNew(o.racingKings),
         "crazyhouse"     -> notNew(o.crazyhouse),
-        "newChess1"     -> notNew(o.newChess1),
+        "newChess1"      -> notNew(o.newChess1),
         "ultraBullet"    -> notNew(o.ultraBullet),
         "bullet"         -> notNew(o.bullet),
         "blitz"          -> notNew(o.blitz),
