@@ -1002,23 +1002,15 @@ chartjs-color@^2.1.0:
   version "0.10.2"
   resolved "https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249"
 
-chessground@^4.4:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-4.4.2.tgz#582912aabb5ed32131abdeb6cfcb54d1c4cda7aa"
-  integrity sha512-cCAaTjsnE30hkWSPQRBOr2vlWSmxHS1hzz2kBM+b1VwLjvZRj5bohWtfZsznIgegfZUxZMOvtHsyde8/hhazLg==
-  dependencies:
-    merge "1.2.0"
-    mithril "github:ornicar/mithril.js#v1.0.1"
+chessground-newchess1-mod@^8.2.0-2:
+  version "8.2.0-2"
+  resolved "https://registry.yarnpkg.com/chessground-newchess1-mod/-/chessground-newchess1-mod-8.2.0-2.tgz#32612f52500a64fc10fb414a4973e4800b73721f"
+  integrity sha512-uJebF7H85F82ILbb3UM8qik2fc06lAbRr+W/RhFMrfpF9ittZXWCx1MOnSBhOzJ7v1uU19ubKhL2GBuEiPEeFw==
 
-chessground@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.2.0.tgz#11fe0393e53f94759fdaa6c407ebc64b4ce1bfd6"
-  integrity sha512-vEJCVD+ea9KZy0HuPvHA9QUhxElbaBChId44UZ0+cl90svP2EImgqeJkuX8ExC+dBKYn1FvzpNh10jrNX81jcQ==
-
-chessops@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.10.2.tgz#65623e17194b4dda76d243ab77302c206613eee7"
-  integrity sha512-7Kc1PfEBLq9BDjM8XGUsbvITw1tR/v6PU2ktNImT6Ze1ghCjqu2/qhwW4qHo7o1cEru0SFxJs/1UZwHLik9guA==
+chessops-newchess1-mod@^0.10.5-1:
+  version "0.10.5-1"
+  resolved "https://registry.yarnpkg.com/chessops-newchess1-mod/-/chessops-newchess1-mod-0.10.5-1.tgz#b3b6e1fa70f78e434480ab6e007e52d65c0eacb8"
+  integrity sha512-iiYl2OXX9v+Snanq1/mxG1bqJPKIRs3s27q0N4KKLkqHcSzvCK2V/m6o334R78GJKh6bwy2C4cl+WwFtn6TZuw==
   dependencies:
     "@badrap/result" "^0.2"
 
@@ -3486,11 +3478,6 @@ merge2@^1.2.3, merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-merge@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
-  integrity sha1-dTHjnUlJwoGma4xabgJl6LBYlNo=
-
 micromatch@^2.3.7:
   version "2.3.11"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-2.3.11.tgz#86677c97d1720b363431d04d0d15293bd38c1565"
@@ -3593,10 +3580,6 @@ minizlib@^2.1.1:
 "mithril@github:ornicar/mithril.js#lila-1":
   version "0.2.1-lila"
   resolved "https://codeload.github.com/ornicar/mithril.js/tar.gz/dd92827aec63f921149ca9a3460ccd981e7025bb"
-
-"mithril@github:ornicar/mithril.js#v1.0.1":
-  version "0.2.1"
-  resolved "https://codeload.github.com/ornicar/mithril.js/tar.gz/d99d36d445fad1b22f4b285963ea065291d99ad4"
 
 mixin-deep@^1.2.0:
   version "1.3.2"
