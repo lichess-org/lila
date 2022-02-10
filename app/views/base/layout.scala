@@ -187,7 +187,7 @@ object layout {
 
   private def hrefLangs(path: String)(implicit ctx: Context) = raw {
     lila.i18n.LangList.twentyPopularCodesDisambiguated map { code =>
-      s"""<link rel="alternate" hreflang="${code}" href="/$code$path" />"""
+      s"""<link rel="alternate" hreflang="${code}" href="/$code$path"/>"""
     } mkString ""
   }
 
