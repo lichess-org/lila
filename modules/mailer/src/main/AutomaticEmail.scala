@@ -204,6 +204,7 @@ ${opponents map { opponent => s"${showGame(opponent)} $baseUrl/${opponent.gameId
 $disableSettingNotice $disableLink"""
               },
               htmlBody = emailMessage(
+                p(hello),
                 opponents map { opponent =>
                   li(
                     showGame(opponent),
