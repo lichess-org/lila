@@ -158,10 +158,7 @@ export function retroLine(ctx: Ctx, node: Tree.Node): VNode | undefined {
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {
-  return (
-    (e.target as HTMLElement).getAttribute('p') ||
-    (e.target as HTMLElement).parentElement!.getAttribute('p')
-  );
+  return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 }
 
 export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
