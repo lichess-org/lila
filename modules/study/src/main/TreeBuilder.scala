@@ -31,6 +31,7 @@ object TreeBuilder {
       glyphs = node.glyphs,
       clock = node.clock,
       crazyData = node.crazyData,
+      newChess1Data = node.newChess1Data,
       eval = node.score.map(_.eval),
       children = toBranches(node.children, variant),
       opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen),
@@ -48,6 +49,7 @@ object TreeBuilder {
       glyphs = root.glyphs,
       clock = root.clock,
       crazyData = root.crazyData,
+      newChess1Data = root.newChess1Data,
       eval = root.score.map(_.eval),
       children = toBranches(root.children, variant),
       opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen)

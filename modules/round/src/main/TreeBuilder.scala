@@ -47,6 +47,7 @@ object TreeBuilder {
           opening = openingOf(fen),
           clock = withClocks.flatMap(_.headOption),
           crazyData = init.situation.board.crazyData,
+          newChess1Data = init.situation.board.newChess1Data,
           eval = infos lift 0 map makeEval
         )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
@@ -62,6 +63,7 @@ object TreeBuilder {
             opening = openingOf(fen),
             clock = withClocks flatMap (_ lift (g.turns - init.turns - 1)),
             crazyData = g.situation.board.crazyData,
+            newChess1Data = g.situation.board.newChess1Data,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
@@ -114,6 +116,7 @@ object TreeBuilder {
         check = g.situation.check,
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
+        newChess1Data = g.situation.board.newChess1Data,
         eval = none
       )
     }

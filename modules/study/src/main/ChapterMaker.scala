@@ -1,10 +1,10 @@
 package lila.study
 
 import chess.format.pgn.Tags
-import chess.format.{ FEN, Forsyth }
-import chess.variant.{ Crazyhouse, Variant }
-import lila.chat.{ Chat, ChatApi }
-import lila.game.{ Game, Namer }
+import chess.format.{FEN, Forsyth}
+import chess.variant.{Crazyhouse, NewChess1, Variant}
+import lila.chat.{Chat, ChatApi}
+import lila.game.{Game, Namer}
 import lila.user.User
 import chess.Color
 
@@ -86,6 +86,7 @@ final private class ChapterMaker(
           check = sit.situation.check,
           clock = none,
           crazyData = sit.situation.board.crazyData,
+          newChess1Data = sit.situation.board.newChess1Data,
           children = Node.emptyChildren
         ) -> true
       case None =>
@@ -95,6 +96,7 @@ final private class ChapterMaker(
           check = false,
           clock = none,
           crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+          newChess1Data = variant.newChess1 option NewChess1.Data.init,
           children = Node.emptyChildren
         ) -> false
     }) match {

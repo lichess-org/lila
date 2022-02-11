@@ -157,6 +157,7 @@ object ServerEval {
         fen = Forsyth >> g,
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
+        newChess1Data = g.situation.board.newChess1Data,
         clock = none,
         children = Node.emptyChildren,
         forceVariation = false

@@ -5,7 +5,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
-import chess.variant.Crazyhouse
+import chess.variant.{ Crazyhouse, NewChess1 }
 import play.api.libs.json._
 
 import lila.common.Json._
@@ -57,7 +57,8 @@ case class Root(
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     clock: Option[Centis] = None, // clock state at game start, assumed same for both players
-    crazyData: Option[Crazyhouse.Data]
+    crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data]
 ) extends Node {
 
   def idOption       = None
@@ -89,6 +90,7 @@ case class Branch(
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data],
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node {
 

@@ -1,20 +1,20 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Color, Pos, PromotableRole, Role }
+import chess.format.pgn.{Glyph, Glyphs, Tag, Tags}
+import chess.format.{FEN, Uci, UciCharPair}
+import chess.variant.{Crazyhouse, NewChess1, Variant}
+import chess.{Centis, Color, Pos, PromotableRole, Role}
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.Success
 
+import scala.util.Success
 import lila.common.Iso
 import lila.db.BSON
-import lila.db.BSON.{ Reader, Writer }
+import lila.db.BSON.{Reader, Writer}
 import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
-import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import lila.tree.Node.{Comment, Comments, Gamebook, Shape, Shapes}
 
 object BSONHandlers {
 
@@ -130,6 +130,24 @@ object BSONHandlers {
         )
     }
 
+  implicit private def NewChess1DataBSONHandler: BSON[NewChess1.Data] =
+    new BSON[NewChess1.Data] {
+      private def writePocket(p: NewChess1.Pocket) = p.roles.map(_.forsyth).mkString
+      private def readPocket(p: String)             = NewChess1.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      def reads(r: Reader) =
+        NewChess1.Data(
+          pockets = NewChess1.Pockets(
+            white = readPocket(r.strD("w")),
+            black = readPocket(r.strD("b"))
+          )
+        )
+      def writes(w: Writer, s: NewChess1.Data) =
+        $doc(
+          "w" -> w.strO(writePocket(s.pockets.white)),
+          "b" -> w.strO(writePocket(s.pockets.black))
+        )
+    }
+
   implicit val GlyphsBSONHandler = {
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
@@ -172,6 +190,7 @@ object BSONHandlers {
       score          = doc.getAsOpt[Score](F.score)
       clock          = doc.getAsOpt[Centis](F.clock)
       crazy          = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+      newChess1      = doc.getAsOpt[NewChess1.Data](F.newChess1)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     } yield Node(
       id,
@@ -186,6 +205,7 @@ object BSONHandlers {
       score,
       clock,
       crazy,
+      newChess1,
       Node.emptyChildren,
       forceVariation
     )
@@ -207,6 +227,7 @@ object BSONHandlers {
       score          -> n.score,
       clock          -> n.clock,
       crazy          -> n.crazyData,
+      newChess1      -> n.newChess1Data,
       forceVariation -> w.boolO(n.forceVariation),
       order -> {
         (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
@@ -231,6 +252,7 @@ object BSONHandlers {
         score = r.getO[Score](score),
         clock = r.getO[Centis](clock),
         crazyData = r.getO[Crazyhouse.Data](crazy),
+        newChess1Data = r.getO[NewChess1.Data](newChess1),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
@@ -246,7 +268,8 @@ object BSONHandlers {
           glyphs   -> r.glyphs.nonEmpty,
           score    -> r.score,
           clock    -> r.clock,
-          crazy    -> r.crazyData
+          crazy    -> r.crazyData,
+          newChess1-> r.newChess1Data
         )
       }
     )

@@ -14,6 +14,7 @@ sealed trait RootOrNode {
   val shapes: Shapes
   val clock: Option[Centis]
   val crazyData: Option[Crazyhouse.Data]
+  val newChess1Data: Option[NewChess1.Data]
   val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
@@ -39,6 +40,7 @@ case class Node(
     score: Option[Score] = None,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data],
     children: Node.Children,
     forceVariation: Boolean
 ) extends RootOrNode {
@@ -93,6 +95,7 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
+      newChess1Data = n.newChess1Data orElse newChess1Data,
       children = n.children.nodes.foldLeft(children) { case (cs, c) =>
         cs addNode c
       },
@@ -241,6 +244,7 @@ object Node {
       score: Option[Score] = None,
       clock: Option[Centis],
       crazyData: Option[Crazyhouse.Data],
+      newChess1Data: Option[NewChess1.Data],
       children: Children
   ) extends RootOrNode {
 
@@ -329,6 +333,7 @@ object Node {
         check = false,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+        newChess1Data = variant.newChess1 option NewChess1.Data.init,
         children = emptyChildren
       )
 
@@ -339,6 +344,7 @@ object Node {
         check = b.check,
         clock = b.clock,
         crazyData = b.crazyData,
+        newChess1Data = b.newChess1Data,
         children = Children(b.children.view.map(fromBranch).toVector)
       )
   }
@@ -351,6 +357,7 @@ object Node {
       fen = b.fen,
       check = b.check,
       crazyData = b.crazyData,
+      newChess1Data = b.newChess1Data,
       clock = b.clock,
       children = Children(b.children.view.map(fromBranch).toVector),
       forceVariation = false
@@ -369,6 +376,7 @@ object Node {
     val score          = "e"
     val clock          = "l"
     val crazy          = "z"
+    val newChess1      = "n1"
     val forceVariation = "fv"
     val order          = "o"
   }

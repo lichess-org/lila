@@ -194,7 +194,8 @@ final class JsonView(
             move = Uci.WithSan(move.toUci, game.pgnMoves.last),
             fen = chess.format.Forsyth >> game,
             check = game.situation.check,
-            crazyData = none
+            crazyData = none,
+            newChess1Data = none
           )
           (game, branch :: branches)
       }
