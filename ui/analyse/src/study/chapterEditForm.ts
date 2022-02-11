@@ -75,7 +75,8 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
-  const data = ctrl.current();
+  const data = ctrl.current(),
+    noarg = ctrl.trans.noarg;
   return data
     ? snabModal({
         class: 'edit-' + data.id, // full redraw when changing chapter
@@ -84,7 +85,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
           ctrl.redraw();
         },
         content: [
-          h('h2', ctrl.trans.noarg('editChapter')),
+          h('h2', noarg('editChapter')),
           h(
             'form.form3',
             {
@@ -104,7 +105,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   {
                     attrs: { for: 'chapter-name' },
                   },
-                  ctrl.trans.noarg('name')
+                  noarg('name')
                 ),
                 h('input#chapter-name.form-control', {
                   attrs: {
@@ -130,13 +131,13 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 hook: bind(
                   'click',
                   _ => {
-                    if (confirm(ctrl.trans.noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
+                    if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
                   },
                   ctrl.redraw
                 ),
-                attrs: { type: 'button' },
+                attrs: { type: 'button', title: noarg('clearAllCommentsInThisChapter') },
               },
-              ctrl.trans.noarg('clearAnnotations')
+              noarg('clearAnnotations')
             ),
             h(
               emptyRedButton,
@@ -144,13 +145,13 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 hook: bind(
                   'click',
                   _ => {
-                    if (confirm(ctrl.trans.noarg('deleteThisChapter'))) ctrl.delete(data.id);
+                    if (confirm(noarg('deleteThisChapter'))) ctrl.delete(data.id);
                   },
                   ctrl.redraw
                 ),
-                attrs: { type: 'button' },
+                attrs: { type: 'button', title: noarg('deleteThisChapter') },
               },
-              ctrl.trans.noarg('deleteChapter')
+              noarg('deleteChapter')
             ),
           ]),
         ],
