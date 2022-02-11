@@ -47,14 +47,17 @@ final class Lobby(
       }
     } map env.lilaCookie.ensure(ctx.req)
 
-  def homeLang(langS: String) =
+  def homeLang(langCode: String) =
     Open { ctx =>
       if (ctx.isAuth) redirectWithQueryString("/")(ctx.req).fuccess
       else
-        I18nLangPicker.byStr(langS).fold(notFound(ctx)) { lang =>
-          implicit val langCtx = ctx withLang lang
-          pageHit
-          serveHtmlHome
+        I18nLangPicker.byHref(langCode) match {
+          case I18nLangPicker.NotFound    => notFound(ctx)
+          case I18nLangPicker.Redir(code) => redirectWithQueryString(s"/$code")(ctx.req).fuccess
+          case I18nLangPicker.Found(lang) =>
+            implicit val langCtx = ctx withLang lang
+            pageHit
+            serveHtmlHome
         }
     }
 

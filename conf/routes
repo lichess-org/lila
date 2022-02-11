@@ -849,6 +849,6 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
-GET   /$lang<\w{2,3}>                  controllers.Lobby.homeLang(lang: String)
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)

@@ -190,7 +190,7 @@ object layout {
 
   private def hrefLangs(path: String)(implicit ctx: Context) = raw {
     hrefLang("x-default", path) + hrefLang("en", path) +
-      lila.i18n.LangList.popularAlternateLanguages.map { lang =>
+      lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
         hrefLang(lang, s"$lang$path")
       }.mkString
   }
