@@ -4,9 +4,11 @@
 .is2d .rook.white {background-image:url('/assets/piece/letter/wR.svg')}
 .is2d .queen.white {background-image:url('/assets/piece/letter/wQ.svg')}
 .is2d .king.white {background-image:url('/assets/piece/letter/wK.svg')}
+.is2d .doom.white {background-image:url('/assets/piece/letter/wD.svg')}
 .is2d .pawn.black {background-image:url('/assets/piece/letter/bP.svg')}
 .is2d .knight.black {background-image:url('/assets/piece/letter/bN.svg')}
 .is2d .bishop.black {background-image:url('/assets/piece/letter/bB.svg')}
 .is2d .rook.black {background-image:url('/assets/piece/letter/bR.svg')}
 .is2d .queen.black {background-image:url('/assets/piece/letter/bQ.svg')}
 .is2d .king.black {background-image:url('/assets/piece/letter/bK.svg')}
+.is2d .doom.black {background-image:url('/assets/piece/letter/bD.svg')}
