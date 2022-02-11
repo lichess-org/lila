@@ -2,6 +2,7 @@ package lila.tournament
 
 import akka.actor.{ ActorSystem, Props }
 import akka.stream.scaladsl._
+import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
 import play.api.libs.json._
 import java.nio.charset.StandardCharsets.UTF_8
@@ -286,8 +287,12 @@ final class TournamentApi(
         val fuResult: Fu[JoinResult] =
           if (
             prevPlayer.nonEmpty || tour.password.forall(p =>
+              // plain text access code
               MessageDigest
-                .isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
+                .isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8)) ||
+                // user-specific access code: HMAC-SHA256(access code, user id)
+                MessageDigest
+                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~password).getBytes(UTF_8))
             )
           )
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
