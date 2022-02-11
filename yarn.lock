@@ -1002,15 +1002,15 @@ chartjs-color@^2.1.0:
   version "0.10.2"
   resolved "https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249"
 
-chessground-newchess1-mod@^8.2.0-2:
-  version "8.2.0-2"
-  resolved "https://registry.yarnpkg.com/chessground-newchess1-mod/-/chessground-newchess1-mod-8.2.0-2.tgz#32612f52500a64fc10fb414a4973e4800b73721f"
-  integrity sha512-uJebF7H85F82ILbb3UM8qik2fc06lAbRr+W/RhFMrfpF9ittZXWCx1MOnSBhOzJ7v1uU19ubKhL2GBuEiPEeFw==
+chessground-newchess1-mod@^8.2.0-3:
+  version "8.2.0-3"
+  resolved "https://registry.yarnpkg.com/chessground-newchess1-mod/-/chessground-newchess1-mod-8.2.0-3.tgz#ac33a6f20d9bd3cae1078d77c4a407a1de412328"
+  integrity sha512-Vei4kK8v/KAuJVqnhJTohP8Z20RsIiHbE1YOB/AEgCwWQH/tjJGQgXKxU5wswEiZU0MFeVx+FtlGKWYZZgGx+Q==
 
-chessops-newchess1-mod@^0.10.5-1:
-  version "0.10.5-1"
-  resolved "https://registry.yarnpkg.com/chessops-newchess1-mod/-/chessops-newchess1-mod-0.10.5-1.tgz#b3b6e1fa70f78e434480ab6e007e52d65c0eacb8"
-  integrity sha512-iiYl2OXX9v+Snanq1/mxG1bqJPKIRs3s27q0N4KKLkqHcSzvCK2V/m6o334R78GJKh6bwy2C4cl+WwFtn6TZuw==
+chessops-newchess1-mod@^0.10.5-3:
+  version "0.10.5-3"
+  resolved "https://registry.yarnpkg.com/chessops-newchess1-mod/-/chessops-newchess1-mod-0.10.5-3.tgz#92d41d7835b49b07b8941b832c3f52c383df8b3f"
+  integrity sha512-yUGi0hEV0IOP1FG1EqHIRi0H1IFwrlo8RNxZqnhx0+JSA50IqO873gT6RVCRIluFJD/7UXhBt1TsYKsUFTag6g==
   dependencies:
     "@badrap/result" "^0.2"
 
