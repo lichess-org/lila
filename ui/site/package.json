@@ -14,7 +14,7 @@
     "@types/web": "=0.0.32",
     "@types/yaireo__tagify": "^4.7",
     "@types/zxcvbn": "^4.4.0",
-    "chessground-newchess1-mod": "^8.2.0-2",
+    "chessground-newchess1-mod": "^8.2.0-3",
     "rollup": "^2.56.2",
     "rollup-plugin-copy": "^3.3.0",
     "typescript": "^4.4.3"

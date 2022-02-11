@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/chess.js": "=0.10.1",
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground-newchess1-mod": "^8.2.0-2",
+    "chessground-newchess1-mod": "^8.2.0-3",
     "common": "2.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1"
   },

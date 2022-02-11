@@ -31,7 +31,7 @@
     "prod": "$npm_execpath run compile"
   },
   "dependencies": {
-    "chessground-newchess1-mod": "^8.2.0-2",
+    "chessground-newchess1-mod": "^8.2.0-3",
     "snabbdom": "^3.0.1"
   },
   "devDependencies": {
