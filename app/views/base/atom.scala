@@ -19,7 +19,7 @@ object atom {
       updated: Option[DateTime]
   )(elem: A => Frag) =
     frag(
-      raw("""<?xml version="1.0" encoding="UTF-8"?>"""),
+      raw("""<?xml version="1.0" encoding="utf-8"?>"""),
       raw(
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
