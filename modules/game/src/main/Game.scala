@@ -213,8 +213,8 @@ case class Game(
     }
 
     val events = moveOrDrop.fold(
-      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData, updated.board.newChess1Data),
+      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData, updated.board.newChess1Data)
     ) :: {
       // abstraction leak, I know.
       (updated.board.variant.threeCheck && game.situation.check) ?? List(
@@ -797,6 +797,7 @@ object Game {
     val analysed          = "an"
     val variant           = "v"
     val crazyData         = "chd"
+    val newChess1Data     = "n1d"
     val bookmarks         = "bm"
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)

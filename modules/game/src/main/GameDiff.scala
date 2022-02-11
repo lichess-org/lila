@@ -83,6 +83,12 @@ object GameDiff {
           _.board.crazyData,
           (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
         )
+      if (a.variant.newChess1)
+        dOpt(
+          newChess1Data,
+          _.board.newChess1Data,
+          (o: Option[chess.variant.NewChess1.Data]) => o map BSONHandlers.newChess1DataBSONHandler.write
+        )
     }
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)

@@ -1,21 +1,10 @@
 package lila.game
 
 import play.api.libs.json._
-
-import chess.variant.Crazyhouse
-import chess.{
-  Centis,
-  PromotableRole,
-  Pos,
-  Color,
-  Situation,
-  Move => ChessMove,
-  Drop => ChessDrop,
-  Clock => ChessClock,
-  Status
-}
+import chess.variant.{Crazyhouse, NewChess1}
+import chess.{Centis, Color, Pos, PromotableRole, Situation, Status, Clock => ChessClock, Drop => ChessDrop, Move => ChessMove}
 import JsonView._
-import lila.chat.{ PlayerLine, UserLine }
+import lila.chat.{PlayerLine, UserLine}
 import lila.common.ApiVersion
 import lila.common.Json._
 
@@ -49,8 +38,9 @@ object Event {
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
         possibleDrops: Option[List[Pos]],
-        crazyData: Option[Crazyhouse.Data]
-    )(extra: JsObject) = {
+        crazyData: Option[Crazyhouse.Data],
+        newChess1Data: Option[NewChess1.Data]
+    )(extra: JsObject): JsObject = {
       extra ++ Json
         .obj(
           "fen"   -> fen,
@@ -65,6 +55,7 @@ object Event {
         .add("wDraw" -> state.whiteOffersDraw)
         .add("bDraw" -> state.blackOffersDraw)
         .add("crazyhouse" -> crazyData)
+        .add("newсhess1" -> newChess1Data)
         .add("drops" -> possibleDrops.map { squares =>
           JsString(squares.map(_.key).mkString)
         })
@@ -85,11 +76,12 @@ object Event {
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data]
+      crazyData: Option[Crazyhouse.Data],
+      newChess1Data: Option[NewChess1.Data]
   ) extends Event {
     def typ = "move"
     def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData, newChess1Data) {
         Json
           .obj(
             "uci" -> s"${orig.key}${dest.key}",
@@ -107,7 +99,8 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Crazyhouse.Data]
+        crazyData: Option[Crazyhouse.Data],
+        newChess1Data: Option[NewChess1.Data]
     ): Move =
       Move(
         orig = move.orig,
@@ -127,7 +120,8 @@ object Event {
         clock = clock,
         possibleMoves = situation.destinations,
         possibleDrops = situation.drops,
-        crazyData = crazyData
+        crazyData = crazyData,
+        newChess1Data = newChess1Data
       )
   }
 
@@ -142,11 +136,12 @@ object Event {
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       crazyData: Option[Crazyhouse.Data],
+      newChess1Data: Option[NewChess1.Data],
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
     def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData, newChess1Data) {
         Json.obj(
           "role" -> role.name,
           "uci"  -> s"${role.pgn}@${pos.key}",
@@ -161,7 +156,8 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Crazyhouse.Data]
+        crazyData: Option[Crazyhouse.Data],
+        newChess1Data: Option[NewChess1.Data]
     ): Drop =
       Drop(
         role = drop.piece.role,
@@ -174,7 +170,8 @@ object Event {
         clock = clock,
         possibleMoves = situation.destinations,
         possibleDrops = situation.drops,
-        crazyData = crazyData
+        crazyData = crazyData,
+        newChess1Data = newChess1Data
       )
   }
 
