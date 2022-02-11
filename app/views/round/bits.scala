@@ -1,14 +1,14 @@
 package views.html
 package round
 
-import chess.variant.{ Crazyhouse, Variant }
+import chess.variant.{Crazyhouse, NewChess1, Variant}
 import controllers.routes
-import scala.util.chaining._
 
+import scala.util.chaining._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Pov }
+import lila.game.{Game, Pov}
 
 object bits {
 
@@ -27,7 +27,7 @@ object bits {
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag { if (variant == Crazyhouse) "round.zh" else "round" },
+        cssTag { if (variant == Crazyhouse || variant == NewChess1) "round.zh" else "round" },
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
