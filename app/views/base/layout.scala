@@ -185,10 +185,14 @@ object layout {
       ctx.pageData.inquiry.isDefined option jsModule("inquiry")
     )
 
+  private def hrefLang(lang: String, path: String) =
+    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl/$path"/>"""
+
   private def hrefLangs(path: String)(implicit ctx: Context) = raw {
-    lila.i18n.LangList.twentyPopularCodesDisambiguated map { code =>
-      s"""<link rel="alternate" hreflang="${code}" href="/$code$path"/>"""
-    } mkString ""
+    hrefLang("x-default", path) + hrefLang("en", path) +
+      lila.i18n.LangList.popularAlternateLanguages.map { lang =>
+        hrefLang(lang, s"$lang$path")
+      }.mkString
   }
 
   private val spinnerMask = raw(
