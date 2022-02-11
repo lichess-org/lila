@@ -91,7 +91,7 @@ function view(opts: Opts, coords: Coords): VNode {
       .concat([onMainline ? action('', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) : null])
       .concat([
         !ctrl.study && hasPriorSidelines
-          ? action('', 'Delete all previous sidelines', () => ctrl.deleteAllSidelines(opts.path))
+          ? action('', trans('deleteAllSidelines'), () => ctrl.deleteAllSidelines(opts.path))
           : null,
       ])
   );
