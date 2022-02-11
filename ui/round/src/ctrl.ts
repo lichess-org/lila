@@ -186,7 +186,7 @@ export default class RoundController {
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && (crazyValid(this.data, role, key) || newChess1Valid(this.data, role, key))) {
+    if (!this.replaying() && (this.data.crazyhouse ? crazyValid(this.data, role, key) : this.data.newChess1 ? newChess1Valid(this.data, role, key) : false)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
