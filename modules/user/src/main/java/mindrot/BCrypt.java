@@ -20,6 +20,7 @@ package org.mindrot;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
@@ -768,21 +769,8 @@ public final class BCrypt {
    * @return  true if the passwords match, false otherwise
    */
   public static boolean checkpw(String plaintext, String hashed) {
-    byte[] hashed_bytes;
-    byte[] try_bytes;
-    String try_pw = hashpw(plaintext, hashed);
-    hashed_bytes = hashed.getBytes(StandardCharsets.UTF_8);
-    try_bytes = try_pw.getBytes(StandardCharsets.UTF_8);
-    return bytesEqualSecure(try_bytes, hashed_bytes);
-  }
-
-  public static boolean bytesEqualSecure(byte[] a1, byte[] a2) {
-    int len = a1.length;
-    if (len != a2.length) return false;
-
-    byte ret = 0;
-    for (int i = 0; i < len; i++)
-      ret |= a1[i] ^ a2[i];
-    return ret == 0;
+    return MessageDigest.isEqual(
+      hashed.getBytes(StandardCharsets.UTF_8),
+      hashpw(plaintext, hashed).getBytes(StandardCharsets.UTF_8));
   }
 }

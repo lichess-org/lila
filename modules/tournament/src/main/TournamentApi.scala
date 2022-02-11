@@ -4,6 +4,8 @@ import akka.actor.{ ActorSystem, Props }
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import play.api.libs.json._
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.chaining._
@@ -282,9 +284,12 @@ final class TournamentApi(
       playerRepo.find(tour.id, me.id) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (prevPlayer.isEmpty && tour.password.exists(p => !password.has(p)))
-            fuccess(JoinResult.WrongEntryCode)
-          else
+          if (
+            prevPlayer.nonEmpty || tour.password.forall(p =>
+              MessageDigest
+                .isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
+            )
+          )
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
@@ -308,6 +313,8 @@ final class TournamentApi(
                 }
               }
             }
+          else
+            fuccess(JoinResult.WrongEntryCode)
         fuResult map { result =>
           if (result.ok)
             withTeamId.ifTrue(asLeader && tour.isTeamBattle) foreach {
