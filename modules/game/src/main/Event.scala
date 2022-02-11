@@ -55,7 +55,7 @@ object Event {
         .add("wDraw" -> state.whiteOffersDraw)
         .add("bDraw" -> state.blackOffersDraw)
         .add("crazyhouse" -> crazyData)
-        .add("newсhess1" -> newChess1Data)
+        .add("newChess1" -> newChess1Data)
         .add("drops" -> possibleDrops.map { squares =>
           JsString(squares.map(_.key).mkString)
         })
