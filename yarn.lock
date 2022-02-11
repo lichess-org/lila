@@ -1007,10 +1007,10 @@ chessground-newchess1-mod@^8.2.0-3:
   resolved "https://registry.yarnpkg.com/chessground-newchess1-mod/-/chessground-newchess1-mod-8.2.0-3.tgz#ac33a6f20d9bd3cae1078d77c4a407a1de412328"
   integrity sha512-Vei4kK8v/KAuJVqnhJTohP8Z20RsIiHbE1YOB/AEgCwWQH/tjJGQgXKxU5wswEiZU0MFeVx+FtlGKWYZZgGx+Q==
 
-chessops-newchess1-mod@^0.10.5-3:
-  version "0.10.5-3"
-  resolved "https://registry.yarnpkg.com/chessops-newchess1-mod/-/chessops-newchess1-mod-0.10.5-3.tgz#92d41d7835b49b07b8941b832c3f52c383df8b3f"
-  integrity sha512-yUGi0hEV0IOP1FG1EqHIRi0H1IFwrlo8RNxZqnhx0+JSA50IqO873gT6RVCRIluFJD/7UXhBt1TsYKsUFTag6g==
+chessops-newchess1-mod@^0.10.5-4:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/chessops-newchess1-mod/-/chessops-newchess1-mod-0.10.5.tgz#685134488d16fd4a5a28cb141f7be34ce965aee7"
+  integrity sha512-koUv9Oxz31b3XE0BcDAEBBpkOGDzdyxYwfJMamL4wWFdItSyOhom1BdSmO2wwQIfcQyHQF/wV/U4yzl6dj/xCg==
   dependencies:
     "@badrap/result" "^0.2"
 
