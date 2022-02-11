@@ -21,4 +21,11 @@ package object i18n extends PackageObject {
 
   val enLang      = Lang("en", "GB")
   val defaultLang = enLang
+
+  // ffs
+  def fixJavaLanguageCode(lang: Lang) = {
+    val code = lang.language
+    if (code == "in") "id"
+    else code
+  }
 }
