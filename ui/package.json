@@ -21,6 +21,6 @@
     "gulp-sass-inheritance": "^1.1",
     "gulp-size": "^4.0.1",
     "gulp-sourcemaps": "^3.0.0",
-    "node-sass": "^6"
+    "node-sass": "^7"
   }
 }
