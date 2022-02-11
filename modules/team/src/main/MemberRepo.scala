@@ -14,7 +14,7 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
   def userIdsByTeam(teamId: Team.ID): Fu[List[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, List]("user", $doc("team" -> teamId))
 
-  def removeByteam(teamId: Team.ID): Funit =
+  def removeByTeam(teamId: Team.ID): Funit =
     coll.delete.one(teamQuery(teamId)).void
 
   def removeByUser(userId: User.ID): Funit =

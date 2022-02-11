@@ -305,7 +305,7 @@ final class TeamApi(
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
     teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByteam(team.id) >>-
+      memberRepo.removeByTeam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
   def syncBelongsTo(teamId: Team.ID, userId: User.ID): Boolean =
