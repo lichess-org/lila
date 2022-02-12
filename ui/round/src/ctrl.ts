@@ -763,7 +763,6 @@ export default class RoundController {
         this.setTitle();
 
         if (d.crazyhouse) crazyInit(this);
-        console.log(d.newChess1);
         if (d.newChess1) newChess1Init(this);
 
         window.addEventListener('beforeunload', e => {
