@@ -27,8 +27,8 @@ object mini {
     val isLive = game.isBeingPlayed
     val tag    = if (withLink) a else span
     tag(
-      href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
+      href     := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
@@ -76,7 +76,7 @@ object mini {
   private def renderClock(clock: chess.Clock, color: chess.Color) = {
     val s = clock.remainingTime(color).roundSeconds
     span(
-      cls := s"mini-game__clock mini-game__clock--${color.name}",
+      cls      := s"mini-game__clock mini-game__clock--${color.name}",
       dataTime := s
     )(
       f"${s / 60}:${s % 60}%02d"

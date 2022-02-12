@@ -23,7 +23,7 @@ object embed {
       title = s"${s.name} ${chapter.name}",
       cssModule = "analyse.embed"
     )(
-      div(cls := "is2d")(
+      div(cls    := "is2d")(
         main(cls := "analyse")
       ),
       footer {
@@ -40,10 +40,10 @@ object embed {
           ),
           a(
             targetBlank,
-            cls := "open",
+            cls      := "open",
             dataIcon := "",
-            href := url,
-            title := trans.study.open.txt()
+            href     := url,
+            title    := trans.study.open.txt()
           )
         )
       },
@@ -53,14 +53,14 @@ object embed {
       analyseTag,
       embedJsUnsafeLoadThen(
         s"""analyseEmbed(${safeJsonValue(
-          Json.obj(
-            "study"  -> data.study,
-            "data"   -> data.analysis,
-            "embed"  -> true,
-            "i18n"   -> views.html.board.userAnalysisI18n(),
-            "userId" -> none[String]
-          )
-        )});
+            Json.obj(
+              "study"  -> data.study,
+              "data"   -> data.analysis,
+              "embed"  -> true,
+              "i18n"   -> views.html.board.userAnalysisI18n(),
+              "userId" -> none[String]
+            )
+          )});
 document.getElementById('chapter-selector').onchange = function() {
   location.href = this.value + location.search;
 }""",

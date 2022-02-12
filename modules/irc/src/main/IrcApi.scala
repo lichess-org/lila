@@ -35,12 +35,12 @@ final class IrcApi(
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
             s"${markdown.userLink(mod.user.username)} :monkahmm: is looking at a $room report about **${markdown
-              .userLink(user.username)}**"
+                .userLink(user.username)}**"
           )
         case Some(note) =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
             s"${markdown.modLink(mod.user)} :pepenote: **${markdown
-              .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
+                .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
       }
@@ -51,7 +51,7 @@ final class IrcApi(
             s"$domain discussion: $ZulipLink",
             mod.user,
             modOnly = true,
-            dox = (domain == ModDomain.Admin)
+            dox = domain == ModDomain.Admin
           )
         }
       }
@@ -119,15 +119,15 @@ final class IrcApi(
   ): Funit =
     zulip(_.blog, "non-tiered new posts")(
       s":note: ${markdown
-        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} $intro - by ${markdown
-        .userLink(user)}"
+          .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} $intro - by ${markdown
+          .userLink(user)}"
     )
 
   def userAppeal(user: User, mod: Holder): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
-          .lichessLink(s"/appeal/${user.username}", user.username)}**"
+            .lichessLink(s"/appeal/${user.username}", user.username)}**"
       )
       .flatMap {
         _ ?? { zulipAppealConv =>

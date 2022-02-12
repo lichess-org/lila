@@ -4,7 +4,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
+import lila.coach.{ Coach => CoachModel, CoachPager, CoachProfileForm }
 import views._
 import lila.user.Countries
 

@@ -11,7 +11,7 @@ import lila.app._
 import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
-import lila.tournament.{ TournamentForm, VisibleTournaments, Tournament => Tour }
+import lila.tournament.{ Tournament => Tour, TournamentForm, VisibleTournaments }
 import lila.user.{ User => UserModel }
 
 final class Tournament(
@@ -457,8 +457,8 @@ final class Tournament(
                   val form = lila.tournament.TeamBattle.DataForm.edit(
                     teams.map { t =>
                       s"""${t.id} "${t.name}" by ${env.user.lightUserApi
-                        .sync(t.createdBy)
-                        .fold(t.createdBy)(_.name)}"""
+                          .sync(t.createdBy)
+                          .fold(t.createdBy)(_.name)}"""
                     },
                     battle.nbLeaders
                   )

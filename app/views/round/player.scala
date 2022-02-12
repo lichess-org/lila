@@ -50,15 +50,15 @@ object player {
         roundNvuiTag,
         roundTag,
         embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(pov.game),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("noab" -> ctx.me.exists(_.marks.engine))
-        )})""")
+            Json
+              .obj(
+                "data"   -> data,
+                "i18n"   -> jsI18n(pov.game),
+                "userId" -> ctx.userId,
+                "chat"   -> chatJson
+              )
+              .add("noab" -> ctx.me.exists(_.marks.engine))
+          )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,

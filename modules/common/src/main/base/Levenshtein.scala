@@ -8,7 +8,7 @@ object Levenshtein {
       val dd = b.length - a.length
       val t  = (threshold - 1) >> 1
       def rowRange(j: Int) = {
-        //j - i == dd
+        // j - i == dd
         val i = j - dd
         ((i - (threshold - 1)) max 0) until (1 + ((i + t) min a.length))
       }

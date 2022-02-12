@@ -25,7 +25,7 @@ private object bits {
     div(cls := "fen_position optional_config")(
       frag(
         div(
-          cls := "fen_form",
+          cls             := "fen_form",
           dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
         )(
           form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
@@ -73,14 +73,14 @@ private object bits {
       options.map { case (key, name, hint) =>
         div(
           input(
-            tpe := "radio",
-            id := s"$prefix${field.id}_$key",
+            tpe     := "radio",
+            id      := s"$prefix${field.id}_$key",
             st.name := field.name,
-            value := key,
+            value   := key,
             field.value.has(key) option checked
           ),
           label(
-            cls := "required",
+            cls   := "required",
             title := hint,
             `for` := s"$prefix${field.id}_$key"
           )(name)
@@ -93,7 +93,7 @@ private object bits {
 
   def renderDissociatedRange(field: Field) =
     frag(
-      renderInput(field)(cls := "range-value"),
+      renderInput(field)(cls                                    := "range-value"),
       input(name := s"${field.name}_range", tpe := "range")(cls := "range")
     )
 

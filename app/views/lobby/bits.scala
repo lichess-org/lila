@@ -91,9 +91,9 @@ object bits {
       lichess map { post =>
         a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
           img(
-            src := post.image,
-            cls := "ublog-post-card__image",
-            widthA := UblogPost.thumbnail.Small.width,
+            src     := post.image,
+            cls     := "ublog-post-card__image",
+            widthA  := UblogPost.thumbnail.Small.width,
             heightA := UblogPost.thumbnail.Small.height
           ),
           span(cls := "ublog-post-card__content")(
