@@ -225,7 +225,7 @@ object BinaryFormat {
     def read(ba: ByteArray, variant: Variant): PieceMap = {
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 15, variant) map { role =>
-          Piece(Color.fromWhite((int & 8) == 0), role)
+          Piece(Color.fromWhite((int & 16) == 0), role)
         }
       val pieceInts = ba.value
       (Pos.all zip pieceInts).view
