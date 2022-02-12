@@ -182,6 +182,7 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
+    NewChess1,
     // todo: turn me on!
 //    Correspondence,
 //    Standard,
@@ -202,7 +203,7 @@ object PerfType {
     (p.id, p)
   } toMap
 
-  val default = Standard
+  val default = NewChess1
 
   def apply(key: Perf.Key): Option[PerfType] = byKey get key
   def orDefault(key: Perf.Key): PerfType     = apply(key) | default
