@@ -724,7 +724,6 @@
   <string name="currentMatchScore">สกอร์เกมปัจจุบัน</string>
   <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
-  <string name="agreementAccount">ฉันยอมรับว่า ฉันจะไม่สร้างหลายบัญชี</string>
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
