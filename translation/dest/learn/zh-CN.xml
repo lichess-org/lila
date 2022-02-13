@@ -6,7 +6,7 @@
   <string name="progressX">进度：%s</string>
   <string name="resetMyProgress">重置我的进度</string>
   <string name="youWillLoseAllYourProgress">您的进度将被清空！</string>
-  <string name="play">玩吧！</string>
+  <string name="play">开始玩！</string>
   <string name="chessPieces">棋子</string>
   <string name="theRook">车</string>
   <string name="itMovesInStraightLines">它以直线移动</string>
@@ -25,8 +25,8 @@
 一只黑格象，
 两个您都需要！</string>
   <string name="bishopComplete">恭喜！您会控制象了。</string>
-  <string name="theQueen">王后</string>
-  <string name="queenCombinesRookAndBishop">王后＝车＋象</string>
+  <string name="theQueen">后</string>
+  <string name="queenCombinesRookAndBishop">后＝车＋象</string>
   <string name="queenIntro">最强大的棋子现已入场——王后陛下！</string>
   <string name="queenComplete">恭喜！王后已向您倾吐一切秘密。</string>
   <string name="theKing">王</string>
@@ -196,7 +196,6 @@
   <string name="nailedIt">正确！</string>
   <string name="rightOn">好极了！</string>
   <string name="stageXComplete">阶段%s完成</string>
-  <string name="yourScore">您的分数</string>
   <string name="next">下一个</string>
   <string name="backToMenu">返回菜单</string>
   <string name="puzzleFailed">解题失败!</string>
