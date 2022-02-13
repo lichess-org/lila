@@ -76,7 +76,7 @@ Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufga
     <item quantity="one">%s gschpillt</item>
     <item quantity="other">%s gschpillt</item>
   </plurals>
-  <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
+  <plurals name="nbToReplay">
     <item quantity="one">%s widerhole</item>
     <item quantity="other">%s widerhole</item>
   </plurals>
