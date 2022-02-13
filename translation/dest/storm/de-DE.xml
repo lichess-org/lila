@@ -22,7 +22,7 @@
   <string name="score">Punktestand</string>
   <string name="moves">Züge</string>
   <string name="accuracy">Genauigkeit</string>
-  <string name="combo">Erfolgsserie</string>
+  <string name="combo">Combo</string>
   <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
   <string name="highestSolved">Schwierigste gelöste Aufgabe</string>
@@ -52,10 +52,10 @@
   <string name="skipExplanation">Überspringe diesen Zug, um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
   <string name="failedPuzzles">Fehlgeschlagene Aufgaben</string>
   <string name="slowPuzzles">Langsame Aufgaben</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Diese Woche</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Dieser Monat</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Insgesamt</string>
+  <string name="thisWeek">Diese Woche</string>
+  <string name="thisMonth">Dieser Monat</string>
+  <string name="allTime">Insgesamt</string>
   <string name="clickToReload">Klicke, um neu zu laden</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Dieser Durchgang ist abgelaufen!</string>
+  <string name="thisRunHasExpired">Dieser Durchgang ist abgelaufen!</string>
   <string name="thisRunWasOpenedInAnotherTab">Dieser Durchgang wurde in einem anderen Fenster geöffnet!</string>
 </resources>
