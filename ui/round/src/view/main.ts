@@ -48,10 +48,12 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
-        newChess1View(ctrl, topColor, 'top') || materialDiffs[0],
+        ctrl.data.newChess1 ? materialDiffs[0] : null,
+        newChess1View(ctrl, topColor, 'top'),
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
-        newChess1View(ctrl, bottomColor, 'bottom') || materialDiffs[1],
+        ctrl.data.newChess1 ? materialDiffs[1] : null,
+        newChess1View(ctrl, bottomColor, 'bottom'),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
       ]);
