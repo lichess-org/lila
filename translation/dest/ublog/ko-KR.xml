@@ -11,9 +11,15 @@
   <plurals name="nbViews">
     <item quantity="other">조회수 %s</item>
   </plurals>
+  <string name="thisIsADraft">임시저장입니다</string>
   <string name="moreBlogPostsBy">더 많은 %s의 글</string>
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
   <string name="noDrafts">임시저장된 글이 없습니다.</string>
+  <string name="latestBlogPosts">최근 블로그 글</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">총 %s개 글 보기</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">글에 이미지를 업로드</string>
   <string name="imageAlt">이미지 대체 텍스트</string>
   <string name="imageCredit">이미지 저작권</string>
 </resources>
