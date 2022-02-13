@@ -82,6 +82,7 @@
   <string name="quietMove">حرکت طبیعی</string>
   <string name="quietMoveDescription">حرکتی که نه کیش ایجاد می کند و نه مهره ای را می گیرد و نه تهدید فوری را در پی دارد اما یک تهدید غیر قابل پیشگیری را در حرکات بعد به همراه دارد.</string>
   <string name="rookEndgame">آخربازی رخ</string>
+  <string name="rookEndgameDescription">یک آخر بازی تنها با رخ ها و پیاده ها.</string>
   <string name="sacrifice">قربانی</string>
   <string name="short">معمای کوتاه</string>
   <string name="shortDescription">دو حرکت تا پیروزی.</string>
@@ -89,6 +90,7 @@
   <string name="smotheredMate">مات مختنق</string>
   <string name="superGM">بازی سوپر استاد بزرگ</string>
   <string name="superGMDescription">پازل هایی از بازی های بهترین بازیکنان جهان.</string>
+  <string name="trappedPiece">مهره به‌دام‌افتاده</string>
   <string name="trappedPieceDescription">یک مهره قادر به فرار کردن از زده شدن نیست چون حرکات محدودی دارد.</string>
   <string name="underPromotion">ارتقا به غیر از وزیر</string>
   <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
