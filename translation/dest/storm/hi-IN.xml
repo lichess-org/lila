@@ -45,7 +45,7 @@
   <string name="skip">छोड़ें</string>
   <string name="skipHelp">आप प्रति रेस एक चाल को छोड़ सकते हैं:</string>
   <string name="skipExplanation">अपने कॉम्बो को संरक्षित करने के लिए इस कदम को छोड़ दें! केवल एक बार रेस के अनुसार काम करता है।</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">इस सप्ताह</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">इस महीने</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">सब समय</string>
+  <string name="thisWeek">इस सप्ताह</string>
+  <string name="thisMonth">इस महीने</string>
+  <string name="allTime">सब समय</string>
 </resources>
