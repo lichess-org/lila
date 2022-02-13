@@ -795,7 +795,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="currentMatchScore">Gjeldande kampscore</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
-  <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg er innforstått med at eg ikkje kan oppretta fleire kontoar, så sant årsakene ikkje fell inn under %s.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
