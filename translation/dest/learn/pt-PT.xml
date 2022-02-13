@@ -233,8 +233,8 @@ em dois movimentos!</string>
   <string name="nailedIt">Acertaste em cheio.</string>
   <string name="rightOn">Assim mesmo!</string>
   <string name="stageXComplete">Fase %s completa</string>
-  <string name="yourScore">A tua pontuação</string>
   <string name="next">Seguinte</string>
+  <string name="nextX">Próximo: %s</string>
   <string name="backToMenu">Voltar ao menu</string>
   <string name="puzzleFailed">Exercício falhado!</string>
   <string name="retry">Tentar novamente</string>
