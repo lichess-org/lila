@@ -186,8 +186,8 @@
   <string name="nailedIt">אין אפס.</string>
   <string name="rightOn">המשך כך!</string>
   <string name="stageXComplete">הושלם שלב %s</string>
-  <string name="yourScore">התוצאה שלך</string>
   <string name="next">עבור לפרק הבא</string>
+  <string name="nextX">הבא %s</string>
   <string name="backToMenu">חזור לתפריט</string>
   <string name="puzzleFailed">נכשלת בתרגיל!</string>
   <string name="retry">נסה שוב</string>
