@@ -152,8 +152,8 @@
   <string name="nextChapter">Bab selanjutnya</string>
   <string name="prevChapter">Bab sebelumnya</string>
   <string name="studyActions">Pembelajaran</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Topik</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Topik populer</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Kembali</string>
+  <string name="topics">Topik</string>
+  <string name="popularTopics">Topik populer</string>
+  <string name="back">Kembali</string>
   <string name="playAgain">Main lagi</string>
 </resources>
