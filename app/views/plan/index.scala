@@ -224,7 +224,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         a(cls := "stripe")("Apple Pay")
                       )
                     ),
-                    form(cls := "currency none", action := routes.Plan.index)(
+                    form(cls := "currency none", action := routes.Plan.list)(
                       select(name := "currency")(
                         lila.plan.CurrencyApi.currencyList.map { cur =>
                           option(
