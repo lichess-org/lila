@@ -18,6 +18,8 @@
   <string name="rule1">Личестің стримін жүргізгенде, \"lichess.org\" кілтсөзін стрим тақырыбына қосып, \"Chess\" санатын таңдаңыз.</string>
   <string name="rule2">Личестен басқа нәрсенің стримін жүргізсеңіз, кілтсөзді алып тастаңыз.</string>
   <string name="rule3">Личес стриміңізді автоматты түрде анықтап, келесі жеңілдіктерге жол ашады:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Стрим кезінде бәрі бірдей әділ ойнау үшін біздің %s оқыңыз.</string>
+  <string name="streamingFairplayFAQ">стримнің Әділ ойын ЖҚС-н</string>
   <string name="perks">Стримді кілтсөзбен жүргізудің артықшылығы</string>
   <string name="perk1">Личес куәлігіңізде жалынды стример таңбашасы шығады.</string>
   <string name="perk2">Стримерлер тізімінің төбесіне шығасыз.</string>
