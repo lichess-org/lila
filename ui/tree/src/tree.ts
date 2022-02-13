@@ -21,7 +21,6 @@ export interface TreeWrapper {
   setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
   pathIsMainline(path: Tree.Path): boolean;
   pathIsForcedVariation(path: Tree.Path): boolean;
-  pathHasBranching(path: Tree.Path): boolean;
   lastMainlineNode(path: Tree.Path): Tree.Node;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
@@ -31,7 +30,6 @@ export interface TreeWrapper {
   merge(tree: Tree.Node): void;
   removeCeval(): void;
   removeComputerVariations(): void;
-  deleteAllSidelines(path: Tree.Path): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
 }
@@ -95,10 +93,6 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function pathIsForcedVariation(path: Tree.Path): boolean {
     return !!getNodeList(path).find(n => n.forceVariation);
-  }
-
-  function pathHasBranching(path: Tree.Path): boolean {
-    return !!getNodeList(path).find(n => !!n.children[1]);
   }
 
   function lastMainlineNodeFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
@@ -193,13 +187,6 @@ export function build(root: Tree.Node): TreeWrapper {
     });
   }
 
-  function deleteAllSidelines(path: Tree.Path) {
-    if (!pathIsMainline(path)) return;
-    getNodeList(path).forEach(node => {
-      node.children = node.children.slice(0, 1);
-    });
-  }
-
   function setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path) {
     return updateAt(path, function (node) {
       node.glyphs = glyphs;
@@ -251,8 +238,6 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     pathIsMainline,
     pathIsForcedVariation,
-    pathHasBranching,
-    deleteAllSidelines,
     lastMainlineNode(path: Tree.Path): Tree.Node {
       return lastMainlineNodeFrom(root, path);
     },

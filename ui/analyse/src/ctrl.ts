@@ -567,13 +567,6 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
-  deleteAllSidelines(path: Tree.Path): void {
-    if (this.study) return; // not implemented for studies yet
-    if (!confirm('Are you sure you want to delete all sidelines prior to the selected move?')) return;
-    this.tree.deleteAllSidelines(path);
-    if (!this.tree.pathExists(this.path)) this.jump(path);
-  }
-
   promote(path: Tree.Path, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);

@@ -68,7 +68,6 @@ function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    hasPriorSidelines = onMainline && ctrl.tree.pathHasBranching(opts.path),
     trans = ctrl.trans.noarg;
   return h(
     'div#' + elementId + '.visible',
@@ -89,11 +88,6 @@ function view(opts: Opts, coords: Coords): VNode {
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
       .concat([onMainline ? action('', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) : null])
-      .concat([
-        !ctrl.study && hasPriorSidelines
-          ? action('', trans('deleteAllSidelines'), () => ctrl.deleteAllSidelines(opts.path))
-          : null,
-      ])
   );
 }
 
