@@ -219,7 +219,6 @@
   <string name="nailedIt">കലക്കിട്ടുണ്ട് ട്ടോ.</string>
   <string name="rightOn">അങ്ങനെതന്നെ!</string>
   <string name="stageXComplete">%s സ്റ്റേജ് പൂർത്തിയാക്കിയിരുന്നു</string>
-  <string name="yourScore">നിങ്ങളുടെ സ്കോർ</string>
   <string name="next">അടുത്തത്</string>
   <string name="backToMenu">മെനുവിലേക്ക് തിരിച്ചു പോകുക</string>
   <string name="puzzleFailed">Puzzle തെറ്റിപ്പോയല്ലോ!</string>
