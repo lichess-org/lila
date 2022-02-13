@@ -150,4 +150,12 @@
   <string name="nextChapter">Chương tiếp theo</string>
   <string name="prevChapter">Chương trước</string>
   <string name="studyActions">Các thao tác nghiên cứu</string>
+  <string name="topics">Chủ đề</string>
+  <string name="myTopics">Chủ đề của tôi</string>
+  <string name="popularTopics">Chủ đề phổ biến</string>
+  <string name="manageTopics">Quản lý Chủ đề</string>
+  <string name="back">Trở lại</string>
+  <string name="playAgain">Chơi lại</string>
+  <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
+  <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
 </resources>
