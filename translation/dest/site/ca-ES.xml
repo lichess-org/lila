@@ -459,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Una URL per línia.</string>
+  <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importat per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -794,7 +795,7 @@
   <string name="currentMatchScore">Valoració actual de partides</string>
   <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
-  <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estic d\'acord en no crear múltiples comptes (excepte per les raons detallades als %s).</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
