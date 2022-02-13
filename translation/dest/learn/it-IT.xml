@@ -230,8 +230,8 @@ in due mosse!</string>
   <string name="nailedIt">Azzeccato.</string>
   <string name="rightOn">Giusto!</string>
   <string name="stageXComplete">Fase %s completata</string>
-  <string name="yourScore">Il tuo punteggio</string>
   <string name="next">Successivo</string>
+  <string name="nextX">Successivo: %s</string>
   <string name="backToMenu">Torna al menù</string>
   <string name="puzzleFailed">Puzzle sbagliato!</string>
   <string name="retry">Riprova</string>
