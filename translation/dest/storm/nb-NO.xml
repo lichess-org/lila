@@ -52,10 +52,10 @@
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Funker bare én gang for hvert løp.</string>
   <string name="failedPuzzles">Mislykkede sjakknøtter</string>
   <string name="slowPuzzles">Trege sjakknøtter</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Denne uken</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Denne måneden</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Noensinne</string>
+  <string name="thisWeek">Denne uken</string>
+  <string name="thisMonth">Denne måneden</string>
+  <string name="allTime">Noensinne</string>
   <string name="clickToReload">Klikk for å laste inn på nytt</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Denne runden er utløpt!</string>
+  <string name="thisRunHasExpired">Denne runden er utløpt!</string>
   <string name="thisRunWasOpenedInAnotherTab">Denne runden ble åpnet i en annen fane!</string>
 </resources>
