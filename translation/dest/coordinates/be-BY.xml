@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Каардынаты</string>
-  <string name="coordinateTraining">Трэніроўка па каардынатах</string>
+  <string name="coordinateTraining">Трэніроўка каардынат</string>
   <string name="averageScoreAsWhiteX">Сярэдні вынік за белых: %s</string>
   <string name="averageScoreAsBlackX">Сярэдні вынік за чорных: %s</string>
   <string name="knowingTheChessBoard">Ведаць каардынаты шахматнай дошкі - вельмі важны шахматны навык:</string>
