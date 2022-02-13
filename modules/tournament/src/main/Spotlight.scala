@@ -18,7 +18,10 @@ object Spotlight {
   implicit private val importanceOrdering = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
 
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
-    user.fold(tours topN max) { select(tours, _, max) }
+    user.fold(select(tours, max)) { select(tours, _, max) }
+
+  def select(tours: List[Tournament], max: Int): List[Tournament] = 
+    tours filter { tour => tour.spotlight.fold(true) { manually(tour, _) } } topN max
 
   def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
     tours.filter { select(_, user) } topN max
