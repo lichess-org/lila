@@ -152,11 +152,11 @@
   <string name="nextChapter">다음 챕터</string>
   <string name="prevChapter">이전 챕터</string>
   <string name="studyActions">연구 옵션</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">주제</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">내 주제</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">인기 주제</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">주제 관리</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">뒤로</string>
+  <string name="topics">주제</string>
+  <string name="myTopics">내 주제</string>
+  <string name="popularTopics">인기 주제</string>
+  <string name="manageTopics">주제 관리</string>
+  <string name="back">뒤로</string>
   <string name="playAgain">다시 플레이</string>
   <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
   <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
