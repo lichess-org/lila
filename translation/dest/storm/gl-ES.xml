@@ -52,10 +52,10 @@
   <string name="skipExplanation">Omite este movemento para conservar o teu combo. Só funciona unha vez por corrida.</string>
   <string name="failedPuzzles">Problemas errados</string>
   <string name="slowPuzzles">Problemas lentos</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Esta semana</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Este mes</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Todo</string>
+  <string name="thisWeek">Esta semana</string>
+  <string name="thisMonth">Este mes</string>
+  <string name="allTime">Todo</string>
   <string name="clickToReload">Toca para recargar</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Esta ronda rematou!</string>
+  <string name="thisRunHasExpired">Esta ronda rematou!</string>
   <string name="thisRunWasOpenedInAnotherTab">Esta ronda foi aberta noutra pestaña!</string>
 </resources>
