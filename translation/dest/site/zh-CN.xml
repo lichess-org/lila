@@ -750,7 +750,6 @@
   <string name="currentMatchScore">当前比赛分数</string>
   <string name="agreementAssistance">本人在游戏进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
   <string name="agreementNice">本人将尊重所有棋手。</string>
-  <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
