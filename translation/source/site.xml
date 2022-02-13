@@ -898,5 +898,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
   <string name="switchSides">Switch sides</string>
-  <string name="deleteAllSidelines">Delete all sidelines up to here</string>
 </resources>
