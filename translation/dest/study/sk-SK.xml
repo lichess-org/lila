@@ -135,7 +135,9 @@
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
+  <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>
+  <string name="brilliantMove">Veľmi dobrý ťah</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="interestingMove">Zaujímavý ťah</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Pochybný ťah</string>
@@ -160,11 +162,11 @@
   <string name="nextChapter">Ďalšia kapitola</string>
   <string name="prevChapter">Predchádzajúca kapitola</string>
   <string name="studyActions">Úkony pri štúdii</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Témy</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Moje témy</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Populárne témy</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Spravovať témy</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Späť</string>
+  <string name="topics">Témy</string>
+  <string name="myTopics">Moje témy</string>
+  <string name="popularTopics">Populárne témy</string>
+  <string name="manageTopics">Spravovať témy</string>
+  <string name="back">Späť</string>
   <string name="playAgain">Hrať znova</string>
   <string name="whatWouldYouPlay">Čo by ste hrali v tejto pozícii?</string>
   <string name="youCompletedThisLesson">Gratulujeme! Túto lekciu ste ukončili.</string>
