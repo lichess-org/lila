@@ -85,6 +85,7 @@
     <item quantity="one">%s సగం-ఎత్తుతో ఆట కట్టు</item>
     <item quantity="other">%s సగం-ఎత్తులలో ఆట కట్టు</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' రౌండింగ్‌తో, తదుపరి క్యాప్చర్ లేదా పాన్ మూవ్ వరకు సగం కదలికల సంఖ్య ఆధారంగా</string>
   <string name="noGameFound">ఆట దొరకలేదు</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ఇష్టాయిష్టాల పట్టిక నుంచి మరిన్ని ఆటలను కలుపుకోవచ్చునేమో?</string>
   <string name="openingExplorer">మొదటి ఎత్తుగడల పరిశీలన</string>
@@ -92,6 +93,9 @@
   <string name="xOpeningExplorer">%s రకపు మొదటి ఎత్తుగడల పరిశీలన</string>
   <string name="winPreventedBy50MoveRule">50 ఎత్తుగడల నియమం చేత గెలుపు భంగం</string>
   <string name="lossSavedBy50MoveRule">50 ఎత్తుగడల నియమం చేత ఓటమి నుంచి రక్షణ</string>
+  <string name="winOr50MovesByPriorMistake">ముందుగా పొరపాటున విన్ లేదా 50 ఎత్తుగడలు</string>
+  <string name="lossOr50MovesByPriorMistake">ముందుగా పొరపాటున నష్టం లేదా 50 కదలికలు</string>
+  <string name="unknownDueToRounding">గెలుపు/ఓటమి టేబుల్‌బేస్‌లలో DTZ విలువలను చుట్టుముట్టే అవకాశం ఉన్నందున, చివరి క్యాప్చర్ లేదా పాన్ తరలింపు నుండి సిఫార్సు చేయబడిన టేబుల్‌బేస్ లైన్‌ని అనుసరించినట్లయితే మాత్రమే గెలుపు/నష్టం హామీ ఇవ్వబడుతుంది.</string>
   <string name="allSet">అంతా సిద్ధం!</string>
   <string name="importPgn">PGN ఆట దిగుమతి</string>
   <string name="delete">తీసివెయ్యండి</string>
@@ -325,6 +329,8 @@ Translation results
   <string name="averageElo">సగటు రేటింగ్</string>
   <string name="location">స్థానం</string>
   <string name="filterGames">ఫిల్టర్ గేమ్‌లు</string>
+  <string name="reset">రీసెట్</string>
+  <string name="apply">సమర్పించండి</string>
   <string name="save">సేవ్</string>
   <string name="leaderboard">లీడర్‌బోర్డు</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
