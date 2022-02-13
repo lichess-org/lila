@@ -79,8 +79,8 @@ Najbliže što možete doći do Round Robina online je igrati švicarski turnir 
   <string name="pairingSystemArena">Svaki raspoloživi protivnik sa sličnim rangom</string>
   <string name="pairingSystemSwiss">Najbolje uparivanje na temelju bodova i tie breaka</string>
   <string name="pairingWaitTime">Vrijeme čekanja za uparivanje</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Brzo: ne čeka sve igrače</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Sporo: čeka sve igrače</string>
+  <string name="pairingWaitTimeArena">Brzo: ne čeka sve igrače</string>
+  <string name="pairingWaitTimeSwiss">Sporo: čeka sve igrače</string>
   <string name="identicalPairing">Identično parivanje</string>
   <string name="possibleButNotConsecutive">Moguće, ali ne uzastopno</string>
   <string name="identicalForbidden">Zabranjeno</string>
