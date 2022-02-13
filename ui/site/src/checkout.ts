@@ -9,15 +9,14 @@ export interface Pricing {
   lifetime: number;
 }
 
-export default function (publicKey: string, pricing: Pricing) {
+const $checkout = $('div.plan_checkout');
+const getFreq = () => $checkout.find('group.freq input:checked').val();
+const getDest = () => $checkout.find('group.dest input:checked').val();
+
+export default function (stripePublicKey: string, pricing: Pricing) {
   contactEmail();
 
-  const $checkout = $('div.plan_checkout');
-
   const hasLifetime = $('#freq_lifetime').prop('disabled');
-
-  const getFreq = () => $checkout.find('group.freq input:checked').val();
-  const getDest = () => $checkout.find('group.dest input:checked').val();
 
   const toggleInput = ($input: Cash, enable: boolean) =>
     $input.prop('disabled', !enable).toggleClass('disabled', !enable);
@@ -105,6 +104,28 @@ export default function (publicKey: string, pricing: Pricing) {
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
+  const $currencyForm = $('form.currency');
+  $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
+  $currencyForm.find('select').on('change', () => {
+    ['freq', 'dest'].forEach(name =>
+      $('<input type="hidden">')
+        .attr('name', name)
+        .val($(`input[name=${name}]:checked`).val())
+        .appendTo($currencyForm)
+    );
+    ($currencyForm[0] as HTMLFormElement).submit();
+  });
+
+  const queryParams = new URLSearchParams(location.search);
+  for (const name of ['dest', 'freq']) {
+    if (queryParams.has(name))
+      $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
+  }
+
+  stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
+}
+
+function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {
   const stripe = window.Stripe(publicKey);
   const showErrorThenReload = (error: string) => {
     alert(error);
@@ -112,7 +133,7 @@ export default function (publicKey: string, pricing: Pricing) {
   };
   $checkout.find('.service .stripe').on('click', function () {
     const freq = getFreq(),
-      amount = getAmountToCharge();
+      amount = getAmount();
     if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
@@ -143,26 +164,8 @@ export default function (publicKey: string, pricing: Pricing) {
       });
   });
 
-  const $currencyForm = $('form.currency');
-  $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
-  $currencyForm.find('select').on('change', () => {
-    ['freq', 'dest'].forEach(name =>
-      $('<input type="hidden">')
-        .attr('name', name)
-        .val($(`input[name=${name}]:checked`).val())
-        .appendTo($currencyForm)
-    );
-    ($currencyForm[0] as HTMLFormElement).submit();
-  });
-
   // Close Checkout on page navigation:
   $(window).on('popstate', function () {
     window.stripeHandler.close();
   });
-
-  const queryParams = new URLSearchParams(location.search);
-  for (const name of ['dest', 'freq']) {
-    if (queryParams.has(name))
-      $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
-  }
 }
