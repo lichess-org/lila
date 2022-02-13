@@ -33,10 +33,6 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     },
     pieceRoles.map(role => {
       let nb = pocket[role] || 0;
-      if (activeColor) {
-        if (droppedRole === role) nb--;
-        if (captured === role) nb++;
-      }
       return h(
         'div.pocket-c1',
         h(

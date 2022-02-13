@@ -94,7 +94,12 @@ export function init(ctrl: RoundController) {
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
-    k.bind(
+    k.bind(iStr, () => {
+      if (!newChess1Keys.includes(i)) {
+        newChess1Keys.push(i);
+        setDrop();
+      }
+    }).bind(
       iStr,
       () => {
         const idx = newChess1Keys.indexOf(i);
