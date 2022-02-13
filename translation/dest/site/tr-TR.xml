@@ -97,6 +97,8 @@
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
+  <string name="winOr50MovesByPriorMistake">Kazanın ya da 50 hamle yapın</string>
+  <string name="lossOr50MovesByPriorMistake">Kaybedin ya da 50 hamle yapın</string>
   <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son yakalama veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
@@ -457,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya Bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Satır başına bir bağlantı.</string>
+  <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
@@ -501,6 +503,7 @@
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
   <string name="by">%s oluşturdu</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">%s tarafından yüklendi</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
@@ -729,7 +732,7 @@
   <string name="bestWasX">En iyisi %s idi</string>
   <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
   <string name="resumePractice">Pratik yapmaya devam edin.</string>
-  <string name="theGameIsADraw">Bu maç berabere</string>
+  <string name="theGameIsADraw">Bu maç berabere.</string>
   <string name="computerThinking">Bilgisayar düşünüyor...</string>
   <string name="seeBestMove">En iyi hamleyi gör</string>
   <string name="hideBestMove">En iyi hamleyi gizle</string>
@@ -792,7 +795,7 @@
   <string name="currentMatchScore">Mevcut maç skoru</string>
   <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
   <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
-  <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Birden fazla hesap oluşturmayacağımı onaylıyorum (%s\'da sıralanmış durumlar hariç).</string>
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
