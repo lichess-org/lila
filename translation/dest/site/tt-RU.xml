@@ -721,7 +721,6 @@
   <string name="currentMatchScore">Хәзерге матч исәбе</string>
   <string name="agreementAssistance">Минем уеннар вакытында теләсә кайсы вакытта ярдәм алуыма ризалашам (шахмат компьютерыннан, китаптан, мәгълүмат базасыннан яки бүтән кешедән).</string>
   <string name="agreementNice">Мин башка уенчыларга һәрвакыт хөрмәт күрсәтермен дип килешәм.</string>
-  <string name="agreementAccount">Мин берничә хисап ясамыйм дип килешәм.</string>
   <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
