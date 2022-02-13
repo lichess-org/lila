@@ -260,6 +260,7 @@
   <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="lifetimeScore">ଆଜୀବନ ସ୍କୋର୍</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ମୁଁ ସହମତ ଯେ ମୁଁ ଏକାଧିକ ଆକାଉଣ୍ଟ୍ ସୃଷ୍ଟି କରିବି ନାହିଁ (%sରେ ଦର୍ଶାଯାଇଥିବା କାରଣ ବ୍ୟତୀତ)।</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="edit">ସମ୍ପାଦନା</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
