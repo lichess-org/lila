@@ -1,5 +1,6 @@
 package lila.plan
 
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api._
@@ -13,8 +14,9 @@ import lila.user.{ User, UserRepo }
 
 final class PlanApi(
     stripeClient: StripeClient,
-    patronColl: Coll,
-    chargeColl: Coll,
+    payPalClient: PayPalClient,
+    patronColl: Coll @@ PatronColl,
+    chargeColl: Coll @@ ChargeColl,
     notifier: PlanNotifier,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
@@ -173,6 +175,9 @@ final class PlanApi(
     notifier.onCharge(user)
     setDbUserPlan(user)
   }
+
+  def onPaypalApprove(orderId: PayPalOrderId, ip: IpAddress) =
+    payPalClient.getOrder(orderId).thenPp
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {
@@ -422,7 +427,7 @@ final class PlanApi(
         lila.mon.plan.goal.update(m.goal.cents)
         lila.mon.plan.current.update(m.current.cents)
         lila.mon.plan.percent.update(m.percent)
-        if (charge.isPayPal) lila.mon.plan.paypal.record(charge.usd.cents)
+        if (charge.isPayPal) lila.mon.plan.paypal.amount.record(charge.usd.cents)
         else if (charge.isStripe) lila.mon.plan.stripe.record(charge.usd.cents)
       }.void
   }
@@ -430,7 +435,7 @@ final class PlanApi(
   private def setDbUserPlan(user: User): Funit =
     userRepo.setPlan(user, user.plan) >>- lightUserApi.invalidate(user.id)
 
-  private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
+  private def saveStripeCustomer(user: User, customerId: StripeCustomerId): Funit =
     userPatron(user) flatMap { patronOpt =>
       val patron = patronOpt
         .getOrElse(Patron(_id = Patron.UserId(user.id)))
@@ -438,7 +443,7 @@ final class PlanApi(
       patronColl.update.one($id(user.id), patron, upsert = true).void
     }
 
-  def userCustomerId(user: User): Fu[Option[CustomerId]] =
+  def userCustomerId(user: User): Fu[Option[StripeCustomerId]] =
     userPatron(user) map {
       _.flatMap { _.stripe.map(_.customerId) }
     }
@@ -448,7 +453,7 @@ final class PlanApi(
       _ ?? stripeClient.getCustomer
     }
 
-  def makeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
+  def makeCustomer(user: User, data: StripeCheckout): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data) flatMap { customer =>
       saveStripeCustomer(user, customer.id) inject customer
     }
@@ -456,7 +461,7 @@ final class PlanApi(
   def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
     patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
-  private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
+  private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
     patronColl.one[Patron]($doc("stripe.customerId" -> id))
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))

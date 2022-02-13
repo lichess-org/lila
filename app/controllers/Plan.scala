@@ -1,28 +1,28 @@
 package controllers
 
+import java.util.Currency
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.EmailAddress
+import lila.common.{ EmailAddress, HTTPRequest }
 import lila.plan.StripeClient.StripeException
 import lila.plan.{
-  Checkout,
   CreateStripeSession,
-  CustomerId,
   Freq,
   Money,
   MonthlyCustomerInfo,
   NextUrls,
   OneTimeCustomerInfo,
-  StripeCustomer
+  PayPalOrderId,
+  StripeCheckout,
+  StripeCustomer,
+  StripeCustomerId
 }
 import lila.user.{ User => UserModel }
 import views._
-import java.util.Currency
-import lila.mon
 
 final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
 
@@ -75,6 +75,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
+        payPalPublicKey = env.plan.payPalPublicKey,
         email = email,
         patron = patron,
         recentIds = recentIds,
@@ -150,7 +151,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def webhook =
     Action.async(parse.json) { req =>
-      env.plan.webhookHandler(req.body) map { _ =>
+      env.plan.webhookHandler.stripe(req.body) map { _ =>
         Ok("kthxbye")
       }
     }
@@ -161,8 +162,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   }
 
   private def createStripeSession(
-      checkout: Checkout,
-      customerId: CustomerId,
+      checkout: StripeCheckout,
+      customerId: StripeCustomerId,
       giftTo: Option[lila.user.User]
   )(implicit ctx: Context) = {
     for {
@@ -201,7 +202,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       implicit val req = ctx.body
       StripeRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
-          env.plan.checkoutForm
+          env.plan.stripeCheckoutForm
             .form(pricing)
             .bindFromRequest()
             .fold(
@@ -264,6 +265,21 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       }
     }
 
+  private val PayPalRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "paypal.approve.ip"
+  )(
+    ("fast", 8, 10.minute),
+    ("slow", 40, 1.day)
+  )
+
+  def payPalApprove(orderId: String) =
+    Auth { implicit ctx => me =>
+      PayPalRateLimit(ctx.ip) {
+        env.plan.api.onPaypalApprove(PayPalOrderId(orderId), ctx.ip) inject jsonOkResult
+      }(rateLimitedFu)
+    }
+
+  // deprecated
   def payPalIpn =
     Action.async { implicit req =>
       import lila.plan.Patron.PayPal
@@ -282,7 +298,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           ipn =>
             env.plan.api.onPaypalCharge(
               ipn,
-              ip = lila.common.HTTPRequest.ipAddress(req),
+              ip = HTTPRequest ipAddress req,
               key = get("key", req) | "N/A"
             ) inject Ok
         )

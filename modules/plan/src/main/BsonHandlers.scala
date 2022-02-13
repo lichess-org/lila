@@ -7,8 +7,8 @@ import lila.db.dsl._
 
 private[plan] object BsonHandlers {
 
-  implicit val ChargeIdBSONHandler   = stringAnyValHandler[ChargeId](_.value, ChargeId.apply)
-  implicit val CustomerIdBSONHandler = stringAnyValHandler[CustomerId](_.value, CustomerId.apply)
+  implicit val ChargeIdBSONHandler   = stringAnyValHandler[StripeChargeId](_.value, StripeChargeId.apply)
+  implicit val CustomerIdBSONHandler = stringAnyValHandler[StripeCustomerId](_.value, StripeCustomerId.apply)
   implicit val CurrencyBSONHandler   = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
   implicit val MoneyBSONHandler      = Macros.handler[Money]
   implicit val UsdBSONHandler        = lila.db.dsl.bigDecimalAnyValHandler[Usd](_.value, Usd)

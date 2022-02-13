@@ -261,6 +261,7 @@ interface Window {
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
   readonly Tagify: unknown;
+  readonly paypal: unknown;
 }
 
 interface Study {

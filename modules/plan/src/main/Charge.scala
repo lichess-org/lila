@@ -51,8 +51,8 @@ object Charge {
     )
 
   case class Stripe(
-      chargeId: ChargeId,
-      customerId: CustomerId
+      chargeId: StripeChargeId,
+      customerId: StripeCustomerId
   )
 
   case class PayPal(

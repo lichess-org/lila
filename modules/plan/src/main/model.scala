@@ -7,29 +7,12 @@ import play.api.i18n.Lang
 
 import lila.user.User
 
-case class ChargeId(value: String)       extends AnyVal
-case class ClientId(value: String)       extends AnyVal
-case class CustomerId(value: String)     extends AnyVal
-case class SessionId(value: String)      extends AnyVal
-case class SubscriptionId(value: String) extends AnyVal
-
 case class Source(value: String) extends AnyVal
 
 sealed abstract class Freq(val renew: Boolean)
 object Freq {
   case object Monthly extends Freq(renew = true)
   case object Onetime extends Freq(renew = false)
-}
-
-// /!\ In smallest currency unit /!\
-// https://stripe.com/docs/currencies#zero-decimal
-case class StripeAmount(smallestCurrencyUnit: Int) extends AnyVal {
-  def toMoney(currency: Currency) =
-    Money(
-      if (CurrencyApi zeroDecimalCurrencies currency) smallestCurrencyUnit
-      else BigDecimal(smallestCurrencyUnit) / 100,
-      currency
-    )
 }
 
 case class Money(amount: BigDecimal, currency: Currency) {
@@ -41,10 +24,7 @@ case class Money(amount: BigDecimal, currency: Currency) {
   def display(implicit lang: Lang): String = display(lang.locale)
   def currencyCode                         = currency.getCurrencyCode
   def code                                 = s"${currencyCode}_$amount"
-  def toStripeAmount = StripeAmount {
-    if (CurrencyApi.zeroDecimalCurrencies(currency)) amount.toInt else (amount * 100).toInt
-  }
-  override def toString = code
+  override def toString                    = code
 }
 
 case class Usd(value: BigDecimal) extends AnyVal {
@@ -52,6 +32,31 @@ case class Usd(value: BigDecimal) extends AnyVal {
 }
 
 case class Country(code: String) extends AnyVal
+
+case class NextUrls(cancel: String, success: String)
+
+// stripe model
+
+case class StripeChargeId(value: String)       extends AnyVal
+case class StripeCustomerId(value: String)     extends AnyVal
+case class StripeSessionId(value: String)      extends AnyVal
+case class StripeSubscriptionId(value: String) extends AnyVal
+
+// /!\ In smallest currency unit /!\
+// https://stripe.com/docs/currencies#zero-decimal
+case class StripeAmount(smallestCurrencyUnit: Int) extends AnyVal {
+  def toMoney(currency: Currency) =
+    Money(
+      if (CurrencyApi zeroDecimalCurrencies currency) smallestCurrencyUnit
+      else BigDecimal(smallestCurrencyUnit) / 100,
+      currency
+    )
+}
+object StripeAmount {
+  def apply(money: Money): StripeAmount = StripeAmount {
+    if (CurrencyApi.zeroDecimalCurrencies(money.currency)) money.amount.toInt else (money.amount * 100).toInt
+  }
+}
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
@@ -64,12 +69,10 @@ case class StripePrice(product: String, unit_amount: StripeAmount, currency: Cur
   def money  = unit_amount toMoney currency
 }
 
-case class NextUrls(cancel: String, success: String)
-
-case class StripeSession(id: SessionId)
+case class StripeSession(id: StripeSessionId)
 case class CreateStripeSession(
-    customerId: CustomerId,
-    checkout: Checkout,
+    customerId: StripeCustomerId,
+    checkout: StripeCheckout,
     urls: NextUrls,
     giftTo: Option[User],
     isLifetime: Boolean
@@ -78,7 +81,7 @@ case class CreateStripeSession(
 case class StripeSubscription(
     id: String,
     item: StripeItem,
-    customer: CustomerId,
+    customer: StripeCustomerId,
     cancel_at_period_end: Boolean,
     status: String,
     default_payment_method: Option[String]
@@ -88,7 +91,7 @@ case class StripeSubscription(
 }
 
 case class StripeCustomer(
-    id: CustomerId,
+    id: StripeCustomerId,
     email: Option[String],
     subscriptions: StripeSubscriptions
 ) {
@@ -98,10 +101,10 @@ case class StripeCustomer(
 }
 
 case class StripeCharge(
-    id: ChargeId,
+    id: StripeChargeId,
     amount: StripeAmount,
     currency: Currency,
-    customer: CustomerId,
+    customer: StripeCustomerId,
     billing_details: Option[StripeCharge.BillingDetails],
     metadata: Map[String, String]
 ) {
@@ -130,7 +133,7 @@ case class StripePaymentMethod(card: Option[StripeCard])
 case class StripeCard(brand: String, last4: String, exp_year: Int, exp_month: Int)
 
 case class StripeCompletedSession(
-    customer: CustomerId,
+    customer: StripeCustomerId,
     mode: String,
     metadata: Map[String, String],
     amount_total: StripeAmount,
@@ -144,3 +147,26 @@ case class StripeCompletedSession(
 case class StripeSetupIntent(payment_method: String)
 
 case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)
+
+// payPal model
+
+case class PayPalMoney(value: BigDecimal, currency_code: Currency) {
+  def money = Money(value, currency_code)
+}
+case class PayPalOrderId(value: String) extends AnyVal with StringValue
+case class PayPalOrder(
+    id: PayPalOrderId,
+    intent: String,
+    status: String,
+    purchase_units: List[PayPalPurchaseUnit]
+) {
+  def isComplete        = status == "COMPLETED"
+  def isCompleteCapture = isComplete && intent == "CAPTURE"
+  def capture = for {
+    unit    <- purchase_units.headOption
+    capture <- unit.payments.captures.headOption
+  } yield capture
+}
+case class PayPalPurchaseUnit(payments: PayPalPayments)
+case class PayPalPayments(captures: List[PayPalCapture])
+case class PayPalCapture(id: String, amount: PayPalMoney)

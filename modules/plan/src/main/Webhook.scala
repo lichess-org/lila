@@ -9,12 +9,13 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
   // Never trust an incoming webhook call.
   // Only read the Event ID from it,
   // then fetch the event from the stripe API.
-  def apply(js: JsValue): Funit =
+  def stripe(js: JsValue): Funit =
     (js \ "id").asOpt[String] ?? api.getEvent flatMap {
       case None =>
         logger.warn(s"Forged webhook $js")
         funit
       case Some(event) =>
+        import JsonHandlers.stripe._
         ~(for {
           id   <- (event \ "id").asOpt[String]
           name <- (event \ "type").asOpt[String]

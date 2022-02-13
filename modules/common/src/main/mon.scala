@@ -429,7 +429,10 @@ object mon {
     val json                  = future("swiss.json")
   }
   object plan {
-    val paypal  = histogram("plan.amount").withTag("service", "paypal")
+    object paypal {
+      val amount           = histogram("plan.amount").withTag("service", "paypal")
+      val fetchAccessToken = future("plan.paypal.accessToken")
+    }
     val stripe  = histogram("plan.amount").withTag("service", "stripe")
     val goal    = gauge("plan.goal").withoutTags()
     val current = gauge("plan.current").withoutTags()

@@ -55,7 +55,7 @@ object Patron {
 
   case class UserId(value: String) extends AnyVal
 
-  case class Stripe(customerId: CustomerId)
+  case class Stripe(customerId: StripeCustomerId)
 
   case class PayPal(
       email: Option[PayPal.Email],

@@ -18,6 +18,7 @@ object index {
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
+      payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String],
@@ -30,6 +31,9 @@ object index {
       moreCss = cssTag("plan"),
       moreJs = frag(
         stripeScript,
+        script(
+          src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}&locale=${ctx.lang.locale}"
+        ),
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
           lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
@@ -42,7 +46,7 @@ object index {
           description = freeChess.txt()
         )
         .some,
-      csp = defaultCsp.withStripe.some
+      csp = defaultCsp.withStripe.withPayPal.some
     ) {
       main(cls := "page-menu plan")(
         st.aside(cls := "page-menu__menu recent-patrons")(
@@ -209,7 +213,8 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          button(cls := "paypal button")(withPaypal())
+                          button(cls := "paypal button")(withPaypal()),
+                          div(id := "paypal-button-container")
                         )
                       else
                         a(

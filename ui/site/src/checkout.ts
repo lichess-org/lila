@@ -122,7 +122,52 @@ export default function (stripePublicKey: string, pricing: Pricing) {
       $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
   }
 
+  payPalStart($checkout, pricing, getAmountToCharge);
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
+}
+
+function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  (window.paypal as any)
+    .Buttons({
+      // Sets up the transaction when a payment button is clicked
+      createOrder: (_data: any, actions: any) =>
+        actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: pricing.currency,
+                value: getAmount(),
+                breakdown: {
+                  item_total: {
+                    currency_code: pricing.currency,
+                    value: getAmount(),
+                  },
+                },
+              },
+              items: [
+                {
+                  name: 'One-time Patron',
+                  description: 'Support Lichess and get the Patron wings for one month. Will not renew automatically.',
+                  unit_amount: {
+                    currency_code: pricing.currency,
+                    value: getAmount(),
+                  },
+                  quantity: '1',
+                },
+              ],
+            },
+          ],
+        }),
+
+      onApprove: (_data: any, actions: any) =>
+        actions.order.capture().then((order: any) => {
+          console.log(order.id);
+          xhr.json('/patron/paypal/approve/' + order.id, { method: 'POST' }).then(() => {
+            // lichess.reload();
+          });
+        }),
+    })
+    .render('#paypal-button-container');
 }
 
 function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {
