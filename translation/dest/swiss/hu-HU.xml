@@ -88,8 +88,8 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="pairingSystemArena">Bármelyik szabad játékos hasonló értékszámmal</string>
   <string name="pairingSystemSwiss">Optimális párosítás pontszámok alapján</string>
   <string name="pairingWaitTime">Párosítás üteme</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Gyors: nem vár minden játékosra</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lassú: minden játékosra vár</string>
+  <string name="pairingWaitTimeArena">Gyors: nem vár minden játékosra</string>
+  <string name="pairingWaitTimeSwiss">Lassú: minden játékosra vár</string>
   <string name="identicalPairing">Azonos párosítás</string>
   <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
   <string name="identicalForbidden">Tiltott</string>
