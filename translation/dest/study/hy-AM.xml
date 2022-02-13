@@ -36,8 +36,8 @@
   <string name="spectator">Հանդիսատես</string>
   <string name="unlike">Չեմ հավանում</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Թեմաներ</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Իմ թեմաները</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Շատ դիտվող թեմաներ</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Թեմաների կառավարում</string>
+  <string name="topics">Թեմաներ</string>
+  <string name="myTopics">Իմ թեմաները</string>
+  <string name="popularTopics">Շատ դիտվող թեմաներ</string>
+  <string name="manageTopics">Թեմաների կառավարում</string>
 </resources>
