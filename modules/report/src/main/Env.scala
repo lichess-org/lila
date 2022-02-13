@@ -66,8 +66,8 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.report.Cheater(userId, text) =>
           api.autoCheatReport(userId, text).unit
-        case lila.hub.actorApi.report.Shutup(userId, text) =>
-          api.autoCommReport(userId, text).unit
+        case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
+          api.autoCommReport(userId, text, critical).unit
       }
     }),
     name = config.actorName

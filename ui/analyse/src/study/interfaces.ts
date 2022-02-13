@@ -62,6 +62,7 @@ export interface StudyCtrl {
   gamebookPlay(): GamebookPlayCtrl | undefined;
   prevChapter(): StudyChapterMeta | undefined;
   nextChapter(): StudyChapterMeta | undefined;
+  hasNextChapter(): boolean;
   goToPrevChapter(): void;
   goToNextChapter(): void;
   mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>): void;

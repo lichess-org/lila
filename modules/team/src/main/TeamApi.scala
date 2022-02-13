@@ -107,19 +107,22 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     for {
-      requests <- requestRepo findActiveByTeam team.id
-      users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map { case (request, user) =>
-      RequestWithUser(request, user)
-    }
+      requests  <- requestRepo.findActiveByTeam(team.id, 50)
+      withUsers <- requestsWithUsers(requests)
+    } yield withUsers
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
-      teamIds  <- teamRepo enabledTeamIdsByLeader user.id
-      requests <- requestRepo findActiveByTeams teamIds
-      users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map { case (request, user) =>
-      RequestWithUser(request, user)
+      teamIds   <- teamRepo enabledTeamIdsByLeader user.id
+      requests  <- requestRepo findActiveByTeams teamIds
+      withUsers <- requestsWithUsers(requests)
+    } yield withUsers
+
+  private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
+    userRepo optionsByIds requests.map(_.user) map { users =>
+      requests zip users collect {
+        case (request, Some(user)) if user.enabled => RequestWithUser(request, user)
+      }
     }
 
   def join(team: Team, me: User, request: Option[String], password: Option[String]): Fu[Requesting] =
@@ -302,7 +305,7 @@ final class TeamApi(
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
     teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByteam(team.id) >>-
+      memberRepo.removeByTeam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
   def syncBelongsTo(teamId: Team.ID, userId: User.ID): Boolean =

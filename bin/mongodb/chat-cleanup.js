@@ -1,6 +1,5 @@
-rs.secondaryOk();
-const dryRun = true;
-const maxPerSecond = 600;
+const dryRun = false;
+const maxPerSecond = 1000;
 const flushEvery = 100;
 const parseLineRegex = /^([\w-~]+)([ !&\?])(.*)(\n|$)/;
 
@@ -29,9 +28,11 @@ const presets = new Set([
   'well played',
   'thank you',
   "i've got to go",
+  'good game, well played',
 ]);
 
-const isTextGarbage = text => text.indexOf(' ') < 0 || presets.has(text);
+const isTextGarbage = text =>
+  text.indexOf(' ') < 0 || text.length < 9 || presets.has(text) || text.indexOf("I'm studying this game") == 0;
 
 const numberFormat = n => `${Math.round(n / 1000)}k`;
 
@@ -42,7 +43,7 @@ let read = 0,
 const deleteChat = chat => {
   // if (chat.l.some(l => !l.startsWith('lichess'))) printjson(chat.l);
   // if (chat.l.some(l => l.includes('Good game'))) printjson(chat.l);
-  idBuffer.push(chat.id);
+  idBuffer.push(chat._id);
   if (idBuffer.length >= flushEvery) flushBuffer();
 };
 
@@ -57,15 +58,12 @@ const flushBuffer = () => {
     print(`${numberFormat(deleted)} / ${numberFormat(read)} - ${Math.round((deleted * 100) / read)}%`);
 };
 
-db.chat
-  .find()
-  // .skip(240 * 1000 * 1000)
-  .forEach(chat => {
-    read++;
-    if (isChatGarbage(chat)) {
-      deleteChat(chat);
-      if (read % 100000 == 0) printjson(chat);
-    }
-  });
+db.chat.find().forEach(chat => {
+  ++read;
+  if (isChatGarbage(chat)) {
+    deleteChat(chat);
+    if (read % 10000 == 0) printjson(chat);
+  }
+});
 
 flushBuffer();

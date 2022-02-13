@@ -23,7 +23,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
     evalCache.evals(work) flatMap { cachedFull =>
       /* remove first eval in partial analysis
        * to prevent the mobile app from thinking it's complete
-       * https://github.com/veloce/lichobile/issues/722
+       * https://github.com/lichess-org/lichobile/issues/722
        */
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"

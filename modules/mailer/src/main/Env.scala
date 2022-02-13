@@ -15,7 +15,8 @@ final class Env(
     appConfig: Configuration,
     net: NetConfig,
     userRepo: UserRepo,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    lightUser: lila.user.LightUserApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -50,6 +51,10 @@ final class Env(
     },
     "planExpire" -> { case lila.hub.actorApi.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId).unit
+    },
+    "dailyCorrespondenceNotif" -> {
+      case lila.hub.actorApi.mailer.CorrespondenceOpponents(userId, opponents) =>
+        automaticEmail.dailyCorrespondenceNotice(userId, opponents).unit
     }
   )
 }

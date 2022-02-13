@@ -2,9 +2,11 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import views._
 
 import lila.app._
-import views._
+import lila.i18n.I18nLangPicker
+import lila.api.Context
 
 final class Lobby(
     env: Env
@@ -24,17 +26,39 @@ final class Lobby(
     Open { implicit ctx =>
       pageHit
       negotiate(
-        html = env.pageCache { () =>
-          keyPages.homeHtml.dmap { html =>
-            NoCache(Ok(html))
-          }
-        } map env.lilaCookie.ensure(ctx.req),
+        html = serveHtmlHome,
         api = _ =>
           fuccess {
             val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
             Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
           }
       )
+    }
+
+  private def redirectWithQueryString(path: String)(implicit req: RequestHeader) =
+    Redirect {
+      if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
+    }
+
+  private def serveHtmlHome(implicit ctx: Context) =
+    env.pageCache { () =>
+      keyPages.homeHtml.dmap { html =>
+        NoCache(Ok(html))
+      }
+    } map env.lilaCookie.ensure(ctx.req)
+
+  def homeLang(langCode: String) =
+    Open { ctx =>
+      if (ctx.isAuth) redirectWithQueryString("/")(ctx.req).fuccess
+      else
+        I18nLangPicker.byHref(langCode) match {
+          case I18nLangPicker.NotFound    => notFound(ctx)
+          case I18nLangPicker.Redir(code) => redirectWithQueryString(s"/$code")(ctx.req).fuccess
+          case I18nLangPicker.Found(lang) =>
+            implicit val langCtx = ctx withLang lang
+            pageHit
+            serveHtmlHome
+        }
     }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =

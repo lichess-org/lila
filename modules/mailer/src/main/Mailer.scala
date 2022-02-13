@@ -144,11 +144,11 @@ $serviceNote"""
         serviceNote
       )
 
-    def url(u: String)(implicit lang: Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(implicit lang: Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        p(trans.common_orPaste(lang))
+        clickOrPaste option p(trans.common_orPaste(lang))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

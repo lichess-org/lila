@@ -560,6 +560,8 @@ case class Game(
 
   def showBookmarks = hasBookmarks ?? bookmarks.toString
 
+  def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
+
   def userIds = playerMaps(_.userId)
 
   def twoUserIds: Option[(User.ID, User.ID)] =

@@ -64,7 +64,7 @@ final class ReportApi(
           )
           .flatMap { prev =>
             val report = Report.make(scored, prev)
-            lila.mon.mod.report.create(report.reason.key).increment()
+            lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
             if (
               report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
@@ -318,7 +318,7 @@ final class ReportApi(
       )
       .void
 
-  def autoCommReport(userId: User.ID, text: String): Funit =
+  def autoCommReport(userId: User.ID, text: String, critical: Boolean): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -327,7 +327,8 @@ final class ReportApi(
             suspect = suspect,
             reason = Reason.Comm,
             text = text
-          )
+          ),
+          score = _ * (if (critical) 2 else 1)
         )
       case _ => funit
     }

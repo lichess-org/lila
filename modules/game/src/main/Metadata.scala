@@ -1,5 +1,6 @@
 package lila.game
 
+import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import lila.db.ByteArray
 import chess.Color
@@ -67,7 +68,7 @@ object PgnImport {
           .filter(_.nonEmpty)
           .to(List)
           .mkString("\n")
-          .getBytes("UTF-8")
+          .getBytes(UTF_8)
       } take 12
     }
 

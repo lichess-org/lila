@@ -2,13 +2,14 @@ package lila.app
 package templating
 
 import java.util.Locale
-import org.joda.time.format._
+import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
+import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period }
 import play.api.i18n.Lang
 import scala.collection.mutable
 
 import lila.app.ui.ScalatagsTemplate._
+import lila.i18n.PeriodLocales
 
 trait DateHelper { self: I18nHelper with StringHelper =>
 
@@ -17,12 +18,6 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val dateTimeFormatters = mutable.AnyRefMap.empty[String, DateTimeFormatter]
   private val dateFormatters     = mutable.AnyRefMap.empty[String, DateTimeFormatter]
-  private val periodFormatters   = mutable.AnyRefMap.empty[String, PeriodFormatter]
-  private val periodType = PeriodType forFields Array(
-    DurationFieldType.days,
-    DurationFieldType.hours,
-    DurationFieldType.minutes
-  )
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -39,14 +34,6 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     dateFormatters.getOrElseUpdate(
       lang.code,
       DateTimeFormat forStyle dateStyle withLocale lang.toLocale
-    )
-
-  private def periodFormatter(implicit lang: Lang): PeriodFormatter =
-    periodFormatters.getOrElseUpdate(
-      lang.code, {
-        Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased lang.toLocale
-      }
     )
 
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
@@ -67,7 +54,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
   def showPeriod(period: Period)(implicit lang: Lang): String =
-    periodFormatter print period.normalizedStandard(periodType)
+    PeriodLocales.showPeriod(period)
 
   def showMinutes(minutes: Int)(implicit lang: Lang): String =
     showPeriod(new Period(minutes * 60 * 1000L))
@@ -93,7 +80,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
   def momentFromNowServer(date: DateTime): Frag =
-    timeTag(title := showEnglishDateTime(date))(momentFromNowServerText(date))
+    timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
   def momentFromNowServerText(date: DateTime): Frag = {
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)

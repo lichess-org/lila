@@ -162,11 +162,8 @@ final class Team(
     }
   def kickUser(teamId: String, userId: String) =
     Scoped(_.Team.Write) { _ => me =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          if (team leaders me.id) api.kick(team, userId, me) inject jsonOkResult
-          else Forbidden(jsonError("Not your team")).fuccess
-        }
+      WithOwnedTeamEnabledApi(teamId, me) {
+        api.kick(_, userId, me) inject Api.Done
       }
     }
 
@@ -539,6 +536,25 @@ final class Team(
       }
     }
 
+  def apiRequests(teamId: String) =
+    Scoped(_.Team.Read) { _ => me =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
+        api.requestsWithUsers(team) map { reqs =>
+          Api.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
+        }
+      }
+    }
+
+  def apiRequestProcess(teamId: String, userId: String, decision: String) =
+    Scoped(_.Team.Write) { req => me =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
+        api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
+          case None      => fuccess(Api.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision) inject Api.Done
+        }
+      }
+    }
+
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
       req: Request[_]
   ): Either[Form[_], Fu[RateLimit.Result]] =
@@ -595,4 +611,13 @@ You received this because you are subscribed to messages of the team $url."""
       if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound
     }
+
+  private def WithOwnedTeamEnabledApi(teamId: String, me: UserModel)(
+      f: TeamModel => Fu[Api.ApiResult]
+  ): Fu[Result] =
+    api teamEnabled teamId flatMap {
+      case Some(team) if team leaders me.id => f(team)
+      case Some(_)                          => fuccess(Api.ClientError("Not your team"))
+      case None                             => fuccess(Api.NoData)
+    } map apiC.toHttp
 }

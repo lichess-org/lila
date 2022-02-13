@@ -6,6 +6,8 @@ import ornicar.scalalib.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 import scala.concurrent.duration._
 import scala.util.chaining._
 
@@ -148,8 +150,11 @@ final class SwissApi(
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>
-      if (swiss.settings.password.exists(_ != ~password) || !isInTeam(swiss.teamId)) fuFalse
-      else
+      if (
+        swiss.settings.password.forall(p =>
+          MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
+        ) && isInTeam(swiss.teamId)
+      )
         colls.player // try a rejoin first
           .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
           .flatMap { rejoin =>
@@ -160,6 +165,7 @@ final class SwissApi(
               }
             }
           }
+      else fuFalse
     } flatMap { res =>
       recomputeAndUpdateAll(id) inject res
     }

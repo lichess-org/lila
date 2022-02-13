@@ -1,10 +1,12 @@
 import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
-import { TournamentData } from './interfaces';
 
 // when the tournament no longer exists
-const onFail = () => lichess.reload();
+// randomly delay reloads in case of massive tournament to avoid ddos
+const onFail = (): void => {
+  setTimeout(lichess.reload, Math.floor(Math.random() * 9000));
+};
 
 export const join = throttlePromise(
   finallyDelay(
@@ -57,20 +59,28 @@ export const loadPage = throttlePromise(
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
 
+// don't use xhr.json to avoid getting the X-Requested-With header
+// that causes a CORS preflight check
+// TODO FIXME
 export const reloadNow = (ctrl: TournamentController): Promise<void> =>
-  xhr
-    .json(
-      xhr.url('/tournament/' + ctrl.data.id, {
-        page: ctrl.focusOnMe ? undefined : ctrl.page,
-        playerInfo: ctrl.playerInfo.id,
-        partial: true,
-      })
-    )
-    .then((data: TournamentData) => {
+  fetch(
+    xhr.url(ctrl.data.reloadEndpoint, {
+      page: ctrl.focusOnMe ? undefined : ctrl.page,
+      playerInfo: ctrl.playerInfo.id,
+      partial: true,
+      me: ctrl.data.myUsername,
+    }),
+    {
+      ...xhr.defaultInit,
+      headers: xhr.jsonHeader,
+    }
+  )
+    .then(res => xhr.ensureOk(res).json())
+    .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
-      const extraDelay = (data.reloadDelay || 0) * (data.me ? 1 : 3);
-      return extraDelay ? new Promise(resolve => setTimeout(resolve, extraDelay * 1000)) : undefined;
+      const extraDelay = Math.floor(ctrl.nbWatchers / 2) * (data.me ? 1 : 3);
+      return new Promise(resolve => setTimeout(resolve, extraDelay));
     }, onFail);
 
 export const reloadSoon = throttlePromise(finallyDelay(() => 4000 + Math.floor(Math.random() * 1000), reloadNow));

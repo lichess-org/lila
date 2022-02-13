@@ -182,8 +182,11 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
     coll.optionsByOrderedIds[AccessToken, AccessToken.Id](
       bearers map AccessToken.Id.from,
       readPreference = ReadPreference.secondaryPreferred
-    )(_.id) map { tokens =>
-      bearers.zip(tokens).toMap
+    )(_.id) flatMap { tokens =>
+      userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>
+        val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
+        bearers.zip(openTokens).toMap
+      }
     }
 
   private val accessTokenCache =

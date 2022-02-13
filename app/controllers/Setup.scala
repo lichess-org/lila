@@ -105,11 +105,7 @@ final class Setup(
                     )
                   case None =>
                     import lila.challenge.Challenge._
-                    val timeControl = config.makeClock map {
-                      TimeControl.Clock.apply
-                    } orElse config.makeDaysPerTurn.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited
+                    val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
                       initialFen = config.fen,

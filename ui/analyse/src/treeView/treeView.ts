@@ -158,16 +158,13 @@ export function retroLine(ctx: Ctx, node: Tree.Node): VNode | undefined {
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {
-  return (
-    (e.target as HTMLElement).getAttribute('p') ||
-    ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p')
-  );
+  return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 }
 
 export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
-  const cont = el.parentNode as HTMLElement;
+  const cont = el.parentElement?.parentElement;
   if (!cont) return;
-  const target = el.querySelector('.active') as HTMLElement;
+  const target = el.querySelector<HTMLElement>('.active');
   if (!target) {
     cont.scrollTop = ctrl.path ? 99999 : 0;
     return;

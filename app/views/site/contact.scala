@@ -37,10 +37,10 @@ object contact {
           a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
         ),
         li(
-          a(href := "https://github.com/ornicar/lila/issues")(reportWebsiteIssue())
+          a(href := "https://github.com/lichess-org/lila/issues")(reportWebsiteIssue())
         ),
         li(
-          a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
+          a(href := "https://github.com/lichess-org/lichobile/issues")(reportMobileIssue())
         ),
         li(
           a(href := "https://discord.gg/lichess")(reportBugInDiscord())

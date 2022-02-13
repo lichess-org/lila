@@ -15,6 +15,9 @@ object Analyser {
     )
   }
 
+  def isCritical(raw: String) =
+    criticalRegex.find(latinify(raw.toLowerCase))
+
   private def latinify(text: String): String =
     text map {
       case 'е' => 'e'
@@ -52,6 +55,12 @@ object Analyser {
   private val ruBigRegex = {
     """(?iu)\b""" +
       Dictionary.ru.mkString("(", "|", ")") +
+      """\b"""
+  }.r
+
+  private val criticalRegex = {
+    """(?i)\b""" +
+      Dictionary.critical.mkString("(", "|", ")") +
       """\b"""
   }.r
 }

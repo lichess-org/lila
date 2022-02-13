@@ -157,7 +157,10 @@ object mod {
               title := "Re-activates this account.",
               cls := "xhr"
             )(submitButton(cls := "btn-rack__btn active")("Closed")),
-            postForm(action := routes.Mod.gdprErase(u.username), cls := "gdpr-erasure")(
+            isGranted(_.SuperAdmin) option postForm(
+              action := routes.Mod.gdprErase(u.username),
+              cls := "gdpr-erasure"
+            )(
               submitButton(
                 cls := "btn-rack__btn confirm",
                 title := "Definitely erase everything about this user"

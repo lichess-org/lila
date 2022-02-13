@@ -1,5 +1,5 @@
 // Rich Text helper functions
-// Refactored for https://github.com/ornicar/lila/issues/7342 request
+// Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import { VNode, Hooks } from 'snabbdom';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js

@@ -1,6 +1,7 @@
 package lila.user
 
 import java.util.Base64
+import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits._
@@ -66,7 +67,7 @@ final private class PasswordHasher(
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
     bytes.parse ?? { case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
-      BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+      MessageDigest.isEqual(hash, bHash(salt, p))
     }
 }
 

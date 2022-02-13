@@ -209,8 +209,9 @@ object index {
       nailedIt,
       rightOn,
       stageXComplete,
-      yourScore,
+      trans.yourScore,
       next,
+      nextX,
       backToMenu,
       puzzleFailed,
       retry

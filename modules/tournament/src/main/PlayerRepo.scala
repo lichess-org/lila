@@ -261,18 +261,21 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       .headOption
       .map {
         _.flatMap(_.getAsOpt[BSONArray]("all"))
-          .fold(FullRanking(Map.empty, Array.empty)) { all =>
+          .fold(FullRanking(Map.empty, Array.empty, "")) { all =>
             // mutable optimized implementation
-            val index   = new Array[User.ID](all.size)
-            val ranking = Map.newBuilder[User.ID, Int]
-            var r       = 0
+            val playerIndex = new Array[Player.ID](all.size)
+            val ranking     = Map.newBuilder[User.ID, Int]
+            val userIds     = new java.lang.StringBuilder
+            var r           = 0
             for (u <- all.values) {
-              val both = u.asInstanceOf[BSONString].value
-              index(r) = both.take(8)
-              ranking += (both.drop(8) -> r)
+              val both   = u.asInstanceOf[BSONString].value
+              val userId = both.drop(8)
+              playerIndex(r) = both.take(8)
+              ranking += (userId -> r)
+              userIds.append(userId + ",")
               r = r + 1
             }
-            FullRanking(ranking.result(), index)
+            FullRanking(ranking.result(), playerIndex, userIds.toString)
           }
       }
 

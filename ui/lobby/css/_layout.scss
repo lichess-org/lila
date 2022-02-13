@@ -97,6 +97,10 @@ $mq-not-col3: $mq-not-small;
     grid-area: winner;
   }
 
+  &__wide-winners {
+    grid-area: leader / leader / leader / winner;
+  }
+
   &__puzzle {
     grid-area: puzzle;
   }

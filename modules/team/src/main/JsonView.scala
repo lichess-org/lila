@@ -1,10 +1,11 @@
 package lila.team
 
-import lila.user.LightUserApi
-
 import play.api.libs.json._
 
-final class JsonView(lightUserApi: LightUserApi) {
+import lila.common.Json.jodaWrites
+import lila.user.LightUserApi
+
+final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {
 
   implicit val teamWrites = OWrites[Team] { team =>
     Json
@@ -17,5 +18,23 @@ final class JsonView(lightUserApi: LightUserApi) {
         "leaders"     -> team.leaders.flatMap(lightUserApi.sync),
         "nbMembers"   -> team.nbMembers
       )
+  }
+
+  implicit private val requestWrites = OWrites[Request] { req =>
+    Json
+      .obj(
+        "userId"  -> req.user,
+        "teamId"  -> req.team,
+        "message" -> req.message,
+        "date"    -> req.date
+      )
+      .add("declined" -> req.declined)
+  }
+
+  implicit val requestWithUserWrites = OWrites[RequestWithUser] { case RequestWithUser(req, user) =>
+    Json.obj(
+      "request" -> req,
+      "user"    -> userJson.full(user, withOnline = false, withRating = true)
+    )
   }
 }

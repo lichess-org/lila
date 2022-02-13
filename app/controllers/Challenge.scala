@@ -296,7 +296,8 @@ final class Challenge(
               username =>
                 ChallengeIpRateLimit(ctx.ip) {
                   env.user.repo named username flatMap {
-                    case None => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case None                       => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).fuccess
                     case Some(dest) =>
                       env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
                         case Some(denied) =>
@@ -361,11 +362,7 @@ final class Challenge(
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: Option[UserModel]) = {
     import lila.challenge.Challenge._
-    val timeControl = config.clock map {
-      TimeControl.Clock.apply
-    } orElse config.days.map {
-      TimeControl.Correspondence.apply
-    } getOrElse TimeControl.Unlimited
+    val timeControl = TimeControl.make(config.clock, config.days)
     lila.challenge.Challenge
       .make(
         variant = config.variant,
@@ -422,8 +419,7 @@ final class Challenge(
                 .make(
                   variant = config.variant,
                   initialFen = config.position,
-                  timeControl =
-                    config.clock.fold[TimeControl](TimeControl.Unlimited)(TimeControl.Clock.apply),
+                  timeControl = TimeControl.make(config.clock, config.days),
                   mode = chess.Mode(config.rated),
                   color = "random",
                   challenger = Challenger.Open,
