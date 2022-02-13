@@ -459,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Herrialdea edo bandera</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Lerro bakoitzeko URL bat.</string>
+  <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
   <string name="onlinePlayers">Konektatutako jokalariak</string>
@@ -794,7 +794,7 @@
   <string name="currentMatchScore">Uneko partidetako emaitza</string>
   <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
   <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
-  <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Hitz ematen dut ez dudala kontu bat baino gehiago irekiko (%s adierazitako kasuetan izan ezik).</string>
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
