@@ -41,4 +41,5 @@
     <item quantity="many">%s гульняў знойдзена</item>
     <item quantity="other">%s гульняў знойдзена</item>
   </plurals>
+  <string name="ratingExplanation">Сярэдні рэйтынг абодвух гульцоў</string>
 </resources>
