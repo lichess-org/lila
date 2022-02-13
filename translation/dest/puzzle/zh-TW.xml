@@ -72,7 +72,7 @@
   <plurals name="nbPlayed">
     <item quantity="other">%s 已遊玩</item>
   </plurals>
-  <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
+  <plurals name="nbToReplay">
     <item quantity="other">%s 重玩</item>
   </plurals>
   <string name="percentSolved">%s 已解決</string>

@@ -75,7 +75,7 @@
     <item quantity="one">%s ойнадыңыз</item>
     <item quantity="other">%s ойнадыңыз</item>
   </plurals>
-  <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
+  <plurals name="nbToReplay">
     <item quantity="one">%s-н қайта ойнау</item>
     <item quantity="other">%s-н қайта ойнау</item>
   </plurals>
