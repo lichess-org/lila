@@ -14,7 +14,7 @@
   <string name="tournDuration">משך הטורניר</string>
   <string name="numberOfGames">מספר משחקים</string>
   <string name="pairingSystemArena">כל יריב זמין עם דירוג דומה</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">מהיר: אין צורך לחכות לשאר השחקנים</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">איטי: צריך לחכות לסיום המשחקים של כל השחקנים</string>
+  <string name="pairingWaitTimeArena">מהיר: אין צורך לחכות לשאר השחקנים</string>
+  <string name="pairingWaitTimeSwiss">איטי: צריך לחכות לסיום המשחקים של כל השחקנים</string>
   <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
 </resources>
