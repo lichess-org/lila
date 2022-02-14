@@ -48,13 +48,13 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
-        ctrl.data.newChess1 ? materialDiffs[0] : null,
+        !ctrl.data.crazyhouse ? materialDiffs[0] : null,
         newChess1View(ctrl, topColor, 'top'),
-        crazyView(ctrl, topColor, 'top') || materialDiffs[0],
+        crazyView(ctrl, topColor, 'top'),
         ...renderTable(ctrl),
-        ctrl.data.newChess1 ? materialDiffs[1] : null,
+        !ctrl.data.crazyhouse ? materialDiffs[1] : null,
         newChess1View(ctrl, bottomColor, 'bottom'),
-        crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
+        crazyView(ctrl, bottomColor, 'bottom'),
         ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
       ]);
 }
