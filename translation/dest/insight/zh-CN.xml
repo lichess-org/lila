@@ -3,5 +3,6 @@
   <string name="xChessInsights">%s 的对局洞察</string>
   <string name="cantSeeInsights">对不起，你无法查看 %s 的洞察</string>
   <string name="generateInsights">生成 %s 的洞察报告</string>
+  <string name="crunchingData">正在为你处理数据</string>
   <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">洞察设置</string>
 </resources>
