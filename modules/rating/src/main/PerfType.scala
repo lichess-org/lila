@@ -255,7 +255,7 @@ object PerfType {
   def variantOf(pt: PerfType): chess.variant.Variant =
     pt match {
       case Crazyhouse    => chess.variant.Crazyhouse
-      case NewChess1     => chess.variant.Standard
+      case NewChess1     => chess.variant.NewChess1
       case Chess960      => chess.variant.Chess960
       case KingOfTheHill => chess.variant.KingOfTheHill
       case ThreeCheck    => chess.variant.ThreeCheck
@@ -263,7 +263,7 @@ object PerfType {
       case Atomic        => chess.variant.Atomic
       case Horde         => chess.variant.Horde
       case RacingKings   => chess.variant.RacingKings
-      case _             => chess.variant.Standard
+      case _             => chess.variant.NewChess1
     }
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
