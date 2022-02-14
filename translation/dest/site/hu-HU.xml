@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és mondd el, mi a gond a játékos viselkedésével. Ne csak annyit írj, hogy \"csalt\", hanem próbáld elmondani, miből gondolod ezt. A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
   <string name="by">Létrehozta: %s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importálva %s által</string>
   <string name="thisTopicIsNowClosed">Lezárt téma.</string>
   <string name="blog">Blog</string>
   <string name="notes">Jegyzetek</string>
@@ -794,7 +795,7 @@
   <string name="currentMatchScore">Jelenlegi pontszám</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
-  <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Beleegyezem, hogy nem fogok egynél több felhasználói fiókot létrehozni (kivéve a %s között ismertetett okok miatt).</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>

@@ -100,8 +100,8 @@
   <string name="pairingSystemArena">Будь-який доступний суперник з подібним рейтингом</string>
   <string name="pairingSystemSwiss">Найкращий підбір на основі очків та тай-брейку</string>
   <string name="pairingWaitTime">Час підбору</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Швидше: не потрібно чекати всіх гравців</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Повільніше: потрібно чекати всіх гравців</string>
+  <string name="pairingWaitTimeArena">Швидше: не потрібно чекати всіх гравців</string>
+  <string name="pairingWaitTimeSwiss">Повільніше: потрібно чекати всіх гравців</string>
   <string name="identicalPairing">Ідентичні пари</string>
   <string name="possibleButNotConsecutive">Можливо, але не поспіль</string>
   <string name="identicalForbidden">Заборонено</string>

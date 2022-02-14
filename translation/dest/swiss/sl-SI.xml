@@ -57,6 +57,6 @@ Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
   <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
   <string name="tiebreaksCalculationA">Z %s.
 Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Hitro: ne čakaj na vse igralce</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Počasi: čakaj na vse igralce</string>
+  <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
+  <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
 </resources>

@@ -35,5 +35,5 @@
     <item quantity="one">%s παρτίδα βρέθηκε</item>
     <item quantity="other">%s παρτίδες βρέθηκαν</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Η μέση βαθμολογία και των δύο παικτών</string>
+  <string name="ratingExplanation">Η μέση βαθμολογία και των δύο παικτών</string>
 </resources>

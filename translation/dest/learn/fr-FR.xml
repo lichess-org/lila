@@ -6,7 +6,7 @@
   <string name="progressX">Progression : %s</string>
   <string name="resetMyProgress">Réinitialiser ma progression</string>
   <string name="youWillLoseAllYourProgress">Vous perdrez toute votre progression !</string>
-  <string name="play">jouer!</string>
+  <string name="play">jouer !</string>
   <string name="chessPieces">Les pièces</string>
   <string name="theRook">La Tour</string>
   <string name="itMovesInStraightLines">Elle se déplace sur une ligne droite</string>
@@ -217,8 +217,8 @@ en deux coups !</string>
   <string name="nailedIt">Correct !</string>
   <string name="rightOn">Tout juste !</string>
   <string name="stageXComplete">Étape %s achevée</string>
-  <string name="yourScore">Votre score</string>
   <string name="next">Suivant</string>
+  <string name="nextX">Suivant : %s</string>
   <string name="backToMenu">Retour au menu</string>
   <string name="puzzleFailed">Problème raté !</string>
   <string name="retry">Réessayer</string>

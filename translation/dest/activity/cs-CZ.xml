@@ -34,9 +34,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Hrán %1$s tah</item>
-    <item quantity="few">Hrán %1$s tahy</item>
-    <item quantity="many">Hrán %1$s tahů</item>
-    <item quantity="other">Hrán %1$s tahů</item>
+    <item quantity="few">Hrány %1$s tahy</item>
+    <item quantity="many">Hráno %1$s tahů</item>
+    <item quantity="other">Hráno %1$s tahů</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">v %1$s korespondenční partii</item>
@@ -45,7 +45,7 @@
     <item quantity="other">v %1$s korespondenčních partiích</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Dokončena %s korespondenční partii</item>
+    <item quantity="one">Dokončena %s korespondenční partie</item>
     <item quantity="few">Dokončeny %s korespondenční partie</item>
     <item quantity="many">Dokončeno %s korespondenčních partií</item>
     <item quantity="other">Dokončeno %s korespondenčních partií</item>

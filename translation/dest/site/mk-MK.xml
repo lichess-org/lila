@@ -770,7 +770,6 @@
   <string name="currentMatchScore">Резултат на сегашниот меч</string>
   <string name="agreementAssistance">Се согласувам дека никогаш нема да добивам помош за моите игри (од компјутер, игра, база на податоци или личност).</string>
   <string name="agreementNice">Се согласувам дека секогаш ќе ги почитувам останатите играчи.</string>
-  <string name="agreementAccount">Се согласувам дека нема да создавам повеќе профили.</string>
   <string name="agreementPolicy">Се согласувам дека ќе ги следам сите правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Пребарај или започни нов разговор</string>
   <string name="edit">Уреди</string>

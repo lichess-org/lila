@@ -93,8 +93,8 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="pairingSystemArena">Jebkurš pretinieks ar līdzīgu vietu</string>
   <string name="pairingSystemSwiss">Vislabākie pāri balstoties uz punktiem un vienādu punktu izšķiršanu</string>
   <string name="pairingWaitTime">Pārošanas gaidīšanas laiks</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Īss: negaida visus spēlētājus</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Ilgs: jāsagaida visi spēlētāji</string>
+  <string name="pairingWaitTimeArena">Īss: negaida visus spēlētājus</string>
+  <string name="pairingWaitTimeSwiss">Ilgs: jāsagaida visi spēlētāji</string>
   <string name="identicalPairing">Atkārtoti pretinieki</string>
   <string name="possibleButNotConsecutive">Iespējams, bet ne secīgās spēlēs</string>
   <string name="identicalForbidden">Nav atļauts</string>

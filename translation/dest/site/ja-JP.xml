@@ -231,9 +231,9 @@
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
   <string name="rematchOfferSent">再対局の提案があります</string>
-  <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
-  <string name="rematchOfferCanceled">再対局キャンセル</string>
-  <string name="rematchOfferDeclined">再対局拒否</string>
+  <string name="rematchOfferAccepted">再対局が承諾されました</string>
+  <string name="rematchOfferCanceled">再対局が取り消されました</string>
+  <string name="rematchOfferDeclined">再対局が拒否されました</string>
   <string name="cancelRematchOffer">再対局の提案をキャンセル</string>
   <string name="viewRematch">再戦を観戦する</string>
   <string name="confirmMove">指し手を確定</string>
@@ -388,7 +388,7 @@
   <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
   <string name="join">参加する</string>
-  <string name="withdraw">棄権する</string>
+  <string name="withdraw">参加をやめる</string>
   <string name="points">ポイント</string>
   <string name="wins">勝</string>
   <string name="losses">敗</string>
@@ -429,7 +429,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">URL は 1 行に 1 個です。</string>
+  <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
@@ -472,6 +472,7 @@
   <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">%s がインポート</string>
   <string name="thisTopicIsNowClosed">このトピックは閉鎖されました。</string>
   <string name="blog">ブログ</string>
   <string name="notes">メモ</string>
@@ -597,7 +598,7 @@
   <string name="tournamentHomeDescription">早指しのチェストーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、チェス960、キングオブザヒル、3チェックなどチェスの無限の楽しみを。</string>
   <string name="tournamentNotFound">トーナメントが見つかりません</string>
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
-  <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
+  <string name="tournamentMayHaveBeenCanceled">開始前に全員が参加をやめてキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
   <string name="weeklyPerfTypeRatingDistribution">今週の %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -755,7 +756,7 @@
   <string name="currentMatchScore">現在のスコア</string>
   <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
-  <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">私は複数のアカウントを作成しないことに同意します（%s に記載の理由による場合を除く）。</string>
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>

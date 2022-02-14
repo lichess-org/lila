@@ -425,6 +425,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或旗子</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
+  <string name="oneUrlPerLine">每行一个URL。</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
   <string name="previouslyOnLichessTV">过去的 Lichess 直播</string>
   <string name="onlinePlayers">在线棋手</string>
@@ -467,6 +468,7 @@
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
   <string name="error.provideOneCheatedGameLink">请提供至少一局作弊的棋局的链接。</string>
   <string name="by">来自%s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">由 %s 导入</string>
   <string name="thisTopicIsNowClosed">本话题已关闭。</string>
   <string name="blog">博客</string>
   <string name="notes">备注</string>
@@ -750,7 +752,6 @@
   <string name="currentMatchScore">当前比赛分数</string>
   <string name="agreementAssistance">本人在游戏进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
   <string name="agreementNice">本人将尊重所有棋手。</string>
-  <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>

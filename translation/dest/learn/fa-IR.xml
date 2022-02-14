@@ -221,7 +221,6 @@ Pawn = 1</string>
   <string name="nailedIt">Nailed it.</string>
   <string name="rightOn">Right on!</string>
   <string name="stageXComplete">Stage %s complete</string>
-  <string name="yourScore">امتیاز شما</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
   <string name="puzzleFailed">Puzzle failed!</string>

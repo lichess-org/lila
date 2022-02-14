@@ -204,7 +204,6 @@ Pawn = 1</string>
   <string name="yesYesYes">Oo, oo, oo!</string>
   <string name="youreGoodAtThis">Magaling ka dito!</string>
   <string name="stageXComplete">Kumpleto ang stage %s</string>
-  <string name="yourScore">Iyong iskor</string>
   <string name="next">Sunod</string>
   <string name="backToMenu">Bumalik sa menu</string>
   <string name="puzzleFailed">Nabigo ang palaisipan!</string>

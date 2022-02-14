@@ -78,8 +78,8 @@
   <string name="pairingSystemArena">Համեմատելի վարկանիշով ցանկացած հասանելի մրցակից</string>
   <string name="pairingSystemSwiss">Լավագույն զույգն ըստ վաստակած միավորների և թայ-բրեյքների</string>
   <string name="pairingWaitTime">Միանալու սպասման ժամանակ</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Արագ. պետք չէ սպասել բոլոր խաղացողներին</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Դանդաղ. սպասել բոլոր խաղացողներին</string>
+  <string name="pairingWaitTimeArena">Արագ. պետք չէ սպասել բոլոր խաղացողներին</string>
+  <string name="pairingWaitTimeSwiss">Դանդաղ. սպասել բոլոր խաղացողներին</string>
   <string name="identicalPairing">Նման զույգեր</string>
   <string name="possibleButNotConsecutive">Հնարավոր, բայց ոչ հաջորդական</string>
   <string name="identicalForbidden">Արգելված է</string>

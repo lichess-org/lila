@@ -98,8 +98,8 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="pairingSystemArena">Jakýkoli soupeř s podobným hodnocením</string>
   <string name="pairingSystemSwiss">Nejlepší párování založené na bodech a remízách</string>
   <string name="pairingWaitTime">Čekání na spárování</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rychle: nečeká na všechny hráče</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Pomalu: čeká na všechny hráče</string>
+  <string name="pairingWaitTimeArena">Rychle: nečeká na všechny hráče</string>
+  <string name="pairingWaitTimeSwiss">Pomalu: čeká na všechny hráče</string>
   <string name="identicalPairing">Párování stejných hráčů</string>
   <string name="possibleButNotConsecutive">Možné, ale ne po sobě jdoucí</string>
   <string name="identicalForbidden">Zakázané</string>

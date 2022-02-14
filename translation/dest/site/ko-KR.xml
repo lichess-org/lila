@@ -169,6 +169,9 @@
   <plurals name="nbHours">
     <item quantity="other">%s시간</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s분</item>
+  </plurals>
   <string name="time">시간</string>
   <string name="rating">레이팅</string>
   <string name="ratingStats">레이팅 통계</string>
@@ -421,6 +424,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가 또는 국기</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
+  <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
@@ -525,8 +529,11 @@
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
   <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
+  <string name="error.email_different">이미 당신의 이메일 주소입니다.</string>
   <string name="error.minLength">최소 %s자여야 합니다.</string>
   <string name="error.maxLength">최대 %s자여야 합니다</string>
+  <string name="error.min">최소 %s자 이어야 합니다.</string>
+  <string name="error.max">최대 %s자 이어야 합니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
@@ -743,7 +750,7 @@
   <string name="currentMatchScore">현재 경기 점수</string>
   <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
-  <string name="agreementAccount">나는 다중 계정을 만들지 않겠습니다.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">나는 다중 계정을 생성하지 않을 것에 동의합니다. (%s에 명시된 경우 제외)</string>
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
@@ -815,6 +822,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
   <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
+  <string name="embedsAvailable">포함할 게임 URL 또는 스터디 챕터 URL을 붙여넣으세요.</string>
   <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
   <string name="tournChat">토너먼트 채팅</string>
   <string name="noChat">채팅 없음</string>

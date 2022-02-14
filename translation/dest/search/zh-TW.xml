@@ -32,5 +32,5 @@
   <plurals name="gamesFound">
     <item quantity="other">找到 %s 個對局</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">兩位玩家的平均評分</string>
+  <string name="ratingExplanation">兩位玩家的平均評分</string>
 </resources>

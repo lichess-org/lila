@@ -12,4 +12,5 @@
   <string name="tournamentName">שם הטורניר</string>
   <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
   <string name="fullDescription">תיאור מלא של הטורניר</string>
+  <string name="downloadAllRounds">הורדת משחקים</string>
 </resources>

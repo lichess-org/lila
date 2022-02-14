@@ -84,7 +84,7 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aún no hay estudiantes en la clase.</string>
   <string name="noRemovedStudents">No hay estudiantes eliminados.</string>
-  <string name="overDays">A lo largo de días</string>
+  <string name="overDays">A lo largo de los días</string>
   <string name="timePlaying">Tiempo jugado</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>

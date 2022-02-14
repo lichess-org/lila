@@ -187,7 +187,6 @@ peón = 1</string>
   <string name="nailedIt">L\'has clavau!</string>
   <string name="rightOn">Exacto!</string>
   <string name="stageXComplete">Libel %s completo</string>
-  <string name="yourScore">La tuya puntuación</string>
   <string name="next">Siguient</string>
   <string name="backToMenu">Tornar a lo menú</string>
   <string name="puzzleFailed">Solución incorrecta!</string>

@@ -35,5 +35,5 @@
     <item quantity="one">%s partita trovata</item>
     <item quantity="other">%s partite trovate</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Punteggio medio dei giocatori</string>
+  <string name="ratingExplanation">Punteggio medio dei giocatori</string>
 </resources>

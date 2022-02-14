@@ -52,10 +52,10 @@
   <string name="skipExplanation">Пропуснете този ход за да запазите комбинацията си! Можете да го направите само веднъж на състезание.</string>
   <string name="failedPuzzles">Сгрешени задачи</string>
   <string name="slowPuzzles">Бавни задачи</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Тази седмица</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Този месец</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">За всички времена</string>
+  <string name="thisWeek">Тази седмица</string>
+  <string name="thisMonth">Този месец</string>
+  <string name="allTime">За всички времена</string>
   <string name="clickToReload">Натиснете за да презаредите</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Времето за този опит изтече!</string>
+  <string name="thisRunHasExpired">Времето за този опит изтече!</string>
   <string name="thisRunWasOpenedInAnotherTab">Този опит беше отворен в друг таб!</string>
 </resources>

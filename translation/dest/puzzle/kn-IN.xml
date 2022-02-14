@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">ಒಗಟುಗಳು</string>
   <string name="puzzleThemes">ಒಗಟುಗಳ ವಿಷಯವಸ್ತು</string>
-  <string name="recommended">ಇವುಗಳನ್ನು ಆಡಲು ಸಲಹೆ ಮಾಡುತ್ತಿದ್ದೇವೆ</string>
+  <string name="recommended">ಶಿಫಾರಸ್ಸು</string>
   <string name="phases">ಹಂತಗಳು</string>
   <string name="motifs">ಧ್ಯೇಯ</string>
   <string name="advanced">ಪ್ರೌಢ</string>

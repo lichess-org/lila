@@ -18,7 +18,7 @@
   <string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
   <string name="weAreNonProfit">Lichess は非営利団体です。ワールドクラスのチェスサイトを誰もが無料で使えるべきだと考えているからです。</string>
   <string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lichess を楽しんでいるのなら、寄付をしてパトロンになってみるのはどうでしょう。</string>
-  <string name="lifetime">永久</string>
+  <string name="lifetime">永久資格</string>
   <string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
   <string name="lifetimePatron">永久 Lichess パトロン</string>
   <string name="monthly">毎月</string>

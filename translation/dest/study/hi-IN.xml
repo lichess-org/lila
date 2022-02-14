@@ -156,11 +156,11 @@
   <string name="nextChapter">अगला अध्याय।</string>
   <string name="prevChapter">पिछला अध्याय।</string>
   <string name="studyActions">अध्ययन क्रिया</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">विषय</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">मेरे विषय</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">लोकप्रिय विषय</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">विषय प्रबंधन</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">पीछे</string>
+  <string name="topics">विषय</string>
+  <string name="myTopics">मेरे विषय</string>
+  <string name="popularTopics">लोकप्रिय विषय</string>
+  <string name="manageTopics">विषय प्रबंधन</string>
+  <string name="back">पीछे</string>
   <string name="playAgain">फिर से खेलेंगे?</string>
   <string name="whatWouldYouPlay">आप इस स्थिति में क्या खेलेंगे?</string>
   <string name="youCompletedThisLesson">बधाई हो! आपने यह सबक पूरा कर लिया है।</string>

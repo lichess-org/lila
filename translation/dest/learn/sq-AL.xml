@@ -8,7 +8,7 @@
   <string name="youWillLoseAllYourProgress">Ju do të humbni të gjithë progresin tuaj!</string>
   <string name="play">luaj!</string>
   <string name="chessPieces">Figurat e shahut</string>
-  <string name="theRook">Topi</string>
+  <string name="theRook">Torra</string>
   <string name="itMovesInStraightLines">Ai lëviz në vija të drejta</string>
   <string name="rookIntro">Topi është një figurë e fuqishme. A jeni gati ta komandoni?</string>
   <string name="rookGoal">Klikoni topin
@@ -19,24 +19,24 @@ aq më shumë pikë fitoni!</string>
   <string name="useTwoRooks">Përdorni dy topat
 për të shpejtuar gjërat!</string>
   <string name="rookComplete">Urime! Ju mësuat me sukses topin.</string>
-  <string name="theBishop">Oficeri</string>
+  <string name="theBishop">Fili (oficeri)</string>
   <string name="itMovesDiagonally">Ai lëviz në diagonale</string>
   <string name="bishopIntro">Tani do të mësojmë se si të manovrojmë një oficer!</string>
   <string name="youNeedBothBishops">Një oficer i bardhë,
 një oficer i zi. 
 Të duhen që të dy!</string>
   <string name="bishopComplete">Urime! Tani mësuat të përdorni oficerin.</string>
-  <string name="theQueen">Mbretëresha</string>
+  <string name="theQueen">Dama (Mbretëresha)</string>
   <string name="queenCombinesRookAndBishop">Mbretëresha = topi + oficeri</string>
   <string name="queenIntro">Pjesa më e fuqishme e shahut hyn. Madhëria e saj, mbretëresha!</string>
   <string name="queenComplete">Urime! Mbretëreshat s\'kanë më sekrete nga ju.</string>
   <string name="theKing">Mbreti</string>
   <string name="theMostImportantPiece">Figura më e rëndësishme</string>
   <string name="kingIntro">Ti je mbreti. Nese ti bije në betejë, loja humbet.</string>
-  <string name="theKingIsSlow">Mbreti është i ngadalshëm.</string>
-  <string name="lastOne">I fundit!</string>
-  <string name="kingComplete">Tani mund të komandoni komandantin (mbretin)!</string>
-  <string name="theKnight">Kalorësi</string>
+  <string name="theKingIsSlow">Mbreti është i ngadaltë.</string>
+  <string name="lastOne">E fundit!</string>
+  <string name="kingComplete">Tani mund të komandoni komandantin!</string>
+  <string name="theKnight">Kali</string>
   <string name="itMovesInAnLShape">Lëvizë në formën L</string>
   <string name="knightIntro">Ketu ke nje sfide. Kali eshte... nje figure dredharake.</string>
   <string name="knightsHaveAFancyWay">Kuajt kane nje aftesi te vecante te 
@@ -44,7 +44,7 @@ kercyeri rreth e rrotull!</string>
   <string name="knightsCanJumpOverObstacles">Kuajt mund te kercejne mbi pengesat!
 Arratisu dhe mposht yjet!</string>
   <string name="knightComplete">Urime! Tani jeni bere mjeshter i kalit.</string>
-  <string name="thePawn">Pengu</string>
+  <string name="thePawn">Ushtari</string>
   <string name="itMovesForwardOnly">Ajo lëviz vetëm përpara</string>
   <string name="pawnIntro">Ushtaret jane te dobet, por ata kane shume potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Ushtaret mund te levizin vetem nje kuti.
@@ -232,7 +232,6 @@ me dy levizje!</string>
   <string name="nailedIt">Fiks fare.</string>
   <string name="rightOn">Tama sic duhet!</string>
   <string name="stageXComplete">Skena %s u permbush</string>
-  <string name="yourScore">Piket tuaja</string>
   <string name="next">Vazhdo</string>
   <string name="backToMenu">Kthehu tek menuja</string>
   <string name="puzzleFailed">Deshtove problemen!</string>

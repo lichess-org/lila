@@ -23,7 +23,6 @@
 ସୈନିକ = 1</string>
   <string name="puzzles">ପ୍ରହେଳିକା</string>
   <string name="exerciseYourTacticalSkills">ଆପଣଙ୍କ କୌଶଳ ଅଭ୍ୟାସ କରନ୍ତୁ</string>
-  <string name="yourScore">ଆପଣଙ୍କ ସ୍କୋର୍</string>
   <string name="puzzleFailed">ପ୍ରହେଳିକା ବିଫଳ ହେଲା!</string>
   <string name="retry">ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ</string>
 </resources>

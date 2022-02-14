@@ -907,7 +907,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="currentMatchScore">Scór reatha an chluiche</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
   <string name="agreementNice">Aontaím go mbeidh meas agam i gcónaí ar fhicheallaithe eile.</string>
-  <string name="agreementAccount">Aontaím nach gcruthóidh mé scata cuntas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Aontaím nach gcruthóidh mé cuntais iolracha (ach amháin ar na cúiseanna atá luaite sa %s).</string>
   <string name="agreementPolicy">Aontaím go leanfaidh mé gach polasaí Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cuardaigh nó cuir tús le comhrá nua</string>
   <string name="edit">Athraigh</string>

@@ -425,6 +425,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
+  <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
@@ -750,7 +751,7 @@
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
   <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
-  <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Saya setuju untuk tidak membuat banyak akun (kecuali untuk alasan yang tertera di %s).</string>
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
