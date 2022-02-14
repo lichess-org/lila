@@ -7,7 +7,7 @@ const PIECE_SCORES = {
   knight: 3,
   bishop: 3,
   rook: 5,
-  doom: 7,
+  doom: 6,
   queen: 9,
   king: 0,
 };
