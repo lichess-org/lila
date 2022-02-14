@@ -19,12 +19,14 @@ case class Charge(
 
   def id = _id
 
-  def isPayPal = payPal.nonEmpty
-  def isStripe = stripe.nonEmpty
+  def isPayPalLegacy   = payPal.nonEmpty
+  def isPayPalCheckout = payPalCheckout.nonEmpty
+  def isStripe         = stripe.nonEmpty
 
   def serviceName =
     if (isStripe) "stripe"
-    else if (isPayPal) "paypal"
+    else if (isPayPalLegacy) "paypal legacy"
+    else if (isPayPalCheckout) "paypal checkout"
     else "???"
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }

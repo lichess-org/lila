@@ -95,16 +95,6 @@ object index {
                   attr("data-email") := email.??(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
-                  raw(s"""
-<form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org one-time")}
-</form>
-<form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormRecurring(pricing, "lichess.org monthly")}
-</form>
-<form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org lifetime")}
-</form>"""),
                   ctx.me map { me =>
                     st.group(cls := "radio buttons dest")(
                       div(
@@ -213,7 +203,6 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          button(cls := "paypal button")(withPaypal()),
                           div(id := "paypal-button-container")
                         )
                       else
@@ -262,36 +251,6 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
 
   private def showCurrency(cur: Currency)(implicit ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
-
-  private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="button_subtype" value="services">
-"""
-
-  private def payPalFormRecurring(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) =
-    s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="a3" class="amount" value="">
-  <input type="hidden" name="p3" value="1">
-  <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="src" value="1">
-"""
-
-  private def payPalForm(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  <input type="hidden" name="item_name" value="$itemName">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
-"""
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(

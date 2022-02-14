@@ -121,7 +121,7 @@ final private class PayPalClient(
               case JsSuccess(token, _) => fuccess(AccessToken(token))
             }
         }
-        .monSuccess(_.plan.paypal.fetchAccessToken)
+        .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
     }
   }
 

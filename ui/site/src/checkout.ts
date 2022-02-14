@@ -83,9 +83,6 @@ export default function (stripePublicKey: string, pricing: Pricing) {
     const giftDest = getGiftDest();
     const enabled = getDest() != 'gift' || !!giftDest;
     toggleInput($checkout.find('.service button'), enabled);
-    let custom = $('body').data('user');
-    if (enabled && giftDest) custom += ' ' + giftDest;
-    $checkout.find('form.paypal_checkout:not(.monthly) input[name=custom]').val(custom);
   };
 
   toggleCheckout();
@@ -97,16 +94,6 @@ export default function (stripePublicKey: string, pricing: Pricing) {
         freq == 'lifetime' ? pricing.lifetime : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
   };
-
-  $checkout.find('button.paypal').on('click', function () {
-    const freq = getFreq(),
-      amount = getAmountToCharge();
-    if (!amount) return;
-    const $form = $checkout.find('form.paypal_checkout.' + freq);
-    $form.find('input.amount').val('' + amount);
-    ($form[0] as HTMLFormElement).submit();
-    $checkout.find('.service').html(lichess.spinnerHtml);
-  });
 
   const $currencyForm = $('form.currency');
   $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
@@ -141,6 +128,13 @@ const xhrFormData = ($checkout: Cash, amount: number) =>
 function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
   (window.paypal as any)
     .Buttons({
+      style: {
+        layout: 'horizontal',
+        color: 'blue',
+        shape: 'rect',
+        label: 'paypal',
+        height: 55,
+      },
       createOrder: (_data: any, _actions: any) => {
         const amount = getAmount();
         if (!amount) return;

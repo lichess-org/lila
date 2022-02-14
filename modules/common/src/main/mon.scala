@@ -429,8 +429,11 @@ object mon {
     val json                  = future("swiss.json")
   }
   object plan {
-    object paypal {
-      val amount           = histogram("plan.amount").withTag("service", "paypal")
+    object paypalLegacy {
+      val amount = histogram("plan.amount").withTag("service", "paypal")
+    }
+    object paypalCheckout {
+      val amount           = histogram("plan.amount").withTag("service", "paypalCheckout")
       val fetchAccessToken = future("plan.paypal.accessToken")
     }
     val stripe  = histogram("plan.amount").withTag("service", "stripe")

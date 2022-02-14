@@ -174,10 +174,11 @@
           flex: 1 1 auto;
           font-weight: normal;
           margin-right: 1em;
+          height: 55px;
         }
 
-        .button:last-child {
-          margin-right: 0;
+        #paypal-button-container {
+          height: 55px;
         }
       }
 
