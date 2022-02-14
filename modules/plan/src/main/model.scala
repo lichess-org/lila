@@ -150,7 +150,7 @@ case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)
 
 // payPal model
 
-case class PayPalMoney(value: BigDecimal, currency_code: Currency) {
+case class PayPalAmount(value: BigDecimal, currency_code: Currency) {
   def money = Money(value, currency_code)
 }
 case class PayPalOrderId(value: String) extends AnyVal with StringValue
@@ -158,22 +158,31 @@ case class PayPalOrder(
     id: PayPalOrderId,
     intent: String,
     status: String,
-    purchase_units: List[PayPalPurchaseUnit]
+    purchase_units: List[PayPalPurchaseUnit],
+    payer: PayPalPayer
 ) {
-  def isComplete        = status == "COMPLETED"
-  def isCompleteCapture = isComplete && intent == "CAPTURE"
-  def capture = for {
-    unit    <- purchase_units.headOption
-    capture <- unit.payments.captures.headOption
-  } yield capture
+  val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).??(_.trim) match {
+    case s"$userId $giftTo" => (userId.some, giftTo.some)
+    case s"$userId"         => (userId.some, none)
+    case _                  => (none, none)
+  }
+  def isApproved        = status == "APPROVED"
+  def isApprovedCapture = isApproved && intent == "CAPTURE"
+  def capturedMoney     = isApprovedCapture ?? purchase_units.headOption.map(_.amount.money)
+  def country           = payer.address.flatMap(_.country_code)
 }
 case class CreatePayPalOrder(
     checkout: PlanCheckout,
     user: User,
     giftTo: Option[User],
     isLifetime: Boolean
-)
+) {
+  def makeCustomId = giftTo.fold(user.id) { g => s"${user.id} ${g.id}" }
+}
 case class PayPalOrderCreated(id: PayPalOrderId)
-case class PayPalPurchaseUnit(payments: PayPalPayments)
-case class PayPalPayments(captures: List[PayPalCapture])
-case class PayPalCapture(id: String, amount: PayPalMoney)
+case class PayPalPurchaseUnit(amount: PayPalAmount, custom_id: Option[String])
+case class PayPalPayerId(value: String) extends AnyVal with StringValue
+case class PayPalPayer(payer_id: PayPalPayerId, address: Option[PayPalAddress]) {
+  def id = payer_id
+}
+case class PayPalAddress(country_code: Option[Country])

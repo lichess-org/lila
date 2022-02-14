@@ -301,14 +301,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def payPalCapture(orderId: String) =
     Auth { implicit ctx => me =>
       CaptureRateLimit(ctx.ip) {
-        env.plan.api.onPaypalApprove(PayPalOrderId(orderId), ctx.ip) inject jsonOkResult
+        env.plan.api.paypalCapture(PayPalOrderId(orderId), ctx.ip) inject jsonOkResult
       }(rateLimitedFu)
     }
 
   // deprecated
   def payPalIpn =
     Action.async { implicit req =>
-      import lila.plan.Patron.PayPal
       lila.plan.PlanForm.ipn
         .bindFromRequest()
         .fold(

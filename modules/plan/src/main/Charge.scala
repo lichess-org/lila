@@ -10,7 +10,8 @@ case class Charge(
     userId: Option[User.ID],
     giftTo: Option[User.ID] = none,
     stripe: Option[Charge.Stripe] = none,
-    payPal: Option[Charge.PayPal] = none,
+    payPal: Option[Charge.PayPalLegacy] = none,
+    payPalCheckout: Option[Charge.PayPalCheckout] = none,
     money: Money,
     usd: Usd,
     date: DateTime
@@ -35,7 +36,8 @@ object Charge {
       userId: Option[User.ID],
       giftTo: Option[User.ID],
       stripe: Option[Charge.Stripe] = none,
-      payPal: Option[Charge.PayPal] = none,
+      payPal: Option[Charge.PayPalLegacy] = none,
+      payPalCheckout: Option[Charge.PayPalCheckout] = none,
       money: Money,
       usd: Usd
   ) =
@@ -45,6 +47,7 @@ object Charge {
       giftTo = giftTo,
       stripe = stripe,
       payPal = payPal,
+      payPalCheckout = payPalCheckout,
       money = money,
       usd = usd,
       date = DateTime.now
@@ -55,13 +58,15 @@ object Charge {
       customerId: StripeCustomerId
   )
 
-  case class PayPal(
+  case class PayPalLegacy(
       ip: Option[String],
       name: Option[String],
       email: Option[String],
       txnId: Option[String],
       subId: Option[String]
   )
+
+  case class PayPalCheckout(orderId: PayPalOrderId, payerId: PayPalPayerId)
 
   case class Gift(from: User.ID, to: User.ID, date: DateTime)
 }

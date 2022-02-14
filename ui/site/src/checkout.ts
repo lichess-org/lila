@@ -155,13 +155,11 @@ function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number 
             else location.assign('/patron');
           });
       },
-      onApprove: (_data: any, actions: any) =>
-        actions.order.capture().then((order: any) => {
-          console.log(order.id);
-          xhr.json('/patron/paypal/approve/' + order.id, { method: 'POST' }).then(() => {
-            // lichess.reload();
-          });
-        }),
+      onApprove: (data: any, _actions: any) => {
+        xhr.json('/patron/paypal/capture/' + data.orderID, { method: 'POST' }).then(() => {
+          lichess.reload();
+        });
+      },
     })
     .render('#paypal-button-container');
 }

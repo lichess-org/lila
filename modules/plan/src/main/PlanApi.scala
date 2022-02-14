@@ -61,7 +61,7 @@ final class PlanApi(
 
   def onStripeCharge(stripeCharge: StripeCharge): Funit = for {
     patronOption <- customerIdPatron(stripeCharge.customer)
-    giftTo       <- stripeCharge.giftTo ?? userRepo.byId
+    giftTo       <- stripeCharge.giftTo ?? userRepo.named
     money = stripeCharge.amount toMoney stripeCharge.currency
     usd <- currencyApi toUsd money
     charge = Charge
@@ -118,7 +118,7 @@ final class PlanApi(
           userId = ipn.userId,
           giftTo = giftTo.map(_.id),
           payPal = Charge
-            .PayPal(
+            .PayPalLegacy(
               name = ipn.name,
               email = ipn.email,
               txnId = ipn.txnId,
@@ -136,9 +136,9 @@ final class PlanApi(
                 case Some(to) => gift(user, to, money)
                 case None =>
                   val payPal =
-                    Patron.PayPal(
-                      ipn.email map Patron.PayPal.Email,
-                      ipn.subId map Patron.PayPal.SubId,
+                    Patron.PayPalLegacy(
+                      ipn.email map Patron.PayPalLegacy.Email,
+                      ipn.subId map Patron.PayPalLegacy.SubId,
                       DateTime.now
                     )
                   userPatron(user).flatMap {
@@ -175,9 +175,6 @@ final class PlanApi(
     notifier.onCharge(user)
     setDbUserPlan(user)
   }
-
-  def onPaypalApprove(orderId: PayPalOrderId, ip: IpAddress) =
-    payPalClient.getOrder(orderId).thenPp
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {
@@ -488,6 +485,61 @@ final class PlanApi(
       isLifetime <- pricingApi.isLifetime(checkout.money)
       order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
     } yield order
+
+  def paypalCapture(orderId: PayPalOrderId, ip: IpAddress) = for {
+    order      <- payPalClient.getOrder(orderId) orFail s"Missing paypal order for id $orderId"
+    money      <- order.capturedMoney.fold[Fu[Money]](fufail(s"Invalid paypal capture $order"))(fuccess)
+    pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
+    usd        <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
+    isLifetime <- pricingApi isLifetime money
+    giftTo     <- order.giftTo ?? userRepo.named
+    _ <-
+      if (!pricing.valid(money)) {
+        logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
+        funit
+      } else {
+        val charge = Charge.make(
+          userId = order.userId,
+          giftTo = giftTo.map(_.id),
+          payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id).some,
+          money = money,
+          usd = usd
+        )
+        addCharge(charge, order.country) >>
+          (order.userId ?? userRepo.named) flatMap {
+            _ ?? { user =>
+              giftTo match {
+                case Some(to) => gift(user, to, money)
+                case None =>
+                  val payPal = Patron.PayPalCheckout(order.payer.id)
+                  userPatron(user).flatMap {
+                    case None =>
+                      patronColl.insert.one(
+                        Patron(
+                          _id = Patron.UserId(user.id),
+                          payPalCheckout = payPal.some,
+                          lastLevelUp = Some(DateTime.now)
+                        ).expireInOneMonth
+                      ) >>
+                        setDbUserPlanOnCharge(user, levelUp = false)
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPalCheckout = payPal.some,
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      patronColl.update.one($id(patron.id), p2) >>
+                        setDbUserPlanOnCharge(user, patron.canLevelUp)
+                  } >> {
+                    isLifetime ?? setLifetime(user)
+                  } >>- logger.info(s"Charged ${user.username} with paypal: $money")
+              }
+            }
+          }
+      }
+  } yield ()
 }
 
 object PlanApi {

@@ -10,6 +10,7 @@ private[plan] object JsonHandlers {
   implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
     Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
   }
+  implicit val CountryReads = Reads.of[String].map(Country.apply)
 
   object stripe {
     implicit val SubscriptionIdReads = Reads.of[String].map(StripeSubscriptionId.apply)
@@ -43,12 +44,13 @@ private[plan] object JsonHandlers {
   }
 
   object payPal {
+    implicit val PayerIdReads      = Reads.of[String].map(PayPalPayerId.apply)
     implicit val OrderIdReads      = Reads.of[String].map(PayPalOrderId.apply)
     implicit val OrderCreatedReads = Json.reads[PayPalOrderCreated]
-    implicit val MoneyReads        = Json.reads[PayPalMoney]
-    implicit val CaptureReads      = Json.reads[PayPalCapture]
-    implicit val PaymentsReads     = Json.reads[PayPalPayments]
+    implicit val AmountReads       = Json.reads[PayPalAmount]
     implicit val PurchaseUnitReads = Json.reads[PayPalPurchaseUnit]
+    implicit val AddressReads      = Json.reads[PayPalAddress]
+    implicit val PayerReads        = Json.reads[PayPalPayer]
     implicit val OrderReads        = Json.reads[PayPalOrder]
   }
 }

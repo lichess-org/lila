@@ -36,6 +36,7 @@ final private class PayPalClient(
       "intent" -> "CAPTURE",
       "purchase_units" -> List(
         Json.obj(
+          "custom_id" -> data.makeCustomId,
           "amount" -> {
             moneyWrites.writes(data.checkout.money) ++ Json.obj(
               "breakdown" -> Json.obj(

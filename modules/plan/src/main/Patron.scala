@@ -7,7 +7,8 @@ import lila.user.User
 case class Patron(
     _id: Patron.UserId,
     stripe: Option[Patron.Stripe] = none,
-    payPal: Option[Patron.PayPal] = none,
+    payPal: Option[Patron.PayPalLegacy] = none,
+    payPalCheckout: Option[Patron.PayPalCheckout] = none,
     free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
@@ -56,16 +57,17 @@ object Patron {
   case class UserId(value: String) extends AnyVal
 
   case class Stripe(customerId: StripeCustomerId)
+  case class PayPalCheckout(payerId: PayPalPayerId)
 
-  case class PayPal(
-      email: Option[PayPal.Email],
-      subId: Option[PayPal.SubId],
+  case class PayPalLegacy(
+      email: Option[PayPalLegacy.Email],
+      subId: Option[PayPalLegacy.SubId],
       lastCharge: DateTime
   ) {
 
     def renew = subId.isDefined
   }
-  object PayPal {
+  object PayPalLegacy {
     case class Email(value: String) extends AnyVal
     case class SubId(value: String) extends AnyVal
   }
