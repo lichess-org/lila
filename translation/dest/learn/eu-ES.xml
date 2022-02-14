@@ -236,6 +236,7 @@ bi jokalditan!</string>
   <string name="rightOn">Horrela bai!</string>
   <string name="stageXComplete">%s pausua beteta</string>
   <string name="next">Hurrengoa</string>
+  <string name="nextX">Hurrengoa: %s</string>
   <string name="backToMenu">Menura itzuli</string>
   <string name="puzzleFailed">Huts egin duzu!</string>
   <string name="retry">Berriro saiatu</string>
