@@ -249,13 +249,13 @@ object PerfType {
   )
   val isLeaderboardable = leaderboardable.toSet
   val variants: List[PerfType] =
-    List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+    List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, NewChess1)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def variantOf(pt: PerfType): chess.variant.Variant =
     pt match {
       case Crazyhouse    => chess.variant.Crazyhouse
-      case NewChess1     => chess.variant.NewChess1
+      case NewChess1     => chess.variant.Standard
       case Chess960      => chess.variant.Chess960
       case KingOfTheHill => chess.variant.KingOfTheHill
       case ThreeCheck    => chess.variant.ThreeCheck
@@ -263,13 +263,13 @@ object PerfType {
       case Atomic        => chess.variant.Atomic
       case Horde         => chess.variant.Horde
       case RacingKings   => chess.variant.RacingKings
-      case _             => chess.variant.NewChess1
+      case _             => chess.variant.Standard
     }
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
     variant match {
-      case chess.variant.Standard      => NewChess1.some
-      case chess.variant.FromPosition  => NewChess1.some
+      case chess.variant.Standard      => None
+      case chess.variant.FromPosition  => None
       case chess.variant.Crazyhouse    => Crazyhouse.some
       case chess.variant.Chess960      => Chess960.some
       case chess.variant.KingOfTheHill => KingOfTheHill.some
@@ -278,7 +278,7 @@ object PerfType {
       case chess.variant.Atomic        => Atomic.some
       case chess.variant.Horde         => Horde.some
       case chess.variant.RacingKings   => RacingKings.some
-      case chess.variant.NewChess1     => NewChess1.some
+      case chess.variant.NewChess1     => None
     }
 
   def standardBySpeed(speed: Speed): PerfType = speed match {
