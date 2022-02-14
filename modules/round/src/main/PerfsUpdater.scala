@@ -137,7 +137,7 @@ final class PerfsUpdater(
       case (player, opponent) =>
         val perfs            = player.perfs
         val speed            = game.speed
-        val isStd            = game.ratingVariant.standard
+        val isStd            = game.ratingVariant.standard || game.ratingVariant.newChess1
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
           if (cond) {
