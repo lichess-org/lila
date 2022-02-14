@@ -317,6 +317,15 @@ final class StudyApi(
       }
     }
 
+  def clearSidelines(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
+    sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
+      Contribute(who.u, study) {
+        chapterRepo.update(chapter.updateRoot { root =>
+          root.clearSidelines.some
+        } | chapter) >>- sendTo(study.id)(_.updateChapter(chapter.id, who))
+      }
+    }
+
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
   def promote(studyId: Study.Id, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>

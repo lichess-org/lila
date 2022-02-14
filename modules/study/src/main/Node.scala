@@ -85,6 +85,11 @@ case class Node(
       score = none
     )
 
+  def clearSidelines: Node =
+    copy(
+      children = children.first.fold(Node.emptyChildren) { child => Children(Vector(child.clearSidelines)) }
+    )
+
   def merge(n: Node): Node =
     copy(
       shapes = shapes ++ n.shapes,
@@ -294,6 +299,11 @@ object Node {
       children.first.fold(this) { main =>
         copy(children = children.update(main updateMainlineLast f))
       }
+
+    def clearSidelines =
+      copy(
+        children = children.first.fold(Node.emptyChildren) { child => Children(Vector(child.clearSidelines)) }
+      )
 
     lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 
