@@ -185,7 +185,6 @@ Piyon = 1</string>
   <string name="nailedIt">Başardın!</string>
   <string name="rightOn">İşte böyle!</string>
   <string name="stageXComplete">%s. aşama tamamlandı</string>
-  <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
   <string name="puzzleFailed">Bulmaca çözülemedi!</string>

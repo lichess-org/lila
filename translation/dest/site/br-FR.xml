@@ -859,7 +859,7 @@
   <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
   <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="agreementNice">Prometiñ a ran bezañ bepred hegarat ouzh ar c\'hoarierien all.</string>
-  <string name="agreementAccount">Prometiñ a ran e chomin hep krouiñ meur a gont.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Akord on ne grouin ket meur a gont (nemet evit an abegoù menneget e %s).</string>
   <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù Lichess.</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>

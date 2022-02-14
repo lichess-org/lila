@@ -220,8 +220,8 @@ en du movoj!</string>
   <string name="nailedIt">Perfekta.</string>
   <string name="rightOn">Ĝuste!</string>
   <string name="stageXComplete">Nivelo %s kompleta</string>
-  <string name="yourScore">Via poentaro</string>
   <string name="next">Proksima</string>
+  <string name="nextX">Proksima: %s</string>
   <string name="backToMenu">Reveni al la menuo</string>
   <string name="puzzleFailed">Puzilo malsukcesis!</string>
   <string name="retry">Reprovi</string>

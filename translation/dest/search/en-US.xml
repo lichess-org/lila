@@ -35,5 +35,5 @@
     <item quantity="one">%s game found</item>
     <item quantity="other">%s games found</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">The average rating of both players</string>
+  <string name="ratingExplanation">The average rating of both players</string>
 </resources>

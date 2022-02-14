@@ -233,8 +233,8 @@ kahdella siirrolla!</string>
   <string name="nailedIt">Naulan kantaan.</string>
   <string name="rightOn">Naulan kantaan!</string>
   <string name="stageXComplete">Taso %s valmis</string>
-  <string name="yourScore">Tuloksesi</string>
   <string name="next">Seuraava</string>
+  <string name="nextX">Seuraavaksi: %s</string>
   <string name="backToMenu">Valikkoon</string>
   <string name="puzzleFailed">Tehtävä epäonnistui!</string>
   <string name="retry">Yritä uudelleen</string>

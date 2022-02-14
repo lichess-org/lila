@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Bílý</string>
   <string name="black">Černý</string>
+  <string name="asWhite">jako bílá</string>
+  <string name="asBlack">jako černá</string>
   <string name="randomColor">Náhodná barva</string>
   <string name="createAGame">Vytvořit hru</string>
   <string name="whiteIsVictorious">Vyhrál bílý</string>
@@ -200,6 +202,12 @@
     <item quantity="few">%s hodiny</item>
     <item quantity="many">%s hodin</item>
     <item quantity="other">%s hodin</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="few">%s minuty</item>
+    <item quantity="many">%s minut</item>
+    <item quantity="other">%s minut</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
@@ -394,6 +402,7 @@
   <string name="leaderboard">Žebříček</string>
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
+  <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
   <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="toStudy">Do studie</string>
@@ -820,8 +829,8 @@
   <string name="waitingForAnalysis">Čekání na analýzu</string>
   <string name="noMistakesFoundForWhite">Žádné bílého chyby nenalezeny</string>
   <string name="noMistakesFoundForBlack">Žádné černého chyby nenalezeny</string>
-  <string name="doneReviewingWhiteMistakes">Procházení bílého chyb dokončeno</string>
-  <string name="doneReviewingBlackMistakes">Procházení černého chyb dokončeno</string>
+  <string name="doneReviewingWhiteMistakes">Procházení chyb bílého dokončeno</string>
+  <string name="doneReviewingBlackMistakes">Procházení chyb černého dokončeno</string>
   <string name="doItAgain">Udělat znovu</string>
   <string name="reviewWhiteMistakes">Projít chyby bílého</string>
   <string name="reviewBlackMistakes">Projít chyby černého</string>
@@ -864,7 +873,7 @@
   <string name="currentMatchScore">Současné výsledky zápasů</string>
   <string name="agreementAssistance">Přísahám, že nikdy nevyužiji jiné pomoci při mých hrách (počítače, knihy, databáze nebo jiné osoby).</string>
   <string name="agreementNice">Přísahám, že budu vždy respektovat ostatní hráče.</string>
-  <string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Souhlasím s tím, že nebudu vytvářet více účtů (s výjimkou důvodů uvedených v %s).</string>
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
@@ -952,4 +961,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>
   <string name="youCantStartNewGame">Nemůžete začít novou hru, dokud nebude tato dokončena.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>
+  <string name="switchSides">Prohodit strany</string>
 </resources>

@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Skaakstuk simbool</string>
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Dit maak dit moontlik om nie die graderings te vertoon nie om sodoende beter te kan fokus op die skaak. Spelle kan steeds gegradeer word; dit gaan bloot oor wat jy kan sien.</string>
+  <string name="explainShowPlayerRatings">Dit maak dit moontlik om nie die graderings te vertoon nie om sodoende beter te kan fokus op die skaak. Spelle kan steeds gegradeer word; dit gaan bloot oor wat jy kan sien.</string>
   <string name="displayBoardResizeHandle">Vertoon opsie om bord se groote te verander</string>
   <string name="onlyOnInitialPosition">Slegs by begin posisie</string>
   <string name="blindfoldChess">Blinddoek skaak (onsigbare stukke)</string>
@@ -31,7 +31,7 @@
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
   <string name="inCasualGamesOnly">Slegs in vriendskaplike spelle</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
+  <string name="explainPromoteToQueenAutomatically">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>
@@ -46,4 +46,5 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Beperk pyltjies tot geldige skuiwe</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sê \"Good game, well played\" (Goeie spel, mooi gespeel) met \'n nederlaag of gelykop</string>
   <string name="yourPreferencesHaveBeenSaved">Jou voorkeure is gestoor.</string>
+  <string name="correspondenceEmailNotification">Daaglikse e-pos met \'n lys van jou korrespondensiespelle</string>
 </resources>

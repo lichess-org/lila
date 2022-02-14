@@ -66,8 +66,8 @@ Myslíme si, že tieto podmienky je pravdepodobnejšie splniť v rámci tímu ak
   <string name="pairingSystemArena">Akýkoľvek dostupný súper s podobným umiestnením</string>
   <string name="pairingSystemSwiss">Najlepšie párovanie na základe bodov a remíz</string>
   <string name="pairingWaitTime">Čas čakania na párovanie</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rýchle: nečaká sa na všetkých hráčov</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Pomalé: čaká sa na všetkých hráčov</string>
+  <string name="pairingWaitTimeArena">Rýchle: nečaká sa na všetkých hráčov</string>
+  <string name="pairingWaitTimeSwiss">Pomalé: čaká sa na všetkých hráčov</string>
   <string name="identicalPairing">Rovnaké párovanie</string>
   <string name="possibleButNotConsecutive">Možné, ale nie po sebe idúce</string>
   <string name="identicalForbidden">Zakázané</string>

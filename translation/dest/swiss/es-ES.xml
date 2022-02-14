@@ -89,8 +89,8 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="pairingSystemArena">Cualquier oponente disponible con una puntuación similar</string>
   <string name="pairingSystemSwiss">Mejor emparejamiento basado en puntos y empates</string>
   <string name="pairingWaitTime">Tiempo de espera de emparejamiento</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rápido: no espera a todos los jugadores</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lento: espera a todos los jugadores</string>
+  <string name="pairingWaitTimeArena">Rápido: no espera a todos los jugadores</string>
+  <string name="pairingWaitTimeSwiss">Lento: espera a todos los jugadores</string>
   <string name="identicalPairing">Emparejamiento idéntico</string>
   <string name="possibleButNotConsecutive">Posible, pero no consecutivo</string>
   <string name="identicalForbidden">Prohibido</string>

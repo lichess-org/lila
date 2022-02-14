@@ -42,7 +42,7 @@ Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationA">En Sied git 1 Punkt und es Remis en halbe Punkt. 
 Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger Wertig</string>
+  <string name="sonnebornBergerScore">Mit de Sonneborn-Berger Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
 Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gägner ergänd zämme die sog. SB-Zahl (Sonneborn Zahl) für en Schpiller. Bi Punktgliichheit isch die höcher SB-Zahl vorne.</string>
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
@@ -89,8 +89,8 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
   <string name="pairingSystemArena">Jede verfüegbari Gägner mit ähnlichem Rang</string>
   <string name="pairingSystemSwiss">Beschti Paarig errächnet mit Punktezahl und Fiinwertig</string>
   <string name="pairingWaitTime">Warteziit uf d\'Paarig</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Churz - wartet nöd uf all Spiller</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lang - wartet uf all Spiller</string>
+  <string name="pairingWaitTimeArena">Churz - wartet nöd uf all Spiller</string>
+  <string name="pairingWaitTimeSwiss">Lang - wartet uf all Spiller</string>
   <string name="identicalPairing">Idäntischi Paarig</string>
   <string name="possibleButNotConsecutive">Möglich, aber nöd nachenand</string>
   <string name="identicalForbidden">Verbote</string>

@@ -13,7 +13,7 @@
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示玩家等级分</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">该选项可在全站内隐藏显示等级分，使你可以专注在下棋本身。对局依旧会影响等级分，只是不显示而已。</string>
+  <string name="explainShowPlayerRatings">该选项可在全站内隐藏显示等级分，使你可以专注在下棋本身。对局依旧会影响等级分，只是不显示而已。</string>
   <string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
@@ -32,7 +32,7 @@
   <string name="takebacksWithOpponentApproval">悔棋（需要对手同意）</string>
   <string name="inCasualGamesOnly">仅限于无积分对局</string>
   <string name="promoteToQueenAutomatically">兵自动升为后</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
+  <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
   <string name="whenPremoving">预先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>

@@ -156,11 +156,11 @@
   <string name="nextChapter">Nögschts Kapitäl</string>
   <string name="prevChapter">Vorhärigs Kapitäl</string>
   <string name="studyActions">Lärnaktionä</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Themä</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Miini Themä</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Beliebti Themä</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Themä verwaltä</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Zrugg</string>
+  <string name="topics">Themä</string>
+  <string name="myTopics">Miini Themä</string>
+  <string name="popularTopics">Beliebti Themä</string>
+  <string name="manageTopics">Themä verwaltä</string>
+  <string name="back">Zrugg</string>
   <string name="playAgain">Vo vornä</string>
   <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>
   <string name="youCompletedThisLesson">Gratulation! Du häsch die Lektion abgschlosse.</string>

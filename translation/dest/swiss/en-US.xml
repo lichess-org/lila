@@ -89,8 +89,8 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="pairingSystemArena">Any available opponent with similar ranking</string>
   <string name="pairingSystemSwiss">Best pairing based on points and tie breaks</string>
   <string name="pairingWaitTime">Pairing wait time</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Fast: doesn\'t wait for all players</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Slow: waits for all players</string>
+  <string name="pairingWaitTimeArena">Fast: doesn\'t wait for all players</string>
+  <string name="pairingWaitTimeSwiss">Slow: waits for all players</string>
   <string name="identicalPairing">Identical pairing</string>
   <string name="possibleButNotConsecutive">Possible, but not consecutive</string>
   <string name="identicalForbidden">Forbidden</string>

@@ -3,10 +3,14 @@
   <string name="broadcasts">Көрсетілімдер</string>
   <string name="liveBroadcasts">Тікелей жарыс көрсетілімдері</string>
   <string name="newBroadcast">Жаңа тікелей көрсетілім</string>
+  <string name="addRound">Айналым қосу</string>
   <string name="ongoing">Болып жатқан</string>
   <string name="upcoming">Келе жатқан</string>
   <string name="completed">Аяқталған</string>
+  <string name="roundName">Айналым атауы</string>
   <string name="roundNumber">Раунд нөмірі</string>
+  <string name="tournamentName">Жарыс атауы</string>
+  <string name="tournamentDescription">Жарыстың қысқа сипаттамасы</string>
   <string name="fullDescription">Оқиғаның толық сипаттамасы</string>
   <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
   <string name="sourceUrlOrGameIds">Сілтемесі не ойын нөмірлері</string>
@@ -15,4 +19,10 @@
   <string name="startDate">Басталу күні (өз уақыт белдеуіңізде)</string>
   <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
   <string name="credits">Қайнар көзіне сілтеңіз</string>
+  <string name="resetRound">Бұл айналымды жаңарту</string>
+  <string name="deleteRound">Бұл айналымды жою</string>
+  <string name="broadcastUrl">Көрсетілім сілтемесі</string>
+  <string name="currentRoundUrl">Қазіргі айналым сілтемесі</string>
+  <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
+  <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
 </resources>

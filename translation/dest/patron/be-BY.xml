@@ -3,7 +3,7 @@
   <string name="donate">Ахвяраваць</string>
   <string name="donateAsX">Ахвяраваць ад імя %s</string>
   <string name="lichessPatron">Спонсар Lichess</string>
-  <string name="freeAccount">Бясплатны акаўнт</string>
+  <string name="freeAccount">Бясплатны ўліковы запіс</string>
   <string name="becomePatron">Стаць cпонсарам Lichess</string>
   <string name="xBecamePatron">%s стаў(-ла) cпонсарам Lichess</string>
   <plurals name="xIsPatronForNbMonths">
@@ -16,7 +16,7 @@
   <string name="freeChess">Бясплатныя шахматы для ўсіх, назаўседы!</string>
   <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
   <string name="thankYou">Дзякуй за ваш унёсак!</string>
-  <string name="youHaveLifetime">У вас пажыццёвы акаўнт спонсара. Гэта вельмі крута!</string>
+  <string name="youHaveLifetime">У вас пажыццёвы ўліковы запіс спонсара. Гэта вельмі крута!</string>
   <string name="patronUntil">Вы спонсар да %s.</string>
   <string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
   <string name="weAreNonProfit">Мы некамерцыйная арганізацыя, таму што лічым, што кожны варты мець доступ да бясплатнай шахматнай платформы сусветнага ўзроўня.</string>
@@ -74,10 +74,10 @@
   <string name="date">Дата</string>
   <string name="amount">Сума</string>
   <string name="transactionCompleted">Аперацыя завершана паспяхова, квітанцыя была адпраўлена вам на электроную пошту.</string>
-  <string name="permanentPatron">У вас цяпер пажыцевы спонсарскі акаунт.</string>
+  <string name="permanentPatron">У вас цяпер пажыцёвы спонсарскі ўліковы запіс.</string>
   <string name="checkOutProfile">Праверце сваю старонку!</string>
   <string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lichess!</string>
   <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
-  <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
+  <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш уліковы запіс Lichess зробіцца звычайным.</string>
   <string name="changeCurrency">Змяніць валюту</string>
 </resources>

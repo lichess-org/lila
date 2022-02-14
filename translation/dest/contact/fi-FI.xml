@@ -67,9 +67,9 @@
   <string name="monetizing">Lichessin kaupallistaminen</string>
   <string name="buyingLichess">Lichessin ostaminen</string>
   <string name="authorizationToUse">Lichessin käyttöluvat</string>
-  <string name="welcomeToUse">Saat vapaasti käyttää Lichessiä omiin tarkoituksiisi, jopa kaupallisiin.</string>
-  <string name="videosAndBooks">Se voi näkyä videoillasi, ja voit painaa kuvankaappauksia Lichessistä kirjoihisi.</string>
-  <string name="creditAppreciated">Tunnustus on tervetullutta, mutta emme vaadi sitä.</string>
+  <string name="welcomeToUse">Saat vapaasti käyttää Lichessiä omiin tarkoituksiisi, myös kaupallisiin tarkoituksiin.</string>
+  <string name="videosAndBooks">Lichess saa näkyä videoillasi, ja saat painattaa Lichessistä tehtyjä kuvakaappauksia kirjoihisi.</string>
+  <string name="creditAppreciated">Arvostamme Lichessin mainintaa, mutta emme vaadi sitä.</string>
   <string name="noneOfTheAbove">Ei mitään näistä</string>
   <string name="sendEmailAt">Lähetä sähköpostia osoitteeseen %s.</string>
   <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro Lichess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>

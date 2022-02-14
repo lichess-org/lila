@@ -87,8 +87,8 @@ Pourquoi? Parce qu\'il n\'existe pas de façon équitable de résoudre le probl�
   <string name="pairingSystemArena">N\'importe quel adversaire disponible avec un classement similaire</string>
   <string name="pairingSystemSwiss">Meilleur appariement selon le nombre de points et le départage</string>
   <string name="pairingWaitTime">Temps d\'attente pour l\'appariement</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rapide : n\'attend pas tous les joueurs</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lent : attend tous les joueurs</string>
+  <string name="pairingWaitTimeArena">Rapide : n\'attend pas tous les joueurs</string>
+  <string name="pairingWaitTimeSwiss">Lent : attend tous les joueurs</string>
   <string name="identicalPairing">Appariement identique</string>
   <string name="possibleButNotConsecutive">Possible, mais pas de façon consécutive</string>
   <string name="identicalForbidden">Interdit</string>

@@ -23,7 +23,7 @@
   <string name="classDescription">Descrición da clase</string>
   <string name="visibleByBothStudentsAndTeachers">Visible para adestradores e alumnos</string>
   <string name="teachersOfTheClass">Adestradores desta clase</string>
-  <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña)</string>
+  <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña).</string>
   <string name="resetPassword">Reiniciar o contrasinal</string>
   <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
   <string name="passwordX">Contrasinal: %s</string>

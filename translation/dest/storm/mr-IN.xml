@@ -16,6 +16,6 @@
   <string name="moves">चाली</string>
   <string name="accuracy">अचूकता</string>
   <string name="time">वेळ</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">या आठवड्यात</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">या महिन्यात</string>
+  <string name="thisWeek">या आठवड्यात</string>
+  <string name="thisMonth">या महिन्यात</string>
 </resources>

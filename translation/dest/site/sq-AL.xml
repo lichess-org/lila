@@ -14,9 +14,11 @@
   <string name="chat">Bisedo</string>
   <string name="resign">Dorëzohu</string>
   <string name="checkmate">Shah mat</string>
-  <string name="stalemate">Pat / Remi</string>
+  <string name="stalemate">Pat</string>
   <string name="white">I bardhi</string>
   <string name="black">I ziu</string>
+  <string name="asWhite">me gurë të bardhë</string>
+  <string name="asBlack">me gurë të zinj</string>
   <string name="randomColor">Ngjyrë e rastësishme</string>
   <string name="createAGame">Krijo një lojë</string>
   <string name="whiteIsVictorious">Fitoi i bardhi</string>
@@ -24,7 +26,7 @@
   <string name="youPlayTheWhitePieces">Ju luani me të bardhët</string>
   <string name="youPlayTheBlackPieces">Ju luani me të zinjtë</string>
   <string name="itsYourTurn">Është radha juaj!</string>
-  <string name="cheatDetected">U pika Hile</string>
+  <string name="cheatDetected">U pikas hile</string>
   <string name="kingInTheCenter">Mbreti në qendër</string>
   <string name="threeChecks">Tre herë shah</string>
   <string name="raceFinished">Gara mbaroi</string>
@@ -35,7 +37,7 @@
   <string name="whitePlays">Radha e të Bardhit</string>
   <string name="blackPlays">Radha e të Ziut</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Kundërshtari juaj la lojën. Mund të kërkoni fitoren në %s sekondë.</item>
+    <item quantity="one">Kundërshtari juaj la lojën. Mund të kërkoni fitoren në %s sekonda.</item>
     <item quantity="other">Kundërshtari juaj la lojën. Mund të kërkoni fitoren në %s sekonda.</item>
   </plurals>
   <string name="opponentLeftChoices">Kundërshtari juaj la lojën. Mund të kërkoni fitoren, ta shpallni lojën barazim, ose të prisni.</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">I ziu u dorëzua</string>
   <string name="whiteLeftTheGame">I bardhi e la lojën</string>
   <string name="blackLeftTheGame">I ziu e la lojën</string>
+  <string name="whiteDidntMove">I bardhi nuk bëri asnjë lëvizje</string>
+  <string name="blackDidntMove">I ziu nuk bëri asnjë lëvizje</string>
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Analiza kompjuterike është e gatshme</string>
@@ -107,12 +111,12 @@
   <string name="memory">Memorja</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq kufirin e thellësisë, dhe e mban të ngrohtë kompjuterin tuaj</string>
-  <string name="blunder">Gabim trashanik</string>
+  <string name="blunder">Gafë</string>
   <string name="mistake">Gabim</string>
   <string name="inaccuracy">Pasaktësi</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s gabim trashanik</item>
-    <item quantity="other">%s gabime trashanike</item>
+    <item quantity="one">%s gafë</item>
+    <item quantity="other">%s gafa</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s gabim</item>
@@ -132,7 +136,7 @@
     <item quantity="one">%s lojtar</item>
     <item quantity="other">%s lojtarë</item>
   </plurals>
-  <string name="drawByMutualAgreement">Barazim me mirëkuptim dypalësh</string>
+  <string name="drawByMutualAgreement">Barazim me marrëveshje</string>
   <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
   <plurals name="nbGames">
@@ -154,7 +158,7 @@
   <string name="xPostedInForumY">%1$s të postuara si kryetituj %2$s</string>
   <string name="latestForumPosts">Postimet e fundit në forum</string>
   <string name="players">Lojtarë</string>
-  <string name="friends">Shokë</string>
+  <string name="friends">Miqtë</string>
   <string name="discussions">Biseda</string>
   <string name="today">Sot</string>
   <string name="yesterday">Dje</string>
@@ -162,9 +166,9 @@
   <string name="variant">Varianti</string>
   <string name="variants">Variante</string>
   <string name="timeControl">Kontroll kohe</string>
-  <string name="realTime">Koha e vërtetë</string>
+  <string name="realTime">Kohë reale</string>
   <string name="correspondence">Korrespondencë</string>
-  <string name="daysPerTurn">Ditë për turne</string>
+  <string name="daysPerTurn">Ditë për lëvizje</string>
   <string name="oneDay">Një ditë</string>
   <plurals name="nbDays">
     <item quantity="one">%s ditë</item>
@@ -174,8 +178,8 @@
     <item quantity="one">%s orë</item>
     <item quantity="other">%s orë</item>
   </plurals>
-  <string name="time">Kohë</string>
-  <string name="rating">Vlerësim</string>
+  <string name="time">Koha</string>
+  <string name="rating">Vlerësimi</string>
   <string name="ratingStats">Statistika vlerësimi</string>
   <string name="username">Emri i përdoruesit</string>
   <string name="usernameOrEmail">Emri i përdoruesit ose email-i</string>
@@ -214,8 +218,8 @@
   <string name="whiteDeclinesDraw">I bardhi hedh poshtë barazimin</string>
   <string name="blackDeclinesDraw">I ziu hedh poshtë barazimin</string>
   <string name="yourOpponentOffersADraw">Kundërshtari ju ofron barazim</string>
-  <string name="accept">Pranojeni</string>
-  <string name="decline">Hidheni poshtë</string>
+  <string name="accept">Prano</string>
+  <string name="decline">Refuzo</string>
   <string name="playingRightNow">Po luhet tani</string>
   <string name="eventInProgress">Po luhet tani</string>
   <string name="finished">Përfundoi</string>
@@ -227,22 +231,22 @@
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
   <string name="rated">Me vlerësim</string>
-  <string name="casualTournament">Rastësore</string>
+  <string name="casualTournament">Pa vlerësim</string>
   <string name="ratedTournament">Me vlerësim</string>
   <string name="thisGameIsRated">Kjo lojë është me vlerësësim</string>
-  <string name="rematch">Revansh</string>
-  <string name="rematchOfferSent">Oferta për revansh u dërgua</string>
-  <string name="rematchOfferAccepted">Oferta për revansh u pranua</string>
-  <string name="rematchOfferCanceled">Oferta për revanshim u anulua</string>
-  <string name="rematchOfferDeclined">Oferta për revansh u refuzua</string>
-  <string name="cancelRematchOffer">Anulo ofertën për revansh</string>
-  <string name="viewRematch">Shiko revanshin</string>
-  <string name="confirmMove">Ripohoni lëvizjen</string>
-  <string name="play">Luani</string>
-  <string name="inbox">Të marrë</string>
+  <string name="rematch">Lojë rishtas</string>
+  <string name="rematchOfferSent">Oferta për lojë rishtas u dërgua</string>
+  <string name="rematchOfferAccepted">Oferta për lojë rishtas u pranua</string>
+  <string name="rematchOfferCanceled">Oferta për lojë rishtas u anulua</string>
+  <string name="rematchOfferDeclined">Oferta për lojë rishtas u refuzua</string>
+  <string name="cancelRematchOffer">Anulo ofertën për lojë rishtas</string>
+  <string name="viewRematch">Shiko lojën rishtas</string>
+  <string name="confirmMove">Konfirmo lëvizjen</string>
+  <string name="play">Luaj</string>
+  <string name="inbox">Mesazhet</string>
   <string name="chatRoom">Dhomë bisedash</string>
-  <string name="loginToChat">Hyni, që të bisedoni</string>
-  <string name="youHaveBeenTimedOut">Ju jeni ndaluar nga chatti ne mënyrë të përkohshme.</string>
+  <string name="loginToChat">Vendos hyrjen që të bisedosh</string>
+  <string name="youHaveBeenTimedOut">Ju është ndaluar të bisedoni për pak kohë.</string>
   <string name="spectatorRoom">Dhoma e shikuesve</string>
   <string name="composeMessage">Hartoni mesazh</string>
   <string name="subject">Subjekti</string>
@@ -250,7 +254,7 @@
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
   <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
   <plurals name="nbRated">
-    <item quantity="one">%s të vlerësuara</item>
+    <item quantity="one">%s e vlerësuar</item>
     <item quantity="other">%s të vlerësuara</item>
   </plurals>
   <plurals name="nbWins">
@@ -262,7 +266,7 @@
     <item quantity="other">%s humbje</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s barazime</item>
+    <item quantity="one">%s barazim</item>
     <item quantity="other">%s barazime</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -272,25 +276,25 @@
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dhuro %s sekonda</item>
+    <item quantity="one">Dhuro %s sekondë</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
   <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
-  <string name="takeback">Anulo levizje</string>
+  <string name="takeback">Kthe pas lëvizjen</string>
   <string name="proposeATakeback">Propozo marrje mbrapsht</string>
   <string name="takebackPropositionSent">Kërkesa për marrje mbrapsht u dërgua</string>
   <string name="takebackPropositionDeclined">Kërkesa për marrje mbrapsht u hodh poshtë</string>
   <string name="takebackPropositionAccepted">Kërkesa për marrje mbrapsht u pranua</string>
   <string name="takebackPropositionCanceled">Kërkesa për marrje mbrapsht u anulua</string>
-  <string name="yourOpponentProposesATakeback">Kundërshtari/ja juaj propozon marrje mbrapsht</string>
+  <string name="yourOpponentProposesATakeback">Kundërshtari juaj kërkon të kthejë lëvizjen pas</string>
   <string name="bookmarkThisGame">Faqeruaj lojën</string>
-  <string name="tournament">Turneu</string>
+  <string name="tournament">Turne</string>
   <string name="tournaments">Turne</string>
-  <string name="tournamentPoints">Piket e turneut</string>
+  <string name="tournamentPoints">Pikë nga turnetë</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s piket e turneut</item>
-    <item quantity="other">%s piket e turneut</item>
+    <item quantity="one">%s pikë nga turnetë</item>
+    <item quantity="other">%s pikë nga turnetë</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s studim</item>
@@ -337,6 +341,7 @@
   <string name="leaderboard">Udhëheqës</string>
   <string name="pasteTheFenStringHere">Ngjit FEN këtu</string>
   <string name="pasteThePgnStringHere">Ngjit PGN këtu</string>
+  <string name="orUploadPgnFile">Ose ngarkoni një skedar PGN</string>
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdo nga këtu</string>
   <string name="toStudy">Studim</string>
@@ -362,6 +367,8 @@
   <string name="follow">Ndiq</string>
   <string name="following">Duke ndjekur</string>
   <string name="unfollow">Ndalo së ndjekuri</string>
+  <string name="followX">Ndiq %s</string>
+  <string name="unfollowX">Mos e ndiq më %s</string>
   <string name="block">Blloko</string>
   <string name="blocked">Bllokuar</string>
   <string name="unblock">Zhblloko</string>
@@ -484,6 +491,7 @@
   <string name="reportDescriptionHelp">Ngjit lidhjen e lojës dhe shpjego çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruaj thjesht \"mashtroi\", por na thuaj si arrite në këtë përfundim. Raportimi juaj do të përpunohet më shpejt nëse shkruhet në gjuhën angleze.</string>
   <string name="error.provideOneCheatedGameLink">Të lutem siguro të japësh një lidhje për një lojë të mashtruar.</string>
   <string name="by">nga %s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importuar nga %s</string>
   <string name="thisTopicIsNowClosed">Kjo temë është e mbyllur tani.</string>
   <string name="blog">Blog</string>
   <string name="notes">Vërejtje</string>
@@ -545,6 +553,7 @@
   <string name="tools">Vegla</string>
   <string name="increment">Shtesa</string>
   <string name="error.required">Kjo pjesë është e detyrueshme</string>
+  <string name="error.email">Kjo adresë email është e pavlefshme</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
   <string name="onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm miqtë</string>
@@ -767,7 +776,6 @@
   <string name="currentMatchScore">Rezultati aktual i ndeshjes</string>
   <string name="agreementAssistance">Jam dakord që nuk do të marr asnjëherë ndihmë gjatë lojërave të mia (nga një kompjuter shahu, libër, baza e të dhënave ose një person tjetër).</string>
   <string name="agreementNice">Jam dakord që gjithmonë do të jem me respekt ndaj lojtarëve të tjerë.</string>
-  <string name="agreementAccount">Jam dakord që nuk do krijoj shumë llogari.</string>
   <string name="agreementPolicy">Jam dakord që do të ndjek të gjitha politikat e Lichess-it.</string>
   <string name="searchOrStartNewDiscussion">Kërkoni ose filloni muhabet e re</string>
   <string name="edit">Ndrysho</string>
@@ -776,7 +784,7 @@
   <string name="ultraBulletDesc">Lojëra jashtëzakonisht të shpejta: më pak se 30 sekonda</string>
   <string name="bulletDesc">Lojëra shumë të shpejta: më pak se 3 minuta</string>
   <string name="blitzDesc">Lojëra të shpejta: 3 deri në 8 minuta</string>
-  <string name="rapidDesc">Rapid: 8 deri në 25 minuta</string>
+  <string name="rapidDesc">Lojëra të shpejta: 8 deri në 25 minuta</string>
   <string name="classicalDesc">Lojëra klasike: 25 minuta dhe më shumë</string>
   <string name="correspondenceDesc">Lojëra korrespondence: një ose disa ditë çdo lëvizje</string>
   <string name="puzzleDesc">Trajner i taktikave të shahut</string>
@@ -795,7 +803,7 @@
   <string name="unsubscribe">Ç\'abonohu</string>
   <string name="mentionedYouInX">ju permendi tek \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s ju permendi tek \"%2$s\".</string>
-  <string name="invitedYouToX">ju ftoj tek \"%1$s\".</string>
+  <string name="invitedYouToX">ju ftoi në studimin \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s ju ftoj tek \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tani je pjese e skuadres.</string>
   <string name="youHaveJoinedTeamX">Ju u antaresuat tek \"%1$s\".</string>
@@ -850,4 +858,9 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="emailAssociatedToaccount">Adresë email përshoqëruar llogarisë</string>
   <string name="sentEmailWithLink">Ju dërguam një email me një lidhje.</string>
   <string name="tournamentEntryCode">Kod hyrjeje në turne</string>
+  <string name="abortTheGame">Braktis lojën</string>
+  <string name="resignTheGame">Dorëzohu</string>
+  <string name="youCantStartNewGame">Nuk mund të filloni një lojë të re pa e mbaruar këtë lojë.</string>
+  <string name="since">Që nga</string>
+  <string name="until">Deri më</string>
 </resources>

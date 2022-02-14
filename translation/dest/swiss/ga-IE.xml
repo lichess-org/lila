@@ -108,8 +108,8 @@ Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná com
   <string name="pairingSystemArena">Aon chéile comhraic atá ar fáil le rangú den chineál céanna</string>
   <string name="pairingSystemSwiss">Péireáil is fearr bunaithe ar phointí agus babhta réitigh</string>
   <string name="pairingWaitTime">Aga feithimh péireála</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Tapaigh: ní fhanann sé seo ar gach ficheallaí</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Moill: ag fanacht le gach ficheallaí</string>
+  <string name="pairingWaitTimeArena">Tapaigh: ní fhanann sé seo ar gach ficheallaí</string>
+  <string name="pairingWaitTimeSwiss">Moill: ag fanacht le gach ficheallaí</string>
   <string name="identicalPairing">Péireáil chomhionann</string>
   <string name="possibleButNotConsecutive">Féideartha, ach ní i ndiaidh a chéile</string>
   <string name="identicalForbidden">Faoi chosc</string>

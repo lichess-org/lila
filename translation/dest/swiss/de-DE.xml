@@ -86,8 +86,8 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
   <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Feinwertungen</string>
   <string name="pairingWaitTime">Wartezeit für die Paarung</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Schnell: Wartet nicht auf alle Spieler</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Langsam: Wartet auf alle Spieler</string>
+  <string name="pairingWaitTimeArena">Schnell: Wartet nicht auf alle Spieler</string>
+  <string name="pairingWaitTimeSwiss">Langsam: Wartet auf alle Spieler</string>
   <string name="identicalPairing">Gleiche Paarung mehrmals</string>
   <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
   <string name="identicalForbidden">Verboten</string>

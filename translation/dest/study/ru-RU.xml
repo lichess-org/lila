@@ -164,11 +164,11 @@
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
   <string name="studyActions">Действия в студии</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Темы</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Мои темы</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Популярные темы</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Управление темами</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Назад</string>
+  <string name="topics">Темы</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управление темами</string>
+  <string name="back">Назад</string>
   <string name="playAgain">Сыграть снова</string>
   <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
   <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>

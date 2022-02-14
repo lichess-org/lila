@@ -284,7 +284,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s laufendi Partie</item>
   </plurals>
   <string name="exportGames">Partie exportiere</string>
-  <string name="ratingRange">Wertigsbereiich</string>
+  <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
@@ -356,7 +356,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="continueFromHere">Vu da us wiiter schpille</string>
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Partie importiere</string>
-  <string name="importGameExplanation">Füeg e Schpiil-PNG ii, für Zuegriff uf Schpiilwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
+  <string name="importGameExplanation">Füeg e Schpiil-PGN ii, für Zuegriff uf Schpiilwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partii</item>
     <item quantity="other">%s importierti Partiiä</item>
@@ -451,7 +451,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
   <string name="xRating">%s Wärtigszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
-  <string name="gameCompletionRate">Aateil vo beändätä Schpiil: %s</string>
+  <string name="gameCompletionRate">Aateil vu beändete Schpiil: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
   <string name="firstName">Vornamä</string>
@@ -460,7 +460,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
   <string name="socialMediaLinks">Social Media Links</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web Adrässe (URL) pro Zile.</string>
+  <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online Schpiller</string>
@@ -504,6 +504,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="reportDescriptionHelp">Füeg de Link dere/dene Partie bii und erchlär, wieso sich de Benutzer falsch benah hät. Säg nöd nur eifach \"er bschiist\", schrib eus wie du da druf chunnsch. (in änglisch gschribeni Mäldige, werded schnäller behandlet).</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel aa, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importiert von %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch jetzt gschlosse.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notize</string>
@@ -662,7 +663,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
-  <string name="receiveForumNotifications">Benachrichtigt chunnt, wänn du im Forum erwähnt worde bisch</string>
+  <string name="receiveForumNotifications">Empfang Benachrichtige, dass du im Forum erwähnt worde bisch</string>
   <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
   <string name="withNobody">Mit niemertem</string>
   <string name="withFriends">Mit Fründe</string>
@@ -795,7 +796,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="currentMatchScore">Aktuelle Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimme zue, dass ich zum Schpille, kei Hilfe nutze - wie z. B. Schach-Computer, Büecher, Datäbanke oder Drittpersone.</string>
   <string name="agreementNice">Ich schtimme zue, dass ich mit andere Schpiller immer reschpäktvoll umgang.</string>
-  <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Konti erschtelle.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ich bi demit iiverschtande, dass ich kei Mehrfachkonti mache wird (usser us de Gründ, wo i de %s aageh sind).</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui aa</string>
   <string name="edit">Bearbeite</string>

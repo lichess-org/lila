@@ -52,10 +52,10 @@
   <string name="skipExplanation">Überschpring de Zug, um dini combo b\'halte! Das chasch nur 1x pro Ränne.</string>
   <string name="failedPuzzles">Falsch glösti Ufgabe</string>
   <string name="slowPuzzles">Langsami Ufgabe</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Die Wuche</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">De Monet</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">All-Ziit</string>
+  <string name="thisWeek">Die Wuche</string>
+  <string name="thisMonth">De Monet</string>
+  <string name="allTime">All-Ziit</string>
   <string name="clickToReload">Klick, zum neu lade</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">De Durchgang isch beändet!</string>
+  <string name="thisRunHasExpired">De Durchgang isch beändet!</string>
   <string name="thisRunWasOpenedInAnotherTab">De Durchgang isch ime andere Tab göffnet worde!</string>
 </resources>

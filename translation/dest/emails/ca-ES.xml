@@ -9,7 +9,7 @@
   <string name="emailChange_subject">Confirma l\'adreça de correu electrònic, %s</string>
   <string name="emailChange_intro">Ha sol·licitat canviar el correu electrònic.</string>
   <string name="emailChange_click">Per confirmar que teniu accés a aquest correu electrònic, cliqueu l\'enllaç següent:</string>
-  <string name="welcome_subject">Benvinguts a lichess.org, %s</string>
+  <string name="welcome_subject">Benvingut a lichess.org, %s</string>
   <string name="welcome_text">Ha creat correctament el vostre compte a https://lichess.org.
 
 Aquí està la seva pàgina de perfil: %1$s. Pots personalitzar-la a %2$s.

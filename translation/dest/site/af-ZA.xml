@@ -456,7 +456,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Een skakel per lyn.</string>
+  <string name="oneUrlPerLine">Een skakel per lyn.</string>
   <string name="inlineNotation">Binnelyn notasie</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>
@@ -500,6 +500,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is. Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
   <string name="by">deur %s</string>
+  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Ingevoer deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou gesluit.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
@@ -790,7 +791,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="currentMatchScore">Huidige reeks puntetelling</string>
   <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
   <string name="agreementNice">Ek stem in om altyd respek aan ander spelers te betoon.</string>
-  <string name="agreementAccount">Ek stem in om nie verskeie Lichess rekeninge oop te maak nie.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ek verklaar dat ek nie meer as een rekening sal skep nie (met die uitsondering van redes genoem in die %s).</string>
   <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
