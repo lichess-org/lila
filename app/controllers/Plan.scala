@@ -17,7 +17,7 @@ import lila.plan.{
   NextUrls,
   OneTimeCustomerInfo,
   PayPalOrderId,
-  StripeCheckout,
+  PlanCheckout,
   StripeCustomer,
   StripeCustomerId
 }
@@ -162,14 +162,14 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   }
 
   private def createStripeSession(
-      checkout: StripeCheckout,
+      checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[lila.user.User]
   )(implicit ctx: Context) = {
     for {
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       session <- env.plan.api
-        .createSession(
+        .createStripeSession(
           CreateStripeSession(
             customerId,
             checkout,
@@ -190,8 +190,15 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
-  private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    key = "stripe.checkout.ip"
+  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "plan.checkout.ip"
+  )(
+    ("fast", 8, 10.minute),
+    ("slow", 40, 1.day)
+  )
+
+  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "plan.capture.ip"
   )(
     ("fast", 8, 10.minute),
     ("slow", 40, 1.day)
@@ -200,9 +207,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def stripeCheckout =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(ctx.ip) {
+      CheckoutRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
-          env.plan.stripeCheckoutForm
+          env.plan.checkoutForm
             .form(pricing)
             .bindFromRequest()
             .fold(
@@ -235,7 +242,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def updatePayment =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(ctx.ip) {
+      CaptureRateLimit(ctx.ip) {
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
             env.plan.api
@@ -265,16 +272,35 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       }
     }
 
-  private val PayPalRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    key = "paypal.approve.ip"
-  )(
-    ("fast", 8, 10.minute),
-    ("slow", 40, 1.day)
-  )
+  def payPalCheckout =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      CheckoutRateLimit(ctx.ip) {
+        env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+          env.plan.checkoutForm
+            .form(pricing)
+            .bindFromRequest()
+            .fold(
+              err => {
+                logger.info(s"Plan.payPalCheckout 400: $err")
+                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).fuccess
+              },
+              data => {
+                val checkout = data.fixFreq
+                for {
+                  gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                  // customer <- env.plan.api.userCustomer(me)
+                  order <- env.plan.api.createPayPalOrder(checkout, me, gifted)
+                } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+              }
+            )
+        }
+      }(rateLimitedFu)
+    }
 
-  def payPalApprove(orderId: String) =
+  def payPalCapture(orderId: String) =
     Auth { implicit ctx => me =>
-      PayPalRateLimit(ctx.ip) {
+      CaptureRateLimit(ctx.ip) {
         env.plan.api.onPaypalApprove(PayPalOrderId(orderId), ctx.ip) inject jsonOkResult
       }(rateLimitedFu)
     }

@@ -236,7 +236,8 @@ POST  /patron/stripe/checkout          controllers.Plan.stripeCheckout
 POST  /patron/stripe/update-payment    controllers.Plan.updatePayment
 GET   /patron/stripe/update-payment    controllers.Plan.updatePaymentCallback
 POST  /patron/ipn                      controllers.Plan.payPalIpn
-POST  /patron/paypal/approve/:id       controllers.Plan.payPalApprove(id: String)
+POST  /patron/paypal/checkout          controllers.Plan.payPalCheckout
+POST  /patron/paypal/capture/:id       controllers.Plan.payPalCapture(id: String)
 GET   /features                        controllers.Plan.features
 GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 

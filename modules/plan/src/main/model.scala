@@ -72,7 +72,7 @@ case class StripePrice(product: String, unit_amount: StripeAmount, currency: Cur
 case class StripeSession(id: StripeSessionId)
 case class CreateStripeSession(
     customerId: StripeCustomerId,
-    checkout: StripeCheckout,
+    checkout: PlanCheckout,
     urls: NextUrls,
     giftTo: Option[User],
     isLifetime: Boolean
@@ -167,6 +167,13 @@ case class PayPalOrder(
     capture <- unit.payments.captures.headOption
   } yield capture
 }
+case class CreatePayPalOrder(
+    checkout: PlanCheckout,
+    user: User,
+    giftTo: Option[User],
+    isLifetime: Boolean
+)
+case class PayPalOrderCreated(id: PayPalOrderId)
 case class PayPalPurchaseUnit(payments: PayPalPayments)
 case class PayPalPayments(captures: List[PayPalCapture])
 case class PayPalCapture(id: String, amount: PayPalMoney)

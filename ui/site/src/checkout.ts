@@ -12,6 +12,10 @@ export interface Pricing {
 const $checkout = $('div.plan_checkout');
 const getFreq = () => $checkout.find('group.freq input:checked').val();
 const getDest = () => $checkout.find('group.dest input:checked').val();
+const showErrorThenReload = (error: string) => {
+  alert(error);
+  location.assign('/patron');
+};
 
 export default function (stripePublicKey: string, pricing: Pricing) {
   contactEmail();
@@ -126,39 +130,31 @@ export default function (stripePublicKey: string, pricing: Pricing) {
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
 }
 
+const xhrFormData = ($checkout: Cash, amount: number) =>
+  xhr.form({
+    email: $checkout.data('email'),
+    amount,
+    freq: getFreq(),
+    gift: $checkout.find('.gift input').val(),
+  });
+
 function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
   (window.paypal as any)
     .Buttons({
-      // Sets up the transaction when a payment button is clicked
-      createOrder: (_data: any, actions: any) =>
-        actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                currency_code: pricing.currency,
-                value: getAmount(),
-                breakdown: {
-                  item_total: {
-                    currency_code: pricing.currency,
-                    value: getAmount(),
-                  },
-                },
-              },
-              items: [
-                {
-                  name: 'One-time Patron',
-                  description: 'Support Lichess and get the Patron wings for one month. Will not renew automatically.',
-                  unit_amount: {
-                    currency_code: pricing.currency,
-                    value: getAmount(),
-                  },
-                  quantity: '1',
-                },
-              ],
-            },
-          ],
-        }),
-
+      createOrder: (_data: any, _actions: any) => {
+        const amount = getAmount();
+        if (!amount) return;
+        return xhr
+          .json(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+            method: 'post',
+            body: xhrFormData($checkout, amount),
+          })
+          .then(data => {
+            if (data.error) showErrorThenReload(data.error);
+            else if (data.order?.id) return data.order.id;
+            else location.assign('/patron');
+          });
+      },
       onApprove: (_data: any, actions: any) =>
         actions.order.capture().then((order: any) => {
           console.log(order.id);
@@ -172,13 +168,8 @@ function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number 
 
 function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {
   const stripe = window.Stripe(publicKey);
-  const showErrorThenReload = (error: string) => {
-    alert(error);
-    location.assign('/patron');
-  };
   $checkout.find('.service .stripe').on('click', function () {
-    const freq = getFreq(),
-      amount = getAmount();
+    const amount = getAmount();
     if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
@@ -189,12 +180,7 @@ function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAm
         ...xhr.xhrHeader,
       },
       method: 'post',
-      body: xhr.form({
-        email: $checkout.data('email'),
-        amount,
-        freq,
-        gift: $checkout.find('.gift input').val(),
-      }),
+      body: xhrFormData($checkout, amount),
     })
       .then(res => res.json())
       .then(data => {

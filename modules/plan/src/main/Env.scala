@@ -70,7 +70,7 @@ final class Env(
 
   lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
-  lazy val stripeCheckoutForm = wire[StripeCheckoutForm]
+  lazy val checkoutForm = wire[PlanCheckoutForm]
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 

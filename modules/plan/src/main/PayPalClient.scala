@@ -3,6 +3,7 @@ package lila.plan
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import scala.concurrent.duration._
@@ -22,6 +23,39 @@ final private class PayPalClient(
   import JsonHandlers.payPal._
   import WebService._
 
+  implicit private val moneyWrites = OWrites[Money] { money =>
+    Json.obj(
+      "currency_code" -> money.currencyCode,
+      "value"         -> money.amount
+    )
+  }
+
+  def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
+    "checkout/orders",
+    Json.obj(
+      "intent" -> "CAPTURE",
+      "purchase_units" -> List(
+        Json.obj(
+          "amount" -> {
+            moneyWrites.writes(data.checkout.money) ++ Json.obj(
+              "breakdown" -> Json.obj(
+                "item_total" -> data.checkout.money
+              )
+            )
+          },
+          "items" -> List(
+            Json.obj(
+              "name"        -> "One-time Patron",
+              "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
+              "unit_amount" -> data.checkout.money,
+              "quantity"    -> 1
+            )
+          )
+        )
+      )
+    )
+  )
+
   def getOrder(id: PayPalOrderId): Fu[Option[PayPalOrder]] =
     getOne[PayPalOrder](s"checkout/orders/$id")
 
@@ -37,6 +71,15 @@ final private class PayPalClient(
     }
   }
 
+  private def postOne[A: Reads](url: String, data: JsObject): Fu[A] = post[A](url, data)
+
+  private def post[A: Reads](url: String, data: JsObject): Fu[A] = {
+    logger.info(s"POST $url $data")
+    request(url) flatMap {
+      _.post(data) flatMap response[A]
+    }
+  }
+
   private val logger = lila.plan.logger branch "payPal"
 
   private def request(url: String) = tokenCache.get {} map { bearer =>
@@ -49,18 +92,18 @@ final private class PayPalClient(
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
-      case 200 =>
+      case 200 | 201 =>
         (implicitly[Reads[A]] reads res.body[JsValue]).fold(
           errs => fufail(s"[payPal] Can't parse ${res.body} --- $errs"),
           fuccess
         )
-      case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
+      case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
           case None        => fufail { new InvalidRequestException(status, res.body) }
           case Some(error) => fufail { new InvalidRequestException(status, error) }
         }
-      case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
+      case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
     }
 
   private val tokenCache = cacheApi.unit[AccessToken] {

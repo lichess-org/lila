@@ -453,7 +453,7 @@ final class PlanApi(
       _ ?? stripeClient.getCustomer
     }
 
-  def makeCustomer(user: User, data: StripeCheckout): Fu[StripeCustomer] =
+  def makeCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data) flatMap { customer =>
       saveStripeCustomer(user, customer.id) inject customer
     }
@@ -466,7 +466,7 @@ final class PlanApi(
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
 
-  def createSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
+  def createStripeSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
     data.checkout.freq match {
       case Freq.Onetime => stripeClient.createOneTimeSession(data)
       case Freq.Monthly => stripeClient.createMonthlySession(data)
@@ -482,6 +482,12 @@ final class PlanApi(
           stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method) void
       }
     }
+
+  def createPayPalOrder(checkout: PlanCheckout, user: User, giftTo: Option[lila.user.User]) =
+    for {
+      isLifetime <- pricingApi.isLifetime(checkout.money)
+      order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
+    } yield order
 }
 
 object PlanApi {

@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import lila.user.User
 
-case class StripeCheckout(
+case class PlanCheckout(
     email: Option[String],
     money: Money,
     freq: Freq,
@@ -19,29 +19,29 @@ case class StripeCheckout(
   )
 }
 
-private object StripeCheckout {
+private object PlanCheckout {
 
   def amountField(pricing: PlanPricing) = bigDecimal(10, 3)
     .verifying(Constraints.max(pricing.max.amount))
     .verifying(Constraints.min(pricing.min.amount))
 }
 
-final class StripeCheckoutForm(lightUserApi: lila.user.LightUserApi) {
+final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi) {
 
   private def make(
       currency: Currency
   )(email: Option[String], amount: BigDecimal, freq: String, giftTo: Option[String]) =
-    StripeCheckout(
+    PlanCheckout(
       email,
       Money(amount, currency),
       if (freq == "monthly") Freq.Monthly else Freq.Onetime,
       giftTo = giftTo
     )
 
-  def form(pricing: PlanPricing) = Form[StripeCheckout](
+  def form(pricing: PlanPricing) = Form[PlanCheckout](
     mapping(
       "email"  -> optional(email),
-      "amount" -> StripeCheckout.amountField(pricing),
+      "amount" -> PlanCheckout.amountField(pricing),
       "freq"   -> nonEmptyText,
       "gift" -> optional(lila.user.UserForm.historicalUsernameField)
         .verifying("Unknown receiver", n => n.fold(true) { blockingFetchUser(_).isDefined })
@@ -62,7 +62,7 @@ object Switch {
 
   def form(pricing: PlanPricing) = Form(
     mapping(
-      "amount" -> StripeCheckout.amountField(pricing)
+      "amount" -> PlanCheckout.amountField(pricing)
     )(a => Switch(Money(a, pricing.currency)))(_ => none)
   )
 }

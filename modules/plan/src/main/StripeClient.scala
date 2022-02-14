@@ -79,7 +79,7 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createCustomer(user: User, data: StripeCheckout): Fu[StripeCustomer] =
+  def createCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
