@@ -44,13 +44,15 @@ private[plan] object JsonHandlers {
   }
 
   object payPal {
-    implicit val PayerIdReads      = Reads.of[String].map(PayPalPayerId.apply)
-    implicit val OrderIdReads      = Reads.of[String].map(PayPalOrderId.apply)
-    implicit val OrderCreatedReads = Json.reads[PayPalOrderCreated]
-    implicit val AmountReads       = Json.reads[PayPalAmount]
-    implicit val PurchaseUnitReads = Json.reads[PayPalPurchaseUnit]
-    implicit val AddressReads      = Json.reads[PayPalAddress]
-    implicit val PayerReads        = Json.reads[PayPalPayer]
-    implicit val OrderReads        = Json.reads[PayPalOrder]
+    implicit val PayerIdReads             = Reads.of[String].map(PayPalPayerId.apply)
+    implicit val OrderIdReads             = Reads.of[String].map(PayPalOrderId.apply)
+    implicit val SubscriptionIdReads      = Reads.of[String].map(PayPalSubscriptionId.apply)
+    implicit val OrderCreatedReads        = Json.reads[PayPalOrderCreated]
+    implicit val SubscriptionCreatedReads = Json.reads[PayPalSubscriptionCreated]
+    implicit val AmountReads              = Json.reads[PayPalAmount]
+    implicit val PurchaseUnitReads        = Json.reads[PayPalPurchaseUnit]
+    implicit val AddressReads             = Json.reads[PayPalAddress]
+    implicit val PayerReads               = Json.reads[PayPalPayer]
+    implicit val OrderReads               = Json.reads[PayPalOrder]
   }
 }

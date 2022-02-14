@@ -219,8 +219,8 @@ object StripeClient {
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.secret") secretKey: Secret,
-      products: StripeProducts
+      products: ProductIds
   )
-  implicit private[plan] val productsLoader     = AutoConfig.loader[StripeProducts]
+  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
   implicit private[plan] val stripeConfigLoader = AutoConfig.loader[Config]
 }

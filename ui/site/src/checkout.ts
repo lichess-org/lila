@@ -113,7 +113,8 @@ export default function (stripePublicKey: string, pricing: Pricing) {
       $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
   }
 
-  payPalStart($checkout, pricing, getAmountToCharge);
+  payPalOrderStart($checkout, pricing, getAmountToCharge);
+  payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
 }
 
@@ -125,14 +126,12 @@ const xhrFormData = ($checkout: Cash, amount: number) =>
     gift: $checkout.find('.gift input').val(),
   });
 
-function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
-  (window.paypal as any)
+function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  (window.paypalOrder as any)
     .Buttons({
       style: {
         layout: 'horizontal',
         color: 'blue',
-        shape: 'rect',
-        label: 'paypal',
         height: 55,
       },
       createOrder: (_data: any, _actions: any) => {
@@ -155,7 +154,38 @@ function payPalStart($checkout: Cash, pricing: Pricing, getAmount: () => number 
         });
       },
     })
-    .render('#paypal-button-container');
+    .render('.paypal--order');
+}
+
+function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  (window.paypalSubscription as any)
+    .Buttons({
+      style: {
+        layout: 'horizontal',
+        color: 'blue',
+        height: 55,
+      },
+      createSubscription: (_data: any, _actions: any) => {
+        const amount = getAmount();
+        if (!amount) return;
+        return xhr
+          .json(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+            method: 'post',
+            body: xhrFormData($checkout, amount),
+          })
+          .then(data => {
+            if (data.error) showErrorThenReload(data.error);
+            else if (data.subscription?.id) return data.subscription.id;
+            else location.assign('/patron');
+          });
+      },
+      onApprove: (data: any, _actions: any) => {
+        xhr.json(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID}`, { method: 'POST' }).then(() => {
+          lichess.reload();
+        });
+      },
+    })
+    .render('.paypal--subscription');
 }
 
 function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {

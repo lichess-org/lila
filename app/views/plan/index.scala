@@ -15,6 +15,8 @@ object index {
 
   private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
 
+  private val namespaceAttr = attr("data-namespace")
+
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
@@ -31,8 +33,15 @@ object index {
       moreCss = cssTag("plan"),
       moreJs = frag(
         stripeScript,
+        // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+        // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
         script(
-          src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}&locale=${ctx.lang.locale}"
+          src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}&locale=${ctx.lang.locale}",
+          namespaceAttr := "paypalOrder"
+        ),
+        script(
+          src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}&locale=${ctx.lang.locale}",
+          namespaceAttr := "paypalSubscription"
         ),
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
@@ -203,7 +212,8 @@ object index {
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          div(id := "paypal-button-container")
+                          div(cls := "paypal paypal--order"),
+                          div(cls := "paypal paypal--subscription")
                         )
                       else
                         a(

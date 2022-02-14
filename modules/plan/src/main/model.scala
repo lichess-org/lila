@@ -35,6 +35,8 @@ case class Country(code: String) extends AnyVal
 
 case class NextUrls(cancel: String, success: String)
 
+case class ProductIds(monthly: String, onetime: String, gift: String)
+
 // stripe model
 
 case class StripeChargeId(value: String)       extends AnyVal
@@ -59,8 +61,6 @@ object StripeAmount {
 }
 
 case class StripeSubscriptions(data: List[StripeSubscription])
-
-case class StripeProducts(monthly: String, onetime: String, gift: String)
 
 case class StripeItem(id: String, price: StripePrice)
 
@@ -153,7 +153,8 @@ case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)
 case class PayPalAmount(value: BigDecimal, currency_code: Currency) {
   def money = Money(value, currency_code)
 }
-case class PayPalOrderId(value: String) extends AnyVal with StringValue
+case class PayPalOrderId(value: String)        extends AnyVal with StringValue
+case class PayPalSubscriptionId(value: String) extends AnyVal with StringValue
 case class PayPalOrder(
     id: PayPalOrderId,
     intent: String,
@@ -171,6 +172,14 @@ case class PayPalOrder(
   def capturedMoney     = isApprovedCapture ?? purchase_units.headOption.map(_.amount.money)
   def country           = payer.address.flatMap(_.country_code)
 }
+case class PayPalSubscription(
+    id: PayPalSubscriptionId,
+    intent: String,
+    status: String,
+    payer: PayPalPayer
+) {
+  def country = payer.address.flatMap(_.country_code)
+}
 case class CreatePayPalOrder(
     checkout: PlanCheckout,
     user: User,
@@ -180,6 +189,7 @@ case class CreatePayPalOrder(
   def makeCustomId = giftTo.fold(user.id) { g => s"${user.id} ${g.id}" }
 }
 case class PayPalOrderCreated(id: PayPalOrderId)
+case class PayPalSubscriptionCreated(id: PayPalSubscriptionId)
 case class PayPalPurchaseUnit(amount: PayPalAmount, custom_id: Option[String])
 case class PayPalPayerId(value: String) extends AnyVal with StringValue
 case class PayPalPayer(payer_id: PayPalPayerId, address: Option[PayPalAddress]) {

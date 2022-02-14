@@ -487,7 +487,10 @@ final class PlanApi(
       order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
     } yield order
 
-  def paypalCapture(orderId: PayPalOrderId, ip: IpAddress) = for {
+  def createPayPalSubscription(checkout: PlanCheckout, user: User) =
+    payPalClient.createSubscription(checkout, user)
+
+  def paypalCapture(orderId: PayPalOrderId, subId: Option[PayPalSubscriptionId], ip: IpAddress) = for {
     order      <- payPalClient.getOrder(orderId) orFail s"Missing paypal order for id $orderId"
     money      <- order.capturedMoney.fold[Fu[Money]](fufail(s"Invalid paypal capture $order"))(fuccess)
     pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"

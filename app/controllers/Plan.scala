@@ -287,11 +287,15 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               },
               data => {
                 val checkout = data.fixFreq
-                for {
-                  gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
-                  // customer <- env.plan.api.userCustomer(me)
-                  order <- env.plan.api.createPayPalOrder(checkout, me, gifted)
-                } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+                if (checkout.freq.renew) for {
+                  sub <- env.plan.api.createPayPalSubscription(checkout, me)
+                } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+                else
+                  for {
+                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                    // customer <- env.plan.api.userCustomer(me)
+                    order <- env.plan.api.createPayPalOrder(checkout, me, gifted)
+                  } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
               }
             )
         }
@@ -301,7 +305,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def payPalCapture(orderId: String) =
     Auth { implicit ctx => me =>
       CaptureRateLimit(ctx.ip) {
-        env.plan.api.paypalCapture(PayPalOrderId(orderId), ctx.ip) inject jsonOkResult
+        env.plan.api.paypalCapture(
+          PayPalOrderId(orderId),
+          get("sub") map PayPalSubscriptionId,
+          ctx.ip
+        ) inject jsonOkResult
       }(rateLimitedFu)
     }
 

@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 import lila.common.config
 import lila.common.WebService
 import lila.memo.CacheApi
+import lila.user.User
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -30,8 +31,14 @@ final private class PayPalClient(
     )
   }
 
+  private object path {
+    val orders        = "v2/checkout/orders"
+    val subscriptions = "v1/billing/subscriptions"
+    val token         = "v1/oauth2/token"
+  }
+
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
-    "checkout/orders",
+    path.orders,
     Json.obj(
       "intent" -> "CAPTURE",
       "purchase_units" -> List(
@@ -45,6 +52,7 @@ final private class PayPalClient(
             )
           },
           "items" -> List(
+            // TODO replace with product?
             Json.obj(
               "name"        -> "One-time Patron",
               "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
@@ -57,28 +65,44 @@ final private class PayPalClient(
     )
   )
 
-  def getOrder(id: PayPalOrderId): Fu[Option[PayPalOrder]] =
-    getOne[PayPalOrder](s"checkout/orders/$id")
+  def createSubscription(checkout: PlanCheckout, user: User): Fu[PayPalSubscriptionCreated] =
+    postOne[PayPalSubscriptionCreated](
+      path.subscriptions,
+      Json.obj(
+        "plan_id"   -> config.monthlyPlanId,
+        "custom_id" -> user.id,
+        "plan" -> Json.obj(
+          "billing_cycles" -> Json.arr(
+            Json.obj(
+              "sequence"     -> 1,
+              "total_cycles" -> 0,
+              "pricing_scheme" -> Json.obj(
+                "fixed_price" -> checkout.money
+              )
+            )
+          )
+        )
+      )
+    )
 
-  private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
-    get[A](url, queryString) dmap some recover { case _: NotFoundException =>
+  def getOrder(id: PayPalOrderId): Fu[Option[PayPalOrder]] =
+    getOne[PayPalOrder](s"${path.orders}/$id")
+
+  private def getOne[A: Reads](url: String): Fu[Option[A]] =
+    get[A](url) dmap some recover { case _: NotFoundException =>
       None
     }
 
-  private def get[A: Reads](url: String, queryString: Seq[(String, Any)]): Fu[A] = {
-    logger.debug(s"GET $url ${debugInput(queryString)}")
-    request(url) flatMap {
-      _.withQueryStringParameters(fixInput(queryString): _*).get() flatMap response[A]
-    }
+  private def get[A: Reads](url: String): Fu[A] = {
+    logger.debug(s"GET $url")
+    request(url) flatMap { _.get() flatMap response[A] }
   }
 
   private def postOne[A: Reads](url: String, data: JsObject): Fu[A] = post[A](url, data)
 
   private def post[A: Reads](url: String, data: JsObject): Fu[A] = {
     logger.info(s"POST $url $data")
-    request(url) flatMap {
-      _.post(data) flatMap response[A]
-    }
+    request(url) flatMap { _.post(data) flatMap response[A] }
   }
 
   private val logger = lila.plan.logger branch "payPal"
@@ -94,7 +118,7 @@ final private class PayPalClient(
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
       case 200 | 201 =>
-        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
+        (implicitly[Reads[A]] reads res.body[JsValue].pp).fold(
           errs => fufail(s"[payPal] Can't parse ${res.body} --- $errs"),
           fuccess
         )
@@ -109,7 +133,7 @@ final private class PayPalClient(
 
   private val tokenCache = cacheApi.unit[AccessToken] {
     _.refreshAfterWrite(10 minutes).buildAsyncFuture { _ =>
-      ws.url(s"${config.oauthEndpoint}/oauth2/token")
+      ws.url(s"${config.endpoint}/${path.token}")
         .withAuth(config.publicKey, config.secretKey.value, WSAuthScheme.BASIC)
         .post(Map("grant_type" -> Seq("client_credentials")))
         .flatMap {
@@ -141,9 +165,11 @@ object PayPalClient {
   import io.methvin.play.autoconfig._
   private[plan] case class Config(
       endpoint: String,
-      oauthEndpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: config.Secret
+      @ConfigName("keys.secret") secretKey: config.Secret,
+      products: ProductIds,
+      monthlyPlanId: String
   )
+  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
   implicit private[plan] val payPalConfigLoader = AutoConfig.loader[Config]
 }

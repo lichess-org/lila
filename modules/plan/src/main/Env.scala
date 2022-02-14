@@ -38,8 +38,6 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  import StripeClient.stripeConfigLoader
-  import CurrencyApi.currencyConfigLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
   val stripePublicKey = config.stripe.publicKey
