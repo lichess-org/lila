@@ -197,6 +197,7 @@
   <string name="rightOn">好极了！</string>
   <string name="stageXComplete">阶段%s完成</string>
   <string name="next">下一个</string>
+  <string name="nextX">下一步： %s</string>
   <string name="backToMenu">返回菜单</string>
   <string name="puzzleFailed">解题失败!</string>
   <string name="retry">重试</string>
