@@ -150,7 +150,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 hook: bind(
                   'click',
                   _ => {
-                    if (confirm(ctrl.trans.noarg('clearSidelines') + '?')) ctrl.clearSidelines(data.id);
+                    if (confirm(ctrl.trans.noarg('clearSidelines'))) ctrl.clearSidelines(data.id);
                   },
                   ctrl.redraw
                 ),
