@@ -689,7 +689,7 @@ object Game {
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-    variant.standart || variant.newChess1 || {
+    variant.standard || variant.newChess1 || {
       clock ?? { c =>
         c.estimateTotalTime >= Centis(3000) &&
         c.limitSeconds > 0 || c.incrementSeconds > 1
