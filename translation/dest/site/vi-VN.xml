@@ -854,6 +854,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
+  <string name="tournamentEntryCode">Mật khẩu tham dự cuộc thi</string>
   <string name="hangOn">Từ đã!</string>
   <string name="gameInProgress">Bạn đang có ván đấu với %s.</string>
   <string name="abortTheGame">Hủy ván đấu</string>
