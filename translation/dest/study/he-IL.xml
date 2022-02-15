@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">תגובה על הפרק המוצמד</string>
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
+  <string name="clearVariations">נקה וריאציות</string>
   <string name="deleteChapter">מחק פרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">נקה את כל ההערות, גליפים וצורות מצוירות בפרק זה?</string>
