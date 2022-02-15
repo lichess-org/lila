@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>
   <string name="saveChapter">Bölümü kaydet</string>
   <string name="clearAnnotations">Açıklamaları sil</string>
+  <string name="clearVariations">Varyasyonları sil</string>
   <string name="deleteChapter">Bölümü sil</string>
   <string name="deleteThisChapter">Bu bölüm silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="clearAllCommentsInThisChapter">Bu bölümdeki bütün yorumlar ve işaretler temizlensin mi?</string>
