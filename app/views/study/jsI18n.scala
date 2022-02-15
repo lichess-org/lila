@@ -78,6 +78,7 @@ object jsI18n {
       pinnedChapterComment,
       saveChapter,
       clearAnnotations,
+      clearVariations,
       deleteChapter,
       deleteThisChapter,
       clearAllCommentsInThisChapter,
