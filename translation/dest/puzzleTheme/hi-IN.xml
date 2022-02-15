@@ -121,4 +121,5 @@
   <string name="zugzwangDescription">प्रतिद्वंद्वी उन चालों में सीमित है जो वे कर सकते हैं, और सभी चालें उनकी स्थिति को खराब करती हैं।</string>
   <string name="healthyMix">स्वस्थ मिश्रण</string>
   <string name="healthyMixDescription">सब का कुछ कुछ। आप नहीं जानते कि क्या उम्मीद है, इसलिए आप किसी भी चीज़ के लिए तैयार रहें! बिल्कुल असली खेल की तरह।</string>
+  <string name="playerGames">खिलाड़ियों के खेल</string>
 </resources>

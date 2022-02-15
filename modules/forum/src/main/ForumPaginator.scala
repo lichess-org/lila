@@ -50,7 +50,7 @@ final class ForumPaginator(
                   $lookup.simple(
                     from = postRepo.coll,
                     as = "post",
-                    local = "lastPostId",
+                    local = if (forUser.exists(_.marks.troll)) "lastPostIdTroll" else "lastPostId",
                     foreign = "_id"
                   )
                 )
