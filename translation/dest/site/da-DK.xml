@@ -503,7 +503,7 @@
   <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
-  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importeret af %s</string>
+  <string name="importedByX">Importeret af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
