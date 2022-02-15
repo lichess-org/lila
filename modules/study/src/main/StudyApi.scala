@@ -317,11 +317,11 @@ final class StudyApi(
       }
     }
 
-  def clearSidelines(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
+  def clearVariations(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
         chapterRepo.update(chapter.updateRoot { root =>
-          root.clearSidelines.some
+          root.clearVariations.some
         } | chapter) >>- sendTo(study.id)(_.updateChapter(chapter.id, who))
       }
     }

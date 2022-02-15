@@ -17,7 +17,7 @@ export interface StudyChapterEditFormCtrl {
   submit(data: Omit<EditChapterData, 'id'>): void;
   delete(id: string): void;
   clearAnnotations(id: string): void;
-  clearSidelines(id: string): void;
+  clearVariations(id: string): void;
   isEditing(id: string): boolean;
   redraw: Redraw;
   trans: Trans;
@@ -69,8 +69,8 @@ export function ctrl(
       send('clearAnnotations', id);
       current(null);
     },
-    clearSidelines(id) {
-      send('clearSidelines', id);
+    clearVariations(id) {
+      send('clearVariations', id);
       current(null);
     },
     isEditing,
@@ -150,13 +150,13 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 hook: bind(
                   'click',
                   _ => {
-                    if (confirm(ctrl.trans.noarg('clearSidelines'))) ctrl.clearSidelines(data.id);
+                    if (confirm(ctrl.trans.noarg('clearVariations'))) ctrl.clearVariations(data.id);
                   },
                   ctrl.redraw
                 ),
                 attrs: { type: 'button' },
               },
-              ctrl.trans.noarg('clearSidelines')
+              ctrl.trans.noarg('clearVariations')
             ),
             h(
               emptyRedButton,

@@ -150,9 +150,9 @@ final private class StudySocket(
           o.get[Chapter.Id]("d") foreach { id =>
             who foreach api.clearAnnotations(studyId, id)
           }
-        case "clearSidelines" =>
+        case "clearVariations" =>
           o.get[Chapter.Id]("d") foreach { id =>
-            who foreach api.clearSidelines(studyId, id)
+            who foreach api.clearVariations(studyId, id)
           }
         case "sortChapters" =>
           o.get[List[Chapter.Id]]("d") foreach { ids =>

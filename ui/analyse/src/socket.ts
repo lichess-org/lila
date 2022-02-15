@@ -45,7 +45,7 @@ export type StudySocketSendParams =
   | [t: 'descChapter', d: { id: string; desc: string }]
   | [t: 'deleteChapter', chapterId: string]
   | [t: 'clearAnnotations', chapterId: string]
-  | [t: 'clearSidelines', chapterId: string]
+  | [t: 'clearVariations', chapterId: string]
   | [t: 'sortChapters', chapterIds: string[]]
   | [t: 'setTag', d: { chapterId: string; name: string; value: string }]
   | [t: 'anaMove', d: AnaMove & MoveOpts]
