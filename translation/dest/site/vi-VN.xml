@@ -95,6 +95,14 @@
   <string name="xOpeningExplorer">Sách khai cuộc %s</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước
+
+Được hiển thị trong một số tình huống trong chế độ xem cơ sở bảng trò chơi cuối cùng. Nếu người dùng bỏ qua đề xuất cơ sở bảng, có thể kết thúc bằng tình huống mà cơ sở bảng Syzygy không thể biết liệu quy tắc 50 bước di chuyển có ngăn cản chiến thắng hay không.
+
+Ngoài ra, hãy xem chuỗi \"Chỉ được đảm bảo thắng / thua nếu dòng cơ sở bảng được đề xuất là ...\" để biết chú giải công cụ sẽ giải thích điều này.</string>
+  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước
+
+Analogous to source string \"Win or 50 moves by prior mistake\" - please see context there.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -834,4 +842,9 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="abortTheGame">Hủy ván đấu</string>
   <string name="resignTheGame">Bỏ cuộc</string>
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
+  <string name="switchSides">Đổi bên
+
+Mô tả khi di chuột qua tùy chọn \'dưới dạng trắng/đen\' cho các trò chơi trước đây của riêng bạn, trong trình khám phá mở đầu: https://lichess.org/analysis#explorer
+
+Nhấp vào này sẽ chuyển lịch sử trò chơi giữa trắng và đen.</string>
 </resources>
