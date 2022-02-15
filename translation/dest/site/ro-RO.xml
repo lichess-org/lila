@@ -535,7 +535,7 @@
   <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
-  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importat de %s</string>
+  <string name="importedByX">Importat de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
   <string name="blog">Blog</string>
   <string name="notes">Note</string>
