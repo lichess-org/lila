@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
   <string name="clearAnnotations">Wis aantekeningen</string>
+  <string name="clearVariations">Verwijder variaties</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
   <string name="clearAllCommentsInThisChapter">Verwijder alle aantekeningen, tekens en getekende figuren in dit hoofdstuk?</string>
