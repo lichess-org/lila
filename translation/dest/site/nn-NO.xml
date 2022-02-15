@@ -504,7 +504,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
-  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importert av %s</string>
+  <string name="importedByX">Importert av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notat</string>
