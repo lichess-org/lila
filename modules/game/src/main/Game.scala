@@ -93,7 +93,7 @@ case class Game(
   def isSimul              = simulId.isDefined
   def isSwiss              = swissId.isDefined
   def canTakebackOrAddTime = !isTournament && !isSimul && !isSwiss
-  def isMandatory          = isTournament || isSimul || isSwiss
+  def isMandatory          = isTournament || isSimul || isSwiss || fromApi
   def nonMandatory         = !isMandatory
   def isClassical          = perfType contains Classical
 
