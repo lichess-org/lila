@@ -9,10 +9,11 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
   // Never trust an incoming webhook call.
   // Only read the Event ID from it,
   // then fetch the event from the stripe API.
-  def stripe(js: JsValue): Funit =
+  def stripe(js: JsValue): Funit = {
+    def log = logger branch "stripe.webhook"
     (js \ "id").asOpt[String] ?? api.getEvent flatMap {
       case None =>
-        logger.warn(s"Forged webhook $js")
+        log.warn(s"Forged $js")
         funit
       case Some(event) =>
         import JsonHandlers.stripe._
@@ -21,7 +22,7 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
           name <- (event \ "type").asOpt[String]
           data <- (event \ "data" \ "object").asOpt[JsObject]
         } yield {
-          logger.debug(s"WebHook $name $id ${Json.stringify(data).take(100)}")
+          log.debug(s"$name $id ${Json.stringify(data).take(100)}")
           name match {
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
@@ -33,5 +34,20 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
           }
         })
     }
+  }
+
+  def payPal(js: JsValue): Funit = ~ {
+    def log = logger branch "payPal.webhook"
+    println(js)
+    for {
+      id   <- (js \ "id").asOpt[String]
+      tpe  <- (js \ "event_type").asOpt[String]
+      data <- (js \ "resource").asOpt[JsObject]
+    } yield {
+      println(data)
+      log.debug(s"$tpe $id ${Json.stringify(data).take(100)}")
+      funit
+    }
+  }
 
 }
