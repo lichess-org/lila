@@ -27,6 +27,9 @@ object topnav {
         div(role := "group")(
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
+          a(href := "/rules")(trans.rules()),
+          a(href := "/new-pieces")(trans.newPieces()),
+          a(href := "/criticism")(trans.criticism()),
           // todo: turn me on!
 //          ctx.noBot option frag(
 //            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),

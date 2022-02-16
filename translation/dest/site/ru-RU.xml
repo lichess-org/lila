@@ -21,6 +21,9 @@
   <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
+  <string name="rules">Правила</string>
+  <string name="newPieces">Новые фигуры</string>
+  <string name="criticism">Критика</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>

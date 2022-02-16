@@ -21,6 +21,9 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
+  <string name="rules">Rules</string>
+  <string name="newPieces">New Pieces</string>
+  <string name="criticism">Criticism</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
