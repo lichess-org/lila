@@ -100,7 +100,7 @@ final class BotPlayer(
     if (v) offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
-    if (pov.game.playable && !pov.game.isMandatory)
+    if (pov.game.playable && pov.game.canTakebackOrAddTime)
       tellRound(pov.gameId, (if (v) TakebackYes else TakebackNo)(PlayerId(pov.playerId)))
 
   def claimVictory(pov: Pov): Funit =
