@@ -30,14 +30,17 @@ export default function (stripePublicKey: string, pricing: Pricing) {
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
-  const selectAmountGroup = function () {
+  const onFreqChange = function () {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
+    const sub = freq == 'monthly';
+    $checkout.find('.paypal--order').toggle(!sub);
+    $checkout.find('.paypal--subscription').toggle(sub);
   };
-  selectAmountGroup();
+  onFreqChange();
 
-  $checkout.find('group.freq input').on('change', selectAmountGroup);
+  $checkout.find('group.freq input').on('change', onFreqChange);
 
   $checkout.find('group.dest input').on('change', () => {
     const isGift = getDest() == 'gift';
@@ -126,14 +129,16 @@ const xhrFormData = ($checkout: Cash, amount: number) =>
     gift: $checkout.find('.gift input').val(),
   });
 
+const payPalStyle = {
+  layout: 'horizontal',
+  color: 'blue',
+  height: 55,
+};
+
 function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
   (window.paypalOrder as any)
     .Buttons({
-      style: {
-        layout: 'horizontal',
-        color: 'blue',
-        height: 55,
-      },
+      style: payPalStyle,
       createOrder: (_data: any, _actions: any) => {
         const amount = getAmount();
         if (!amount) return;
@@ -160,11 +165,7 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
 function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
   (window.paypalSubscription as any)
     .Buttons({
-      style: {
-        layout: 'horizontal',
-        color: 'blue',
-        height: 55,
-      },
+      style: payPalStyle,
       createSubscription: (_data: any, _actions: any) => {
         const amount = getAmount();
         if (!amount) return;

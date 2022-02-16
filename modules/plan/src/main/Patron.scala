@@ -41,6 +41,12 @@ case class Patron(
       expiresAt = none
     )
 
+  def removePayPalCheckout =
+    copy(
+      payPalCheckout = none,
+      expiresAt = none
+    )
+
   def removePayPal =
     copy(
       payPal = none,
@@ -57,7 +63,7 @@ object Patron {
   case class UserId(value: String) extends AnyVal
 
   case class Stripe(customerId: StripeCustomerId)
-  case class PayPalCheckout(payerId: PayPalPayerId)
+  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId])
 
   case class PayPalLegacy(
       email: Option[PayPalLegacy.Email],

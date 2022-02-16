@@ -11,15 +11,15 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
   // then fetch the event from the stripe API.
   def stripe(js: JsValue): Funit = {
     def log = logger branch "stripe.webhook"
-    (js \ "id").asOpt[String] ?? api.getEvent flatMap {
+    js.str("id") ?? api.getEvent flatMap {
       case None =>
         log.warn(s"Forged $js")
         funit
       case Some(event) =>
         import JsonHandlers.stripe._
         ~(for {
-          id   <- (event \ "id").asOpt[String]
-          name <- (event \ "type").asOpt[String]
+          id   <- event str "id"
+          name <- event str "type"
           data <- (event \ "data" \ "object").asOpt[JsObject]
         } yield {
           log.debug(s"$name $id ${Json.stringify(data).take(100)}")
@@ -38,15 +38,23 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
 
   def payPal(js: JsValue): Funit = ~ {
     def log = logger branch "payPal.webhook"
-    println(js)
     for {
-      id   <- (js \ "id").asOpt[String]
-      tpe  <- (js \ "event_type").asOpt[String]
-      data <- (js \ "resource").asOpt[JsObject]
+      id   <- js str "id"
+      tpe  <- js str "event_type"
+      data <- js obj "resource"
     } yield {
       println(data)
       log.debug(s"$tpe $id ${Json.stringify(data).take(100)}")
-      funit
+      tpe match {
+        case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
+        // {
+        //   for {
+        //     userId <- data.str("custom_id")
+        //     subId  <- data.str("id")
+        //   } yield api.paypalSubscriptionActivated(PayPalSubscriptionId(subId), userId)
+        // } | fufail(s"Invalid PayPal webhook $data")
+        case _ => funit
+      }
     }
   }
 

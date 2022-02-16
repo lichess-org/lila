@@ -172,13 +172,17 @@ case class PayPalOrder(
   def capturedMoney     = isApprovedCapture ?? purchase_units.headOption.map(_.amount.money)
   def country           = payer.address.flatMap(_.country_code)
 }
+case class PayPalPayment(amount: PayPalAmount)
+case class PayPalBillingInfo(last_payment: PayPalPayment)
 case class PayPalSubscription(
     id: PayPalSubscriptionId,
-    intent: String,
     status: String,
-    payer: PayPalPayer
+    subscriber: PayPalPayer,
+    billing_info: PayPalBillingInfo
 ) {
-  def country = payer.address.flatMap(_.country_code)
+  def country       = subscriber.address.flatMap(_.country_code)
+  def capturedMoney = billing_info.last_payment.amount.money
+  def isActive      = status == "ACTIVE"
 }
 case class CreatePayPalOrder(
     checkout: PlanCheckout,

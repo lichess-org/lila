@@ -152,8 +152,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def webhook =
     Action.async(parse.json) { req =>
-      println(req)
-      println(req.headers)
       if (req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG"))
         env.plan.webhookHandler.payPal(req.body) inject Ok("kthxbye")
       else
@@ -309,11 +307,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def payPalCapture(orderId: String) =
     Auth { implicit ctx => me =>
       CaptureRateLimit(ctx.ip) {
-        env.plan.api.paypalCapture(
-          PayPalOrderId(orderId),
-          get("sub") map PayPalSubscriptionId,
-          ctx.ip
-        ) inject jsonOkResult
+        (get("sub") map PayPalSubscriptionId match {
+          case None        => env.plan.api.paypalCaptureOrder(PayPalOrderId(orderId), ctx.ip)
+          case Some(subId) => env.plan.api.paypalCaptureSubscription(PayPalOrderId(orderId), subId, ctx.ip)
+        }) inject jsonOkResult
       }(rateLimitedFu)
     }
 

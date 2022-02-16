@@ -88,6 +88,9 @@ final private class PayPalClient(
   def getOrder(id: PayPalOrderId): Fu[Option[PayPalOrder]] =
     getOne[PayPalOrder](s"${path.orders}/$id")
 
+  def getSubscription(id: PayPalSubscriptionId): Fu[Option[PayPalSubscription]] =
+    getOne[PayPalSubscription](s"${path.subscriptions}/$id")
+
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
     get[A](url) dmap some recover { case _: NotFoundException =>
       None
