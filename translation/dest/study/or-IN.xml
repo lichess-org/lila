@@ -18,6 +18,7 @@
   <string name="pgnTags">PGN ଟ୍ୟାଗ୍</string>
   <string name="like">ପସନ୍ଦ କରନ୍ତୁ</string>
   <string name="unlike">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
+  <string name="first">ପ୍ରଥମ</string>
   <string name="shareAndExport">ଅଂଶୀଦାର ଓ ରପ୍ତାନି</string>
   <string name="studyPgn">ଅଧ୍ୟୟନର PGN</string>
   <string name="chapterPgn">ଅଧ୍ୟାୟର PGN</string>
@@ -28,6 +29,7 @@
   <string name="open">ଖୋଲନ୍ତୁ</string>
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>
+  <string name="clearVariations">ଭିନ୍ନତା ସଫା କରନ୍ତୁ</string>
   <string name="rightUnderTheBoard">ଠିକ୍ ବୋର୍ଡ ତଳେ</string>
   <string name="noPinnedComment">କିଛି ନୁହେଁ</string>
   <string name="automatic">ସ୍ୱୟଂଚାଳିତ</string>
