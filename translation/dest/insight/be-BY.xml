@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">Шахматныя аналітычныя дадзеныя %s</string>
+  <string name="xHasNoChessInsights">%s пакуль што не мае аналітычных дадзеных!</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">налады аналітычных дадзеных</string>
+</resources>
