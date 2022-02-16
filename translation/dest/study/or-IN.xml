@@ -9,6 +9,7 @@
   <string name="dateAddedOldest">ଯୋଡ଼ାଯିବା ତାରିଖ (ସବୁଠୁ ପୁରୁଣା)</string>
   <string name="recentlyUpdated">ସମ୍ପ୍ରତି ଅଦ୍ୟତନ ହୋଇଥିବା</string>
   <string name="mostPopular">ସବୁଠାରୁ ଲୋକପ୍ରିୟ</string>
+  <string name="addNewChapter">ଏକ ନୂଆ ଅଧ୍ୟାୟ ଯୋଡ଼ନ୍ତୁ</string>
   <plurals name="nbChapters">
     <item quantity="one">%sଟିଏ ଅଧ୍ୟାୟ</item>
     <item quantity="other">%sଟି ଅଧ୍ୟାୟ</item>
@@ -34,6 +35,7 @@
   <string name="like">ପସନ୍ଦ କରନ୍ତୁ</string>
   <string name="unlike">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
   <string name="newTag">ନୂଆ ଟ୍ୟାଗ୍</string>
+  <string name="commentThisPosition">ଏହି ସ୍ଥିତି ଉପରେ ମନ୍ତବ୍ୟ ଦିଅନ୍ତୁ</string>
   <string name="first">ପ୍ରଥମ</string>
   <string name="previous">ପୂର୍ବବର୍ତ୍ତୀ</string>
   <string name="next">ପରବର୍ତ୍ତୀ</string>
@@ -48,6 +50,7 @@
   <string name="open">ଖୋଲନ୍ତୁ</string>
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>
+  <string name="newChapter">ନୂଆ ଅଧ୍ୟାୟ</string>
   <string name="pinnedChapterComment">ପିନ୍ ହୋଇଥିବା ଅଧ୍ୟୟନ ମନ୍ତବ୍ୟ</string>
   <string name="saveChapter">ଅଧ୍ୟାୟ ସଞ୍ଚୟ କରନ୍ତୁ</string>
   <string name="clearVariations">ଭିନ୍ନତା ସଫା କରନ୍ତୁ</string>
