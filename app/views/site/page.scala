@@ -11,7 +11,7 @@ object page {
   def lone(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title")
+      title = ~doc.getText("document.title")
     ) {
       main(cls := "page-small box box-pad page")(pageContent(doc, resolver))
     }
@@ -20,25 +20,25 @@ object page {
       ctx: Context
   ) =
     layout(
-      title = ~doc.getText("doc.title"),
+      title = ~doc.getText("document.title"),
       active = active,
       contentCls = "page box box-pad",
       moreCss = cssTag("page")
     )(pageContent(doc, resolver))
 
   def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
-    h1(doc.getText("doc.title")),
+    h1(doc.getText("document.title")),
     div(cls := "body")(
       raw {
         ~doc
-          .getHtml("doc.content", resolver)
+          .getHtml("document.content", resolver)
           .map(lila.blog.BlogTransform.markdown.apply)
       }
     )
   )
 
   def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
-    val title = ~doc.getText("doc.title")
+    val title = ~doc.getText("document.title")
     layout(
       title = title,
       active = "source",
@@ -53,7 +53,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       frag(
         st.section(cls := "box box-pad body")(
           h1(title),
-          raw(~doc.getHtml("doc.content", resolver))
+          raw(~doc.getHtml("document.content", resolver))
         ),
         br,
         st.section(cls := "box")(
