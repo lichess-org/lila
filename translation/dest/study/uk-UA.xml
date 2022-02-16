@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Закріплений коментар розділу</string>
   <string name="saveChapter">Зберегти розділ</string>
   <string name="clearAnnotations">Очистити анотацію</string>
+  <string name="clearVariations">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
   <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>
