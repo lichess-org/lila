@@ -567,6 +567,7 @@
   <string name="reportDescriptionHelp">הדבק את הקישור למשחק(ים) והסבר מה לא בסדר בהתנהגות המשתמש</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
+  <string name="importedByX">מיובא ע\"י %s</string>
   <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>

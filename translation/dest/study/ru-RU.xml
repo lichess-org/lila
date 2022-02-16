@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
   <string name="saveChapter">Сохранить главу</string>
   <string name="clearAnnotations">Очистить аннотацию</string>
+  <string name="clearVariations">Очистить варианты</string>
   <string name="deleteChapter">Удалить главу</string>
   <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
   <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>

@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
   <string name="by">%s द्वारा</string>
+  <string name="importedByX">%s द्वारा आयातित</string>
   <string name="thisTopicIsNowClosed">यह विषय अब बंद हो चुका है|</string>
   <string name="blog">ब्लॉग</string>
   <string name="notes">टिप्पणियाँ</string>

@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>
   <string name="saveChapter">Kapitulua gorde</string>
   <string name="clearAnnotations">Iruzkinak garbitu</string>
+  <string name="clearVariations">Garbitu aldaerak</string>
   <string name="deleteChapter">Kapitulua ezabatu</string>
   <string name="deleteThisChapter">Kapitulu hau ezabatu egin nahi duzu? Ez dago atzera egiterik!</string>
   <string name="clearAllCommentsInThisChapter">Kapitulu honetako iruzkin guztiak ezabatu?</string>

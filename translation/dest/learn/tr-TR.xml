@@ -186,6 +186,7 @@ Piyon = 1</string>
   <string name="rightOn">İşte böyle!</string>
   <string name="stageXComplete">%s. aşama tamamlandı</string>
   <string name="next">Sıradaki</string>
+  <string name="nextX">Sıradaki:%s</string>
   <string name="backToMenu">Menüye geri dön</string>
   <string name="puzzleFailed">Bulmaca çözülemedi!</string>
   <string name="retry">Tekrar dene</string>

@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Commento del capitolo</string>
   <string name="saveChapter">Salva capitolo</string>
   <string name="clearAnnotations">Cancella annotazioni</string>
+  <string name="clearVariations">Elimina le varianti</string>
   <string name="deleteChapter">Elimina capitolo</string>
   <string name="deleteThisChapter">Vuoi davvero eliminare questo capitolo? Sarà perso per sempre!</string>
   <string name="clearAllCommentsInThisChapter">Cancellare tutti i commenti, le annotazioni e i disegni in questo capitolo?</string>

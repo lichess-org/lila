@@ -95,6 +95,19 @@
   <string name="xOpeningExplorer">Sách khai cuộc %s</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước
+
+Được hiển thị trong một số tình huống trong chế độ xem cơ sở bảng trò chơi cuối cùng. Nếu người dùng bỏ qua đề xuất cơ sở bảng, có thể kết thúc bằng tình huống mà cơ sở bảng Syzygy không thể biết liệu quy tắc 50 bước di chuyển có ngăn cản chiến thắng hay không.
+
+Ngoài ra, hãy xem chuỗi \"Chỉ được đảm bảo thắng / thua nếu dòng cơ sở bảng được đề xuất là ...\" để biết chú giải công cụ sẽ giải thích điều này.</string>
+  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước
+
+Analogous to source string \"Win or 50 moves by prior mistake\" - please see context there.</string>
+  <string name="unknownDueToRounding">Không xác định do làm tròn
+
+Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm lẫn trước\" và \"Thua hoặc 50 nước đi do nhầm lẫn trước\" trong chế độ xem cơ sở trò chơi kết thúc.
+
+\"Làm tròn\" được dùng theo nghĩa toán học. Nó đề cập đến một sự khác biệt của cơ sở bảng Syzygy, nơi một số giá trị DTZ được lưu trữ làm tròn xuống.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -321,6 +334,7 @@
   <string name="leaderboard">Bảng dẫn đầu</string>
   <string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
+  <string name="orUploadPgnFile">Hoặc tải file PGN lên</string>
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="toStudy">Nghiên cứu</string>
@@ -424,6 +438,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc quốc kỳ</string>
   <string name="thankYou">Cám ơn!</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
+  <string name="oneUrlPerLine">Một Url mỗi dòng
+
+Xuất hiện trong phần \'Liên kết phương tiện truyền thông xã hội\' khi bạn chỉnh sửa hồ sơ của mình, để hiển thị các URL được liên kết với bạn: https://lichess.org/account/profile</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="previouslyOnLichessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
@@ -466,6 +483,11 @@
   <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Xin hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
+  <string name="importedByX">Được nhập bởi
+
+%s là tên người dùng của người chơi, có liên kết đến hồ sơ của họ
+
+Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập trò chơi: https://lichess.org/paste</string>
   <string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
   <string name="blog">Nhật ký (web)</string>
   <string name="notes">Chú thích</string>
@@ -525,7 +547,10 @@
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>
   <string name="error.required">Mục bắt buộc</string>
+  <string name="error.email">Email này không hợp lệ</string>
   <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra và thử lại.</string>
+  <string name="error.email_unique">Email này không được chấp nhận hoặc đã được dùng</string>
+  <string name="error.email_different">Đây đã là email cua</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
@@ -829,9 +854,15 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
+  <string name="tournamentEntryCode">Mật khẩu tham dự cuộc thi</string>
   <string name="hangOn">Từ đã!</string>
   <string name="gameInProgress">Bạn đang có ván đấu với %s.</string>
   <string name="abortTheGame">Hủy ván đấu</string>
   <string name="resignTheGame">Bỏ cuộc</string>
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
+  <string name="switchSides">Đổi bên
+
+Mô tả khi di chuột qua tùy chọn \'dưới dạng trắng/đen\' cho các trò chơi trước đây của riêng bạn, trong trình khám phá mở đầu: https://lichess.org/analysis#explorer
+
+Nhấp vào này sẽ chuyển lịch sử trò chơi giữa trắng và đen.</string>
 </resources>

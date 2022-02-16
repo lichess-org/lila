@@ -424,6 +424,7 @@
   <string name="biography">Ævilýsing</string>
   <string name="thankYou">Takk fyri!</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
+  <string name="oneUrlPerLine">Eitt URL fyri hvørja reglu.</string>
   <string name="inlineNotation">Innbygd teknskipan</string>
   <string name="previouslyOnLichessTV">Áður víst í Lichess-sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
@@ -466,6 +467,7 @@
   <string name="reportDescriptionHelp">Flyt leinkið til talvið ella talvini higar, og greið frá, hvat bagir atburðinum hjá brúkaranum. Skriva ikki bert \"hann snýtir\", men sig okkum, hvussu tú komst til hesa niðurstøðu. Fráboðan tín verður skjótari viðgjørd, um hon verður skrivað á enskum.</string>
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
   <string name="by">eftir %s</string>
+  <string name="importedByX">%s las inn</string>
   <string name="thisTopicIsNowClosed">Evnið er nú afturlatið.</string>
   <string name="blog">Bloggur</string>
   <string name="notes">Upprit</string>

@@ -89,12 +89,13 @@ case class Game(
   def simulId      = metadata.simulId
   def swissId      = metadata.swissId
 
-  def isTournament = tournamentId.isDefined
-  def isSimul      = simulId.isDefined
-  def isSwiss      = swissId.isDefined
-  def isMandatory  = isTournament || isSimul || isSwiss
-  def isClassical  = perfType contains Classical
-  def nonMandatory = !isMandatory
+  def isTournament         = tournamentId.isDefined
+  def isSimul              = simulId.isDefined
+  def isSwiss              = swissId.isDefined
+  def canTakebackOrAddTime = !isTournament && !isSimul && !isSwiss
+  def isMandatory          = isTournament || isSimul || isSwiss || fromApi
+  def nonMandatory         = !isMandatory
+  def isClassical          = perfType contains Classical
 
   def hasChat = !isTournament && !isSimul && nonAi
 
@@ -349,7 +350,7 @@ case class Game(
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
-    playable && nonMandatory && {
+    playable && canTakebackOrAddTime && {
       clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
     }
 

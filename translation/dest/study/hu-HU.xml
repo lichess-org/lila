@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Rögzített megjegyzés</string>
   <string name="saveChapter">Fejezet mentése</string>
   <string name="clearAnnotations">Jelölések eltávolítása</string>
+  <string name="clearVariations">Változatok törlése</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="clearAllCommentsInThisChapter">Eltávolítasz minden megjegyzést, jelölést és rajzot ebből a fejezetből?</string>
