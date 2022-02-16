@@ -13,8 +13,23 @@
     <item quantity="one">%sଟିଏ ଅଧ୍ୟାୟ</item>
     <item quantity="other">%sଟି ଅଧ୍ୟାୟ</item>
   </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%sଟିଏ ଖେଳ</item>
+    <item quantity="other">%sଟି ଖେଳ</item>
+  </plurals>
+  <string name="addMembers">ସଦସ୍ୟ ଯୋଡ଼ନ୍ତୁ</string>
+  <plurals name="nbMembers">
+    <item quantity="one">ଜଣେ ସଦସ୍ୟ</item>
+    <item quantity="other">%s ଜଣ ସଦସ୍ୟ</item>
+  </plurals>
   <string name="inviteToTheStudy">ଅଧ୍ୟୟନକୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ</string>
+  <string name="searchByUsername">ଉପଭୋକ୍ତାଙ୍କ ନା‍ଁ ଦ୍ୱାରା ସନ୍ଧାନ</string>
+  <string name="spectator">ଦର୍ଶକ</string>
+  <string name="contributor">ଯୋଗଦାନକାରୀ</string>
+  <string name="kick">ବାହାର କର</string>
   <string name="leaveTheStudy">ଅଧ୍ୟୟନ ଛାଡ଼ି ଦିଅନ୍ତୁ</string>
+  <string name="youAreNowAContributor">ଆପଣ ବର୍ତ୍ତମାନ ଜଣେ ଯୋଗଦାନକାରୀ</string>
+  <string name="youAreNowASpectator">ଆପଣ ବର୍ତ୍ତମାନ ଜଣେ ଦର୍ଶକ</string>
   <string name="pgnTags">PGN ଟ୍ୟାଗ୍</string>
   <string name="like">ପସନ୍ଦ କରନ୍ତୁ</string>
   <string name="unlike">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
@@ -32,6 +47,8 @@
   <string name="open">ଖୋଲନ୍ତୁ</string>
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>
+  <string name="pinnedChapterComment">ପିନ୍ ହୋଇଥିବା ଅଧ୍ୟୟନ ମନ୍ତବ୍ୟ</string>
+  <string name="saveChapter">ଅଧ୍ୟାୟ ସଞ୍ଚୟ କରନ୍ତୁ</string>
   <string name="clearVariations">ଭିନ୍ନତା ସଫା କରନ୍ତୁ</string>
   <string name="rightUnderTheBoard">ଠିକ୍ ବୋର୍ଡ ତଳେ</string>
   <string name="noPinnedComment">କିଛି ନୁହେଁ</string>
