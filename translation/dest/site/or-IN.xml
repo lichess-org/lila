@@ -187,6 +187,7 @@
   <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="player">ଖେଳାଳି</string>
+  <string name="createANewTournament">ଏକ ନୂଆ ଟୁର୍ନାମେଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
@@ -237,7 +238,9 @@
   <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
+  <string name="hostANewSimul">ଏକ ନୂଆ ସିମଲ୍ ଆୟୋଜନ କରନ୍ତୁ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="newTournament">ନୂଆ ଟୁର୍ନାମେଣ୍ଟ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
@@ -263,6 +266,7 @@
   <string name="lifetimeScore">ଆଜୀବନ ସ୍କୋର୍</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ମୁଁ ସହମତ ଯେ ମୁଁ ଏକାଧିକ ଆକାଉଣ୍ଟ୍ ସୃଷ୍ଟି କରିବି ନାହିଁ (%sରେ ଦର୍ଶାଯାଇଥିବା କାରଣ ବ୍ୟତୀତ)।</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="searchOrStartNewDiscussion">ଖୋଜ କିମ୍ବା ନୂଆ ବାର୍ତ୍ତାଳାପ ଆରମ୍ଭ କର</string>
   <string name="edit">ସମ୍ପାଦନା</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="puzzleDesc">ଚେସ୍ କୌଶଳ ପ୍ରଶିକ୍ଷକ</string>
@@ -273,5 +277,6 @@
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
+  <string name="youCantStartNewGame">ଏହି ଖେଳ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଣ ଏକ ନୂଆ ଖେଳ ଆରମ୍ଭ କରିପାରିବେ ନାହିଁ।</string>
   <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
 </resources>
