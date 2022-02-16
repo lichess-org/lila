@@ -535,7 +535,7 @@
   <string name="reportDescriptionHelp">Ielīmējiet spēles saiti un paskaidrojiet, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsiet, ka \"lietotājs krāpjas\" — lūdzu, pastāstiet, kā nonācāt pie šī secinājuma. Ja jūsu ziņojums būs rakstīts angliski, par to varēsim parūpēties ātrāk.</string>
   <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">no %s</string>
-  <string name="importedByX" comment="importedByX&#10;&#10;%s is a player's username, with a link to their profile&#10;&#10;Notes the player that imported the game, through the Import Game tool: https://lichess.org/paste">Importēja %s</string>
+  <string name="importedByX">Importēja %s</string>
   <string name="thisTopicIsNowClosed">Šis temats tagad ir slēgts.</string>
   <string name="blog">Blogs</string>
   <string name="notes">Piezīmes</string>

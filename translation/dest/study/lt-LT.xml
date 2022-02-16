@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
   <string name="saveChapter">Išsaugoti skyrių</string>
   <string name="clearAnnotations">Pašalinti anotacijas</string>
+  <string name="clearVariations">Išvalyti variacijas</string>
   <string name="deleteChapter">Ištrinti skyrių</string>
   <string name="deleteThisChapter">Ištrinti šį skyrių? Nėra kelio atgal!</string>
   <string name="clearAllCommentsInThisChapter">Išvalyti visus komentarus, ženklus ir figūras šiame skyriuje?</string>

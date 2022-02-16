@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Privaat</string>
+  <string name="private">Privat</string>
   <string name="myStudies">Mini Schtudie</string>
   <string name="studiesIContributeTo">Schtudie, wo ich mitwürke</string>
   <string name="myPublicStudies">Mini öffentliche Schtudie</string>
@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Aaghänkte Kapitel Kommentar</string>
   <string name="saveChapter">Kapitel schpeichere</string>
   <string name="clearAnnotations">Aamerkige lösche</string>
+  <string name="clearVariations">Variante lösche</string>
   <string name="deleteChapter">Kapitel lösche</string>
   <string name="deleteThisChapter">Kapitel lösche? Das chann nöd rückgängig gmacht werde!</string>
   <string name="clearAllCommentsInThisChapter">Alli Kommentär, Symbol und Zeichnigsforme i dem Kapitel lösche?</string>
@@ -156,10 +157,10 @@
   <string name="nextChapter">Nögschts Kapitäl</string>
   <string name="prevChapter">Vorhärigs Kapitäl</string>
   <string name="studyActions">Lärnaktionä</string>
-  <string name="topics">Themä</string>
-  <string name="myTopics">Miini Themä</string>
-  <string name="popularTopics">Beliebti Themä</string>
-  <string name="manageTopics">Themä verwaltä</string>
+  <string name="topics">Theme</string>
+  <string name="myTopics">Miini Theme</string>
+  <string name="popularTopics">Beliebti Theme</string>
+  <string name="manageTopics">Theme verwalte</string>
   <string name="back">Zrugg</string>
   <string name="playAgain">Vo vornä</string>
   <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>

@@ -7,12 +7,12 @@
     <item quantity="other">Mbështeti lichess.org për %1$s muaj si %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Praktikove %1$s pozicion në %2$s</item>
-    <item quantity="other">Praktikove %1$s pozicione në %2$s</item>
+    <item quantity="one">Ushtroi %1$s pozicion në %2$s</item>
+    <item quantity="other">Ushtroi %1$s pozicione në %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Zgjodhi %s enigmë taktike</item>
-    <item quantity="other">Zgjodhi %s enigma taktike</item>
+    <item quantity="one">Zgjidhi %s ushtrim taktik</item>
+    <item quantity="other">Zgjidhi %s ushtrime taktike</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Luajti %1$s lojë %2$s</item>
@@ -32,15 +32,15 @@
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Përfundove %s lojë me korrespondencë</item>
-    <item quantity="other">Përfundove %s lojra me korrespondencë</item>
+    <item quantity="other">Plotësoi %s lojëra me korrespondencë</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Filloi të ndjekë %s lojtar</item>
     <item quantity="other">Filloi të ndjekë %s lojtarë</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Bëri %s ndjekës të ri</item>
-    <item quantity="other">Bëri %s ndjekës të ri</item>
+    <item quantity="one">Përfitoi %s ndjekës të ri</item>
+    <item quantity="other">Përfitoi %s ndjekës të ri</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Zhvilloi %s lojëra të njëkohësishme</item>
@@ -55,21 +55,21 @@
     <item quantity="other">Krijoi %s mësime të reja</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Morri pjesë në kampionatin %s</item>
-    <item quantity="other">Morre pjesë në %s kampjonate</item>
+    <item quantity="one">Ndeshur në %s turne Arenë</item>
+    <item quantity="other">Ndeshur në %s turne Arenë</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
     <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Ke marr pjesë në %s kampionat zviceran</item>
-    <item quantity="other">Ke marr pjesë në %s kampionate zvicerane</item>
+    <item quantity="one">Ndeshur në %s turne zviceran</item>
+    <item quantity="other">Ndeshur në %s turne zviceranë</item>
   </plurals>
-  <string name="rankedInSwissTournament">I rreshtuar #%1$s in %2$s</string>
+  <string name="rankedInSwissTournament">U rendit #%1$s in %2$s</string>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Iu bashkua ekipit %s</item>
-    <item quantity="other">Iu bashkua %s ekipeve</item>
+    <item quantity="one">U bë pjesë e %s ekipi</item>
+    <item quantity="other">U bë pjesë e %s ekipive</item>
   </plurals>
 </resources>

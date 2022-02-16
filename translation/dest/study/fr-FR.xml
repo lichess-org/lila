@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Commentaire du chapitre épinglé</string>
   <string name="saveChapter">Enregistrer le chapitre</string>
   <string name="clearAnnotations">Effacer les annotations</string>
+  <string name="clearVariations">Supprimer les variantes</string>
   <string name="deleteChapter">Supprimer le chapitre</string>
   <string name="deleteThisChapter">Supprimer ce chapitre ? Cette action est irréversible !</string>
   <string name="clearAllCommentsInThisChapter">Effacer tous les commentaires et annotations dans ce chapitre ?</string>

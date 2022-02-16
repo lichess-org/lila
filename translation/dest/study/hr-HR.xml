@@ -84,6 +84,7 @@
   <string name="pinnedChapterComment">Stalni komentar na poglavlje</string>
   <string name="saveChapter">Spremi poglavlje</string>
   <string name="clearAnnotations">Očisti pribilješke</string>
+  <string name="clearVariations">Očistiti varijacije</string>
   <string name="deleteChapter">Obriši poglavlje</string>
   <string name="deleteThisChapter">Dali želite obrisati ovo poglavlje? Nakon ovoga nema povratka!</string>
   <string name="clearAllCommentsInThisChapter">Želite li očistiti sve komentare, glifove i nacrtane oblike u ovom poglavlju?</string>

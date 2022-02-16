@@ -90,6 +90,7 @@
   <string name="pinnedChapterComment">Trácht caibidil greamaithe</string>
   <string name="saveChapter">Sábháil caibidil</string>
   <string name="clearAnnotations">Glan anótála</string>
+  <string name="clearVariations">Glan éagsúlachtaí</string>
   <string name="deleteChapter">Scrios caibidil</string>
   <string name="deleteThisChapter">Scrios an chaibidil seo? Níl aon dul ar ais!</string>
   <string name="clearAllCommentsInThisChapter">Glan gach trácht, glif agus cruthanna tarraingthe sa chaibidil seo?</string>
