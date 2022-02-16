@@ -688,7 +688,7 @@
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
-  <string name="tournamentFAQ">FAQ турніру</string>
+  <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
   <string name="keyboardShortcuts">Скароты</string>
@@ -888,8 +888,8 @@
   <string name="correspondenceDesc">Гульні па ліставанні: адзін або некалькі дзён на ход</string>
   <string name="puzzleDesc">Трэнер па шахматнай тактыцы</string>
   <string name="important">Важліва</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Ваш запыт можа ужо мець адказ %1$s</string>
-  <string name="inTheFAQ">у FAQ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Адказ на ваша пытанне можа ўжо існаваць %1$s</string>
+  <string name="inTheFAQ">у частых пытаннях</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
   <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
