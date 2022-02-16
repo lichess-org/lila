@@ -30,8 +30,8 @@
   <string name="threeChecks">ତିନି ଚେକ୍</string>
   <string name="raceFinished">ରେସ୍ ସମାପ୍ତ</string>
   <string name="variantEnding">ବିଭିନ୍ନ ପ୍ରକାର ସମାପ୍ତ</string>
-  <string name="newOpponent">ନୂତନ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ |</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">ତୁମର ପ୍ରତିଦ୍ୱନ୍ଦୀ ତୁମ ସହିତ ଏକ ନୂତନ ଖେଳ ଖେଳିବାକୁ ଚାହାଁନ୍ତି</string>
+  <string name="newOpponent">ନୂଆ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଆପଣଙ୍କ ସହ ଏକ ନୂଆ ଖେଳ ଖେଳିବାକୁ ଚାହାଁନ୍ତି</string>
   <string name="joinTheGame">ଖେଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
   <string name="whitePlays">ଧଳାର ପାଳି</string>
   <string name="blackPlays">କଳାର ପାଳି</string>
@@ -205,7 +205,7 @@
   <string name="no">ନାହିଁ</string>
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
-  <string name="createANewTopic">ଏକ ନୂତନ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="createANewTopic">ଏକ ନୂଆ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="user">ଉପଭୋକ୍ତା</string>
   <string name="reason">କାରଣ</string>
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
@@ -215,7 +215,7 @@
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="newPassword">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="newPasswordAgain">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼ (ପୁନଃ)</string>
-  <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
+  <string name="newPasswordsDontMatch">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
   <string name="privacy">ଗୋପନୀୟତା</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
