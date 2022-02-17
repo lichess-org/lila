@@ -57,7 +57,7 @@ add `-J-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006` to 
 ```
 sbt universal:packageBin
 cd target/universal/ && unzip -o lila-3.2.zip && cd ../..
-./ui/build
+./ui/build prod
 cp -R public/ target/universal/lila-3.2/
 ./target/universal/lila-ws-2.1/bin/lila-ws
 ```
