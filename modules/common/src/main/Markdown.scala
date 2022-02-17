@@ -3,9 +3,13 @@ package lila.common
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
-import com.vladsch.flexmark.html.HtmlRenderer
+import com.vladsch.flexmark.html.{ AttributeProvider, HtmlRenderer, IndependentAttributeProviderFactory }
+import com.vladsch.flexmark.html.renderer.{ AttributablePart, LinkResolverContext }
 import com.vladsch.flexmark.parser.Parser
-import com.vladsch.flexmark.util.data.MutableDataSet
+import com.vladsch.flexmark.util.ast.Node
+import com.vladsch.flexmark.util.data.{ MutableDataHolder, MutableDataSet }
+import com.vladsch.flexmark.util.html.MutableAttributes
+import com.vladsch.flexmark.ast.Link
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
 import lila.base.RawHtml
@@ -28,6 +32,7 @@ final class Markdown(
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
+  extensions.add(Markdown.NofollowExtension)
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -51,12 +56,6 @@ final class Markdown(
 
   private val logger = lila.log("markdown")
 
-  // quick and dirty.
-  // there should be a clean way to do it:
-  // https://programming.vip/docs/flexmark-java-markdown-add-target-attribute-to-link.html
-  private def addLinkAttributes(markup: Html) =
-    markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
-
   private def mentionsToLinks(markdown: Text): Text =
     RawHtml.atUsernameRegex.replaceAllIn(markdown, "[@$1](/@/$1)")
 
@@ -68,7 +67,7 @@ final class Markdown(
     Chronometer
       .sync {
         try {
-          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)))))
+          renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text))))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -81,6 +80,22 @@ final class Markdown(
 }
 
 object Markdown {
+
+  private object NofollowExtension extends HtmlRenderer.HtmlRendererExtension {
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder
+        .attributeProviderFactory(new IndependentAttributeProviderFactory {
+          override def apply(context: LinkResolverContext): AttributeProvider = NofollowAttributeProvider
+        })
+        .unit
+  }
+  private object NofollowAttributeProvider extends AttributeProvider {
+    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
+      if (node.isInstanceOf[Link] && part == AttributablePart.LINK)
+        attributes.replaceValue("rel", "nofollow noopener noreferrer").unit
+    }
+  }
 
   private val imageRegex = """!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)""".r
 
