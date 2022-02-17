@@ -83,7 +83,8 @@ and `target/universal/lila-3.2/conf/application.ini` for secrets and etc (not in
 -Dsecurity.email_confirm.secret="somethingElseInProd"
 -Dsecurity.email_change.secret="somethingElseInProd"
 -Dsecurity.login_token.secret="somethingElseInProd"
-
+-J-Xms256M
+-J-Xmx2048M
 ```
 
 The Wiki describes [how to setup a development environment](https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding).
