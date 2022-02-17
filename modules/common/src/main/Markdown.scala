@@ -58,7 +58,7 @@ final class Markdown(
     markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
 
   private def mentionsToLinks(markdown: Text): Text =
-    RawHtml.atUsernameRegex.replaceAllIn(markdown, "[$1](/@/$1)")
+    RawHtml.atUsernameRegex.replaceAllIn(markdown, "[@$1](/@/$1)")
 
   // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex             = """(_{4,})""".r
