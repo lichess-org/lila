@@ -48,6 +48,44 @@ Use [GitHub issues](https://github.com/lichess-org/lila/issues) for bug reports 
 run
 ```
 
+## debug
+
+add `-J-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006` to `.sbtopts` and call Installation commands
+
+## prod
+
+```
+sbt universal:packageBin
+cd target/universal/ && unzip -o lila-3.2.zip && cd ../..
+./ui/build
+cp -R public/ target/universal/lila-3.2/
+./target/universal/lila-ws-2.1/bin/lila-ws
+```
+
+## newchess config
+
+You can use `conf/application.ini`
+
+```
+net {
+  domain = "newchess.fun"
+  socket.domains = [ "ws.newchess.fun" ]
+  asset.base_url = "https://"${net.asset.domain}
+  base_url = "https://"${net.domain}
+}
+prismic.api_url = "https://newchess1.cdn.prismic.io/api"
+```
+
+and `target/universal/lila-3.2/conf/application.ini` for secrets and etc (not included in repo):
+```
+-Dstorm.secret="somethingElseInProd"
+-Dsecurity.password_reset.secret="somethingElseInProd"
+-Dsecurity.email_confirm.secret="somethingElseInProd"
+-Dsecurity.email_change.secret="somethingElseInProd"
+-Dsecurity.login_token.secret="somethingElseInProd"
+
+```
+
 The Wiki describes [how to setup a development environment](https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding).
 
 ## HTTP API
