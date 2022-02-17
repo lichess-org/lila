@@ -14,7 +14,7 @@
   <string name="fullDescription">Përshkrim i plotë i turneut</string>
   <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
   <string name="sourceUrlOrGameIds">URL burimi, ose ID-ra loje</string>
-  <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti	.</string>
+  <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="gameIdsHelp">Ndryshe, mund të jepni deri në 63 ID-ra lojërash Lichess, ndarë me presje.</string>
   <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
