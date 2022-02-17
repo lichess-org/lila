@@ -399,7 +399,7 @@ object layout {
             else ctx.isBot option botImage,
             a(href := "/")(
               "newchess",
-              span(if (netConfig.isProd) ".org" else ".dev")
+              span(if (netConfig.isProd) ".fun" else ".dev")
             )
           ),
           ctx.blind option h2("Navigation"),
