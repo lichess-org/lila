@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Замацаваны каментар раздзелу</string>
   <string name="saveChapter">Захаваць раздзел</string>
   <string name="clearAnnotations">Ачысціць анатацыі</string>
+  <string name="clearVariations">Ачысціць варыянты</string>
   <string name="deleteChapter">Выдаліць раздзел</string>
   <string name="deleteThisChapter">Выдаліць гэты раздел? Гэта нельга будзе адмяніць!</string>
   <string name="clearAllCommentsInThisChapter">Выдаліць усе каментары, знакавыя анатацыі і намаляваныя фігуры ў гэтым раздзеле?</string>

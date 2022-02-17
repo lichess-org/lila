@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରମାନଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
   <string name="resetPassword">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
   <string name="makeSureToCopy">ଏବେ ପାସ୍‍ୱାର୍ଡ଼ କପି କିମ୍ୱା ଲେଖିବାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ। ଆପଣ ଏହାକୁ ପୁନର୍ବାର ଦେଖିବାକୁ ସମର୍ଥ ହେବେ ନାହିଁ!</string>
   <string name="passwordX">ପାସ୍‍ୱାର୍ଡ଼: %s</string>
-  <string name="generateANewPassword">ଛାତ୍ରଙ୍କ ପାଇଁ ଏକ ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="generateANewPassword">ଛାତ୍ରଙ୍କ ପାଇଁ ଏକ ନୂଆ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="studentCredentials">ଛାତ୍ର:  %1$s
 ଉପଭୋକ୍ତା ନାମ: %2$s
 ପାସ୍‍ୱାର୍ଡ଼: %3$s</string>
