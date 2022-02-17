@@ -11,7 +11,7 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
   // then fetch the event from the stripe API.
   def stripe(js: JsValue): Funit = {
     def log = logger branch "stripe.webhook"
-    js.str("id") ?? api.getEvent flatMap {
+    js.str("id") ?? api.stripe.getEvent flatMap {
       case None =>
         log.warn(s"Forged $js")
         funit
@@ -26,10 +26,10 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
           name match {
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
-              api onSubscriptionDeleted sub
+              api.stripe onSubscriptionDeleted sub
             case "charge.succeeded" =>
               val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
-              api onStripeCharge charge
+              api.stripe onCharge charge
             case _ => funit
           }
         })

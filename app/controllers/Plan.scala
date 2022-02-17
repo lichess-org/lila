@@ -92,7 +92,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx: Context
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
-    info    <- env.plan.api.customerInfo(me, customer)
+    info    <- env.plan.api.stripe.customerInfo(me, customer)
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match {
       case Some(info: MonthlyCustomerInfo) =>
@@ -153,7 +153,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       lila.common.Future.delay(2.seconds) {
         for {
           patron   <- ctx.me ?? env.plan.api.userPatron
-          customer <- patron ?? env.plan.api.patronCustomer
+          customer <- patron ?? env.plan.api.stripe.patronCustomer
           gift     <- ctx.me ?? env.plan.api.recentGiftFrom
         } yield Ok(html.plan.thanks(patron, customer, gift))
       }
@@ -179,19 +179,18 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   )(implicit ctx: Context) = {
     for {
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
-      session <- env.plan.api
-        .createStripeSession(
-          CreateStripeSession(
-            customerId,
-            checkout,
-            NextUrls(
-              cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-              success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-            ),
-            giftTo = giftTo,
-            isLifetime = isLifetime
-          )
+      session <- env.plan.api.stripe.createSession {
+        CreateStripeSession(
+          customerId,
+          checkout,
+          NextUrls(
+            cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+            success = s"${env.net.baseUrl}${routes.Plan.thanks}"
+          ),
+          giftTo = giftTo,
+          isLifetime = isLifetime
         )
+      }
     } yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
   }.recover(badStripeApiCall)
 
@@ -232,14 +231,14 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                 val checkout = data.fixFreq
                 for {
                   gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
-                  customer <- env.plan.api.userCustomer(me)
+                  customer <- env.plan.api.stripe.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
                       createStripeSession(checkout, customer.id, gifted)
                     case Some(customer) if customer.firstSubscription.isDefined =>
                       switchStripePlan(me, checkout.money)
                     case _ =>
-                      env.plan.api
+                      env.plan.api.stripe
                         .makeCustomer(me, checkout)
                         .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
                   }
@@ -254,9 +253,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       CaptureRateLimit(ctx.ip) {
-        env.plan.api.userCustomer(me) flatMap {
+        env.plan.api.stripe.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api
+            env.plan.api.stripe
               .createPaymentUpdateSession(
                 sub,
                 NextUrls(
@@ -275,9 +274,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def updatePaymentCallback =
     AuthBody { implicit ctx => me =>
       get("session") ?? { session =>
-        env.plan.api.userCustomer(me) flatMap {
+        env.plan.api.stripe.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
+            env.plan.api.stripe.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
           }
         }
       }
@@ -299,13 +298,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 if (checkout.freq.renew) for {
-                  sub <- env.plan.api.createPayPalSubscription(checkout, me)
+                  sub <- env.plan.api.payPal.createSubscription(checkout, me)
                 } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
                 else
                   for {
                     gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
                     // customer <- env.plan.api.userCustomer(me)
-                    order <- env.plan.api.createPayPalOrder(checkout, me, gifted)
+                    order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
                   } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
               }
             )
@@ -317,9 +316,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     Auth { implicit ctx => me =>
       CaptureRateLimit(ctx.ip) {
         (get("sub") map PayPalSubscriptionId match {
-          case None => env.plan.api.paypalCaptureOrder(PayPalOrderId(orderId), ctx.ip)
+          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
           case Some(subId) =>
-            env.plan.api.paypalCaptureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
         }) inject jsonOkResult
       }(rateLimitedFu)
     }
@@ -340,7 +339,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             }
           },
           ipn =>
-            env.plan.api.onPaypalCharge(
+            env.plan.api.payPal.onLegacyCharge(
               ipn,
               ip = HTTPRequest ipAddress req,
               key = get("key", req) | "N/A"
