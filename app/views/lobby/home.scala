@@ -194,16 +194,16 @@ object home {
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("NewChess")),
-          a(href := "/faq")(trans.faq.faqAbbreviation()),
+//          a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
 // todo: turn me on!
 //          a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
-          a(href := "/privacy")(trans.privacy()),
+//          a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
 // todo: turn me on!
 //          a(href := "/ads")("Ads"),
-          views.html.base.bits.connectLinks
+//          views.html.base.bits.connectLinks
         )
       )
     }

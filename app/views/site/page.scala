@@ -211,10 +211,10 @@ $('#asset-version-message').text(lichess.info.message);"""
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
           a(activeCls("about"), href := "/about")(trans.aboutX("newchess.fun")),
-          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
+//          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
-          a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
+//          a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
           a(activeCls("master"), href := routes.Page.master)("Title verification"),
           sep,
           a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
