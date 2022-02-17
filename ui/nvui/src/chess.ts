@@ -40,8 +40,8 @@ const anna: { [letter: string]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', D: 'doom' };
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k', doom: 'd' };
+const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', D: 'duke' };
+const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k', duke: 'd' };
 
 const letterPiece: { [letter: string]: string } = {
   p: 'p',
@@ -82,14 +82,14 @@ export const namePiece: { [letter: string]: string } = {
   b: 'bishop',
   q: 'queen',
   k: 'king',
-  d: 'doom',
+  d: 'duke',
   P: 'pawn',
   R: 'rook',
   N: 'knight',
   B: 'bishop',
   Q: 'queen',
   K: 'king',
-  D: 'doom',
+  D: 'duke',
 };
 const whiteUpperNamePiece: { [letter: string]: string } = {
   p: 'pawn',
@@ -98,14 +98,14 @@ const whiteUpperNamePiece: { [letter: string]: string } = {
   b: 'bishop',
   q: 'queen',
   k: 'king',
-  d: 'doom',
+  d: 'duke',
   P: 'Pawn',
   R: 'Rook',
   N: 'Knight',
   B: 'Bishop',
   Q: 'Queen',
   K: 'King',
-  D: 'Doom',
+  D: 'Duke',
 };
 const skipToFile: { [letter: string]: string } = {
   '!': 'a',

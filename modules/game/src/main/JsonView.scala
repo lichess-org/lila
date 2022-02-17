@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 import chess.format.{ FEN, Forsyth }
 import chess.variant.{Crazyhouse, NewChess1}
-import chess.{ Clock, Color, Doom }
+import chess.{ Clock, Color, Duke }
 import lila.common.Json._
 
 final class JsonView(rematches: Rematches) {
@@ -91,7 +91,7 @@ object JsonView {
   }
   implicit val newChess1PocketWriter: OWrites[NewChess1.Pocket] = OWrites { v =>
     JsObject(
-      List(Doom).flatMap { role =>
+      List(Duke).flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
           role.name -> JsNumber(count)
         }

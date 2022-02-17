@@ -1,7 +1,7 @@
 package lila.socket
 
 import chess.format.{FEN, Uci}
-import chess.{Doom, Pos}
+import chess.{Duke, Pos}
 import chess.variant.{Crazyhouse, NewChess1}
 import play.api.libs.json._
 
@@ -42,7 +42,7 @@ object Step {
   }
   implicit private val newChess1PocketWriter: OWrites[NewChess1.Pocket] = OWrites { v =>
     JsObject(
-      List(Doom).flatMap { role =>
+      List(Duke).flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
           role.name -> JsNumber(count)
         }

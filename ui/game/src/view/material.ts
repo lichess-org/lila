@@ -25,8 +25,8 @@ function renderMaterialDiff(
 }
 
 const EMPTY_MATERIAL_DIFF: MaterialDiff = {
-  white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
-  black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
+  white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, duke: 0 },
+  black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, duke: 0 },
 };
 
 export function renderMaterialDiffs(

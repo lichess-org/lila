@@ -7,15 +7,15 @@ const PIECE_SCORES = {
   knight: 3,
   bishop: 3,
   rook: 5,
-  doom: 6,
+  duke: 6,
   queen: 9,
   king: 0,
 };
 
 export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
   const diff: MaterialDiff = {
-    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
-    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, doom: 0 },
+    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, duke: 0 },
+    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0, duke: 0 },
   };
   for (const p of pieces.values()) {
     const them = diff[opposite(p.color)];

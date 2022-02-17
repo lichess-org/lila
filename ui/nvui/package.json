@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessground-newchess1-mod": "8.2.1",
-    "chessops-newchess1-mod": "0.10.6",
+    "chessground-newchess1-mod": "8.2.2",
+    "chessops-newchess1-mod": "0.10.7",
     "snabbdom": "^3.0.1"
   }
 }

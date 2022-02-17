@@ -25,14 +25,14 @@ class BinaryPieceTest extends Specification {
           "00000001" :: List.fill(63)(noop)
         }
       }
-      "A1 white doom" in {
-        val v = write(Map(A1 -> White.doom))
+      "A1 white duke" in {
+        val v = write(Map(A1 -> White.duke))
         v must_== {
           "00001000" :: List.fill(63)(noop)
         }
       }
-      "H8 black doom" in {
-        val v = write(Map(H8 -> Black.doom))
+      "H8 black duke" in {
+        val v = write(Map(H8 -> Black.duke))
         v must_== {
           List.fill(63)(noop) :+ "00011000"
         }
@@ -69,11 +69,11 @@ class BinaryPieceTest extends Specification {
         "A1 white king" in {
           read("00000001" :: List.fill(63)(noop)) must_== Map(A1 -> White.king)
         }
-        "A1 white doom" in {
-          read("00001000" :: List.fill(63)(noop)) must_== Map(A1 -> White.doom)
+        "A1 white duke" in {
+          read("00001000" :: List.fill(63)(noop)) must_== Map(A1 -> White.duke)
         }
-        "H8 black doom" in {
-          read(List.fill(63)(noop) :+ "00011000") must_== Map(H8 -> Black.doom)
+        "H8 black duke" in {
+          read(List.fill(63)(noop) :+ "00011000") must_== Map(H8 -> Black.duke)
         }
         "B1 black pawn" in {
           read("00000000" :: "00010110" :: List.fill(62)(noop)) must_== Map(B1 -> Black.pawn)
