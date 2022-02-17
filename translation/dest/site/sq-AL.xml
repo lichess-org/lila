@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Luani me një shok/shoqe</string>
+  <string name="playWithAFriend">Luani me një shok</string>
   <string name="playWithTheMachine">Luani me kompjuterin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë adresë</string>
   <string name="gameOver">Loja Mbaroi</string>
@@ -345,7 +345,7 @@
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
-  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PNG</string>
+  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
