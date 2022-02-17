@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage, mustNotContainLichess, numberIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn }
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -15,7 +15,7 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
+    val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",
@@ -25,9 +25,9 @@ final private[team] class TeamForm(
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
     val description =
-      "description" -> cleanText(minLength = 30, maxLength = 4000).verifying(markdownImage.constraint)
+      "description" -> cleanText(minLength = 30, maxLength = 4000)
     val descPrivate =
-      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).verifying(markdownImage.constraint))
+      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000))
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text

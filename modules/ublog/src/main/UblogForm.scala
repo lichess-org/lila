@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage, stringIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
@@ -19,7 +19,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     mapping(
       "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
       "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
+      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000),
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
