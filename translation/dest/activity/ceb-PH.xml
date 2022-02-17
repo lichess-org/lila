@@ -2,8 +2,8 @@
 <resources>
   <string name="activity">Kalihokan</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Soportahan lichess.org sa %1$s mga buwan sa pag %2$s</item>
-    <item quantity="other">Soportahan lichess.org sa %1$s mga buwan sa pag %2$s</item>
+    <item quantity="one">Soportahan newchess.fun sa %1$s mga buwan sa pag %2$s</item>
+    <item quantity="other">Soportahan newchess.fun sa %1$s mga buwan sa pag %2$s</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Nakadulag %1$s %2$s ka dula</item>

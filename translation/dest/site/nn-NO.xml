@@ -288,7 +288,7 @@
     <item quantity="one">Gje %s sekund</item>
     <item quantity="other">Gje %s sekund</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Brukaren bak denne kontoen braut med Lichess sine brukarvilkår</string>
+  <string name="thisAccountViolatedTos">Brukaren bak denne kontoen braut med NewChess sine brukarvilkår</string>
   <string name="openingExplorerAndTablebase">Opningsutforskar &amp; tabellbase</string>
   <string name="takeback">Gjer om trekket</string>
   <string name="proposeATakeback">Framlegg om å gjera om trekket</string>
@@ -462,7 +462,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ei nettadresse (URL) på kvar line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
-  <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Tidlegare på NewChess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
   <string name="activePlayers">Aktive spelarar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Legg merke til at partiet er rangert, men ikkje tidsavgrensa!</string>
@@ -618,7 +618,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppvisaren</string>
-  <string name="lichessTournaments">Lichess-turnering</string>
+  <string name="lichessTournaments">NewChess-turnering</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
   <string name="averageCentipawnLoss">Gjennomsnittleg centibondetap</string>
@@ -652,7 +652,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å attendestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrera deg godtek du å binda deg til våre %s.</string>
   <string name="readAboutOur">Les om vår %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og newchess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tida det tar å handsama eit trekk på serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
@@ -669,14 +669,14 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får newchess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Tryggleik</string>
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spel sjakk overalt</string>
-  <string name="asFreeAsLichess">Så fri som lichess</string>
+  <string name="asFreeAsLichess">Så fri som newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygd for kjærleik til sjakk, ikkje pengar</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle saman får tilgang til alle tenester gratis</string>
   <string name="zeroAdvertisement">Annonsefri</string>
@@ -789,14 +789,14 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle parti du spelar.</string>
   <string name="resignLostGames">Resigner ved tapte stillingar (ikkje la tida renne ut).</string>
   <string name="temporaryInconvenience">Vi seier oss leie for det kortvarige bryet,</string>
-  <string name="wishYouGreatGames">og vonar du får gode sjakkoppgjer på lichess.org.</string>
+  <string name="wishYouGreatGames">og vonar du får gode sjakkoppgjer på newchess.fun.</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Gjeldande kampscore</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
   <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
-  <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
+  <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til NewChess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Snøggsjakk</string>
@@ -833,13 +833,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="resVsX">%1$s mot %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
   <string name="newPendingReview">Ventar på ny gjennomgang</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med NewChess TOS</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
   <string name="download">Last ned</string>
   <string name="welcome">Velkomen!</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
+  <string name="lichessPatronInfo">NewChess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
@@ -895,6 +895,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="youCantStartNewGame">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
   <string name="since">Frå</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
+  <string name="lichessDbExplanation">Rangerte parti samla inn frå alle NewChess-spelarar</string>
   <string name="switchSides">Byt side</string>
 </resources>

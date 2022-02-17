@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Přispět</string>
-  <string name="lichessPatron">Lichess Patron</string>
+  <string name="lichessPatron">NewChess Patron</string>
   <string name="freeAccount">Účet zdarma</string>
-  <string name="becomePatron">Staňte se Lichess Patronem</string>
-  <string name="xBecamePatron">%s se stal Lichess Patronem</string>
+  <string name="becomePatron">Staňte se NewChess Patronem</string>
+  <string name="xBecamePatron">%s se stal NewChess Patronem</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s je patronem Lichess %2$s měsíc</item>
-    <item quantity="few">%1$s je patronem Lichess %2$s měsíce</item>
-    <item quantity="many">%1$s je patronem Lichess %2$s měsíců</item>
-    <item quantity="other">%1$s je patronem Lichess %2$s měsíců</item>
+    <item quantity="one">%1$s je patronem NewChess %2$s měsíc</item>
+    <item quantity="few">%1$s je patronem NewChess %2$s měsíce</item>
+    <item quantity="many">%1$s je patronem NewChess %2$s měsíců</item>
+    <item quantity="other">%1$s je patronem NewChess %2$s měsíců</item>
   </plurals>
   <string name="newPatrons">Noví Patroni</string>
   <string name="freeChess">Šachy zdarma pro všechny, navždy!</string>
@@ -19,10 +19,10 @@
   <string name="patronUntil">Máte Patron účet do %s.</string>
   <string name="ifNotRenewed">Pokud nedojde k obnoveni, budete sníženi na variantu zdarma.</string>
   <string name="weAreNonProfit">Jsme neziskovým sdružením, protože jsme přesvědčeni, že každý by měl mít přístup k bezplatné, prvotřídní šachové platformě.</string>
-  <string name="weRelyOnSupport">Spoléháme na podporu lidí, jako jste Vy, aby nám to umožnili. Pokud se vám líbí používání Lichess, zvažte prosím podporu tím, že přispějete a stanete se Patronem!</string>
+  <string name="weRelyOnSupport">Spoléháme na podporu lidí, jako jste Vy, aby nám to umožnili. Pokud se vám líbí používání NewChess, zvažte prosím podporu tím, že přispějete a stanete se Patronem!</string>
   <string name="lifetime">Doživotní</string>
-  <string name="payLifetimeOnce">Zaplaťte %s jednou. Buďte navždy Lichess Patronem!</string>
-  <string name="lifetimePatron">Doživotní Lichess Patron</string>
+  <string name="payLifetimeOnce">Zaplaťte %s jednou. Buďte navždy NewChess Patronem!</string>
+  <string name="lifetimePatron">Doživotní NewChess Patron</string>
   <string name="monthly">Měsíčně</string>
   <string name="recurringBilling">Opakováné účtování, obnovování vašich patroních křídel každý měsíc.</string>
   <string name="onetime">Jednorázově</string>
@@ -32,30 +32,30 @@
   <string name="withCreditCard">Platební karta</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
-  <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování Lichess</string>
+  <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování NewChess</string>
   <string name="whereMoneyGoes">Kam jdou ty peníze?</string>
   <string name="serversAndDeveloper">Zaprvé, mocné servery.
-Pak platíme vývojáře na plný úvazek: %s, zakladatel Lichess.</string>
+Pak platíme vývojáře na plný úvazek: %s, zakladatel NewChess.</string>
   <string name="costBreakdown">Viz podrobný rozpis nákladů</string>
-  <string name="officialNonProfit">Je Lichess oficiálně neziskový?</string>
+  <string name="officialNonProfit">Je NewChess oficiálně neziskový?</string>
   <string name="actOfCreation">Ano, tady je ustanovující listina (ve francouzštině)</string>
   <string name="changeMonthlySupport">Mohu změnit/zrušit svou měsíční podporu?</string>
   <string name="changeOrContact">Ano, kdykoli z této stránky.
 Nebo můžete %s.</string>
-  <string name="contactSupport">kontaktovat podporu Lichess</string>
+  <string name="contactSupport">kontaktovat podporu NewChess</string>
   <string name="otherMethods">Jiné způsoby podpory?</string>
   <string name="bankTransfers">Přijímáme také bankovní převody</string>
   <string name="patronFeatures">Jsou některé funkce vyhrazeny pro Patrony?</string>
-  <string name="noPatronFeatures">Ne, protože Lichess je zcela zdarma, navždy a pro všechny. To je slib.
+  <string name="noPatronFeatures">Ne, protože NewChess je zcela zdarma, navždy a pro všechny. To je slib.
 Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="featuresComparison">Zobrazit podrobné porovnání funkcí</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Patron na %s měsíc</item>
-    <item quantity="few">Lichess Patron na %s měsíce</item>
-    <item quantity="many">Lichess Patron na %s měsíců</item>
-    <item quantity="other">Lichess Patron na %s měsíců</item>
+    <item quantity="one">NewChess Patron na %s měsíc</item>
+    <item quantity="few">NewChess Patron na %s měsíce</item>
+    <item quantity="many">NewChess Patron na %s měsíců</item>
+    <item quantity="other">NewChess Patron na %s měsíců</item>
   </plurals>
-  <string name="youSupportWith">Podporujete lichess.org %s měsíčně.</string>
+  <string name="youSupportWith">Podporujete newchess.fun %s měsíčně.</string>
   <string name="tyvm">Velice Vám děkujeme za vaši pomoc. Jste skvělí!</string>
   <string name="currentStatus">Aktuální stav</string>
   <string name="nextPayment">Další platba</string>
@@ -66,17 +66,17 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="changeMonthlyAmount">Změnit měsíční částku (%s)</string>
   <string name="cancelSupport">zrušit svou podporu</string>
   <string name="xOrY">%1$s nebo %2$s</string>
-  <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás Lichess hodnotu:</string>
+  <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás NewChess hodnotu:</string>
   <string name="stopPayments">Odebrat kreditní kartu a zastavit platby:</string>
-  <string name="noLongerSupport">Už nepodporovat Lichess</string>
-  <string name="viewOthers">Zobrazit ostatní Lichess Patrony</string>
+  <string name="noLongerSupport">Už nepodporovat NewChess</string>
+  <string name="viewOthers">Zobrazit ostatní NewChess Patrony</string>
   <string name="date">Datum</string>
   <string name="amount">Částka</string>
   <string name="transactionCompleted">Vaše transakce byla dokončena a byl vám zaslán e-mail s potvrzením za Váš příspěvek.</string>
   <string name="permanentPatron">Nyní máte trvalý Patron účet.</string>
   <string name="checkOutProfile">Podívejte se na svůj profil!</string>
-  <string name="nowLifetime">Nyní jste doživotním Lichess Patronem!</string>
-  <string name="nowOneMonth">Nyní jste Lichess Patronem na jeden měsíc!</string>
-  <string name="downgradeNextMonth">Jeden měsíc Vám NEBUDE znovu účtován poplatek a váš Lichess účet bude ponížen na bezplatný.</string>
+  <string name="nowLifetime">Nyní jste doživotním NewChess Patronem!</string>
+  <string name="nowOneMonth">Nyní jste NewChess Patronem na jeden měsíc!</string>
+  <string name="downgradeNextMonth">Jeden měsíc Vám NEBUDE znovu účtován poplatek a váš NewChess účet bude ponížen na bezplatný.</string>
   <string name="changeCurrency">Změnit měnu</string>
 </resources>

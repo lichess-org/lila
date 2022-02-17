@@ -23,7 +23,7 @@ object Statistics {
 
   // ups all values by 0.1s
   // as to avoid very high variation on bullet games
-  // where all move times are low (https://lichess.org/@/AlisaP?mod)
+  // where all move times are low (https://newchess.fun/@/AlisaP?mod)
   // and drops the first move because it's always 0
   def moveTimeCoefVariation(a: List[Centis]): Option[Float] =
     coefVariation(a.drop(1).map(_.centis + 10))

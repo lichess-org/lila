@@ -26,7 +26,7 @@ final private[report] class ReportForm(
       "username" -> lila.user.UserForm.historicalUsernameField
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
         .verifying(
-          "Don't report Lichess. Use lichess.org/contact instead.",
+          "Don't report NewChess. Use newchess.fun/contact instead.",
           u => !User.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),

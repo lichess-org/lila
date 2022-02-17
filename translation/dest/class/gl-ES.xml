@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Clases</string>
-  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
+  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de NewChess para clases.</string>
   <string name="features">Funcións</string>
   <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
   <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
   <string name="messageAllStudents">Avisa os alumnos de que hai novo material</string>
   <string name="freeForAllForever">100% gratuito para todo o mundo e sen anuncios ou uso de datos</string>
-  <string name="applyToBeLichessTeacher">Postúlate como adestrador en Lichess</string>
+  <string name="applyToBeNewChessTeacher">Postúlate como adestrador en NewChess</string>
   <string name="noClassesYet">Aínda non hay clases.</string>
   <string name="teachersX">Adestradores: %s</string>
   <string name="newClass">Clase nova</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Descrición da clase</string>
   <string name="visibleByBothStudentsAndTeachers">Visible para adestradores e alumnos</string>
   <string name="teachersOfTheClass">Adestradores desta clase</string>
-  <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña)</string>
+  <string name="addNewChessUsernames">Invita usuarios de NewChess para seren adestradores (un por liña)</string>
   <string name="resetPassword">Reiniciar o contrasinal</string>
   <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
   <string name="passwordX">Contrasinal: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Nome real</string>
   <string name="privateWillNeverBeShown">Privado: non se amosará fóra desta clase. Está para axudarche a lembrar quen é cada alumno.</string>
   <string name="addStudent">Engadir alumno</string>
-  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Perfil de NewChess %1$s creado por %2$s.</string>
   <string name="studentCredentials">Alumno: %1$s
 Nome de usuario: %2$s
 Contrasinal %3$s</string>
-  <string name="inviteALichessAccount">Invita unha conta de Lichess</string>
-  <string name="inviteDesc1">Se o alumno xa tes conta en Lichess, invítao á clase.</string>
-  <string name="inviteDesc2">Recibirán unha mensaxe en Lichess coa ligazón para unirse á clase.</string>
+  <string name="inviteANewChessAccount">Invita unha conta de NewChess</string>
+  <string name="inviteDesc1">Se o alumno xa tes conta en NewChess, invítao á clase.</string>
+  <string name="inviteDesc2">Recibirán unha mensaxe en NewChess coa ligazón para unirse á clase.</string>
   <string name="inviteDesc3">Importante: invita só estudantes que coñezas e queiran unirse á clase.</string>
   <string name="inviteDesc4">Non envíes invitacións non desexadas.</string>
-  <string name="createANewLichessAccount">Crea unha conta en Lichess</string>
-  <string name="createDesc1">Se o alumno non ten conta en Lichess, podes crearlla desde aquí.</string>
+  <string name="createANewNewChessAccount">Crea unha conta en NewChess</string>
+  <string name="createDesc1">Se o alumno non ten conta en NewChess, podes crearlla desde aquí.</string>
   <string name="createDesc2">Non se precisa dirección de correo. Xerarase un contrasinal que debes pasar ó alumno para que poidan acceder.</string>
   <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
   <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
   <string name="createStudentWarning">Crea só contas para estudantes reais. Non uses isto para crear moitas contas para ti mesmo/a. Serás baneado/a.</string>
-  <string name="lichessUsername">Nome de usuario en Lichess</string>
+  <string name="lichessUsername">Nome de usuario en NewChess</string>
   <string name="generateANewUsername">Xenera un novo nome de usuario</string>
   <string name="welcomeToClass">Benvido á túa clase %s
 Aquí está a ligazón para acceder.</string>

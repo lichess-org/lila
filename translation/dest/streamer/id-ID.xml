@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Streamer Lichess</string>
-  <string name="lichessStreamer">Streamer Lichess</string>
+  <string name="lichessStreamers">Streamer NewChess</string>
+  <string name="lichessStreamer">Streamer NewChess</string>
   <string name="live">LANGSUNG!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streaming saat ini: %s</string>
   <string name="lastStream">Terakhir stream %s</string>
-  <string name="becomeStreamer">Menjadi streamer Lichess</string>
+  <string name="becomeStreamer">Menjadi streamer NewChess</string>
   <string name="doYouHaveStream">Apakah Anda memiliki Twitch atau Kanal YouTube?</string>
   <string name="hereWeGo">Kita mulai sekarang!</string>
   <string name="allStreamers">Semua streamer</string>
@@ -15,24 +15,24 @@
   <string name="downloadKit">Unduh streamer kit</string>
   <string name="xIsStreaming">%s sedang streaming</string>
   <string name="rules">Aturan streaming</string>
-  <string name="rule1">Sertakan kata kunci \"lichess.org\" dalam judul stream Anda saat Anda streaming di Lichess.</string>
-  <string name="rule2">Hapus kata kunci saat Anda streaming hal-hal yang bukan Lichess.</string>
-  <string name="rule3">Lichess akan mendeteksi stream Anda secara otomatis dan mengaktifkan fasilitas berikut:</string>
+  <string name="rule1">Sertakan kata kunci \"newchess.fun\" dalam judul stream Anda saat Anda streaming di NewChess.</string>
+  <string name="rule2">Hapus kata kunci saat Anda streaming hal-hal yang bukan NewChess.</string>
+  <string name="rule3">NewChess akan mendeteksi stream Anda secara otomatis dan mengaktifkan fasilitas berikut:</string>
   <string name="perks">Manfaat streaming dengan kata kunci</string>
-  <string name="perk1">Dapatkan ikon api streamer di profil Lichess Anda.</string>
+  <string name="perk1">Dapatkan ikon api streamer di profil NewChess Anda.</string>
   <string name="perk2">Masuk ke dalam list top streamer.</string>
-  <string name="perk3">Beri tahu pengikut Lichess Anda.</string>
+  <string name="perk3">Beri tahu pengikut NewChess Anda.</string>
   <string name="perk4">Tunjukkan streaming Anda di game, turnamen, dan studi Anda.</string>
   <string name="approved">Stream Anda telah disetujui.</string>
   <string name="pendingReview">Stream Anda telah ditinjau oleh moderator.</string>
   <string name="pleaseFillIn">Silakan isi informasi streamer Anda, dan unggah gambar.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kapan Anda siap terdaftar sebagai streamer Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">meminta tinjauan moderator</string>
-  <string name="anotherLanguage">Jika streaming Anda menggunakan bahasa lain selain bahasa Inggris, sertakan tag bahasa yang benar (%s), yang terlampir dalam tanda kurung siku, di awal judul streaming Anda. Sebagai contoh, sertakan \"[ID]\" untuk Indonesia, \"[RU]\" untuk Rusia, \"[TR]\" untuk Turki, \"[FR]\" untuk Perancis, dll. Letakkan di judul stream di halaman Twitch atau YouTube, bukan di pengaturan stream Lichess. Jika stream Anda dalam bahasa Inggris, tidak perlu menyertakan tag bahasa.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kapan Anda siap terdaftar sebagai streamer NewChess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">meminta tinjauan moderator</string>
+  <string name="anotherLanguage">Jika streaming Anda menggunakan bahasa lain selain bahasa Inggris, sertakan tag bahasa yang benar (%s), yang terlampir dalam tanda kurung siku, di awal judul streaming Anda. Sebagai contoh, sertakan \"[ID]\" untuk Indonesia, \"[RU]\" untuk Rusia, \"[TR]\" untuk Turki, \"[FR]\" untuk Perancis, dll. Letakkan di judul stream di halaman Twitch atau YouTube, bukan di pengaturan stream NewChess. Jika stream Anda dalam bahasa Inggris, tidak perlu menyertakan tag bahasa.</string>
   <string name="twitchUsername">Nama pengguna Twitch Anda atau URL</string>
   <string name="optionalOrEmpty">Opsional. Biarkan kosong jika tidak ada</string>
   <string name="youtubeChannel">Channel YouTube ID Anda atau URL</string>
-  <string name="streamerName">Nama streamer Anda di Lichess</string>
+  <string name="streamerName">Nama streamer Anda di NewChess</string>
   <plurals name="keepItShort">
     <item quantity="other">Usahakan pendek: maksimal %s karakter</item>
   </plurals>

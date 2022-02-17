@@ -2,15 +2,15 @@
 <resources>
   <string name="donate">Paremti</string>
   <string name="donateAsX">Paaukoti kaip %s</string>
-  <string name="lichessPatron">Lichess Rėmėjas</string>
+  <string name="lichessPatron">NewChess Rėmėjas</string>
   <string name="freeAccount">Nemokama paskyra</string>
-  <string name="becomePatron">Tapkite Lichess Rėmėju</string>
-  <string name="xBecamePatron">%s tapo Lichess Rėmėju</string>
+  <string name="becomePatron">Tapkite NewChess Rėmėju</string>
+  <string name="xBecamePatron">%s tapo NewChess Rėmėju</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s Lichess Rėmėjas %2$s mėnesį</item>
-    <item quantity="few">%1$s Lichess Rėmėjas %2$s mėnesius</item>
-    <item quantity="many">%1$s Lichess Rėmėjas %2$s mėnesio</item>
-    <item quantity="other">%1$s Lichess Rėmėjas %2$s mėnesių</item>
+    <item quantity="one">%1$s NewChess Rėmėjas %2$s mėnesį</item>
+    <item quantity="few">%1$s NewChess Rėmėjas %2$s mėnesius</item>
+    <item quantity="many">%1$s NewChess Rėmėjas %2$s mėnesio</item>
+    <item quantity="other">%1$s NewChess Rėmėjas %2$s mėnesių</item>
   </plurals>
   <string name="newPatrons">Nauji Rėmėjai</string>
   <string name="freeChess">Nemokami šachmatai visiems, visada!</string>
@@ -20,10 +20,10 @@
   <string name="patronUntil">Jūs turite Rėmėjo paskyrą iki %s.</string>
   <string name="ifNotRenewed">Jei ji nebus atnaujinta, būsite grąžintas į nemokamą paskyrą.</string>
   <string name="weAreNonProfit">Mes esame nepelno asocijacija, nes tikime, kad visi turėtų turėti prieigą prie nemokamos, pasaulinės klasės šachmatų platformos.</string>
-  <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lichess, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
+  <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka NewChess, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
   <string name="lifetime">Gyvenimui</string>
-  <string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite Lichess Rėmėju visam laikui!</string>
-  <string name="lifetimePatron">Lichess Rėmėjas gyvenimui</string>
+  <string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite NewChess Rėmėju visam laikui!</string>
+  <string name="lifetimePatron">NewChess Rėmėjas gyvenimui</string>
   <string name="monthly">Kas mėnesį</string>
   <string name="recurringBilling">Pasikartojantis mokėjimas, atnaujinantis jūsų Rėmėjo sparnus kiekvieną mėnesį.</string>
   <string name="onetime">Vieną kartą</string>
@@ -33,30 +33,30 @@
   <string name="withCreditCard">Banko kortele</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
-  <string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti Lichess</string>
+  <string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti NewChess</string>
   <string name="whereMoneyGoes">Kur eina pinigai?</string>
   <string name="serversAndDeveloper">Visų pirma - galingiems serveriams.
-Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>
+Po to sumokame pilno etato programuotojui ir NewChess įkūrėjui: %s.</string>
   <string name="costBreakdown">Peržiūrėti detalų išrašą</string>
-  <string name="officialNonProfit">Ar Lichess oficialiai nepelno kompanija?</string>
+  <string name="officialNonProfit">Ar NewChess oficialiai nepelno kompanija?</string>
   <string name="actOfCreation">Taip, štai sukūrimo aktas (prancūzų kalba)</string>
   <string name="changeMonthlySupport">Ar galiu pakeisti/atšaukti savo mėnesinę paramą?</string>
   <string name="changeOrContact">Taip, bet kuriuo laiku iš šio puslapio.
 Arba galite %s.</string>
-  <string name="contactSupport">susisiekti su Lichess pagalba</string>
+  <string name="contactSupport">susisiekti su NewChess pagalba</string>
   <string name="otherMethods">Kiti būdai paremti?</string>
   <string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>
   <string name="patronFeatures">Ar yra funkcijų, kurios prieinamos tik Rėmėjams?</string>
-  <string name="noPatronFeatures">Ne, kadangi Lichess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
+  <string name="noPatronFeatures">Ne, kadangi NewChess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
 Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>
   <string name="featuresComparison">Peržiūrėkite detalų funkcijų palyginimą</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Rėmėjas vieną mėnesį</item>
-    <item quantity="few">Lichess Rėmėjas %s mėnesius</item>
-    <item quantity="many">Lichess Rėmėjas %s mėnesio</item>
-    <item quantity="other">Lichess rėmėjas %s mėnesių</item>
+    <item quantity="one">NewChess Rėmėjas vieną mėnesį</item>
+    <item quantity="few">NewChess Rėmėjas %s mėnesius</item>
+    <item quantity="many">NewChess Rėmėjas %s mėnesio</item>
+    <item quantity="other">NewChess rėmėjas %s mėnesių</item>
   </plurals>
-  <string name="youSupportWith">Jūs remiate lichess.org %s per mėnesį.</string>
+  <string name="youSupportWith">Jūs remiate newchess.fun %s per mėnesį.</string>
   <string name="tyvm">Dekojame už pagalbą. Jūs šauniausias!</string>
   <string name="currentStatus">Dabartinė būsena</string>
   <string name="nextPayment">Kitas mokėjimas</string>
@@ -67,17 +67,17 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="changeMonthlyAmount">Pakeisti mėnesinį kiekį (%s)</string>
   <string name="cancelSupport">atšaukti savo pagalbą</string>
   <string name="xOrY">%1$s arba %2$s</string>
-  <string name="decideHowMuch">Nuspręskite, kiek jums vertas Lichess:</string>
+  <string name="decideHowMuch">Nuspręskite, kiek jums vertas NewChess:</string>
   <string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
-  <string name="noLongerSupport">Daugiau neberemti Lichess</string>
-  <string name="viewOthers">Peržiūrėti kitus Lichess rėmėjus</string>
+  <string name="noLongerSupport">Daugiau neberemti NewChess</string>
+  <string name="viewOthers">Peržiūrėti kitus NewChess rėmėjus</string>
   <string name="date">Data</string>
   <string name="amount">Suma</string>
   <string name="transactionCompleted">Jūsų pervedimas buvo atliktas, dovanos sąskaita jums buvo išsiųsta el. paštu.</string>
   <string name="permanentPatron">Dabar visam laikui turite rėmėjo paskyrą.</string>
   <string name="checkOutProfile">Patikrinkite savo profilio puslapį!</string>
-  <string name="nowLifetime">Jūs esate Lichess rėmėjas visam gyvenimui!</string>
-  <string name="nowOneMonth">Jūs esate Lichess rėmėjas vienam mėnesiui!</string>
-  <string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų Lichess paskyra atsistatys į įprastą.</string>
+  <string name="nowLifetime">Jūs esate NewChess rėmėjas visam gyvenimui!</string>
+  <string name="nowOneMonth">Jūs esate NewChess rėmėjas vienam mėnesiui!</string>
+  <string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų NewChess paskyra atsistatys į įprastą.</string>
   <string name="changeCurrency">Pakeisti valiutą</string>
 </resources>

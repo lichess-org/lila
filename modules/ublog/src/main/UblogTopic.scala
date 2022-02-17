@@ -31,7 +31,7 @@ object UblogTopic {
   )
   val all = chess ::: List(
     "Software Development",
-    "Lichess",
+    "NewChess",
     "Off topic"
   )
   val exists                   = all.toSet

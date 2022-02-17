@@ -14,7 +14,7 @@
   <string name="fullDescription">Descrición completa do evento</string>
   <string name="fullDescriptionHelp">Descrición longa opcional da retrasmisión. %1$s está dispoñibél. A lonxitude debe ser menor de %2$s caracteres.</string>
   <string name="sourceUrlOrGameIds">Enlace de orixe ou identificador da partida</string>
-  <string name="sourceUrlHelp">Enlace que Lichess comprobará para obter actualizacións PGN. Debe ser públicamente accesiíbel desde Internet.</string>
+  <string name="sourceUrlHelp">Enlace que NewChess comprobará para obter actualizacións PGN. Debe ser públicamente accesiíbel desde Internet.</string>
   <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espacios.</string>
   <string name="startDate">Data de inicio na túa zona horaria</string>
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>

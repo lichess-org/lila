@@ -259,7 +259,7 @@
     <item quantity="one">Dona %s secundas</item>
     <item quantity="other">Dona %s secundas</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Iste conto ha violate le Terminos de servicio de Lichess</string>
+  <string name="thisAccountViolatedTos">Iste conto ha violate le Terminos de servicio de NewChess</string>
   <string name="openingExplorerAndTablebase">Explorator de initio de joco e tabula de finales</string>
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
@@ -425,7 +425,7 @@
   <string name="thankYou">Gratias!</string>
   <string name="socialMediaLinks">Ligamines de medios social</string>
   <string name="inlineNotation">Notation in lineas</string>
-  <string name="previouslyOnLichessTV">Previemente in Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Previemente in NewChess TV</string>
   <string name="onlinePlayers">Jocatores in linea</string>
   <string name="activePlayers">Jocatores active</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
@@ -541,7 +541,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Tempore jocante: %s</string>
   <string name="watchGames">Spectar jocos</string>
-  <string name="tpTimeSpentOnTV">Tempore spectante Lichess TV: %s</string>
+  <string name="tpTimeSpentOnTV">Tempore spectante NewChess TV: %s</string>
   <string name="watch">Spectar</string>
   <string name="videoLibrary">Videotheca</string>
   <string name="streamersMenu">Streamers</string>
@@ -573,7 +573,7 @@
   <string name="simulClockHint">Configuration de Horologio Fischer. Quanto plus jocatores tu accepta, tanto plus tempore tu pote requirer.</string>
   <string name="simulAddExtraTime">Tu pote adder tempore additional a tu horologio pro adjutar a arrangiar te con le exhibition simultanee.</string>
   <string name="simulHostExtraTime">Tempore additional al hospite</string>
-  <string name="lichessTournaments">Torneos official de Lichess</string>
+  <string name="lichessTournaments">Torneos official de NewChess</string>
   <string name="tournamentFAQ">Questiones frequente sur le torneos Arena</string>
   <string name="timeBeforeTournamentStarts">Tempore ante le initio del torneo</string>
   <string name="averageCentipawnLoss">Perdita medie in centesimos de pedon</string>
@@ -607,8 +607,8 @@
   <string name="weHaveSentYouAnEmailTo">Nos ha inviate un message de e-posta a %s. Clicca sur le ligamine in le message pro restaurar tu contrasigno.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Per registrar, tu accepta nostre %s.</string>
   <string name="readAboutOur">Lege nostre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Retardo in le rete inter te e Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempore pro processar un movimento sur le servitor de Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Retardo in le rete inter te e NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempore pro processar un movimento sur le servitor de NewChess</string>
   <string name="downloadAnnotated">Discargar joco annotate</string>
   <string name="downloadRaw">Discargar in formato crude</string>
   <string name="downloadImported">Discargar joco importate</string>
@@ -622,13 +622,13 @@
   <string name="withEverybody">Con tote le mundo</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Isto concerne la securitate. In le modo infantil, tote le communicationes del sito es disactivate. Activa isto pro tu infantes e alumnos scholar, pro proteger los de altere usatores.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In le modo infantil, le logo de Lichess ha un icone %s, pro que tu sape que tu infantes es secur.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In le modo infantil, le logo de NewChess ha un icone %s, pro que tu sape que tu infantes es secur.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Disactivar modo infantil</string>
   <string name="security">Securitate</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
   <string name="playChessEverywhere">Joca chacos ubique!</string>
-  <string name="asFreeAsLichess">Tanto gratis como Lichess</string>
+  <string name="asFreeAsLichess">Tanto gratis como NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Disveloppate pro le amor al chacos, e non pro le moneta</string>
   <string name="everybodyGetsAllFeaturesForFree">Totes recipe gratuitemente tote le functionalitates</string>
   <string name="zeroAdvertisement">Sin annuncios</string>
@@ -736,7 +736,7 @@
   <string name="agreementAssistance">Io accepta que in ulle occasion io non recipera assistentia durante mi partitas (ab un computator de chacos, base de datos o altere persona).</string>
   <string name="agreementNice">Io accepta que io sempre essera respectuose a altere jocatores.</string>
   <string name="agreementAccount">Io accepta que io non creara multiple contos.</string>
-  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de Lichess.</string>
+  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de NewChess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakto</string>
-  <string name="contactLichess">Kontakti Lichess</string>
+  <string name="contactLichess">Kontakti NewChess</string>
   <string name="whatCanWeHelpYouWith">Kiel ni povas helpi vin?</string>
   <string name="visitThisPage">Vizitu ĉi tiun paĝon por solvi la problemon</string>
   <string name="iCantLogIn">Mi ne povas ensaluti</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Mi perdis la aliron al miaj du-faktaj aŭtentokodoj</string>
   <string name="doPasswordReset">Kompletigu pasvortan restarigon por forigi vian dua faktoron</string>
   <string name="accountSupport">Mi bezonas kontan subtenon</string>
-  <string name="wantTitle">Mi volas, ke mia titolo estu montrita sur Lichess</string>
-  <string name="visitTitleConfirmation">Por montri vian titolon sur via Lichess profilo kaj partopreni Titolitajn Arenojn, vizitu la titolan konfirman paĝon</string>
+  <string name="wantTitle">Mi volas, ke mia titolo estu montrita sur NewChess</string>
+  <string name="visitTitleConfirmation">Por montri vian titolon sur via NewChess profilo kaj partopreni Titolitajn Arenojn, vizitu la titolan konfirman paĝon</string>
   <string name="wantCloseAccount">Mi volas fermi mian konton</string>
   <string name="closeYourAccount">Vi povas fermi vian konton en ĉi tiu paĝo</string>
   <string name="doNotAskByEmail">Ne petu retpoŝte al ni fermi konton, ni ne faros tion.</string>
@@ -33,10 +33,10 @@
   <string name="doNotMessageModerators">Ne sendu rektajn mesaĝojn al moderigantoj.</string>
   <string name="onlyReports">Raportado de ludantoj nur efikas per la raporta demandaro.</string>
   <string name="wantReportBug">Mi volas raporti eraron</string>
-  <string name="reportBugInForum">En la sekcio de Respondecaj Lichess de la forumo</string>
-  <string name="reportWebsiteIssue">Kiel temo de Lichess-retejo sur GitHub</string>
-  <string name="reportMobileIssue">Kiel Lichess-poŝtelefona aplikaĵa temo en GitHub</string>
-  <string name="reportBugInDiscord">En la Lichess Discord servilo</string>
+  <string name="reportBugInForum">En la sekcio de Respondecaj NewChess de la forumo</string>
+  <string name="reportWebsiteIssue">Kiel temo de NewChess-retejo sur GitHub</string>
+  <string name="reportMobileIssue">Kiel NewChess-poŝtelefona aplikaĵa temo en GitHub</string>
+  <string name="reportBugInDiscord">En la NewChess Discord servilo</string>
   <string name="howToReportBug">Bonvolu priskribi kiel aspektas la eraro, kion vi atendis okazi anstataŭe kaj la paŝojn por reprodukti la eraron.</string>
   <string name="illegalPawnCapture">Kontraŭleĝa kapto de peono</string>
   <string name="calledEnPassant">Ĝi estas nomata \"Preterpasa preno\" kaj estas unu el la reguloj de ŝako.</string>
@@ -62,13 +62,13 @@
   <string name="doNotDeny">Ne rifuzu trompi. Se vi volas rajti krei novan konton, nur konfesu tion, kion vi faris, kaj montru, ke vi komprenis, ke ĝi estis eraro.</string>
   <string name="otherRestriction">Alia limigo</string>
   <string name="collaboration">Kunlaboro, leĝa, komerca</string>
-  <string name="monetizing">Monigi Lichess</string>
-  <string name="buyingLichess">Aĉetado de Lichess</string>
-  <string name="authorizationToUse">Rajtigo por uzi Lichess</string>
-  <string name="welcomeToUse">Vi estas bonvena uzi Lichess por via agado, eĉ komerce.</string>
-  <string name="videosAndBooks">Vi povas montri ĝin en viaj filmetoj kaj vi povas presi ekrankopiojn de Lichess en viaj libroj.</string>
+  <string name="monetizing">Monigi NewChess</string>
+  <string name="buyingLichess">Aĉetado de NewChess</string>
+  <string name="authorizationToUse">Rajtigo por uzi NewChess</string>
+  <string name="welcomeToUse">Vi estas bonvena uzi NewChess por via agado, eĉ komerce.</string>
+  <string name="videosAndBooks">Vi povas montri ĝin en viaj filmetoj kaj vi povas presi ekrankopiojn de NewChess en viaj libroj.</string>
   <string name="creditAppreciated">Kredito estas aprezata sed ne bezonata.</string>
   <string name="noneOfTheAbove">Neniu el la antaŭaj</string>
   <string name="sendEmailAt">Sendu retpoŝton al %s.</string>
-  <string name="explainYourRequest">Bonvolu klarigi vian peton klare kaj ĝisfunde. Indiku vian Lichess uzantnomon kaj ajnajn informojn, kiuj povus faciligi al ni helpi vin.</string>
+  <string name="explainYourRequest">Bonvolu klarigi vian peton klare kaj ĝisfunde. Indiku vian NewChess uzantnomon kaj ajnajn informojn, kiuj povus faciligi al ni helpi vin.</string>
 </resources>

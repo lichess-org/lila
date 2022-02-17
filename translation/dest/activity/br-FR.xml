@@ -3,11 +3,11 @@
   <string name="activity">Obererezhioù diwezhañ</string>
   <string name="hostedALiveStream">Kinniget he/en deus ur stream war-eeun</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
-    <item quantity="two">Skoazellet he/en deus lichess.org e-pad %1$s viz evel %2$s</item>
-    <item quantity="few">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
-    <item quantity="many">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
-    <item quantity="other">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
+    <item quantity="one">Skoazellet he/en deus newchess.fun e-pad %1$s miz evel %2$s</item>
+    <item quantity="two">Skoazellet he/en deus newchess.fun e-pad %1$s viz evel %2$s</item>
+    <item quantity="few">Skoazellet he/en deus newchess.fun e-pad %1$s miz evel %2$s</item>
+    <item quantity="many">Skoazellet he/en deus newchess.fun e-pad %1$s miz evel %2$s</item>
+    <item quantity="other">Skoazellet he/en deus newchess.fun e-pad %1$s miz evel %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
@@ -107,7 +107,7 @@
     <item quantity="many">Renket #%1$s (to%2$s%%) gant %3$s krogad e %4$s</item>
     <item quantity="other">Renket #%1$s (to%2$s%%) gant %3$s krogad e %4$s</item>
   </plurals>
-  <string name="signedUp">Lakaet en deus e anv war lichess.org</string>
+  <string name="signedUp">Lakaet en deus e anv war newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ezel eus %s skipailh</item>
     <item quantity="two">Ezel eus %s skipailh</item>

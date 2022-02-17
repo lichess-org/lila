@@ -149,7 +149,7 @@ object bits {
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
           form3.actions(
             a(href := routes.Lobby.home)(trans.cancel()),
-            submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
+            submitButton(cls := "button")(s"${user.username} is my NewChess username, log me in")
           )
         )
       )
@@ -194,8 +194,8 @@ body { margin-top: 45px; }
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "text", dataIcon := "2")("Ooops"),
-        p("Sorry, you can't signup to Lichess through Tor!"),
-        p("You can play, train and use almost all Lichess features as an anonymous user.")
+        p("Sorry, you can't signup to NewChess through Tor!"),
+        p("You can play, train and use almost all NewChess features as an anonymous user.")
       )
     }
 

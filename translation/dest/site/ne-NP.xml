@@ -259,7 +259,7 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
-  <string name="thisAccountViolatedTos">यस खाताले Lichess Terms of Service को उल्लङ्घन गरेको छ</string>
+  <string name="thisAccountViolatedTos">यस खाताले NewChess Terms of Service को उल्लङ्घन गरेको छ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
@@ -426,7 +426,7 @@
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
   <string name="inlineNotation">पङ्तिमा नोटेशन</string>
-  <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
+  <string name="previouslyOnNewChessTV">लीचेस टिभीमा यसअघि</string>
   <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
@@ -735,7 +735,7 @@
   <string name="tryToWin">खेलेको सबै खेल जित्ने वा बराबर गर्ने प्रयास गर्नुहोस्।</string>
   <string name="resignLostGames">हारेको खेल परित्याग गर्नुहोस् ( घडी त्यसै चल्न नदिनुहोस्।)</string>
   <string name="temporaryInconvenience">अस्थायी असुबिधाको लागि क्षमाप्रार्थी छौं,</string>
-  <string name="wishYouGreatGames">तपाइलाई lichess.org मा राम्रो खेल्न शुभकामना छ।</string>
+  <string name="wishYouGreatGames">तपाइलाई newchess.fun मा राम्रो खेल्न शुभकामना छ।</string>
   <string name="thankYouForReading">पढ्नुभएको मा धन्यवाद</string>
   <string name="lifetimeScore">आजिवन अंक</string>
   <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>

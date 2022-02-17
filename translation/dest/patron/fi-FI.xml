@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Lahjoita</string>
   <string name="donateAsX">Lahjoita käyttäjänä %s</string>
-  <string name="lichessPatron">Lichessin tukija</string>
+  <string name="lichessPatron">NewChessin tukija</string>
   <string name="freeAccount">Ilmainen tunnus</string>
-  <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
-  <string name="xBecamePatron">%s ryhtyi Lichessin tukijaksi</string>
+  <string name="becomePatron">Ryhdy NewChessin tukijaksi</string>
+  <string name="xBecamePatron">%s ryhtyi NewChessin tukijaksi</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
-    <item quantity="other">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
+    <item quantity="one">%1$s on ollut NewChessin tukija %2$s kuukauden ajan</item>
+    <item quantity="other">%1$s on ollut NewChessin tukija %2$s kuukauden ajan</item>
   </plurals>
   <string name="newPatrons">Uusia tukijoita</string>
   <string name="freeChess">Ilmaista shakkia kaikille, ikuisesti!</string>
@@ -18,10 +18,10 @@
   <string name="patronUntil">Sinulla on tukijatili %s asti.</string>
   <string name="ifNotRenewed">Jollet uusi sitä, tilisi alennetaan ilmaistiliksi.</string>
   <string name="weAreNonProfit">Olemme yleishyödyllinen yhteisö, koska uskomme, että kaikkien pitäisi päästä pelaamaan ilmaisella maailmanluokan shakkisivustolla.</string>
-  <string name="weRelyOnSupport">Sen mahdollistamiseksi turvaudumme sinun kaltaistesi ihmisten tukeen. Jos nautit Lichessin käytöstä, harkitse meidän tukemista lahjoituksella ja ryhtymällä tukijaksi!</string>
+  <string name="weRelyOnSupport">Sen mahdollistamiseksi turvaudumme sinun kaltaistesi ihmisten tukeen. Jos nautit NewChessin käytöstä, harkitse meidän tukemista lahjoituksella ja ryhtymällä tukijaksi!</string>
   <string name="lifetime">Elinikäinen</string>
-  <string name="payLifetimeOnce">Maksa %s kerran. Ole Lichessin tukija ikuisesti!</string>
-  <string name="lifetimePatron">Elinikäinen Lichessin tukija</string>
+  <string name="payLifetimeOnce">Maksa %s kerran. Ole NewChessin tukija ikuisesti!</string>
+  <string name="lifetimePatron">Elinikäinen NewChessin tukija</string>
   <string name="monthly">Kuukausittain</string>
   <string name="recurringBilling">Toistuva veloitus, uusii tukijasiipesi joka kuukausi.</string>
   <string name="onetime">Kertaluonteinen</string>
@@ -31,27 +31,27 @@
   <string name="withCreditCard">Luottokortti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
-  <string name="celebratedPatrons">Maineikkaat tukijat, joiden ansiosta Lichess on olemassa</string>
+  <string name="celebratedPatrons">Maineikkaat tukijat, joiden ansiosta NewChess on olemassa</string>
   <string name="whereMoneyGoes">Mihin raha käytetään?</string>
   <string name="serversAndDeveloper">Ensinnäkin tehokkaisiin palvelimiin.
-Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustajalle.</string>
+Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, NewChessin perustajalle.</string>
   <string name="costBreakdown">Katso yksityiskohtainen kuluerittely</string>
-  <string name="officialNonProfit">Onko Lichess virallisesti yleishyödyllinen yhteisö?</string>
+  <string name="officialNonProfit">Onko NewChess virallisesti yleishyödyllinen yhteisö?</string>
   <string name="actOfCreation">On. Tässä on perustamiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaisen tukeni?</string>
   <string name="changeOrContact">Voit, milloin vain tällä sivulla.
 Tai voit %s.</string>
-  <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
+  <string name="contactSupport">ottaa yhteyttä NewChessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>
   <string name="patronFeatures">Onko joitakin toimintoja rajattu vain tukijoille?</string>
-  <string name="noPatronFeatures">Ei, koska Lichess on täysin ilmainen, aina ja kaikille. Sen lupaamme. Tukijat pääsevät kuitenkin ylpeilemään uudella hienolla profiilikuvakkeellaan.</string>
+  <string name="noPatronFeatures">Ei, koska NewChess on täysin ilmainen, aina ja kaikille. Sen lupaamme. Tukijat pääsevät kuitenkin ylpeilemään uudella hienolla profiilikuvakkeellaan.</string>
   <string name="featuresComparison">Katso toimintojen yksityiskohtainen vertailu</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichessin tukijana yhden kuukauden ajan</item>
-    <item quantity="other">Lichessin Patron %s kuukauden ajan</item>
+    <item quantity="one">NewChessin tukijana yhden kuukauden ajan</item>
+    <item quantity="other">NewChessin Patron %s kuukauden ajan</item>
   </plurals>
-  <string name="youSupportWith">Tuet lichess.orgia %s:lla joka kuukausi.</string>
+  <string name="youSupportWith">Tuet newchess.funia %s:lla joka kuukausi.</string>
   <string name="tyvm">Kiitos paljon avustasi. Olet huippu!</string>
   <string name="currentStatus">Nykyinen tila</string>
   <string name="nextPayment">Seuraava maksu</string>
@@ -62,17 +62,17 @@ Tai voit %s.</string>
   <string name="changeMonthlyAmount">Muuta kuukausittaista summaa (%s)</string>
   <string name="cancelSupport">peru tukesi</string>
   <string name="xOrY">%1$s tai %2$s</string>
-  <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
+  <string name="decideHowMuch">Päätä, minkä arvoinen NewChess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
-  <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
-  <string name="viewOthers">Katso muita Lichessin tukijoita</string>
+  <string name="noLongerSupport">Ei enempää tukea NewChessille</string>
+  <string name="viewOthers">Katso muita NewChessin tukijoita</string>
   <string name="date">Pvm</string>
   <string name="amount">Summa</string>
   <string name="transactionCompleted">Siirto onnistui ja kuitti lahjoituksestasi lähetettiin sähköpostiisi.</string>
   <string name="permanentPatron">Tilisi on nyt pysyvästi tukijatili.</string>
   <string name="checkOutProfile">Katsohan profiilisivuasi!</string>
-  <string name="nowLifetime">Olet nyt elinikäinen Lichessin tukija!</string>
-  <string name="nowOneMonth">Olet nyt Lichessin tukija kuukauden ajan!</string>
-  <string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen, ja Lichess-tilisi palautuu ilmaistiliksi.</string>
+  <string name="nowLifetime">Olet nyt elinikäinen NewChessin tukija!</string>
+  <string name="nowOneMonth">Olet nyt NewChessin tukija kuukauden ajan!</string>
+  <string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen, ja NewChess-tilisi palautuu ilmaistiliksi.</string>
   <string name="changeCurrency">Vaihda valuutta</string>
 </resources>

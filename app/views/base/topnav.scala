@@ -21,7 +21,7 @@ object topnav {
           "/",
           frag(
             span(cls := "play")(trans.play()),
-            span(cls := "home")("lichess.org")
+            span(cls := "home")("newchess.fun")
           )
         ),
         div(role := "group")(
@@ -66,7 +66,7 @@ object topnav {
       st.section(
         linkTitle(routes.Tv.index.path, trans.watch()),
         div(role := "group")(
-          a(href := routes.Tv.index)("Lichess TV"),
+          a(href := routes.Tv.index)("NewChess TV"),
           a(href := routes.Tv.games)(trans.currentGames()),
           (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
           // todo: turn me on!

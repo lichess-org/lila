@@ -16,7 +16,7 @@ const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', '
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
-const minLichessYear = 2012;
+const minNewChessYear = 2012;
 
 type Month = string;
 type ByDbSetting = {
@@ -54,7 +54,7 @@ export class ExplorerConfigCtrl {
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
+        since: storedProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minNewChessYear) + '-01'),
         until: storedProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
@@ -132,7 +132,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   ];
 }
 
-const selectText = 'Select a Lichess player';
+const selectText = 'Select a NewChess player';
 
 const playerDb = (ctrl: ExplorerConfigCtrl) => {
   const name = ctrl.data.playerName.value();

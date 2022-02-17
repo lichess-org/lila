@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">İletişim</string>
-  <string name="contactLichess">Lichess ile iletişime geçin</string>
+  <string name="contactLichess">NewChess ile iletişime geçin</string>
   <string name="whatCanWeHelpYouWith">Size ne konuda yardımcı olabiliriz?</string>
   <string name="visitThisPage">Sorununuzu çözmek için bu sayfayı ziyaret edin</string>
   <string name="iCantLogIn">Giriş yapamıyorum</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Çok faktörlü kimlik doğrulaması kodlarıma erişimi kaybettim</string>
   <string name="doPasswordReset">İkinci faktörü kaldırmak için şifrenizi sıfırlayın</string>
   <string name="accountSupport">Hesabımla ilgili yardıma ihtiyacım var</string>
-  <string name="wantTitle">Unvanımın Lichess\'te görünmesini istiyorum</string>
-  <string name="visitTitleConfirmation">Lichess profilinizde unvanınızı göstermek ve Unvanlı Arenalar\'a katılmak için unvan doğrulama sayfasını ziyaret edin</string>
+  <string name="wantTitle">Unvanımın NewChess\'te görünmesini istiyorum</string>
+  <string name="visitTitleConfirmation">NewChess profilinizde unvanınızı göstermek ve Unvanlı Arenalar\'a katılmak için unvan doğrulama sayfasını ziyaret edin</string>
   <string name="wantCloseAccount">Hesabımı kapatmak istiyorum</string>
   <string name="closeYourAccount">Hesabınızı bu sayfadan kapatabilirsiniz</string>
   <string name="doNotAskByEmail">Hesabınızı kapatmak için lütfen bize e-posta göndermeyin. Öyle bir şey yapmıyoruz.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Moderatörlere doğrudan mesaj yazmayın.</string>
   <string name="onlyReports">Yalnızca şikâyet formunu kullanarak sorunu çözebilirsiniz.</string>
   <string name="wantReportBug">Sitede bir yazılım hatası fark ettim</string>
-  <string name="reportBugInForum">Lichess Geri Bildirim Forumu üzerinden</string>
-  <string name="reportWebsiteIssue">Lichess İnternet sitesi sorunları adı altında GitHub üzerinden</string>
-  <string name="reportMobileIssue">Lichess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
-  <string name="reportBugInDiscord">ve Lichess Discord sunucusundan bize iletebilirsiniz</string>
+  <string name="reportBugInForum">NewChess Geri Bildirim Forumu üzerinden</string>
+  <string name="reportWebsiteIssue">NewChess İnternet sitesi sorunları adı altında GitHub üzerinden</string>
+  <string name="reportMobileIssue">NewChess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
+  <string name="reportBugInDiscord">ve NewChess Discord sunucusundan bize iletebilirsiniz</string>
   <string name="howToReportBug">Lütfen yazılım hatasını tarif edin. Hatayı yaşadığınızda ne ile karşılaşmayı bekliyordunuz ve hangi adımları izledikten sonra hata meydan geldi?</string>
   <string name="illegalPawnCapture">Kural dışı piyon hareketi</string>
   <string name="calledEnPassant">Buna \"geçerken alma\" denir ve bu hareket satrancın kurallarından biridir.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Hile yaptığınızı inkâr etmeyin. Yeni bir hesap açmanıza izin verilmesini istiyorsanız hile yaptığınızı kabul edin ve bunun bir hata olduğunu anladığınızı gösterin.</string>
   <string name="otherRestriction">Başka bir itiraz</string>
   <string name="collaboration">İş birliği, yasal ve ticari işlemler</string>
-  <string name="monetizing">Lichess üzerinden para kazanmak</string>
-  <string name="buyingLichess">Lichess\'i satın almak</string>
-  <string name="authorizationToUse">Lichess\'i kullanabilme yetkisi</string>
-  <string name="welcomeToUse">Lichess\'i ticaret amacıyla kullanabilirsiniz.</string>
-  <string name="videosAndBooks">Lichess\'ten aldığınız bir ekran görüntüsünü kitaplarınızda ya da videolarınızda gösterebilirsiniz.</string>
+  <string name="monetizing">NewChess üzerinden para kazanmak</string>
+  <string name="buyingLichess">NewChess\'i satın almak</string>
+  <string name="authorizationToUse">NewChess\'i kullanabilme yetkisi</string>
+  <string name="welcomeToUse">NewChess\'i ticaret amacıyla kullanabilirsiniz.</string>
+  <string name="videosAndBooks">NewChess\'ten aldığınız bir ekran görüntüsünü kitaplarınızda ya da videolarınızda gösterebilirsiniz.</string>
   <string name="creditAppreciated">Bizden bahsetmenize gerek yok ama fena da olmazdı.</string>
   <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
   <string name="sendEmailAt">%s üzerinden bize bir e-posta gönderin.</string>
-  <string name="explainYourRequest">Lütfen talebinizi açık ve eksiksiz bir şekilde açıklayın. Lichess kullanıcı adınızı ve size yardımcı olmamıza katkıda bulunacak bilgileri belirtin.</string>
+  <string name="explainYourRequest">Lütfen talebinizi açık ve eksiksiz bir şekilde açıklayın. NewChess kullanıcı adınızı ve size yardımcı olmamıza katkıda bulunacak bilgileri belirtin.</string>
 </resources>

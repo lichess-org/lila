@@ -61,7 +61,7 @@ Kasni pridruženi dobivaju jedan pozdrav, čak i ako su propustili nekoliko rund
 Razlog je to što nema pošten način postupanja s ljudima koji rano napuštaju turnir. Ne možemo očekivati da će svi igrači igrati sve svoje igre u online događaju. To se jednostavno neće dogoditi, a kao rezultat toga, većina Rround Robin turnira bila bi manjkava i nepoštena, što narušava sam njihov razlog postojanja.
 Najbliže što možete doći do Round Robina online je igrati švicarski turnir s vrlo velikim brojem rundi. Tada će se odigrati svi mogući parovi prije završetka turnira.</string>
   <string name="otherSystemsQ">Što je s drugim sustavima turnira?</string>
-  <string name="otherSystemsA">Trenutačno ne planiramo dodavati više turnirskih sustava u Lichess.</string>
+  <string name="otherSystemsA">Trenutačno ne planiramo dodavati više turnirskih sustava u NewChess.</string>
   <string name="swissDescription">Na švicarskom turniru %1$s, svaki natjecatelj ne mora nužno igrati protiv svih ostalih sudionika. Natjecatelji se susreću jedan na jedan u svakoj rundi i uparuju se pomoću skupa pravila osmišljenih kako bi se osiguralo da svaki natjecatelj igra protivnike sa sličnim rezultatom, ali ne više od jednom s istim protivnikom. Pobjednik je natjecatelj s najvećim ukupnim brojem bodova osvojenih u svim rundama. Svi natjecatelji igraju u svakom kolu osim ako nema neparan broj igrača.\"</string>
   <string name="teamOnly">Švicarske turnire mogu kreirati samo voditelji timova, a mogu ih igrati samo članovi tima.
 %1$s za početak igranja na švicarskim turnirima.</string>

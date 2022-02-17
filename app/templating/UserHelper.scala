@@ -299,7 +299,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(implicit lang: Lang): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
-  val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "Lichess Mod")
+  val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "NewChess Mod")
   private def lineIcon(patron: Boolean)(implicit lang: Lang): Frag         = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(implicit lang: Lang): Frag = lineIcon(user.??(_.isPatron))
   def lineIcon(user: LightUser)(implicit lang: Lang): Frag                 = lineIcon(user.isPatron)

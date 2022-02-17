@@ -268,7 +268,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Beri %s saat</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Akaun ini melanggar Syarat Perkhidmatan Lichess</string>
+  <string name="thisAccountViolatedTos">Akaun ini melanggar Syarat Perkhidmatan NewChess</string>
   <string name="openingExplorerAndTablebase">Peneroka opening&amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
@@ -495,13 +495,13 @@
   <string name="withEverybody">Dengan semua</string>
   <string name="kidMode">Mod kanak-kanak</string>
   <string name="kidModeExplanation">Hal ini adalah untuk keselamatan. Dalam mod kanak-kanak, semua komunikasi ditutup. Pasang tetapan ini untuk kanak-kanak dan pelajar sekolah untuk melindungi mereka daripada pengguna siber yang lain.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Dalam mod kanak-kanak, logo Lichess akan mendapat %s icon, jadi anda tahu kanak-kanak anda selamat.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Dalam mod kanak-kanak, logo NewChess akan mendapat %s icon, jadi anda tahu kanak-kanak anda selamat.</string>
   <string name="enableKidMode">Pasang mod kanak-kanak</string>
   <string name="disableKidMode">Lumpuhkan mod kanak-kanak</string>
   <string name="security">Keselamatan</string>
   <string name="revokeAllSessions">batalkan semua sesi</string>
   <string name="playChessEverywhere">Main catur dimana-mana</string>
-  <string name="asFreeAsLichess">Percuma seperti Lichess</string>
+  <string name="asFreeAsLichess">Percuma seperti NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Dibina untuk semangat catur bukan duit</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua orang boleh menggunakan semua ciri-ciri percuma</string>
   <string name="zeroAdvertisement">Sifar iklan</string>

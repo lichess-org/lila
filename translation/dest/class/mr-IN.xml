@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">शिकवणी</string>
-  <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
+  <string name="teachClassesOfChessStudents">NewChess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
   <string name="features">वैशिष्ट्ये</string>
   <string name="quicklyGenerateSafeUsernames">विद्यार्थ्यांसाठी त्वरीत सुरक्षित वापरकर्तानाव आणि पासवर्ड तयार करा</string>
   <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मोगावा घ्या</string>
@@ -22,7 +22,7 @@
   <string name="classDescription">शिकवणीचे वर्णन</string>
   <string name="visibleByBothStudentsAndTeachers">वर्गातील शिक्षक आणि विद्यार्थी दोघांनीही दृश्यमान</string>
   <string name="teachersOfTheClass">वर्गातील शिक्षक</string>
-  <string name="addLichessUsernames">त्यांना शिक्षक म्हणून आमंत्रित करण्यासाठी लिचेस वापरकर्तानावे जोडा. प्रति ओळ एक.</string>
+  <string name="addNewChessUsernames">त्यांना शिक्षक म्हणून आमंत्रित करण्यासाठी लिचेस वापरकर्तानावे जोडा. प्रति ओळ एक.</string>
   <string name="resetPassword">पासवर्ड रिसेट करा</string>
   <string name="passwordX">पासवर्ड: %s</string>
   <string name="generateANewPassword">या विद्यार्थी साठी नवीन पासवर्ड बनवा</string>

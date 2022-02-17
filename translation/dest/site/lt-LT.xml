@@ -328,7 +328,7 @@
     <item quantity="many">Duoti %s sekundžių</item>
     <item quantity="other">Duoti %s sekundžių</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ši paskyra pažeidė „Lichess“ naudojimo sąlygas</string>
+  <string name="thisAccountViolatedTos">Ši paskyra pažeidė „NewChess“ naudojimo sąlygas</string>
   <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų duomenų bazė</string>
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
@@ -524,7 +524,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
-  <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
+  <string name="previouslyOnNewChessTV">Anksčiau per „newchess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>
   <string name="activePlayers">Aktyvumas</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dėmesio, partija yra vertinama, tačiau neturi laikrodžio!</string>
@@ -688,7 +688,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
-  <string name="lichessTournaments">„lichess“ turnyrai</string>
+  <string name="lichessTournaments">„newchess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
   <string name="averageCentipawnLoss">Vidutinis centi-pėstininkų nuostolis</string>
@@ -724,8 +724,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="weHaveSentYouAnEmailTo">Išsiuntėme laišką į %s. Spustelėję jame esančią nurodą galėsite atstatyti savo slaptažodį.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registruodamiesi sutinkate su mūsų %s.</string>
   <string name="readAboutOur">Skaitykite daugiau apie mūsų %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Tinklo delsa tarp jūsų ir „lichess“</string>
-  <string name="timeToProcessAMoveOnLichessServer">Laikas, per kurį „lichess“ serveris apdoroja ėjimą</string>
+  <string name="networkLagBetweenYouAndLichess">Tinklo delsa tarp jūsų ir „newchess“</string>
+  <string name="timeToProcessAMoveOnLichessServer">Laikas, per kurį „newchess“ serveris apdoroja ėjimą</string>
   <string name="downloadAnnotated">Siųstis anotuotą</string>
   <string name="downloadRaw">Siųstis neapdorotą</string>
   <string name="downloadImported">Siųstis importuotą</string>
@@ -741,14 +741,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="withEverybody">Su visais</string>
   <string name="kidMode">Vaiko veiksena</string>
   <string name="kidModeExplanation">Tai yra dėl saugumo. Vaiko veiksenoje išjungiamas visas bendravimas svetainėje. Įjunkite tai savo vaikams bei moksleiviams, norėdami juos apsaugoti nuo kitų interneto naudotojų.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Vaiko veiksenoje „lichess“ logotipas gauna %s piktogramą tam, kad žinotumėte, jog jūsų vaikai yra saugūs.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Vaiko veiksenoje „newchess“ logotipas gauna %s piktogramą tam, kad žinotumėte, jog jūsų vaikai yra saugūs.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
   <string name="sessions">Sesijos</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
-  <string name="asFreeAsLichess">Nemokama, kaip ir „lichess“</string>
+  <string name="asFreeAsLichess">Nemokama, kaip ir „newchess“</string>
   <string name="builtForTheLoveOfChessNotMoney">Sukurta iš meilės šachmatams, ne dėl pinigų</string>
   <string name="everybodyGetsAllFeaturesForFree">Kiekvienas gauna visas galimybes už dyką</string>
   <string name="zeroAdvertisement">Jokių reklamų</string>
@@ -869,14 +869,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tryToWin">Kiekvieną kartą stenkitės laimėti, ar bent sužaisti lygiosiomis.</string>
   <string name="resignLostGames">Pasiduokite pralaimėtose partijose (nelaukite kol pasibaigs laikas).</string>
   <string name="temporaryInconvenience">Atsiprašome dėl laikinų nepatogumų,</string>
-  <string name="wishYouGreatGames">ir linkime jums puikių partijų per lichess.org.</string>
+  <string name="wishYouGreatGames">ir linkime jums puikių partijų per newchess.fun.</string>
   <string name="thankYouForReading">Ačiū, kad perskaitėte!</string>
   <string name="lifetimeScore">Visų laikų rezultatas</string>
   <string name="currentMatchScore">Dabartinės partijos rezultatas</string>
   <string name="agreementAssistance">Pasižadu niekada savo partijų metu nesinaudoti kompiuterio, knygos, duomenų bazės ar kito žmogaus pagalba.</string>
   <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
   <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
-  <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
+  <string name="agreementPolicy">Pasižadu laikytis visų „NewChess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
   <string name="rapid">Greitieji</string>
@@ -913,13 +913,13 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="resVsX">%1$s prieš %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
   <string name="newPendingReview">Nauja laukianti peržvalga</string>
-  <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
+  <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė NewChess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
   <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
   <string name="download">Atsisiųsti</string>
   <string name="welcome">Sveiki atvykę!</string>
-  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
+  <string name="lichessPatronInfo">NewChess yra labdara ir pilnai atviro kodo/libre projektas.
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
@@ -975,6 +975,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="youCantStartNewGame">Jūs negalite pradėti naujos partijos kol nepabaigta ši.</string>
   <string name="since">Nuo</string>
   <string name="until">Iki</string>
-  <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>
+  <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų NewChess žaidėjų</string>
   <string name="switchSides">Pakeisti puses</string>
 </resources>

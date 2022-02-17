@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Стримери Lichess</string>
-  <string name="lichessStreamer">Стример Lichess</string>
+  <string name="lichessStreamers">Стримери NewChess</string>
+  <string name="lichessStreamer">Стример NewChess</string>
   <string name="live">НАЖИВО!</string>
   <string name="offline">ОФЛАЙН</string>
   <string name="currentlyStreaming">Зараз транслює: %s</string>
   <string name="lastStream">Остання трансляція %s</string>
-  <string name="becomeStreamer">Стати стримером Lichess</string>
+  <string name="becomeStreamer">Стати стримером NewChess</string>
   <string name="doYouHaveStream">У вас є канал на Twitch чи YouTube?</string>
   <string name="hereWeGo">Приступаємо!</string>
   <string name="allStreamers">Всі стримери</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Завантажити набір інструментів стримера</string>
   <string name="xIsStreaming">%s транслює</string>
   <string name="rules">Правила трансляцій</string>
-  <string name="rule1">Додайте ключове слово \"lichess.org\" у заголовку вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
-  <string name="rule2">Видаліть ключове слово, коли транслюєте щось не пов\'язане з Lichess.</string>
-  <string name="rule3">Lichess буде автоматично виявляти вашу трансляцію і включати наступні переваги:</string>
+  <string name="rule1">Додайте ключове слово \"newchess.fun\" у заголовку вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на NewChess.</string>
+  <string name="rule2">Видаліть ключове слово, коли транслюєте щось не пов\'язане з NewChess.</string>
+  <string name="rule3">NewChess буде автоматично виявляти вашу трансляцію і включати наступні переваги:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прочитайте наші %s для забезпечення справедливої гри для всіх протягом вашої трансляції.</string>
   <string name="streamingFairplayFAQ">правила чесної гри для трансляцій</string>
   <string name="perks">Переваги трансляції з ключовим словом</string>
-  <string name="perk1">Ви отримуєте значок стримера у вашому обліковому записі Lichess.</string>
+  <string name="perk1">Ви отримуєте значок стримера у вашому обліковому записі NewChess.</string>
   <string name="perk2">Ви будете переміщені вверх по списку стримерів.</string>
-  <string name="perk3">Сповіщення ваших підписників Lichess.</string>
+  <string name="perk3">Сповіщення ваших підписників NewChess.</string>
   <string name="perk4">Відображення вашої трансляції у ваших іграх, турнірах та дослідженнях.</string>
   <string name="approved">Вашу трансляцію затверджено.</string>
   <string name="pendingReview">Вашу трансляцію перевіряють модератори.</string>
   <string name="pleaseFillIn">Будь ласка, заповніть інформацію про трансляцію та завантажте фотографію.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Коли ви будете готові числитися як стример Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запитати огляд модератора</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Коли ви будете готові числитися як стример NewChess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">запитати огляд модератора</string>
   <string name="anotherLanguage">Якщо ви транслюєте не англійською мовою, вкажіть правильний тег мови (%s), огорожений квадратними дужками на початку назви вашої трансляції.
 Як приклад, ви можете вказати \"[UA]\" для української, \"[TR]\" для турецької, \"[FR]\" для французької тощо.
-Додайте його у заголовок трансляції Twitch або YouTube, не в налаштуваннях трансляції Lichess.
+Додайте його у заголовок трансляції Twitch або YouTube, не в налаштуваннях трансляції NewChess.
 Якщо ваша трансляція англійською, немає необхідності включати мовний тег.</string>
   <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
   <string name="optionalOrEmpty">За бажанням. Залиште порожнім, якщо немає</string>
   <string name="youtubeChannel">ID вашого YouTube каналу або посилання</string>
-  <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
+  <string name="streamerName">Ваше ім\'я для трансляцій на NewChess</string>
   <plurals name="keepItShort">
     <item quantity="one">Скоротіть: максимум %s символ</item>
     <item quantity="few">Скоротіть: максимум %s символи</item>

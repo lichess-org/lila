@@ -3,8 +3,8 @@
   <string name="activity">Aktivitás</string>
   <string name="hostedALiveStream">Élő közvetítést adott</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
-    <item quantity="other">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
+    <item quantity="one">A newchess.fun támogatója %1$s hónapja %2$s-ként</item>
+    <item quantity="other">A newchess.fun támogatója %1$s hónapja %2$s-ként</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s %2$s állást gyakorolt</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s svájci rendszerű versenyen vett részt</item>
   </plurals>
   <string name="rankedInSwissTournament">Helyezés: %1$s / %2$s</string>
-  <string name="signedUp">Regisztrált a lichess.org-ra</string>
+  <string name="signedUp">Regisztrált a newchess.fun-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>
     <item quantity="other">%s csapathoz csatlakozott</item>

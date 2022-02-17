@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakt</string>
-  <string name="contactLichess">Ta kontakt med Lichess</string>
+  <string name="contactLichess">Ta kontakt med NewChess</string>
   <string name="whatCanWeHelpYouWith">Hva kan vi hjelpe deg med?</string>
   <string name="visitThisPage">Gå til denne sida for å løse problemet</string>
   <string name="iCantLogIn">Jeg kan ikke logge inn</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Jeg har mistet tilgangen til tofaktorautentiseringskodene mine</string>
   <string name="doPasswordReset">Nullstill passordet for å fjerne tofaktorautentisering</string>
   <string name="accountSupport">Jeg har behov for kontosupport</string>
-  <string name="wantTitle">Jeg vil gjerne at tittelen min vises på Lichess</string>
-  <string name="visitTitleConfirmation">For at din tittel skal vises på Lichess-profilen, og for å delta i \"Titled Arenas\", må du gå inn på bekreftelsessida</string>
+  <string name="wantTitle">Jeg vil gjerne at tittelen min vises på NewChess</string>
+  <string name="visitTitleConfirmation">For at din tittel skal vises på NewChess-profilen, og for å delta i \"Titled Arenas\", må du gå inn på bekreftelsessida</string>
   <string name="wantCloseAccount">Jeg vil lukke kontoen min</string>
   <string name="closeYourAccount">Du kan lukke kontoen din på denne sida</string>
   <string name="doNotAskByEmail">Ikke be oss om å lukke en konto via e-post, vi vil ikke gjøre det.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Ikke send beskjeder direkte til moderatorer.</string>
   <string name="onlyReports">Den eneste måten å melde inn spillere er via rapportskjemaet.</string>
   <string name="wantReportBug">Jeg vil melde fra om en feil</string>
-  <string name="reportBugInForum">I Lichess\' forum for tilbakemeldinger</string>
-  <string name="reportWebsiteIssue">Som et Lichess webside-problem på GitHub</string>
-  <string name="reportMobileIssue">Som et Lichess mobilapp-problem på GitHub</string>
-  <string name="reportBugInDiscord">I Lichess discord-server</string>
+  <string name="reportBugInForum">I NewChess\' forum for tilbakemeldinger</string>
+  <string name="reportWebsiteIssue">Som et NewChess webside-problem på GitHub</string>
+  <string name="reportMobileIssue">Som et NewChess mobilapp-problem på GitHub</string>
+  <string name="reportBugInDiscord">I NewChess discord-server</string>
   <string name="howToReportBug">Vær vennlig og beskriv hvordan problemet arter seg, hva du forventet skulle skje og de trinn som skal til for å gjenskape feilen.</string>
   <string name="illegalPawnCapture">Ulovlig måte å slå bonden på</string>
   <string name="calledEnPassant">Det kalles \"en passant\" (norsk: \"i forbifarten\") og er en av sjakkreglene.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Ikke nekt for at du jukset. Dersom du ønsker å få tillatelse til å opprette en ny konto, må du innrømme det du gjorde, og vise at du forstår at det var en feiltakelse.</string>
   <string name="otherRestriction">Annen restriksjon</string>
   <string name="collaboration">Samarbeid, jus, kommersielt</string>
-  <string name="monetizing">Tjene penger på Lichess</string>
-  <string name="buyingLichess">Kjøpe Lichess</string>
-  <string name="authorizationToUse">Tillatelse til å bruke Lichess</string>
-  <string name="welcomeToUse">Du er velkommen til å bruke Lichess til dine aktiviteter, også kommersielle.</string>
-  <string name="videosAndBooks">Du kan vise det i dine videoer og du kan trykke skjermbilder av Lichess i dine bøker.</string>
+  <string name="monetizing">Tjene penger på NewChess</string>
+  <string name="buyingLichess">Kjøpe NewChess</string>
+  <string name="authorizationToUse">Tillatelse til å bruke NewChess</string>
+  <string name="welcomeToUse">Du er velkommen til å bruke NewChess til dine aktiviteter, også kommersielle.</string>
+  <string name="videosAndBooks">Du kan vise det i dine videoer og du kan trykke skjermbilder av NewChess i dine bøker.</string>
   <string name="creditAppreciated">Kreditering verdsettes, men er ikke påkrevet.</string>
   <string name="noneOfTheAbove">Intet av det ovenstående</string>
   <string name="sendEmailAt">Send oss en e-post på %s.</string>
-  <string name="explainYourRequest">Forklar forespørselen din tydelig og grundig. Oppgi Lichess-brukernavnet ditt og all annen informasjon som kan hjelpe oss med å hjelpe deg.</string>
+  <string name="explainYourRequest">Forklar forespørselen din tydelig og grundig. Oppgi NewChess-brukernavnet ditt og all annen informasjon som kan hjelpe oss med å hjelpe deg.</string>
 </resources>

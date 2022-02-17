@@ -275,7 +275,7 @@
     <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
+  <string name="thisAccountViolatedTos">Овај налог није поштовао NewChess услове коришћења</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
@@ -453,7 +453,7 @@
   <string name="thankYou">Хвала!</string>
   <string name="socialMediaLinks">Линкови за социјалне медије</string>
   <string name="inlineNotation">Нотација у реду</string>
-  <string name="previouslyOnLichessTV">Претходно на Личес ТВ</string>
+  <string name="previouslyOnNewChessTV">Претходно на Личес ТВ</string>
   <string name="onlinePlayers">Играчи на мрежи</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
@@ -777,7 +777,7 @@
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваку партију коју одиграш.</string>
   <string name="resignLostGames">Предај изгубљене игре (немој пуштати да време истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на привременој нелагодности,</string>
-  <string name="wishYouGreatGames">и желимо вам одличне партије на lichess.org.</string>
+  <string name="wishYouGreatGames">и желимо вам одличне партије на newchess.fun.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
   <string name="lifetimeScore">Животни скор</string>
   <string name="currentMatchScore">Скор тренутног меча</string>

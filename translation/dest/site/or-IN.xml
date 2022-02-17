@@ -165,7 +165,7 @@
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="cancel">ବାତିଲ୍ କର</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
-  <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
+  <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ NewChess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <plurals name="nbStudies">
     <item quantity="one">%sଟିଏ ଅଧ୍ୟୟନ</item>
     <item quantity="other">%sଟି ଅଧ୍ୟୟନ</item>
@@ -260,7 +260,7 @@
   <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="lifetimeScore">ଆଜୀବନ ସ୍କୋର୍</string>
-  <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ NewChess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="edit">ସମ୍ପାଦନା</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="puzzleDesc">ଚେସ୍ କୌଶଳ ପ୍ରଶିକ୍ଷକ</string>

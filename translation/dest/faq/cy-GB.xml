@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="whyIsLichessCalledLichess">Pam mae Lichess yn cael ei alw\'n Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Mae Lichess yn gyfuniad o \"live/light/libre\" a \"chess\". Mae\'n cael ei ddatganu fel %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Pam mae NewChess yn cael ei alw\'n NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Mae NewChess yn gyfuniad o \"live/light/libre\" a \"chess\". Mae\'n cael ei ddatganu fel %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Clywed fe\'n cael ei ddweud gan arbenigwr.</string>
   <string name="positions">safleoedd</string>
@@ -9,6 +9,6 @@
   <string name="accounts">Cyfrifau</string>
   <string name="noUpperCaseDot">Na.</string>
   <string name="guidelines">canllawiau</string>
-  <string name="lichessRatings">Gradd Lichess</string>
+  <string name="lichessRatings">Gradd NewChess</string>
   <string name="howToThreeDots">Sut i...</string>
 </resources>

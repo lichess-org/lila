@@ -68,7 +68,7 @@ object post {
             ),
             iconTag("")(
               cls := "ublog-post__meta__disclaimer",
-              st.title := "Opinions expressed by Lichess contributors are their own."
+              st.title := "Opinions expressed by NewChess contributors are their own."
             ),
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))

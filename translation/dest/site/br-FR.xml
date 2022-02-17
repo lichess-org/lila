@@ -315,7 +315,7 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ n\'en deus ket doujet da Reolennoù Lichess</string>
+  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ n\'en deus ket doujet da Reolennoù NewChess</string>
   <string name="openingExplorerAndTablebase">Furcher an digoradurioù &amp; tablebase</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
@@ -516,7 +516,7 @@
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
   <string name="inlineNotation">Notennoù en-linenn</string>
-  <string name="previouslyOnLichessTV">N\'eus ket pell zo war Lichess TV</string>
+  <string name="previouslyOnNewChessTV">N\'eus ket pell zo war NewChess TV</string>
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Diwallit, renket eo ar c\'hrogad met n\'eus horolaj ebet!</string>
@@ -671,7 +671,7 @@
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>
   <string name="simulHostExtraTime">Lakaat amzer ouzhpenn d\'ho horolaj</string>
-  <string name="lichessTournaments">Tournamantoù Lichess</string>
+  <string name="lichessTournaments">Tournamantoù NewChess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="averageCentipawnLoss">Koll keitat e sentipawn</string>
@@ -707,8 +707,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En ur lakaat hoc\'h anv e asantit d\'hor %s.</string>
-  <string name="networkLagBetweenYouAndLichess">\"Lag\" zo etrezoc\'h ha Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Amzer ret evit ober ur fiñvadenn war servijer Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">\"Lag\" zo etrezoc\'h ha NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Amzer ret evit ober ur fiñvadenn war servijer NewChess</string>
   <string name="downloadAnnotated">Pellgargañ gant an notennoù</string>
   <string name="downloadRaw">Pellgargañ ar PGN kriz</string>
   <string name="downloadImported">Enkargañ enporzhiet</string>
@@ -728,11 +728,11 @@
   <string name="security">Surentez</string>
   <string name="revokeAllSessions">skarzhañ an holl zalc\'hoù</string>
   <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
-  <string name="asFreeAsLichess">Ken digoust ha lichess</string>
+  <string name="asFreeAsLichess">Ken digoust ha newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Krouiñ evit an echedoù ha n\'eo ket evit an arc\'hant</string>
   <string name="everybodyGetsAllFeaturesForFree">Forzh piv a c\'hall kaout an holl arc\'hweladurioù, digoust eo</string>
   <string name="zeroAdvertisement">Tamm bruderezh ebet</string>
-  <string name="fullFeatured">Lichess ha muioc\'h c\'hoazh</string>
+  <string name="fullFeatured">NewChess ha muioc\'h c\'hoazh</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasel</string>
   <string name="correspondenceChess">Echedoù war hir dermen</string>
@@ -845,7 +845,7 @@
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
   <string name="why">Perak?</string>
-  <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
+  <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war NewChess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
   <string name="howToAvoidThis">Penaos ober kuit ma c\'hoarvezfe an dra-mañ en-dro?</string>
@@ -853,14 +853,14 @@
   <string name="tryToWin">Klaskit gounit pep krogad (pe bezañ rampo diantav).</string>
   <string name="resignLostGames">Dilezit ar c\'hrogadoù pa ne vez ket an tu kreñv ganeoc\'h (ha n\'eo ket gortoz ez afe an amzer e-biou).</string>
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
-  <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
+  <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war newchess.fun.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
   <string name="lifetimeScore">Disoc\'h hollek</string>
   <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
   <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="agreementNice">Prometiñ a ran bezañ bepred hegarat ouzh ar c\'hoarierien all.</string>
   <string name="agreementAccount">Prometiñ a ran e chomin hep krouiñ meur a gont.</string>
-  <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù Lichess.</string>
+  <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù NewChess.</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
   <string name="rapid">Prim</string>

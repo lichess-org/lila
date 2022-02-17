@@ -453,7 +453,7 @@
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
+  <string name="previouslyOnNewChessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
@@ -780,7 +780,7 @@
   <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
   <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>
   <string name="temporaryInconvenience">ما برای این مشکل موقت عذرخواهی می کنیم،</string>
-  <string name="wishYouGreatGames">و برای شما بازیهای عالی در lichess.org آرزو می کنیم.</string>
+  <string name="wishYouGreatGames">و برای شما بازیهای عالی در newchess.fun آرزو می کنیم.</string>
   <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
   <string name="lifetimeScore">امتیاز کل</string>
   <string name="currentMatchScore">امتیاز بازی فعلی</string>

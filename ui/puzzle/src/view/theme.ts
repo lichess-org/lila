@@ -2,7 +2,7 @@ import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 
-const studyUrl = 'https://lichess.org/study/viiWlKjv';
+const studyUrl = 'https://newchess.fun/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
   const t = ctrl.getData().theme;

@@ -13,7 +13,7 @@
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">وضع التأمل</string>
   <string name="showPlayerRatings">إظهار تقييمات اللاعب</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">هذا يسمح بإخفاء التقيمات في الموقع، لمساعدتك للتركيز على الشطرنج فقط. المباريات تخضع للتقييم و لكنك لن ترى التقييم فقط.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://newchess.fun/account/preferences/site">هذا يسمح بإخفاء التقيمات في الموقع، لمساعدتك للتركيز على الشطرنج فقط. المباريات تخضع للتقييم و لكنك لن ترى التقييم فقط.</string>
   <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
   <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="blindfoldChess">(معصوب العينين (إخفاء القطع</string>
@@ -32,7 +32,7 @@
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="inCasualGamesOnly">في المباريات غير المقيمة فقط</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التقائية مؤقتاً</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://newchess.fun/account/preferences/game-behavior">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التقائية مؤقتاً</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>

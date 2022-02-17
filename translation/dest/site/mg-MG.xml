@@ -220,7 +220,7 @@
     <item quantity="one">Omeo %s segondra</item>
     <item quantity="other">Omeo %s segondra</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Nandika ny lalàna ny Lichess Terms of Service ity kaonty ity</string>
+  <string name="thisAccountViolatedTos">Nandika ny lalàna ny NewChess Terms of Service ity kaonty ity</string>
   <string name="takeback">Averina ny fihetsehana farany teo</string>
   <string name="proposeATakeback">Angataho ny famerenana ny fihetsehana farany teo</string>
   <string name="takebackPropositionSent">Lasa ny famerenana ny fihetsehana farany teo</string>
@@ -338,7 +338,7 @@
   <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="thankYou">Misaotra!</string>
-  <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Teto amin\'ny NewChess TV</string>
   <string name="onlinePlayers">Ny mpilalao connectés</string>
   <string name="activePlayers">Mpifaninana nilalao be indrindra</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !</string>

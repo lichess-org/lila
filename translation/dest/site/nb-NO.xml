@@ -288,7 +288,7 @@
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lichess</string>
+  <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke NewChess</string>
   <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
   <string name="takeback">Angre</string>
   <string name="proposeATakeback">Foreslå å angre</string>
@@ -459,9 +459,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Linker til sosiale media</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Én URL per linje.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Tidligere på NewChess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Legg merke til at partiet er ratet, men ikke tidsbegrenset!</string>
@@ -617,7 +617,7 @@
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for verten</string>
-  <string name="lichessTournaments">Lichessturneringer</string>
+  <string name="lichessTournaments">NewChessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gjennomsnittlig centibondetap</string>
@@ -651,8 +651,8 @@
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtar du våre %s.</string>
   <string name="readAboutOur">Les %s vår.</string>
-  <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess-serveren</string>
+  <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på newchess-serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
@@ -668,14 +668,14 @@
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handler om sikkerhet. I barnemodus blir all kommunikasjon skrudd av. Bruk dette for å skjerme barn og skole-elever mot brukere på Internett.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får newchess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
-  <string name="asFreeAsLichess">Like gratis som lichess</string>
+  <string name="asFreeAsLichess">Like gratis som newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget for kjærlighet til sjakk, ikke penger</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funksjoner gratis</string>
   <string name="zeroAdvertisement">Ingen reklame</string>
@@ -788,14 +788,14 @@
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
   <string name="resignLostGames">Gi opp tapte stillinger (ikke la tiden løpe ut).</string>
   <string name="temporaryInconvenience">Vi beklager det midlertidige bryet,</string>
-  <string name="wishYouGreatGames">og håper du får gode partier på lichess.org.</string>
+  <string name="wishYouGreatGames">og håper du får gode partier på newchess.fun.</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Gjeldende kampscore</string>
   <string name="agreementAssistance">Jeg lover at jeg aldri vil motta hjelp under partiene mine, hverken fra maskiner, bøker, databaser eller andre personer.</string>
   <string name="agreementNice">Jeg lover å alltid være høflig mot andre spillere.</string>
   <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
-  <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
+  <string name="agreementPolicy">Jeg lover å respektere alle NewChess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Hurtigsjakk</string>
@@ -838,7 +838,7 @@
   <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
   <string name="download">Last ned</string>
   <string name="welcome">Velkommen!</string>
-  <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
+  <string name="lichessPatronInfo">NewChess er en ideell forening, basert på fri programvare med åpen kildekode.
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
   <string name="coachManager">Innstillinger for trenere</string>
   <string name="streamerManager">Innstillinger for strømmere</string>
@@ -894,6 +894,6 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
   <string name="since">Fra</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
+  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle NewChess-spillerne</string>
   <string name="switchSides">Skift side</string>
 </resources>

@@ -4,7 +4,7 @@ export default function userLink(u: string, title?: string, patron?: boolean): V
   const line = patron
     ? h('line.line.patron', {
         attrs: {
-          title: 'Lichess Patron',
+          title: 'NewChess Patron',
         },
       })
     : undefined;

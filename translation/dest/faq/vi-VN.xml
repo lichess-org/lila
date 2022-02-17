@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">Những câu hỏi thường gặp</string>
   <string name="frequentlyAskedQuestions">Những Câu Hỏi Thường Gặp</string>
-  <string name="whyIsLichessCalledLichess">Tại sao Lichess lại có tên là Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess là một sự kết hợp của live/light/libre (trực tiếp/nhẹ/miễn phí) và chess (cờ vua). Nó được phát âm là %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Tại sao NewChess lại có tên là NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess là một sự kết hợp của live/light/libre (trực tiếp/nhẹ/miễn phí) và chess (cờ vua). Nó được phát âm là %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
-  <string name="whyLiveLightLibre">Trực tiếp, bởi vì bạn có thể chơi và xem 24/7, nghĩa là mọi lúc; nhẹ và miễn phí vì trên thực tế, Lichess có mã nguồn mở và không có các vấn đề về độc quyền làm ảnh hưởng đến các trang web khác.</string>
-  <string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lichess,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
-  <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
-  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s ( hoặc %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
+  <string name="whyLiveLightLibre">Trực tiếp, bởi vì bạn có thể chơi và xem 24/7, nghĩa là mọi lúc; nhẹ và miễn phí vì trên thực tế, NewChess có mã nguồn mở và không có các vấn đề về độc quyền làm ảnh hưởng đến các trang web khác.</string>
+  <string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của NewChess,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn NewChess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
+  <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
+  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s ( hoặc %2$s). Nếu bạn muốn giúp NewChess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
   <string name="beingAPatron">trở thành một người bảo trợ</string>
   <string name="breakdownOfOurCosts">xem bảng chi tiết về chi phí của chúng tôi</string>
   <string name="otherWaysToHelp">nhiều cách khác để giúp đỡ chúng tôi</string>
-  <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của Lichess không?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Đúng vậy, Lichess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
+  <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của NewChess không?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Đúng vậy, NewChess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
   <string name="fairPlay">Chơi Đẹp</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường xếp hạng tự động từ những kẻ gian lận?</string>
   <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu được xếp hạng mới nhất của họ trong vòng 3 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (vì thua hoặc hòa) và xếp hạng của bạn không phải là tạm thời, bạn sẽ được hoàn lại xếp hạng. Điểm hoàn lại được giới hạn dựa trên xếp hạng cao nhất của bạn và tiến độ xếp hạng của bạn sau ván đấu.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một người điều hành?</string>
   <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một người kiểm duyệt. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là người kiểm duyệt tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
   <string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ vua bình thường?</string>
-  <string name="youCanUseOpeningBookNoEngine">Trên Lichess, sự khác biệt chính trong các quy tắc cho cờ vua tương ứng là một cuốn sách mở được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư, nhưng Lichess thì không.</string>
+  <string name="youCanUseOpeningBookNoEngine">Trên NewChess, sự khác biệt chính trong các quy tắc cho cờ vua tương ứng là một cuốn sách mở được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư, nhưng NewChess thì không.</string>
   <string name="gameplay">Lối Chơi</string>
   <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các loại cờ khác được quyết định như thế nào?</string>
-  <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính =%1$s
+  <string name="basedOnGameDuration">Việc xác định loại cờ của NewChess dựa trên thời lượng ván đấu ước tính =%1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
   <string name="durationFormula">(thời gian ban đầu của đồng hồ) + 40 × (gia số đồng hồ)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s giây = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
-  <string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
+  <string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
   <string name="eightVariants">8 biến thể cờ vua khác</string>
   <string name="whatIsACPL">Phần trăm tốt mất trung bình (ACPL) là gì?</string>
   <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các vị trí.
@@ -43,7 +43,7 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
 
 Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm tốt mất mỗi nước đi, càng có ưu thế.
 
-Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
+Phân tích máy tính trên NewChess do Stockfish cung cấp.</string>
   <string name="insufficientMaterial">Thua về thời gian, hòa và không đủ quân chiếu hết</string>
   <string name="lichessFollowFIDErules">Trong trường hợp một người chơi hết thời gian, người chơi đó thường sẽ bị xử thua. Tuy nhiên, ván đấu sẽ được xử hòa nếu ở thế trận đó mà đối phương không thể chiếu hết vua của họ bằng bất kỳ chuỗi nước đi hợp lệ nào có thể xảy ra (%1$s).
 
@@ -60,31 +60,31 @@ Nó được mô tả trong phần 3.7 (d) của %2$s:
 
 Xem%3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
-  <string name="lichessTraining">huấn luyện của Lichess</string>
+  <string name="lichessTraining">huấn luyện của NewChess</string>
   <string name="threefoldRepetition">Lặp cờ ba lần</string>
-  <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 (d) của %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. NewChess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 (d) của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>
   <string name="notRepeatedMoves">Chúng tôi không lặp lại các nước đi. Tại sao ván đấu vẫn bị xử hòa bởi luật lặp cờ?</string>
   <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
-  <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
+  <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s NewChess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
   <string name="configure">thiết lập</string>
   <string name="accounts">Tài Khoản</string>
-  <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
+  <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
   <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị tiêu đề này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
 
-Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
+Việc xác minh là người chơi có danh hiệu trên NewChess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
 
 Cuối cùng là danh hiệu danh dự %2$s.</string>
   <string name="asWellAsManyNMtitles">nhiều danh hiệu quốc gia</string>
   <string name="verificationForm">biểu mẫu xác minh</string>
-  <string name="canIbecomeLM">Tôi có thể nhận được danh hiệu Lichess Master (LM) không?</string>
+  <string name="canIbecomeLM">Tôi có thể nhận được danh hiệu NewChess Master (LM) không?</string>
   <string name="noUpperCaseDot">Không.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Danh hiệu danh dự này không chính thức và chỉ tồn tại trên Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Danh hiệu danh dự này không chính thức và chỉ tồn tại trên NewChess.
 
-Theo quyết định của chúng tôi, chúng tôi hiếm khi trao giải cho những người chơi đáng chú ý là thành viên tốt của Lichess. Bạn không nhận được danh hiệu LM, danh hiệu LM sẽ tự đến với bạn. Nếu bạn đủ điều kiện, bạn sẽ nhận được thông báo từ chúng tôi về điều đó và lựa chọn chấp nhận hoặc từ chối.
+Theo quyết định của chúng tôi, chúng tôi hiếm khi trao giải cho những người chơi đáng chú ý là thành viên tốt của NewChess. Bạn không nhận được danh hiệu LM, danh hiệu LM sẽ tự đến với bạn. Nếu bạn đủ điều kiện, bạn sẽ nhận được thông báo từ chúng tôi về điều đó và lựa chọn chấp nhận hoặc từ chối.
 
 Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="whatUsernameCanIchoose">Tôi có thể đặt tên người dùng là gì?</string>
@@ -93,12 +93,12 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
   <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ, và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
-  <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
+  <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của NewChess, không ai khác ngoài %1$s sẽ có được nó.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% tất cả các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
   <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại A.I. cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đập vỡ Stockfish, và lời hứa đã được tôn vinh.</string>
-  <string name="lichessRatings">Xếp hạng Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess sử dụng hệ thống xếp hạng nào?</string>
+  <string name="lichessRatings">Xếp hạng NewChess</string>
+  <string name="whichRatingSystemUsedByLichess">NewChess sử dụng hệ thống xếp hạng nào?</string>
   <string name="ratingSystemUsedByLichess">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo ngày tháng).
 
 Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" khi tính toán và cho ra xếp hạng của bạn. Khi bạn lần đầu tiên bắt đầu sử dụng trang web, xếp hạng của bạn bắt đầu ở 1500 ± 700. 1500 thể hiện xếp hạng của bạn và 700 thể hiện khoảng tin cậy.
@@ -128,13 +128,13 @@ Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (tr�
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>
   <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm xếp hạng của mình không?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm xếp hạng cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm xếp hạng cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi NewChess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
   <string name="howToThreeDots">Làm thế nào để...</string>
   <string name="enableDisableNotificationPopUps">Bật hoặc tắt cửa sổ thông báo?</string>
   <string name="viewSiteInformationPopUp">Xem cửa sổ thông tin trang web</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess có thể tùy chọn gửi thông báo hiện lên, chẳng hạn như khi đến lượt bạn hoặc bạn nhận được tin nhắn riêng.
+  <string name="lichessCanOptionnalySendPopUps">NewChess có thể tùy chọn gửi thông báo hiện lên, chẳng hạn như khi đến lượt bạn hoặc bạn nhận được tin nhắn riêng.
 
-Nhấp vào biểu tượng ổ khóa bên cạnh địa chỉ lichess.org trong thanh URL của trình duyệt của bạn.
+Nhấp vào biểu tượng ổ khóa bên cạnh địa chỉ newchess.fun trong thanh URL của trình duyệt của bạn.
 
-Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
+Sau đó, chọn cho phép hoặc chặn thông báo từ NewChess.</string>
 </resources>

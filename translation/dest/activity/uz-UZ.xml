@@ -3,8 +3,8 @@
   <string name="activity">Amallar</string>
   <string name="hostedALiveStream">Jonli ijro hostlandi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">%1$s oy uchun %2$s tarzida lichess.org qo\'llab quvvatlanadi</item>
-    <item quantity="other">%1$s oylar uchun %2$s tarzida lichess.org qo\'llab quvvatlanadi</item>
+    <item quantity="one">%1$s oy uchun %2$s tarzida newchess.fun qo\'llab quvvatlanadi</item>
+    <item quantity="other">%1$s oylar uchun %2$s tarzida newchess.fun qo\'llab quvvatlanadi</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Amaliyot %2$s dan %1$s o\'rinda</item>
@@ -62,7 +62,7 @@
     <item quantity="one">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yin</item>
     <item quantity="other">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yinlar</item>
   </plurals>
-  <string name="signedUp">Lichess.org dan chiqildi</string>
+  <string name="signedUp">NewChess.org dan chiqildi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s jamoaga qo\'shildi</item>
     <item quantity="other">%s jamoalarga qo\'shildi</item>

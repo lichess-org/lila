@@ -22,7 +22,7 @@ export const toFormObject = (lines: FormLines): FormObject =>
     return i > 0 ? { ...o, [fk]: [...(o[fk] || []), lines[k]] } : { ...o, [fk]: lines[k] };
   }, {} as FormObject);
 
-export const makeStore = (storage: LichessStorage): FormStore => ({
+export const makeStore = (storage: NewChessStorage): FormStore => ({
   get: () => JSON.parse(storage.get() || 'null') as FormLines,
   set: lines => storage.set(JSON.stringify(lines)),
   remove: () => storage.remove(),

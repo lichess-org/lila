@@ -105,7 +105,7 @@ final class Env(
     "garbageCollect" -> {
       case lila.hub.actorApi.security.GCImmediateSb(userId) =>
         reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          reportApi.getLichessMod foreach { mod =>
+          reportApi.getNewChessMod foreach { mod =>
             api.setTroll(mod, sus, value = true)
           }
         }

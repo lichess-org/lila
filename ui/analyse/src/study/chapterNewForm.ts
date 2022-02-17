@@ -31,7 +31,7 @@ export interface StudyChapterNewFormCtrl {
     open: boolean;
     initial: Prop<boolean>;
     tab: StoredProp<string>;
-    editor: LichessEditor | null;
+    editor: NewChessEditor | null;
     editorFen: Prop<Fen | null>;
     isDefaultName: boolean;
   };
@@ -223,7 +223,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                             orientation: currentChapter.setup.orientation,
                             onChange: ctrl.vm.editorFen,
                           };
-                          ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
+                          ctrl.vm.editor = window.NewChessEditor!(vnode.elm as HTMLElement, data);
                           ctrl.vm.editorFen(ctrl.vm.editor.getFen());
                         }
                       );
@@ -243,7 +243,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   {
                     attrs: { for: 'chapter-game' },
                   },
-                  trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
+                  trans('loadAGameFromXOrY', 'newchess.fun', 'chessgames.com')
                 ),
                 h('textarea#chapter-game.form-control', {
                   attrs: {

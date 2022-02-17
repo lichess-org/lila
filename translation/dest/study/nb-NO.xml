@@ -136,7 +136,7 @@
   <string name="interestingMove">Interessant trekk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvilsomt trekk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste trekk</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Trekktvang</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://newchess.fun/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Trekktvang</string>
   <string name="equalPosition">Lik stilling</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uavklart stilling</string>
   <string name="whiteIsSlightlyBetter">Hvit står litt bedre</string>
@@ -148,18 +148,18 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nyvinning</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Utvikling</string>
   <string name="initiative">Initiativ</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Angrep</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspill</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsnød</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a NewChess study. Noun.">Angrep</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspill</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a NewChess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsnød</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Med kompensasjon</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Med ideen</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Med ideen</string>
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Forrige kapittel</string>
   <string name="studyActions">Studiehandlinger</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Emner</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Mine emner</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Populære emner</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Administrer emner</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://newchess.fun/study/topic">Emner</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://newchess.fun/study/topic">Mine emner</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://newchess.fun/study/topic">Populære emner</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://newchess.fun/study/topic">Administrer emner</string>
   <string name="back">Tilbake</string>
   <string name="playAgain">Spill igjen</string>
   <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>

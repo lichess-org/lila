@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess þjálfarar</string>
-  <string name="lichessCoach">Lichess Þjálfari</string>
+  <string name="lichessCoaches">NewChess þjálfarar</string>
+  <string name="lichessCoach">NewChess Þjálfari</string>
   <string name="areYouCoach">Ertu frábær þjálfari með %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM eða FIDE titil</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://newchess.fun/help/master">NM eða FIDE titil</string>
   <string name="location">Staðsetning</string>
   <string name="languages">Tungumál</string>
   <string name="rating">Skákstig</string>

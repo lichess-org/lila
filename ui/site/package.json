@@ -2,7 +2,7 @@
   "name": "site",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org website",
+  "description": "newchess.fun website",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {

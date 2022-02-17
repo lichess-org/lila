@@ -6,7 +6,7 @@
   <string name="offline">ТОТАШМАГАН</string>
   <string name="currentlyStreaming">Хәзерге агымлар: %s</string>
   <string name="lastStream">Соңгы агым %s</string>
-  <string name="becomeStreamer">Lichess агымы бул</string>
+  <string name="becomeStreamer">NewChess агымы бул</string>
   <string name="doYouHaveStream">Сездә Twitch яки YouTube каналы бармы?</string>
   <string name="hereWeGo">Монда йөрибез!</string>
   <string name="allStreamers">Барлык агымчылар</string>
@@ -15,7 +15,7 @@
   <string name="downloadKit">Агым җиентыгын йөкләргә</string>
   <string name="xIsStreaming">%s агымда</string>
   <string name="rules">Агым кагыйдәләре</string>
-  <string name="rule1">\"Lichess.org\" ачкыч сүзен агым исеменә кертегез һәм Личесс агылганда \"Шаһмат\" категориясен кулланыгыз.</string>
+  <string name="rule1">\"NewChess.org\" ачкыч сүзен агым исеменә кертегез һәм Личесс агылганда \"Шаһмат\" категориясен кулланыгыз.</string>
   <string name="rule2">Личесс булмаган әйберләрне агызганда ачкыч сүзне бетерегез.</string>
   <string name="rule3">Личесс сезнең агымны автоматик рәвештә табачак һәм түбәндәге мөмкинлекләрне эшләтәчәк:</string>
   <string name="perks">Ачкыч сүз белән агымның өстенлекләре</string>
@@ -26,11 +26,11 @@
   <string name="approved">Сезнең агым расланган.</string>
   <string name="pendingReview">Сезнең агым модераторлар тарафыннан карала.</string>
   <string name="pleaseFillIn">Зинһар, агымдагы мәгълүматны тутырыгыз һәм рәсем йөкләгез.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Сез Lichess агымы исемлегенә керергә әзер булгач, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">модератор раслауны карый</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Сез NewChess агымы исемлегенә керергә әзер булгач, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">модератор раслауны карый</string>
   <string name="anotherLanguage">Әгәр сезнең агым инглиз теленнән башка телдә булса, агым исеме башында квадрат кашыкларга урнаштырылган дөрес тел тамгасын (%s) кертегез.
 Мисал итеп, сез \"[RU]\" рус теленә, \"[TR]\" төрекчә, \"[FR]\" француз теленә һ. б. кертә аласыз.
-Моны агым исеменә Twitch яки YouTube битенә куегыз, Lichess агым көйләүләрендә түгел.
+Моны агым исеменә Twitch яки YouTube битенә куегыз, NewChess агым көйләүләрендә түгел.
 Әгәр сезнең агым инглиз телендә булса, тел билгесен кертергә кирәкми.</string>
   <string name="twitchUsername">Сезнең Twitch кулланучы исеме яки URL</string>
   <string name="optionalOrEmpty">Ихтимал. Әгәр дә булмаса, буш калдырыгыз</string>

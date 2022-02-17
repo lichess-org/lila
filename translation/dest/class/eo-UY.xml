@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lecionoj</string>
-  <string name="teachClassesOfChessStudents">Instruu al klasoj de ŝako-studentoj kun la ilo de Klasoj de Lichess.</string>
+  <string name="teachClassesOfChessStudents">Instruu al klasoj de ŝako-studentoj kun la ilo de Klasoj de NewChess.</string>
   <string name="features">Funkcioj</string>
   <string name="quicklyGenerateSafeUsernames">Rapide kreu sekurajn uzantonomon kaj pasvortojn por viaj lernantoj</string>
   <string name="trackStudentProgress">Sekvi la progreson de la lernanto en ludoj kaj puzloj</string>
   <string name="messageAllStudents">Mesaĝu al ĉiuj lernantoj pri nova leciona materialo</string>
   <string name="freeForAllForever">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
-  <string name="applyToBeLichessTeacher">Petu esti Instruisto en Lichess</string>
+  <string name="applyToBeNewChessTeacher">Petu esti Instruisto en NewChess</string>
   <string name="noClassesYet">Neniu leciono ankoraŭ.</string>
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Priskribo de la leciono</string>
   <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>
   <string name="teachersOfTheClass">Instruistoj de la leciono</string>
-  <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
+  <string name="addNewChessUsernames">Aldoni NewChess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
   <string name="resetPassword">Rekomencigi Pasvorton</string>
   <string name="makeSureToCopy">Certigu nun kopii aŭ noti la pasvorton nun. Vi ne povos vidi ĝin denove!</string>
   <string name="passwordX">Pasvorto: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Reala nomo</string>
   <string name="privateWillNeverBeShown">Privata. Neniam montriĝos ekster la klaso. Ĝi helpas memori, kiu estas la lernanto.</string>
   <string name="addStudent">Aldoni lernanton</string>
-  <string name="lichessProfileXCreatedForY">Lichess profilo %1$s kreita de %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess profilo %1$s kreita de %2$s.</string>
   <string name="studentCredentials">Lernanto: %1$s
 Uzantonomo: %2$s
 Pasvorto: %3$s</string>
-  <string name="inviteALichessAccount">Inviti Lichess konton</string>
-  <string name="inviteDesc1">Se la studento jam havas Lichess konton, vi povas inviti ŝin/lin al la klaso.</string>
-  <string name="inviteDesc2">Ili ricevos mesaĝon en Lichess kun ligo por aliĝi al la klaso.</string>
+  <string name="inviteANewChessAccount">Inviti NewChess konton</string>
+  <string name="inviteDesc1">Se la studento jam havas NewChess konton, vi povas inviti ŝin/lin al la klaso.</string>
+  <string name="inviteDesc2">Ili ricevos mesaĝon en NewChess kun ligo por aliĝi al la klaso.</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="inviteDesc4">Neniam sendu nepetitajn invitojn al arbitraj ludantoj.</string>
-  <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
-  <string name="createDesc1">Se la studento ankoraŭ ne havas Lichess konton, vi povas krei unu por ili ĉi tie.</string>
+  <string name="createANewNewChessAccount">Kreni novan NewChess konton</string>
+  <string name="createDesc1">Se la studento ankoraŭ ne havas NewChess konton, vi povas krei unu por ili ĉi tie.</string>
   <string name="createDesc2">Neniu retpoŝtadreso estas bezonata. Pasvorto estos generita, kaj vi devos transdoni ĝin al la studento, por ke ili povu ensaluti.</string>
   <string name="createDesc3">Grava: studento ne devas havi pluraj kontoj.</string>
   <string name="createDesc4">Se ili jam havas unu, uzu anstataŭe la inviti formo anstataŭe.</string>
-  <string name="lichessUsername">Lichess-uzantnomo</string>
+  <string name="lichessUsername">NewChess-uzantnomo</string>
   <string name="generateANewUsername">Krei novan uzantonomon</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
 Jen la ligo por aliri la klason.</string>

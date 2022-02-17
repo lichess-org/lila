@@ -256,7 +256,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
-  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
+  <string name="thisAccountViolatedTos">This account violated the NewChess Terms of Service</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
@@ -414,7 +414,7 @@
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
-  <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
+  <string name="previouslyOnNewChessTV">NewChess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
@@ -555,7 +555,7 @@
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
   <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
-  <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
+  <string name="lichessTournaments">ทัวร์นาเมนต์ NewChess</string>
   <string name="tournamentFAQ">ถามตอบสนามทัวร์นาเมนต์</string>
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
   <string name="averageCentipawnLoss">เบี้ยร้อยละที่เสียโดยเฉลี่ย</string>
@@ -587,8 +587,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
   <string name="weHaveSentYouAnEmailTo">เราได้ส่งอีเมลไปที่ %s แล้ว คลิกลิงค์ในอีเมลเพื่อตั้งรหัสผ่านใหม่</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
-  <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ lichess</string>
+  <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ newchess</string>
   <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
@@ -602,14 +602,14 @@
   <string name="withEverybody">กับทุกคน</string>
   <string name="kidMode">โหมดเด็ก</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ newchess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
   <string name="sessions">วาระ</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
-  <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
+  <string name="asFreeAsLichess">อิสระเหมือนดั่ง newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">สรรสร้างเพื่อคนรักหมากรุก ไม่ใช่เพื่อเงินตรา</string>
   <string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
   <string name="zeroAdvertisement">โฆษณาเป็นศูนย์</string>
@@ -718,14 +718,14 @@
   <string name="tryToWin">พยายามเอาชนะ (หรืออย่างน้อยก็เสมอ) ทุกเกมที่คุณเล่น</string>
   <string name="resignLostGames">ยอมแพ้ในเกมที่แพ้ (อย่าปล่อยให้นาฬิกาหมดเวลา)</string>
   <string name="temporaryInconvenience">เราขออภัยในความไม่สะดวกชั่วคราว</string>
-  <string name="wishYouGreatGames">และปรารถนาให้คุณมีเกมที่ยอดเยี่ยมบน lichess.org</string>
+  <string name="wishYouGreatGames">และปรารถนาให้คุณมีเกมที่ยอดเยี่ยมบน newchess.fun</string>
   <string name="thankYouForReading">ขอบคุณที่อ่าน!</string>
   <string name="lifetimeScore">สกอร์ตลอดชีพ</string>
   <string name="currentMatchScore">สกอร์เกมปัจจุบัน</string>
   <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
   <string name="agreementAccount">ฉันยอมรับว่า ฉันจะไม่สร้างหลายบัญชี</string>
-  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
+  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ NewChess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
   <string name="rapid">แรปพิด</string>

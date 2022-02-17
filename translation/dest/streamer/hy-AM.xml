@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess-ի հեռարձակողներ</string>
-  <string name="lichessStreamer">Lichess-ի հեռարձակող</string>
+  <string name="lichessStreamers">NewChess-ի հեռարձակողներ</string>
+  <string name="lichessStreamer">NewChess-ի հեռարձակող</string>
   <string name="live">ԵԹԵՐՈՒՄ Է</string>
   <string name="offline">ԵԹԵՐՈՒՄ ՉԷ</string>
   <string name="currentlyStreaming">Այժմ հեռարձակում են` %s</string>
   <string name="lastStream">Վերջին հեռարձակումը %s</string>
-  <string name="becomeStreamer">Դառնալ Lichess-ի հեռարձակող</string>
+  <string name="becomeStreamer">Դառնալ NewChess-ի հեռարձակող</string>
   <string name="doYouHaveStream">Դուք ունե՞ք Twitch կամ YouTube ալիքներ։</string>
   <string name="hereWeGo">Գնացի՜նք</string>
   <string name="allStreamers">Բոլոր հեռարձակողները</string>

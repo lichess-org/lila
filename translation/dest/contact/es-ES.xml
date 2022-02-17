@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contacto</string>
-  <string name="contactLichess">Contactar con Lichess</string>
+  <string name="contactLichess">Contactar con NewChess</string>
   <string name="whatCanWeHelpYouWith">¿En qué podemos ayudarte?</string>
   <string name="visitThisPage">Visita esta página para resolver el problema</string>
   <string name="iCantLogIn">No puedo iniciar sesión</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Perdí mis códigos de autenticación en dos pasos</string>
   <string name="doPasswordReset">Completa el cuadro de restablecimiento de contraseña para eliminar tu segundo factor</string>
   <string name="accountSupport">Necesito soporte de cuenta</string>
-  <string name="wantTitle">Quiero que mi título se muestre en Lichess</string>
-  <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de Lichess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>
+  <string name="wantTitle">Quiero que mi título se muestre en NewChess</string>
+  <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de NewChess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>
   <string name="wantCloseAccount">Quiero cerrar mi cuenta</string>
   <string name="closeYourAccount">Puedes cerrar tu cuenta en esta página</string>
   <string name="doNotAskByEmail">No nos solicites el cierre de una cuenta por correo electrónico. No lo haremos.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">No envíes mensajes directos a los moderadores.</string>
   <string name="onlyReports">La única forma eficaz de denunciar jugadores es mediante el formulario de denuncia.</string>
   <string name="wantReportBug">Quiero informar de un error</string>
-  <string name="reportBugInForum">En el foro de comentarios de Lichess</string>
-  <string name="reportWebsiteIssue">Como un problema de la página de Lichess en GitHub</string>
-  <string name="reportMobileIssue">Como un problema de la aplicación móvil de Lichess en GitHub</string>
-  <string name="reportBugInDiscord">En el servidor Discord de Lichess</string>
+  <string name="reportBugInForum">En el foro de comentarios de NewChess</string>
+  <string name="reportWebsiteIssue">Como un problema de la página de NewChess en GitHub</string>
+  <string name="reportMobileIssue">Como un problema de la aplicación móvil de NewChess en GitHub</string>
+  <string name="reportBugInDiscord">En el servidor Discord de NewChess</string>
   <string name="howToReportBug">Por favor, describe cómo se ve el error, qué esperabas que sucediera, y los pasos para reproducir el error.</string>
   <string name="illegalPawnCapture">Captura de peón ilegal</string>
   <string name="calledEnPassant">Se llama captura al paso y es una de las reglas del ajedrez.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">No niegues haber hecho trampa. Si quieres que se te permita crear una nueva cuenta, sólo tienes que admitir lo que hiciste, y mostrar que has comprendido que se trataba de un error.</string>
   <string name="otherRestriction">Otra restricción</string>
   <string name="collaboration">Colaboración, legal, comercial</string>
-  <string name="monetizing">Monetizar Lichess</string>
-  <string name="buyingLichess">Comprar Lichess</string>
-  <string name="authorizationToUse">Autorización para usar Lichess</string>
-  <string name="welcomeToUse">Puedes usar Lichess para tu fin particular, incluso comercial.</string>
-  <string name="videosAndBooks">Puedes mostrarlo en vídeos y tomar capturas de pantalla de Lichess en tus libros.</string>
+  <string name="monetizing">Monetizar NewChess</string>
+  <string name="buyingLichess">Comprar NewChess</string>
+  <string name="authorizationToUse">Autorización para usar NewChess</string>
+  <string name="welcomeToUse">Puedes usar NewChess para tu fin particular, incluso comercial.</string>
+  <string name="videosAndBooks">Puedes mostrarlo en vídeos y tomar capturas de pantalla de NewChess en tus libros.</string>
   <string name="creditAppreciated">Se aprecia el crédito, pero no es necesario.</string>
   <string name="noneOfTheAbove">Ninguna de las opciones anteriores</string>
   <string name="sendEmailAt">Envíanos un correo electrónico a %s.</string>
-  <string name="explainYourRequest">Por favor explica tu solicitud de forma clara y exhaustiva. Especifica tu nombre de usuario de Lichess y cualquier información que nos pueda ser útil.</string>
+  <string name="explainYourRequest">Por favor explica tu solicitud de forma clara y exhaustiva. Especifica tu nombre de usuario de NewChess y cualquier información que nos pueda ser útil.</string>
 </resources>

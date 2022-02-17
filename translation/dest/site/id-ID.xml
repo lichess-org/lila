@@ -265,7 +265,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lichess</string>
+  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan NewChess</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
@@ -426,7 +426,7 @@
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="inlineNotation">Notasi inline</string>
-  <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Sebelumnya di NewChess TV</string>
   <string name="onlinePlayers">Pemain online</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
@@ -578,7 +578,7 @@
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>
   <string name="simulHostExtraTime">Penyedia waktu tambahan</string>
-  <string name="lichessTournaments">Turnamen Lichess</string>
+  <string name="lichessTournaments">Turnamen NewChess</string>
   <string name="tournamentFAQ">Arena Turnamen FAQ</string>
   <string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
   <string name="averageCentipawnLoss">Rata-rata poin kekalahan</string>
@@ -611,8 +611,8 @@
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
   <string name="readAboutOur">Baca tentang %s kami.</string>
-  <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
-  <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan newchess.</string>
+  <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server newchess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
   <string name="downloadRaw">Unduh mentah</string>
   <string name="downloadImported">Unduh permainan yang telah dimasukkan</string>
@@ -628,14 +628,14 @@
   <string name="withEverybody">Dengan semua orang</string>
   <string name="kidMode">Mode anak</string>
   <string name="kidModeExplanation">Ini adalah tentang keselamatan. Dalam modus anak, semua situs komunikasi dinonaktifkan. Mengaktifkan ini untuk anak-anak Anda dan sekolah siswa, untuk melindungi mereka dari pengguna internet yang lain.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, lichess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, newchess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
   <string name="sessions">Sesi</string>
   <string name="revokeAllSessions">mencabut semua sesi</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
-  <string name="asFreeAsLichess">Gratis seperti lichess</string>
+  <string name="asFreeAsLichess">Gratis seperti newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
   <string name="zeroAdvertisement">Tanpa iklan</string>
@@ -744,14 +744,14 @@
   <string name="tryToWin">Usahakan untuk menang (atau setidaknya remis) disetiap permainan yang kau mainkan.</string>
   <string name="resignLostGames">Ajukan menyerah untuk permainan yang kalah (jangan sampai waktu habis).</string>
   <string name="temporaryInconvenience">Kami mohon maaf atas ketidaknyamanan ini,</string>
-  <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di lichess.org.</string>
+  <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di newchess.fun.</string>
   <string name="thankYouForReading">Terima kasih sudah membacanya!</string>
   <string name="lifetimeScore">Skor seumur hidup</string>
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
   <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
   <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
-  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
+  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di NewChess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
   <string name="rapid">Cepat</string>
@@ -788,13 +788,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
   <string name="newPendingReview">Tinjauan baru tertunda</string>
-  <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
+  <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS NewChess</string>
   <string name="refundXpointsTimeControlY">Pengembalian dana: %1$s %2$s poin rating.</string>
   <string name="timeAlmostUp">Waktu hampir habis!</string>
   <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
   <string name="download">Unduh</string>
   <string name="welcome">Wilujeng sumping!</string>
-  <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
+  <string name="lichessPatronInfo">NewChess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>

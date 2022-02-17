@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klasse</string>
-  <string name="teachClassesOfChessStudents">Bied klasse vir skaakstudente aan met die Lichess Klasse-funksionaliteitpakket.</string>
+  <string name="teachClassesOfChessStudents">Bied klasse vir skaakstudente aan met die NewChess Klasse-funksionaliteitpakket.</string>
   <string name="features">Kenmerke</string>
   <string name="quicklyGenerateSafeUsernames">Genereer spoedig veilige gebruikersname en wagwoorde vir studente</string>
   <string name="trackStudentProgress">Monitor die studente se vooruitgang in wedstryde en kopkrappers</string>
   <string name="messageAllStudents">Stel alle studente in kennis oor nuwe klas materiaal</string>
   <string name="freeForAllForever">100% gratis vir almal, vir ewig, met geen advertensies of koekies</string>
-  <string name="applyToBeLichessTeacher">Doen aansoek om \'n Lichess Onderwyser te wees</string>
+  <string name="applyToBeNewChessTeacher">Doen aansoek om \'n NewChess Onderwyser te wees</string>
   <string name="noClassesYet">Nog geen klasse.</string>
   <string name="teachersX">Onderwyser: %s</string>
   <string name="newClass">Nuwe klas</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klas beskrywing</string>
   <string name="visibleByBothStudentsAndTeachers">Sigbaar deur beide ondewysers en studente van die klas</string>
   <string name="teachersOfTheClass">Onderwysers van die klas</string>
-  <string name="addLichessUsernames">Voeg Lichess gebruikersnaam om hulle as onderwysers te nooi. Een per lyn.</string>
+  <string name="addNewChessUsernames">Voeg NewChess gebruikersnaam om hulle as onderwysers te nooi. Een per lyn.</string>
   <string name="resetPassword">Herstel wagwoord</string>
   <string name="makeSureToCopy">Maak seker dat jy die wagwoord nou kopieer of neerskryf. Jy sal dit nie weer kan sien nie!</string>
   <string name="passwordX">Wagwoord: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Regte naam</string>
   <string name="privateWillNeverBeShown">Privaat. Sal nooit buite die klas vertoon word nie. Help om te onthou wie die student is.</string>
   <string name="addStudent">Voeg student by</string>
-  <string name="lichessProfileXCreatedForY">Lichess profiel %1$s geskep vir %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess profiel %1$s geskep vir %2$s.</string>
   <string name="studentCredentials">Student: %1$s
 Gebruikersnaam: %2$s
 Wagwoord: %3$s</string>
-  <string name="inviteALichessAccount">Nooi \'n Lichess rekening</string>
-  <string name="inviteDesc1">Indien die student reeds \'n Lichess rekening het, kan jy hulle na die klas nooi.</string>
-  <string name="inviteDesc2">Hulle sal \'n boodskap op Lichess ontvang met \'n skakel om by die klas aan te sluit.</string>
+  <string name="inviteANewChessAccount">Nooi \'n NewChess rekening</string>
+  <string name="inviteDesc1">Indien die student reeds \'n NewChess rekening het, kan jy hulle na die klas nooi.</string>
+  <string name="inviteDesc2">Hulle sal \'n boodskap op NewChess ontvang met \'n skakel om by die klas aan te sluit.</string>
   <string name="inviteDesc3">Belangrik: nooi net studente wat jy ken, en wat aktief by die klas wil aansluit.</string>
   <string name="inviteDesc4">Moet nooit ongevraagde uitnodigings na arbitrêre spelers stuur nie.</string>
-  <string name="createANewLichessAccount">Skep nuwe Lichess rekening</string>
-  <string name="createDesc1">Indien die student nog nie \'n Lichess rekening het nie, kan jy een vir hulle hier skep.</string>
+  <string name="createANewNewChessAccount">Skep nuwe NewChess rekening</string>
+  <string name="createDesc1">Indien die student nog nie \'n NewChess rekening het nie, kan jy een vir hulle hier skep.</string>
   <string name="createDesc2">Geen e-pos adres word benodig nie. \'n Wagwoord sal gegenereer word, en jy sal dit na die student moet aanstuur, sodat hulle kan inteken.</string>
   <string name="createDesc3">Belangrik: \'n Student moet nie verskeie rekeninge hê nie.</string>
   <string name="createDesc4">Indien hulle reeds een het, gebruik eerder die uitnodigingsvorm.</string>
-  <string name="lichessUsername">Lichess gebruikersnaam</string>
+  <string name="lichessUsername">NewChess gebruikersnaam</string>
   <string name="generateANewUsername">Genereer \'n nuwe gebruikersnaam</string>
   <string name="welcomeToClass">Welkom by jou klas: %s.
 Hier is die skakel om die klas te betree.</string>

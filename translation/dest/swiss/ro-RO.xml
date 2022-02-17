@@ -77,7 +77,7 @@ Cei care s-au alăturat cu întârziere primesc o singură pauză, chiar dacă a
 Motivul este că nu are un mod corect de a trata persoanele care părăsesc turneul mai devreme. Nu ne putem aștepta ca toți jucătorii să își joace toate jocurile într-un eveniment online. Pur și simplu, acest lucru nu se va întâmpla şi, ca urmare, majoritatea turneelor de tip Round Robin ar fi nedrepte, ceea ce ar fi contrar scopului pentru care a fost creat turneul.
 Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu elvețian cu un număr foarte mare de runde. Astfel vor fi jucate toate perechile posibile înainte de terminarea turneului.</string>
   <string name="otherSystemsQ">Cum rămâne cu alte sisteme de turnee?</string>
-  <string name="otherSystemsA">Nu intenţionăm să adăugăm mai multe tipuri de turnee la Lichess în acest moment.</string>
+  <string name="otherSystemsA">Nu intenţionăm să adăugăm mai multe tipuri de turnee la NewChess în acest moment.</string>
   <string name="swissDescription">Într-un turneu elvețian %1$s, fiecare concurent nu joacă neapărat cu toți ceilalți inscrisi. Concurenții se întâlnesc unu la unu în fiecare rundă și sunt asociați utilizând un set de reguli concepute pentru a se asigura că fiecare concurent joacă adversari cu un scor similar, dar nu cu același adversar de mai multe ori. Câștigătorul este concurentul cu cele mai multe puncte câștigate cumulat în toate rundele. Toți concurenții joacă în fiecare rundă, cu excepția cazului în care există un număr impar de jucători.”</string>
   <string name="teamOnly">Turneurile elvețiene pot fi create doar de liderii de echipe și pot fi jucate doar de membrii unei echipe.           
 %1$s pentru a începe să joci într-un turneu elvețian.</string>

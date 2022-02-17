@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Контакт</string>
-  <string name="contactLichess">Элемтә Lichess</string>
+  <string name="contactLichess">Элемтә NewChess</string>
   <string name="whatCanWeHelpYouWith">Без сезгә нәрсә ярдәм итә алабыз?</string>
   <string name="visitThisPage">Мәсьәләне чишү өчен бу биткә керегез</string>
   <string name="iCantLogIn">Мин керә алмыйм</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Мин ике фактор аутентификация кодларына керү мөмкинлеген югалттым</string>
   <string name="doPasswordReset">Икенче факторны бетерү өчен серсүзне яңадан торгызыгыз</string>
   <string name="accountSupport">Миңа хисап ярдәме кирәк</string>
-  <string name="wantTitle">Минем исемемнең Lichessда күрсәтелүен телим</string>
-  <string name="visitTitleConfirmation">Lichess профилегездә титулыгызны күрсәтү, һәм Абруйлы Мәйдандада катнашу өчен, исемне раслау битенә керегез</string>
+  <string name="wantTitle">Минем исемемнең NewChessда күрсәтелүен телим</string>
+  <string name="visitTitleConfirmation">NewChess профилегездә титулыгызны күрсәтү, һәм Абруйлы Мәйдандада катнашу өчен, исемне раслау битенә керегез</string>
   <string name="wantCloseAccount">Минем хисабымны ябасым килә</string>
   <string name="closeYourAccount">Сез бу биттә хисабыгызны яба аласыз</string>
   <string name="errorPage">Хата бите</string>
@@ -25,13 +25,13 @@
   <string name="accountLost">Ләкин сез чыннан да энҗин ярдәмен кулланган булсагыз, кызганычка каршы, хисапыгыз юкка чыга.</string>
   <string name="otherRestriction">Башка чикләү</string>
   <string name="collaboration">Хезмәттәшлек, хокукый, коммерция</string>
-  <string name="monetizing">Акча алу Lichess</string>
-  <string name="buyingLichess">Lichess сатып алу</string>
-  <string name="authorizationToUse">Lichess кулланырга рөхсәт</string>
-  <string name="welcomeToUse">Сез Lichess сезнең эшчәнлек өчен кулланырга рөхсәт итегез, хәтта коммерция.</string>
-  <string name="videosAndBooks">Сез аны видеоларыгызда күрсәтә аласыз, һәм сез Lichess скриншотларын китапларыгызда бастыра аласыз.</string>
+  <string name="monetizing">Акча алу NewChess</string>
+  <string name="buyingLichess">NewChess сатып алу</string>
+  <string name="authorizationToUse">NewChess кулланырга рөхсәт</string>
+  <string name="welcomeToUse">Сез NewChess сезнең эшчәнлек өчен кулланырга рөхсәт итегез, хәтта коммерция.</string>
+  <string name="videosAndBooks">Сез аны видеоларыгызда күрсәтә аласыз, һәм сез NewChess скриншотларын китапларыгызда бастыра аласыз.</string>
   <string name="creditAppreciated">Кредит бәяләнә, ләкин кирәк түгел.</string>
   <string name="noneOfTheAbove">Боларның берсе дә түгел</string>
   <string name="sendEmailAt">Безгә %s адресында электрон почта җибәрегез.</string>
-  <string name="explainYourRequest">Зинһар, сезнең үтенечегезне ачык һәм җентекләп аңлатыгыз. Сезнең Lichess кулланучы исемен күрсәтегез, һәм сезгә ярдәм итә алырлык мәгълүмат.</string>
+  <string name="explainYourRequest">Зинһар, сезнең үтенечегезне ачык һәм җентекләп аңлатыгыз. Сезнең NewChess кулланучы исемен күрсәтегез, һәм сезгә ярдәм итә алырлык мәгълүмат.</string>
 </resources>

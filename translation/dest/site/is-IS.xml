@@ -274,7 +274,7 @@
     <item quantity="one">Gefa %s sekúndur</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Þessi notandi braut þjónustuskilmálum Lichess</string>
+  <string name="thisAccountViolatedTos">Þessi notandi braut þjónustuskilmálum NewChess</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
   <string name="proposeATakeback">Biðja um afturköllun</string>
@@ -439,7 +439,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða fáni</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatengill</string>
-  <string name="previouslyOnLichessTV">Áður á Lichessvarpinu</string>
+  <string name="previouslyOnNewChessTV">Áður á NewChessvarpinu</string>
   <string name="onlinePlayers">Tengdir notendur</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
@@ -575,7 +575,7 @@
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
   <string name="simulHostExtraTime">Aukatími á klukku þess sem hýsir.</string>
-  <string name="lichessTournaments">Lichess mót</string>
+  <string name="lichessTournaments">NewChess mót</string>
   <string name="tournamentFAQ">Leikvangsmót - Algengar spurningar</string>
   <string name="timeBeforeTournamentStarts">Tími áður en mót hefst</string>
   <string name="averageCentipawnLoss">Meðaltap í hundruði peðs</string>
@@ -604,8 +604,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
   <string name="weHaveSentYouAnEmailTo">Við sendum póst á %s. Fylgdu hlekknum þar til þess að skipta um lykilorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
-  <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tími sem það tekur netbeina lichess að afgreiða leik.</string>
+  <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tími sem það tekur netbeina newchess að afgreiða leik.</string>
   <string name="downloadAnnotated">Hlaða niður skák með athugasemdum</string>
   <string name="downloadRaw">Hlaða niður grunneintaki</string>
   <string name="downloadImported">Innsetning klár</string>
@@ -619,13 +619,13 @@
   <string name="withEverybody">Með öllum</string>
   <string name="kidMode">Krakkahamur</string>
   <string name="kidModeExplanation">Þetta fjallar um öryggi. Í krakkaham er slökkt á öllum samskiptum á síðunni. Kveiktu á þessu fyrir börnin þín eða nemendur til að verja þau gegn öðrum netnotendum.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham fær lichess merkið %s merki svo þú veist að börnin þín eru örugg.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham fær newchess merkið %s merki svo þú veist að börnin þín eru örugg.</string>
   <string name="enableKidMode">Kveikja á krakkaham</string>
   <string name="disableKidMode">Slökkva á krakkaham</string>
   <string name="security">Öryggi</string>
   <string name="revokeAllSessions">lokað á allar tengingar</string>
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
-  <string name="asFreeAsLichess">Eins frítt og lichess</string>
+  <string name="asFreeAsLichess">Eins frítt og newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt af ást á skák, ekki skildingi</string>
   <string name="everybodyGetsAllFeaturesForFree">Allir fá alla möguleika ókeypis</string>
   <string name="zeroAdvertisement">Engar auglýsingar</string>
@@ -721,7 +721,7 @@
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
   <string name="agreementAccount">Ég samþykki að ég muni ekki stofna marga reikninga.</string>
-  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
+  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum NewChess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>

@@ -76,7 +76,7 @@
   <string name="lookupOfPlayer">Cuardaigh fadhbanna ó chluichí imreoir</string>
   <string name="fromXGames">Fadhbanna ó chluichí %s\'</string>
   <string name="searchPuzzles">Cuardaigh fadhbanna</string>
-  <string name="fromMyGamesNone">Níl aon fadhb agat sa bhunachar sonraí, ach is breá le Lichess tú go mór fós. 
+  <string name="fromMyGamesNone">Níl aon fadhb agat sa bhunachar sonraí, ach is breá le NewChess tú go mór fós.
 Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fadhb de do chuid féin leis!</string>
   <string name="fromXGamesFound">%1$s fadhb le fáil i %2$s cluiche</string>
   <string name="puzzleDashboardDescription">Traenáil, anailís, feabhsú</string>

@@ -456,7 +456,7 @@
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
-  <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
+  <string name="previouslyOnNewChessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
   <string name="activePlayers">ಸಕ್ರಿಯವಾಗಿರುವ ಆಟಗಾರರು</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
@@ -670,7 +670,7 @@
   <string name="sessions">ಲಾಗಿನ್ ಆಗಿರುವ ಜಾಗಗಳು</string>
   <string name="revokeAllSessions">ಎಲ್ಲ ಸೆಷನ್ಸ್ ಗಳನ್ನೂ ಅಳಿಸಿಬಿಡಿ</string>
   <string name="playChessEverywhere">ಎಲ್ಲೆಡೆಯೂ ಚೆಸ್ ಆಡಿ</string>
-  <string name="asFreeAsLichess">Lichess ನಂತೆಯೇ ಉಚಿತ</string>
+  <string name="asFreeAsLichess">NewChess ನಂತೆಯೇ ಉಚಿತ</string>
   <string name="builtForTheLoveOfChessNotMoney">ಚೆಸ್ ಮೇಲಿನ ಪ್ರೀತಿಗಾಗಿ ಕಟ್ಟಲಾಗಿದೆ, ದುಡ್ಡಿಗಾಗಿ ಅಲ್ಲ</string>
   <string name="everybodyGetsAllFeaturesForFree">ಪ್ರತಿಯೊಬ್ಬರೂ, ಎಲ್ಲಾ ಸೌಕರ್ಯಗಳನ್ನೂ ಉಚಿತವಾಗಿಯೇ ಪಡೆಯುತ್ತಾರೆ</string>
   <string name="zeroAdvertisement">ಯಾವುದೇ ಜಾಹೀರಾತುಗಳಿಲ್ಲ</string>
@@ -783,7 +783,7 @@
   <string name="tryToWin">ಆಡುವ ಪ್ರತಿ ಆಟವನ್ನೂ ಗೆಲ್ಲಲು ಪ್ರಯತ್ನಿಸಿ (ಕಡೇ ಪಕ್ಷ ಡ್ರಾ ಆದರೂ ಸಾಧಿಸಲು ಯತ್ನಿಸಿ).</string>
   <string name="resignLostGames">ಸೋಲು ಖಚಿತ ಎಂದೆನಿಸಿದ ಆಟಗಳಿಂದ ರಾಜೀನಾಮೆ ಕೊಟ್ಟು ಹೊರಬನ್ನಿ (ಗಡಿಯಾರದ ಸಮಯವನ್ನು ಸುಮ್ಮನೇ ಸೊನ್ನೆಗೆ ಬರಲು ಬಿಟ್ಟು ಹೊರ ಬರಬೇಡಿ).</string>
   <string name="temporaryInconvenience">ಈ ತಾತ್ಕಾಲಿಕ ಅಡಚಣೆಗಾಗಿ ನಾವು ವಿಷಾದಿಸುತ್ತೇವೆ,</string>
-  <string name="wishYouGreatGames">ಹಾಗೂ ಇನ್ನೂ ಉತ್ತಮ ಆಟಗಳು ನಿಮಗೆ lichess.org ನಲ್ಲಿ ಸಿಗಲಿ ಎಂದು ಹಾರೈಸುತ್ತೇವೆ.</string>
+  <string name="wishYouGreatGames">ಹಾಗೂ ಇನ್ನೂ ಉತ್ತಮ ಆಟಗಳು ನಿಮಗೆ newchess.fun ನಲ್ಲಿ ಸಿಗಲಿ ಎಂದು ಹಾರೈಸುತ್ತೇವೆ.</string>
   <string name="thankYouForReading">ಇದನ್ನೆಲ್ಲಾ ಓದಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು!</string>
   <string name="lifetimeScore">ಜೀವಿತಾವಧಿಯ ಅಂಕಗಳು</string>
   <string name="currentMatchScore">ಪ್ರಸ್ತುತ ಪಂದ್ಯದ ಅಂಕಗಳು</string>

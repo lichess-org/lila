@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">ติดต่อเรา</string>
-  <string name="contactLichess">ติดต่อ Lichess</string>
+  <string name="contactLichess">ติดต่อ NewChess</string>
   <string name="whatCanWeHelpYouWith">เราช่วยอะไรคุณได้บ้าง?</string>
   <string name="visitThisPage">แวะไปหน้านี้เพื่อแก้ปัญหา</string>
   <string name="iCantLogIn">ฉันไม่สามารถเข้าสู่ระบบ</string>
@@ -30,10 +30,10 @@
   <string name="doNotMessageModerators">อย่าส่งข้อความตรงถึงผู้กำกับดูแล</string>
   <string name="onlyReports">รายงานผู้เล่นผ่านทางแบบฟอร์มเท่านั้นที่จะมีประสิทธิภาพ</string>
   <string name="wantReportBug">ฉันต้องการรายงานข้อบกพร่อง</string>
-  <string name="reportBugInForum">ในห้องอภิปราย Lichess Feedback</string>
-  <string name="reportWebsiteIssue">เป็นปัญหาเว็บไซต์ Lichess บน GitHub</string>
-  <string name="reportMobileIssue">เป็นปัญหาแอปมือถือ Lichess บน GitHub</string>
-  <string name="reportBugInDiscord">ใน Lichess discord server</string>
+  <string name="reportBugInForum">ในห้องอภิปราย NewChess Feedback</string>
+  <string name="reportWebsiteIssue">เป็นปัญหาเว็บไซต์ NewChess บน GitHub</string>
+  <string name="reportMobileIssue">เป็นปัญหาแอปมือถือ NewChess บน GitHub</string>
+  <string name="reportBugInDiscord">ใน NewChess discord server</string>
   <string name="howToReportBug">โปรดอธิบายข้อบกพร่องที่ประสบ สิ่งที่คุณหวังจะให้เกิดขึ้นแทน และขั้นตอนในการเจอข้อบกพร่อง</string>
   <string name="illegalPawnCapture">การกินเบี้ยแบบผิดกติกา</string>
   <string name="calledEnPassant">มันถูกเรียกว่า \"การกินผ่าน\" และเป็นหนึ่งในกติกาของหมากรุกสากล</string>

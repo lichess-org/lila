@@ -445,7 +445,7 @@
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
   <string name="inlineNotation">ان لائن نوٹیشن</string>
-  <string name="previouslyOnLichessTV">Lichess گذشتہ نشریات</string>
+  <string name="previouslyOnNewChessTV">NewChess گذشتہ نشریات</string>
   <string name="onlinePlayers">آن لائن کھلاڑی</string>
   <string name="activePlayers">فعال کھلاڑی</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مقابلہ سنجیدہ ہے مگر دورانیہ لامحدود ہے</string>
@@ -755,7 +755,7 @@
   <string name="tryToWin">ہر بازی کو جیتنے(یا کم از کم برابر کرنے) کی کوشش کریں.</string>
   <string name="resignLostGames">ہاری ہوئی بازیوں سے استعفی دے دیں (وقت کو ختم نہ ہونے دیں).</string>
   <string name="temporaryInconvenience">ہم عارضی تکلیف کے لیے معذرت خواہ ہیں</string>
-  <string name="wishYouGreatGames">اور امید کرتے ہیں کہ آپ lichess.org پرعمدہ بازیوں سے لطف اندوز ہوں گے.</string>
+  <string name="wishYouGreatGames">اور امید کرتے ہیں کہ آپ newchess.fun پرعمدہ بازیوں سے لطف اندوز ہوں گے.</string>
   <string name="thankYouForReading">پڑھنے کا شکریہ!</string>
   <string name="lifetimeScore">زندگی بھر کا سکور</string>
   <string name="currentMatchScore">اس میچ کا سکور</string>

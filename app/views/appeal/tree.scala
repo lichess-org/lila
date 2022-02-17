@@ -89,7 +89,7 @@ object tree {
               "It is important to be honest from the start. If at first you deny doing anything wrong, we'll treat your appeal accordingly, and we will simply disregard any changes in your position. In other words, don't try to deny things at first only to confess to something later on."
             ),
             p(
-              "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
+              "Note that if your appeal is denied, you are not permitted to open additional accounts on NewChess."
             ),
             newAppeal(deny)
           )
@@ -319,7 +319,7 @@ object tree {
     div(cls := "appeal__help")(
       p(
         "If your account has been restricted for violation of ",
-        a(href := routes.Page.tos)("the Lichess rules"),
+        a(href := routes.Page.tos)("the NewChess rules"),
         " you may file an appeal here."
       ),
       p(

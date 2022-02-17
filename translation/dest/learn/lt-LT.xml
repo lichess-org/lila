@@ -195,7 +195,7 @@ dviem ėjimais!</string>
   <string name="whatNext">Kas toliau?</string>
   <string name="youKnowHowToPlayChess">Jau žinai, kaip žaisti šachmatus, sveikiname! Ar norėtum tapti stipresniu žaidėju?</string>
   <string name="register">Užsiregistruok</string>
-  <string name="getAFreeLichessAccount">Susikurk nemokamą Lichess paskyrą</string>
+  <string name="getAFreeNewChessAccount">Susikurk nemokamą NewChess paskyrą</string>
   <string name="practice">Treniruokis</string>
   <string name="learnCommonChessPositions">Išmok dažnas šachmatų pozicijas</string>
   <string name="puzzles">Užduotys</string>

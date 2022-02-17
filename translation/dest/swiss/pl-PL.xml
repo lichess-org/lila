@@ -77,13 +77,13 @@ Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
   <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju uczestnicy mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
 Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>
   <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi areny?</string>
-  <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
+  <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na NewChess.</string>
   <string name="roundRobinQ">Co z systemem kołowym?</string>
   <string name="roundRobinA">Chcielibyśmy go dodać, ale niestety system kołowy nie sprawdza się w turniejach online.
 Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z uczestnikami, którzy wcześnie porzucają turniej. Trudno oczekiwać, że wszyscy uczestnicy zagrają wszystkie swoje partie. To po prostu się nie zdarza, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
 Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
-  <string name="otherSystemsA">W tej chwili nie planujemy dodawać innych systemów turniejowych na Lichess.</string>
+  <string name="otherSystemsA">W tej chwili nie planujemy dodawać innych systemów turniejowych na NewChess.</string>
   <string name="swissDescription">W systemie szwajcarskim %1$s, uczestnik niekoniecznie rozegra partie ze wszystkimi innymi uczestnikami turnieju. Uczestnicy parowani są ze sobą przy użyciu zestawu zasad mających na celu zapewnienie, że każdy zagra z przeciwnikiem mającym podobny wynik, jednak nie więcej niż raz z tym samym przeciwnikiem. Zwycięzcą turnieju jest uczestnik z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba uczestników.</string>
   <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków tego klubu.
 %1$s, aby zacząć grać systemem szwajcarskim.</string>

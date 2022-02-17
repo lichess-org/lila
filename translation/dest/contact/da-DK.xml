@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakt</string>
-  <string name="contactLichess">Kontakt Lichess</string>
+  <string name="contactLichess">Kontakt NewChess</string>
   <string name="whatCanWeHelpYouWith">Hvad kan vi hjælpe dig med?</string>
   <string name="visitThisPage">Besøg denne side for at løse problemet</string>
   <string name="iCantLogIn">Jeg kan ikke logge ind</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Jeg har mistet adgang til mine totrinsbekræftelseskoder</string>
   <string name="doPasswordReset">Lav en adgangskode nulstilling for at fjerne din tofaktorgodkendelse</string>
   <string name="accountSupport">Jeg har brug for kontosupport</string>
-  <string name="wantTitle">Jeg vil have min titel vist på Lichess</string>
-  <string name="visitTitleConfirmation">For at vise din titel på din Lichess-profil og deltage i Titled Arenas skal du besøge bekræftelsessiden</string>
+  <string name="wantTitle">Jeg vil have min titel vist på NewChess</string>
+  <string name="visitTitleConfirmation">For at vise din titel på din NewChess-profil og deltage i Titled Arenas skal du besøge bekræftelsessiden</string>
   <string name="wantCloseAccount">Jeg vil lukke min konto</string>
   <string name="closeYourAccount">Du kan lukke din konto på denne side</string>
   <string name="doNotAskByEmail">Bed os ikke om at lukke en konto på e-mail. Vi vil ikke gøre det.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Send ikke direkte beskeder til moderatorer.</string>
   <string name="onlyReports">Kun anmeldelse af spillere via anmeldelsesformularen virker.</string>
   <string name="wantReportBug">Jeg vil melde om en fejl</string>
-  <string name="reportBugInForum">I Lichess Feedback Forum</string>
-  <string name="reportWebsiteIssue">Som et Lichess website problem på GitHub</string>
-  <string name="reportMobileIssue">Som et Lichess mobilapp problem på GitHub</string>
-  <string name="reportBugInDiscord">I Lichess discord-serveren</string>
+  <string name="reportBugInForum">I NewChess Feedback Forum</string>
+  <string name="reportWebsiteIssue">Som et NewChess website problem på GitHub</string>
+  <string name="reportMobileIssue">Som et NewChess mobilapp problem på GitHub</string>
+  <string name="reportBugInDiscord">I NewChess discord-serveren</string>
   <string name="howToReportBug">Beskriv venligst, hvordan problemet viser sig, hvad du havde forventet i stedet og de trin, der skal til for at genskabe problemet.</string>
   <string name="illegalPawnCapture">Ulovlig bondefangst</string>
   <string name="calledEnPassant">Det kaldes for \"en passant\" og er en af skakreglerne.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Benægt ikke snyderiet. Indrøm bare hvad du gjorde, hvis du vil have lov til at oprette en ny konto, og vis, at du forstår, at det var en fejltagelse.</string>
   <string name="otherRestriction">Anden restriktion</string>
   <string name="collaboration">Samarbejde, jura, kommerciel</string>
-  <string name="monetizing">Tjene penge på Lichess</string>
-  <string name="buyingLichess">Købe Lichess</string>
-  <string name="authorizationToUse">Tilladelse til at bruge Lichess</string>
-  <string name="welcomeToUse">Du er velkommen til at bruge Lichess til dine aktiviteter, selv kommercielle.</string>
-  <string name="videosAndBooks">Du kan vise det i dine videoer, og du kan printe screenshots af Lichess i dine bøger.</string>
+  <string name="monetizing">Tjene penge på NewChess</string>
+  <string name="buyingLichess">Købe NewChess</string>
+  <string name="authorizationToUse">Tilladelse til at bruge NewChess</string>
+  <string name="welcomeToUse">Du er velkommen til at bruge NewChess til dine aktiviteter, selv kommercielle.</string>
+  <string name="videosAndBooks">Du kan vise det i dine videoer, og du kan printe screenshots af NewChess i dine bøger.</string>
   <string name="creditAppreciated">Kreditering værdsættes, men er ikke påkrævet.</string>
   <string name="noneOfTheAbove">Intet af det ovenstående</string>
   <string name="sendEmailAt">Send os en e-mail på %s.</string>
-  <string name="explainYourRequest">Beskriv venligst din anmodning klart og grundigt. Oplys dit Lichess-brugernavn og enhver anden information, som kan hjælpe os med at hjælpe dig.</string>
+  <string name="explainYourRequest">Beskriv venligst din anmodning klart og grundigt. Oplys dit NewChess-brugernavn og enhver anden information, som kan hjælpe os med at hjælpe dig.</string>
 </resources>

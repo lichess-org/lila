@@ -27,7 +27,7 @@ export default class LobbyController {
   filter: Filter;
   setup: Setup;
 
-  private poolInStorage: LichessStorage;
+  private poolInStorage: NewChessStorage;
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 

@@ -15,7 +15,7 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val topComment                   = raw("""<!-- NewChess is open source! See https://newchess.fun/source -->""")
     val charset                      = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
@@ -230,8 +230,8 @@ object layout {
           metaThemeColor,
           st.headTitle {
             if (ctx.blind) "lichess"
-            else if (netConfig.isProd) fullTitle | s"$title • lichess.org"
-            else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+            else if (netConfig.isProd) fullTitle | s"$title • newchess.fun"
+            else s"[dev] ${fullTitle | s"$title • dev.newchess.fun"}"
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
@@ -328,7 +328,7 @@ object layout {
           ctx.pref.agreementNeededSince map { date =>
             div(id := "agreement")(
               div(
-                "Lichess has updated the ",
+                "NewChess has updated the ",
                 a(href := routes.Page.tos)("Terms of Service"),
                 " as of ",
                 showDate(date),

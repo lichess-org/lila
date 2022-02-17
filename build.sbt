@@ -12,7 +12,7 @@ lazy val root = Project("lila", file("."))
 
 // shorter prod classpath
 scriptClasspath := Seq("*")
-maintainer := "contact@lichess.org"
+maintainer := "contact@newchess.fun"
 Compile / resourceDirectory := baseDirectory.value / "conf"
 
 // format: off

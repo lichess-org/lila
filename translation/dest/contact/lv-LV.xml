@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakti</string>
-  <string name="contactLichess">Sazināties ar Lichess</string>
+  <string name="contactLichess">Sazināties ar NewChess</string>
   <string name="whatCanWeHelpYouWith">Kā varam palīdzēt?</string>
   <string name="visitThisPage">Apmeklējiet šo lapu, lai atrisinātu problēmu</string>
   <string name="iCantLogIn">Nevaru ierakstīties</string>
@@ -12,7 +12,7 @@
   <string name="lost2FA">Zaudēju piekļuvi saviem divfaktoru autentifikācijas kodiem</string>
   <string name="doPasswordReset">Atiestatiet paroli, lai noņemtu otro faktoru</string>
   <string name="accountSupport">Man nepieciešama konta palīdzība</string>
-  <string name="wantTitle">Vēlos, lai Lichess rādītu manu šaha titulu</string>
+  <string name="wantTitle">Vēlos, lai NewChess rādītu manu šaha titulu</string>
   <string name="visitTitleConfirmation">Lai rādītu savu šaha titulu un piedalītos Titulu Arēnās, apmeklējiet titulu apstiprināšanas lapu</string>
   <string name="wantCloseAccount">Vēlos slēgt savu kontu</string>
   <string name="closeYourAccount">Varat slēgt savu kontu šajā lapā</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Nesūtiet tiešas ziņas moderatoriem.</string>
   <string name="onlyReports">Tikai ziņošana par spēlētājiem ziņojuma veidlapā ir iedarbīga.</string>
   <string name="wantReportBug">Vēlos ziņot par datorproblēmu</string>
-  <string name="reportBugInForum">Lichess Atsauksmju Forumā</string>
-  <string name="reportWebsiteIssue">Kā Lichess mājaslapas kļūdu platformā GitHub</string>
-  <string name="reportMobileIssue">Kā Lichess mobilās aplikācijas kļūdu platformā GitHub</string>
-  <string name="reportBugInDiscord">Lichess Discord serverī</string>
+  <string name="reportBugInForum">NewChess Atsauksmju Forumā</string>
+  <string name="reportWebsiteIssue">Kā NewChess mājaslapas kļūdu platformā GitHub</string>
+  <string name="reportMobileIssue">Kā NewChess mobilās aplikācijas kļūdu platformā GitHub</string>
+  <string name="reportBugInDiscord">NewChess Discord serverī</string>
   <string name="howToReportBug">Lūdzu aprakstiet, kā izpaužas kļūda, ko jūs tā vietā sagaidījāt un soļus, kas jāveic, lai atkārtotu kļūdu.</string>
   <string name="illegalPawnCapture">Nelegāls bandinieka sitiens</string>
   <string name="calledEnPassant">Tas ir viens no šaha noteikumiem, ko sauc \"en passant\".</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Nenoliedziet, ka esat šmaucies. Ja vēlaties, lai jums ļauj izveidot jaunu kontu, atzīstiet, ko esat darījis, un parādiet, ka sapratāt savu kļūdu.</string>
   <string name="otherRestriction">Cits ierobežojums</string>
   <string name="collaboration">Sadarbība, likumīgi, komerciāli</string>
-  <string name="monetizing">Pelnīt ar Lichess</string>
-  <string name="buyingLichess">Pirkt Lichess</string>
-  <string name="authorizationToUse">Atļauja izmantot Lichess</string>
-  <string name="welcomeToUse">Esat laipni lūgts izmantot Lichess savai darbībai, kaut komerciālai.</string>
-  <string name="videosAndBooks">Varat to rādīt savos video, un varat drukāt Lichess ekrānšāviņus savās grāmatās.</string>
+  <string name="monetizing">Pelnīt ar NewChess</string>
+  <string name="buyingLichess">Pirkt NewChess</string>
+  <string name="authorizationToUse">Atļauja izmantot NewChess</string>
+  <string name="welcomeToUse">Esat laipni lūgts izmantot NewChess savai darbībai, kaut komerciālai.</string>
+  <string name="videosAndBooks">Varat to rādīt savos video, un varat drukāt NewChess ekrānšāviņus savās grāmatās.</string>
   <string name="creditAppreciated">Attiecinājums tiks novērtēts, bet nav nepieciešams.</string>
   <string name="noneOfTheAbove">Neviens no iepriekš minētajiem</string>
   <string name="sendEmailAt">Sūtiet mums e-pastu uz %s.</string>
-  <string name="explainYourRequest">Lūdzu, izskaidrojiet savu lūgumu saprotami un detalizēti. Nosauciet savu Lichess lietotājvārdu, un jebkuru informāciju, kas mums varētu atvieglot palīdzības sniegšanu.</string>
+  <string name="explainYourRequest">Lūdzu, izskaidrojiet savu lūgumu saprotami un detalizēti. Nosauciet savu NewChess lietotājvārdu, un jebkuru informāciju, kas mums varētu atvieglot palīdzības sniegšanu.</string>
 </resources>

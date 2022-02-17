@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess straumētāji</string>
-  <string name="lichessStreamer">Lichess straumētājs</string>
+  <string name="lichessStreamers">NewChess straumētāji</string>
+  <string name="lichessStreamer">NewChess straumētājs</string>
   <string name="live">TIEŠRAIDĒ!</string>
   <string name="offline">BEZSAISTĒ</string>
   <string name="currentlyStreaming">Pašlaik straumē: %s</string>
   <string name="lastStream">Pēdējā straumēšana %s</string>
-  <string name="becomeStreamer">Kļūt par Lichess straumētāju</string>
+  <string name="becomeStreamer">Kļūt par NewChess straumētāju</string>
   <string name="doYouHaveStream">Vai jums ir Twitch vai YouTube straume?</string>
   <string name="hereWeGo">Aiziet!</string>
   <string name="allStreamers">Visi straumētāji</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Lejupielādēt straumētāja komplektu</string>
   <string name="xIsStreaming">%s straumē</string>
   <string name="rules">Straumēšanas noteikumi</string>
-  <string name="rule1">Iekļaujiet atslēgas vārdu \"lichess.org\", straumē, kad straumējat platformā Lichess.</string>
+  <string name="rule1">Iekļaujiet atslēgas vārdu \"newchess.fun\", straumē, kad straumējat platformā NewChess.</string>
   <string name="rule2">Noņemiet šo atslēgas vārdu, kad straumējat ko nesaistītu.</string>
-  <string name="rule3">Lichess automātiski uztvers jūsu straumi un iespējos šos labumus:</string>
+  <string name="rule3">NewChess automātiski uztvers jūsu straumi un iespējos šos labumus:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lasiet mūsu %s, lai visiem nodrošinātu godīgu spēli straumēšanas laikā.</string>
   <string name="streamingFairplayFAQ">straumēšanas godīguma Bieži Uzdotos Jautājumus (BUJ)</string>
   <string name="perks">Priekšrocības, straumējot ar atslēgas vārdu</string>
-  <string name="perk1">Iegūstiet liesmojošu straumētāja ikonu savā Lichess profilā.</string>
+  <string name="perk1">Iegūstiet liesmojošu straumētāja ikonu savā NewChess profilā.</string>
   <string name="perk2">Nonāciet straumētāju saraksta augšā.</string>
-  <string name="perk3">Paziņojiet saviem Lichess sekotājiem.</string>
+  <string name="perk3">Paziņojiet saviem NewChess sekotājiem.</string>
   <string name="perk4">Rādiet straumi savās spēlēs, turnīros un izpētēs.</string>
   <string name="approved">Jūsu straume apstiprināta.</string>
   <string name="pendingReview">Jūsu straumi izskata moderatori.</string>
   <string name="pleaseFillIn">Lūdzu, aizpildiet staumētāja datus, un augšupielādējiet attēlu.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kad esiet gatavs iekļaušanai Lichess straumētāju sarakstā, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pieprasīt moderatora izskatīšanu</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kad esiet gatavs iekļaušanai NewChess straumētāju sarakstā, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">pieprasīt moderatora izskatīšanu</string>
   <string name="anotherLanguage">Ja jūsu straume nav angļu valodā, iekļaujiet pareizo valodas etiķeti (%s), ietvertu kvadrātiekavās, straumes nosaukuma sākumā.
 Piemēram, iekļaujiet \"[LV]\" latviešu valodai, \"[RU]\" krievu valodai, \"[FR] franču valodai, utt.
-Ievietojiet to straumes nosaukumā savā Twitch vai YouTube lapā, nevis Lichess straumes iestatījumos.
+Ievietojiet to straumes nosaukumā savā Twitch vai YouTube lapā, nevis NewChess straumes iestatījumos.
 Ja straume ir angliski, nav nepieciešams pievienot valodas etiķeti.</string>
   <string name="twitchUsername">Jūsu Twitch lietotājvārds vai URL</string>
   <string name="optionalOrEmpty">Neobligāti. Ja nav, atstājiet tukšu</string>
   <string name="youtubeChannel">Jūsu YouTube kanāla ID vai URL</string>
-  <string name="streamerName">Jūsu straumētāja vārds Lichess</string>
+  <string name="streamerName">Jūsu straumētāja vārds NewChess</string>
   <plurals name="keepItShort">
     <item quantity="zero">Ierobežojiet garumu: ne vairāk kā %s rakstzīmes</item>
     <item quantity="one">Ierobežojiet garumu: ne vairāk kā %s rakstzīme</item>

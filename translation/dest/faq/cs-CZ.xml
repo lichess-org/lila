@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">Často kladené dotazy (FAQ)</string>
   <string name="frequentlyAskedQuestions">Často kladené otázky</string>
-  <string name="whyIsLichessCalledLichess">Proč se Lichess nazývá Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Proč se NewChess nazývá NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
   <string name="leechess">ličes</string>
   <string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
-  <string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lichess má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
-  <string name="whyIsLilaCalledLila">Podobně, zdrojový kód pro Lichess, %1$s, znamená li[chess in sca]la, protože většina Lichess je napsaná v programovacím jazyce %2$s, což je intuitivní programovací jazyk.</string>
-  <string name="howCanIContributeToLichess">Jak mohu pomoci Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess funguje díky darům od patronů a díky úsilí týmu dobrovolníků.</string>
-  <string name="findMoreAndSeeHowHelp">Více informací o %1$s (včetně %2$s). Pokud chcete pomoci Lichess dobrovolnictvím vašeho času a dovedností, existuje mnoho %3$s.</string>
+  <string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože NewChess má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
+  <string name="whyIsLilaCalledLila">Podobně, zdrojový kód pro NewChess, %1$s, znamená li[chess in sca]la, protože většina NewChess je napsaná v programovacím jazyce %2$s, což je intuitivní programovací jazyk.</string>
+  <string name="howCanIContributeToLichess">Jak mohu pomoci NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess funguje díky darům od patronů a díky úsilí týmu dobrovolníků.</string>
+  <string name="findMoreAndSeeHowHelp">Více informací o %1$s (včetně %2$s). Pokud chcete pomoci NewChess dobrovolnictvím vašeho času a dovedností, existuje mnoho %3$s.</string>
   <string name="beingAPatron">patronství</string>
   <string name="breakdownOfOurCosts">rozložení našich nákladů</string>
   <string name="otherWaysToHelp">další způsoby jak pomoci</string>
-  <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, naše %2$s či naši %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na NewChess?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Ano. NewChess vskutku inspiroval další otevřené stránky využívající náš %1$s, naše %2$s či naši %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kdy mám nárok na automatické vrácení ratingu za zápasy s podvodníky?</string>
   <string name="ratingRefundExplanation">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
-  <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
+  <string name="youCanUseOpeningBookNoEngine">Na NewChess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, NewChess ne.</string>
   <string name="gameplay">Hraní hry</string>
   <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
-  <string name="basedOnGameDuration">Časové kontroly Lichess jsou založeny na odhadu doby trvání partie = %1$s
+  <string name="basedOnGameDuration">Časové kontroly NewChess jsou založeny na odhadu doby trvání partie = %1$s
 Například odhadovaná délka partie 5+3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
   <string name="durationFormula">(počáteční čas) + 40 × (přídavek)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess podporuje standartní šachy a %1$s.</string>
+  <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess podporuje standartní šachy a %1$s.</string>
   <string name="eightVariants">8 variant šachu</string>
   <string name="whatIsACPL">Co je to průměrná pěšcová ztráta (angl. \"average centipawn loss\")?</string>
   <string name="acplExplanation">V šachu se jako jednotka síly jednotlivých tahů ve srovnání s nejlepšími možnými tahy doporučenými počítačem používá tzv. centipawn (z angličtiny). Jeden centipawn je ekvivalentní jedné setině hodnoty pěšáka. To znamená, že 100 centipawnů odpovídá jednomu pěšákovi.
@@ -43,7 +43,7 @@ Nejlepší tah doporučený počítačem ztrácí 0 centipawnů (z definice). Sl
 
 Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč pěšcovou ztrátu, tím silnější tahy hraje.
 
-Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
+Počítačová analýza na NewChessu využívá program Stockfish. Hráčovy tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
   <string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
   <string name="lichessFollowFIDErules">Když hráči dojde čas, obvykle to znamená, že partii prohraje. Platí zde ovšem jedna výjimka, a to v případě, že je na šachovnici taková pozice, že by mu nebylo možné dát mat žádnou legální kombinací tahů. V takovém případě se bude jednat o remízu (viz %1$s).
 
@@ -60,27 +60,27 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
-  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. NewChess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>
   <string name="notRepeatedMoves">Neopakovali jsme tahy, i tak ale hra skončila remízou pro opakování tahů? Proč?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
-  <string name="threeFoldHasToBeClaimed">Trojí opakování pozice musí potvrdit jeden z hráčů, a to stisknutím tlačítka, které se v případě trojího opakování pozice objeví, či nabídnutím remízy před posledním ze tří opakování, přičemž i v případě, že soupeř remízu odmítne, partie skončí remízou. Lze také %1$s Lichess tak, aby za vás automaticky potvrzoval trojí opakování pozice. Pokud se poté jakákoliv pozice zopakuje pětkrát během partie, hra také ihned skončí remízou.</string>
+  <string name="threeFoldHasToBeClaimed">Trojí opakování pozice musí potvrdit jeden z hráčů, a to stisknutím tlačítka, které se v případě trojího opakování pozice objeví, či nabídnutím remízy před posledním ze tří opakování, přičemž i v případě, že soupeř remízu odmítne, partie skončí remízou. Lze také %1$s NewChess tak, aby za vás automaticky potvrzoval trojí opakování pozice. Pokud se poté jakákoliv pozice zopakuje pětkrát během partie, hra také ihned skončí remízou.</string>
   <string name="configure">nakonfigurovat</string>
   <string name="accounts">Účty</string>
-  <string name="titlesAvailableOnLichess">Jaké tituly jsou na Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro hru naživo (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
-  <string name="showYourTitle">Jestliže máte šachový titul, který Lichess uznává, můžete vyplněním %1$s získat odznak titulovaného hráče, resp. Váš titul bude zobrazen před Vaším uživatelským jménem. 
-Jako ověřený titulovaný hráč se můžete účastnit tzv. Titled Arena turnaje na Lichess.
+  <string name="titlesAvailableOnLichess">Jaké tituly jsou na NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess uznává všechny tituly FIDE pro hru naživo (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
+  <string name="showYourTitle">Jestliže máte šachový titul, který NewChess uznává, můžete vyplněním %1$s získat odznak titulovaného hráče, resp. Váš titul bude zobrazen před Vaším uživatelským jménem.
+Jako ověřený titulovaný hráč se můžete účastnit tzv. Titled Arena turnaje na NewChess.
 
 Nakonec existuje ještě čestný titul %2$s.</string>
   <string name="asWellAsManyNMtitles">mnoho titulů jednotlivých národních federací</string>
   <string name="verificationForm">ověřovacího formuláře</string>
-  <string name="canIbecomeLM">Mohu získat titul mistra Lichess (LM)?</string>
+  <string name="canIbecomeLM">Mohu získat titul mistra NewChess (LM)?</string>
   <string name="noUpperCaseDot">Ne.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Tento čestný titul je neoficiální a existuje pouze na Lichess.
-Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili o rozšiřování komunity Lichess. Titul Vám přidělíme my, požádat o něj nelze, ale můžete jej i odmítnout.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tento čestný titul je neoficiální a existuje pouze na NewChess.
+Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili o rozšiřování komunity NewChess. Titul Vám přidělíme my, požádat o něj nelze, ale můžete jej i odmítnout.</string>
   <string name="whatUsernameCanIchoose">Jaké si mám zvolit uživatelské jméno?</string>
   <string name="usernamesNotOffensive">Obecně platí, že uživatelská jména by neměla být: urážlivá, uživatel by se vydávat za někoho jiného, a neměla by sloužit jako reklama. Více si o tom můžete přečíst %1$s.</string>
   <string name="guidelines">pokyny</string>
@@ -92,8 +92,8 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
   <string name="goldenZeeExplanation">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
   <string name="lichessRatings">Ratingy</string>
-  <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
-  <string name="ratingSystemUsedByLichess">Ratingy se počítají pomocí metody Glicko-2 vyvinuté Markem Glickmanem. Jedná se o velmi populární metodu, a je využívána značným množstvím šachových organizací (není mezi nimi FIDE, jež stále využívá již zastaralou metodu Elo). 
+  <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení NewChess využívá?</string>
+  <string name="ratingSystemUsedByLichess">Ratingy se počítají pomocí metody Glicko-2 vyvinuté Markem Glickmanem. Jedná se o velmi populární metodu, a je využívána značným množstvím šachových organizací (není mezi nimi FIDE, jež stále využívá již zastaralou metodu Elo).
 
 Systém Glicko používá při výpočtu vašeho ratingu tzv. „intervaly spolehlivosti“. Když se zaregistrujete, vaše hodnocení je rovno 1500 bodů s intervalem spolehlivosti 1000 bodů.
 
@@ -122,10 +122,10 @@ Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"a
   <string name="enableZenMode">V %1$s si zapněte zen-mód, či stiskněte %2$s během partie.</string>
   <string name="displayPreferences">předvolbách</string>
   <string name="connexionLostCanIGetMyRatingBack">Kvůli pomalému připojení/ztrátě připojení jsem prohrál partii, mohu získat své ratingové body zpátky?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bohužel nemůžeme vracet ratingové body za hry, které jste prohráli kvůli ztrátě připojení, bez ohledu na tom, zda byl problém na Vaší či naší straně. Tato druhá možnost je však velmi vzácná. Také si všimněte, že pokud se Lichess restartuje (plánovaně), automaticky přerušujeme všechny partie, aby nedošlo k nespravedlivé prohře na čas.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bohužel nemůžeme vracet ratingové body za hry, které jste prohráli kvůli ztrátě připojení, bez ohledu na tom, zda byl problém na Vaší či naší straně. Tato druhá možnost je však velmi vzácná. Také si všimněte, že pokud se NewChess restartuje (plánovaně), automaticky přerušujeme všechny partie, aby nedošlo k nespravedlivé prohře na čas.</string>
   <string name="howToThreeDots">Jak...</string>
   <string name="enableDisableNotificationPopUps">Povolit nebo zakázat oznámení?</string>
   <string name="viewSiteInformationPopUp">Zobrazit vyskakovací okno s informacemi o webu</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess vám také může posílat oznámení, například když jste na tahu či po obdržení soukromé zprávy. 
+  <string name="lichessCanOptionnalySendPopUps">NewChess vám také může posílat oznámení, například když jste na tahu či po obdržení soukromé zprávy.
 Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vyberte zda zablokovat či povolit oznámení.</string>
 </resources>

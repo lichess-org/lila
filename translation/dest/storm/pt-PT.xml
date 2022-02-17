@@ -52,9 +52,9 @@
   <string name="skipExplanation">Pule este lance para preservar seu combo! Funciona apenas uma vez por corrida.</string>
   <string name="failedPuzzles">Desafios falhados</string>
   <string name="slowPuzzles">Desafios lentos</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Esta semana</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Este mês</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Desde sempre</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Esta semana</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Este mês</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Desde sempre</string>
   <string name="clickToReload">Clique para recarregar</string>
   <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Esta sessão expirou!</string>
   <string name="thisRunWasOpenedInAnotherTab">Esta sessão foi aberta noutra aba!</string>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Стрымеры на Lichess</string>
-  <string name="lichessStreamer">Стрымер на Lichess</string>
+  <string name="lichessStreamers">Стрымеры на NewChess</string>
+  <string name="lichessStreamer">Стрымер на NewChess</string>
   <string name="live">У ЭФІРЫ!</string>
   <string name="offline">АФЛАЙН</string>
   <string name="currentlyStreaming">Зараз стрыміць: %s</string>
   <string name="lastStream">Апошні стрым %s</string>
-  <string name="becomeStreamer">Стаць страмерам на Lichess</string>
+  <string name="becomeStreamer">Стаць страмерам на NewChess</string>
   <string name="doYouHaveStream">У вас ёсць каналы на Twitch або YouTube?</string>
   <string name="hereWeGo">Пачынаем!</string>
   <string name="allStreamers">Усе стрымеры</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Спапаваць прылады для стрыму</string>
   <string name="xIsStreaming">%s у эфіры</string>
   <string name="rules">Правілы стрымаў</string>
-  <string name="rule1">Уключыце ключавое слова \"lichess.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lichess.</string>
-  <string name="rule2">Выдаліце ключавое слова калі стрыміце не-Lichess дзейнасць.</string>
-  <string name="rule3">Lichess аўтаматычна выявіць ваш стрым і ўключыць наступныя перавагі:</string>
+  <string name="rule1">Уключыце ключавое слова \"newchess.fun\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на NewChess.</string>
+  <string name="rule2">Выдаліце ключавое слова калі стрыміце не-NewChess дзейнасць.</string>
+  <string name="rule3">NewChess аўтаматычна выявіць ваш стрым і ўключыць наступныя перавагі:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прачытайце нашы %s каб гарантаваць сумленную гульню для ўсіх на працягу вашага стрыму.</string>
   <string name="streamingFairplayFAQ">правілы сумленнай гульні пад час стрымаў (Пытанні і адказы)</string>
   <string name="perks">Перавагі стрыму з ключавым словам</string>
-  <string name="perk1">Атрыманне вогненны значок стымеру на вашым профіле Lichess.</string>
+  <string name="perk1">Атрыманне вогненны значок стымеру на вашым профіле NewChess.</string>
   <string name="perk2">Патрапіць ў верх спісу стрымаў.</string>
   <string name="perk3">Паведамляе падпісчыкаў.</string>
   <string name="perk4">Адлюстраванне стрыму у вашых гульнях, турнірах і навучаннях.</string>
   <string name="approved">Ваш стрым зацверджана.</string>
   <string name="pendingReview">Ваш стрым разглядаецца мадэратарамі.</string>
   <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Калі будзіце гатовы быць адлюстраваным як стрымер Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запрасіць прагляд мадэратара</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Калі будзіце гатовы быць адлюстраваным як стрымер NewChess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">запрасіць прагляд мадэратара</string>
   <string name="anotherLanguage">Калі мова вашага стрыму не аглійская, уключыце правільны тэг мовы (%s), уключаны ў квадратныя дужкі, у пачатку загалоўка вашага стрыму.
 Напрыклад, вы можаце дадаць \"[BE]\" для беларускай, \"[RU]\" для рускай, \"[FR]\" французcкай мовы і г. д.
-Змясціце гэта ў загалоўку Twich стрыма або старонкі YouTube, не ў наладах стрымаў Lichess.
+Змясціце гэта ў загалоўку Twich стрыма або старонкі YouTube, не ў наладах стрымаў NewChess.
 Калі мова страму англійская, няма неабходнасці дадаваць моўны тэг.</string>
   <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
   <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
   <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
-  <string name="streamerName">Ваша стрымерскае імя на Lichess</string>
+  <string name="streamerName">Ваша стрымерскае імя на NewChess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сцісла: максімальна %s сімвал</item>
     <item quantity="few">Сцісла: максімальна %s сімвала</item>

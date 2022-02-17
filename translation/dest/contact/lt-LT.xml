@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Susisiekite</string>
-  <string name="contactLichess">Susisiekite su „Lichess“</string>
+  <string name="contactLichess">Susisiekite su „NewChess“</string>
   <string name="whatCanWeHelpYouWith">Kuo galime padėti?</string>
   <string name="visitThisPage">Apsilankę šiame tinklalapyje išspręsite problemą</string>
   <string name="iCantLogIn">Negaliu prisijungti</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Praradau prieigą prie savo dviejų faktorių autentikacijos kodų</string>
   <string name="doPasswordReset">Norėdami pašalinti antrą faktorių atlikite slaptažodžio atkūrimą</string>
   <string name="accountSupport">Man reikia pagalbos su paskyra</string>
-  <string name="wantTitle">Noriu, kad mano titulas būtų atvaizduotas Lichess</string>
-  <string name="visitTitleConfirmation">Norėdami atvaizduoti savo titulą Lichess profilyje ir dalyvauti tituluotose arenose, aplankykite patvirtinimo puslapį</string>
+  <string name="wantTitle">Noriu, kad mano titulas būtų atvaizduotas NewChess</string>
+  <string name="visitTitleConfirmation">Norėdami atvaizduoti savo titulą NewChess profilyje ir dalyvauti tituluotose arenose, aplankykite patvirtinimo puslapį</string>
   <string name="wantCloseAccount">Noriu uždaryti savo paskyrą</string>
   <string name="closeYourAccount">Savo paskyrą galite uždaryti šiame puslapyje</string>
   <string name="doNotAskByEmail">Neprašykite uždaryti savo paskyros el. paštu, mes to nedarysime.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Nesiųskite tiesioginių žinučių moderatoriams.</string>
   <string name="onlyReports">Veiksmingas tik pranešimas apie žaidėjus per pranešimo formą.</string>
   <string name="wantReportBug">Noriu pranešti apie klaidą</string>
-  <string name="reportBugInForum">Lichess atsiliepimų forumo sekcijoje</string>
-  <string name="reportWebsiteIssue">Kaip Lichess svetainės problemą GitHub</string>
-  <string name="reportMobileIssue">Kaip Lichess mobilios programėlės problemą GitHub</string>
-  <string name="reportBugInDiscord">Lichess Discord serveryje</string>
+  <string name="reportBugInForum">NewChess atsiliepimų forumo sekcijoje</string>
+  <string name="reportWebsiteIssue">Kaip NewChess svetainės problemą GitHub</string>
+  <string name="reportMobileIssue">Kaip NewChess mobilios programėlės problemą GitHub</string>
+  <string name="reportBugInDiscord">NewChess Discord serveryje</string>
   <string name="howToReportBug">Apibūdinkite kaip atrodo klaida, ko tikėjotės, kas įvyko, ir žingsnius, kaip atkartoti klaidą.</string>
   <string name="illegalPawnCapture">Neteisingas pėstininko kirtimas</string>
   <string name="calledEnPassant">Toks kirtimas vadinamas \"en passant\" ir yra viena iš šachmatų taisyklių.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Neneikite, kad sukčiavote. Jei norite susikurti naują paskyrą, pripažinkite, kad žinote, ką darėte, ir parodykite, kad supratote, jog tai buvo klaida.</string>
   <string name="otherRestriction">Kiti apribojimai</string>
   <string name="collaboration">Bendradarbiavimas, teisinė pagalba, komerciniai ryšiai</string>
-  <string name="monetizing">Lichess apmokestinimas</string>
-  <string name="buyingLichess">Lichess pirkimas</string>
-  <string name="authorizationToUse">Leidimai naudoti Lichess</string>
-  <string name="welcomeToUse">Jūs galite naudoti Lichess bet kokiai veiklai, net ir komercinei.</string>
-  <string name="videosAndBooks">Jūs galite jį rodyti savo video, galite spaustindi Lichess ekranvaizdžius savo knygose.</string>
+  <string name="monetizing">NewChess apmokestinimas</string>
+  <string name="buyingLichess">NewChess pirkimas</string>
+  <string name="authorizationToUse">Leidimai naudoti NewChess</string>
+  <string name="welcomeToUse">Jūs galite naudoti NewChess bet kokiai veiklai, net ir komercinei.</string>
+  <string name="videosAndBooks">Jūs galite jį rodyti savo video, galite spaustindi NewChess ekranvaizdžius savo knygose.</string>
   <string name="creditAppreciated">Paminėjimas laukiamas, bet ne reikalingas.</string>
   <string name="noneOfTheAbove">Nė vienas iš šių</string>
   <string name="sendEmailAt">Išsiųskite mums el. laišką adresu %s.</string>
-  <string name="explainYourRequest">Išdėstykite savo užklausą aiškiai ir iki galo. Paminėkite savo Lichess vartotojo vardą, ir bet kokią informaciją, kuri padėtų mums padėti jums.</string>
+  <string name="explainYourRequest">Išdėstykite savo užklausą aiškiai ir iki galo. Paminėkite savo NewChess vartotojo vardą, ir bet kokią informaciją, kuri padėtų mums padėti jums.</string>
 </resources>

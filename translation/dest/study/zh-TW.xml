@@ -119,7 +119,7 @@
   <string name="goodMove">好棋</string>
   <string name="mistake">失誤</string>
   <string name="blunder">嚴重失誤</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://newchess.fun/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
   <string name="whiteIsSlightlyBetter">白方稍占優勢</string>
@@ -128,8 +128,8 @@
   <string name="blackIsBetter">黑方占優勢</string>
   <string name="whiteIsWinning">白方要取得勝利了</string>
   <string name="blackIsWinning">黑方要取得勝利了</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻擊</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a NewChess study. Noun.">攻擊</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
   <string name="nextChapter">下一章</string>
   <string name="prevChapter">上一章</string>
 </resources>

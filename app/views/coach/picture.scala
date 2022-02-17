@@ -50,7 +50,7 @@ object picture {
         cssHeight := cssSize,
         cls := "picture",
         src := url(c.coach),
-        alt := s"${c.user.titleUsername} Lichess coach picture"
+        alt := s"${c.user.titleUsername} NewChess coach picture"
       )
     def url(c: Coach) =
       c.picture match {

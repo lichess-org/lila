@@ -3,8 +3,8 @@
   <string name="activity">აქტიურობა</string>
   <string name="hostedALiveStream">იყო პირდაპირ ეთერში</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">გახდა lichess.org-ის %2$s %1$s თვით</item>
-    <item quantity="other">გახდა lichess.org-ის %2$s %1$s თვით</item>
+    <item quantity="one">გახდა newchess.fun-ის %2$s %1$s თვით</item>
+    <item quantity="other">გახდა newchess.fun-ის %2$s %1$s თვით</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">გაიარა პრაქტიკა %2$s-ის %1$s პოზიციაში</item>
@@ -67,7 +67,7 @@
     <item quantity="other">მიიღო მონაწილეობა %s სვის ტურნირში</item>
   </plurals>
   <string name="rankedInSwissTournament">დაიკავა #%1$s in %2$s</string>
-  <string name="signedUp">დარეგისტრირდა lichess.org-ზე</string>
+  <string name="signedUp">დარეგისტრირდა newchess.fun-ზე</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">შეუერთდა ჯგუფს %s</item>
     <item quantity="other">შეუერთდა ჯგუფებს %s</item>

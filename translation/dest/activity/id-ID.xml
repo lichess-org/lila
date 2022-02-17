@@ -3,7 +3,7 @@
   <string name="activity">Aktivitas</string>
   <string name="hostedALiveStream">Host streaming langsung</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">Mendukung lichess.org untuk %1$s bulan sebagai %2$s</item>
+    <item quantity="other">Mendukung newchess.fun untuk %1$s bulan sebagai %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">Dipraktekkan %1$s posisi di %2$s</item>
@@ -51,7 +51,7 @@
     <item quantity="other">Sudah mengikuti %s turnamen swiss</item>
   </plurals>
   <string name="rankedInSwissTournament">Peringkat #%1$s di %2$s</string>
-  <string name="signedUp">Daftarkan untuk lichess.org</string>
+  <string name="signedUp">Daftarkan untuk newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Bergabung %s tim</item>
   </plurals>

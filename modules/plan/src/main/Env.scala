@@ -45,7 +45,7 @@ final class Env(
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
     default = 0,
-    text = "Monthly donation goal in USD from https://lichess.org/costs".some
+    text = "Monthly donation goal in USD from https://newchess.fun/costs".some
   )
 
   val paymentMethodsSetting = settingStore[Strings](

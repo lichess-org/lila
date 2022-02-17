@@ -26,7 +26,7 @@ object index {
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box")(
           div(cls := "box__top")(
-            h1("Lichess Official Blog"),
+            h1("NewChess Official Blog"),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := "")
           ),
           primaryPost map { post =>
@@ -48,14 +48,14 @@ object index {
 
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"Lichess blog posts from $year",
+      title = s"NewChess blog posts from $year",
       moreCss = cssTag("blog"),
       csp = bits.csp
     )(
       main(cls := "page-menu")(
         bits.menu(year.some, none),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(h1(s"Lichess blog posts from $year")),
+          div(cls := "box__top")(h1(s"NewChess blog posts from $year")),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })
           )

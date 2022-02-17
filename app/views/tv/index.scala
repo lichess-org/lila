@@ -26,7 +26,7 @@ object index {
       moreJs = frag(
         roundTag,
         embedJsUnsafeLoadThen(
-          s"""LichessRound.boot(${safeJsonValue(
+          s"""NewChessRound.boot(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "i18n" -> views.html.round.jsI18n(pov.game)
@@ -38,9 +38,9 @@ object index {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
+          title = s"Watch the best ${channel.name.toLowerCase} games of newchess.fun",
           description =
-            s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lichess players compete on Lichess TV",
+            s"Sit back, relax, and watch the best ${channel.name.toLowerCase} NewChess players compete on NewChess TV",
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,
@@ -55,7 +55,7 @@ object index {
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
-            h2(trans.previouslyOnLichessTV()),
+            h2(trans.previouslyOnNewChessTV()),
             div(cls := "now-playing")(
               history map { views.html.game.mini(_) }
             )

@@ -7,7 +7,7 @@ import { PresetCtrl } from './preset';
 
 export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 
-export default function LichessChat(
+export default function NewChessChat(
   element: Element,
   opts: ChatOpts
 ): {

@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Doação</string>
   <string name="donateAsX">Doar como %s</string>
-  <string name="lichessPatron">Apoie o Lichess</string>
+  <string name="lichessPatron">Apoie o NewChess</string>
   <string name="freeAccount">Conta gratuita</string>
-  <string name="becomePatron">Seja um Patrono Lichess</string>
-  <string name="xBecamePatron">%s se tornou um Patrono Lichess</string>
+  <string name="becomePatron">Seja um Patrono NewChess</string>
+  <string name="xBecamePatron">%s se tornou um Patrono NewChess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s é um Patrono Lichess por %2$s mês</item>
-    <item quantity="other">%1$s é um Patrono Lichess por %2$s meses</item>
+    <item quantity="one">%1$s é um Patrono NewChess por %2$s mês</item>
+    <item quantity="other">%1$s é um Patrono NewChess por %2$s meses</item>
   </plurals>
   <string name="newPatrons">Novos Patronos</string>
   <string name="freeChess">Xadrez de graça, para todos, para sempre!</string>
@@ -18,10 +18,10 @@
   <string name="patronUntil">Você tem uma conta de Patrono até %s.</string>
   <string name="ifNotRenewed">Se não renovado, você será convertido para uma versão gratuita.</string>
   <string name="weAreNonProfit">Somos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
-  <string name="weRelyOnSupport">Contamos com o apoio de pessoas como você para tornar isso possível. Se você gosta de usar o Lichess, considere apoiar-nos doando e se tornando um Patrono!</string>
+  <string name="weRelyOnSupport">Contamos com o apoio de pessoas como você para tornar isso possível. Se você gosta de usar o NewChess, considere apoiar-nos doando e se tornando um Patrono!</string>
   <string name="lifetime">Vitalício</string>
-  <string name="payLifetimeOnce">Pague %s uma vez. Seja um Patrono Lichess para sempre!</string>
-  <string name="lifetimePatron">Patrono vitalício do Lichess</string>
+  <string name="payLifetimeOnce">Pague %s uma vez. Seja um Patrono NewChess para sempre!</string>
+  <string name="lifetimePatron">Patrono vitalício do NewChess</string>
   <string name="monthly">Mensalmente</string>
   <string name="recurringBilling">Faturamento recorrente, renovando suas asas de Patrono todo mês.</string>
   <string name="onetime">Uma vez</string>
@@ -31,28 +31,28 @@
   <string name="withCreditCard">Cartão de Crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
-  <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
+  <string name="celebratedPatrons">Os famosos Patronos que tornam o NewChess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
   <string name="serversAndDeveloper">Primeiro de tudo, servidores poderosos.
-Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.</string>
+Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do NewChess.</string>
   <string name="costBreakdown">Veja a análise detalhada do custo</string>
-  <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos?</string>
+  <string name="officialNonProfit">O NewChess é uma organização sem fins lucrativos?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
   <string name="changeMonthlySupport">Posso mudar/cancelar meu suporte mensal?</string>
   <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
 Ou você pode %s.</string>
-  <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
+  <string name="contactSupport">entrar em contato com o suporte do NewChess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
   <string name="patronFeatures">Alguns recursos são exclusivos para Patronos?</string>
-  <string name="noPatronFeatures">Não, porque o Lichess é totalmente gratuito, para sempre e para todos. É uma promessa.
+  <string name="noPatronFeatures">Não, porque o NewChess é totalmente gratuito, para sempre e para todos. É uma promessa.
 No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil.</string>
   <string name="featuresComparison">Veja a comparação detalhada de recursos</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Patrono Lichess por um mês</item>
-    <item quantity="other">Apoiador Lichess por %s meses</item>
+    <item quantity="one">Patrono NewChess por um mês</item>
+    <item quantity="other">Apoiador NewChess por %s meses</item>
   </plurals>
-  <string name="youSupportWith">Você apoia o lichess.org com %s por mês.</string>
+  <string name="youSupportWith">Você apoia o newchess.fun com %s por mês.</string>
   <string name="tyvm">Muito obrigado pelo seu apoio. Você é demais!</string>
   <string name="currentStatus">Situação atual</string>
   <string name="nextPayment">Próximo pagamento</string>
@@ -63,17 +63,17 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>
   <string name="cancelSupport">cancelar seu apoio</string>
   <string name="xOrY">%1$s ou %2$s</string>
-  <string name="decideHowMuch">Decida quanto Lichess vale para você:</string>
+  <string name="decideHowMuch">Decida quanto NewChess vale para você:</string>
   <string name="stopPayments">Retire seu cartão de crédito e interrompa os pagamentos:</string>
-  <string name="noLongerSupport">Deixar de apoiar o Lichess</string>
-  <string name="viewOthers">Ver outros Patronos do Lichess</string>
+  <string name="noLongerSupport">Deixar de apoiar o NewChess</string>
+  <string name="viewOthers">Ver outros Patronos do NewChess</string>
   <string name="date">Data</string>
   <string name="amount">Quantia</string>
   <string name="transactionCompleted">Sua transação foi concluída e um recibo de sua doação foi enviado por e-mail para você.</string>
   <string name="permanentPatron">Agora você tem uma conta de Patrono permanente.</string>
   <string name="checkOutProfile">Confira sua página de perfil!</string>
-  <string name="nowLifetime">Você agora é um Patrono vitalício do Lichess!</string>
-  <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
-  <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será convertida para a versão gratuita.</string>
+  <string name="nowLifetime">Você agora é um Patrono vitalício do NewChess!</string>
+  <string name="nowOneMonth">Você agora é Patrono do NewChess por um mês!</string>
+  <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta NewChess será convertida para a versão gratuita.</string>
   <string name="changeCurrency">Trocar de moeda</string>
 </resources>

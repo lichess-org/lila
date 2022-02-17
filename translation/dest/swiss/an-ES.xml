@@ -67,7 +67,7 @@ Lo chugador puede tornar a dentrar en qualsequier momento.</string>
 La razón ye que no i hai una manera chusta de tractar con a chent que abandona luego lo torneyo. No podemos esperar que en un evento en linia totz los chugadors chueguen totas las suyas partidas. Sabemos que pasará, y como resultau la mayoría d\'estes torneyos estarán sesgados y no serán chustos, lo qual invalida la razón d\'a suya existencia.
 Lo mas cercano que tiens a un torneyo de totz contra totz ye chugar un torneyo suizo con un numero muit alto de rondas. Alavez, se chugarán totz los posibles emparellamientos antes que remate lo torneyo.</string>
   <string name="otherSystemsQ">Y quanto a los atros sistemas de torneyo?</string>
-  <string name="otherSystemsA">Per agora no pensamos anyadir mas sistemas de torneyo en Lichess.</string>
+  <string name="otherSystemsA">Per agora no pensamos anyadir mas sistemas de torneyo en NewChess.</string>
   <string name="swissDescription">En un torneyo suizo %1$s, cada participant no necesariament chuga contra totz los de demás. Los participants chugan uno contra uno en cada ronda y son emparellaus seguindo una serie de reglas disenyadas pa que cada participant chugue con oponents con una puntuación similar, pero no mas d\'una vegada contra lo mesmo oponent. Lo ganado ye qui aconsigue mas puntos entre totas las rondas. Totz es participants chugan en totas las rondas de no estar que i haiga un numero impar de chugadors</string>
   <string name="teamOnly">Los torneyos suizos nomás los pueden crear los liders d\'equipo, y nomás los pueden chugar los miembros de l\'equipo.        %1$s pa encomenzar a chugar en torneyos suizos.</string>
   <string name="joinOrCreateTeam">Une-te a un equipo u crea-ne uno</string>

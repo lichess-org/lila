@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess-luokat</string>
-  <string name="teachClassesOfChessStudents">Opeta shakkiluokkia Lichess-luokkien avulla.</string>
+  <string name="lichessClasses">NewChess-luokat</string>
+  <string name="teachClassesOfChessStudents">Opeta shakkiluokkia NewChess-luokkien avulla.</string>
   <string name="features">Toiminnot</string>
   <string name="quicklyGenerateSafeUsernames">Luo nopeasti turvallisia käyttäjänimiä ja salasanoja oppilaille</string>
   <string name="trackStudentProgress">Seuraa oppilaiden edistymistä peleissä ja tehtävissä</string>
   <string name="messageAllStudents">Lähetä luokan uusista materiaaleista viesti kaikille oppilaille</string>
   <string name="freeForAllForever">Aina 100% ilmainen kaikille, ilman mainoksia tai seurantaa</string>
-  <string name="applyToBeLichessTeacher">Hae Lichess-opettajaksi</string>
+  <string name="applyToBeNewChessTeacher">Hae NewChess-opettajaksi</string>
   <string name="noClassesYet">Luokkia ei vielä ole.</string>
   <string name="teachersX">Opettajat: %s</string>
   <string name="newClass">Uusi luokka</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Luokan kuvaus</string>
   <string name="visibleByBothStudentsAndTeachers">Näkyy luokan opettajille ja oppilaille</string>
   <string name="teachersOfTheClass">Luokan opettajat</string>
-  <string name="addLichessUsernames">Kutsu käyttäjiä opettajiksi lisäämällä heidän Lichess-tunnuksensa. Yksi per rivi.</string>
+  <string name="addNewChessUsernames">Kutsu käyttäjiä opettajiksi lisäämällä heidän NewChess-tunnuksensa. Yksi per rivi.</string>
   <string name="resetPassword">Nollaa salasana</string>
   <string name="makeSureToCopy">Huolehdi nyt siitä, että kopioit tai kirjoitat ylös salasanasi. Et näe sitä enää toiste!</string>
   <string name="passwordX">Salasana: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Oikea nimi</string>
   <string name="privateWillNeverBeShown">Yksityinen. Ei näy koskaan luokan ulkopuolella. Auttaa muistamaan kuka oppilas on.</string>
   <string name="addStudent">Lisää oppilas</string>
-  <string name="lichessProfileXCreatedForY">Lichess-tunnus %1$s luotu oppilaalle %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess-tunnus %1$s luotu oppilaalle %2$s.</string>
   <string name="studentCredentials">Oppilas: %1$s
 Käyttäjänimi: %2$s
 Salasana: %3$s</string>
-  <string name="inviteALichessAccount">Kutsu Lichess-käyttäjä</string>
-  <string name="inviteDesc1">Jos oppilaalla on jo Lichess-tunnus, voit kutsua hänet luokkaan.</string>
-  <string name="inviteDesc2">Hän saa Lichessissä viestin, jossa olevaa linkkiä seuraamalla hän voi liittyä luokkaan.</string>
+  <string name="inviteANewChessAccount">Kutsu NewChess-käyttäjä</string>
+  <string name="inviteDesc1">Jos oppilaalla on jo NewChess-tunnus, voit kutsua hänet luokkaan.</string>
+  <string name="inviteDesc2">Hän saa NewChessissä viestin, jossa olevaa linkkiä seuraamalla hän voi liittyä luokkaan.</string>
   <string name="inviteDesc3">Tärkeää: kutsu vain oppilaita, jotka tunnet ja jotka todella haluavat liittyä luokkaan.</string>
   <string name="inviteDesc4">Älä koskaan lähetä epätoivottuja kutsuja satunnaisille pelaajille.</string>
-  <string name="createANewLichessAccount">Luo uusi Lichess-tunnus</string>
-  <string name="createDesc1">Jos oppilaalla ei ole vielä Lichess-tunnusta, voit luoda sellaisen hänelle tästä.</string>
+  <string name="createANewNewChessAccount">Luo uusi NewChess-tunnus</string>
+  <string name="createDesc1">Jos oppilaalla ei ole vielä NewChess-tunnusta, voit luoda sellaisen hänelle tästä.</string>
   <string name="createDesc2">Sähköpostiosoitetta ei tarvita. Oppilaalle luodaan salasana, ja se pitää antaa hänelle, jotta hän pääsee kirjautumaan sisään.</string>
   <string name="createDesc3">Tärkeää: oppilaalla ei saa olla useita käyttäjätunnuksia.</string>
   <string name="createDesc4">Jos hänellä on jo tunnus, käytä sen sijaan kutsulomaketta.</string>
   <string name="createStudentWarning">Luo tilejä vain todellisille oppilaille. Älä käytä tätä useiden käyttäjätunnusten luomiseen itsellesi, sillä siitä saat porttikiellon.</string>
-  <string name="lichessUsername">Lichess-käyttäjänimi</string>
+  <string name="lichessUsername">NewChess-käyttäjänimi</string>
   <string name="generateANewUsername">Luo uusi käyttäjänimi</string>
   <string name="welcomeToClass">Tervetuloa luokkaasi: %s.
 Tässä on linkki, josta pääset luokkaan.</string>

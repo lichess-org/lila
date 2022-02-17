@@ -71,7 +71,7 @@ Jogadores atrasados ganham apenas um bye, mesmo se eles perderem várias rodadas
 O motivo é a injustiça com as pessoas que saem do torneio antes. Não podemos esperar que todos os jogadores joguem todas as suas partidas em um evento online. Isso simplesmente não acontece, então a maioria dos torneios round robin seria injusta, contradizendo sua própria essência.
 O mais próximo que se pode ter de um round robin online, é jogar um torneio suíço com um alto número de partidas. Assim, todos os pareamentos possíveis serão jogados antes de o torneio acabar.</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
-  <string name="otherSystemsA">Não planejamos adicionar mais sistemas de torneio ao Lichess no momento.</string>
+  <string name="otherSystemsA">Não planejamos adicionar mais sistemas de torneio ao NewChess no momento.</string>
   <string name="swissDescription">Em um torneio suíço %1$s, cada jogador não necessariamente enfrenta todos os outros oponentes. Os competidores se encontram um a um em cada rodada, e são pareados segundo uma série de regras para que cada jogador enfrente oponentes com pontuações similares, mas nunca o mesmo oponente mais de uma vez. O vencedor é o competidor com a maior quantidade de pontos acumulados em todas as rodadas. Todos os competidores jogam em cada rodada, a menos que haja um número ímpar de rodadas.</string>
   <string name="teamOnly">Torneios suíços só podem ser criados por líderes de equipe, e só podem ser jogados pelos membros de uma equipe.           
 %1$s para começar a jogar em torneios suíços.</string>

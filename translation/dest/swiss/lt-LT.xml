@@ -81,7 +81,7 @@ Vėlyvi žaidėjai gauna vieną \"bye\", net jei jie praleido daugiau negu vien�
 To priežastis - nėra gerų būtų išspręsti situacijas, kai žaidėjai pasitraukia anksčiau laiko. Mes negalime tikėtis, kad turnyre tinkle visi žaidėjai sužais visas partijas. Tai tiesiog neįvyksta, todėl Round Robin turnyrai būtų nesmagūs ir nesąžiningi - tokiu atveju jų geriau neturėti visai.
 Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu skaičiumi raundų. Tokiu atveju iki turnyro galo bus sužaistos visos poros.</string>
   <string name="otherSystemsQ">O kaip su kitomis turnyrų sistemomis?</string>
-  <string name="otherSystemsA">Šiuo metu prie Lichess daugiau turnyrų sistemų pridėti neplanuojame.</string>
+  <string name="otherSystemsA">Šiuo metu prie NewChess daugiau turnyrų sistemų pridėti neplanuojame.</string>
   <string name="swissDescription">Šveicariškuose turnyruose %1$s kiekvienas varžovas ne būtinai turi žaisti su visais kitais dalyviais. Priešininkai susitinka akis į akį kiekviename raunde ir yra suporuojami remiantis tam tikromis taisyklėmis. Šios taisyklės užtikrina, kad kiekvienas varžovas žaidžia su priešininkais turinčiais panašų taškų skaičių, bet su tuo pačiu oponentu ne daugiau nei kartą. Laimėtojas yra varžovas su daugiausia per visus raundus surinktų taškų. Visi varžovai žaidžia po raundą, nebent yra nelyginis žaidėjų skaičius.\"</string>
   <string name="teamOnly">Šveicariški turnyrai gali būti pradėti tik komandų lygerių ir gali būti žaidžiami tik komandos narių.           
 %1$s norėdami pradėti žaisti šveicariškuose turnyruose.</string>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess 配信者</string>
-  <string name="lichessStreamer">Lichess 配信者</string>
+  <string name="lichessStreamers">NewChess 配信者</string>
+  <string name="lichessStreamer">NewChess 配信者</string>
   <string name="live">ライブ配信中</string>
   <string name="offline">オフライン</string>
   <string name="currentlyStreaming">現在配信中：%s</string>
   <string name="lastStream">最後の配信 %s</string>
-  <string name="becomeStreamer">Lichess の配信者になるには</string>
+  <string name="becomeStreamer">NewChess の配信者になるには</string>
   <string name="doYouHaveStream">Twitch や YouTube の配信動画をお持ちですか？</string>
   <string name="hereWeGo">やります！</string>
   <string name="allStreamers">すべての配信者</string>
@@ -15,26 +15,26 @@
   <string name="downloadKit">配信者用キットをダウンロード</string>
   <string name="xIsStreaming">%s が現在配信中</string>
   <string name="rules">配信のルール</string>
-  <string name="rule1">Lichess について配信する際にはタイトルにキーワード「lichess.org」を入れてください。</string>
-  <string name="rule2">Lichess 以外について配信する際にはキーワードを入れないように。</string>
-  <string name="rule3">Lichess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
+  <string name="rule1">NewChess について配信する際にはタイトルにキーワード「newchess.fun」を入れてください。</string>
+  <string name="rule2">NewChess 以外について配信する際にはキーワードを入れないように。</string>
+  <string name="rule3">NewChess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">あなたの配信中に全員がフェアプレイを守れるよう %s を読んでおくこと。</string>
   <string name="streamingFairplayFAQ">配信フェアプレイ FAQ</string>
   <string name="perks">キーワードを入れた配信に対する特典</string>
-  <string name="perk1">Lichess のプロフィール・ページに配信者として表示。</string>
+  <string name="perk1">NewChess のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>
-  <string name="perk3">Lichess でのフォロワーに通知が行く。</string>
+  <string name="perk3">NewChess でのフォロワーに通知が行く。</string>
   <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 配信者登録の用意ができたら、%s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">モデレーターによる審査を求めます</string>
-  <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。Lichess の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">NewChess 配信者登録の用意ができたら、%s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">モデレーターによる審査を求めます</string>
+  <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。NewChess の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="optionalOrEmpty">任意。なければ空白</string>
   <string name="youtubeChannel">あなたの YouTube チャンネル ID または URL</string>
-  <string name="streamerName">Lichess での配信者名</string>
+  <string name="streamerName">NewChess での配信者名</string>
   <plurals name="keepItShort">
     <item quantity="other">短めに、最大 %s 字まで</item>
   </plurals>

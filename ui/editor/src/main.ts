@@ -6,7 +6,7 @@ import { Chessground } from 'chessground-newchess1-mod';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
-export default function LichessEditor(element: HTMLElement, config: Editor.Config): LichessEditor {
+export default function NewChessEditor(element: HTMLElement, config: Editor.Config): NewChessEditor {
   const ctrl = new EditorCtrl(config, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');

@@ -3,7 +3,7 @@
   <string name="activity">Hoạt động</string>
   <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng như một %2$s</item>
+    <item quantity="other">Đã hỗ trợ newchess.fun %1$s tháng như một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">Đã tập %1$s thế cờ ở %2$s</item>
@@ -51,7 +51,7 @@
     <item quantity="other">Hoàn thành %s giải đấu hệ Thụy Sỹ</item>
   </plurals>
   <string name="rankedInSwissTournament">Xếp hạng %1$s trong %2$s</string>
-  <string name="signedUp">Đã ghi danh ở lichess.org</string>
+  <string name="signedUp">Đã ghi danh ở newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã gia nhập %s đội</item>
   </plurals>

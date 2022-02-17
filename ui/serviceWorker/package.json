@@ -2,7 +2,7 @@
   "name": "serviceWorker",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org service worker",
+  "description": "newchess.fun service worker",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {

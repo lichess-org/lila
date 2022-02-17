@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">Odgovori na pogosto zastavljena vprašanja</string>
   <string name="frequentlyAskedQuestions">Pogosto zastavljena vprašanja</string>
-  <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Zakaj se NewChess imenuje NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
   <string name="leechess">li-čes</string>
   <string name="hearItPronouncedBySpecialist">Poslušajte, kako ime izgovori strokovnjak.</string>
-  <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
-  <string name="whyIsLilaCalledLila">Podobno izvorna koda za Lichess, %1$s, pomeni li[chess in sca]la, saj je večina lichess napisana v %2$s, intuitivnem programskem jeziku.</string>
-  <string name="howCanIContributeToLichess">Kako lahko prispevam k Lichess-u?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess poganjajo donacije pokroviteljev in prizadevanja ekipe prostovoljcev.</string>
-  <string name="findMoreAndSeeHowHelp">Več o %1$s (vključno z %2$s). Če želite Lichessu pomagati s prostovoljnim časom in spretnostmi, je tukaj veliko %3$s.</string>
+  <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je NewChess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
+  <string name="whyIsLilaCalledLila">Podobno izvorna koda za NewChess, %1$s, pomeni li[chess in sca]la, saj je večina newchess napisana v %2$s, intuitivnem programskem jeziku.</string>
+  <string name="howCanIContributeToLichess">Kako lahko prispevam k NewChess-u?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess poganjajo donacije pokroviteljev in prizadevanja ekipe prostovoljcev.</string>
+  <string name="findMoreAndSeeHowHelp">Več o %1$s (vključno z %2$s). Če želite NewChessu pomagati s prostovoljnim časom in spretnostmi, je tukaj veliko %3$s.</string>
   <string name="beingAPatron">biti pokrovitelj</string>
   <string name="breakdownOfOurCosts">razčlenitev naših stroškov</string>
   <string name="otherWaysToHelp">drugi načini pomoči</string>
-  <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na Lichess-u?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na NewChess-u?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Da. NewChess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
   <string name="fairPlay">Poštena igra</string>
   <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
   <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
@@ -25,7 +25,7 @@
   <string name="howCanIBecomeModerator">Kako lahko postanem moderator?</string>
   <string name="youCannotApply">Če želite postati moderator, se ni mogoče prijaviti. Če vidimo nekoga, za katerega mislimo, da bi bil dober kot moderator, ga bomo kontaktirali neposredno.</string>
   <string name="isCorrespondenceDifferent">Ali se dopisni šah razlikuje od običajnega šaha?</string>
-  <string name="youCanUseOpeningBookNoEngine">Na Lichess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih Lichess ne.</string>
+  <string name="youCanUseOpeningBookNoEngine">Na NewChess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih NewChess ne.</string>
   <string name="gameplay">Igranje</string>
   <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>
   <string name="basedOnGameDuration">Nadzor časa na lichessu temelji na ocenjenem trajanju igre = %1$s
@@ -33,8 +33,8 @@ Na primer, predvideno trajanje igre 5 + 3 je 5 × 60 + 40 × 3 = 420 sekund.</st
   <string name="durationFormula">(začetni čas ure) + 40 × (prirastek ure)</string>
   <string name="inferiorThanXsEqualYtimeControl">> %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">&amp;gt %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Katere različice lahko igram na Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess podpira standardni šah in %1$s.</string>
+  <string name="whatVariantsCanIplay">Katere različice lahko igram na NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess podpira standardni šah in %1$s.</string>
   <string name="eightVariants">6 šahovskih različic</string>
   <string name="whatIsACPL">Kakšna je povprečna izguba stotine kmeta (ACPL)?</string>
   <string name="acplExplanation">Stotina kmeta je merska enota, ki se v šahu uporablja kot prikaz prednosti. Stotina kmeta je enak 1/100 kmeta. Torej 100 stotin kmeta = 1 kmet. Te vrednote nimajo formalne vloge v igri, so pa uporabne za igrače in so bistvene za računalniški šah za ocenjevanje položajev.
@@ -60,31 +60,31 @@ Opisano je v oddelku 3.7 (d) %2$s:
 
 Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="goodIntroduction">dober uvod</string>
-  <string name="lichessTraining">Lichess usposabljanje</string>
+  <string name="lichessTraining">NewChess usposabljanje</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
-  <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. NewChess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trikratna ponovitev</string>
   <string name="notRepeatedMoves">Potez nismo ponavljali. Zakaj je bila igra še vedno remizirana s ponavljanjem?</string>
   <string name="repeatedPositionsThatMatters">Trikratno ponavljanje je ponovitev %1$s in ne premiki. Ni nujno, da se ponavljanje ponavlja.</string>
   <string name="positions">pozicije</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Trikrat smo ponovili položaj. Zakaj igra ni bila remizirana?</string>
-  <string name="threeFoldHasToBeClaimed">Ponovitev mora zahtevati eden od igralcev. To lahko storite tako, da pritisnete gumb, ki je prikazan, ali tako, da pred zadnjo ponavljajočo se potezo ponudite remi, ne bo pomembno, ali bo nasprotnik zavrnil ponudbo remija, vseeno bo zahtevana trikratna ponovitev. Lahko tudi nastavite %1$s Lichess, da samodejno zahteva ponovitve za vas. Poleg tega petkratno ponavljanje vedno takoj konča igro.</string>
+  <string name="threeFoldHasToBeClaimed">Ponovitev mora zahtevati eden od igralcev. To lahko storite tako, da pritisnete gumb, ki je prikazan, ali tako, da pred zadnjo ponavljajočo se potezo ponudite remi, ne bo pomembno, ali bo nasprotnik zavrnil ponudbo remija, vseeno bo zahtevana trikratna ponovitev. Lahko tudi nastavite %1$s NewChess, da samodejno zahteva ponovitve za vas. Poleg tega petkratno ponavljanje vedno takoj konča igro.</string>
   <string name="configure">nastavi</string>
   <string name="accounts">Računi</string>
-  <string name="titlesAvailableOnLichess">Kakšni nazivi so na Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess prepozna vse naslove FIDE, pridobljene z igro OTB (čez ploščo), pa tudi %1$s. Tu je seznam naslovov FIDE:</string>
+  <string name="titlesAvailableOnLichess">Kakšni nazivi so na NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess prepozna vse naslove FIDE, pridobljene z igro OTB (čez ploščo), pa tudi %1$s. Tu je seznam naslovov FIDE:</string>
   <string name="showYourTitle">Če imate naslov OTB, se lahko prijavite, da se to prikaže na vašem računu, tako da izpolnite %1$s, vključno z jasno sliko identifikacijskega dokumenta / kartice in selfiejem, na katerem imate dokument / kartico.
 
-Preverjanje, da je naslovni igralec na Lichessu, omogoča dostop do iger na dogodkih Titled Arena.
+Preverjanje, da je naslovni igralec na NewChessu, omogoča dostop do iger na dogodkih Titled Arena.
 
 Končno je tu še častni naslov %2$s.</string>
   <string name="asWellAsManyNMtitles">veliko državnih mojstrskih naslovov</string>
   <string name="verificationForm">obrazec za preverjanje</string>
-  <string name="canIbecomeLM">Ali lahko dobim Lichess Master (LM) naslov?</string>
+  <string name="canIbecomeLM">Ali lahko dobim NewChess Master (LM) naslov?</string>
   <string name="noUpperCaseDot">Ne.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Ta častni naslov je neuraden in obstaja samo na Lichessu.
+  <string name="lMtitleComesToYouDoNotRequestIt">Ta častni naslov je neuraden in obstaja samo na NewChessu.
 
-Po lastni presoji ga redko podelimo izjemnim igralcem, ki so dobri državljani Lichessa. Ne dobiš naslova LM, naslov LM pride do tebe. Če izpolnjujete pogoje, boste od nas prejeli sporočilo v zvezi s tem in izbiro, da sprejmete ali zavrnete.
+Po lastni presoji ga redko podelimo izjemnim igralcem, ki so dobri državljani NewChessa. Ne dobiš naslova LM, naslov LM pride do tebe. Če izpolnjujete pogoje, boste od nas prejeli sporočilo v zvezi s tem in izbiro, da sprejmete ali zavrnete.
 
 Ne zahtevajte naslova LM.</string>
   <string name="whatUsernameCanIchoose">Kakšno je lahko moje uporabniško ime?</string>
@@ -93,12 +93,12 @@ Ne zahtevajte naslova LM.</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
   <string name="uniqueTrophies">Edinstvene trofeje</string>
-  <string name="ownerUniqueTrophies">Ta pokal je edinstven v zgodovini Lichessa, nihče drug kot %1$s ga ne bo imel nikoli.</string>
+  <string name="ownerUniqueTrophies">Ta pokal je edinstven v zgodovini NewChessa, nihče drug kot %1$s ga ne bo imel nikoli.</string>
   <string name="wayOfBerserkExplanation">Da bi ga dobil, se je hiimgosu izzval, da se znori in zmaga v 100%% igrah %s.</string>
   <string name="aHourlyBulletTournament">urni Bullet turnir</string>
   <string name="goldenZeeExplanation">ZugAddict je pretakal in zadnji dve uri je poskušal premagati A.I. stopnja 8 v igri 1 + 0, brez uspeha. Thibault mu je rekel, da bo, če bo to uspešno opravil v toku, dobil edinstven pokal. Eno uro kasneje je razbil Stockfish in obljuba je bila izpolnjena.</string>
-  <string name="lichessRatings">Lichess ratingi</string>
-  <string name="whichRatingSystemUsedByLichess">Kakšen rating sistem uporablja Lichess?</string>
+  <string name="lichessRatings">NewChess ratingi</string>
+  <string name="whichRatingSystemUsedByLichess">Kakšen rating sistem uporablja NewChess?</string>
   <string name="ratingSystemUsedByLichess">Ratingi se izračunajo po metodi rangiranja Glicko-2, ki jo je razvil Mark Glickman. To je zelo priljubljena metoda rangiranja, ki jo uporablja veliko število šahovskih organizacij (FIDE je izjemen primer, saj še vedno uporabljajo datiran sistem rangiranja Elo).
 
 V osnovi ratingi Glicko pri izračunu in predstavitvi vašega ratinga uporabljajo \"intervale zaupanja\". Ko prvič začnete uporabljati spletno mesto, se vaš rating začne pri 1500 ± 700. 1500 predstavlja vaš rating, 700 pa interval zaupanja.
@@ -128,13 +128,13 @@ Najbolje, da na rejting gledate kot na \"relativno\" številko (ne kot \"absolut
   <string name="enableZenMode">Omogočite Zen-način v %1$s ali s pritiskom na %2$s med partijo.</string>
   <string name="displayPreferences">prikaži nastavitve</string>
   <string name="connexionLostCanIGetMyRatingBack">Izgubil sem partijo zaradi zakasnitve/prekinitve povezave. Ali lahko dobim nazaj svoje rejtinške točke?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Žal ne moremo vračati rejtinških točk za partije, izgubljene zaradi zakasnitve ali prekinitve povezave, ne glede na to, ali je bila težava na vašem ali na našem delu. Slednje je sicer zelo redko. Prav tako upoštevajte, da pri ponovnem zagonu Lichess-a, partijo vedno prekinemo, da preprečimo poraz zaradi izteka časa.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Žal ne moremo vračati rejtinških točk za partije, izgubljene zaradi zakasnitve ali prekinitve povezave, ne glede na to, ali je bila težava na vašem ali na našem delu. Slednje je sicer zelo redko. Prav tako upoštevajte, da pri ponovnem zagonu NewChess-a, partijo vedno prekinemo, da preprečimo poraz zaradi izteka časa.</string>
   <string name="howToThreeDots">Kako...</string>
   <string name="enableDisableNotificationPopUps">Omogočiti ali onemogočiti pojavna okna?</string>
   <string name="viewSiteInformationPopUp">Pokaži pojavno okno spletnega mesta</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess lahko pošilja pojavna obvestila, na primer, ko ste na vrsti ali ste prejeli zasebno sporočilo.
+  <string name="lichessCanOptionnalySendPopUps">NewChess lahko pošilja pojavna obvestila, na primer, ko ste na vrsti ali ste prejeli zasebno sporočilo.
 
-Kliknite ikono ključavnice poleg naslova lichess.org v vrstici URL vašega brskalnika.
+Kliknite ikono ključavnice poleg naslova newchess.fun v vrstici URL vašega brskalnika.
 
-Nato izberite, ali želite dovoliti ali blokirati obvestila strani Lichess.</string>
+Nato izberite, ali želite dovoliti ali blokirati obvestila strani NewChess.</string>
 </resources>

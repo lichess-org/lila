@@ -3,8 +3,8 @@
   <string name="activity">Aktiivsus</string>
   <string name="hostedALiveStream">Tegi otseülekannet</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Toeta Lichess.org\'i %1$s kuu %2$s</item>
-    <item quantity="other">Toeta Lichess.org\'i %1$s kuud %2$s</item>
+    <item quantity="one">Toeta NewChess.org\'i %1$s kuu %2$s</item>
+    <item quantity="other">Toeta NewChess.org\'i %1$s kuud %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Harjutas %1$s seisu teemas %2$s</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Võistles %s šveitsi turniiril</item>
   </plurals>
   <string name="rankedInSwissTournament">Saavutas #%1$s koha mängus %2$s</string>
-  <string name="signedUp">Registreerus lehel lichess.org</string>
+  <string name="signedUp">Registreerus lehel newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Liitus %s rühmaga</item>
     <item quantity="other">Liitus %s rühmaga</item>

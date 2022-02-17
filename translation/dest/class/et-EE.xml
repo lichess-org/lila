@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klassid</string>
-  <string name="teachClassesOfChessStudents">Õpeta klassitäit maleõpilasi Lichessi Klassid tööriistaga.</string>
+  <string name="teachClassesOfChessStudents">Õpeta klassitäit maleõpilasi NewChessi Klassid tööriistaga.</string>
   <string name="features">Funktsioonid</string>
   <string name="quicklyGenerateSafeUsernames">Loo kiiresti turvalised kasutajanimed ja salasõnad oma õpilastele</string>
   <string name="trackStudentProgress">Jälgi õpilaste edenemist mängudes ja ülesannetes</string>
   <string name="messageAllStudents">Teavita kõiki õpilasi uuest materjalist klassis</string>
   <string name="freeForAllForever">100% kõigile tasuta, igavesti, reklaamivaba ja jälitamiseta</string>
-  <string name="applyToBeLichessTeacher">Kandideeri Lichessi õpetajaks</string>
+  <string name="applyToBeNewChessTeacher">Kandideeri NewChessi õpetajaks</string>
   <string name="noClassesYet">Hetkel pole ühtegi klassi.</string>
   <string name="teachersX">Õpetajad: %s</string>
   <string name="newClass">Uus klass</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klassi kirjeldus</string>
   <string name="visibleByBothStudentsAndTeachers">Nähtav õpetajatele kui ka selle klassi õpilastele</string>
   <string name="teachersOfTheClass">Klassi õpetajad</string>
-  <string name="addLichessUsernames">Lisa Lichessi kasutajanimed, et neid kutsuda õpetajaks. Ainult üks rea kohta.</string>
+  <string name="addNewChessUsernames">Lisa NewChessi kasutajanimed, et neid kutsuda õpetajaks. Ainult üks rea kohta.</string>
   <string name="resetPassword">Uus parool</string>
   <string name="makeSureToCopy">Kopeeri või kirjuta oma parool kuhugi ülesse. Seda ei saa uuesti vaadata!</string>
   <string name="passwordX">Parool: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Päris nimi</string>
   <string name="privateWillNeverBeShown">Privaatne. Pole nähtav väljaspool klassi. Aitab jätta meelde kes see õpilane on.</string>
   <string name="addStudent">Lisa õpilane</string>
-  <string name="lichessProfileXCreatedForY">Lichessi profiil %1$s on tehtud %2$s jaoks.</string>
+  <string name="lichessProfileXCreatedForY">NewChessi profiil %1$s on tehtud %2$s jaoks.</string>
   <string name="studentCredentials">Õpilane: %1$s
 Kasutajanimi: %2$s
 Parool: %3$s</string>
-  <string name="inviteALichessAccount">Kutsu Lichessi kasutaja</string>
-  <string name="inviteDesc1">Kui õpilasel on juba Lichessi kasutaja siis sa saad neid kutsuda klassi.</string>
-  <string name="inviteDesc2">Nad saavad Lichessis kirja, kus on link klassi juurde.</string>
+  <string name="inviteANewChessAccount">Kutsu NewChessi kasutaja</string>
+  <string name="inviteDesc1">Kui õpilasel on juba NewChessi kasutaja siis sa saad neid kutsuda klassi.</string>
+  <string name="inviteDesc2">Nad saavad NewChessis kirja, kus on link klassi juurde.</string>
   <string name="inviteDesc3">Tähtis: ainult kutsu õpilasi keda sa tunned ja kes tahavad ühineda klassiga.</string>
   <string name="inviteDesc4">Ära saada soovimatuid kutseid suvalistele mängijatele.</string>
-  <string name="createANewLichessAccount">Loo uus Lichessi konto</string>
-  <string name="createDesc1">Kui õpilasel pole veel Lichessi kasutajat siis saad selle neile teha.</string>
+  <string name="createANewNewChessAccount">Loo uus NewChessi konto</string>
+  <string name="createDesc1">Kui õpilasel pole veel NewChessi kasutajat siis saad selle neile teha.</string>
   <string name="createDesc2">Emaili pole vaja. Parool luuakse ja sa pead selle edastama õpilasele, et nad saaks sisse logida.</string>
   <string name="createDesc3">Tähtis: õpilasel ei tohi olla mitu kasutajat.</string>
   <string name="createDesc4">Kui neil juba on kasutaja, siis kasuta vormi nende kutsumiseks.</string>
-  <string name="lichessUsername">Lichessi kasutajanimi</string>
+  <string name="lichessUsername">NewChessi kasutajanimi</string>
   <string name="generateANewUsername">Loo uus kasutajanimi</string>
   <string name="welcomeToClass">Tere tulemast sinu klassi: %s.
 Siin on link klassi sisenemiseks.</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lớp</string>
-  <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học Lichess.</string>
+  <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học NewChess.</string>
   <string name="features">Tính năng</string>
   <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho học viên</string>
   <string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và thách đố</string>
   <string name="messageAllStudents">Thông báo cho tất cả học viên về tài liệu lớp học mới</string>
   <string name="freeForAllForever">Miễn phí 100% cho tất cả, mãi mãi, không có quảng cáo hoặc giám sát</string>
-  <string name="applyToBeLichessTeacher">Đăng ký để trở thành giáo viên của Lichess</string>
+  <string name="applyToBeNewChessTeacher">Đăng ký để trở thành giáo viên của NewChess</string>
   <string name="noClassesYet">Chưa có lớp nào.</string>
   <string name="teachersX">Giáo viên: %s</string>
   <string name="newClass">Lớp học mới</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Mô tả lớp</string>
   <string name="visibleByBothStudentsAndTeachers">Hiển thị bởi cả giáo viên và học sinh của lớp</string>
   <string name="teachersOfTheClass">Giáo viên của lớp</string>
-  <string name="addLichessUsernames">Thêm tên người dùng Lichess để mời họ làm giáo viên. Mỗi người một dòng.</string>
+  <string name="addNewChessUsernames">Thêm tên người dùng NewChess để mời họ làm giáo viên. Mỗi người một dòng.</string>
   <string name="resetPassword">Đặt lại mật khẩu</string>
   <string name="makeSureToCopy">Hãy chắc chắn sao chép hoặc ghi lại mật khẩu ngay bây giờ. Bạn sẽ không thể nhìn thấy nó một lần nữa!</string>
   <string name="passwordX">Mật khẩu: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Tên thật</string>
   <string name="privateWillNeverBeShown">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp nhớ học viên là ai.</string>
   <string name="addStudent">Thêm học viên</string>
-  <string name="lichessProfileXCreatedForY">Hồ sơ Lichess %1$s đã tạo cho %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Hồ sơ NewChess %1$s đã tạo cho %2$s.</string>
   <string name="studentCredentials">Học viên:%1$s
 Tên người dùng: %2$s
 Mật khẩu: %3$s</string>
-  <string name="inviteALichessAccount">Mời một tài khoản Lichess</string>
-  <string name="inviteDesc1">Nếu học viên đã có tài khoản Lichess, bạn có thể mời họ vào lớp.</string>
-  <string name="inviteDesc2">Họ sẽ nhận được một tin nhắn trên Lichess với một liên kết để tham gia lớp học.</string>
+  <string name="inviteANewChessAccount">Mời một tài khoản NewChess</string>
+  <string name="inviteDesc1">Nếu học viên đã có tài khoản NewChess, bạn có thể mời họ vào lớp.</string>
+  <string name="inviteDesc2">Họ sẽ nhận được một tin nhắn trên NewChess với một liên kết để tham gia lớp học.</string>
   <string name="inviteDesc3">Quan trọng: chỉ mời những sinh viên mà bạn biết và là những người thực sự muốn tham gia lớp học.</string>
   <string name="inviteDesc4">Không bao giờ gửi lời mời không mong muốn đến người chơi tùy ý.</string>
-  <string name="createANewLichessAccount">Tạo một tài khoản Lichess mới</string>
-  <string name="createDesc1">Nếu học viên chưa có tài khoản Lichess, bạn có thể tạo một tài khoản cho họ tại đây.</string>
+  <string name="createANewNewChessAccount">Tạo một tài khoản NewChess mới</string>
+  <string name="createDesc1">Nếu học viên chưa có tài khoản NewChess, bạn có thể tạo một tài khoản cho họ tại đây.</string>
   <string name="createDesc2">Không yêu cầu địa chỉ email. Một mật khẩu sẽ được tạo và bạn sẽ phải gửi nó cho học viên, để họ có thể đăng nhập.</string>
   <string name="createDesc3">Quan trọng: một học viên không được có nhiều tài khoản.</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
-  <string name="lichessUsername">Tên người dùng Lichess</string>
+  <string name="lichessUsername">Tên người dùng NewChess</string>
   <string name="generateANewUsername">Tạo một tài khoản mới</string>
   <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
 Đây là đường link để tham gia lớp học.</string>

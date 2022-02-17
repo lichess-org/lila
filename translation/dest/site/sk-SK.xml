@@ -322,7 +322,7 @@
     <item quantity="many">Pridať %s sekúnd</item>
     <item quantity="other">Pridať %s sekúnd</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tento účet porušil Podmienky poskytovania služby Lichess</string>
+  <string name="thisAccountViolatedTos">Tento účet porušil Podmienky poskytovania služby NewChess</string>
   <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
@@ -516,7 +516,7 @@
   <string name="thankYou">Ďakujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
-  <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Bolo na NewChess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
@@ -680,7 +680,7 @@
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
-  <string name="lichessTournaments">Lichess turnaje</string>
+  <string name="lichessTournaments">NewChess turnaje</string>
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
   <string name="averageCentipawnLoss">Priemerná strata (v stotinách pešiaka)</string>
@@ -716,8 +716,8 @@
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="readAboutOur">Prečítajte si o našej %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichessom</string>
-  <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
+  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a newchessom</string>
+  <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na newchess serveri</string>
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
   <string name="downloadImported">Stiahnuť importované</string>
@@ -733,14 +733,14 @@
   <string name="withEverybody">S každým</string>
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu NewChess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
   <string name="sessions">Pripojenia</string>
   <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
-  <string name="asFreeAsLichess">Slobodný ako lichess</string>
+  <string name="asFreeAsLichess">Slobodný ako newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
   <string name="everybodyGetsAllFeaturesForFree">Každý dostane všetky možnosti zadarmo</string>
   <string name="zeroAdvertisement">Bez reklám</string>
@@ -861,14 +861,14 @@
   <string name="tryToWin">Snažte sa vyhrať (alebo aspoň zremizovať) každú partiu, ktorú hráte!</string>
   <string name="resignLostGames">Prehraté partie vzdajte (nenechávajte vypršať čas na hodinách)!</string>
   <string name="temporaryInconvenience">Ospravedlňujeme sa za spôsobenú nepríjemnosť,</string>
-  <string name="wishYouGreatGames">a prajeme Vám veľa skvelých partií na lichess.org.</string>
+  <string name="wishYouGreatGames">a prajeme Vám veľa skvelých partií na newchess.fun.</string>
   <string name="thankYouForReading">Ďakujeme za dočítanie.</string>
   <string name="lifetimeScore">Celkové skóre</string>
   <string name="currentMatchScore">Skóre aktuálneho zápasu</string>
   <string name="agreementAssistance">Súhlasím, že v žiadnom prípade nebudem používať asistenciu (počítača, šachovej knihy, databázy alebo inej osoby).</string>
   <string name="agreementNice">Súhlasím, že budem vždy rešpektovať ostatných hráčov.</string>
   <string name="agreementAccount">Súhlasím, že si nevytvorím viacero účtov.</string>
-  <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
+  <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá NewChessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
   <string name="rapid">Rapid</string>
@@ -905,13 +905,13 @@
   <string name="resVsX">%1$s proti %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Niekto napísal recenziu Vášho profilu trénera.</string>
   <string name="newPendingReview">Nová čakajúca recenzia</string>
-  <string name="lostAgainstTOSViolator">Prehrali ste s niekým kto porušil pravidlá stránky Lichess</string>
+  <string name="lostAgainstTOSViolator">Prehrali ste s niekým kto porušil pravidlá stránky NewChess</string>
   <string name="refundXpointsTimeControlY">Náhrada: %1$s %2$s ratingových bodov.</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="lichessPatronInfo">NewChess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
@@ -962,6 +962,6 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="youCantStartNewGame">Kým neukončíte túto partiu, nemôžete začať novú.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
-  <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
+  <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých NewChess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
 </resources>

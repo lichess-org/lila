@@ -6,7 +6,7 @@
   <string name="isRated">Ĉi tiu turniro rangas kaj influos vian rangon.</string>
   <string name="isNotRated">Ĉi tiu turniro estas *ne* rangita kaj volos *ne* influos vian rangon.</string>
   <string name="someRated">Luj turniroj rangas kaj influos vian rangon.</string>
-  <string name="howAreScoresCalculated">Kiel lichess kalkulas poentarojn?</string>
+  <string name="howAreScoresCalculated">Kiel newchess kalkulas poentarojn?</string>
   <string name="howAreScoresCalculatedAnswer">Venko havas bazan poentaron de 2 poentoj, sorto: 1 punkto, kaj perdo valoras neniujn punktojn.
 Se vi gajnos du ludojn sinsekve vi komencos duoblan punkton, reprezentitan per flamo-ikono.
 La sekvaj ludoj daŭre valoras duoble punktojn ĝis vi ne gajnos ludon.

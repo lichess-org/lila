@@ -1,10 +1,10 @@
-interface Lichess {
+interface NewChess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
-  storage: LichessStorageHelper;
-  tempStorage: LichessStorageHelper;
+  storage: NewChessStorageHelper;
+  tempStorage: NewChessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   powertip: any;
   widget: any;
@@ -29,7 +29,7 @@ interface Lichess {
   redirect(o: RedirectTo): void;
   reload(): void;
   escapeHtml(str: string): string;
-  announce(d: LichessAnnouncement): void;
+  announce(d: NewChessAnnouncement): void;
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
@@ -117,7 +117,7 @@ interface SoundI {
   baseUrl: string;
 }
 
-interface LichessSpeech {
+interface NewChessSpeech {
   step(s: { san?: San }, cut: boolean): void;
 }
 
@@ -155,41 +155,41 @@ interface Pubsub {
   emit(msg: string, ...args: any[]): void;
 }
 
-interface LichessStorageHelper {
-  make(k: string): LichessStorage;
-  makeBoolean(k: string): LichessBooleanStorage;
+interface NewChessStorageHelper {
+  make(k: string): NewChessStorage;
+  makeBoolean(k: string): NewChessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
   fire(k: string, v?: string): void;
   remove(k: string): void;
 }
 
-interface LichessStorage {
+interface NewChessStorage {
   get(): string | null;
   set(v: any): void;
   remove(): void;
-  listen(f: (e: LichessStorageEvent) => void): void;
+  listen(f: (e: NewChessStorageEvent) => void): void;
   fire(v?: string): void;
 }
 
-interface LichessBooleanStorage {
+interface NewChessBooleanStorage {
   get(): boolean;
   set(v: boolean): void;
   toggle(): void;
 }
 
-interface LichessStorageEvent {
+interface NewChessStorageEvent {
   sri: string;
   nonce: number;
   value?: string;
 }
 
-interface LichessAnnouncement {
+interface NewChessAnnouncement {
   msg?: string;
   date?: string;
 }
 
-interface LichessEditor {
+interface NewChessEditor {
   getFen(): string;
   setOrientation(o: Color): void;
 }
@@ -230,7 +230,7 @@ declare namespace Editor {
 }
 
 interface Window {
-  lichess: Lichess;
+  lichess: NewChess;
 
   readonly chrome?: unknown;
   readonly moment: any;
@@ -241,16 +241,16 @@ interface Window {
     jump(node: Tree.Node): void;
   };
   readonly hopscotch: any;
-  LichessSpeech?: LichessSpeech;
-  readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
-  LichessChat: (element: Element, opts: any) => any;
-  readonly LichessFlatpickr: (element: Element, opts: any) => any;
-  readonly LichessNotify: (element: any, opts: any) => any;
-  readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any, opts: any) => any;
-  readonly LichessAnalyse: any;
-  readonly LichessCli: any;
-  readonly LichessRound: any;
+  NewChessSpeech?: NewChessSpeech;
+  readonly NewChessEditor?: (element: HTMLElement, config: Editor.Config) => NewChessEditor;
+  NewChessChat: (element: Element, opts: any) => any;
+  readonly NewChessFlatpickr: (element: Element, opts: any) => any;
+  readonly NewChessNotify: (element: any, opts: any) => any;
+  readonly NewChessChallenge: (element: any, opts: any) => any;
+  readonly NewChessDasher: (element: any, opts: any) => any;
+  readonly NewChessAnalyse: any;
+  readonly NewChessCli: any;
+  readonly NewChessRound: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
@@ -546,4 +546,4 @@ interface Dictionary<T> {
 
 type SocketHandlers = Dictionary<(d: any) => void>;
 
-declare const lichess: Lichess;
+declare const lichess: NewChess;

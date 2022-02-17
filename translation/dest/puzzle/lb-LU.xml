@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Sich Aufgaben aus Partie vun engem Spiller</string>
   <string name="fromXGames">Aufgaben aus Partie vum %s</string>
   <string name="searchPuzzles">Aufgabe sichen</string>
-  <string name="fromMyGamesNone">Et befannen sech keng Aufgabe vun dir an der Datebank, mee Lichess schätzt dech weiderhi ganz vill.
+  <string name="fromMyGamesNone">Et befannen sech keng Aufgabe vun dir an der Datebank, mee NewChess schätzt dech weiderhi ganz vill.
 Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun denge Partien bäizefügen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partie fonnt</string>
   <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>

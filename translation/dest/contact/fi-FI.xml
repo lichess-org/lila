@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Ota yhteyttä</string>
-  <string name="contactLichess">Ota yhteyttä Lichessiin</string>
+  <string name="contactLichess">Ota yhteyttä NewChessiin</string>
   <string name="whatCanWeHelpYouWith">Kuinka voimme olla avuksi?</string>
   <string name="visitThisPage">Ongelman ratkaisemiseksi käy tällä sivulla</string>
   <string name="iCantLogIn">En pääse kirjautumaan sisään</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Olen kadottanut kaksivaiheisen tunnistautumisen koodini</string>
   <string name="doPasswordReset">Poista toinen tunnistautumisvaihe nollaamalla salasanasi</string>
   <string name="accountSupport">Tarvitsen tukea käyttäjätiliini</string>
-  <string name="wantTitle">Haluan minun arvonimeni näkyvän Lichessissä</string>
-  <string name="visitTitleConfirmation">Arvonimesi näyttämisestä Lichess-profiilissasi sekä arvonimiareenoihin osallistumisesta saat lisätietoa arvonimen vahvistussivulta</string>
+  <string name="wantTitle">Haluan minun arvonimeni näkyvän NewChessissä</string>
+  <string name="visitTitleConfirmation">Arvonimesi näyttämisestä NewChess-profiilissasi sekä arvonimiareenoihin osallistumisesta saat lisätietoa arvonimen vahvistussivulta</string>
   <string name="wantCloseAccount">Haluan sulkea tilini</string>
   <string name="closeYourAccount">Voit sulkea tilisi tältä sivulta</string>
   <string name="doNotAskByEmail">Älä pyydä meitä sähköpostitse sulkemaan tiliäsi, sitä me emme tee.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Älä lähetä yksityisviestejä moderaattoreille.</string>
   <string name="onlyReports">Vain lomakkeen kautta tapahtuvalla ilmoituksella on vaikutusta.</string>
   <string name="wantReportBug">Haluan ilmoittaa viasta</string>
-  <string name="reportBugInForum">Foorumin Lichess Feedback -osiossa</string>
-  <string name="reportWebsiteIssue">Lichessin verkkosivusto-ongelmaksi GitHubissa</string>
-  <string name="reportMobileIssue">Lichessin mobiilisovellusongelmaksi GitHubissa</string>
-  <string name="reportBugInDiscord">Lichessin Discord-palvelimella</string>
+  <string name="reportBugInForum">Foorumin NewChess Feedback -osiossa</string>
+  <string name="reportWebsiteIssue">NewChessin verkkosivusto-ongelmaksi GitHubissa</string>
+  <string name="reportMobileIssue">NewChessin mobiilisovellusongelmaksi GitHubissa</string>
+  <string name="reportBugInDiscord">NewChessin Discord-palvelimella</string>
   <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
   <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
   <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Älä kiellä huijaustasi. Jos haluat luoda uuden käyttäjätilin, myönnä tekosesi ja osoita että ymmärrät sen olleen virhe.</string>
   <string name="otherRestriction">Muu rajoitus</string>
   <string name="collaboration">Yhteistyö, lakiasiat, kaupallisuus</string>
-  <string name="monetizing">Lichessin kaupallistaminen</string>
-  <string name="buyingLichess">Lichessin ostaminen</string>
-  <string name="authorizationToUse">Lichessin käyttöluvat</string>
-  <string name="welcomeToUse">Saat vapaasti käyttää Lichessiä omiin tarkoituksiisi, jopa kaupallisiin.</string>
-  <string name="videosAndBooks">Se voi näkyä videoillasi, ja voit painaa kuvankaappauksia Lichessistä kirjoihisi.</string>
+  <string name="monetizing">NewChessin kaupallistaminen</string>
+  <string name="buyingLichess">NewChessin ostaminen</string>
+  <string name="authorizationToUse">NewChessin käyttöluvat</string>
+  <string name="welcomeToUse">Saat vapaasti käyttää NewChessiä omiin tarkoituksiisi, jopa kaupallisiin.</string>
+  <string name="videosAndBooks">Se voi näkyä videoillasi, ja voit painaa kuvankaappauksia NewChessistä kirjoihisi.</string>
   <string name="creditAppreciated">Tunnustus on tervetullutta, mutta emme vaadi sitä.</string>
   <string name="noneOfTheAbove">Ei mitään näistä</string>
   <string name="sendEmailAt">Lähetä sähköpostia osoitteeseen %s.</string>
-  <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro Lichess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>
+  <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro NewChess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>
 </resources>

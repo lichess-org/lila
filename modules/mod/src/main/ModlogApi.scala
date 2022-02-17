@@ -306,7 +306,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     lila.log("mod").info(m.toString)
     m.notable ?? {
       coll.insert.one {
-        ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+        ModlogBSONHandler.writeTry(m).get ++ (!m.isNewChess).??($doc("human" -> true))
       } >> (m.notableZulip ?? zulipMonitor(m))
     }
   }

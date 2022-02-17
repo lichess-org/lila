@@ -340,7 +340,7 @@
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
   <string name="thankYou">આભાર!</string>
-  <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
+  <string name="previouslyOnNewChessTV">અગાઉનું NewChess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
   <string name="name">નામ</string>
@@ -360,9 +360,9 @@
   <string name="studyMenu">અભ્યાસ</string>
   <string name="practice">મહાવરો</string>
   <string name="aboutX">%s વિશે</string>
-  <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
-  <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
+  <string name="lichessTournaments">NewChess પ્રતિયોગિતાઓ</string>
+  <string name="networkLagBetweenYouAndLichess">તમારા અને NewChess વચ્ચે નેટવર્ક વિલંબ છે</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
   <string name="language">ભાષા</string>
   <string name="background">પૃષ્ઠભૂમિ</string>

@@ -50,7 +50,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
         heightA := Streamer.imageSize,
         cls := "picture",
         src := url(s),
-        alt := s"${u.titleUsername} Lichess streamer picture"
+        alt := s"${u.titleUsername} NewChess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match {

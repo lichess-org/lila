@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess trenerji</string>
-  <string name="lichessCoach">Lichess trener</string>
+  <string name="lichessCoaches">NewChess trenerji</string>
+  <string name="lichessCoach">NewChess trener</string>
   <string name="areYouCoach">Ali ste dober šahovski trener z %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ali FIDE naziv</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://newchess.fun/help/master">NM ali FIDE naziv</string>
   <string name="confirmTitle">Potrdite vaš naziv tukaj in pregledali bomo vašo prijavo.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Pošljite nam elektronsko sporočilo na %s in pregledali bomo vašo prijavo.</string>
   <string name="location">Lokacija</string>
@@ -14,7 +14,7 @@
   <string name="accepting">Sprejemanje študentov</string>
   <string name="notAccepting">Trenutno ne sprejemamo študentov</string>
   <string name="xCoachesStudents">%s trenira šahovske študente</string>
-  <string name="viewXProfile">Ogled Lichess profila %s</string>
+  <string name="viewXProfile">Ogled NewChess profila %s</string>
   <string name="sendPM">Pošlji zasebno sporočilo</string>
   <string name="aboutMe">O meni</string>
   <string name="playingExperience">Šahovske izkušnje</string>

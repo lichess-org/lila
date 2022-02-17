@@ -360,7 +360,7 @@
     <item quantity="many">منح %s ثانية</item>
     <item quantity="other">منح %s ثانية</item>
   </plurals>
-  <string name="thisAccountViolatedTos">هذا الحساب انتهك شروط خدمة lichess</string>
+  <string name="thisAccountViolatedTos">هذا الحساب انتهك شروط خدمة newchess</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
@@ -574,9 +574,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">رابط واحد لكل سطر</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
-  <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
+  <string name="previouslyOnNewChessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activePlayers">لاعبين نشطين</string>
   <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
@@ -939,7 +939,7 @@
   <string name="tryToWin">حاول فوز (او تعادل على الأقل) كل دور تلعبه.</string>
   <string name="resignLostGames">انسحب اذا كنت على وشك الهزيمة (لا تدع الوقت ينتهي).</string>
   <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
-  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
+  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على NewChess.org.</string>
   <string name="thankYouForReading">نشكرك على القراءة!</string>
   <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
@@ -983,13 +983,13 @@
   <string name="resVsX">%1$s ضد %2$s</string>
   <string name="someoneReviewedYourCoachProfile">قام شخص ما بمراجعة ملفك للتدريب.</string>
   <string name="newPendingReview">قيد الإطلاع</string>
-  <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة Lichess</string>
+  <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة NewChess</string>
   <string name="refundXpointsTimeControlY">استعادة: %1$s نقطة تقييم، تصنيف %2$s.</string>
   <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>
   <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
   <string name="download">تحميل</string>
   <string name="welcome">مرحبا!</string>
-  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
+  <string name="lichessPatronInfo">NewChess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="coachManager">مدير المدرب</string>
   <string name="streamerManager">مدير البث</string>
@@ -1044,6 +1044,6 @@
   <string name="youCantStartNewGame">لا يمكن أن تبدأ مباراة قبل الانتهاء من المباراة الحالية.</string>
   <string name="since">منذ</string>
   <string name="until">حتى</string>
-  <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
+  <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي NewChess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
 </resources>

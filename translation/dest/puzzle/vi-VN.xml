@@ -57,7 +57,7 @@
   <string name="lookupOfPlayer">Tím câu đố từ ván đấu của người khác</string>
   <string name="fromXGames">Câu đố của %s</string>
   <string name="searchPuzzles">Tìm câu đố</string>
-  <string name="fromMyGamesNone">Bạn không có câu đố nào trong hệ thống, nhưng Lichess vẫn rất yêu mến bạn.
+  <string name="fromMyGamesNone">Bạn không có câu đố nào trong hệ thống, nhưng NewChess vẫn rất yêu mến bạn.
 
 Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để được có cơ hội có câu đố được trích ra từ trò chơi của bạn!</string>
   <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>

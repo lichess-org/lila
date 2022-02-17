@@ -14,8 +14,8 @@
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
   <string name="sourceUrlOrGameIds">对局的 URL 链接或 ID</string>
-  <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="gameIdsHelp">或者，您可以输入最长 64 个字符的 Lichess 游戏 ID，用空格隔开。</string>
+  <string name="sourceUrlHelp">NewChess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
+  <string name="gameIdsHelp">或者，您可以输入最长 64 个字符的 NewChess 游戏 ID，用空格隔开。</string>
   <string name="startDate">开始日期 (在您的时区)</string>
   <string name="startDateHelp">如果您知道比赛开始时间 (可选)</string>
   <string name="credits">信任来源</string>

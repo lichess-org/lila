@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">Statistiques des parties de %s</string>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://newchess.fun/insights/thibault/acpl/variant">Statistiques des parties de %s</string>
   <string name="xHasNoChessInsights">Pas encore de synthèse pour les parties de %s</string>
   <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">La synthèse des parties de %s est protégée</string>
   <string name="cantSeeInsights">Désolé, vous ne pouvez pas voir la synthèse des parties de %s.</string>
-  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">Générer la synthèse des parties de %s</string>
+  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on NewChess to create insights for player %s.">Générer la synthèse des parties de %s</string>
   <string name="crunchingData" comment="crunchingData&#10;&#10;For chess insights, when you ask to create a new set of chess insights based on your/another player's game history.">Et maintenant, l’analyse de vos données, rien que pour vous !</string>
   <string name="maybeAskThemToChangeTheir" comment="maybeAskThemToChangeTheir&#10;%s is the translation for 'insights settings'.&#10;&#10;Your settings control privacy for your chess insights, and determine who can and cannot see them.">Peut-être pouvez-vous leur demander de changer leurs %s?</string>
   <string name="insightsSettings" comment="insightsSettings&#10;In the context of 'Maybe ask them to change their insight settings?' - separate string available for translation.">paramètres de synthèse des parties</string>

@@ -405,7 +405,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="biography">Biografiýa</string>
   <string name="thankYou">Minnetdar!</string>
   <string name="inlineNotation">Notasiýa şol bir setirde</string>
-  <string name="previouslyOnLichessTV">Lichess TV-ň geçen sanynda</string>
+  <string name="previouslyOnNewChessTV">NewChess TV-ň geçen sanynda</string>
   <string name="onlinePlayers">Onlaýn oýunçylar</string>
   <string name="activePlayers">Aktiw oýunçylar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Üns beriň, oýun reýtingli emma sagat ýok!</string>
@@ -539,7 +539,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="simulClockHint">Fischer sagady düzümi. Näçe köp oýunçy kabul etseňiz şonça köp wagt zerur bolup biler.</string>
   <string name="simulAddExtraTime">Birwagtla uýmak üçin sagadyňyza goşmaça wagt goşup bilersiňiz.</string>
   <string name="simulHostExtraTime">Gurnaýjynyň sagadynyň goşmaça wagty</string>
-  <string name="lichessTournaments">Lichess bäsleşikleri</string>
+  <string name="lichessTournaments">NewChess bäsleşikleri</string>
   <string name="tournamentFAQ">Arena bäsleşikleri hakda ÝÝSS</string>
   <string name="timeBeforeTournamentStarts">Bäsleşik başlamazyndan ozalky wagt</string>
   <string name="averageCentipawnLoss">Ortaça senti-pyýada ýitgisi</string>
@@ -569,7 +569,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email ýok bolsa bolup biljek spam, sosial, zyňyndy ýaly bukjalara serediň.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine email iberildi. Açarsözüňizi nollamak üçin emaildäki çelgä tyklaň.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrasiýa etmek bilen biziň %s şertlerine eýermegi kabul edýäňiz.</string>
-  <string name="networkLagBetweenYouAndLichess">Siz we lichess arasyndaky arabaglanşyk ýuwaşlygy</string>
+  <string name="networkLagBetweenYouAndLichess">Siz we newchess arasyndaky arabaglanşyk ýuwaşlygy</string>
   <string name="timeToProcessAMoveOnLichessServer">Göçüm amala aşyrmak üçin wagt geldi</string>
   <string name="downloadAnnotated">Annotasiýasy bilen indir</string>
   <string name="downloadRaw">Diňe özüni indir</string>
@@ -584,13 +584,13 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="withEverybody">Hemmeler bilen</string>
   <string name="kidMode">Çaga mody</string>
   <string name="kidModeExplanation">Bu howpsuzlyk barada. Çaga modunda saýtdaky ähli habarlaşma ýollary beklenýär. Çagalaryňyzy we mekdep okuwçylaryny internetdäki beýleki ulanyjylardan goramak üçin bu mody işlediň.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Çaga modunda lichess logosu hökmünde %s durýar çagalaryňyzyň ynamdadygyny bilmegiňiz üçin.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Çaga modunda newchess logosu hökmünde %s durýar çagalaryňyzyň ynamdadygyny bilmegiňiz üçin.</string>
   <string name="enableKidMode">Çaga moduny işlet</string>
   <string name="disableKidMode">Çaga moduny bekle</string>
   <string name="security">Howpsuzlyk</string>
   <string name="revokeAllSessions">ähli sessiýalary ýapmak</string>
   <string name="playChessEverywhere">Her ýerde küşt oýna</string>
-  <string name="asFreeAsLichess">Lichess deýin mugt</string>
+  <string name="asFreeAsLichess">NewChess deýin mugt</string>
   <string name="builtForTheLoveOfChessNotMoney">Küşt söýgüsi sebäpli gurulan, pul üçin däl</string>
   <string name="everybodyGetsAllFeaturesForFree">Her kim ähli aýratynlyklardan mugt peýdalanyp biler</string>
   <string name="zeroAdvertisement">Mahabat ýok</string>

@@ -5,7 +5,7 @@ import { NotifyOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export default function LichessNotify(element: Element, opts: NotifyOpts) {
+export default function NewChessNotify(element: Element, opts: NotifyOpts) {
   const ctrl = makeCtrl(opts, redraw);
   let vnode = patch(element, view(ctrl));
 

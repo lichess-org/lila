@@ -54,7 +54,7 @@ export function view(ctrl: LangsCtrl): VNode {
           'data-icon': '',
         },
       },
-      'Help translate Lichess'
+      'Help translate NewChess'
     ),
   ]);
 }

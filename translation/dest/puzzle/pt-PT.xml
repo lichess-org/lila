@@ -68,7 +68,7 @@
   <string name="fromXGames">%s é um nome de utilizador.
 Estes desafios foram retirados dos jogos desse utilizador</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
-  <string name="fromMyGamesNone">Não tens problemas na base de dados, mas Lichess adora-te muito.
+  <string name="fromMyGamesNone">Não tens problemas na base de dados, mas NewChess adora-te muito.
 
 Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de teres um problema adicionado!</string>
   <string name="fromXGamesFound">%1$s problemas encontrados em %2$s partidas</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Maak \'n skenking</string>
-  <string name="lichessPatron">Lichess Beskermheer</string>
+  <string name="lichessPatron">NewChess Beskermheer</string>
   <string name="freeAccount">Gratis rekening</string>
-  <string name="becomePatron">Word \'n Lichess Beskermheer</string>
-  <string name="xBecamePatron">%s het \'n Lichess beskermheer geword</string>
+  <string name="becomePatron">Word \'n NewChess Beskermheer</string>
+  <string name="xBecamePatron">%s het \'n NewChess beskermheer geword</string>
   <string name="newPatrons">Nuwe Beskermhere</string>
   <string name="freeChess">Gratis skaak vir almal, vir ewig!</string>
   <string name="noAdsNoSubs">Geen advertensies, geen intekening; maar oop-bron met passie.</string>
@@ -13,10 +13,10 @@
   <string name="patronUntil">Jy het \'n Beskermheer rekening tot %s.</string>
   <string name="ifNotRenewed">As jy dit nie hernu nie, sal jy weer een van die leke wees.</string>
   <string name="weAreNonProfit">Ons is \'n assosiasie sonder winsbejag, want ons glo almal moet toegang tot \'n gratis wêreld-gehalte skaak platform hê.</string>
-  <string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om Lichess te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
+  <string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om NewChess te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
   <string name="lifetime">Lewenslange</string>
-  <string name="payLifetimeOnce">Betaal %s een keer. Word \'n Lichess Beskermheer vir ewig!</string>
-  <string name="lifetimePatron">Lewenslange Lichess Beskermheer</string>
+  <string name="payLifetimeOnce">Betaal %s een keer. Word \'n NewChess Beskermheer vir ewig!</string>
+  <string name="lifetimePatron">Lewenslange NewChess Beskermheer</string>
   <string name="monthly">Maandelikse</string>
   <string name="recurringBilling">Herhalende paaiemente, hernu jou Beskermheer vlerke elke maand.</string>
   <string name="onetime">Eenmalig</string>
@@ -25,28 +25,28 @@
   <string name="withCreditCard">Kredietkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
-  <string name="celebratedPatrons">Die gevierde Beskermhere wat Lichess moontlik maak</string>
+  <string name="celebratedPatrons">Die gevierde Beskermhere wat NewChess moontlik maak</string>
   <string name="whereMoneyGoes">Waarheen gaan my geld?</string>
   <string name="serversAndDeveloper">Eerstens, kragtige bedieners.
 Verder betaal ons \'n voltydse sagteware ontwikkelaar: %s, die stigter van Licehss.</string>
   <string name="costBreakdown">Sien die uiteengesette koste analise</string>
-  <string name="officialNonProfit">Is Lichess \'n amptelike organisasie sonder winsbejag?</string>
+  <string name="officialNonProfit">Is NewChess \'n amptelike organisasie sonder winsbejag?</string>
   <string name="actOfCreation">Sowaar, hier is die akte van oprigting (in Frans)</string>
   <string name="changeMonthlySupport">Kan ek my maandelikse ondersteuning kanseleer of verander?</string>
   <string name="changeOrContact">Natuurlik, enige tyd, van hierdie blad af.
 Of jy kan %s.</string>
-  <string name="contactSupport">Lichess ondersteuning kontak</string>
+  <string name="contactSupport">NewChess ondersteuning kontak</string>
   <string name="otherMethods">Ander donasie metodes?</string>
   <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
   <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
-  <string name="noPatronFeatures">Nee, want Lichess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
+  <string name="noPatronFeatures">Nee, want NewChess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
 Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="featuresComparison">Kyk na die uiteengesette kenmerk vergelyking</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Beskermheer vir een maand</item>
-    <item quantity="other">Lichess Beskermheer vir %s maande</item>
+    <item quantity="one">NewChess Beskermheer vir een maand</item>
+    <item quantity="other">NewChess Beskermheer vir %s maande</item>
   </plurals>
-  <string name="youSupportWith">Jy ondersteun lichess.org met %s per maand.</string>
+  <string name="youSupportWith">Jy ondersteun newchess.fun met %s per maand.</string>
   <string name="tyvm">Baie dankie vir jou hulp. Jy is \'n yster!</string>
   <string name="currentStatus">Huidige status</string>
   <string name="nextPayment">Volgende paaiement</string>
@@ -56,16 +56,16 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="changeMonthlyAmount">Verander die maandelikse bedrag (%s)</string>
   <string name="cancelSupport">kanseleer jou ondersteuning</string>
   <string name="xOrY">%1$s of %2$s</string>
-  <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
+  <string name="decideHowMuch">Besluit wat NewChess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
-  <string name="noLongerSupport">Ondersteun nie meer Lichess nie</string>
-  <string name="viewOthers">Sien ander Lichess Beskermhere</string>
+  <string name="noLongerSupport">Ondersteun nie meer NewChess nie</string>
+  <string name="viewOthers">Sien ander NewChess Beskermhere</string>
   <string name="date">Datum</string>
   <string name="amount">Bedrag</string>
   <string name="transactionCompleted">Jou transaksie is afgehandel, en \'n strokie vir jou donasie sal deur e-pos aan jou afgelewer word.</string>
   <string name="permanentPatron">Jy het nou \'n permanente Beskermheer rekening.</string>
   <string name="checkOutProfile">Gaan kyk na jou profielblad!</string>
-  <string name="nowLifetime">Jy is nou \'n lewenslange Lichess Beskermheer!</string>
-  <string name="nowOneMonth">Jy is nou \'n Lichess Beskermheer vir een maand!</string>
-  <string name="downgradeNextMonth">In een maand sal jy nie weer moet betaal nie, en jou Lichess rekening sal na gratis afgegradeer word.</string>
+  <string name="nowLifetime">Jy is nou \'n lewenslange NewChess Beskermheer!</string>
+  <string name="nowOneMonth">Jy is nou \'n NewChess Beskermheer vir een maand!</string>
+  <string name="downgradeNextMonth">In een maand sal jy nie weer moet betaal nie, en jou NewChess rekening sal na gratis afgegradeer word.</string>
 </resources>

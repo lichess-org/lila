@@ -106,7 +106,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         {
           attrs: {
             'data-icon': '',
-            href: 'https://lichess.org/api#tag/Arena-tournaments',
+            href: 'https://newchess.fun/api#tag/Arena-tournaments',
           },
         },
         'Arena API documentation'

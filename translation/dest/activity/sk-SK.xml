@@ -3,10 +3,10 @@
   <string name="activity">Aktivita</string>
   <string name="hostedALiveStream">Vysielal naživo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Podporuje lichess.org %1$s mesiac ako %2$s</item>
-    <item quantity="few">Podporuje lichess.org %1$s mesiace ako %2$s</item>
-    <item quantity="many">Podporuje lichess.org %1$s mesiacov ako %2$s</item>
-    <item quantity="other">Podporuje lichess.org %1$s mesiacov ako %2$s</item>
+    <item quantity="one">Podporuje newchess.fun %1$s mesiac ako %2$s</item>
+    <item quantity="few">Podporuje newchess.fun %1$s mesiace ako %2$s</item>
+    <item quantity="many">Podporuje newchess.fun %1$s mesiacov ako %2$s</item>
+    <item quantity="other">Podporuje newchess.fun %1$s mesiacov ako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Precvičená %1$s pozícia v %2$s</item>
@@ -99,7 +99,7 @@
     <item quantity="other">Účast v %s turnajoch</item>
   </plurals>
   <string name="rankedInSwissTournament">Umiestnený ako #%1$s v %2$s</string>
-  <string name="signedUp">Registrácia na lichess.org</string>
+  <string name="signedUp">Registrácia na newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pripojenie sa k %s tímu</item>
     <item quantity="few">Pripojenie sa k %s tímom</item>

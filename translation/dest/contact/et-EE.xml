@@ -11,7 +11,7 @@
   <string name="youCanLoginWithEmail">Võid logida sisse sama e-mailiga, millega registreerusid kasutajaks</string>
   <string name="lost2FA">Ma kaotasin ligipääsu oma kaheastmelise autentimise koodidele</string>
   <string name="accountSupport">Vajan abi kasutajaga seoses</string>
-  <string name="wantTitle">Tahan näidata oma tiitlit Lichessis</string>
+  <string name="wantTitle">Tahan näidata oma tiitlit NewChessis</string>
   <string name="wantCloseAccount">Ma tahan oma konto sulgeda</string>
   <string name="closeYourAccount">Sa saad oma konto sulgeda sellel lehel</string>
   <string name="wantReopen">Ma tahan oma konto taasavada</string>
@@ -25,7 +25,7 @@
   <string name="doNotReportInForum">Ära teavita mängijatest foorumil.</string>
   <string name="doNotSendReportEmails">Ära saada meile teavitusi meilitsi.</string>
   <string name="wantReportBug">Tahan teatada veast</string>
-  <string name="reportBugInDiscord">Lichessi Discord-serveril</string>
+  <string name="reportBugInDiscord">NewChessi Discord-serveril</string>
   <string name="illegalPawnCapture">Ebaseaduslik etturi löömine</string>
   <string name="calledEnPassant">Selle nimi on \"en passant\" ja see on üks osa malereeglitest.</string>
   <string name="tryEnPassant">Proovi seda väikest interaktiivset mängu, et tunda ära \"en passant\".</string>
@@ -34,7 +34,7 @@
   <string name="noRatingPoints">Reitingut ei jagatud</string>
   <string name="errorPage">Vigane leht</string>
   <string name="reportErrorPage">Kui märkasid vigast lehte, saad teavitada sellest:</string>
-  <string name="monetizing">Lichessi turustamine</string>
-  <string name="buyingLichess">Lichessi ostmine</string>
+  <string name="monetizing">NewChessi turustamine</string>
+  <string name="buyingLichess">NewChessi ostmine</string>
   <string name="sendEmailAt">Saada meile e-maili %s.</string>
 </resources>

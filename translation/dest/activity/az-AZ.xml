@@ -3,8 +3,8 @@
   <string name="activity">Aktivlik</string>
   <string name="hostedALiveStream">Canlı yayım etdi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
-    <item quantity="other">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
+    <item quantity="one">NewChess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
+    <item quantity="other">NewChess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s mövzusunda %1$s pozisiya məşq etdi</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s İsveçrə sistemli turnirə qatıldı</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s turnirində %1$s-ci oldu</string>
-  <string name="signedUp">lichess.org\'a üzv oldu</string>
+  <string name="signedUp">newchess.fun\'a üzv oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s komandasına qatıldı</item>
     <item quantity="other">%s komandasına qatıldı</item>

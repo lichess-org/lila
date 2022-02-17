@@ -3,8 +3,8 @@
   <string name="activity">പ്രവര്‍ത്തനം</string>
   <string name="hostedALiveStream">ലൈവ് സംപ്രക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">lichess.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
-    <item quantity="other">lichess.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
+    <item quantity="one">newchess.funനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
+    <item quantity="other">newchess.funനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s position %2$s -ൽ അഭ്യസിച്ചു</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s സ്വിസ്സ് ടൂർണമെന്റിൽ പങ്കെടുത്തു</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s ഇൽ റാങ്ക് #%1$s</string>
-  <string name="signedUp">Lichess.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
+  <string name="signedUp">NewChess.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s ടീമിൽ അംഗമായി</item>
     <item quantity="other">%s ടീമുകളിൽ അംഗമായി</item>

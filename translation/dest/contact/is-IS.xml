@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Hafa samband</string>
-  <string name="contactLichess">Hafa samband við Lichess</string>
+  <string name="contactLichess">Hafa samband við NewChess</string>
   <string name="whatCanWeHelpYouWith">Hvernig getum við aðstoðað?</string>
   <string name="visitThisPage">Farðu á síðuna til að leysa vandamálinu</string>
   <string name="iCantLogIn">Ég get ekki skráð mig inn</string>

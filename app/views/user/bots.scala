@@ -35,9 +35,9 @@ object bots {
                   h1("Community bots"),
                   a(
                     cls := "bots__about",
-                    href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
+                    href := "https://newchess.fun/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                   )(
-                    "About Lichess Bots"
+                    "About NewChess Bots"
                   )
                 ),
                 botTable(all)

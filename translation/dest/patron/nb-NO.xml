@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Doner</string>
   <string name="donateAsX">Bidra som %s</string>
-  <string name="lichessPatron">Lichess-patron</string>
+  <string name="lichessPatron">NewChess-patron</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli Lichess-patron</string>
-  <string name="xBecamePatron">%s ble Lichess-patron</string>
+  <string name="becomePatron">Bli NewChess-patron</string>
+  <string name="xBecamePatron">%s ble NewChess-patron</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s er Lichess-patron i %2$s måned</item>
-    <item quantity="other">%1$s er Lichess-patron i %2$s måneder</item>
+    <item quantity="one">%1$s er NewChess-patron i %2$s måned</item>
+    <item quantity="other">%1$s er NewChess-patron i %2$s måneder</item>
   </plurals>
   <string name="newPatrons">Nye patroner</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
@@ -18,10 +18,10 @@
   <string name="patronUntil">Du har patronkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
-  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli patron!</string>
+  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke NewChess, så vurder gjerne å støtte oss med et bidrag og bli patron!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betal %s én gang. Vær Lichess-patron for alltid!</string>
-  <string name="lifetimePatron">Lichess-patron på livstid</string>
+  <string name="payLifetimeOnce">Betal %s én gang. Vær NewChess-patron for alltid!</string>
+  <string name="lifetimePatron">NewChess-patron på livstid</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Periodisk fakturering. Patronvingene dine fornyes hver måned.</string>
   <string name="onetime">En gang</string>
@@ -31,28 +31,28 @@
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
-  <string name="celebratedPatrons">De velaktede patronene som gjør Lichess mulig</string>
+  <string name="celebratedPatrons">De velaktede patronene som gjør NewChess mulig</string>
   <string name="whereMoneyGoes">Hva går pengene til?</string>
   <string name="serversAndDeveloper">Først og fremst til kraftige servere.
-Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
+Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av NewChess.</string>
   <string name="costBreakdown">Vis en detaljert oversikt over kostnader</string>
-  <string name="officialNonProfit">Er Lichess offisielt en ideell forening?</string>
+  <string name="officialNonProfit">Er NewChess offisielt en ideell forening?</string>
   <string name="actOfCreation">Ja, her er registermeldingen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg endre/annullere det månedlige bidraget mitt?</string>
   <string name="changeOrContact">Ja, når som helst, fra denne siden.
 Eller du kan %s.</string>
-  <string name="contactSupport">ta kontakt med Lichess-support</string>
+  <string name="contactSupport">ta kontakt med NewChess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
   <string name="patronFeatures">Er noen funksjoner forbeholdt patroner?</string>
-  <string name="noPatronFeatures">Nei, Lichess er helt gratis, for alltid og for alle. Det er et løfte.
+  <string name="noPatronFeatures">Nei, NewChess er helt gratis, for alltid og for alle. Det er et løfte.
 Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess-patron i én måned</item>
-    <item quantity="other">Lichess-patron i %s måneder</item>
+    <item quantity="one">NewChess-patron i én måned</item>
+    <item quantity="other">NewChess-patron i %s måneder</item>
   </plurals>
-  <string name="youSupportWith">Du støtter lichess.org med %s per måned.</string>
+  <string name="youSupportWith">Du støtter newchess.fun med %s per måned.</string>
   <string name="tyvm">Tusen takk for støtten. Du er sjef!</string>
   <string name="currentStatus">Gjeldende status</string>
   <string name="nextPayment">Neste betaling</string>
@@ -63,17 +63,17 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
   <string name="cancelSupport">avbryt støtte</string>
   <string name="xOrY">%1$s eller %2$s</string>
-  <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
+  <string name="decideHowMuch">Bestemt hvor verdifull NewChess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
-  <string name="noLongerSupport">Avbryt støtten til Lichess</string>
-  <string name="viewOthers">Vis andre Lichess-patroner</string>
+  <string name="noLongerSupport">Avbryt støtten til NewChess</string>
+  <string name="viewOthers">Vis andre NewChess-patroner</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>
   <string name="transactionCompleted">Transaksjonen er gjennomført og en kvittering har blitt sendt til din epostadresse.</string>
   <string name="permanentPatron">Du har nå permanent patronkonto.</string>
   <string name="checkOutProfile">Sjekk profilen din!</string>
-  <string name="nowLifetime">Du er nå Lichess-patron på livstid!</string>
-  <string name="nowOneMonth">Du er nå Lichess-patron i en måned!</string>
-  <string name="downgradeNextMonth">Om en måned blir du IKKE belastet på nytt, og Lichess-kontoen din blir tilbakestilt til gratis-nivået.</string>
+  <string name="nowLifetime">Du er nå NewChess-patron på livstid!</string>
+  <string name="nowOneMonth">Du er nå NewChess-patron i en måned!</string>
+  <string name="downgradeNextMonth">Om en måned blir du IKKE belastet på nytt, og NewChess-kontoen din blir tilbakestilt til gratis-nivået.</string>
   <string name="changeCurrency">Endre valuta</string>
 </resources>

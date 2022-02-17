@@ -1,6 +1,6 @@
 import sri from './sri';
 
-const builder = (storage: Storage): LichessStorageHelper => {
+const builder = (storage: Storage): NewChessStorageHelper => {
   const api = {
     get: (k: string) => storage.getItem(k),
     set: (k: string, v: string): void => storage.setItem(k, v),
@@ -19,10 +19,10 @@ const builder = (storage: Storage): LichessStorageHelper => {
       set: (v: any) => api.set(k, v),
       fire: (v?: string) => api.fire(k, v),
       remove: () => api.remove(k),
-      listen: (f: (e: LichessStorageEvent) => void) =>
+      listen: (f: (e: NewChessStorageEvent) => void) =>
         window.addEventListener('storage', e => {
           if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
-          let parsed: LichessStorageEvent | null;
+          let parsed: NewChessStorageEvent | null;
           try {
             parsed = JSON.parse(e.newValue);
           } catch (_) {

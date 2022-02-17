@@ -35,5 +35,5 @@
     <item quantity="one">%s Partie gfunde</item>
     <item quantity="other">%s Partie gfunde</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Die durchschnittlich Wertig vu beide Schpiller</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://newchess.fun/games/search">Die durchschnittlich Wertig vu beide Schpiller</string>
 </resources>

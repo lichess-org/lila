@@ -259,7 +259,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
-  <string name="thisAccountViolatedTos">此帳號違反了Lichess的使用規定</string>
+  <string name="thisAccountViolatedTos">此帳號違反了NewChess的使用規定</string>
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
@@ -419,7 +419,7 @@
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="inlineNotation">棋譜集中顯示</string>
-  <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
+  <string name="previouslyOnNewChessTV">過去的NewChess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
   <string name="activePlayers">活躍棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，這棋局是排位賽，但是不計時！</string>
@@ -532,7 +532,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">觀看對局直播</string>
-  <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
+  <string name="tpTimeSpentOnTV">花在NewChess TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
   <string name="videoLibrary">影片庫</string>
   <string name="streamersMenu">實況主</string>
@@ -564,7 +564,7 @@
   <string name="simulClockHint">菲舍爾時鐘設定。棋手越多，您需要的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
-  <string name="lichessTournaments">Lichess比赛</string>
+  <string name="lichessTournaments">NewChess比赛</string>
   <string name="tournamentFAQ">比赛常见问题</string>
   <string name="timeBeforeTournamentStarts">比赛准备时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
@@ -597,8 +597,8 @@
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
   <string name="readAboutOur">閱讀我們的%s</string>
-  <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
-  <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
+  <string name="networkLagBetweenYouAndLichess">您和 newchess 之間的網絡時滯</string>
+  <string name="timeToProcessAMoveOnLichessServer">newchess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
   <string name="downloadRaw">下载无笔记的记录</string>
   <string name="downloadImported">下载已导入棋局</string>
@@ -612,7 +612,7 @@
   <string name="withEverybody">與所有人分享</string>
   <string name="kidMode">兒童模式</string>
   <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，NewChess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
@@ -727,14 +727,14 @@
   <string name="tryToWin">試著在每個棋局裡獲勝(或至少平手)</string>
   <string name="resignLostGames">棄權(不要讓時間耗盡)</string>
   <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
-  <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
+  <string name="wishYouGreatGames">並祝您在newchess.fun上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
   <string name="lifetimeScore">帳戶總分</string>
   <string name="currentMatchScore">最近的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
   <string name="agreementAccount">我同意我不會創造許多副帳</string>
-  <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
+  <string name="agreementPolicy">我同意我將會遵守NewChess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
   <string name="rapid">快速模式</string>
@@ -777,7 +777,7 @@
   <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
   <string name="download">下載</string>
   <string name="welcome">歡迎！</string>
-  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
+  <string name="lichessPatronInfo">NewChess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
   <string name="cancelTournament">取消錦標賽</string>
   <string name="tournDescription">錦標賽敘述</string>

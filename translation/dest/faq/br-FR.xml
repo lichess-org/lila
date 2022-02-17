@@ -2,15 +2,15 @@
 <resources>
   <string name="faqAbbreviation">FAG</string>
   <string name="frequentlyAskedQuestions">Foar Ar Goulennoù</string>
-  <string name="whyIsLichessCalledLichess">Perak e vez graet Lichess eus Lichess?</string>
+  <string name="whyIsLichessCalledLichess">Perak e vez graet NewChess eus NewChess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Ur ger savet digant pevar ger all eo, \"live/light/libre\" ha \"chess\". Distaget e vez %1$s.</string>
   <string name="leechess">li-tchess</string>
   <string name="hearItPronouncedBySpecialist">Selaou ar ger distaget gant unan hag a oar mat.</string>
   <string name="whyLiveLightLibre">\"Live\" peogwir ez eus krogadoù da c\'hoari ha da sellet oute war-eeun a-hed an amzer; \"light\" ha \"libre\" dre ma \'z eo digor e vammenn ha gant se hep kudennoù perc\'hennañ a laka lec\'hiennoù all da vezañ pounner mat.</string>
-  <string name="howCanIContributeToLichess">Penaos e c\'hallan sikour Lichess?</string>
+  <string name="howCanIContributeToLichess">Penaos e c\'hallan sikour NewChess?</string>
   <string name="otherWaysToHelp">doareoù all da sikour</string>
-  <string name="areThereWebsitesBasedOnLichess">Ha lec\'hiennoù all zo diazezet war Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Hag ez eus. Awenet eo bet lec\'hiennoù all digor o mammenn hag ober a reont gant hor %1$s, %2$s, or %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Ha lec\'hiennoù all zo diazezet war NewChess?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Hag ez eus. Awenet eo bet lec\'hiennoù all digor o mammenn hag ober a reont gant hor %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="preventLeavingGameWithoutResigning">Petra a vez graet deus ar re a guit ar c\'hrogad hep dilezel?</string>
   <string name="howCanIBecomeModerator">Penaos e c\'hallan ober evit bezañ habaskaer?</string>
@@ -21,17 +21,17 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">An 8 eilstumm echedoù</string>
   <string name="discoveringEnPassant">Perak e c\'hall ur pezh gwerin pakañ unan all daoust ma \'z eo tremenet hebioù dija? (en ur dremen)</string>
-  <string name="lichessTraining">Gourdonadur Lichess</string>
+  <string name="lichessTraining">Gourdonadur NewChess</string>
   <string name="threefoldRepetition">Teir gwech an hevelep plegenn</string>
   <string name="positions">lec\'hiadurioù</string>
   <string name="accounts">Kontoù</string>
-  <string name="titlesAvailableOnLichess">Peseurt titloù a vo kavet war Lichess?</string>
+  <string name="titlesAvailableOnLichess">Peseurt titloù a vo kavet war NewChess?</string>
   <string name="verificationForm">furmskrid gwiriañ</string>
-  <string name="canIbecomeLM">Gallout a ran kaout an titl Lichess Master (LM)?</string>
+  <string name="canIbecomeLM">Gallout a ran kaout an titl NewChess Master (LM)?</string>
   <string name="noUpperCaseDot">Ne c\'hallit ket.</string>
   <string name="whatUsernameCanIchoose">Gant peseurt anv-implijer e c\'hallan ober?</string>
   <string name="guidelines">dealfoù</string>
-  <string name="lichessRatings">Renkadurioù Lichess</string>
+  <string name="lichessRatings">Renkadurioù NewChess</string>
   <string name="whatIsProvisionalRating">Perak ez eus ur pik goulennata (?) e-kichen ur renkadur?</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket a-enep %1$s er rummad a-zoare.</string>
   <string name="similarOpponents">enebourien a-live an eil re gant ar re all</string>

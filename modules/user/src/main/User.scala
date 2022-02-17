@@ -170,12 +170,12 @@ object User {
   }
 
   val anonymous                    = "Anonymous"
-  val anonMod                      = "A Lichess Moderator"
+  val anonMod                      = "A NewChess Moderator"
   val lichessId                    = "lichess"
   val broadcasterId                = "broadcaster"
   val ghostId                      = "ghost"
-  def isLichess(username: String)  = normalize(username) == lichessId
-  def isOfficial(username: String) = isLichess(username) || normalize(username) == broadcasterId
+  def isNewChess(username: String)  = normalize(username) == lichessId
+  def isOfficial(username: String) = isNewChess(username) || normalize(username) == broadcasterId
 
   val seenRecently = 2.minutes
 

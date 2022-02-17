@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Cercar problemes de les partides d\'un jugador</string>
   <string name="fromXGames">Problemes de les partides de %s</string>
   <string name="searchPuzzles">Cercar problemes</string>
-  <string name="fromMyGamesNone">No hi ha problemes teus a la base de dates, però Lichess t\'estima molt igualment.
+  <string name="fromMyGamesNone">No hi ha problemes teus a la base de dates, però NewChess t\'estima molt igualment.
 Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'hi afegeixi algun!</string>
   <string name="fromXGamesFound">%1$s problemes trobats en %2$s partides</string>
   <string name="puzzleDashboardDescription">Entrena, analitza, millora</string>

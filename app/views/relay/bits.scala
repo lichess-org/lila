@@ -10,7 +10,7 @@ object bits {
 
   def howToUse(implicit ctx: Context) =
     a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
-      "How to use Lichess Broadcasts"
+      "How to use NewChess Broadcasts"
     )
 
   def jsI18n(implicit ctx: Context) =

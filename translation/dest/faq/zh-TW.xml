@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">常見問題</string>
   <string name="frequentlyAskedQuestions">常見問題</string>
-  <string name="whyIsLichessCalledLichess">為什麼要叫Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess來自\'直播/光明/自由\'(live/light/libre) 加上\'國際象棋\'(chess) 的組合，讀做%1$s。</string>
+  <string name="whyIsLichessCalledLichess">為什麼要叫NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess來自\'直播/光明/自由\'(live/light/libre) 加上\'國際象棋\'(chess) 的組合，讀做%1$s。</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">聽聽看標準發音</string>
-  <string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lichess是開源軟體及不被版權蟑螂影響。</string>
-  <string name="whyIsLilaCalledLila">相同的，Lichess的原始碼 %1$s 代表Li[chess in sca]la，整個Lichess是用 %2$s 此直觀式語言所寫成</string>
-  <string name="howCanIContributeToLichess">我可以怎樣來幫助Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess能夠順利運作是因為有許多人的贊助以及一群自願者的努力。</string>
-  <string name="findMoreAndSeeHowHelp">你可以在這找到更多關於 %1$s和%2$s的細節。如果你願意貢獻你的時間及技術在Lichess，這裡有更多的 %3$s。</string>
+  <string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表NewChess是開源軟體及不被版權蟑螂影響。</string>
+  <string name="whyIsLilaCalledLila">相同的，NewChess的原始碼 %1$s 代表Li[chess in sca]la，整個NewChess是用 %2$s 此直觀式語言所寫成</string>
+  <string name="howCanIContributeToLichess">我可以怎樣來幫助NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess能夠順利運作是因為有許多人的贊助以及一群自願者的努力。</string>
+  <string name="findMoreAndSeeHowHelp">你可以在這找到更多關於 %1$s和%2$s的細節。如果你願意貢獻你的時間及技術在NewChess，這裡有更多的 %3$s。</string>
   <string name="beingAPatron">成為贊助者</string>
   <string name="breakdownOfOurCosts">經費收支</string>
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
-  <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">有的，Lichess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
+  <string name="areThereWebsitesBasedOnLichess">有基於NewChess的網頁嗎？</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">有的，NewChess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
   <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
@@ -25,17 +25,17 @@
   <string name="howCanIBecomeModerator">我要如何成為一個仲裁者？</string>
   <string name="youCannotApply">你無法主動申請成為一個仲裁者。如果我們看到我們認為有能力擔任仲裁者的人，我們會主動聯繫他們。</string>
   <string name="isCorrespondenceDifferent">通訊賽和常規賽有差異嗎？</string>
-  <string name="youCanUseOpeningBookNoEngine">在Lichess，兩者的最大的規則差異在通信賽可以使用開局庫。但電腦輔助一樣是禁止的，並一樣會被標記為電腦輔助的使用者。
-即便在ICCF允許在通信賽中使用電腦輔助，但Lichess不行。</string>
+  <string name="youCanUseOpeningBookNoEngine">在NewChess，兩者的最大的規則差異在通信賽可以使用開局庫。但電腦輔助一樣是禁止的，並一樣會被標記為電腦輔助的使用者。
+即便在ICCF允許在通信賽中使用電腦輔助，但NewChess不行。</string>
   <string name="gameplay">下棋</string>
   <string name="howBulletBlitzEtcDecided">Bullet、Blitz和其他模式的時限是怎麼決定的？</string>
-  <string name="basedOnGameDuration">Lichess上的時限基於預期的對弈時間 %1$s
+  <string name="basedOnGameDuration">NewChess上的時限基於預期的對弈時間 %1$s
 例如，5+3的預期對弈時間為 5 × 60 + 40 × 3 = 420秒。</string>
   <string name="durationFormula">(初始時間) + 40 x (加時)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
-  <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
+  <string name="whatVariantsCanIplay">有哪些變體是在NewChess上玩得到的？</string>
+  <string name="lichessSupportChessAnd">NewChess上有標準國際象棋和%1$s</string>
   <string name="eightVariants">8種變體</string>
   <string name="whatIsACPL">平均釐兵損失 (ACPL) 是什麼？</string>
   <string name="acplExplanation">釐兵是國際象棋計算優勢所用的計量單位。1釐兵等於兵價值的1/100。也就是說，100釐兵=1兵。這些價值在游戲中不起正式作用，但對玩家有用，對電腦來評估局面也很重要。
@@ -44,7 +44,7 @@
 
 該值可以用作著法質量的一個指標。每次失去的釐兵越少，著法就越強。
 
-Lichess上的電腦分析是基於Stockfish的。</string>
+NewChess上的電腦分析是基於Stockfish的。</string>
   <string name="insufficientMaterial">超時判負、和棋、以及子力不足</string>
   <string name="lichessFollowFIDErules">若玩家消盡了時間，該玩家通常會被判負。另外，如果對手無法在允許的最大限著 (%1$s回合) 內將殺玩家的王，對局就是和棋。
 
@@ -61,27 +61,27 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 
 請查看 %3$s 練習這個著法。</string>
   <string name="goodIntroduction">好的自我介紹</string>
-  <string name="lichessTraining">Lichess 訓練</string>
+  <string name="lichessTraining">NewChess 訓練</string>
   <string name="threefoldRepetition">三次重複局面</string>
-  <string name="threefoldRepetitionExplanation">如果同一個局面出現了三次，玩家可以根據%1$s提和。Lichess執行FIDE官方規則，這些規則在 %2$s第9.2(d)條中已有規定。</string>
+  <string name="threefoldRepetitionExplanation">如果同一個局面出現了三次，玩家可以根據%1$s提和。NewChess執行FIDE官方規則，這些規則在 %2$s第9.2(d)條中已有規定。</string>
   <string name="threefoldRepetitionLowerCase">三次重複局面</string>
   <string name="notRepeatedMoves">我們沒有重復著法。為什麼對局仍然被判和？</string>
   <string name="repeatedPositionsThatMatters">三次重復局面是關於局面的%1$s重復，而不是著法。重復局面不一定會連續發生。</string>
   <string name="positions">位置</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">同一個局面三次已經被重復了。為什麼對局沒有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重復局面和棋需要由其中一個選手提出。您可以通過按下已顯示的按鈕，或者在您最後一次重復移動之前提出和棋。無論對方接不接受，根據三次重複規範，遊戲會以和棋結束。您也可以%1$sLichess為您自動提和重復局面。此外，五次重復局面總是立即結束游戲。</string>
+  <string name="threeFoldHasToBeClaimed">三次重復局面和棋需要由其中一個選手提出。您可以通過按下已顯示的按鈕，或者在您最後一次重復移動之前提出和棋。無論對方接不接受，根據三次重複規範，遊戲會以和棋結束。您也可以%1$sNewChess為您自動提和重復局面。此外，五次重復局面總是立即結束游戲。</string>
   <string name="configure">配置</string>
   <string name="accounts">帳戶</string>
-  <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess接受所有OTB (在棋盤上) 對局得到的國際象棋聯稱號，以及%1$s，以下列出：</string>
+  <string name="titlesAvailableOnLichess">NewChess 上有什麼頭銜?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess接受所有OTB (在棋盤上) 對局得到的國際象棋聯稱號，以及%1$s，以下列出：</string>
   <string name="noUpperCaseDot">不行</string>
   <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
-  <string name="lichessRatings">Lichess 評分</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
+  <string name="lichessRatings">NewChess 評分</string>
+  <string name="whichRatingSystemUsedByLichess">NewChess 使用什麼評分機制?</string>
   <string name="similarOpponents">實力相近的對手</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
   <string name="ratingLeaderboards">評分排行表</string>

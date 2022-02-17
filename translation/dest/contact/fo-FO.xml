@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Samband</string>
-  <string name="contactLichess">Set teg í samband við Lichess</string>
+  <string name="contactLichess">Set teg í samband við NewChess</string>
   <string name="whatCanWeHelpYouWith">Hvørjum kunnu vit hjálpa tær við?</string>
   <string name="visitThisPage">Vitja hesa síðuna at greiða trupulleikan</string>
   <string name="iCantLogIn">Eg fái ikki ritað inn</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Eg misti atgongdina til mínar tveystigs-staðfestingarkotur</string>
   <string name="doPasswordReset">Nullstilla loyniorðið til tess at burturbeina seinna stigið</string>
   <string name="accountSupport">Mær tørvar kontustuðul</string>
-  <string name="wantTitle">Eg vil fegin, at heitið hjá mær verður víst á Lichess</string>
-  <string name="visitTitleConfirmation">Fyri at heitið hjá tær skal verða víst á Lichess-vangamynd tíni, og fyri at tú skalt kunna luttaka í Titled Arenas, skalt tú vitja váttanarsíðuna</string>
+  <string name="wantTitle">Eg vil fegin, at heitið hjá mær verður víst á NewChess</string>
+  <string name="visitTitleConfirmation">Fyri at heitið hjá tær skal verða víst á NewChess-vangamynd tíni, og fyri at tú skalt kunna luttaka í Titled Arenas, skalt tú vitja váttanarsíðuna</string>
   <string name="wantCloseAccount">Eg vil steingja kontu mína</string>
   <string name="closeYourAccount">Tú kanst steingja kontu tína á hesari síðuni</string>
   <string name="doNotAskByEmail">Ikki biðja okkum í einum telduposti at steingja eina kontu. Vit fara ikki at gera tað.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Send ikki beinleiðis boð til fyriskiparar.</string>
   <string name="onlyReports">Tað er bert munadygt at melda telvarar gjøgnum fráboðanaroyðublaðið.</string>
   <string name="wantReportBug">Eg vil boða frá eini telduvillu</string>
-  <string name="reportBugInForum">Í Lichess-afturboðanarpartinum av torginum</string>
-  <string name="reportWebsiteIssue">Sum ein Lichess-heimasíðutrupulleiki á GitHub</string>
-  <string name="reportMobileIssue">Sum ein Lichess-fartelefonsapp-trupulleiki á GitHub</string>
-  <string name="reportBugInDiscord">Í Lichess-tvídráttaambætaranum</string>
+  <string name="reportBugInForum">Í NewChess-afturboðanarpartinum av torginum</string>
+  <string name="reportWebsiteIssue">Sum ein NewChess-heimasíðutrupulleiki á GitHub</string>
+  <string name="reportMobileIssue">Sum ein NewChess-fartelefonsapp-trupulleiki á GitHub</string>
+  <string name="reportBugInDiscord">Í NewChess-tvídráttaambætaranum</string>
   <string name="howToReportBug">Greið vinaliga frá, hvussu trupulleikin ber seg at, hvat tú hevði væntað ístaðin, og tey stig, ið skulu til fyri at endurskapa trupulleikan.</string>
   <string name="illegalPawnCapture">Ólógligur háttur at taka finnuna</string>
   <string name="calledEnPassant">Tað eitur at taka í framlopi (\"en passant\"), og er ein av reglunum í talvi.</string>
@@ -63,13 +63,13 @@
   <string name="doNotDeny">Nokta ikki, at tú svikaði. Vilt tú hava loyvi at stovna eina nýggja kontu, mást tú viðganga tað, tú gjørdi, og vísa, at tú skilir, at tað var eitt mistak.</string>
   <string name="otherRestriction">Aðrar avmarkingar</string>
   <string name="collaboration">Samstarv, løgfrøði, vinnuligt virksemi</string>
-  <string name="monetizing">At tjena pening upp á Lichess</string>
-  <string name="buyingLichess">At keypa Lichess</string>
-  <string name="authorizationToUse">Loyvi at nýta Lichess</string>
-  <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
-  <string name="videosAndBooks">Tú kanst vísa tað í tínum sjónfílum, og tú kanst prenta skíggjamyndir av Lichess í tínum bókum.</string>
-  <string name="creditAppreciated">At nevna Lichess sum heimild verður virðismett, men er ikki kravt.</string>
+  <string name="monetizing">At tjena pening upp á NewChess</string>
+  <string name="buyingLichess">At keypa NewChess</string>
+  <string name="authorizationToUse">Loyvi at nýta NewChess</string>
+  <string name="welcomeToUse">Tú ert vælkomin at nýta NewChess til títt virksemi, enntá handilsliga.</string>
+  <string name="videosAndBooks">Tú kanst vísa tað í tínum sjónfílum, og tú kanst prenta skíggjamyndir av NewChess í tínum bókum.</string>
+  <string name="creditAppreciated">At nevna NewChess sum heimild verður virðismett, men er ikki kravt.</string>
   <string name="noneOfTheAbove">Einki av tí, ið stendur omanfyri</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
-  <string name="explainYourRequest">Greið frá fyrispurningi tínum út í æsir. Upplýs títt Lichess-brúkaranavn og onnur viðurskifti, ið kunnu hjálpa okkum at hjálpa tær.</string>
+  <string name="explainYourRequest">Greið frá fyrispurningi tínum út í æsir. Upplýs títt NewChess-brúkaranavn og onnur viðurskifti, ið kunnu hjálpa okkum at hjálpa tær.</string>
 </resources>

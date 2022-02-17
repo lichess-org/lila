@@ -13,7 +13,7 @@
   <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen režīms</string>
   <string name="showPlayerRatings">Rādīt spēlētāju reitingus</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Šī iespēja ļauj slēpt visus reitingus mājaslapā, lai palīdzētu koncentrēties uz pašu šahu. Spēles joprojām var būt vērtētas – šis attiecas tikai uz to, ko jūs redzat.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://newchess.fun/account/preferences/site">Šī iespēja ļauj slēpt visus reitingus mājaslapā, lai palīdzētu koncentrēties uz pašu šahu. Spēles joprojām var būt vērtētas – šis attiecas tikai uz to, ko jūs redzat.</string>
   <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="blindfoldChess">Aklais šahs (ar neredzamām figūrām)</string>
@@ -32,7 +32,7 @@
   <string name="takebacksWithOpponentApproval">Gājienu atsaukšana (ar pretinieka piekrišanu)</string>
   <string name="inCasualGamesOnly">Tikai nevērtētajās spēlēs</string>
   <string name="promoteToQueenAutomatically">Automātiski pārvērst par Dāmu</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Turiet nospiestu taustiņu &lt;ctrl&gt;, kad paaugstinat bandinieku, lai īslaicīgi atspējotu automātisko paaugstināšanu</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://newchess.fun/account/preferences/game-behavior">Turiet nospiestu taustiņu &lt;ctrl&gt;, kad paaugstinat bandinieku, lai īslaicīgi atspējotu automātisko paaugstināšanu</string>
   <string name="whenPremoving">Tikai priekšgājienos</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automātiski pieprasīt trīskāršās atkārtošanās neizšķirtu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>

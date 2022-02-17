@@ -139,9 +139,9 @@
   <string name="blackIsWinning">Svart vinner</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Utveckling</string>
   <string name="initiative">Initiativ</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Attack</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspel</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsproblem</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a NewChess study. Noun.">Attack</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspel</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a NewChess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsproblem</string>
   <string name="nextChapter">Nästa kapitel</string>
   <string name="prevChapter">Föregående kapitel</string>
 </resources>

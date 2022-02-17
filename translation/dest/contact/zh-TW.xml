@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">聯繫我們</string>
-  <string name="contactLichess">聯繫 Lichess</string>
+  <string name="contactLichess">聯繫 NewChess</string>
   <string name="whatCanWeHelpYouWith">有什麼我們能幫您的地方？</string>
   <string name="visitThisPage">觀看這個頁面以獲取解答</string>
   <string name="iCantLogIn">我無法登錄。</string>
@@ -12,7 +12,7 @@
   <string name="lost2FA">我無法取得兩步驟驗證碼</string>
   <string name="doPasswordReset">輸入密碼以移除兩步驟驗證</string>
   <string name="accountSupport">我需要帳戶支援</string>
-  <string name="wantTitle">我希望我的稱號顯示在Lichess上</string>
+  <string name="wantTitle">我希望我的稱號顯示在NewChess上</string>
   <string name="wantCloseAccount">我想刪除我的帳戶</string>
   <string name="closeYourAccount">您可以在這個頁面刪除你的帳號</string>
   <string name="doNotAskByEmail">請不要透過電子郵件要求我們關閉帳號，我們不會處理</string>
@@ -30,7 +30,7 @@
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
   <string name="doNotMessageModerators">請不要直接私訊管理員。</string>
   <string name="wantReportBug">我想要提出遊戲bug</string>
-  <string name="reportBugInDiscord">在 Lichess 的 Discord 伺服器</string>
+  <string name="reportBugInDiscord">在 NewChess 的 Discord 伺服器</string>
   <string name="illegalPawnCapture">不合規則的移動(吃法)</string>
   <string name="illegalCastling">后的不合規則移動或不可能的移動</string>
   <string name="castlingRules">請確定后的移動的規則</string>
@@ -44,13 +44,13 @@
   <string name="accountLost">若您確實有使用引擎輔助，就算只有一次，您的帳號仍會被永久停用。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">合作，法律，商業等</string>
-  <string name="monetizing">在 Lichess 上獲得營利</string>
-  <string name="buyingLichess">買下 Lichess</string>
-  <string name="authorizationToUse">Lichess 的使用授權</string>
-  <string name="welcomeToUse">歡迎您使用 Lichess 進行活動，甚至用於商業活動。</string>
+  <string name="monetizing">在 NewChess 上獲得營利</string>
+  <string name="buyingLichess">買下 NewChess</string>
+  <string name="authorizationToUse">NewChess 的使用授權</string>
+  <string name="welcomeToUse">歡迎您使用 NewChess 進行活動，甚至用於商業活動。</string>
   <string name="creditAppreciated">我們感激您留一句致謝，但這不是必要的。</string>
   <string name="noneOfTheAbove">以上皆非</string>
   <string name="sendEmailAt">請傳送郵件到 %s</string>
   <string name="explainYourRequest">請清楚的解釋您的請求。
-請提供您的Lichess用戶明和其他可以讓我們幫助您的資訊</string>
+請提供您的NewChess用戶明和其他可以讓我們幫助您的資訊</string>
 </resources>

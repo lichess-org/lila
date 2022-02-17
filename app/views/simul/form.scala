@@ -141,8 +141,8 @@ object form {
       )(form3.textarea(_)(rows := 10)),
       ctx.me.exists(_.canBeFeatured) option form3.checkbox(
         form("featured"),
-        trans.simulFeatured("lichess.org/simul"),
-        help = trans.simulFeaturedHelp("lichess.org/simul").some
+        trans.simulFeatured("newchess.fun/simul"),
+        help = trans.simulFeaturedHelp("newchess.fun/simul").some
       )
     )
   }

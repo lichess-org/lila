@@ -92,11 +92,11 @@ object contact {
               "dns",
               "\"This site can’t be reached\"",
               frag(
-                p("If you can't reach Lichess, and your browser says something like:"),
+                p("If you can't reach NewChess, and your browser says something like:"),
                 ul(
                   li("This site can't be reached."),
-                  li(strong("lichess.org"), "’s server IP address could not be found."),
-                  li("We can’t connect to the server at lichess.org.")
+                  li(strong("newchess.fun"), "’s server IP address could not be found."),
+                  li("We can’t connect to the server at newchess.fun.")
                 ),
                 p("Then you have a ", strong("DNS issue"), "."),
                 p(
@@ -224,7 +224,7 @@ object contact {
               frag(
                 p("Please report security issues to ", contactEmailLink),
                 p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
+                  "Like all contributions to NewChess, security reviews and pentesting are appreciated. ",
                   "Note that we do not currently pay cash bounties."
                 ),
                 p(
@@ -296,7 +296,7 @@ object contact {
               "monetize",
               monetizing(),
               frag(
-                p("We are not interested in any way of monetizing Lichess."),
+                p("We are not interested in any way of monetizing NewChess."),
                 p(
                   "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
                 ),
@@ -326,7 +326,7 @@ object contact {
               "gdpr",
               "GDPR",
               frag(
-                p("You may request the deletion of your Lichess account."),
+                p("You may request the deletion of your NewChess account."),
                 p(
                   "First, ",
                   a(href := routes.Account.close)("close your account"),
@@ -345,7 +345,7 @@ object contact {
               p(
                 a(href := dmcaUrl)("Complete this form"),
                 " ",
-                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
+                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe NewChess is hosting work(s) you hold the copyright to."
               )
             ),
             Leaf(

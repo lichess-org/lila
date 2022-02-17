@@ -7,7 +7,7 @@
   <string name="trackStudentProgress">עקוב אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
   <string name="messageAllStudents">שלח הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
   <string name="freeForAllForever">100% חופשי לכולם, לנצח, בלי פרסומות או גששים</string>
-  <string name="applyToBeLichessTeacher">הגש בקשה להיות מורה בליצ\'ס</string>
+  <string name="applyToBeNewChessTeacher">הגש בקשה להיות מורה בליצ\'ס</string>
   <string name="noClassesYet">אין עדיין כיתות.</string>
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">תיאור הכיתה</string>
   <string name="visibleByBothStudentsAndTeachers">גלוי הן על ידי מורים ותלמידי הכיתה</string>
   <string name="teachersOfTheClass">מורי הכיתה</string>
-  <string name="addLichessUsernames">הוסף שמות משתמש של ליצ\'ס כדי להזמין אותם כמורים. אחד בכל שורה.</string>
+  <string name="addNewChessUsernames">הוסף שמות משתמש של ליצ\'ס כדי להזמין אותם כמורים. אחד בכל שורה.</string>
   <string name="resetPassword">אפס סיסמה</string>
   <string name="makeSureToCopy">זכור להעתיק או לכתוב את הסיסמה עכשיו. אתה לא תוכל לראות אותה שוב!</string>
   <string name="passwordX">סיסמה: %s</string>
@@ -36,12 +36,12 @@
   <string name="studentCredentials">תלמיד: %1$s
 שם משתמש: %2$s
 סיסמה: %3$s</string>
-  <string name="inviteALichessAccount">הזמן חשבון ליצ\'ס</string>
+  <string name="inviteANewChessAccount">הזמן חשבון ליצ\'ס</string>
   <string name="inviteDesc1">אם לתלמיד כבר יש חשבון ליצ\'ס, אתה יכול להזמין אותו לכיתה.</string>
   <string name="inviteDesc2">הם יקבלו הודעה בליצ\'ס עם לינק להצטרף לכיתה.</string>
   <string name="inviteDesc3">חשוב: הזמן רק תלמידים אשר אתה מכיר, ושרוצים להיות נוכחים בכיתה באופן אקטיבי.</string>
   <string name="inviteDesc4">לעולם אל תשלח הזמנות לא רצויות לשחקנים שרירותיים.</string>
-  <string name="createANewLichessAccount">צור חשבון ליצ\'ס חדש</string>
+  <string name="createANewNewChessAccount">צור חשבון ליצ\'ס חדש</string>
   <string name="createDesc1">אם לתלמיד עדיין אין חשבון בליצ\'ס, אתה יכול ליצור אחד בשבילו.</string>
   <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך להעביר זאת לתלמיד, כדי שיוכלו להתחבר.</string>
   <string name="createDesc3">חשוב: לתלמיד אסור שיהיו מספר חשבונות.</string>

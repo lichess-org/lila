@@ -63,7 +63,7 @@
   <string name="lookupOfPlayer">Mencari teka-teki dari permainan pemain</string>
   <string name="fromXGames">Teka-teki dari permainan %s</string>
   <string name="searchPuzzles">Cari teka-teki</string>
-  <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi Lichess masih sangat menyayangi anda.
+  <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi NewChess masih sangat menyayangi anda.
 Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahkan teka-teki anda!</string>
   <string name="fromXGamesFound">Teka-teki %1$s terdapat dalam permainan %2$s</string>
   <string name="puzzleDashboardDescription">Melatih, menganalisis, memperbaiki</string>

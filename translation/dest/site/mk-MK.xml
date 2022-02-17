@@ -276,7 +276,7 @@
     <item quantity="one">Додај %s секунди</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Оваа корисничка сметка ги прекрши корисничките услови на Lichess</string>
+  <string name="thisAccountViolatedTos">Оваа корисничка сметка ги прекрши корисничките услови на NewChess</string>
   <string name="openingExplorerAndTablebase">Отворање на пребарувач и табела</string>
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>
@@ -446,7 +446,7 @@
   <string name="thankYou">Благодарам!</string>
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
   <string name="inlineNotation">Подредена нотација</string>
-  <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
+  <string name="previouslyOnNewChessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Внимавајте, играта е оценета но нема часовник.</string>
@@ -594,7 +594,7 @@
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>
   <string name="simulHostExtraTime">Додатно време за домаќинот</string>
-  <string name="lichessTournaments">Lichess турнири</string>
+  <string name="lichessTournaments">NewChess турнири</string>
   <string name="tournamentFAQ">ЧПП за арена турнирите</string>
   <string name="timeBeforeTournamentStarts">Време до почетокот на турнирот</string>
   <string name="averageCentipawnLoss">Просечна загуба во центи-пиони</string>
@@ -628,8 +628,8 @@
   <string name="weHaveSentYouAnEmailTo">Пративме е-пошта на %s. Кликни на врската во пораката за обнова на лозинката.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Со регистрацијата, се согласуваш со нашите %s.</string>
   <string name="readAboutOur">Прочитај за нашата %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Мрежно задоцнување меѓу Вас и Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Мрежно задоцнување меѓу Вас и NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на newchess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
   <string name="downloadRaw">Превземи без белешки</string>
   <string name="downloadImported">Превземи го доставеното</string>
@@ -644,14 +644,14 @@
   <string name="withEverybody">Со секого</string>
   <string name="kidMode">Детска заштита</string>
   <string name="kidModeExplanation">Ова е заради безбедност. Во детска заштита, сите комуникации се оневозможени. Вклучете го овој начин за вашите деца, да ги заштитите од останатите интернет корисници.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Во детскиот режим, на Lichess логото е додадено „%s“, за да знаете дека вашите деца се безбедни.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Во детскиот режим, на NewChess логото е додадено „%s“, за да знаете дека вашите деца се безбедни.</string>
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
   <string name="sessions">Сесии</string>
   <string name="revokeAllSessions">избришете сите сесии</string>
   <string name="playChessEverywhere">Играј шах секаде</string>
-  <string name="asFreeAsLichess">Бесплатно како lichess</string>
+  <string name="asFreeAsLichess">Бесплатно како newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Направено од љубовта кон шахот, а не за пари</string>
   <string name="everybodyGetsAllFeaturesForFree">Секој ги добива сите функции бесплатно</string>
   <string name="zeroAdvertisement">Без реклами</string>
@@ -764,14 +764,14 @@
   <string name="tryToWin">Пробај да победиш (или да изиграш нерешено) во секоја партија.</string>
   <string name="resignLostGames">Предади се кога ќе загубиш (не го оставај часовникот да истече).</string>
   <string name="temporaryInconvenience">Се извинуваме за привремената непогодност,</string>
-  <string name="wishYouGreatGames">и ти посакуваме одлични партии на lichess.org.</string>
+  <string name="wishYouGreatGames">и ти посакуваме одлични партии на newchess.fun.</string>
   <string name="thankYouForReading">Ти благодариме за читањето!</string>
   <string name="lifetimeScore">Вкупен резултат</string>
   <string name="currentMatchScore">Резултат на сегашниот меч</string>
   <string name="agreementAssistance">Се согласувам дека никогаш нема да добивам помош за моите игри (од компјутер, игра, база на податоци или личност).</string>
   <string name="agreementNice">Се согласувам дека секогаш ќе ги почитувам останатите играчи.</string>
   <string name="agreementAccount">Се согласувам дека нема да создавам повеќе профили.</string>
-  <string name="agreementPolicy">Се согласувам дека ќе ги следам сите правила на Lichess.</string>
+  <string name="agreementPolicy">Се согласувам дека ќе ги следам сите правила на NewChess.</string>
   <string name="searchOrStartNewDiscussion">Пребарај или започни нов разговор</string>
   <string name="edit">Уреди</string>
   <string name="rapid">Рапид</string>
@@ -808,7 +808,7 @@
   <string name="resVsX">%1$s против %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Некој го прегледал вашиот тренерски профил.</string>
   <string name="newPendingReview">Нов преглед на чекање</string>
-  <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на Lichess</string>
+  <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на NewChess</string>
   <string name="refundXpointsTimeControlY">Враќање: %1$s %2$s рејтинг поени</string>
   <string name="timeAlmostUp">Времето е пред истекување!</string>
 </resources>

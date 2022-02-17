@@ -33,8 +33,8 @@ final class CSRFRequestHandler(net: NetConfig) {
           /* The origin header is not set.
            * This can only happen with very old browsers,
            * which support was dropped a long time ago, and that are full of other vulnerabilities.
-           * These old browsers cannot load Lichess because Lichess only support modern TLS.
-           * All the browsers that can run Lichess nowadays set the origin header properly.
+           * These old browsers cannot load NewChess because NewChess only support modern TLS.
+           * All the browsers that can run NewChess nowadays set the origin header properly.
            * The absence of the origin header usually indicates a programmatic call (API or scrapping),
            * so we let these requests through.
            */
@@ -42,7 +42,7 @@ final class CSRFRequestHandler(net: NetConfig) {
           true
         case Some(o) if isSubdomain(o) =>
           /* The origin header is set to the lichess domain, or a subdomain of it.
-           * Since the request comes from Lichess, we accept it.
+           * Since the request comes from NewChess, we accept it.
            */
           true
         case Some(_) =>
@@ -63,8 +63,8 @@ final class CSRFRequestHandler(net: NetConfig) {
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"
 
-  // origin = "https://lichess.org"
-  // domain = "lichess.org"
+  // origin = "https://newchess.fun"
+  // domain = "newchess.fun"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
 }

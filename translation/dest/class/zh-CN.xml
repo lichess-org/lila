@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">课程</string>
-  <string name="teachClassesOfChessStudents">使用Lichess班级工具包教象棋学生班。</string>
+  <string name="teachClassesOfChessStudents">使用NewChess班级工具包教象棋学生班。</string>
   <string name="features">特性</string>
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
   <string name="freeForAllForever">对所有人100%免费，永远没有广告或跟踪者</string>
-  <string name="applyToBeLichessTeacher">申请成为Lichess教师</string>
+  <string name="applyToBeNewChessTeacher">申请成为NewChess教师</string>
   <string name="noClassesYet">尚无班级。</string>
   <string name="teachersX">教师： %s</string>
   <string name="newClass">创建班级</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">班级描述</string>
   <string name="visibleByBothStudentsAndTeachers">仅本班教师和学生可见</string>
   <string name="teachersOfTheClass">班级的教师</string>
-  <string name="addLichessUsernames">添加Lichess用户名邀请他们成为教师。每行一个。</string>
+  <string name="addNewChessUsernames">添加NewChess用户名邀请他们成为教师。每行一个。</string>
   <string name="resetPassword">重置密码</string>
   <string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">真实姓名</string>
   <string name="privateWillNeverBeShown">隐私。永远不会在课外显示。有助回忆学生是谁。</string>
   <string name="addStudent">添加学生</string>
-  <string name="lichessProfileXCreatedForY">为 %2$s 创建的 Lichess 档案 %1$s。</string>
+  <string name="lichessProfileXCreatedForY">为 %2$s 创建的 NewChess 档案 %1$s。</string>
   <string name="studentCredentials">学生：%1$s
 用户名：%2$s
 密码：%3$s</string>
-  <string name="inviteALichessAccount">邀请 Lichess 账户</string>
-  <string name="inviteDesc1">如果学生已有 Lichess 帐户，您可以邀请他们到本课堂。</string>
-  <string name="inviteDesc2">他们将在 Lichess 上收到一条带有加入课堂链接的消息。</string>
+  <string name="inviteANewChessAccount">邀请 NewChess 账户</string>
+  <string name="inviteDesc1">如果学生已有 NewChess 帐户，您可以邀请他们到本课堂。</string>
+  <string name="inviteDesc2">他们将在 NewChess 上收到一条带有加入课堂链接的消息。</string>
   <string name="inviteDesc3">请仅邀请你认识的或者积极地想要加入课堂的学生。</string>
   <string name="inviteDesc4">从不向任意玩家发送未经请求的邀请。</string>
-  <string name="createANewLichessAccount">创建一个新的 Lichess 账户</string>
-  <string name="createDesc1">如果学生还没有 Lichess 帐户，您可以在此为他们创建一个。</string>
+  <string name="createANewNewChessAccount">创建一个新的 NewChess 账户</string>
+  <string name="createDesc1">如果学生还没有 NewChess 帐户，您可以在此为他们创建一个。</string>
   <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
-  <string name="lichessUsername">Lichess用户名</string>
+  <string name="lichessUsername">NewChess用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>

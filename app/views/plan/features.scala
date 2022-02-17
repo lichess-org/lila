@@ -19,7 +19,7 @@ object features {
         .OpenGraph(
           title = title,
           url = s"$netBaseUrl${routes.Plan.features.url}",
-          description = "All of Lichess features are free for all and forever. We do it for the chess!"
+          description = "All of NewChess features are free for all and forever. We do it for the chess!"
         )
         .some
     ) {
@@ -49,22 +49,22 @@ object features {
               "Instant local Stockfish 14+ analysis (depth 99)"
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
+              a(href := "https://newchess.fun/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
                 "Cloud engine analysis"
               )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
+              a(href := "https://newchess.fun/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
                 "Learn from your mistakes"
               )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+              a(href := "https://newchess.fun/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
                 "Studies (shared and persistent analysis)"
               )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/VmZbaigAABACtXQC/chess-insights")(
+              a(href := "https://newchess.fun/blog/VmZbaigAABACtXQC/chess-insights")(
                 "Chess insights (detailed analysis of your play)"
               )
             ),
@@ -101,7 +101,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
-              " through Lichess 4 billion games"
+              " through NewChess 4 billion games"
             ),
             tr(unlimited)(
               a(href := routes.Video.index)("Chess video library")
@@ -159,11 +159,11 @@ object features {
               strong("All features to come, forever")
             )
           ),
-          header(h1("Support Lichess")),
+          header(h1("Support NewChess")),
           tbody(cls := "support")(
             st.tr(
               th(
-                "Contribute to Lichess and",
+                "Contribute to NewChess and",
                 br,
                 "get a cool looking Patron icon"
               ),
@@ -180,14 +180,14 @@ object features {
         p(cls := "explanation")(
           strong("Yes, both accounts have the same features!"),
           br,
-          "That is because Lichess is built for the love of chess.",
+          "That is because NewChess is built for the love of chess.",
           br,
           "We believe every chess player deserves the best, and so:",
           br,
           br,
           strong("all features are free for everybody, forever!"),
           br,
-          "If you love Lichess, ",
+          "If you love NewChess, ",
           a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
         )
       )
@@ -208,5 +208,5 @@ object features {
 
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
-  private val title = "Lichess features"
+  private val title = "NewChess features"
 }

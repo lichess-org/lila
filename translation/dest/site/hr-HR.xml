@@ -308,7 +308,7 @@
     <item quantity="few">Dodaj protivniku %s sekunde</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Korisnički račun je prekršio Lichess Uvjete Pružanja Usluge</string>
+  <string name="thisAccountViolatedTos">Korisnički račun je prekršio NewChess Uvjete Pružanja Usluge</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
   <string name="proposeATakeback">Predloži vraćanje poteza</string>
@@ -493,7 +493,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
-  <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
+  <string name="previouslyOnNewChessTV">Prethodno na NewChess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za bodove ali ne i na vrijeme!</string>
@@ -653,7 +653,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
-  <string name="lichessTournaments">Lichess turniri</string>
+  <string name="lichessTournaments">NewChess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
@@ -688,8 +688,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
   <string name="readAboutOur">Pročitajte naša %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
-  <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
+  <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i newchess-a</string>
+  <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na newchess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
   <string name="downloadRaw">Preuzmi bez bilješki</string>
   <string name="downloadImported">Preuzmi uvezeno</string>
@@ -705,14 +705,14 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="withEverybody">Sa svima</string>
   <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo newchess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
   <string name="enableKidMode">Omogući dječji način</string>
   <string name="disableKidMode">Onemogući dječji način</string>
   <string name="security">Sigurnost</string>
   <string name="sessions">Sesije</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igraj šah svugdje</string>
-  <string name="asFreeAsLichess">Besplatno kao i lichess</string>
+  <string name="asFreeAsLichess">Besplatno kao i newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobivaju sve usluge besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
@@ -829,14 +829,14 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tryToWin">Pokušajte pobijediti (ili barem igrati neriješeno) svaku igru ​​koju igrate.</string>
   <string name="resignLostGames">Predajte izgubljene igre (ne dopustite da vam vrijeme istekne).</string>
   <string name="temporaryInconvenience">Ispričavamo se zbog privremene neugodnosti,</string>
-  <string name="wishYouGreatGames">i želimo vam sjajne igre na lichess.org.</string>
+  <string name="wishYouGreatGames">i želimo vam sjajne igre na newchess.fun.</string>
   <string name="thankYouForReading">Hvala na čitanju!</string>
   <string name="lifetimeScore">Ukupni rezultat</string>
   <string name="currentMatchScore">Trenutni rezultat meča</string>
   <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računala, knjige, baze podataka ili neke druge osobe).</string>
   <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>
   <string name="agreementAccount">Slažem se da neću stvoriti više računa.</string>
-  <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
+  <string name="agreementPolicy">Slažem se da ću slijediti sve politike NewChessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
   <string name="rapid">Rapid</string>
@@ -873,13 +873,13 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="resVsX">%1$s protiv %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Netko je pregledao vaš trenerski profil.</string>
   <string name="newPendingReview">Nova recenzija za pregled</string>
-  <string name="lostAgainstTOSViolator">Izgubio si od nekoga tko je prekršio Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Izgubio si od nekoga tko je prekršio NewChess TOS</string>
   <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting bodova.</string>
   <string name="timeAlmostUp">Vrijeme uskoro ističe!</string>
   <string name="clickToRevealEmailAddress">[Klikni za prikaz e-mail adrese]</string>
   <string name="download">Preuzmi</string>
   <string name="welcome">Dobrodošli!</string>
-  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
+  <string name="lichessPatronInfo">NewChess je dobrotvorni i potpuno besplatan softver otvorenog koda.
 Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
@@ -935,6 +935,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
-  <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
+  <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na NewChessu</string>
   <string name="switchSides">Promijeni strane</string>
 </resources>

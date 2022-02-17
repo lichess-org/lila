@@ -110,11 +110,11 @@ object Form {
           regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
           error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
         ),
-        mustNotContainLichess(verifiedUser)
+        mustNotContainNewChess(verifiedUser)
       )
   }
 
-  object mustNotContainLichess {
+  object mustNotContainNewChess {
     private val blockList = List("lichess", "liсhess") // it's not a 'c'.
     def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
       if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)

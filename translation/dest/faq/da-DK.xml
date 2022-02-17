@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Ofte stillede spørgsmål</string>
-  <string name="whyIsLichessCalledLichess">Hvorfor hedder det Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er en kombination af live/light/libre og chess. Det udtales %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Hvorfor hedder det NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess er en kombination af live/light/libre og chess. Det udtales %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Hør det udtalt af en specialist.</string>
-  <string name="whyLiveLightLibre">Live, fordi partier spilles og ses i realtid 24/7; light og libre eftersom Lichess er open-source og ikke tynges af proprietært bras, der plager andre websteder.</string>
-  <string name="whyIsLilaCalledLila">Tilsvarende gælder for Lichess-kildekoden, %1$s, der står for li[chess in sca]la, eftersom hovedparten af Lichess er skrevet i %2$s, et intuitivt programmeringssprog.</string>
-  <string name="howCanIContributeToLichess">Hvordan kan jeg bidrage til Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives af donationer fra protektorer og indsatsen fra et hold af frivillige.</string>
-  <string name="findMoreAndSeeHowHelp">Du kan finde mere information om %1$s (inklusiv en %2$s). Hvis du vil hjælpe Lichess ved at tilbyde din tid og kundskaber, er der mange %3$s.</string>
+  <string name="whyLiveLightLibre">Live, fordi partier spilles og ses i realtid 24/7; light og libre eftersom NewChess er open-source og ikke tynges af proprietært bras, der plager andre websteder.</string>
+  <string name="whyIsLilaCalledLila">Tilsvarende gælder for NewChess-kildekoden, %1$s, der står for li[chess in sca]la, eftersom hovedparten af NewChess er skrevet i %2$s, et intuitivt programmeringssprog.</string>
+  <string name="howCanIContributeToLichess">Hvordan kan jeg bidrage til NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess drives af donationer fra protektorer og indsatsen fra et hold af frivillige.</string>
+  <string name="findMoreAndSeeHowHelp">Du kan finde mere information om %1$s (inklusiv en %2$s). Hvis du vil hjælpe NewChess ved at tilbyde din tid og kundskaber, er der mange %3$s.</string>
   <string name="beingAPatron">være en protektor</string>
   <string name="breakdownOfOurCosts">opgørelse af vores omkostninger</string>
   <string name="otherWaysToHelp">andre måder at hjælpe</string>
-  <string name="areThereWebsitesBasedOnLichess">Er der websteder baseret på Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspireret andre open-source websteder, som bruger vores %1$s, %2$s eller %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Er der websteder baseret på NewChess?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Ja. NewChess har inspireret andre open-source websteder, som bruger vores %1$s, %2$s eller %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Hvornår er jeg berettiget til den automatiske rating-refundering fra snydere?</string>
   <string name="ratingRefundExplanation">Et minut efter en spiller får en anmærkning, bliver deres 40 seneste ratede sejre i løbet af de sidste 3 dage inddraget. Hvis du var deres modstander i de partier og din rating ikke var provisorisk, vil du få en rating-refundering. Størrelsen på refunderingen afgøres af din højeste rating og din rating-udvikling efter partiet. 
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Hvordan kan jeg blive moderator?</string>
   <string name="youCannotApply">Det er ikke muligt at ansøge om at blive moderator. Hvis vi ser nogen, som vi tror ville være en god moderator, vil du kontakte dem direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
-  <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på Lichess.</string>
+  <string name="youCanUseOpeningBookNoEngine">På NewChess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på NewChess.</string>
   <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
-  <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s
+  <string name="basedOnGameDuration">Tidskontroller på NewChess er baseret på en estimeret varighed af partiet = %1$s
   For eksempel er den estimeret varighed af et 5+3 parti 5 * 60 + 40 * 3 = 420 sekunder.</string>
   <string name="durationFormula">(starttid på uret) + 40 * (tillægstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille på Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess understøtter standardskak og %1$s.</string>
+  <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille på NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess understøtter standardskak og %1$s.</string>
   <string name="eightVariants">8 skakvarianter</string>
   <string name="whatIsACPL">Hvad er \"Gennemsnitligt centibonde-tab\"/GCBT?</string>
   <string name="acplExplanation">En centibonde er et mål, som bruges i skak som en repræsentation af fordelen. En centibonde svarer til en hundrededel (1/100) af en bonde. Derfor er 100 centibønder = 1 bonde. Disse værdier spiller ingen formel rolle i partiet, men er nyttige for spillerne og essentielle i computerskak ved evalueringen af stillinger.
@@ -43,7 +43,7 @@ Det bedste computertræk vil koste nul centibønder, mens svagere træk vil medf
 
 Denne værdi kan bruges som en indikator for spilkvalitet. Desto færre centibønder der tabes per træk, desto stærkere spilles der.
 
-Computeranalysen på Lichess leveres ved hjælp af Stockfish.</string>
+Computeranalysen på NewChess leveres ved hjælp af Stockfish.</string>
   <string name="insufficientMaterial">Tabe på tid, remis og utilstrækkeligt materiale</string>
   <string name="lichessFollowFIDErules">Hvis en spiller løber tør for tid, vil denne spiller som regel tabe partiet. Partiet ender dog med remis, hvis stillingen er således at modstanderen ikke kan sætte spillerens konge skakmat med en række lovlige træk (%1$s).
 
@@ -60,31 +60,31 @@ Det beskrives i sektion 3.7 (d) af de %2$s:
 
 Tjek %3$s for dette træk og for at øve det.</string>
   <string name="goodIntroduction">god introduktion</string>
-  <string name="lichessTraining">Lichess træning</string>
+  <string name="lichessTraining">NewChess træning</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
-  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. NewChess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
   <string name="positions">stillinger</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vi gentog en stilling tre gange. Hvorfor var partiet ikke remis?</string>
-  <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s Lichess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig trækgentagelse altid øjeblikkeligt afslutte partiet.</string>
+  <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s NewChess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig trækgentagelse altid øjeblikkeligt afslutte partiet.</string>
   <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
-  <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s. Her er en liste over FIDE-titler:</string>
+  <string name="titlesAvailableOnLichess">Hvilke titler er der på NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s. Her er en liste over FIDE-titler:</string>
   <string name="showYourTitle">Hvis du har en OTB-title, kan du anmode om at få denne vist på din konto ved at udfylde en %1$s, inklusiv et tydeligt billede af et identificerende dokument/kort og en selfie af dig, som holder dokumentet/kortet.
 
-  Verificering som titulær spiller på Lichess giver adgang til at spille ved Titled Arena-begivenheder.
+  Verificering som titulær spiller på NewChess giver adgang til at spille ved Titled Arena-begivenheder.
 
   Endelig er der en ærestitel %2$s.</string>
   <string name="asWellAsManyNMtitles">mange nationale mestertitler</string>
   <string name="verificationForm">verifikationsformular</string>
-  <string name="canIbecomeLM">Kan jeg få Lichess mester (LM) titlen?</string>
+  <string name="canIbecomeLM">Kan jeg få NewChess mester (LM) titlen?</string>
   <string name="noUpperCaseDot">Nej.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestitel er uofficiel og eksisterer kun på Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestitel er uofficiel og eksisterer kun på NewChess.
 
-  Vi tildeler den en sjælden gang til bemærkelsesværdige spillere, som efter vores skøn er gode medborgere på Lichess. Du kan ikke tilkæmpe dig en LM-titel, LM-titlen finder selv vej til dig. Hvis du kvalificerer dig, vil du få en besked fra os angående den og muligheden for at acceptere eller afslå den.
+  Vi tildeler den en sjælden gang til bemærkelsesværdige spillere, som efter vores skøn er gode medborgere på NewChess. Du kan ikke tilkæmpe dig en LM-titel, LM-titlen finder selv vej til dig. Hvis du kvalificerer dig, vil du få en besked fra os angående den og muligheden for at acceptere eller afslå den.
 
   Anmod ikke om at få LM-titlen.</string>
   <string name="whatUsernameCanIchoose">Hvad kan mit brugernavn være?</string>
@@ -93,12 +93,12 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="canIChangeMyUsername">Kan jeg ændre mit brugernavn?</string>
   <string name="usernamesCannotBeChanged">Nej, brugernavne kan ikke ændres af tekniske og praktiske årsager. Brugernavne optræder for mange steder: i databaser, udtræk, logger og folks bevidsthed. Du kan kun ændre bogstavstørrelsen én gang.</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
-  <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
+  <string name="ownerUniqueTrophies">Det trofæ er unikt i NewChess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
   <string name="wayOfBerserkExplanation">For at få det, udfordrede hiimgosu sig selv til at bersærke og vinde alle partier af %s.</string>
   <string name="aHourlyBulletTournament">en time-Bullet turnering</string>
   <string name="goldenZeeExplanation">ZugAddict streamede og havde de sidste to timer forgæves forsøgt at slå A.I. niveau 8 i et 1+0 spil. Thibault fortalte ham, at hvis det lykkedes ham at gøre det på stream, ville han få et unikt trofæ. En time senere knuste han Stockfish og løftet blev indfriet.</string>
-  <string name="lichessRatings">Lichess-ratings</string>
-  <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger Lichess?</string>
+  <string name="lichessRatings">NewChess-ratings</string>
+  <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger NewChess?</string>
   <string name="ratingSystemUsedByLichess">Ratings udregnes efter Glicko-2 metoden udviklet af Mark Glickman. Dette er en meget populær ratingmetode og bruges af et betydeligt antal skakorganisationer (FIDE er en bemærkelsesværdig undtagelse, eftersom de stadig bruger det forældede Elo ratingsystem).
 
 Grundlæggende bruger Glicko-ratings \"konfidensintervaller\" ved udregningen og præsentationen af din rating. Når du første gang bruger sitet, starter din rating ved 1500 ± 700. De 1500 udgør din rating og de 700 repræsenterer konfidensintervallet.
@@ -128,13 +128,13 @@ Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensinterv
   <string name="enableZenMode">Slå Zen-tilstand til i %1$s, eller ved at trykke %2$s under spillet.</string>
   <string name="displayPreferences">indstillinger for visning</string>
   <string name="connexionLostCanIGetMyRatingBack">Jeg har tabt et parti på grund af forsinket/mistet forbindelse. Kan jeg få mine rating-point tilbage?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan desværre ikke give ratingpoint tilbage for partier, der tabes på grund af forsinket eller tabt forbindelse, uanset om problemet var hos dig eller os. De sidste er dog meget sjældent. Bemærk også, at når Lichess genstarter og du taber på tid på grund af dette, vil vi afbryde partiet for at forhindre et urimeligt nederlag.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan desværre ikke give ratingpoint tilbage for partier, der tabes på grund af forsinket eller tabt forbindelse, uanset om problemet var hos dig eller os. De sidste er dog meget sjældent. Bemærk også, at når NewChess genstarter og du taber på tid på grund af dette, vil vi afbryde partiet for at forhindre et urimeligt nederlag.</string>
   <string name="howToThreeDots">Hvordan kan jeg...</string>
   <string name="enableDisableNotificationPopUps">Aktivere eller deaktivere pop-op-vinduer?</string>
   <string name="viewSiteInformationPopUp">Se websted-information pop-op</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kan sende pop-up-beskeder, for eksempel når det er dit træk eller du har modtaget en privat besked.
+  <string name="lichessCanOptionnalySendPopUps">NewChess kan sende pop-up-beskeder, for eksempel når det er dit træk eller du har modtaget en privat besked.
 
-  Klik på hængelås-ikonet ved siden af lichess.org-adressen i URL-bjælken i din browser.
+  Klik på hængelås-ikonet ved siden af newchess.fun-adressen i URL-bjælken i din browser.
 
-  Vælg dernæst at tillade eller blokere beskeder fra Lichess.</string>
+  Vælg dernæst at tillade eller blokere beskeder fra NewChess.</string>
 </resources>

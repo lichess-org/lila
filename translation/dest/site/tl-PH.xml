@@ -270,7 +270,7 @@
     <item quantity="one">Magbigay ng %s segundo</item>
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng Lichess</string>
+  <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng NewChess</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
@@ -441,7 +441,7 @@
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
-  <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Ang Nakaraan sa NewChess TV</string>
   <string name="onlinePlayers">Mga online na manlalaro</string>
   <string name="activePlayers">Aktibong manlalaro</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Mag-ingat, ay laro ay namarkahan pero walang orasan!</string>
@@ -597,7 +597,7 @@
   <string name="simulClockHint">Fischer na Orasan ng pagaayos. Mas maraming manlalaro na iyong nilaro, mas maraming oras ang iyong maaring kailanganin.</string>
   <string name="simulAddExtraTime">Maaring magdadag ng sobrang oras sa iyong orasan upang tumulong na makaya ang simul.</string>
   <string name="simulHostExtraTime">Maghost ng sobrang oras sa orasan</string>
-  <string name="lichessTournaments">Mga Paligsahan ng Lichess</string>
+  <string name="lichessTournaments">Mga Paligsahan ng NewChess</string>
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
@@ -631,8 +631,8 @@
   <string name="weHaveSentYouAnEmailTo">Kami ay nagpadala ng email kay %s. I-click ang link sa email upang ibalik ang iyong password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Sa pagrerehistro, ikaw ay pumayag na madikit sa aming %s.</string>
   <string name="readAboutOur">Basahin ang aming %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng newchess</string>
   <string name="downloadAnnotated">I-download ang na-annotate</string>
   <string name="downloadRaw">I-download ang raw</string>
   <string name="downloadImported">Naluwas na mga nadownload</string>
@@ -648,14 +648,14 @@
   <string name="withEverybody">Kasama ang lahat</string>
   <string name="kidMode">Batang mode</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng newchess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
   <string name="sessions">Mga Session</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
-  <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
+  <string name="asFreeAsLichess">Kasinglibre ng newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
@@ -768,14 +768,14 @@
   <string name="tryToWin">Subukan mong maipanalo (o maitabla man lamang) ang bawat larong nilalaro mo.</string>
   <string name="resignLostGames">Magbitiw sa mga talong laro (huwag hayaang maubos ang oras).</string>
   <string name="temporaryInconvenience">Humihingi kami ng paumanhin sa pansamantalang abala,</string>
-  <string name="wishYouGreatGames">at hiling ko para sa iyo na magkaroon ka ng mga dakilang laro sa lichess.org.</string>
+  <string name="wishYouGreatGames">at hiling ko para sa iyo na magkaroon ka ng mga dakilang laro sa newchess.fun.</string>
   <string name="thankYouForReading">Salamat sa pagbasa!</string>
   <string name="lifetimeScore">Panghabambuhay na iskor</string>
   <string name="currentMatchScore">Kasalukuyang iskor ng labanan</string>
   <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
   <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
   <string name="agreementAccount">Sumasang-ayon ako na hindi ako lilikha ng maraming mga account.</string>
-  <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
+  <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng NewChess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
   <string name="rapid">Mabilisan</string>
@@ -812,13 +812,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Merong tao na nag-review ng coach profile mo.</string>
   <string name="newPendingReview">Bagong pending na review</string>
-  <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa NewChess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
   <string name="clickToRevealEmailAddress">[Mag-click upang ipakita ang email address]</string>
   <string name="download">Download</string>
   <string name="welcome">Maligayang pagdating!</string>
-  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
+  <string name="lichessPatronInfo">Ang NewChess ay isang charity at buong libre / libre open source software.
 Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
   <string name="coachManager">Tagapamahala ng coach</string>
   <string name="streamerManager">Tagapamahala ng streamer</string>

@@ -8,12 +8,12 @@ export const setup = (ctrl: RoundController) => {
 };
 
 const onSpeechChange = (ctrl: RoundController) => (enabled: boolean) => {
-  if (!window.LichessSpeech && enabled) lichess.loadModule('speech').then(() => status(ctrl));
-  else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
+  if (!window.NewChessSpeech && enabled) lichess.loadModule('speech').then(() => status(ctrl));
+  else if (window.NewChessSpeech && !enabled) window.NewChessSpeech = undefined;
 };
 
 export const status = (ctrl: RoundController) => {
-  if (ctrl.data.game.status.name === 'started') window.LichessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
+  if (ctrl.data.game.status.name === 'started') window.NewChessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
   else {
     const s = viewStatus(ctrl);
     lichess.sound.say(s, false, false, true);
@@ -26,4 +26,4 @@ export const userJump = (ctrl: RoundController, ply: Ply) => withSpeech(s => s.s
 
 export const step = (step: Step) => withSpeech(s => s.step(step, false));
 
-const withSpeech = (f: (speech: LichessSpeech) => void) => window.LichessSpeech && f(window.LichessSpeech);
+const withSpeech = (f: (speech: NewChessSpeech) => void) => window.NewChessSpeech && f(window.NewChessSpeech);

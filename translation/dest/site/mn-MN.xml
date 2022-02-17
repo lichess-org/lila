@@ -396,7 +396,7 @@
   <string name="thankYou">Баярлалаа!</string>
   <string name="socialMediaLinks">Сошиал холбоосууд</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
-  <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
+  <string name="previouslyOnNewChessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
   <string name="onlinePlayers">Сүлжээнд байгаа гишүүд</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Энэ өрөг нь чансаа өөрчлөгдөх өрөг боловч цагын хязгаарлалтгүй болохыг анхаарна уу!</string>

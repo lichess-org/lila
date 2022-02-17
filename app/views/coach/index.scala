@@ -45,7 +45,7 @@ object index {
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
-            areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
+            areYouCoach(a(href := "https://newchess.fun/help/master")(nmOrFideTitle())),
             br,
             if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle)(confirmTitle())
             else sendApplication(a(href := s"mailto:$contactEmailInClear")(contactEmailInClear))

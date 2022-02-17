@@ -288,7 +288,7 @@
     <item quantity="one">Dem Géigner %s Sekonn ginn</item>
     <item quantity="other">Dem Géigner %s Sekonnen ginn</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Dësen Konto huet géint d\'Lichess-Notzungsbedingungen verstouss</string>
+  <string name="thisAccountViolatedTos">Dësen Konto huet géint d\'NewChess-Notzungsbedingungen verstouss</string>
   <string name="openingExplorerAndTablebase">Eröffnungsdatenbank &amp; Tablebase</string>
   <string name="takeback">Zeréckhuelen</string>
   <string name="proposeATakeback">Zeréckhuelen virschloen</string>
@@ -460,7 +460,7 @@
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="inlineNotation">Inline-Notatioun</string>
-  <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Virdrun op NewChess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
   <string name="activePlayers">Aktiv Spiller</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pass op, d\'Partie ass gewäert mee huet keng Auer!</string>
@@ -616,7 +616,7 @@
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>
   <string name="simulHostExtraTime">Host extra Zäit</string>
-  <string name="lichessTournaments">Lichess Turnéier</string>
+  <string name="lichessTournaments">NewChess Turnéier</string>
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
@@ -650,8 +650,8 @@
   <string name="weHaveSentYouAnEmailTo">Mir hun eng Email un %s geschéckt. Klick den Link an der Email fir däin Passwuert zeréckzesetzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mam Registréieren akzeptéiers du %s.</string>
   <string name="readAboutOur">Lies iwwer eis %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netzwierk Lag zwëschen dir an Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Zäit fir en Zuch um Lichess Server ze veraarbechten</string>
+  <string name="networkLagBetweenYouAndLichess">Netzwierk Lag zwëschen dir an NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Zäit fir en Zuch um NewChess Server ze veraarbechten</string>
   <string name="downloadAnnotated">Download kommentéiert</string>
   <string name="downloadRaw">Download onkommentéiert</string>
   <string name="downloadImported">Importéiert Partie eroflueden</string>
@@ -667,14 +667,14 @@
   <string name="withEverybody">Mat jidderengem</string>
   <string name="kidMode">Kannermodus</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den NewChess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
   <string name="enableKidMode">Kannermodus aktivéieren</string>
   <string name="disableKidMode">Kannermodus desaktivéieren</string>
   <string name="security">Sécherheet</string>
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">All Sitzungen ofschléissen</string>
   <string name="playChessEverywhere">Spill iwwerall Schach</string>
-  <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
+  <string name="asFreeAsLichess">Sou gratis wéi NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Aus Léift zum Schach, net Suen</string>
   <string name="everybodyGetsAllFeaturesForFree">Jiddereen kritt all Features fir näischt</string>
   <string name="zeroAdvertisement">Keng Reklamm</string>
@@ -787,14 +787,14 @@
   <string name="tryToWin">Probéier all Partie ze gewannen (oder op mannst Remis ze spillen).</string>
   <string name="resignLostGames">Gëff verlueren Partien op (looss net d\'Auer roflafen).</string>
   <string name="temporaryInconvenience">Mir entschëllege ons fir d\'temporär Onannehmlechkeeten,</string>
-  <string name="wishYouGreatGames">an wënschen dir flott Partien op lichess.org.</string>
+  <string name="wishYouGreatGames">an wënschen dir flott Partien op newchess.fun.</string>
   <string name="thankYouForReading">Merci fir d\'Liesen!</string>
   <string name="lifetimeScore">Éiwegen Spillstand</string>
   <string name="currentMatchScore">Aktuellen Match Score</string>
   <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
   <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
   <string name="agreementAccount">Ech stëmmen zou dass ech net puer Konten kreéieren wäert.</string>
-  <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
+  <string name="agreementPolicy">Ech stëmmen zou dass ech den NewChess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
   <string name="rapid">Rapid</string>
@@ -831,13 +831,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Et huet een däin Trainerprofil bewäert.</string>
   <string name="newPendingReview">Nei ausstoend Bewäertungen</string>
-  <string name="lostAgainstTOSViolator">Du hues géint een verluer deen géint Lichess-Richtlinnen vertouss huet</string>
+  <string name="lostAgainstTOSViolator">Du hues géint een verluer deen géint NewChess-Richtlinnen vertouss huet</string>
   <string name="refundXpointsTimeControlY">Réckerstattung: %1$s %2$s Wäertungspunkten.</string>
   <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>
   <string name="clickToRevealEmailAddress">[Klick fir Email Adress ze weisen]</string>
   <string name="download">Download</string>
   <string name="welcome">Wëllkomm!</string>
-  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
+  <string name="lichessPatronInfo">NewChess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="coachManager">Coach Manager</string>
   <string name="streamerManager">Stream Manager</string>
@@ -893,6 +893,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
   <string name="since">Säit</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
+  <string name="lichessDbExplanation">Gewäert Partien vun allen NewChess Spiller</string>
   <string name="switchSides">Faarf wiesselen</string>
 </resources>

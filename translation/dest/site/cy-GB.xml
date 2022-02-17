@@ -250,7 +250,7 @@
   </plurals>
   <string name="exportGames">Allforio</string>
   <string name="ratingRange">Graddfa rhwng</string>
-  <string name="thisAccountViolatedTos">Mae\'r defnyddiwr y cyfrif yma wedi torri termau defnyddio Lichess</string>
+  <string name="thisAccountViolatedTos">Mae\'r defnyddiwr y cyfrif yma wedi torri termau defnyddio NewChess</string>
   <string name="openingExplorerAndTablebase">Porwr agoriadau &amp; bas tabl diweddglo</string>
   <string name="takeback">Cymryd yn ôl</string>
   <string name="proposeATakeback">Awgrymu cymryd yn ôl</string>
@@ -384,7 +384,7 @@
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
   <string name="inlineNotation">Nodiant mewnlin</string>
-  <string name="previouslyOnLichessTV">Ar Lichess TV yn barod</string>
+  <string name="previouslyOnNewChessTV">Ar NewChess TV yn barod</string>
   <string name="onlinePlayers">Chwarewyr ar-lein</string>
   <string name="activePlayers">Chwaraewyr gweithredol</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Mae\'r gêm yn swyddogol ond nid oes cloc ganddi!</string>
@@ -517,7 +517,7 @@
   <string name="simulClockHint">Cloc Fischer. Os dach chi\'n chwarae yn fwy o chwaraewyr, bydd angen mwy o amser gennoch.</string>
   <string name="simulAddExtraTime">Gellwch ychwanegu amser at dy gloc i\'ch helpu ymdopi â\'r cystadleuaeth simul.</string>
   <string name="simulHostExtraTime">Amser ychwanegol i gloc y gweinydd</string>
-  <string name="lichessTournaments">Cystadleuaethau lichess</string>
+  <string name="lichessTournaments">Cystadleuaethau newchess</string>
   <string name="tournamentFAQ">C&amp;A am gystadleuaethau</string>
   <string name="timeBeforeTournamentStarts">Amser cyn i\'r cystadleuaeth gychwyn</string>
   <string name="averageCentipawnLoss">Colled gyfartaled mewn canfedau gwerinwr</string>
@@ -555,8 +555,8 @@
   <string name="weHaveSentYouAnEmailTo">Anfonwyd neges e-bost at %s. Cliciwch ar y dolen yn y neges i ailosod eich cyfrinair.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Gan gofrestru, ydych yn cytuno ar ein %s.</string>
   <string name="readAboutOur">Darllenwch am ein %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Oediad rhwng lichess a chi</string>
-  <string name="timeToProcessAMoveOnLichessServer">Amser sydd angen i brosesu symudiad ar weinydd lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Oediad rhwng newchess a chi</string>
+  <string name="timeToProcessAMoveOnLichessServer">Amser sydd angen i brosesu symudiad ar weinydd newchess</string>
   <string name="downloadAnnotated">Llwytho i lawr gan sylwadau</string>
   <string name="downloadRaw">Llwytho i lawr heb sylwadau</string>
   <string name="downloadImported">Lwytho i lawr gêm wedi\'i mewnforio</string>
@@ -570,14 +570,14 @@
   <string name="withEverybody">Gyda pawb</string>
   <string name="kidMode">Dull plentyn</string>
   <string name="kidModeExplanation">Mewn modd plant, fydd cyfathrebu wedi ei analluogi. Defnyddiwch y modd yma ar gyfer plant a disgyblion ysgol i\'w hamddiffyn rhag defnyddwyr eraill o\'r rhyngrwyd.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Pan mewn modd plant, fydd eicon %s ar logo lichess, fel y byddwch yn gwybod fod eich plant yn saff.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Pan mewn modd plant, fydd eicon %s ar logo newchess, fel y byddwch yn gwybod fod eich plant yn saff.</string>
   <string name="enableKidMode">Galluogi modd plant</string>
   <string name="disableKidMode">Analluogi modd plant</string>
   <string name="security">Diogelwch</string>
   <string name="sessions">Sesiynnau</string>
   <string name="revokeAllSessions">dirymu pob sesiwn</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
-  <string name="asFreeAsLichess">Yn ddi-dâl fel lichess</string>
+  <string name="asFreeAsLichess">Yn ddi-dâl fel newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Wedi\'i wneud am gariad gwyddbwyll, nid arian</string>
   <string name="everybodyGetsAllFeaturesForFree">Caiff pawb popeth am ddim</string>
   <string name="zeroAdvertisement">Dim hysbyseb</string>
@@ -612,7 +612,7 @@
   <string name="usernameSuffixInvalid">Rhaid i\'r enw defnyddiwr orffen efo rhif neu lythyren.</string>
   <string name="usernameCharsInvalid">Gall enw\'r defnyddiwr dim ond cynnwys llythrennu, rhifau, tanlinellai, a chysylltnodau. Ni chaniatáu cael tanlinellai neu gysylltnodau dilynol.</string>
   <string name="usernameUnacceptable">Nid yw enw defnyddiwr hwn yn dderbyniol.</string>
-  <string name="playChessInStyle">Edrychwch yn swanc efo Lichess</string>
+  <string name="playChessInStyle">Edrychwch yn swanc efo NewChess</string>
   <string name="chessBasics">Hanfodion gwyddbwyll</string>
   <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
@@ -667,7 +667,7 @@
   <string name="agreementAssistance">Rwy\'n cytuno byddai\'n byth cael unrhyw cymorth yn ystod chwarae gem (wrth gyfrifiadur gwyddbwyll, llyfr, cronfa ddata neu berson arall).</string>
   <string name="agreementNice">Rwy\'n cytuno byddai\'n wastad yn barchus i chwaraewyr eraill.</string>
   <string name="agreementAccount">Rwy\'n cytuno byddai ddim creu cyfrifau lluosol.</string>
-  <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi Lichess.</string>
+  <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi NewChess.</string>
   <string name="searchOrStartNewDiscussion">Edrych am neu ddechrau sgwrs newydd</string>
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>

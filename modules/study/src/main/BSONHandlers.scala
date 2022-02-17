@@ -85,7 +85,7 @@ object BSONHandlers {
   implicit private val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = quickHandler[Comment.Author](
     {
-      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
+      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.NewChess
       case BSONString(name)                           => Comment.Author.External(name)
       case doc: Bdoc =>
         {
@@ -99,7 +99,7 @@ object BSONHandlers {
     {
       case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
       case Comment.Author.External(name) => BSONString(s"${name.trim}")
-      case Comment.Author.Lichess        => BSONString("l")
+      case Comment.Author.NewChess        => BSONString("l")
       case Comment.Author.Unknown        => BSONString("")
     }
   )

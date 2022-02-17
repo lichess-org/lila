@@ -3,10 +3,10 @@
   <string name="activity">Актыўнасць</string>
   <string name="hostedALiveStream">Правялі прамую трансляцыю</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Падтрымаў lichess.org на %1$s месяц як %2$s</item>
-    <item quantity="few">Падтрымаў lichess.org на %1$s месяцы як %2$s</item>
-    <item quantity="many">Падтрымаў lichess.org на %1$s месяцаў як %2$s</item>
-    <item quantity="other">Падтрымаў lichess.org на %1$s месяцаў як %2$s</item>
+    <item quantity="one">Падтрымаў newchess.fun на %1$s месяц як %2$s</item>
+    <item quantity="few">Падтрымаў newchess.fun на %1$s месяцы як %2$s</item>
+    <item quantity="many">Падтрымаў newchess.fun на %1$s месяцаў як %2$s</item>
+    <item quantity="other">Падтрымаў newchess.fun на %1$s месяцаў як %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Практыкавана пазіцыя %1$s у %2$s</item>
@@ -99,7 +99,7 @@
     <item quantity="other">Паўдзельнічаў(-ла) у %s турнірах па швейцырскай сістэме</item>
   </plurals>
   <string name="rankedInSwissTournament">Скончыў на %1$s месцы ў %2$s</string>
-  <string name="signedUp">Зарэгістраваўся на lichess</string>
+  <string name="signedUp">Зарэгістраваўся на newchess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Далучыўся да %s каманды</item>
     <item quantity="few">Далучыўся да %s каманд</item>

@@ -38,5 +38,5 @@
     <item quantity="one">Atrasta %s spēle</item>
     <item quantity="other">Atrastas %s spēles</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Abu spēlētāju vidējais reitings</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://newchess.fun/games/search">Abu spēlētāju vidējais reitings</string>
 </resources>

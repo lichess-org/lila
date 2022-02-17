@@ -66,7 +66,7 @@
   <string name="lookupOfPlayer">Bir oyunçunun oyunlarından tapmacalar</string>
   <string name="fromXGames">%s\' oyunlarından yapbozlar</string>
   <string name="searchPuzzles">Tapmaca axtar</string>
-  <string name="fromMyGamesNone">Verilənlər bazasında heç bir tapmaca yoxdur, amma Lichess hələ də səni çox sevir.
+  <string name="fromMyGamesNone">Verilənlər bazasında heç bir tapmaca yoxdur, amma NewChess hələ də səni çox sevir.
 Bir tapmaca əlavə etmək şansınızı artırmaq üçün sürətli və klassik oyunlar oynayın!</string>
   <string name="fromXGamesFound">%1$s oyunlarında tapılan%2$s tapmacalar</string>
   <string name="puzzleDashboardDescription">Təlim edin, təhlil edin, təkmilləşdirmə edin</string>

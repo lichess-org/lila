@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Liên hệ</string>
-  <string name="contactLichess">Liên hệ Lichess</string>
+  <string name="contactLichess">Liên hệ NewChess</string>
   <string name="whatCanWeHelpYouWith">Chúng tôi có thể giúp gì cho bạn?</string>
   <string name="visitThisPage">Truy cập trang này để giải quyết vấn đề</string>
   <string name="iCantLogIn">Tôi không thể đăng nhập được</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Tôi đã mất khả năng truy cập mã bảo mật 2 lớp của mình</string>
   <string name="doPasswordReset">Thực hiện reset mật khẩu để xóa bỏ bảo mật 2 lớp</string>
   <string name="accountSupport">Tôi cần hỗ trợ tài khoản</string>
-  <string name="wantTitle">Tôi muốn danh hiệu của mình hiển thị trên Lichess</string>
-  <string name="visitTitleConfirmation">Để hiện danh hiệu của bạn trên trang cá nhân Lichess của bạn, và tham dự các Titled Arena, hãy truy cập đến trang xác nhận danh hiệu</string>
+  <string name="wantTitle">Tôi muốn danh hiệu của mình hiển thị trên NewChess</string>
+  <string name="visitTitleConfirmation">Để hiện danh hiệu của bạn trên trang cá nhân NewChess của bạn, và tham dự các Titled Arena, hãy truy cập đến trang xác nhận danh hiệu</string>
   <string name="wantCloseAccount">Tôi muốn đóng tài khoản của mình</string>
   <string name="closeYourAccount">Bạn có thể đóng tài khoản của mình tại trang này</string>
   <string name="doNotAskByEmail">Xin vui lòng không yêu cầu chúng tôi đóng tài khoản của bạn qua email, chúng tôi sẽ không giải quyết.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Vui lòng không gửi tin nhắn trực tiếp đến các moderator.</string>
   <string name="onlyReports">Chỉ những báo cáo người chơi thông qua biểu mẫu báo cáo mới có hiệu quả.</string>
   <string name="wantReportBug">Tôi muốn gửi báo cáo về bug</string>
-  <string name="reportBugInForum">Trong diễn đàn phản hồi Lichess</string>
-  <string name="reportWebsiteIssue">Bằng một issue về website Lichess trên Github</string>
-  <string name="reportMobileIssue">Bằng một issue cho ứng dụng mobile Lichess trên Github</string>
-  <string name="reportBugInDiscord">Trong server discord Lichess</string>
+  <string name="reportBugInForum">Trong diễn đàn phản hồi NewChess</string>
+  <string name="reportWebsiteIssue">Bằng một issue về website NewChess trên Github</string>
+  <string name="reportMobileIssue">Bằng một issue cho ứng dụng mobile NewChess trên Github</string>
+  <string name="reportBugInDiscord">Trong server discord NewChess</string>
   <string name="howToReportBug">Xin vui lòng mô tả hiện tượng của bug, bạn đã mong muốn điều gì xảy ra, và các bước để tái hiện bug.</string>
   <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
   <string name="calledEnPassant">Đây được gọi là \"Bắt tốt qua đường\" và là một luật chơi của cờ vua.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Đừng phủ nhận đã lừa dối. Nếu bạn muốn được phép tạo một tài khoản mới, chỉ cần thừa nhận những gì bạn đã làm và cho thấy rằng bạn hiểu rằng đó là một sai lầm.</string>
   <string name="otherRestriction">Hạn chế khác</string>
   <string name="collaboration">Cộng tác, hợp pháp, thương mại</string>
-  <string name="monetizing">Kiếm tiền với Lichess</string>
-  <string name="buyingLichess">Mua Lichess</string>
-  <string name="authorizationToUse">Ủy quyền sử dụng Lichess</string>
-  <string name="welcomeToUse">Bạn được hoan nghênh xử dụng Lichess cho các hoạt động của mình, kể cả vì mục đích thương mại.</string>
-  <string name="videosAndBooks">Bạn có thể hiển thị nó trong video của mình, và có thể in ảnh chụp Lichess trong sách của bạn.</string>
+  <string name="monetizing">Kiếm tiền với NewChess</string>
+  <string name="buyingLichess">Mua NewChess</string>
+  <string name="authorizationToUse">Ủy quyền sử dụng NewChess</string>
+  <string name="welcomeToUse">Bạn được hoan nghênh xử dụng NewChess cho các hoạt động của mình, kể cả vì mục đích thương mại.</string>
+  <string name="videosAndBooks">Bạn có thể hiển thị nó trong video của mình, và có thể in ảnh chụp NewChess trong sách của bạn.</string>
   <string name="creditAppreciated">Tín dụng được đánh giá cao nhưng không bắt buộc.</string>
   <string name="noneOfTheAbove">Không phải các phương án trên</string>
   <string name="sendEmailAt">Hãy gửi email cho chúng tôi tại %s.</string>
-  <string name="explainYourRequest">Xin vui lòng giải thích yêu cầu của bạn một cách rõ ràng và thấu đáo. Đưa ra tên đang nhập Lichess của bạn, và bất cứ thông tin nào hữu ích có thể giúp chúng tôi giúp bạn.</string>
+  <string name="explainYourRequest">Xin vui lòng giải thích yêu cầu của bạn một cách rõ ràng và thấu đáo. Đưa ra tên đang nhập NewChess của bạn, và bất cứ thông tin nào hữu ích có thể giúp chúng tôi giúp bạn.</string>
 </resources>

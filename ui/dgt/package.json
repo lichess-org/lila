@@ -2,7 +2,7 @@
   "name": "dgt",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org msg",
+  "description": "newchess.fun msg",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {

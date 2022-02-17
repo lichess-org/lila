@@ -67,7 +67,7 @@ Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berr
   <string name="roundRobinA">Vi skulle gjerne hatt med Round Robin-turneringar, men diverre fungerar dei ikkje online.
 Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet turneringa før den er ferdigspela. Det er ikkje å forvente at alle online-spelarar vil spele alle sine parti, og difor vil dei fleste Round Robin-turneringar verte feilaktige og urettvise. Det næraste ein kjem Round Robin-spel online er i sveitsarturneringar med svært mange rundar. I slike høve vil alle moglege parsamansetjingar verte spela før turneringa endar.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
-  <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på Lichess.</string>
+  <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på NewChess.</string>
   <string name="swissDescription">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>
   <string name="teamOnly">Sveitsarturneringar kan berre arrangeras av lagleiarar og kan berre spelas av lagmedlemer.           
 %1$s for å starte å spele i sveitsarturneriangar.</string>

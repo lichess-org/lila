@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess klases</string>
-  <string name="teachClassesOfChessStudents">Apmāciet šaha skolēnu grupas ar Lichess Klašu rīkiem.</string>
+  <string name="lichessClasses">NewChess klases</string>
+  <string name="teachClassesOfChessStudents">Apmāciet šaha skolēnu grupas ar NewChess Klašu rīkiem.</string>
   <string name="features">Iespējas</string>
   <string name="quicklyGenerateSafeUsernames">Ātri izveidot drošus lietotājvārdus un paroles skolēniem</string>
   <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un puzlēs</string>
   <string name="messageAllStudents">Sūtiet ziņas par nodarbību materiālu visiem skolēniem</string>
   <string name="freeForAllForever">100% bezmaksas visiem un vienmēr, bez reklāmām un izsekotājiem</string>
-  <string name="applyToBeLichessTeacher">Pieteikties par Lichess Skolotāju</string>
+  <string name="applyToBeNewChessTeacher">Pieteikties par NewChess Skolotāju</string>
   <string name="noClassesYet">Vēl nav grupu.</string>
   <string name="teachersX">Skolotāji: %s</string>
   <string name="newClass">Jauna klase</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klases apraksts</string>
   <string name="visibleByBothStudentsAndTeachers">Redzams gan grupas skolēniem, gan skolotājiem</string>
   <string name="teachersOfTheClass">Klases skolotāji</string>
-  <string name="addLichessUsernames">Pievienojiet Lichess lietotājvārdus, lai tos ielūgtu kā skolotājus. Katru savā rindiņā.</string>
+  <string name="addNewChessUsernames">Pievienojiet NewChess lietotājvārdus, lai tos ielūgtu kā skolotājus. Katru savā rindiņā.</string>
   <string name="resetPassword">Atiestatīt paroli</string>
   <string name="makeSureToCopy">Nokopējiet vai pierakstiet paroli tagad. Nevarēsiet to atkārtoti skatīt!</string>
   <string name="passwordX">Parole: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Īstais vārds</string>
   <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
   <string name="addStudent">Pievienot skolēnu</string>
-  <string name="lichessProfileXCreatedForY">Lichess konts %1$s izveidots skolēnam %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess konts %1$s izveidots skolēnam %2$s.</string>
   <string name="studentCredentials">Skolēns: %1$s
 Lietotājvārds: %2$s
 Parole: %3$s</string>
-  <string name="inviteALichessAccount">Ielūgt Lichess kontu</string>
-  <string name="inviteDesc1">Ja skolēnam jau ir Lichess konts, varat viņu ielūgt grupā.</string>
-  <string name="inviteDesc2">Viņš vai viņa saņems ziņu Lichess ar saiti, lai pievienotos grupai.</string>
+  <string name="inviteANewChessAccount">Ielūgt NewChess kontu</string>
+  <string name="inviteDesc1">Ja skolēnam jau ir NewChess konts, varat viņu ielūgt grupā.</string>
+  <string name="inviteDesc2">Viņš vai viņa saņems ziņu NewChess ar saiti, lai pievienotos grupai.</string>
   <string name="inviteDesc3">Svarīgi: ielūdziet tikai skolēnus, kurus pazīstat un kuri vēlas pievienoties grupai.</string>
   <string name="inviteDesc4">Nekad neielūdziet nejaušus spēlētājus, kas to nevēlas.</string>
-  <string name="createANewLichessAccount">Izveidot Lichess kontu</string>
-  <string name="createDesc1">Ja skolēnam vēl nav Lichess konta, varat viņam vai viņai to izveidot šeit.</string>
+  <string name="createANewNewChessAccount">Izveidot NewChess kontu</string>
+  <string name="createDesc1">Ja skolēnam vēl nav NewChess konta, varat viņam vai viņai to izveidot šeit.</string>
   <string name="createDesc2">E-pasta adrese nav nepieciešama. Tiks izveidota parole, kura jums būs jānodod skolēnam, lai viņš vai viņa var ierakstīties.</string>
   <string name="createDesc3">Svarīgi: skolēnam nedrīkst būt vairāki konti.</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
-  <string name="createStudentWarning">Izveidojiet kontus tikai īstiem skolēniem. Neizmantojiet šo funkciju, lai sev izveidotu vairākus kontus – citādi jums aizliegs lietot Lichess.</string>
-  <string name="lichessUsername">Lichess lietotājvārds</string>
+  <string name="createStudentWarning">Izveidojiet kontus tikai īstiem skolēniem. Neizmantojiet šo funkciju, lai sev izveidotu vairākus kontus – citādi jums aizliegs lietot NewChess.</string>
+  <string name="lichessUsername">NewChess lietotājvārds</string>
   <string name="generateANewUsername">Izveidot jaunu lietotājvārdu</string>
   <string name="welcomeToClass">Laipni lūgti savā klasē: %s.
 Lūk saite, lai piekļūtu kasei.</string>

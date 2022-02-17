@@ -261,7 +261,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>
-  <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반했습니다.</string>
+  <string name="thisAccountViolatedTos">이 계정은 NewChess 이용 약관을 위반했습니다.</string>
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기를 요청합니다</string>
@@ -422,7 +422,7 @@
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
-  <string name="previouslyOnLichessTV">이전 방송</string>
+  <string name="previouslyOnNewChessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
   <string name="bewareTheGameIsRatedButHasNoClock">조심하세요, 레이팅 게임이며 시간 제한이 없습니다!</string>
@@ -539,13 +539,13 @@
   </plurals>
   <string name="tpTimeSpentPlaying">플레이한 시간 : %s</string>
   <string name="watchGames">관람</string>
-  <string name="tpTimeSpentOnTV">Lichess TV에 나온 시간 : %s</string>
+  <string name="tpTimeSpentOnTV">NewChess TV에 나온 시간 : %s</string>
   <string name="watch">중계</string>
   <string name="videoLibrary">비디오 라이브러리</string>
   <string name="streamersMenu">스트리머</string>
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
-  <string name="about">Lichess 개요</string>
+  <string name="about">NewChess 개요</string>
   <string name="aboutX">%s에 대해</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
   <string name="really">정말입니다!</string>
@@ -571,7 +571,7 @@
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
   <string name="simulHostExtraTime">호스트 연장 시간</string>
-  <string name="lichessTournaments">Lichess 토너먼트</string>
+  <string name="lichessTournaments">NewChess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
   <string name="averageCentipawnLoss">평균 CP(centipawn) 손실</string>
@@ -604,8 +604,8 @@
   <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
   <string name="readAboutOur">%s를 읽어보세요.</string>
-  <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>
-  <string name="timeToProcessAMoveOnLichessServer">lichess 서버에서 한 수를 계산하는 데 걸리는 시간</string>
+  <string name="networkLagBetweenYouAndLichess">당신과 newchess 서버 간의 네트워크 지연 시간</string>
+  <string name="timeToProcessAMoveOnLichessServer">newchess 서버에서 한 수를 계산하는 데 걸리는 시간</string>
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
   <string name="downloadRaw">기보 다운로드</string>
   <string name="downloadImported">불러온 기보 다운로드</string>
@@ -621,14 +621,14 @@
   <string name="withEverybody">공개</string>
   <string name="kidMode">어린이 모드</string>
   <string name="kidModeExplanation">안전을 위해 그런것입니다. 아이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하게 이 모드를 키십시오.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 newchess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
   <string name="enableKidMode">아이 모드 활성화하기</string>
   <string name="disableKidMode">아이 모드 비활성화하기</string>
   <string name="security">보안</string>
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
-  <string name="asFreeAsLichess">lichess처럼 무료입니다</string>
+  <string name="asFreeAsLichess">newchess처럼 무료입니다</string>
   <string name="builtForTheLoveOfChessNotMoney">오직 체스에 대한 열정으로 만들어졌습니다</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
   <string name="zeroAdvertisement">광고가 없습니다</string>
@@ -737,14 +737,14 @@
   <string name="tryToWin">당신이 플레이하는 모든 게임에서 이기도록 (아니면 적어도 비기도록) 노력하세요.</string>
   <string name="resignLostGames">패배한 게임에서는 기권하세요(시간이 흐르게 두지 마세요).</string>
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
-  <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
+  <string name="wishYouGreatGames">newchess.fun에서 좋은 게임 즐기시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
   <string name="lifetimeScore">통산 전적</string>
   <string name="currentMatchScore">현재 경기 점수</string>
   <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
   <string name="agreementAccount">나는 다중 계정을 만들지 않겠습니다.</string>
-  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
+  <string name="agreementPolicy">나는 모든 NewChess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
   <string name="rapid">래피드</string>
@@ -781,13 +781,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
   <string name="newPendingReview">새 대기중 리뷰</string>
-  <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
+  <string name="lostAgainstTOSViolator">당신은 NewChess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
   <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
   <string name="download">다운로드</string>
   <string name="welcome">환영합니다!</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
+  <string name="lichessPatronInfo">NewChess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="coachManager">코치 설정</string>
   <string name="streamerManager">스트리머 설정</string>

@@ -287,7 +287,7 @@
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Այս օգտատերը խախտել է Lichess-ի օգտագործման պայմանները</string>
+  <string name="thisAccountViolatedTos">Այս օգտատերը խախտել է NewChess-ի օգտագործման պայմանները</string>
   <string name="openingExplorerAndTablebase">Սկզբնախաղերի և վերջնախաղերի բազա՝ &amp;</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
@@ -459,7 +459,7 @@
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
-  <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
+  <string name="previouslyOnNewChessTV">Նախորդները NewChess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է, սակայն առանց ժամանակի</string>
@@ -601,7 +601,7 @@
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>
   <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
-  <string name="lichessTournaments">Lichess մրցաշարեր</string>
+  <string name="lichessTournaments">NewChess մրցաշարեր</string>
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
   <string name="averageCentipawnLoss">Միջինը հարյուրերորդական զինվորի կորուստ</string>
@@ -612,7 +612,7 @@
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="tournamentHomeTitle">Շախմատի զանազան տարբերակներով և ժամակարգերով մրցաշարեր</string>
-  <string name="tournamentHomeDescription">Մրցաշարում խաղացե՜ք արագ շախմատ։ Ընտրեք Lichess-ի պաշտոնական մրցաշարերից ցանկացածը կամ ստեղծեք ձերը։ Գնդակ (Bullet), կայծակնային (Blitz), դասական, շախմատ-960 (Ֆիշերի շախմատ, Chess960), արքան կենտրոնում (King of the Hill), երեք շախ (Threecheck) և խաղի այլ տարբերակներ. դրանք կապահովեն ձեր շախմատային հաճույքը։</string>
+  <string name="tournamentHomeDescription">Մրցաշարում խաղացե՜ք արագ շախմատ։ Ընտրեք NewChess-ի պաշտոնական մրցաշարերից ցանկացածը կամ ստեղծեք ձերը։ Գնդակ (Bullet), կայծակնային (Blitz), դասական, շախմատ-960 (Ֆիշերի շախմատ, Chess960), արքան կենտրոնում (King of the Hill), երեք շախ (Threecheck) և խաղի այլ տարբերակներ. դրանք կապահովեն ձեր շախմատային հաճույքը։</string>
   <string name="tournamentNotFound">Մրցաշարը չի գտնվել</string>
   <string name="tournamentDoesNotExist">Այդպիսի մրցաշար գոյություն չունի։</string>
   <string name="tournamentMayHaveBeenCanceled">Կարող է չեղարկվել այն դեպքում, եթե բոլոր խաղացողները լքել են այն մինչև մեկնարկը։</string>
@@ -639,14 +639,14 @@
   <string name="withEverybody">Բոլորի հետ</string>
   <string name="kidMode">Մանկական ռեժիմ</string>
   <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում NewChess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
   <string name="enableKidMode">Միացնել մանկական ռեժիմը</string>
   <string name="disableKidMode">Անջատել մանկական ռեժիմը</string>
   <string name="security">Անվտանգություն</string>
   <string name="sessions">Սեսիաներ</string>
   <string name="revokeAllSessions">փակել բոլոր սեսիաները</string>
   <string name="playChessEverywhere">Խաղացեք շախմատ ամենուր</string>
-  <string name="asFreeAsLichess">Անվճար է Lichess-ի պես</string>
+  <string name="asFreeAsLichess">Անվճար է NewChess-ի պես</string>
   <string name="builtForTheLoveOfChessNotMoney">Սիրով շախմատի, այլ ոչ` փողի հանդեպ</string>
   <string name="everybodyGetsAllFeaturesForFree">Բոլոր հնարավորությունները բոլորի համար անվճար են</string>
   <string name="zeroAdvertisement">Ոչ մի գովազդ</string>
@@ -748,7 +748,7 @@
   <string name="tryToWin">Փորձեք հաղթել (կամ գոնե ոչ-ոքի խաղալ) յուրաքանչյուր խաղ։</string>
   <string name="resignLostGames">Հանձնվե՛ք պարտված խաղերում (մի\' թողեք ժամանակը սպառվի)։</string>
   <string name="temporaryInconvenience">Մենք հայցում ենք Ձեր ներողամտությունը անհարմարության համար,</string>
-  <string name="wishYouGreatGames">և մաղթում հաճելի հաղեր lichess.org-ում։</string>
+  <string name="wishYouGreatGames">և մաղթում հաճելի հաղեր newchess.fun-ում։</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
@@ -771,7 +771,7 @@
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
   <string name="download">Ներբեռնել</string>
   <string name="welcome">Բարի՜ գալուստ։</string>
-  <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
+  <string name="lichessPatronInfo">NewChess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
 Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
   <string name="coachManager">Մարզիչների համար</string>
   <string name="streamerManager">Սթրիմերների համար</string>
@@ -792,6 +792,6 @@
   <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
   <string name="since">Սկսած</string>
   <string name="until">Մինչև</string>
-  <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
+  <string name="lichessDbExplanation">NewChess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
   <string name="switchSides">Փոխել կողմը</string>
 </resources>

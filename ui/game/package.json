@@ -2,7 +2,7 @@
   "name": "game",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org game",
+  "description": "newchess.fun game",
   "type": "module",
   "module": "game.js",
   "typings": "game.d.ts",

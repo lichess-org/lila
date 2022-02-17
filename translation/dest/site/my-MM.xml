@@ -72,7 +72,7 @@
   <string name="whiteTimeOut">အဖြူ အချိန်ကုန်</string>
   <string name="blackTimeOut">အနက် အချိန်ကုန်</string>
   <string name="play">ကစားမည်</string>
-  <string name="thisAccountViolatedTos">ဤအကောင့်က Lichess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
+  <string name="thisAccountViolatedTos">ဤအကောင့်က NewChess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="orUploadPgnFile">သို့မဟုတ် PGN ဖိုင် တစ်ခုကို တင်ပို့</string>
   <plurals name="lessThanNbMinutes">
@@ -132,6 +132,6 @@
   <string name="sentEmailWithLink">လင့်ခ် ပါဝင်သော အီးမေးလ် တစ်စောင် သင့်ထံ ပို့လိုက်ပါပြီ။</string>
   <string name="since">မှ</string>
   <string name="until">ထိ</string>
-  <string name="lichessDbExplanation">Lichess ရှိ ကစားသမား အားလုံးထံမှ ကျပန်း ရွေးချယ်ထားသည့် လက်ရည်တွက် ကစားပွဲများ</string>
+  <string name="lichessDbExplanation">NewChess ရှိ ကစားသမား အားလုံးထံမှ ကျပန်း ရွေးချယ်ထားသည့် လက်ရည်တွက် ကစားပွဲများ</string>
   <string name="switchSides">ဘက်ပြောင်း</string>
 </resources>

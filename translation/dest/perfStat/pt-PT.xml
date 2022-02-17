@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Não foi jogado um número suficiente de partidas a pontuar para estabelecer uma pontuação de confiança.</string>
   <string name="progressOverLastXGames">Progresso nas últimas %s partidas:</string>
   <string name="ratingDeviation">Desvio da pontuação: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Um valor inferior significa que a classificação é mais estável. Acima de %1$s, a classificação é considerada provisória. Para ser incluído nas classificações, esse valor deve estar abaixo de %2$s (xadrez padrão) ou %3$s (variantes).</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://newchess.fun/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Um valor inferior significa que a classificação é mais estável. Acima de %1$s, a classificação é considerada provisória. Para ser incluído nas classificações, esse valor deve estar abaixo de %2$s (xadrez padrão) ou %3$s (variantes).</string>
   <string name="totalGames">Total de partidas</string>
   <string name="ratedGames">Total de partidas a pontuar</string>
   <string name="tournamentGames">Partidas em torneios</string>

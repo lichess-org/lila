@@ -3,8 +3,8 @@
   <string name="activity">Çalakîtî</string>
   <string name="hostedALiveStream">Weşana zindî li dar xist</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Piştgirî daye lichess.org-ê bo %1$s mehî wek %2$sek</item>
-    <item quantity="other">Piştgirî daye lichess.org-ê bo %1$s mehan wek %2$sek</item>
+    <item quantity="one">Piştgirî daye newchess.fun-ê bo %1$s mehî wek %2$sek</item>
+    <item quantity="other">Piştgirî daye newchess.fun-ê bo %1$s mehan wek %2$sek</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Pozîsyona %1$s li ser %2$s praktîk kir</item>
@@ -62,7 +62,7 @@
     <item quantity="one">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstika di %4$s de</item>
     <item quantity="other">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstikên di %4$s de</item>
   </plurals>
-  <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
+  <string name="signedUp">Xwe qeydê newchess.funê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>
     <item quantity="other">Beşdarî %s tîman bû</item>

@@ -4,8 +4,8 @@ export function setup(): void {
 }
 
 function onSpeechChange(enabled: boolean): void {
-  if (!window.LichessSpeech && enabled) lichess.loadModule('speech');
-  else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
+  if (!window.NewChessSpeech && enabled) lichess.loadModule('speech');
+  else if (window.NewChessSpeech && !enabled) window.NewChessSpeech = undefined;
 }
 
 export function node(n: Tree.Node, cut: boolean): void {
@@ -16,6 +16,6 @@ export function success(): void {
   lichess.sound.say('Success!');
 }
 
-function withSpeech(f: (speech: LichessSpeech) => void): void {
-  if (window.LichessSpeech) f(window.LichessSpeech);
+function withSpeech(f: (speech: NewChessSpeech) => void): void {
+  if (window.NewChessSpeech) f(window.NewChessSpeech);
 }

@@ -15,7 +15,7 @@
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
   <string name="sourceUrlOrGameIds">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
-  <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 IDs παιχνιδιών Lichess, με κενά μεταξύ τους.</string>
+  <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 IDs παιχνιδιών NewChess, με κενά μεταξύ τους.</string>
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>

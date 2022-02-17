@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">АрФар</string>
   <string name="frequentlyAskedQuestions">Арæх Фарстатæ</string>
-  <string name="whyIsLichessCalledLichess">Lichess-æн йæ ном цæмæн у \"Lichess\"?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\"-ы комбинаци — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
+  <string name="whyIsLichessCalledLichess">NewChess-æн йæ ном цæмæн у \"NewChess\"?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">\"NewChess\" у \"live/light/libre\" æмæ \"chess\"-ы комбинаци — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
   <string name="leechess">личец</string>
   <string name="hearItPronouncedBySpecialist">Байхъус, специалист æй куыд дзуры.</string>
-  <string name="whyLiveLightLibre">Удæгас, уымæн æмæ дæ бон у хъазын æмæ кæсын хъæзтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар, уымæн æмæ Lichess у æргом æмæ дзы нæй проприетарон быроны, иннæ коммерцион проектты хуызæн.</string>
-  <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess сæйрагдæр фыст у %2$s-йæ, æнцонæмбарæн программон æвзагæй.</string>
-  <string name="howCanIContributeToLichess">Куыд баххуыс кæнон Lichess-æн?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess цæры хъазджыты нывондытæй æмæ волонтёрты куыстæй.</string>
-  <string name="findMoreAndSeeHowHelp">Дæ бон у базонын, %1$s (æмæ %2$s дæр). Кæд дæ фæнды баххуыс кæнын Lichess-æн дæ рæстæгæй æмæ арæхстытæй, уæд дзы ис %3$s.</string>
+  <string name="whyLiveLightLibre">Удæгас, уымæн æмæ дæ бон у хъазын æмæ кæсын хъæзтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар, уымæн æмæ NewChess у æргом æмæ дзы нæй проприетарон быроны, иннæ коммерцион проектты хуызæн.</string>
+  <string name="whyIsLilaCalledLila">Уый дæр хауы NewChess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ NewChess сæйрагдæр фыст у %2$s-йæ, æнцонæмбарæн программон æвзагæй.</string>
+  <string name="howCanIContributeToLichess">Куыд баххуыс кæнон NewChess-æн?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess цæры хъазджыты нывондытæй æмæ волонтёрты куыстæй.</string>
+  <string name="findMoreAndSeeHowHelp">Дæ бон у базонын, %1$s (æмæ %2$s дæр). Кæд дæ фæнды баххуыс кæнын NewChess-æн дæ рæстæгæй æмæ арæхстытæй, уæд дзы ис %3$s.</string>
   <string name="beingAPatron">аххуысгæнæгæй куыд суын</string>
   <string name="breakdownOfOurCosts">нæ хардзыты хыгъдлæвæрд</string>
   <string name="otherWaysToHelp">æндæр амалтæ баххуыс кæнын</string>
-  <string name="areThereWebsitesBasedOnLichess">Ис дзы æндæр сайтытæ Lichess-æй бындурыл?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">О, æндæр æргом сайтытæ Lichess-æй удцырын райстой æмæ пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Ис дзы æндæр сайтытæ NewChess-æй бындурыл?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">О, æндæр æргом сайтытæ NewChess-æй удцырын райстой æмæ пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
   <string name="whenAmIEligibleRatinRefund">Сайæгой мæ кæд рамбылдта, уæд мын мæ рейтинг фæстæмæ ратдзыстут?</string>
   <string name="ratingRefundExplanation">Сайæгойы кæд раргом кодтам, уæд, иу минутæйы фæстæ, йæ 40 ахæм рейтингимæ хъæзтытæ, фæстаг 3 боны кæм рамбылдта, уыдзысты равзард. Ды ацы хъæзтыты йæ ныхмæлæууæг кæд уыдтæ, æмæ дæхион рейтинг æууæнккаг кæд у, уæд дæ рейтинг дын фæстæмæ ратдзыстæм. Баххæст уыдзæн æрæнгонд дæ иуылстыр рейтингæй æмæ æнæраст хъæзтыты фæстæ рейтингы ивындзинæдтæй. 
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Ис дзы мæ бон модераторæй суын?</string>
   <string name="youCannotApply">Мах модераторы бынатмæ курдиаттæ нæ исæм. Кæд фендзыстæм, исчи, махмæ гæсгæ, уыдзæн хорз модератор, уæд нæхæдæг йемæ бастдзинад саразæм.</string>
   <string name="isCorrespondenceDifferent">Ис дзы хицæндзинад фыстæгтæ фысгæйæ хъазтæй хуымæтæг хъазты \'хсæн?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess-ы сæйраг хицæндзинад фыстæгтæ фысгæ хъазы уагæвæрдты у райдайæнты чиныг. Компьютеры программæты пайдакæнæн иваргонд у æмæ расайдзæн аккаунты æхгæнæн. ICCF-мæ нæкæсгæйæ, Lichess компьютеры программæты аххуыс нæ уадзы.</string>
+  <string name="youCanUseOpeningBookNoEngine">NewChess-ы сæйраг хицæндзинад фыстæгтæ фысгæ хъазы уагæвæрдты у райдайæнты чиныг. Компьютеры программæты пайдакæнæн иваргонд у æмæ расайдзæн аккаунты æхгæнæн. ICCF-мæ нæкæсгæйæ, NewChess компьютеры программæты аххуыс нæ уадзы.</string>
   <string name="gameplay">Хъазты æрфыст</string>
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр хъазы хуызтæ сахаты цæстдардмæ гæсгæ куыд рабæрæг конд ысты?</string>
-  <string name="basedOnGameDuration">Lichess сахаты цæстдард баст у æввахс хъазы дæргъцы = %1$s
+  <string name="basedOnGameDuration">NewChess сахаты цæстдард баст у æввахс хъазы дæргъцы = %1$s
 Зæъæм, æввахс 5+3 хъазы дæргъц у 5 × 60 + 40 × 3 = 420 сикъунды.</string>
   <string name="durationFormula">(райдайæн рæстæг) + 40 × (уæлæмхасæн)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">Цавæр шахмæтты хуызтæ мæ бон у хъазын Lichess-ы?</string>
-  <string name="lichessSupportChessAnd">Lichess-мæ ис классикон шахмæттæ æмæ %1$s.</string>
+  <string name="whatVariantsCanIplay">Цавæр шахмæтты хуызтæ мæ бон у хъазын NewChess-ы?</string>
+  <string name="lichessSupportChessAnd">NewChess-мæ ис классикон шахмæттæ æмæ %1$s.</string>
   <string name="eightVariants">8 шахмæтты хуызты</string>
   <string name="whatIsACPL">«Рæстæмбис сантипешкæты сæфт» (ACPL) та ци у?</string>
   <string name="acplExplanation">Сантипешкæ у барынады иуæг, кæй пайда у æвдисын уæлидзинад шахмæтты. Сантипешкæ у ¹/₁₀₀ пешкæйы аргъы. 100 сантипешкæты æмбæрц у 1 пешкæмæ. Ацы нысаниуæгтæ ницы давынц хъазты, фæлæ сты пайдаджын компьютерон шахмæтты æмæ позицийы аргъкæнынады компьютерон анализы.
@@ -43,7 +43,7 @@
 
 Ацы нысаниуæг у хъазты бæрцы æвдисæн. Цас каддæр у сантипешкæты сæфт цыды рæстæмбисæй, уыйас хъаруджындæр у хъазт.
 
-Lichess компьютерон анализы пайда кæны Stockfish.</string>
+NewChess компьютерон анализы пайда кæны Stockfish.</string>
   <string name="insufficientMaterial">Æмбылд рæстæгæй, хæрæгсаст æмæ æрмæджы хъуаг</string>
   <string name="lichessFollowFIDErules">Фылдæр хатт, хъазæджы рæстæг куы фæуы, уæд йын фембылд банымайæм. Фæлæ хъазт хæрæгсастæй фæуы, ныхмæлæууæгмæ кæд нæй фадаты мат нывварын дарддæр хъазгæйæ (%1$s).
 
@@ -61,11 +61,11 @@ Lichess компьютерон анализы пайда кæны Stockfish.</st
  Посмотрите %3$s и попрактикуйтесь.</string>
   <string name="goodIntroduction">хорз райхæлд</string>
   <string name="threefoldRepetition">Æртывæр позицийы фæлхатын</string>
-  <string name="canIbecomeLM">Ис дзы гæнæн мын раттын Lichess Мастеры (LM) хуындад?</string>
+  <string name="canIbecomeLM">Ис дзы гæнæн мын раттын NewChess Мастеры (LM) хуындад?</string>
   <string name="noUpperCaseDot">Нæй.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Уый у каджын хуындад, æнæофициалон, æмæ æрмæст вæййы Lichess-ы.
+  <string name="lMtitleComesToYouDoNotRequestIt">Уый у каджын хуындад, æнæофициалон, æмæ æрмæст вæййы NewChess-ы.
 
-Мах æй стæмхатт хорзæхæй дæттæм тынг нысаниуæгджын хъазæгтæм, Lichess-ы раз сгуыхтдзинæдтæ кæм ис, ахæмтæ; мах сæ нæхæдæг æвзарæм. Ма ссар LM хуындад, уый йæхæдæг дæ ссардзæн. Аккаг куы дæ, уæд дæумæ æрцæудзæн уац, цæмæй дæ хуындад райсай, кæннод йын \"нæ\" зæгъай.
+Мах æй стæмхатт хорзæхæй дæттæм тынг нысаниуæгджын хъазæгтæм, NewChess-ы раз сгуыхтдзинæдтæ кæм ис, ахæмтæ; мах сæ нæхæдæг æвзарæм. Ма ссар LM хуындад, уый йæхæдæг дæ ссардзæн. Аккаг куы дæ, уæд дæумæ æрцæудзæн уац, цæмæй дæ хуындад райсай, кæннод йын \"нæ\" зæгъай.
 
 LM хуындады райстыл ма кур.</string>
   <string name="whatUsernameCanIchoose">Цы хуызæн ис мын гæнæн мæ пайдакæнæджы ном скæнын?</string>
@@ -74,6 +74,6 @@ LM хуындады райстыл ма кур.</string>
   <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
   <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
   <string name="uniqueTrophies">Уникалон лæвартæ</string>
-  <string name="ownerUniqueTrophies">Уыцы лæвар у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн уыдзæн ахæм.</string>
+  <string name="ownerUniqueTrophies">Уыцы лæвар у уникалон NewChess-ы историйы, %1$s-æй уæлдай никæмæн уыдзæн ахæм.</string>
   <string name="howToThreeDots">Базон, куыд...</string>
 </resources>

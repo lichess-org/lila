@@ -14,8 +14,8 @@
   <string name="fullDescription">Повний опис події</string>
   <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
   <string name="sourceUrlOrGameIds">URL джерела або ідентифікатор гри</string>
-  <string name="sourceUrlHelp">URL-адреса, яку Lichess перевірятиме, щоб отримати оновлення PGN. Вона має бути загальнодоступною в Інтернеті.</string>
-  <string name="gameIdsHelp">Крім того, ви можете ввести до 64 ідентифікаторів гри Lichess, розділених пробілами.</string>
+  <string name="sourceUrlHelp">URL-адреса, яку NewChess перевірятиме, щоб отримати оновлення PGN. Вона має бути загальнодоступною в Інтернеті.</string>
+  <string name="gameIdsHelp">Крім того, ви можете ввести до 64 ідентифікаторів гри NewChess, розділених пробілами.</string>
   <string name="startDate">Дата початку у вашому часовому поясі</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="credits">Вдячність джерелу</string>

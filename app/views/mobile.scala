@@ -23,7 +23,7 @@ object mobile {
               div(cls := "apk")(
                 raw(~apkDoc.getHtml("doc.content", resolver))
               ),
-              h2(trans.asFreeAsLichess()),
+              h2(trans.asFreeAsNewChess()),
               ul(cls := "block")(
                 li(trans.builtForTheLoveOfChessNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
@@ -40,7 +40,7 @@ object mobile {
                 li(trans.puzzles()),
                 li(trans.gameAnalysis()),
                 li(trans.boardEditor()),
-                li("Lichess TV"),
+                li("NewChess TV"),
                 li(trans.followAndChallengeFriends()),
                 li(trans.availableInNbLanguages.pluralSame(80))
               )
@@ -51,7 +51,7 @@ object mobile {
                 heightA := "883",
                 cls := "mobile-playing",
                 src := assetUrl("images/mobile/lichesstv-mobile.png"),
-                alt := "Lichess TV on mobile"
+                alt := "NewChess TV on mobile"
               ),
               img(
                 cls := "qrcode",

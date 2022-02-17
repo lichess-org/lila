@@ -5,4 +5,4 @@ contact_links:
     about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first.
   - name: Support
     url: https://discord.gg/lichess
-    about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, Lichess Forum, StackOverflow, or join our Discord.
+    about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, NewChess Forum, StackOverflow, or join our Discord.

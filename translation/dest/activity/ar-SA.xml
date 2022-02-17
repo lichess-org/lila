@@ -4,11 +4,11 @@
   <string name="hostedALiveStream">بدأ بث مباشر</string>
   <plurals name="supportedNbMonths">
     <item quantity="zero">دعم ليتشيس لمدة %1$s شهر ك%2$s</item>
-    <item quantity="one">دعم lichess.org لمدة %1$s شهر ك%2$s</item>
-    <item quantity="two">دعم lichess.org لمدة %1$s أشهر ك%2$s</item>
-    <item quantity="few">دعم lichess.org لمدة %1$s اشهر ك%2$s</item>
-    <item quantity="many">دعم lichess.org لمدة %1$s اشهر ك%2$s</item>
-    <item quantity="other">دعم lichess.org لمدة %1$s أشهر ك %2$s</item>
+    <item quantity="one">دعم newchess.fun لمدة %1$s شهر ك%2$s</item>
+    <item quantity="two">دعم newchess.fun لمدة %1$s أشهر ك%2$s</item>
+    <item quantity="few">دعم newchess.fun لمدة %1$s اشهر ك%2$s</item>
+    <item quantity="many">دعم newchess.fun لمدة %1$s اشهر ك%2$s</item>
+    <item quantity="other">دعم newchess.fun لمدة %1$s أشهر ك %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="zero">تم التدريب %1$s موقف على %2$s</item>

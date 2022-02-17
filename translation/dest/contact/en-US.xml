@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contact</string>
-  <string name="contactLichess">Contact Lichess</string>
+  <string name="contactLichess">Contact NewChess</string>
   <string name="whatCanWeHelpYouWith">What can we help you with?</string>
   <string name="visitThisPage">Visit this page to solve the issue</string>
   <string name="iCantLogIn">I can\'t log in</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">I lost access to my two-factor authentication codes</string>
   <string name="doPasswordReset">Complete a password reset to remove your second factor</string>
   <string name="accountSupport">I need account support</string>
-  <string name="wantTitle">I want my title displayed on Lichess</string>
-  <string name="visitTitleConfirmation">To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page</string>
+  <string name="wantTitle">I want my title displayed on NewChess</string>
+  <string name="visitTitleConfirmation">To show your title on your NewChess profile, and participate in Titled Arenas, visit the title confirmation page</string>
   <string name="wantCloseAccount">I want to close my account</string>
   <string name="closeYourAccount">You can close your account on this page</string>
   <string name="doNotAskByEmail">Do not ask us by email to close an account, we won\'t do it.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Do not send direct messages to moderators.</string>
   <string name="onlyReports">Only reporting players through the report form is effective.</string>
   <string name="wantReportBug">I want to report a bug</string>
-  <string name="reportBugInForum">In the Lichess Feedback section of the forum</string>
-  <string name="reportWebsiteIssue">As a Lichess website issue on GitHub</string>
-  <string name="reportMobileIssue">As a Lichess mobile app issue on GitHub</string>
-  <string name="reportBugInDiscord">In the Lichess Discord server</string>
+  <string name="reportBugInForum">In the NewChess Feedback section of the forum</string>
+  <string name="reportWebsiteIssue">As a NewChess website issue on GitHub</string>
+  <string name="reportMobileIssue">As a NewChess mobile app issue on GitHub</string>
+  <string name="reportBugInDiscord">In the NewChess Discord server</string>
   <string name="howToReportBug">Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug.</string>
   <string name="illegalPawnCapture">Illegal pawn capture</string>
   <string name="calledEnPassant">It is called \"en passant\" and is one of the rules of chess.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake.</string>
   <string name="otherRestriction">Other restriction</string>
   <string name="collaboration">Collaboration, legal, commercial</string>
-  <string name="monetizing">Monetizing Lichess</string>
-  <string name="buyingLichess">Buying Lichess</string>
-  <string name="authorizationToUse">Authorization to use Lichess</string>
-  <string name="welcomeToUse">You are welcome to use Lichess for your activity, even commercial.</string>
-  <string name="videosAndBooks">You can show it in your videos, and you can print screenshots of Lichess in your books.</string>
+  <string name="monetizing">Monetizing NewChess</string>
+  <string name="buyingLichess">Buying NewChess</string>
+  <string name="authorizationToUse">Authorization to use NewChess</string>
+  <string name="welcomeToUse">You are welcome to use NewChess for your activity, even commercial.</string>
+  <string name="videosAndBooks">You can show it in your videos, and you can print screenshots of NewChess in your books.</string>
   <string name="creditAppreciated">Credit is appreciated but not required.</string>
   <string name="noneOfTheAbove">None of the above</string>
   <string name="sendEmailAt">Send us an email at %s.</string>
-  <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your Lichess username, and any information that could help us help you.</string>
+  <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your NewChess username, and any information that could help us help you.</string>
 </resources>

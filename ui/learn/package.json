@@ -2,7 +2,7 @@
   "name": "learn",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org chess performance statistics",
+  "description": "newchess.fun chess performance statistics",
   "type": "module",
   "module": "src/main.js",
   "keywords": [

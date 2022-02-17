@@ -6,7 +6,7 @@ import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
+export default function NewChessChallenge(element: Element, opts: ChallengeOpts) {
   let vnode: VNode, ctrl: Ctrl;
 
   function redraw() {

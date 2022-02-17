@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">BUJ</string>
   <string name="frequentlyAskedQuestions">Bieži uzdotie jautājumi</string>
-  <string name="whyIsLichessCalledLichess">Kādēļ Lichess tā sauc?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" ir vārdu \"live/light/libre\" (angļ. val. tiešraidē/viegls/brīvs) un \"chess\" (šahs) savienojums. To izrunā %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Kādēļ NewChess tā sauc?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">\"NewChess\" ir vārdu \"live/light/libre\" (angļ. val. tiešraidē/viegls/brīvs) un \"chess\" (šahs) savienojums. To izrunā %1$s.</string>
   <string name="leechess">lī-čes</string>
   <string name="hearItPronouncedBySpecialist">Klausīties, kā to izrunā eksperts.</string>
-  <string name="whyLiveLightLibre">\"Tiešraidē\", jo spēles var spēlēt un skatīties reāllaikā 24/7; \"viegls\" un \"brīvs\", jo Lichess ir atvērtā koda programmatūra, kas nav piesārņota ar īpašniekprogrammatūras mēsliem, kādi atrodami citās vietnēs.</string>
-  <string name="whyIsLilaCalledLila">Līdzīgi, Lichess pirmkods, %1$s, ir saīsinājums \"li[chess in sca]la\" (angļ. val. Lichess programmēšanas valodā \"Scala\"), tādēļ ka lielākā daļa Lichess koda ir rakstīta intuitīvā programmēšanas valodā \"%2$s\".</string>
-  <string name="howCanIContributeToLichess">Kā varu iegūldīt Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess darbojas pateicoties sponsoru ziedojumiem un brīvprātīgo komandas centieniem.</string>
-  <string name="findMoreAndSeeHowHelp">Varat uzzināt vairāk par %1$s (ieskaitot %2$s). Ja vēlaties palīdzēt vietnei Lichess veltot savu laiku un spējas, ir %3$s.</string>
+  <string name="whyLiveLightLibre">\"Tiešraidē\", jo spēles var spēlēt un skatīties reāllaikā 24/7; \"viegls\" un \"brīvs\", jo NewChess ir atvērtā koda programmatūra, kas nav piesārņota ar īpašniekprogrammatūras mēsliem, kādi atrodami citās vietnēs.</string>
+  <string name="whyIsLilaCalledLila">Līdzīgi, NewChess pirmkods, %1$s, ir saīsinājums \"li[chess in sca]la\" (angļ. val. NewChess programmēšanas valodā \"Scala\"), tādēļ ka lielākā daļa NewChess koda ir rakstīta intuitīvā programmēšanas valodā \"%2$s\".</string>
+  <string name="howCanIContributeToLichess">Kā varu iegūldīt NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess darbojas pateicoties sponsoru ziedojumiem un brīvprātīgo komandas centieniem.</string>
+  <string name="findMoreAndSeeHowHelp">Varat uzzināt vairāk par %1$s (ieskaitot %2$s). Ja vēlaties palīdzēt vietnei NewChess veltot savu laiku un spējas, ir %3$s.</string>
   <string name="beingAPatron">ziedošanu</string>
   <string name="breakdownOfOurCosts">mūsu izdevumu sadalījumu</string>
   <string name="otherWaysToHelp">citi veidi kā palīdzēt</string>
-  <string name="areThereWebsitesBasedOnLichess">Vai eksistē uz Lichess balstītas vietnes?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jā. Vietne Lichess tiešām ir iedvesmojusi citas atvērtā koda lapas, kas izmanto mūsu %1$s, %2$s, vai %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Vai eksistē uz NewChess balstītas vietnes?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Jā. Vietne NewChess tiešām ir iedvesmojusi citas atvērtā koda lapas, kas izmanto mūsu %1$s, %2$s, vai %3$s.</string>
   <string name="fairPlay">Godīga spēlēšana</string>
   <string name="whenAmIEligibleRatinRefund">Kad man ir tiesības uz automātisku reitinga atlīdzinājumu no blēžiem?</string>
   <string name="ratingRefundExplanation">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Kā varu kļūt par moderatoru?</string>
   <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
   <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
-  <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
+  <string name="youCanUseOpeningBookNoEngine">Vietnē NewChess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, NewChess to aizliedz.</string>
   <string name="gameplay">Spēles apraksts</string>
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
-  <string name="basedOnGameDuration">Lichess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
+  <string name="basedOnGameDuration">NewChess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
   Piemēram, 5+3 spēles aptuvenais ilgums ir 5 * 60 + 40 * 3 = 420 sekundes.</string>
   <string name="durationFormula">(sākotnējais laiks) + 40 * (gājiena pieaugums)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess atbalsta standarta šahu un %1$s.</string>
+  <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess atbalsta standarta šahu un %1$s.</string>
   <string name="eightVariants">8 šaha varianti</string>
   <string name="whatIsACPL">Kas ir vidējā centibandinieka kļūda (ACPL)?</string>
   <string name="acplExplanation">Centibandinieks ir šaha vienība, kas izsaka pārākumu. Centibandinieks ir vienāds ar bandinieka simtdaļu. Tātad 100 centibandinieki = 1 bandinieks. Šīm vērtībām nav oficiālas nozīmes spēlē, taču tās ir noderīgas spēlētājiem un nepieciešamas, lai izvērtētu pozīciju datoršahā.
@@ -43,7 +43,7 @@
 
   Šo vērtību var izmantot kā spēlēšanas kvalitātes rādītāju. Jo mazāk gājienu zaudēts katrā gājienā, jo lābāka spēlēšana.
 
-  Datoranalīzi vietnē Lichess darbina Stockfish.</string>
+  Datoranalīzi vietnē NewChess darbina Stockfish.</string>
   <string name="insufficientMaterial">Zaudēšana laika dēļ, neizšķirti un nepietiekams materiāls</string>
   <string name="lichessFollowFIDErules">Ja kādam spēlētājam beidzas laiks, šis spēlētājs parasti zaudē. Taču spēle ir neizšķirta, ja no dotās pozīcijas pretinieks nevar pieteikt matu nevienā atļautā gājienu secībā (%1$s).
 
@@ -60,31 +60,31 @@ Tas ir aprakstīts %2$s sadaļā 3.7 (d).
 
 Skatīt %3$s šim gājienam, lai ar to trenētos.</string>
   <string name="goodIntroduction">labu ievadu</string>
-  <string name="lichessTraining">Lichess treniņu</string>
+  <string name="lichessTraining">NewChess treniņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
-  <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>
+  <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. NewChess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trīskāršas atkārtošanās</string>
   <string name="notRepeatedMoves">Mēs neatkārtojām gājienus. Kādēļ spēle beidzās ar atkārtošanās neizšķirtu?</string>
   <string name="repeatedPositionsThatMatters">Trīskārša atkārtošanās attiecas uz atkārtotām %1$s, nevis gājieniem. Atkārtojumiem nav jānotiek pēc kārtas.</string>
   <string name="positions">pozīcijām</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Atkārtojām vienu pozīciju trīsreiz. Kādēļ spēle nebeidzās ar neizšķirtu?</string>
-  <string name="threeFoldHasToBeClaimed">Atkārtošanās neizšķirts jāpieprasa kādam no spēlētājiem. Varat to paveikt, spiežot pogu, kas parādās, vai piedāvājot neizšķirtu pirms pēdējā atkārtošanās gājiena — nav svarīgi, vai pretinieks to noraida; trīskāršās atkārtošanās neizšķirts tiks pieprasīts. Varat arī %1$s, lai Lichess automātiski pieprasa neizšķirtu jūsu vietā. Pieckārša atkārtošanās vienmēr uzreiz beidz spēli.</string>
+  <string name="threeFoldHasToBeClaimed">Atkārtošanās neizšķirts jāpieprasa kādam no spēlētājiem. Varat to paveikt, spiežot pogu, kas parādās, vai piedāvājot neizšķirtu pirms pēdējā atkārtošanās gājiena — nav svarīgi, vai pretinieks to noraida; trīskāršās atkārtošanās neizšķirts tiks pieprasīts. Varat arī %1$s, lai NewChess automātiski pieprasa neizšķirtu jūsu vietā. Pieckārša atkārtošanās vienmēr uzreiz beidz spēli.</string>
   <string name="configure">iestatīt</string>
   <string name="accounts">Konti</string>
-  <string name="titlesAvailableOnLichess">Kādi tituli ir Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess atzīst visus FIDE titulus, kas iegūti, spēlējot uz galdiņa, kā arī %1$s. Lūk saraksts ar FIDE tituliem:</string>
+  <string name="titlesAvailableOnLichess">Kādi tituli ir NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess atzīst visus FIDE titulus, kas iegūti, spēlējot uz galdiņa, kā arī %1$s. Lūk saraksts ar FIDE tituliem:</string>
   <string name="showYourTitle">Ja jums ir tituls, kas iegūts, spēlējot uz galdiņa, varat nosūtīt pieteikumu to parādīt jūsu profilā, aizpildot %1$s un pievienojot skaidri saskatāmu attēlu ar identificējošu dokumentu vai karti, kā arī savu pašbildi ar šo dokumentu.
 
-Spēlētāji ar pārbaudītiem tituliem var spēlēt Lichess Titulu Arēnu pasākumos.
+Spēlētāji ar pārbaudītiem tituliem var spēlēt NewChess Titulu Arēnu pasākumos.
 
 Visbeidzot, ir arī %2$s goda tituls.</string>
   <string name="asWellAsManyNMtitles">daudzus nacionālos meistara titulus</string>
   <string name="verificationForm">pārbaudes veidlapu</string>
-  <string name="canIbecomeLM">Vai varu saņemt Lichess Meistara (LM) titulu?</string>
+  <string name="canIbecomeLM">Vai varu saņemt NewChess Meistara (LM) titulu?</string>
   <string name="noUpperCaseDot">Nē.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Šis goda tituls ir neoficiāls un pastāv tikai vietnē Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Šis goda tituls ir neoficiāls un pastāv tikai vietnē NewChess.
 
-Retos gadījumos mēs to piešķiram pēc saviem ieskatiem ļoti ievērojamiem spēlētājiem, kas ir labi Lichess pilsoņi. Jums nav iespējas tikt pie LM titula, LM tituls pats pie jums nonāks. Ja kvalificējaties, par to saņemsiet no mums ziņu, un jums būs iespēja to pieņemt vai noraidīt.
+Retos gadījumos mēs to piešķiram pēc saviem ieskatiem ļoti ievērojamiem spēlētājiem, kas ir labi NewChess pilsoņi. Jums nav iespējas tikt pie LM titula, LM tituls pats pie jums nonāks. Ja kvalificējaties, par to saņemsiet no mums ziņu, un jums būs iespēja to pieņemt vai noraidīt.
 
 Lūdzu, neprasiet LM titulu.</string>
   <string name="whatUsernameCanIchoose">Kāds man var būt lietotājvārds?</string>
@@ -93,12 +93,12 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="canIChangeMyUsername">Vai varu mainīt lietotājvārdu?</string>
   <string name="usernamesCannotBeChanged">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
-  <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
+  <string name="ownerUniqueTrophies">Tā trofeja ir unikāla NewChess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
   <string name="wayOfBerserkExplanation">Lai to dabūtu, hiimgosu izaicināja sevi spēlēt Kurbadu un uzvarēt visas spēlētās spēles %s.</string>
   <string name="aHourlyBulletTournament">ik stundu Bullet turnīrā</string>
   <string name="goldenZeeExplanation">ZugAddict pēdējās divas stundas straumējot centās pārspēt astotā līmeņa A.I. 1+0 spēlē, bet bez panākumiem. Thibault pavēstīja, ka ja viņš straumējot tomēr pārspēs A.I., tad tiks pie unikālas trofejas. Stundu vēlāk viņš pārspēja Stockfish un solījums tika izpildīts.</string>
-  <string name="lichessRatings">Lichess reitingi</string>
-  <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
+  <string name="lichessRatings">NewChess reitingi</string>
+  <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto NewChess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").
 
 \"Glicko\" reitingi izmanto ticamības intervālus, lai aprēķinātu un attēlotu jūsu reitingu. Sākot izmantot vietni, jūsu reitings ir 1500 ± 1000. Šeit 1500 ir jūsu reitings, un 1000 ir ticamības intervāls.
@@ -128,13 +128,13 @@ Vislabāk tos salīdzināt kā relatīvas (nevis absolūtas) vērtības: noteikt
   <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
   <string name="displayPreferences">attēlošanas iestatījumos</string>
   <string name="connexionLostCanIGetMyRatingBack">Es zaudēju spēli aiztures/atvienošanās dēļ. Vai es varu dabūt savus reitinga punktus atpakaļ?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Diemžēl, mēs nevaram atdot punktus kas ir tikuši zaudēti aiztures vai atvienošanās dēļ, neatkarīgi no tā, vai problēma ir bijusi jūsu vai mūsu galā (tas notiek ļoti reti). Pievērs uzmanību, kad Lichess pārstartējas dēļ tā tiek zaudēts laiks, mēs atceļam spēli, lai nenotiktu netaisns zaudējums.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Diemžēl, mēs nevaram atdot punktus kas ir tikuši zaudēti aiztures vai atvienošanās dēļ, neatkarīgi no tā, vai problēma ir bijusi jūsu vai mūsu galā (tas notiek ļoti reti). Pievērs uzmanību, kad NewChess pārstartējas dēļ tā tiek zaudēts laiks, mēs atceļam spēli, lai nenotiktu netaisns zaudējums.</string>
   <string name="howToThreeDots">Kā...</string>
   <string name="enableDisableNotificationPopUps">Iespējot vai atspējot uznirstošos paziņojumus?</string>
   <string name="viewSiteInformationPopUp">Skatīt vietnes uznirstošo informāciju</string>
-  <string name="lichessCanOptionnalySendPopUps">Pēc izvēles Lichess var sūtīt uznirstošos paziņojumus, piemēram, kad ir tavs gājiens vai esi saņēmis privātu ziņu.
+  <string name="lichessCanOptionnalySendPopUps">Pēc izvēles NewChess var sūtīt uznirstošos paziņojumus, piemēram, kad ir tavs gājiens vai esi saņēmis privātu ziņu.
 
-Klikšķini uz slēdzenes ikonas blakus lichess.org adresei sava pārlūka URL joslā.
+Klikšķini uz slēdzenes ikonas blakus newchess.fun adresei sava pārlūka URL joslā.
 
-Pēc tam izvēlies - atļaut vai neatļaut paziņojumus no Lichess.</string>
+Pēc tam izvēlies - atļaut vai neatļaut paziņojumus no NewChess.</string>
 </resources>

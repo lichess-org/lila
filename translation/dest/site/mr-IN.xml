@@ -284,7 +284,7 @@
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
-  <string name="thisAccountViolatedTos">या खात्याने Lichess अटींचे उल्लंघन केले</string>
+  <string name="thisAccountViolatedTos">या खात्याने NewChess अटींचे उल्लंघन केले</string>
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
@@ -456,7 +456,7 @@
   <string name="thankYou">आभारी आहे</string>
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
   <string name="inlineNotation">इनलाइन संकेत</string>
-  <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
+  <string name="previouslyOnNewChessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेळाला दर्जा आहे पण त्याला काही वेळेचे बंधन नाही!</string>
@@ -790,7 +790,7 @@
   <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (संगणक, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
-  <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
+  <string name="agreementPolicy">मी NewChess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
   <string name="rapid">द्रुतगती</string>
@@ -827,13 +827,13 @@
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
   <string name="someoneReviewedYourCoachProfile">कोणीतरी आपल्या कोच प्रोफाइलचे पुनरावलोकन केले.</string>
   <string name="newPendingReview">नवीन प्रलंबित पुनरावलोकन</string>
-  <string name="lostAgainstTOSViolator">आपला Lichess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
+  <string name="lostAgainstTOSViolator">आपला NewChess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
   <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s रेटिंग गुण.</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
   <string name="welcome">सुस्वागतम!</string>
-  <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
+  <string name="lichessPatronInfo">NewChess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
 सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
   <string name="coachManager">प्रशिक्षक व्यवस्थापक</string>
   <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
@@ -890,6 +890,6 @@
   <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
   <string name="since">पासून</string>
   <string name="until">पर्यन्त</string>
-  <string name="lichessDbExplanation">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
+  <string name="lichessDbExplanation">मानांकीत खेळ सर्व newchess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
   <string name="switchSides">रंग बदला</string>
 </resources>

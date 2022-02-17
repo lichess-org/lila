@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess streamers</string>
-  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="lichessStreamers">NewChess streamers</string>
+  <string name="lichessStreamer">NewChess streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt nu: %s</string>
   <string name="lastStream">Vorige stream: %s</string>
-  <string name="becomeStreamer">Word een Lichess streamer</string>
+  <string name="becomeStreamer">Word een NewChess streamer</string>
   <string name="doYouHaveStream">Heb je een Twitch- of YouTube-kanaal?</string>
   <string name="hereWeGo">Daar gaan we!</string>
   <string name="allStreamers">Alle streamers</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Download streamer kit</string>
   <string name="xIsStreaming">%s streamt nu</string>
   <string name="rules">Streaming regels</string>
-  <string name="rule1">Voeg het trefwoord \"lichess.org\" toe aan uw stream titel wanneer je streamt op Lichess.</string>
-  <string name="rule2">Verwijder het trefwoord wanneer u niet-Lichess dingen streamt.</string>
-  <string name="rule3">Lichess detecteert je stream automatisch en schakelt de volgende voordelen in:</string>
+  <string name="rule1">Voeg het trefwoord \"newchess.fun\" toe aan uw stream titel wanneer je streamt op NewChess.</string>
+  <string name="rule2">Verwijder het trefwoord wanneer u niet-NewChess dingen streamt.</string>
+  <string name="rule3">NewChess detecteert je stream automatisch en schakelt de volgende voordelen in:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lees onze %s om te zorgen dat fair play voor iedereen geldt tijdens uw stream.</string>
   <string name="streamingFairplayFAQ">streamen Fairplay FAQ</string>
   <string name="perks">Voordelen van het streamen met een trefwoord</string>
-  <string name="perk1">Krijg een brandende streamer pictogram op je Lichess profiel.</string>
+  <string name="perk1">Krijg een brandende streamer pictogram op je NewChess profiel.</string>
   <string name="perk2">Word aan de bovenkant van de streamers lijst toegevoegd.</string>
-  <string name="perk3">Waarschuw Lichess volgers.</string>
+  <string name="perk3">Waarschuw NewChess volgers.</string>
   <string name="perk4">Toon je stream in je partijen, toernooien en studies.</string>
   <string name="approved">Je stream is goedgekeurd.</string>
   <string name="pendingReview">Je stream wordt beoordeeld door de toezichthouders.</string>
   <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">verzoek een beoordeling van een toezichthouder</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanneer u klaar bent om als NewChess stream vermeld te worden, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">verzoek een beoordeling van een toezichthouder</string>
   <string name="anotherLanguage">Als je niet in het Engels streamt, voeg dan de juiste taaltag toe (%s) aan het begin van de stream titel, met vierkante haken eromheen.
 Zet bijvoorbeeld \"[NL]\" voor Nederlands, \"[DE]\" voor Duits, \"[FR]\" voor Frans, enz.
-Zet het in de stream titel op de Twitch of YouTube pagina en niet in de Lichess stream-instellingen.
+Zet het in de stream titel op de Twitch of YouTube pagina en niet in de NewChess stream-instellingen.
 Als je in het Engels is streamt is het niet nodig om een taaltag toe te voegen.</string>
   <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
   <string name="optionalOrEmpty">Optioneel. Laat leeg indien geen</string>
   <string name="youtubeChannel">Je YouTube kanaal ID of URL</string>
-  <string name="streamerName">Je streamer naam op Lichess</string>
+  <string name="streamerName">Je streamer naam op NewChess</string>
   <plurals name="keepItShort">
     <item quantity="one">Houd het kort: maximaal %s tekens</item>
     <item quantity="other">Houd het kort: maximaal %s tekens</item>

@@ -117,7 +117,7 @@ object BSONHandlers {
         "schedule"    -> o.schedule,
         "nbPlayers"   -> o.nbPlayers,
         "createdAt"   -> w.date(o.createdAt),
-        "createdBy"   -> o.nonLichessCreatedBy,
+        "createdBy"   -> o.nonNewChessCreatedBy,
         "startsAt"    -> w.date(o.startsAt),
         "winner"      -> o.winnerId,
         "featured"    -> o.featuredId,

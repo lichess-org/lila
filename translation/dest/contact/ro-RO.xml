@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contact</string>
-  <string name="contactLichess">Contactează Lichess</string>
+  <string name="contactLichess">Contactează NewChess</string>
   <string name="whatCanWeHelpYouWith">Cu ce te putem ajuta?</string>
   <string name="visitThisPage">Vizitați această pagină pentru a rezolva problema</string>
   <string name="iCantLogIn">Nu mă pot conecta</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Mi-am pierdut accesul la codurile mele de autentificare in doi pași</string>
   <string name="doPasswordReset">Completează resetarea parolei pentru a elimina al doilea pas</string>
   <string name="accountSupport">Am nevoie de suport pentru cont</string>
-  <string name="wantTitle">Vreau ca titlul meu să fie afișat pe Lichess</string>
-  <string name="visitTitleConfirmation">Pentru a afișa titlul tău pe profilul Lichess și pentru a participa la Titled Arenas, vizitați pagina de confirmare a titlului</string>
+  <string name="wantTitle">Vreau ca titlul meu să fie afișat pe NewChess</string>
+  <string name="visitTitleConfirmation">Pentru a afișa titlul tău pe profilul NewChess și pentru a participa la Titled Arenas, vizitați pagina de confirmare a titlului</string>
   <string name="wantCloseAccount">Vreau să îmi închid contul</string>
   <string name="closeYourAccount">Îți poți închide contul pe această pagină</string>
   <string name="doNotAskByEmail">Nu ne cereți prin e-mail să închidem un cont, nu o vom face.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Nu trimite mesaje directe către moderatori.</string>
   <string name="onlyReports">Doar rapotând jucătorii prin intermediul formularului de raport este eficient.</string>
   <string name="wantReportBug">Vreau să raportez un bug</string>
-  <string name="reportBugInForum">În secțiunea Evaluări Lichess a forumului</string>
-  <string name="reportWebsiteIssue">Ca o problemă a site-ului Lichess pe GitHub</string>
-  <string name="reportMobileIssue">Ca o problemă a aplicației mobile Lichess pe GitHub</string>
-  <string name="reportBugInDiscord">Pe serverul de Discord Lichess</string>
+  <string name="reportBugInForum">În secțiunea Evaluări NewChess a forumului</string>
+  <string name="reportWebsiteIssue">Ca o problemă a site-ului NewChess pe GitHub</string>
+  <string name="reportMobileIssue">Ca o problemă a aplicației mobile NewChess pe GitHub</string>
+  <string name="reportBugInDiscord">Pe serverul de Discord NewChess</string>
   <string name="howToReportBug">Vă rugăm să descrieți cum arată eroarea, ce v-ați așteptat să se întâmple în schimb, și pașii pentru a reproduce eroarea.</string>
   <string name="illegalPawnCapture">Capturarea ilegală a pionului</string>
   <string name="calledEnPassant">Se numește „en passant” și este una dintre regulile șahului.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Nu nega faptul că ai trișat. Dacă vrei să ai voie sa-ți faci un cont nou, recunoaște ce ai făcut, și arată că înțelegi că a fost o greșeală.</string>
   <string name="otherRestriction">Alte restricții</string>
   <string name="collaboration">Colaborare, legal, comercial</string>
-  <string name="monetizing">Monetizare Lichess</string>
-  <string name="buyingLichess">Vanzare Lichess</string>
-  <string name="authorizationToUse">Autorizația de a folosi Lichess</string>
-  <string name="welcomeToUse">Ești binevenit să folosești Lichess pentru activitatea ta, chiar și comercială.</string>
-  <string name="videosAndBooks">Îl poți arăta în videoclipurile tale și poți printa capturi de ecran din Lichess în cărțile tale.</string>
+  <string name="monetizing">Monetizare NewChess</string>
+  <string name="buyingLichess">Vanzare NewChess</string>
+  <string name="authorizationToUse">Autorizația de a folosi NewChess</string>
+  <string name="welcomeToUse">Ești binevenit să folosești NewChess pentru activitatea ta, chiar și comercială.</string>
+  <string name="videosAndBooks">Îl poți arăta în videoclipurile tale și poți printa capturi de ecran din NewChess în cărțile tale.</string>
   <string name="creditAppreciated">Creditarea este aperciată dar nu este obligatorie.</string>
   <string name="noneOfTheAbove">Nici unul dintre cele de mai sus</string>
   <string name="sendEmailAt">Trimite-ne un e-mail pe adresa %s.</string>
-  <string name="explainYourRequest">Te rog să îți explici cererea clar și detaliat. Spune-ți numele de utilizator Lichess, și orice informație care ne poate ajuta să te ajutăm.</string>
+  <string name="explainYourRequest">Te rog să îți explici cererea clar și detaliat. Spune-ți numele de utilizator NewChess, și orice informație care ne poate ajuta să te ajutăm.</string>
 </resources>

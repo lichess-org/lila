@@ -3,8 +3,8 @@
   <string name="activity">Jarduera</string>
   <string name="hostedALiveStream">Zuzeneko emanaldi bat egin du</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Lichess.org-i laguntza eman zion hilabete %1$s-z %2$s gisa</item>
-    <item quantity="other">Lichess.org-i laguntza eman zion %1$s hilabetez %2$s gisa</item>
+    <item quantity="one">NewChess.org-i laguntza eman zion hilabete %1$s-z %2$s gisa</item>
+    <item quantity="other">NewChess.org-i laguntza eman zion %1$s hilabetez %2$s gisa</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s erako posizio %1$s praktikatu du</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s txapelketa suitzarretan hartu du parte</item>
   </plurals>
   <string name="rankedInSwissTournament">Sailkapena %1$s/%2$s</string>
-  <string name="signedUp">Lichess.org-en izena eman du</string>
+  <string name="signedUp">NewChess.org-en izena eman du</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Talde %sera sartu da</item>
     <item quantity="other">%s taldetara sartu da</item>

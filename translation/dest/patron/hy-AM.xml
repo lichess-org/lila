@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Նվիրաբերել</string>
-  <string name="lichessPatron">Lichess-ի հովանավոր</string>
+  <string name="lichessPatron">NewChess-ի հովանավոր</string>
   <string name="freeAccount">Անվճար հաշիվ</string>
-  <string name="becomePatron">Դառնալ Lichess-ի հովանավոր</string>
-  <string name="xBecamePatron">%s-ը դարձել է Lichess-ի հովանավոր</string>
+  <string name="becomePatron">Դառնալ NewChess-ի հովանավոր</string>
+  <string name="xBecamePatron">%s-ը դարձել է NewChess-ի հովանավոր</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s-ը երկարաձգել է Lichess-ի հովանավորությունը %2$s ամսով</item>
-    <item quantity="other">%1$s-ը երկարաձգել է Lichess-ի հովանավորությունը %2$s ամսով</item>
+    <item quantity="one">%1$s-ը երկարաձգել է NewChess-ի հովանավորությունը %2$s ամսով</item>
+    <item quantity="other">%1$s-ը երկարաձգել է NewChess-ի հովանավորությունը %2$s ամսով</item>
   </plurals>
   <string name="newPatrons">Նոր հովանավորներ</string>
   <string name="freeChess">Անվճար շախմատ բոլորի համար, ընդմի՛շտ</string>
@@ -17,7 +17,7 @@
   <string name="patronUntil">Հովանավորի Ձեր օգտանունը գործում է մինչև %s։</string>
   <string name="lifetime">Անժամկետ</string>
   <string name="payLifetimeOnce">Վճարեք %s մեկ անգամ։ Դարձեք հովանավոր ընդմիշտ։</string>
-  <string name="lifetimePatron">Lichess-ի անժամկետ հովանավոր</string>
+  <string name="lifetimePatron">NewChess-ի անժամկետ հովանավոր</string>
   <string name="monthly">Ամսական</string>
   <string name="onetime">Մեկանգամյա</string>
   <string name="otherAmount">Այլ</string>

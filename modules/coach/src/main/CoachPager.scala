@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import reactivemongo.api._
 
 import lila.coach.CoachPager.Order.Alphabetical
-import lila.coach.CoachPager.Order.LichessRating
+import lila.coach.CoachPager.Order.NewChessRating
 import lila.coach.CoachPager.Order.Login
 import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
@@ -44,7 +44,7 @@ final class CoachPager(
                   order match {
                     case Alphabetical  => Ascending("_id")
                     case NbReview      => Descending("nbReviews")
-                    case LichessRating => Descending("user.rating")
+                    case NewChessRating => Descending("user.rating")
                     case Login         => Descending("user.seenAt")
                   }
                 ),
@@ -118,12 +118,12 @@ object CoachPager {
 
   object Order {
     case object Login         extends Order("login", "Last login")
-    case object LichessRating extends Order("rating", "Lichess rating")
+    case object NewChessRating extends Order("rating", "NewChess rating")
     case object NbReview      extends Order("review", "User reviews")
     case object Alphabetical  extends Order("alphabetical", "Alphabetical")
 
     val default                   = Login
-    val all                       = List(Login, LichessRating, NbReview, Alphabetical)
+    val all                       = List(Login, NewChessRating, NbReview, Alphabetical)
     def apply(key: String): Order = all.find(_.key == key) | default
   }
 }

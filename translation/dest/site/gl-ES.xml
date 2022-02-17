@@ -288,7 +288,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
+  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de NewChess</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
@@ -460,9 +460,9 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Enlaces ás redes sociais</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Unha URL por liña.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Previamente en NewChess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
   <string name="activePlayers">Xogadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atención, a partida é puntuada pero sen reloxo</string>
@@ -618,7 +618,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coa simultánea.</string>
   <string name="simulHostExtraTime">Tempo extra para o simultaneador</string>
-  <string name="lichessTournaments">Torneos de Lichess</string>
+  <string name="lichessTournaments">Torneos de NewChess</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Pérdida de centipeóns media</string>
@@ -652,8 +652,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
   <string name="readAboutOur">Le acerca a nosa %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movimiento no servidor de lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movimiento no servidor de newchess</string>
   <string name="downloadAnnotated">Descarga con notación</string>
   <string name="downloadRaw">Descarga sen notación</string>
   <string name="downloadImported">Descargar importadas</string>
@@ -669,14 +669,14 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="withEverybody">Con todo o mundo</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de newchess ten unha icona de %s, indicando que os nenos están seguros.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
   <string name="sessions">Sesións</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
-  <string name="asFreeAsLichess">Tan libre coma lichess</string>
+  <string name="asFreeAsLichess">Tan libre coma newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construído por amor ó xadrez, non ó diñeiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos obteñen todas as funcións gratis</string>
   <string name="zeroAdvertisement">Publicidade cero</string>
@@ -789,14 +789,14 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tryToWin">Intenta gañar (ou polo menos empatar) todas as partidas que xogues.</string>
   <string name="resignLostGames">Abandona partidas perdidas (non deixes que remate o tempo).</string>
   <string name="temporaryInconvenience">Pedimos desculpas polas molestias</string>
-  <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
+  <string name="wishYouGreatGames">e desexámosche grandes partidas en newchess.fun.</string>
   <string name="thankYouForReading">Grazas por tomar o tempo para ler isto!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, un libro, unha base de datos ou de outra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
   <string name="agreementAccount">Comprométome a non crear múltiples contas.</string>
-  <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
+  <string name="agreementPolicy">Comprométome a seguir as normas de NewChess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
@@ -833,13 +833,13 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="resVsX">%1$s contra %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Alguén revisou o teu perfil de entrenador/a.</string>
   <string name="newPendingReview">Nova revisión pendente</string>
-  <string name="lostAgainstTOSViolator">Perdiches con alguén que incumpriu as condicións de servizo de Lichess</string>
+  <string name="lostAgainstTOSViolator">Perdiches con alguén que incumpriu as condicións de servizo de NewChess</string>
   <string name="refundXpointsTimeControlY">Recuperaches %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
   <string name="welcome">Benvid@!</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un software totalmente libre e de código aberto.
+  <string name="lichessPatronInfo">NewChess é unha organización benéfica e un software totalmente libre e de código aberto.
 Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicamente mediante as doazóns d@s usuari@s.</string>
   <string name="coachManager">Administrador de adestradores/as</string>
   <string name="streamerManager">Administrador de streamers</string>
@@ -894,6 +894,6 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
   <string name="since">Desde</string>
   <string name="until">Ata</string>
-  <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
+  <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de NewChess</string>
   <string name="switchSides">Cambiar de lado</string>
 </resources>

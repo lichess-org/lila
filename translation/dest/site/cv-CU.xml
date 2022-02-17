@@ -251,7 +251,7 @@
   <string name="lastName">Хушамат</string>
   <string name="biography">Биографи</string>
   <string name="thankYou">Тавах!</string>
-  <string name="previouslyOnLichessTV">Lichess TV паҫӑр кӑтартни</string>
+  <string name="previouslyOnNewChessTV">NewChess TV паҫӑр кӑтартни</string>
   <string name="onlinePlayers">Тетелти вӑйӑҫӑ</string>
   <string name="activePlayers">Тимлӗ вӑйӑҫӑ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Асту, ку хаклавшӑн вӑййи сехетсӗр!</string>
@@ -363,7 +363,7 @@
   <string name="aboutSimulSettings">Пӗр вӑхӑтри вӑйӑ йаланах ахаль вӑйӑ. Рематч выльама, тавӑрма тата \"ытлаши вӑхӑт\" илме ҫук.</string>
   <string name="create">Йӗркелес</string>
   <string name="whenCreateSimul">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
-  <string name="lichessTournaments">Lichess турнирӗсем</string>
+  <string name="lichessTournaments">NewChess турнирӗсем</string>
   <string name="tournamentFAQ">Аренӑ турнирӗн ТЛЫӗ</string>
   <string name="timeBeforeTournamentStarts">Турнир пуҫланиччен хушши</string>
   <string name="averageCentipawnLoss">Вӑтам сантисалтак ҫухатӑвӗ</string>
@@ -385,8 +385,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ҫырӑвӗ курӑнмасть пулсан, вӑл пурри-ҫуккине спам папкинче йе ытти папкӑра тӗрӗсле.</string>
   <string name="weHaveSentYouAnEmailTo">Епир %s ҫине ҫыру йатӑмӑр. Вӑрттӑн сӑмахна улӑштарас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистратсилесси пирӗн %s килӗшессине пӗлтерет.</string>
-  <string name="networkLagBetweenYouAndLichess">Санпа Lichess хушшинче тетел чӑрмантарса тӑни пур</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess сервӗрӗ пӗр куҫӑм ӗҫлесе илмелли вӑхӑт</string>
+  <string name="networkLagBetweenYouAndLichess">Санпа NewChess хушшинче тетел чӑрмантарса тӑни пур</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess сервӗрӗ пӗр куҫӑм ӗҫлесе илмелли вӑхӑт</string>
   <string name="downloadAnnotated">Ӑнлантаруллă</string>
   <string name="downloadRaw">Ӑнлантарусӑр</string>
   <string name="downloadImported">Оригиналлӑ</string>
@@ -396,7 +396,7 @@
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>
   <string name="playChessEverywhere">Шахматла пур ҫӗрте выљасси</string>
-  <string name="asFreeAsLichess">Lichess пекех тӳлевсӗр</string>
+  <string name="asFreeAsLichess">NewChess пекех тӳлевсӗр</string>
   <string name="builtForTheLoveOfChessNotMoney">Укҫашӑн мар, шахматшӑн хайланӑ</string>
   <string name="everybodyGetsAllFeaturesForFree">Мӗнпур мехел пуриншӗн те тӳлевсӗр</string>
   <string name="zeroAdvertisement">Пӗр рекламӑ та ҫукки</string>

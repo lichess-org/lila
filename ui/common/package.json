@@ -2,7 +2,7 @@
   "name": "common",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org common utils",
+  "description": "newchess.fun common utils",
   "module": "common.js",
   "type": "module",
   "typings": "common",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">联系</string>
-  <string name="contactLichess">联系 Lichess</string>
+  <string name="contactLichess">联系 NewChess</string>
   <string name="whatCanWeHelpYouWith">您需要什么帮助?</string>
   <string name="visitThisPage">请向往该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">我丢失了我的双重认证码</string>
   <string name="doPasswordReset">重置密码会解除双重认证</string>
   <string name="accountSupport">账号支援</string>
-  <string name="wantTitle">我想要在 Lichess 显示我的国际象棋称号</string>
-  <string name="visitTitleConfirmation">如果要在您的 Lichess 账号显示您的称号或参与限于大师的锦标赛，请浏览称号认证页面</string>
+  <string name="wantTitle">我想要在 NewChess 显示我的国际象棋称号</string>
+  <string name="visitTitleConfirmation">如果要在您的 NewChess 账号显示您的称号或参与限于大师的锦标赛，请浏览称号认证页面</string>
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="closeYourAccount">您可以在此关闭账号</string>
   <string name="doNotAskByEmail">请不要通过电邮要求关闭账号，我们不能招待</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">请不要向版主发送私信举报。</string>
   <string name="onlyReports">仅通过举报表单才有效。</string>
   <string name="wantReportBug">我想举报一个错误</string>
-  <string name="reportBugInForum">在 Lichess Feedback 论坛</string>
-  <string name="reportWebsiteIssue">在 GitHub （关于 Lichess 网站）</string>
-  <string name="reportMobileIssue">在 GitHub （关于 Lichess app）</string>
-  <string name="reportBugInDiscord">在 Lichess Discord 服务器</string>
+  <string name="reportBugInForum">在 NewChess Feedback 论坛</string>
+  <string name="reportWebsiteIssue">在 GitHub （关于 NewChess 网站）</string>
+  <string name="reportMobileIssue">在 GitHub （关于 NewChess app）</string>
+  <string name="reportBugInDiscord">在 NewChess Discord 服务器</string>
   <string name="howToReportBug">请描述错误的内容，意料的结果，和重复导致错误的步骤。</string>
   <string name="illegalPawnCapture">兵的异常吃法</string>
   <string name="calledEnPassant">它被称为“吃过路兵”，是棋规之一。</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">不要否认作弊。 如果您想要被允许创建一个新帐户，承认您所做的事情， 并表明你理解这是一个错误。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
-  <string name="monetizing">在 Lichess 获利</string>
-  <string name="buyingLichess">收购 Lichess</string>
-  <string name="authorizationToUse">Lichess 利用许可</string>
-  <string name="welcomeToUse">欢迎您使用 Lichess 进行您的活动（包括商业活动）。</string>
-  <string name="videosAndBooks">您可以在您的视频中展示 Lichess，也能在书籍含用 Lichess 的屏幕截图。</string>
+  <string name="monetizing">在 NewChess 获利</string>
+  <string name="buyingLichess">收购 NewChess</string>
+  <string name="authorizationToUse">NewChess 利用许可</string>
+  <string name="welcomeToUse">欢迎您使用 NewChess 进行您的活动（包括商业活动）。</string>
+  <string name="videosAndBooks">您可以在您的视频中展示 NewChess，也能在书籍含用 NewChess 的屏幕截图。</string>
   <string name="creditAppreciated">我们感激您留一句致谢，但这不是必要的。</string>
   <string name="noneOfTheAbove">其他</string>
   <string name="sendEmailAt">请向 %s 向我们发送一封电邮。</string>
-  <string name="explainYourRequest">请清楚和彻底地解释您的请求，请输入您的Lichess用户名和任何有助于我们帮助您的信息。</string>
+  <string name="explainYourRequest">请清楚和彻底地解释您的请求，请输入您的NewChess用户名和任何有助于我们帮助您的信息。</string>
 </resources>

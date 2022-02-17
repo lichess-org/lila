@@ -99,7 +99,7 @@
     <item quantity="other">התחרה ב-%s טורנירים שוויצריים</item>
   </plurals>
   <string name="rankedInSwissTournament">מדורג מקום %1$s ב-%2$s</string>
-  <string name="signedUp">נרשם לlichess.org</string>
+  <string name="signedUp">נרשם לnewchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">הצטרף לקבוצה אחת</item>
     <item quantity="two">הצטרף לשתי קבוצות</item>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="passwordReset_subject">Signum vestrum lichess.org repone, %s</string>
-  <string name="welcome_subject">Bene advenisti ad lichess.org, %s</string>
+  <string name="passwordReset_subject">Signum vestrum newchess.fun repone, %s</string>
+  <string name="welcome_subject">Bene advenisti ad newchess.fun, %s</string>
 </resources>

@@ -68,7 +68,7 @@ object dev {
           ),
           h2("Command examples:"),
           pre("""uptime
-announce 10 minutes Lichess will restart!
+announce 10 minutes NewChess will restart!
 announce cancel
 change asset version
 fishnet client create {username}

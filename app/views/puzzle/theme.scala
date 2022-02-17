@@ -55,7 +55,7 @@ object theme {
             },
             p(cls := "puzzle-themes__db text", dataIcon := "")(
               trans.puzzleTheme.puzzleDownloadInformation(
-                a(href := "https://database.lichess.org/")("database.lichess.org")
+                a(href := "https://database.newchess.fun/")("database.newchess.fun")
               )
             )
           )

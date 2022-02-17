@@ -2,7 +2,7 @@
   "name": "ceval",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org local computer analysis",
+  "description": "newchess.fun local computer analysis",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",

@@ -241,7 +241,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>
-  <string name="thisAccountViolatedTos">lo se jaspu be ti cu zerjonse la .litces. zo\'e la\'o ly. Lichess Terms of Service ly.</string>
+  <string name="thisAccountViolatedTos">lo se jaspu be ti cu zerjonse la .litces. zo\'e la\'o ly. NewChess Terms of Service ly.</string>
   <string name="openingExplorerAndTablebase">ge cfari kelka\'u sispe\'i gi ci\'erkei fanmo selcmi</string>
   <string name="takeback">kelka\'u xruti</string>
   <string name="proposeATakeback">kelka\'u xruti stidi</string>
@@ -380,7 +380,7 @@
   <string name="biography">velski do fo do</string>
   <string name="thankYou">ki\'e</string>
   <string name="socialMediaLinks">.urli lo kibro jikca predatni pesai do</string>
-  <string name="previouslyOnLichessTV">lo purci nunkei pe lo la .litces. se tivni</string>
+  <string name="previouslyOnNewChessTV">lo purci nunkei pe lo la .litces. se tivni</string>
   <string name="onlinePlayers">lo cabna jvikei</string>
   <string name="activePlayers">keicfu</string>
   <string name="bewareTheGameIsRatedButHasNoClock">.o\'i lo selkei cu jai galfi lo nilcre gi\'e ku\'i na jai nu temjimte</string>

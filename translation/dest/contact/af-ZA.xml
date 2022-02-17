@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontak</string>
-  <string name="contactLichess">Kontak Lichess</string>
+  <string name="contactLichess">Kontak Newchess</string>
   <string name="whatCanWeHelpYouWith">Waarmee kan ons jou help?</string>
   <string name="visitThisPage">Besoek die webblad om die probleem op te los</string>
   <string name="iCantLogIn">Ek kan nie aanteken nie</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Ek het toegang tot my tweledige verifikasie kode verloor</string>
   <string name="doPasswordReset">Voltooi \'n wagwoord herstelling om jou tweede faktor te verwyder</string>
   <string name="accountSupport">Ek benodig rekening ondersteuning</string>
-  <string name="wantTitle">Ek wil my skaaktitel sigbaar hê op Lichess</string>
-  <string name="visitTitleConfirmation">Om jou titel op jou Lichess profiel te wys en toegang te hê tot aanlyn toernooie vir spelers met titels, besoek die bevestigingsblad</string>
+  <string name="wantTitle">Ek wil my skaaktitel sigbaar hê op NewChess</string>
+  <string name="visitTitleConfirmation">Om jou titel op jou NewChess profiel te wys en toegang te hê tot aanlyn toernooie vir spelers met titels, besoek die bevestigingsblad</string>
   <string name="wantCloseAccount">Ek wil my rekening sluit</string>
   <string name="closeYourAccount">Jy kan jou rekening op hierdie blad sluit</string>
   <string name="doNotAskByEmail">Moet ons nie per e-pos vra om \'n rekening te sluit nie, ons gaan nie dit doen nie.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Moet nie direkte boodskappe aan moderators stuur nie.</string>
   <string name="onlyReports">Die enigste effektiewe manier om spelers aan te kla is deur die aanklagte vorm.</string>
   <string name="wantReportBug">Ek wil \'n gogga aanmeld</string>
-  <string name="reportBugInForum">In die Lichess Terugvoer afdeling van die forum</string>
-  <string name="reportWebsiteIssue">As \'n Lichess webwerf probleem op Github</string>
-  <string name="reportMobileIssue">As \'n Lichess mobiele toepassingsprobleem op Github</string>
-  <string name="reportBugInDiscord">In die Lichess Discord bediener</string>
+  <string name="reportBugInForum">In die NewChess Terugvoer afdeling van die forum</string>
+  <string name="reportWebsiteIssue">As \'n NewChess webwerf probleem op Github</string>
+  <string name="reportMobileIssue">As \'n NewChess mobiele toepassingsprobleem op Github</string>
+  <string name="reportBugInDiscord">In die NewChess Discord bediener</string>
   <string name="howToReportBug">Beskryf asseblief hoe die probleem hom voordoen, wat jy verwag om te gebeur teenoor wat eintlik gebeur en die stappe wat gevolg moet word om die probleem te veroorsaak.</string>
   <string name="illegalPawnCapture">Onwettige vat van \'n pion</string>
   <string name="calledEnPassant">Dit word \"en passant\" genoem en is \'n skaakreël.</string>
@@ -63,13 +63,13 @@
   <string name="doNotDeny">Moet nie probeer ontken dat jy gekroek het nie. As jy ooit weer \'n rekening wil hê, erken wat jy gedoen het en wys berou.</string>
   <string name="otherRestriction">Ander beperkings</string>
   <string name="collaboration">Samewerking, wettig, kommersieël</string>
-  <string name="monetizing">Monetisering Lichess</string>
-  <string name="buyingLichess">Koop Lichess</string>
-  <string name="authorizationToUse">Goedkeuring om Lichess te gebruik</string>
-  <string name="welcomeToUse">Jy is welkom om Lichess vir jou aktiwiteite te gebruik, selfs kommersieël.</string>
-  <string name="videosAndBooks">Jy kan dit wys in jou videos en skermskote van Lichess in jou boeke gebruik.</string>
+  <string name="monetizing">Monetisering NewChess</string>
+  <string name="buyingLichess">Koop NewChess</string>
+  <string name="authorizationToUse">Goedkeuring om NewChess te gebruik</string>
+  <string name="welcomeToUse">Jy is welkom om NewChess vir jou aktiwiteite te gebruik, selfs kommersieël.</string>
+  <string name="videosAndBooks">Jy kan dit wys in jou videos en skermskote van NewChess in jou boeke gebruik.</string>
   <string name="creditAppreciated">Krediet word waardeer maar nie vereis nie.</string>
   <string name="noneOfTheAbove">Geen van die bogenoemde</string>
   <string name="sendEmailAt">Stuur \'n e-pos aan ons by %s.</string>
-  <string name="explainYourRequest">Verduidelik asseblief jou versoek duidelik en deeglik. Stel jou Lichess gebruikersnaam en enige inligting wat ons kan bemagtig om jou te help.</string>
+  <string name="explainYourRequest">Verduidelik asseblief jou versoek duidelik en deeglik. Stel jou NewChess gebruikersnaam en enige inligting wat ons kan bemagtig om jou te help.</string>
 </resources>

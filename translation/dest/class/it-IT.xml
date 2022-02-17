@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lezioni Lichess</string>
-  <string name="teachClassesOfChessStudents">Insegna a classi di studenti con lo strumento Lezioni di Lichess.</string>
+  <string name="lichessClasses">Lezioni NewChess</string>
+  <string name="teachClassesOfChessStudents">Insegna a classi di studenti con lo strumento Lezioni di NewChess.</string>
   <string name="features">Funzioni</string>
   <string name="quicklyGenerateSafeUsernames">Genera facilmente username e password sicure per gli studenti</string>
   <string name="trackStudentProgress">Tieni traccia dei progressi degli studenti in partite e tattiche</string>
   <string name="messageAllStudents">Invia a tutti gli studenti un messaggio sul nuovo materiale di classe</string>
   <string name="freeForAllForever">100% gratuito per tutti, per sempre, senza pubblicità o tracker</string>
-  <string name="applyToBeLichessTeacher">Candidati per essere un Insegnante di Lichess</string>
+  <string name="applyToBeNewChessTeacher">Candidati per essere un Insegnante di NewChess</string>
   <string name="noClassesYet">Ancora nessuna classe.</string>
   <string name="teachersX">Insegnanti: %s</string>
   <string name="newClass">Nuova classe</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Descrizione della classe</string>
   <string name="visibleByBothStudentsAndTeachers">Visibile sia dagli insegnanti che dagli studenti della classe</string>
   <string name="teachersOfTheClass">Insegnanti della classe</string>
-  <string name="addLichessUsernames">Aggiungi i nomi utente di Lichess per invitarli come insegnanti. Uno per riga.</string>
+  <string name="addNewChessUsernames">Aggiungi i nomi utente di NewChess per invitarli come insegnanti. Uno per riga.</string>
   <string name="resetPassword">Reimposta password</string>
   <string name="makeSureToCopy">Assicurati di copiare o segnarti la password ora. Non sarai più in grado di vederla!</string>
   <string name="passwordX">Password: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Nome reale</string>
   <string name="privateWillNeverBeShown">Privato. Non verrà mai mostrato fuori dalla classe. Aiuta a ricordare chi è lo studente.</string>
   <string name="addStudent">Aggiungi studenti</string>
-  <string name="lichessProfileXCreatedForY">Profilo Lichess %1$s creato per %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Profilo NewChess %1$s creato per %2$s.</string>
   <string name="studentCredentials">Studente:  %1$s
 Nome utente: %2$s
 Password: %3$s</string>
-  <string name="inviteALichessAccount">Invita un account Lichess</string>
-  <string name="inviteDesc1">Se lo studente ha già un account Lichess, puoi invitarlo in classe.</string>
-  <string name="inviteDesc2">Riceveranno un messaggio su Lichess con un link per unirsi alla lezione.</string>
+  <string name="inviteANewChessAccount">Invita un account NewChess</string>
+  <string name="inviteDesc1">Se lo studente ha già un account NewChess, puoi invitarlo in classe.</string>
+  <string name="inviteDesc2">Riceveranno un messaggio su NewChess con un link per unirsi alla lezione.</string>
   <string name="inviteDesc3">Importante: invita solo gli studenti che conosci e che desiderano partecipare attivamente alla classe.</string>
   <string name="inviteDesc4">Non inviare mai inviti indesiderati a giocatori arbitrari.</string>
-  <string name="createANewLichessAccount">Crea un nuovo account Lichess</string>
-  <string name="createDesc1">Se lo studente non ha ancora un account di Lichess, puoi crearne per loro uno qui.</string>
+  <string name="createANewNewChessAccount">Crea un nuovo account NewChess</string>
+  <string name="createDesc1">Se lo studente non ha ancora un account di NewChess, puoi crearne per loro uno qui.</string>
   <string name="createDesc2">Non è richiesto alcun indirizzo email. Verrà generata una password e dovrai trasmetterla allo studente, in modo che possa accedere.</string>
   <string name="createDesc3">Importante: uno studente non deve avere account multipli.</string>
   <string name="createDesc4">Se ne ha già uno, utilizza invece il modulo di invito.</string>
   <string name="createStudentWarning">Crea profili solo per studenti reali. Non usare questo per creare profili multipli per te stesso. Saresti bannato.</string>
-  <string name="lichessUsername">Nome utente Lichess</string>
+  <string name="lichessUsername">Nome utente NewChess</string>
   <string name="generateANewUsername">Genera un nuovo nome utente</string>
   <string name="welcomeToClass">Benvenuto nella lezione: %s
 Questo è il link per accedere alla lezione.</string>

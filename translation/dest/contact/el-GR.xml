@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Επικοινωνία</string>
-  <string name="contactLichess">Επικοινωνήστε με Lichess</string>
+  <string name="contactLichess">Επικοινωνήστε με NewChess</string>
   <string name="whatCanWeHelpYouWith">Πως μπορούμε να σας βοηθήσουμε;</string>
   <string name="visitThisPage">Επισκεφτείτε αυτή τη σελίδα για επίλυση του προβλήματος</string>
   <string name="iCantLogIn">Δεν μπορώ να συνδεθώ</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Έχασα τους κωδικούς ταυτοποίησης δύο παραγόντων</string>
   <string name="doPasswordReset">Κάντε επαναφορά κωδικού για απενεργοποίηση του δεύτερου παράγοντα</string>
   <string name="accountSupport">Χρειάζομαι υποστήριξη για τον λογαριασμό μου</string>
-  <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο προφίλ μου στο Lichess</string>
-  <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ σας στο Lichess και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε τη σελίδα επιβεβαίωσης τίτλων</string>
+  <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο προφίλ μου στο NewChess</string>
+  <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ σας στο NewChess και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε τη σελίδα επιβεβαίωσης τίτλων</string>
   <string name="wantCloseAccount">Θελω να κλεισω τον λογαριασμο μου</string>
   <string name="closeYourAccount">Μπορείτε να κλείσετε τον λογαριασμό σας σε αυτή τη σελίδα</string>
   <string name="doNotAskByEmail">Μην μας ζητάτε με email να κλείσουμε τον λογαριασμό σας διότι δε θα το κάνουμε.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Μη στέλνετε απευθείας μηνύματα στους διαχειριστές.</string>
   <string name="onlyReports">Μπορείτε να αναφέρετε χρήστες μόνο μέσω της σχετικής φόρμας.</string>
   <string name="wantReportBug">Θέλω να αναφέρω ένα σφάλμα</string>
-  <string name="reportBugInForum">Μπορείτε να το κάνετε στο φόρουμ του Lichess, στην ενότητα Lichess Feedback</string>
+  <string name="reportBugInForum">Μπορείτε να το κάνετε στο φόρουμ του NewChess, στην ενότητα NewChess Feedback</string>
   <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας στο GitHub</string>
   <string name="reportMobileIssue">Ως πρόβλημα της εφαρμογής για κινητά στο GitHub</string>
-  <string name="reportBugInDiscord">Στον διακομιστή Discord του Lichess</string>
+  <string name="reportBugInDiscord">Στον διακομιστή Discord του NewChess</string>
   <string name="howToReportBug">Περιγράψτε το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα για αναπαραγωγή του σφάλματος.</string>
   <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
   <string name="calledEnPassant">Ονομάζεται \"en passant\" και είναι ένας από τους κανόνες του σκακιού.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Μην αρνείστε ότι κλέψατε. Αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, απλά παραδεχθείτε τις πράξεις σας και αποδείξτε ότι καταλάβατε πως ήταν λάθος σας.</string>
   <string name="otherRestriction">Άλλος περιορισμός</string>
   <string name="collaboration">Συνεργασίες, νομικά, εμπορικά</string>
-  <string name="monetizing">Θέλω να χρησιμοποιήσω το Lichess για να κερδίσω χρήματα</string>
-  <string name="buyingLichess">Θέλω να αγοράσω το Lichess</string>
-  <string name="authorizationToUse">Θέλω έγκριση για να χρησιμοποιήσω το Lichess</string>
-  <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lichess για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
+  <string name="monetizing">Θέλω να χρησιμοποιήσω το NewChess για να κερδίσω χρήματα</string>
+  <string name="buyingLichess">Θέλω να αγοράσω το NewChess</string>
+  <string name="authorizationToUse">Θέλω έγκριση για να χρησιμοποιήσω το NewChess</string>
+  <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το NewChess για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
   <string name="videosAndBooks">Μπορείτε να το εμφανίσετε στα βίντεο σας, και μπορείτε να εκτυπώσετε στιγμιότυπα της ισοσελίδας στα βιβλία σας.</string>
   <string name="creditAppreciated">Η αναφορά της πηγής εκτιμάται, αλλά δεν είναι απαραίτητη.</string>
   <string name="noneOfTheAbove">Κανένα απο τα παραπάνω</string>
   <string name="sendEmailAt">Στείλτε μας email στο %s.</string>
-  <string name="explainYourRequest">Εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Γράψτε το όνομα χρήστη σας στο Lichess και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
+  <string name="explainYourRequest">Εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Γράψτε το όνομα χρήστη σας στο NewChess και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
 </resources>

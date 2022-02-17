@@ -25,7 +25,7 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsModule("tournament.schedule"),
-        embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""NewChessTournamentSchedule(${safeJsonValue(
           Json.obj(
             "data" -> json,
             "i18n" -> bits.jsI18n

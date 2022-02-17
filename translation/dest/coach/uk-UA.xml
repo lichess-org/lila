@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Тренери Lichess</string>
-  <string name="lichessCoach">Тренер Lichess</string>
+  <string name="lichessCoaches">Тренери NewChess</string>
+  <string name="lichessCoach">Тренер NewChess</string>
   <string name="areYouCoach">Ви чудовий шаховий тренер з %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">національним або FIDE-званням</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://newchess.fun/help/master">національним або FIDE-званням</string>
   <string name="confirmTitle">Підтвердіть своє звання і ми розглянемо вашу заявку.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Надішліть нам лист на %s і ми розглянемо вашу заявку.</string>
   <string name="location">Місцезнаходження</string>
@@ -14,7 +14,7 @@
   <string name="accepting">Приймаю учнів</string>
   <string name="notAccepting">На даний момент не приймаю учнів</string>
   <string name="xCoachesStudents">%s тренує учнів</string>
-  <string name="viewXProfile">Переглянути профіль %s Lichess</string>
+  <string name="viewXProfile">Переглянути профіль %s NewChess</string>
   <string name="sendPM">Надіслати приватне повідомлення</string>
   <string name="aboutMe">Про себе</string>
   <string name="playingExperience">Досвід гри</string>

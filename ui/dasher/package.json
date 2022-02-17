@@ -2,7 +2,7 @@
   "name": "dasher",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org multipurpose dropdown",
+  "description": "newchess.fun multipurpose dropdown",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {

@@ -73,7 +73,7 @@
   <string name="lookupOfPlayer">Peržiūrėti galvosūkius iš žaidėjo partijų</string>
   <string name="fromXGames">Galvosūkiai iš \'%s\' partijų</string>
   <string name="searchPuzzles">Ieškoti galvosūkių</string>
-  <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet Lichess vis tiek jus labai myli.
+  <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet NewChess vis tiek jus labai myli.
 Žaiskite greituosius ir klasikinius žaidimus ir taip padidinkite šansus, kad bus pridėtas galvosūkis iš jūsų partijos!</string>
   <string name="fromXGamesFound">%1$s galvosūkių rasta %2$s partijose</string>
   <string name="puzzleDashboardDescription">Treniruokitės, analizuokite, tobulinkitės</string>

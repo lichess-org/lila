@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">SEG / FAQ</string>
   <string name="frequentlyAskedQuestions">Maiz egiten diren galderak</string>
-  <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
+  <string name="whyIsLichessCalledLichess">Zergatik da NewChess NewChessen izena?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
   <string name="leechess">li-txes</string>
   <string name="hearItPronouncedBySpecialist">Entzun espezialista batek nola ahoskatzen duen.</string>
-  <string name="whyLiveLightLibre">Zuzenean, partidak denbora errealean 24 orduz, astean 7 egunez jokatu eta ikusten direlako; arina eta librea, Lichess kode-irekikoa delako eta ez duelako programa jabedunik erabiltzen, beste webgune batzuek bezala.</string>
-  <string name="whyIsLilaCalledLila">Antzera, Lichessen iturburuko kodeak, %1$s, li[chess in sca]la esan nahi du, %2$s izeneko programazio lengoaian idatzita dagoelako.</string>
-  <string name="howCanIContributeToLichess">Nola lagundu dezaket Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichessek dohaintzen bidez eta bolondres taldearen lanarekin funtzionatzen du.</string>
-  <string name="findMoreAndSeeHowHelp">%1$s buruzko informazio gehiago (%2$s barne). Lichessi laguntza eman nahi badiozu zure denbora edo laguntza emanez, hainbat %3$s.</string>
+  <string name="whyLiveLightLibre">Zuzenean, partidak denbora errealean 24 orduz, astean 7 egunez jokatu eta ikusten direlako; arina eta librea, NewChess kode-irekikoa delako eta ez duelako programa jabedunik erabiltzen, beste webgune batzuek bezala.</string>
+  <string name="whyIsLilaCalledLila">Antzera, NewChessen iturburuko kodeak, %1$s, li[chess in sca]la esan nahi du, %2$s izeneko programazio lengoaian idatzita dagoelako.</string>
+  <string name="howCanIContributeToLichess">Nola lagundu dezaket NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChessek dohaintzen bidez eta bolondres taldearen lanarekin funtzionatzen du.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s buruzko informazio gehiago (%2$s barne). NewChessi laguntza eman nahi badiozu zure denbora edo laguntza emanez, hainbat %3$s.</string>
   <string name="beingAPatron">Babesletzari buruzko</string>
   <string name="breakdownOfOurCosts">gure gastuak</string>
   <string name="otherWaysToHelp">aukera dituzu</string>
-  <string name="areThereWebsitesBasedOnLichess">Lichessen oinarritutako webgunerik badago?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Bai. Lichess inspirazio iturri erabili dituen eta bere %1$s, %2$s edo %3$s darabilten hainbat webgune ditu.</string>
+  <string name="areThereWebsitesBasedOnLichess">NewChessen oinarritutako webgunerik badago?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Bai. NewChess inspirazio iturri erabili dituen eta bere %1$s, %2$s edo %3$s darabilten hainbat webgune ditu.</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="whenAmIEligibleRatinRefund">Noiz jaso dezaket tranpa egin didaten jokalarien aurkako partidetako puntuazioa?</string>
   <string name="ratingRefundExplanation">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Nola bihur naiteke moderatzaile?</string>
   <string name="youCannotApply">Ezin da moderatzaile izateko eskaerarik egin. Norbait moderatzaile izan daitekeela uste badugu zuzenean jarriko gara berarekin kontaktuan.</string>
   <string name="isCorrespondenceDifferent">Zein dira posta bidezko partidak eta xake arruntaren arteko desberdintasunak?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichessen posta bidezko xakearen arauen desberdintasun handiena, hasiera liburua erabili daitekeela da. Analisi-motoreak erabiltzea debekatuta dago eta laguntza erabiltzeagatik markatuko ditugu hori egiten duten jokalariak. Nahiz eta ICCFk analisi-motoreak erabiltzea uztean duen, Lichessek ez.</string>
+  <string name="youCanUseOpeningBookNoEngine">NewChessen posta bidezko xakearen arauen desberdintasun handiena, hasiera liburua erabili daitekeela da. Analisi-motoreak erabiltzea debekatuta dago eta laguntza erabiltzeagatik markatuko ditugu hori egiten duten jokalariak. Nahiz eta ICCFk analisi-motoreak erabiltzea uztean duen, NewChessek ez.</string>
   <string name="gameplay">Jokoa</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
-  <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
+  <string name="basedOnGameDuration">NewChesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
   Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
   <string name="durationFormula">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket Lichessen?</string>
-  <string name="lichessSupportChessAnd">Lichessen ohiko xakean eta %1$s jokatu dezakezu.</string>
+  <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket NewChessen?</string>
+  <string name="lichessSupportChessAnd">NewChessen ohiko xakean eta %1$s jokatu dezakezu.</string>
   <string name="eightVariants">xakearen 8 aldaeratan</string>
   <string name="whatIsACPL">Zer da Batazbesteko Peoi Ehunekoen Galera (BPEG, ACPL ingelesez)?</string>
   <string name="acplExplanation">Peoiaren ehunekoa xakean abantaila adierazteko erabiltzen den neurria da. Peoiaren ehunekoa peoi baten ehungarren zati baten balioa da. Beraz 100 peoi ehuneko = peoi 1. Balio honek ez du jokoan inongo eraginik, baina jokalarientzat lagungarri izan daiteke eta behar-beharrezkoa da ordenagailuentzat, posizioak baloratzeko erabiltzen baita.
@@ -43,7 +43,7 @@ Ordenagailuaren lehenengo aukera den jokaldiak ez du peoi ehunekorik galduko, ba
 
 Jokoaren kalitatea neurtzeko erabili daiteke balio hau. Jokaldi bakoitzean zenbat eta peoi ehuneko gutxiago galdu, jokoa hobea da.
 
-Lichessen ordenagailu bidezko analisia Stockfishek egiten du.</string>
+NewChessen ordenagailu bidezko analisia Stockfishek egiten du.</string>
   <string name="insufficientMaterial">Denboragatik galtzea, berdinketa eta behar beste material ez edukitzea</string>
   <string name="lichessFollowFIDErules">Jokalariren bati denbora agortzen bazaio, normalean partida galdu egingo du. Baina partida berdinketarekin amaituko da posizio horretatik abiatuta aurkariak ezin badio jokalariaren erregeari xake-mate eman edozein delarik erabilitako jokaldi segida (%1$s).
 
@@ -60,31 +60,31 @@ Kontuan hartu xake matea posible izan daitekeela zaldun edo alfil batekin beti e
 
 Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="goodIntroduction">Hemen duzu azalpenaren</string>
-  <string name="lichessTraining">Lichesseko ariketak</string>
+  <string name="lichessTraining">NewChesseko ariketak</string>
   <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
-  <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDEren arauak erabiltzen ditu, %2$s 9.2 (d) artikuluan azaldu bezala.</string>
+  <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. NewChessek FIDEren arauak erabiltzen ditu, %2$s 9.2 (d) artikuluan azaldu bezala.</string>
   <string name="threefoldRepetitionLowerCase">hiru errepikapenengatik</string>
   <string name="notRepeatedMoves">Ez ditugu jokaldiak errepikatu. Zergatik amaitu da partida berdinketarekin?</string>
   <string name="repeatedPositionsThatMatters">Posizioa hiru aldiz errepikatzeak, errepikatu dena %1$s dela esan nahi du, ez jokaldiak. Errepikapenak, gainera, ez dute zertan jarraian gertatu behar.</string>
   <string name="positions">posizioak</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Posizioa hiru aldiz errepikatu genuen? Zergatik ez da berdinketarekin amaitu?</string>
-  <string name="threeFoldHasToBeClaimed">Errepikapenagatiko berdinketa jokalarietako batek eskatu behar du. Horretarako agertuko den botoia sakatu behar duzu edo errepikapena egiten duen azken jokaldia egin aurretik berdinketa eskaini behar duzu. Lichess %1$s dezakezu berdinketak zure ordez eskatzeko. Gainera, posizioa bost aldiz errepikatzen bada, partida berdinketarekin amaituko da edozein kasutan.</string>
+  <string name="threeFoldHasToBeClaimed">Errepikapenagatiko berdinketa jokalarietako batek eskatu behar du. Horretarako agertuko den botoia sakatu behar duzu edo errepikapena egiten duen azken jokaldia egin aurretik berdinketa eskaini behar duzu. NewChess %1$s dezakezu berdinketak zure ordez eskatzeko. Gainera, posizioa bost aldiz errepikatzen bada, partida berdinketarekin amaituko da edozein kasutan.</string>
   <string name="configure">konfiguratu</string>
   <string name="accounts">Kontuak</string>
-  <string name="titlesAvailableOnLichess">Zein titulo daude Lichessen?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichessek FIDEren taula gaineko titulo guztiak onartzen ditu eta baita %1$s ere. Hauexek dira FIDEren tituluak:</string>
+  <string name="titlesAvailableOnLichess">Zein titulo daude NewChessen?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChessek FIDEren taula gaineko titulo guztiak onartzen ditu eta baita %1$s ere. Hauexek dira FIDEren tituluak:</string>
   <string name="showYourTitle">Taularen gaineko tituloren bat baduzu, datu hori zure fitxan agertzea eskatu dezakezu %1$s beteta eta zure tituloa, identifikazioa agiria eta zu zeu agertzen zaren argazki bat bidalita.
 
-  Lichessen zure tituloa erakusteak Titled Arena txapelketetan parte hartzeko aukera ematen dizu.
+  NewChessen zure tituloa erakusteak Titled Arena txapelketetan parte hartzeko aukera ematen dizu.
 
   Azkenik ohorezko %2$s tituloa ere badago.</string>
   <string name="asWellAsManyNMtitles">hainbat titulo nazional ere</string>
   <string name="verificationForm">egiaztapen formularioa</string>
-  <string name="canIbecomeLM">Lortu dezaket Lichess Maisu (LM) tituloa?</string>
+  <string name="canIbecomeLM">Lortu dezaket NewChess Maisu (LM) tituloa?</string>
   <string name="noUpperCaseDot">Ez.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Titulo hau ez da ofiziala eta Lichessen bakarrik agertzen da.
+  <string name="lMtitleComesToYouDoNotRequestIt">Titulo hau ez da ofiziala eta NewChessen bakarrik agertzen da.
 
-  Normalean ez diogu inori ematen eta ematen badugu Lichessen hiritar onak direneri bakarrik, eta beti ere hala nahi badugu. Zuk ez duzu LM tituloa lortzen, LM tituloak aurkituko zaitu zu. Gure ustezko merituak lortzen badituzu jakinarazi egingo dizugu eta zeuk erabakiko duzu onartu ala ez.
+  Normalean ez diogu inori ematen eta ematen badugu NewChessen hiritar onak direneri bakarrik, eta beti ere hala nahi badugu. Zuk ez duzu LM tituloa lortzen, LM tituloak aurkituko zaitu zu. Gure ustezko merituak lortzen badituzu jakinarazi egingo dizugu eta zeuk erabakiko duzu onartu ala ez.
 
   Ez eskatu LM tituloa ematerik.</string>
   <string name="whatUsernameCanIchoose">Zer izan daiteke erabiltzaile-izena?</string>
@@ -93,12 +93,12 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="canIChangeMyUsername">Aldatu dezaket nire erabiltzaile-izena?</string>
   <string name="usernamesCannotBeChanged">Ez, erabiltzaile-izenak ezin dira aldatu arrazoi tekniko eta praktikoak direla-eta. Erabiltzaile-izenak hainbat lekutan gordetzen dira, hala nola, datu-basean, esportazioetan, logetan,...</string>
   <string name="uniqueTrophies">Garaikur bereziak</string>
-  <string name="ownerUniqueTrophies">Garaikur hori Lichessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
+  <string name="ownerUniqueTrophies">Garaikur hori NewChessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
   <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %s partidatik 100%% irabazi.</string>
   <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
   <string name="goldenZeeExplanation">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
-  <string name="lichessRatings">Lichess puntuazioak</string>
-  <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
+  <string name="lichessRatings">NewChess puntuazioak</string>
+  <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du NewChessek?</string>
   <string name="ratingSystemUsedByLichess">Puntuazioak Mark Glickmanek garatutako Glicko-2 puntuazio sistema erabiliz kalkulatzen dira. Hainbat erakundek erabilitako puntuazio sistema arrunta da (FIDEk aldiz Elo izeneko sistema erabiltzen du).
 
 Glicko sistemak \"konfiantza tarteak\" erabiltzen ditu zure puntuazioa kalkulatu edo esaterakoan. Hasiberritan zure puntuazioa 1500 ± 700-n hasten da. 1500ek zure puntuazioa erakusten du eta 700k konfiantza tartea.
@@ -128,13 +128,13 @@ Hobe da puntuazioak zenbaki \"erlatibo\" gisa ulertzea: jokalari multzo bat hart
   <string name="enableZenMode">Aktibatu Zen-modua %1$s, edo partidan zehar %2$s sakatuz.</string>
   <string name="displayPreferences">ezarpenetan</string>
   <string name="connexionLostCanIGetMyRatingBack">Partida atzerapenagatik edo konexioa galtzeagatik galdu dut. Berreskuratu ditzaket galdutako puntuak?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Zoritxarrez ezin ditugu arrazoi horiengatik galdutako puntuak itzuli, berdin delarik errua zurea ala gurea izan. Hala ere normalean ez da gure errua izango. Lichess berrabiarazten dugunean eta horregatik partida galtzen baduzu, partida bertan behera uzten dugu.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Zoritxarrez ezin ditugu arrazoi horiengatik galdutako puntuak itzuli, berdin delarik errua zurea ala gurea izan. Hala ere normalean ez da gure errua izango. NewChess berrabiarazten dugunean eta horregatik partida galtzen baduzu, partida bertan behera uzten dugu.</string>
   <string name="howToThreeDots">Nola...</string>
   <string name="enableDisableNotificationPopUps">Aktibatu edo desaktibatu jakinarazpenak?</string>
   <string name="viewSiteInformationPopUp">Ikusi atariaren informazioaren inguruko leihoa</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichessek jakinarazpenak bidali ditzake, adibidez zure txanda denean edo mezu pribatu bat jasotzean.
+  <string name="lichessCanOptionnalySendPopUps">NewChessek jakinarazpenak bidali ditzake, adibidez zure txanda denean edo mezu pribatu bat jasotzean.
 
-Egin klik zure nabigatzailean lichess.org dioen helbide barraren ondoan dagoen giltzarrapoan.
+Egin klik zure nabigatzailean newchess.fun dioen helbide barraren ondoan dagoen giltzarrapoan.
 
-Ondoren aukeratu Lichessen jakinarazpenak blokeatu nahi dituzun ala ez.</string>
+Ondoren aukeratu NewChessen jakinarazpenak blokeatu nahi dituzun ala ez.</string>
 </resources>

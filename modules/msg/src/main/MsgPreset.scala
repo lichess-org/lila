@@ -10,7 +10,7 @@ object MsgPreset {
     name = "Warning: possible sandbagging",
     text =
       """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
-Losing rated games on purpose is called "sandbagging" and is not allowed on Lichess.
+Losing rated games on purpose is called "sandbagging" and is not allowed on NewChess.
 
 Thank you for your understanding."""
   )
@@ -18,7 +18,7 @@ Thank you for your understanding."""
   lazy val boostAuto = MsgPreset(
     name = "Warning: possible boosting",
     """You have won a couple of games after a few moves. Please note that both players MUST try to win every game.
-Taking advantage of opponents losing rated games on purpose is called "boosting" and is not allowed on Lichess.
+Taking advantage of opponents losing rated games on purpose is called "boosting" and is not allowed on NewChess.
 
 Thank you for your understanding."""
   )
@@ -33,15 +33,15 @@ This can be very annoying for your opponents. If this behavior continues to happ
   lazy val enableTwoFactor = MsgPreset(
     name = "Enable two-factor authentication",
     text =
-      """Please enable two-factor authentication to secure your account at https://lichess.org/account/twofactor.
+      """Please enable two-factor authentication to secure your account at https://newchess.fun/account/twofactor.
 You received this message because your account has special responsibilities such as coach, teacher or streamer."""
   )
 
   def maxFollow(username: Username, max: Int) =
     MsgPreset(
       name = "Follow limit reached!",
-      text = s"""Sorry, you can't follow more than $max players on Lichess.
-To follow new players, you must first unfollow some on https://lichess.org/@/$username/following.
+      text = s"""Sorry, you can't follow more than $max players on NewChess.
+To follow new players, you must first unfollow some on https://newchess.fun/@/$username/following.
 
 Thank you for your understanding."""
     )
@@ -60,6 +60,6 @@ Thank you for your understanding."""
     def byTeamLeader = compose("A team leader") _
 
     private def compose(by: String)(reason: String) =
-      s"""$by deleted one of your posts for this reason: $reason. Please read our Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
+      s"""$by deleted one of your posts for this reason: $reason. Please read our Forum-Etiquette: https://newchess.fun/page/forum-etiquette"""
   }
 }

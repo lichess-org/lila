@@ -2,7 +2,7 @@
   "name": "puz",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org fast puzzle utils",
+  "description": "newchess.fun fast puzzle utils",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",

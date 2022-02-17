@@ -14,8 +14,8 @@
   <string name="fullDescription">Description complète de l\'événement</string>
   <string name="fullDescriptionHelp">Description détaillée et optionnelle de la diffusion. %1$s est disponible. La longueur doit être inférieure à %2$s caractères.</string>
   <string name="sourceUrlOrGameIds">URL source ou IDs de parties</string>
-  <string name="sourceUrlHelp">URL que Lichess interrogera pour obtenir les mises à jour du PGN. Elle doit être accessible publiquement depuis Internet.</string>
-  <string name="gameIdsHelp">Vous pouvez également entrer jusqu\'à 64 IDs de parties Lichess séparés par un espace.</string>
+  <string name="sourceUrlHelp">URL que NewChess interrogera pour obtenir les mises à jour du PGN. Elle doit être accessible publiquement depuis Internet.</string>
+  <string name="gameIdsHelp">Vous pouvez également entrer jusqu\'à 64 IDs de parties NewChess séparés par un espace.</string>
   <string name="startDate">Date de début dans votre fuseau horaire</string>
   <string name="startDateHelp">Facultatif, si vous savez quand l\'événement commence</string>
   <string name="credits">Créditer la source</string>

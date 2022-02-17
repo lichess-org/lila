@@ -253,7 +253,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s секунд бирү</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Бу аккаунт Lichessның Куллану Шартларын бозды</string>
+  <string name="thisAccountViolatedTos">Бу аккаунт NewChessның Куллану Шартларын бозды</string>
   <string name="openingExplorerAndTablebase">Дебютлар һәм эндшпилләр базасы</string>
   <string name="takeback">Кире алырга</string>
   <string name="proposeATakeback">Йөрүне кире алырга сорарга</string>
@@ -408,7 +408,7 @@
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
-  <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
+  <string name="previouslyOnNewChessTV">Алданлырак Личес ТВда</string>
   <string name="onlinePlayers">Юрдә уйнаучылар</string>
   <string name="activePlayers">Актив уйнаучылар</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Сак бул, бу уен рейтинглы, әмма сәгать юк!</string>
@@ -585,8 +585,8 @@
   <string name="weHaveSentYouAnEmailTo">Безнең %s җибәрдек. Серсүзне яңадан урнаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Теркәлү белән сез %s белән ризалашасыз.</string>
   <string name="readAboutOur">Безнең %s турында укыгыз.</string>
-  <string name="networkLagBetweenYouAndLichess">Челтәр сезнең белән Lichess арасында артта калды</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess серверында хәрәкәтне эшкәртү вакыты</string>
+  <string name="networkLagBetweenYouAndLichess">Челтәр сезнең белән NewChess арасында артта калды</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess серверында хәрәкәтне эшкәртү вакыты</string>
   <string name="downloadAnnotated">Өзешлене йөкләү</string>
   <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
@@ -600,7 +600,7 @@
   <string name="withEverybody">Барысы белән</string>
   <string name="kidMode">Сабыйлар осулы</string>
   <string name="kidModeExplanation">Бу куркынычсызлык турында. Балалар режимында барлык сайт элемтәләре дә сүндерелгән. Моны балаларыгыз һәм мәктәп укучылары өчен рөхсәт итегез, аларны бүтән интернет кулланучылардан саклагыз.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Балалар усулында Lichess тамгасы %s иконасын ала, шуңа күрә сез балаларыгызның куркынычсыз булуын беләсез.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Балалар усулында NewChess тамгасы %s иконасын ала, шуңа күрә сез балаларыгызның куркынычсыз булуын беләсез.</string>
   <string name="enableKidMode">Балалар осулын куй</string>
   <string name="disableKidMode">Сабый осулын кирегә куй</string>
   <string name="security">Хәвефсезлек</string>
@@ -715,14 +715,14 @@
   <string name="tryToWin">Сез уйнаган һәр уенда җиңәргә (яки ким дигәндә җиңүсезлеккә) тырышыгыз.</string>
   <string name="resignLostGames">Истифа ителгән җиңелгән уеннар (сәгать эшләмәсен).</string>
   <string name="temporaryInconvenience">Вакытлыча уңайсызлыклар өчен гафу үтенәбез,</string>
-  <string name="wishYouGreatGames">һәм сезгә lichess.org сайтында зур уеннар телим.</string>
+  <string name="wishYouGreatGames">һәм сезгә newchess.fun сайтында зур уеннар телим.</string>
   <string name="thankYouForReading">Укыган өчен ташаккур!</string>
   <string name="lifetimeScore">Гомер буе исәпләү</string>
   <string name="currentMatchScore">Хәзерге матч исәбе</string>
   <string name="agreementAssistance">Минем уеннар вакытында теләсә кайсы вакытта ярдәм алуыма ризалашам (шахмат компьютерыннан, китаптан, мәгълүмат базасыннан яки бүтән кешедән).</string>
   <string name="agreementNice">Мин башка уенчыларга һәрвакыт хөрмәт күрсәтермен дип килешәм.</string>
   <string name="agreementAccount">Мин берничә хисап ясамыйм дип килешәм.</string>
-  <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
+  <string name="agreementPolicy">Мин барлык NewChess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
   <string name="rapid">Тиз</string>
@@ -759,7 +759,7 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Кемдер сезнең мөдәрәс профилегезне карады.</string>
   <string name="newPendingReview">Яңа күреп чыгыш көтелмәктә</string>
-  <string name="lostAgainstTOSViolator">Сез Lichess TOS кагыйдәләрене бозган кешегә оттырдыгыз</string>
+  <string name="lostAgainstTOSViolator">Сез NewChess TOS кагыйдәләрене бозган кешегә оттырдыгыз</string>
   <string name="refundXpointsTimeControlY">Кире кайтару %1$s %2$s рейтинг накате.</string>
   <string name="timeAlmostUp">Вакыт тугады диярлек!</string>
 </resources>

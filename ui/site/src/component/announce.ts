@@ -8,7 +8,7 @@ const kill = () => {
   $('#announce').remove();
 };
 
-const announce = (d: LichessAnnouncement) => {
+const announce = (d: NewChessAnnouncement) => {
   kill();
   if (d.msg) {
     $('body')

@@ -16,15 +16,15 @@ object categ {
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Lichess community forum",
+          title = "NewChess community forum",
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-          description = "Chess discussions and feedback about Lichess development"
+          description = "Chess discussions and feedback about NewChess development"
         )
         .some
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
-          h1(dataIcon := "", cls := "text")("Lichess Forum"),
+          h1(dataIcon := "", cls := "text")("NewChess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),

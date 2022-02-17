@@ -70,7 +70,7 @@ I partecipanti tardivi ottengono un singolo bye, anche se si sono persi più tur
 Il motivo è che non esiste un buon modo di gestire i giocatori che abbandonano in anticipo il torneo. Non possiamo sapere se tutti i giocatori giocheranno tutte le loro partite in un evento online. Difficilmente succederà e, di conseguenza, gran parte dei tornei Round Robin saranno imperfetti e ingiusti, riducendone il vero significato.
 Un modo per simulare un Round Robin online è giocare un torneo svizzero con un numero molto elevato di turni. Tutti gli abbinamenti possibili verranno giocati prima della fine del torneo.</string>
   <string name="otherSystemsQ">E gli altri sistemi di torneo?</string>
-  <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a Lichess al momento.</string>
+  <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a NewChess al momento.</string>
   <string name="swissDescription">In un torneo svizzero %1$s, ogni concorrente non gioca necessariamente con ogni partecipante. I concorrenti si incontrano uno a uno ad ogni turno e sono abbinati usando una serie di regole progettate per assicurare che ognuno giochi con un avversario con un punteggio simile, ma mai lo stesso rivale per più di una volta. Il vincitore è il concorrente con la somma dei punti guadagnati maggiore ottenuta in tutti i turni. Tutti i concorrenti giocano in ogni turno a meno che non ci sia un numero dispari di giocatori.</string>
   <string name="teamOnly">I tornei svizzeri possono essere creati solo dai leader di una squadra, e possono partecipare solo i membri della squadra stessa.
 %1$s per iniziare a giocare tornei svizzeri.</string>

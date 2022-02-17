@@ -1,9 +1,9 @@
-import exportLichessGlobals from './site.lichess.globals';
+import exportNewChessGlobals from './site.lichess.globals';
 
-exportLichessGlobals();
+exportNewChessGlobals();
 
 export default function (opts: any) {
-  window.LichessAnalyse.start({
+  window.NewChessAnalyse.start({
     ...opts,
     socketSend: () => {},
   });

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess filmprezentistoj</string>
-  <string name="lichessStreamer">Lichess filmprezentisto</string>
+  <string name="lichessStreamers">NewChess filmprezentistoj</string>
+  <string name="lichessStreamer">NewChess filmprezentisto</string>
   <string name="live">VIVE!</string>
   <string name="offline">SENRETA</string>
   <string name="currentlyStreaming">Nun filmelsendas: %s</string>
   <string name="lastStream">Lasta filmelsendo %s</string>
-  <string name="becomeStreamer">Fariĝu Lichess filmprezentisto</string>
+  <string name="becomeStreamer">Fariĝu NewChess filmprezentisto</string>
   <string name="doYouHaveStream">Ĉu vi havas Twitch aŭ YouTube kanalon?</string>
   <string name="hereWeGo">Jen ni iru!</string>
   <string name="allStreamers">Ĉiuj filmprezentistoj</string>
@@ -15,7 +15,7 @@
   <string name="downloadKit">Elŝutu filmprezentistan ilaron</string>
   <string name="xIsStreaming">%s elsendas</string>
   <string name="rules">Filmprezentistaj reguloj</string>
-  <string name="perk3">Sciigu viajn Lichess sekvantojn.</string>
+  <string name="perk3">Sciigu viajn NewChess sekvantojn.</string>
   <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
   <string name="optionalOrEmpty">Laŭvola. Lasu malplena se neniu</string>
   <string name="youtubeChannel">Via ID aŭ URL de via YouTube kanalo</string>

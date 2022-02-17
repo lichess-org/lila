@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Дарете</string>
   <string name="donateAsX">Дарете като %s</string>
-  <string name="lichessPatron">Lichess Дарител</string>
+  <string name="lichessPatron">NewChess Дарител</string>
   <string name="freeAccount">Безплатна регистрация</string>
-  <string name="becomePatron">Станете дарител на Lichess</string>
-  <string name="xBecamePatron">%s стана дарител на Lichess</string>
+  <string name="becomePatron">Станете дарител на NewChess</string>
+  <string name="xBecamePatron">%s стана дарител на NewChess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s е Lichess Дарител за %2$s месец</item>
-    <item quantity="other">%1$s е Lichess Дарител за %2$s месеца</item>
+    <item quantity="one">%1$s е NewChess Дарител за %2$s месец</item>
+    <item quantity="other">%1$s е NewChess Дарител за %2$s месеца</item>
   </plurals>
   <string name="newPatrons">Нови дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
@@ -18,10 +18,10 @@
   <string name="patronUntil">Имате дарителски акаунт до %s.</string>
   <string name="ifNotRenewed">Ако не бъде подновен, ще бъдете върнати на безплатния план.</string>
   <string name="weAreNonProfit">Ние сме асоциация с нестопанска цел, защото вярваме че всеки трябва да има достъп до безплатна шахматна платформа на световно ниво.</string>
-  <string name="weRelyOnSupport">Ние разчитаме на подкрепа от хора като вас за да направим това реалност. Ако се наслаждавате на Lichess, можете да ни подкрепите като станете Дарител!</string>
+  <string name="weRelyOnSupport">Ние разчитаме на подкрепа от хора като вас за да направим това реалност. Ако се наслаждавате на NewChess, можете да ни подкрепите като станете Дарител!</string>
   <string name="lifetime">До живот</string>
-  <string name="payLifetimeOnce">Платете %s веднъж. Станете Lichess Дарител завинаги!</string>
-  <string name="lifetimePatron">Доживотен Lichess Дарител</string>
+  <string name="payLifetimeOnce">Платете %s веднъж. Станете NewChess Дарител завинаги!</string>
+  <string name="lifetimePatron">Доживотен NewChess Дарител</string>
   <string name="monthly">Ежемесечно</string>
   <string name="recurringBilling">Регулярни дарения, подновявайте своите Дарителски крила всеки месец.</string>
   <string name="onetime">Еднократно</string>
@@ -31,28 +31,28 @@
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
-  <string name="celebratedPatrons">Почетни Дарители, които правят Lichess възможен</string>
+  <string name="celebratedPatrons">Почетни Дарители, които правят NewChess възможен</string>
   <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
   <string name="serversAndDeveloper">На първо място, за мощни сървъри.
-След това плащаме на нашия разработчик на пълно работно време: %s, основателя на Lichess.</string>
+След това плащаме на нашия разработчик на пълно работно време: %s, основателя на NewChess.</string>
   <string name="costBreakdown">Вижте подробна разбивка на разходите</string>
-  <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
+  <string name="officialNonProfit">NewChess официална организация с нестопанска цел ли е?</string>
   <string name="actOfCreation">Да, ето тук е документът (на френски)</string>
   <string name="changeMonthlySupport">Мога ли да променя/прекратя ежемесечния си абонамент?</string>
   <string name="changeOrContact">Да, по всяко време, от тази страница.
 Или можете да се %s.</string>
-  <string name="contactSupport">свържете с Lichess поддръжка</string>
+  <string name="contactSupport">свържете с NewChess поддръжка</string>
   <string name="otherMethods">Други начини за дарение?</string>
   <string name="bankTransfers">Приемаме също и банкови преводи</string>
   <string name="patronFeatures">Има ли функционалности, които са запазени само за Дарители?</string>
-  <string name="noPatronFeatures">Не, защото Lichess е напълно безплатен, завинаги и за всички. Обещано.
+  <string name="noPatronFeatures">Не, защото NewChess е напълно безплатен, завинаги и за всички. Обещано.
 Все пак, Дарителите могат да се похвалят с готина нова профилна иконка.</string>
   <string name="featuresComparison">Вижте детайлно сравнение на функционалностите</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Дарител за един месец</item>
-    <item quantity="other">Lichess Дарител за %s месеца</item>
+    <item quantity="one">NewChess Дарител за един месец</item>
+    <item quantity="other">NewChess Дарител за %s месеца</item>
   </plurals>
-  <string name="youSupportWith">Вие подкрепяте lichess.org с %s на месец.</string>
+  <string name="youSupportWith">Вие подкрепяте newchess.fun с %s на месец.</string>
   <string name="tyvm">Много Ви благодарим за подкрепата. Супер сте!</string>
   <string name="currentStatus">Сегашен статус</string>
   <string name="nextPayment">Следващо плащане</string>
@@ -63,17 +63,17 @@
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
   <string name="cancelSupport">преустановете поддръжката си</string>
   <string name="xOrY">%1$s или %2$s</string>
-  <string name="decideHowMuch">Изберете колко ценен е Lichess за Вас:</string>
+  <string name="decideHowMuch">Изберете колко ценен е NewChess за Вас:</string>
   <string name="stopPayments">Оттеглете кредитната си карта и спрете плащанията:</string>
-  <string name="noLongerSupport">Вече не подкрепям Lichess</string>
-  <string name="viewOthers">Вижте другите Lichess Дарители</string>
+  <string name="noLongerSupport">Вече не подкрепям NewChess</string>
+  <string name="viewOthers">Вижте другите NewChess Дарители</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>
   <string name="transactionCompleted">Трансакцията е завършена и квитанция за Вашето дарение бе изпратена на електронната Ви поща.</string>
   <string name="permanentPatron">Сега имате постоянна регистрация като Дарител.</string>
   <string name="checkOutProfile">Проверете страницата на профила си!</string>
-  <string name="nowLifetime">Вече сте Lichess Patron за цял живот!</string>
-  <string name="nowOneMonth">Вече сте Lichess Patron за месец!</string>
-  <string name="downgradeNextMonth">След един месец НЯМА да бъдете таксувани отново и акаунтът ви в Lichess ще се върне към обикновен акаунт.</string>
+  <string name="nowLifetime">Вече сте NewChess Patron за цял живот!</string>
+  <string name="nowOneMonth">Вече сте NewChess Patron за месец!</string>
+  <string name="downgradeNextMonth">След един месец НЯМА да бъдете таксувани отново и акаунтът ви в NewChess ще се върне към обикновен акаунт.</string>
   <string name="changeCurrency">Промяна на валута</string>
 </resources>

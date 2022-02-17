@@ -35,5 +35,5 @@
     <item quantity="one">%s parti funnet</item>
     <item quantity="other">%s partier funnet</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Gjennomsnittet av begge spillernes rating</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://newchess.fun/games/search">Gjennomsnittet av begge spillernes rating</string>
 </resources>

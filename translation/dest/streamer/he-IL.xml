@@ -15,7 +15,7 @@
   <string name="downloadKit">הורדת ערכת משדר</string>
   <string name="xIsStreaming">%s משדר/ת</string>
   <string name="rules">חוקי שידור</string>
-  <string name="rule1">יש להכליל את מילת המפתח \"lichess.org\" בכותרת המשדר שלכם ולהשתמש בקטגוריית \"Chess\", כשאתה משדרים לליצ׳ס.</string>
+  <string name="rule1">יש להכליל את מילת המפתח \"newchess.fun\" בכותרת המשדר שלכם ולהשתמש בקטגוריית \"Chess\", כשאתה משדרים לליצ׳ס.</string>
   <string name="rule2">יש להסיר את מילת המפתח כשאתם משדרים תוכן שאינו קשור לליצ׳ס.</string>
   <string name="rule3">ליצ׳ס יזהה את המשדר שלכם בצורה אוטומטית ויפעיל את ההטבות הבאות:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">קראו את %s על מנת לאפשר משחק הוגן לכולם בזמן המשדר שלכם.</string>
@@ -28,7 +28,7 @@
   <string name="pendingReview">המשדר שלכם עוברת בדיקת מנהלים.</string>
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונת משדר.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להכנס לרשימת השדרני ליצ׳ס, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">בקשו בדיקת מנהלים</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">בקשו בדיקת מנהלים</string>
   <string name="anotherLanguage">במידה והמשדר שלכם בשפה שאינה מאנגלית, צרפו תוית שפה תואמת (%s), תחומה בסוגריים מרובעות, בתחילת כותרת המשדר.
 לדוגמא \"[RU]\" עבור רוסית, \"[TR]\" עבור טורקית, \"[FR]\" עבור צרפתית, וכד׳.
 כתבו את תוית השפה בכותרת המשדר בעמוד הטוויץ׳ או היוטיוב ולא בהגדרות משדר של ליצ׳ס.
