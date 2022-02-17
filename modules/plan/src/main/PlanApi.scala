@@ -1,5 +1,6 @@
 package lila.plan
 
+
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.i18n.Lang
@@ -516,7 +517,7 @@ final class PlanApi(
         val charge = Charge.make(
           userId = order.userId,
           giftTo = giftTo.map(_.id),
-          payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id).some,
+          payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, none).some,
           money = money,
           usd = usd
         )
@@ -556,7 +557,12 @@ final class PlanApi(
       }
   } yield ()
 
-  def paypalCaptureSubscription(orderId: PayPalOrderId, subId: PayPalSubscriptionId, ip: IpAddress) = for {
+  def paypalCaptureSubscription(
+      orderId: PayPalOrderId,
+      subId: PayPalSubscriptionId,
+      user: User,
+      ip: IpAddress
+  ) = for {
     order <- payPalClient.getOrder(orderId) orFail s"Missing paypal order for id $orderId"
     sub   <- payPalClient.getSubscription(subId) orFail s"Missing paypal subscription for order $order"
     money = sub.capturedMoney
@@ -565,45 +571,43 @@ final class PlanApi(
     isLifetime <- pricingApi isLifetime money
     _ <-
       if (!pricing.valid(money)) {
-        logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
+        logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
         funit
       } else {
         val charge = Charge.make(
-          userId = order.userId,
+          userId = user.id.some,
           giftTo = None,
-          payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id).some,
+          payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, sub.id.some).some,
           money = money,
           usd = usd
         )
-        addCharge(charge, order.country) >>
-          (order.userId ?? userRepo.named) flatMap {
-            _ ?? { user =>
-              val payPalCheckout = Patron.PayPalCheckout(order.payer.id, subId.some)
-              userPatron(user).flatMap {
-                case None =>
-                  patronColl.insert.one(
-                    Patron(
-                      _id = Patron.UserId(user.id),
-                      payPalCheckout = payPalCheckout.some,
-                      lastLevelUp = Some(DateTime.now)
-                    ).expireInOneMonth
-                  ) >>
-                    setDbUserPlanOnCharge(user, levelUp = false)
-                case Some(patron) =>
-                  val p2 = patron
-                    .copy(
-                      payPalCheckout = payPalCheckout.some,
-                      free = none
-                    )
-                    .levelUpIfPossible
-                    .expireInOneMonth
-                  patronColl.update.one($id(patron.id), p2) >>
-                    setDbUserPlanOnCharge(user, patron.canLevelUp)
-              } >> {
-                isLifetime ?? setLifetime(user)
-              } >>- logger.info(s"Charged ${user.username} with paypal checkout: $money")
-            }
-          }
+        addCharge(charge, order.country) >> {
+          val payPalCheckout = Patron.PayPalCheckout(order.payer.id, subId.some)
+          userPatron(user).flatMap {
+            case None =>
+              patronColl.insert.one(
+                Patron(
+                  _id = Patron.UserId(user.id),
+                  payPalCheckout = payPalCheckout.some,
+                  lastLevelUp = Some(DateTime.now)
+                ).expireInOneMonth
+              ) >>
+                setDbUserPlanOnCharge(user, levelUp = false)
+            case Some(patron) =>
+              val p2 = patron
+                .copy(
+                  payPalCheckout = payPalCheckout.some,
+                  stripe = none,
+                  free = none
+                )
+                .levelUpIfPossible
+                .expireInOneMonth
+              patronColl.update.one($id(patron.id), p2) >>
+                setDbUserPlanOnCharge(user, patron.canLevelUp)
+          } >> {
+            isLifetime ?? setLifetime(user)
+          } >>- logger.info(s"Charged ${user.username} with paypal checkout: $money")
+        }
       }
   } yield ()
 }

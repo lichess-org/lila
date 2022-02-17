@@ -68,7 +68,11 @@ object Charge {
       subId: Option[String]
   )
 
-  case class PayPalCheckout(orderId: PayPalOrderId, payerId: PayPalPayerId)
+  case class PayPalCheckout(
+      orderId: PayPalOrderId,
+      payerId: PayPalPayerId,
+      subscriptionId: Option[PayPalSubscriptionId]
+  )
 
   case class Gift(from: User.ID, to: User.ID, date: DateTime)
 }

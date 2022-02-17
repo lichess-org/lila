@@ -110,7 +110,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       implicit ctx: Context
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
-  } yield Ok(html.plan.indexPayPal(me, patron, subscription, pricing))
+    gifts   <- env.plan.api.giftsFrom(me)
+  } yield Ok(html.plan.indexPayPal(me, patron, subscription, pricing, gifts))
 
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
@@ -316,8 +317,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     Auth { implicit ctx => me =>
       CaptureRateLimit(ctx.ip) {
         (get("sub") map PayPalSubscriptionId match {
-          case None        => env.plan.api.paypalCaptureOrder(PayPalOrderId(orderId), ctx.ip)
-          case Some(subId) => env.plan.api.paypalCaptureSubscription(PayPalOrderId(orderId), subId, ctx.ip)
+          case None => env.plan.api.paypalCaptureOrder(PayPalOrderId(orderId), ctx.ip)
+          case Some(subId) =>
+            env.plan.api.paypalCaptureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
         }) inject jsonOkResult
       }(rateLimitedFu)
     }

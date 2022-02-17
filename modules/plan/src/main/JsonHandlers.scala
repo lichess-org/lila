@@ -10,13 +10,13 @@ private[plan] object JsonHandlers {
   implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
     Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
   }
-  implicit val CountryReads = Reads.of[String].map(Country.apply)
+  implicit val CountryReads = Reads.of[String].map(Country)
 
   object stripe {
-    implicit val SubscriptionIdReads = Reads.of[String].map(StripeSubscriptionId.apply)
-    implicit val SessionIdReads      = Reads.of[String].map(StripeSessionId.apply)
-    implicit val CustomerIdReads     = Reads.of[String].map(StripeCustomerId.apply)
-    implicit val ChargeIdReads       = Reads.of[String].map(StripeChargeId.apply)
+    implicit val SubscriptionIdReads = Reads.of[String].map(StripeSubscriptionId)
+    implicit val SessionIdReads      = Reads.of[String].map(StripeSessionId)
+    implicit val CustomerIdReads     = Reads.of[String].map(StripeCustomerId)
+    implicit val ChargeIdReads       = Reads.of[String].map(StripeChargeId)
     implicit val AmountReads         = Reads.of[Int].map(StripeAmount.apply)
     implicit val PriceReads          = Json.reads[StripePrice]
     implicit val ItemReads           = Json.reads[StripeItem]
@@ -45,9 +45,9 @@ private[plan] object JsonHandlers {
 
   object payPal {
     import play.api.libs.json.JodaReads._
-    implicit val PayerIdReads             = Reads.of[String].map(PayPalPayerId.apply)
-    implicit val OrderIdReads             = Reads.of[String].map(PayPalOrderId.apply)
-    implicit val SubscriptionIdReads      = Reads.of[String].map(PayPalSubscriptionId.apply)
+    implicit val PayerIdReads             = Reads.of[String].map(PayPalPayerId)
+    implicit val OrderIdReads             = Reads.of[String].map(PayPalOrderId)
+    implicit val SubscriptionIdReads      = Reads.of[String].map(PayPalSubscriptionId)
     implicit val OrderCreatedReads        = Json.reads[PayPalOrderCreated]
     implicit val SubscriptionCreatedReads = Json.reads[PayPalSubscriptionCreated]
     implicit val AmountReads              = Json.reads[PayPalAmount]

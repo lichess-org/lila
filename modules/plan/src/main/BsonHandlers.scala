@@ -17,6 +17,8 @@ private[plan] object BsonHandlers {
 
   implicit val PayPalOrderIdBSONHandler = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId)
   implicit val PayPalPayerIdBSONHandler = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId)
+  implicit val PayPalSubIdBSONHandler =
+    stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId)
 
   object PatronHandlers {
     import Patron._
@@ -24,8 +26,6 @@ private[plan] object BsonHandlers {
       stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email)
     implicit val PayPalLegacySubIdBSONHandler =
       stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId)
-    implicit val PayPalCheckoutSubIdBSONHandler =
-      stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId)
     implicit val PayPalLegacyBSONHandler   = Macros.handler[PayPalLegacy]
     implicit val PayPalCheckoutBSONHandler = Macros.handler[PayPalCheckout]
     implicit val StripeBSONHandler         = Macros.handler[Stripe]

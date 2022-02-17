@@ -173,16 +173,16 @@ case class PayPalOrder(
   def country           = payer.address.flatMap(_.country_code)
 }
 case class PayPalPayment(amount: PayPalAmount)
-case class PayPalBillingInfo(last_payment: PayPalPayment)
+case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: DateTime)
 case class PayPalSubscription(
     id: PayPalSubscriptionId,
     status: String,
     subscriber: PayPalPayer,
-    billing_info: PayPalBillingInfo,
-    next_billing_time: DateTime
+    billing_info: PayPalBillingInfo
 ) {
   def country       = subscriber.address.flatMap(_.country_code)
   def capturedMoney = billing_info.last_payment.amount.money
+  def nextChargeAt  = billing_info.next_billing_time
   def isActive      = status == "ACTIVE"
 }
 case class CreatePayPalOrder(

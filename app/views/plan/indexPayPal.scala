@@ -17,7 +17,8 @@ object indexPayPal {
       me: lila.user.User,
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
-      pricing: lila.plan.PlanPricing
+      pricing: lila.plan.PlanPricing,
+      gifts: List[lila.plan.Charge.Gift]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = thankYou.txt(),
@@ -44,73 +45,73 @@ object indexPayPal {
               th(nextPayment()),
               td(
                 youWillBeChargedXOnY(
-                  strong(info.nextInvoice.money.display),
-                  showDate(info.nextInvoice.dateTime)
+                  strong(subscription.capturedMoney.display),
+                  showDate(subscription.nextChargeAt)
                 ),
                 br,
                 a(href := s"${routes.Plan.list}?freq=onetime")(makeAdditionalDonation())
               )
             ),
-            tr(
-              th(update()),
-              td(cls := "change") {
-                val cancelButton = a(dataForm := "cancel")(cancelSupport())
-                frag(
-                  if (pricing.currency != info.subscription.item.price.currency) cancelButton
-                  else
-                    xOrY(
-                      a(dataForm := "switch")(
-                        changeMonthlyAmount(info.subscription.item.price.money.display)
-                      ),
-                      cancelButton
-                    ),
-                  postForm(cls := "switch", action := routes.Plan.switch)(
-                    p(decideHowMuch()),
-                    strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
-                    input(
-                      tpe := "number",
-                      min := pricing.min.amount,
-                      max := pricing.max.amount,
-                      step := {
-                        if (zeroDecimalCurrencies contains pricing.currency) "1"
-                        else "0.01"
-                      },
-                      name := "amount",
-                      value := {
-                        (info.subscription.item.price.currency == pricing.currency) ??
-                          info.subscription.item.price.money.amount.toString
-                      }
-                    ),
-                    submitButton(cls := "button")(trans.apply()),
-                    a(dataForm := "switch")(trans.cancel())
-                  ),
-                  postForm(cls := "cancel", action := routes.Plan.cancel)(
-                    p(stopPayments()),
-                    submitButton(cls := "button button-red")(noLongerSupport()),
-                    a(dataForm := "cancel")(trans.cancel())
-                  )
-                )
-              }
-            ),
-            tr(
-              th("Payment details"),
-              td(
-                info.paymentMethod.flatMap(_.card) map { m =>
-                  frag(
-                    m.brand.toUpperCase,
-                    " - ",
-                    "*" * 12,
-                    m.last4,
-                    " - ",
-                    m.exp_month,
-                    "/",
-                    m.exp_year,
-                    br
-                  )
-                },
-                a(cls := "update-payment-method")("Update payment method")
-              )
-            ),
+            // tr(
+            //   th(update()),
+            //   td(cls := "change") {
+            //     val cancelButton = a(dataForm := "cancel")(cancelSupport())
+            //     frag(
+            //       if (pricing.currency != info.subscription.item.price.currency) cancelButton
+            //       else
+            //         xOrY(
+            //           a(dataForm := "switch")(
+            //             changeMonthlyAmount(info.subscription.item.price.money.display)
+            //           ),
+            //           cancelButton
+            //         ),
+            //       postForm(cls := "switch", action := routes.Plan.switch)(
+            //         p(decideHowMuch()),
+            //         strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
+            //         input(
+            //           tpe := "number",
+            //           min := pricing.min.amount,
+            //           max := pricing.max.amount,
+            //           step := {
+            //             if (zeroDecimalCurrencies contains pricing.currency) "1"
+            //             else "0.01"
+            //           },
+            //           name := "amount",
+            //           value := {
+            //             (info.subscription.item.price.currency == pricing.currency) ??
+            //               info.subscription.item.price.money.amount.toString
+            //           }
+            //         ),
+            //         submitButton(cls := "button")(trans.apply()),
+            //         a(dataForm := "switch")(trans.cancel())
+            //       ),
+            //       postForm(cls := "cancel", action := routes.Plan.cancel)(
+            //         p(stopPayments()),
+            //         submitButton(cls := "button button-red")(noLongerSupport()),
+            //         a(dataForm := "cancel")(trans.cancel())
+            //       )
+            //     )
+            //   }
+            // ),
+            // tr(
+            //   th("Payment details"),
+            //   td(
+            //     info.paymentMethod.flatMap(_.card) map { m =>
+            //       frag(
+            //         m.brand.toUpperCase,
+            //         " - ",
+            //         "*" * 12,
+            //         m.last4,
+            //         " - ",
+            //         m.exp_month,
+            //         "/",
+            //         m.exp_year,
+            //         br
+            //       )
+            //     },
+            //     a(cls := "update-payment-method")("Update payment method")
+            //   )
+            // ),
             tr(
               th("Gifts"),
               td(
