@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Скасаванні ходу (са згоды суперніка)</string>
   <string name="inCasualGamesOnly">Толькі ў таварыскіх гульнях</string>
   <string name="promoteToQueenAutomatically">Аўтаматычна пераўтвараць пешку ў фярзя</string>
+  <string name="explainPromoteToQueenAutomatically">Зацісніце клавішу &lt;ctrl&gt; пад час пераўтварэння, каб часова адключыць аўта-пераўтварэнне</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Калі засталося менш за 30 секунд</string>
