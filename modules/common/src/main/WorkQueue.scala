@@ -63,4 +63,13 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
 object WorkQueue {
 
   final class EnqueueException(msg: String) extends Exception(msg)
+
+  // just reject if the previous future is still running
+  final class Unbuffered[K] {
+    private var ongoing = Set.empty[K]
+    def apply[A](key: K)(f: => Fu[A])(implicit ec: ExecutionContext): Option[Fu[A]] = !ongoing(key) option {
+      ongoing = ongoing + key
+      f addEffectAnyway { ongoing = ongoing - key }
+    }
+  }
 }
