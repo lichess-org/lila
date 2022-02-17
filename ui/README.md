@@ -1,5 +1,23 @@
 # Client-side modules
 
+## Testing
+
+The frontend uses the Jest testing framework.
+
+```
+cd ui/
+yarn run test
+```
+
+### VSCode
+
+The Jest extension is your friend. You will want to configure the following in your `settings.json`:
+
+```
+"jest.rootPath": "ui",
+"jest.jestCommandLine": "node_modules/.bin/jest --config jest.config.js",
+```
+
 ## CSS
 
 ```
