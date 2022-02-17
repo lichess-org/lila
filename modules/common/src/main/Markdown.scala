@@ -60,6 +60,7 @@ final class Markdown(
   private def mentionsToLinks(markdown: Text): Text =
     RawHtml.atUsernameRegex.replaceAllIn(markdown, "[$1](/@/$1)")
 
+  // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex             = """(_{4,})""".r
   private def preventStackOverflow(text: String) = tooManyUnderscoreRegex.replaceAllIn(text, "_" * 3)
 
