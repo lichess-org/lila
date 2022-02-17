@@ -230,22 +230,22 @@ final class PlanApi(
               case customer => fuccess(Synced(patron.some, customer, none))
             }
 
-          case (_, Some(Patron.PayPalCheckout(payerId, Some(subId))), _) =>
-            payPalClient.getSubscription(payPal.subscriptionId) flatMap {
+          case (_, Some(Patron.PayPalCheckout(_, Some(subId))), _) =>
+            payPalClient.getSubscription(subId) flatMap {
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
                 patronColl.update.one($id(patron.id), patron.removePayPalCheckout) >> sync(user)
               case Some(subscription) if subscription.isActive && !user.plan.active =>
                 logger.warn(s"${user.username} sync: enable plan of customer with a payPal subscription")
                 setDbUserPlan(user.mapPlan(_.enable)) inject ReloadUser
-              case customer => fuccess(Synced(patron.some, customer))
+              case subscription => fuccess(Synced(patron.some, none, subscription))
             }
 
           case (_, _, Some(_)) =>
             if (!user.plan.active) {
               logger.warn(s"${user.username} sync: enable plan of customer with paypal")
               setDbUserPlan(user.mapPlan(_.enable)) inject ReloadUser
-            } else fuccess(Synced(patron.some, none))
+            } else fuccess(Synced(patron.some, none, none))
 
           case (None, None, None) if patron.isLifetime => fuccess(Synced(patron.some, none, none))
 
@@ -253,7 +253,7 @@ final class PlanApi(
             logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
             setDbUserPlan(user.mapPlan(_.disable)) inject ReloadUser
 
-          case _ => fuccess(Synced(patron.some, none))
+          case _ => fuccess(Synced(patron.some, none, none))
         }
     }
 

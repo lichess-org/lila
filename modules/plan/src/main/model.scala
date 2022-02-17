@@ -178,7 +178,8 @@ case class PayPalSubscription(
     id: PayPalSubscriptionId,
     status: String,
     subscriber: PayPalPayer,
-    billing_info: PayPalBillingInfo
+    billing_info: PayPalBillingInfo,
+    next_billing_time: DateTime
 ) {
   def country       = subscriber.address.flatMap(_.country_code)
   def capturedMoney = billing_info.last_payment.amount.money

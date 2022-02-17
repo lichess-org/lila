@@ -44,6 +44,7 @@ private[plan] object JsonHandlers {
   }
 
   object payPal {
+    import play.api.libs.json.JodaReads._
     implicit val PayerIdReads             = Reads.of[String].map(PayPalPayerId.apply)
     implicit val OrderIdReads             = Reads.of[String].map(PayPalOrderId.apply)
     implicit val SubscriptionIdReads      = Reads.of[String].map(PayPalSubscriptionId.apply)

@@ -11,24 +11,26 @@ private[plan] object BsonHandlers {
   implicit val MoneyBSONHandler    = Macros.handler[Money]
   implicit val UsdBSONHandler      = lila.db.dsl.bigDecimalAnyValHandler[Usd](_.value, Usd)
 
-  implicit val StripeChargeIdBSONHandler = stringAnyValHandler[StripeChargeId](_.value, StripeChargeId.apply)
+  implicit val StripeChargeIdBSONHandler = stringAnyValHandler[StripeChargeId](_.value, StripeChargeId)
   implicit val StripeCustomerIdBSONHandler =
-    stringAnyValHandler[StripeCustomerId](_.value, StripeCustomerId.apply)
+    stringAnyValHandler[StripeCustomerId](_.value, StripeCustomerId)
 
-  implicit val PayPalOrderIdBSONHandler = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId.apply)
-  implicit val PayPalPayerIdBSONHandler = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId.apply)
+  implicit val PayPalOrderIdBSONHandler = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId)
+  implicit val PayPalPayerIdBSONHandler = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId)
 
   object PatronHandlers {
     import Patron._
     implicit val PayPalEmailBSONHandler =
-      stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email.apply)
-    implicit val PayPalSubIdBSONHandler =
-      stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId.apply)
+      stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email)
+    implicit val PayPalLegacySubIdBSONHandler =
+      stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId)
+    implicit val PayPalCheckoutSubIdBSONHandler =
+      stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId)
     implicit val PayPalLegacyBSONHandler   = Macros.handler[PayPalLegacy]
     implicit val PayPalCheckoutBSONHandler = Macros.handler[PayPalCheckout]
     implicit val StripeBSONHandler         = Macros.handler[Stripe]
     implicit val FreeBSONHandler           = Macros.handler[Free]
-    implicit val UserIdBSONHandler         = stringAnyValHandler[UserId](_.value, UserId.apply)
+    implicit val UserIdBSONHandler         = stringAnyValHandler[UserId](_.value, UserId)
     implicit val PatronBSONHandler         = Macros.handler[Patron]
   }
 

@@ -7,7 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
-object indexStripe {
+object indexPayPal {
 
   import trans.patron._
 
@@ -16,20 +16,13 @@ object indexStripe {
   def apply(
       me: lila.user.User,
       patron: lila.plan.Patron,
-      info: lila.plan.MonthlyCustomerInfo,
-      stripePublicKey: String,
-      pricing: lila.plan.PlanPricing,
-      gifts: List[lila.plan.Charge.Gift]
+      subscription: lila.plan.PayPalSubscription,
+      pricing: lila.plan.PlanPricing
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
-      moreJs = frag(
-        index.stripeScript,
-        jsModule("plan"),
-        embedJsUnsafeLoadThen(s"""planStart("$stripePublicKey")""")
-      ),
-      csp = defaultCsp.withStripe.some
+      moreJs = frag(jsModule("plan"))
     ) {
       main(cls := "box box-pad plan")(
         h1(
@@ -43,7 +36,7 @@ object indexStripe {
             tr(
               th(currentStatus()),
               td(
-                youSupportWith(strong(info.subscription.item.price.money.display)),
+                youSupportWith(strong(subscription.capturedMoney.display)),
                 span(cls := "thanks")(tyvm())
               )
             ),

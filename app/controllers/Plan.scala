@@ -17,6 +17,7 @@ import lila.plan.{
   NextUrls,
   OneTimeCustomerInfo,
   PayPalOrderId,
+  PayPalSubscription,
   PayPalSubscriptionId,
   PlanCheckout,
   StripeCustomer,
@@ -36,12 +37,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
           case ReloadUser => Redirect(routes.Plan.index).fuccess
-          case Synced(Some(patron), None) =>
+          case Synced(Some(patron), None, None) =>
             env.user.repo email me.id flatMap { email =>
               renderIndex(email, patron.some)
             }
-          case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
-          case Synced(_, _)                         => indexFreeUser(me)
+          case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(me, patron, stripeCus)
+          case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(me, patron, payPalSub)
+          case _                                        => indexFreeUser(me)
         }
       }
     }
@@ -51,9 +53,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser         => Redirect(routes.Plan.list).fuccess
-          case Synced(Some(_), _) => indexFreeUser(me)
-          case _                  => Redirect(routes.Plan.index).fuccess
+          case ReloadUser            => Redirect(routes.Plan.list).fuccess
+          case Synced(Some(_), _, _) => indexFreeUser(me)
+          case _                     => Redirect(routes.Plan.index).fuccess
         }
       }
     }
@@ -86,7 +88,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       )
     )
 
-  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
+  private def indexStripePatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
       ctx: Context
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
@@ -103,6 +105,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         }
     }
   } yield res
+
+  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, subscription: PayPalSubscription)(
+      implicit ctx: Context
+  ) = for {
+    pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+  } yield Ok(html.plan.indexPayPal(me, patron, subscription, pricing))
 
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
