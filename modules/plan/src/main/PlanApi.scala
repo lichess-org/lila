@@ -43,21 +43,29 @@ final class PlanApi(
         }
     }
 
-  def cancel(user: User): Funit =
+  def cancel(user: User): Funit = {
+    def onCancel =
+      isLifetime(user).flatMap { lifetime =>
+        !lifetime ?? setDbUserPlan(user.mapPlan(_.disable))
+      } >>
+        patronColl.update
+          .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
+          .void >>-
+        logger.info(s"Canceled subscription of ${user.username}")
     stripe.userCustomer(user) flatMap {
-      case None => fufail(s"Can't cancel non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) =>
-            stripeClient.cancelSubscription(sub) >>
-              isLifetime(user).flatMap { lifetime =>
-                !lifetime ?? setDbUserPlan(user.mapPlan(_.disable))
-              } >>
-              patronColl.update.one($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
-              logger.info(s"Canceled subscription $sub of ${user.username}")
+            stripeClient.cancelSubscription(sub) >> onCancel
+        }
+      case None =>
+        payPal.userSubscription(user) flatMap {
+          case None      => fufail(s"Can't cancel non-existent customer ${user.id}")
+          case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
         }
     }
+  }
 
   object stripe {
 
@@ -249,6 +257,16 @@ final class PlanApi(
             }
         }
     } yield ()
+
+    def userSubscriptionId(user: User): Fu[Option[StripeSubscriptionId]] =
+      userPatron(user) map {
+        _.flatMap { _.payPalCheckout.flatMap(_.subscriptionId) }
+      }
+
+    def userSubscription(user: User): Fu[Option[StripeSubscription]] =
+      userSubscriptionId(user) flatMap {
+        _ ?? payPalClient.getSubscription
+      }
 
     def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[lila.user.User]) =
       for {
