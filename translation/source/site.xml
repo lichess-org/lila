@@ -239,6 +239,7 @@
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
+  <string name="duke">Duke</string>
   <string name="unlimited">Unlimited</string>
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
