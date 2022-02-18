@@ -39,6 +39,7 @@ jobs:
       - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
         if: steps.ab.outcome == 'success'
       - run: ./ui/build prod
+      - run: cd ui && yarn run test && cd -
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
