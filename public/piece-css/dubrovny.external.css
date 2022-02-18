@@ -4,9 +4,11 @@
 .is2d .rook.white {background-image:url('/assets/piece/dubrovny/wR.svg')}
 .is2d .queen.white {background-image:url('/assets/piece/dubrovny/wQ.svg')}
 .is2d .king.white {background-image:url('/assets/piece/dubrovny/wK.svg')}
+.is2d .duke.white {background-image:url('/assets/piece/dubrovny/wD.svg')}
 .is2d .pawn.black {background-image:url('/assets/piece/dubrovny/bP.svg')}
 .is2d .knight.black {background-image:url('/assets/piece/dubrovny/bN.svg')}
 .is2d .bishop.black {background-image:url('/assets/piece/dubrovny/bB.svg')}
 .is2d .rook.black {background-image:url('/assets/piece/dubrovny/bR.svg')}
 .is2d .queen.black {background-image:url('/assets/piece/dubrovny/bQ.svg')}
 .is2d .king.black {background-image:url('/assets/piece/dubrovny/bK.svg')}
+.is2d .duke.black {background-image:url('/assets/piece/dubrovny/bD.svg')}

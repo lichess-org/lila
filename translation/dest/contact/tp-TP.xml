@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">toki</string>
-  <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
-  <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"Lichess\"</string>
+  <string name="contactLichess">o toki tawa jan pi ilo NewChess</string>
+  <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"NewChess\"</string>
   <string name="illegalPawnCapture">ijo musi li ken anpa ike e ijo \"jan utala\"</string>
   <string name="calledEnPassant">anpa ni li \"anpa tawa\" (\"en passant\"). ona li pona tawa nasin musi.</string>
   <string name="tryEnPassant">sina wile kama sona e \"anpa tawa\", o lukin e musi lili ni.</string>

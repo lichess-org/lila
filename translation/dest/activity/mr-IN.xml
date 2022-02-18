@@ -3,8 +3,8 @@
   <string name="activity">सक्रियता</string>
   <string name="hostedALiveStream">एक थेट प्रक्षेपण होस्ट करत आहे</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Lichess.org ला %2$s यांनी %1$s महिन्यासाठी सहकार्य केले</item>
-    <item quantity="other">Lichess.org ला %2$s यांनी %1$s महिन्यांसाठी सहकार्य केले</item>
+    <item quantity="one">NewChess.org ला %2$s यांनी %1$s महिन्यासाठी सहकार्य केले</item>
+    <item quantity="other">NewChess.org ला %2$s यांनी %1$s महिन्यांसाठी सहकार्य केले</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s या स्थितीचा %1$s वेळ सराव केला</item>
@@ -67,7 +67,7 @@
     <item quantity="other">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s या स्पर्धेत %1$s क्रमांक आला</string>
-  <string name="signedUp">Lichess.org येथे तुमचे खाते उघडले गेले</string>
+  <string name="signedUp">NewChess.org येथे तुमचे खाते उघडले गेले</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">\"%s संघामध्यॆ शामीळ झाला.\"</item>
     <item quantity="other">\"%s संघांमध्यॆ शामील झालात.\"</item>

@@ -268,7 +268,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
-  <string name="thisAccountViolatedTos">このアカウントは Lichess の利用規約に違反しました</string>
+  <string name="thisAccountViolatedTos">このアカウントは NewChess の利用規約に違反しました</string>
   <string name="openingExplorerAndTablebase">オープニング探索 &amp; テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
@@ -429,9 +429,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">URL は 1 行に 1 個です。</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
+  <string name="previouslyOnNewChessTV">過去の NewChess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
@@ -557,7 +557,7 @@
   <string name="streamersMenu">配信者</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブサイト運営者の方へ</string>
-  <string name="about">Lichess 概要</string>
+  <string name="about">NewChess 概要</string>
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
@@ -583,7 +583,7 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
-  <string name="lichessTournaments">Lichess トーナメント</string>
+  <string name="lichessTournaments">NewChess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
@@ -615,9 +615,9 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
-  <string name="readAboutOur">Lichess の %s 文書です。</string>
-  <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess サーバが手を処理する時間</string>
+  <string name="readAboutOur">NewChess の %s 文書です。</string>
+  <string name="networkLagBetweenYouAndLichess">あなたと NewChess の間のネットワークラグ</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess サーバが手を処理する時間</string>
   <string name="downloadAnnotated">解説つきダウンロード</string>
   <string name="downloadRaw">棋譜のみダウンロード</string>
   <string name="downloadImported">インポート分のダウンロード</string>
@@ -633,14 +633,14 @@
   <string name="withEverybody">誰にでも</string>
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは NewChess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
   <string name="sessions">セッション</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスを対局</string>
-  <string name="asFreeAsLichess">Lichess は常に無料</string>
+  <string name="asFreeAsLichess">NewChess は常に無料</string>
   <string name="builtForTheLoveOfChessNotMoney">金ではなくチェス愛のために作られたアプリ</string>
   <string name="everybodyGetsAllFeaturesForFree">誰でもすべての機能が無料です</string>
   <string name="zeroAdvertisement">広告いっさいなし</string>
@@ -741,7 +741,7 @@
   <string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
   <string name="timeoutExpires">禁止は %s 後に解けます。</string>
   <string name="why">どうして？</string>
-  <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
+  <string name="pleasantChessExperience">NewChess ではすべての人に楽しいチェス体験を提供しています。</string>
   <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
   <string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
   <string name="howToAvoidThis">どうすればいいの？</string>
@@ -749,14 +749,14 @@
   <string name="tryToWin">すべてのゲームで勝ち（またはドロー）を目指す</string>
   <string name="resignLostGames">敗勢なら投了する（時間切れまで放置しない）</string>
   <string name="temporaryInconvenience">しばらくご不便をおかけしますが</string>
-  <string name="wishYouGreatGames">今後も Lichess ですばらしいゲームを楽しまれるよう願っています。</string>
+  <string name="wishYouGreatGames">今後も NewChess ですばらしいゲームを楽しまれるよう願っています。</string>
   <string name="thankYouForReading">熟読ありがとう！</string>
   <string name="lifetimeScore">通算成績</string>
   <string name="currentMatchScore">現在のスコア</string>
   <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
-  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
+  <string name="agreementPolicy">私は NewChess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
   <string name="rapid">ラピッド</string>
@@ -799,7 +799,7 @@
   <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
   <string name="download">ダウンロード</string>
   <string name="welcome">ようこそ！</string>
-  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
+  <string name="lichessPatronInfo">NewChess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="coachManager">コーチ用設定</string>
   <string name="streamerManager">配信者用設定</string>
@@ -855,6 +855,6 @@
   <string name="youCantStartNewGame">この対局が終わるまで、別の対局は開始できません。</string>
   <string name="since">開始</string>
   <string name="until">終了</string>
-  <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
+  <string name="lichessDbExplanation">NewChess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
 </resources>

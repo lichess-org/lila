@@ -7,7 +7,7 @@
   <string name="trackStudentProgress">თვალი ადევნე მოსწავლეთა პროგრესს თამაშებსა და თავსატეხებში</string>
   <string name="messageAllStudents">მიწერე ყველა მოსწავლეს ახალ სავარჯიშოზე</string>
   <string name="freeForAllForever">100% უფასო ყველასათვის, ყოველთვის, რეკლამების და ტრეკერების გარეშე</string>
-  <string name="applyToBeLichessTeacher">გახდი ლიჩესის მასწავლებელი</string>
+  <string name="applyToBeNewChessTeacher">გახდი ლიჩესის მასწავლებელი</string>
   <string name="noClassesYet">ჯერ არაა კლასები.</string>
   <string name="teachersX">მასწავლებლები: %s</string>
   <string name="newClass">ახალი კლასი</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">კლასოს აღწერა</string>
   <string name="visibleByBothStudentsAndTeachers">მასწავლებლებსაც და მოსწავლეებსაც შეუძლიათ ხილვა</string>
   <string name="teachersOfTheClass">კლასის მასწავლებლები</string>
-  <string name="addLichessUsernames">მოიწვიე ლიჩესის მოთამაშეები მასწავლებლებლად. თითო ერთ ხაზზე.</string>
+  <string name="addNewChessUsernames">მოიწვიე ლიჩესის მოთამაშეები მასწავლებლებლად. თითო ერთ ხაზზე.</string>
   <string name="resetPassword">აღადგინე პაროლი</string>
   <string name="makeSureToCopy">აუცილებლად დააკოპირე ან შეინახე პაროლი ახლავე, ვეღარ ნახავ!</string>
   <string name="passwordX">პაროლი: %s</string>
@@ -36,12 +36,12 @@
   <string name="studentCredentials">მოსწავლე:  %1$s
 მომხმარებელი: %2$s
 პაროლი: %3$s</string>
-  <string name="inviteALichessAccount">მოიწვიე ლიჩესის მომხმარებელი</string>
+  <string name="inviteANewChessAccount">მოიწვიე ლიჩესის მომხმარებელი</string>
   <string name="inviteDesc1">თუ მოსწავლე უკვე ლიჩესის მომხმარებელია, შეგიძლია მოიწვიო კლასში.</string>
   <string name="inviteDesc2">ისინი ნახავენ კლასის ლინკს.</string>
   <string name="inviteDesc3">აუცილებელი: მხოლოდ ისინი მოიწიე ვისაც იცნობ, და ვისაც რეალურად სურს იყოს კლასში.</string>
   <string name="inviteDesc4">არ გაუგზავნო მოწვევები არამსურველ მოთამაშეებს.</string>
-  <string name="createANewLichessAccount">შექმენი ახალი ლიჩესის პროფილი</string>
+  <string name="createANewNewChessAccount">შექმენი ახალი ლიჩესის პროფილი</string>
   <string name="createDesc1">თუ მოსწავლე ჯერ არ არის ლიცესზე, შეგიძლია შენ შეუქმნა მომხმარებელი.</string>
   <string name="createDesc2">ემაილი არაა საჭიროო. პაროლი შეიქმნება, და მოსწავლეს გადასცემ, რათა შემოვიდნენ.</string>
   <string name="createDesc3">აუცილებელი: მოსწავლეს არ უნდა ჰქონდეს რამდენიმე პროფილი.</string>

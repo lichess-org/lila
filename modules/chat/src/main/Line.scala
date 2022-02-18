@@ -34,7 +34,7 @@ case class UserLine(
 
   def isVisible = !troll && !deleted
 
-  def isLichess = userId == User.lichessId
+  def isNewChess = userId == User.lichessId
 }
 case class PlayerLine(
     color: Color,

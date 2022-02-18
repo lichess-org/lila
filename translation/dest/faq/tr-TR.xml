@@ -2,22 +2,22 @@
 <resources>
   <string name="faqAbbreviation">SSS</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
-  <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
+  <string name="whyIsLichessCalledLichess">NewChess\'in adı neden NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
 
 %1$s  diye okunur.</string>
   <string name="leechess">lii-çes</string>
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
-  <string name="whyLiveLightLibre">Lichess, oyunlar 7/24 gerçek zamanlı olarak oynanıp izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
-  <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess\'in kaynak kodu %1$s, \'li[chess in sca]la\' ifadesinin kısaltılmış hâlidir. Zira Lichess\'in büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
-  <string name="howCanIContributeToLichess">Lichess\'e nasıl katkıda bulunabilirim?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
-  <string name="findMoreAndSeeHowHelp">%1$s olmakla ilgili daha fazla bilgi edinebilirsiniz (isterseniz %2$s de inceleyebilirsiniz). Lichess\'e zamanınızı ve becerilerinizi bahşederek destek olmanın da %3$s var.</string>
+  <string name="whyLiveLightLibre">NewChess, oyunlar 7/24 gerçek zamanlı olarak oynanıp izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
+  <string name="whyIsLilaCalledLila">Benzer şekilde, NewChess\'in kaynak kodu %1$s, \'li[chess in sca]la\' ifadesinin kısaltılmış hâlidir. Zira NewChess\'in büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
+  <string name="howCanIContributeToLichess">NewChess\'e nasıl katkıda bulunabilirim?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s olmakla ilgili daha fazla bilgi edinebilirsiniz (isterseniz %2$s de inceleyebilirsiniz). NewChess\'e zamanınızı ve becerilerinizi bahşederek destek olmanın da %3$s var.</string>
   <string name="beingAPatron">Destekçi</string>
   <string name="breakdownOfOurCosts">site giderleri dökümünü</string>
   <string name="otherWaysToHelp">birçok yolu</string>
-  <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
+  <string name="areThereWebsitesBasedOnLichess">NewChess kaynak kodunu kullanan siteler var mı?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Evet. NewChess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
   <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
@@ -28,7 +28,7 @@
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
   <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
+  <string name="youCanUseOpeningBookNoEngine">NewChess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de NewChess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>
   <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
@@ -36,8 +36,8 @@
   <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ile %1$s destekler.</string>
+  <string name="whatVariantsCanIplay">NewChess\'te hangi varyantları oynayabilirim?</string>
+  <string name="lichessSupportChessAnd">NewChess standart satranç ile %1$s destekler.</string>
   <string name="eightVariants">8 satranç varyantını</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
   <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 100\'de 1\'ine eşittir. Yani 100 santipiyon 1 piyon değerindedir. Bu değerler oyunda doğrudan bir rol oynamasa da oyuncular için yararlı, bilgisayarlar için ise pozisyon analizlerinde gereklidir.
@@ -46,7 +46,7 @@ Bilgisayarın önerdiği en iyi hamle santipiyon kaybettirmez ancak daha zayıf 
 
 Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hamle başına ne kadar az santipiyon kaybedilirse, oyun kalitesi o kadar yüksek demektir.
 
-Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</string>
+NewChess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</string>
   <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
   <string name="lichessFollowFIDErules">Oyun esnasında süresi biten oyuncu genellikle maçı kaybetmiş sayılır. Ancak rakip oyuncu, elindeki taşlar ile oyuncuyu herhangi bir şekilde mat etme şansına sahip değilse oyun berabere biter (%1$s).
 
@@ -63,9 +63,9 @@ Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 
 Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
   <string name="goodIntroduction">güzel bir açıklama</string>
-  <string name="lichessTraining">Lichess egzersizlerine</string>
+  <string name="lichessTraining">NewChess egzersizlerine</string>
   <string name="threefoldRepetition">Üç konum tekrarı</string>
-  <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
+  <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. NewChess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
   <string name="threefoldRepetitionLowerCase">üç konum tekrarı</string>
   <string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>
   <string name="repeatedPositionsThatMatters">Üç konum tekrarında %1$s hesaba katılır, hamleler değil. Tekrarlamalar üst üste olmak zorunda değildir.</string>
@@ -74,20 +74,20 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="threeFoldHasToBeClaimed">Bunun için önce oyunculardan birinin tekrar sebebiyle beraberlik talebinde bulunması gerekir. İşaret edilen beraberlik düğmesine basarak veya son tekrar hamlenizden önce beraberlik teklif ederek bu talepte bulunabilirsiniz. Üç konum tekrarında oyunculardan biri beraberlik talebinde bulunduğunda, rakibin teklifi kabul veya reddetmesine bakılmadan oyun berabere biter. Ayrıca %1$s, pozisyon tekrarlarında otomatik olarak beraberlik talep edilmesini seçebilirsiniz. Ek olarak, beş kez aynı pozisyon tekrarlandığında oyun ne olursa olsun sona erer.</string>
   <string name="configure">ayarlar kısmından</string>
   <string name="accounts">Hesap işlemleri</string>
-  <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
+  <string name="titlesAvailableOnLichess">NewChess\'te hangi unvanlar var?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
   <string name="showYourTitle">Resmî bir unvanınız varsa, unvanın hesabınıza tanımlanması için %1$s doldurarak başvuruda bulunabilirsiniz. Formu doldururken, unvanınızı belgeleyen evrakın net bir fotoğrafını ve sizin bu evrakı tutarken çekildiğiniz bir fotoğrafı yüklemeniz gerekir.
 
-Unvanınızı doğruladıktan sonra Lichess tarafından düzenlenen Titled Arena turnuvalarına katılmaya hak kazanırsınız.
+Unvanınızı doğruladıktan sonra NewChess tarafından düzenlenen Titled Arena turnuvalarına katılmaya hak kazanırsınız.
 
-Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
+Ayrıca NewChess\'e özel onursal bir %2$s unvanı da mevcut.</string>
   <string name="asWellAsManyNMtitles">birçok ulusal usta unvanını</string>
   <string name="verificationForm">doğrulama formunu</string>
-  <string name="canIbecomeLM">Lichess Ustası (LM) unvanını alabilir miyim?</string>
+  <string name="canIbecomeLM">NewChess Ustası (LM) unvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Resmî bir geçerliliği olmayan bu onursal unvan sadece Lichess tarafından verilir.
+  <string name="lMtitleComesToYouDoNotRequestIt">Resmî bir geçerliliği olmayan bu onursal unvan sadece NewChess tarafından verilir.
 
-Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. Siz LM unvanını değil, LM unvanı sizi alır. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifini kabul veya reddedebilirsiniz.
+NewChess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. Siz LM unvanını değil, LM unvanı sizi alır. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifini kabul veya reddedebilirsiniz.
 
 LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="whatUsernameCanIchoose">Kullanıcı adım ne olabilir?</string>
@@ -96,12 +96,12 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
-  <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
+  <string name="ownerUniqueTrophies">Bu kupa NewChess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
   <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için berserk açarak %s oynadığı oyunlarının hepsini kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasında</string>
   <string name="goldenZeeExplanation">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
-  <string name="lichessRatings">Lichess derecelendirmeleri</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
+  <string name="lichessRatings">NewChess derecelendirmeleri</string>
+  <string name="whichRatingSystemUsedByLichess">NewChess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 puanlama sistemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hâlâ tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
 
 Temel olarak, Glicko sistemi, puanlarınızı hesaplarken ve temsil ederken \"güven aralıkları\" kullanır. Siteyi ilk kullanmaya başladığınızda, puanınız 1500 ± 1000\'de başlar. 1500 puanınızı temsil eder ve 1000 güven aralığını temsil eder.
@@ -131,13 +131,13 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
   <string name="enableZenMode">%1$s veya oyun sırasındaysanız %2$s tuşuna basarak sade görünümü(Zen modunu) etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. Sorunun bizde olması çok nadirdir. Ayrıca Lichess yeniden başladığında veya bakıma girerse ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. Sorunun bizde olması çok nadirdir. Ayrıca NewChess yeniden başladığında veya bakıma girerse ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
   <string name="howToThreeDots">Nasıl...</string>
   <string name="enableDisableNotificationPopUps">Bildirimleri etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğinize bağlı olarak Lichess\'ten bildirim alabilirsiniz.
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğinize bağlı olarak NewChess\'ten bildirim alabilirsiniz.
 
-Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
+Bunun için tarayıcının adres çubuğundaki newchess.fun bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
-Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
+Ardından NewChess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 </resources>

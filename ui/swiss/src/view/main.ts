@@ -111,7 +111,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
           value: ctrl.data.nextRound?.at || '',
         },
         hook: onInsert((el: HTMLInputElement) =>
-          window.LichessFlatpickr(el, {
+          window.NewChessFlatpickr(el, {
             minDate: 'today',
             maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
             dateFormat: 'Z',
@@ -302,7 +302,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             {
               attrs: {
                 'data-icon': '',
-                href: 'https://lichess.org/api#tag/Swiss-tournaments',
+                href: 'https://newchess.fun/api#tag/Swiss-tournaments',
               },
             },
             'Swiss API documentation'

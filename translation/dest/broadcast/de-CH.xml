@@ -14,8 +14,8 @@
   <string name="fullDescription">Vollschtändigi Ereignisbeschrybig</string>
   <string name="fullDescriptionHelp">Optionali, usfüehrlichi Beschrybig vode Überträgig. %1$s isch verfügbar. D\'Beschrybig mues chürzer als %2$s Zeichä sy.</string>
   <string name="sourceUrlOrGameIds">Quell-URL oder Partie-IDs</string>
-  <string name="sourceUrlHelp">URL wo Lichess abfrogt, um PGN Aktualisierigä z\'becho. Si mues öffentlich usem Internet zuegänglich sy.</string>
-  <string name="gameIdsHelp">Alternativ chasch bis zu 64 dur Läärzeichä trennti Lichess-Partie-IDs ygäh.</string>
+  <string name="sourceUrlHelp">URL wo NewChess abfrogt, um PGN Aktualisierigä z\'becho. Si mues öffentlich usem Internet zuegänglich sy.</string>
+  <string name="gameIdsHelp">Alternativ chasch bis zu 64 dur Läärzeichä trennti NewChess-Partie-IDs ygäh.</string>
   <string name="startDate">Startdatum in diner eigenä Zytzone</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afoht</string>
   <string name="credits">Erwähn d\'Quellä</string>

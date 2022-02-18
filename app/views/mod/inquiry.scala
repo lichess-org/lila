@@ -272,7 +272,7 @@ object inquiry {
       allReports
         .filter(_.reason == Reason.Boost)
         .flatMap(_.atoms.toList)
-        .withFilter(_.byLichess)
+        .withFilter(_.byNewChess)
         .flatMap(_.text.linesIterator)
         .collect {
           case farmWithRegex(userId)     => List(userId)

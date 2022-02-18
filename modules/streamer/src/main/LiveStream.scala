@@ -91,7 +91,7 @@ final class LiveStreamApi(
   //       List(
   //         Stream.Twitch.Stream(
   //           "thibault",
-  //           "[RU] test stream on lichess.org",
+  //           "[RU] test stream on newchess.fun",
   //           Streamer(
   //             _id = Streamer.Id("thibault"),
   //             listed = Streamer.Listed(true),

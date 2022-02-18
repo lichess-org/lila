@@ -46,7 +46,7 @@ export default function () {
       loadCssPath('challenge');
       loadModule('challenge').then(
         () =>
-          (instance = window.LichessChallenge($el[0], {
+          (instance = window.NewChessChallenge($el[0], {
             data,
             show() {
               if (!isVisible('#challenge-app')) $toggle.trigger('click');
@@ -80,7 +80,7 @@ export default function () {
       loadCssPath('notify');
       loadModule('notify').then(
         () =>
-          (instance = window.LichessNotify($el.empty()[0], {
+          (instance = window.NewChessNotify($el.empty()[0], {
             data,
             incoming,
             isVisible: () => isVisible(selector),
@@ -129,7 +129,7 @@ export default function () {
       const $el = $('#dasher_app').html(initiatingHtml),
         playing = $('body').hasClass('playing');
       loadCssPath('dasher');
-      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0], { playing }));
+      loadModule('dasher').then(() => window.NewChessDasher($el.empty()[0], { playing }));
     });
   }
 
@@ -143,7 +143,7 @@ export default function () {
       if (booted) return;
       booted = true;
       loadModule('cli').then(
-        () => window.LichessCli.app($input[0]),
+        () => window.NewChessCli.app($input[0]),
         () => (booted = false)
       );
     };

@@ -1,12 +1,12 @@
 import { EditorState, Selected, Redraw, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
-import { Rules, Square } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
-import { Board } from 'chessops/board';
-import { Setup, Material, RemainingChecks } from 'chessops/setup';
-import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
-import { lichessVariant, lichessRules } from 'chessops/compat';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
+import { Rules, Square } from 'chessops-newchess1-mod/types';
+import { SquareSet } from 'chessops-newchess1-mod/squareSet';
+import { Board } from 'chessops-newchess1-mod/board';
+import { Setup, Material, RemainingChecks } from 'chessops-newchess1-mod/setup';
+import { Castles, setupPosition } from 'chessops-newchess1-mod/variant';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops-newchess1-mod/fen';
+import { lichessVariant, lichessRules } from 'chessops-newchess1-mod/compat';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
@@ -205,7 +205,7 @@ export default class EditorCtrl {
 
   setRules(rules: Rules): void {
     this.rules = rules;
-    if (rules != 'crazyhouse') this.pockets = undefined;
+    if (rules != 'crazyhouse' && rules != 'newchess1') this.pockets = undefined;
     else if (!this.pockets) this.pockets = Material.empty();
     if (rules != '3check') this.remainingChecks = undefined;
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();

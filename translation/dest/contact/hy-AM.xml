@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Կոնտակտներ</string>
-  <string name="contactLichess">Lichess-ի կոնտակտներ</string>
+  <string name="contactLichess">NewChess-ի կոնտակտներ</string>
   <string name="whatCanWeHelpYouWith">Ինչո՞վ կարող ենք օգնել։</string>
   <string name="visitThisPage">Խնդիրը կարգավորելու համար այցելեք այս էջը</string>
   <string name="iCantLogIn">Չեմ կարողանում մտնել</string>

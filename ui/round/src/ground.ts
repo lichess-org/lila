@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import { Chessground } from 'chessground';
-import { Config } from 'chessground/config';
+import { Chessground } from 'chessground-newchess1-mod';
+import { Config } from 'chessground-newchess1-mod/config';
 import * as round from './round';
 import resizeHandle from 'common/resize';
 import * as util from './util';
@@ -61,7 +61,7 @@ export function makeConfig(ctrl: RoundController): Config {
       },
     },
     predroppable: {
-      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+      enabled: data.pref.enablePremove && (data.game.variant.key === 'crazyhouse' || data.game.variant.key === 'newchess1'),
       events: {
         set: hooks.onPredrop,
         unset() {

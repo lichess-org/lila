@@ -1,5 +1,5 @@
 import { altCastles } from 'chess';
-import { parseUci } from 'chessops/util';
+import { parseUci } from 'chessops-newchess1-mod/util';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 

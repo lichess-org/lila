@@ -2,8 +2,8 @@
 <resources>
   <string name="activity">Virkni</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Studdi lichess.org í %1$s mánuð sem %2$s</item>
-    <item quantity="other">Studdi lichess.org í %1$s mánuði sem %2$s</item>
+    <item quantity="one">Studdi newchess.fun í %1$s mánuð sem %2$s</item>
+    <item quantity="other">Studdi newchess.fun í %1$s mánuði sem %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Æfði %1$s stöðu í %2$s</item>
@@ -29,5 +29,5 @@
     <item quantity="one">Lauk %s bréfskák</item>
     <item quantity="other">Lauk %s bréfskákum</item>
   </plurals>
-  <string name="signedUp">Nýskráning á lichess.org</string>
+  <string name="signedUp">Nýskráning á newchess.fun</string>
 </resources>

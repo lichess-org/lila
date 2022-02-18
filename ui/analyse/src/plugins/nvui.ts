@@ -3,7 +3,7 @@ import { prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { Redraw, AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import {
@@ -34,7 +34,7 @@ import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { Role } from 'chessground/types';
+import { Role } from 'chessground-newchess1-mod/types';
 import explorerView from '../explorer/explorerView';
 
 export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));

@@ -1,9 +1,9 @@
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import RacerCtrl from '../ctrl';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { h, VNode } from 'snabbdom';
-import { INITIAL_BOARD_FEN } from 'chessops/fen';
+import { INITIAL_BOARD_FEN } from 'chessops-newchess1-mod/fen';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();

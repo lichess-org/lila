@@ -42,7 +42,7 @@
   <string name="skip">דלג</string>
   <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
   <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">השבוע</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">החודש</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">אי פעם</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">השבוע</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">החודש</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">אי פעם</string>
 </resources>

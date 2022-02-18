@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Bağış yap</string>
   <string name="donateAsX">%s olarak bağış yap</string>
-  <string name="lichessPatron">Lichess Destekçisi</string>
+  <string name="lichessPatron">NewChess Destekçisi</string>
   <string name="freeAccount">Ücretsiz Hesap</string>
-  <string name="becomePatron">Lichess Destekçisi olun</string>
-  <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
+  <string name="becomePatron">NewChess Destekçisi olun</string>
+  <string name="xBecamePatron">%s NewChess Destekçisi oldu</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s %2$s aylığına Lichess\'i destekledi</item>
-    <item quantity="other">%1$s %2$s aylığına Lichess\'i destekledi</item>
+    <item quantity="one">%1$s %2$s aylığına NewChess\'i destekledi</item>
+    <item quantity="other">%1$s %2$s aylığına NewChess\'i destekledi</item>
   </plurals>
   <string name="newPatrons">Yeni Destekçiler</string>
   <string name="freeChess">Herkes için ücretsiz satranç,
@@ -19,10 +19,10 @@ sonsuza kadar!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
   <string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
   <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
-  <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
+  <string name="weRelyOnSupport">NewChess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
   <string name="lifetime">Ömür Boyu</string>
-  <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza değin Lichess destekçisi olun!</string>
-  <string name="lifetimePatron">Bir Ömür Lichess Destekçisi</string>
+  <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza değin NewChess destekçisi olun!</string>
+  <string name="lifetimePatron">Bir Ömür NewChess Destekçisi</string>
   <string name="monthly">Aylık</string>
   <string name="recurringBilling">Tekrarlayan ödeme, Destekçi kanatlarınız her ay yenilenecek.</string>
   <string name="onetime">Tek sefer</string>
@@ -32,50 +32,50 @@ sonsuza kadar!</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
-  <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
+  <string name="celebratedPatrons">NewChess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
   <string name="serversAndDeveloper">Asıl önceliğimiz güçlü sunuculara sahip olmak.
-Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
+Bununla birlikte, NewChess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
   <string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
-  <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
+  <string name="officialNonProfit">NewChess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
   <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca)</string>
   <string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
   <string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
 Veya %s.</string>
-  <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
+  <string name="contactSupport">NewChess destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
-  <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
+  <string name="noPatronFeatures">Hayır çünkü NewChess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
 Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakkına sahiptirler.</string>
   <string name="featuresComparison">Detaylı ayrıcalık karşılaştırmasına göz atın</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Bir aydır Lichess Destekçisi</item>
-    <item quantity="other">%s aydır Lichess Destekçisi</item>
+    <item quantity="one">Bir aydır NewChess Destekçisi</item>
+    <item quantity="other">%s aydır NewChess Destekçisi</item>
   </plurals>
-  <string name="youSupportWith">Ayda %s ile lichess.org\'u destekliyorsunuz.</string>
+  <string name="youSupportWith">Ayda %s ile newchess.fun\'u destekliyorsunuz.</string>
   <string name="tyvm">Desteğin için çok teşekkür ederiz. Harikasın!</string>
   <string name="currentStatus">Mevcut durum</string>
   <string name="nextPayment">Sonraki ödeme</string>
   <string name="youWillBeChargedXOnY">%2$s tarihinde %1$s ödemeniz olacak.</string>
   <string name="makeAdditionalDonation">Bir bağış daha yap</string>
-  <string name="giftPatronWings">Başka bir oyuncu adına Lichess\'i destekle</string>
+  <string name="giftPatronWings">Başka bir oyuncu adına NewChess\'i destekle</string>
   <string name="update">Güncelle</string>
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
   <string name="cancelSupport">desteğini iptal et</string>
   <string name="xOrY">%1$s veya %2$s</string>
-  <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
+  <string name="decideHowMuch">NewChess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
-  <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
-  <string name="viewOthers">Diğer Lichess Destekçilerini gör</string>
+  <string name="noLongerSupport">Artık NewChess\'i desteklemiyor</string>
+  <string name="viewOthers">Diğer NewChess Destekçilerini gör</string>
   <string name="date">Tarih</string>
   <string name="amount">Tutar</string>
   <string name="transactionCompleted">İşleminiz tamamlandı ve yaptığınız bağışın makbuzu e-posta adresinize gönderildi.</string>
   <string name="permanentPatron">Artık daimî bir Destekçi hesabınız var.</string>
   <string name="checkOutProfile">Profil sayfanıza bir bakın derim!</string>
   <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
-  <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
-  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
+  <string name="nowOneMonth">Bir aylığına NewChess Destekçisi oldunuz!</string>
+  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve NewChess hesabınız ücretsiz hâline dönecek.</string>
   <string name="changeCurrency">Para birimini değiştir</string>
 </resources>

@@ -29,7 +29,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   }
 
   def add(user: User, game: Game, perfs: Perfs): Funit = withColl { coll =>
-    val isStd = game.ratingVariant.standard
+    val isStd = game.ratingVariant.standard || game.ratingVariant.newChess1
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
       game.ratingVariant.chess960.option("chess960"                         -> perfs.chess960),

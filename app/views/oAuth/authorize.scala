@@ -56,7 +56,7 @@ object authorize {
           ),
           div(cls := "oauth__footer")(
             p(
-              "Not owned or operated by lichess.org"
+              "Not owned or operated by newchess.fun"
             ),
             p(cls := "oauth__redirect")(
               "Will redirect to ",

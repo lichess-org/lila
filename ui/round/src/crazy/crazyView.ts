@@ -1,4 +1,4 @@
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contact</string>
-  <string name="contactLichess">Contact met Lichess</string>
+  <string name="contactLichess">Contact met NewChess</string>
   <string name="whatCanWeHelpYouWith">Waar kunnen we je mee helpen?</string>
   <string name="visitThisPage">Bezoek deze pagina om het probleem op te lossen</string>
   <string name="iCantLogIn">Ik kan niet inloggen</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Ik heb geen toegang meer tot mijn tweestapsverificatiecodes</string>
   <string name="doPasswordReset">Doe een wachtwoordreset om je tweede factor te verwijderen</string>
   <string name="accountSupport">Ik heb accountondersteuning nodig</string>
-  <string name="wantTitle">Ik wil dat mijn titel op Lichess wordt weergegeven</string>
-  <string name="visitTitleConfirmation">Om je titel op je Lichess-profiel te laten zien en deel te nemen aan Titled Arenas, ga naar de bevestigingspagina van de titel</string>
+  <string name="wantTitle">Ik wil dat mijn titel op NewChess wordt weergegeven</string>
+  <string name="visitTitleConfirmation">Om je titel op je NewChess-profiel te laten zien en deel te nemen aan Titled Arenas, ga naar de bevestigingspagina van de titel</string>
   <string name="wantCloseAccount">Ik wil mijn account verwijderen</string>
   <string name="closeYourAccount">Op deze pagina kun je je account sluiten</string>
   <string name="doNotAskByEmail">Vraag ons niet per e-mail om een account te sluiten, we doen het niet.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Stuur geen privéberichten naar de toezichthouders.</string>
   <string name="onlyReports">Het is alleen effectief om te rapporteren via het rapportformulier.</string>
   <string name="wantReportBug">Ik wil een fout melden</string>
-  <string name="reportBugInForum">In het Feedback Forum van Lichess</string>
-  <string name="reportWebsiteIssue">Als een probleem met de Lichess-website op GitHub</string>
+  <string name="reportBugInForum">In het Feedback Forum van NewChess</string>
+  <string name="reportWebsiteIssue">Als een probleem met de NewChess-website op GitHub</string>
   <string name="reportMobileIssue">Als een probleem met de mobiele applicatie op GitHub</string>
-  <string name="reportBugInDiscord">In de Lichess discord server</string>
+  <string name="reportBugInDiscord">In de NewChess discord server</string>
   <string name="howToReportBug">Beschrijf hoe de bug eruitziet, wat je in plaats daarvan verwachtte en alle stappen om de bug te reproduceren.</string>
   <string name="illegalPawnCapture">Ongeldig slaan van pion</string>
   <string name="calledEnPassant">Het wordt \'\'en passant\'\' genoemd en is onderdeel van de schaakregels.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als u toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat u hebt gedaan en laat merken dat u begrijpt dat het een vergissing was.</string>
   <string name="otherRestriction">Andere restricties</string>
   <string name="collaboration">Samenwerking, juridisch, commercieel</string>
-  <string name="monetizing">Geld verdienen aan Lichess</string>
-  <string name="buyingLichess">Lichess kopen</string>
-  <string name="authorizationToUse">Autorisatie om Lichess te gebruiken</string>
-  <string name="welcomeToUse">Je bent welkom om Lichess te gebruiken voor je activiteiten, zelfs commercieel.</string>
-  <string name="videosAndBooks">Je kunt het in je video\'s weergeven en je mag screenshots van Lichess in je boeken afdrukken.</string>
+  <string name="monetizing">Geld verdienen aan NewChess</string>
+  <string name="buyingLichess">NewChess kopen</string>
+  <string name="authorizationToUse">Autorisatie om NewChess te gebruiken</string>
+  <string name="welcomeToUse">Je bent welkom om NewChess te gebruiken voor je activiteiten, zelfs commercieel.</string>
+  <string name="videosAndBooks">Je kunt het in je video\'s weergeven en je mag screenshots van NewChess in je boeken afdrukken.</string>
   <string name="creditAppreciated">Bronvermelding wordt gewaardeerd maar is niet nodig.</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
-  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess-gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
+  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je NewChess-gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
 </resources>

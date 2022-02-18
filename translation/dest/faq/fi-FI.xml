@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Usein kysyttyjä kysymyksiä</string>
-  <string name="whyIsLichessCalledLichess">Miksi Lichessin nimi on Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Miksi NewChessin nimi on NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
   <string name="leechess">li-tšes</string>
   <string name="hearItPronouncedBySpecialist">Kuuntele se asiantuntijan lausumana.</string>
-  <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lichess perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
-  <string name="whyIsLilaCalledLila">Niin ikään Lichessin lähdekoodi, %1$s, tarkoittaa \"li[chess in sca]la\", sillä suurin osa Lichessistä on kirjoitettu %2$slla, intuitiivisella ohjelmointikielellä.</string>
-  <string name="howCanIContributeToLichess">Kuinka voin tukea Lichessiä?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichessiä pidetään yllä tukijoiden lahjoituksilla ja vapaaehtoisten ryhmän ponnisteluilla.</string>
-  <string name="findMoreAndSeeHowHelp">Voit lukea lisää­ %1$s (sekä %2$s). Jos haluat vapaaehtoisesti auttaa Lichessiä ajallasi ja taidoillasi, on monia %3$s.</string>
+  <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että NewChess perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
+  <string name="whyIsLilaCalledLila">Niin ikään NewChessin lähdekoodi, %1$s, tarkoittaa \"li[chess in sca]la\", sillä suurin osa NewChessistä on kirjoitettu %2$slla, intuitiivisella ohjelmointikielellä.</string>
+  <string name="howCanIContributeToLichess">Kuinka voin tukea NewChessiä?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChessiä pidetään yllä tukijoiden lahjoituksilla ja vapaaehtoisten ryhmän ponnisteluilla.</string>
+  <string name="findMoreAndSeeHowHelp">Voit lukea lisää­ %1$s (sekä %2$s). Jos haluat vapaaehtoisesti auttaa NewChessiä ajallasi ja taidoillasi, on monia %3$s.</string>
   <string name="beingAPatron">tukijaksi ryhtymisestä</string>
   <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
   <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
-  <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3$samme.</string>
+  <string name="areThereWebsitesBasedOnLichess">Onko olemassa NewChessiin perustuvia nettisivuja?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">On. NewChess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3$samme.</string>
   <string name="fairPlay">Reilu peli</string>
   <string name="whenAmIEligibleRatinRefund">Milloin voin saada huijaajilta automaattisen vahvuusluvun hyvityksen?</string>
   <string name="ratingRefundExplanation">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Kuinka voin päästä moderaattoriksi?</string>
   <string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
   <string name="isCorrespondenceDifferent">Onko kirjeshakki erilaista kuin tavallinen shakki?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, Lichess ei hyväksy sitä.</string>
+  <string name="youCanUseOpeningBookNoEngine">NewChessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, NewChess ei hyväksy sitä.</string>
   <string name="gameplay">Pelaaminen</string>
   <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
-  <string name="basedOnGameDuration">Lichessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
+  <string name="basedOnGameDuration">NewChessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
   <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
-  <string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lichessissä?</string>
-  <string name="lichessSupportChessAnd">Lichessissä voi pelata tavallista shakkia ja %1$s.</string>
+  <string name="whatVariantsCanIplay">Mitä variantteja voin pelata NewChessissä?</string>
+  <string name="lichessSupportChessAnd">NewChessissä voi pelata tavallista shakkia ja %1$s.</string>
   <string name="eightVariants">8 shakkivarianttia</string>
   <string name="whatIsACPL">Mikä on keskimääräinen sadasosasotilaan menetys (ACPL)?</string>
   <string name="acplExplanation">Sadasosasotilas on shakissa käytettävä mittayksikkö, jolla kuvataan pelaajan etua. Sadasosasotilas on 1/100 sotilaan arvosta. Näin ollen 100 sadasosasotilasta = 1 sotilas. Näillä arvoilla ei ole pelissä mitään muodollista virkaa, mutta asemien arvioinnin kannalta ne ovat pelaajille hyödyksi ja tietokoneshakissa olennaisia.
@@ -43,7 +43,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
 
  Tätä arvoa voidaan käyttää ilmaisemaan pelin laatua. Mitä vähemmän sadasosasotilaita pelaaja menettää siirtoa kohden, sitä vahvemmin hän pelaa.
 
- Lichessin tietokoneanalyysi pohjautuu Stockfish-ohjelmaan.</string>
+ NewChessin tietokoneanalyysi pohjautuu Stockfish-ohjelmaan.</string>
   <string name="insufficientMaterial">Ajalla häviäminen, tasapeli ja riittämätön materiaali</string>
   <string name="lichessFollowFIDErules">Jos pelaajalta loppuu aika, kyseinen pelaaja yleensä häviää pelin. Peli on kuitenkin tasapeli, jos asema on sellainen, että vastapelaaja ei pysty tekemään mattia millään mahdollisella siirtosarjalla (%1$s).
 
@@ -60,31 +60,31 @@ Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
 Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
-  <string name="lichessTraining">Lichess-harjoittelu</string>
+  <string name="lichessTraining">NewChess-harjoittelu</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
-  <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
+  <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. NewChess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
   <string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
   <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
   <string name="positions">aseman</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Asema toistui meillä kolme kertaa. Miksi peli ei päättynyt tasapeliin?</string>
-  <string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lichessin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
+  <string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s NewChessin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
   <string name="configure">konfiguroida</string>
   <string name="accounts">Käyttäjätunnukset</string>
-  <string name="titlesAvailableOnLichess">Mitä arvonimiä Lichessissä on?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess tunnustaa kaikki FIDE:n lähishakissa myöntämät arvonimet sekä %1$s. Tässä on lista FIDE:n arvonimistä:</string>
+  <string name="titlesAvailableOnLichess">Mitä arvonimiä NewChessissä on?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess tunnustaa kaikki FIDE:n lähishakissa myöntämät arvonimet sekä %1$s. Tässä on lista FIDE:n arvonimistä:</string>
   <string name="showYourTitle">Jos sinulla on lähishakin arvonimi, voit hakea sen näyttämistä käyttäjätunnuksessasi täyttämällä %1$s ja liittämällä oheen selvän kuvan henkilöllisyystodistuksesta tai selfien, jossa pidät sitä kädessäsi.
 
- Kun arvonimesi on varmennettu Lichessissä, pääset pelaamaan Arvonimiareena-tapahtumissa.
+ Kun arvonimesi on varmennettu NewChessissä, pääset pelaamaan Arvonimiareena-tapahtumissa.
 
  Lisäksi on olemassa kunnianimi %2$s.</string>
   <string name="asWellAsManyNMtitles">monia kansallisia mestarititteleitä</string>
   <string name="verificationForm">varmennuslomakkeen</string>
-  <string name="canIbecomeLM">Voinko saada Lichess-mestarin (LM) arvonimen?</string>
+  <string name="canIbecomeLM">Voinko saada NewChess-mestarin (LM) arvonimen?</string>
   <string name="noUpperCaseDot">Et.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Tämä kunnianimi on epävirallinen ja olemassa vain Lichessissä.
+  <string name="lMtitleComesToYouDoNotRequestIt">Tämä kunnianimi on epävirallinen ja olemassa vain NewChessissä.
 
-  Me myönnämme sen harvoin oman harkintamme mukaan erityisen merkittäville pelaajille, jotka ovat hyviä Lichess-kansalaisia. Sinä et voi hankkia LM-arvonimeä, vaan LM-arvonimi saapuu luoksesi. Jos täytät vaatimukset, saat meiltä sitä koskevan viestin, ja voit joko hyväksyä tai hylätä arvonimen.
+  Me myönnämme sen harvoin oman harkintamme mukaan erityisen merkittäville pelaajille, jotka ovat hyviä NewChess-kansalaisia. Sinä et voi hankkia LM-arvonimeä, vaan LM-arvonimi saapuu luoksesi. Jos täytät vaatimukset, saat meiltä sitä koskevan viestin, ja voit joko hyväksyä tai hylätä arvonimen.
 
   Älä pyydä meiltä LM-arvonimeä.</string>
   <string name="whatUsernameCanIchoose">Mikä minun käyttäjänimeni voi olla?</string>
@@ -93,12 +93,12 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="canIChangeMyUsername">Voinko vaihtaa käyttäjänimeni?</string>
   <string name="usernamesCannotBeChanged">Et voi. Teknisistä ja käytännön syistä käyttäjänimiä ei voi muuttaa. Käyttäjänimet ovat liian monessa paikassa: tietokannoissa, vienti- ja lokitiedostoissa sekä ihmisten mielissä. Isojen ja pienten kirjainten käyttöä käyttäjänimessäsi voit muuttaa kerran.</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
-  <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
+  <string name="ownerUniqueTrophies">Tämä palkinto on NewChessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
   <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
   <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
   <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
-  <string name="lichessRatings">Lichess-vahvuusluvut</string>
-  <string name="whichRatingSystemUsedByLichess">Mitä vahvuuslukujärjestelmää Lichess käyttää?</string>
+  <string name="lichessRatings">NewChess-vahvuusluvut</string>
+  <string name="whichRatingSystemUsedByLichess">Mitä vahvuuslukujärjestelmää NewChess käyttää?</string>
   <string name="ratingSystemUsedByLichess">Vahvuusluvut lasketaan käyttämällä Mark Glickmanin kehittämää Glicko-2-vahvuuslukujärjestelmää. Se on hyvin suosittu vahvuuslukujärjestelmä, ja sitä käyttää hyvin moni shakkijärjestö (FIDE on huomattava vastaesimerkki, sillä se käyttää vielä vanhaa ELO-järjestelmää).
 
  Glicko-vahvuusluvut käyttävät pohjimmiltaan vahvuusluvun laskemisessa ja esittämisessä \"luottamusintervalleja\". Kun alat ensi kertaa käyttää sivustoa, vahvuuslukusi lähtökohta on 1500 ± 700. 1500 on sinun vahvuuslukusi ja 700 luottamusintervallisi.
@@ -128,13 +128,13 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="enableZenMode">Aktivoi Zen-moodi %1$s, tai paina pelin aikana kirjainta %2$s.</string>
   <string name="displayPreferences">ulkoasuasetuksista</string>
   <string name="connexionLostCanIGetMyRatingBack">Hävisin pelin viiveen tai katkenneen yhteyden takia. Voinko saada vahvuuslukupisteeni takaisin?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun Lichess käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun NewChess käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
   <string name="howToThreeDots">Kuinka voin...</string>
   <string name="enableDisableNotificationPopUps">Ottaa käyttöön tai poistaa käytöstä ponnahdusikkunat?</string>
   <string name="viewSiteInformationPopUp">Näytä sivuston informaatio-ponnahdusikkuna</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess voi halutessasi lähettää ilmoituksia ponnahdusikkunoilla, esimerkiksi kun on sinun siirtovuorosi tai kun olet saanut henkilökohtaisen viestin.
+  <string name="lichessCanOptionnalySendPopUps">NewChess voi halutessasi lähettää ilmoituksia ponnahdusikkunoilla, esimerkiksi kun on sinun siirtovuorosi tai kun olet saanut henkilökohtaisen viestin.
 
- Napsauta selaimesi osoitepalkissa lichess.org-osoitteen vieressä olevaa lukkokuvaketta.
+ Napsauta selaimesi osoitepalkissa newchess.fun-osoitteen vieressä olevaa lukkokuvaketta.
 
- Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä Lichessin ilmoitukset.</string>
+ Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä NewChessin ilmoitukset.</string>
 </resources>

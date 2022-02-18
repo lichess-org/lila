@@ -12,8 +12,8 @@
   <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
   <string name="doPasswordReset">Направете нулиране на паролата, за да премахнете втория фактор</string>
   <string name="accountSupport">Имам нужда от помощ за акаунта</string>
-  <string name="wantTitle">Искам моята титла да се показва в Lichess</string>
-  <string name="visitTitleConfirmation">За да се показва титла Ви в профила Ви в Lichess и да участвате в Titled Арени, посетете страницата за потвърждение на титлата</string>
+  <string name="wantTitle">Искам моята титла да се показва в NewChess</string>
+  <string name="visitTitleConfirmation">За да се показва титла Ви в профила Ви в NewChess и да участвате в Titled Арени, посетете страницата за потвърждение на титлата</string>
   <string name="wantCloseAccount">Искам да затворя моя акаунт</string>
   <string name="closeYourAccount">Може да затворите акаунта Ви на тази страница</string>
   <string name="doNotAskByEmail">Не питайте за затваряне на акаунт по имейл, няма да го направим.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Моля, не изпращайте директни съобщения до модераторите.</string>
   <string name="onlyReports">Ефективно е само докладването на играчи чрез формуляра.</string>
   <string name="wantReportBug">Искам да докладвам бъг</string>
-  <string name="reportBugInForum">В раздела за обратна връзка на Lichess на форума</string>
-  <string name="reportWebsiteIssue">Като проблем с уебсайта на Lichess в GitHub</string>
-  <string name="reportMobileIssue">Като проблем за мобилно приложение Lichess в GitHub</string>
-  <string name="reportBugInDiscord">В Discord сървъра на Lichess</string>
+  <string name="reportBugInForum">В раздела за обратна връзка на NewChess на форума</string>
+  <string name="reportWebsiteIssue">Като проблем с уебсайта на NewChess в GitHub</string>
+  <string name="reportMobileIssue">Като проблем за мобилно приложение NewChess в GitHub</string>
+  <string name="reportBugInDiscord">В Discord сървъра на NewChess</string>
   <string name="howToReportBug">Моля, опишете как изглежда грешката, какво очаквате да се случи вместо това и стъпките за възпроизвеждане на грешката.</string>
   <string name="illegalPawnCapture">Нелегално взимане на пешка</string>
   <string name="calledEnPassant">Нарича се \"ан пасан\" и е едно от правилата на шаха.</string>
@@ -48,10 +48,10 @@
   <string name="tryCastling">Опитайте тази малка интерактивна игра, за да упражните рокадата</string>
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
-  <string name="monetizing">Монетизация на Lichess</string>
-  <string name="buyingLichess">Покупка на Lichess</string>
-  <string name="authorizationToUse">Разрешение за използване на Lichess</string>
-  <string name="welcomeToUse">Можете да използвате Lichess за Вашата дейност, дори ако е търговска.</string>
+  <string name="monetizing">Монетизация на NewChess</string>
+  <string name="buyingLichess">Покупка на NewChess</string>
+  <string name="authorizationToUse">Разрешение за използване на NewChess</string>
+  <string name="welcomeToUse">Можете да използвате NewChess за Вашата дейност, дори ако е търговска.</string>
   <string name="noneOfTheAbove">Никое от горните</string>
   <string name="sendEmailAt">Изпратете ни имейл на %s.</string>
 </resources>

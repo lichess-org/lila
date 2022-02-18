@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">Пытанні і адказы</string>
   <string name="frequentlyAskedQuestions">Частыя пытанні</string>
-  <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). Lichess вымаўляцца як %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Чаму NewChess называецца NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). NewChess вымаўляцца як %1$s.</string>
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта вымаўляе спецыяліст.</string>
-  <string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо Lichess мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
-  <string name="whyIsLilaCalledLila">Аналагічна, зыходны код Lichess, %1$s, расшыфроўваецца як li [chess на sca] la, бо асноўная частка Lichess напісана на %2$s, інтуітыўна зразумелай мове праграмавання.</string>
-  <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
-  <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра тое як %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess ахверуючы свае навыкі і час, то ёсць шмат %3$s.</string>
+  <string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо NewChess мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
+  <string name="whyIsLilaCalledLila">Аналагічна, зыходны код NewChess, %1$s, расшыфроўваецца як li [chess на sca] la, бо асноўная частка NewChess напісана на %2$s, інтуітыўна зразумелай мове праграмавання.</string>
+  <string name="howCanIContributeToLichess">Як я магу дапамагчы NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
+  <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра тое як %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы NewChess ахверуючы свае навыкі і час, то ёсць шмат %3$s.</string>
   <string name="beingAPatron">стаць спонсарам</string>
   <string name="breakdownOfOurCosts">дэтальнае апісанне нашых затрат</string>
   <string name="otherWaysToHelp">іншых спосабаў дапамогі</string>
-  <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на NewChess?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Так. NewChess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
   <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
   <string name="ratingRefundExplanation">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
   <string name="youCannotApply">Немагчыма падаць заяўку, каб стаць мадэратарам. Калі мы заўважым кагосьці, хто, на нашу думку, будзе добрым мадэратарам, мы звяжамся з імі напрасткі.</string>
   <string name="isCorrespondenceDifferent">Ліставаная гульня адрозніваецца ад звычайных шахмат?</string>
-  <string name="youCanUseOpeningBookNoEngine">На Lichess, галоўнае адрозненне ў правілах ліставаных шахмат з\'яўляецца магчымасць карыстацца кніга Дэбітаў. Выкарыстанне шахматных рухавікоў усё роўна забаронена і ў выніку будзе пазначэнне карыстальніка рухавіка. Хоць ICCF дазваляе выкарыстанне рухавікоў у ліставаных шахматах, Lichess не.</string>
+  <string name="youCanUseOpeningBookNoEngine">На NewChess, галоўнае адрозненне ў правілах ліставаных шахмат з\'яўляецца магчымасць карыстацца кніга Дэбітаў. Выкарыстанне шахматных рухавікоў усё роўна забаронена і ў выніку будзе пазначэнне карыстальніка рухавіка. Хоць ICCF дазваляе выкарыстанне рухавікоў у ліставаных шахматах, NewChess не.</string>
   <string name="gameplay">Геймплэй</string>
   <string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
-  <string name="basedOnGameDuration">Кантролі часу на Lichess заснаваны на чаканай працягласці гульні = %1$s
+  <string name="basedOnGameDuration">Кантролі часу на NewChess заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
   <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess падтрымлівае класічныя шахматы і %1$s.</string>
+  <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на NewChess?</string>
+  <string name="lichessSupportChessAnd">NewChess падтрымлівае класічныя шахматы і %1$s.</string>
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
   <string name="whatIsACPL">Што такое сярэдняя страта санціпешкі (ACPL)?</string>
   <string name="acplExplanation">Санціпешка - адзінка вымярэння, якая выкарыстоўваецца ў шахматах для адлюстравання перавагі. Санціпешка = 1/100 пешкі. Таму 100 санціпешак = 1 пешка. Гэтыя значэнні не граюць аніякай афіцыйнай ролі ў гульні, але карысныя гульцам і асабліва ў кампутарных шахматах, каб ацаніць пазіцыю.
@@ -43,7 +43,7 @@
 
 Гэта значэнне таксама можа выкарыстоўвацца ў якасці паказчыка якасці гульні. Чым менш губляецца санціпешак за ход, тым мацней гульня.
 
-Капмутарны аналіз на Lichess выкарыстоўвае Stockfish.</string>
+Капмутарны аналіз на NewChess выкарыстоўвае Stockfish.</string>
   <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
   <string name="lichessFollowFIDErules">Звычайна, калі ў гульца скончваецца час, то ён прайграе. Аднак, гульня можа быць прызнана нічыёй, калі пазіцыя такая, што супернік не можа паставіць мат ніякай легальнай паслядоўнасцю хадоў (%1$s).
 
@@ -60,31 +60,31 @@
 
 Паспрабуйце %3$s для гэтага ходу, каб папрактывацца.</string>
   <string name="goodIntroduction">добрае тлумачэнне</string>
-  <string name="lichessTraining">Lichess практыку</string>
+  <string name="lichessTraining">NewChess практыку</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
-  <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. NewChess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
   <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
   <string name="positions">пазіцыі</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
-  <string name="threeFoldHasToBeClaimed">Паўтарэнне патрабна быць зафіксавана адным з гульцоў. Гэта магчыма зрабіць націснуўшы на адлюстраваную кнопку, альбо прапанаваўшы нічыю перад фінальным паўтарэннем хода, не мае значэнне калі ваш супер адхіліць прапанову, нічыя будзе зафіксавана ўсёроўна. Вы таксама можаце %1$s Lichess, каб аўтаматычна фіксаваць нічыю пры паўтарэннях. Дадаткова, пры 5 разовым паўтарэнні гульня скончваецца ў нічыю аўтаматычна.</string>
+  <string name="threeFoldHasToBeClaimed">Паўтарэнне патрабна быць зафіксавана адным з гульцоў. Гэта магчыма зрабіць націснуўшы на адлюстраваную кнопку, альбо прапанаваўшы нічыю перад фінальным паўтарэннем хода, не мае значэнне калі ваш супер адхіліць прапанову, нічыя будзе зафіксавана ўсёроўна. Вы таксама можаце %1$s NewChess, каб аўтаматычна фіксаваць нічыю пры паўтарэннях. Дадаткова, пры 5 разовым паўтарэнні гульня скончваецца ў нічыю аўтаматычна.</string>
   <string name="configure">наладзіць</string>
   <string name="accounts">Акаўнты</string>
-  <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess прызнае ўсе тытулы ФІДЭ, атрыманыя ў рэальным жыцці, а таксама %1$s. Вось спіс тытулаў ФІДЭ:</string>
+  <string name="titlesAvailableOnLichess">Якія тытулы існуюць на NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess прызнае ўсе тытулы ФІДЭ, атрыманыя ў рэальным жыцці, а таксама %1$s. Вось спіс тытулаў ФІДЭ:</string>
   <string name="showYourTitle">Калі вы маеце тытул у жыцці, каб адлюстроўваць яго ў акаўнце, вы можаце падаць запыт праз %1$s, дадаўшы выразнае фота пацвярджаючага дакумента/карткі та сэлфі, дзе вы трымаеце дакумент/картку.
 
-Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
+Пацвярджэнне тытулу на NewChess даст магчымасць гульц у Тытуляваных Арэнах.
 
 Нарэшце, ёсць ганаровы тытул %2$s.</string>
   <string name="asWellAsManyNMtitles">розныя нацыянальныя тытулы майстроў</string>
   <string name="verificationForm">форму верыфікацыі</string>
-  <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
+  <string name="canIbecomeLM">Магу я атрымаць тытул NewChess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Гэты ганаровы тытул неафіцыйны та існу толькі на Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Гэты ганаровы тытул неафіцыйны та існу толькі на NewChess.
 
-Мы зрэдку ўзнагароджваем адметных гульцоў, якія на наша меркаванне з\'яўляюцца добрымі грамадзянамі Lichess. Не вы прыходзіце за тытулам LM, тытул LM прыходзіць да вас. Калі вы будзеце варты, вы атрымаеце паведамленне ад нас пра гэта, з магчымасцю прыняць або адмовіцца ад яго.
+Мы зрэдку ўзнагароджваем адметных гульцоў, якія на наша меркаванне з\'яўляюцца добрымі грамадзянамі NewChess. Не вы прыходзіце за тытулам LM, тытул LM прыходзіць да вас. Калі вы будзеце варты, вы атрымаеце паведамленне ад нас пра гэта, з магчымасцю прыняць або адмовіцца ад яго.
 
 Не выпрошвайце тытул LM.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
@@ -93,12 +93,12 @@
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
   <string name="uniqueTrophies">Унікальныя трафеі</string>
-  <string name="ownerUniqueTrophies">Гэта трэфей унікальны ў гісторыі Lichess, ніхто акрамя %1$s ніколі не будзе маць такі.</string>
+  <string name="ownerUniqueTrophies">Гэта трэфей унікальны ў гісторыі NewChess, ніхто акрамя %1$s ніколі не будзе маць такі.</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
   <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
   <string name="goldenZeeExplanation">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
-  <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
+  <string name="lichessRatings">Рэйтынгавая сістэма NewChess</string>
+  <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае NewChess?</string>
   <string name="ratingSystemUsedByLichess">Рэйтынгі падлючваюцца з дапамогай метада Glicko-2, распрацаванага Маркам Глікманам. Гэта вельмі папулярны метад падліку, які выкарыстоўваецца значнай колькасцю шахматных арганізацый (заўважальны працілеглы прыклад - ФІДЭ, яны працягваюць выкарыстанне састарэлай сістэмы Эло).
 
 Па сутнасці, рэйтынгі Glicko выкарыстоўваюць \"інтэрвалы даверу\" пры разліку і адлюстравання вашага рэйтынгу. Калі вы ўпершыню пачынаеце карыстацца сайтам, ваш рэйтынг пачынаецца з 1500 ± 1000. 1500 - гэта ваш рэйтынг, а 1000 - інтэрвал даверу.
@@ -128,13 +128,13 @@
   <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуць %2$s падчас гульні.</string>
   <string name="displayPreferences">наладках адлюстравання</string>
   <string name="connexionLostCanIGetMyRatingBack">Я прайграў праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, аднак, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, аднак, малаверагодна. Заўважце, што, калі NewChess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
   <string name="viewSiteInformationPopUp">Праглядзець услываючае інфармацыйнае акенца сайта</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess можа па вашаму жаданню дасылаць усплываючыя паведамленні, напрыклад, калі ваш ход або вы атрымалі асабістае паведамленне.
+  <string name="lichessCanOptionnalySendPopUps">NewChess можа па вашаму жаданню дасылаць усплываючыя паведамленні, напрыклад, калі ваш ход або вы атрымалі асабістае паведамленне.
 
-Націсніце на значок замка насупраць lichess.org у адрасным полі вашага браўзера.
+Націсніце на значок замка насупраць newchess.fun у адрасным полі вашага браўзера.
 
-Затым абярыце, дазваляць ці блакаваць паведамленні ад Lichess.</string>
+Затым абярыце, дазваляць ці блакаваць паведамленні ад NewChess.</string>
 </resources>

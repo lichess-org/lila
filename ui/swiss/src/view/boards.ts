@@ -1,6 +1,6 @@
 import { Board, SwissOpts } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { player as renderPlayer } from './util';
 
 export function many(boards: Board[], opts: SwissOpts): VNode {

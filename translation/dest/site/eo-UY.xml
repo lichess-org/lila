@@ -278,7 +278,7 @@
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ĉi tiu konto malobservis la Kondiĉojn de Servo de Lichess</string>
+  <string name="thisAccountViolatedTos">Ĉi tiu konto malobservis la Kondiĉojn de Servo de NewChess</string>
   <string name="openingExplorerAndTablebase">Esplorilo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
@@ -449,7 +449,7 @@
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="inlineNotation">Enlineaj markoj</string>
-  <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
+  <string name="previouslyOnNewChessTV">Antaŭe ĉe NewChess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
@@ -595,7 +595,7 @@
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
   <string name="simulHostExtraTime">Plia tempo por la gastiganto</string>
-  <string name="lichessTournaments">Turniroj de Lichess</string>
+  <string name="lichessTournaments">Turniroj de NewChess</string>
   <string name="tournamentFAQ">Oftaj demandoj pri la turnira areno</string>
   <string name="timeBeforeTournamentStarts">Tempo ĝis la turniro komenciĝas</string>
   <string name="averageCentipawnLoss">Averaĝa centonpeona perdo</string>
@@ -629,8 +629,8 @@
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="readAboutOur">Legu pri nia %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempo por prilabori moviĝon sur Lichess servilo</string>
+  <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempo por prilabori moviĝon sur NewChess servilo</string>
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
   <string name="downloadRaw">Elŝutu krudaj</string>
   <string name="downloadImported">Elŝutu importitan</string>
@@ -644,14 +644,14 @@
   <string name="withEverybody">Kun ĉiuj</string>
   <string name="kidMode">Infana reĝimo</string>
   <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana reĝimo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En infana reĝimo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En infana reĝimo, la newchess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
   <string name="enableKidMode">Aktivigi infanan reĝimon</string>
   <string name="disableKidMode">Malaktivigi infanan reĝimon</string>
   <string name="security">Sekureco</string>
   <string name="sessions">Sesioj</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
-  <string name="asFreeAsLichess">Tiom libera kiom lichess</string>
+  <string name="asFreeAsLichess">Tiom libera kiom newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Konstruita por la amo de ŝako , ne mono</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
   <string name="zeroAdvertisement">Nulo anonco</string>
@@ -764,14 +764,14 @@
   <string name="tryToWin">Provu gajni (aŭ almenaŭ egaligi) ĉiun ludon, kiun vi ludas.</string>
   <string name="resignLostGames">Rezignu perditajn ludojn (ne foruzu la tempon).</string>
   <string name="temporaryInconvenience">Ni pardonpetas pro la provizoraj malkomfortoj,</string>
-  <string name="wishYouGreatGames">kaj ni deziras al vi bonegajn ludojn ĉe lichess.org.</string>
+  <string name="wishYouGreatGames">kaj ni deziras al vi bonegajn ludojn ĉe newchess.fun.</string>
   <string name="thankYouForReading">Dankon pro via legado!</string>
   <string name="lifetimeScore">Ĝisnuna poentaro</string>
   <string name="currentMatchScore">Aktuala matĉa poentaro</string>
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
   <string name="agreementAccount">Mi konsentas, ke mi ne kreos plurajn kontojn.</string>
-  <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
+  <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de NewChess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
   <string name="rapid">Rapida</string>
@@ -806,7 +806,7 @@
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
-  <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
+  <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de NewChess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>

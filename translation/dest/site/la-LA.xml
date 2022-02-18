@@ -417,7 +417,7 @@
   <string name="biography">Biographia</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria</string>
   <string name="thankYou">Gratias tibi!</string>
-  <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Prius in NewChess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
   <string name="activePlayers">Lusores frequentes</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cave, ludus ordinatus est sed tempore eget!</string>
@@ -556,7 +556,7 @@
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>
   <string name="simulHostExtraTime">Praebe magis temporis</string>
-  <string name="lichessTournaments">Lichess certamina</string>
+  <string name="lichessTournaments">NewChess certamina</string>
   <string name="tournamentFAQ">Certaminis FAQ</string>
   <string name="timeBeforeTournamentStarts">Tempus ante principio certaminis</string>
   <string name="averageCentipawnLoss">Medius casus centipeditum</string>
@@ -587,8 +587,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
   <string name="weHaveSentYouAnEmailTo">Ad %s nuntium missum est. Quod in nuntio missum link perge ut tesseram tuam mutes.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Cum te inscribis, annuis vinculo %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Error retis inter te ac Lichessem.</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempus ad motum intellegendum in Lichessis servo.</string>
+  <string name="networkLagBetweenYouAndLichess">Error retis inter te ac NewChessem.</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempus ad motum intellegendum in NewChessis servo.</string>
   <string name="downloadAnnotated">Extrahere annotata</string>
   <string name="downloadRaw">Extrahere mera</string>
   <string name="downloadImported">Descargare importari</string>
@@ -607,7 +607,7 @@
   <string name="sessions">Sessiones</string>
   <string name="revokeAllSessions">recanta sessionem</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
-  <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
+  <string name="asFreeAsLichess">Tam quam NewChess gratuito.</string>
   <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
   <string name="everybodyGetsAllFeaturesForFree">Omnes omnia gratuito sunt.</string>
   <string name="zeroAdvertisement">Sine praeconiis mercatoriis.</string>

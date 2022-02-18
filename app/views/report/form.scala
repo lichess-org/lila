@@ -28,7 +28,7 @@ object form {
           div(cls := "form-group")(
             p(
               a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
-                "Read more about Lichess reports"
+                "Read more about NewChess reports"
               )
             ),
             ctx.req.queryString.contains("postUrl") option p(

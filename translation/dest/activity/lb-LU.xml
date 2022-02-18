@@ -3,8 +3,8 @@
   <string name="activity">Verlaf</string>
   <string name="hostedALiveStream">Huet live gestreamt</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Ënnerstëtzt Lichess.org säit %1$s Mount als %2$s</item>
-    <item quantity="other">Ënnerstëtzt Lichess.org säit %1$s Méint als %2$s</item>
+    <item quantity="one">Ënnerstëtzt NewChess.org säit %1$s Mount als %2$s</item>
+    <item quantity="other">Ënnerstëtzt NewChess.org säit %1$s Méint als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Huet %1$s Positioun zu %2$s geüübt</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Huet bei %s Turnéieren nom Schwäizer System matgemaach</item>
   </plurals>
   <string name="rankedInSwissTournament">Huet sech als #%1$s an %2$s placéiert</string>
-  <string name="signedUp">Huet sech bei Lichess ugemellt</string>
+  <string name="signedUp">Huet sech bei NewChess ugemellt</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ass %s Ekipp bäigetrueden</item>
     <item quantity="other">Ass %s Ekippe bäigetrueden</item>

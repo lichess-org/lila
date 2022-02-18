@@ -6,7 +6,7 @@
   <string name="offline">ऑफ़लाइन</string>
   <string name="currentlyStreaming">वर्तमान में स्ट्रीमिंग: %s</string>
   <string name="lastStream">अंतिम स्ट्रीम %s</string>
-  <string name="becomeStreamer">एक Lichess स्ट्रीमर बनें</string>
+  <string name="becomeStreamer">एक NewChess स्ट्रीमर बनें</string>
   <string name="doYouHaveStream">क्या आपके पास एक Twitch या YouTube चैनल है?</string>
   <string name="hereWeGo">शुरू करते हैं!</string>
   <string name="allStreamers">सभी स्ट्रीमर</string>
@@ -15,19 +15,19 @@
   <string name="downloadKit">स्ट्रीमर किट डाउनलोड करें</string>
   <string name="xIsStreaming">%s स्ट्रीमिंग कर रहे है</string>
   <string name="rules">स्ट्रीमिंग नियम</string>
-  <string name="rule1">जब आप Lichess पर स्ट्रीम करते हैं तो अपने स्ट्रीम शीर्षक में \"lichess.org\" कीवर्ड शामिल करें।</string>
+  <string name="rule1">जब आप NewChess पर स्ट्रीम करते हैं तो अपने स्ट्रीम शीर्षक में \"newchess.fun\" कीवर्ड शामिल करें।</string>
   <string name="rule2">जब आप गैर-लिचेस सामग्री को स्ट्रीम करते हैं तो कीवर्ड हटा दे।</string>
   <string name="rule3">लिचेस स्वचालित रूप से आपकी स्ट्रीम का पता लगाएगा और निम्नलिखित भत्तों को सक्षम करेगा:</string>
   <string name="perks">कीवर्ड के साथ स्ट्रीमिंग का लाभ</string>
   <string name="perk1">अपने लाइकस प्रोफाइल पर एक ज्वलंत स्ट्रीमर आइकन प्राप्त करें।</string>
   <string name="perk2">स्ट्रीमर्स सूची के शीर्ष पर पहुंचे।</string>
-  <string name="perk3">अपने Lichess अनुयायियों को सूचित करें।</string>
+  <string name="perk3">अपने NewChess अनुयायियों को सूचित करें।</string>
   <string name="perk4">अपने खेल, टूर्नामेंट और अध्ययनों में अपनी स्ट्रीम दिखाएं।</string>
   <string name="approved">आपकी स्ट्रीम स्वीकृत है।</string>
   <string name="pendingReview">आपकी स्ट्रीम की समीक्षा मॉडरेटर्स द्वारा की जा रही है।</string>
   <string name="pleaseFillIn">कृपया अपनी स्ट्रीमर जानकारी भरें, और एक तस्वीर अपलोड करें।</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जब आप लिचेस स्ट्रीमर के रूप में सूचीबद्ध होने के लिए तैयार हैं, तो %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">मॉडरेटर समीक्षा का अनुरोध करें</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">मॉडरेटर समीक्षा का अनुरोध करें</string>
   <string name="anotherLanguage">यदि आपकी स्ट्रीम अंग्रेजी के अलावा किसी अन्य भाषा में है, तो अपने स्ट्रीम शीर्षक की शुरुआत में, वर्ग कोष्ठक में संलग्न सही भाषा टैग (%s) शामिल करें।
 उदाहरण के लिए, आप रूसी के लिए \"[RU]\", तुर्की के लिए \"[TR]\", फ्रेंच के लिए \"[FR]\" आदि शामिल कर सकते हैं।
 इसे स्ट्रीम शीर्षक में YouTube या YouTube पृष्ठ पर रखें, लिचेस स्ट्रीम सेटिंग्स में नहीं।

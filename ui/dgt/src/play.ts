@@ -1,9 +1,9 @@
-import { Chess } from 'chessops/chess';
-import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, parseSan } from 'chessops/san';
-import { NormalMove } from 'chessops/types';
-import { board } from 'chessops/debug';
-import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
+import { Chess } from 'chessops-newchess1-mod/chess';
+import { INITIAL_FEN, makeFen, parseFen } from 'chessops-newchess1-mod/fen';
+import { makeSan, parseSan } from 'chessops-newchess1-mod/san';
+import { NormalMove } from 'chessops-newchess1-mod/types';
+import { board } from 'chessops-newchess1-mod/debug';
+import { defaultSetup, fen, makeUci, parseUci } from 'chessops-newchess1-mod';
 
 export default function (token: string) {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
@@ -51,10 +51,10 @@ export default function (token: string) {
     console.error('Invalid JSON Object for Speech Keywords. Using English default. ' + error);
   }
 
-  //Lichess Integration with Board API
+  //NewChess Integration with Board API
 
   /**
-   * GLOBAL VARIABLES - Lichess Connectivity
+   * GLOBAL VARIABLES - NewChess Connectivity
    */
   const time = new Date(); //A Global time object
   let currentGameId = ''; //Track which is the current Game, in case there are several open games
@@ -90,7 +90,7 @@ export default function (token: string) {
   /**
    * Global Variables for DGT Board Connection (JACM)
    */
-  let localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half-move behind Lichess or half-move in advance
+  let localBoard: Chess = startingPosition(); //Board with valid moves played on NewChess and DGT Board. May be half-move behind NewChess or half-move in advance
   let DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
   let boards = Array<{ serialnr: string; state: string }>(); //An array to store all the board recognized by DGT LiveChess
   let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
@@ -517,7 +517,7 @@ export default function (token: string) {
    * Initialize a ChessBoard when connecting or re-connecting to a game
    *
    * @param {string} gameId - The gameId of the game to store on the board
-   * @param {Object} data - The gameFull event from lichess.org
+   * @param {Object} data - The gameFull event from newchess.fun
    */
   function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string } }) {
     try {
@@ -944,17 +944,17 @@ export default function (token: string) {
                 //Play the move on local board to keep it in sync
                 localBoard.play(moveObject);
               } else if (compareMoves(lastMove.move, moveObject)) {
-                //This is a valid adjustment - Just making the move from Lichess
+                //This is a valid adjustment - Just making the move from NewChess
                 if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
-                //no need to send anything to Lichess moveObject required
+                //no need to send anything to NewChess moveObject required
                 //lastSanMove will be updated once this move comes back from lichess
                 //Play the move on local board to keep it in sync
                 localBoard.play(moveObject);
               } else {
-                //Invalid Adjustment. Move was legal but does not match last move received from Lichess
+                //Invalid Adjustment. Move was legal but does not match last move received from NewChess
                 console.error('onmessage - Invalid Adjustment was made');
                 if (compareMoves(lastMove.move, moveObject)) {
-                  console.error('onmessage - Played move has not been received by Lichess.');
+                  console.error('onmessage - Played move has not been received by NewChess.');
                 } else {
                   console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
                   console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);
@@ -1021,9 +1021,9 @@ export default function (token: string) {
   }
 
   /**
-   * Synchronizes the position on Lichess with the position on the board
+   * Synchronizes the position on NewChess with the position on the board
    * If the position does not match, no moves will be received from LiveChess
-   * @param chess - The chessops Chess object with the position on Lichess
+   * @param chess - The chessops Chess object with the position on NewChess
    */
   async function sendBoardToLiveChess(chess: Chess) {
     const fen = makeFen(chess.toSetup());
@@ -1243,7 +1243,7 @@ export default function (token: string) {
     console.log('  ;::|   _.=`\\                   ░ ░       ░  ░  ░   ░  ░      ░        ░      ');
     console.log('  `;:|.=` _.=`\\                  ░                                             ');
     console.log("    '|_.=`   __\\                                                               ");
-    console.log('    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ');
+    console.log('    `\\_..==`` /                 NewChess.org - DGT Electronic Board Connector   ');
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
     console.log('    /          \\                                  v1.0.7                       ');
     console.log("jgs('--......--')                                                             ");

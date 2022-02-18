@@ -67,7 +67,7 @@ object mine {
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                     ),
                     ctx.isAuth option div(
-                      h2(cls := "ninja-title", "Or invite a Lichess user:"),
+                      h2(cls := "ninja-title", "Or invite a NewChess user:"),
                       br,
                       postForm(
                         cls := "user-invite complete-parent",

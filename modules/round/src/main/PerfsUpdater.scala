@@ -43,7 +43,7 @@ final class PerfsUpdater(
                 updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
               case chess.variant.Crazyhouse =>
                 updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
-              case chess.variant.Standard =>
+              case chess.variant.Standard | chess.variant.NewChess1 =>
                 game.speed match {
                   case Speed.Bullet =>
                     updateRatings(ratingsW.bullet, ratingsB.bullet, game)
@@ -137,7 +137,7 @@ final class PerfsUpdater(
       case (player, opponent) =>
         val perfs            = player.perfs
         val speed            = game.speed
-        val isStd            = game.ratingVariant.standard
+        val isStd            = game.ratingVariant.standard || game.ratingVariant.newChess1
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
           if (cond) {

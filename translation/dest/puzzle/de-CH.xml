@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
   <string name="fromXGames">Ufgabe us Partie vu %s</string>
   <string name="searchPuzzles">Suech Ufgabe</string>
-  <string name="fromMyGamesNone">Du git kei Ufgabe - us diine Schpiil - i de Datäbank, aber Lichess schätzt dich immerno sehr.
+  <string name="fromMyGamesNone">Du git kei Ufgabe - us diine Schpiil - i de Datäbank, aber NewChess schätzt dich immerno sehr.
 
 Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufgabe us diine eigene Schpiil zuegfüegt werded!</string>
   <string name="fromXGamesFound">%1$s Ufgabe in %2$s Partie gfunde</string>

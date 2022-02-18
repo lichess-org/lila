@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Konfirmo llogarinë tuaj në lichess.org, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klikoni link për të aktivizuar accountin tuaj në Lichess:</string>
-  <string name="emailConfirm_ignore">Nëse nuk jeni regjistruar me Lichess ju mund të injoroni këtë mesazh.</string>
-  <string name="passwordReset_subject">Rivendosni password-in tuaj në lichess.org. %s</string>
+  <string name="emailConfirm_subject">Konfirmo llogarinë tuaj në newchess.fun, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a NewChess account.&#10;&#10;The unique reset link is presented just after this string.">Klikoni link për të aktivizuar accountin tuaj në NewChess:</string>
+  <string name="emailConfirm_ignore">Nëse nuk jeni regjistruar me NewChess ju mund të injoroni këtë mesazh.</string>
+  <string name="passwordReset_subject">Rivendosni password-in tuaj në newchess.fun. %s</string>
   <string name="passwordReset_intro">Ne morëm një kërkesë për të rivendosur passwordin për accountin tuaj.</string>
   <string name="passwordReset_clickOrIgnore">Nëse e keni bërë këtë kërkesë, klikoni linkun më poshtë. Nëse jo, mund ta injoroni këtë email.</string>
   <string name="emailChange_subject">Konfirmo adresën e re të e-mail-it. %s</string>
   <string name="emailChange_intro">Ju keni kërkuar të ndryshoni adresën e e-mail-it.</string>
   <string name="emailChange_click">Për të konfirmuar se ke qasje në këtë email, kliko link më poshtë:</string>
-  <string name="welcome_subject">Mirësevini në lichess.org, %s</string>
-  <string name="welcome_text">Ju keni krijuar me sukses accountin tuaj në https://lichess.org.
+  <string name="welcome_subject">Mirësevini në newchess.fun, %s</string>
+  <string name="welcome_text">Ju keni krijuar me sukses accountin tuaj në https://newchess.fun.
 
 Këtu është faqja e profilit tënd: %1$s. Ju mund ta personalizoni atë në %2$s.
 
 Have fun, dhe mund të copa tuaj gjithmonë të gjejnë rrugën e tyre për të mbretit kundërshtarin tuaj!</string>
-  <string name="logInToLichess">Lidhem më lichess.org, %s</string>
+  <string name="logInToLichess">Lidhem më newchess.fun, %s</string>
   <string name="common_orPaste">(Duke klikuar të mos punosh, provo ta copypasta në browserin tënd!)</string>
   <string name="common_note">Kjo është një serivce email në lidhje me përdorimin tuaj në %s.</string>
   <string name="common_contact">Për të na kontaktuar, ju lutem përdorni %s.</string>

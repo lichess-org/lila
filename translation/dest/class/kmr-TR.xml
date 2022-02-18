@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Wane</string>
-  <string name="teachClassesOfChessStudents">Bi alavên Polên Lichessê ders pêş xwendekarên setrencê bike.</string>
+  <string name="teachClassesOfChessStudents">Bi alavên Polên NewChessê ders pêş xwendekarên setrencê bike.</string>
   <string name="features">Taybetî</string>
   <string name="quicklyGenerateSafeUsernames">Ji bo xwendekaran bi lez bernavan û şîfreyan çêbike</string>
   <string name="trackStudentProgress">Pêşveçûna xwendekaran a di lîstik û pazilan de bişopîne</string>
   <string name="messageAllStudents">Di derheqa materyalên nuh de peyam bişîne ji xwendekaran re</string>
   <string name="freeForAllForever">%100 bêbuha, ji herkesî re, her tim, bê reklam û peyger</string>
-  <string name="applyToBeLichessTeacher">Ji bo bûyîna mamosteyê Lichessê serî lê bide</string>
+  <string name="applyToBeNewChessTeacher">Ji bo bûyîna mamosteyê NewChessê serî lê bide</string>
   <string name="noClassesYet">Hîna pol tune ne.</string>
   <string name="teachersX">Mamoste: %s</string>
   <string name="newClass">Waneya nû</string>

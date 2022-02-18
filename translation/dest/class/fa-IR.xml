@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">کلاس ها</string>
-  <string name="teachClassesOfChessStudents">با استفاده از مجموعه ابزار های کلاس های lichess به دانش آموزان، شطرنج آموزش دهید.</string>
+  <string name="teachClassesOfChessStudents">با استفاده از مجموعه ابزار های کلاس های newchess به دانش آموزان، شطرنج آموزش دهید.</string>
   <string name="features">امکانات</string>
   <string name="quicklyGenerateSafeUsernames">برای دانش آموزان خود سریعا نام کاربری و رمز عبور امن بسازید</string>
   <string name="trackStudentProgress">پیشرفت دانش آموزان را در پازل ها و بازی ها مشاهده کنید</string>
   <string name="messageAllStudents">به تمام دانش آموزان درباره شرایط جدید کلاس پیام دهید</string>
   <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
-  <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
+  <string name="applyToBeNewChessTeacher">برای آنکه معلمِ NewChess باشید درخواست بدهید</string>
   <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">توصیف کلاس</string>
   <string name="visibleByBothStudentsAndTeachers">قابل مشاهده برای دانش آموزان و معلم این کلاس</string>
   <string name="teachersOfTheClass">معلمهای کلاس</string>
-  <string name="addLichessUsernames">نام کاربری های lichess را وارد کنید تا آنها را به عنوان معلم دعوت کنید. هر خط یک نام کاربری.</string>
+  <string name="addNewChessUsernames">نام کاربری های newchess را وارد کنید تا آنها را به عنوان معلم دعوت کنید. هر خط یک نام کاربری.</string>
   <string name="resetPassword">بازنشانی گذرواژه</string>
   <string name="makeSureToCopy">مطمئن شوید که رمز عبور را copy می کنید یا آن را می نویسید. شما دیگر این رمز عبور را نخواهید دید!</string>
   <string name="passwordX">گذرواژه: %s</string>
@@ -36,16 +36,16 @@
   <string name="studentCredentials">دانش‌جو: %1$s
 نامِ کاربری: %2$s
 گذرواژه: %3$s</string>
-  <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
-  <string name="inviteDesc1">اگر دانش آموز هم اکنون دارای یک حساب در lichess می باشد، شما می توانید او را به کلاس دعوت کنید.</string>
-  <string name="inviteDesc2">آنها یک پیام در lichess حاوی یک لینک برای ورود به کلاس دریافت خواهند کرد.</string>
+  <string name="inviteANewChessAccount">یک اکانت NewChess را دعوت کنید</string>
+  <string name="inviteDesc1">اگر دانش آموز هم اکنون دارای یک حساب در newchess می باشد، شما می توانید او را به کلاس دعوت کنید.</string>
+  <string name="inviteDesc2">آنها یک پیام در newchess حاوی یک لینک برای ورود به کلاس دریافت خواهند کرد.</string>
   <string name="inviteDesc3">مهم: فقط دانش آموزانی که میشناسید و میخواهند وارد کلاس بشوند را دعوت کنید.</string>
-  <string name="createANewLichessAccount">ساخت یک حساب جدید در lichess</string>
-  <string name="createDesc1">اگر دانش آموز هنوز حساب lichess ندارد، شما می توانید از اینجا برای او حساب درست کنید.</string>
+  <string name="createANewNewChessAccount">ساخت یک حساب جدید در newchess</string>
+  <string name="createDesc1">اگر دانش آموز هنوز حساب newchess ندارد، شما می توانید از اینجا برای او حساب درست کنید.</string>
   <string name="createDesc2">هیچ آدرس ایمیلی نیاز نیست. یک رمز عبور ساخته خواهد شد و شما باید آن را به دانش آموز انتقال بدهید تا بتواند وارد شود.</string>
   <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="createStudentWarning">فقط برای دانش آموزان واقعی حساب باز کنید. از این امکان برای درست کردن چندین حساب برای خود استفاده نکنید. در غیر این صورت حساب شما مسدود خواهد شد.</string>
-  <string name="lichessUsername">نام کاربریِ Lichess</string>
+  <string name="lichessUsername">نام کاربریِ NewChess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="welcomeToClass">به کلاس %s خوش آمدید.
 این لینک برای ورود به کلاس است.</string>

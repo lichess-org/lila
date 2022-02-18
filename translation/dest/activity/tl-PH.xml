@@ -3,8 +3,8 @@
   <string name="activity">Aktibidad</string>
   <string name="hostedALiveStream">Nag-host ng live stream</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
-    <item quantity="other">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
+    <item quantity="one">Sinusuportahan ang newchess.fun para sa %1$s buwan bilang isang %2$s</item>
+    <item quantity="other">Sinusuportahan ang newchess.fun para sa %1$s buwan bilang isang %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Nalutas %s taktikal na palaisipan</item>

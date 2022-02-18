@@ -136,7 +136,7 @@
   <string name="interestingMove">Movemento interesante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Movemento dubidoso</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Movemento único</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://newchess.fun/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Posición igualada</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posición pouco clara</string>
   <string name="whiteIsSlightlyBetter">Brancas lixeiramente mellor</string>
@@ -148,18 +148,18 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novidade</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Desenvolvemento</string>
   <string name="initiative">Iniciativa</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ataque</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contraxogo</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problema de tempo</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a NewChess study. Noun.">Ataque</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contraxogo</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a NewChess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problema de tempo</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Con compensación</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Coa idea</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a NewChess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Coa idea</string>
   <string name="nextChapter">Capítulo seguinte</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Accións de estudo</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Temas</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Os meus temas</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Temas populares</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Manexar temas</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://newchess.fun/study/topic">Temas</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://newchess.fun/study/topic">Os meus temas</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://newchess.fun/study/topic">Temas populares</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://newchess.fun/study/topic">Manexar temas</string>
   <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Voltar</string>
   <string name="playAgain">Xogar de novo</string>
   <string name="whatWouldYouPlay">Qué xogarías en esta posición?</string>

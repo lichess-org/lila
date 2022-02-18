@@ -202,7 +202,7 @@ kahe käiguga!</string>
   <string name="whatNext">Mis edasi?</string>
   <string name="youKnowHowToPlayChess">Sa oskad mängida malet, õnnitlused! Kas sa tahad saada tugevaks mängijaks?</string>
   <string name="register">Registreeru</string>
-  <string name="getAFreeLichessAccount">Lichess konto loomine on tasuta</string>
+  <string name="getAFreeNewChessAccount">NewChess konto loomine on tasuta</string>
   <string name="practice">Harjuta</string>
   <string name="learnCommonChessPositions">Õpi tuntud maleseise</string>
   <string name="puzzles">Pusled</string>

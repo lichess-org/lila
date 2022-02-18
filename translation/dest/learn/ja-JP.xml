@@ -211,7 +211,7 @@
   <string name="whatNext">その先は？</string>
   <string name="youKnowHowToPlayChess">おめでとう、あなたはチェスのルールを覚えました。もっと強くなりたいですか？</string>
   <string name="register">登録</string>
-  <string name="getAFreeLichessAccount">Lichess の無料アカウントを作る</string>
+  <string name="getAFreeNewChessAccount">NewChess の無料アカウントを作る</string>
   <string name="practice">練習</string>
   <string name="learnCommonChessPositions">チェスのよくある局面を知る</string>
   <string name="puzzles">タクティクス問題</string>

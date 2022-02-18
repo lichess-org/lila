@@ -1,10 +1,10 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
-import LichessChat from 'chat';
+import NewChessChat from 'chat';
 import menuHover from 'common/menuHover';
 import MoveOn from './moveOn';
 import RoundController from './ctrl';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { main as view } from './view/main';
 import { RoundOpts } from './interfaces';
 
@@ -44,7 +44,7 @@ export function app(opts: RoundOpts): RoundApi {
 
 export { boot };
 
-window.LichessChat = LichessChat;
+window.NewChessChat = NewChessChat;
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;

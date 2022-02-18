@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">প্রায়ই জিজ্ঞাসিত প্রশ্নাবলী</string>
   <string name="whyIsLichessCalledLichess">লিচেজের নাম কেনো লিচেজ?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess মানে হলো Live/Light/Libre and Chess. তাই এটার উচ্চারান %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess মানে হলো Live/Light/Libre and Chess. তাই এটার উচ্চারান %1$s.</string>
   <string name="leechess">লি-চেজ</string>
   <string name="hearItPronouncedBySpecialist">বিশেষজ্ঞের থেকে উচ্চারন শুনুন.</string>
   <string name="whyIsLilaCalledLila">প্রসঙ্গত, উন্মুক্ত প্রোগ্রাম লিচেজের, %1$s, তৈরি হয়েছে Scala প্রোগ্রাম দিয়ে %2$s যা একটি স্বজ্ঞাত প্রোগ্রামিং ভাষা.</string>
@@ -13,7 +13,7 @@
   <string name="breakdownOfOurCosts">আমাদের খরচপাতির হিসাব</string>
   <string name="otherWaysToHelp">আমাদের সাহায্যের অন্য উপায়</string>
   <string name="areThereWebsitesBasedOnLichess">লিচেজের আরো ওয়েবসাইট আছে?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">হ্যা. লিচেজের আরো উন্মুক্ত ওয়েবসাইট রয়েছে যা %1$s,%2$s অথবা %3$s.</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">হ্যা. লিচেজের আরো উন্মুক্ত ওয়েবসাইট রয়েছে যা %1$s,%2$s অথবা %3$s.</string>
   <string name="fairPlay">সুষ্ঠ নিয়মে খেলা</string>
   <string name="eightVariants">দাবার ৮ ধরন</string>
   <string name="fideHandbookX">ফিদে হ্যান্ডবুক %s</string>
@@ -25,7 +25,7 @@
   <string name="configure">কনফিগার</string>
   <string name="accounts">অ্যাকাউন্ট</string>
   <string name="titlesAvailableOnLichess">লিচেজে কি কি টাইটেল রয়েছে?</string>
-  <string name="canIbecomeLM">আমি কি Lichess Master (LM) টাইটেল পাবো?</string>
+  <string name="canIbecomeLM">আমি কি NewChess Master (LM) টাইটেল পাবো?</string>
   <string name="noUpperCaseDot">না.</string>
   <string name="whatUsernameCanIchoose">আমার ইউজারনেম কেমন হতে হবে?</string>
   <string name="guidelines">নিয়মকানুন</string>

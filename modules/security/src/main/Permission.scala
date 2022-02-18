@@ -72,11 +72,11 @@ object Permission {
   case object ApiHog                extends Permission("API_HOG", "API hog")
   case object ApiChallengeAdmin     extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
 
-  case object LichessTeam
+  case object NewChessTeam
       extends Permission(
         "LICHESS_TEAM",
         List(Prismic),
-        "Lichess team"
+        "NewChess team"
       )
 
   case object TimeoutMod
@@ -94,7 +94,7 @@ object Permission {
       extends Permission(
         "BOOST_HUNTER",
         List(
-          LichessTeam,
+          NewChessTeam,
           MarkBooster,
           UserModView,
           GamesModView,
@@ -114,7 +114,7 @@ object Permission {
       extends Permission(
         "CHEAT_HUNTER",
         List(
-          LichessTeam,
+          NewChessTeam,
           ViewBlurs,
           MarkEngine,
           UserModView,
@@ -137,7 +137,7 @@ object Permission {
       extends Permission(
         "SHUSHER",
         List(
-          LichessTeam,
+          NewChessTeam,
           TimeoutMod,
           ViewPrivateComms,
           Shadowban,
@@ -271,7 +271,7 @@ object Permission {
       ContentTeam
     ),
     "Package" -> List(
-      LichessTeam,
+      NewChessTeam,
       TimeoutMod,
       BoostHunter,
       CheatHunter,

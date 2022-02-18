@@ -3,7 +3,7 @@
   <string name="activity">활동</string>
   <string name="hostedALiveStream">라이브 스트리밍을 함</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">%1$s 개월 동안 %2$s 에서 lichess.org 을 후원하였습니다.</item>
+    <item quantity="other">%1$s 개월 동안 %2$s 에서 newchess.fun 을 후원하였습니다.</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">%2$s 에서 총 %1$s 개의 포지션을 연습하였습니다.</item>
@@ -51,7 +51,7 @@
     <item quantity="other">%s 번 토너먼트에 참가함</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s에서 %1$s등</string>
-  <string name="signedUp">Lichess에 회원가입함</string>
+  <string name="signedUp">NewChess에 회원가입함</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s 팀에 참가함</item>
   </plurals>

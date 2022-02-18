@@ -40,7 +40,7 @@ object topic {
           ),
           p(
             trans.toRequestSupport(
-              strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
+              strong(a(href := "/contact")(trans.tryTheContactPage()))
             )
           ),
           p(

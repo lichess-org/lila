@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Tēnā whakaū tō pūkete mō te lichess, %s</string>
+  <string name="emailConfirm_subject">Tēnā whakaū tō pūkete mō te newchess, %s</string>
 </resources>

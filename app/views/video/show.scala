@@ -33,7 +33,7 @@ object show {
           iframe(
             id := "ytplayer",
             tpe := "text/html",
-            src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
+            src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://newchess.fun&start=${video.startTime}",
             st.frameborder := "0",
             frame.allowfullscreen
           )

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakt</string>
-  <string name="contactLichess">Lichess kontaktiere</string>
+  <string name="contactLichess">NewChess kontaktiere</string>
   <string name="whatCanWeHelpYouWith">Mit was chömmer hälfe?</string>
   <string name="visitThisPage">Bsuech die Site, um s\'Problem z\'löse</string>
   <string name="iCantLogIn">Ich chann nöd iilogge</string>
@@ -12,7 +12,7 @@
   <string name="lost2FA">Ich han de Zuegriff zu miim Zwei-Faktor-Code verloore</string>
   <string name="doPasswordReset">Setz diis Passwort zrugg, zum de zweiti Faktor entferne</string>
   <string name="accountSupport">Ich bruuche Konto Underschtützig</string>
-  <string name="wantTitle">Ich wett, dass miin Titel uf Lichess aazeigt wird</string>
+  <string name="wantTitle">Ich wett, dass miin Titel uf NewChess aazeigt wird</string>
   <string name="visitTitleConfirmation">Zum diin Titel im Profil aazeige und s\'Mitschpille bi Arena Turnier für Schpiller mit Titel, muesch uf d\'Site für Titelbeschtätigung</string>
   <string name="wantCloseAccount">Ich wott miis Konto schlüsse</string>
   <string name="closeYourAccount">Du chasch diis Konto uf däre Site schlüsse</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Bitte schick de Moderatore kei diräkti Nachrichte.</string>
   <string name="onlyReports">Effektiv sind Mäldige vu Schpiller nur via Mäldigsformular.</string>
   <string name="wantReportBug">Ich möcht en Fähler mälde</string>
-  <string name="reportBugInForum">Under \"Lichess Feedback\", im Lichess Forum</string>
-  <string name="reportWebsiteIssue">Als es \"Lichess Website Problem\" uf GitHub</string>
-  <string name="reportMobileIssue">Als es \"Lichess Mobile App Problem\" uf GitHub</string>
-  <string name="reportBugInDiscord">Im Lichess Discordserver</string>
+  <string name="reportBugInForum">Under \"NewChess Feedback\", im NewChess Forum</string>
+  <string name="reportWebsiteIssue">Als es \"NewChess Website Problem\" uf GitHub</string>
+  <string name="reportMobileIssue">Als es \"NewChess Mobile App Problem\" uf GitHub</string>
+  <string name="reportBugInDiscord">Im NewChess Discordserver</string>
   <string name="howToReportBug">Bitte beschriib, wie de Fähler uusgseht, was du stattdesse erwartet häsch und wie mer de Fähler chann reproduziere.</string>
   <string name="illegalPawnCapture">Unerlaubts Schlah vu Puure</string>
   <string name="calledEnPassant">Das nännt sich \"en passant\" und e Schachregle.</string>
@@ -64,11 +64,11 @@
   <string name="doNotDeny">Schtritt de Betrug nöd ab. Wänn du es neus Konto wottsch, gisch eifach zue, was du gmacht häsch und zeigsch, dass du verschtande häsch, dass es en Fähler gsii isch.</string>
   <string name="otherRestriction">Anderi Beschränkige</string>
   <string name="collaboration">Zämmearbet, Rächtlichs, Kommerziells</string>
-  <string name="monetizing">Lichess finanzielli Bewertig</string>
-  <string name="buyingLichess">Lichess chaufe</string>
-  <string name="authorizationToUse">Genehmigung Lichess z\'benutze</string>
-  <string name="welcomeToUse">Du chasch Lichess für Aktivitäte verwände, au für Kommerzielli.</string>
-  <string name="videosAndBooks">Du chasch Lichess i diine Videos zeige und au Screenshots usdrucke und verwände.</string>
+  <string name="monetizing">NewChess finanzielli Bewertig</string>
+  <string name="buyingLichess">NewChess chaufe</string>
+  <string name="authorizationToUse">Genehmigung NewChess z\'benutze</string>
+  <string name="welcomeToUse">Du chasch NewChess für Aktivitäte verwände, au für Kommerzielli.</string>
+  <string name="videosAndBooks">Du chasch NewChess i diine Videos zeige und au Screenshots usdrucke und verwände.</string>
   <string name="creditAppreciated">Erwähnig isch g\'wünscht, aber nöd notwändig.</string>
   <string name="noneOfTheAbove">Öppis anders</string>
   <string name="sendEmailAt">Schick eus e E-Mail a %s.</string>

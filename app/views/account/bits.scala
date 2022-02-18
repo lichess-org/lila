@@ -15,7 +15,7 @@ object bits {
       div(cls := "account security personal-data box box-pad")(
         h1("My personal data"),
         div(cls := "personal-data__header")(
-          p("Here is all personal information Lichess has about ", userLink(u)),
+          p("Here is all personal information NewChess has about ", userLink(u)),
           a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr)(
             trans.download()
           )

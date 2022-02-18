@@ -288,7 +288,7 @@
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Deze account heeft de Lichess Servicevoorwaarden geschonden</string>
+  <string name="thisAccountViolatedTos">Deze account heeft de NewChess Servicevoorwaarden geschonden</string>
   <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
@@ -461,7 +461,7 @@
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="oneUrlPerLine">Eén URL per regel.</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Voorheen op NewChess TV</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
@@ -617,7 +617,7 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
-  <string name="lichessTournaments">Lichess toernooien</string>
+  <string name="lichessTournaments">NewChess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
   <string name="averageCentipawnLoss">Gemiddeld centipionverlies</string>
@@ -651,8 +651,8 @@
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
   <string name="readAboutOur">Lees meer over ons %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de lichess server</string>
+  <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de newchess server</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
   <string name="downloadRaw">Download PGN</string>
   <string name="downloadImported">Download de geïmporteerde partij</string>
@@ -668,14 +668,14 @@
   <string name="withEverybody">Met iedereen</string>
   <string name="kidMode">Kindvriendelijke modus</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het NewChess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
   <string name="playChessEverywhere">Schaak overal</string>
-  <string name="asFreeAsLichess">Zo gratis als lichess</string>
+  <string name="asFreeAsLichess">Zo gratis als newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Gemaakt met liefde voor het schaken, niet voor geld</string>
   <string name="everybodyGetsAllFeaturesForFree">Iedereen krijgt gratis alle mogelijkheden</string>
   <string name="zeroAdvertisement">Geen advertenties</string>
@@ -788,14 +788,14 @@
   <string name="tryToWin">Probeer elke partij die je speelt te winnen (of tenminste gelijk te spelen).</string>
   <string name="resignLostGames">Geef verloren partijen op (laat de klok niet tot 0 lopen).</string>
   <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
-  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op lichess.org.</string>
+  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op newchess.fun.</string>
   <string name="thankYouForReading">Bedankt voor het lezen!</string>
   <string name="lifetimeScore">Levenslange score</string>
   <string name="currentMatchScore">Huidige wedstrijd score</string>
   <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
-  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
+  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de NewChess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
   <string name="rapid">Rapid</string>
@@ -832,13 +832,13 @@
   <string name="resVsX">%1$s tegen %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
   <string name="newPendingReview">In afwachting van beoordeling</string>
-  <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
+  <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de NewChess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
   <string name="download">Downloaden</string>
   <string name="welcome">Welkom!</string>
-  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
+  <string name="lichessPatronInfo">NewChess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
@@ -894,6 +894,6 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
   <string name="since">Vanaf</string>
   <string name="until">Tot</string>
-  <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
+  <string name="lichessDbExplanation">Partijen met rating gespeeld op NewChess</string>
   <string name="switchSides">Van kleur wisselen</string>
 </resources>

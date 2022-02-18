@@ -188,7 +188,7 @@ final class ChatApi(
         _ ?? {
           val lineText = scope match {
             case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
-            case _                        => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
+            case _                        => s"${user.username} was timed out 15 minutes by a page mod (not a NewChess mod)"
           }
           val line = c.hasRecentLine(user) option UserLine(
             username = systemUserId,

@@ -71,7 +71,7 @@ Spillere som deltar sent, får et halvt fripoeng én gang, selv om de har gått 
 Grunnen er at det ikke finnes noen rettferdig måte å håndtere dem som forlater turneringen før tiden. Vi kan ikke forvente at alle spillerne vil spille alle partiene sine i en turnering på nett. Det skjer bare ikke, og derfor vil de fleste alle-mot-alle-turneringene være feilaktige og urettferdige, noe som fjerner eksistensgrunnlaget.
 Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sveitserturnering med et høyt antall runder. Da kan alle mulige par spilles før turneringen avsluttes.</string>
   <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
-  <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
+  <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos NewChess nå.</string>
   <string name="swissDescription">I en sveitserturnering %1$s spiller ikke nødvendigvis alle deltakerne mot alle andre. Deltakere møtes to og to i hver runde. De settes opp i par ved hjelp av regler som skal sikre at hver deltaker spiller mot en motstander med tilsvarende oppnådd poengsum, men uten å spille mot samme motstander flere ganger. Vinneren er den deltakeren med høyest oppnådd poengsum gjennom alle rundene. Alle deltakerne spiller i hver runde med mindre antall spillere er et oddetall.</string>
   <string name="teamOnly">Sveitserturneringer kan bare opprettes av lagledere, og kan bare spilles av lagmedlemmer.
 %1$s for å begynne å spille i sveitserturneringer.</string>

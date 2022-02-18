@@ -56,9 +56,9 @@
   <string name="skipExplanation">Пропустіть цей хід, щоб зберегти комбо! Можна використати лише один раз.</string>
   <string name="failedPuzzles">Невирішені задачі</string>
   <string name="slowPuzzles">Повільні задачі</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Цього тижня</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Цього місяця</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">За весь час</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Цього тижня</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Цього місяця</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">За весь час</string>
   <string name="clickToReload">Натисніть для перезавантаження</string>
   <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Час цієї серії минув!</string>
   <string name="thisRunWasOpenedInAnotherTab">Ця серія була відкрита у іншій вкладці!</string>

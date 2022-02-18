@@ -22,7 +22,7 @@ object home {
       moreJs = frag(
         jsModule("lobby"),
         embedJsUnsafeLoadThen(
-          s"""LichessLobby(${safeJsonValue(
+          s"""NewChessLobby(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "playban" -> playban.map { pb =>
@@ -52,7 +52,7 @@ object home {
       main(
         cls := List(
           "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadNewChessMessage),
           "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
@@ -68,7 +68,7 @@ object home {
               href := routes.Setup.hookForm,
               cls := List(
                 "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
+                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadNewChessMessage || ctx.isBot)
               ),
               trans.createAGame()
             ),
@@ -111,7 +111,7 @@ object home {
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
-          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
+          hasUnreadNewChessMessage.option(bits.showUnreadNewChessMessage) orElse
           playban.map(bits.playbanInfo) getOrElse {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp
@@ -149,11 +149,11 @@ object home {
 //            div(cls := "about-side")(
 //              ctx.blind option h2("About"),
 //              trans.xIsAFreeYLibreOpenSourceChessServer(
-//                "Lichess",
+//                "NewChess",
 //                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
 //              ),
 //              " ",
-//              a(href := "/about")(trans.aboutX("Lichess"), "...")
+//              a(href := "/about")(trans.aboutX("NewChess"), "...")
 //            )
 //        ),
         featured map { g =>
@@ -176,7 +176,7 @@ object home {
 //        ),
 //        bits.lastPosts(lastPost, ublogPosts),
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index)(
+          a(href := "/patron")(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),
@@ -193,17 +193,17 @@ object home {
         ),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
-          a(href := "/about")(trans.aboutX("Lichess")),
-          a(href := "/faq")(trans.faq.faqAbbreviation()),
+          a(href := "/about")(trans.aboutX("NewChess")),
+//          a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
 // todo: turn me on!
 //          a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
-          a(href := "/privacy")(trans.privacy()),
+//          a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
 // todo: turn me on!
 //          a(href := "/ads")("Ads"),
-          views.html.base.bits.connectLinks
+//          views.html.base.bits.connectLinks
         )
       )
     }

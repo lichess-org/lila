@@ -2,7 +2,7 @@
   "name": "puz",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org fast puzzle utils",
+  "description": "newchess.fun fast puzzle utils",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -25,9 +25,9 @@
     "prod": "$npm_execpath run compile"
   },
   "dependencies": {
-    "chessops": "^0.10.2",
     "snabbdom": "^3.0.1",
-    "chessground": "^8.2.0",
+    "chessground-newchess1-mod": "8.2.2",
+    "chessops-newchess1-mod": "0.10.7",
     "common": "2.0.0"
   },
   "devDependencies": {

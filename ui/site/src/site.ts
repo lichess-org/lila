@@ -4,7 +4,7 @@ import * as timeago from './component/timeago';
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
 import agreement from './component/agreement';
-import exportLichessGlobals from './site.lichess.globals';
+import exportNewChessGlobals from './site.lichess.globals';
 import info from './component/info';
 import loadClockWidget from './component/clock-widget';
 import moduleLaunchers from './component/module-launchers';
@@ -20,7 +20,7 @@ import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { trapFocus } from 'common/modal';
 
-exportLichessGlobals();
+exportNewChessGlobals();
 lichess.info = info;
 
 loadClockWidget();

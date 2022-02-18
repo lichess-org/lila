@@ -2,8 +2,8 @@ import * as xhr from 'common/xhr';
 import { sparkline } from '@fnando/sparkline';
 import throttle from 'common/throttle';
 import resizeHandle from 'common/resize';
-import * as cg from 'chessground/types';
-import { Api as ChessgroundApi } from 'chessground/api';
+import * as cg from 'chessground-newchess1-mod/types';
+import { Api as ChessgroundApi } from 'chessground-newchess1-mod/api';
 
 type CoordModifier = 'new' | 'next' | 'current' | 'resolved';
 

@@ -95,7 +95,7 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:
-   * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
+   * https://newchess.fun/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
    */
   opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
     if (!e.isTrusted) return;

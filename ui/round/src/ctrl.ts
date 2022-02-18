@@ -10,9 +10,9 @@ import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import * as speech from './speech';
-import * as cg from 'chessground/types';
-import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
+import * as cg from 'chessground-newchess1-mod/types';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -22,6 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { valid as newChess1Valid, init as newChess1Init, onEnd as newChess1EndHook } from './newchess1/newChess1Ctrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
@@ -185,7 +186,7 @@ export default class RoundController {
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && crazyValid(this.data, role, key)) {
+    if (!this.replaying() && (this.data.crazyhouse ? crazyValid(this.data, role, key) : this.data.newChess1 ? newChess1Valid(this.data, role, key) : false)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
@@ -398,7 +399,7 @@ export default class RoundController {
   apiMove = (o: ApiMove): true => {
     const d = this.data,
       playing = this.isPlaying();
-
+    console.log(o)
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
@@ -410,6 +411,7 @@ export default class RoundController {
     d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
+    d.newChess1 = o.newChess1;
     this.setTitle();
     if (!this.replaying()) {
       this.ply++;
@@ -453,6 +455,7 @@ export default class RoundController {
       uci: o.uci,
       check: o.check,
       crazy: o.crazyhouse,
+      newChess1: o.newChess1,
     };
     d.steps.push(step);
     this.justDropped = undefined;
@@ -498,7 +501,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
-      return crazyValid(this.data, drop.role, drop.key);
+      return this.data.crazyhouse ? crazyValid(this.data, drop.role, drop.key) : this.data.newChess1 ? newChess1Valid(this.data, drop.role, drop.key) : false;
     });
   };
 
@@ -553,6 +556,7 @@ export default class RoundController {
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
     if (d.crazyhouse) crazyEndHook();
+    if (d.newChess1) newChess1EndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -759,6 +763,7 @@ export default class RoundController {
         this.setTitle();
 
         if (d.crazyhouse) crazyInit(this);
+        if (d.newChess1) newChess1Init(this);
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;

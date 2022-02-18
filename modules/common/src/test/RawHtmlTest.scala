@@ -76,51 +76,51 @@ class RawHtmlTest extends Specification {
     }
 
     "internal links" in {
-      addLinks("lichess.org/@/foo/games") must_==
-        """<a href="/@/foo/games">lichess.org/@/foo/games</a>"""
-      addLinks("lichess.org/@/foo") must_== """<a href="/@/foo">@foo</a>"""
-      addLinks("http://lichess.org/") must_== """<a href="/">lichess.org/</a>"""
-      addLinks("http://lichess.org") must_== """<a href="/">lichess.org</a>"""
+      addLinks("newchess.fun/@/foo/games") must_==
+        """<a href="/@/foo/games">newchess.fun/@/foo/games</a>"""
+      addLinks("newchess.fun/@/foo") must_== """<a href="/@/foo">@foo</a>"""
+      addLinks("http://newchess.fun/") must_== """<a href="/">newchess.fun/</a>"""
+      addLinks("http://newchess.fun") must_== """<a href="/">newchess.fun</a>"""
       addLinks("@foo") must_== """<a href="/@/foo">@foo</a>"""
     }
 
     "handle weird characters" in {
-      addLinks("lichess.org/-–%20") must_== """<a href="/-–%20">lichess.org/-–%20</a>"""
+      addLinks("newchess.fun/-–%20") must_== """<a href="/-–%20">newchess.fun/-–%20</a>"""
     }
 
     "handle multiple links" in {
       addLinks(
-        "@foo blah lichess.org"
-      ) must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
-      addLinks("b foo.com blah lichess.org") must_==
-        """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
+        "@foo blah newchess.fun"
+      ) must_== """<a href="/@/foo">@foo</a> blah <a href="/">newchess.fun</a>"""
+      addLinks("b foo.com blah newchess.fun") must_==
+        """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">newchess.fun</a>"""
     }
 
     "handle trailing punctuation" in {
-      addLinks("lichess.org.") must_== """<a href="/">lichess.org</a>."""
-      addLinks("lichess.org)") must_== """<a href="/">lichess.org</a>)"""
-      addLinks("lichess.org/()") must_== """<a href="/()">lichess.org/()</a>"""
+      addLinks("newchess.fun.") must_== """<a href="/">newchess.fun</a>."""
+      addLinks("newchess.fun)") must_== """<a href="/">newchess.fun</a>)"""
+      addLinks("newchess.fun/()") must_== """<a href="/()">newchess.fun/()</a>"""
 
-      addLinks("lichess.org/())") must_== """<a href="/()">lichess.org/()</a>)"""
-      addLinks("lichess.org/(2)-)?") must_== """<a href="/(2)-">lichess.org/(2)-</a>)?"""
+      addLinks("newchess.fun/())") must_== """<a href="/()">newchess.fun/()</a>)"""
+      addLinks("newchess.fun/(2)-)?") must_== """<a href="/(2)-">newchess.fun/(2)-</a>)?"""
 
-      addLinks("lichess.org.-") must_== """<a href="/">lichess.org</a>.-"""
+      addLinks("newchess.fun.-") must_== """<a href="/">newchess.fun</a>.-"""
 
-      addLinks("lichess.org/foo:bar") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>"""
-      addLinks("lichess.org/foo:bar:") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>:"""
+      addLinks("newchess.fun/foo:bar") must_== """<a href="/foo:bar">newchess.fun/foo:bar</a>"""
+      addLinks("newchess.fun/foo:bar:") must_== """<a href="/foo:bar">newchess.fun/foo:bar</a>:"""
     }
 
     "handle embedded links" in {
-      addLinks(".lichess.org") must_== """.lichess.org"""
-      addLinks("/lichess.org") must_== """/lichess.org"""
-      addLinks(".http://lichess.org") must_== """.<a href="/">lichess.org</a>"""
+      addLinks(".newchess.fun") must_== """.newchess.fun"""
+      addLinks("/newchess.fun") must_== """/newchess.fun"""
+      addLinks(".http://newchess.fun") must_== """.<a href="/">newchess.fun</a>"""
 
-      addLinks("/http://lichess.org") must_== """/<a href="/">lichess.org</a>"""
+      addLinks("/http://newchess.fun") must_== """/<a href="/">newchess.fun</a>"""
     }
 
     "handle ambig path separator" in {
-      addLinks("lichess.org#f") must_== """<a href="/#f">lichess.org/#f</a>"""
-      addLinks("lichess.org?f") must_== """<a href="/?f">lichess.org/?f</a>"""
+      addLinks("newchess.fun#f") must_== """<a href="/#f">newchess.fun/#f</a>"""
+      addLinks("newchess.fun?f") must_== """<a href="/?f">newchess.fun/?f</a>"""
     }
 
     "pass through plain text (fast case)" in {
@@ -152,13 +152,13 @@ class RawHtmlTest extends Specification {
 
   "atUser" should {
     "expand valid" in {
-      expandAtUser("@foo") must_== List("lichess.org/@/foo")
-      expandAtUser("@2foo") must_== List("lichess.org/@/2foo")
-      expandAtUser("@foo.") must_== List("lichess.org/@/foo", ".")
+      expandAtUser("@foo") must_== List("newchess.fun/@/foo")
+      expandAtUser("@2foo") must_== List("newchess.fun/@/2foo")
+      expandAtUser("@foo.") must_== List("newchess.fun/@/foo", ".")
       expandAtUser("@foo.com") must_== List("@foo.com")
 
-      expandAtUser("@foo./") must_== List("lichess.org/@/foo", "./")
-      expandAtUser("@foo/games") must_== List("lichess.org/@/foo", "/games")
+      expandAtUser("@foo./") must_== List("newchess.fun/@/foo", "./")
+      expandAtUser("@foo/games") must_== List("newchess.fun/@/foo", "/games")
     }
   }
 
@@ -166,8 +166,8 @@ class RawHtmlTest extends Specification {
     "at user links" in {
       copyLinkConsistency("http://example.com")
       copyLinkConsistency("https://example.com/@foo")
-      copyLinkConsistency("lichess.org/@/foo")
-      copyLinkConsistency("lichess.org/@/foo/games")
+      copyLinkConsistency("newchess.fun/@/foo")
+      copyLinkConsistency("newchess.fun/@/foo/games")
       copyLinkConsistency("@foo/games")
       copyLinkConsistency("@foo")
     }

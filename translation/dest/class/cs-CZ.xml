@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Třídy</string>
-  <string name="teachClassesOfChessStudents">Učte třídy šachových studentů s nástrojem Lichess třídy.</string>
+  <string name="teachClassesOfChessStudents">Učte třídy šachových studentů s nástrojem NewChess třídy.</string>
   <string name="features">Funkce</string>
   <string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
   <string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>
   <string name="messageAllStudents">Napsat všem studentům o novém materiálu třídy</string>
   <string name="freeForAllForever">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
-  <string name="applyToBeLichessTeacher">Ucházet se o místo Lichess učitele</string>
+  <string name="applyToBeNewChessTeacher">Ucházet se o místo NewChess učitele</string>
   <string name="noClassesYet">Zatím žádné třídy.</string>
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Popis třídy</string>
   <string name="visibleByBothStudentsAndTeachers">Viditelné jak učiteli, tak studenty třídy</string>
   <string name="teachersOfTheClass">Učitelé třídy</string>
-  <string name="addLichessUsernames">Přidejte Lichess uživatelská jména, abyste je pozvali jako učitele. Jedno na řádek.</string>
+  <string name="addNewChessUsernames">Přidejte NewChess uživatelská jména, abyste je pozvali jako učitele. Jedno na řádek.</string>
   <string name="resetPassword">Obnovit heslo</string>
   <string name="makeSureToCopy">Ujistěte se, že jste nyní heslo zkopírovali nebo zapsali. Nebudete si ho již moci znovu zobrazit!</string>
   <string name="passwordX">Heslo: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Skutečné jméno</string>
   <string name="privateWillNeverBeShown">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
   <string name="addStudent">Přidat studenta</string>
-  <string name="lichessProfileXCreatedForY">Lichess profil %1$s vytvořen pro %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess profil %1$s vytvořen pro %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Uživatelské jméno: %2$s
 Heslo: %3$s</string>
-  <string name="inviteALichessAccount">Pozvat na Lichess účet</string>
-  <string name="inviteDesc1">Pokud student již má Lichess účet, můžete je pozvat do třídy.</string>
-  <string name="inviteDesc2">Dostanou zprávu na Lichess s odkazem na připojení ke třídě.</string>
+  <string name="inviteANewChessAccount">Pozvat na NewChess účet</string>
+  <string name="inviteDesc1">Pokud student již má NewChess účet, můžete je pozvat do třídy.</string>
+  <string name="inviteDesc2">Dostanou zprávu na NewChess s odkazem na připojení ke třídě.</string>
   <string name="inviteDesc3">Důležité: Pozvěte pouze studenty, které znáte a kteří se aktivně chtějí připojit ke třídě.</string>
   <string name="inviteDesc4">Nikdy neposílejte nevyžádané pozvánky náhodným hráčům.</string>
-  <string name="createANewLichessAccount">Vytvořit nový Lichess účet</string>
-  <string name="createDesc1">Pokud student ještě nemá Lichess účet, můžete pro něj účet vytvořit.</string>
+  <string name="createANewNewChessAccount">Vytvořit nový NewChess účet</string>
+  <string name="createDesc1">Pokud student ještě nemá NewChess účet, můžete pro něj účet vytvořit.</string>
   <string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
   <string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
   <string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
   <string name="createStudentWarning">Vytvořte účty pouze pro skutečné studenty. Nepoužívejte je k vytváření více účtů pro sebe, jinak budete zablokováni.</string>
-  <string name="lichessUsername">Lichess uživatelské jméno</string>
+  <string name="lichessUsername">NewChess uživatelské jméno</string>
   <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
   <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
 Zde je odkaz pro přístup ke třídě.</string>

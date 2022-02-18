@@ -16,6 +16,7 @@ function insufficientMaterial(variant: VariantKey, fullFen: Fen): boolean {
     variant === 'kingOfTheHill' ||
     variant === 'racingKings' ||
     variant === 'crazyhouse' ||
+    variant === 'newchess1' ||
     variant === 'atomic' ||
     variant === 'antichess'
   )

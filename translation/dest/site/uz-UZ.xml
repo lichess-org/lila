@@ -272,7 +272,7 @@
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekundlar berish</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ushbu hisob Lichess xizmatlari shartlarini buzgan</string>
+  <string name="thisAccountViolatedTos">Ushbu hisob NewChess xizmatlari shartlarini buzgan</string>
   <string name="openingExplorerAndTablebase">Sharhni ochish</string>
   <string name="takeback">Ortga yurish</string>
   <string name="proposeATakeback">Ortga qaytishni taklif qilish</string>
@@ -438,7 +438,7 @@
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
-  <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
+  <string name="previouslyOnNewChessTV">NewChess TV dagi bundan oldingisi</string>
   <string name="onlinePlayers">Online o\'yinchilar</string>
   <string name="activePlayers">Faol o\'yinchilar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ehtiyot bo\'ling, o\'yin reytingli biroq soatsiz!</string>
@@ -582,7 +582,7 @@
   <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
   <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>
   <string name="simulHostExtraTime">Seanschi qo\'shimcha vaqti</string>
-  <string name="lichessTournaments">Lichess turnirlar</string>
+  <string name="lichessTournaments">NewChess turnirlar</string>
   <string name="tournamentFAQ">Turnir arenasidan Savollar Va Javoblar</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlanishigacha vaqt</string>
   <string name="averageCentipawnLoss">O\'rtacha santipiyodalarni yo\'qotish</string>
@@ -616,8 +616,8 @@
   <string name="weHaveSentYouAnEmailTo">Biz %s ga hat yubordik. Parolni qayta tiklash uchun emaildagi linkni bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
   <string name="readAboutOur">Biz haqimizda oʻqing: %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Lichess va sizning o\'rtangizdagi tarmoq kechikishi</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishni amalga oshirish uchun vaqt</string>
+  <string name="networkLagBetweenYouAndLichess">NewChess va sizning o\'rtangizdagi tarmoq kechikishi</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess serverida yurishni amalga oshirish uchun vaqt</string>
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
   <string name="downloadRaw">Boricha yuklash</string>
   <string name="downloadImported">Import qilinganni yuklash</string>
@@ -631,13 +631,13 @@
   <string name="withEverybody">Hamma bilan</string>
   <string name="kidMode">Bola rejimi</string>
   <string name="kidModeExplanation">Bu ximoya uchun. Bola rejimida hamma saytlar bog\'liqligi o\'chiriladi. Buni o\'zingizni studentlaringiz va bolalaringiz uchun yoqib qo\'ying. Shunda Internetdagi boshqa foydalanuvchilardan ximoyalagan bo\'lasiz.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Bola rejimida lichess logosi %s belgini oladi, shundan siz bola rejimi ekanligini.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Bola rejimida newchess logosi %s belgini oladi, shundan siz bola rejimi ekanligini.</string>
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
   <string name="revokeAllSessions">barcha sessiyalarni bekor qilish</string>
   <string name="playChessEverywhere">Shahmatni xamma joyda o\'ynash</string>
-  <string name="asFreeAsLichess">Lichess kabi bepul</string>
+  <string name="asFreeAsLichess">NewChess kabi bepul</string>
   <string name="builtForTheLoveOfChessNotMoney">Pulga qiziqib emas, shahmatga bo\'lgan sevgi orqali yasalgan</string>
   <string name="everybodyGetsAllFeaturesForFree">Barcha xamma funksiyaga bepul foydalanish huquqiga ega</string>
   <string name="zeroAdvertisement">Reklamalar umuman yo\'q</string>
@@ -750,14 +750,14 @@
   <string name="tryToWin">Har bior o\'yinda yutish uchun harakat qiling (kamida durrang uchun kurashing).</string>
   <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
   <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
-  <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
+  <string name="wishYouGreatGames">va newchess.fun dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
   <string name="thankYouForReading">O\'qiganingiz uchun rahmat!</string>
   <string name="lifetimeScore">Hisoblar solishtirilganda</string>
   <string name="currentMatchScore">Joriy o\'yin holati</string>
   <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
   <string name="agreementAccount">Men bir nechta hisob ochmaslikka roziman.</string>
-  <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
+  <string name="agreementPolicy">Men NewChess tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
   <string name="rapid">Tez</string>

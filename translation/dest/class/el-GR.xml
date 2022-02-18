@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Τάξεις Lichess</string>
-  <string name="teachClassesOfChessStudents">Διδασκαλία μαθητών με την σουίτα εργαλείων των τάξεων που προσφέρει το Lichess.</string>
+  <string name="lichessClasses">Τάξεις NewChess</string>
+  <string name="teachClassesOfChessStudents">Διδασκαλία μαθητών με την σουίτα εργαλείων των τάξεων που προσφέρει το NewChess.</string>
   <string name="features">Δυνατότητες</string>
   <string name="quicklyGenerateSafeUsernames">Γρήγορη δημιουργία χρηστών και κωδικών για μαθητές</string>
   <string name="trackStudentProgress">Παρακολούθηση προόδου μαθητών σε παρτίδες και γρίφους</string>
   <string name="messageAllStudents">Αποστολή μηνύματος σε όλους τους μαθητές σχετικά με νέο υλικό τάξης</string>
   <string name="freeForAllForever">100% χωρίς χρέωση για όλους, για πάντα, χωρίς διαφημίσεις ή ιχνηλάτηση</string>
-  <string name="applyToBeLichessTeacher">Ζητήστε να γίνετε δάσκαλος στο Lichess</string>
+  <string name="applyToBeNewChessTeacher">Ζητήστε να γίνετε δάσκαλος στο NewChess</string>
   <string name="noClassesYet">Δεν υπάρχουν τάξεις ακόμη.</string>
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Περιγραφή τάξης</string>
   <string name="visibleByBothStudentsAndTeachers">Ορατό από δασκάλους και μαθητές της τάξης</string>
   <string name="teachersOfTheClass">Δάσκαλοι τάξης</string>
-  <string name="addLichessUsernames">Προσθήκη χρηστών Lichess για πρόσκλησή τους ως δάσκαλοι. Ένας σε κάθε γραμμή.</string>
+  <string name="addNewChessUsernames">Προσθήκη χρηστών NewChess για πρόσκλησή τους ως δάσκαλοι. Ένας σε κάθε γραμμή.</string>
   <string name="resetPassword">Επαναφορά κωδικού πρόσβασης</string>
   <string name="makeSureToCopy">Βεβαιωθείτε ότι αντιγράψατε ή σημειώσατε τον κωδικό. Δεν θα μπορέσετε να τον δείτε ξανά!</string>
   <string name="passwordX">Κωδικός: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Αληθινό όνομα</string>
   <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Έτσι αναγνωρίζετε ευκολότερα τον μαθητή.</string>
   <string name="addStudent">Προσθήκη μαθητή</string>
-  <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το NewChess προφίλ %1$s για %2$s.</string>
   <string name="studentCredentials">Μαθητής: %1$s
 Χρήστης: %2$s
 Κωδικός: %3$s</string>
-  <string name="inviteALichessAccount">Πρόσκληση λογαριασμού Lichess</string>
-  <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στην τάξη.</string>
-  <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
+  <string name="inviteANewChessAccount">Πρόσκληση λογαριασμού NewChess</string>
+  <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο NewChess, μπορείτε να τον προσκαλέσετε στην τάξη.</string>
+  <string name="inviteDesc2">Θα λάβουν μήνυμα στο NewChess με σύνδεσμο για συμμετοχή στη τάξη.</string>
   <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν να συμμετέχουν ενεργά στη τάξη.</string>
   <string name="inviteDesc4">Μην στέλνετε ανεπιθύμητες προσκλήσεις σε τυχαίους παίκτες.</string>
-  <string name="createANewLichessAccount">Δημιουργία νέου λογαριασμού Lichess</string>
-  <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lichess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
+  <string name="createANewNewChessAccount">Δημιουργία νέου λογαριασμού NewChess</string>
+  <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό NewChess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
   <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν πρέπει να έχει πολλαπλούς λογαριασμούς.</string>
   <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="createStudentWarning">Δημιουργήστε λογαριασμούς μόνο για πραγματικούς μαθητές. Εάν δημιουργήσετε πολλούς λογαριασμούς για σας, ενδέχεται να κλείσει ο λογαριασμός σας.</string>
-  <string name="lichessUsername">Όνομα χρήστη Lichess</string>
+  <string name="lichessUsername">Όνομα χρήστη NewChess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
 Πατήστε στον σύνδεσμο για να αποκτήσετε πρόσβαση.</string>

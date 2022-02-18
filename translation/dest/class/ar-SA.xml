@@ -7,7 +7,7 @@
   <string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>
   <string name="messageAllStudents">أرسل جميع الطلاب عن مواد دراسية جديدة</string>
   <string name="freeForAllForever">100% مجانية للجميع، للأبد، بدون إعلانات أو متتبعيت</string>
-  <string name="applyToBeLichessTeacher">تقدم بطلب لتكون معلماً في ليتشيس</string>
+  <string name="applyToBeNewChessTeacher">تقدم بطلب لتكون معلماً في ليتشيس</string>
   <string name="noClassesYet">لا يوجد حصص.</string>
   <string name="teachersX">المعلمون: %s</string>
   <string name="newClass">فصل جديد</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">وصف الفصل</string>
   <string name="visibleByBothStudentsAndTeachers">مرئي من قبل المدرسين وطلاب الفصل</string>
   <string name="teachersOfTheClass">مدرسون الفصل</string>
-  <string name="addLichessUsernames">أضف أسماء مستخدمي ليتشيس لدعوتهم كمعلمين. واحد فى كل سطر.</string>
+  <string name="addNewChessUsernames">أضف أسماء مستخدمي ليتشيس لدعوتهم كمعلمين. واحد فى كل سطر.</string>
   <string name="resetPassword">إعاده تعيين كلمة المرور</string>
   <string name="makeSureToCopy">تأكد من حفظ أو كتابه كلمه المرور. لن تتمكن من رؤيتها مجددا!</string>
   <string name="passwordX">كلمة المرور: %s</string>
@@ -36,12 +36,12 @@
   <string name="studentCredentials">التلميذ:  %1$s
 اسم المستخدم: %2$s
 كلمة المرور: %3$s</string>
-  <string name="inviteALichessAccount">دعوة حساب ليتشيس</string>
+  <string name="inviteANewChessAccount">دعوة حساب ليتشيس</string>
   <string name="inviteDesc1">إذا كان لدى الطالب حساب ليتشيس، يمكنك دعوته إلى الصف.</string>
   <string name="inviteDesc2">سيتلقون رسالة على ليتشيس مع رابط للانضمام إلى الفصل.</string>
   <string name="inviteDesc3">هام: فقط قم بدعوة الطلاب الذين تعرفهم، والذين يرغبون في الانضمام إلى الفصل.</string>
   <string name="inviteDesc4">لا ترسل دعوات غير مطلوبة إلى لاعبين عشوائيين.</string>
-  <string name="createANewLichessAccount">إنشاء حساب مستخدم جديد</string>
+  <string name="createANewNewChessAccount">إنشاء حساب مستخدم جديد</string>
   <string name="createDesc1">إذا لم يكن لدى الطالب حساب ليتشيس حتى الآن، يمكنك إنشاء حساب لهم هنا.</string>
   <string name="createDesc2">لا يطلب عنوان بريد إلكتروني. سيتم إنشاء كلمة مرور، وعليك إرسالها إلى الطالب، حتى يمكنهم تسجيل الدخول.</string>
   <string name="createDesc3">هام: يجب ألا يملك للطالب حسابات متعددة.</string>

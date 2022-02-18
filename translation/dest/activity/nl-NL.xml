@@ -3,8 +3,8 @@
   <string name="activity">Activiteit</string>
   <string name="hostedALiveStream">Heeft een live stream gehost</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Steunde lichess.org voor %1$s maand als %2$s</item>
-    <item quantity="other">Steunde lichess.org voor %1$s maanden als %2$s</item>
+    <item quantity="one">Steunde newchess.fun voor %1$s maand als %2$s</item>
+    <item quantity="other">Steunde newchess.fun voor %1$s maanden als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Beoefende %1$s positie van %2$s</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Nam deel aan %s Zwitserse toernooien</item>
   </plurals>
   <string name="rankedInSwissTournament">Eindigde #%1$s in %2$s</string>
-  <string name="signedUp">Geregistreerd op lichess.org</string>
+  <string name="signedUp">Geregistreerd op newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Sloot zich aan bij %s team</item>
     <item quantity="other">Sloot zich aan bij %s teams</item>

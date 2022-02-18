@@ -241,7 +241,7 @@
   <string name="freeOnlineChess">නොමිලේ මර්ගගත චෙස්</string>
   <string name="exportGames">තරග ආනයනය කරන්න</string>
   <string name="ratingRange">ශ්‍රේණිගත පරාසය</string>
-  <string name="thisAccountViolatedTos">මෙම ගිණුම Lichess සේවා කොන්දේසි උල්ලංඝනය කර ඇත</string>
+  <string name="thisAccountViolatedTos">මෙම ගිණුම NewChess සේවා කොන්දේසි උල්ලංඝනය කර ඇත</string>
   <string name="takeback">ආපසු ගැනීම</string>
   <string name="proposeATakeback">ආපසු ගැනීමක් යෝජනා කරන්න</string>
   <string name="takebackPropositionSent">ආපසු ගැනීම යවන ලදී</string>

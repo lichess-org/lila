@@ -1,9 +1,9 @@
 import { Run } from './interfaces';
-import { Config as CgConfig } from 'chessground/config';
-import { opposite } from 'chessground/util';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { uciToLastMove } from './util';
-import { makeFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
+import { makeFen } from 'chessops-newchess1-mod/fen';
+import { chessgroundDests } from 'chessops-newchess1-mod/compat';
 
 export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConfig => {
   const cur = run.current;

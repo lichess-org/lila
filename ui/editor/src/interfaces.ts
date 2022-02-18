@@ -1,4 +1,4 @@
-import { Role } from 'chessground/types';
+import { Role } from 'chessground-newchess1-mod/types';
 
 export type CastlingToggle = 'K' | 'Q' | 'k' | 'q';
 

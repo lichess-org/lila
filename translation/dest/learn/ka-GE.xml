@@ -189,7 +189,7 @@
   <string name="whatNext">შემდეგ?</string>
   <string name="youKnowHowToPlayChess">გილოცავ, თამაში იცი! გინდა უფრო ძლიერი მოთამაშე იყო?</string>
   <string name="register">დარეგისტრირდი</string>
-  <string name="getAFreeLichessAccount">მიიღე უფასო lichess პროფილი</string>
+  <string name="getAFreeNewChessAccount">მიიღე უფასო newchess პროფილი</string>
   <string name="practice">პრაქტიკა</string>
   <string name="learnCommonChessPositions">ისწავლე ცნობილი პოზიციები</string>
   <string name="puzzles">თავსატეხები</string>

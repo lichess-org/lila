@@ -10,8 +10,8 @@
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
   <string name="fullDescriptionHelp">Valikuline otseülekande pikk kirjeldus. %1$s märgistus on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
   <string name="sourceUrlOrGameIds">Allika URL või mängu ID-d</string>
-  <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
-  <string name="gameIdsHelp">Või siis on võimalik lisada 64 Lichess mängu ID-t, vahedega eraldatud.</string>
+  <string name="sourceUrlHelp">URL, kust NewChess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
+  <string name="gameIdsHelp">Või siis on võimalik lisada 64 NewChess mängu ID-t, vahedega eraldatud.</string>
   <string name="startDate">Alguskuupäev sinu ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="credits">Viita allikale</string>

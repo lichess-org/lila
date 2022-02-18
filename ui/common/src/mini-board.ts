@@ -10,7 +10,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
   else {
     domData.set(
       node,
-      'chessground',
+      'chessground-newchess1-mod',
       window.Chessground(node, {
         orientation,
         coordinates: false,

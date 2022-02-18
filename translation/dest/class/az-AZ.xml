@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Siniflər</string>
-  <string name="teachClassesOfChessStudents">Tələbələrinizə Lichess Sinif alətləri dəsti ilə dərs deyin.</string>
+  <string name="teachClassesOfChessStudents">Tələbələrinizə NewChess Sinif alətləri dəsti ilə dərs deyin.</string>
   <string name="features">Özəlliklər</string>
   <string name="quicklyGenerateSafeUsernames">Tələbələr üçün sürətli istifadəçi adları və şifrələr yaradın</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
   <string name="messageAllStudents">Bütün tələbələrə yeni dərs materialları haqqında mesaj göndərin</string>
   <string name="freeForAllForever">Heç bir reklam və izləyicisiz, hər kəs üçün 100% pulsuz</string>
-  <string name="applyToBeLichessTeacher">Lichess müəllimi olmaq üçün müraciət edin</string>
+  <string name="applyToBeNewChessTeacher">NewChess müəllimi olmaq üçün müraciət edin</string>
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Sinif açıqlaması</string>
   <string name="visibleByBothStudentsAndTeachers">Həm müəllimlər, həm də sinif şagirdləri tərəfindən görünür</string>
   <string name="teachersOfTheClass">Sinif müəllimləri</string>
-  <string name="addLichessUsernames">Müəllim kimi dəvət etmək üçün Lichess istifadəçi adlarını əlavə edin. Hər sətirdə bir.</string>
+  <string name="addNewChessUsernames">Müəllim kimi dəvət etmək üçün NewChess istifadəçi adlarını əlavə edin. Hər sətirdə bir.</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="makeSureToCopy">Şifrəni kopyaladığınızdan və ya bir yerə yazdığınızdan əmin olun. Yenidən görə bilməyəcəksiniz!</string>
   <string name="passwordX">Şifrə: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Həqiqi ad</string>
   <string name="privateWillNeverBeShown">Şəxsi. Yalnız sinif daxilində göstərilir. Tələbənin kim olduğunu xatırlamağa kömək edir.</string>
   <string name="addStudent">Tələbə əlavə et</string>
-  <string name="lichessProfileXCreatedForY">%2$s üçün %1$s Lichess profili yaradıldı.</string>
+  <string name="lichessProfileXCreatedForY">%2$s üçün %1$s NewChess profili yaradıldı.</string>
   <string name="studentCredentials">Tələbə: %1$s
 İstifadəçi adı: %2$s
 Şifrə: %3$s</string>
-  <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
-  <string name="inviteDesc1">Tələbənin Lichess hesabı varsa, onu dərsə dəvət edə bilərsiniz.</string>
-  <string name="inviteDesc2">Lichessdə sinfə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
+  <string name="inviteANewChessAccount">Bir NewChess hesabı dəvət edin</string>
+  <string name="inviteDesc1">Tələbənin NewChess hesabı varsa, onu dərsə dəvət edə bilərsiniz.</string>
+  <string name="inviteDesc2">NewChessdə sinfə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
   <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinfə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
-  <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
-  <string name="createDesc1">Tələbənin hələ bir Lichess hesabı yoxdursa, burada onun üçün bir hesab yarada bilərsiniz.</string>
+  <string name="createANewNewChessAccount">Yeni bir NewChess hesabı yaradın</string>
+  <string name="createDesc1">Tələbənin hələ bir NewChess hesabı yoxdursa, burada onun üçün bir hesab yarada bilərsiniz.</string>
   <string name="createDesc2">Elektron poçt ünvanı tələb olunmur. Bir şifrə yaradılacaq və onu tələbəyə ötürdükdən sonra, sinfə daxil ola bilər.</string>
   <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
   <string name="createDesc4">Əgər hesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
-  <string name="lichessUsername">Lichess istifadəçi adı</string>
+  <string name="lichessUsername">NewChess istifadəçi adı</string>
   <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
   <string name="welcomeToClass">Sinfinizə xoş gəlmisiniz: %s.
 Sinfə daxil olmaq üçün link.</string>

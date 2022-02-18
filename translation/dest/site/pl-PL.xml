@@ -328,7 +328,7 @@
     <item quantity="many">Dodaj %s sekund</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Użytkownik tego konta naruszył warunki korzystania z Lichess</string>
+  <string name="thisAccountViolatedTos">Użytkownik tego konta naruszył warunki korzystania z NewChess</string>
   <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
@@ -523,7 +523,7 @@
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
-  <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Poprzednio w NewChess TV</string>
   <string name="onlinePlayers">Gracze online</string>
   <string name="activePlayers">Aktywni gracze</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Miej na uwadze, że partia jest rankingowa, ale nie ma limitu czasu!</string>
@@ -687,7 +687,7 @@
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
-  <string name="lichessTournaments">Turnieje Lichess</string>
+  <string name="lichessTournaments">Turnieje NewChess</string>
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
   <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
@@ -723,8 +723,8 @@
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
-  <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze newchess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane</string>
@@ -740,14 +740,14 @@
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, byś wiedział, że dziecko jest chronione.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo newchess ma dodatkową ikonę %s, byś wiedział, że dziecko jest chronione.</string>
   <string name="enableKidMode">Włącz tryb dla dzieci</string>
   <string name="disableKidMode">Wyłącz tryb dla dzieci</string>
   <string name="security">Bezpieczeństwo</string>
   <string name="sessions">Sesje</string>
   <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
-  <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
+  <string name="asFreeAsLichess">Darmowa jak całe newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
   <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
   <string name="zeroAdvertisement">Brak reklam</string>
@@ -868,14 +868,14 @@
   <string name="tryToWin">Staraj się wygrywać (lub przynajmniej remisować) każdą rozgrywaną partię.</string>
   <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj na upłynięcie czasu gry).</string>
   <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
-  <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
+  <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na newchess.fun.</string>
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
   <string name="lifetimeScore">Wynik wszystkich partii</string>
   <string name="currentMatchScore">Wynik bieżącego meczu</string>
   <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów szachowych, książek, baz danych, czy innych osób).</string>
   <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
   <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
-  <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
+  <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad NewChess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
   <string name="rapid">Szybkie</string>
@@ -912,13 +912,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał Twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
-  <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
+  <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania NewChess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
   <string name="download">Pobierz</string>
   <string name="welcome">Witaj!</string>
-  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
+  <string name="lichessPatronInfo">NewChess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="coachManager">Menedżer trenera</string>
   <string name="streamerManager">Menedżer streamera</string>
@@ -973,6 +973,6 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
-  <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
+  <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy NewChess</string>
   <string name="switchSides">Zmień kolor</string>
 </resources>

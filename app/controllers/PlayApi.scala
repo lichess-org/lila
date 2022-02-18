@@ -150,7 +150,7 @@ final class PlayApi(
       if (me.noBot)
         BadRequest(
           jsonError(
-            "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
+            "This endpoint can only be used with a Bot account. See https://newchess.fun/api#operation/botAccountUpgrade"
           )
         ).fuccess
       else if (!lila.game.Game.isBotCompatible(pov.game))

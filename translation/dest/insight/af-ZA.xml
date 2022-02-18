@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">%s se skaakinsigte</string>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://newchess.fun/insights/thibault/acpl/variant">%s se skaakinsigte</string>
   <string name="xHasNoChessInsights">%s het nog nie enige skaakinsigte nie!</string>
   <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">%s se skaakinsigte is privaat</string>
   <string name="cantSeeInsights">Jammer, jy kan nie %s se skaakinsigte sien nie.</string>
-  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">Genereer %s se skaakinsigte.</string>
+  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on NewChess to create insights for player %s.">Genereer %s se skaakinsigte.</string>
   <string name="crunchingData" comment="crunchingData&#10;&#10;For chess insights, when you ask to create a new set of chess insights based on your/another player's game history.">Besig om die data vir jou te verwerk!</string>
   <string name="maybeAskThemToChangeTheir" comment="maybeAskThemToChangeTheir&#10;%s is the translation for 'insights settings'.&#10;&#10;Your settings control privacy for your chess insights, and determine who can and cannot see them.">Vra dalk dat %s verander word?</string>
   <string name="insightsSettings" comment="insightsSettings&#10;In the context of 'Maybe ask them to change their insight settings?' - separate string available for translation.">insig-instellings</string>

@@ -7,20 +7,20 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
-import { Chess } from 'chessops/chess';
-import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { Config as CgConfig } from 'chessground/config';
+import { Chess } from 'chessops-newchess1-mod/chess';
+import { chessgroundDests, scalachessCharPair } from 'chessops-newchess1-mod/compat';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { defer } from 'common/defer';
 import { defined, prop, Prop } from 'common';
-import { makeSanAndPlay } from 'chessops/san';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import { makeSanAndPlay } from 'chessops-newchess1-mod/san';
+import { parseFen, makeFen } from 'chessops-newchess1-mod/fen';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops-newchess1-mod/util';
 import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
-import { Role, Move, Outcome } from 'chessops/types';
+import { Role, Move, Outcome } from 'chessops-newchess1-mod/types';
 import { storedProp } from 'common/storage';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {

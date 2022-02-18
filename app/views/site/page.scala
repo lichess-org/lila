@@ -11,7 +11,7 @@ object page {
   def lone(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title")
+      title = ~doc.getText("document.title")
     ) {
       main(cls := "page-small box box-pad page")(pageContent(doc, resolver))
     }
@@ -20,25 +20,25 @@ object page {
       ctx: Context
   ) =
     layout(
-      title = ~doc.getText("doc.title"),
+      title = ~doc.getText("document.title"),
       active = active,
       contentCls = "page box box-pad",
       moreCss = cssTag("page")
     )(pageContent(doc, resolver))
 
   def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
-    h1(doc.getText("doc.title")),
+    h1(doc.getText("document.title")),
     div(cls := "body")(
       raw {
         ~doc
-          .getHtml("doc.content", resolver)
+          .getHtml("document.content", resolver)
           .map(lila.blog.BlogTransform.markdown.apply)
       }
     )
   )
 
   def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
-    val title = ~doc.getText("doc.title")
+    val title = ~doc.getText("document.title")
     layout(
       title = title,
       active = "source",
@@ -53,7 +53,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       frag(
         st.section(cls := "box box-pad body")(
           h1(title),
-          raw(~doc.getHtml("doc.content", resolver))
+          raw(~doc.getHtml("document.content", resolver))
         ),
         br,
         st.section(cls := "box")(
@@ -106,7 +106,7 @@ $('#asset-version-message').text(lichess.info.message);"""
           h1("HTTP API"),
           p(
             raw(
-              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+              """NewChess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
             )
           )
         ),
@@ -114,7 +114,7 @@ $('#asset-version-message').text(lichess.info.message);"""
         div(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-tv")("Embed Lichess TV in your site"),
+            h1(id := "embed-tv")("Embed NewChess TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
@@ -210,11 +210,11 @@ $('#asset-version-message').text(lichess.info.message);"""
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
-          a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
-          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
-          a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
+          a(activeCls("about"), href := "/about")(trans.aboutX("newchess.fun")),
+//          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
+          a(activeCls("contact"), href := "/contact")(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
-          a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
+//          a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
           a(activeCls("master"), href := routes.Page.master)("Title verification"),
           sep,
           a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
@@ -223,10 +223,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           a(activeCls("thanks"), href := "/thanks")(trans.thankYou()),
           sep,
           a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-          a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
+          a(activeCls("database"), href := "https://database.newchess.fun")(trans.database(), external),
           a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
-          a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
+          a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isNewChessLagging()),
           a(activeCls("ads"), href := "/ads")("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)

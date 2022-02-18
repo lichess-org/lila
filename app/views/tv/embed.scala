@@ -10,11 +10,11 @@ object embed {
 
   def apply(pov: lila.game.Pov)(implicit config: EmbedConfig) =
     views.html.base.embed(
-      title = "lichess.org chess TV",
+      title = "newchess.fun chess TV",
       cssModule = "tv.embed"
     )(
       dataStreamUrl,
-      div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
+      div(id := "featured-game", cls := "embedded", title := "newchess.fun TV")(
         views.html.game.mini.noCtx(pov, tv = true)(targetBlank)
       ),
       cashTag,

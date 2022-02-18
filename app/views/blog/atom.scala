@@ -17,7 +17,7 @@ object atom {
       elems = pager.currentPageResults,
       htmlCall = routes.Blog.index(),
       atomCall = routes.Blog.atom,
-      title = "lichess.org blog",
+      title = "newchess.fun blog",
       updated = pager.currentPageResults.headOption flatMap docDate
     ) { doc =>
       frag(

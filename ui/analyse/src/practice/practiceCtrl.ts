@@ -6,8 +6,8 @@ import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
-import { parseUci } from 'chessops/util';
-import { makeSan } from 'chessops/san';
+import { parseUci } from 'chessops-newchess1-mod/util';
+import { makeSan } from 'chessops-newchess1-mod/san';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 

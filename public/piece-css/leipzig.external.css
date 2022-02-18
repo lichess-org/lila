@@ -4,9 +4,11 @@
 .is2d .rook.white {background-image:url('/assets/piece/leipzig/wR.svg')}
 .is2d .queen.white {background-image:url('/assets/piece/leipzig/wQ.svg')}
 .is2d .king.white {background-image:url('/assets/piece/leipzig/wK.svg')}
+.is2d .duke.white {background-image:url('/assets/piece/leipzig/wD.svg')}
 .is2d .pawn.black {background-image:url('/assets/piece/leipzig/bP.svg')}
 .is2d .knight.black {background-image:url('/assets/piece/leipzig/bN.svg')}
 .is2d .bishop.black {background-image:url('/assets/piece/leipzig/bB.svg')}
 .is2d .rook.black {background-image:url('/assets/piece/leipzig/bR.svg')}
 .is2d .queen.black {background-image:url('/assets/piece/leipzig/bQ.svg')}
 .is2d .king.black {background-image:url('/assets/piece/leipzig/bK.svg')}
+.is2d .duke.black {background-image:url('/assets/piece/leipzig/bD.svg')}

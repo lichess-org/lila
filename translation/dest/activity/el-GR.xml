@@ -3,8 +3,8 @@
   <string name="activity">Δραστηριότητα</string>
   <string name="hostedALiveStream">Μεταδίδει ζωντανά</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Υποστήριξε το lichess για %1$s μήνα ως %2$s</item>
-    <item quantity="other">Υποστήριξε το lichess για %1$s μήνες ως %2$s</item>
+    <item quantity="one">Υποστήριξε το newchess για %1$s μήνα ως %2$s</item>
+    <item quantity="other">Υποστήριξε το newchess για %1$s μήνες ως %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Εξασκήθηκε %1$s θέση σε %2$s</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Αγωνίστηκε σε %s ελβετικά πρωτάθληματα</item>
   </plurals>
   <string name="rankedInSwissTournament">Κατατάχθηκε #%1$s στο %2$s</string>
-  <string name="signedUp">Έκανε εγγραφή στο lichess.org</string>
+  <string name="signedUp">Έκανε εγγραφή στο newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Έγινε μέλος %s ομάδας</item>
     <item quantity="other">Έγινε μέλος %s ομαδών</item>

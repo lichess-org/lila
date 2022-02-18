@@ -70,7 +70,7 @@ Myöhään liittyville merkitään yksi huilaus, vaikka heiltä olisi jäänyt v
 Siinä ei nimittäin voisi ratkaista reilulla tavalla turnauksen etuajassa jättävistä pelaajista syntyvää ongelmaa. Verkkotapahtumassa ei voi odottaa kaikkien pelaajien pelaavan kaikkia pelejään – niin ei vain tapahdu. Tämän seurauksena useimmat täyskierrosturnaukset olisivat puuttellisia ja epäreiluja, eikä niiden järjestämiselle siten ole perusteita.
 Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauksessa, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan keskenään ennen kuin turnaus loppuu.</string>
   <string name="otherSystemsQ">Entä muut turnausjärjestelmät?</string>
-  <string name="otherSystemsA">Emme toistaiseksi aio lisätä Lichessiin enempää turnausjärjestelmiä.</string>
+  <string name="otherSystemsA">Emme toistaiseksi aio lisätä NewChessiin enempää turnausjärjestelmiä.</string>
   <string name="swissDescription">Sveitsiläisessä turnauksessa %1$s pelaaja ei välttämättä pelaa kaikki muita osallistujia vastaan. Osallistujat pelaavat kullakin kierroksella pareina, jotka muodostetaan tiettyjä sääntöjä noudattaen. Säännöillä varmistetaan, että kaikki pelaavat sellaisia vastustajia vastaan, joilla on jotakuinkin sama pistemäärä, mutta eivät kuitenkaan samaa vastustajaa vastaan useammin kuin kerran. Voittaja on kaikilta kierroksilta korkeimmat yhteispisteet saanut pelaaja. Kaikki osallistujat pelaavat joka kierroksella, paitsi jos pelaajia on pariton määrä.</string>
   <string name="teamOnly">Sveitsiläisiä turnauksia voivat luoda vain joukkueenjohtajat, ja niissä voivat pelata vain joukkueen jäsenet.           
 %1$s pelataksesi sveitsiläisissä turnauksissa.</string>

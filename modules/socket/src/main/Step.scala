@@ -1,8 +1,8 @@
 package lila.socket
 
-import chess.format.{ FEN, Uci }
-import chess.Pos
-import chess.variant.Crazyhouse
+import chess.format.{FEN, Uci}
+import chess.{Duke, Pos}
+import chess.variant.{Crazyhouse, NewChess1}
 import play.api.libs.json._
 
 case class Step(
@@ -13,7 +13,8 @@ case class Step(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],
-    crazyData: Option[Crazyhouse.Data]
+    crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data]
 ) {
 
   // who's color plays next
@@ -39,7 +40,19 @@ object Step {
       }
     )
   }
+  implicit private val newChess1PocketWriter: OWrites[NewChess1.Pocket] = OWrites { v =>
+    JsObject(
+      List(Duke).flatMap { role =>
+        Some(v.roles.count(role ==)).filter(0 <).map { count =>
+          role.name -> JsNumber(count)
+        }
+      }
+    )
+  }
   implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+  }
+  implicit private val newchess1DataWriter: OWrites[chess.variant.NewChess1.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
@@ -69,5 +82,6 @@ object Step {
         }
       )
       .add("crazy", crazyData)
+      .add("newChess1", newChess1Data)
   }
 }

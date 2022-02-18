@@ -458,9 +458,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश या झंडा</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">प्रति पंक्ति एक कड़ी</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">प्रति पंक्ति एक कड़ी</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
-  <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
+  <string name="previouslyOnNewChessTV">इससे पहले NewChess TV पर</string>
   <string name="onlinePlayers">ऑनलाइन खिलाड़ियों</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल मूल्यांकित है लेकिन कोई समय नियंत्रण नहीं है!</string>
@@ -497,7 +497,7 @@
   <string name="cheat">धोखेबाज़ी</string>
   <string name="insult">अपमान</string>
   <string name="troll">ट्रोल</string>
-  <string name="ratingManipulation">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
+  <string name="ratingManipulation">जब एक उपयोगकर्ता (newchess. fun/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
@@ -619,7 +619,7 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>
   <string name="simulHostExtraTime">अतिरिक्त समय की मेजबानी करें</string>
-  <string name="lichessTournaments">lichess की प्रतियोगिताएं</string>
+  <string name="lichessTournaments">newchess की प्रतियोगिताएं</string>
   <string name="tournamentFAQ">अखाडा प्रतियोगिता के बारे में कई बार पूछे गए  सवाल</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता के आरंभ होने में समय</string>
   <string name="averageCentipawnLoss">सामान्य हार गया</string>
@@ -653,8 +653,8 @@
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="readAboutOur">हमारे%s के बारे में पढ़ें।</string>
-  <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
+  <string name="networkLagBetweenYouAndLichess">आप और newchess के बीच नेटवर्क के अंतराल</string>
+  <string name="timeToProcessAMoveOnLichessServer">NewChess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="downloadAnnotated">एनोटेट नीचे लादें</string>
   <string name="downloadRaw">कच्चा नीचे लादें</string>
   <string name="downloadImported">डाउनलोड आयातित</string>
@@ -677,7 +677,7 @@
   <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
-  <string name="asFreeAsLichess">Lichess जैसा मुक्त</string>
+  <string name="asFreeAsLichess">NewChess जैसा मुक्त</string>
   <string name="builtForTheLoveOfChessNotMoney">शतरंज के प्यार के लिए निर्मित, धन के लिए नहीं</string>
   <string name="everybodyGetsAllFeaturesForFree">हर कोई मुफ्त में सभी सुविधाओं प्राप्त करता है</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
@@ -790,14 +790,14 @@
   <string name="tryToWin">आपके द्वारा खेले जाने वाले हर खेल को जीतने की कोशिश करें। (या कम से कम खेल ड्रा करें)।</string>
   <string name="resignLostGames">हारे हुए खेलों को त्याग दें (घड़ी को अंत तक न चलने दें)।</string>
   <string name="temporaryInconvenience">हमें अल्पकालिक असुविधा के लिए खेद है</string>
-  <string name="wishYouGreatGames">और lichess.org पर आपको अनेक शानदार खेलों की शुभकामनाएं।</string>
+  <string name="wishYouGreatGames">और newchess.fun पर आपको अनेक शानदार खेलों की शुभकामनाएं।</string>
   <string name="thankYouForReading">पढ़ने के लिए धन्यवाद!</string>
   <string name="lifetimeScore">जीवनकाल स्कोर</string>
   <string name="currentMatchScore">वर्तमान मैच का स्कोर</string>
   <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
-  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
+  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी NewChess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>
   <string name="rapid">रैपिड</string>
@@ -834,13 +834,13 @@
   <string name="resVsX">%1$s बनाम %2$s</string>
   <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
   <string name="newPendingReview">नई लंबित समीक्षा</string>
-  <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
+  <string name="lostAgainstTOSViolator">आप NewChess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s वापसी की</string>
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
   <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
   <string name="download">डाउनलोड करें</string>
   <string name="welcome">आपका स्वागत है!</string>
-  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
+  <string name="lichessPatronInfo">NewChess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
 सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
   <string name="coachManager">कोच मनेजर</string>
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
@@ -895,6 +895,6 @@
   <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
   <string name="since">दिनांक से</string>
   <string name="until">दिनांक तक​</string>
-  <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
+  <string name="lichessDbExplanation">मुल्यांकित खेल NewChess के सभी खिलाड़ियो से</string>
   <string name="switchSides">पार्श्व बदलना</string>
 </resources>

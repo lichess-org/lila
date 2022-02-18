@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Darempred</string>
-  <string name="contactLichess">Mont e darempred gant Lichess</string>
+  <string name="contactLichess">Mont e darempred gant NewChess</string>
   <string name="whatCanWeHelpYouWith">Penaos e c\'hellomp ho sikour?</string>
   <string name="visitThisPage">Kit war ar pajenn-mañ da zirouestlañ ho kudenn</string>
   <string name="iCantLogIn">Ne c\'hallan ket kevreañ</string>
@@ -22,18 +22,18 @@
   <string name="orCloseAccount">Padal e c\'hallit serriñ ar gont-mañ ha digeriñ unan all.</string>
   <string name="wantClearHistory">C\'hoant am eus da ziverkañ roll-istor ma c\'hrogadoù</string>
   <string name="cantClearHistory">Ne c\'haller ket diverkañ roll-istor ho krogadoù, pe hini ho poelladennoù pe ho renkadur.</string>
-  <string name="reportBugInDiscord">War Lichess Discord server</string>
+  <string name="reportBugInDiscord">War NewChess Discord server</string>
   <string name="illegalPawnCapture">Paket eo bet ur pezh gwerin en un doare direizh</string>
   <string name="calledEnPassant">\"En ur dremen\" a vez graet deus-se hag ur reolenn diazez eus ar c\'hoari an hini eo.</string>
   <string name="ratedGame">Bezit sur ho peus kemeret perzh en ur c\'hrogad renket rak ar c\'hrogadoù a vignoniezh ne cheñchont ket renkadur ar c\'hoarierien.</string>
   <string name="errorPage">Pajenn fazi</string>
   <string name="sendAppealTo">Galv a c\'hallit ober: %s.</string>
-  <string name="buyingLichess">Prenañ Lichess</string>
-  <string name="authorizationToUse">Aotre d\'ober gant Lichess</string>
-  <string name="welcomeToUse">Aotreañ a reomp ac\'hanoc\'h d\'ober gant Lichess war bep tachenn, zoken war hini ar c\'henwerzh.</string>
-  <string name="videosAndBooks">Gallout a rit ober gant Lichess en ho videoioù ha moullañ tapadennoù-skramm en ho levrioù.</string>
-  <string name="creditAppreciated">Kontant e vefemp ma venegfec\'h Lichess daoust ma n\'oc\'h ket rediet hen ober.</string>
+  <string name="buyingLichess">Prenañ NewChess</string>
+  <string name="authorizationToUse">Aotre d\'ober gant NewChess</string>
+  <string name="welcomeToUse">Aotreañ a reomp ac\'hanoc\'h d\'ober gant NewChess war bep tachenn, zoken war hini ar c\'henwerzh.</string>
+  <string name="videosAndBooks">Gallout a rit ober gant NewChess en ho videoioù ha moullañ tapadennoù-skramm en ho levrioù.</string>
+  <string name="creditAppreciated">Kontant e vefemp ma venegfec\'h NewChess daoust ma n\'oc\'h ket rediet hen ober.</string>
   <string name="noneOfTheAbove">Hini ebet eus ar re meneget uheloc\'h</string>
   <string name="sendEmailAt">Kasit ur postel deomp da %s.</string>
-  <string name="explainYourRequest">Displegit fraezh ha sklaer ho koulenn. Menegit hoc\'h anv-impljer Lichess hag ar pep retañ evit ma c\'hallfemp ho sikour.</string>
+  <string name="explainYourRequest">Displegit fraezh ha sklaer ho koulenn. Menegit hoc\'h anv-impljer NewChess hag ar pep retañ evit ma c\'hallfemp ho sikour.</string>
 </resources>

@@ -32,7 +32,7 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">jivna fo %s lo grinunjvi</item>
   </plurals>
-  <string name="signedUp">co\'a se jaspu fi la\'o .urli lichess.org .urli</string>
+  <string name="signedUp">co\'a se jaspu fi la\'o .urli newchess.fun .urli</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">co\'a cmima %s bende</item>
   </plurals>

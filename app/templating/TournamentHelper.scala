@@ -47,7 +47,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
-      "Lichess "    -> "",
+      "NewChess "    -> "",
       "Marathon"    -> icon(''),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"

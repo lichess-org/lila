@@ -260,7 +260,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tài khoản này đã vi phạm điều khoản dịch vụ của Lichess</string>
+  <string name="thisAccountViolatedTos">Tài khoản này đã vi phạm điều khoản dịch vụ của NewChess</string>
   <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
@@ -420,7 +420,7 @@
   <string name="thankYou">Cám ơn!</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
-  <string name="previouslyOnLichessTV">Kênh trước</string>
+  <string name="previouslyOnNewChessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
@@ -532,7 +532,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Thời gian đã chơi: %s</string>
   <string name="watchGames">Xem các ván đấu</string>
-  <string name="tpTimeSpentOnTV">Thời gian được lên Lichess TV: %s</string>
+  <string name="tpTimeSpentOnTV">Thời gian được lên NewChess TV: %s</string>
   <string name="watch">Xem</string>
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các streamer</string>
@@ -564,7 +564,7 @@
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
-  <string name="lichessTournaments">Các giải đấu Lichess</string>
+  <string name="lichessTournaments">Các giải đấu NewChess</string>
   <string name="tournamentFAQ">Các câu hỏi thường gặp về đấu trường giải đấu</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Phần trăm chốt mất trung bình mỗi nước (ACPL)</string>
@@ -597,8 +597,8 @@
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý tuân thủ %s của chúng tôi.</string>
   <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
-  <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ NewChess</string>
   <string name="downloadAnnotated">Tải kèm chú thích</string>
   <string name="downloadRaw">Tải bản thô</string>
   <string name="downloadImported">Tải tệp đã được nhập</string>
@@ -614,14 +614,14 @@
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị cấm. Kích hoạt điều này cho con của bạn và học sinh để bảo vệ chúng từ những người dùng internet khác.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng lichess có một icon %s, từ đó bạn biết con bạn được an toàn.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng newchess có một icon %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="enableKidMode">Kích hoạt chế độ trẻ em</string>
   <string name="disableKidMode">Tắt chế độ trẻ em</string>
   <string name="security">Bảo mật</string>
   <string name="sessions">Session</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
-  <string name="asFreeAsLichess">Miễn phí như lichess</string>
+  <string name="asFreeAsLichess">Miễn phí như newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người có tất cả các ứng dụng miễn phí</string>
   <string name="zeroAdvertisement">Không quảng cáo</string>
@@ -730,14 +730,14 @@
   <string name="tryToWin">Cố gắng thắng (hoặc ít nhất hòa) mỗi ván bạn chơi.</string>
   <string name="resignLostGames">Đầu hàng những thế trận thua cuộc (đừng để đồng hồ chạy).</string>
   <string name="temporaryInconvenience">Chúng tôi xin lỗi vì tạm thời gây ra những bất tiện,</string>
-  <string name="wishYouGreatGames">và mong bạn có những trận chiến đỉnh cao trên lichess.org.</string>
+  <string name="wishYouGreatGames">và mong bạn có những trận chiến đỉnh cao trên newchess.fun.</string>
   <string name="thankYouForReading">Cảm ơn bạn vì đã đọc!</string>
   <string name="lifetimeScore">Tổng điểm đối đầu</string>
   <string name="currentMatchScore">Tỷ số của lần đối đầu này</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu, hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
   <string name="agreementAccount">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản.</string>
-  <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
+  <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của NewChess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
   <string name="rapid">Cờ nhanh</string>
@@ -774,13 +774,13 @@
   <string name="resVsX">%1$s so với%2$s</string>
   <string name="someoneReviewedYourCoachProfile">Ai đó đã xem xét hồ sơ huấn luyện viên của bạn.</string>
   <string name="newPendingReview">Đánh giá mới đang chờ xử lý</string>
-  <string name="lostAgainstTOSViolator">Bạn đã thua người vi phạm Điều Khoản Dịch Vụ của Lichess</string>
+  <string name="lostAgainstTOSViolator">Bạn đã thua người vi phạm Điều Khoản Dịch Vụ của NewChess</string>
   <string name="refundXpointsTimeControlY">Hoàn lại:%1$s %2$s điểm xếp hạng.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải xuống</string>
   <string name="welcome">Xin chào!</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức từ thiện và phần mềm nguồn mở hoàn toàn miễn phí.
+  <string name="lichessPatronInfo">NewChess là một tổ chức từ thiện và phần mềm nguồn mở hoàn toàn miễn phí.
 Tất cả chi phí vận hành, phát triển và nội dung chỉ được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Người quản lý streamer</string>

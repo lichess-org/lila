@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Əlaqə</string>
-  <string name="contactLichess">Lichess ilə əlaqə</string>
+  <string name="contactLichess">NewChess ilə əlaqə</string>
   <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
   <string name="visitThisPage">Problemi həll etmək üçün bu səhifəyə keçin</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">İki mərhələli təsdiqləmə kodlarımı itirdim</string>
   <string name="doPasswordReset">İkinci doğrulamanı silmək üçün şifrənizi sıfırlayın</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
-  <string name="wantTitle">Titulumun Lichessdə göstərilməsini istəyirəm</string>
-  <string name="visitTitleConfirmation">Lichess profilinizdə titulunuzu göstərmək və Titullu Arenada iştirak etmək üçün titul təsdiq səhifəsini ziyarət edin</string>
+  <string name="wantTitle">Titulumun NewChessdə göstərilməsini istəyirəm</string>
+  <string name="visitTitleConfirmation">NewChess profilinizdə titulunuzu göstərmək və Titullu Arenada iştirak etmək üçün titul təsdiq səhifəsini ziyarət edin</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
   <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı e-poçtlə istəməyin, bunu etməyəcəyik.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
   <string name="onlyReports">Yalnız şikayət formu ilə oyunçuları şikayət etmək təsirli olur.</string>
   <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
-  <string name="reportBugInForum">Forumun Lichess Rəy bölməsində</string>
-  <string name="reportWebsiteIssue">Lichess sayt problemləri GitHubda</string>
-  <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
-  <string name="reportBugInDiscord">Lichessin Discord serverində</string>
+  <string name="reportBugInForum">Forumun NewChess Rəy bölməsində</string>
+  <string name="reportWebsiteIssue">NewChess sayt problemləri GitHubda</string>
+  <string name="reportMobileIssue">NewChess mobil tətbiqi problemləri GitHubda</string>
+  <string name="reportBugInDiscord">NewChessin Discord serverində</string>
   <string name="howToReportBug">Lütfən, xətanın necə göründüyünü, bunun əvəzində nə olacağını gözlədiyinizi və xətanı yaradan addımları təsvir edin.</string>
   <string name="illegalPawnCapture">Səhv piyada vurma hərəkəti</string>
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
@@ -63,13 +63,13 @@
   <string name="doNotDeny">Hiylə etdiyinizi inkar etməyin. Yeni bir hesab yaratmağınıza icazə verilməsini istəyirsinizsə, nə etdiyinizi etiraf edin və bunun səhv olduğunu başa düşdüyünüzü göstərin.</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
   <string name="collaboration">Əməkdaşlıq, hüquqi, kommersiya</string>
-  <string name="monetizing">Lichessdən pul qazanmaq</string>
-  <string name="buyingLichess">Lichessi almaq</string>
-  <string name="authorizationToUse">Lichess istifadə icazəsi</string>
-  <string name="welcomeToUse">Biznes məqsədilə olsa belə fəaliyyətiniz üçün Lichess istifadə edə bilərsiniz.</string>
-  <string name="videosAndBooks">Bunu videolarınızda göstərə və kitablarınıza Lichess ekran görüntülərini çap edə bilərsiniz.</string>
+  <string name="monetizing">NewChessdən pul qazanmaq</string>
+  <string name="buyingLichess">NewChessi almaq</string>
+  <string name="authorizationToUse">NewChess istifadə icazəsi</string>
+  <string name="welcomeToUse">Biznes məqsədilə olsa belə fəaliyyətiniz üçün NewChess istifadə edə bilərsiniz.</string>
+  <string name="videosAndBooks">Bunu videolarınızda göstərə və kitablarınıza NewChess ekran görüntülərini çap edə bilərsiniz.</string>
   <string name="creditAppreciated">Tərif qiymətləndirilir, lakin tələb olunmur.</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
   <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
-  <string name="explainYourRequest">Lütfən tələbinizi aydın və hərtərəfli izah edin. Lichess istifadəçi adınızı və sizə kömək etməyimizə yarayacaq məlumatları bildirin.</string>
+  <string name="explainYourRequest">Lütfən tələbinizi aydın və hərtərəfli izah edin. NewChess istifadəçi adınızı və sizə kömək etməyimizə yarayacaq məlumatları bildirin.</string>
 </resources>

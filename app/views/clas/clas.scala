@@ -34,7 +34,7 @@ object clas {
         ),
         div(cls := "clas-home__onboard")(
           postForm(action := routes.Clas.becomeTeacher)(
-            submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
+            submitButton(cls := "button button-fat")(trans.clas.applyToBeNewChessTeacher())
           )
         )
       )
@@ -148,7 +148,7 @@ object clas {
           form3.group(
             form("teachers"),
             trans.clas.teachersOfTheClass(),
-            help = trans.clas.addLichessUsernames().some
+            help = trans.clas.addNewChessUsernames().some
           )(form3.textarea(_)(rows := 4))
       },
       form3.actions(

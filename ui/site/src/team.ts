@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
-import LichessChat from 'chat';
+import NewChessChat from 'chat';
 
-window.LichessChat = LichessChat;
+window.NewChessChat = NewChessChat;
 
 interface TeamOpts {
   id: string;

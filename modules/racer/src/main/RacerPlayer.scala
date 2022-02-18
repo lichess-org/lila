@@ -29,7 +29,7 @@ object RacerPlayer {
       else User(str)
   }
 
-  val lichess = Id.User("Lichess")
+  val lichess = Id.User("NewChess")
 
   def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now)
 }

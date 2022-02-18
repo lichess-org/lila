@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));

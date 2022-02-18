@@ -3,8 +3,8 @@
   <string name="activity">Aktiviteti</string>
   <string name="hostedALiveStream">Transmetoi duke luajtur live</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Mbështeti lichess.org për %1$s muaj si %2$s</item>
-    <item quantity="other">Mbështeti lichess.org për %1$s muaj si %2$s</item>
+    <item quantity="one">Mbështeti newchess.fun për %1$s muaj si %2$s</item>
+    <item quantity="other">Mbështeti newchess.fun për %1$s muaj si %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktikove %1$s pozicion në %2$s</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Ke marr pjesë në %s kampionate zvicerane</item>
   </plurals>
   <string name="rankedInSwissTournament">I rreshtuar #%1$s in %2$s</string>
-  <string name="signedUp">U regjistrua në lichess.org</string>
+  <string name="signedUp">U regjistrua në newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Iu bashkua ekipit %s</item>
     <item quantity="other">Iu bashkua %s ekipeve</item>

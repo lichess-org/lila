@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Clase</string>
-  <string name="teachClassesOfChessStudents">Predă clase celor care învață șahul cu suita de aplicații Clase Lichess.</string>
+  <string name="teachClassesOfChessStudents">Predă clase celor care învață șahul cu suita de aplicații Clase NewChess.</string>
   <string name="features">Caracteristici</string>
   <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru studenți</string>
   <string name="trackStudentProgress">Urmărește progresul elevilor în jocuri și puzzle-uri</string>
   <string name="messageAllStudents">Trimite un mesaj tuturor elevilor despre materiale noi pentru clasă</string>
   <string name="freeForAllForever">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
-  <string name="applyToBeLichessTeacher">Înscrie-te pentru a fi profesor de șah Lichess</string>
+  <string name="applyToBeNewChessTeacher">Înscrie-te pentru a fi profesor de șah NewChess</string>
   <string name="noClassesYet">Nu există încă nicio clasă.</string>
   <string name="teachersX">Profesori: %s</string>
   <string name="newClass">Clasă nouă</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Descrierea clasei</string>
   <string name="visibleByBothStudentsAndTeachers">Vizibil atât pentru profesori, cât și pentru studenții din clasă</string>
   <string name="teachersOfTheClass">Profesorii clasei</string>
-  <string name="addLichessUsernames">Adaugă nume de utilizator Lichess, câte unul pe fiecare linie, pentru a-i invita ca profesori.</string>
+  <string name="addNewChessUsernames">Adaugă nume de utilizator NewChess, câte unul pe fiecare linie, pentru a-i invita ca profesori.</string>
   <string name="resetPassword">Resetează parola</string>
   <string name="makeSureToCopy">Asigurăți-vă că ați copiat sau notat parola acum. Nu veți mai putea să o revedeți!</string>
   <string name="passwordX">Parola: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Nume real</string>
   <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea studentului.</string>
   <string name="addStudent">Adaugă student</string>
-  <string name="lichessProfileXCreatedForY">Profilul Lichess %1$s creat pentru %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Profilul NewChess %1$s creat pentru %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Nume de utilizator: %2$s
 Parola: %3$s</string>
-  <string name="inviteALichessAccount">Invită un cont Lichess</string>
-  <string name="inviteDesc1">Dacă studentul are deja un cont Lichess, îl poți invita la clasă.</string>
-  <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
+  <string name="inviteANewChessAccount">Invită un cont NewChess</string>
+  <string name="inviteDesc1">Dacă studentul are deja un cont NewChess, îl poți invita la clasă.</string>
+  <string name="inviteDesc2">Ei vor primi un mesaj pe NewChess cu un link pentru a alătura clasei.</string>
   <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
   <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
-  <string name="createANewLichessAccount">Creează un cont nou Lichess aici</string>
-  <string name="createDesc1">Dacă studentul nu are încă un cont de Lichess, poți crea unul pentru ei aici.</string>
+  <string name="createANewNewChessAccount">Creează un cont nou NewChess aici</string>
+  <string name="createDesc1">Dacă studentul nu are încă un cont de NewChess, poți crea unul pentru ei aici.</string>
   <string name="createDesc2">Nu este necesară o adresă de e-mail. O parolă va fi generată și va trebui să o transmiți studentului să se poată conecta.</string>
   <string name="createDesc3">Important: un student nu trebuie să aibă mai multe conturi.</string>
   <string name="createDesc4">Dacă au deja unul, folosește în schimb formularul de invitație.</string>
   <string name="createStudentWarning">Creează doar conturi pentru elevi reali. Nu utiliza acest lucru pentru a crea conturi multiple pentru tine. Poți fi blocat dacă faci acest lucru.</string>
-  <string name="lichessUsername">Nume de utilizator Lichess</string>
+  <string name="lichessUsername">Nume de utilizator NewChess</string>
   <string name="generateANewUsername">Generează un nou nume de utilizator</string>
   <string name="welcomeToClass">Bine ai venit la clasa ta: %s.
 Aici este link-ul pentru a accesa clasa.</string>

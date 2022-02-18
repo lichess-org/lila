@@ -31,8 +31,8 @@ object thanks {
               p(
                 userIdLink(gift.userId.some),
                 " ",
-                if (gift.isLifetime) "is now a lifetime Lichess Patron"
-                else "is now a Lichess Patron for one month",
+                if (gift.isLifetime) "is now a lifetime NewChess Patron"
+                else "is now a NewChess Patron for one month",
                 ", thanks to you!"
               )
             case (_, Some(pat)) =>

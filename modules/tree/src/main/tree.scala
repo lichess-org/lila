@@ -5,7 +5,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
-import chess.variant.Crazyhouse
+import chess.variant.{ Crazyhouse, NewChess1 }
 import play.api.libs.json._
 
 import lila.common.Json._
@@ -57,7 +57,8 @@ case class Root(
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     clock: Option[Centis] = None, // clock state at game start, assumed same for both players
-    crazyData: Option[Crazyhouse.Data]
+    crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data]
 ) extends Node {
 
   def idOption       = None
@@ -89,6 +90,7 @@ case class Branch(
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data],
+    newChess1Data: Option[NewChess1.Data],
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node {
 
@@ -144,7 +146,7 @@ object Node {
     object Author {
       case class User(id: String, titleName: String) extends Author
       case class External(name: String)              extends Author
-      case object Lichess                            extends Author
+      case object NewChess                            extends Author
       case object Unknown                            extends Author
     }
     def sanitize(text: String) =
@@ -178,7 +180,7 @@ object Node {
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
 
-    def hasLichessComment = value.exists(_.by == Comment.Author.Lichess)
+    def hasNewChessComment = value.exists(_.by == Comment.Author.NewChess)
   }
   object Comments {
     val empty = Comments(Nil)
@@ -245,7 +247,7 @@ object Node {
   implicit val commentAuthorWrites: Writes[Comment.Author] = Writes[Comment.Author] {
     case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
-    case Comment.Author.Lichess        => JsString("lichess")
+    case Comment.Author.NewChess        => JsString("lichess")
     case Comment.Author.Unknown        => JsNull
   }
   implicit val commentWriter  = Json.writes[Node.Comment]

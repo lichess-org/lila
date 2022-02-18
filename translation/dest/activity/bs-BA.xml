@@ -3,9 +3,9 @@
   <string name="activity">Aktivnost</string>
   <string name="hostedALiveStream">Bio/la domaćin emitovanja uživo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Podržavao/la lichess.org %1$s mjesec kao %2$s</item>
-    <item quantity="few">Podržavao/la lichess.org %1$s mjeseca kao %2$s</item>
-    <item quantity="other">Podržavao/la lichess.org %1$s mjeseci kao %2$s</item>
+    <item quantity="one">Podržavao/la newchess.fun %1$s mjesec kao %2$s</item>
+    <item quantity="few">Podržavao/la newchess.fun %1$s mjeseca kao %2$s</item>
+    <item quantity="other">Podržavao/la newchess.fun %1$s mjeseci kao %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Vježbao/la %1$s poziciju na %2$s</item>
@@ -83,7 +83,7 @@
     <item quantity="other">Takmičili se u %s turnirima po švicarskom sistemu</item>
   </plurals>
   <string name="rankedInSwissTournament">#%1$s u %2$s</string>
-  <string name="signedUp">Registrovao/la se na lichess</string>
+  <string name="signedUp">Registrovao/la se na newchess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se %s timu</item>
     <item quantity="few">Pridružio/la se %s tima</item>

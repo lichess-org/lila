@@ -2,13 +2,13 @@
 <resources>
   <string name="donate">Donér</string>
   <string name="donateAsX">Gje som %s</string>
-  <string name="lichessPatron">Bidragsytar til Lichess</string>
+  <string name="lichessPatron">Bidragsytar til NewChess</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli ein bidragsytar til Lichess</string>
-  <string name="xBecamePatron">%s vart bidragsytar til Lichess</string>
+  <string name="becomePatron">Bli ein bidragsytar til NewChess</string>
+  <string name="xBecamePatron">%s vart bidragsytar til NewChess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s har støtta Lichess økonomisk i %2$s månad</item>
-    <item quantity="other">%1$s har støtta Lichess økonomisk i %2$s månader</item>
+    <item quantity="one">%1$s har støtta NewChess økonomisk i %2$s månad</item>
+    <item quantity="other">%1$s har støtta NewChess økonomisk i %2$s månader</item>
   </plurals>
   <string name="newPatrons">Nye bidragsytarar</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
@@ -18,10 +18,10 @@
   <string name="patronUntil">Du har ein bidragsytar-konto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikkje blir fornya vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er ein nonprofitorganisasjon fordi vi meiner at alle bør ha tilgang til ein gratis, verdsomspennande sjakkplatform.</string>
-  <string name="weRelyOnSupport">For å gjere det mogleg er vi avhengige av stønad frå folk som deg. Dersom du set pris på å bruka Lichess, så vurdér gjerne å støtte oss med eit bidrag og bli ein bidragsytar!</string>
+  <string name="weRelyOnSupport">For å gjere det mogleg er vi avhengige av stønad frå folk som deg. Dersom du set pris på å bruka NewChess, så vurdér gjerne å støtte oss med eit bidrag og bli ein bidragsytar!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betal %s éin gong og ver Lichess bidragsytar for alltid!</string>
-  <string name="lifetimePatron">Lichess-mesén på livstid</string>
+  <string name="payLifetimeOnce">Betal %s éin gong og ver NewChess bidragsytar for alltid!</string>
+  <string name="lifetimePatron">NewChess-mesén på livstid</string>
   <string name="monthly">Månadleg</string>
   <string name="recurringBilling">Tilbakevendande fakturering, forny bidragsytar-vingane dine kvar månad.</string>
   <string name="onetime">Ein gong</string>
@@ -31,28 +31,28 @@
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
-  <string name="celebratedPatrons">Dei akta bidragsytarane som gjer Lichess mogleg</string>
+  <string name="celebratedPatrons">Dei akta bidragsytarane som gjer NewChess mogleg</string>
   <string name="whereMoneyGoes">Kva går pengane til?</string>
   <string name="serversAndDeveloper">Framfor alt til kraftige tenarmaskiner.
-Deretter løner vi ein fulltidsutviklar: %s, grunnleggaren av Lichess.</string>
+Deretter løner vi ein fulltidsutviklar: %s, grunnleggaren av NewChess.</string>
   <string name="costBreakdown">Sjå ei detaljert oversikt over kostnadar</string>
-  <string name="officialNonProfit">Er Lichess offisielt ein nonprofit organisasjon?</string>
+  <string name="officialNonProfit">Er NewChess offisielt ein nonprofit organisasjon?</string>
   <string name="actOfCreation">Ja, her er grunnleggingsdokumentet. (på fransk)</string>
   <string name="changeMonthlySupport">Kan eg endre/annullere det månadlege bidraget mitt?</string>
   <string name="changeOrContact">Ja, når som helst, frå denne sida.
 Eller du kan %s.</string>
-  <string name="contactSupport">ta kontakt med Lichess-hjelpa</string>
+  <string name="contactSupport">ta kontakt med NewChess-hjelpa</string>
   <string name="otherMethods">Andre måtar å bidra på?</string>
   <string name="bankTransfers">Vi tek òg mot bankoverføringar</string>
   <string name="patronFeatures">Er nokre funksjonar reservert bidragsytarar?</string>
-  <string name="noPatronFeatures">Nei, for Lichess er heilt gratis, for alltid og for alle. Det er ein lovnad.
+  <string name="noPatronFeatures">Nei, for NewChess er heilt gratis, for alltid og for alle. Det er ein lovnad.
 Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Sjå ein detaljert samanlikning av funksjonar</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess-mesén i ein månad</item>
-    <item quantity="other">Lichess-mesén i %s månader</item>
+    <item quantity="one">NewChess-mesén i ein månad</item>
+    <item quantity="other">NewChess-mesén i %s månader</item>
   </plurals>
-  <string name="youSupportWith">Du støttar lichess.org med %s i månaden.</string>
+  <string name="youSupportWith">Du støttar newchess.fun med %s i månaden.</string>
   <string name="tyvm">Mange takk for støtta di. Du er sjef!</string>
   <string name="currentStatus">Gjeldande status</string>
   <string name="nextPayment">Neste betaling</string>
@@ -63,17 +63,17 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="changeMonthlyAmount">Endre månadleg beløp (%s)</string>
   <string name="cancelSupport">avslutt støtta di</string>
   <string name="xOrY">%1$s eller %2$s</string>
-  <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
+  <string name="decideHowMuch">Avgjer kor stor verde NewChess har for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
-  <string name="noLongerSupport">Avslutt å støtte Lichess</string>
-  <string name="viewOthers">Sjå andre Lichess-mesenar</string>
+  <string name="noLongerSupport">Avslutt å støtte NewChess</string>
+  <string name="viewOthers">Sjå andre NewChess-mesenar</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>
   <string name="transactionCompleted">Transaksjonen er gjennomført og ei kvittering er sendt til epostadressa di.</string>
   <string name="permanentPatron">Du har no ein permanent mesenkonto.</string>
   <string name="checkOutProfile">Sjekk profilen din!</string>
-  <string name="nowLifetime">Du er no livslang Lichess-mesen!</string>
-  <string name="nowOneMonth">Du er no Lichess-mesen for ein månad!</string>
-  <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og Lichess-kontoen din blir gradert ned til gratis-nivået.</string>
+  <string name="nowLifetime">Du er no livslang NewChess-mesen!</string>
+  <string name="nowOneMonth">Du er no NewChess-mesen for ein månad!</string>
+  <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og NewChess-kontoen din blir gradert ned til gratis-nivået.</string>
   <string name="changeCurrency">Endra valuta</string>
 </resources>

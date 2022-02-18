@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Suche Aufgaben aus den Partien eines Spielers</string>
   <string name="fromXGames">Aufgaben aus Partien von %s</string>
   <string name="searchPuzzles">Aufgaben suchen</string>
-  <string name="fromMyGamesNone">Es befinden sich keine Aufgaben aus deinen Partien in der Datenbank, aber Lichess schätzt dich immer noch sehr.
+  <string name="fromMyGamesNone">Es befinden sich keine Aufgaben aus deinen Partien in der Datenbank, aber NewChess schätzt dich immer noch sehr.
 
 Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass eine Aufgabe aus deinen Partien hinzugefügt wird!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>

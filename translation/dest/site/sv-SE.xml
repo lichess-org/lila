@@ -282,7 +282,7 @@
     <item quantity="one">Ge %s sekund</item>
     <item quantity="other">Ge %s sekunder</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lichess</string>
+  <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för NewChess</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Fråga om du får göra om draget</string>
@@ -453,7 +453,7 @@
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
-  <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
+  <string name="previouslyOnNewChessTV">Föregående NewChess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
@@ -583,7 +583,7 @@
   <string name="streamersMenu">Videosändningar</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
-  <string name="about">Om Lichess</string>
+  <string name="about">Om NewChess</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
@@ -609,7 +609,7 @@
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
   <string name="simulHostExtraTime">Värdens extratid</string>
-  <string name="lichessTournaments">Lichess-turneringar</string>
+  <string name="lichessTournaments">NewChess-turneringar</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
   <string name="averageCentipawnLoss">Genomsnittligt förlorad hundradelsbonde</string>
@@ -643,8 +643,8 @@
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
   <string name="readAboutOur">Läs om vår %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tid att bearbeta ett drag på lichess server</string>
+  <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och newchess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tid att bearbeta ett drag på newchess server</string>
   <string name="downloadAnnotated">Hämta med noter</string>
   <string name="downloadRaw">Hämta avskalad</string>
   <string name="downloadImported">Hämta importerad</string>
@@ -660,14 +660,14 @@
   <string name="withEverybody">Med alla</string>
   <string name="kidMode">Barnsäkert läge</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får newchess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
-  <string name="asFreeAsLichess">Lika gratis som lichess</string>
+  <string name="asFreeAsLichess">Lika gratis som newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schack, inte pengar</string>
   <string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
   <string name="zeroAdvertisement">Ingen reklam</string>
@@ -780,14 +780,14 @@
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
   <string name="temporaryInconvenience">Vi ber om ursäkt för den tillfälliga olägenheten,</string>
-  <string name="wishYouGreatGames">och önskar dig bra partier på lichess.org.</string>
+  <string name="wishYouGreatGames">och önskar dig bra partier på newchess.fun.</string>
   <string name="thankYouForReading">Tack för att du läste!</string>
   <string name="lifetimeScore">Livstidspoäng</string>
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
   <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
   <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
   <string name="agreementAccount">Jag instämmer med att jag inte kommer att skapa flera konton.</string>
-  <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
+  <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla NewChess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
   <string name="rapid">Snabbschack</string>
@@ -824,13 +824,13 @@
   <string name="resVsX">%1$s mot %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Någon har recenserat din coachprofil.</string>
   <string name="newPendingReview">Ny i väntan på översyn</string>
-  <string name="lostAgainstTOSViolator">Du förlorade mot någon som bröt mot Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Du förlorade mot någon som bröt mot NewChess TOS</string>
   <string name="refundXpointsTimeControlY">Ersättning: %1$s %2$s rankingpoäng.</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
   <string name="welcome">Välkommen!</string>
-  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+  <string name="lichessPatronInfo">NewChess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>

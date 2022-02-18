@@ -3,9 +3,9 @@
   <string name="activity">Activitate</string>
   <string name="hostedALiveStream">A găzduit un live stream</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">A sprijinit lichess.org pentru %1$s lună ca și %2$s</item>
-    <item quantity="few">A sprijinit lichess.org pentru %1$s luni ca și %2$s</item>
-    <item quantity="other">A sprijinit lichess.org pentru %1$s luni ca și %2$s</item>
+    <item quantity="one">A sprijinit newchess.fun pentru %1$s lună ca și %2$s</item>
+    <item quantity="few">A sprijinit newchess.fun pentru %1$s luni ca și %2$s</item>
+    <item quantity="other">A sprijinit newchess.fun pentru %1$s luni ca și %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">A practicat %1$s poziție pe %2$s</item>
@@ -83,7 +83,7 @@
     <item quantity="other">A concurat în %s turnee elvețiene</item>
   </plurals>
   <string name="rankedInSwissTournament">Evaluat #%1$s în %2$s</string>
-  <string name="signedUp">S-a înregistrat pe lichess.org</string>
+  <string name="signedUp">S-a înregistrat pe newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">S-a alăturat la %s echipă</item>
     <item quantity="few">S-a alăturat la %s echipe</item>

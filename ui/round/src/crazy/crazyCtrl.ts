@@ -1,8 +1,8 @@
 import { isPlayerTurn } from 'game/game';
-import { dragNewPiece } from 'chessground/drag';
-import { setDropMode, cancelDropMode } from 'chessground/drop';
+import { dragNewPiece } from 'chessground-newchess1-mod/drag';
+import { setDropMode, cancelDropMode } from 'chessground-newchess1-mod/drop';
 import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { RoundData } from '../interfaces';
 
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];

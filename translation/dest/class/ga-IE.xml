@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Ranganna</string>
-  <string name="teachClassesOfChessStudents">Múin ranganna daltaí ficheallaithe leis an tsraith uirlisí ranganna Lichess.</string>
+  <string name="teachClassesOfChessStudents">Múin ranganna daltaí ficheallaithe leis an tsraith uirlisí ranganna NewChess.</string>
   <string name="features">Gnéithe</string>
   <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do daltaí</string>
   <string name="trackStudentProgress">Rianaigh dul chun cinn na daltaí i gcluichí agus i fadhbhanna fichille</string>
   <string name="messageAllStudents">Cuir teachtaireacht chuig gach dalta faoi ábhar nua ranga</string>
   <string name="freeForAllForever">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
-  <string name="applyToBeLichessTeacher">Déan iarratas bheith i do Mhúinteoir Lichess</string>
+  <string name="applyToBeNewChessTeacher">Déan iarratas bheith i do Mhúinteoir NewChess</string>
   <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Tuairisc ranga</string>
   <string name="visibleByBothStudentsAndTeachers">Infheicthe ag múinteoirí agus daltaí an ranga araon</string>
   <string name="teachersOfTheClass">Múinteoirí ranga</string>
-  <string name="addLichessUsernames">Cuir ainmneacha úsáideora Lichess leis chun cuireadh a thabhairt dóibh mar mhúinteoirí. Ceann sa líne.</string>
+  <string name="addNewChessUsernames">Cuir ainmneacha úsáideora NewChess leis chun cuireadh a thabhairt dóibh mar mhúinteoirí. Ceann sa líne.</string>
   <string name="resetPassword">Athshocraigh pasfhocal</string>
   <string name="makeSureToCopy">Déan cinnte an focal faire a chóipeáil nó a scríobh síos anois. Ní bheidh tú in ann é a fheiceáil arís!</string>
   <string name="passwordX">Pasfhocal: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Fíorainm</string>
   <string name="privateWillNeverBeShown">Príobháideach. Ní thaispeánfar ríomh taobh amuigh den rang. Cabhraíonn sé seo leat cuimhneamh ar cé hé an dalta.</string>
   <string name="addStudent">Cuir dalta leis</string>
-  <string name="lichessProfileXCreatedForY">Próifíl Lichess %1$s cruthaithe do %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Próifíl NewChess %1$s cruthaithe do %2$s.</string>
   <string name="studentCredentials">Dalta: %1$s 
 Ainm úsáideora: %2$s
 Pasfhocal: %3$s</string>
-  <string name="inviteALichessAccount">Tabhair cuireadh do chuntas Lichess</string>
-  <string name="inviteDesc1">Má tá cuntas Lichess ag an dalta cheana féin, is féidir leat cuireadh a thabhairt dóibh chuig an rang.</string>
-  <string name="inviteDesc2">Gheobhaidh siad teachtaireacht ar Lichess le nasc chun páirt a ghlacadh sa rang.</string>
+  <string name="inviteANewChessAccount">Tabhair cuireadh do chuntas NewChess</string>
+  <string name="inviteDesc1">Má tá cuntas NewChess ag an dalta cheana féin, is féidir leat cuireadh a thabhairt dóibh chuig an rang.</string>
+  <string name="inviteDesc2">Gheobhaidh siad teachtaireacht ar NewChess le nasc chun páirt a ghlacadh sa rang.</string>
   <string name="inviteDesc3">Tábhachtach: ná tabhair cuireadh ach do dalta a bhfuil aithne agat orthu, agus ar mian leo páirt gníomhach a glacadh sa rang.</string>
   <string name="inviteDesc4">Ná seol cuirí gan iarraidh chuig imreoirí treallach riamh.</string>
-  <string name="createANewLichessAccount">Cruthaigh cuntas Lichess nua</string>
-  <string name="createDesc1">Mura bhfuil cuntas Lichess ag an dalta fós, is féidir leat ceann a chruthú dóibh anseo.</string>
+  <string name="createANewNewChessAccount">Cruthaigh cuntas NewChess nua</string>
+  <string name="createDesc1">Mura bhfuil cuntas NewChess ag an dalta fós, is féidir leat ceann a chruthú dóibh anseo.</string>
   <string name="createDesc2">Níl ríomhphoist de dhith. Beidh pasfhocal cruaithe, agus beidh ort é a cur chuig an dalta, ionas gur féidir leo logáil isteach.</string>
   <string name="createDesc3">Tábhachtach: níl cead ag daltaí cuntais iolracha a bheith acu.</string>
   <string name="createDesc4">Má tá ceann acu cheana féin, bain úsáid as an bhfoirm cuireadh ina ionad.</string>
   <string name="createStudentWarning">Ná cruthaigh ach cuntais do mhic léinn fíor. Ná húsáid é seo chun cuntais iolracha a dhéanamh duit féin. Chuirfí cosc ort.</string>
-  <string name="lichessUsername">Ainm úsáideora Lichess</string>
+  <string name="lichessUsername">Ainm úsáideora NewChess</string>
   <string name="generateANewUsername">Cruthaigh ainm úsáideora nua</string>
   <string name="welcomeToClass">Fáilte go dtí do rang: %s.
 Seo an nasc le dul isteach sa rang.</string>

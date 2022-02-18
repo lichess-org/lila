@@ -3,8 +3,8 @@
   <string name="activity">فعالیت</string>
   <string name="hostedALiveStream">یک پخش زنده میزبانی کرد</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
-    <item quantity="other">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
+    <item quantity="one">به عنوان %2$s برای %1$s ماه از newchess.fun حمایت کرد</item>
+    <item quantity="other">به عنوان %2$s برای %1$s ماه از newchess.fun حمایت کرد</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s وضعیت را در %2$s تمرین کرد</item>

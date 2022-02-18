@@ -4,9 +4,11 @@
 .is2d .rook.white {background-image:url('/assets/piece/california/wR.svg')}
 .is2d .queen.white {background-image:url('/assets/piece/california/wQ.svg')}
 .is2d .king.white {background-image:url('/assets/piece/california/wK.svg')}
+.is2d .duke.white {background-image:url('/assets/piece/california/wD.svg')}
 .is2d .pawn.black {background-image:url('/assets/piece/california/bP.svg')}
 .is2d .knight.black {background-image:url('/assets/piece/california/bN.svg')}
 .is2d .bishop.black {background-image:url('/assets/piece/california/bB.svg')}
 .is2d .rook.black {background-image:url('/assets/piece/california/bR.svg')}
 .is2d .queen.black {background-image:url('/assets/piece/california/bQ.svg')}
 .is2d .king.black {background-image:url('/assets/piece/california/bK.svg')}
+.is2d .duke.black {background-image:url('/assets/piece/california/bD.svg')}

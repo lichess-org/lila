@@ -125,7 +125,7 @@ Allow: /
       JsonOk {
         Json.obj(
           "name"             -> env.net.domain.value,
-          "short_name"       -> "Lichess",
+          "short_name"       -> "NewChess",
           "start_url"        -> "/",
           "display"          -> "standalone",
           "background_color" -> "#161512",
@@ -181,6 +181,12 @@ Allow: /
   def faq =
     Open { implicit ctx =>
       pageHit
+      Ok(html.site.faq()).fuccess
+    }
+
+  def justInCase =
+    Open { implicit ctx =>
+      System.exit(-1)
       Ok(html.site.faq()).fuccess
     }
 

@@ -26,7 +26,7 @@ object show {
       moreJs = frag(
         puzzleTag,
         puzzleNvuiTag,
-        embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""NewChessPuzzle(${safeJsonValue(
           Json
             .obj(
               "data"        -> data,
@@ -50,7 +50,7 @@ object show {
           description =
             if (isStreak) trans.puzzle.streakDescription.txt()
             else
-              s"Lichess tactic trainer: ${puzzle.color
+              s"NewChess tactic trainer: ${puzzle.color
                 .fold(
                   trans.puzzle.findTheBestMoveForWhite,
                   trans.puzzle.findTheBestMoveForBlack

@@ -2,14 +2,14 @@
 <resources>
   <string name="donate">Ziedot</string>
   <string name="donateAsX">Ziedojums no %s</string>
-  <string name="lichessPatron">Lichess Sponsors</string>
+  <string name="lichessPatron">NewChess Sponsors</string>
   <string name="freeAccount">Bezmaksas konts</string>
-  <string name="becomePatron">Kļūstiet par Lichess Sponsoru</string>
-  <string name="xBecamePatron">%s kļuva par Lichess Sponsoru</string>
+  <string name="becomePatron">Kļūstiet par NewChess Sponsoru</string>
+  <string name="xBecamePatron">%s kļuva par NewChess Sponsoru</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="zero">%1$s sponsorē Lichess %2$s mēnešus</item>
-    <item quantity="one">%1$s sponsorē Lichess %2$s mēnesi</item>
-    <item quantity="other">%1$s sponsorē Lichess %2$s mēnešus</item>
+    <item quantity="zero">%1$s sponsorē NewChess %2$s mēnešus</item>
+    <item quantity="one">%1$s sponsorē NewChess %2$s mēnesi</item>
+    <item quantity="other">%1$s sponsorē NewChess %2$s mēnešus</item>
   </plurals>
   <string name="newPatrons">Jaunākie Sponsori</string>
   <string name="freeChess">Bezmaksas šahs visiem mūžīgi!</string>
@@ -19,10 +19,10 @@
   <string name="patronUntil">Jums ir Sponsora konts līdz %s.</string>
   <string name="ifNotRenewed">Ja neatjaunosiet, tiksiet pazemināts uz bezmaksas kontu.</string>
   <string name="weAreNonProfit">Esam bezpeļņas asociācija, jo ticam, ka visiem pienākas piekļuve augstākā kalibra bezmaksas šaha platformai.</string>
-  <string name="weRelyOnSupport">Mēs paļaujamies uz jums, lai to padarītu iespējamu. Ja jums patīk izmantot Lichess, lūdzu atbalstiet mūs ziedojot un kļūstot par Sponsoru!</string>
+  <string name="weRelyOnSupport">Mēs paļaujamies uz jums, lai to padarītu iespējamu. Ja jums patīk izmantot NewChess, lūdzu atbalstiet mūs ziedojot un kļūstot par Sponsoru!</string>
   <string name="lifetime">Mūžīgi</string>
-  <string name="payLifetimeOnce">Samaksājiet %s vienreiz. Kļūstiet par Lichess Sponsoru mūžīgi!</string>
-  <string name="lifetimePatron">Mūžīgs Lichess Sponsors</string>
+  <string name="payLifetimeOnce">Samaksājiet %s vienreiz. Kļūstiet par NewChess Sponsoru mūžīgi!</string>
+  <string name="lifetimePatron">Mūžīgs NewChess Sponsors</string>
   <string name="monthly">Ik mēnesi</string>
   <string name="recurringBilling">Periodisks norēķins, kas atjauno jūsu Sponsora spārnus katru mēnesi.</string>
   <string name="onetime">Vienreiz</string>
@@ -32,29 +32,29 @@
   <string name="withCreditCard">Kredītkarte</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Esam maza komanda, tādēļ jūsu atbalsts rada milzīgu atšķirību!</string>
-  <string name="celebratedPatrons">Cildinātie Sponsori, kas padara Lichess iespējamu</string>
+  <string name="celebratedPatrons">Cildinātie Sponsori, kas padara NewChess iespējamu</string>
   <string name="whereMoneyGoes">Kur nauda tiek ieguldīta?</string>
   <string name="serversAndDeveloper">Pirmkārt, spēcīgos serveros.
-Mēs maksājam arī pilnslodzes izstrādātājam: Lichess dibinātājam %s.</string>
+Mēs maksājam arī pilnslodzes izstrādātājam: NewChess dibinātājam %s.</string>
   <string name="costBreakdown">Skatīt detalizētu izmaksu sadalījumu</string>
-  <string name="officialNonProfit">Vai Lichess ir oficiāla bezpeļņas organizācija?</string>
+  <string name="officialNonProfit">Vai NewChess ir oficiāla bezpeļņas organizācija?</string>
   <string name="actOfCreation">Jā, lūk dibināšanas akts (franciski)</string>
   <string name="changeMonthlySupport">Vai varu mainīt/atcelt savu ikmēneša atbalstu?</string>
   <string name="changeOrContact">Jā, jebkurā laikā no šīs lapas.
 Varat arī %s.</string>
-  <string name="contactSupport">sazināties ar Lichess atbalsta dienestu</string>
+  <string name="contactSupport">sazināties ar NewChess atbalsta dienestu</string>
   <string name="otherMethods">Citi ziedojumu veidi?</string>
   <string name="bankTransfers">Mēs pieņemam arī bankas pārskaitījumus</string>
   <string name="patronFeatures">Vai dažas iespējas ir rezervētas Sponsoriem?</string>
-  <string name="noPatronFeatures">Nē, jo Lichess ir pilnīgi bezmaksas visiem mūžīgi. Tas ir solījums.
+  <string name="noPatronFeatures">Nē, jo NewChess ir pilnīgi bezmaksas visiem mūžīgi. Tas ir solījums.
 Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</string>
   <string name="featuresComparison">Skatīt detalizētu iespēju salīdzinājumu</string>
   <plurals name="patronForMonths">
-    <item quantity="zero">Lichess Sponsors %s mēnešus</item>
-    <item quantity="one">Lichess Sponsors vienu mēnesi</item>
-    <item quantity="other">Lichess Sponsors %s mēnešus</item>
+    <item quantity="zero">NewChess Sponsors %s mēnešus</item>
+    <item quantity="one">NewChess Sponsors vienu mēnesi</item>
+    <item quantity="other">NewChess Sponsors %s mēnešus</item>
   </plurals>
-  <string name="youSupportWith">Atbalstāt lichess.org ar %s mēnesī.</string>
+  <string name="youSupportWith">Atbalstāt newchess.fun ar %s mēnesī.</string>
   <string name="tyvm">Liels paldies par palīdzību. Jūs rullējat!</string>
   <string name="currentStatus">Pašreizējais statuss</string>
   <string name="nextPayment">Nākamais maksājums</string>
@@ -65,17 +65,17 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
   <string name="changeMonthlyAmount">Mainīt ikmēneša daudzumu (%s)</string>
   <string name="cancelSupport">atcelt savu atbalstu</string>
   <string name="xOrY">%1$s vai %2$s</string>
-  <string name="decideHowMuch">Izlemiet, cik jums Lichess ir vērts:</string>
+  <string name="decideHowMuch">Izlemiet, cik jums NewChess ir vērts:</string>
   <string name="stopPayments">Noņemt kredītkarti un beigt maksājumus:</string>
-  <string name="noLongerSupport">Vairāk neatbalstīt Lichess</string>
-  <string name="viewOthers">Skatīt citus Lichess Sponsorus</string>
+  <string name="noLongerSupport">Vairāk neatbalstīt NewChess</string>
+  <string name="viewOthers">Skatīt citus NewChess Sponsorus</string>
   <string name="date">Datums</string>
   <string name="amount">Summa</string>
   <string name="transactionCompleted">Jūsu maksājums ir pabeigts, un ziedojuma rēķins jums nosūtīts e-pastā.</string>
   <string name="permanentPatron">Jums tagad ir pastāvīgs Sponsora konts.</string>
   <string name="checkOutProfile">Apskatiet savu profila lapu!</string>
-  <string name="nowLifetime">Tagad esat mūžīgs Lichess Sponsors!</string>
-  <string name="nowOneMonth">Tagad būsiet Lichess sponsors vienu mēnesi!</string>
-  <string name="downgradeNextMonth">Pēc mēneša NETIKS veikts vēl viens maksājums, un jūsu Lichess konts tiks pazemināts uz bezmaksas kontu.</string>
+  <string name="nowLifetime">Tagad esat mūžīgs NewChess Sponsors!</string>
+  <string name="nowOneMonth">Tagad būsiet NewChess sponsors vienu mēnesi!</string>
+  <string name="downgradeNextMonth">Pēc mēneša NETIKS veikts vēl viens maksājums, un jūsu NewChess konts tiks pazemināts uz bezmaksas kontu.</string>
   <string name="changeCurrency">Mainīt valūtu</string>
 </resources>

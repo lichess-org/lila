@@ -256,7 +256,7 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def hasUnreadLichessMessage(userId: User.ID): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
+  def hasUnreadNewChessMessage(userId: User.ID): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
   )
 

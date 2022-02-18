@@ -73,7 +73,7 @@
   <string name="lookupOfPlayer">Iskanje ugank iz igralčevih iger</string>
   <string name="fromXGames">Uganke iz %sevih iger</string>
   <string name="searchPuzzles">Išči uganke</string>
-  <string name="fromMyGamesNone">V bazi podatkov nimate ugank, vendar vas ima Lichess še vedno zelo rad.
+  <string name="fromMyGamesNone">V bazi podatkov nimate ugank, vendar vas ima NewChess še vedno zelo rad.
 Igrajte hitre in klasične igre, da povečate možnosti za dodajanje svoje uganke!</string>
   <string name="fromXGamesFound">Najdenih %1$s ugank v %2$s igrah</string>
   <string name="puzzleDashboardDescription">Trenirajte, analizirajte, izboljšajte</string>

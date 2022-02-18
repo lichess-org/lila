@@ -80,7 +80,7 @@ Hráči, kteří se připojí pozdě, dostanou jeden bod zdarma i když se nezú
 Důvodem je, že nelze spravedlivě naložit s hráči, kteří opustí turnaj předčasně. Nelze očekávat, že všichni hráči budou hrát všechny své hry na online události. To se prostě nestane a v důsledku toho by byly turnaje hrané každý s každým nespravedlivé, což popírá důvod jejich existence.
 Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je možné spárovat všechny hráče během doby turnaje.</string>
   <string name="otherSystemsQ">A co ostatní systémy turnajů?</string>
-  <string name="otherSystemsA">Momentálně nemáme v plánu přidávat do Lichess další typy turnajů.</string>
+  <string name="otherSystemsA">Momentálně nemáme v plánu přidávat do NewChess další typy turnajů.</string>
   <string name="swissDescription">Ve švýcarském turnaji %1$s nemusí každý účastník nutně hrát se všemi ostatními. Hráči se v každém kole sejdou a jsou spárováni podle pravidel navržených tak, aby každý účastník hrál s protivníky s podobným hodnocením, ale ne s týmž soupeřem více než jednou. Vítězem je hráč s nejvyšším souhrnným počtem bodů ze všech kol. Všichni účastníci hrají v každém kole, pokud není lichý počet hráčů.\"</string>
   <string name="teamOnly">Švýcarské turnaje mohou být vytvořeny pouze vedoucími týmů a mohou hrát pouze členové týmu.           
 %1$s začít hrát ve Švýcarských turnajích.</string>

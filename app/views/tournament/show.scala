@@ -26,7 +26,7 @@ object show {
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
         jsModule("tournament"),
-        embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""NewChessTournament(${safeJsonValue(
           Json.obj(
             "data"   -> data,
             "i18n"   -> bits.jsI18n,

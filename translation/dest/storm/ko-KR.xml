@@ -50,9 +50,9 @@
   <string name="skipExplanation">이 수를 건너뛰고 콤보 기록을 보존하세요! 한 레이스에 한 번만 가능합니다.</string>
   <string name="failedPuzzles">실패한 퍼즐</string>
   <string name="slowPuzzles">느린 퍼즐</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">이번 주</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">이번 달</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">모든 기간</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">이번 주</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">이번 달</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">모든 기간</string>
   <string name="clickToReload">눌러서 새로고침</string>
   <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">이 도전은 만료되었습니다!</string>
   <string name="thisRunWasOpenedInAnotherTab">이 도전은 다른 탭에서 열렸습니다!</string>

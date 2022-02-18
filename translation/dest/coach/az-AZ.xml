@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess məşqçiləri</string>
-  <string name="lichessCoach">Lichess məşqçisi</string>
+  <string name="lichessCoaches">NewChess məşqçiləri</string>
+  <string name="lichessCoach">NewChess məşqçisi</string>
   <string name="areYouCoach">%s sahibi istedadlı şahmat məşqçisisiniz?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM və ya FIDE titulu</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://newchess.fun/help/master">NM və ya FIDE titulu</string>
   <string name="confirmTitle">Titulunuzu buradan təsdiqləyin və müraciətinizi nəzərdən keçirək.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Bizə %s ünvanından e-poçt göndərin və müraciətinizi nəzərdən keçirək.</string>
   <string name="location">Yer</string>
@@ -14,7 +14,7 @@
   <string name="accepting">Tələbə qəbul edir</string>
   <string name="notAccepting">Hal-hazırda tələbə qəbul etmir</string>
   <string name="xCoachesStudents">%s, şahmat tələbələrinə məşqçilik edir</string>
-  <string name="viewXProfile">%s müəllimin Lichess profilinə bax</string>
+  <string name="viewXProfile">%s müəllimin NewChess profilinə bax</string>
   <string name="sendPM">Özəl bir mesaj göndər</string>
   <string name="aboutMe">Haqqımda</string>
   <string name="playingExperience">Oyun təcrübəsi</string>

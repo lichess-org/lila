@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">اتصل بنا</string>
-  <string name="contactLichess">تواصل مع Lichess</string>
+  <string name="contactLichess">تواصل مع NewChess</string>
   <string name="whatCanWeHelpYouWith">كيف يمكن أن نساعدك؟</string>
   <string name="visitThisPage">قم بزيارة هذه الصفحة لحل المشكلة</string>
   <string name="iCantLogIn">لا يمكنني تسجيل الدخول</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">لقد فقدت الوصول إلى رموز المصادقة الثنائية الخاصة بي</string>
   <string name="doPasswordReset">أكمل إعادة تعيين كلمة المرور لإزالة المصادقة الثنائية</string>
   <string name="accountSupport">أنا بحاجة إلى دعم تقني للحساب</string>
-  <string name="wantTitle">أريد أن يتم عرض لقبي على Lichess</string>
-  <string name="visitTitleConfirmation">لإظهار لقبك على ملفك الشخصي في Lichess، والمشاركة في بطولات حملة الألقاب، قم بزيارة صفحة تأكيد اللقب</string>
+  <string name="wantTitle">أريد أن يتم عرض لقبي على NewChess</string>
+  <string name="visitTitleConfirmation">لإظهار لقبك على ملفك الشخصي في NewChess، والمشاركة في بطولات حملة الألقاب، قم بزيارة صفحة تأكيد اللقب</string>
   <string name="wantCloseAccount">أريد إغلاق حسابي</string>
   <string name="closeYourAccount">يمكنك إغلاق حسابك في هذه الصفحة</string>
   <string name="doNotAskByEmail">لا تطلب إغلاق الحساب عن طريق البريد الإلكتروني، فنحن لن نقوم بذلك.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">لا ترسل رسائل مباشرة للمشرفين.</string>
   <string name="onlyReports">الإبلاغ عن اللاعبين عن طريق الاستمارة هو الطريقة الوحيدة الفعّالة.</string>
   <string name="wantReportBug">أريد أن أبلغ عن خطأ برمجي</string>
-  <string name="reportBugInForum">في قسم التعليقات من منتدى Lichess</string>
-  <string name="reportWebsiteIssue">كمشكلة في موقع Lichess على Github</string>
-  <string name="reportMobileIssue">كمشكلة في تطبيق Lichess المحمول على GitHub</string>
-  <string name="reportBugInDiscord">في خادم ديسكورد Lichess</string>
+  <string name="reportBugInForum">في قسم التعليقات من منتدى NewChess</string>
+  <string name="reportWebsiteIssue">كمشكلة في موقع NewChess على Github</string>
+  <string name="reportMobileIssue">كمشكلة في تطبيق NewChess المحمول على GitHub</string>
+  <string name="reportBugInDiscord">في خادم ديسكورد NewChess</string>
   <string name="howToReportBug">يرجى وصف الخطأ البرمجي بدقة، ماذا كنت تتوقع أن يحدث بدلاً من ذلك، والخطوات التي أدت إلى حدوث الخطأ.</string>
   <string name="illegalPawnCapture">أخذ غير قانوني للبيدق</string>
   <string name="calledEnPassant">هذا يُعرف باسم \"الأخذ بالتجاوز\" وهو أحد قوانين الشطرنج.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">لاتنكر الغش، إذا اردت ان يسمح لك إنشاء حساب جديد، اعترف بما فعلته، وأظهر انك فهمت ان ما فعلته كان خطأ.</string>
   <string name="otherRestriction">قيود أخرى</string>
   <string name="collaboration">التعاون، قانونيا، تجارياً</string>
-  <string name="monetizing">تحويل Lichess الى مشروع ربحي</string>
-  <string name="buyingLichess">شراء Lichess</string>
-  <string name="authorizationToUse">الإذن لإستخدام Lichess</string>
-  <string name="welcomeToUse">انت مرحب بإستخدام Lichess في نشاطاتك، بما في ذلك النشاطات التجارية.</string>
-  <string name="videosAndBooks">بإمكانك اظهاره في مقاطع الفيديو الخاصة بك، بإمكانك طباعة لقطات شاشة من Lichess في الكتب الخاصة بك.</string>
+  <string name="monetizing">تحويل NewChess الى مشروع ربحي</string>
+  <string name="buyingLichess">شراء NewChess</string>
+  <string name="authorizationToUse">الإذن لإستخدام NewChess</string>
+  <string name="welcomeToUse">انت مرحب بإستخدام NewChess في نشاطاتك، بما في ذلك النشاطات التجارية.</string>
+  <string name="videosAndBooks">بإمكانك اظهاره في مقاطع الفيديو الخاصة بك، بإمكانك طباعة لقطات شاشة من NewChess في الكتب الخاصة بك.</string>
   <string name="creditAppreciated">ذكر الإسم مشكور ولكن ليست مطلوب.</string>
   <string name="noneOfTheAbove">لا شيء مما سبق</string>
   <string name="sendEmailAt">راسلنا عبر البريد الإلكتروني %s.</string>
-  <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في Lichess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
+  <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في NewChess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
 </resources>

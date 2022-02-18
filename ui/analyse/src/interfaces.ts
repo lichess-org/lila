@@ -1,6 +1,6 @@
 import { VNode } from 'snabbdom';
 import { Player, Status, Source, Clock } from 'game';
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
@@ -12,7 +12,7 @@ import { AnalyseSocketSend } from './socket';
 
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export { Key, Piece } from 'chessground-newchess1-mod/types';
 
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;

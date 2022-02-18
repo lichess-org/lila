@@ -2,7 +2,7 @@
 <resources>
   <string name="faqAbbreviation">မေးလေ့ရှိသည့် မေးခွန်းများ</string>
   <string name="frequentlyAskedQuestions">အမေးးများသောမေးခွန်းများ</string>
-  <string name="whyIsLichessCalledLichess">Lichess ကိုဘာလို့ Lichess လို့ခေါ်တာလဲ?</string>
+  <string name="whyIsLichessCalledLichess">NewChess ကိုဘာလို့ NewChess လို့ခေါ်တာလဲ?</string>
   <string name="gameplay">ကစားခြင်း</string>
   <string name="fideHandbookX">FIDE လက်စွဲစာအုပ် %s</string>
   <string name="canIChangeMyUsername">ကျွန်တော့် အသုံးပြုတဲ့ အမည်ကို ပြောင်းခွင့် ရှိပါသလား</string>

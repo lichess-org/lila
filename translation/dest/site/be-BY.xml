@@ -328,7 +328,7 @@
     <item quantity="many">Даць %s секунд</item>
     <item quantity="other">Даць %s секунд</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Гэты ўліковы запіс парушыў Умовы выкарыстання Lichess</string>
+  <string name="thisAccountViolatedTos">Гэты ўліковы запіс парушыў Умовы выкарыстання NewChess</string>
   <string name="openingExplorerAndTablebase">База дэбютаў і эндшпіляў</string>
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
@@ -522,7 +522,7 @@
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
-  <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Раней на NewChess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
@@ -686,7 +686,7 @@
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
-  <string name="lichessTournaments">Турніры Lichess</string>
+  <string name="lichessTournaments">Турніры NewChess</string>
   <string name="tournamentFAQ">FAQ турніру</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
@@ -722,7 +722,7 @@
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на вашу пошту %s. Перайдзіце па спасылцы ў лісце, каб аднавіць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
   <string name="readAboutOur">Чытай пра нас %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і NewChess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час апрацоўкі ходу на серверы</string>
   <string name="downloadAnnotated">Спампаваць з анатацыямі</string>
   <string name="downloadRaw">Спампаваць без анатацый</string>
@@ -739,14 +739,14 @@
   <string name="withEverybody">Усе</string>
   <string name="kidMode">Дзіцячы рэжым</string>
   <string name="kidModeExplanation">Гэта для бяспекі. У дзіцячым рэжыме адключаны ўсе камунікацыі на сайце. Уключыце гэта для вашых дзяцей і школьнікаў, каб абараніць іх ад іншых карыстачоў Інтэрнэту.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">У дзіцячым рэжыме лагатып lichess атрымвае значок у выглядзе %s, так што вы ведаеце, што вашы дзеці знаходзяцца ў бяспецы.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">У дзіцячым рэжыме лагатып newchess атрымвае значок у выглядзе %s, так што вы ведаеце, што вашы дзеці знаходзяцца ў бяспецы.</string>
   <string name="enableKidMode">Уключыць дзіцячы рэжым</string>
   <string name="disableKidMode">Адключыць дзіцячы рэжым</string>
   <string name="security">Бяспека</string>
   <string name="sessions">Сэсіі</string>
   <string name="revokeAllSessions">скасаваць усе сесіі</string>
   <string name="playChessEverywhere">Гуляйце ў шахматы дзе заўгодна</string>
-  <string name="asFreeAsLichess">Бясплатна, як і Lichess</string>
+  <string name="asFreeAsLichess">Бясплатна, як і NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Створана дзеля шахматаў, а не дзеля грошай</string>
   <string name="everybodyGetsAllFeaturesForFree">Кожны бясплатна атрымлівае ўсе магчымасці</string>
   <string name="zeroAdvertisement">Без рэкламы</string>
@@ -867,14 +867,14 @@
   <string name="tryToWin">Паспрабуйце перамагчы (або звесці на нічыю) кожную вашу гульню.</string>
   <string name="resignLostGames">Здавайцеся ў ясна прайграных гульнях (а не чакайце, пакуль час скончыцца).</string>
   <string name="temporaryInconvenience">Мы просім прабачэння за часовыя нязручнасці,</string>
-  <string name="wishYouGreatGames">і жадаем вам вельмі добрых гульняў на lichess.org.</string>
+  <string name="wishYouGreatGames">і жадаем вам вельмі добрых гульняў на newchess.fun.</string>
   <string name="thankYouForReading">Дзякуй за ўвагу!</string>
   <string name="lifetimeScore">Лік за ўвесь час</string>
   <string name="currentMatchScore">Лік бягучага матчу</string>
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
   <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
   <string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
-  <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
+  <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл NewChess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
   <string name="rapid">Хуткія</string>
@@ -911,13 +911,13 @@
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш трэнерски профіль.</string>
   <string name="newPendingReview">Новы водгук</string>
-  <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
+  <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання NewChess</string>
   <string name="refundXpointsTimeControlY">Вяртанне: %1$s %2$s балаў рэйтынгу.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
   <string name="welcome">Вітаем!</string>
-  <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
+  <string name="lichessPatronInfo">NewChess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
 Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
   <string name="coachManager">Трэнерская старонка</string>
   <string name="streamerManager">Стрымерская старонка</string>
@@ -973,6 +973,6 @@
   <string name="youCantStartNewGame">Вы не можаце пачаць новую гульню, пакуль гэта няскончана.</string>
   <string name="since">З</string>
   <string name="until">Да</string>
-  <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
+  <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на NewChess</string>
   <string name="switchSides">Змяніць бок</string>
 </resources>

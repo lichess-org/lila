@@ -116,7 +116,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoices(encode: Variant => String)(implicit lang: Lang): List[SelectChoice] =
     List(
-      (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
+      (encode(chess.variant.NewChess1), trans.duke.txt(), chess.variant.NewChess1.title.some)
     )
 
   def translatedVariantChoicesWithVariants(implicit lang: Lang): List[SelectChoice] =

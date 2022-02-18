@@ -51,7 +51,7 @@ Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gäg
   <string name="pairingsA">Mit em %1$s, umgsetzt mit %2$s, in Übereinschtimmig mit em %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wänn es Turnier meh Runde hät, als Schpiller?</string>
   <string name="moreRoundsThanPlayersA">Wänn alli mögliche Paarige gschpillt sind, ischs Turnier fertig und de Sieger wird ermittlet.</string>
-  <string name="restrictedToTeamsQ">Wieso isch es (bi Lichess) nur uf Teams beschränkt?</string>
+  <string name="restrictedToTeamsQ">Wieso isch es (bi NewChess) nur uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turnier nach \"Schweizer System\" sind nöd fürs Online-Schach konzipiert. Vu de Schpiller wird Pünktlichkeit, Durchhaltevermöge und Geduld verlangt.
 Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, als villiicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</string>
   <string name="numberOfByesQ">Wievill \"byes\" (spiilfreii Runde) chan en Schpiller überchoo?</string>
@@ -70,7 +70,7 @@ So \"Nachzügler\" erhalted en halbe Punkt, obwohl sie mehreri Runde verpasst h�
 De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorziitig verlöhnd. Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event beändet und alli siini Partie schpillt. Das wird eifach nie passiere und darum wäred die meischte vu dene Turnier fählerhaft und unfair, was dänn de eigentlichi Sinn vu \"Round Robin\" verunmöglicht.
 Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Aazahl vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
-  <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
+  <string name="otherSystemsA">Mir händ im Momänt nöd planet bi NewChess no meh Turnier Variante oder System zuezfüege.</string>
   <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwiis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zuegloost, zum sicher stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de gliichi Gägner trifft. De Sieger isch, am Schluss, de Schpiller mit de höchschte Aazahl Pünkt, wo us allne Runde addiert worde sind. Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Anzahl vu Schpiller</string>
   <string name="teamOnly">Turnier nach \"Schweizer System\" chönd nur vu Teamleiter erschtellt werde.
 Und nur Teammitglieder chönd im Turnier mitschpille.

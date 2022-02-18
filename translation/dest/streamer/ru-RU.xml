@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Стримеры Lichess</string>
-  <string name="lichessStreamer">Стример Lichess</string>
+  <string name="lichessStreamers">Стримеры NewChess</string>
+  <string name="lichessStreamer">Стример NewChess</string>
   <string name="live">В ЭФИРЕ!</string>
   <string name="offline">ОФЛАЙН</string>
   <string name="currentlyStreaming">Сейчас транслируют: %s</string>
   <string name="lastStream">Последний стрим %s</string>
-  <string name="becomeStreamer">Стать стримером Lichess</string>
+  <string name="becomeStreamer">Стать стримером NewChess</string>
   <string name="doYouHaveStream">У вас есть Twitch или YouTube каналы?</string>
   <string name="hereWeGo">Поехали!</string>
   <string name="allStreamers">Все стримеры</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Скачать набор инструментов стримера</string>
   <string name="xIsStreaming">%s стримит</string>
   <string name="rules">Правила стримов</string>
-  <string name="rule1">Добавьте «lichess.org» в заголовок вашего стрима при трансляции на Lichess.</string>
-  <string name="rule2">Удалите «lichess.org», если вы стримите не Lichess контент.</string>
-  <string name="rule3">Lichess определит ваш стрим автоматически и сделает для вас следующее:</string>
+  <string name="rule1">Добавьте «newchess.fun» в заголовок вашего стрима при трансляции на NewChess.</string>
+  <string name="rule2">Удалите «newchess.fun», если вы стримите не NewChess контент.</string>
+  <string name="rule3">NewChess определит ваш стрим автоматически и сделает для вас следующее:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прочитайте наши %s чтобы следовать правилам честной игры на ваших стримах.</string>
   <string name="streamingFairplayFAQ">ЧаВо для стримеров по честной игре</string>
-  <string name="perks">Преимущества стриминга с ключевым словом «lichess.org»</string>
-  <string name="perk1">Добавит огненную иконку стримера в вашем профиле Lichess.</string>
+  <string name="perks">Преимущества стриминга с ключевым словом «newchess.fun»</string>
+  <string name="perk1">Добавит огненную иконку стримера в вашем профиле NewChess.</string>
   <string name="perk2">Переместит наверх в списке стримеров.</string>
-  <string name="perk3">Уведомит ваших подписчиков Lichess.</string>
+  <string name="perk3">Уведомит ваших подписчиков NewChess.</string>
   <string name="perk4">Покажет, что вы стримите, в ваших играх, турнирах и студиях.</string>
   <string name="approved">Ваш стрим подтверждён.</string>
   <string name="pendingReview">Ваш стрим на проверке у модераторов.</string>
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запросить отзыв модератора</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когда вы будете готовы оказаться в списке стримеров NewChess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">запросить отзыв модератора</string>
   <string name="anotherLanguage">Если ваш стрим на языке, отличном от английского, укажите тег вашего языка (%s) в начале заголовка стрима, заключив его в квадратные скобки.
 В качестве примера: «[RU]» для русского языка, «[TR]» для турецкого, «[FR]» для французского и т. д.
-Добавляйте его в заголовок стрима на страницах Twitch или YouTube, а не в настройках стрима Lichess.
+Добавляйте его в заголовок стрима на страницах Twitch или YouTube, а не в настройках стрима NewChess.
 Если ваш стрим на английском языке, то не обязательно включать тег языка.</string>
   <string name="twitchUsername">Ваше имя пользователя или URL на Twitch</string>
   <string name="optionalOrEmpty">Необязательно. Оставьте пустым, если нет</string>
   <string name="youtubeChannel">ID или URL вашего YouTube-канала</string>
-  <string name="streamerName">Ваше имя стримера на Lichess</string>
+  <string name="streamerName">Ваше имя стримера на NewChess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сократите: максимум %s символ</item>
     <item quantity="few">Сократите: максимум %s символа</item>

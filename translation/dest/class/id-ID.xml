@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Kelas Lichess</string>
-  <string name="teachClassesOfChessStudents">Ajarkan siswa kelas catur dengan perangkat alat Kelas Lichess.</string>
+  <string name="lichessClasses">Kelas NewChess</string>
+  <string name="teachClassesOfChessStudents">Ajarkan siswa kelas catur dengan perangkat alat Kelas NewChess.</string>
   <string name="features">Fitur</string>
   <string name="quicklyGenerateSafeUsernames">Secara cepat menghasilkan nama pengguna dan kata sandi yang aman untuk siswa</string>
   <string name="trackStudentProgress">Lacak kemajuan siswa dalam permainan dan teka-teki</string>
   <string name="messageAllStudents">Kirim pesan semua siswa tentang materi kelas baru</string>
   <string name="freeForAllForever">100% gratis untuk semua, selamanya, tanpa iklan atau pelacak</string>
-  <string name="applyToBeLichessTeacher">Terapkan menjadi Guru Lichess</string>
+  <string name="applyToBeNewChessTeacher">Terapkan menjadi Guru NewChess</string>
   <string name="noClassesYet">Tidak ada sesi kelas.</string>
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Deskripsi kelas</string>
   <string name="visibleByBothStudentsAndTeachers">Terlihat oleh guru dan siswa di kelas</string>
   <string name="teachersOfTheClass">Guru di kelas</string>
-  <string name="addLichessUsernames">Tambahkan nama pengguna Lichess untuk mengundang mereka sebagai guru. Satu per baris.</string>
+  <string name="addNewChessUsernames">Tambahkan nama pengguna NewChess untuk mengundang mereka sebagai guru. Satu per baris.</string>
   <string name="resetPassword">Atur ulang kata sandi</string>
   <string name="makeSureToCopy">Pastikan untuk menyalin atau menuliskan kata sandi sekarang. Anda tidak akan bisa melihatnya lagi nanti!</string>
   <string name="passwordX">Kata sandi: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Nama asli</string>
   <string name="privateWillNeverBeShown">Pribadi. Tidak akan pernah ditampilkan di luar kelas. Membantu mengingat siapa siswa itu.</string>
   <string name="addStudent">Tambahkan siswa</string>
-  <string name="lichessProfileXCreatedForY">Profil Lichess %1$s dibuat untuk %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Profil NewChess %1$s dibuat untuk %2$s.</string>
   <string name="studentCredentials">Siswa: %1$s
 Nama pengguna: %2$s
 Kata sandi: %3$s</string>
-  <string name="inviteALichessAccount">Mengundang akun Lichess</string>
-  <string name="inviteDesc1">Jika siswa sudah memiliki akun Lichess, Anda dapat mengundang mereka ke kelas.</string>
-  <string name="inviteDesc2">Mereka akan menerima pesan di Lichess dengan tautan untuk bergabung di kelas.</string>
+  <string name="inviteANewChessAccount">Mengundang akun NewChess</string>
+  <string name="inviteDesc1">Jika siswa sudah memiliki akun NewChess, Anda dapat mengundang mereka ke kelas.</string>
+  <string name="inviteDesc2">Mereka akan menerima pesan di NewChess dengan tautan untuk bergabung di kelas.</string>
   <string name="inviteDesc3">Penting: hanya undang siswa yang Anda kenal, dan yang secara aktif ingin bergabung dengan kelas.</string>
   <string name="inviteDesc4">Jangan pernah mengirim undangan yang tidak diminta ke pemain yang sewenang-wenang.</string>
-  <string name="createANewLichessAccount">Buat akun Lichess baru</string>
-  <string name="createDesc1">Jika siswa belum memiliki akun Lichess, Anda dapat membuatnya di sini.</string>
+  <string name="createANewNewChessAccount">Buat akun NewChess baru</string>
+  <string name="createDesc1">Jika siswa belum memiliki akun NewChess, Anda dapat membuatnya di sini.</string>
   <string name="createDesc2">Tidak memerlukan alamat email. Kata sandi akan dibuat, dan Anda harus mengirimkannya kepada siswa, sehingga mereka dapat masuk.</string>
   <string name="createDesc3">Penting: seorang siswa tidak boleh memiliki banyak akun.</string>
   <string name="createDesc4">Jika sudah memilikinya, gunakan kolom undangan sebagai gantinya.</string>
-  <string name="lichessUsername">Nama pengguna Lichess</string>
+  <string name="lichessUsername">Nama pengguna NewChess</string>
   <string name="generateANewUsername">Buat nama pengguna baru</string>
   <string name="welcomeToClass">Selamat datang di kelas Anda: %s.
 Inilah tautan untuk mengakses kelas.</string>

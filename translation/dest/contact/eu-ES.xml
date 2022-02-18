@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Harremana</string>
-  <string name="contactLichess">Jarri kontaktuan Lichessekin</string>
+  <string name="contactLichess">Jarri kontaktuan NewChessekin</string>
   <string name="whatCanWeHelpYouWith">Zertan lagun zaitzakegu?</string>
   <string name="visitThisPage">Ikusi orrialde hau zure arazoa konpontzeko</string>
   <string name="iCantLogIn">Ezin naiz sartu</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Nire bi faktoreko autentikazio kodeak galdu ditut</string>
   <string name="doPasswordReset">Berrezarri pasahitza bi faktoreko autentikazioa desgaitzeko</string>
   <string name="accountSupport">Kontuaren inguruko laguntza behar dut</string>
-  <string name="wantTitle">Nire titulua Lichessen agertzea nahi dut</string>
-  <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren konfirmazioko orrialdera</string>
+  <string name="wantTitle">Nire titulua NewChessen agertzea nahi dut</string>
+  <string name="visitTitleConfirmation">Zure titulua NewChessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren konfirmazioko orrialdera</string>
   <string name="wantCloseAccount">Nire kontua itxi egin nahi dut</string>
   <string name="closeYourAccount">Zure kontua orrialde honetan itxi dezakezu</string>
   <string name="doNotAskByEmail">Ez iezaguzu epostaz eskatu zure kontua ixteko, ez dugu egingo.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Ez bidali mezu zuzenak moderatzaileei.</string>
   <string name="onlyReports">Formularioa erabiliz bakarrik egingo dizugu kasu.</string>
   <string name="wantReportBug">Errore baten berri eman nahi dut</string>
-  <string name="reportBugInForum">Lichessen Foroan</string>
-  <string name="reportWebsiteIssue">GitHub erabiliz Lichess webgunearen ticket bezala</string>
+  <string name="reportBugInForum">NewChessen Foroan</string>
+  <string name="reportWebsiteIssue">GitHub erabiliz NewChess webgunearen ticket bezala</string>
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
-  <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
+  <string name="reportBugInDiscord">NewChessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
   <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
@@ -64,10 +64,10 @@
   <string name="doNotDeny">Ez ukatu tranpak egin dituzula. Beste kontu bat sortzen uztea nahi baduzu, onartu egin duzuna eta erakutsiguzu egindakoa errore bat zela ulertu duzula.</string>
   <string name="otherRestriction">Beste murriztapen batzuk</string>
   <string name="collaboration">Laguntza, lege-laguntza, salmenta laguntza</string>
-  <string name="monetizing">Lichessekin dirua egiten</string>
-  <string name="buyingLichess">Lichess erosi</string>
-  <string name="authorizationToUse">Lichess erabiltzeko baimena</string>
-  <string name="welcomeToUse">Lichess zure ekintzetarako erabili dezakezu, baita komertzialak badira ere.</string>
+  <string name="monetizing">NewChessekin dirua egiten</string>
+  <string name="buyingLichess">NewChess erosi</string>
+  <string name="authorizationToUse">NewChess erabiltzeko baimena</string>
+  <string name="welcomeToUse">NewChess zure ekintzetarako erabili dezakezu, baita komertzialak badira ere.</string>
   <string name="videosAndBooks">Zure bideoetan erabili dezakezu eta pantaila-irudiak liburuetan ere argitaratu ditzakezu.</string>
   <string name="creditAppreciated">Erabili gaituzula esatea ondo dago baina ez da beharrezkoa.</string>
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>

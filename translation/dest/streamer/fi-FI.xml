@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess-striimaajat</string>
-  <string name="lichessStreamer">Lichess-striimaaja</string>
+  <string name="lichessStreamers">NewChess-striimaajat</string>
+  <string name="lichessStreamer">NewChess-striimaaja</string>
   <string name="live">JUURI NYT!</string>
   <string name="offline">POISSA</string>
   <string name="currentlyStreaming">Parhaillaan striimaavat: %s</string>
   <string name="lastStream">Viimeisin striimi %s</string>
-  <string name="becomeStreamer">Ryhdy Lichess-striimaajaksi</string>
+  <string name="becomeStreamer">Ryhdy NewChess-striimaajaksi</string>
   <string name="doYouHaveStream">Onko sinulla Twitch- tai YouTube-kanava?</string>
   <string name="hereWeGo">Menoksi!</string>
   <string name="allStreamers">Kaikki striimaajat</string>
@@ -15,27 +15,27 @@
   <string name="downloadKit">Lataa striimaajan tarvikkeet</string>
   <string name="xIsStreaming">%s striimaa</string>
   <string name="rules">Striimaussäännöt</string>
-  <string name="rule1">Sisällytä avainsana \"lichess.org\" striimisi otsikkoon kun striimaat Lichess-sisältöä.</string>
-  <string name="rule2">Poista avainsana, kun striimaat Lichessiin liittymätöntä sisältöä.</string>
-  <string name="rule3">Lichess havaitsee striimisi automaattisesti ja tarjoaa etuja:</string>
+  <string name="rule1">Sisällytä avainsana \"newchess.fun\" striimisi otsikkoon kun striimaat NewChess-sisältöä.</string>
+  <string name="rule2">Poista avainsana, kun striimaat NewChessiin liittymätöntä sisältöä.</string>
+  <string name="rule3">NewChess havaitsee striimisi automaattisesti ja tarjoaa etuja:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lue meidän %s:mme taataksesi striimisi aikana reilun pelin kaikille.</string>
   <string name="streamingFairplayFAQ">striimien reilun pelin FAQ</string>
   <string name="perks">Avainsanalla striimaamisen hyödyt</string>
-  <string name="perk1">Lichess-profiiliisi ilmestyy liekehtivä striimausikoni.</string>
+  <string name="perk1">NewChess-profiiliisi ilmestyy liekehtivä striimausikoni.</string>
   <string name="perk2">Nouset striimaajalistauksen keulille.</string>
-  <string name="perk3">Lichess-seuraajasi saavat ilmoituksen.</string>
+  <string name="perk3">NewChess-seuraajasi saavat ilmoituksen.</string>
   <string name="perk4">Striimi näkyy peleissäsi, turnauksissasi ja tutkielmissasi.</string>
   <string name="approved">Striimisi hyväksyttiin.</string>
   <string name="pendingReview">Striimisi on moderaattorien arvioitavana.</string>
   <string name="pleaseFillIn">Syötä striimaajatiedot ja lataa kuva.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kun haluat Lichess-striimaajien listalle, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pyydä moderaattorin arviointia</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kun haluat NewChess-striimaajien listalle, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">pyydä moderaattorin arviointia</string>
   <string name="anotherLanguage">Jos striimisi ei ole englanninkielinen, laita striimisi otsikon alkuun oikea kielitunniste (%s) hakasulkujen sisään.
-Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksan kielen tunniste jne. Laita tämä striimin otsikkoon Twitch- tai Youtube-sivulla, älä Lichessin striimiasetuksissa. Jos striimaat englanniksi, ei ole tarpeen sisällyttää kielitunnistetta.</string>
+Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksan kielen tunniste jne. Laita tämä striimin otsikkoon Twitch- tai Youtube-sivulla, älä NewChessin striimiasetuksissa. Jos striimaat englanniksi, ei ole tarpeen sisällyttää kielitunnistetta.</string>
   <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>
   <string name="optionalOrEmpty">Ei-pakollinen. Jätä tyhjäksi jollei sinulla ole</string>
   <string name="youtubeChannel">YouTube-kanavasi kanava-ID tai URL</string>
-  <string name="streamerName">Striimaajanimesi Lichessissä</string>
+  <string name="streamerName">Striimaajanimesi NewChessissä</string>
   <plurals name="keepItShort">
     <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
     <item quantity="other">Pidä se lyhyenä: %s merkkiä enintään</item>

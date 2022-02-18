@@ -20,7 +20,7 @@ object editor {
         jsModule("editor"),
         embedJsUnsafeLoadThen(
           s"""const data=${safeJsonValue(bits.editorJsData(fen))};data.positions=$positionsJson;
-data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
+data.endgamePositions=$endgamePositionsJson;NewChessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
       moreCss = cssTag("editor"),

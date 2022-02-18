@@ -63,7 +63,7 @@ final class Preload(
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) zip
       lastPostsCache.get {} zip
-      ((ctx.nbNotifications > 0) ?? ctx.userId ?? msgApi.hasUnreadLichessMessage) flatMap {
+      ((ctx.nbNotifications > 0) ?? ctx.userId ?? msgApi.hasUnreadNewChessMessage) flatMap {
         // format: off
         case (((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
@@ -94,7 +94,7 @@ final class Preload(
               lobbySocket.counters,
               lastPostCache.apply,
               ublogPosts,
-              hasUnreadLichessMessage = lichessMsg
+              hasUnreadNewChessMessage = lichessMsg
             )
           }
       }
@@ -140,7 +140,7 @@ object Preload {
       counters: lila.lobby.LobbyCounters,
       lastPost: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
-      hasUnreadLichessMessage: Boolean
+      hasUnreadNewChessMessage: Boolean
   )
 
   case class CurrentGame(pov: Pov, opponent: String)

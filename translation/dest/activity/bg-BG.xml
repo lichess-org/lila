@@ -3,8 +3,8 @@
   <string name="activity">Дейност</string>
   <string name="hostedALiveStream">Стартира предаване на живо</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Подкрепи lichess.org за %1$s месец като %2$s</item>
-    <item quantity="other">Подкрепи lichess.org за %1$s месеца като %2$s</item>
+    <item quantity="one">Подкрепи newchess.fun за %1$s месец като %2$s</item>
+    <item quantity="other">Подкрепи newchess.fun за %1$s месеца като %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Упражнил %1$s позиция на %2$s</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Участва в %s швейцарски турнира</item>
   </plurals>
   <string name="rankedInSwissTournament">Рейтинг #%1$s от %2$s</string>
-  <string name="signedUp">Регистрира се в lichess.org</string>
+  <string name="signedUp">Регистрира се в newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присъедини се в %s отбор</item>
     <item quantity="other">Присъедини се в %s отбори</item>

@@ -20,7 +20,7 @@ object storm {
       moreJs = frag(
         jsModule("storm"),
         embedJsUnsafeLoadThen(
-          s"""LichessStorm.start(${safeJsonValue(
+          s"""NewChessStorm.start(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "pref" -> pref,

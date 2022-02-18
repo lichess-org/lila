@@ -202,7 +202,7 @@
   <string name="whatNext">มีอะไรต่อ?</string>
   <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ยินดีด้วย! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
   <string name="register">ลงทะเบียน</string>
-  <string name="getAFreeLichessAccount">รับบัญชี Lichess ฟรี</string>
+  <string name="getAFreeNewChessAccount">รับบัญชี NewChess ฟรี</string>
   <string name="practice">ฝึกหัด</string>
   <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกทั่วไป</string>
   <string name="puzzles">ปริศนา</string>

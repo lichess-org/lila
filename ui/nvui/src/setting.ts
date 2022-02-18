@@ -12,7 +12,7 @@ type Choices<A> = Array<Choice<A>>;
 interface Opts<A> {
   choices: Choices<A>;
   default: A;
-  storage: LichessStorage;
+  storage: NewChessStorage;
 }
 
 export function makeSetting<A>(opts: Opts<A>): Setting<A> {

@@ -288,7 +288,7 @@
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ez a fiók megsértette a Lichess Felhasználási Feltételeit</string>
+  <string name="thisAccountViolatedTos">Ez a fiók megsértette a NewChess Felhasználási Feltételeit</string>
   <string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
@@ -461,7 +461,7 @@
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
+  <string name="previouslyOnNewChessTV">A NewChess TV korábbi műsorai</string>
   <string name="onlinePlayers">Online játékosok</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">A játszma értékelt, de nincs időmérés!</string>
@@ -617,7 +617,7 @@
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
   <string name="simulHostExtraTime">Időbónusz</string>
-  <string name="lichessTournaments">Lichess versenyek</string>
+  <string name="lichessTournaments">NewChess versenyek</string>
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="timeBeforeTournamentStarts">Kezdés ennyi perc múlva</string>
   <string name="averageCentipawnLoss">Átlagos gyalogveszteség</string>
@@ -651,8 +651,8 @@
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess között</string>
-  <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a NewChess között</string>
+  <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a newchess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
   <string name="downloadImported">Importált PGN letöltése</string>
@@ -668,14 +668,14 @@
   <string name="withEverybody">Mindenkivel</string>
   <string name="kidMode">Gyereküzemmód</string>
   <string name="kidModeExplanation">A Gyereküzemmód a biztonságról szól. A mód bekapcsolásával az összes kommunikáció megszűnik a többi játékossal, így megvédheted a gyermekeid vagy a diákjaid a többi felhasználó elől.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Gyereküzemmódban a Lichess logón megjelenik egy %s ikon, így tudhatod, hogy gyermekeid biztonságos felületen játszanak.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Gyereküzemmódban a NewChess logón megjelenik egy %s ikon, így tudhatod, hogy gyermekeid biztonságos felületen játszanak.</string>
   <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
   <string name="sessions">Munkamenetek</string>
   <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
-  <string name="asFreeAsLichess">Olyannyira ingyenes mint a Lichess</string>
+  <string name="asFreeAsLichess">Olyannyira ingyenes mint a NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
   <string name="everybodyGetsAllFeaturesForFree">Az összes funkció ingyenes, mindenki számára</string>
   <string name="zeroAdvertisement">Nincsenek hirdetések</string>
@@ -788,14 +788,14 @@
   <string name="tryToWin">Minden játszmát próbálj megnyerni, vagy legalább döntetlent kihozni.</string>
   <string name="resignLostGames">Az elveszett játszmákat add fel (ne hagyd lejárni az időt).</string>
   <string name="temporaryInconvenience">Elnézést kérünk az átmeneti kellemetlenségért</string>
-  <string name="wishYouGreatGames">és további sok jó játékot kívánunk a lichess.org-on.</string>
+  <string name="wishYouGreatGames">és további sok jó játékot kívánunk a newchess.fun-on.</string>
   <string name="thankYouForReading">Köszönjük, hogy elolvastad!</string>
   <string name="lifetimeScore">Mindenkori pontszám</string>
   <string name="currentMatchScore">Jelenlegi pontszám</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
   <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
-  <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
+  <string name="agreementPolicy">Elfogadom, hogy követni fogom a NewChess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
   <string name="rapid">Rapid</string>
@@ -832,13 +832,13 @@
   <string name="resVsX">%1$s %2$s ellen</string>
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>
-  <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
+  <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a NewChess szabályait</string>
   <string name="refundXpointsTimeControlY">Visszatérítve: %1$s %2$s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>
   <string name="welcome">Üdvözlünk!</string>
-  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
+  <string name="lichessPatronInfo">A NewChess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
@@ -894,6 +894,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
   <string name="since">Ettől</string>
   <string name="until">Eddig</string>
-  <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
+  <string name="lichessDbExplanation">A NewChess játékosok értékelt játszmáiból összeállítva</string>
   <string name="switchSides">Oldal megfordítása</string>
 </resources>

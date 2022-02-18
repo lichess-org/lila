@@ -38,7 +38,7 @@ function command(q: string) {
     lichess
       .loadModule('dasher')
       .then(() =>
-        window.LichessDasher(document.createElement('div'), {
+        window.NewChessDasher(document.createElement('div'), {
           playing: $('body').hasClass('playing'),
         })
       )

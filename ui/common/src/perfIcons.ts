@@ -13,6 +13,7 @@ const perfIcons = {
   horde: '',
   racingKings: '',
   crazyhouse: '',
+  newchess1: '',
 };
 
 export default perfIcons;

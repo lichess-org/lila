@@ -13,7 +13,7 @@ type Stores = {
 export default class Setup {
   stores: Stores;
 
-  constructor(readonly makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
+  constructor(readonly makeStorage: (name: string) => NewChessStorage, readonly root: LobbyController) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),
       friend: makeStore(makeStorage('lobby.setup.friend')),
@@ -203,6 +203,9 @@ export default class Setup {
             else if (time < 1500) key = 'rapid';
             else key = 'classical';
           }
+          break;
+        case '11':
+          key = 'newchess1';
           break;
         case '10':
           key = 'crazyhouse';

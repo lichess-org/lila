@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakt</string>
-  <string name="contactLichess">Kontaktuj Lichess</string>
+  <string name="contactLichess">Kontaktuj NewChess</string>
   <string name="whatCanWeHelpYouWith">Ako ti môžeme pomôcť?</string>
   <string name="visitThisPage">Pre vyriešenie problému navštív túto stránku</string>
   <string name="iCantLogIn">Nemôžem sa prihlásiť</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Stratil som prístup k mojím dvojfaktorovým autentifikačným kódom</string>
   <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
   <string name="accountSupport">Potrebujem poradiť s účtom</string>
-  <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lichess</string>
-  <string name="visitTitleConfirmation">Aby sa ukázal Váš titul na Lichess profile, a mohli by ste sa zúčastniť na Arénach pre titulovaných hráčov, navštívte potvrdzovaciu stránku</string>
+  <string name="wantTitle">Chcem aby sa môj titul zobrazoval na NewChess</string>
+  <string name="visitTitleConfirmation">Aby sa ukázal Váš titul na NewChess profile, a mohli by ste sa zúčastniť na Arénach pre titulovaných hráčov, navštívte potvrdzovaciu stránku</string>
   <string name="wantCloseAccount">Chcem zatvoriť svoj účet</string>
   <string name="closeYourAccount">Môžeš zatvoriť svoj účet na tejto stránke</string>
   <string name="doNotAskByEmail">Nežiadajte od nás, aby sme Vám zrušili účet cez email, neurobíme to.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Neposielaj správy priamo moderátorom.</string>
   <string name="onlyReports">Nahlásenie hráča je účinné jedine cez nahlasovací formulár.</string>
   <string name="wantReportBug">Chcem nahlásiť chybu</string>
-  <string name="reportBugInForum">V sekcii Lichess Feedback na fóre</string>
-  <string name="reportWebsiteIssue">Ako problém s webom Lichess na GitHub</string>
-  <string name="reportMobileIssue">Ako problém s mobilnou aplikáciou Lichess na GitHub</string>
-  <string name="reportBugInDiscord">Na Lichess Discord serveri</string>
+  <string name="reportBugInForum">V sekcii NewChess Feedback na fóre</string>
+  <string name="reportWebsiteIssue">Ako problém s webom NewChess na GitHub</string>
+  <string name="reportMobileIssue">Ako problém s mobilnou aplikáciou NewChess na GitHub</string>
+  <string name="reportBugInDiscord">Na NewChess Discord serveri</string>
   <string name="howToReportBug">Prosím opíšte ako bug vyzerá, čo ste očakávali aby sa miesto neho stalo a kroky ako bug zreprodukovať.</string>
   <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
   <string name="calledEnPassant">Volá sa to \"branie mimochodom\" a je to jedno z pravidiel šachu.</string>
@@ -63,13 +63,13 @@
   <string name="doNotDeny">Nepopierajte, že ste podvádzali. Ak chcete mať povolenie na založenie nového účtu, jednoducho sa priznajte k tomu, čo ste urobili, a ukážte, že ste pochopili, že to bola chyba.</string>
   <string name="otherRestriction">Iné obmedzenie</string>
   <string name="collaboration">Spolupráca, právna, obchodná</string>
-  <string name="monetizing">Monetizovanie Lichess</string>
-  <string name="buyingLichess">Nákup Lichess</string>
-  <string name="authorizationToUse">Povolenie na použitie Lichess</string>
-  <string name="welcomeToUse">Lichess môžete použiť na svoju činnosť, aj komerčnú.</string>
-  <string name="videosAndBooks">Môžete to zobraziť vo svojich videách a môžete si vytlačiť snímky obrazovky s Lichessom vo svojich knihách.</string>
+  <string name="monetizing">Monetizovanie NewChess</string>
+  <string name="buyingLichess">Nákup NewChess</string>
+  <string name="authorizationToUse">Povolenie na použitie NewChess</string>
+  <string name="welcomeToUse">NewChess môžete použiť na svoju činnosť, aj komerčnú.</string>
+  <string name="videosAndBooks">Môžete to zobraziť vo svojich videách a môžete si vytlačiť snímky obrazovky s NewChessom vo svojich knihách.</string>
   <string name="creditAppreciated">Kredit sa cení, ale nevyžaduje sa.</string>
   <string name="noneOfTheAbove">Žiadne z uvedených</string>
   <string name="sendEmailAt">Poslať nám email na %s.</string>
-  <string name="explainYourRequest">Vysvetlite svoju požiadavku jasne a dôkladne. Uveďte svoje používateľské meno Lichess a všetky informácie, ktoré by nám mohli pomôcť pomôcť vám.</string>
+  <string name="explainYourRequest">Vysvetlite svoju požiadavku jasne a dôkladne. Uveďte svoje používateľské meno NewChess a všetky informácie, ktoré by nám mohli pomôcť pomôcť vám.</string>
 </resources>

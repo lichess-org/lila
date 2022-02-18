@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirma la to cuenta de lichess.org, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Polsa nel enllaz pa activar la to cuenta:</string>
+  <string name="emailConfirm_subject">Confirma la to cuenta de newchess.fun, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a NewChess account.&#10;&#10;The unique reset link is presented just after this string.">Polsa nel enllaz pa activar la to cuenta:</string>
   <string name="emailConfirm_ignore">Si nun te disti d\'alta, ignora esti mensaxe.</string>
-  <string name="passwordReset_subject">Resablez la to contraseña de lichess.org, %s</string>
+  <string name="passwordReset_subject">Resablez la to contraseña de newchess.fun, %s</string>
   <string name="passwordReset_intro">Recibimos una solicitú pa restablecer la to contraseña.</string>
   <string name="passwordReset_clickOrIgnore">Si fixisti esta solicitú, fai click nel enllaz. Si non, ignora\'l mensaxe.</string>
 </resources>

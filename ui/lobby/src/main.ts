@@ -1,5 +1,5 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { LobbyOpts, Tab } from './interfaces';
 
 export const patch = init([classModule, attributesModule]);

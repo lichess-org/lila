@@ -1,10 +1,10 @@
-import { Chess } from 'chessops/chess';
-import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, parseSan } from 'chessops/san';
-import { makeSquare, makeUci, parseUci } from 'chessops/util';
-import { scalachessCharPair } from 'chessops/compat';
+import { Chess } from 'chessops-newchess1-mod/chess';
+import { INITIAL_FEN, makeFen, parseFen } from 'chessops-newchess1-mod/fen';
+import { makeSan, parseSan } from 'chessops-newchess1-mod/san';
+import { makeSquare, makeUci, parseUci } from 'chessops-newchess1-mod/util';
+import { scalachessCharPair } from 'chessops-newchess1-mod/compat';
 import { TreeWrapper } from 'tree';
-import { Move } from 'chessops/types';
+import { Move } from 'chessops-newchess1-mod/types';
 
 export function pgnToTree(pgn: San[]): Tree.Node {
   const pos = Chess.default();

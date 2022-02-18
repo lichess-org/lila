@@ -69,7 +69,7 @@ object tourForm {
     if (isGranted(_.Relay))
       form3.group(
         form("tier"),
-        raw("Official Lichess broadcast tier"),
+        raw("Official NewChess broadcast tier"),
         help = raw("Feature on /broadcast - for admins only").some
       )(form3.select(_, RelayTour.Tier.options))
     else form3.hidden(form("tier"))

@@ -169,7 +169,7 @@ final private class PovToEntry(
             !board.hasPiece(chess.Piece(color, chess.Queen))
           }
         case _ =>
-          logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
+          logger.warn(s"https://newchess.fun/${from.pov.gameId} missing endgame board")
           false
       }
     }

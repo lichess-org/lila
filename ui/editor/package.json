@@ -2,10 +2,10 @@
   "name": "editor",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org board editor",
+  "description": "newchess.fun board editor",
   "keywords": [
     "chess",
-    "lichess.org",
+    "newchess.fun",
     "board",
     "editor"
   ],
@@ -19,8 +19,8 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessground-newchess1-mod": "8.2.2",
+    "chessops-newchess1-mod": "0.10.7",
     "common": "2.0.0",
     "snabbdom": "^3.0.1"
   },

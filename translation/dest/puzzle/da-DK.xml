@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Søg opgaver fra en spillers partier</string>
   <string name="fromXGames">Opgaver fra %s\' partier</string>
   <string name="searchPuzzles">Søg opgaver</string>
-  <string name="fromMyGamesNone">Du har ingen opgaver i databasen, men Lichess elsker dig alligevel.
+  <string name="fromMyGamesNone">Du har ingen opgaver i databasen, men NewChess elsker dig alligevel.
 Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
   <string name="fromXGamesFound">%1$s opgaver fundet i %2$s partier</string>
   <string name="puzzleDashboardDescription">Træn, analysér, forbedr</string>

@@ -378,7 +378,7 @@
   <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
-  <string name="previouslyOnLichessTV">წინა Lichess TV-ზე</string>
+  <string name="previouslyOnNewChessTV">წინა NewChess TV-ზე</string>
   <string name="onlinePlayers">ონლაინ მოთამაშეები</string>
   <string name="activePlayers">აქტიური მოთამაშეები</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ყურადღებით! თამაშის შედეგი მოქმედებს რეიტინგზე, თუმცა დრო არ აითვლება.</string>
@@ -508,7 +508,7 @@
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>
   <string name="simulHostExtraTime">თამაშის შემქნელის დამატები დრო</string>
-  <string name="lichessTournaments">Lichess ტურნირები</string>
+  <string name="lichessTournaments">NewChess ტურნირები</string>
   <string name="tournamentFAQ">Arena ტურნირის ხშირი შეკითხვები</string>
   <string name="timeBeforeTournamentStarts">ტურნირის დაწყებამდე დარჩენილი დრო</string>
   <string name="averageCentipawnLoss">საშუალო დანაკარგი \"პაიკ-პროცენტში\" (პაიკის მეასედი)</string>
@@ -529,7 +529,7 @@
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="weHaveSentYouAnEmailTo">ჩვენ გავაგზავნეთ შეტყობინება %s მეილზე. შეტყობინებაში დააჭირეთ ლინკს, რომ პაროლი შეცვალოთ.</string>
-  <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და NewChess</string>
   <string name="downloadAnnotated">ანოტირებულის ჩამოტვირთვა</string>
   <string name="downloadRaw">სუფთას ჩამოტვირთვა</string>
   <string name="downloadImported">იმპორტირებულის ჩამოტვირთვა</string>
@@ -542,7 +542,7 @@
   <string name="kidMode">ბავშვის რეჟიმი</string>
   <string name="security">უსაფრთხოება</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
-  <string name="asFreeAsLichess">ისევე უფასო როგორც lichess</string>
+  <string name="asFreeAsLichess">ისევე უფასო როგორც newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">შექმნილია ჭადრაკის სიყვარულისთვის და არა ფულისთვის</string>
   <string name="zeroAdvertisement">არც ერთი რეკლამა</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>

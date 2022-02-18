@@ -14,8 +14,8 @@
   <string name="fullDescription">شرح کامل رویداد</string>
   <string name="fullDescriptionHelp">توصیفی طولانی و اختیاری از مسابقه. %1$s در دسترس است. اندازه متن باید کمتر از %2$s حرف باشد.</string>
   <string name="sourceUrlOrGameIds">آدرس اینترنتی منبع، یا شماره‌های شناسایی بازی</string>
-  <string name="sourceUrlHelp">لینکی که Lichess برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
-  <string name="gameIdsHelp">به عنوان یک راهکار دیگر، شما می‌توانید تا 64 شماره شناسایی بازی در Lichess را که با فاصله (space) از هم جدا شده‌اند، وارد نمایید.</string>
+  <string name="sourceUrlHelp">لینکی که NewChess برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
+  <string name="gameIdsHelp">به عنوان یک راهکار دیگر، شما می‌توانید تا 64 شماره شناسایی بازی در NewChess را که با فاصله (space) از هم جدا شده‌اند، وارد نمایید.</string>
   <string name="startDate">تاریخ را در منطقه‌ی زمانی خود شروع کنید</string>
   <string name="startDateHelp">اختیاری ، اگر می دانید چه زمانی رویداد شروع می شود</string>
   <string name="credits">به منبع اعتبار دهید</string>

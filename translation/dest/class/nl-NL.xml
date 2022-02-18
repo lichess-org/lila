@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klassen</string>
-  <string name="teachClassesOfChessStudents">Geef groepen leerlingen les met Lichess schaakgroep hulpmiddelen.</string>
+  <string name="teachClassesOfChessStudents">Geef groepen leerlingen les met NewChess schaakgroep hulpmiddelen.</string>
   <string name="features">Functies</string>
   <string name="quicklyGenerateSafeUsernames">Genereer snel veilige gebruikersnamen en wachtwoorden voor leerlingen</string>
   <string name="trackStudentProgress">Volg de voortgang van leerlingen in partijen en puzzels</string>
   <string name="messageAllStudents">Informeer alle leerlingen over nieuw lesmateriaal</string>
   <string name="freeForAllForever">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
-  <string name="applyToBeLichessTeacher">Meld u aan als Lichess Leraar</string>
+  <string name="applyToBeNewChessTeacher">Meld u aan als NewChess Leraar</string>
   <string name="noClassesYet">Nog geen lessen.</string>
   <string name="teachersX">Leraren: %s</string>
   <string name="newClass">Nieuwe klas</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Omschrijving van de groep</string>
   <string name="visibleByBothStudentsAndTeachers">Zichtbaar voor zowel leraren als leerlingen van de groep</string>
   <string name="teachersOfTheClass">Leraren binnen de groep</string>
-  <string name="addLichessUsernames">Voeg Lichess gebruikersnamen toe om ze als leraar uit te nodigen. Eén per regel.</string>
+  <string name="addNewChessUsernames">Voeg NewChess gebruikersnamen toe om ze als leraar uit te nodigen. Eén per regel.</string>
   <string name="resetPassword">Reset wachtwoord</string>
   <string name="makeSureToCopy">Zorg ervoor dat je het wachtwoord nu kopieert of opschrijft. Je kunt het later niet meer zien!</string>
   <string name="passwordX">Wachtwoord: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Echte naam</string>
   <string name="privateWillNeverBeShown">Privé. Wordt nooit getoond buiten de groep. Helpt onthouden wie de leerling is.</string>
   <string name="addStudent">Voeg een student toe</string>
-  <string name="lichessProfileXCreatedForY">Lichess profiel %1$s gemaakt voor %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess profiel %1$s gemaakt voor %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Gebruikersnaam: %2$s
 Wachtwoord: %3$s</string>
-  <string name="inviteALichessAccount">Nodig een Lichess account uit</string>
-  <string name="inviteDesc1">Als de leerling al een Lichess account heeft, kunt u ze uitnodigen voor de groep.</string>
-  <string name="inviteDesc2">Ze ontvangen een bericht op Lichess met een link om zich bij de groep aan te sluiten.</string>
+  <string name="inviteANewChessAccount">Nodig een NewChess account uit</string>
+  <string name="inviteDesc1">Als de leerling al een NewChess account heeft, kunt u ze uitnodigen voor de groep.</string>
+  <string name="inviteDesc2">Ze ontvangen een bericht op NewChess met een link om zich bij de groep aan te sluiten.</string>
   <string name="inviteDesc3">Belangrijk: nodig alleen leerlingen uit die je kent en die actief deel willen nemen aan de groep.</string>
   <string name="inviteDesc4">Stuur nooit ongevraagde uitnodigingen naar willekeurige spelers.</string>
-  <string name="createANewLichessAccount">Maak een nieuw Lichess account aan</string>
-  <string name="createDesc1">Als de leerling nog geen Lichess account heeft, kunt u deze hier aanmaken.</string>
+  <string name="createANewNewChessAccount">Maak een nieuw NewChess account aan</string>
+  <string name="createDesc1">Als de leerling nog geen NewChess account heeft, kunt u deze hier aanmaken.</string>
   <string name="createDesc2">Er is geen e-mailadres vereist. Er wordt een wachtwoord aangemaakt die moet worden doorgeven aan de student, zodat ze kunnen inloggen.</string>
   <string name="createDesc3">Belangrijk: een leerling mag niet meerdere accounts hebben.</string>
   <string name="createDesc4">Als ze er al een hebben, gebruik dan het uitnodigingsformulier.</string>
   <string name="createStudentWarning">Maak alleen accounts aan voor echte leerlingen. Gebruik deze functie niet om meerdere accounts voor jezelf te maken. In dat geval wordt je account gesloten.</string>
-  <string name="lichessUsername">Lichess gebruikersnaam</string>
+  <string name="lichessUsername">NewChess gebruikersnaam</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
   <string name="welcomeToClass">Welkom bij de groep: %s.
 Hier is de link om toegang te krijgen tot de groep.</string>

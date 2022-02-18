@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Търсене на задачи от партиите на играч</string>
   <string name="fromXGames">Задачи от партиите на %s\'</string>
   <string name="searchPuzzles">Търсене на задачи</string>
-  <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но Lichess разчита на Вас.
+  <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но NewChess разчита на Вас.
 Играйте още ускорени и класически партии за да увеличите шансовете задачи от Ваши партии да бъдат добавени!</string>
   <string name="fromXGamesFound">%1$s задачи намерени в %2$s игри</string>
   <string name="puzzleDashboardDescription">Тренирай, анализирай, усъвършенствай се</string>

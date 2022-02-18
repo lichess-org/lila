@@ -91,7 +91,7 @@ final class ReportApi(
     )
 
   def autoCommFlag(suspectId: SuspectId, resource: String, text: String) =
-    getLichessReporter flatMap { reporter =>
+    getNewChessReporter flatMap { reporter =>
       getSuspect(suspectId.value) flatMap {
         _ ?? { suspect =>
           create(
@@ -114,9 +114,9 @@ final class ReportApi(
   def getMod(username: String): Fu[Option[Mod]] =
     userRepo named username dmap2 Mod.apply
 
-  def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
-  def getLichessReporter: Fu[Reporter] =
-    getLichessMod map { l =>
+  def getNewChessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
+  def getNewChessReporter: Fu[Reporter] =
+    getNewChessMod map { l =>
       Reporter(l.user)
     }
 
@@ -132,7 +132,7 @@ final class ReportApi(
     ) flatMap {
       case true => funit // only report once
       case _ =>
-        getSuspect(userId) zip getLichessReporter flatMap {
+        getSuspect(userId) zip getNewChessReporter flatMap {
           case (Some(suspect), reporter) =>
             create(
               Candidate(
@@ -148,7 +148,7 @@ final class ReportApi(
 
   def autoCheatReport(userId: User.ID, text: String): Funit =
     getSuspect(userId) zip
-      getLichessReporter zip
+      getNewChessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
         case ((Some(suspect), reporter), atoms) if atoms.forall(_.byHuman) =>
           lila.mon.cheat.autoReport.increment()
@@ -164,7 +164,7 @@ final class ReportApi(
       }
 
   def autoCheatDetectedReport(userId: User.ID, cheatedGames: Int): Funit =
-    userRepo.byId(userId) zip getLichessReporter flatMap {
+    userRepo.byId(userId) zip getNewChessReporter flatMap {
       case (Some(user), reporter) if !user.marks.engine =>
         lila.mon.cheat.autoReport.increment()
         create(
@@ -179,7 +179,7 @@ final class ReportApi(
     }
 
   def autoBotReport(userId: User.ID, referer: Option[String], name: String): Funit =
-    getSuspect(userId) zip getLichessReporter flatMap {
+    getSuspect(userId) zip getNewChessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
           Candidate(
@@ -203,7 +203,7 @@ final class ReportApi(
           val topSum = Heapsort.topNToList(bans.values, 10, implicitly[Ordering[Int]]).sum
           (topSum >= 80) ?? {
             userRepo.byId(userId) zip
-              getLichessReporter zip
+              getNewChessReporter zip
               findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
                 case ((Some(abuser), reporter), past) if past.isEmpty =>
                   create(
@@ -245,7 +245,7 @@ final class ReportApi(
   // `seriousness` depends on the number of previous warnings, and number of games throwed away
   def autoBoostReport(winnerId: User.ID, loserId: User.ID, seriousness: Int): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
-      userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
+      userRepo.pair(winnerId, loserId) zip getNewChessReporter flatMap {
         case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
           val loginsText =
             if (isSame) "Found matching IP/print"
@@ -263,7 +263,7 @@ final class ReportApi(
       }
 
   def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID, seriousness: Int): Funit =
-    userRepo.byId(loserId) zip getLichessReporter flatMap {
+    userRepo.byId(loserId) zip getNewChessReporter flatMap {
       case (Some(loser), reporter) if !loser.lame =>
         create(
           Candidate(
@@ -319,7 +319,7 @@ final class ReportApi(
       .void
 
   def autoCommReport(userId: User.ID, text: String, critical: Boolean): Funit =
-    getSuspect(userId) zip getLichessReporter flatMap {
+    getSuspect(userId) zip getNewChessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
           Candidate(

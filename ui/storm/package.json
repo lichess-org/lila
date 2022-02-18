@@ -2,7 +2,7 @@
   "name": "storm",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org puzzle storm",
+  "description": "newchess.fun puzzle storm",
   "keywords": [
     "chess",
     "lichess",
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessground-newchess1-mod": "8.2.2",
+    "chessops-newchess1-mod": "0.10.7",
     "common": "2.0.0",
     "puz": "2.0.0",
     "snabbdom": "^3.0.1"

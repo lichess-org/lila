@@ -47,5 +47,5 @@
     <item quantity="many">تم إيجاد %s لعبة</item>
     <item quantity="other">تم إيجاد %s لعبة</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">متوسط التقييم لكلا اللاعبين</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://newchess.fun/games/search">متوسط التقييم لكلا اللاعبين</string>
 </resources>

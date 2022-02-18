@@ -54,7 +54,7 @@ object layout {
             trans.security()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index)(trans.patron.lichessPatron()),
+          a(href := "/patron")(trans.patron.lichessPatron()),
           div(cls := "sep"),
           a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
             "API access tokens"

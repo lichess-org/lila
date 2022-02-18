@@ -288,7 +288,7 @@
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
+  <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi NewChessin käyttöehtoja</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
@@ -461,7 +461,7 @@
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
+  <string name="previouslyOnNewChessTV">Viimeksi NewChess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
@@ -617,7 +617,7 @@
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
-  <string name="lichessTournaments">Lichessin turnaukset</string>
+  <string name="lichessTournaments">NewChessin turnaukset</string>
   <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
   <string name="averageCentipawnLoss">Keskimääräinen sadasosasotilaan menetys</string>
@@ -649,9 +649,9 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi käyttäjätunnuksesi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt NewChessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="readAboutOur">Lue lisää %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
+  <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja newchessin välillä</string>
   <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
@@ -668,14 +668,14 @@
   <string name="withEverybody">Kaikille</string>
   <string name="kidMode">Lapsitila</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa NewChessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
-  <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin lichess</string>
+  <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Rakennettu rakkaudesta shakkiin, ei rahaan</string>
   <string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
   <string name="zeroAdvertisement">Ei mainoksia</string>
@@ -788,14 +788,14 @@
   <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) jokainen pelisi.</string>
   <string name="resignLostGames">Luovuta hävityt pelit (äläkä anna ajan kulua loppuun).</string>
   <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
-  <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
+  <string name="wishYouGreatGames">ja toivotamme hyviä pelejä newchess.fun -sivustolla.</string>
   <string name="thankYouForReading">Kiitos, että luit tämän!</string>
   <string name="lifetimeScore">Kaikkien aikojen yhteistilanne</string>
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
   <string name="agreementAccount">Vakuutan, etten luo useita käyttäjätunnuksia.</string>
-  <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
+  <string name="agreementPolicy">Vakuutan että noudatan NewChessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
   <string name="rapid">Nopea</string>
@@ -832,13 +832,13 @@
   <string name="resVsX">%1$s vastaan %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Joku kirjoitti valmentajaprofiiliisi arvostelun.</string>
   <string name="newPendingReview">Uusi arvostelu</string>
-  <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
+  <string name="lostAgainstTOSViolator">Olet hävinnyt NewChessin käyttöehtoja rikkoneelle henkilölle</string>
   <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
   <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
   <string name="download">Lataa</string>
   <string name="welcome">Tervetuloa!</string>
-  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
+  <string name="lichessPatronInfo">NewChess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>
@@ -894,6 +894,6 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="youCantStartNewGame">Et voi aloittaa uutta peliä ennen kuin tämä peli on päättynyt.</string>
   <string name="since">Alkaen</string>
   <string name="until">Saakka</string>
-  <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
+  <string name="lichessDbExplanation">NewChessin kaikkien pelaajien pisteytetyt pelit</string>
   <string name="switchSides">Vaihda puolta</string>
 </resources>

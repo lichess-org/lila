@@ -87,16 +87,16 @@
   <string name="interestingMove">tawa ni li musi, li ken pona</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">tawa ni li musi, li ken ike</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">tawa ni li tawa wan ken taso</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">tawa ale kama li ike</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://newchess.fun/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">tawa ale kama li ike</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">tawa sin</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">tawa ni li utala</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">tawa ni li kama tan tenpo lili</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a NewChess study. Noun.">tawa ni li utala</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a NewChess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">tawa ni li kama tan tenpo lili</string>
   <string name="nextChapter">wan pi nanpa kama</string>
   <string name="prevChapter">wan pi nanpa pini</string>
   <string name="studyActions">pali ken pi lipu sona</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu mi</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu pi jan mute</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">o ante e kulupu lipu</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://newchess.fun/study/topic">kulupu lipu</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://newchess.fun/study/topic">kulupu lipu mi</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://newchess.fun/study/topic">kulupu lipu pi jan mute</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://newchess.fun/study/topic">o ante e kulupu lipu</string>
   <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">o tawa open</string>
 </resources>

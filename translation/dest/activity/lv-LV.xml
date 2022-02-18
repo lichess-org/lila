@@ -3,9 +3,9 @@
   <string name="activity">Aktivitāte</string>
   <string name="hostedALiveStream">Rīkoja tiešsaistes straumi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="zero">%1$s mēnešus atbalstīja lichess.org kā %2$s</item>
-    <item quantity="one">%1$s mēnesi atbalstīja lichess.org kā %2$s</item>
-    <item quantity="other">%1$s mēnešus atbalstīja lichess.org kā %2$s</item>
+    <item quantity="zero">%1$s mēnešus atbalstīja newchess.fun kā %2$s</item>
+    <item quantity="one">%1$s mēnesi atbalstīja newchess.fun kā %2$s</item>
+    <item quantity="other">%1$s mēnešus atbalstīja newchess.fun kā %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="zero">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
@@ -83,7 +83,7 @@
     <item quantity="other">Sacentās %s Šveices turnīros</item>
   </plurals>
   <string name="rankedInSwissTournament">Ieguva %1$s. vietu turnīrā %2$s</string>
-  <string name="signedUp">Reģistrējās lichess.org</string>
+  <string name="signedUp">Reģistrējās newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">Pievienojās %s komandām</item>
     <item quantity="one">Pievienojās %s komandai</item>

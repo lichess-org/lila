@@ -13,7 +13,7 @@
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Zeig Spiller Wertige</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://newchess.fun/account/preferences/site">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Aafangsschtellig</string>
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
@@ -32,7 +32,7 @@
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
   <string name="inCasualGamesOnly">Nur bi ungwertete Schpiil</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Damä</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://newchess.fun/account/preferences/game-behavior">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal gliicher Stellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtziit &lt; 30 Sekunde</string>

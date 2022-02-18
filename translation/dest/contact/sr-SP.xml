@@ -12,8 +12,8 @@
   <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за дво-степену аутентикацију</string>
   <string name="doPasswordReset">Приведите крају мењање шифре да бисте уклонили други корак</string>
   <string name="accountSupport">Потребна ми је подршка око налога</string>
-  <string name="wantTitle">Желим да се моје звање види на Lichess</string>
-  <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lichess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
+  <string name="wantTitle">Желим да се моје звање види на NewChess</string>
+  <string name="visitTitleConfirmation">Да би се Ваше звање видело на NewChess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
   <string name="wantCloseAccount">Желим затворити свој налог</string>
   <string name="closeYourAccount">Можете затворити ваш налог на овој страници</string>
   <string name="doNotAskByEmail">Не тражите да Вам затворимо налог путем е-поште, нећемо то урадити.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Не шаљите поруке модераторима директно.</string>
   <string name="onlyReports">Само пријаве путем форме за пријављивање ће бити узете у разматрање.</string>
   <string name="wantReportBug">Желим да пријавим грешку</string>
-  <string name="reportBugInForum">У делу форума Lichess Feedback</string>
-  <string name="reportWebsiteIssue">Као проблем Lichess сајта на GitHub-у</string>
-  <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
-  <string name="reportBugInDiscord">На Lichess Discord серверу</string>
+  <string name="reportBugInForum">У делу форума NewChess Feedback</string>
+  <string name="reportWebsiteIssue">Као проблем NewChess сајта на GitHub-у</string>
+  <string name="reportMobileIssue">Као проблем NewChess мобилне апликације на GitHub-у</string>
+  <string name="reportBugInDiscord">На NewChess Discord серверу</string>
   <string name="howToReportBug">Молимо Вас да опишете како проблем изледа, шта сте очекивали да се деси, и кораке како да се проузрокује.</string>
   <string name="illegalPawnCapture">Недозвољено једење пешака</string>
   <string name="calledEnPassant">Назива се \"ан пасан\" и представља једно од правила шаха.</string>
@@ -69,5 +69,5 @@
   <string name="videosAndBooks">Можеш га приказивати у својим снимцима, или штампати слике Личеса у својим књигама.</string>
   <string name="noneOfTheAbove">Ништа од наведеног</string>
   <string name="sendEmailAt">Пошаљите нам мејл на адресу %s.</string>
-  <string name="explainYourRequest">Молимо објасните ваш захтев јасно и темељно. Напишите своје Lichess корисничко име и било које информације које нам могу помоћи да вам помогнемо.</string>
+  <string name="explainYourRequest">Молимо објасните ваш захтев јасно и темељно. Напишите своје NewChess корисничко име и било које информације које нам могу помоћи да вам помогнемо.</string>
 </resources>

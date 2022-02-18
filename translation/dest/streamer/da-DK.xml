@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess-streamere</string>
-  <string name="lichessStreamer">Lichess-streamer</string>
+  <string name="lichessStreamers">NewChess-streamere</string>
+  <string name="lichessStreamer">NewChess-streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamer i øjeblikket: %s</string>
   <string name="lastStream">Sidste stream %s</string>
-  <string name="becomeStreamer">Bliv en Lichess-streamer</string>
+  <string name="becomeStreamer">Bliv en NewChess-streamer</string>
   <string name="doYouHaveStream">Har du en Twitch- eller YouTube-stream?</string>
   <string name="hereWeGo">Så er det nu!</string>
   <string name="allStreamers">Alle streamere</string>
@@ -15,29 +15,29 @@
   <string name="downloadKit">Download streamer-kit</string>
   <string name="xIsStreaming">%s streamer</string>
   <string name="rules">Streamingsregler</string>
-  <string name="rule1">Inkluder nøgleordet \"lichess.org\" i den streamtitel, når du streamer på Lichess.</string>
-  <string name="rule2">Fjern nøgleordet, når du streamer ikke-Lichess ting.</string>
-  <string name="rule3">Lichess vil automatisk detektere din stream og aktivere følgende frynsegode:</string>
+  <string name="rule1">Inkluder nøgleordet \"newchess.fun\" i den streamtitel, når du streamer på NewChess.</string>
+  <string name="rule2">Fjern nøgleordet, når du streamer ikke-NewChess ting.</string>
+  <string name="rule3">NewChess vil automatisk detektere din stream og aktivere følgende frynsegode:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Læs vores %s for at sikre fair play for alle under din stream.</string>
   <string name="streamingFairplayFAQ">streaming Fairplay FAQ</string>
   <string name="perks">Fordele ved streaming med nøgleordet</string>
-  <string name="perk1">Få et flammende streamer-ikon på din Lichess-profil.</string>
+  <string name="perk1">Få et flammende streamer-ikon på din NewChess-profil.</string>
   <string name="perk2">Stryg til tops på streamer-listen.</string>
-  <string name="perk3">Giv dine Lichess-følgere besked.</string>
+  <string name="perk3">Giv dine NewChess-følgere besked.</string>
   <string name="perk4">Vis din stream i dine partier, turneringer og studier.</string>
   <string name="approved">Din stream er godkendt.</string>
   <string name="pendingReview">Din stream bliver gennemgået af moderatorer.</string>
   <string name="pleaseFillIn">Udfyld venligst din streamer-information og upload et billede.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til at blive opført som en lichess-streamer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">anmod om en moderator-gennemgang</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til at blive opført som en newchess-streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a NewChess streamer, request a moderator review&quot;">anmod om en moderator-gennemgang</string>
   <string name="anotherLanguage">Inkluder det korrekte sprog-tag (%s), i kantede parenteser, i starten af din stream-titel, hvis din stream er på et andet sprog end engelsk.
 Inkluder for eksempel \"[RU]\" for russisk, \"[TR]\" for tyrkisk, \"[FR]\" for fransk, etc.
-Anfør det i stream-titlen på Twitch- eller YouTube-siden, ikke i Lichess-streamindstillingerne.
+Anfør det i stream-titlen på Twitch- eller YouTube-siden, ikke i NewChess-streamindstillingerne.
 Hvis din stream er på engelsk, er det ikke nødvendigt at inkludere et sprog-tag.</string>
   <string name="twitchUsername">Dit Twitch-brugernavn eller URL</string>
   <string name="optionalOrEmpty">Valgfrit. Efterlad tomt hvis intet</string>
   <string name="youtubeChannel">Dit YouTube-kanal-id eller URL</string>
-  <string name="streamerName">Dit streamernavn på Lichess</string>
+  <string name="streamerName">Dit streamernavn på NewChess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold det kort: maksimalt %s tegn</item>
     <item quantity="other">Hold det kort: maksimalt %s tegn</item>

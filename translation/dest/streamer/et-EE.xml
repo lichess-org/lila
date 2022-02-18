@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichessi striimijad</string>
-  <string name="lichessStreamer">Lichessi striimer</string>
+  <string name="lichessStreamers">NewChessi striimijad</string>
+  <string name="lichessStreamer">NewChessi striimer</string>
   <string name="live">OTSE!</string>
   <string name="currentlyStreaming">Praegu striimivad: %s</string>
   <string name="lastStream">Viimane striim %s</string>
-  <string name="becomeStreamer">Hakka Lichess-striimijaks</string>
+  <string name="becomeStreamer">Hakka NewChess-striimijaks</string>
   <string name="doYouHaveStream">Kas sul on Twitch- või Youtube-kanal?</string>
   <string name="hereWeGo">Hakkame pihta!</string>
   <string name="allStreamers">Kõik striimijad</string>

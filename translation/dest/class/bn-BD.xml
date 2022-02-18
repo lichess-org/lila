@@ -3,7 +3,7 @@
   <string name="lichessClasses">শ্রেণি</string>
   <string name="createDesc3">গুরুত্বপূর্ণ: একজন ছাত্রের একাধিক অ্যাকাউন্ট থাকা যাবে না।</string>
   <string name="createDesc4">যদি তাদের ইতিমধ্যেই একটি থেকে থাকে, তাহলে বরং আমন্ত্রণ ফর্ম ব্যবহার করুন।</string>
-  <string name="lichessUsername">Lichess ইউজারনেম</string>
+  <string name="lichessUsername">NewChess ইউজারনেম</string>
   <string name="generateANewUsername">একটি ইউজারনেম জেনারেট করুন</string>
   <string name="welcomeToClass">আপনার ক্লাসে স্বাগতম: %s.
 এখানে আপনার ক্লাসের লিংক।</string>

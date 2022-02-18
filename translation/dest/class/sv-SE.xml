@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klasser</string>
-  <string name="teachClassesOfChessStudents">Undervisa klasser av schackstudenter med verktygssviten Lichess-klasser.</string>
+  <string name="teachClassesOfChessStudents">Undervisa klasser av schackstudenter med verktygssviten NewChess-klasser.</string>
   <string name="features">Funktioner</string>
   <string name="quicklyGenerateSafeUsernames">Skapa snabbt säkra användarnamn och lösenord för studenter</string>
   <string name="trackStudentProgress">Spåra studenternas framsteg i partier och schackproblem</string>
   <string name="messageAllStudents">Meddela alla elever om nytt klassmaterial</string>
   <string name="freeForAllForever">100% gratis för alla, för alltid, utan annonser eller trackers</string>
-  <string name="applyToBeLichessTeacher">Ansök om att bli en Lichess-lärare</string>
+  <string name="applyToBeNewChessTeacher">Ansök om att bli en NewChess-lärare</string>
   <string name="noClassesYet">Inga klasser ännu.</string>
   <string name="teachersX">Lärare: %s</string>
   <string name="newClass">Ny klass</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klassbeskrivning</string>
   <string name="visibleByBothStudentsAndTeachers">Synlig för både lärare och elever i klassen</string>
   <string name="teachersOfTheClass">Lärare i klassen</string>
-  <string name="addLichessUsernames">Lägg till Lichess-användarnamn för att bjuda in dem som lärare. En per rad.</string>
+  <string name="addNewChessUsernames">Lägg till NewChess-användarnamn för att bjuda in dem som lärare. En per rad.</string>
   <string name="resetPassword">Återställ lösenord</string>
   <string name="makeSureToCopy">Se till att kopiera eller skriva ner lösenordet nu. Du kommer inte att kunna se det igen!</string>
   <string name="passwordX">Lösenord: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Verkligt namn</string>
   <string name="privateWillNeverBeShown">Privat. Kommer aldrig att visas utanför klassen. Hjälper till att komma ihåg vem eleven är.</string>
   <string name="addStudent">Lägg till student</string>
-  <string name="lichessProfileXCreatedForY">Lichess-profil %1$s skapad för %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess-profil %1$s skapad för %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Användarnamn: %2$s
 Lösenord: %3$s</string>
-  <string name="inviteALichessAccount">Bjud in ett Lichess-konto</string>
-  <string name="inviteDesc1">Om eleven redan har ett Lichess-konto kan du bjuda in dem till klassen.</string>
-  <string name="inviteDesc2">De kommer att få ett meddelande om Lichess med en länk för att gå med i klassen.</string>
+  <string name="inviteANewChessAccount">Bjud in ett NewChess-konto</string>
+  <string name="inviteDesc1">Om eleven redan har ett NewChess-konto kan du bjuda in dem till klassen.</string>
+  <string name="inviteDesc2">De kommer att få ett meddelande om NewChess med en länk för att gå med i klassen.</string>
   <string name="inviteDesc3">Viktigt: bjud bara in människor du känner och som aktivt vill gå med i klassen.</string>
   <string name="inviteDesc4">Skicka aldrig oombedda inbjudningar till godtyckliga spelare.</string>
-  <string name="createANewLichessAccount">Skapa ett nytt Lichess-konto</string>
-  <string name="createDesc1">Om studenten ännu inte har ett Lichess-konto kan du skapa ett åt dem här.</string>
+  <string name="createANewNewChessAccount">Skapa ett nytt NewChess-konto</string>
+  <string name="createDesc1">Om studenten ännu inte har ett NewChess-konto kan du skapa ett åt dem här.</string>
   <string name="createDesc2">Ingen e-postadress krävs. Ett lösenord kommer att genereras, och du måste förmedla det till studenten, så att de kan logga in.</string>
   <string name="createDesc3">Förutsättning: en student får inte ha flera konton.</string>
   <string name="createDesc4">Om de redan har ett, använd inbjudningsformuläret istället.</string>
   <string name="createStudentWarning">Skapa endast konto för riktiga elever. Använd inte detta för att skapa flera konton åt dig själv. Du skulle bli avstängd.</string>
-  <string name="lichessUsername">Lichess-användarnamn</string>
+  <string name="lichessUsername">NewChess-användarnamn</string>
   <string name="generateANewUsername">Skapa ett nytt användarnamn</string>
   <string name="welcomeToClass">Välkommen till din klass: %s.
 Här är länken för att komma till klassen.</string>

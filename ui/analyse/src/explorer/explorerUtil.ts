@@ -1,5 +1,5 @@
 import { TablebaseMoveStats } from './interfaces';
-import { opposite } from 'chessops/util';
+import { opposite } from 'chessops-newchess1-mod/util';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 

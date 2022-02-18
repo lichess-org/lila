@@ -4,7 +4,7 @@ import modal from 'common/modal';
 import { LobbyOpts } from './interfaces';
 import { numberFormat } from 'common/number';
 
-export default function LichessLobby(opts: LobbyOpts) {
+export default function NewChessLobby(opts: LobbyOpts) {
   opts.element = document.querySelector('.lobby__app') as HTMLElement;
   opts.pools = [
     // mirrors modules/pool/src/main/PoolList.scala
@@ -137,7 +137,7 @@ function suggestBgSwitch() {
   const getDasher = (): Promise<any> => {
     dasher =
       dasher ||
-      lichess.loadModule('dasher').then(() => window.LichessDasher(document.createElement('div'), { playing: false }));
+      lichess.loadModule('dasher').then(() => window.NewChessDasher(document.createElement('div'), { playing: false }));
     return dasher;
   };
 

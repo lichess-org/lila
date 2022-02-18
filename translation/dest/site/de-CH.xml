@@ -289,7 +289,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsbedingige verschtosse</string>
+  <string name="thisAccountViolatedTos">Das Konto hät gäge d\'NewChess-Nutzigsbedingige verschtosse</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
@@ -460,9 +460,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
   <string name="socialMediaLinks">Social-Media-Links</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Zletscht uf NewChess TV</string>
   <string name="onlinePlayers">Online-Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwertet, aber ohni Ziitlimit!</string>
@@ -586,7 +586,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="tpTimeSpentPlaying">Gsamti-Spiilziit: %s</string>
   <string name="watchGames">Partie zueluege</string>
-  <string name="tpTimeSpentOnTV">Gsamtziit uf Lichess TV: %s</string>
+  <string name="tpTimeSpentOnTV">Gsamtziit uf NewChess TV: %s</string>
   <string name="watch">Zueluege</string>
   <string name="videoLibrary">Video-Bibliothek</string>
   <string name="streamersMenu">Streamer</string>
@@ -618,7 +618,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extra Ziit Simultanschpiller</string>
-  <string name="lichessTournaments">Lichess Turnier</string>
+  <string name="lichessTournaments">NewChess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
   <string name="averageCentipawnLoss">Durchschnittliche Verluscht vu Hundertstel-Puure</string>
@@ -652,8 +652,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz diis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und Lichess (lag)</string>
-  <string name="timeToProcessAMoveOnLichessServer">Ziit zum en Zug uf em Lichess-Server z\'verarbeite</string>
+  <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und NewChess (lag)</string>
+  <string name="timeToProcessAMoveOnLichessServer">Ziit zum en Zug uf em NewChess-Server z\'verarbeite</string>
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
   <string name="downloadImported">Importierte Download</string>
@@ -669,14 +669,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="withEverybody">Mit allne</string>
   <string name="kidMode">Chinder-Modus</string>
   <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz diini Chind vor andere Internetbenutzer.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'NewChess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
   <string name="security">Sicherheit</string>
   <string name="sessions">Sitzige</string>
   <string name="revokeAllSessions">alli Sitzige beände</string>
   <string name="playChessEverywhere">Schpill überall Schach</string>
-  <string name="asFreeAsLichess">So gratis wie Lichess</string>
+  <string name="asFreeAsLichess">So gratis wie NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Erschaffe us Liebi zum Schach, nöd zum Gäld</string>
   <string name="everybodyGetsAllFeaturesForFree">Jede chann alli Funktione gratis nutze</string>
   <string name="zeroAdvertisement">Null Werbig</string>
@@ -789,14 +789,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="tryToWin">Probier jedes Spiil z\'günne (oder mindeschtens es Remis z\'erreiche).</string>
   <string name="resignLostGames">Gib es verlores Schpiil uf (lass nöd eifach d\'Uhr ablaufe).</string>
   <string name="temporaryInconvenience">Mir entschuldiged eus für die vorübergehende Unannehmlichkeite,</string>
-  <string name="wishYouGreatGames">und wünsched dir tolli Schpiil uf lichess.org.</string>
+  <string name="wishYouGreatGames">und wünsched dir tolli Schpiil uf newchess.fun.</string>
   <string name="thankYouForReading">Danke für’s Läse!</string>
   <string name="lifetimeScore">Läbesziit Rekord</string>
   <string name="currentMatchScore">Aktuelle Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimme zue, dass ich zum Schpille, kei Hilfe nutze - wie z. B. Schach-Computer, Büecher, Datäbanke oder Drittpersone.</string>
   <string name="agreementNice">Ich schtimme zue, dass ich mit andere Schpiller immer reschpäktvoll umgang.</string>
   <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Konti erschtelle.</string>
-  <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
+  <string name="agreementPolicy">Ich schtimme zue, dass ich alli NewChess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui aa</string>
   <string name="edit">Bearbeite</string>
   <string name="rapid">Schnällschach</string>
@@ -833,13 +833,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="resVsX">%1$s gäge %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Öpper hät dis Trainerprofil überprüeft.</string>
   <string name="newPendingReview">Neui usstehendi Überprüefig</string>
-  <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
+  <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'NewChess-Nutzigsbedingige verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Ziit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe aazeige]</string>
   <string name="download">Abälade</string>
   <string name="welcome">Willkomme!</string>
-  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
+  <string name="lichessPatronInfo">NewChess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
@@ -895,6 +895,6 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die no Laufendi nöd fertig gschpillt isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess-Schpiller</string>
+  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne NewChess-Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
 </resources>

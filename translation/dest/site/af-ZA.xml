@@ -284,7 +284,7 @@
     <item quantity="one">Gee %s sekonde</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Hierdie rekening oortree die diensvoorwaardes van Lichess</string>
+  <string name="thisAccountViolatedTos">Hierdie rekening oortree die diensvoorwaardes van NewChess</string>
   <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
   <string name="proposeATakeback">Stel terug-vat voor</string>
@@ -456,9 +456,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Een skakel per lyn.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Een skakel per lyn.</string>
   <string name="inlineNotation">Binnelyn notasie</string>
-  <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Voorigekeer op NewChess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>
   <string name="activePlayers">Aktiewe spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pasop, dié spel is gegradeer, maar sonder \'n klok!</string>
@@ -614,7 +614,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>
   <string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
-  <string name="lichessTournaments">Lichess toernooie</string>
+  <string name="lichessTournaments">NewChess toernooie</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
   <string name="averageCentipawnLoss">Gemiddelde sentipion verlies</string>
@@ -648,8 +648,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
   <string name="readAboutOur">Lees oor ons %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tyd om ’n skuif op Lichess se bediener te verwerk</string>
+  <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tyd om ’n skuif op NewChess se bediener te verwerk</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
@@ -664,14 +664,14 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="withEverybody">Met almal</string>
   <string name="kidMode">Kinder mode</string>
   <string name="kidModeExplanation">Hierdie gaan oor veiligheid. In kindermodus, alle webwerf kommunikasie word afgeskakel. Skakel dit aan vir jou kinders en skoliere, om hulle te beskerm teen ander internet gebruikers.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die Lichess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die NewChess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
   <string name="enableKidMode">Skakel kindermodus aan</string>
   <string name="disableKidMode">Skakel kindermodus aan</string>
   <string name="security">Sekuriteit</string>
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies herroep</string>
   <string name="playChessEverywhere">Speel skaak oral</string>
-  <string name="asFreeAsLichess">So gratis soos Lichess</string>
+  <string name="asFreeAsLichess">So gratis soos NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Gebou as gevolg van die liefde vir skaak, nie geld nie</string>
   <string name="everybodyGetsAllFeaturesForFree">Almal kry al die funksies gratis</string>
   <string name="zeroAdvertisement">Niks advertensies</string>
@@ -784,14 +784,14 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tryToWin">Probeer om te wen (of ten minste gelykop) elke keer as jy speel.</string>
   <string name="resignLostGames">Gee hopelose wedstryde oor (moenie dat jou tyd uithardloop nie).</string>
   <string name="temporaryInconvenience">Ons vra omverskoning vir die tydelike ongerief,</string>
-  <string name="wishYouGreatGames">en ons wens jou voorspoed toe vir jou spelle op lichess.org.</string>
+  <string name="wishYouGreatGames">en ons wens jou voorspoed toe vir jou spelle op newchess.fun.</string>
   <string name="thankYouForReading">Dankie vir die tyd!</string>
   <string name="lifetimeScore">Lewenslange punte</string>
   <string name="currentMatchScore">Huidige reeks puntetelling</string>
   <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
   <string name="agreementNice">Ek stem in om altyd respek aan ander spelers te betoon.</string>
-  <string name="agreementAccount">Ek stem in om nie verskeie Lichess rekeninge oop te maak nie.</string>
-  <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
+  <string name="agreementAccount">Ek stem in om nie verskeie NewChess rekeninge oop te maak nie.</string>
+  <string name="agreementPolicy">Ek stem in om al NewChess se beleide na te volg.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
   <string name="rapid">Rapid</string>
@@ -828,13 +828,13 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="resVsX">%1$s teen %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Iemand het jou afrigtersprofiel resenseer.</string>
   <string name="newPendingReview">Nuwe hangende resensie</string>
-  <string name="lostAgainstTOSViolator">Jy het teen iemand verloor wat nie die Lichess bepalings nagekom het nie</string>
+  <string name="lostAgainstTOSViolator">Jy het teen iemand verloor wat nie die NewChess bepalings nagekom het nie</string>
   <string name="refundXpointsTimeControlY">Terugbetaling:%1$s %2$s graderingspunte.</string>
   <string name="timeAlmostUp">Tyd is byna op!</string>
   <string name="clickToRevealEmailAddress">[Klik om e-posadres te beskou]</string>
   <string name="download">Laai af</string>
   <string name="welcome">Welkom!</string>
-  <string name="lichessPatronInfo">Lichess is \'n liefdadigheidsorganisasie en heeltemal gratis/libre oopbron sagteware.
+  <string name="lichessPatronInfo">NewChess is \'n liefdadigheidsorganisasie en heeltemal gratis/libre oopbron sagteware.
 Alle bestuurskostes, ontwikkeling en inhoud word heeltemal gefinansier deur lede bydraes.</string>
   <string name="coachManager">Afrigter bestuurder</string>
   <string name="streamerManager">Uitsender bestuurder</string>
@@ -871,6 +871,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="playComputerMove">Speel die beste rekenaarskuif</string>
   <string name="since">Sedert</string>
   <string name="until">Tot</string>
-  <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>
+  <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle NewChess-spelers</string>
   <string name="switchSides">Ruil kante</string>
 </resources>

@@ -1,7 +1,7 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { SimulOpts } from './interfaces';
 import SimulCtrl from './ctrl';
-import LichessChat from 'chat';
+import NewChessChat from 'chat';
 
 const patch = init([classModule, attributesModule]);
 
@@ -33,4 +33,4 @@ export function start(opts: SimulOpts) {
 }
 
 // that's for the rest of lichess to access the chat
-window.LichessChat = LichessChat;
+window.NewChessChat = NewChessChat;

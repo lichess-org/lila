@@ -29,10 +29,10 @@ object variant {
       resolver: io.prismic.DocumentLinkResolver
   )(implicit ctx: Context) =
     layout(
-      title = "Lichess variants",
+      title = "NewChess variants",
       klass = "variants"
     )(
-      h1("Lichess variants"),
+      h1("NewChess variants"),
       div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
       div(cls := "variants")(
         lila.rating.PerfType.variants map { pt =>

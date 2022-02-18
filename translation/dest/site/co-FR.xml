@@ -280,7 +280,7 @@
     <item quantity="one">Dà %s seconda</item>
     <item quantity="other">Give %s seconde</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Stu contu hà offesu i Termi di u Serviziu Lichess</string>
+  <string name="thisAccountViolatedTos">Stu contu hà offesu i Termi di u Serviziu NewChess</string>
   <string name="openingExplorerAndTablebase">Spluratore d\' apertura &amp; basa d\' apertura</string>
   <string name="takeback">Ripiglià u colpu</string>
   <string name="proposeATakeback">Prupone di ripiglià u colpu</string>
@@ -451,7 +451,7 @@
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="inlineNotation">Nutazione in linea</string>
-  <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Nanzu in NewChess TV</string>
   <string name="onlinePlayers">Ghjucatore nantu à u situ</string>
   <string name="activePlayers">Ghjucatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenti, a partita hè classificata ma ùn ci hè riloghju!</string>
@@ -571,7 +571,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Tempu passatu à ghjucà: %s</string>
   <string name="watchGames">Fighjulà una partita</string>
-  <string name="tpTimeSpentOnTV">Tempu passatu in direttu in a lichess TV:%s</string>
+  <string name="tpTimeSpentOnTV">Tempu passatu in direttu in a newchess TV:%s</string>
   <string name="watch">Fighjulà</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Streamers</string>
@@ -603,7 +603,7 @@
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucatore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>
   <string name="simulHostExtraTime">Riloghju di u stratempu di l\' ostu</string>
-  <string name="lichessTournaments">Ghjustre Lichess</string>
+  <string name="lichessTournaments">Ghjustre NewChess</string>
   <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
@@ -637,8 +637,8 @@
   <string name="weHaveSentYouAnEmailTo">Avemu mandatu un mail à %s. Clicate nantu à a leia in u mail pè creà da torna a vostra parolla d\' intesa.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accusentu cù i nostri %s.</string>
   <string name="readAboutOur">Leghje i nostri%s.</string>
-  <string name="networkLagBetweenYouAndLichess">A reta tra voi è Lichess ùn viaghja micca</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempu pè trattà un colpu nantu à u Lichess servitore</string>
+  <string name="networkLagBetweenYouAndLichess">A reta tra voi è NewChess ùn viaghja micca</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempu pè trattà un colpu nantu à u NewChess servitore</string>
   <string name="downloadAnnotated">Telecaricamentu annutatu</string>
   <string name="downloadRaw">Telecaricamentu solu</string>
   <string name="downloadImported">Telecaricamentu impurtatu</string>
@@ -654,18 +654,18 @@
   <string name="withEverybody">Cù tuttu u mondu</string>
   <string name="kidMode">Modu pè i zitelli</string>
   <string name="kidModeExplanation">Issu modu hè più sicuru. U modu pè i zitelli impedisce e chjachjere cù l\' altri utilizatori di u situ. Pudete aduprà stu modu cù i vostri sculari o i vostri figlioli. Hè una manera d\' assicurà u spaziu di ghjocu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In u modu pè i zitelli, si pò vede una icona %s accantu à u logo di Lichess. Cusì site sicuri chì i vostri zitelli sò in securità.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In u modu pè i zitelli, si pò vede una icona %s accantu à u logo di NewChess. Cusì site sicuri chì i vostri zitelli sò in securità.</string>
   <string name="enableKidMode">Attivà u modu pè i zitelli</string>
   <string name="disableKidMode">Disattivà u modu pè i zitelli</string>
   <string name="security">Securità</string>
   <string name="sessions">Sessioni</string>
   <string name="revokeAllSessions">rivucà tutte e sessione</string>
   <string name="playChessEverywhere">Ghjucà à i scacchi dapertuttu</string>
-  <string name="asFreeAsLichess">Di rigalu cum\'è u restu di Lichess</string>
+  <string name="asFreeAsLichess">Di rigalu cum\'è u restu di NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Criatu pè l\' amore di i scacchi, senza pagà</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutte e funziunalità sò di rigalu pè tuttu ognunu</string>
   <string name="zeroAdvertisement">Ùn ci hè publicità</string>
-  <string name="fullFeatured">Lichess, è tantu in più</string>
+  <string name="fullFeatured">NewChess, è tantu in più</string>
   <string name="phoneAndTablet">Telefuninu è tavuletta</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classicu</string>
   <string name="correspondenceChess">Scacchi pè via di currispundenza</string>
@@ -774,14 +774,14 @@
   <string name="tryToWin">Cercate à vince (o omancu annullà) tutte e partite chè vo ghjucate.</string>
   <string name="resignLostGames">Lasciate corre e partite perse ( ùn lasciate micca u riloghju turnà, abbandunate).</string>
   <string name="temporaryInconvenience">Scusate pè u scomudu tempurariu</string>
-  <string name="wishYouGreatGames">è vi auguremu tante belle partite nantu à lichess.org.</string>
+  <string name="wishYouGreatGames">è vi auguremu tante belle partite nantu à newchess.fun.</string>
   <string name="thankYouForReading">Vi ringraziemu d\' avè lettu!</string>
   <string name="lifetimeScore">Storia di i risultati</string>
   <string name="currentMatchScore">Risultatu di u scontru attuale</string>
   <string name="agreementAssistance">Sò d\' accusentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, un libru, una databasa o d\' una altra persona).</string>
   <string name="agreementNice">Sò d\' accusentu chì seraghju sempre rispettosu di l\' altri ghjucatori.</string>
   <string name="agreementAccount">Sò d\' accusentu ch\' ùn apreraghju micca parechji conti.</string>
-  <string name="agreementPolicy">Sò d\' accusentu chì seguiteraghju tutte e regule di Lichess.</string>
+  <string name="agreementPolicy">Sò d\' accusentu chì seguiteraghju tutte e regule di NewChess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>
@@ -818,13 +818,13 @@
   <string name="resVsX">%1$s contru à %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
   <string name="newPendingReview">Un utilzatore cerca un intrenatore</string>
-  <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i NewChess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
   <string name="clickToRevealEmailAddress">[Clicheghja pè palisà l\' indirizzu mail]</string>
   <string name="download">Telecaricà</string>
   <string name="welcome">Benvenutu!</string>
-  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
+  <string name="lichessPatronInfo">NewChess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
   <string name="coachManager">Responsevule di l\' intrenatori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
@@ -878,6 +878,6 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
   <string name="since">Da</string>
   <string name="until">Sin\' à</string>
-  <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucatori di Lichess</string>
+  <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucatori di NewChess</string>
   <string name="switchSides">Invertì a scacchera</string>
 </resources>

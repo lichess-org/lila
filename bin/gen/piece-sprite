@@ -42,7 +42,7 @@ types = {
   'svg' => 'svg+xml;base64,',
   'png' => 'png;base64,'
 }
-roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king', 'duke']
 colors = ['white', 'black']
 
 # inline SVG

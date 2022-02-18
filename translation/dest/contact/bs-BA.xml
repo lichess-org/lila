@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontakti</string>
-  <string name="contactLichess">Kontaktirajte Lichess</string>
+  <string name="contactLichess">Kontaktirajte NewChess</string>
   <string name="whatCanWeHelpYouWith">Kako Vam možemo pomoći?</string>
   <string name="visitThisPage">Posjetite ovu stranicu kako biste riješili problem</string>
   <string name="iCantLogIn">Ne mogu se prijaviti</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Nemam pristup mojim dvofaktorskim kodovima za provjeru autentičnosti</string>
   <string name="doPasswordReset">Resetujte lozinku kako biste uklonili Vaš drugi faktor</string>
   <string name="accountSupport">Trebam podršku za korisnički račun</string>
-  <string name="wantTitle">Želim da prikažem moju titulu na Lichess-u</string>
-  <string name="visitTitleConfirmation">Da biste prikazali Vašu titulu na Lichess profilu i učestvovali u Arenama za Igrače sa titulama, posjetitle stranicu za potvrdu titule</string>
+  <string name="wantTitle">Želim da prikažem moju titulu na NewChess-u</string>
+  <string name="visitTitleConfirmation">Da biste prikazali Vašu titulu na NewChess profilu i učestvovali u Arenama za Igrače sa titulama, posjetitle stranicu za potvrdu titule</string>
   <string name="wantCloseAccount">Želim da zatvorim svoj račun</string>
   <string name="closeYourAccount">Možete zatvoriti Vaš račun na ovoj stranici</string>
   <string name="doNotAskByEmail">Ne pišite nam e-mail poruku kako biste tražili da zatvorimo Vaš korisnički račun, jer to nećemo uraditi.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Nemojte slati direktne poruke moderatorima.</string>
   <string name="onlyReports">Jedino je prijava igrača pomoću formulara za prijave učinkovita.</string>
   <string name="wantReportBug">Želim prijaviti grešku</string>
-  <string name="reportBugInForum">Na Lichess forumu za sugestije</string>
-  <string name="reportWebsiteIssue">Kao problem Lichess web stranice na GitHub-u</string>
-  <string name="reportMobileIssue">Kao problem Lichess mobilne aplikacije na GitHub-u</string>
-  <string name="reportBugInDiscord">Na Lichess discord serveru</string>
+  <string name="reportBugInForum">Na NewChess forumu za sugestije</string>
+  <string name="reportWebsiteIssue">Kao problem NewChess web stranice na GitHub-u</string>
+  <string name="reportMobileIssue">Kao problem NewChess mobilne aplikacije na GitHub-u</string>
+  <string name="reportBugInDiscord">Na NewChess discord serveru</string>
   <string name="howToReportBug">Opišite kako greška izgleda, šta ste očekivali da se dogodi umjesto greške, kao i korake koje treba preduzeti kako bi se greška ponovo prikazala.</string>
   <string name="illegalPawnCapture">Nedozvoljeno uzimanje pješakom</string>
   <string name="calledEnPassant">Naziva se \"en passant\" i jedno je od pravila šaha.</string>
@@ -63,13 +63,13 @@
   <string name="doNotDeny">Ne poričite da ste varali. Ako želite da vam se dozvoli da kreirate novi korisnički račun, samo priznajte šta ste učinili i pokažite da ste shvatili da je to bila greška.</string>
   <string name="otherRestriction">Neko drugo ograničenje</string>
   <string name="collaboration">Saradnja, pravna, komercijalna</string>
-  <string name="monetizing">Unovčenje Lichess-a</string>
-  <string name="buyingLichess">Kupovina Lichess-a</string>
-  <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
-  <string name="welcomeToUse">Dozvoljeno je korištenje Lichess-a za Vaše aktivnosti, čak iako su one komercijalne prirode.</string>
-  <string name="videosAndBooks">Možete ga prikazati u svojim videozapisima, a možete koristiti Lichess snimke pozicija i u Vašim knjigama.</string>
-  <string name="creditAppreciated">Zahvaljujemo se na spominjanju Lichess-a, iako to nije obavezno.</string>
+  <string name="monetizing">Unovčenje NewChess-a</string>
+  <string name="buyingLichess">Kupovina NewChess-a</string>
+  <string name="authorizationToUse">Dozvola za korištenje NewChess-a</string>
+  <string name="welcomeToUse">Dozvoljeno je korištenje NewChess-a za Vaše aktivnosti, čak iako su one komercijalne prirode.</string>
+  <string name="videosAndBooks">Možete ga prikazati u svojim videozapisima, a možete koristiti NewChess snimke pozicija i u Vašim knjigama.</string>
+  <string name="creditAppreciated">Zahvaljujemo se na spominjanju NewChess-a, iako to nije obavezno.</string>
   <string name="noneOfTheAbove">Ništa od navedenog</string>
   <string name="sendEmailAt">Pošaljite nam e-mail poruku na %s.</string>
-  <string name="explainYourRequest">Molimo Vas da jasno i precizno objasnite svoj zahtjev. Navedite svoje Lichess korisničko ime i sve informacije koje bi nam mogle pomoći da Vam pomognemo.</string>
+  <string name="explainYourRequest">Molimo Vas da jasno i precizno objasnite svoj zahtjev. Navedite svoje NewChess korisničko ime i sve informacije koje bi nam mogle pomoći da Vam pomognemo.</string>
 </resources>

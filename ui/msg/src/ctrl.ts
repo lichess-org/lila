@@ -15,7 +15,7 @@ export default class MsgCtrl {
   msgsPerPage = 100;
   canGetMoreSince?: Date;
   typing?: Typing;
-  textStore?: LichessStorage;
+  textStore?: NewChessStorage;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;

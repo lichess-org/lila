@@ -195,7 +195,7 @@
   <string name="whatNext">അടുത്തതെന്ത്?</string>
   <string name="youKnowHowToPlayChess">നിങ്ങൾക്ക് ചെസ്സ് കളിക്കാൻ അറിയാം, അഭിനന്ദനങൾ! ഇനി കൂടുതൽ കരുത്തുറ്റ കളിക്കാരനാകണോ?</string>
   <string name="register">രജിസ്റ്റർ</string>
-  <string name="getAFreeLichessAccount">ഫ്രീയായി Lichess അക്കൗണ്ട് നേടൂ</string>
+  <string name="getAFreeNewChessAccount">ഫ്രീയായി NewChess അക്കൗണ്ട് നേടൂ</string>
   <string name="practice">അഭ്യസിക്കുക</string>
   <string name="learnCommonChessPositions">സാധാരണ ചെസ്സ് പൊസിഷൻസ് പഠിക്കാം</string>
   <string name="puzzles">Puzzles</string>

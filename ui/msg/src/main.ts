@@ -6,7 +6,7 @@ import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
 import MsgCtrl from './ctrl';
 
-export default function LichessMsg(opts: MsgOpts) {
+export default function NewChessMsg(opts: MsgOpts) {
   const element = document.querySelector('.msg-app') as HTMLElement,
     patch = init([classModule, attributesModule]),
     appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);

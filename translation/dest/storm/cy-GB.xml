@@ -7,9 +7,9 @@
   <string name="accuracy">Cywirdeb</string>
   <string name="combo">Cyfuniad</string>
   <string name="time">Amser</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Yr wythnos yma</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Y mis yma</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Erioed</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Yr wythnos yma</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Y mis yma</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://newchess.fun/storm/dashboard">Erioed</string>
   <string name="clickToReload">Cliciwch i ail-lwytho</string>
   <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Mae\'r rhediad hwn wedi dod i ben!</string>
   <string name="thisRunWasOpenedInAnotherTab">Agorwyd y rhediad hwn mewn tab arall!</string>

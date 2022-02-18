@@ -70,7 +70,7 @@
   <string name="lookupOfPlayer">Caută puzzle-uri din jocurile unui jucător</string>
   <string name="fromXGames">Puzzle-uri din jocurile %s</string>
   <string name="searchPuzzles">Caută puzzle-uri</string>
-  <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess tot te apreciază foarte mult.
+  <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar NewChess tot te apreciază foarte mult.
 Joacă jocuri rapide și clasice pentru a crește șansele de a vedea adăugată o problemă extrasă din partidele tale!</string>
   <string name="fromXGamesFound">%1$s probleme găsite în %2$s jocuri</string>
   <string name="puzzleDashboardDescription">Antreneaza-te, analizează, fii mai bun</string>

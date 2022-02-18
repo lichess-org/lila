@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Звязацца</string>
-  <string name="contactLichess">Звязацца з Lichess</string>
+  <string name="contactLichess">Звязацца з NewChess</string>
   <string name="whatCanWeHelpYouWith">Чым мы можам вам дапамагчы?</string>
   <string name="visitThisPage">Наведайце гэтую старонку каб вырашыць праблему</string>
   <string name="iCantLogIn">Не магу ўвайсці</string>
@@ -12,8 +12,8 @@
   <string name="lost2FA">Страціў доступ да кадоў двухфактарнаў аўтарызацыі</string>
   <string name="doPasswordReset">Скасуйце пароль, каб пазбавіцца двухфактарнай аўтарызацыі</string>
   <string name="accountSupport">Мне трэба дапамога з акаўнтам</string>
-  <string name="wantTitle">Хачу, каб мой тытул адлюстроўвася на Lichess</string>
-  <string name="visitTitleConfirmation">Каб адлюстроўваць тытул на вашай староке Lichess та ўдзельнічаць у Тытуляваных Арэнах, наведайце старонку пацверджання тытулу</string>
+  <string name="wantTitle">Хачу, каб мой тытул адлюстроўвася на NewChess</string>
+  <string name="visitTitleConfirmation">Каб адлюстроўваць тытул на вашай староке NewChess та ўдзельнічаць у Тытуляваных Арэнах, наведайце старонку пацверджання тытулу</string>
   <string name="wantCloseAccount">Хачу зачыніць акаўнт</string>
   <string name="closeYourAccount">Вы можаце зачыніць свой акаўнт на гэтай старонцы</string>
   <string name="doNotAskByEmail">Не прасіце нас зачыніць акаўнт праз электроныя лісты, мы не будзем.</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Калі ласка, не дасылайце асабістыя паведамленні мадэратарам.</string>
   <string name="onlyReports">Толькі скарга на гульцоў праз форму скаргі эфектыўна.</string>
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
-  <string name="reportBugInForum">У раздзеле \"Зваротная сувязь Lichess\" на форуме</string>
-  <string name="reportWebsiteIssue">Як памылку сайта Lichess на GitHub</string>
-  <string name="reportMobileIssue">Як памылку мабільнай прылады Lichess на GitHub</string>
-  <string name="reportBugInDiscord">Ва Discord cерверы Lichess</string>
+  <string name="reportBugInForum">У раздзеле \"Зваротная сувязь NewChess\" на форуме</string>
+  <string name="reportWebsiteIssue">Як памылку сайта NewChess на GitHub</string>
+  <string name="reportMobileIssue">Як памылку мабільнай прылады NewChess на GitHub</string>
+  <string name="reportBugInDiscord">Ва Discord cерверы NewChess</string>
   <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
   <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
   <string name="calledEnPassant">Гэта называецца \"ўзяцце на праходзе\" і з\'яўляецца адным з правіл шахмат.</string>
@@ -64,13 +64,13 @@
   <string name="doNotDeny">Не адмаўляйце, што падманулі. Калі вы хочаце мець магчымасць стварыць новы акаўнт, наўпрост прызнайце, што зрабілі, і пакажыце, што разумееце сваю памылку.</string>
   <string name="otherRestriction">Іншыя абмежаванні</string>
   <string name="collaboration">Супрацоўніцтва, юрыдычнае, камерцыйнае</string>
-  <string name="monetizing">Манетызацыя Lichess</string>
-  <string name="buyingLichess">Купіць Lichess</string>
-  <string name="authorizationToUse">Аўтарызацыя на Lichess</string>
-  <string name="welcomeToUse">Мы заклікаем выкарыстоўваць Lichess у вашай дзейнасці, нават камерцыйнай.</string>
-  <string name="videosAndBooks">Вы можаце выкарыстоўваце яе для вашых відэа та другаваць скрыншоты Lichess у вашых кнігах.</string>
+  <string name="monetizing">Манетызацыя NewChess</string>
+  <string name="buyingLichess">Купіць NewChess</string>
+  <string name="authorizationToUse">Аўтарызацыя на NewChess</string>
+  <string name="welcomeToUse">Мы заклікаем выкарыстоўваць NewChess у вашай дзейнасці, нават камерцыйнай.</string>
+  <string name="videosAndBooks">Вы можаце выкарыстоўваце яе для вашых відэа та другаваць скрыншоты NewChess у вашых кнігах.</string>
   <string name="creditAppreciated">Падзяка вітаецца, але не з\'яўляецца абавязковай.</string>
   <string name="noneOfTheAbove">Нічога з пералічанага</string>
   <string name="sendEmailAt">Даслаць нам ліст на %s.</string>
-  <string name="explainYourRequest">Калі ласка, апішыце свой запыт зразумела і дасканала. Пазначце ваша імя карыстальніка Lichess і ўсю іншыў інфармацыю, якая можа быць карыснай у нашай вам дапамозе.</string>
+  <string name="explainYourRequest">Калі ласка, апішыце свой запыт зразумела і дасканала. Пазначце ваша імя карыстальніка NewChess і ўсю іншыў інфармацыю, якая можа быць карыснай у нашай вам дапамозе.</string>
 </resources>

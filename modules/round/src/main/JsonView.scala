@@ -117,6 +117,7 @@ final class JsonView(
           .add("takebackable" -> takebackable)
           .add("moretimeable" -> moretimeable)
           .add("crazyhouse" -> pov.game.board.crazyData)
+          .add("newChess1" -> pov.game.board.newChess1Data)
           .add("possibleMoves" -> possibleMoves(pov, apiVersion))
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {
@@ -195,7 +196,7 @@ final class JsonView(
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
-          .add("tv" -> tv.collect { case OnLichessTv(channel, flip) =>
+          .add("tv" -> tv.collect { case OnNewChessTv(channel, flip) =>
             Json.obj("channel" -> channel, "flip" -> flip)
           })
           .add("userTv" -> tv.collect { case OnUserTv(userId) =>

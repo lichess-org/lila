@@ -2,7 +2,7 @@ import rollupProject from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: 'LichessChat',
+    name: 'NewChessChat',
     input: 'src/main.ts',
     output: 'chat',
   },

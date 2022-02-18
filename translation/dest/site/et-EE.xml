@@ -264,7 +264,7 @@
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus Lichessi teenusetingimusi</string>
+  <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus NewChessi teenusetingimusi</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
@@ -432,7 +432,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
-  <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
+  <string name="previouslyOnNewChessTV">Eelnevalt NewChess TV-s</string>
   <string name="onlinePlayers">Mängijad kohal</string>
   <string name="activePlayers">Aktiivsed mängijad</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ajakontrollita!</string>
@@ -548,7 +548,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="tpTimeSpentPlaying">Mängimiseks kulutatud aeg: %s</string>
   <string name="watchGames">Vaata mänge</string>
-  <string name="tpTimeSpentOnTV">Aeg Lichess TV-s: %s</string>
+  <string name="tpTimeSpentOnTV">Aeg NewChess TV-s: %s</string>
   <string name="watch">Vaata</string>
   <string name="videoLibrary">Videod</string>
   <string name="streamersMenu">Striimijad</string>
@@ -580,7 +580,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>
   <string name="simulHostExtraTime">Sinultaani korraldaja lisaaeg</string>
-  <string name="lichessTournaments">Lichessi turniirid</string>
+  <string name="lichessTournaments">NewChessi turniirid</string>
   <string name="tournamentFAQ">Areena turniiride KKK</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
   <string name="averageCentipawnLoss">Keskmine kaotus käigu kohta sajandiketturites</string>
@@ -614,8 +614,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="weHaveSentYouAnEmailTo">Saatsime e-maili %s. Parooli uuendamiseks kliki e-mailis olevale lingile.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute %s.</string>
   <string name="readAboutOur">Lugege rohkem: %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Võrguviivitus sinu ja Lichessi vahel</string>
-  <string name="timeToProcessAMoveOnLichessServer">Käigu töötlemise aeg Lichessi serveril</string>
+  <string name="networkLagBetweenYouAndLichess">Võrguviivitus sinu ja NewChessi vahel</string>
+  <string name="timeToProcessAMoveOnLichessServer">Käigu töötlemise aeg NewChessi serveril</string>
   <string name="downloadAnnotated">Lae alla kommentaaridega</string>
   <string name="downloadRaw">Lae alla kommentaarideta</string>
   <string name="downloadImported">Lae imporditud PNG</string>
@@ -629,14 +629,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="withEverybody">Kõigiga</string>
   <string name="kidMode">Lapserežiim</string>
   <string name="kidModeExplanation">See on seotud turvalisusega. Lapserežiimis igasugune suhtlemine sellel lehel on välja lülitatud. Aktiveerige see režiim, et kaitsta lapsi ja kooliõpilasi teiste kasutajate eest.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Lapserežiimis Lichessi logole lisandub %s ikoon, mis tähendab, et lapserežiim on aktiveeritud.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Lapserežiimis NewChessi logole lisandub %s ikoon, mis tähendab, et lapserežiim on aktiveeritud.</string>
   <string name="enableKidMode">Aktiveeri lapserežiim</string>
   <string name="disableKidMode">Deaktiveeri lapserežiim</string>
   <string name="security">Turvalisus</string>
   <string name="sessions">Sessioonid</string>
   <string name="revokeAllSessions">lõpetada kõik sessioonid</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
-  <string name="asFreeAsLichess">Tasuta nagu Lichess</string>
+  <string name="asFreeAsLichess">Tasuta nagu NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Ehitatud armastusest male vastu, mitte raha</string>
   <string name="everybodyGetsAllFeaturesForFree">Kõik funktsioonid on kõigile tasuta</string>
   <string name="zeroAdvertisement">Mitte ühtegi reklaami</string>
@@ -749,14 +749,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tryToWin">Proovi võita (või vähemalt mängida viiki) igat mängu mida mängid.</string>
   <string name="resignLostGames">Alistu kaotatud mängud (ära lase kellal joosta lõpuni).</string>
   <string name="temporaryInconvenience">Me vabandame ajutise ebamugavuse pärast,</string>
-  <string name="wishYouGreatGames">ja soovime häid mänge leheküljel lichess.org.</string>
+  <string name="wishYouGreatGames">ja soovime häid mänge leheküljel newchess.fun.</string>
   <string name="thankYouForReading">Aitäh, et lugesid!</string>
   <string name="lifetimeScore">Kõikide mängude skoor</string>
   <string name="currentMatchScore">Praeguste mängude skoor</string>
   <string name="agreementAssistance">Ma nõustun, et mängin ilma abivahenditeta (ilma malearvuti, raamatu, andmebaasi või teise inimese abita).</string>
   <string name="agreementNice">Ma nõustun, et olen alati lugupidav teiste mängijate suhtes.</string>
   <string name="agreementAccount">Ma nõustun, et ei loo rohkem kui ühe kasutaja.</string>
-  <string name="agreementPolicy">Ma nõustun, et järgin kõiki Lichessi eeskirju.</string>
+  <string name="agreementPolicy">Ma nõustun, et järgin kõiki NewChessi eeskirju.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut vestlust</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
@@ -787,7 +787,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
   <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
-  <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus Lichessi kasutustingimusi</string>
+  <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus NewChessi kasutustingimusi</string>
   <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>

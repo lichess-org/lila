@@ -3,9 +3,9 @@
   <string name="activity">Активност</string>
   <string name="hostedALiveStream">Одржали пренос уживо</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Подржали lichess.org на %1$s месец као %2$s</item>
-    <item quantity="few">Подржали lichess.org на %1$s месеца као %2$s</item>
-    <item quantity="other">Подржали lichess.org на %1$s месеци као %2$s</item>
+    <item quantity="one">Подржали newchess.fun на %1$s месец као %2$s</item>
+    <item quantity="few">Подржали newchess.fun на %1$s месеца као %2$s</item>
+    <item quantity="other">Подржали newchess.fun на %1$s месеци као %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Вежбали %1$s позицију на %2$s</item>
@@ -78,7 +78,7 @@
     <item quantity="other">Рангиран #%1$s (првих %2$s%%) са %3$s партија у %4$s</item>
   </plurals>
   <string name="rankedInSwissTournament">Рангиран #%1$s у %2$s</string>
-  <string name="signedUp">Пријавили се на lichess.org</string>
+  <string name="signedUp">Пријавили се на newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ушли у %s тим</item>
     <item quantity="few">Ушли у %s тима</item>

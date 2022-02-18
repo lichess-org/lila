@@ -20,6 +20,7 @@ export const perfNames = {
   horde: 'Horde',
   atomic: 'Atomic',
   crazyhouse: 'Crazyhouse',
+  newchess1: 'NewChess1',
   chess960: 'Chess960',
   kingOfTheHill: 'King of the Hill',
 };

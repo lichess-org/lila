@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess klaseak</string>
-  <string name="teachClassesOfChessStudents">Irakatsi xakean ikasleei Lichess Klaseak tresnak erabiliz.</string>
+  <string name="lichessClasses">NewChess klaseak</string>
+  <string name="teachClassesOfChessStudents">Irakatsi xakean ikasleei NewChess Klaseak tresnak erabiliz.</string>
   <string name="features">Ezaugarriak</string>
   <string name="quicklyGenerateSafeUsernames">Ikasleentzat erabiltzaile-izen eta pasahitz seguruak sortu</string>
   <string name="trackStudentProgress">Ikasleen aurrerapenaren berri izan partida eta ariketetan</string>
   <string name="messageAllStudents">Ikasle guztien material berriaren inguruko informazioa bidali</string>
   <string name="freeForAllForever">%100 doan guztientzat, betiko eta iragarkirik gabe</string>
-  <string name="applyToBeLichessTeacher">Lichess Irakasle izatea eskatu</string>
+  <string name="applyToBeNewChessTeacher">NewChess Irakasle izatea eskatu</string>
   <string name="noClassesYet">Ez duzu klaserik.</string>
   <string name="teachersX">Irakasleak: %s</string>
   <string name="newClass">Klase berria</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klasearen deskribapena</string>
   <string name="visibleByBothStudentsAndTeachers">Irakasle eta ikasleek ikusi dezakete</string>
   <string name="teachersOfTheClass">Klasearen irakasleak</string>
-  <string name="addLichessUsernames">Gehitu Lichess erabiltzaile-izenak irakasle gisa gonbidatzeko. Bat lerro bakoitzean.</string>
+  <string name="addNewChessUsernames">Gehitu NewChess erabiltzaile-izenak irakasle gisa gonbidatzeko. Bat lerro bakoitzean.</string>
   <string name="resetPassword">Pasahitza berrezarri</string>
   <string name="makeSureToCopy">Kopiatu eta gorde pasahitza. Ez duzu berriz ikusiko-eta!</string>
   <string name="passwordX">Pasahitza: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Benetako izena</string>
   <string name="privateWillNeverBeShown">Pribatua. Ez da klasetik kanpora inoiz erakutsiko. Ikaslea zein den gogorarazten laguntzen du.</string>
   <string name="addStudent">Ikaslea gehitu</string>
-  <string name="lichessProfileXCreatedForY">%1$s Lichess profila %2$s erabiltzailearentzat sortu da.</string>
+  <string name="lichessProfileXCreatedForY">%1$s NewChess profila %2$s erabiltzailearentzat sortu da.</string>
   <string name="studentCredentials">Ikaslea: %1$s
 Erabiltzaile-izena: %2$s
 Pasahitza: %3$s</string>
-  <string name="inviteALichessAccount">Lichess kontu bat gonbidatu</string>
-  <string name="inviteDesc1">Ikasleak Lichess kontu bat badu, klasera gonbidatu dezakezu.</string>
-  <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko loturarekin.</string>
+  <string name="inviteANewChessAccount">NewChess kontu bat gonbidatu</string>
+  <string name="inviteDesc1">Ikasleak NewChess kontu bat badu, klasera gonbidatu dezakezu.</string>
+  <string name="inviteDesc2">Mezu bat jasoko dute NewChessen klasera sartzeko loturarekin.</string>
   <string name="inviteDesc3">Garrantzitsua: ezagutzen dituzu ikasleak eta klasera sartu nahi dutenak bakarrik gonbidatu.</string>
   <string name="inviteDesc4">Sekula ez bidali eskatu gabeko gonbidapenak edozein jokalariri.</string>
-  <string name="createANewLichessAccount">Lichess kontu berri bat sortu</string>
-  <string name="createDesc1">Ikasleak ez badu Lichess kontu bat, hemendik sortu diezaiokezu.</string>
+  <string name="createANewNewChessAccount">NewChess kontu berri bat sortu</string>
+  <string name="createDesc1">Ikasleak ez badu NewChess kontu bat, hemendik sortu diezaiokezu.</string>
   <string name="createDesc2">Ez dugu eposta helbiderik behar. Pasahitz bat sortuko da eta ikasleari eman beharko dozu.</string>
   <string name="createDesc3">Garrantzitsua: ikasle batek ezin du kontu bat baino gehiago eduki.</string>
   <string name="createDesc4">Jada bat badu, erabili gonbidatzeko formularioa horretarako.</string>
   <string name="createStudentWarning">Benetako ikasleentzat bakarrik sortu kontuak. Ez erabili hau zuretzat kontu bat baino gehiago sortzeko. Webgunera sartzea debekatu egingo dizugu.</string>
-  <string name="lichessUsername">Lichess erabiltzaile-izena</string>
+  <string name="lichessUsername">NewChess erabiltzaile-izena</string>
   <string name="generateANewUsername">Erabiltzaile-izen berria sortu</string>
   <string name="welcomeToClass">Ongi etorri zure klasera: %s.
 Hemen dago bertara sartzeko lotura.</string>

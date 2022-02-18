@@ -222,7 +222,7 @@
   </plurals>
   <string name="exportGames">Eksportear partijen</string>
   <string name="ratingRange">Ratingberik</string>
-  <string name="thisAccountViolatedTos">Dit akkount hat de regels fan de Lichess Tsjinstbetingsten oertrêden</string>
+  <string name="thisAccountViolatedTos">Dit akkount hat de regels fan de NewChess Tsjinstbetingsten oertrêden</string>
   <string name="openingExplorerAndTablebase">Openingsblêder &amp; tablebase</string>
   <string name="takeback">Set werom</string>
   <string name="proposeATakeback">Stel in weromset foar</string>
@@ -353,7 +353,7 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="thankYou">Tankewol!</string>
   <string name="socialMediaLinks">Keppelingen nei sosjale media</string>
   <string name="inlineNotation">Ynboude notaasje</string>
-  <string name="previouslyOnLichessTV">Earder op Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Earder op NewChess TV</string>
   <string name="onlinePlayers">Online spilers</string>
   <string name="activePlayers">Aktive spilers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tink derom, dizze partij is wol om rating, mar is sûnder klok!</string>
@@ -438,7 +438,7 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
   <string name="playChessEverywhere">Oeral skaken spyljen</string>
-  <string name="asFreeAsLichess">As fergees as lichess</string>
+  <string name="asFreeAsLichess">As fergees as newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Boud út de leafde foar skaken, net jild</string>
   <string name="zeroAdvertisement">Gjin advertinsjes</string>
   <string name="phoneAndTablet">Telefoan en tablet</string>

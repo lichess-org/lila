@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Խմբեր</string>
-  <string name="teachClassesOfChessStudents">Շախմատն աշակերտներին դասավանդեք «Lichess-ի դասեր» գործիքների օգնությամբ։</string>
+  <string name="teachClassesOfChessStudents">Շախմատն աշակերտներին դասավանդեք «NewChess-ի դասեր» գործիքների օգնությամբ։</string>
   <string name="features">Հնարավորություններ</string>
   <string name="quicklyGenerateSafeUsernames">Արագ ստեղծեք անվտանգ անուններ և գաղտնաբառեր աշակերտների համար։</string>
   <string name="trackStudentProgress">Հետևեք աշակերտների առաջընթացին պարտիաներում և խնդիրներում</string>
   <string name="messageAllStudents">Հայտնեք բոլոր աշակերտներին խմբերի նոր նյութերի մասին</string>
   <string name="freeForAllForever">Անվճար է բոլորի համար, ընդմիշտ, 100 տոկոսով առանց գովազդի և հետևման</string>
-  <string name="applyToBeLichessTeacher">Ներկայացնել հայտ՝ Lichess-ի ուսուցիչ դառնալու համար</string>
+  <string name="applyToBeNewChessTeacher">Ներկայացնել հայտ՝ NewChess-ի ուսուցիչ դառնալու համար</string>
   <string name="noClassesYet">Խմբեր դեռ չկան։</string>
   <string name="teachersX">Ուսուցիչներ՝ %s</string>
   <string name="newClass">Նոր խումբ</string>
@@ -23,6 +23,6 @@
   <string name="classDescription">Խմբի նկարագրությունը</string>
   <string name="visibleByBothStudentsAndTeachers">Երևում է ինչպես մարզչին, այնպես էլ խմբի աշակերտներին</string>
   <string name="teachersOfTheClass">Խմբի մարզիչները</string>
-  <string name="addLichessUsernames">Ավելացրեք Lichess-ի օգտատերերի անունները` նրանց որպես մարզիչ հրավիրելու համար։ Ամեն տողում` մեկին։</string>
+  <string name="addNewChessUsernames">Ավելացրեք NewChess-ի օգտատերերի անունները` նրանց որպես մարզիչ հրավիրելու համար։ Ամեն տողում` մեկին։</string>
   <string name="createStudentWarning">Ստեղծեք մասնակցային հաշիվներ միայն իրական աշակերտների համար։ Այդ հնարավորությունը մի՛ օգտագործեք անձնական նպատակներով մասնակցային հաշիվներ ստեղծելու համար, այլապես կարգելափակվեք։</string>
 </resources>

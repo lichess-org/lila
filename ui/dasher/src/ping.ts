@@ -48,14 +48,14 @@ export const view = (ctrl: PingCtrl): VNode =>
     h(
       'span.ping',
       {
-        attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
+        attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndNewChess') },
       },
       showMillis('PING', ctrl.data.ping)
     ),
     h(
       'span.server',
       {
-        attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
+        attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnNewChessServer') },
       },
       showMillis('SERVER', ctrl.data.server)
     ),

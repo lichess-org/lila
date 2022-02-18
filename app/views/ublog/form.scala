@@ -97,7 +97,7 @@ object form {
                 )
               ),
               p(
-                "You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else."
+                "You can also use images that you made yourself, pictures you took, screenshots of NewChess... anything that is not copyrighted by someone else."
               ),
               p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
               form3.file.image("image")

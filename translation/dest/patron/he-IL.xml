@@ -71,6 +71,6 @@
   <string name="checkOutProfile">בדוק את עמוד הפרופיל שלך!</string>
   <string name="nowLifetime">אתה עכשיו פטרון לכל החיים!</string>
   <string name="nowOneMonth">אתה עכשיו פטרון לחודש אחד!</string>
-  <string name="downgradeNextMonth">בעוד חודש לא תחויב שוב, וחשבון ה- Lichess שלך יחזור לחשבון רגיל.</string>
+  <string name="downgradeNextMonth">בעוד חודש לא תחויב שוב, וחשבון ה- NewChess שלך יחזור לחשבון רגיל.</string>
   <string name="changeCurrency">שנה מטבע</string>
 </resources>

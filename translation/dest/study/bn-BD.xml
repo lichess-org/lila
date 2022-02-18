@@ -84,7 +84,7 @@
   <string name="interestingMove">আগ্রহোদ্দীপক চাল</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">অনিশ্চিত চাল</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">একমাত্র সম্ভাব্য চাল</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">যুগযোয়াং</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://newchess.fun/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">যুগযোয়াং</string>
   <string name="equalPosition">সমান অবস্থান</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">অনিশ্চিত অবস্থান</string>
   <string name="whiteIsSlightlyBetter">সাদা একটু বেশি ভালো</string>

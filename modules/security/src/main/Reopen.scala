@@ -57,7 +57,7 @@ final class Reopen(
       val url = s"$baseUrl/account/reopen/login/$token"
       mailer send Mailer.Message(
         to = email,
-        subject = s"Reopen your lichess.org account: ${user.username}",
+        subject = s"Reopen your newchess.fun account: ${user.username}",
         text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_clickOrIgnore.txt()}
 

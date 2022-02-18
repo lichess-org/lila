@@ -58,7 +58,7 @@ final class IrcApi(
   }
 
   def userModNote(modName: String, username: String, note: String): Funit =
-    !User.isLichess(modName) ??
+    !User.isNewChess(modName) ??
       zulip(_.mod.adminLog, "notes")(
         s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
@@ -138,7 +138,7 @@ final class IrcApi(
   def nameClosePreset(username: String): Funit =
     zulip(_.mod.commsPublic, "/" + username)("@**remind** here in 48h to close this account")
 
-  def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
+  def stop(): Funit = zulip(_.general, "lila")("NewChess is restarting.")
 
   def publishEvent(event: Event): Funit = event match {
     case Error(msg)   => publishError(msg)
@@ -212,7 +212,7 @@ object IrcApi {
 
   private object markdown {
     def link(url: String, name: String)         = s"[$name]($url)"
-    def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
+    def lichessLink(path: String, name: String) = s"[$name](https://newchess.fun$path)"
     def userLink(name: String): String          = lichessLink(s"/@/$name?mod&notes", name)
     def userLink(user: User): String            = userLink(user.username)
     def modLink(name: String): String           = lichessLink(s"/@/$name", name)

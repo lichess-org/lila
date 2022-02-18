@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Flokkar</string>
-  <string name="teachClassesOfChessStudents">Gev flokkum við talvnæmingum frálæru við Lichess-amboðskassanum.</string>
+  <string name="teachClassesOfChessStudents">Gev flokkum við talvnæmingum frálæru við NewChess-amboðskassanum.</string>
   <string name="features">Eyðkenni</string>
   <string name="quicklyGenerateSafeUsernames">Ger kvikliga talvnæmingum trygg brúkaranøvn og loyniorð</string>
   <string name="trackStudentProgress">Fylg næmingaframgongd í talvum og uppgávum</string>
   <string name="messageAllStudents">Boða øllum næmingum frá um nýtt flokstilfar</string>
   <string name="freeForAllForever">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
-  <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
+  <string name="applyToBeNewChessTeacher">Søk um at gerast NewChess-lærari</string>
   <string name="noClassesYet">Eingir flokkar enn.</string>
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Nýggjur flokkur</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Flokslýsing</string>
   <string name="visibleByBothStudentsAndTeachers">Sjónlig fyri bæði lærarum og næmingum í flokkinum</string>
   <string name="teachersOfTheClass">Lærarar hjá flokkinum</string>
-  <string name="addLichessUsernames">Legg Lichess-brúkaranøvn inn til tess at bjóða teimum at vera lærarar. Eitt brúkaranavn til hvørja reglu.</string>
+  <string name="addNewChessUsernames">Legg NewChess-brúkaranøvn inn til tess at bjóða teimum at vera lærarar. Eitt brúkaranavn til hvørja reglu.</string>
   <string name="resetPassword">Endurstilla loyniorð</string>
   <string name="makeSureToCopy">Syrg fyri at avrita loyniorðið nú, ella skriva tað niður. Tú verður ikki før/ur fyri at síggja tað aftur!</string>
   <string name="passwordX">Loyniorð: %s</string>
@@ -32,21 +32,21 @@
   <string name="realName">Veruligt navn</string>
   <string name="privateWillNeverBeShown">Privat. Fer ongantíð at verða víst uttanfyri flokkin. Hjálpir tær at minnast, hvør næmingurin er.</string>
   <string name="addStudent">Legg næming afturat</string>
-  <string name="lichessProfileXCreatedForY">Lichess vangamynd %1$s gjørd til %2$s.</string>
+  <string name="lichessProfileXCreatedForY">NewChess vangamynd %1$s gjørd til %2$s.</string>
   <string name="studentCredentials">Næmingur:  %1$s
 Brúkaranavn: %2$s
 Loyniorð: %3$s</string>
-  <string name="inviteALichessAccount">Bjóða einari Lichess-kontu</string>
-  <string name="inviteDesc1">Hevur næmingurin longu eina Lichess-konto, kanst tú bjóða honum ella henni at vera við í flokkinum.</string>
-  <string name="inviteDesc2">Næmingarnir fáa eini boð á Lichess við einum leinki at melda seg til flokkin.</string>
+  <string name="inviteANewChessAccount">Bjóða einari NewChess-kontu</string>
+  <string name="inviteDesc1">Hevur næmingurin longu eina NewChess-konto, kanst tú bjóða honum ella henni at vera við í flokkinum.</string>
+  <string name="inviteDesc2">Næmingarnir fáa eini boð á NewChess við einum leinki at melda seg til flokkin.</string>
   <string name="inviteDesc3">Týdningarmikið: Bjóða bert fólki, tú kennir, og sum vilja taka virknan lut í flokkinum.</string>
   <string name="inviteDesc4">Send ongantíð óbodnar innbjóðingar til tilvildarligar telvarar.</string>
-  <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
-  <string name="createDesc1">Um næmingurin ikki hevur eina Lichess-kontu enn, kanst tú stovna honum ella henni eina.</string>
+  <string name="createANewNewChessAccount">Stovna eina nýggja NewChess kontu</string>
+  <string name="createDesc1">Um næmingurin ikki hevur eina NewChess-kontu enn, kanst tú stovna honum ella henni eina.</string>
   <string name="createDesc2">Teldupostbústaður er ikki kravdur. Eitt loyniorð verður gjørt, og tær nýtist at senda næminginum tað, so hann fær ritað inn.</string>
   <string name="createDesc3">Týdningarmikið: Ein næmingur sleppur ikki at hava fleiri kontur.</string>
   <string name="createDesc4">Nýt innbjóðingaroyðublaðið, um næmingurin longu hevur eina brúkarakontu.</string>
-  <string name="lichessUsername">Lichess brúkaranavn</string>
+  <string name="lichessUsername">NewChess brúkaranavn</string>
   <string name="generateANewUsername">Ger eitt nýtt brúkaranavn</string>
   <string name="welcomeToClass">Vælkomin til tín flokk: %s.
 Her er leinkið til atgongdina til flokkin.</string>

@@ -48,10 +48,10 @@ export default function makeRenderers(trans: Trans): Renderers {
     titledTourney: {
       html: n =>
         generic(n, '/tournament/' + n.content.id, '', [
-          h('span', [h('strong', 'Lichess Titled Arena'), drawTime(n)]),
+          h('span', [h('strong', 'NewChess Titled Arena'), drawTime(n)]),
           h('span', n.content.text),
         ]),
-      text: _ => 'Lichess Titled Arena',
+      text: _ => 'NewChess Titled Arena',
     },
     reportedBanned: {
       html: n =>

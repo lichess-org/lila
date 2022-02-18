@@ -73,7 +73,7 @@
   <string name="lookupOfPlayer">Wyszukaj zadań z gier gracza</string>
   <string name="fromXGames">Zadania z partii gracza %s</string>
   <string name="searchPuzzles">Szukaj zadań</string>
-  <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale Lichess nadal bardzo Cię kocha.
+  <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale NewChess nadal bardzo Cię kocha.
 Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>
   <string name="fromXGamesFound">%1$s zadań znalezionych w %2$s grach</string>
   <string name="puzzleDashboardDescription">Trenuj, analizuj, doskonal się</string>

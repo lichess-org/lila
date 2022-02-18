@@ -6,5 +6,5 @@
   <string name="cantOpenSimilarAccount">Vous ne serez pas autorisé à ouvrir un nouveau compte avec le même nom, même si la casse est différente.</string>
   <string name="changedMindDoNotCloseAccount">J\'ai changé d\'avis, ne fermez pas mon compte</string>
   <string name="closeAccountExplanation">Voulez-vous vraiment fermer votre compte ? Fermer votre compte est une décision définitive. Vous ne pourrez plus vous connecter, et votre profil ne sera plus accessible.</string>
-  <string name="thisAccountIsClosed" comment="thisAccountIsClosed&#10;&#10;This should be in the passive voice. It may be the player's choice to close their own account, but it is can also be Lichess moderators that close the account.">Ce compte a été fermé.</string>
+  <string name="thisAccountIsClosed" comment="thisAccountIsClosed&#10;&#10;This should be in the passive voice. It may be the player's choice to close their own account, but it is can also be NewChess moderators that close the account.">Ce compte a été fermé.</string>
 </resources>

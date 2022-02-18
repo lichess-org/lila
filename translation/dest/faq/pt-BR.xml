@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">Perguntas Frequentes</string>
   <string name="frequentlyAskedQuestions">Perguntas Frequentes</string>
-  <string name="whyIsLichessCalledLichess">Por que o Lichess se chama Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de live/light/livre e chess. Pronuncia-se %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Por que o NewChess se chama NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess é uma combinação de live/light/livre e chess. Pronuncia-se %1$s.</string>
   <string name="leechess">li-tiés</string>
   <string name="hearItPronouncedBySpecialist">Escute a pronúncia por um especialista.</string>
-  <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e livre pelo fato de que Lichess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
-  <string name="whyIsLilaCalledLila">Da mesma forma, o código fonte do Lichess, %1$s, significa li[chess em sca]la, visto que a maior parte do Lichess é escrita em %2$s, uma linguagem de programação intuitiva.</string>
-  <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantém no ar com doações de clientes e através dos esforços de uma equipe de voluntários.</string>
-  <string name="findMoreAndSeeHowHelp">Você pode saber mais sobre %1$s (incluindo uma %2$s). Se você quiser ajudar o Lichess voluntariando seu tempo e habilidades, há muitas %3$s.</string>
+  <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e livre pelo fato de que NewChess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
+  <string name="whyIsLilaCalledLila">Da mesma forma, o código fonte do NewChess, %1$s, significa li[chess em sca]la, visto que a maior parte do NewChess é escrita em %2$s, uma linguagem de programação intuitiva.</string>
+  <string name="howCanIContributeToLichess">Como posso contribuir para o NewChess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess se mantém no ar com doações de clientes e através dos esforços de uma equipe de voluntários.</string>
+  <string name="findMoreAndSeeHowHelp">Você pode saber mais sobre %1$s (incluindo uma %2$s). Se você quiser ajudar o NewChess voluntariando seu tempo e habilidades, há muitas %3$s.</string>
   <string name="beingAPatron">ser um Patrono</string>
   <string name="breakdownOfOurCosts">lista detalhada dos nossos custos</string>
   <string name="otherWaysToHelp">outras formas de ajudar</string>
-  <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. Lichess de fato inspirou outros sites de código aberto que usam nossos %1$s, %2$s ou %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no NewChess?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Sim. NewChess de fato inspirou outros sites de código aberto que usam nossos %1$s, %2$s ou %3$s.</string>
   <string name="fairPlay">Jogo Limpo</string>
   <string name="whenAmIEligibleRatinRefund">Quando tenho direito a reembolso automático de pontuação de trapaceiros?</string>
   <string name="ratingRefundExplanation">Um minuto após um(a) jogador(a) ser reportado(a), suas últimas 40 partidas valendo pontuação nos últimos 3 dias são invalidadas. Se você foi oponente dele(a) nessas partidas, você perdeu pontuação (por derrota ou empate) e sua pontuação não era provisória, então você recebe um reembolso de pontuação. O reembolso é limitado baseado no seu pico de pontuação e no seu progresso de pontuação após o jogo.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Como posso me tornar um(a) moderador(a)?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador(a). Se virmos alguém que consideramos que seria um(a) bom(a) moderador(a), entraremos em contato diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
-  <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos por correspondência é que é permitido utilizar um livro de aberturas. A ajuda de computadores continua a ser proibida e resultará em ser reportado(a) por utilizar ajuda de computadores. Embora a ICCF permita a ajuda de computadores, o Lichess não a permite.</string>
+  <string name="youCanUseOpeningBookNoEngine">No NewChess, a principal diferença nas regras para jogos por correspondência é que é permitido utilizar um livro de aberturas. A ajuda de computadores continua a ser proibida e resultará em ser reportado(a) por utilizar ajuda de computadores. Embora a ICCF permita a ajuda de computadores, o NewChess não a permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
-  <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
+  <string name="basedOnGameDuration">Os ritmos de jogo do NewChess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Quais variantes eu posso jogar no Lichess?</string>
-  <string name="lichessSupportChessAnd">O Lichess suporta o xadrez normal e %1$s.</string>
+  <string name="whatVariantsCanIplay">Quais variantes eu posso jogar no NewChess?</string>
+  <string name="lichessSupportChessAnd">O NewChess suporta o xadrez normal e %1$s.</string>
   <string name="eightVariants">8 variantes de xadrez</string>
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
   <string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores e essenciais para muitos computadores de xadrez ao avaliar posições.
@@ -43,7 +43,7 @@ O lance considerado melhor pelo computador corresponde a uma perda de zero cent�
 
 Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
 
-A análise de xadrez no Lichess é feita pelo Stockfish.</string>
+A análise de xadrez no NewChess é feita pelo Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
   <string name="lichessFollowFIDErules">Ao ficar sem tempo, um jogador norlmamente perderá o jogo. Contudo, o jogo é considerado empatado se a posição for uma tal que o oponente não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
 
@@ -60,32 +60,32 @@ O movimento é descrito na seção 3. (d) do %2$s:
 
 Veja o %3$s sobre este movimento para praticá-lo.</string>
   <string name="goodIntroduction">boa introdução</string>
-  <string name="lichessTraining">treino do Lichess</string>
+  <string name="lichessTraining">treino do NewChess</string>
   <string name="threefoldRepetition">Repetição tripla</string>
-  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O NewChess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>
   <string name="notRepeatedMoves">Não repetimos movimentos, então porque o jogo ainda foi empatado por repetição?</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não precisa ocorrer consecutivamente.</string>
   <string name="positions">posições</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Nós repetimos uma posição três vezes. Por que o jogo não foi empatado?</string>
-  <string name="threeFoldHasToBeClaimed">A repetição precisa ser reivindicada por um dos jogadores. Você pode fazê-lo pressionando o botão que é mostrado, ou oferecendo um empate antes do seu passo final de repetição. Não importa se seu oponente rejeitar a oferta de empate, o empate por três repetições será reivindicado mesmo assim. Você também pode %1$s o Lichess para reivindicar automaticamente repetições para você. Além disso, uma repetição quíntupla sempre termina o jogo imediatamente.</string>
+  <string name="threeFoldHasToBeClaimed">A repetição precisa ser reivindicada por um dos jogadores. Você pode fazê-lo pressionando o botão que é mostrado, ou oferecendo um empate antes do seu passo final de repetição. Não importa se seu oponente rejeitar a oferta de empate, o empate por três repetições será reivindicado mesmo assim. Você também pode %1$s o NewChess para reivindicar automaticamente repetições para você. Além disso, uma repetição quíntupla sempre termina o jogo imediatamente.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Contas</string>
-  <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">O Lichess reconhece todos os título FIDE obtidos OTB (\"over the board\", em jogos presenciais), assim como %1$s.
+  <string name="titlesAvailableOnLichess">Que títulos existem no NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">O NewChess reconhece todos os título FIDE obtidos OTB (\"over the board\", em jogos presenciais), assim como %1$s.
 Aqui está uma lista dos títulos FIDE:</string>
   <string name="showYourTitle">Se você tem um título OTB, você pode se candidatar para tê-lo exibido na sua conta, completando o %1$s, incluindo uma imagem nítida de um documento/cartão de identificação e uma selfie de você segurando o documento/cartão.
 
-Verificar-se como um jogador com título no Lichess dá acesso a jogos nos eventos da Arena Titular.
+Verificar-se como um jogador com título no NewChess dá acesso a jogos nos eventos da Arena Titular.
 
 Finalmente há um título honorário %2$s.</string>
   <string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
   <string name="verificationForm">formulário de verificação</string>
-  <string name="canIbecomeLM">Posso obter o título de Mestre do Lichess (LM)?</string>
+  <string name="canIbecomeLM">Posso obter o título de Mestre do NewChess (LM)?</string>
   <string name="noUpperCaseDot">Não.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no NewChess.
 
-Raramente, recompensamos ele a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Você não vai até título de LM, o título de LM vai até você. Caso se qualifique, receberá uma mensagem nossa a respeito da nossa escolha e poderá aceitar ou recusar.
+Raramente, recompensamos ele a jogadores altamente notáveis que são bons cidadãos do NewChess, a nosso critério. Você não vai até título de LM, o título de LM vai até você. Caso se qualifique, receberá uma mensagem nossa a respeito da nossa escolha e poderá aceitar ou recusar.
 
 Não peça pelo título de LM.</string>
   <string name="whatUsernameCanIchoose">Qual pode ser o meu nome de usuário?</string>
@@ -94,12 +94,12 @@ Não peça pelo título de LM.</string>
   <string name="canIChangeMyUsername">Posso mudar meu nome de usuário?</string>
   <string name="usernamesCannotBeChanged">Não, nomes de usuário não podem ser alterados por razões técnicas e práticas. Nomes de usuário são gravados em muitos lugares: banco de dados, exportações, registros e na mente das pessoas. Você pode ajustar a letra maiúscula uma vez.</string>
   <string name="uniqueTrophies">Troféus únicos</string>
-  <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém mais o terá além de %1$s.</string>
+  <string name="ownerUniqueTrophies">Esse troféu é único na história dos NewChess, ninguém mais o terá além de %1$s.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar freneticamente 100%% dos jogos de %s.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
   <string name="goldenZeeExplanation">ZugAddict estava realizando uma stream e, pelas últimas 2 horas, tentava derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-a ele que, se ele conseguisse vencer na stream, ganharia um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
-  <string name="lichessRatings">Pontuações no Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
+  <string name="lichessRatings">Pontuações no NewChess</string>
+  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o NewChess utiliza?</string>
   <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2, desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação Elo).
 
 Fundamentalmente, as pontuações do Glicko usam \"intervalos de confiança\" quando calculam e representam sua pontuação. Ao começar a usar o site, sua pontuação começa em 1500 ± 700. O \"1500\" representa sua pontuação e o \"700\" representa o intervalo de confiança.
@@ -129,13 +129,13 @@ Outro ponto importante é que, à medida que o tempo passa, o intervalo de confi
   <string name="enableZenMode">Ative o Zen-mode em %1$s, ou pressionando %2$s durante uma partida.</string>
   <string name="displayPreferences">preferências de exibição</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação para jogos perdidos devido ao lag ou à desconexão, independente se o problema aconteceu do seu lado ou do nosso. No entanto, um problema do nosso lado é muito raro. Repare também que quando o Lichess reinicia e você perde tempo por causa disso, abortamos o jogo para evitar uma perda injusta.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação para jogos perdidos devido ao lag ou à desconexão, independente se o problema aconteceu do seu lado ou do nosso. No entanto, um problema do nosso lado é muito raro. Repare também que quando o NewChess reinicia e você perde tempo por causa disso, abortamos o jogo para evitar uma perda injusta.</string>
   <string name="howToThreeDots">Como...</string>
   <string name="enableDisableNotificationPopUps">Ativar ou desativar pop-ups de notificação?</string>
   <string name="viewSiteInformationPopUp">Ver pop-up de informações do site</string>
-  <string name="lichessCanOptionnalySendPopUps">O Lichess pode opcionalmente enviar notificações pop-up, por exemplo, quando for sua vez de jogar ou quando você receber uma mensagem privada.
+  <string name="lichessCanOptionnalySendPopUps">O NewChess pode opcionalmente enviar notificações pop-up, por exemplo, quando for sua vez de jogar ou quando você receber uma mensagem privada.
 
-Clique no ícone de cadeado ao lado do endereço do lichess.org na barra de endereço do seu navegador.
+Clique no ícone de cadeado ao lado do endereço do newchess.fun na barra de endereço do seu navegador.
 
 Em seguida, selecione se deve permitir ou bloquear notificações de Lichhess.</string>
 </resources>

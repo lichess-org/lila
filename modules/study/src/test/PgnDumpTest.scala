@@ -21,6 +21,7 @@ class PgnDumpTest extends Specification {
       check = false,
       clock = None,
       crazyData = None,
+      newChess1Data = None,
       children = children,
       forceVariation = false
     )

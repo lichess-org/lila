@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Têkilî</string>
-  <string name="contactLichess">Bi Lichess ra bikeve têkiliyê</string>
+  <string name="contactLichess">Bi NewChess ra bikeve têkiliyê</string>
   <string name="whatCanWeHelpYouWith">Em dikarin çawa alîkarîya we bikin?</string>
   <string name="iCantLogIn">Ez nikarim têkevim</string>
   <string name="forgotPassword">Min pêborînê bîr ve kir</string>

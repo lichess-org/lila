@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Заняткі</string>
-  <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
+  <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў NewChess.</string>
   <string name="features">Магчымасці</string>
   <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
   <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
   <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
   <string name="freeForAllForever">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
-  <string name="applyToBeLichessTeacher">Падаць заяўку, каб стаць Lichess выкладчыкам</string>
+  <string name="applyToBeNewChessTeacher">Падаць заяўку, каб стаць NewChess выкладчыкам</string>
   <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
   <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Апісанне занятку</string>
   <string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і студэнтам занятку</string>
   <string name="teachersOfTheClass">Выкладчыкі занятку</string>
-  <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
+  <string name="addNewChessUsernames">Дадайце імёны карыстальнікаў NewChess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
   <string name="resetPassword">Скасаваць пароль</string>
   <string name="makeSureToCopy">Абавязкова скапіруйце альбо запішыце пароль зараз. Вы не зможаце яго больш пабачыць!</string>
   <string name="passwordX">Пароль: %s</string>
@@ -32,22 +32,22 @@
   <string name="realName">Сапраўднае імя</string>
   <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
   <string name="addStudent">Дадаць студэнта</string>
-  <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створаны %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Профіль NewChess %1$s створаны %2$s.</string>
   <string name="studentCredentials">Студэнт(ка):  %1$s
 Імя карыстальніка(цы): %2$s
 Пароль: %3$s</string>
-  <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
-  <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт Lichess, вы можаце запрасіць іх на занятак.</string>
-  <string name="inviteDesc2">Яны атрымаюць паведамленне на Lichess са спасылкай на далучэнне да занятку.</string>
+  <string name="inviteANewChessAccount">Запрасіць NewChess акаўнт</string>
+  <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт NewChess, вы можаце запрасіць іх на занятак.</string>
+  <string name="inviteDesc2">Яны атрымаюць паведамленне на NewChess са спасылкай на далучэнне да занятку.</string>
   <string name="inviteDesc3">Важна: запрашайце толькі студэнтаў, якіх ведаеце, і якія актыўна хочуць далучыцца да занятку.</string>
   <string name="inviteDesc4">Ніколі не адпраўляйце непажаданыя запрашэнні выпадковым людзям.</string>
-  <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
-  <string name="createDesc1">Калі ў студэнта(кі) яшчэ няма акаўнта Lichess, вы можаце ўласнаруч стварыць яго тут.</string>
+  <string name="createANewNewChessAccount">Стварыць новы акаўнт NewChess</string>
+  <string name="createDesc1">Калі ў студэнта(кі) яшчэ няма акаўнта NewChess, вы можаце ўласнаруч стварыць яго тут.</string>
   <string name="createDesc2">Электронная пошта не патрэбна. Пароль будзе згенераваны, і вы зможаце перадаць яго студэнту(цы) для ўвахода на сайт.</string>
   <string name="createDesc3">Важна: студэнт(ка) не павінен мець некалькі акаўнтаў.</string>
   <string name="createDesc4">Калі ён/яна ўжо мае акаўнт, адпраўце запрашэнне замест.</string>
   <string name="createStudentWarning">Стварайце акаўнты толькі для рэальных студэнтаў. Не выкароўстовайце для стварэння некалькіх акаўнтаў для сябе, інакш вы будзіце забанены.</string>
-  <string name="lichessUsername">Імя карыстальніка Lichess</string>
+  <string name="lichessUsername">Імя карыстальніка NewChess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
   <string name="welcomeToClass">Вітаем на вашым занятку: %s.
 Вось спасылка з доступам на занятак.</string>

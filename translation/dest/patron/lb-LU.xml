@@ -2,26 +2,26 @@
 <resources>
   <string name="donate">Spenden</string>
   <string name="donateAsX">Als %s spenden</string>
-  <string name="lichessPatron">Lichess Ënnerstëtzer</string>
+  <string name="lichessPatron">NewChess Ënnerstëtzer</string>
   <string name="freeAccount">Gratis Account</string>
-  <string name="becomePatron">Lichess Ënnerstëtzer ginn</string>
-  <string name="xBecamePatron">%s ass en Lichess Ennerstëtzer ginn</string>
+  <string name="becomePatron">NewChess Ënnerstëtzer ginn</string>
+  <string name="xBecamePatron">%s ass en NewChess Ennerstëtzer ginn</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s ennerstëtzt Lichess säit %2$s Mount</item>
-    <item quantity="other">%1$s ennerstëtzt Lichess säit %2$s Méint</item>
+    <item quantity="one">%1$s ennerstëtzt NewChess säit %2$s Mount</item>
+    <item quantity="other">%1$s ennerstëtzt NewChess säit %2$s Méint</item>
   </plurals>
   <string name="newPatrons">Nei Ënnerstëtzer</string>
   <string name="freeChess">Gratis Schach fir jiddereen, fir ëmmer!</string>
   <string name="noAdsNoSubs">Ken Reklammen, keng Abonnementer; mee Open-Source an Passioun.</string>
   <string name="thankYou">Merci fir deng Spend!</string>
-  <string name="youHaveLifetime">Du bass en liewenslaangen Lichess Ënnerstëtzer. Dat ass super!</string>
+  <string name="youHaveLifetime">Du bass en liewenslaangen NewChess Ënnerstëtzer. Dat ass super!</string>
   <string name="patronUntil">Du bass en Ënnerstëtzer bis %s.</string>
   <string name="ifNotRenewed">Falls net erneiert, gëtt däin Konto dann gratis erofgestuft.</string>
   <string name="weAreNonProfit">Mir sinn eng Non-Profit-Organisatioun, well mir mengen, dass jiddereen Accès zu enger gratis, héichwäerteger Schachplattform soll hunn.</string>
-  <string name="weRelyOnSupport">Mir sinn op d\'Ënnerstëtzung vun Leit wéi dir ugewisen fir dëst méiglech ze maachen. Wann dir Lichess gefällt, consideréier wannechgelift eis mat enger Spend ze ënnerstëtzen an Lichess Ënnerstëtzer ze ginn!</string>
+  <string name="weRelyOnSupport">Mir sinn op d\'Ënnerstëtzung vun Leit wéi dir ugewisen fir dëst méiglech ze maachen. Wann dir NewChess gefällt, consideréier wannechgelift eis mat enger Spend ze ënnerstëtzen an NewChess Ënnerstëtzer ze ginn!</string>
   <string name="lifetime">Liewenslaang</string>
-  <string name="payLifetimeOnce">Eemol %s bezuehlen. Fir ëmmer Lichess Ënnerstëtzer sinn!</string>
-  <string name="lifetimePatron">Liewenslaangen Lichess Ënnerstëtzer</string>
+  <string name="payLifetimeOnce">Eemol %s bezuehlen. Fir ëmmer NewChess Ënnerstëtzer sinn!</string>
+  <string name="lifetimePatron">Liewenslaangen NewChess Ënnerstëtzer</string>
   <string name="monthly">Méintlech</string>
   <string name="recurringBilling">Widderhuelend Rechnung, erneiert deng Ënnerstëtzer-Flilleken all Mount.</string>
   <string name="onetime">Eemoleg</string>
@@ -31,28 +31,28 @@
   <string name="withCreditCard">Kreditkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mir sinn eng kleng Ekipp, also mécht all Ënnerstëtzung en groussen Ënnerscheed!</string>
-  <string name="celebratedPatrons">Eis gefeiert Ënnerstëtzer déi Lichess méiglech maachen</string>
+  <string name="celebratedPatrons">Eis gefeiert Ënnerstëtzer déi NewChess méiglech maachen</string>
   <string name="whereMoneyGoes">Wou ginn d\'Suen hinn?</string>
   <string name="serversAndDeveloper">Virun allem fir staark Server.
-Dann bezuelen mir och en Vollzäit-Entwéckler: %s, den Grënner vun Lichess.</string>
+Dann bezuelen mir och en Vollzäit-Entwéckler: %s, den Grënner vun NewChess.</string>
   <string name="costBreakdown">Detailléiert Käschtenzesummenstellung kucken</string>
-  <string name="officialNonProfit">Ass Lichess eng offiziell Non-Profit?</string>
+  <string name="officialNonProfit">Ass NewChess eng offiziell Non-Profit?</string>
   <string name="actOfCreation">Jo, hei ass den acte de création (op Franséisch)</string>
   <string name="changeMonthlySupport">Kann ech meng méintlech Ënnerstëtzung änneren/annuléieren?</string>
   <string name="changeOrContact">Jo, zu all Zäitpunkt, op dëser Säit.
 Oder du kanns %s.</string>
-  <string name="contactSupport">de Lichess Support kontaktéieren</string>
+  <string name="contactSupport">de NewChess Support kontaktéieren</string>
   <string name="otherMethods">Aner Weeër ze spenden?</string>
   <string name="bankTransfers">Mir akzeptéieren och Bank-Transferten</string>
   <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
-  <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
+  <string name="noPatronFeatures">Nee, well NewChess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
 Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flilleken-Icon ze bretzen.</string>
   <string name="featuresComparison">Detailléierten Funktiounen-Vergläich kucken</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Ënnerstëtzer säit engem Mount</item>
-    <item quantity="other">Lichess Ënnerstëtzer säit %s Méint</item>
+    <item quantity="one">NewChess Ënnerstëtzer säit engem Mount</item>
+    <item quantity="other">NewChess Ënnerstëtzer säit %s Méint</item>
   </plurals>
-  <string name="youSupportWith">Du ënnerstëtzs lichess.org mat %s pro Mount.</string>
+  <string name="youSupportWith">Du ënnerstëtzs newchess.fun mat %s pro Mount.</string>
   <string name="tyvm">Villmols merci fir deng Hëllef. Du rocks!</string>
   <string name="currentStatus">Aktuellen Status</string>
   <string name="nextPayment">Nächst Zuelung</string>
@@ -63,17 +63,17 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="changeMonthlyAmount">Méintlechen Montant änneren (%s)</string>
   <string name="cancelSupport">deng Ënnerstëtzung ofbriechen</string>
   <string name="xOrY">%1$s oder %2$s</string>
-  <string name="decideHowMuch">Decidéier wat Lichess dir wert ass:</string>
+  <string name="decideHowMuch">Decidéier wat NewChess dir wert ass:</string>
   <string name="stopPayments">Kreditkaart zeréckzéien and Iwwerweisungen stoppen:</string>
-  <string name="noLongerSupport">Lichess net méi ënnerstëtzen</string>
-  <string name="viewOthers">Aner Lichess Ënnerstëtzer gesinn</string>
+  <string name="noLongerSupport">NewChess net méi ënnerstëtzen</string>
+  <string name="viewOthers">Aner NewChess Ënnerstëtzer gesinn</string>
   <string name="date">Datum</string>
   <string name="amount">Montant</string>
   <string name="transactionCompleted">Deng Transaktion ass ofgeschloss and du kriss eng Email mat enger Quittung vun denger Spend.</string>
   <string name="permanentPatron">Du hues elo en liewenslaangen Ënnerstëtzer-Konto.</string>
   <string name="checkOutProfile">Besich deng Profilsäit!</string>
-  <string name="nowLifetime">Du bass elo en liewenslaangen Lichess Ënnerstëtzer!</string>
-  <string name="nowOneMonth">Du bass elo en Lichess Ënnerstëtzer fir ee Mount!</string>
-  <string name="downgradeNextMonth">An engem Mount, gëss du NET nei verrechent an däin Lichess Konto wäert rëm zu engem regulären Konto ginn.</string>
+  <string name="nowLifetime">Du bass elo en liewenslaangen NewChess Ënnerstëtzer!</string>
+  <string name="nowOneMonth">Du bass elo en NewChess Ënnerstëtzer fir ee Mount!</string>
+  <string name="downgradeNextMonth">An engem Mount, gëss du NET nei verrechent an däin NewChess Konto wäert rëm zu engem regulären Konto ginn.</string>
   <string name="changeCurrency">Währung änneren</string>
 </resources>

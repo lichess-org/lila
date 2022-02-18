@@ -10,7 +10,7 @@ object newPlayer {
 
   def apply(u: User) =
     div(cls := "new-player")(
-      h2("Welcome to lichess.org!"),
+      h2("Welcome to newchess.fun!"),
       p(
         "This is your profile page.",
         u.profile.isEmpty option frag(
@@ -37,7 +37,7 @@ object newPlayer {
         li(a(href := routes.Puzzle.home)("Improve with chess tactics puzzles")),
         li(a(href := s"${routes.Lobby.home}#ai")("Play the artificial intelligence")),
         li(a(href := s"${routes.Lobby.home}#hook")("Play opponents from around the world")),
-        li(a(href := routes.User.list)("Follow your friends on Lichess")),
+        li(a(href := routes.User.list)("Follow your friends on NewChess")),
         li(a(href := routes.Tournament.home)("Play in tournaments")),
         li(
           "Learn from ",
@@ -45,7 +45,7 @@ object newPlayer {
           " and ",
           a(href := routes.Video.index)("videos")
         ),
-        li(a(href := routes.Pref.form("game-display"))("Configure Lichess to your liking")),
+        li(a(href := routes.Pref.form("game-display"))("Configure NewChess to your liking")),
         li("Explore the site and have fun :)")
       )
     )

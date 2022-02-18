@@ -308,7 +308,7 @@
     <item quantity="few">Acordă %s secunde</item>
     <item quantity="other">Acordă %s secunde</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Acest cont a încălcat condițiile de utilizare ale site-ului Lichess</string>
+  <string name="thisAccountViolatedTos">Acest cont a încălcat condițiile de utilizare ale site-ului NewChess</string>
   <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
   <string name="takeback">Revocare</string>
   <string name="proposeATakeback">Propune revocarea mutării</string>
@@ -492,7 +492,7 @@
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
-  <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Anterior pe NewChess TV</string>
   <string name="onlinePlayers">Jucători conectați</string>
   <string name="activePlayers">Jucători activi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atenție, partida este oficială, dar se joacă fără ceas!</string>
@@ -652,7 +652,7 @@
   <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
   <string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
-  <string name="lichessTournaments">Turnee Lichess</string>
+  <string name="lichessTournaments">Turnee NewChess</string>
   <string name="tournamentFAQ">Întrebări și răspunsuri pentru turneu</string>
   <string name="timeBeforeTournamentStarts">Timp până la începerea turneului</string>
   <string name="averageCentipawnLoss">Medie pion-cenți pierduți</string>
@@ -687,8 +687,8 @@
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
   <string name="readAboutOur">Citește despre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Întârziere de rețea între tine și Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Timpul necesar procesării unei mutări pe serverul Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Întârziere de rețea între tine și NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Timpul necesar procesării unei mutări pe serverul NewChess</string>
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
@@ -711,7 +711,7 @@
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
-  <string name="asFreeAsLichess">Gratis ca Lichess</string>
+  <string name="asFreeAsLichess">Gratis ca NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Creat din dragoste pentru șah, nu pentru bani</string>
   <string name="everybodyGetsAllFeaturesForFree">Toată lumea are access la toate opțiunile, gratuit</string>
   <string name="zeroAdvertisement">Zero reclame</string>
@@ -828,14 +828,14 @@
   <string name="tryToWin">Încercați să câștigați (sau măcar să faceți remiză) fiecare meci pe care-l jucați.</string>
   <string name="resignLostGames">Abandonați partidele pierdute (nu lăsați timpul să expire).</string>
   <string name="temporaryInconvenience">Ne pare rău pentru neplăcerile temporare</string>
-  <string name="wishYouGreatGames">și vă dorim partide deosebite pe Lichess.org.</string>
+  <string name="wishYouGreatGames">și vă dorim partide deosebite pe NewChess.org.</string>
   <string name="thankYouForReading">Îți mulțumim pentru atenție!</string>
   <string name="lifetimeScore">Scorul total</string>
   <string name="currentMatchScore">Scorul curent</string>
   <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul partidelor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
-  <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
+  <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor NewChess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
   <string name="rapid">Rapid</string>
@@ -872,13 +872,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
   <string name="newPendingReview">Revizuire nouă în așteptare</string>
-  <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
+  <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile NewChess</string>
   <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
   <string name="download">Descărcare</string>
   <string name="welcome">Bine ați venit!</string>
-  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
+  <string name="lichessPatronInfo">NewChess este o asociație non-profit și un software gratuit și open-source.
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
   <string name="coachManager">Setări pentru antrenor</string>
   <string name="streamerManager">Setări pentru streamer</string>
@@ -934,6 +934,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
   <string name="since">De la</string>
   <string name="until">Până la</string>
-  <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
+  <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii NewChess</string>
   <string name="switchSides">Întoarce tabla</string>
 </resources>

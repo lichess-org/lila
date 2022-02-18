@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 import { PuzzleOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);

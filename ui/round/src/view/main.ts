@@ -1,10 +1,11 @@
 import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
+import newChess1View from '../newchess1/newChess1View';
 import RoundController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
-import { read as readFen } from 'chessground/fen';
+import { read as readFen } from 'chessground-newchess1-mod/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -47,9 +48,13 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
-        crazyView(ctrl, topColor, 'top') || materialDiffs[0],
+        !ctrl.data.crazyhouse ? materialDiffs[0] : null,
+        newChess1View(ctrl, topColor, 'top'),
+        crazyView(ctrl, topColor, 'top'),
         ...renderTable(ctrl),
-        crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
+        !ctrl.data.crazyhouse ? materialDiffs[1] : null,
+        newChess1View(ctrl, bottomColor, 'bottom'),
+        crazyView(ctrl, bottomColor, 'bottom'),
         ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
       ]);
 }

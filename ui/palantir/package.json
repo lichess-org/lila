@@ -2,7 +2,7 @@
   "name": "palantir",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org webrtc media calls",
+  "description": "newchess.fun webrtc media calls",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",

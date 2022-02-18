@@ -308,7 +308,7 @@
     <item quantity="one">Piešķirt %s sekundi</item>
     <item quantity="other">Piešķirt %s sekundes</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Šis konts pārkāpa Lichess Pakalpojuma Noteikumus</string>
+  <string name="thisAccountViolatedTos">Šis konts pārkāpa NewChess Pakalpojuma Noteikumus</string>
   <string name="openingExplorerAndTablebase">Atklātņu pārlūks &amp; datubāze</string>
   <string name="takeback">Gājiena atsaukšana</string>
   <string name="proposeATakeback">Piedāvāt gājiena atsaukšanu</string>
@@ -490,9 +490,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Valsts vai karogs</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Katrā rindā vienu URL.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
-  <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Iepriekš pārraidīts NewChess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uzmanību! Spēle ir vērtēta bet bez laika limita!</string>
@@ -652,7 +652,7 @@
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
-  <string name="lichessTournaments">Lichess turnīri</string>
+  <string name="lichessTournaments">NewChess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
   <string name="averageCentipawnLoss">Vidējais centibandinieka zudums</string>
@@ -687,8 +687,8 @@
   <string name="weHaveSentYouAnEmailTo">Esam aizsūtījuši e-pastu uz %s. Klikšķiniet uz saites e-pastā, lai atjaunotu savu paroli.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, jums jāpiekrīt saistībām atbilstoši mūsu %s.</string>
   <string name="readAboutOur">Lasiet par mūsu %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks Lichess serverī</string>
+  <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un NewChess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks NewChess serverī</string>
   <string name="downloadAnnotated">Lejupielādēt anotētu</string>
   <string name="downloadRaw">Lejupielādēt neapstrādātu</string>
   <string name="downloadImported">Lejupielādēt importēto</string>
@@ -704,14 +704,14 @@
   <string name="withEverybody">Ar visiem</string>
   <string name="kidMode">Bērnu režīms</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā NewChess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>
   <string name="sessions">Sesijas</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
   <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
-  <string name="asFreeAsLichess">Bezmaksas kā Lichess</string>
+  <string name="asFreeAsLichess">Bezmaksas kā NewChess</string>
   <string name="builtForTheLoveOfChessNotMoney">Radīts šaha mīlestības - ne naudas dēļ</string>
   <string name="everybodyGetsAllFeaturesForFree">Visas iespējas ir pieejamas jebkuram bez maksas</string>
   <string name="zeroAdvertisement">Nekādu reklāmu</string>
@@ -828,14 +828,14 @@
   <string name="tryToWin">Mēģiniet uzvarēt (vai vismaz panākt neizšķirtu) katrā spēlē, ko spēlējat.</string>
   <string name="resignLostGames">Padodieties zaudētajās spēlēs (neļaujiet laikam beigties).</string>
   <string name="temporaryInconvenience">Mēs atvainojamies par īslaicīgajām neērtībām,</string>
-  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lichess.org.</string>
+  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā newchess.fun.</string>
   <string name="thankYouForReading">Paldies, ka izlasījāt!</string>
   <string name="lifetimeScore">Visu laiku rezultāts</string>
   <string name="currentMatchScore">Pašreizējais spēļu reitings</string>
   <string name="agreementAssistance">Piekrītu spēlējot nevienā brīdī nesaņemt palīdzību (no šaha programmas, grāmatas, datubāzes vai cita cilvēka).</string>
   <string name="agreementNice">Piekrītu vienmēr izturēties pieklājīgi pret citiem spēlētājiem.</string>
   <string name="agreementAccount">Piekrītu neizveidot vairākus kontus.</string>
-  <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
+  <string name="agreementPolicy">Piekrītu ievērot visus NewChess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
   <string name="rapid">Ātrais</string>
@@ -872,13 +872,13 @@
   <string name="resVsX">%1$s pret %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
-  <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
+  <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa NewChess noteikumus</string>
   <string name="refundXpointsTimeControlY">Atlīdzība: %1$s %2$s reitinga punkti.</string>
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
   <string name="clickToRevealEmailAddress">[Noklikšķiniet, lai atklātu e-pasta adresi]</string>
   <string name="download">Lejupielādēt</string>
   <string name="welcome">Laipni lūdzam!</string>
-  <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
+  <string name="lichessPatronInfo">NewChess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
 Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
   <string name="coachManager">Trenera iestatījumi</string>
   <string name="streamerManager">Straumētāja iestatījumi</string>
@@ -933,6 +933,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
   <string name="since">Kopš</string>
   <string name="until">Līdz</string>
-  <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
+  <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem NewChess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
 </resources>

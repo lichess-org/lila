@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { Chessground } from 'chessground';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import * as cg from 'chessground/types';
-import { DrawShape } from 'chessground/draw';
+import { Chessground } from 'chessground-newchess1-mod';
+import { Api as CgApi } from 'chessground-newchess1-mod/api';
+import { Config as CgConfig } from 'chessground-newchess1-mod/config';
+import * as cg from 'chessground-newchess1-mod/types';
+import { DrawShape } from 'chessground-newchess1-mod/draw';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 

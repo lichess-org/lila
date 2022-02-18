@@ -28,7 +28,8 @@ object StepBuilder {
             check = init.situation.check,
             dests = None,
             drops = None,
-            crazyData = init.situation.board.crazyData
+            crazyData = init.situation.board.crazyData,
+            newChess1Data = init.situation.board.newChess1Data
           )
           val moveSteps = games.map { case (g, m) =>
             Step(
@@ -38,7 +39,8 @@ object StepBuilder {
               check = g.situation.check,
               dests = None,
               drops = None,
-              crazyData = g.situation.board.crazyData
+              crazyData = g.situation.board.crazyData,
+              newChess1Data = g.situation.board.newChess1Data
             )
           }
           (initStep :: moveSteps).map(_.toJson)
@@ -49,6 +51,6 @@ object StepBuilder {
   private val logChessError = (id: String) =>
     (err: String) => {
       val path = if (id == "synthetic") "analysis" else id
-      logger.info(s"https://lichess.org/$path ${err.linesIterator.toList.headOption | "?"}")
+      logger.info(s"https://newchess.fun/$path ${err.linesIterator.toList.headOption | "?"}")
     }
 }

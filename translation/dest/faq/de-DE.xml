@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Häufig gestellte Fragen</string>
-  <string name="whyIsLichessCalledLichess">Warum heißt Lichess Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
+  <string name="whyIsLichessCalledLichess">Warum heißt NewChess NewChess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
   <string name="leechess">li-tschess</string>
   <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
-  <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
-  <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lichess, %1$s, der für li[chess in sca]la steht. Der Großteil von Lichess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
-  <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird durch Spenden von Unterstützern und der Leistung eines Teams von Freiwilligen betrieben.</string>
-  <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du Lichess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
+  <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass NewChess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
+  <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von NewChess, %1$s, der für li[chess in sca]la steht. Der Großteil von NewChess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
+  <string name="howCanIContributeToLichess">Wie kann ich zu NewChess beitragen?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess wird durch Spenden von Unterstützern und der Leistung eines Teams von Freiwilligen betrieben.</string>
+  <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du NewChess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
   <string name="beingAPatron">ein Patron zu sein</string>
   <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
   <string name="otherWaysToHelp">andere Wege zu helfen</string>
-  <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
+  <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf NewChess basieren?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Ja. NewChess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
   <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
   <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
-  <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
+  <string name="youCanUseOpeningBookNoEngine">Bei NewChess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf NewChess nicht gestattet.</string>
   <string name="gameplay">Spielerlebnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
-  <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
+  <string name="basedOnGameDuration">NewChess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
 Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
   <string name="durationFormula">(Anfangszeit in Sekunden) + 40 × (Zug-Inkrement)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
-  <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
+  <string name="whatVariantsCanIplay">Welche Varianten kann ich auf NewChess spielen?</string>
+  <string name="lichessSupportChessAnd">NewChess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Was ist durchschnittlicher Hundertstelbauer-Verlust (ACPL)?</string>
   <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Also gilt: 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
@@ -43,7 +43,7 @@ Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlecht
 
 Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
 
-Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
+Die Computeranalyse wird auf NewChess von Stockfish durchgeführt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
   <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
 
@@ -60,31 +60,31 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="goodIntroduction">guter ersten Eindruck</string>
-  <string name="lichessTraining">Lichess-Training</string>
+  <string name="lichessTraining">NewChess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
-  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
+  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. NewChess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
   <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie trotzdem durch Stellungswiederholung für remis erklärt?</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
-  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
+  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst NewChess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
-  <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (am Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
+  <string name="titlesAvailableOnLichess">Welche Titel gibt es auf NewChess?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess erkennt alle FIDE-Titel an, die beim OTB (am Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
   <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir, in dem du diese/n Ausweis/Karte im Bild hochhältst.
 
-Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme in den Titel-Arena-Events.
+Eine solche Verifikation als Titelspieler auf NewChess ermöglicht die Teilnahme in den Titel-Arena-Events.
 
 Daneben gibt es auch einen Ehrentitel %2$s.</string>
   <string name="asWellAsManyNMtitles">viele nationale Meistertitel</string>
   <string name="verificationForm">Verifikationsformular</string>
-  <string name="canIbecomeLM">Kann ich den Lichess Meister (LM) Titel bekommen?</string>
+  <string name="canIbecomeLM">Kann ich den NewChess Meister (LM) Titel bekommen?</string>
   <string name="noUpperCaseDot">Nein.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf NewChess.
 
-Wir belohnen damit in seltenen Fällen und nach unserem Ermessen ausschließlich bemerkenswerte Spieler, die zudem gute Bürger von Lichess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhältst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+Wir belohnen damit in seltenen Fällen und nach unserem Ermessen ausschließlich bemerkenswerte Spieler, die zudem gute Bürger von NewChess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhältst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
 
 Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="whatUsernameCanIchoose">Wie kann mein Benutzername lauten?</string>
@@ -93,12 +93,12 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="canIChangeMyUsername">Kann ich meinen Benutzernamen ändern?</string>
   <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
-  <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
+  <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von NewChess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
-  <string name="lichessRatings">Lichess-Wertungen</string>
-  <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
+  <string name="lichessRatings">NewChess-Wertungen</string>
+  <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt NewChess?</string>
   <string name="ratingSystemUsedByLichess">Wertungen (\"Wertungszahlen\", \"Ratings\") werden mit der von Mark Glickman entwickelten Glicko-2-Wertungsmethode berechnet. Dies ist eine sehr beliebte Wertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo-Wertungs-System verwenden).
 
 Grundsätzlich verwenden Glicko-Wertungen \"Konfidenzintervalle\" bei der Berechnung deiner Wertung. Wenn du das erste Mal auf der Website spielst, beginnt deine Wertung bei 1500 ± 700. Die 1500 stellt deine Wertung dar, und die 700 stellt das Konfidenzintervall dar.
@@ -128,13 +128,13 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn NewChess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
   <string name="howToThreeDots">Wie kann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
   <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
+  <string name="lichessCanOptionnalySendPopUps">NewChess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
 
-Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
+Klicke auf das Schlosssymbol neben der newchess.fun Adresse in der URL-Leiste deines Browsers.
 
-Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
+Wähle dann aus, ob Benachrichtigungen von NewChess erlaubt oder blockiert werden sollen.</string>
 </resources>

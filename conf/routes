@@ -225,7 +225,7 @@ POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
 
 # Patron
-GET   /patron                          controllers.Plan.index
+#GET   /patron                          controllers.Plan.index
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch
@@ -804,9 +804,10 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Page.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.Page.menuBookmark(bookmark: String)
-GET   /contact                         controllers.Main.contact
+GET   /$bookmark<privacy|thanks|about|ads|changelog|criticism|new-pieces|rules|terms-of-service|contact|patron> controllers.Page.menuBookmark(bookmark: String)
+#GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
+GET   /justInCaseWtnWntn1              controllers.Main.justInCase
 GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")

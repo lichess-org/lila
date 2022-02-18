@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Buscar exercicios das partidas dun xogador/a</string>
   <string name="fromXGames">Exercicios das partidas de %s</string>
   <string name="searchPuzzles">Busca exercicios</string>
-  <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
+  <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero NewChess aínda te quiere un montón.
 Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
   <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
   <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>

@@ -1,11 +1,11 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
-import LichessChat from 'chat';
+import NewChessChat from 'chat';
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
-import { Chessground } from 'chessground';
+import { Chessground } from 'chessground-newchess1-mod';
 
 export const patch = init([classModule, attributesModule]);
 
@@ -39,4 +39,4 @@ export { boot };
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-window.LichessChat = LichessChat;
+window.NewChessChat = NewChessChat;

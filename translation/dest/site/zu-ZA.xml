@@ -247,7 +247,7 @@
     <item quantity="one">Nikeza i-%s yesibili</item>
     <item quantity="other">Nikeza i-%s imizuzwana</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Le akhawunti yephule Imigomo Yesevisi ye-Lichess</string>
+  <string name="thisAccountViolatedTos">Le akhawunti yephule Imigomo Yesevisi ye-NewChess</string>
   <string name="openingExplorerAndTablebase">Ukuvula umhloli &amp; ithebula</string>
   <string name="takeback">Buyela</string>
   <string name="proposeATakeback">Phakamisa ukubuyisa</string>

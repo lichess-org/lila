@@ -209,7 +209,7 @@ kahdella siirrolla!</string>
   <string name="whatNext">Mitä seuraavaksi?</string>
   <string name="youKnowHowToPlayChess">Osaat pelata shakkia, onnittelut! Haluatko tulla vahvemmaksi pelaajaksi?</string>
   <string name="register">Rekisteröidy</string>
-  <string name="getAFreeLichessAccount">Saat ilmaisen Lichess-tunnuksen</string>
+  <string name="getAFreeNewChessAccount">Saat ilmaisen NewChess-tunnuksen</string>
   <string name="practice">Harjoittele</string>
   <string name="learnCommonChessPositions">Opi tyypillisiä shakkiasemia</string>
   <string name="puzzles">Tehtävät</string>

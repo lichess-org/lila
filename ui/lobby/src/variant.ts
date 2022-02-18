@@ -11,6 +11,8 @@ const variantConfirms = {
     'This is a Racing Kings game!\n\nPlayers must race their kings to the eighth rank. Checks are not allowed.',
   crazyhouse:
     'This is a Crazyhouse game!\n\nEvery time a piece is captured, the capturing player gets a piece of the same type and of their color in their pocket.',
+  newchess1:
+    'This is a NewChess1 game!\n\nUse the new Duke piece from your pocket at any time.',
 };
 
 const storageKey = (key: string) => 'lobby.variant.' + key;

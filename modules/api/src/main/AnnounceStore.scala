@@ -24,7 +24,7 @@ object AnnounceStore {
   }
 
   // examples:
-  // 5 minutes Lichess will restart
+  // 5 minutes NewChess will restart
   // 20 seconds Cthulhu will awake
   def set(str: String): Option[Announce] = {
     set(str.split(" ").toList match {

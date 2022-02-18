@@ -29,7 +29,7 @@ object faq {
     ) {
       div(cls := "faq small-page box box-pad")(
         h1(cls := "lichess_title")(frequentlyAskedQuestions()),
-        h2("Lichess"),
+        h2("NewChess"),
         question(
           "name",
           whyIsLichessCalledLichess.txt(),
@@ -54,7 +54,7 @@ object faq {
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
             findMoreAndSeeHowHelp(
-              a(href := routes.Plan.index)(beingAPatron()),
+              a(href := "/patron")(beingAPatron()),
               a(href := routes.Main.costs)(breakdownOfOurCosts()),
               a(href := routes.Page.help)(otherWaysToHelp())
             )
@@ -64,10 +64,10 @@ object faq {
           "sites_based_on_Lichess",
           areThereWebsitesBasedOnLichess.txt(),
           p(
-            yesLichessInspiredOtherOpenSourceWebsites(
+            yesNewChessInspiredOtherOpenSourceWebsites(
               a(href := "/source")(trans.sourceCode()),
               a(href := "/api")("API"),
-              a(href := "https://database.lichess.org")(trans.database())
+              a(href := "https://database.newchess.fun")(trans.database())
             )
           ),
           ul(
@@ -208,7 +208,7 @@ object faq {
           p(
             showYourTitle(
               a(href := routes.Main.verifyTitle)(verificationForm()),
-              a(href := "#lm")("Lichess master (LM)")
+              a(href := "#lm")("NewChess master (LM)")
             )
           )
         ),
@@ -238,18 +238,18 @@ object faq {
           h4("The way of Berserk"),
           p(
             ownerUniqueTrophies(
-              a(href := "https://lichess.org/@/hiimgosu")("hiimgosu")
+              a(href := "https://newchess.fun/@/hiimgosu")("hiimgosu")
             )
           ),
           p(
             wayOfBerserkExplanation(
-              a(href := "https://lichess.org/tournament/cDyjj1nL")(aHourlyBulletTournament())
+              a(href := "https://newchess.fun/tournament/cDyjj1nL")(aHourlyBulletTournament())
             )
           ),
           h4("The Golden Zee"),
           p(
             ownerUniqueTrophies(
-              a(href := "https://lichess.org/@/ZugAddict")("ZugAddict")
+              a(href := "https://newchess.fun/@/ZugAddict")("ZugAddict")
             )
           ),
           p(
@@ -346,12 +346,12 @@ object faq {
         ),
         question(
           "make-a-bot",
-          "Make a Lichess bot?",
+          "Make a NewChess bot?",
           p(
             "To learn how to create a ",
-            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            a(href := "https://newchess.fun/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("NewChess bot"),
             ", please read ",
-            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+            a(href := "https://newchess.fun/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
               "this blog post"
             ),
             "."

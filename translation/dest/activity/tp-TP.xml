@@ -3,8 +3,8 @@
   <string name="activity">pali</string>
   <string name="hostedALiveStream">pali e lukin kulupu</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">mun wan la pana mani tawa lipu Lichess.org. ona li %2$s</item>
-    <item quantity="other">mun %1$s la pana mani tawa lipu Lichess.org. ona li %2$s</item>
+    <item quantity="one">mun wan la pana mani tawa lipu NewChess.org. ona li %2$s</item>
+    <item quantity="other">mun %1$s la pana mani tawa lipu NewChess.org. ona li %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">lon %1$s li kama pona lon %2$s</item>

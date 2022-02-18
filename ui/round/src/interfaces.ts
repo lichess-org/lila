@@ -4,7 +4,7 @@ import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
-import * as cg from 'chessground/types';
+import * as cg from 'chessground-newchess1-mod/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -51,6 +51,7 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   crazyhouse?: CrazyData;
+  newChess1?: NewChess1Data;
   correspondence: CorresClockData;
   url: {
     socket: string;
@@ -79,6 +80,14 @@ interface CrazyData {
 }
 
 interface CrazyPocket {
+  [role: string]: number;
+}
+
+interface NewChess1Data {
+  pockets: [NewChess1Pocket, NewChess1Pocket];
+}
+
+interface NewChess1Pocket {
   [role: string]: number;
 }
 
@@ -111,6 +120,7 @@ export interface Step {
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
+  newChess1?: StepNewChess1;
 }
 
 export interface ApiMove extends Step {
@@ -127,6 +137,7 @@ export interface ApiMove extends Step {
   wDraw: boolean;
   bDraw: boolean;
   crazyhouse?: CrazyData;
+  newChess1?: NewChess1Data;
   role?: cg.Role;
   drops?: string;
   promotion?: {
@@ -157,6 +168,7 @@ export interface ApiEnd {
 }
 
 export interface StepCrazy extends Untyped {}
+export interface StepNewChess1 extends Untyped {}
 
 export interface Pref {
   animationDuration: number;

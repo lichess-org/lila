@@ -9,15 +9,15 @@ object dailyPuzzleSlackApp {
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Daily Chess Puzzle by Lichess (Slack App)",
+      title = "Daily Chess Puzzle by NewChess (Slack App)",
       moreCss = cssTag("page")
     ) {
       main(cls := "page page-small box box-pad")(
         div(cls := "body")(
-          h1("Daily Chess Puzzle by Lichess (Slack App)"),
+          h1("Daily Chess Puzzle by NewChess (Slack App)"),
           p(
             "Spice up your Slack workspace with a daily chess puzzle from ",
-            a(href := "/")("lichess.org"),
+            a(href := "/")("newchess.fun"),
             "."
           ),
           a(
@@ -34,7 +34,7 @@ object dailyPuzzleSlackApp {
           p(
             "By default, the app will post the ",
             a(href := routes.Puzzle.daily)("daily chess puzzle"),
-            " from Lichess to the channel in which it was installed every day (at the same time of day it was installed). Use the ",
+            " from NewChess to the channel in which it was installed every day (at the same time of day it was installed). Use the ",
             code("/puzzletime"),
             " command to change this setting, e.g. ",
             code("/puzzletime 14:45"),

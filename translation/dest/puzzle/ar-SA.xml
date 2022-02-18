@@ -79,7 +79,7 @@
   <string name="lookupOfPlayer">ابحث عن ألغاز في مباريات لاعبين آخريين</string>
   <string name="fromXGames">ألغاز من مباريات %s</string>
   <string name="searchPuzzles">ابحث عن ألغاز</string>
-  <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
+  <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن NewChess تحبك جداً.
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
   <string name="fromXGamesFound">%1$s ألغاز وجدت في %2$s مباراة</string>
   <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>

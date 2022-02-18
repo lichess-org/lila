@@ -1,23 +1,12 @@
 package lila.game
 
-import chess.variant.{ Crazyhouse, Variant }
-import chess.{
-  CheckCount,
-  Color,
-  Clock,
-  White,
-  Black,
-  Status,
-  Mode,
-  UnmovedRooks,
-  History => ChessHistory,
-  Game => ChessGame
-}
+import chess.variant.{Crazyhouse, NewChess1, Variant}
+import chess.{Black, CheckCount, Clock, Color, Mode, Status, UnmovedRooks, White, Game => ChessGame, History => ChessHistory}
 import chess.format.FEN
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
 
+import scala.util.{Success, Try}
 import lila.db.BSON
 import lila.db.dsl._
 
@@ -64,6 +53,32 @@ object BSONHandlers {
             o.pockets.black.roles.map(_.forsyth).mkString
         },
         "t" -> o.promoted.map(_.piotr).mkString
+      )
+  }
+
+  implicit private[game] val newChess1DataBSONHandler = new BSON[NewChess1.Data] {
+
+    import NewChess1._
+
+    def reads(r: BSON.Reader) =
+      NewChess1.Data(
+        pockets = {
+          val (white, black) = {
+            r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
+          }.partition(_ is chess.White)
+          Pockets(
+            white = Pocket(white.map(_.role)),
+            black = Pocket(black.map(_.role))
+          )
+        }
+      )
+
+    def writes(w: BSON.Writer, o: NewChess1.Data) =
+      BSONDocument(
+        "p" -> {
+          o.pockets.white.roles.map(_.forsythUpper).mkString +
+            o.pockets.black.roles.map(_.forsyth).mkString
+        }
       )
   }
 
@@ -135,7 +150,8 @@ object BSONHandlers {
               } else Game.emptyCheckCount
             ),
             variant = gameVariant,
-            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
+            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData),
+            newChess1Data = gameVariant.newChess1 option r.get[NewChess1.Data](F.newChess1Data)
           ),
           color = turnColor
         ),
@@ -237,8 +253,9 @@ object BSONHandlers {
                 )
               )
               .toOption,
-            F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
-            F.crazyData  -> o.board.crazyData
+            F.checkCount     -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
+            F.crazyData      -> o.board.crazyData,
+            F.newChess1Data  -> o.board.newChess1Data
           )
         }
       }

@@ -2,20 +2,20 @@
 <resources>
   <string name="faqAbbreviation">TSS</string>
   <string name="frequentlyAskedQuestions">Tez-tez Soruşulan Suallar</string>
-  <string name="whyIsLichessCalledLichess">Lichess niyə Lichess adlanır?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/yüngül/azad ilə chess (şahmat) sözlərinin kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
+  <string name="whyIsLichessCalledLichess">NewChess niyə NewChess adlanır?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">NewChess, live/light/libre yəni canlı/yüngül/azad ilə chess (şahmat) sözlərinin kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
   <string name="leechess">lii-chess</string>
   <string name="hearItPronouncedBySpecialist">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
-  <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; Lichess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
-  <string name="whyIsLilaCalledLila">Oxşar olaraq, Lichess üçün mənbə kodu, %1$s, li[chess in sca]la mənasını verir, Lichess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
-  <string name="howCanIContributeToLichess">Lichessə necə töhfə verə bilərəm?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, dəstəkçilərin ianələri və bir könüllü komandanın səyləri ilə təchiz edilmişdir.</string>
-  <string name="findMoreAndSeeHowHelp">%2$s da daxil olmaqla %1$s haqqında daha çox məlumat ala bilərsiniz. Əgər vaxtınız və bacarıqlarınızla Lichessə könüllü olaraq kömək etmək istəsəniz, burada çoxlu %3$s var.</string>
+  <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; NewChess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
+  <string name="whyIsLilaCalledLila">Oxşar olaraq, NewChess üçün mənbə kodu, %1$s, li[chess in sca]la mənasını verir, NewChess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
+  <string name="howCanIContributeToLichess">NewChessə necə töhfə verə bilərəm?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">NewChess, dəstəkçilərin ianələri və bir könüllü komandanın səyləri ilə təchiz edilmişdir.</string>
+  <string name="findMoreAndSeeHowHelp">%2$s da daxil olmaqla %1$s haqqında daha çox məlumat ala bilərsiniz. Əgər vaxtınız və bacarıqlarınızla NewChessə könüllü olaraq kömək etmək istəsəniz, burada çoxlu %3$s var.</string>
   <string name="beingAPatron">dəstəkçi olmaq</string>
   <string name="breakdownOfOurCosts">xərclərimizin bölgüsü</string>
   <string name="otherWaysToHelp">kömək etmək üçün digər yollar</string>
-  <string name="areThereWebsitesBasedOnLichess">Lichess əsasında yaradılan veb saytlar var?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Bəli. Lichess əslində bizə məxsus %1$s, %2$s və ya %3$s istifadə edən digər açıq mənbəli saytlara ilham verdi.</string>
+  <string name="areThereWebsitesBasedOnLichess">NewChess əsasında yaradılan veb saytlar var?</string>
+  <string name="yesNewChessInspiredOtherOpenSourceWebsites">Bəli. NewChess əslində bizə məxsus %1$s, %2$s və ya %3$s istifadə edən digər açıq mənbəli saytlara ilham verdi.</string>
   <string name="fairPlay">Ədalətli Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
   <string name="ratingRefundExplanation">Bir oyunçu işarələndikdən bir dəqiqə sonra, son 3 gün ərzində oynadığı 40 reytinqli oyun geri alınır. Bu oyunlarda əgər onun rəqibi olsaz, reytinq xalı itirsəz (məğlubiyyət və heç-heçə səbəbilə) və reytinqiniz müvəqqəti deyilsə, geri ödəmə alacaqsız. Geri ödəmə, ən yüksək reytinqinizə və oyundan sonrakı reytinq yüksəlişinizə görə mədudlaşdırılır.
@@ -25,16 +25,16 @@
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
   <string name="youCannotApply">Moderator olmaq üçün müraciət etmək mümkün deyil. Moderator olaraq yaxşı olacağını düşündüyümüz birini görsək, onlarla birbaşa əlaqə quracağıq.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichessdə yazışma şahmatı üçün qaydalardakı əsas fərq debüt kitabına icazə verilməsidir. Mühərriklərin istifadəsi hələ də qadağandır və bunu etdiyiniz təqdirdə profiliniz işarələnəcək. ICCF yazışmada mühərrik istifadəsinə icazə versə də, Lichess buna icazə vermir.</string>
+  <string name="youCanUseOpeningBookNoEngine">NewChessdə yazışma şahmatı üçün qaydalardakı əsas fərq debüt kitabına icazə verilməsidir. Mühərriklərin istifadəsi hələ də qadağandır və bunu etdiyiniz təqdirdə profiliniz işarələnəcək. ICCF yazışmada mühərrik istifadəsinə icazə versə də, NewChess buna icazə vermir.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
-  <string name="basedOnGameDuration">Lichessdə vaxta nəzarət oyun vaxtına nəzərən dəyişir = %1$s
+  <string name="basedOnGameDuration">NewChessdə vaxta nəzarət oyun vaxtına nəzərən dəyişir = %1$s
 Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəyə bərabərdir.</string>
   <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Lichessdə hansı variantları oynaya bilərəm?</string>
-  <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
+  <string name="whatVariantsCanIplay">NewChessdə hansı variantları oynaya bilərəm?</string>
+  <string name="lichessSupportChessAnd">NewChess standart şahmatı və daha %1$s dəstəkləyir.</string>
   <string name="eightVariants">8 şahmat variantını</string>
   <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
   <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və pozisiyaları qiymətləndirmək üçün kompüter şahmatında vacibdir.
@@ -43,7 +43,7 @@ Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəy�
 
 Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir gedişdə nə qədər az santipiyada itirirsə, oyun daha güclü olur.
 
-Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
+NewChess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
   <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunu hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
 
@@ -60,29 +60,29 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
 
 %3$s bölməsində bu gedişlə bağlı məşq edə bilərsiniz.</string>
   <string name="goodIntroduction">yaxşı izah</string>
-  <string name="lichessTraining">Lichess məşqi</string>
+  <string name="lichessTraining">NewChess məşqi</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
-  <string name="threefoldRepetitionExplanation">Əgər bir pozisiya üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
+  <string name="threefoldRepetitionExplanation">Əgər bir pozisiya üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. NewChess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
   <string name="threefoldRepetitionLowerCase">üçqat təkrar</string>
   <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitdi?</string>
   <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
   <string name="positions">pozisiyalar</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Bir pozisiyanı üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
-  <string name="threeFoldHasToBeClaimed">Təkrarın oyunçulardan biri tərəfindən tələb edilməsi lazımdır. Bunu göstərilən düyməni basmaqla və ya son təkrar gedişinizdən əvvəl heç-heçə təklif etməklə edə bilərsiniz, rəqibinizin bu təklifini rədd etməsinin heç bir əhəmiyyəti olmayacaq, üçqat təkrar onsuz da tələb ediləcək. Avtomatik olaraq sizin adınıza təkrarlama tələb etmək üçün Lichessi %1$s edə bilərsiniz. Əlavə olaraq, beşqat təkrarlama həmişə oyunu dərhal bitirir.</string>
+  <string name="threeFoldHasToBeClaimed">Təkrarın oyunçulardan biri tərəfindən tələb edilməsi lazımdır. Bunu göstərilən düyməni basmaqla və ya son təkrar gedişinizdən əvvəl heç-heçə təklif etməklə edə bilərsiniz, rəqibinizin bu təklifini rədd etməsinin heç bir əhəmiyyəti olmayacaq, üçqat təkrar onsuz da tələb ediləcək. Avtomatik olaraq sizin adınıza təkrarlama tələb etmək üçün NewChessi %1$s edə bilərsiniz. Əlavə olaraq, beşqat təkrarlama həmişə oyunu dərhal bitirir.</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
-  <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess bütün FİDE titullarını, o cümlədən lövhə üzərində qazanılmış titulları, həmçinin %1$s-nu. Bu da FIDE titullarının siyahısı:</string>
+  <string name="titlesAvailableOnLichess">NewChessdə hansı titullar var?</string>
+  <string name="lichessRecognizeAllOTBtitles">NewChess bütün FİDE titullarını, o cümlədən lövhə üzərində qazanılmış titulları, həmçinin %1$s-nu. Bu da FIDE titullarının siyahısı:</string>
   <string name="showYourTitle">Bir OTB titulunuz varsa, şəxsiyyəti təsdiq edən sənəd/kartın açıq bir şəkli və sənədi/kartı tutan yerdə bir selfi də daxil olmaqla %1$s-nu dolduraraq hesabınızda göstərilməsi üçün müraciət edə bilərsiniz.
 
-Lichessdə titullu bir oyunçu kimi təsdiqlənmək, Titullu Arena tədbirlərində oynamağa imkan verir.
+NewChessdə titullu bir oyunçu kimi təsdiqlənmək, Titullu Arena tədbirlərində oynamağa imkan verir.
 
 Nəhayət bir də fəxri %2$s adı var.</string>
   <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
-  <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
+  <string name="canIbecomeLM">NewChess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Bu fəxri titul qeyri-rəsmidir və yalnız Lichessdə mövcuddur.
+  <string name="lMtitleComesToYouDoNotRequestIt">Bu fəxri titul qeyri-rəsmidir və yalnız NewChessdə mövcuddur.
 
 Nadir hallarda təqdirəlayiq, yaxşı bir lichess üzvü olan yüksək səviyyəli oyunçularımıza öz qərarımıza uyğun mükafat veririk. LM titulunu almırsınız, LM titulu sizə gəlir. Əgər bu titula layiq görülsəniz, bizdən bir mesaj alacaqsınız və qəbul etmək və ya etməmək seçiminə sahib olacaqsız.
 
@@ -93,12 +93,12 @@ LM titulunu bizdən istəməyin.</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="usernamesCannotBeChanged">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
-  <string name="ownerUniqueTrophies">Bu kubok Lichess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
+  <string name="ownerUniqueTrophies">Bu kubok NewChess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
   <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="goldenZeeExplanation">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
-  <string name="lichessRatings">Lichess reytinqi</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
+  <string name="lichessRatings">NewChess reytinqi</string>
+  <string name="whichRatingSystemUsedByLichess">NewChess hansı reytinq sistemindən istifadə edir?</string>
   <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də köhnə Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
 
 Əsasən, Glicko reytinqləri reytinqinizi hesablayarkən \"güvən intervalı\"ndan istifadə edir. Saytı ilk dəfə istifadə etməyə başladığınızda, reytinqiniz 1500 ± 700-dən başlayır. 1500, reytinqinizi, 700 isə güvən aralığını təmsil edir.
@@ -128,13 +128,13 @@ Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq)
   <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
   <string name="displayPreferences">görüntü tərcihləri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikmə/əlaqənin kəsilməsi səbəbindən bir oyun uduzdum. Reytinq xallarımı geri ala bilərəmmi?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başladıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, NewChess yenidən başladıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
   <string name="howToThreeDots">Necə...</string>
   <string name="enableDisableNotificationPopUps">Bildiriş pəncərələri aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess istəyə bağlı olaraq popup bildirişlər göndərə bilər, məsələn növbə sizin olduğunuzda və ya xüsusi bir mesaj aldığınız zaman.
+  <string name="lichessCanOptionnalySendPopUps">NewChess istəyə bağlı olaraq popup bildirişlər göndərə bilər, məsələn növbə sizin olduğunuzda və ya xüsusi bir mesaj aldığınız zaman.
 
-Brauzerinizin URL çubuğundakı lichess.org ünvanının yanındakı kilid işarəsini toxunun.
+Brauzerinizin URL çubuğundakı newchess.fun ünvanının yanındakı kilid işarəsini toxunun.
 
-Sonra Lichessdən gələn bildirişlərə icazə veriləcəyini və ya bloklanacağını seçin.</string>
+Sonra NewChessdən gələn bildirişlərə icazə veriləcəyini və ya bloklanacağını seçin.</string>
 </resources>

@@ -69,7 +69,7 @@ Berandu sartzen diren jokalariek, puntu erdiko bye edo atseden bakarra jasoko du
 Arrazoi nagusia txapelketa amaitu aurretik uzten duten jokalariekin zer egin ganoraz erabakitzeko modurik ez dagoela da. Ezin dugu espero jokalari guztien online txapelketa bateko partida guztiak jokatzea. Ez da gertatuko eta beraz Round Robin txapelketaren emaitzak okerrak izango dira eta.
 Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitzar bat jokatzea da. Kasu honetan txapelketa bukatu aurretik partida guztiak jokatzeko aukera izango duzu.</string>
   <string name="otherSystemsQ">Eta beste txapelketa motei buruz zer?</string>
-  <string name="otherSystemsA">Ez dugu Lichessen txapelketa mota gehiago gehitzeko asmorik.</string>
+  <string name="otherSystemsA">Ez dugu NewChessen txapelketa mota gehiago gehitzeko asmorik.</string>
   <string name="swissDescription">Txapelketa suitzar %1$s baten, jokalari batek ez du beste guztien aurka jokatzen. Txanda bakoitzean aurkari ezberdin baten aurka jokatzen du jokalari bakoitzak, beti indar beretsuko jokalarien aurka jokatzeko arau batzuk jarraituz, baina aurkari beraren aurka ez du behin baino gehiagotan jokatuko. Irabazlea txapelketan puntu gehien pilatzen dituen jokalaria izango da. Jokalari guztien txanda guztietan partida bat jokatuko dute, jokalari kopuru bakoitia ez badago behintzat</string>
   <string name="teamOnly">Txapelketa suitzarrak taldeen arduradunek bakarrik sor ditzakete eta taldeko kideek bakarrik har dezakete parte bertan. %1$s txapelketa suitzarrak jokatzen hasteko.</string>
   <string name="joinOrCreateTeam">Sartu edo sortu talde bat</string>

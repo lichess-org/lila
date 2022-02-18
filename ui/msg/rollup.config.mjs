@@ -2,7 +2,7 @@ import rollupProject from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: 'LichessMsg',
+    name: 'NewChessMsg',
     input: 'src/main.ts',
     output: 'msg',
   },

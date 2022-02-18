@@ -47,6 +47,7 @@ object TreeBuilder {
           opening = openingOf(fen),
           clock = withClocks.flatMap(_.headOption),
           crazyData = init.situation.board.crazyData,
+          newChess1Data = init.situation.board.newChess1Data,
           eval = infos lift 0 map makeEval
         )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
@@ -62,16 +63,17 @@ object TreeBuilder {
             opening = openingOf(fen),
             clock = withClocks flatMap (_ lift (g.turns - init.turns - 1)),
             crazyData = g.situation.board.crazyData,
+            newChess1Data = g.situation.board.newChess1Data,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
               drawOfferPlies(g.turns)
-                .option(makeLichessComment(s"${!Color.fromPly(g.turns)} offers draw"))
+                .option(makeNewChessComment(s"${!Color.fromPly(g.turns)} offers draw"))
                 .toList :::
                 advice
                   .map(_.makeComment(withEval = false, withBestMove = true))
                   .toList
-                  .map(makeLichessComment)
+                  .map(makeNewChessComment)
             }
           )
           advices.get(g.turns + 1).flatMap { adv =>
@@ -90,11 +92,11 @@ object TreeBuilder {
     }
   }
 
-  private def makeLichessComment(text: String) =
+  private def makeNewChessComment(text: String) =
     Node.Comment(
       Node.Comment.Id.make,
       Node.Comment.Text(text),
-      Node.Comment.Author.Lichess
+      Node.Comment.Author.NewChess
     )
 
   private def withAnalysisChild(
@@ -114,6 +116,7 @@ object TreeBuilder {
         check = g.situation.check,
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
+        newChess1Data = g.situation.board.newChess1Data,
         eval = none
       )
     }
@@ -134,5 +137,5 @@ object TreeBuilder {
 
   private val logChessError = (id: String) =>
     (err: String) =>
-      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
+      logger.warn(s"round.TreeBuilder https://newchess.fun/$id ${err.linesIterator.toList.headOption}")
 }

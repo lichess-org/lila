@@ -288,7 +288,7 @@
     <item quantity="one">Dóna %s segons</item>
     <item quantity="other">Dóna %s segons</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
+  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de NewChess</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
@@ -459,9 +459,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Una URL per línia.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
-  <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
+  <string name="previouslyOnNewChessTV">Prèviament a NewChess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activePlayers">Jugadors actius</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Compte, la partida és puntuada però no hi ha rellotge!</string>
@@ -617,7 +617,7 @@
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
-  <string name="lichessTournaments">Tornejos de Lichess</string>
+  <string name="lichessTournaments">Tornejos de NewChess</string>
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
   <string name="averageCentipawnLoss">Pèrdua mitjana en centipeons</string>
@@ -651,7 +651,7 @@
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
   <string name="readAboutOur">Llegeix sobre la nostre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i newchess</string>
   <string name="timeToProcessAMoveOnLichessServer">Temps per processar un moviment al servidor lichess</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
@@ -668,14 +668,14 @@
   <string name="withEverybody">Amb tothom</string>
   <string name="kidMode">Mode infantil</string>
   <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Activa això als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de newchess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">tancar totes les sessions</string>
   <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
-  <string name="asFreeAsLichess">Tan lliure com lichess</string>
+  <string name="asFreeAsLichess">Tan lliure com newchess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fet per amor als escacs, no per diners</string>
   <string name="everybodyGetsAllFeaturesForFree">Tothom accedeix gratuïtament a totes les funcions</string>
   <string name="zeroAdvertisement">Cap anunci</string>
@@ -788,14 +788,14 @@
   <string name="tryToWin">Prova de guanyar (o al menys fer taules) cada partida.</string>
   <string name="resignLostGames">Resigna els jocs perduts (no deixis córrer el temps).</string>
   <string name="temporaryInconvenience">Disculpes per aquest inconvenient temporal</string>
-  <string name="wishYouGreatGames">i et desitgem unes grans partides a lichess.org.</string>
+  <string name="wishYouGreatGames">i et desitgem unes grans partides a newchess.fun.</string>
   <string name="thankYouForReading">Gràcies per la teva lectura!</string>
   <string name="lifetimeScore">Valoració total de sempre</string>
   <string name="currentMatchScore">Valoració actual de partides</string>
   <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
-  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
+  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de NewChess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
   <string name="rapid">Ràpides</string>
@@ -832,13 +832,13 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
   <string name="newPendingReview">Nova ressenya pendent</string>
-  <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
+  <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de NewChess</string>
   <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
   <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>
   <string name="clickToRevealEmailAddress">[Clica per a mostrar l\'adreça de correu electrònic]</string>
   <string name="download">Descarregar</string>
   <string name="welcome">Benvinguts!</string>
-  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
+  <string name="lichessPatronInfo">NewChess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="coachManager">Gestionament d\'entrenador</string>
   <string name="streamerManager">Gestionament de retransmissor</string>
@@ -894,6 +894,6 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="youCantStartNewGame">No pots començar un joc nou fins que aquest acabi.</string>
   <string name="since">Des de</string>
   <string name="until">Fins a</string>
-  <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
+  <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de NewChess</string>
   <string name="switchSides">Canviar de banda</string>
 </resources>

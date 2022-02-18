@@ -157,7 +157,7 @@
   <string name="whatNext">Дараагийн алхам?</string>
   <string name="youKnowHowToPlayChess">Баяр хүргэе! Чи шатар хэрхэн тоглодогыг сурлаа. Чи улам сайн шатарчин болмоор байна уу?</string>
   <string name="register">Гишүүн бол</string>
-  <string name="getAFreeLichessAccount">Личессийн хэрэглэгчийн данс үнэгүй нээ</string>
+  <string name="getAFreeNewChessAccount">Личессийн хэрэглэгчийн данс үнэгүй нээ</string>
   <string name="practice">Сургуулилалт</string>
   <string name="learnCommonChessPositions">Түгээмэл тохиолдох өргийн байрлалуудыг сурах</string>
   <string name="puzzles">Бодлого</string>

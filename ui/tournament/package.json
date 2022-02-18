@@ -2,7 +2,7 @@
   "name": "tournament",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org arena tournament",
+  "description": "newchess.fun arena tournament",
   "keywords": [
     "chess",
     "lichess",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^8.2.0",
+    "chessground-newchess1-mod": "8.2.2",
     "common": "2.0.0",
     "game": "2.0.0",
     "snabbdom": "^3.0.1"

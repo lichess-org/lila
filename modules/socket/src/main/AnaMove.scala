@@ -42,7 +42,8 @@ case class AnaMove(
             FullOpeningDB findByFen fen
           },
           drops = if (movable) game.situation.drops else Some(Nil),
-          crazyData = game.situation.board.crazyData
+          crazyData = game.situation.board.crazyData,
+          newChess1Data = game.situation.board.newChess1Data
         )
       }
     }

@@ -369,8 +369,8 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       ? otherLink('Masters', masterDbExplanation)
       : undefined,
     db == 'lichess'
-      ? active([h('strong', 'Lichess'), ' database'], lichessDbExplanation)
-      : otherLink('Lichess', lichessDbExplanation),
+      ? active([h('strong', 'NewChess'), ' database'], lichessDbExplanation)
+      : otherLink('NewChess', lichessDbExplanation),
     db == 'player'
       ? playerName
         ? active(

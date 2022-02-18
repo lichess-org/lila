@@ -2,7 +2,7 @@
   "name": "nvui",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org non-visual user interface",
+  "description": "newchess.fun non-visual user interface",
   "exports": {
     "./*": "./dist/*.js"
   },
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessground": "^8.2.0",
-    "chessops": "^0.10.2",
+    "chessground-newchess1-mod": "8.2.2",
+    "chessops-newchess1-mod": "0.10.7",
     "snabbdom": "^3.0.1"
   }
 }

@@ -35,9 +35,9 @@
   <string name="onlyReports">केवल रिपोर्ट फॉर्म के माध्यम से रिपोर्ट करना ही प्रभावी हैं।</string>
   <string name="wantReportBug">मैं एक बग रिपोर्ट करना चाहता हूं</string>
   <string name="reportBugInForum">फोरम के लिचेस फीडबैक सेक्शन में</string>
-  <string name="reportWebsiteIssue">GitHub पर एक Lichess वेबसाइट के मुद्दे के रूप में</string>
-  <string name="reportMobileIssue">GitHub पर एक Lichess मोबाइल ऐप के मुद्दे के रूप में</string>
-  <string name="reportBugInDiscord">Lichess Discord सर्वर में</string>
+  <string name="reportWebsiteIssue">GitHub पर एक NewChess वेबसाइट के मुद्दे के रूप में</string>
+  <string name="reportMobileIssue">GitHub पर एक NewChess मोबाइल ऐप के मुद्दे के रूप में</string>
+  <string name="reportBugInDiscord">NewChess Discord सर्वर में</string>
   <string name="howToReportBug">कृपया वर्णन करें कि बग कैसा दिखता है, इसके बजाय की आपको क्या होने की उम्मीद है, और बग को पुन: उत्पन्न करने के लिए कदम।</string>
   <string name="illegalPawnCapture">प्यादे की अवैध चाल</string>
   <string name="calledEnPassant">इसे \"एन पासेंट\" कहा जाता है और यह शतरंज के नियमों में से एक है।</string>
@@ -71,5 +71,5 @@
   <string name="creditAppreciated">श्रेय देना अच्छी बात है लेकिन जरूरी नहीं</string>
   <string name="noneOfTheAbove">उपरोक्त में से कोई नहीं।</string>
   <string name="sendEmailAt">हमें %s पर एक ईमेल भेजें।</string>
-  <string name="explainYourRequest">कृपया अपने अनुरोध को स्पष्ट और अच्छी तरह से समझाएं। अपने Lichess उपयोगकर्ता नाम, और कोई भी जानकारी जो आपकी सहायता करने में हमारी मदद कर सकती है।</string>
+  <string name="explainYourRequest">कृपया अपने अनुरोध को स्पष्ट और अच्छी तरह से समझाएं। अपने NewChess उपयोगकर्ता नाम, और कोई भी जानकारी जो आपकी सहायता करने में हमारी मदद कर सकती है।</string>
 </resources>

@@ -2,10 +2,10 @@
 <resources>
   <string name="donate">दान करें</string>
   <string name="donateAsX">%s के रूप में दान करें</string>
-  <string name="lichessPatron">Lichess संरक्षक</string>
+  <string name="lichessPatron">NewChess संरक्षक</string>
   <string name="freeAccount">मुफ्त खाता</string>
-  <string name="becomePatron">Lichess संरक्षक बनें</string>
-  <string name="xBecamePatron">%s Lichess Patron बन गया</string>
+  <string name="becomePatron">NewChess संरक्षक बनें</string>
+  <string name="xBecamePatron">%s NewChess Patron बन गया</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
     <item quantity="other">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
@@ -36,7 +36,7 @@
   <string name="serversAndDeveloper">सबसे पहले, शक्तिशाली सर्वर।
 फिर हम एक पूर्णकालिक डेवलपर का भुगतान करते हैं: लिचेस के संस्थापक,%s।</string>
   <string name="costBreakdown">विस्तृत लागत ब्रेकडाउन देखें</string>
-  <string name="officialNonProfit">Lichess एक आधिकारिक गैर-लाभकारी है?</string>
+  <string name="officialNonProfit">NewChess एक आधिकारिक गैर-लाभकारी है?</string>
   <string name="actOfCreation">हाँ, यहाँ निगमन प्रमाणपत्र है (फ्रेंच में)</string>
   <string name="changeMonthlySupport">क्या मैं अपना मासिक समर्थन बदल / रद्द कर सकता हूँ?</string>
   <string name="changeOrContact">हाँ, किसी भी समय, इस पृष्ठ से।
@@ -45,14 +45,14 @@
   <string name="otherMethods">दान की अन्य विधियाँ?</string>
   <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>
   <string name="patronFeatures">क्या कुछ विशेषताएं संरक्षक के लिए आरक्षित हैं?</string>
-  <string name="noPatronFeatures">नहीं, क्योंकि Lichess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
+  <string name="noPatronFeatures">नहीं, क्योंकि NewChess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
 हालाँकि, Patrons को एक नए आकर्षक प्रोफ़ाइल आइकन के साथ डींग मारने का अधिकार मिलता है।</string>
   <string name="featuresComparison">विस्तृत सुविधा तुलना देखें</string>
   <plurals name="patronForMonths">
     <item quantity="one">एक महीने के लिए लिचेस संरक्षक</item>
     <item quantity="other">लिचेस संरक्षक %s महीनों के लिए</item>
   </plurals>
-  <string name="youSupportWith">आप प्रति माह %s के साथ lichess.org का समर्थन करते हैं।</string>
+  <string name="youSupportWith">आप प्रति माह %s के साथ newchess.fun का समर्थन करते हैं।</string>
   <string name="tyvm">आपकी मदद के लिए बहुत बहुत शुक्रिया। आपने धमाल मचा दिया!</string>
   <string name="currentStatus">वर्तमान स्टेटस</string>
   <string name="nextPayment">अगला भुगतान</string>
@@ -62,17 +62,17 @@
   <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>
   <string name="cancelSupport">अपना समर्थन रद्द करें</string>
   <string name="xOrY">%1$s या %2$s</string>
-  <string name="decideHowMuch">तय करें कि Lichess आपके लिए कितना योग्य है:</string>
+  <string name="decideHowMuch">तय करें कि NewChess आपके लिए कितना योग्य है:</string>
   <string name="stopPayments">अपना क्रेडिट कार्ड वापस लें और भुगतान रोकें:</string>
-  <string name="noLongerSupport">अब Lichess का समर्थन नहीं करते</string>
+  <string name="noLongerSupport">अब NewChess का समर्थन नहीं करते</string>
   <string name="viewOthers">अन्य लिचेस संरक्षक देखें</string>
   <string name="date">दिनांक</string>
   <string name="amount">राशि</string>
   <string name="transactionCompleted">आपका लेन-देन पूरा हो गया है, और आपके दान की एक रसीद आपको ईमेल की गई है।</string>
   <string name="permanentPatron">अब आपके पास एक स्थायी संरक्षक खाता है।</string>
   <string name="checkOutProfile">अपना प्रोफ़ाइल पृष्ठ देखें!</string>
-  <string name="nowLifetime">अब आप जीवन भर के लिए एक Lichess संरक्षक हैं!</string>
-  <string name="nowOneMonth">अब आप एक महीने के लिए Lichess संरक्षक हैं!</string>
+  <string name="nowLifetime">अब आप जीवन भर के लिए एक NewChess संरक्षक हैं!</string>
+  <string name="nowOneMonth">अब आप एक महीने के लिए NewChess संरक्षक हैं!</string>
   <string name="downgradeNextMonth">एक महीने बाद, आपसे फिर से शुल्क नहीं लिया जाएगा, और आपका लाइचेस खाता सामान्य खाते में डाउनग्रेड हो जाएगा।</string>
   <string name="changeCurrency">मुद्रा बदलें</string>
 </resources>

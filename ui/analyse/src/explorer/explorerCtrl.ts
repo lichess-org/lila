@@ -2,7 +2,7 @@ import { Prop, prop } from 'common';
 import { storedProp } from 'common/storage';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';

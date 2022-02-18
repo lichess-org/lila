@@ -1,9 +1,9 @@
-import { parseUci, makeSquare, squareRank } from 'chessops/util';
-import { isDrop } from 'chessops/types';
+import { parseUci, makeSquare, squareRank } from 'chessops-newchess1-mod/util';
+import { isDrop } from 'chessops-newchess1-mod/types';
 import { winningChances } from 'ceval';
-import * as cg from 'chessground/types';
-import { opposite } from 'chessground/util';
-import { DrawModifiers, DrawShape } from 'chessground/draw';
+import * as cg from 'chessground-newchess1-mod/types';
+import { opposite } from 'chessground-newchess1-mod/util';
+import { DrawModifiers, DrawShape } from 'chessground-newchess1-mod/draw';
 import AnalyseCtrl from './ctrl';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {

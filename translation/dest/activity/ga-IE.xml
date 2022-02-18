@@ -3,11 +3,11 @@
   <string name="activity">Gníomhaíocht</string>
   <string name="hostedALiveStream">Bhí sruth beo faoi cúram</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Thacaíodh le lichess.org ar feadh mí amháin mar %2$s</item>
-    <item quantity="two">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
-    <item quantity="few">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
-    <item quantity="many">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
-    <item quantity="other">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="one">Thacaíodh le newchess.fun ar feadh mí amháin mar %2$s</item>
+    <item quantity="two">Thacaíodh le newchess.fun ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="few">Thacaigh newchess.fun ar feadh %1$s mí mar %2$s</item>
+    <item quantity="many">Thacaíodh le newchess.fun ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="other">Thacaíodh le newchess.fun ar feadh %1$s mhí mar %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Rinneadh cleachtadh ar suíomh amháin de chuid %2$s</item>
@@ -115,7 +115,7 @@
     <item quantity="other">San iomaíocht i %s comórtas swiss</item>
   </plurals>
   <string name="rankedInSwissTournament">Céim #%1$s as %2$s</string>
-  <string name="signedUp">Sínithe suas le lichess.org</string>
+  <string name="signedUp">Sínithe suas le newchess.fun</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Isteach i bhfoireann amháin</item>
     <item quantity="two">Isteach i %s fhoireann</item>

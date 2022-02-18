@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Pesquise quebra-cabeças de um jogador específico</string>
   <string name="fromXGames">Problemas de %s\' jogos</string>
   <string name="searchPuzzles">Procurar quebra-cabeças</string>
-  <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
+  <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o NewChess ainda te ama muito.
 Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
   <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treine, analise, melhore</string>

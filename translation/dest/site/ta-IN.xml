@@ -263,7 +263,7 @@
     <item quantity="one">%s நொடிகள் அளி</item>
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
-  <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
+  <string name="thisAccountViolatedTos">இந்த கணக்கு NewChess சேவை விதிமுறைகள் மீறியது</string>
   <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
@@ -387,7 +387,7 @@
   <string name="lastName">கடைசி பெயர்</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="thankYou">நன்றி</string>
-  <string name="previouslyOnLichessTV">முன்பு லிசெஸ் தொலைகாட்சியில்</string>
+  <string name="previouslyOnNewChessTV">முன்பு லிசெஸ் தொலைகாட்சியில்</string>
   <string name="onlinePlayers">இணைய விளையாட்டாளர்கள்</string>
   <string name="activePlayers">பங்குபெற்ற விளையாட்டாளர்கள்</string>
   <string name="bewareTheGameIsRatedButHasNoClock">எச்சரிக்கை, மதிப்போடான இவ்விளையாட்டில் கடிகாரம் இல்லை</string>

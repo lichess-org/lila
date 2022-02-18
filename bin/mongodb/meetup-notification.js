@@ -1,5 +1,5 @@
 var sender = 'lichess';
-var threadName = 'Lichess meetup in London, November 24th';
+var threadName = 'NewChess meetup in London, November 24th';
 
 var sent = 0;
 
@@ -43,7 +43,7 @@ db.user4
       posts: [
         {
           id: Math.random().toString(36).substring(2, 10),
-          text: 'You are most welcome to join us!\n\nhttps://lichess.org/blog/W-nQzxYAAC8AaUUo/lichess-london-meetup-on-the-24th-november\n\nYou received this message because you connected from the UK, Ireland, France or Belgium.',
+          text: 'You are most welcome to join us!\n\nhttps://newchess.fun/blog/W-nQzxYAAC8AaUUo/lichess-london-meetup-on-the-24th-november\n\nYou received this message because you connected from the UK, Ireland, France or Belgium.',
           isByCreator: true,
           isRead: false,
           createdAt: new Date(),

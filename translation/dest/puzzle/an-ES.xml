@@ -62,7 +62,7 @@
   <string name="lookupOfPlayer">Mira los problemas quitaus d\'as partidas d\'un chugador</string>
   <string name="fromXGames">Problemas quitaus dende las partidas de %s</string>
   <string name="searchPuzzles">Mirar problemas</string>
-  <string name="fromMyGamesNone">No i hai problemas de las tuyas partidas en a base de datos, pero Lichess te quiere muito igual.
+  <string name="fromMyGamesNone">No i hai problemas de las tuyas partidas en a base de datos, pero NewChess te quiere muito igual.
 Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un problemas tuyo.</string>
   <string name="fromXGamesFound">S\'ha trobau %1$s problemas de %2$s partidas</string>
 </resources>

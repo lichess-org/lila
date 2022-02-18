@@ -2,7 +2,7 @@ import rollupProject from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: 'LichessEditor',
+    name: 'NewChessEditor',
     input: 'src/main.ts',
     output: 'editor',
   },

@@ -521,9 +521,9 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">שורה עבור כל כתובת.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://newchess.fun/account/profile">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
-  <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
+  <string name="previouslyOnNewChessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
   <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
@@ -871,14 +871,14 @@
   <string name="tryToWin">יש לנסות לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
   <string name="resignLostGames">יש לפרוש במצבי הפסד (אין לתת לשעון להיגמר).</string>
   <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
-  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
+  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־newchess.fun.</string>
   <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
-  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של NewChess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">רפיד</string>

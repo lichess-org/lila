@@ -38,7 +38,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index.url}",
+          url = s"$netBaseUrl/patron",
           description = freeChess.txt()
         )
         .some,
@@ -93,13 +93,13 @@ object index {
                 )(
                   raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org one-time")}
+${payPalFormSingle(pricing, "newchess.fun one-time")}
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormRecurring(pricing, "lichess.org monthly")}
+${payPalFormRecurring(pricing, "newchess.fun monthly")}
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org lifetime")}
+${payPalFormSingle(pricing, "newchess.fun lifetime")}
 </form>"""),
                   ctx.me map { me =>
                     st.group(cls := "radio buttons dest")(
@@ -214,7 +214,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                       else
                         a(
                           cls := "button",
-                          href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                          href := s"${routes.Auth.login}?referrer=${"/patron"}"
                         )("Log in to donate")
                     ),
                     ctx.isAuth option div(cls := "other-choices")(
@@ -224,7 +224,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         a(cls := "stripe")("Apple Pay")
                       )
                     ),
-                    form(cls := "currency none", action := routes.Plan.index)(
+                    form(cls := "currency none", action := "/patron")(
                       select(name := "currency")(
                         lila.plan.CurrencyApi.currencyList.map { cur =>
                           option(
@@ -282,8 +282,8 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
   <input type="hidden" name="no_note" value="1">
   <input type="hidden" name="no_shipping" value="1">
   <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="return" value="https://newchess.fun/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://newchess.fun/patron">
   <input type="hidden" name="lc" value="${ctx.lang.locale}">
   <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 """
@@ -309,11 +309,11 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact, targetBlank)(contactSupport()))
+          changeOrContact(a(href := "/contact", targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is ",
+          "NewChess is ",
           a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
           ".",
           br,

@@ -116,7 +116,7 @@ case class PlayerAggregateAssessment(
       .sortBy(-_.assessment.id)
       .take(maxGames)
       .map { a =>
-        s"    ${a.assessment.emoticon} lichess.org/${a.gameId}/${a.color.name}"
+        s"    ${a.assessment.emoticon} newchess.fun/${a.gameId}/${a.color.name}"
       }
       .mkString("\n")
 

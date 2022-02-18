@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from 'chessground-newchess1-mod/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';

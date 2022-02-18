@@ -152,8 +152,8 @@ object edit {
             div(cls := "panel contents")(
               form3.group(
                 form("profile.publicStudies"),
-                raw("Featured public Lichess studies"),
-                help = raw("Up to 6 Lichess study URLs, one per line").some
+                raw("Featured public NewChess studies"),
+                help = raw("Up to 6 NewChess study URLs, one per line").some
               )(form3.textarea(_)()),
               form3.group(form("profile.youtubeChannel"), raw("URL of your Youtube channel"))(form3.input(_)),
               form3.group(

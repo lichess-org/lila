@@ -21,12 +21,15 @@ object topnav {
           "/",
           frag(
             span(cls := "play")(trans.play()),
-            span(cls := "home")("lichess.org")
+            span(cls := "home")("newchess.fun")
           )
         ),
         div(role := "group")(
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
+          a(href := "/rules")(trans.rules()),
+          a(href := "/new-pieces")(trans.newPieces()),
+          a(href := "/criticism")(trans.criticism()),
           // todo: turn me on!
 //          ctx.noBot option frag(
 //            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
@@ -63,7 +66,7 @@ object topnav {
       st.section(
         linkTitle(routes.Tv.index.path, trans.watch()),
         div(role := "group")(
-          a(href := routes.Tv.index)("Lichess TV"),
+          a(href := routes.Tv.index)("NewChess TV"),
           a(href := routes.Tv.games)(trans.currentGames()),
           (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
           // todo: turn me on!
@@ -78,7 +81,7 @@ object topnav {
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.noKid option a(href := routes.Ublog.community("all"))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.me.exists(!_.kid) option a(href := "/patron")(trans.patron.donate())
         )
       ),
       st.section(
