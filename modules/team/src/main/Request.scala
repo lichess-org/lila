@@ -21,6 +21,8 @@ object Request {
   type ID = String
   def makeId(team: Team.ID, user: User.ID) = s"$user@$team"
 
+  val defaultMessage = "Hello, I would like to join the team!"
+
   def make(team: Team.ID, user: User.ID, message: String): Request =
     new Request(
       _id = makeId(team, user),

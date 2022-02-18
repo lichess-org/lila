@@ -151,7 +151,11 @@ final class TeamApi(
   def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMap {
       _ ?? {
-        val request = Request.make(team = team.id, user = user.id, message = msg)
+        val request = Request.make(
+          team = team.id,
+          user = user.id,
+          message = if (user.marks.troll) Request.defaultMessage else msg
+        )
         requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }
