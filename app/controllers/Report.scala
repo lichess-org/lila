@@ -154,7 +154,7 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
+        if (user.map(_.id) has UserModel.lichessId) Redirect("/contact").fuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
             val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {

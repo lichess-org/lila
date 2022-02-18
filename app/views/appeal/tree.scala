@@ -46,7 +46,7 @@ object tree {
             "This channel of communication is for appealing moderation related issues.",
             br,
             "Please use ",
-            a(href := routes.Main.contact)("the contact page"),
+            a(href := "/contact")("the contact page"),
             " or ",
             a(href := "https://discord.gg/lichess")("our Discord server"),
             " to contact us about other issues.",
