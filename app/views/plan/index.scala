@@ -309,7 +309,7 @@ ${payPalFormSingle(pricing, "newchess.fun lifetime")}
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact, targetBlank)(contactSupport()))
+          changeOrContact(a(href := "/contact", targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
