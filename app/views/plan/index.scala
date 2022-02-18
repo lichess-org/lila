@@ -38,7 +38,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${"/patron".url}",
+          url = s"$netBaseUrl/patron",
           description = freeChess.txt()
         )
         .some,
