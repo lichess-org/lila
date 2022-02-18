@@ -32,7 +32,7 @@ object faq {
         h2("NewChess"),
         question(
           "name",
-          whyIsNewChessCalledLichess.txt(),
+          whyIsLichessCalledLichess.txt(),
           p(
             lichessCombinationLiveLightLibrePronounced(em(leechess())),
             " ",
@@ -54,7 +54,7 @@ object faq {
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
             findMoreAndSeeHowHelp(
-              a(href := routes.Plan.index)(beingAPatron()),
+              a(href := "/patron")(beingAPatron()),
               a(href := routes.Main.costs)(breakdownOfOurCosts()),
               a(href := routes.Page.help)(otherWaysToHelp())
             )
