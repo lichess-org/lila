@@ -38,7 +38,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index.url}",
+          url = s"$netBaseUrl${"/patron".url}",
           description = freeChess.txt()
         )
         .some,
@@ -214,7 +214,7 @@ ${payPalFormSingle(pricing, "newchess.fun lifetime")}
                       else
                         a(
                           cls := "button",
-                          href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                          href := s"${routes.Auth.login}?referrer=${"/patron"}"
                         )("Log in to donate")
                     ),
                     ctx.isAuth option div(cls := "other-choices")(
@@ -224,7 +224,7 @@ ${payPalFormSingle(pricing, "newchess.fun lifetime")}
                         a(cls := "stripe")("Apple Pay")
                       )
                     ),
-                    form(cls := "currency none", action := routes.Plan.index)(
+                    form(cls := "currency none", action := "/patron")(
                       select(name := "currency")(
                         lila.plan.CurrencyApi.currencyList.map { cur =>
                           option(

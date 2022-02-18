@@ -34,7 +34,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx.me.fold(indexAnon) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser => Redirect(routes.Plan.index).fuccess
+          case ReloadUser => Redirect("/patron").fuccess
           case Synced(Some(patron), None) =>
             env.user.repo email me.id flatMap { email =>
               renderIndex(email, patron.some)
@@ -47,12 +47,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def list =
     Open { implicit ctx =>
-      ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
+      ctx.me.fold(Redirect("/patron").fuccess) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
           case ReloadUser         => Redirect(routes.Plan.list).fuccess
           case Synced(Some(_), _) => indexFreeUser(me)
-          case _                  => Redirect(routes.Plan.index).fuccess
+          case _                  => Redirect("/patron").fuccess
         }
       }
     }
@@ -127,13 +127,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           .fold(
             _ => funit,
             data => env.plan.api.switch(me, data.money)
-          ) inject Redirect(routes.Plan.index)
+          ) inject Redirect("/patron")
       }
     }
 
   def cancel =
     AuthBody { _ => me =>
-      env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
+      env.plan.api.cancel(me) inject Redirect("/patron")
     }
 
   def thanks =
@@ -173,7 +173,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             customerId,
             checkout,
             NextUrls(
-              cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+              cancel = s"${env.net.baseUrl}${"/patron"}",
               success = s"${env.net.baseUrl}${routes.Plan.thanks}"
             ),
             giftTo = giftTo,
@@ -241,7 +241,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               .createPaymentUpdateSession(
                 sub,
                 NextUrls(
-                  cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+                  cancel = s"${env.net.baseUrl}${"/patron"}",
                   success =
                     s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
                 )
@@ -258,7 +258,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       get("session") ?? { session =>
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
+            env.plan.api.updatePaymentMethod(sub, session) inject Redirect("/patron")
           }
         }
       }

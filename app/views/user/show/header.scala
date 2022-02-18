@@ -24,7 +24,7 @@ object header {
       div(cls := "box__top user-show__header")(
         if (u.isPatron)
           h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
-            a(href := routes.Plan.index)(patronIcon),
+            a(href := "/patron")(patronIcon),
             userSpan(u, withPowerTip = false, withOnline = false)
           )
         else
@@ -39,7 +39,7 @@ object header {
           otherTrophies(info),
           u.plan.active option
             a(
-              href := routes.Plan.index,
+              href := "/patron",
               cls := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)

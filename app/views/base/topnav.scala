@@ -81,7 +81,7 @@ object topnav {
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.noKid option a(href := routes.Ublog.community("all"))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.me.exists(!_.kid) option a(href := "/patron")(trans.patron.donate())
         )
       ),
       st.section(

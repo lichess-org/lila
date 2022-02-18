@@ -53,7 +53,7 @@ object show {
                   )
               } else p("This is a preview."),
 //              views.html.base.bits.connectLinks,
-              p(cls := "patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+              p(cls := "patron-info")(a(href := "/patron")(trans.lichessPatronInfo()))
             )
         )
       )

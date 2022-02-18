@@ -114,11 +114,11 @@ object timeline {
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
-          a(href := routes.Plan.index)(
+          a(href := "/patron")(
             trans.patron.xBecamePatron(userLink(userId))
           )
         case PlanRenew(userId, months) =>
-          a(href := routes.Plan.index)(
+          a(href := "/patron")(
             trans.patron.xIsPatronForNbMonths
               .plural(months, userLink(userId), months)
           )

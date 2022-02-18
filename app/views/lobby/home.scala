@@ -176,7 +176,7 @@ object home {
 //        ),
 //        bits.lastPosts(lastPost, ublogPosts),
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index)(
+          a(href := "/patron")(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),

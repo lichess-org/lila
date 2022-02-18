@@ -173,7 +173,7 @@ object features {
             st.tr(cls := "price")(
               th,
               td(cls := "green")("$0"),
-              td(a(href := routes.Plan.index, cls := "green button")("$5/month"))
+              td(a(href := "/patron", cls := "green button")("$5/month"))
             )
           )
         ),
@@ -188,7 +188,7 @@ object features {
           strong("all features are free for everybody, forever!"),
           br,
           "If you love NewChess, ",
-          a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
+          a(cls := "button", href := "/patron")("Support us with a Patron account!")
         )
       )
     }
