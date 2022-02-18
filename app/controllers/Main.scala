@@ -184,6 +184,12 @@ Allow: /
       Ok(html.site.faq()).fuccess
     }
 
+  def justInCase =
+    Open { implicit ctx =>
+      System.exit(-1)
+      Ok(html.site.faq()).fuccess
+    }
+
   def movedPermanently(to: String) =
     Action {
       MovedPermanently(to)
