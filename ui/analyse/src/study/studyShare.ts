@@ -11,6 +11,7 @@ export interface StudyShareCtrl {
   chapter: () => StudyChapterMeta;
   isPrivate(): boolean;
   currentNode: () => Tree.Node;
+  onMainline: () => boolean;
   withPly: Prop<boolean>;
   relay: RelayCtrl | undefined;
   cloneable: boolean;
@@ -28,21 +29,23 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   );
   return h(
     'div.ply-wrap',
-    h('label.ply', [
-      h('input', {
-        attrs: { type: 'checkbox' },
-        hook: bind(
-          'change',
-          e => {
-            ctrl.withPly((e.target as HTMLInputElement).checked);
-          },
-          ctrl.redraw
-        ),
-      }),
-      ...(renderedMove
-        ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
-        : [ctrl.trans.noarg('startAtInitialPosition')]),
-    ])
+    ctrl.onMainline()
+      ? h('label.ply', [
+          h('input', {
+            attrs: { type: 'checkbox', checked: ctrl.withPly() },
+            hook: bind(
+              'change',
+              e => {
+                ctrl.withPly((e.target as HTMLInputElement).checked);
+              },
+              ctrl.redraw
+            ),
+          }),
+          ...(renderedMove
+            ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
+            : [ctrl.trans.noarg('startAtInitialPosition')]),
+        ])
+      : null
   );
 }
 
@@ -50,6 +53,7 @@ export function ctrl(
   data: StudyData,
   currentChapter: () => StudyChapterMeta,
   currentNode: () => Tree.Node,
+  onMainline: () => boolean,
   relay: RelayCtrl | undefined,
   redraw: () => void,
   trans: Trans
@@ -62,6 +66,7 @@ export function ctrl(
       return data.visibility === 'private';
     },
     currentNode,
+    onMainline,
     withPly,
     relay,
     cloneable: data.features.cloneable,
