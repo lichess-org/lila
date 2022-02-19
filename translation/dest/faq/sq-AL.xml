@@ -52,6 +52,13 @@ Në rastet e rralla kjo mund të jetë e vështirë të vendoset automatikisht (
 Kini parasysh se është e mundur të jepet mat me një kalë ose oficer të vetëm, nëse kundërshtari ka një gur që mund të bllokonte mbretin.</string>
   <string name="fideHandbookX">Doracaku FIDE %s</string>
   <string name="discoveringEnPassant">Pse mundet një ushtar të hajë një ushtar tjetër, kur është bërë tashmë prerja? (me prerje)</string>
+  <string name="explainingEnPassant">Kjo është një lëvizje e ligjshme, e njohur si “me prerje”. Artikulli i Wikipedia-s jep një %1$s.
+
+Përshkruhet në ndarjen 3.7 (d) të %2$s:
+
+“Një ushtar në një kuadrat të të njëjtit rang dhe ngjitur \"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
+
+See the %3$s on this move for some practice with it.</string>
   <string name="goodIntroduction">hyrje të mirë</string>
   <string name="lichessTraining">Trajnim Lichess</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
@@ -88,6 +95,7 @@ Mos e kërkoni titullin LM.</string>
   <string name="uniqueTrophies">Trofe unike</string>
   <string name="ownerUniqueTrophies">Kjo trofe është unike në historinë e Lichess-it, s’do ta ketë kurrë tjetër veç %1$s.</string>
   <string name="wayOfBerserkExplanation">Për ta fituar, hiimgosu sfidoi veten me “berserk” dhe që të fitojë krejt lojërat e %s.</string>
+  <string name="aHourlyBulletTournament">një turneu Plumb njëorësh</string>
   <string name="goldenZeeExplanation">ZugAddict po transmetonte dhe për 2 orët e fundit u rrek të mposhte nivelin 8 të A.I.-së në një lojë 1+0, pa sukses. Thibault-i i tha se nëse ia dilte me sukses, në transmetim, do të merrte një trofe unike. Një orë më vonë, dërrmoi Stockfish-in dhe premtimi u mbajt.</string>
   <string name="lichessRatings">Vlerësim në Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Çfarë sistemi vlerësimi përdor Lichess-i?</string>
