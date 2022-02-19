@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Връщане на ход (с одобрение на противника)</string>
   <string name="inCasualGamesOnly">Само в приятелски игри</string>
   <string name="promoteToQueenAutomatically">Автоматично изкарване на царица</string>
+  <string name="explainPromoteToQueenAutomatically">Задръжте клавиша &lt;ctrl&gt; по време на произвеждане за да изключите временно авто-произвеждането</string>
   <string name="whenPremoving">Когато е направен предварителен ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когато остават по-малко от 30 секунди</string>
