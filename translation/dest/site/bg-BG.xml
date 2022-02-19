@@ -804,7 +804,7 @@
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
   <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
-  <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
+  <string name="correspondenceDesc">Кореспондентски игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Вашият въпрос може вече да има отговор %1$s</string>
