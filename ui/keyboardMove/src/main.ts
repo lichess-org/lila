@@ -49,12 +49,12 @@ export interface RootController {
   chessground: CgApi;
   clock?: ClockController;
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
-  data: RootData; // to declare
-  offerDraw: (v: boolean, immediately?: boolean) => void;
+  data: RootData;
+  offerDraw?: (v: boolean, immediately?: boolean) => void;
   ply: Ply;
-  resign: (v: boolean, immediately?: boolean) => void;
+  resign?: (v: boolean, immediately?: boolean) => void;
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => void;
-  sendNewPiece: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
+  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove: (v: boolean) => void;
   userJump: (ply: Ply) => void;
 }
@@ -82,8 +82,10 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
       const role = sanToRole[piece];
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
+      // Crazyhouse not set up properly
+      if (!root.crazyValid || !root.sendNewPiece) return;
       // Square occupied
-      if (!role || !crazyData || !root.crazyValid || cgState.pieces.has(key)) return;
+      if (!role || !crazyData || cgState.pieces.has(key)) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!root.crazyValid(role, key)) return;
@@ -133,8 +135,8 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
       return performance.now() - lastSelect < 500;
     },
     clock: () => root.clock,
-    draw: () => root.offerDraw(true, true),
-    resign: root.resign,
+    draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
+    resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
   };
 }
 
