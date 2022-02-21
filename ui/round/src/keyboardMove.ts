@@ -24,6 +24,7 @@ export interface KeyboardMove {
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
+  draw(): void;
   resign(v: boolean, immediately?: boolean): void;
 }
 
@@ -106,6 +107,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       return performance.now() - lastSelect < 500;
     },
     clock: () => root.clock,
+    draw: () => root.offerDraw(true, true),
     resign: root.resign,
   };
 }
