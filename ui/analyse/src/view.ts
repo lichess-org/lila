@@ -45,6 +45,7 @@ import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
 import spinner from 'common/spinner';
+import shouldScroll from 'common/wheel';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -125,8 +126,10 @@ function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
   const target = e.target as HTMLElement;
   if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();
-  if (e.deltaY > 0) control.next(ctrl);
-  else if (e.deltaY < 0) control.prev(ctrl);
+  if (shouldScroll(e, 120)) {
+    if (e.deltaY > 0) control.next(ctrl);
+    else if (e.deltaY < 0) control.prev(ctrl);
+  }
   ctrl.redraw();
   return false;
 }

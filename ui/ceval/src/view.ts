@@ -1,4 +1,5 @@
 import * as winningChances from './winningChances';
+import shouldScroll from 'common/wheel';
 import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
@@ -341,9 +342,10 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           el.addEventListener('wheel', (e: WheelEvent) => {
             e.preventDefault();
             if (pvIndex != null && pvMoves != null) {
-              if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
-              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
-
+              if (shouldScroll(e, 120)) {
+                if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
+              }
               const pvBoard = pvMoves[pvIndex];
               if (pvBoard) {
                 const [fen, uci] = pvBoard.split('|');

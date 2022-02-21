@@ -2,6 +2,7 @@ import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
+import shouldScroll from 'common/wheel';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { read as readFen } from 'chessground/fen';
@@ -13,8 +14,10 @@ import { renderMaterialDiffs } from 'game/view/material';
 function wheel(ctrl: RoundController, e: WheelEvent): void {
   if (!ctrl.isPlaying()) {
     e.preventDefault();
-    if (e.deltaY > 0) keyboard.next(ctrl);
-    else if (e.deltaY < 0) keyboard.prev(ctrl);
+    if (shouldScroll(e, 120)) {
+      if (e.deltaY > 0) keyboard.next(ctrl);
+      else if (e.deltaY < 0) keyboard.prev(ctrl);
+    }
     ctrl.redraw();
   }
 }
