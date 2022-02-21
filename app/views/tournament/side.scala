@@ -1,8 +1,8 @@
 package views
 package html.tournament
 
+import chess.variant.{ FromPosition, Standard }
 import controllers.routes
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -56,6 +56,12 @@ object side {
                 userIdLink(owner.value.some)
               )
             }
+          )
+        },
+        variantTeamLinks.get(tour.variant) map { case (team, link) =>
+          st.section(
+            if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
+            else trans.team.joinLichessVariantTeam(link)
           )
         },
         tour.description map { d =>

@@ -92,7 +92,7 @@ object topic {
         )
         .some
     ) {
-      val teamOnly = categ.team.filterNot(myTeam)
+      val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
