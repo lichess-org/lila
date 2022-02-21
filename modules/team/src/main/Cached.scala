@@ -30,7 +30,7 @@ final class Cached(
 
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 65536,
+    initialCapacity = 131072,
     compute = u =>
       memberRepo.coll
         .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { framework =>
@@ -69,7 +69,7 @@ final class Cached(
         },
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    expireAfter = Syncache.ExpireAfterWrite(40 minutes)
   )
 
   def syncTeamIds                  = teamIdsCache sync _
@@ -79,8 +79,8 @@ final class Cached(
   def invalidateTeamIds = teamIdsCache invalidate _
 
   val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
-    _.expireAfterAccess(25 minutes)
-      .maximumSize(65536)
+    _.expireAfterAccess(40 minutes)
+      .maximumSize(131072)
       .buildAsyncFuture[User.ID, Int] { userId =>
         teamIds(userId) flatMap { ids =>
           ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
