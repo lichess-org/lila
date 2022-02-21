@@ -50,6 +50,7 @@
     "ui/dasher",
     "ui/editor",
     "ui/game",
+    "ui/keyboardMove",
     "ui/nvui",
     "ui/speech",
     "ui/palantir",
