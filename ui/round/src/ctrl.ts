@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -495,6 +495,8 @@ export default class RoundController {
     speech.step(step);
     return true; // prevents default socket pubsub
   };
+
+  crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
