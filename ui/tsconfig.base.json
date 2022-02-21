@@ -11,6 +11,7 @@
     "target": "ES2018",
     "module": "esnext",
     "lib": ["ES2018"],
+    "esModuleInterop": true,
     "types": ["lichess", "web"]
   }
 }

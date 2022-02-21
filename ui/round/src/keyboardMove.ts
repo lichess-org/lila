@@ -89,6 +89,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.chessground.cancelMove();
       select(orig);
       select(dest);
+      // ensure chessground does not leave the destination square selected
+      root.chessground.cancelMove();
     },
     select,
     hasSelected: () => cgState.selected,

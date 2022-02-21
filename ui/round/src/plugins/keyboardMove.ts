@@ -5,7 +5,8 @@ import { KeyboardMove } from '../keyboardMove';
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
-const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
+const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
+const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 
 interface Opts {
@@ -19,7 +20,7 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-lichess.keyboardMove = function (opts: Opts) {
+export const keyboardMove = (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -31,6 +32,7 @@ lichess.keyboardMove = function (opts: Opts) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
+    const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
       if (v.toLowerCase() === 'resign') {
         opts.ctrl.resign(true, true);
@@ -39,19 +41,30 @@ lichess.keyboardMove = function (opts: Opts) {
     } else if (legalSans && foundUci) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
+      // ambiguous promotion
+      if (isKey(v) && (selectedKey + v).match(ambiguousPromotionRegex) && !submitOpts.force) return;
       // ambiguous UCI
-      if (isKey(v) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
-      // ambiguous promotion (also check legalSans[v] here because bc8 could mean Bc8)
+      if (isKey(v) && selectedKey) opts.ctrl.select(v);
+      // ambiguous capture+promotion (also check legalSans[v] here because bc8 could mean Bc8)
       if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
       else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
       clear();
+    } else if (
+      legalSans &&
+      selectedKey &&
+      (selectedKey + v).match(ambiguousPromotionCaptureRegex) &&
+      legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)] &&
+      !submitOpts.force
+    ) {
+      // ambiguous capture+promotion when a promotable pawn is selected; do nothing
     } else if (legalSans && isKey(v)) {
       opts.ctrl.select(v);
       clear();
     } else if (legalSans && v.match(fileRegex)) {
       // do nothing
-    } else if (legalSans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), legalSans);
+    } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
+      const promotionSan = selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
+      const foundUci = sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
@@ -175,3 +188,4 @@ function readClocks(clockCtrl: any | undefined) {
 function simplePlural(nb: number, word: string) {
   return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }
+lichess.keyboardMove = keyboardMove;

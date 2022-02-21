@@ -77,7 +77,7 @@ final private[team] class TeamForm(
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(RequestSetup.unapply)
   ) fill RequestSetup(
-    message = "Hello, I would like to join the team!".some,
+    message = Request.defaultMessage.some,
     password = None
   )
 
