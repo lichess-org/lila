@@ -58,12 +58,11 @@ object side {
             }
           )
         },
-        tour.variant match {
-          case Standard | FromPosition => br
-          case _ =>
-            st.section(
-              trans.team.joinLichessVariantTeam(variantTeamLink(tour.variant.name), tour.variant.name)
-            )
+        variantTeamLinks.get(tour.variant) map { case (team, link) =>
+          st.section(
+            if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
+            else trans.team.joinLichessVariantTeam(link)
+          )
         },
         tour.description map { d =>
           st.section(cls := "description")(markdownLinksOrRichText(d))

@@ -1,4 +1,5 @@
 package lila.app
+
 package templating
 
 import scalatags.Text.all.Tag
@@ -9,16 +10,13 @@ import lila.team.Team.nameToId
 
 trait TeamHelper { self: HasEnv =>
 
-  def myTeam(teamId: String)(implicit ctx: Context): Boolean =
+  def isMyTeamSync(teamId: String)(implicit ctx: Context): Boolean =
     ctx.userId.?? { env.team.api.syncBelongsTo(teamId, _) }
 
   def teamIdToName(id: String): String = env.team.getTeamName(id).getOrElse(id)
 
   def teamLink(id: String, withIcon: Boolean = true): Tag =
     teamLink(id, teamIdToName(id), withIcon)
-
-  def variantTeamLink(name: String, withIcon: Boolean = true): Tag =
-    teamLink(nameToId(s"Lichess ${name}"), s"Lichess $name", withIcon)
 
   def teamLink(id: String, name: Frag, withIcon: Boolean): Tag =
     a(
@@ -28,4 +26,9 @@ trait TeamHelper { self: HasEnv =>
     )(name)
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
+
+  lazy val variantTeamLinks: Map[chess.variant.Variant, (lila.team.Team.Mini, Frag)] =
+    lila.team.Team.variants.view.mapValues { team =>
+      (team, teamLink(team.id, team.name, true))
+    }.toMap
 }
