@@ -54,7 +54,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,
@@ -80,12 +80,12 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         } map Forsyth.>>
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("normal") | None                   => Status.Resign
+          case Some("normal")                          => Status.Resign
           case Some("abandoned")                       => Status.Aborted
           case Some("time forfeit")                    => Status.Outoftime
           case Some("rules infraction")                => Status.Cheat
           case Some(txt) if txt contains "won on time" => Status.Outoftime
-          case Some(_)                                 => Status.UnknownFinish
+          case _                                       => Status.UnknownFinish
         }
 
         val date = parsed.tags.anyDate
@@ -129,5 +129,5 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
     }
-  }
+  )
 }
