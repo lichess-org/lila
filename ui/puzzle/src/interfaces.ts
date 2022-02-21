@@ -131,6 +131,7 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
+  keyboardMove: boolean;
 }
 
 export interface Theme {
