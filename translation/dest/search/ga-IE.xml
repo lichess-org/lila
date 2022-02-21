@@ -35,4 +35,6 @@
   <string name="maxNumber">Líon uasta</string>
   <string name="maxNumberExplanation">An líon uasta cluichí le filleadh</string>
   <string name="include">Iniaigh</string>
+  <string name="descending">Íslitheach</string>
+  <string name="ascending">Ardaitheach</string>
 </resources>
