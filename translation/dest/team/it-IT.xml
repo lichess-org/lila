@@ -53,4 +53,5 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="upcomingTourns">Prossimi tornei</string>
   <string name="completedTourns">Tornei completati</string>
   <string name="declinedRequests">Richieste Rifiutate</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Unisciti al gruppo ufficiale %s per essere al corrente delle notizie ed eventi</string>
 </resources>
