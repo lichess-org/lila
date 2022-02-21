@@ -37,4 +37,12 @@
   <string name="include">Iniaigh</string>
   <string name="descending">Íslitheach</string>
   <string name="ascending">Ardaitheach</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Aimsíodh %s cluiche</item>
+    <item quantity="two">Aimsíodh %s chluiche</item>
+    <item quantity="few">Aimsíodh %s gcluiche</item>
+    <item quantity="many">Aimsíodh %s gcluiche</item>
+    <item quantity="other">Aimsíodh %s cluiche</item>
+  </plurals>
+  <string name="ratingExplanation">An meán-rátáil an beirt fhicheallaí</string>
 </resources>
