@@ -1,6 +1,6 @@
-import { Dests } from '../interfaces';
+import { Dests } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
-import { KeyboardMove } from '../keyboardMove';
+import { KeyboardMove } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
