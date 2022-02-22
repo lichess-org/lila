@@ -266,12 +266,12 @@
     <item quantity="other">%s վարկանիշային</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s հաղթեց</item>
-    <item quantity="other">%s հաղթանակներ</item>
+    <item quantity="one">%s հաղթանակ</item>
+    <item quantity="other">%s հաղթանակ</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s պարտվեց</item>
-    <item quantity="other">%s պարտություններ</item>
+    <item quantity="one">%s պարտություն</item>
+    <item quantity="other">%s պարտություն</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s ոչ-ոքի</item>
