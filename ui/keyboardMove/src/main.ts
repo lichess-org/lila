@@ -141,7 +141,9 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
   };
 }
 
-export function render(ctrl: KeyboardMove) {
+export function render(ctrl: KeyboardMove, includeChatShortcut = false) {
+  let focusText = 'Enter SAN (Nc3) or UCI (b1c3) moves';
+  if (includeChatShortcut) focusText += ', or type / to focus chat';
   return h('div.keyboard-move', [
     h('input', {
       attrs: {
@@ -154,7 +156,6 @@ export function render(ctrl: KeyboardMove) {
           .then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
       ),
     }),
-    ctrl.hasFocus() ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves') : h('strong', 'Press <enter> to focus'),
+    ctrl.hasFocus() ? h('em', focusText) : h('strong', 'Press <enter> to focus'),
   ]);
 }
-// TODO do something about having deleted the chat help message
