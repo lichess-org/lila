@@ -1,4 +1,5 @@
 import PuzzleSession from './session';
+import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
@@ -10,6 +11,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
+import { KeyboardMove } from 'keyboardMove';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -52,9 +54,11 @@ export interface Controller extends KeyboardController {
   getNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
-  getData(): PuzzleData;
+  data: PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
+  chessground: CgApi;
+  setChessground(cg: CgApi): void;
   makeCgOpts(): CgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
@@ -71,6 +75,8 @@ export interface Controller extends KeyboardController {
   session: PuzzleSession;
   allThemes?: AllThemes;
   showRatings: boolean;
+  keyboardMove?: KeyboardMove;
+  sendMove(orig: Key, dest: Key, prom: cg.Role): void;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -148,6 +154,7 @@ export interface PuzzleData {
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
   streak?: string;
+  player: { color: Color };
 }
 
 export interface PuzzleReplay {

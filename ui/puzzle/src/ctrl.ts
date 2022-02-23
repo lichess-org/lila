@@ -13,6 +13,7 @@ import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -70,6 +71,18 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   }
 
+  let keyboardMove: KeyboardMove | undefined;
+
+  function setChessground(this: Controller, cg: CgApi): void {
+    ground(cg);
+    this.chessground = cg;
+    if (opts.pref.keyboardMove) {
+      keyboardMove = makeKeyboardMove(this, { fen: this.vm.node.fen }, this.redraw);
+      this.keyboardMove = keyboardMove;
+      requestAnimationFrame(() => this.redraw());
+    }
+  }
+
   function withGround<A>(f: (cg: CgApi) => A): A | undefined {
     const g = ground();
     return g && f(g);
@@ -88,6 +101,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    data.player = { color: vm.pov };
 
     setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
@@ -159,6 +173,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    keyboardMove?.update({ fen: vm.node.fen });
   }
 
   function playUci(uci: Uci): void {
@@ -410,6 +425,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    keyboardMove?.update({ fen: vm.node.fen });
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -520,14 +536,16 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   return {
     vm,
-    getData() {
-      return data;
-    },
+    data: opts.data,
     getTree() {
       return tree;
     },
+    setChessground,
+    chessground: ground(),
     ground,
     makeCgOpts,
+    keyboardMove,
+    sendMove: playUserMove,
     userJump,
     viewSolution,
     nextPuzzle,
