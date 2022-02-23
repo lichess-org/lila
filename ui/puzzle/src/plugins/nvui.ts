@@ -53,7 +53,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(
-        `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+        `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
         h('div.nvui', [
           h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
           h('h2', 'Puzzle info'),
@@ -186,7 +186,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
+          ...(!ctrl.data.replay && !ctrl.streak && ctrl.difficulty
             ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
             : []),
           h('h2', 'Keyboard shortcuts'),
@@ -361,10 +361,10 @@ function renderStatus(ctrl: Controller): string {
 }
 
 function renderReplay(ctrl: Controller): string {
-  const replay = ctrl.getData().replay;
+  const replay = ctrl.data.replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.vm.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles: ${i} of ${replay.of}`;
+  return `Replaying ${ctrl.trans.noarg(ctrl.data.theme.key)} puzzles: ${i} of ${replay.of}`;
 }
 
 function playActions(ctrl: Controller): VNode {
@@ -389,12 +389,12 @@ function afterActions(ctrl: Controller): VNode {
 }
 
 const renderVoteTutorial = (ctrl: Controller): VNode[] =>
-  ctrl.session.isNew() && ctrl.getData().user?.provisional
+  ctrl.session.isNew() && ctrl.data.user?.provisional
     ? [h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')), h('p', ctrl.trans.noarg('voteToLoadNextOne'))]
     : [];
 
 function renderVote(ctrl: Controller): VNode[] {
-  if (!ctrl.getData().user || ctrl.autoNexting()) return [];
+  if (!ctrl.data.user || ctrl.autoNexting()) return [];
   return [
     ...renderVoteTutorial(ctrl),
     button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.vm.voteDisabled),

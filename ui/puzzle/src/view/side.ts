@@ -5,7 +5,7 @@ import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
-  const data = ctrl.getData();
+  const data = ctrl.data;
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
 }
 
@@ -117,7 +117,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
   );
 
 export const userBox = (ctrl: Controller): VNode => {
-  const data = ctrl.getData(),
+  const data = ctrl.data,
     noarg = ctrl.trans.noarg;
   if (!data.user)
     return h('div.puzzle__side__user', [
@@ -172,7 +172,7 @@ const difficulties: [PuzzleDifficulty, number][] = [
 ];
 
 export function replay(ctrl: Controller): MaybeVNode {
-  const replay = ctrl.getData().replay;
+  const replay = ctrl.data.replay;
   if (!replay) return;
   const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
   return h('div.puzzle__side__replay', [
@@ -183,7 +183,7 @@ export function replay(ctrl: Controller): MaybeVNode {
           href: `/training/dashboard/${replay.days}`,
         },
       },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]
+      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.data.theme.key)} puzzles`]
     ),
     h('div.puzzle__side__replay__bar', {
       attrs: {
@@ -197,7 +197,7 @@ export function replay(ctrl: Controller): MaybeVNode {
 export function config(ctrl: Controller): MaybeVNode {
   const autoNextId = 'puzzle-toggle-autonext',
     noarg = ctrl.trans.noarg,
-    data = ctrl.getData();
+    data = ctrl.data;
   return h('div.puzzle__side__config', [
     h('div.puzzle__side__config__toggle', [
       h('div.switch', [
@@ -252,7 +252,7 @@ export function renderDifficultyForm(ctrl: Controller): VNode {
     'form.puzzle__side__config__difficulty',
     {
       attrs: {
-        action: `/training/difficulty/${ctrl.getData().theme.key}`,
+        action: `/training/difficulty/${ctrl.data.theme.key}`,
         method: 'post',
       },
     },

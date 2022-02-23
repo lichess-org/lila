@@ -8,7 +8,7 @@ const renderVote = (ctrl: Controller): VNode =>
     ctrl.autoNexting()
       ? []
       : [
-          ctrl.session.isNew() && ctrl.getData().user?.provisional
+          ctrl.session.isNew() && ctrl.data.user?.provisional
             ? h('div.puzzle__vote__help', [
                 h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
                 h('p', ctrl.trans.noarg('voteToLoadNextOne')),
@@ -57,7 +57,7 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
 ];
 
 export default function (ctrl: Controller): VNode {
-  const data = ctrl.getData();
+  const data = ctrl.data;
   const win = ctrl.vm.lastFeedback == 'win';
   return h(
     'div.puzzle__feedback.after',
