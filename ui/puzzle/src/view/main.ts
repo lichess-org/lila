@@ -130,6 +130,7 @@ export default function (ctrl: Controller): VNode {
         feedbackView(ctrl),
       ]),
       controls(ctrl),
+      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
     ]
   );
@@ -182,6 +183,5 @@ function session(ctrl: Controller) {
           },
           ctrl.streak?.data.index
         ),
-    ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
   ]);
 }
