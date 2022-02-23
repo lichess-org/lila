@@ -42,7 +42,7 @@ interface CrazyPocket {
 }
 export interface RootData {
   crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
-  game: { variant: Variant };
+  game?: { variant: Variant } | unknown;
   player: { color: Color };
 }
 export interface RootController {
@@ -51,12 +51,11 @@ export interface RootController {
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
   data: RootData;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
-  ply: Ply;
   resign?: (v: boolean, immediately?: boolean) => void;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => void;
+  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
-  submitMove: (v: boolean) => void;
-  userJump: (ply: Ply) => void;
+  submitMove?: (v: boolean) => void;
+  userJumpPlyCount?: (plyCount: Ply) => void;
 }
 interface Step {
   fen: string;
@@ -95,7 +94,8 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
     },
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
-      if (!role || role == 'pawn' || (role == 'king' && root.data.game.variant.key !== 'antichess')) return;
+      const variant: VariantKey = (root.data.game as any).variant?.key || 'standard';
+      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
       root.chessground.cancelMove();
       promote(root.chessground, dest, role);
       root.sendMove(orig, dest, role, { premove: false });
@@ -123,12 +123,10 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
     },
     select,
     hasSelected: () => cgState.selected,
-    confirmMove() {
-      root.submitMove(true);
-    },
+    confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
-    jump(delta: number) {
-      root.userJump(root.ply + delta);
+    jump(plyCount: number) {
+      root.userJumpPlyCount && root.userJumpPlyCount(plyCount);
       redraw();
     },
     justSelected() {
@@ -153,8 +151,7 @@ export function render(ctrl: KeyboardMove) {
           .then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
       ),
     }),
-    ctrl.hasFocus()
-      ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat')
-      : h('strong', 'Press <enter> to focus'),
+    ctrl.hasFocus() ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves') : h('strong', 'Press <enter> to focus'),
   ]);
 }
+// TODO do something about having deleted the chat help message
