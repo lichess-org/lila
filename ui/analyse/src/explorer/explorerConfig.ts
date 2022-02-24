@@ -51,7 +51,7 @@ export class ExplorerConfigCtrl {
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     this.myName = document.body.dataset['user'];
-    this.participants = [root.data.player.user?.id, root.data.opponent.user?.id].filter(
+    this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name != this.myName
     );
     if (variant === 'standard') this.allDbs.unshift('masters');
