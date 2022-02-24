@@ -206,6 +206,7 @@
   <string name="rightOn">Чудесно!</string>
   <string name="stageXComplete">Етап %s завършен</string>
   <string name="next">Следващ</string>
+  <string name="nextX">Следва: %s</string>
   <string name="backToMenu">Обратно към менюто</string>
   <string name="puzzleFailed">Неуспешно!</string>
   <string name="retry">Опитай отново</string>

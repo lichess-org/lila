@@ -16,4 +16,5 @@
   <string name="entryCode">အသင်းသို့ ဝင်ရန် စကားဝှက်။</string>
   <string name="incorrectEntryCode">စကားဝှက် မမှန်ပါ။</string>
   <string name="declinedRequests">ငြင်းပယ်ထားသော တောင်းဆိုမှုများ</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">သတင်းနှင့် ပွဲများ အတွက် lichess ရဲ့ တရားဝင် %s အသင်းကို ဝင်ပါ</string>
 </resources>

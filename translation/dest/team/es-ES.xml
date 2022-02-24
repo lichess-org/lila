@@ -53,4 +53,5 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="upcomingTourns">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>
   <string name="declinedRequests">Solicitudes rechazadas</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Únete al equipo oficial de %s para noticias y eventos</string>
 </resources>

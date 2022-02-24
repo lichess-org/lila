@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>
   <string name="saveChapter">Tallenna luku</string>
   <string name="clearAnnotations">Poista kommentit</string>
+  <string name="clearVariations">Tyhjennä muunnelmat</string>
   <string name="deleteChapter">Poista luku</string>
   <string name="deleteThisChapter">Poistetaanko tämä luku? Et voi palauttaa sitä enää!</string>
   <string name="clearAllCommentsInThisChapter">Poista kaikki kommentit, symbolit ja piirtokuviot tästä luvusta?</string>

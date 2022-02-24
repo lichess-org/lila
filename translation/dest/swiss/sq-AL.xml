@@ -56,6 +56,8 @@ Mendojmë se këto kushte ka më shumë gjasa të plotësohen brenda një ekipi,
   <string name="numberOfByesQ">Sa mirupafshim mund të marrë një lojtar?</string>
   <string name="whatIfOneDoesntPlayQ">Ç’ndodh nëse një lojtar s’luan një lojë?</string>
   <string name="lateJoinQ">A mund të vijnë vonë lojtarët?</string>
+  <string name="lateJoinA">Po, deri sa të kenë filluar më shumë se gjysma e raundeve; për shembull, në një turne zviceran me 11 lojtarët mund të vijnë para se të fillojë raundi i 6-të ose, në një tur me 12 raunde, para se të nisë raundi i 7-të.
+Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">A do të zëvendësojnë turnetë zvicerane ato arenë?</string>
   <string name="willSwissReplaceArenasA">Jo. Kanë veçori që plotësojnë njëri-tjetrin.</string>
   <string name="roundRobinA">Do të donim ta shtonim, por mjerisht Round Robin s’bëhet dot në internet.
@@ -78,10 +80,12 @@ Gjëja më e afërt e një Round Robin-i në internet është të luhet një tur
   <string name="numberOfGamesPreDefined">I vendosur paraprakisht, i njëjtë për krejt lojtarët</string>
   <string name="pairingSystem">Sistem çiftimi</string>
   <string name="pairingSystemArena">Cilido kundërshtar me klasifikim të ngjashëm</string>
+  <string name="pairingSystemSwiss">Çiftimet më të mira, bazuar në pikë dhe tie breaks</string>
   <string name="pairingWaitTime">Kohë pritjeje çiftimi</string>
   <string name="pairingWaitTimeArena">Shpejt: nuk pritet për krejt lojtarët</string>
   <string name="pairingWaitTimeSwiss">Ngadalë: pritet për krejt lojtarët</string>
   <string name="identicalPairing">Çiftim identik</string>
+  <string name="possibleButNotConsecutive">Fjali të njëpasnjëshme</string>
   <string name="identicalForbidden">E ndaluar</string>
   <string name="lateJoin">Ardhje vonë</string>
   <string name="lateJoinUntil">Po, deri sa të ketë nisur më shumë se gjysma e raundeve</string>

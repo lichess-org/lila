@@ -1,13 +1,15 @@
 {
-  "name": "round",
-  "version": "2.0.0",
+  "name": "keyboardMove",
+  "version": "1.0.0",
   "private": true,
-  "description": "lichess.org round",
+  "description": "lichess.org keyboard move",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "keywords": [
     "chess",
     "lichess",
-    "play",
-    "replay"
+    "keyboard"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
@@ -19,19 +21,13 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "ab": "https://github.com/lichess-org/ab-stub",
-    "chat": "2.0.0",
-    "chess": "2.0.0",
-    "chessground": "^8.2.0",
     "common": "2.0.0",
-    "game": "2.0.0",
-    "keyboardMove": "1.0.0",
-    "nvui": "2.0.0",
     "snabbdom": "^3.3.1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod",
+    "compile": "tsc --incremental --declaration",
+    "dev": "$npm_execpath run compile && rollup --config",
+    "prod": "$npm_execpath run compile && rollup --config --config-prod",
     "plugin-dev": "rollup --config --config-plugin",
     "plugin-prod": "rollup --config --config-prod --config-plugin"
   }

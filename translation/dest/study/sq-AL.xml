@@ -48,9 +48,9 @@
   <string name="annotateWithGlyphs">Shenjoni me karaktere</string>
   <string name="theChapterIsTooShortToBeAnalysed">Ky kapitull është shumë i shkurtë për t’u analizuar.</string>
   <string name="onlyContributorsCanRequestAnalysis">Analizë kompjuterike mund të kërkohet vetëm nga kontribuesit e këtij mësimi.</string>
-  <string name="getAFullComputerAnalysis">Merrni një analizë të plotë kompjuterike të variantit kryesor.</string>
+  <string name="getAFullComputerAnalysis">Merrni nga shërbyesi një analizë të plotë kompjuterike të variantit kryesor.</string>
   <string name="makeSureTheChapterIsComplete">Sigurohuni që kapitulli të jetë i plotë. Mund të kërkoni analizë vetëm një herë.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Të gjithë anëtarët e sinkronizuar mbesin në të njejtën pozitë</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Krejt anëtarët SYNC mbesin në të njëjtin pozicion</string>
   <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në shërbyes</string>
   <string name="playing">Po luhet</string>
   <string name="first">E para</string>
@@ -81,9 +81,10 @@
   <string name="pinnedChapterComment">Koment kapitulli i fiksuar</string>
   <string name="saveChapter">Ruaje kapitullin</string>
   <string name="clearAnnotations">Spastro shënimet</string>
+  <string name="clearVariations">Spastroji variantet</string>
   <string name="deleteChapter">Fshije kapitullin</string>
   <string name="deleteThisChapter">Të fshihet ky kapitull? S’ka kthim mbrapa!</string>
-  <string name="clearAllCommentsInThisChapter">Fshi te gjitha komentet, vizatimet dhe format ne kete kapitull?</string>
+  <string name="clearAllCommentsInThisChapter">Të spastrohen krejt komentet, glifet dhe format e vizatuara në këtë kapitull?</string>
   <string name="rightUnderTheBoard">Mu nën fushë</string>
   <string name="noPinnedComment">Asnjë</string>
   <string name="normalAnalysis">Analizë normale</string>
@@ -137,6 +138,8 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lëvizje e dyshimtë</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Lëvizja e vetme</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">është baras me</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Shenjë gishti e paqartë</string>
   <string name="whiteIsSlightlyBetter">I bardhi është pakëz më mirë</string>
   <string name="blackIsSlightlyBetter">I ziu është pakëz më mirë</string>
   <string name="whiteIsBetter">I bardhi është më mirë</string>
@@ -147,6 +150,7 @@
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Zhvillim</string>
   <string name="initiative">Nismë</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Sulm</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Probleme me këtë instalim?</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Me kompesim</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Me idenë</string>
   <string name="nextChapter">Kapitulli pasues</string>

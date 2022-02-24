@@ -164,8 +164,8 @@ Priteni.</string>
   <string name="enPassantOnlyWorksImmediately">Prerja është e vlefshme vetëm
 menjëherë mbasi kundërshtari
 ka lëvizur ushtarin.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Prerja funksionon vetem nese
-ushtari juaj eshte ne rangun e peste.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Prerja funksionon vetëm nëse
+ushtari juaj është në rangun e pestë.</string>
   <string name="takeAllThePawnsEnPassant">Priji krejt ushtarët!</string>
   <string name="enPassantComplete">Urime! Tani dini të bëni prerje ushtarësh.</string>
   <string name="stalemate">Pat</string>

@@ -65,7 +65,7 @@
   <string name="inLocalBrowser">në shfletues vendor</string>
   <string name="toggleLocalEvaluation">Aktivizoni/Çaktivizoni vlerësim vendor</string>
   <string name="promoteVariation">Promovoni variacion</string>
-  <string name="makeMainLine">Bëni variantin kryesor</string>
+  <string name="makeMainLine">Bëje variantin kryesor</string>
   <string name="deleteFromHere">Fshije nga këtu</string>
   <string name="forceVariation">Detyro variant</string>
   <string name="move">Lëvizje</string>
@@ -345,7 +345,7 @@
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
-  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
+  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PNG</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
@@ -362,8 +362,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikoni mbi fushën për të bërë lëvizjen tuaj dhe të dëshmoni se jeni qenie njerëzore.</string>
   <string name="captcha.fail">Ju lutemi, zgjidhni captcha-n e shahut.</string>
   <string name="notACheckmate">S’është shah-mat</string>
-  <string name="whiteCheckmatesInOneMove">Bardhë bej shahmat në një lëvizje</string>
-  <string name="blackCheckmatesInOneMove">E zezë bej shahmat në një lëvizje</string>
+  <string name="whiteCheckmatesInOneMove">I bardhi në shah-mat me një lëvizje</string>
+  <string name="blackCheckmatesInOneMove">I ziu në shah-mat me një lëvizje</string>
   <string name="retry">Riprovoni</string>
   <string name="reconnecting">Po rilidhet</string>
   <plurals name="nbFriendsOnline">
@@ -600,14 +600,14 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
   <string name="hostColorX">Ngjyra e organizatorit: %s</string>
-  <string name="createdSimuls">Simultanet e krijuara së fundmi</string>
-  <string name="hostANewSimul">Krijo një simultane</string>
-  <string name="noSimulFound">Simultane nuk u gjet</string>
-  <string name="noSimulExplanation">Kjo simultane nuk existon</string>
+  <string name="createdSimuls">Simultane të krijuara së fundi</string>
+  <string name="hostANewSimul">Organizoni një simultane të re</string>
+  <string name="noSimulFound">S’u gjet simultane</string>
+  <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
-  <string name="aboutSimul">Në simultane një lojtar luan kundër disa lojtarëve njëkohësisht.</string>
+  <string name="aboutSimul">Në simultane një lojtar luan njëherësh kundër disa lojtarëve.</string>
   <string name="aboutSimulImage">Nga 50 kundërshtarë, Fisher fitoi 47 lojëra, barazoi 2 dhe humbi 1.</string>
-  <string name="aboutSimulRealLife">Ky thelb është marrë nga ngjarje të vërteta botërore. Në të vërtetë, gjatë një simultaneje pritësi lëviz nga tavolina në tavolinë që të luajë një lëvizje të vetme.</string>
+  <string name="aboutSimulRealLife">Koncepti është marrë nga veprimtari të njëmendta. Në praktikë, kjo përkthehet në kalimin e organizuesit të simultanes nga një tavolinë në tjetrën duke bërë një lëvizje në secilën.</string>
   <string name="aboutSimulRules">Kur fillon simultaneja, çdo lojtar fillon lojën me pritësin, i cili luan me gurët e bardhë. Simultaneja mbaron kur mbarojnë të gjitha lojërat.</string>
   <string name="aboutSimulSettings">Simultanet janë gjithmonë të pavlerësuara. Revansh, marrje mbrapsht dhe \"më shumë kohë\" janë të çaktivizuara.</string>
   <string name="create">Krijoje</string>
@@ -768,7 +768,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="endgame">Fund loje</string>
   <string name="conditionalPremoves">Condizionale lëvizje</string>
   <string name="addCurrentVariation">Shto variantin e tanishëm</string>
-  <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
+  <string name="playVariationToCreateConditionalPremoves">Që të krijohen lëvizje paraprake të kushtëzuara, luani një variant</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
   <string name="playX">Luani %s</string>
   <plurals name="andSaveNbPremoveLines">
@@ -839,6 +839,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="welcome">Mirë se vini!</string>
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
+  <string name="coachManager">Trajner</string>
   <string name="cancelTournament">Anulojeni turneun</string>
   <string name="tournDescription">Përshkrim turneu</string>
   <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>
@@ -853,12 +854,12 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
 Funksionon vetëm për lojëra standarde, jo me variante.
 Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni këtu.
 Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.</string>
-  <string name="cancelSimul">Anuloje simulimin</string>
+  <string name="cancelSimul">Anuloje simultanen</string>
   <string name="simulHostcolor">Ngjyrë organizatori për çdo lojë</string>
   <string name="estimatedStart">Kohë fillimi përafërsisht</string>
   <string name="simulFeatured">Shfaqe në %s</string>
-  <string name="simulFeaturedHelp">Shfaqeni simulimin tuaj për këdo, në %s. Çaktivizojeni për simulime private.</string>
-  <string name="simulDescription">Përshkrim simulimi</string>
+  <string name="simulFeaturedHelp">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
+  <string name="simulDescription">Përshkrim simultaneje</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
   <string name="markdownAvailable">Për sintaksë më të thelluar mund të përdoret %s-i.</string>
   <string name="embedsAvailable">Ngjitni një URL loje ose URL kapitulli mësimi, për ta trupëzuar.</string>

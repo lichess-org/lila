@@ -56,4 +56,5 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="upcomingTourns">Gaidāmie turnīri</string>
   <string name="completedTourns">Notikušie turnīri</string>
   <string name="declinedRequests">Noraidītie pieprasījumi</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Pievienojieties oficiālajai \"%s\" komandai, lai saņemtu jaunumus un informāciju par pasākumiem</string>
 </resources>

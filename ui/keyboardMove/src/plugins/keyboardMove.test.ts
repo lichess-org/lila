@@ -19,6 +19,7 @@ const unexpectedErrorThrower = (name: string) => () => {
 const defaultCtrl = {
   clock: unexpectedErrorThrower('clock'),
   confirmMove: () => null,
+  draw: unexpectedErrorThrower('draw'),
   drop: unexpectedErrorThrower('drop'),
   hasFocus: () => true,
   hasSelected: () => undefined,
@@ -57,6 +58,23 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockResign.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
+
+  test('draws game', () => {
+    input.value = 'draw';
+    const mockDraw = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        draw: mockDraw,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockDraw.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 

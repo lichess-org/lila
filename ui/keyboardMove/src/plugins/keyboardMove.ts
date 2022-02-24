@@ -1,6 +1,6 @@
-import { Dests } from '../interfaces';
+import { Dests } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
-import { KeyboardMove } from '../keyboardMove';
+import { KeyboardMove } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -78,6 +78,11 @@ export const keyboardMove = (opts: Opts) => {
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         readClocks(opts.ctrl.clock());
+        clear();
+      }
+    } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
+      if ('draw' === v.toLowerCase()) {
+        opts.ctrl.draw();
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {

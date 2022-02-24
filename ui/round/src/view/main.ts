@@ -6,7 +6,7 @@ import stepwiseScroll from 'common/wheel';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { read as readFen } from 'chessground/fen';
-import { render as keyboardMove } from '../keyboardMove';
+import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
@@ -54,6 +54,6 @@ export function main(ctrl: RoundController): VNode {
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-        ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
+        ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       ]);
 }

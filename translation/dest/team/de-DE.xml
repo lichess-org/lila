@@ -51,4 +51,5 @@
   <string name="upcomingTourns">Anstehende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>
   <string name="declinedRequests">Abgelehnte Anfragen</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Tritt dem offiziellen %s-Team für Neuigkeiten und Ereignisse bei</string>
 </resources>
