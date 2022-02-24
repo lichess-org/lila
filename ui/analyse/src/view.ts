@@ -428,7 +428,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                       if (e.deltaY > 0 && scroll) control.next(ctrl);
                       else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                       ctrl.redraw();
-                    }, 120)
+                    })
                   ),
           },
           [

@@ -352,7 +352,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   ctrl.getCeval().setPvBoard({ fen, uci });
                 }
               }
-            }, 120)
+            })
           );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {

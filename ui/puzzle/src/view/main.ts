@@ -111,7 +111,7 @@ export default function (ctrl: Controller): VNode {
                     if (e.deltaY > 0 && scroll) control.next(ctrl);
                     else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                     ctrl.redraw();
-                  }, 120)
+                  })
                 ),
         },
         [chessground(ctrl), ctrl.promotion.view()]

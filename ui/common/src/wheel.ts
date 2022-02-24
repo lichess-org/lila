@@ -1,6 +1,6 @@
 export default function stepwiseScroll(
   inner: (e: WheelEvent, scroll: boolean) => void,
-  threshold: number
+  threshold: number = 120
 ): (e: WheelEvent) => void {
   /** Track distance scrolled across multiple wheel events, resetting after 500 ms.  */
   let lastScrollDirection: string;

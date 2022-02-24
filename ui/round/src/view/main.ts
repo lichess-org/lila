@@ -44,7 +44,7 @@ export function main(ctrl: RoundController): VNode {
                         else if (e.deltaY < 0 && scroll) keyboard.prev(ctrl);
                         ctrl.redraw();
                       }
-                    }, 120),
+                    }),
                     undefined,
                     false
                   ),
