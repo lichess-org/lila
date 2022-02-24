@@ -53,7 +53,7 @@ export interface Controller extends KeyboardController {
   getNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
-  data: PuzzleData;
+  getData(): PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
   setChessground(cg: CgApi): void;

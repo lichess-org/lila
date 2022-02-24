@@ -545,7 +545,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   return {
     vm,
-    data: opts.data,
+    getData() {
+      return data;
+    },
     getTree() {
       return tree;
     },

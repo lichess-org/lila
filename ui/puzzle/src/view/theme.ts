@@ -5,9 +5,10 @@ import { h, VNode } from 'snabbdom';
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
-  const t = ctrl.data.theme;
+  const data = ctrl.getData(),
+    t = data.theme;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
-  if (ctrl.data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak
     ? null
     : h('div.puzzle__side__theme', [
@@ -34,7 +35,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 
 const editor = (ctrl: Controller): VNode[] => {
-  const data = ctrl.data,
+  const data = ctrl.getData(),
     trans = ctrl.trans.noarg,
     votedThemes = ctrl.vm.round?.themes || {};
   const visibleThemes: string[] = data.puzzle.themes

@@ -73,7 +73,7 @@ export default function (ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h(
-    `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+    `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
       hook: {
@@ -140,7 +140,7 @@ export default function (ctrl: Controller): VNode {
 
 function session(ctrl: Controller) {
   const rounds = ctrl.session.get().rounds,
-    current = ctrl.data.puzzle.id;
+    current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd =
