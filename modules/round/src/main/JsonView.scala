@@ -94,7 +94,7 @@ final class JsonView(
               .add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
-              .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
+              .add("keyboardMove" -> (!nvui && pref.hasKeyboardMove))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)

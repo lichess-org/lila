@@ -9,6 +9,7 @@ import { h, VNode } from 'snabbdom';
 import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
+import { render as renderKeyboardMove } from 'keyboardMove';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -131,6 +132,7 @@ export default function (ctrl: Controller): VNode {
         feedbackView(ctrl),
       ]),
       controls(ctrl),
+      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
     ]
   );

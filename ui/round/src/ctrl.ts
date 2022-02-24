@@ -255,6 +255,8 @@ export default class RoundController {
     else this.redraw();
   };
 
+  userJumpPlyCount = (plyCount: Ply) => this.userJump(this.ply + plyCount);
+
   isPlaying = () => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
@@ -740,7 +742,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
   };
