@@ -39,7 +39,7 @@ jobs:
             ~/.sbt
             ~/.ivy2/cache
           key: ${{ runner.os }}-sbt-${{ hashFiles('**/project/build.properties') }}-${{ hashFiles('**/build.sbt') }}-${{ hashFiles('**/project/Dependencies.scala') }}
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: zulu
           java-version: 14.0.1
