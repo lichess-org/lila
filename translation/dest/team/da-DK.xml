@@ -53,5 +53,5 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>
   <string name="declinedRequests">Afviste anmodninger</string>
-  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
+  <string name="joinLichessVariantTeam">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
 </resources>
