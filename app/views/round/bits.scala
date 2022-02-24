@@ -28,7 +28,7 @@ object bits {
       moreJs = moreJs,
       moreCss = frag(
         cssTag { if (variant == Crazyhouse) "round.zh" else "round" },
-        cssTag("keyboardMove"),
+        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),

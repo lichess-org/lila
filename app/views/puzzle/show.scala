@@ -21,7 +21,7 @@ object show {
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
-        cssTag("keyboardMove"),
+        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
