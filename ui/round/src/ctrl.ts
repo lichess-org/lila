@@ -742,7 +742,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
   };

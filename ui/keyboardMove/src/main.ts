@@ -56,13 +56,14 @@ export interface RootController {
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
   userJumpPlyCount?: (plyCount: Ply) => void;
+  redraw: Redraw;
 }
 interface Step {
   fen: string;
 }
 type Redraw = () => void;
 
-export function ctrl(root: RootController, step: Step, redraw: Redraw): KeyboardMove {
+export function ctrl(root: RootController, step: Step): KeyboardMove {
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
@@ -111,7 +112,7 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
     hasFocus: () => focus,
     setFocus(v) {
       focus = v;
-      redraw();
+      root.redraw();
     },
     san(orig, dest) {
       usedSan = true;
@@ -127,7 +128,7 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
     usedSan,
     jump(plyCount: number) {
       root.userJumpPlyCount && root.userJumpPlyCount(plyCount);
-      redraw();
+      root.redraw();
     },
     justSelected() {
       return performance.now() - lastSelect < 500;
