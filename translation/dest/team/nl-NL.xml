@@ -53,4 +53,5 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="upcomingTourns">Aankomende toernooien</string>
   <string name="completedTourns">Voltooide toernooien</string>
   <string name="declinedRequests">Afgewezen verzoeken</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Word lid van het officiële %s team voor nieuws en evenementen</string>
 </resources>

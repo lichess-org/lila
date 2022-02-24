@@ -35,4 +35,5 @@
     <item quantity="one">Открита е %s игра</item>
     <item quantity="other">Открити са %s игри</item>
   </plurals>
+  <string name="ratingExplanation">Среден рейтинг на двамата играча</string>
 </resources>
