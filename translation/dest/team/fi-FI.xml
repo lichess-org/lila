@@ -53,4 +53,5 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="upcomingTourns">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>
   <string name="declinedRequests">Hylätyt pyynnöt</string>
+  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is the name of the variant, e.g. 'Crazyhouse', 'Three-Check', and is hyperlinked. It will lead to the official Lichess team for that variant.&#10;&#10;The string is displayed in variant tournaments. It will link to an official Lichess team (https://lichess.org/team) to encourage a community to form around the variant in question.">Liity viralliseen %s-joukkueeseen saadaksesi sitä koskevia uutisia ja tapahtumia</string>
 </resources>

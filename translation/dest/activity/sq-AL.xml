@@ -31,7 +31,7 @@
     <item quantity="other">në %1$s lojëra korrespondence</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Përfundove %s lojë me korrespondencë</item>
+    <item quantity="one">Plotësoi %s lojë me korrespondencë</item>
     <item quantity="other">Plotësoi %s lojëra me korrespondencë</item>
   </plurals>
   <plurals name="followedNbPlayers">
