@@ -53,5 +53,5 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="upcomingTourns">Tournois à venir</string>
   <string name="completedTourns">Tournois terminés</string>
   <string name="declinedRequests">Demandes refusées</string>
-  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Joignez-vous à l\'équipe officielle %s pour les actualités et les événements</string>
+  <string name="joinLichessVariantTeam">Joignez-vous à l\'équipe officielle %s pour les actualités et les événements</string>
 </resources>
