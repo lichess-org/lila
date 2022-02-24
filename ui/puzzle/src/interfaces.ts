@@ -1,5 +1,4 @@
 import PuzzleSession from './session';
-import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
