@@ -11,7 +11,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
-import { KeyboardMove, RootGame as KeyboardMoveRootGame } from 'keyboardMove';
+import { KeyboardMove } from 'keyboardMove';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -57,7 +57,6 @@ export interface Controller extends KeyboardController {
   data: PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
-  chessground: CgApi;
   setChessground(cg: CgApi): void;
   makeCgOpts(): CgConfig;
   viewSolution(): void;
@@ -76,7 +75,6 @@ export interface Controller extends KeyboardController {
   allThemes?: AllThemes;
   showRatings: boolean;
   keyboardMove?: KeyboardMove;
-  sendMove(orig: Key, dest: Key, prom: cg.Role): void;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -163,7 +161,7 @@ export interface PuzzleReplay {
   days: number;
 }
 
-export interface PuzzleGame extends KeyboardMoveRootGame {
+export interface PuzzleGame {
   id: string;
   perf: {
     icon: string;

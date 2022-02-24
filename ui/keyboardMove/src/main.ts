@@ -40,12 +40,9 @@ const sanToRole: { [key: string]: cg.Role } = {
 interface CrazyPocket {
   [role: string]: number;
 }
-export interface RootGame {
-  variant?: Variant;
-}
 export interface RootData {
   crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
-  game?: RootGame;
+  game: { variant: { key: VariantKey } };
   player: { color: Color };
 }
 export interface RootController {
@@ -97,7 +94,7 @@ export function ctrl(root: RootController, step: Step, redraw: Redraw): Keyboard
     },
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
-      const variant: VariantKey = root.data.game?.variant?.key || 'standard';
+      const variant = root.data.game.variant.key;
       if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
       root.chessground.cancelMove();
       promote(root.chessground, dest, role);

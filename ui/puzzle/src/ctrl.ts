@@ -75,9 +75,19 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    this.chessground = cg;
     if (opts.pref.keyboardMove) {
-      keyboardMove = makeKeyboardMove(this, { fen: this.vm.node.fen }, this.redraw);
+      keyboardMove = makeKeyboardMove(
+        {
+          data: {
+            game: { variant: { key: 'standard' } },
+            player: { color: vm.pov },
+          },
+          chessground: cg,
+          sendMove: playUserMove,
+        },
+        { fen: this.vm.node.fen },
+        this.redraw
+      );
       this.keyboardMove = keyboardMove;
       requestAnimationFrame(() => this.redraw());
     }
@@ -101,7 +111,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
-    data.player = { color: vm.pov };
 
     setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
@@ -541,11 +550,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       return tree;
     },
     setChessground,
-    chessground: ground(),
     ground,
     makeCgOpts,
     keyboardMove,
-    sendMove: playUserMove,
     userJump,
     viewSolution,
     nextPuzzle,
