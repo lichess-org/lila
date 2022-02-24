@@ -835,5 +835,18 @@
   <string name="cancelTournament">Откажи го турнирот</string>
   <string name="tournDescription">Опис на турнирот</string>
   <string name="tournDescriptionHelp">Дали сакате да им кажете нешто на натпреварувачите? Пробајте да бидете кратки. Markdown линкови се достапни: [name](https://url)</string>
+  <string name="onlyMembersOfTeam">Само за членови на тимот</string>
+  <string name="noRestriction">Без ограничувања</string>
+  <string name="minimumRatedGames">Минимум рангирани игри</string>
   <string name="minimumRating">Минимален рејтинг</string>
+  <string name="maximumWeeklyRating">Максимум неделен рејтинг</string>
+  <string name="onlyTitled">Само играчи со титула</string>
+  <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
+  <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
+  <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
+  <string name="emailAssociatedToaccount">Е-пошта поврзана со сметката</string>
+  <string name="sentEmailWithLink">Ви испративме е-мајл со линк.</string>
+  <string name="tournamentEntryCode">Лозинка за влез на турнир</string>
+  <string name="hangOn">Чекај!</string>
+  <string name="gameInProgress">Имате игра во прогрес %s.</string>
 </resources>
