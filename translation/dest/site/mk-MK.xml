@@ -810,4 +810,5 @@
   <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на Lichess</string>
   <string name="refundXpointsTimeControlY">Враќање: %1$s %2$s рејтинг поени</string>
   <string name="timeAlmostUp">Времето е пред истекување!</string>
+  <string name="welcome">Добредојде!</string>
 </resources>
