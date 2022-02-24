@@ -2,7 +2,7 @@ import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
-import shouldScroll from 'common/wheel';
+import stepwiseScroll from 'common/wheel';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { read as readFen } from 'chessground/fen';
@@ -10,17 +10,6 @@ import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
-
-function wheel(ctrl: RoundController, e: WheelEvent): void {
-  if (!ctrl.isPlaying()) {
-    e.preventDefault();
-    if (shouldScroll(e, 120)) {
-      if (e.deltaY > 0) keyboard.next(ctrl);
-      else if (e.deltaY < 0) keyboard.prev(ctrl);
-    }
-    ctrl.redraw();
-  }
-}
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -46,7 +35,19 @@ export function main(ctrl: RoundController): VNode {
             hook:
               'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
-                : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
+                : util.bind(
+                    'wheel',
+                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                      if (!ctrl.isPlaying()) {
+                        e.preventDefault();
+                        if (e.deltaY > 0 && scroll) keyboard.next(ctrl);
+                        else if (e.deltaY < 0 && scroll) keyboard.prev(ctrl);
+                        ctrl.redraw();
+                      }
+                    }, 120),
+                    undefined,
+                    false
+                  ),
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),

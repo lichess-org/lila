@@ -45,7 +45,7 @@ import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
 import spinner from 'common/spinner';
-import shouldScroll from 'common/wheel';
+import stepwiseScroll from 'common/wheel';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -120,19 +120,6 @@ const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
     ]),
     !ctrl.practice && !gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
   ]);
-
-function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
-  if (ctrl.gamebookPlay()) return;
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
-  e.preventDefault();
-  if (shouldScroll(e, 120)) {
-    if (e.deltaY > 0) control.next(ctrl);
-    else if (e.deltaY < 0) control.prev(ctrl);
-  }
-  ctrl.redraw();
-  return false;
-}
 
 function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
@@ -430,7 +417,19 @@ export default function (ctrl: AnalyseCtrl): VNode {
             hook:
               'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
-                : bindNonPassive('wheel', (e: WheelEvent) => wheel(ctrl, e)),
+                : bindNonPassive(
+                    'wheel',
+                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                      if (ctrl.gamebookPlay()) return;
+                      const target = e.target as HTMLElement;
+                      if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                        return;
+                      e.preventDefault();
+                      if (e.deltaY > 0 && scroll) control.next(ctrl);
+                      else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                      ctrl.redraw();
+                    }, 120)
+                  ),
           },
           [
             ...(playerStrips || []),

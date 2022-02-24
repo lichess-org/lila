@@ -3,7 +3,7 @@ import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
-import shouldScroll from 'common/wheel';
+import stepwiseScroll from 'common/wheel';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
@@ -12,18 +12,6 @@ import { view as cevalView } from 'ceval';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
-}
-
-function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
-  e.preventDefault();
-  if (shouldScroll(e, 120)) {
-    if (e.deltaY > 0) control.next(ctrl);
-    else if (e.deltaY < 0) control.prev(ctrl);
-  }
-  ctrl.redraw();
-  return false;
 }
 
 function dataAct(e: Event): string | null {
@@ -113,7 +101,18 @@ export default function (ctrl: Controller): VNode {
           hook:
             'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
               ? undefined
-              : bindNonPassive('wheel', e => wheel(ctrl, e as WheelEvent)),
+              : bindNonPassive(
+                  'wheel',
+                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                      return;
+                    e.preventDefault();
+                    if (e.deltaY > 0 && scroll) control.next(ctrl);
+                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                    ctrl.redraw();
+                  }, 120)
+                ),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),

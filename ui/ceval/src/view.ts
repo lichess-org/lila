@@ -1,5 +1,5 @@
 import * as winningChances from './winningChances';
-import shouldScroll from 'common/wheel';
+import stepwiseScroll from 'common/wheel';
 import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
@@ -339,20 +339,21 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
               instance.setPvBoard({ fen, uci });
             }
           });
-          el.addEventListener('wheel', (e: WheelEvent) => {
-            e.preventDefault();
-            if (pvIndex != null && pvMoves != null) {
-              if (shouldScroll(e, 120)) {
-                if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
-                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
+          el.addEventListener(
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              e.preventDefault();
+              if (pvIndex != null && pvMoves != null) {
+                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+                const pvBoard = pvMoves[pvIndex];
+                if (pvBoard) {
+                  const [fen, uci] = pvBoard.split('|');
+                  ctrl.getCeval().setPvBoard({ fen, uci });
+                }
               }
-              const pvBoard = pvMoves[pvIndex];
-              if (pvBoard) {
-                const [fen, uci] = pvBoard.split('|');
-                ctrl.getCeval().setPvBoard({ fen, uci });
-              }
-            }
-          });
+            }, 120)
+          );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
