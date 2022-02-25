@@ -97,6 +97,7 @@
   <string name="xOpeningExplorer">Пребарување отворања на: %s</string>
   <string name="winPreventedBy50MoveRule">Спречена е победата поради правилото за 50 потези</string>
   <string name="lossSavedBy50MoveRule">Спречен е поразот поради правилото на 50 потези</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 потези поради претходна грешка</string>
   <string name="allSet">Се е спремно!</string>
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
