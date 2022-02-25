@@ -5,7 +5,6 @@ import play.api.libs.json._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.WorkQueue
 import lila.memo.CacheApi._
 import lila.user.User
 
@@ -24,13 +23,6 @@ final class TournamentStandingApi(
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
-
-  private val workQueue = new WorkQueue(
-    buffer = 256,
-    timeout = 5 seconds,
-    name = "tournamentStandingApi",
-    parallelism = 6
-  )
 
   private val perPage = 10
 
@@ -58,10 +50,8 @@ final class TournamentStandingApi(
   def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] = {
     val page = forPage atLeast 1
     if (page == 1) first get tour.id
-    else if (page > 50) {
-      if (tour.isCreated) createdCache.get(tour.id -> page)
-      else computeMaybe(tour.id, page, withScores)
-    } else compute(tour, page, withScores)
+    else if (page > 50 && tour.isCreated) createdCache.get(tour.id -> page)
+    else compute(tour, page, withScores)
   }
 
   private val first = cacheApi[Tournament.ID, JsObject](64, "tournament.page.first") {
@@ -73,7 +63,7 @@ final class TournamentStandingApi(
   private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](64, "tournament.page.createdCache") {
     _.expireAfterWrite(15 second)
       .buildAsyncFuture { case (tourId, page) =>
-        computeMaybe(tourId, page, withScores = true)
+        compute(tourId, page, withScores = true)
       }
   }
 
@@ -81,18 +71,6 @@ final class TournamentStandingApi(
     first invalidate tour.id
     // no need to invalidate createdCache, these are only cached when tour.isCreated
   }
-
-  private def computeMaybe(id: Tournament.ID, page: Int, withScores: Boolean): Fu[JsObject] =
-    workQueue {
-      compute(id, page, withScores)
-    } recover { case _: Exception =>
-      lila.mon.tournament.standingOverload.increment()
-      Json.obj(
-        "failed"  -> true,
-        "page"    -> page,
-        "players" -> JsArray()
-      )
-    }
 
   private def compute(id: Tournament.ID, page: Int, withScores: Boolean): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page, withScores) }
