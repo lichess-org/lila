@@ -864,4 +864,5 @@
   <string name="tournamentEntryCode">Лозинка за влез на турнир</string>
   <string name="hangOn">Чекај!</string>
   <string name="gameInProgress">Имате игра во прогрес %s.</string>
+  <string name="switchSides">Променете страна</string>
 </resources>
