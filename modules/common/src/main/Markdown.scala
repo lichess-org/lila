@@ -1,14 +1,35 @@
 package lila.common
 
+import lila.base.RawHtml
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
-import com.vladsch.flexmark.html.HtmlRenderer
+import com.vladsch.flexmark.html.{
+  AttributeProvider,
+  HtmlRenderer,
+  HtmlWriter,
+  IndependentAttributeProviderFactory
+}
+import com.vladsch.flexmark.html.renderer.{
+  AttributablePart,
+  CoreNodeRenderer,
+  LinkResolverContext,
+  LinkType,
+  NodeRenderer,
+  NodeRendererContext,
+  NodeRendererFactory,
+  NodeRenderingHandler
+}
 import com.vladsch.flexmark.parser.Parser
-import com.vladsch.flexmark.util.data.MutableDataSet
+import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
+import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
+import com.vladsch.flexmark.util.html.MutableAttributes
+import com.vladsch.flexmark.ast.{ Image, Link }
+import io.mola.galimatias.URL
+import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
-import lila.base.RawHtml
+import scala.util.Try
 
 final class Markdown(
     autoLink: Boolean = true,
@@ -28,6 +49,8 @@ final class Markdown(
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
+  extensions.add(Markdown.NofollowExtension)
+  extensions.add(Markdown.WhitelistedImageExtension)
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -51,12 +74,6 @@ final class Markdown(
 
   private val logger = lila.log("markdown")
 
-  // quick and dirty.
-  // there should be a clean way to do it:
-  // https://programming.vip/docs/flexmark-java-markdown-add-target-attribute-to-link.html
-  private def addLinkAttributes(markup: Html) =
-    markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
-
   private def mentionsToLinks(markdown: Text): Text =
     RawHtml.atUsernameRegex.replaceAllIn(markdown, "[@$1](/@/$1)")
 
@@ -68,7 +85,7 @@ final class Markdown(
     Chronometer
       .sync {
         try {
-          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)))))
+          renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text))))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -82,8 +99,94 @@ final class Markdown(
 
 object Markdown {
 
-  private val imageRegex = """!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)""".r
+  private val rel = "nofollow noopener noreferrer"
 
-  def imageUrls(markdown: String): List[String] =
-    imageRegex.findAllIn(markdown).matchData.map(_ group 1).toList
+  private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension {
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder
+        .nodeRendererFactory(new NodeRendererFactory {
+          override def apply(options: DataHolder) = WhitelistedImageNodeRenderer
+        })
+        .unit
+  }
+  private object WhitelistedImageNodeRenderer extends NodeRenderer {
+    override def getNodeRenderingHandlers() =
+      new java.util.HashSet(
+        Arrays.asList(
+          new NodeRenderingHandler(classOf[Image], render)
+        )
+      )
+
+    private val whitelist =
+      List(
+        "imgur.com",
+        "giphy.com",
+        "wikimedia.org",
+        "creativecommons.org",
+        "pexels.com",
+        "piqsels.com",
+        "freeimages.com",
+        "unsplash.com",
+        "pixabay.com",
+        "githubusercontent.com",
+        "googleusercontent.com",
+        "i.ibb.co",
+        "i.postimg.cc",
+        "xkcd.com",
+        "lichess1.org"
+      )
+    private def whitelistedSrc(src: String): Option[String] =
+      for {
+        url <- Try(URL.parse(src)).toOption
+        if url.scheme == "http" || url.scheme == "https"
+        host <- Option(url.host).map(_.toString)
+        if whitelist.exists(h => host == h || host.endsWith(s".$h"))
+      } yield url.toString
+
+    private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+      // Based on implementation in CoreNodeRenderer.
+      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+        context.renderChildren(node)
+      else {
+        val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+        val url          = resolvedLink.getUrl()
+        val altText      = new TextCollectingVisitor().collectAndGetText(node)
+        whitelistedSrc(url) match {
+          case Some(src) =>
+            html
+              .srcPos(node.getChars())
+              .attr("src", src)
+              .attr("alt", altText)
+              .attr(resolvedLink.getNonNullAttributes())
+              .withAttr(resolvedLink)
+              .tagVoid("img")
+          case None =>
+            html
+              .srcPos(node.getChars())
+              .attr("href", url)
+              .attr("rel", rel)
+              .withAttr(resolvedLink)
+              .tag("a")
+              .text(altText)
+              .tag("/a")
+        }
+      }.unit
+  }
+
+  private object NofollowExtension extends HtmlRenderer.HtmlRendererExtension {
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder
+        .attributeProviderFactory(new IndependentAttributeProviderFactory {
+          override def apply(context: LinkResolverContext): AttributeProvider = NofollowAttributeProvider
+        })
+        .unit
+  }
+  private object NofollowAttributeProvider extends AttributeProvider {
+    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
+      if (node.isInstanceOf[Link] && part == AttributablePart.LINK)
+        attributes.replaceValue("rel", rel).unit
+    }
+  }
 }
