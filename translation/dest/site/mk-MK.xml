@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Бели</string>
   <string name="black">Црни</string>
+  <string name="asWhite">како бели</string>
+  <string name="asBlack">како црни</string>
   <string name="randomColor">Случајна боја</string>
   <string name="createAGame">Создади игра</string>
   <string name="whiteIsVictorious">Белите победија</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">Црниот се откажа</string>
   <string name="whiteLeftTheGame">Белиот ја напушти играта</string>
   <string name="blackLeftTheGame">Црниот ја напушти играта</string>
+  <string name="whiteDidntMove">Белиот не направи потег</string>
+  <string name="blackDidntMove">Црниот не направи потег</string>
   <string name="requestAComputerAnalysis">Побарајте компјутерска анализа</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Достапна е компјутерска анализа</string>
@@ -174,6 +178,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s часови</item>
     <item quantity="other">%s часови</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минута</item>
+    <item quantity="other">%s минути</item>
   </plurals>
   <string name="time">Време</string>
   <string name="rating">рејтинг</string>
@@ -364,6 +372,8 @@
   <string name="follow">Следи</string>
   <string name="following">Ги следи</string>
   <string name="unfollow">Од-следи</string>
+  <string name="followX">Следи %s</string>
+  <string name="unfollowX">Одследи %s</string>
   <string name="block">Блокирај</string>
   <string name="blocked">Блокиран</string>
   <string name="unblock">Одблокирај</string>
@@ -445,6 +455,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Држава или знаме</string>
   <string name="thankYou">Благодарам!</string>
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
+  <string name="oneUrlPerLine">Еден УРЛ по линија.</string>
   <string name="inlineNotation">Подредена нотација</string>
   <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
@@ -488,6 +499,7 @@
   <string name="reportDescriptionHelp">Внесете линк од играта/игрите и објаснете каде е проблемот во однесувањето на овој корисник. Немојте само да обвините за мамење, туку објаснете како дојдовте до тој заклучок. Вашата пријава ќе биди разгледана побрзо ако е напишана на англиски јазик.</string>
   <string name="error.provideOneCheatedGameLink">Ве молиме доставете барем една врска до партија со мамење.</string>
   <string name="by">од %s</string>
+  <string name="importedByX">Внесено од %s</string>
   <string name="thisTopicIsNowClosed">Темата е затворена.</string>
   <string name="blog">Блог</string>
   <string name="notes">Белешки</string>
@@ -549,6 +561,12 @@
   <string name="tools">Алатки</string>
   <string name="increment">Зголемување на време</string>
   <string name="error.required">Ова поле е задолжително</string>
+  <string name="error.email">Адресата на е-поштата е невалидна</string>
+  <string name="error.email_acceptable">Оваа е-мајл адреса е невалидна. Ве молам проверете и пробајте повторно.</string>
+  <string name="error.email_unique">Адресата на е-поштата е невалидна или веќе постоечка</string>
+  <string name="error.email_different">Ова веќе е вашата е-мајл адреса</string>
+  <string name="error.min">Мора да биде најмалку %s</string>
+  <string name="error.max">Мора да биде најмногу %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтингот е ± %s</string>
   <string name="onlyExistingConversations">Само веќе постоечки разговори</string>
   <string name="onlyFriends">Пријатели кои се онлајн</string>
@@ -770,6 +788,7 @@
   <string name="currentMatchScore">Резултат на сегашниот меч</string>
   <string name="agreementAssistance">Се согласувам дека никогаш нема да добивам помош за моите игри (од компјутер, игра, база на податоци или личност).</string>
   <string name="agreementNice">Се согласувам дека секогаш ќе ги почитувам останатите играчи.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Се согласувам дека нема да креирам повеќе сметки (освен заради причини наведени во %s).</string>
   <string name="agreementPolicy">Се согласувам дека ќе ги следам сите правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Пребарај или започни нов разговор</string>
   <string name="edit">Уреди</string>
@@ -810,4 +829,24 @@
   <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на Lichess</string>
   <string name="refundXpointsTimeControlY">Враќање: %1$s %2$s рејтинг поени</string>
   <string name="timeAlmostUp">Времето е пред истекување!</string>
+  <string name="clickToRevealEmailAddress">[Кликнете за да се прикаже е-мајл адресата]</string>
+  <string name="download">Преземете</string>
+  <string name="welcome">Добредојде!</string>
+  <string name="cancelTournament">Откажи го турнирот</string>
+  <string name="tournDescription">Опис на турнирот</string>
+  <string name="tournDescriptionHelp">Дали сакате да им кажете нешто на натпреварувачите? Пробајте да бидете кратки. Markdown линкови се достапни: [name](https://url)</string>
+  <string name="onlyMembersOfTeam">Само за членови на тимот</string>
+  <string name="noRestriction">Без ограничувања</string>
+  <string name="minimumRatedGames">Минимум рангирани игри</string>
+  <string name="minimumRating">Минимален рејтинг</string>
+  <string name="maximumWeeklyRating">Максимум неделен рејтинг</string>
+  <string name="onlyTitled">Само играчи со титула</string>
+  <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
+  <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
+  <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
+  <string name="emailAssociatedToaccount">Е-пошта поврзана со сметката</string>
+  <string name="sentEmailWithLink">Ви испративме е-мајл со линк.</string>
+  <string name="tournamentEntryCode">Лозинка за влез на турнир</string>
+  <string name="hangOn">Чекај!</string>
+  <string name="gameInProgress">Имате игра во прогрес %s.</string>
 </resources>

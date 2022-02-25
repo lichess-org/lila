@@ -50,5 +50,5 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
   <string name="upcomingTourns">Nadolazeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
-  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is 'Variant' as of the time of writing. Lichess may introduce more official teams in future to encourage communities to form. The team name is hyperlinked.">Pridružite se zvaničnom %s timu za novosti i događaje</string>
+  <string name="joinLichessVariantTeam">Pridružite se zvaničnom %s timu za novosti i događaje</string>
 </resources>

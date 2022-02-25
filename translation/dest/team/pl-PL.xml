@@ -59,5 +59,5 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="upcomingTourns">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>
   <string name="declinedRequests">Odrzucone prośby</string>
-  <string name="joinLichessVariantTeam" comment="joinLichessVariantTeam&#10;&#10;%s is the name of the variant, e.g. 'Crazyhouse', 'Three-Check', and is hyperlinked. It will lead to the official Lichess team for that variant.&#10;&#10;The string is displayed in variant tournaments. It will link to an official Lichess team (https://lichess.org/team) to encourage a community to form around the variant in question.">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
+  <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
 </resources>
