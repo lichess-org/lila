@@ -63,8 +63,6 @@ final class SwissJson(
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
-      .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
-      .add("password" -> swiss.settings.password.isDefined)
       .add("stats" -> stats)
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
@@ -187,6 +185,8 @@ object SwissJson {
           "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
         )
       })
+      .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
+      .add("password" -> swiss.settings.password.isDefined)
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json

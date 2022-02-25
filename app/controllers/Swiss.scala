@@ -61,39 +61,35 @@ final class Swiss(
               isLocalMod <- canChat ?? canModChat(swiss)
             } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           },
-          api = _ => jsonView(swissOption, ctx.me)(ctx.req, ctx.lang)
+          api = _ =>
+            swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
+              for {
+                isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
+                verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
+                socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
+                playerInfo    <- get("playerInfo", ctx.req).?? { env.swiss.api.playerInfo(swiss, _) }
+                page = getInt("page", ctx.req).filter(0.<)
+                json <- env.swiss.json(
+                  swiss = swiss,
+                  me = ctx.me,
+                  verdicts = verdicts,
+                  reqPage = page,
+                  socketVersion = socketVersion,
+                  playerInfo = playerInfo,
+                  isInTeam = isInTeam
+                )
+              } yield JsonOk(json)
+            }
         )
       }
     }
 
   def apiShow(id: String) =
-    AnonOrScoped() { implicit req => me =>
+    Action.async { implicit req =>
       env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
-        jsonView(_, me)(req, reqLang)
+        case Some(swiss) => JsonOk(env.swiss.json.api(swiss)).fuccess
+        case _           => notFoundJson()
       }
-    }
-
-  private def jsonView(swissOption: Option[SwissModel], me: Option[UserModel])(implicit
-      req: RequestHeader,
-      lang: Lang
-  ) =
-    swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
-      for {
-        isInTeam      <- me.??(isUserInTheTeam(swiss.teamId))
-        verdicts      <- env.swiss.api.verdicts(swiss, me)
-        socketVersion <- getBool("socketVersion", req).??(env.swiss version swiss.id dmap some)
-        playerInfo    <- get("playerInfo", req).?? { env.swiss.api.playerInfo(swiss, _) }
-        page = getInt("page", req).filter(0.<)
-        json <- env.swiss.json(
-          swiss = swiss,
-          me = me,
-          verdicts = verdicts,
-          reqPage = page,
-          socketVersion = socketVersion,
-          playerInfo = playerInfo,
-          isInTeam = isInTeam
-        )
-      } yield JsonOk(json)
     }
 
   private def isUserInTheTeam(teamId: lila.team.Team.ID)(user: UserModel) =
