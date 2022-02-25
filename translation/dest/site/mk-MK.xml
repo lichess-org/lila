@@ -835,15 +835,27 @@
   <string name="clickToRevealEmailAddress">[Кликнете за да се прикаже е-мајл адресата]</string>
   <string name="download">Преземете</string>
   <string name="welcome">Добредојде!</string>
+  <string name="lichessPatronInfo">Lichess е добротворна организација и целосно бесплатен/слободен софтвер со отворен код.
+Сите оперативни трошоци, развој и содржина се финансираат исклучиво од донации на корисници.</string>
   <string name="cancelTournament">Откажи го турнирот</string>
   <string name="tournDescription">Опис на турнирот</string>
   <string name="tournDescriptionHelp">Дали сакате да им кажете нешто на натпреварувачите? Пробајте да бидете кратки. Markdown линкови се достапни: [name](https://url)</string>
+  <string name="ratedFormHelp">Игрите се оценуваат
+и влијаат врз рејтингот на играчите</string>
   <string name="onlyMembersOfTeam">Само за членови на тимот</string>
   <string name="noRestriction">Без ограничувања</string>
   <string name="minimumRatedGames">Минимум рангирани игри</string>
   <string name="minimumRating">Минимален рејтинг</string>
   <string name="maximumWeeklyRating">Максимум неделен рејтинг</string>
   <string name="onlyTitled">Само играчи со титула</string>
+  <string name="onlyTitledHelp">Потребна е официјална титула за учество на турнирот</string>
+  <string name="positionInputHelp">Ставете валиден FEN за да ја започнете секоја игра од одредена позиција.
+Работи само за стандардни игри, не за варијации.
+Можете да го користите %s за да генерирате FEN позиција, а потоа да ја ставите овде.
+Оставете празно за да ја почнете играта од нормална почетна позиција.</string>
+  <string name="estimatedStart">Предвидено време на почеток</string>
+  <string name="simulDescriptionHelp">Дали сакате нешто да им кажете на натпреварувачите?</string>
+  <string name="inYourLocalTimezone">Во вашата локална часовна зона</string>
   <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
   <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
   <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
