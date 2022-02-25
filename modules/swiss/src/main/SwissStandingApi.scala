@@ -63,7 +63,7 @@ final class SwissStandingApi(
       pageCache.invalidate(res.swiss.id -> (lastPage + 1))
     }
 
-  private val first = cacheApi[Swiss.Id, JsObject](16, "swiss.page.first") {
+  private val first = cacheApi[Swiss.Id, JsObject](256, "swiss.page.first") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture { compute(_, 1) }
   }
