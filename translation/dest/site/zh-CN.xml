@@ -173,11 +173,11 @@
   <plurals name="nbMinutes">
     <item quantity="other">%s 分钟</item>
   </plurals>
-  <string name="time">时间限制</string>
+  <string name="time">时间</string>
   <string name="rating">等级分</string>
   <string name="ratingStats">等级分统计</string>
   <string name="username">用户名</string>
-  <string name="usernameOrEmail">用户名 / 邮箱</string>
+  <string name="usernameOrEmail">用户名 或 邮箱</string>
   <string name="changeUsername">更改用户名</string>
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
