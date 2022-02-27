@@ -55,4 +55,5 @@ Igrači koji ne vole primiti vaše poruke bi mogli napustiti tim.</string>
   <string name="upcomingTourns">Nadolazeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
   <string name="declinedRequests">Odbijeni zahtjevi</string>
+  <string name="joinLichessVariantTeam">Pridružite se službenom %s timu za novosti i događaje</string>
 </resources>
