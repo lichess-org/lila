@@ -99,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">Спречен е поразот поради правилото на 50 потези</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потези поради претходна грешка</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потези поради претходна грешка</string>
+  <string name="unknownDueToRounding">Победа/пораз гарантирано само доколку се следи препорачаната варијација од последното земање или движење на пионот, заради можно заокружување на DTZ вредности во Syzygy базата со шаховски варијации.</string>
   <string name="allSet">Се е спремно!</string>
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
@@ -349,6 +350,7 @@
   <string name="leaderboard">Табела</string>
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
+  <string name="orUploadPgnFile">Или закачете PGN датотека</string>
   <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="toStudy">Студија</string>
