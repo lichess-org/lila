@@ -17,6 +17,7 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
+POST  /api/games/export/_ids           controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # Bookmark
