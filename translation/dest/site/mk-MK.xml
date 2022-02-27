@@ -843,6 +843,7 @@
   <string name="lichessPatronInfo">Lichess е добротворна организација и целосно бесплатен/слободен софтвер со отворен код.
 Сите оперативни трошоци, развој и содржина се финансираат исклучиво од донации на корисници.</string>
   <string name="coachManager">Поставки за тренер</string>
+  <string name="streamerManager">Поставки за стример менаџер</string>
   <string name="cancelTournament">Откажи го турнирот</string>
   <string name="tournDescription">Опис на турнирот</string>
   <string name="tournDescriptionHelp">Дали сакате да им кажете нешто на натпреварувачите? Пробајте да бидете кратки. Markdown линкови се достапни: [name](https://url)</string>
@@ -860,12 +861,28 @@
 Можете да го користите %s за да генерирате FEN позиција, а потоа да ја ставите овде.
 Оставете празно за да ја почнете играта од нормална почетна позиција.</string>
   <string name="cancelSimul">Откажи ја симултанката</string>
+  <string name="simulHostcolor">Боја на организаторот во секоја игра</string>
   <string name="estimatedStart">Предвидено време на почеток</string>
+  <string name="simulFeatured">Покажи на %s</string>
   <string name="simulFeaturedHelp">Покажете ја вашата симултанка на секого на %s. Оневозможи за приватни симултанки.</string>
   <string name="simulDescription">Опис на симултанка</string>
   <string name="simulDescriptionHelp">Дали сакате нешто да им кажете на натпреварувачите?</string>
+  <string name="markdownAvailable">%s е достапен за понапредна синтакса.</string>
+  <string name="embedsAvailable">Залепете линк од игра или од поглавјето за проучување за да го вградите.</string>
   <string name="inYourLocalTimezone">Во вашата локална часовна зона</string>
+  <string name="tournChat">Tурнирски разговор</string>
+  <string name="noChat">Исклучи разговор</string>
+  <string name="onlyTeamLeaders">Само тим лидери</string>
+  <string name="onlyTeamMembers">Само членови на тим</string>
+  <string name="navigateMoveTree">Навигирајте ја листата на движење</string>
   <string name="mouseTricks">Трикови со маусот</string>
+  <string name="toggleLocalAnalysis">Вклучи/исклучи локална компјутерска анализа</string>
+  <string name="toggleAllAnalysis">Вклучи/исклучи ги сите компјутерски анализи</string>
+  <string name="playComputerMove">Играј го најдобриот компјутерски потег</string>
+  <string name="analysisOptions">Опции за анализа</string>
+  <string name="focusChat">Фокусирај разговор</string>
+  <string name="showHelpDialog">Покажи прозорец за помош</string>
+  <string name="reopenYourAccount">Повторно отвори ја твојата сметка</string>
   <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
   <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
   <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
@@ -874,5 +891,11 @@
   <string name="tournamentEntryCode">Лозинка за влез на турнир</string>
   <string name="hangOn">Чекај!</string>
   <string name="gameInProgress">Имате игра во прогрес %s.</string>
+  <string name="abortTheGame">Прекини ја играта</string>
+  <string name="resignTheGame">Предади ја играта</string>
+  <string name="youCantStartNewGame">Не можете да започнете нова игра додека моменталната не заврши.</string>
+  <string name="since">Од</string>
+  <string name="until">До</string>
+  <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>
   <string name="switchSides">Променете страна</string>
 </resources>
