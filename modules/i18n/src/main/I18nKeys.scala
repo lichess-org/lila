@@ -1629,6 +1629,9 @@ val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingO
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
 val `correspondenceEmailNotification` = new I18nKey("preferences:correspondenceEmailNotification")
+val `showTimelineEntries` = new I18nKey("preferences:showTimelineEntries")
+val `allAvailableEntries` = new I18nKey("preferences:allAvailableEntries")
+val `onlyMe` = new I18nKey("preferences:onlyMe")
 
 }
 

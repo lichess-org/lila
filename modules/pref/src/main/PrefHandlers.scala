@@ -53,6 +53,7 @@ private object PrefHandlers {
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
+        timelineEntries = r.getD("timelineEntries", Pref.default.timelineEntries),
         tags = r.getD("tags", Pref.default.tags)
       )
 

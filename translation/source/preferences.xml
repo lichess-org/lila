@@ -49,4 +49,7 @@
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
   <string name="correspondenceEmailNotification">Daily mail notification listing your correspondence games</string>
+  <string name="showTimelineEntries">Show friend activity</string>
+  <string name="allAvailableEntries">Always</string>
+  <string name="onlyMe">Never</string>
 </resources>

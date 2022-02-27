@@ -48,13 +48,14 @@ object PrefForm {
         "sound"    -> booleanNumber,
         "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
-      "follow"       -> booleanNumber,
-      "challenge"    -> checkedNumber(Pref.Challenge.choices),
-      "message"      -> checkedNumber(Pref.Message.choices),
-      "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "mention"      -> optional(booleanNumber),
-      "insightShare" -> numberIn(Set(0, 1, 2)),
-      "ratings"      -> optional(booleanNumber)
+      "follow"          -> booleanNumber,
+      "challenge"       -> checkedNumber(Pref.Challenge.choices),
+      "message"         -> checkedNumber(Pref.Message.choices),
+      "studyInvite"     -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "mention"         -> optional(booleanNumber),
+      "insightShare"    -> numberIn(Set(0, 1, 2)),
+      "ratings"         -> optional(booleanNumber),
+      "timelineEntries" -> checkedNumber(Pref.TimelineEntries.choices)
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -101,7 +102,8 @@ object PrefForm {
       studyInvite: Option[Int],
       mention: Option[Int],
       insightShare: Int,
-      ratings: Option[Int]
+      ratings: Option[Int],
+      timelineEntries: Int
   ) {
 
     def apply(pref: Pref) =
@@ -136,7 +138,8 @@ object PrefForm {
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent
+        moveEvent = behavior.moveEvent | pref.moveEvent,
+        timelineEntries = timelineEntries
       )
   }
 
@@ -179,7 +182,8 @@ object PrefForm {
         studyInvite = pref.studyInvite.some,
         mention = (if (pref.mention) 1 else 0).some,
         insightShare = pref.insightShare,
-        ratings = pref.ratings.some
+        ratings = pref.ratings.some,
+        timelineEntries = pref.timelineEntries
       )
   }
 

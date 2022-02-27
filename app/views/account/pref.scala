@@ -200,6 +200,10 @@ object pref {
                   explainShowPlayerRatings()
                 )
               )
+            ),
+            setting(
+              showTimelineEntries(),
+              radios(form("timelineEntries"), translatedTimelineEntriesChoices)
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())

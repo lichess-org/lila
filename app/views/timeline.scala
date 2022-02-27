@@ -26,7 +26,7 @@ object timeline {
         h1(trans.timeline()),
         table(cls := "slist slist-pad")(
           tbody(
-            filterEntries(entries) map { e =>
+            filterMore(entries) map { e =>
               tr(td(entry(e)))
             }
           )
@@ -35,6 +35,18 @@ object timeline {
     )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+    entries
+      .withFilter(e =>
+        if (ctx.pref.isTimelineAll) true
+        else
+          e.userIds.contains(ctx.userId match {
+            case Some(userId) => userId
+            case None         => ""
+          })
+      )
+      .withFilter(e => if (ctx.noKid) true else e.okForKid)
+
+  private def filterMore(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
