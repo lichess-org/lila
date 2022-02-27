@@ -79,7 +79,7 @@ object Preset {
     Preset(
       "Do I gain rating when I don't castle kingside?",
       Question(
-        D.Perf,
+        D.MyCastling,
         M.RatingDiff,
         List(
           Filter(D.MyCastling, List(Castling.Queenside, Castling.None))
@@ -89,7 +89,7 @@ object Preset {
     Preset(
       "When I trade queens, how do games end?",
       Question(
-        D.Perf,
+        D.QueenTrade,
         M.Result,
         List(
           Filter(D.QueenTrade, List(QueenTrade.Yes))
