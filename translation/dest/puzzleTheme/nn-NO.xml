@@ -30,7 +30,7 @@
   <string name="dovetailMateDescription">Ei dronning plassert heilt inntil motstandarkongen set matt fordi dei to einaste fluktfelta til kongen er blokkert av eigne brikker.</string>
   <string name="equality">Utjamning</string>
   <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
-  <string name="kingsideAttack">Åtak på kongefløyen</string>
+  <string name="kingsideAttack">Åtak på kongefløya</string>
   <string name="kingsideAttackDescription">Eit åtak på konge som er rokert til kongefløya (kort rokade).</string>
   <string name="clearance">Klarering</string>
   <string name="clearanceDescription">Eit trekk, gjerne med tempo, som opnar eit felt, ei line eller ein diagonal for ein påfølgjande taktisk idé.</string>
@@ -93,7 +93,7 @@
   <string name="queenEndgameDescription">Sluttspel med berre dronningar og bønder.</string>
   <string name="queenRookEndgame">Dronning- og tårnsluttspel</string>
   <string name="queenRookEndgameDescription">Sluttspel med berre dronningar, tårn og bønder.</string>
-  <string name="queensideAttack">Dronningfløyåtak</string>
+  <string name="queensideAttack">Åtak på dronningfløya</string>
   <string name="queensideAttackDescription">Eit åtak på konge som er rokert til dronningfløya (lang rokade).</string>
   <string name="quietMove">Stille trekk</string>
   <string name="quietMoveDescription">Trekk som ikkje gjev sjakk eller slår ei brikke, men som førebur eit uavvendeleg trugsmål i eit seinare trekk.</string>
