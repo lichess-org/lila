@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Ŝakpecaj simboloj</string>
   <string name="pgnLetter">Litero (R, D, T, K, Ĉ)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen modo</string>
-  <string name="showPlayerRatings">Montru rangojn de ludanto</string>
+  <string name="showPlayerRatings">Montri rangojn de ludanto</string>
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
