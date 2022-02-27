@@ -13,4 +13,6 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s прифаќа само предизвици од пријатели.</string>
   <string name="declineGeneric">Не прифаќам предизвици во моментов.</string>
   <string name="declineLater">Во моментов не можам да прифатам, ве молам пробајте повторно подоцна.</string>
+  <string name="declineTooFast">Овој временски формат е многу брз за мене, те молам предизвикај ме на побавна игра.</string>
+  <string name="declineTooSlow">Овој временски формат е многу бавен за мене, те молам предизвикај ме на побрза игра.</string>
 </resources>
