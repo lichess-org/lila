@@ -177,6 +177,10 @@
     <item quantity="one">%s horo</item>
     <item quantity="other">%s horoj</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutoj</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rango</string>
   <string name="ratingStats">Rangaj statistikoj</string>
@@ -815,4 +819,6 @@
   <string name="noRestriction">Neniu limigo</string>
   <string name="minimumRating">Minimuma rango</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
+  <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="simulDescription">Priskribo de la samtempludo</string>
 </resources>
