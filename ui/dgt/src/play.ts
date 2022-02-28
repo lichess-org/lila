@@ -96,7 +96,7 @@ export default function (token: string) {
   let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
   let isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
   let currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
-  let currentBoard: CurrentBoard; //Stores active board object
+  let currentBoard: object; //Stores active board object
   //subscription stores the information about the board being connected, most importantly the serialnr
   const subscription = { id: 2, call: 'subscribe', param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } } };
   let lastLegalParam: { board: string; san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
