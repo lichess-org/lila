@@ -3,4 +3,8 @@
   <string name="xChessInsights">Анализ на играта на %s</string>
   <string name="xHasNoChessInsights">%s все още няма анализ!</string>
   <string name="insightsAreProtected">Анализът на %s e защитен</string>
+  <string name="cantSeeInsights">Съжеляваме, но не може да видите анализа на %s.</string>
+  <string name="generateInsights">Генерирай анализ на играта на %s.</string>
+  <string name="crunchingData">Сега анализираме информацията специално за Вас!</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">настройки на анализа</string>
 </resources>
