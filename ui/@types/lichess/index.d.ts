@@ -537,6 +537,17 @@ declare namespace Prefs {
   }
 }
 
+interface CurrentBoard {
+  serialnr: string;
+  source: null | string;
+  state: null | string;
+  battery: null | string;
+  comment: null | string;
+  board: string;
+  flipped: boolean;
+  clock: null | string;
+}
+
 interface Dictionary<T> {
   [key: string]: T | undefined;
 }
