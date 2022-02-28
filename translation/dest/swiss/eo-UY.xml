@@ -5,11 +5,19 @@
     <item quantity="one">Vidi la raŭndon</item>
     <item quantity="other">Vidi ĉiuj %s raŭndoj</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s rondo</item>
+    <item quantity="other">%s rondoj</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Unu raŭndo dum tago</item>
     <item quantity="other">Unu raŭndo dum %s tagoj</item>
   </plurals>
   <string name="roundsAreStartedManually">Oni komencas raŭndoj permane</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekundo inter rondoj</item>
+    <item quantity="other">%s sekundoj inter rondoj</item>
+  </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">%s minuto inter raŭndoj</item>
     <item quantity="other">%s minutoj inter raŭndoj</item>
