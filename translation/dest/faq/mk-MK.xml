@@ -17,4 +17,8 @@
   <string name="areThereWebsitesBasedOnLichess">Има ли интернет страни базирани на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Да, Lichess навистина има инспирирано други страни со отворен код, кои ги користат нашиот %1$s, %2$s, или %3$s.</string>
   <string name="fairPlay">Чесна Игра</string>
+  <string name="howCanIBecomeModerator">Како можам да станам модератор?</string>
+  <string name="accounts">Сметки</string>
+  <string name="noUpperCaseDot">Не.</string>
+  <string name="canIChangeMyUsername">Дали можам да го сменам моето корисничко име?</string>
 </resources>
