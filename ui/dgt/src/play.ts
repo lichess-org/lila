@@ -1,4 +1,4 @@
-import { Chess } from 'chessops/chess';
+public import { Chess } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { NormalMove } from 'chessops/types';
@@ -96,6 +96,7 @@ export default function (token: string) {
   let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
   let isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
   let currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
+  let currentBoard: CurrentBoard; //Stores active board object
   //subscription stores the information about the board being connected, most importantly the serialnr
   const subscription = { id: 2, call: 'subscribe', param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } } };
   let lastLegalParam: { board: string; san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
@@ -844,19 +845,21 @@ export default function (token: string) {
       if (message.response == 'call' && message.id == '1') {
         //Get the list of available boards on LiveChess
         boards = message.param;
+        //Selects currently active board
+        for (let i = 0; i < boards.length; i++) {
+            if (boards[i].state == "ACTIVE") {
+                currentBoard = boards[i];
+                currentSerialnr = boards[i].serialnr;
+            }
+        }
         console.table(boards);
-        if (verbose) console.info(boards[0].serialnr);
-        //TODO
-        //we need to be able to handle more than one board
-        //for now using the first board found
-        //Update the base subscription message with the serial number
-        currentSerialnr = boards[0].serialnr;
+        if (verbose) console.info(currentSerialnr);
         subscription.param.param.serialnr = currentSerialnr;
         if (verbose) console.info('Websocket onmessage[call]: board serial number updated to: ' + currentSerialnr);
         if (verbose) console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
         liveChessConnection.send(JSON.stringify(subscription));
         //Check if the board is properly connected
-        if (boards[0].state != 'ACTIVE' && boards[0].state != 'INACTIVE')
+        if (currentBoard.state != 'ACTIVE' && currentBoard.state != 'INACTIVE')
           // "NOTRESPONDING" || "DELAYED"
           console.error(`Board with serial ${currentSerialnr} is not properly connected. Please fix`);
         //Send setup with stating position
