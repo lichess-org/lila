@@ -44,10 +44,29 @@
     <item quantity="other">%s поени над вашиот рејтинг</item>
   </plurals>
   <string name="example">Пример</string>
+  <string name="jumpToNextPuzzleImmediately">Веднаш премини на следната загатка</string>
+  <string name="improvementAreas">Области за подобрување</string>
   <string name="solved">решено</string>
   <string name="failed">неуспешно</string>
   <string name="streakDescription">Решавајте прогресивно потешки загатки и изградете победничка серија. Нема часовник, па не брзајте. Еден погрешен потег и играта е завршена! Но, можете да прескокнете еден потег по сесија.</string>
   <string name="fromMyGames">Од моите игри</string>
   <string name="lookupOfPlayer">Пребарувај загатки од игрите на други играчи</string>
+  <string name="fromXGames">Загатки од игрите на %s\'</string>
+  <string name="searchPuzzles">Пребарувај загатки</string>
+  <string name="fromMyGamesNone">Немате загатки во базата на податоци, но Lichess сè уште многу ве сака.
+
+Играјте брзи и класични игри за да ги зголемите шансите ваша загатка да биде додадена!</string>
+  <string name="fromXGamesFound">%1$s загатки пронајдени во %2$s игри</string>
+  <string name="puzzleDashboardDescription">Вежбај, анализирај, подобри се</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s одиграна</item>
+    <item quantity="other">%s одиграни</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s прегледај</item>
+    <item quantity="other">%s прегледај</item>
+  </plurals>
   <string name="percentSolved">%s решени</string>
+  <string name="noPuzzlesToShow">Нема што да се покаже овде, прво одиграјте неколку загатки!</string>
+  <string name="improvementAreasDescription">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
 </resources>
