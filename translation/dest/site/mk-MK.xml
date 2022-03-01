@@ -89,6 +89,7 @@
     <item quantity="one">Мат во %s полупотег</item>
     <item quantity="other">Мат во %s полупотези</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' со заокружување, врз основа на бројот на полу-потези до наредното земање или потег на пионот</string>
   <string name="noGameFound">Не е пронајдена таква партија</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Би можеле да додадете повеќе партии од менито за поставки.</string>
   <string name="openingExplorer">Пребарувач на отворања</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">Пребарување отворања на: %s</string>
   <string name="winPreventedBy50MoveRule">Спречена е победата поради правилото за 50 потези</string>
   <string name="lossSavedBy50MoveRule">Спречен е поразот поради правилото на 50 потези</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 потези поради претходна грешка</string>
+  <string name="lossOr50MovesByPriorMistake">Пораз или 50 потези поради претходна грешка</string>
+  <string name="unknownDueToRounding">Победа/пораз гарантирано само доколку се следи препорачаната варијација од последното земање или движење на пионот, заради можно заокружување на DTZ вредности во Syzygy базата со шаховски варијации.</string>
   <string name="allSet">Се е спремно!</string>
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
@@ -346,6 +350,7 @@
   <string name="leaderboard">Табела</string>
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
+  <string name="orUploadPgnFile">Или закачете PGN датотека</string>
   <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="toStudy">Студија</string>
@@ -565,6 +570,8 @@
   <string name="error.email_acceptable">Оваа е-мајл адреса е невалидна. Ве молам проверете и пробајте повторно.</string>
   <string name="error.email_unique">Адресата на е-поштата е невалидна или веќе постоечка</string>
   <string name="error.email_different">Ова веќе е вашата е-мајл адреса</string>
+  <string name="error.minLength">Минимална должина е знаци %s</string>
+  <string name="error.maxLength">Максимална должина е знаци %s</string>
   <string name="error.min">Мора да биде најмалку %s</string>
   <string name="error.max">Мора да биде најмногу %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтингот е ± %s</string>
@@ -653,6 +660,7 @@
   <string name="downloadImported">Превземи го доставеното</string>
   <string name="crosstable">Табела на резултати</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можеш и да скролаш врз таблата за да одбереш потег.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Скролувајте за да ги прегледате компјутерските варијации.</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
   <string name="letOtherPlayersMessageYou">Овозможи пораки од другите играчи</string>
   <string name="receiveForumNotifications">Добивај известувања кога си споменат на форум</string>
@@ -832,15 +840,49 @@
   <string name="clickToRevealEmailAddress">[Кликнете за да се прикаже е-мајл адресата]</string>
   <string name="download">Преземете</string>
   <string name="welcome">Добредојде!</string>
+  <string name="lichessPatronInfo">Lichess е добротворна организација и целосно бесплатен/слободен софтвер со отворен код.
+Сите оперативни трошоци, развој и содржина се финансираат исклучиво од донации на корисници.</string>
+  <string name="coachManager">Поставки за тренер</string>
+  <string name="streamerManager">Поставки за стример менаџер</string>
   <string name="cancelTournament">Откажи го турнирот</string>
   <string name="tournDescription">Опис на турнирот</string>
   <string name="tournDescriptionHelp">Дали сакате да им кажете нешто на натпреварувачите? Пробајте да бидете кратки. Markdown линкови се достапни: [name](https://url)</string>
+  <string name="ratedFormHelp">Игрите се оценуваат
+и влијаат врз рејтингот на играчите</string>
   <string name="onlyMembersOfTeam">Само за членови на тимот</string>
   <string name="noRestriction">Без ограничувања</string>
   <string name="minimumRatedGames">Минимум рангирани игри</string>
   <string name="minimumRating">Минимален рејтинг</string>
   <string name="maximumWeeklyRating">Максимум неделен рејтинг</string>
   <string name="onlyTitled">Само играчи со титула</string>
+  <string name="onlyTitledHelp">Потребна е официјална титула за учество на турнирот</string>
+  <string name="positionInputHelp">Ставете валиден FEN за да ја започнете секоја игра од одредена позиција.
+Работи само за стандардни игри, не за варијации.
+Можете да го користите %s за да генерирате FEN позиција, а потоа да ја ставите овде.
+Оставете празно за да ја почнете играта од нормална почетна позиција.</string>
+  <string name="cancelSimul">Откажи ја симултанката</string>
+  <string name="simulHostcolor">Боја на организаторот во секоја игра</string>
+  <string name="estimatedStart">Предвидено време на почеток</string>
+  <string name="simulFeatured">Покажи на %s</string>
+  <string name="simulFeaturedHelp">Покажете ја вашата симултанка на секого на %s. Оневозможи за приватни симултанки.</string>
+  <string name="simulDescription">Опис на симултанка</string>
+  <string name="simulDescriptionHelp">Дали сакате нешто да им кажете на натпреварувачите?</string>
+  <string name="markdownAvailable">%s е достапен за понапредна синтакса.</string>
+  <string name="embedsAvailable">Залепете линк од игра или од поглавјето за проучување за да го вградите.</string>
+  <string name="inYourLocalTimezone">Во вашата локална часовна зона</string>
+  <string name="tournChat">Tурнирски разговор</string>
+  <string name="noChat">Исклучи разговор</string>
+  <string name="onlyTeamLeaders">Само тим лидери</string>
+  <string name="onlyTeamMembers">Само членови на тим</string>
+  <string name="navigateMoveTree">Навигирајте ја листата на движење</string>
+  <string name="mouseTricks">Трикови со маусот</string>
+  <string name="toggleLocalAnalysis">Вклучи/исклучи локална компјутерска анализа</string>
+  <string name="toggleAllAnalysis">Вклучи/исклучи ги сите компјутерски анализи</string>
+  <string name="playComputerMove">Играј го најдобриот компјутерски потег</string>
+  <string name="analysisOptions">Опции за анализа</string>
+  <string name="focusChat">Фокусирај разговор</string>
+  <string name="showHelpDialog">Покажи прозорец за помош</string>
+  <string name="reopenYourAccount">Повторно отвори ја твојата сметка</string>
   <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
   <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
   <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
@@ -849,4 +891,11 @@
   <string name="tournamentEntryCode">Лозинка за влез на турнир</string>
   <string name="hangOn">Чекај!</string>
   <string name="gameInProgress">Имате игра во прогрес %s.</string>
+  <string name="abortTheGame">Прекини ја играта</string>
+  <string name="resignTheGame">Предади ја играта</string>
+  <string name="youCantStartNewGame">Не можете да започнете нова игра додека моменталната не заврши.</string>
+  <string name="since">Од</string>
+  <string name="until">До</string>
+  <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>
+  <string name="switchSides">Променете страна</string>
 </resources>

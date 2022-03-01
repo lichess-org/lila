@@ -682,7 +682,7 @@
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassinen</string>
+  <string name="bulletBlitzClassical">Luotishakki, pikashakki, klassinen</string>
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
@@ -799,7 +799,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
-  <string name="rapid">Nopea</string>
+  <string name="rapid">Nopea shakki</string>
   <string name="classical">Klassinen</string>
   <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>
   <string name="bulletDesc">Hyvin nopeat pelit: alle 3 minuuttia</string>

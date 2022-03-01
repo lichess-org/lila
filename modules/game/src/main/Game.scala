@@ -618,10 +618,10 @@ case class Game(
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
   def drawReason = {
-    if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
+    else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
     else None
   }
 
