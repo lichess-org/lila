@@ -47,5 +47,7 @@
   <string name="solved">решено</string>
   <string name="failed">неуспешно</string>
   <string name="streakDescription">Решавајте прогресивно потешки загатки и изградете победничка серија. Нема часовник, па не брзајте. Еден погрешен потег и играта е завршена! Но, можете да прескокнете еден потег по сесија.</string>
+  <string name="fromMyGames">Од моите игри</string>
+  <string name="lookupOfPlayer">Пребарувај загатки од игрите на други играчи</string>
   <string name="percentSolved">%s решени</string>
 </resources>
