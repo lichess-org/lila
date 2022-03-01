@@ -3,12 +3,6 @@ import once from './component/once';
 import { hopscotch } from './component/assets';
 
 lichess.load.then(() => {
-  const $noteToggle = $('.user-show .note-zone-toggle').on('click', () => {
-    $('.user-show .note-zone').toggle();
-    loadNoteZone();
-  });
-  if (location.search.includes('note')) $noteToggle.trigger('click');
-
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
     $zone.find('textarea')[0]?.focus();
@@ -25,6 +19,12 @@ lichess.load.then(() => {
       return false;
     });
   };
+
+  const $noteToggle = $('.user-show .note-zone-toggle').on('click', () => {
+    $('.user-show .note-zone').toggle();
+    loadNoteZone();
+  });
+  if (location.search.includes('note')) $noteToggle.trigger('click');
 
   $('.user-show .claim_title_zone').each(function (this: HTMLElement) {
     const $zone = $(this);
