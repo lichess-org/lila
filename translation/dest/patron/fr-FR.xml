@@ -39,8 +39,6 @@ Puis nous payons un développeur à plein-temps : %s, le créateur de Lichess.</
   <string name="officialNonProfit">Lichess est-elle officiellement une ONG ?</string>
   <string name="actOfCreation">Oui, voici l\'acte de création</string>
   <string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel ?</string>
-  <string name="changeOrContact">Oui, à n\'importe quel moment, depuis cette page.
-Ou vous pouvez %s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
   <string name="otherMethods">Y a-t-il d\'autres moyens pour donner ?</string>
   <string name="bankTransfers">Nous acceptons aussi les virements</string>

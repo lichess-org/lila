@@ -39,8 +39,6 @@
   <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
   <string name="actOfCreation">Да, ето тук е документът (на френски)</string>
   <string name="changeMonthlySupport">Мога ли да променя/прекратя ежемесечния си абонамент?</string>
-  <string name="changeOrContact">Да, по всяко време, от тази страница.
-Или можете да се %s.</string>
   <string name="contactSupport">свържете с Lichess поддръжка</string>
   <string name="otherMethods">Други начини за дарение?</string>
   <string name="bankTransfers">Приемаме също и банкови преводи</string>

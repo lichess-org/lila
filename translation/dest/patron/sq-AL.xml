@@ -39,8 +39,6 @@ Më tej, paguajmë një zhvillues me orar të plotë, %s, krijuesin e Lichess-it
   <string name="officialNonProfit">A është Lichess-i një ent jofitimprurës zyrtarisht?</string>
   <string name="actOfCreation">Po, ja akti i themelimit (në frëngjisht)</string>
   <string name="changeMonthlySupport">A mund ta ndryshoj/anuloj përkrahjen time mujore?</string>
-  <string name="changeOrContact">Po, në çfarëdo kohe, nga kjo faqe.
-Ose mund të %s.</string>
   <string name="contactSupport">lidheni me asistencën e Lichess-it</string>
   <string name="otherMethods">Metoda tjera dhurimi?</string>
   <string name="bankTransfers">Pranojmë edhe dërgesa bankare</string>

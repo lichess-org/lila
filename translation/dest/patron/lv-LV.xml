@@ -40,8 +40,6 @@ Mēs maksājam arī pilnslodzes izstrādātājam: Lichess dibinātājam %s.</str
   <string name="officialNonProfit">Vai Lichess ir oficiāla bezpeļņas organizācija?</string>
   <string name="actOfCreation">Jā, lūk dibināšanas akts (franciski)</string>
   <string name="changeMonthlySupport">Vai varu mainīt/atcelt savu ikmēneša atbalstu?</string>
-  <string name="changeOrContact">Jā, jebkurā laikā no šīs lapas.
-Varat arī %s.</string>
   <string name="contactSupport">sazināties ar Lichess atbalsta dienestu</string>
   <string name="otherMethods">Citi ziedojumu veidi?</string>
   <string name="bankTransfers">Mēs pieņemam arī bankas pārskaitījumus</string>

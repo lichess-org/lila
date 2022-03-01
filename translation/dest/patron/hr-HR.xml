@@ -40,8 +40,6 @@ Zatim, plaćamo programera s punim radnim vremenom: %s, osnivača Lichess-a.</st
   <string name="officialNonProfit">Je li Lichess i službeno neprofitna organizacija?</string>
   <string name="actOfCreation">Da, ovo je statut osnivanja (na francuskom jeziku)</string>
   <string name="changeMonthlySupport">Mogu li promijeniti / otkazati moju mjesečnu podršku?</string>
-  <string name="changeOrContact">Da, u bilo kom trenutku na ovoj stranici.
-Ili možete %s.</string>
   <string name="contactSupport">kontaktirati Lichess podršku</string>
   <string name="otherMethods">Da li postoje neke druge metode doniranja?</string>
   <string name="bankTransfers">Mi takođe prihvaćamo i bankovne transfere</string>

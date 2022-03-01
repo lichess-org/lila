@@ -42,8 +42,6 @@ Ansin íocaimid forbróir lánaimseartha: %s, bunaitheoir Lichess.</string>
   <string name="officialNonProfit">An neamhbhrabús oifigiúil é Lichess?</string>
   <string name="actOfCreation">Sea, seo an deimhniú corpraithe</string>
   <string name="changeMonthlySupport">An bhfuil cead agam mo thacaíocht mhíosúil a athrú / a chealú?</string>
-  <string name="changeOrContact">Cinnte, am ar bith, ón leathanach seo.
-Nó is féidir leat %s.</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
   <string name="otherMethods">Modhanna eile deonaithe?</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>

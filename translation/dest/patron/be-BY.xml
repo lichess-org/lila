@@ -41,8 +41,6 @@
   <string name="officialNonProfit">Lichess афіцыйна некамерцыйная арганізацыя?</string>
   <string name="actOfCreation">Так, вось тут акт стварэння (на французскай мове)</string>
   <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
-  <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
-Ці можаце %s.</string>
   <string name="contactSupport">звязацца са службай дапамогі Lichess</string>
   <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>

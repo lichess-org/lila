@@ -40,8 +40,6 @@ Apoi plătim un dezvoltator cu normă întreagă: %s, fondatorul Lichess.</strin
   <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
   <string name="changeMonthlySupport">Pot schimba/anula susținerea mea lunară?</string>
-  <string name="changeOrContact">Da, oricând, de pe această pagină.
-Sau poți %s.</string>
   <string name="contactSupport">cere asistență de la Lichess</string>
   <string name="otherMethods">Alte metode de donare?</string>
   <string name="bankTransfers">Acceptăm și transferuri bancare</string>

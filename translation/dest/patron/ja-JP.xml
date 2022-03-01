@@ -38,8 +38,6 @@
   <string name="officialNonProfit">Lichess は公認の非営利団体ですか？</string>
   <string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
   <string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
-  <string name="changeOrContact">はい、このページでいつでも。
-あるいは %s を。</string>
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
   <string name="bankTransfers">銀行振込もできます</string>

@@ -309,7 +309,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact, targetBlank)(contactSupport()))
+          changeOrContactInfo(a(href := routes.Main.contact, targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(

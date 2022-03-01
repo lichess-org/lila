@@ -41,8 +41,6 @@ Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>
   <string name="officialNonProfit">Ar Lichess oficialiai nepelno kompanija?</string>
   <string name="actOfCreation">Taip, štai sukūrimo aktas (prancūzų kalba)</string>
   <string name="changeMonthlySupport">Ar galiu pakeisti/atšaukti savo mėnesinę paramą?</string>
-  <string name="changeOrContact">Taip, bet kuriuo laiku iš šio puslapio.
-Arba galite %s.</string>
   <string name="contactSupport">susisiekti su Lichess pagalba</string>
   <string name="otherMethods">Kiti būdai paremti?</string>
   <string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>

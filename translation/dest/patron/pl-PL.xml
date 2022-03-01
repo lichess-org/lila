@@ -41,8 +41,6 @@ Zapłacimy również pracującemu na pełny etat programiście: %s, założyciel
   <string name="officialNonProfit">Czy Lichess jest oficjalną organizacją non-profit?</string>
   <string name="actOfCreation">Tak, oto akt utworzenia (w języku francuskim)</string>
   <string name="changeMonthlySupport">Czy mogę zmienić/anulować moje wsparcie miesięczne?</string>
-  <string name="changeOrContact">Tak - możesz to zrobić w każdej chwili na tej stronie.
-Możesz też w tej sprawie %s.</string>
   <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
   <string name="bankTransfers">Akceptujemy przelewy bankowe</string>

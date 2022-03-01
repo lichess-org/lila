@@ -23,8 +23,6 @@
   <string name="officialNonProfit">Lichess 是一個非營利組織嗎?</string>
   <string name="actOfCreation">是的，這是公司註冊證書 (法語)</string>
   <string name="changeMonthlySupport">我可以更改/取消我的每月支持嗎？</string>
-  <string name="changeOrContact">當然，您隨時可以在本頁更改。
-您也可以 %s。</string>
   <string name="contactSupport">聯絡 Lichess 支援</string>
   <string name="otherMethods">有其他的贊助方式嗎？</string>
   <string name="bankTransfers">我們也接受銀行轉帳</string>

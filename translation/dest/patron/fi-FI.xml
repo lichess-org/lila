@@ -39,8 +39,6 @@ Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustaj
   <string name="officialNonProfit">Onko Lichess virallisesti yleishyödyllinen yhteisö?</string>
   <string name="actOfCreation">On. Tässä on perustamiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaisen tukeni?</string>
-  <string name="changeOrContact">Voit, milloin vain tällä sivulla.
-Tai voit %s.</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>

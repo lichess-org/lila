@@ -39,8 +39,6 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
   <string name="officialNonProfit">Lichess és un organisme sense ànim de lucre?</string>
   <string name="actOfCreation">Sí, aquí està l\'acta de creació (en francès)</string>
   <string name="changeMonthlySupport">Puc canviar/cancel·lar el meu suport mensual?</string>
-  <string name="changeOrContact">Sí, en qualsevol moment des d\'aquesta plana.
-O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>

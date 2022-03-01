@@ -39,8 +39,6 @@ De seguida, pagamos a um desenvolvedor a tempo inteiro: %s, o fundador do Liches
   <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos oficial?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
   <string name="changeMonthlySupport">Posso mudar/cancelar o meu suporte mensal?</string>
-  <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
-Ou podes %s.</string>
   <string name="contactSupport">contactar o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>

@@ -40,8 +40,6 @@ Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı
   <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
   <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca)</string>
   <string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
-  <string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
-Veya %s.</string>
   <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>

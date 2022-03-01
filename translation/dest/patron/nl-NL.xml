@@ -39,8 +39,6 @@ Daarnaast betalen we een voltijds ontwikkelaar: %s, de oprichter van Lichess.</s
   <string name="officialNonProfit">Is Lichess aantoonbaar een organisatie zonder winstoogmerk?</string>
   <string name="actOfCreation">Ja, hier is de akte van oprichting (in het Frans)</string>
   <string name="changeMonthlySupport">Kan ik mijn maandelijkse ondersteuning wijzigen of annuleren?</string>
-  <string name="changeOrContact">Ja, op elk gewenst moment vanaf deze pagina.
-Of u kunt %s.</string>
   <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>

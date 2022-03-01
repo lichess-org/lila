@@ -33,8 +33,6 @@ Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gia
   <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thống?</string>
   <string name="actOfCreation">Đúng, và đây là tuyên bố thành lập (bằng tiếng Pháp)</string>
   <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
-  <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
-Hoặc bạn có thể %s.</string>
   <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
   <string name="otherMethods">Phương thức quyên góp khác?</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>

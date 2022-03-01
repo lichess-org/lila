@@ -38,8 +38,6 @@ Sedan betalar vi en heltidsutvecklare: %s, grundaren av Lichess.</string>
   <string name="officialNonProfit">Är Lichess en officiell ideell organisation?</string>
   <string name="actOfCreation">Ja, här är den skapande handlingen (på franska)</string>
   <string name="changeMonthlySupport">Kan jag ändra/avbryta mitt månatliga bidrag?</string>
-  <string name="changeOrContact">Ja, när som helst, från den här sidan.
-Eller så kan du %s.</string>
   <string name="contactSupport">kontakta Lichess support</string>
   <string name="otherMethods">Andra metoder för donation?</string>
   <string name="bankTransfers">Vi godtar även banköverföringar</string>

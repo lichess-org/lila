@@ -44,8 +44,6 @@
   <string name="officialNonProfit">هل Lichess رسمياً غير ربحي؟</string>
   <string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>
   <string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
-  <string name="changeOrContact">نعم، في أي وقت، من هذه الصفحة.
-أو يمكنك %s.</string>
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
   <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>

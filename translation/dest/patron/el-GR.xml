@@ -39,8 +39,6 @@
   <string name="officialNonProfit">Είναι το Lichess επίσημα μια μη κερδοσκοπική οργάνωση;</string>
   <string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
   <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
-  <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
-Ή μπορείτε %s.</string>
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>

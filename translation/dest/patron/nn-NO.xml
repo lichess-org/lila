@@ -39,8 +39,6 @@ Deretter løner vi ein fulltidsutviklar: %s, grunnleggaren av Lichess.</string>
   <string name="officialNonProfit">Er Lichess offisielt ein nonprofit organisasjon?</string>
   <string name="actOfCreation">Ja, her er grunnleggingsdokumentet. (på fransk)</string>
   <string name="changeMonthlySupport">Kan eg endre/annullere det månadlege bidraget mitt?</string>
-  <string name="changeOrContact">Ja, når som helst, frå denne sida.
-Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-hjelpa</string>
   <string name="otherMethods">Andre måtar å bidra på?</string>
   <string name="bankTransfers">Vi tek òg mot bankoverføringar</string>

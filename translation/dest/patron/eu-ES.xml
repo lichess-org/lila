@@ -39,8 +39,6 @@ Ondoren garatzaile baten soldata ordaintzen dugu: %s, Lichessen sortzailea.</str
   <string name="officialNonProfit">Benetan da Lichess irabazi asmorik gabekoa?</string>
   <string name="actOfCreation">Bai, hemen dago eratze-akta (frantsesez)</string>
   <string name="changeMonthlySupport">Aldatu/Ezeztatu dezaket nire hileroko babesa?</string>
-  <string name="changeOrContact">Bai, edonoiz, orrialde honetatik.
-Edo %s.</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
   <string name="bankTransfers">Banku-transferentziak ere onartzen ditugu</string>

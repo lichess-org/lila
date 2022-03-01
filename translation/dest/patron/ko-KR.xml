@@ -38,8 +38,6 @@
   <string name="officialNonProfit">Lichess는 공식적인 비영리 단체인가요?</string>
   <string name="actOfCreation">예. 여기에 설립증이 있습니다(프랑스어)</string>
   <string name="changeMonthlySupport">월간 후원을 변경/취소할 수 있나요?</string>
-  <string name="changeOrContact">예. 언제든지 이 페이지에서 할 수 있습니다.
-또는 %s를 할 수 있습니다.</string>
   <string name="contactSupport">Lichess 지원팀에 문의</string>
   <string name="otherMethods">다른 기부 방법이 있나요?</string>
   <string name="bankTransfers">계좌 이체도 가능합니다</string>

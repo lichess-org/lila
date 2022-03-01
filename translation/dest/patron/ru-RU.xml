@@ -41,8 +41,6 @@
   <string name="officialNonProfit">Правда, что Lichess официально некоммерческий?</string>
   <string name="actOfCreation">Да, вот документ (на французском языке)</string>
   <string name="changeMonthlySupport">Могу ли я изменить или отменить мою ежемесячную поддержку?</string>
-  <string name="changeOrContact">Да, в любое время, с этой страницы.
-Или вы можете %s.</string>
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>

@@ -39,8 +39,6 @@
   <string name="officialNonProfit">Lichess एक आधिकारिक गैर-लाभकारी है?</string>
   <string name="actOfCreation">हाँ, यहाँ निगमन प्रमाणपत्र है (फ्रेंच में)</string>
   <string name="changeMonthlySupport">क्या मैं अपना मासिक समर्थन बदल / रद्द कर सकता हूँ?</string>
-  <string name="changeOrContact">हाँ, किसी भी समय, इस पृष्ठ से।
-या आप %s कर सकते हैं।</string>
   <string name="contactSupport">लिचेस समर्थन से संपर्क करें</string>
   <string name="otherMethods">दान की अन्य विधियाँ?</string>
   <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>

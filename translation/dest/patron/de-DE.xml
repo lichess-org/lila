@@ -39,8 +39,6 @@ Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</stri
   <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit-Organisation?</string>
   <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in Französisch)</string>
   <string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
-  <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
-Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
   <string name="otherMethods">Andere Möglichkeiten um zu spenden?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>

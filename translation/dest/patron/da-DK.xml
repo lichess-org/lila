@@ -39,8 +39,6 @@ Dernæst betaler vi en fuldtidsudvikler: %s, grundlæggeren af Lichess.</string>
   <string name="officialNonProfit">Er Lichess officielt en nonprofit?</string>
   <string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg ændre/annullere mit månedlige bidrag?</string>
-  <string name="changeOrContact">Ja, til enhver tid, fra denne side.
-Eller du kan %s.</string>
   <string name="contactSupport">kontakte Lichess-support</string>
   <string name="otherMethods">Andre måder at bidrage?</string>
   <string name="bankTransfers">Vi kan også modtage bankoverførsler</string>

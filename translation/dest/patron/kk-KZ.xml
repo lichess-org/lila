@@ -39,8 +39,6 @@
   <string name="officialNonProfit">Личес, шынымен, табыс табуға көзделмеген бе?</string>
   <string name="actOfCreation">Иә. Міне – құру құжаты (француз тілінде)</string>
   <string name="changeMonthlySupport">Айлық қолдауымды өзгертсем/тоқтатсам бола ма?</string>
-  <string name="changeOrContact">Иә, кез-келген уақытта, осы бетте.
-Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
   <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>

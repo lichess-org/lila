@@ -40,8 +40,6 @@ Pak platíme vývojáře na plný úvazek: %s, zakladatel Lichess.</string>
   <string name="officialNonProfit">Je Lichess oficiálně neziskový?</string>
   <string name="actOfCreation">Ano, tady je ustanovující listina (ve francouzštině)</string>
   <string name="changeMonthlySupport">Mohu změnit/zrušit svou měsíční podporu?</string>
-  <string name="changeOrContact">Ano, kdykoli z této stránky.
-Nebo můžete %s.</string>
   <string name="contactSupport">kontaktovat podporu Lichess</string>
   <string name="otherMethods">Jiné způsoby podpory?</string>
   <string name="bankTransfers">Přijímáme také bankovní převody</string>

@@ -32,7 +32,6 @@
   <string name="officialNonProfit">Er Lichess alment ein felagsskapur, ið ikki miðar eftir vinningi?</string>
   <string name="actOfCreation">Ja, her er stovnsskipanin (á fronskum)</string>
   <string name="changeMonthlySupport">Kann eg broyta/steðga mín mánaðarliga stuðul?</string>
-  <string name="changeOrContact">Ja, nær tað skal vera, á hesari síðuni. Ella kanst tú %s.</string>
   <string name="contactSupport">seta teg í samband við Lichess stuðul</string>
   <string name="otherMethods">Eru aðrir hættir at stuðla?</string>
   <string name="bankTransfers">Vit taka eisini ímóti bankaflytingum</string>

@@ -39,8 +39,6 @@ Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Liches.</str
   <string name="officialNonProfit">É Lichess unha organización oficial sen ánimo de lucro?</string>
   <string name="actOfCreation">Si, aquí está a acta fundacional (en francés)</string>
   <string name="changeMonthlySupport">Podo cambiar/cancelar a miña achega mensual?</string>
-  <string name="changeOrContact">Si, en calquera momento, dende esta páxina.
-Ou podes %s.</string>
   <string name="contactSupport">poñerte en contacto co soporte de Lichess</string>
   <string name="otherMethods">Hai outros métodos de donación?</string>
   <string name="bankTransfers">Tamén aceptamos trasferencias bancarias</string>

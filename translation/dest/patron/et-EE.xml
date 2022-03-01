@@ -32,8 +32,6 @@ Siis me maksame täiskohaga arendajale: %s, Lichessi asutajale.</string>
   <string name="officialNonProfit">Kas Lichess on ametlikult mittetulundusühing?</string>
   <string name="actOfCreation">Jah, siin on põhikiri (prantsuse keeles)</string>
   <string name="changeMonthlySupport">Kas ma saan muuta/tühistada mu igakuiset toetust?</string>
-  <string name="changeOrContact">Jah, millal iganes, sellel leheküljel.
-Võimalik on ka %s.</string>
   <string name="contactSupport">võta ühendust Lichessi abiga</string>
   <string name="otherMethods">Teised annetusviisid?</string>
   <string name="bankTransfers">Me võtame vastu ka pangaülekandeid</string>
