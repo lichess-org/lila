@@ -60,9 +60,10 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | ----------------- | ------- | ------------------------------------------------- |
 | Chromium / Chrome | last 10 | Full support                                      |
 | Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
+| Edge              | 17+     | Full support                                |
 | Opera             | 55+     | Reasonable support                                |
 | Safari            | 11.1+   | Reasonable support                                |
-| Edge              | 17+     | Reasonable support                                |
+
 
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about it!
