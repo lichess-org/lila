@@ -64,7 +64,6 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | Opera             | 55+     | Reasonable support                                |
 | Safari            | 11.1+   | Reasonable support                                |
 
-
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about it!
 
