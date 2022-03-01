@@ -48,14 +48,14 @@ object PrefForm {
         "sound"    -> booleanNumber,
         "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
-      "follow"          -> booleanNumber,
-      "challenge"       -> checkedNumber(Pref.Challenge.choices),
-      "message"         -> checkedNumber(Pref.Message.choices),
-      "studyInvite"     -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "mention"         -> optional(booleanNumber),
-      "insightShare"    -> numberIn(Set(0, 1, 2)),
-      "ratings"         -> optional(booleanNumber),
-      "timelineEntries" -> checkedNumber(Pref.TimelineEntries.choices)
+      "follow"                       -> booleanNumber,
+      "challenge"                    -> checkedNumber(Pref.Challenge.choices),
+      "message"                      -> checkedNumber(Pref.Message.choices),
+      "studyInvite"                  -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "mention"                      -> optional(booleanNumber),
+      "insightShare"                 -> numberIn(Set(0, 1, 2)),
+      "ratings"                      -> optional(booleanNumber),
+      "showFriendActivityOnHomepage" -> booleanNumber
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -103,7 +103,7 @@ object PrefForm {
       mention: Option[Int],
       insightShare: Int,
       ratings: Option[Int],
-      timelineEntries: Int
+      showFriendActivityOnHomepage: Int
   ) {
 
     def apply(pref: Pref) =
@@ -139,7 +139,7 @@ object PrefForm {
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent,
-        timelineEntries = timelineEntries
+        showFriendActivityOnHomepage = showFriendActivityOnHomepage == 1
       )
   }
 
@@ -183,7 +183,7 @@ object PrefForm {
         mention = (if (pref.mention) 1 else 0).some,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
-        timelineEntries = pref.timelineEntries
+        showFriendActivityOnHomepage = if (pref.showFriendActivityOnHomepage) 1 else 0
       )
   }
 

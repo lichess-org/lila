@@ -202,8 +202,8 @@ object pref {
               )
             ),
             setting(
-              showTimelineEntries(),
-              radios(form("timelineEntries"), translatedTimelineEntriesChoices)
+              trans.preferences.showFriendActivityOnHomepage(),
+              radios(form("showFriendActivityOnHomepage"), booleanChoices)
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())

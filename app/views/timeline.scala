@@ -37,7 +37,7 @@ object timeline {
   private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     entries
       .withFilter(e =>
-        if (ctx.pref.isTimelineAll) true
+        if (ctx.pref.showFriendActivityOnHomepage) true
         else
           e.userIds.contains(ctx.userId match {
             case Some(userId) => userId

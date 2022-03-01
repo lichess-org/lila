@@ -282,12 +282,6 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Message.ALWAYS, trans.always.txt())
     )
 
-  def translatedTimelineEntriesChoices(implicit lang: Lang) =
-    List(
-      Pref.TimelineEntries.ONLY_ME -> trans.preferences.onlyMe.txt(),
-      Pref.TimelineEntries.ALL     -> trans.preferences.allAvailableEntries.txt()
-    )
-
   def translatedStudyInviteChoices(implicit lang: Lang) = privacyBaseChoices
   def translatedPalantirChoices(implicit lang: Lang)    = privacyBaseChoices
   private def privacyBaseChoices(implicit lang: Lang) =

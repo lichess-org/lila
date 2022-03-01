@@ -47,7 +47,7 @@ case class Pref(
     pieceNotation: Int,
     resizeHandle: Int,
     agreement: Int,
-    timelineEntries: Int,
+    showFriendActivityOnHomepage: Boolean,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -123,8 +123,6 @@ case class Pref(
   def isZen = zen == Zen.YES
 
   val showRatings = ratings == Ratings.YES
-
-  def isTimelineAll = timelineEntries == TimelineEntries.ALL
 
   def is2d = !is3d
 
@@ -415,16 +413,6 @@ object Pref {
     )
   }
 
-  object TimelineEntries {
-    val ONLY_ME = 1
-    val ALL     = 2
-
-    val choices = Seq(
-      ONLY_ME -> "Never",
-      ALL     -> "Always"
-    )
-  }
-
   object ResizeHandle {
     val NEVER   = 0
     val INITIAL = 1
@@ -442,8 +430,9 @@ object Pref {
     val changedAt = new DateTime(2021, 12, 28, 8, 0)
   }
 
-  object Zen     extends BooleanPref {}
-  object Ratings extends BooleanPref {}
+  object Zen                          extends BooleanPref {}
+  object Ratings                      extends BooleanPref {}
+  object ShowFriendActivityOnHomepage extends BooleanPref
 
   val darkByDefaultSince = new DateTime(2021, 11, 7, 8, 0)
 
@@ -499,7 +488,7 @@ object Pref {
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     tags = Map.empty,
-    timelineEntries = TimelineEntries.ALL
+    showFriendActivityOnHomepage = true
   )
 
   import ornicar.scalalib.Zero
