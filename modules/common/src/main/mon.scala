@@ -418,7 +418,6 @@ object mon {
       timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
-    def standingOverload      = counter("swiss.standing.overload").withoutTags()
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
     val scoringGet            = future("swiss.scoring.get")
