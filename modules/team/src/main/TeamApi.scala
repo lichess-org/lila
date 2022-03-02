@@ -257,7 +257,6 @@ final class TeamApi(
         case JsSuccess(users, _) =>
           users
             .map(_.value.toLowerCase.trim)
-            .filter(User.lichessId !=)
             .toSet
         case _ => Set.empty[User.ID]
       }
@@ -268,8 +267,12 @@ final class TeamApi(
     val leaders: Set[User.ID] = parseTagifyInput(json) take 30
     for {
       allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
-      ids                  <- userRepo.filterNotKid(allIds.toSeq)
+      idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
+      ids =
+        (if (idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId))
+           idsNoKids - User.lichessId
+         else idsNoKids)
       _ <- ids.nonEmpty ?? {
         if (
           ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
