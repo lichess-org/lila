@@ -4,6 +4,7 @@ import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { option } from '../util';
 import { StudyChapter, StudyCtrl } from './interfaces';
+import { looksLikeLichessGame } from './studyChapters';
 
 export interface TagsCtrl {
   submit(type: string): (tag: string) => void;
@@ -48,12 +49,7 @@ function renderPgnTags(
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(
     chapter.tags
-      .filter(
-        tag =>
-          !hideRatings ||
-          !['WhiteElo', 'BlackElo'].includes(tag[0]) ||
-          !chapter.tags.find(t => t[0] == 'Site' && t[1].match(new RegExp(location.hostname + '/\\w{8}$')))
-      )
+      .filter(tag => !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags))
       .map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])])
   );
   if (submit) {

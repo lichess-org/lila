@@ -62,6 +62,9 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
   return t && t[1];
 }
 
+export const looksLikeLichessGame = (tags: TagArray[]) =>
+  !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
+
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
   switch (findTag(tags, 'result')) {
     case '1-0':
