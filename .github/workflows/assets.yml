@@ -20,7 +20,7 @@ jobs:
   assets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - run: git submodule absorbgitdirs
@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '14'
           cache: yarn
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: lichess-org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}
@@ -44,7 +44,7 @@ jobs:
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
           XZ_OPT: '-0'
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: lila-assets
           path: assets.tar.xz
