@@ -19,7 +19,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
-  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.1.0"  % Test
+  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.2.11"  % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
   val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.14.1" % Test
   val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
