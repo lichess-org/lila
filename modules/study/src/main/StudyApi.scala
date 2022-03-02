@@ -27,7 +27,8 @@ final class StudyApi(
     scheduler: akka.actor.Scheduler,
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
-    serverEvalRequester: ServerEval.Requester
+    serverEvalRequester: ServerEval.Requester,
+    prefApi: lila.pref.PrefApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
@@ -599,34 +600,36 @@ final class StudyApi(
   def addChapter(studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
   ): Funit =
-    data.manyGames match {
-      case Some(datas) =>
-        lila.common.Future.applySequentially(datas) { data =>
-          addChapter(studyId, data, sticky, withRatings)(who)
-        }
-      case _ =>
-        sequenceStudy(studyId) { study =>
-          Contribute(who.u, study) {
-            chapterRepo.countByStudyId(study.id) flatMap { count =>
-              if (count >= Study.maxChapters) funit
-              else
-                data.initial ?? {
-                  chapterRepo.firstByStudy(study.id) flatMap {
-                    _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                  }
-                } >>
-                  chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-                    chapterMaker(study, data, order, who.u, withRatings) flatMap { chapter =>
-                      doAddChapter(study, chapter, sticky, who)
-                    } addFailureEffect {
-                      case ChapterMaker.ValidationException(error) =>
-                        sendTo(study.id)(_.validationError(error, who.sri))
-                      case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+    withRatings.??(prefApi.getPref(who.u, _.showRatings)) flatMap { withRatings =>
+      data.manyGames match {
+        case Some(datas) =>
+          lila.common.Future.applySequentially(datas) { data =>
+            addChapter(studyId, data, sticky, withRatings)(who)
+          }
+        case _ =>
+          sequenceStudy(studyId) { study =>
+            Contribute(who.u, study) {
+              chapterRepo.countByStudyId(study.id) flatMap { count =>
+                if (count >= Study.maxChapters) funit
+                else
+                  data.initial ?? {
+                    chapterRepo.firstByStudy(study.id) flatMap {
+                      _.filter(_.isEmptyInitial) ?? chapterRepo.delete
                     }
-                  }
+                  } >>
+                    chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+                      chapterMaker(study, data, order, who.u, withRatings) flatMap { chapter =>
+                        doAddChapter(study, chapter, sticky, who)
+                      } addFailureEffect {
+                        case ChapterMaker.ValidationException(error) =>
+                          sendTo(study.id)(_.validationError(error, who.sri))
+                        case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+                      }
+                    }
+              }
             }
           }
-        }
+      }
     }
 
   def rename(studyId: Study.Id, name: Study.Name): Funit =
