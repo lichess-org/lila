@@ -52,6 +52,7 @@
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Додади нова тема</string>
   <string name="jumpToNextPuzzleImmediately">Веднаш премини на следната загатка</string>
+  <string name="puzzleDashboard">Панел на загатки</string>
   <string name="improvementAreas">Области за подобрување</string>
   <string name="strengths">Предности</string>
   <string name="history">Историја на загатки</string>
