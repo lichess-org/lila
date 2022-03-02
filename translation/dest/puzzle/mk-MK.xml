@@ -4,8 +4,10 @@
   <string name="puzzleThemes">Категории на загатки</string>
   <string name="recommended">Препорачани</string>
   <string name="phases">Етапи</string>
+  <string name="motifs">Мотиви</string>
   <string name="advanced">Напредно</string>
   <string name="lengths">Должина</string>
+  <string name="mates">Матови</string>
   <string name="goals">Цели</string>
   <string name="origin">Потекло</string>
   <string name="specialMoves">Специјални потези</string>
@@ -48,6 +50,7 @@
     <item quantity="other">%s поени над вашиот рејтинг</item>
   </plurals>
   <string name="example">Пример</string>
+  <string name="addAnotherTheme">Додади нова тема</string>
   <string name="jumpToNextPuzzleImmediately">Веднаш премини на следната загатка</string>
   <string name="improvementAreas">Области за подобрување</string>
   <string name="strengths">Предности</string>
@@ -57,6 +60,8 @@
   <string name="streakDescription">Решавајте прогресивно потешки загатки и изградете победничка серија. Нема часовник, па не брзајте. Еден погрешен потег и играта е завршена! Но, можете да прескокнете еден потег по сесија.</string>
   <string name="yourStreakX">Вашата серија: %s</string>
   <string name="streakSkipExplanation">Прескокнете го овој потег за да ја зачувате вашата победничка серија! Дозволено само еднаш во сесија.</string>
+  <string name="continueTheStreak">Продолжете ја серијата</string>
+  <string name="newStreak">Нова серија</string>
   <string name="fromMyGames">Од моите игри</string>
   <string name="lookupOfPlayer">Пребарувај загатки од игрите на други играчи</string>
   <string name="fromXGames">Загатки од игрите на %s\'</string>
@@ -77,4 +82,5 @@
   <string name="percentSolved">%s решени</string>
   <string name="noPuzzlesToShow">Нема што да се покаже овде, прво одиграјте неколку загатки!</string>
   <string name="improvementAreasDescription">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
+  <string name="strengthDescription">Најдобро играте во овие теми</string>
 </resources>
