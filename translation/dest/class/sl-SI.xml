@@ -12,6 +12,7 @@
   <string name="teachersX">Učitelji: %s</string>
   <string name="newClass">Nov razred</string>
   <string name="closeClass">Zapri razred</string>
+  <string name="removedByX">Odstranil %s</string>
   <string name="reopen">Ponovno odpri</string>
   <string name="removeStudent">Odstrani študenta</string>
   <string name="removedStudents">Odstranjen</string>
@@ -94,6 +95,8 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="variantXOverLastY">%1$s v zadnjih %2$s</string>
   <string name="winrate">Delež zmag</string>
   <string name="na">Ni na voljo</string>
+  <string name="overview">Pregled</string>
+  <string name="classNews">Novice razreda</string>
   <string name="editNews">Uredi novice</string>
   <string name="notifyAllStudents">Obvestite vse študente</string>
   <string name="nothingHere">Tu ni še ničesar.</string>
@@ -101,4 +104,14 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="newsEdit2">Dodajte zadnje novice na vrh. Ne izbrišite prejšnjih novic.</string>
   <string name="newsEdit3">Ločene novice s ---
 Prikazal bo horizontalno črto.</string>
+  <string name="invite">Povabi</string>
+  <string name="youHaveBeenInvitedByX">Povabil vas je %s.</string>
+  <string name="youAcceptedThisInvitation">Sprejeli ste povabilo.</string>
+  <string name="youDeclinedThisInvitation">Niste sprejeli povabila.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ali</string>
+  <string name="createMultipleAccounts">Ustvarite več računov Lichess hkrati</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Prav tako lahko %s ustvarite več računov Lichess s seznama imen študentov.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">uporabite ta obrazec</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Upoštevajte, da ima razred lahko največ %1$s študentov. Če želite upravljati več študentov, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">ustvarite več razredov</string>
 </resources>
