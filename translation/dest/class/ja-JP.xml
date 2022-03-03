@@ -12,7 +12,6 @@
   <string name="teachersX">講師：%s</string>
   <string name="newClass">新しい教室</string>
   <string name="closeClass">教室を閉鎖する</string>
-  <string name="closedByX">%s によって停止</string>
   <string name="reopen">再開</string>
   <string name="removeStudent">生徒を削除</string>
   <string name="removedStudents">削除済み</string>
