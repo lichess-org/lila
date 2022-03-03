@@ -9,7 +9,6 @@
   <string name="teachersX">%s個教師</string>
   <string name="newClass">新的課程</string>
   <string name="closeClass">關閉課程</string>
-  <string name="closedByX">被%s關閉</string>
   <string name="reopen">重新開放</string>
   <string name="removeStudent">移除學生</string>
   <string name="removedStudents">移除</string>
@@ -53,7 +52,7 @@
   <string name="timePlaying">奕棋時間</string>
   <string name="winrate">勝率</string>
   <string name="na">N/A</string>
-  <string name="news">課程通知</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">編輯通知</string>
   <string name="notifyAllStudents">提醒所有的學生</string>
   <string name="nothingHere">這裡還沒有任何東西</string>
