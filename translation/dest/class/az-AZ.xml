@@ -12,7 +12,6 @@
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinfi bağla</string>
-  <string name="closedByX">%s tərəfindən bağlanıb</string>
   <string name="reopen">Yenidən aç</string>
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
