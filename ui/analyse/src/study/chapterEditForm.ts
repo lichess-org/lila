@@ -5,7 +5,6 @@ import { option, emptyRedButton } from '../util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, StudyChapterMeta } from './interfaces';
 import { defined, prop, Prop } from 'common';
 import { h, VNode } from 'snabbdom';
-import { modalButton } from './chapterNewForm';
 import { Redraw } from '../interfaces';
 import { snabModal } from 'common/modal';
 import { StudySocketSend } from '../socket';
@@ -129,50 +128,6 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
               ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
             ]
           ),
-          h('div.destructive', [
-            h(
-              emptyRedButton,
-              {
-                hook: bind(
-                  'click',
-                  _ => {
-                    if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
-                  },
-                  ctrl.redraw
-                ),
-                attrs: { type: 'button', title: noarg('clearAllCommentsInThisChapter') },
-              },
-              noarg('clearAnnotations')
-            ),
-            h(
-              emptyRedButton,
-              {
-                hook: bind(
-                  'click',
-                  _ => {
-                    if (confirm(ctrl.trans.noarg('clearVariations'))) ctrl.clearVariations(data.id);
-                  },
-                  ctrl.redraw
-                ),
-                attrs: { type: 'button' },
-              },
-              ctrl.trans.noarg('clearVariations')
-            ),
-            h(
-              emptyRedButton,
-              {
-                hook: bind(
-                  'click',
-                  _ => {
-                    if (confirm(ctrl.trans.noarg('deleteThisChapter'))) ctrl.delete(data.id);
-                  },
-                  ctrl.redraw
-                ),
-                attrs: { type: 'button', title: noarg('deleteThisChapter') },
-              },
-              noarg('deleteChapter')
-            ),
-          ]),
         ],
       })
     : undefined;
@@ -183,7 +138,8 @@ function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyCha
 }
 
 function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
-  const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal';
+  const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal',
+    noarg = ctrl.trans.noarg;
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [
@@ -192,12 +148,12 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-orientation' },
           },
-          ctrl.trans.noarg('orientation')
+          noarg('orientation')
         ),
         h(
           'select#chapter-orientation.form-control',
           ['white', 'black'].map(function (color) {
-            return option(color, data.orientation, ctrl.trans.noarg(color));
+            return option(color, data.orientation, noarg(color));
           })
         ),
       ]),
@@ -207,12 +163,12 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-mode' },
           },
-          ctrl.trans.noarg('analysisMode')
+          noarg('analysisMode')
         ),
         h(
           'select#chapter-mode.form-control',
           chapterForm.modeChoices.map(c => {
-            return option(c[0], mode, ctrl.trans.noarg(c[1]));
+            return option(c[0], mode, noarg(c[1]));
           })
         ),
       ]),
@@ -223,16 +179,68 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         {
           attrs: { for: 'chapter-description' },
         },
-        ctrl.trans.noarg('pinnedChapterComment')
+        noarg('pinnedChapterComment')
       ),
       h(
         'select#chapter-description.form-control',
         [
-          ['', ctrl.trans.noarg('noPinnedComment')],
-          ['1', ctrl.trans.noarg('rightUnderTheBoard')],
+          ['', noarg('noPinnedComment')],
+          ['1', noarg('rightUnderTheBoard')],
         ].map(v => option(v[0], data.description ? '1' : '', v[1]))
       ),
     ]),
-    modalButton(ctrl.trans.noarg('saveChapter')),
+    h('div.form-actions-secondary.destructive', [
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button', title: noarg('clearAllCommentsInThisChapter') },
+        },
+        noarg('clearAnnotations')
+      ),
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('clearVariations'))) ctrl.clearVariations(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button' },
+        },
+        noarg('clearVariations')
+      ),
+    ]),
+    h('div.form-actions', [
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('deleteThisChapter'))) ctrl.delete(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button', title: noarg('deleteThisChapter') },
+        },
+        noarg('deleteChapter')
+      ),
+      h(
+        'button.button',
+        {
+          attrs: { type: 'submit' },
+        },
+        noarg('saveChapter')
+      ),
+    ]),
   ];
 }
