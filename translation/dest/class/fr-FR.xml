@@ -12,7 +12,7 @@
   <string name="teachersX">Enseignants : %s</string>
   <string name="newClass">Nouvelle classe</string>
   <string name="closeClass">Fermer la classe</string>
-  <string name="closedByX">Fermé par %s</string>
+  <string name="removedByX">Supprimé par %s</string>
   <string name="reopen">Rouvrir</string>
   <string name="removeStudent">Retirer l\'élève</string>
   <string name="removedStudents">Retiré</string>
@@ -89,11 +89,27 @@ Voici le lien pour accéder à la classe.</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoire</string>
   <string name="na">Indisponible</string>
+  <string name="overview">Vue d\'ensemble</string>
   <string name="news">Actualité de la classe</string>
+  <string name="classNews">Actualité de la classe</string>
   <string name="editNews">Éditer les actualités</string>
   <string name="notifyAllStudents">Notifier tous les élèves</string>
   <string name="nothingHere">Il n\'y a encore rien ici.</string>
   <string name="newsEdit1">Toutes les nouvelles de la classe dans un seul champ.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
   <string name="newsEdit3">Séparez les actualités par ---- cela affichera une barre horizontale.</string>
+  <string name="invite">Inviter</string>
+  <string name="youHaveBeenInvitedByX">Vous êtes invité par %s.</string>
+  <string name="youAcceptedThisInvitation">Vous avez accepté cette invitation.</string>
+  <string name="youDeclinedThisInvitation">Vous avez refusé cette invitation.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>
+  <string name="createMultipleAccounts">Créez plusieurs comptes Lichess à la fois</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Vous pouvez également %s pour créer plusieurs comptes Lichess à partir d\'une liste de noms d\'élèves.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utiliser ce formulaire</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">créer plus de classes</string>
+  <string name="studentsRealNamesOnePerLine">Noms réels des étudiants, un par ligne</string>
+  <string name="xisNowAStudentOfTheClass">%s est maintenant un élève de la classe</string>
+  <string name="anInvitationHasBeenSentToX">Une invitation a été envoyée à %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s a déjà une invitation en attente</string>
+  <string name="xIsAKidAccountWarning">%1$s est un compte enfant et ne peut pas recevoir votre message. Vous devez lui donner l\'URL d\'invitation manuellement: %2$s</string>
 </resources>
