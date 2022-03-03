@@ -12,7 +12,6 @@
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova turma</string>
   <string name="closeClass">Fechar turma</string>
-  <string name="closedByX">Fechada por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Remover aluno</string>
   <string name="removedStudents">Removido</string>
