@@ -12,7 +12,6 @@
   <string name="teachersX">Nauczyciele: %s</string>
   <string name="newClass">Nowa klasa</string>
   <string name="closeClass">Zamknij klasę</string>
-  <string name="closedByX">Zamknięta przez %s</string>
   <string name="reopen">Otwórz ponownie</string>
   <string name="removeStudent">Usuń ucznia</string>
   <string name="removedStudents">Usunięte</string>
