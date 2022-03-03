@@ -12,7 +12,6 @@
   <string name="teachersX">Учитељи: %s</string>
   <string name="newClass">Нови час</string>
   <string name="closeClass">Затвори час</string>
-  <string name="closedByX">Затворено од стране %s</string>
   <string name="reopen">Поново отвори</string>
   <string name="removeStudent">Уклони ученика</string>
   <string name="removedStudents">Уклоњен</string>
