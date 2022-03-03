@@ -12,7 +12,6 @@
   <string name="teachersX">Tanárok: %s</string>
   <string name="newClass">Új osztály</string>
   <string name="closeClass">Bezárás osztály</string>
-  <string name="closedByX">%s zárta</string>
   <string name="reopen">Nyissa meg újra</string>
   <string name="removeStudent">Tanuló eltávolítása</string>
   <string name="removedStudents">Eltávolítva</string>
