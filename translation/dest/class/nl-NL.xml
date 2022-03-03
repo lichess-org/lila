@@ -12,7 +12,6 @@
   <string name="teachersX">Leraren: %s</string>
   <string name="newClass">Nieuwe klas</string>
   <string name="closeClass">Groep sluiten</string>
-  <string name="closedByX">Gesloten door %s</string>
   <string name="reopen">Heropen</string>
   <string name="removeStudent">Verwijder leerling</string>
   <string name="removedStudents">Verwijderd</string>
