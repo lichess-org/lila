@@ -12,7 +12,6 @@
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Nýggjur flokkur</string>
   <string name="closeClass">Lat flokk aftur</string>
-  <string name="closedByX">%s lat flokk aftur</string>
   <string name="reopen">Lat upp</string>
   <string name="removeStudent">Koyr næming úr</string>
   <string name="removedStudents">Úrkoyrdur</string>
