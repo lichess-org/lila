@@ -12,7 +12,6 @@
   <string name="teachersX">Profesori: %s</string>
   <string name="newClass">Clasă nouă</string>
   <string name="closeClass">Închide clasa</string>
-  <string name="closedByX">Închisă de %s</string>
   <string name="reopen">Redeschide</string>
   <string name="removeStudent">Elimină student</string>
   <string name="removedStudents">Eliminat</string>
