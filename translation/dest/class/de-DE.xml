@@ -12,7 +12,6 @@
   <string name="teachersX">Lehrer: %s</string>
   <string name="newClass">Neue Klasse</string>
   <string name="closeClass">Klasse schließen</string>
-  <string name="closedByX">Geschlossen von %s</string>
   <string name="reopen">Wieder öffnen</string>
   <string name="removeStudent">Schüler entfernen</string>
   <string name="removedStudents">Entfernt</string>
