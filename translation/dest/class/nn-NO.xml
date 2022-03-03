@@ -12,7 +12,6 @@
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Ny klasse</string>
   <string name="closeClass">Steng klasse</string>
-  <string name="closedByX">Stengt av %s</string>
   <string name="reopen">Opne opp att</string>
   <string name="removeStudent">Fjern elev</string>
   <string name="removedStudents">Fjerna</string>
