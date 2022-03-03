@@ -161,10 +161,10 @@ object student {
               )
             ),
             realNameField(invite),
-            form3.submit("Invite", icon = none)
+            form3.submit(trans.clas.invite(), icon = none)
           )
         ),
-        div(cls := "student-add__or")("~ or ~"),
+        div(cls := "student-add__or")(trans.clas.orSeparator()),
         div(cls := "student-add__choice")(
           div(cls := "info")(
             h2(trans.clas.createANewLichessAccount()),
@@ -187,15 +187,15 @@ object student {
             form3.submit(trans.signUp(), icon = none)
           )
         ),
-        div(cls := "student-add__or")("~ or ~"),
+        div(cls := "student-add__or")(trans.clas.orSeparator()),
         div(cls := "student-add__choice")(
           div(cls := "info")(
-            h2("Create multiple Lichess accounts at once"),
-            "You can also ",
-            a(href := routes.Clas.studentManyForm(clas.id.value))(
-              "use this form"
-            ),
-            " to create multiple Lichess accounts from a list of student names."
+            h2(trans.clas.createMultipleAccounts()),
+            trans.clas.multipleAccsFormDescription(
+              a(href := routes.Clas.studentManyForm(clas.id.value))(
+                trans.clas.useThisForm()
+              )
+            )
           )
         )
       )
@@ -210,7 +210,7 @@ object student {
   )(implicit ctx: Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
-      h1("Create multiple Lichess accounts at once"),
+      h1(trans.clas.createMultipleAccounts()),
       maxStudentsWarning(clas),
       created.nonEmpty option frag(
         flashMessage(cls := "student-add-many__created")(
@@ -221,9 +221,9 @@ object student {
           table(cls := "slist")(
             thead(
               tr(
-                th("Real name"),
-                th("Lichess username"),
-                th("Lichess password")
+                th(trans.clas.realName()),
+                th(trans.clas.lichessUsername()),
+                th(trans.password())
               )
             ),
             tbody(
@@ -236,7 +236,8 @@ object student {
               }
             )
           )
-        )
+        ),
+        br
       ),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
         p(badTag(strong(trans.clas.createStudentWarning()))),
@@ -244,7 +245,7 @@ object student {
           form3.globalError(form),
           form3.group(
             form("realNames"),
-            "Students real names, one per line",
+            trans.clas.studentsRealNamesOnePerLine(),
             help = trans.clas.privateWillNeverBeShown().some
           )(
             form3.textarea(_)(autofocus, rows := 20)
@@ -256,10 +257,10 @@ object student {
 
   private def maxStudentsWarning(clas: Clas)(implicit lang: Lang) =
     p(dataIcon := "", cls := "text")(
-      s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
-      "To manage more students, ",
-      a(href := routes.Clas.form)("create more classes"),
-      "."
+      trans.clas.maxStudentsNote(
+        lila.clas.Clas.maxStudents,
+        a(href := routes.Clas.form)(trans.clas.createMoreClasses())
+      )
     )
 
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit ctx: Context) =

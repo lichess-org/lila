@@ -21,15 +21,15 @@ object teacherDashboard {
       div(cls := "clas-show__top")(
         h1(dataIcon := "", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
-          a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
-          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
+          a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
+          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
           a(
             cls := active.active("progress"),
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
           )(trans.clas.progress()),
           a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
           a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
-            "Students"
+            trans.clas.students()
           )
         )
       ),
