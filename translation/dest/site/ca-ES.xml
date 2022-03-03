@@ -77,7 +77,7 @@
   <string name="close">Tancar</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empatat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
