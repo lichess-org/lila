@@ -12,7 +12,7 @@
   <string name="teachersX">Professors: %s</string>
   <string name="newClass">Nova classe</string>
   <string name="closeClass">Tancar classe</string>
-  <string name="closedByX">Tancat per %s</string>
+  <string name="removedByX">Eliminat per %s</string>
   <string name="reopen">Reobrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminat</string>
@@ -89,7 +89,9 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
   <string name="variantXOverLastY">%1$s sobre els últims %2$s</string>
   <string name="winrate">Percentatge de victòries</string>
   <string name="na">No disponible</string>
+  <string name="overview">Visió general</string>
   <string name="news">Novetats de la classe</string>
+  <string name="classNews">Novetats de la classe</string>
   <string name="editNews">Editar les novetats</string>
   <string name="notifyAllStudents">Notifica a tots els estudiants</string>
   <string name="nothingHere">Encara no hi ha res aquí.</string>
@@ -97,4 +99,19 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
   <string name="newsEdit2">Afegeix les novetats més recents a la part superior. No eliminis les novetats anteriors.</string>
   <string name="newsEdit3">Separa les novetats amb ---
 Mostrarà una línia separadora horitzontal.</string>
+  <string name="invite">Convida</string>
+  <string name="youHaveBeenInvitedByX">Heu estat convidat per %s.</string>
+  <string name="youAcceptedThisInvitation">Heu acceptat aquesta invitació.</string>
+  <string name="youDeclinedThisInvitation">Heu rebutjat aquesta invitació.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">o</string>
+  <string name="createMultipleAccounts">Crea múltiples comptes de Lichess a la vegada</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Podeu també %s per crear múltiples comptes de Lichess d\'una llista de noms d\'alumnes.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utilitza aquest formulari</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tingueu en compte que una classe pot tenir com a molt %1$s alumnes. Per gestionar més alumnes, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">crear més classes</string>
+  <string name="studentsRealNamesOnePerLine">Noms reals dels alumnes, un per línia</string>
+  <string name="xisNowAStudentOfTheClass">%s és un nou estudiant de la classe</string>
+  <string name="anInvitationHasBeenSentToX">S\'ha enviat una invitació a %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ja té una invitació pendent</string>
+  <string name="xIsAKidAccountWarning">%1$s és un compte de menors i no pot rebre el teu missatge. Li heu de fer arribar l\'URL manualment: %2$s</string>
 </resources>
