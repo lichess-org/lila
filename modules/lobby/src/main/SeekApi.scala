@@ -29,8 +29,8 @@ final class SeekApi(
   private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
     _.refreshAfterWrite(3 seconds)
       .buildAsyncFuture {
-        case ForAnon => allCursor.list(maxPerPage.value)
-        case ForUser => allCursor.list()
+        case false => allCursor.list(maxPerPage.value)
+        case true  => allCursor.list()
       }
   }
 
