@@ -16,7 +16,6 @@
   <string name="thankYou">Takk for bidraget ditt!</string>
   <string name="youHaveLifetime">Du har ein bidragsytar-konto på livstid. Det er rett og slett storarta!</string>
   <string name="patronUntil">Du har ein bidragsytar-konto fram til %s.</string>
-  <string name="ifNotRenewed">Dersom den ikkje blir fornya vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er ein nonprofitorganisasjon fordi vi meiner at alle bør ha tilgang til ein gratis, verdsomspennande sjakkplatform.</string>
   <string name="weRelyOnSupport">For å gjere det mogleg er vi avhengige av stønad frå folk som deg. Dersom du set pris på å bruka Lichess, så vurdér gjerne å støtte oss med eit bidrag og bli ein bidragsytar!</string>
   <string name="lifetime">Livstid</string>
