@@ -12,7 +12,6 @@
   <string name="teachersX">Oʻqituvchilar: %s</string>
   <string name="newClass">Yangi sinf</string>
   <string name="closeClass">Sinfni yopish</string>
-  <string name="closedByX">%s tomonidan yopilgan</string>
   <string name="reopen">Qayta ochish</string>
   <string name="removeStudent">Oʻquvchini oʻchirish</string>
   <string name="removedStudents">Oʻchirildi</string>
@@ -83,7 +82,7 @@ Paroli: %3$s</string>
   <string name="variantXOverLastY">Oxirgi %2$s dan %1$s koʻproq</string>
   <string name="winrate">Gʻalaba uchun imkoniyat</string>
   <string name="na">Mavjud emas</string>
-  <string name="news">Sinf yangiliklari</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Yangiliklarni tahrirlash</string>
   <string name="notifyAllStudents">Barcha oʻquvchilarni habardor etish</string>
   <string name="nothingHere">Xozirda, bu yerda hech nima yoʻq.</string>
