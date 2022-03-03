@@ -11,7 +11,6 @@
   <string name="thankYou">Takk fyri stuðulin!</string>
   <string name="youHaveLifetime">Tú hevur eina stuðulskontu fyri lívið. Tað er ikki so galið!</string>
   <string name="patronUntil">Tú hevur eina stuðulskontu til %s.</string>
-  <string name="ifNotRenewed">Um kontan ikki verður endurnýggjað, verður hon lækkað til eina ókeypis kontu.</string>
   <string name="weAreNonProfit">Vit eru ein felagsskapur, sum ikki miðar eftir vinningi, tí vit halda, at øll eiga at hava atgongd til ein ókeypis telvingarpall í heimsflokki.</string>
   <string name="weRelyOnSupport">Vit eru bundin at stuðli frá fólki sum tær, skal hetta vera møguligt. Dámar tær at nýta Lichess, umhugsa so vinaliga at stuðla okkum við eini peningagávu og við at gerast Lichess stuðul!</string>
   <string name="lifetime">Lívstíð</string>
