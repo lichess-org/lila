@@ -12,7 +12,6 @@
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
   <string name="closeClass">סגור כיתה</string>
-  <string name="closedByX">נסגר ע\"י %s</string>
   <string name="reopen">נפתח מחדש</string>
   <string name="removeStudent">הסר תלמידים</string>
   <string name="removedStudents">הוסרו</string>
