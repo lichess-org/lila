@@ -12,7 +12,6 @@
   <string name="teachersX">jan pi pana sona: %s</string>
   <string name="newClass">kulupu sin</string>
   <string name="closeClass">o pini e kulupu</string>
-  <string name="closedByX">jan %s li pini e ni</string>
   <string name="reopen">kama sin</string>
   <string name="removeStudent">o weka e jan pi kama sona</string>
   <string name="removedStudents">tenpo pini la weka</string>
