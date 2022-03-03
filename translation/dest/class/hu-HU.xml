@@ -90,7 +90,7 @@ Itt található a link az osztály eléréséhez.</string>
   <string name="winrate">Nyerési arány</string>
   <string name="na">N/A</string>
   <string name="overview">Áttekintés</string>
-  <string name="news">Osztályhírek</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Hírek szerkesztése</string>
   <string name="notifyAllStudents">Értesítsen minden hallgatót</string>
   <string name="nothingHere">Itt még semmi.</string>
