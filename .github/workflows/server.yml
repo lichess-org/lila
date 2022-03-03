@@ -49,7 +49,7 @@ jobs:
       - run: cd target/universal/stage && tar -cvpJf ../../../lila-3.0.tar.xz . && cd -
         env:
           XZ_OPT: '-0'
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: lila-server
           path: lila-3.0.tar.xz
