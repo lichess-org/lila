@@ -12,7 +12,7 @@
   <string name="teachersX">Lehrer: %s</string>
   <string name="newClass">Neui Klass</string>
   <string name="closeClass">Klass schlüüsse</string>
-  <string name="removedByX">Entfernt von %s</string>
+  <string name="removedByX">Entfernt vu %s</string>
   <string name="reopen">Wieder öffne</string>
   <string name="removeStudent">Schüeler entferne</string>
   <string name="removedStudents">Entfernt</string>
@@ -102,4 +102,16 @@ Es wird als horizontali Linie aazeigt.</string>
   <string name="invite">Einladen</string>
   <string name="youHaveBeenInvitedByX">Du wurdest von %s eingeladen.</string>
   <string name="youAcceptedThisInvitation">Du hast diese Einladung angenommen.</string>
+  <string name="youDeclinedThisInvitation">Du hast diese Einladung abgelehnt.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>
+  <string name="createMultipleAccounts">Mehrere Lichess-Konten auf einmal erstellen</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kannst auch %s, um mehrere Lichess-Konten aus einer Liste von Schülernamen zu erstellen.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dieses Formular benutzen</string>
+  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Beachte, dass eine Klasse nur bis zu %1$s Schüler haben kann. Um mehr Schüler zu verwalten, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">erstelle weiter Klassen</string>
+  <string name="studentsRealNamesOnePerLine">Echter Name der Schüler, einer pro Zeile</string>
+  <string name="xisNowAStudentOfTheClass">%s ist jetzt Schüler der Klasse</string>
+  <string name="anInvitationHasBeenSentToX">Eine Einladung wurde an %s gesendet</string>
+  <string name="xAlreadyHasAPendingInvitation">%s hat bereits eine ausstehende Einladung</string>
+  <string name="xIsAKidAccountWarning">%1$s ist ein Kinderkonto und kann deine Nachricht nicht erhalten. Du musst ihm die Einladungs-URL manuell geben: %2$s</string>
 </resources>
