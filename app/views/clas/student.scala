@@ -140,7 +140,7 @@ object student {
         )
       },
       standardFlash(),
-      (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+      (nbStudents < lila.clas.Clas.maxStudents) option frag(
         div(cls := "student-add__choice")(
           div(cls := "info")(
             h2(trans.clas.inviteALichessAccount()),
@@ -238,7 +238,7 @@ object student {
           )
         )
       ),
-      (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+      (nbStudents < lila.clas.Clas.maxStudents) option frag(
         p(badTag(strong(trans.clas.createStudentWarning()))),
         postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
           form3.globalError(form),
