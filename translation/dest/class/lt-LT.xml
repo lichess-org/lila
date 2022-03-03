@@ -12,7 +12,6 @@
   <string name="teachersX">Mokytojai: %s</string>
   <string name="newClass">Nauja klasė</string>
   <string name="closeClass">Uždaryti klasę</string>
-  <string name="closedByX">Uždaryta %s</string>
   <string name="reopen">Atidaryti vėl</string>
   <string name="removeStudent">Pašalinti mokinį</string>
   <string name="removedStudents">Pašalinti</string>
