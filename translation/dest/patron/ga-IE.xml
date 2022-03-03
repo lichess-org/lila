@@ -19,7 +19,6 @@
   <string name="thankYou">Go raibh maith agat as do bhronntanas!</string>
   <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
   <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
-  <string name="ifNotRenewed">Mura ndéantar athnuachan ar, déanfaimid tú a íosghrádú go cuntas saor in aisce.</string>
   <string name="weAreNonProfit">Is cumann neamhbhrabúis muid mar creidimid gur cheart go mbeadh rochtain ag gach duine ar ardán fichille den scoth agus saor in aisce.</string>
   <string name="weRelyOnSupport">Táimid ag brath ar thacaíocht ó dhaoine cosúil leatsa chun é a bheith indéanta. Má thaitníonn Lichess leat, smaoinigh ar thacaíocht a thabhairt dúinn trí bronntanas a bhronnadh agus a bheith i do Phátrún!</string>
   <string name="lifetime">Saol</string>
