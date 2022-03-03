@@ -2,5 +2,4 @@
 <resources>
   <string name="invitationToClass">ဤ \" %s\" အတန်းသို့ လေ့လာသူ အဖြစ် တက်ရောက်ရန် ဖိတ်ခေါ်ပါသည်။</string>
   <string name="clickToViewInvitation">ဖိတ်စာကို ကြည့်ရန် အညွှန်းကို ကလစ်လုပ်ပါ။</string>
-  <!-- <string name="news">News</string> -->
 </resources>
