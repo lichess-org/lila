@@ -115,4 +115,5 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="xisNowAStudentOfTheClass">%s tagad ir šīs klases skolēns</string>
   <string name="anInvitationHasBeenSentToX">Ielūgums nosūtīts skolēnam %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s jau ir ielūgts</string>
+  <string name="xIsAKidAccountWarning">%1$s ir bērna konts, kuram nevar nosūtīt jūsu ziņu. Jums jānodod ielūguma URL citā veidā: %2$s</string>
 </resources>
