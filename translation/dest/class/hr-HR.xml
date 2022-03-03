@@ -90,7 +90,6 @@ Lozinka: %3$s</string>
   <string name="variantXOverLastY">%1$s u zadnjih %2$s</string>
   <string name="winrate">Stopa pobjede</string>
   <string name="na">N/A</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">Uređivanje vijesti</string>
   <string name="notifyAllStudents">Obavijesti sve studente</string>
   <string name="nothingHere">Još nema ničega ovdje.</string>
