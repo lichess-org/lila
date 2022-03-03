@@ -85,7 +85,6 @@
   <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
   <string name="na">(無関係)</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
   <string name="nothingHere">まだありません。</string>
