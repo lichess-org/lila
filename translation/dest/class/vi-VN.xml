@@ -12,7 +12,6 @@
   <string name="teachersX">Giáo viên: %s</string>
   <string name="newClass">Lớp học mới</string>
   <string name="closeClass">Đóng lớp học</string>
-  <string name="closedByX">Được đóng bởi %s</string>
   <string name="reopen">Mở lại</string>
   <string name="removeStudent">Loại bỏ học viên</string>
   <string name="removedStudents">Đã gỡ bỏ</string>
