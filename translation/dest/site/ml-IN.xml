@@ -17,6 +17,8 @@
   <string name="stalemate">സമനില</string>
   <string name="white">വെളുപ്പ്‌</string>
   <string name="black">കറുപ്പ്</string>
+  <string name="asWhite">വെള്ളയായി വെള്ള</string>
+  <string name="asBlack">കറുപ്പായി</string>
   <string name="randomColor">ഏതെങ്കിലും നിറം</string>
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>

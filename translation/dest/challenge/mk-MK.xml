@@ -15,4 +15,11 @@
   <string name="declineLater">Во моментов не можам да прифатам, ве молам пробајте повторно подоцна.</string>
   <string name="declineTooFast">Овој временски формат е многу брз за мене, те молам предизвикај ме на побавна игра.</string>
   <string name="declineTooSlow">Овој временски формат е многу бавен за мене, те молам предизвикај ме на побрза игра.</string>
+  <string name="declineTimeControl">Не прифаќам предизвици со овој временски формат.</string>
+  <string name="declineRated">Ве молам испратете ми покана за рангиран предизвик.</string>
+  <string name="declineCasual">Ве молам испратете ми покана за неформална игра.</string>
+  <string name="declineStandard">Во моментов не прифаќам варијантни предизвици.</string>
+  <string name="declineVariant">Во моментов не сакам да ја играм оваа варијација.</string>
+  <string name="declineNoBot">Не прифаќам предизвици од ботови.</string>
+  <string name="declineOnlyBot">Прифаќам предизвици само од ботови.</string>
 </resources>

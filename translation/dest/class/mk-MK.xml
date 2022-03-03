@@ -46,6 +46,7 @@
   <string name="createDesc2">Не е потребна е-пошта. Ќе биде создадена лозинка, која ќе морате да ја испратите на ученикот за да може да се пријави.</string>
   <string name="createDesc3">Важно: ученикот не смее да има повеќе сметки.</string>
   <string name="createDesc4">Ако тие веќе имаат сметка, употребете го образецот за покани.</string>
+  <string name="createStudentWarning">Креирајте сметки само за вистински студенти. Не го злоупотребувајте ова за да креирате неколку сметки за Вас. Така ќе бидете блокирани.</string>
   <string name="lichessUsername">Lichess корисничко име</string>
   <string name="generateANewUsername">Создади ново корисничко име</string>
   <string name="welcomeToClass">Добредојтовте на вашиот час: %s.
@@ -66,6 +67,10 @@
   <string name="releaseDesc1">Ослободените сметки не можете повторно да ги раководите. Ученикот ќе може самиот да одбере детски режим и да ја обнови лозинката.</string>
   <string name="releaseDesc2">Ученикот ќе остане поканет на часовите и по ослободувањето.</string>
   <string name="realUniqueEmail">Вистинската, уникатна е-пошта на ученикот. На неа ќе испратиме порака за потврда, со врска за ослободување на сметката.</string>
+  <string name="closeStudent">Затвори ја сметката</string>
+  <string name="closeTheAccount">Трајно затворете ја студентската сметка.</string>
+  <string name="closeDesc1">Студентот никогаш нема да може да ја користи оваа сметка повторно. Затворањето е финално. Осиурајте се дека ученикот разбира и се согласува.</string>
+  <string name="closeDesc2">Наместо тоа, можеби ќе сакате да му дадете на ученикот контрола над сметката, за да може да продолжи да ја користи.</string>
   <string name="teachers">Инструктори</string>
   <plurals name="nbTeachers">
     <item quantity="one">Инструктор</item>

@@ -17,6 +17,8 @@
   <string name="stalemate">Pato</string>
   <string name="white">Blanka</string>
   <string name="black">Nigro</string>
+  <string name="asWhite">kiel blanko</string>
+  <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkas</string>
