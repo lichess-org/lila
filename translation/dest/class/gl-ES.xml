@@ -12,7 +12,6 @@
   <string name="teachersX">Adestradores: %s</string>
   <string name="newClass">Clase nova</string>
   <string name="closeClass">Pechar clase</string>
-  <string name="closedByX">Pechada por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Eliminar alumno</string>
   <string name="removedStudents">Eliminar</string>
@@ -89,7 +88,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Porcentaxe de victorias</string>
   <string name="na">Non dispoñible</string>
-  <string name="news">Novidades da clase</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Editar as novidades</string>
   <string name="notifyAllStudents">Notificar todos os estudantes</string>
   <string name="nothingHere">Nada aquí polo de agora.</string>
