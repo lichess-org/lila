@@ -12,7 +12,6 @@
   <string name="teachersX">Učitelji: %s</string>
   <string name="newClass">Nov razred</string>
   <string name="closeClass">Zapri razred</string>
-  <string name="closedByX">Zaprl %s</string>
   <string name="reopen">Ponovno odpri</string>
   <string name="removeStudent">Odstrani študenta</string>
   <string name="removedStudents">Odstranjen</string>
@@ -95,7 +94,7 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="variantXOverLastY">%1$s v zadnjih %2$s</string>
   <string name="winrate">Delež zmag</string>
   <string name="na">Ni na voljo</string>
-  <string name="news">Novice razreda</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Uredi novice</string>
   <string name="notifyAllStudents">Obvestite vse študente</string>
   <string name="nothingHere">Tu ni še ničesar.</string>
