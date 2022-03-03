@@ -88,7 +88,6 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="variantXOverLastY">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
   <string name="na">Ei saatavilla</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">Muokkaa uutisia</string>
   <string name="notifyAllStudents">Ilmoita kaikille oppilaille</string>
   <string name="nothingHere">Täällä ei ole vielä mitään.</string>
