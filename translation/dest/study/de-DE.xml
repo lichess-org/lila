@@ -81,7 +81,7 @@
   <string name="pinnedChapterComment">Angepinnte Kapitelkommentare</string>
   <string name="saveChapter">Kapitel speichern</string>
   <string name="clearAnnotations">Anmerkungen löschen</string>
-  <string name="clearVariations">Varianten zurücksetzen</string>
+  <string name="clearVariations">Varianten löschen</string>
   <string name="deleteChapter">Kapitel löschen</string>
   <string name="deleteThisChapter">Kapitel löschen. Dies kann nicht rückgängig gemacht werden!</string>
   <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und Zeichnungsformen in diesem Kapitel löschen</string>
