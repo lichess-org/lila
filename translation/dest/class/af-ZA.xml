@@ -85,6 +85,7 @@ Hier is die skakel om die klas te betree.</string>
   <string name="winrate">Wen koers</string>
   <string name="na">N.v.t.</string>
   <string name="overview">Oorsig</string>
+  <string name="news">Nuus</string>
   <string name="classNews">Klasnuus</string>
   <string name="editNews">Redigeer nuus</string>
   <string name="notifyAllStudents">Stel alle studente in kennis</string>
@@ -95,4 +96,17 @@ Hier is die skakel om die klas te betree.</string>
 Dit sal \'n horisontale lyn vertoon.</string>
   <string name="invite">Nooi uit</string>
   <string name="youHaveBeenInvitedByX">Jy is deur %s uitgenooi.</string>
+  <string name="youAcceptedThisInvitation">Jy het hierdie uitnodiging aanvaar.</string>
+  <string name="youDeclinedThisInvitation">Jy het hierdie uitnodiging van die hand gewys.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">of</string>
+  <string name="createMultipleAccounts">Skep verskeie Lichess-rekenings tegelyk</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Jy kan ook %s om verskeie Lichess-rekenings van \'n lys studentename te skep.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">hierdie vorm gebruik</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Let daarop dat \'n klas tot %1$s studente kan hê. Vir meer studente, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">skep meer klasse</string>
+  <string name="studentsRealNamesOnePerLine">Studente se regte name, een per lyn</string>
+  <string name="xisNowAStudentOfTheClass">%s is nou \'n student van die klas</string>
+  <string name="anInvitationHasBeenSentToX">\'n Uitnodiging is gestuur na %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s is reeds genooi</string>
+  <string name="xIsAKidAccountWarning">%1$s is \'n kind en kan nie jou boodskap ontvang nie. Gee die uitnodiging met die hand: %2$s</string>
 </resources>
