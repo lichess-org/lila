@@ -12,7 +12,6 @@
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
   <string name="closeClass">Zavřít třídu</string>
-  <string name="closedByX">Uzavřel/a %s</string>
   <string name="reopen">Znovu otevřít</string>
   <string name="removeStudent">Odstranit studenta</string>
   <string name="removedStudents">Odstraněno</string>
