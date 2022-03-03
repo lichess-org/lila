@@ -78,7 +78,7 @@ object index {
                     frag(
                       patronUntil(showDate(expires)),
                       br,
-                      ifNotRenewed()
+                      ifNotRenewedThenAccountWillRevert()
                     )
                   }
               ),
