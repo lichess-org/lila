@@ -90,7 +90,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="winrate">Gewinnquote</string>
   <string name="na">Nicht verfügbar</string>
   <string name="overview">Übersicht</string>
-  <!-- <string name="news">News</string> -->
+  <string name="news">Neuigkeiten</string>
   <string name="classNews">Klassenneuigkeiten</string>
   <string name="editNews">Neuigkeiten bearbeiten</string>
   <string name="notifyAllStudents">Benachrichtige alle Schüler</string>
@@ -106,7 +106,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="createMultipleAccounts">Mehrere Lichess-Konten auf einmal erstellen</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kannst auch %s, um mehrere Lichess-Konten aus einer Liste von Schülernamen zu erstellen.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dieses Formular benutzen</string>
-  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Beachte, dass eine Klasse nur bis zu %1$s Schüler haben kann. Um mehr Schüler zu verwalten, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Beachte, dass eine Klasse nur bis zu %1$s Schüler haben kann. Um mehr Schüler zu verwalten, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">erstelle weiter Klassen</string>
   <string name="studentsRealNamesOnePerLine">Echter Name der Schüler, einer pro Zeile</string>
   <string name="xisNowAStudentOfTheClass">%s ist jetzt Schüler der Klasse</string>
