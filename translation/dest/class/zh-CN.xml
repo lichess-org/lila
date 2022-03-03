@@ -85,7 +85,6 @@
   <string name="variantXOverLastY">%1$s 超过了最近的 %2$s</string>
   <string name="winrate">胜率</string>
   <string name="na">N/A</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">编辑新闻</string>
   <string name="notifyAllStudents">通知全部学生</string>
   <string name="nothingHere">还没有任何内容</string>
