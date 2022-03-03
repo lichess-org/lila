@@ -93,7 +93,6 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="winrate">Uzvaru proporcija</string>
   <string name="na">N/A</string>
   <string name="overview">Pārskats</string>
-  <!-- <string name="news">News</string> -->
   <string name="classNews">Klases jaunumi</string>
   <string name="editNews">Rediģēt jaunumus</string>
   <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
@@ -109,7 +108,7 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="createMultipleAccounts">Izveidot vairākus Lichess kontus vienlaicīgi</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Varat arī %s, lai izveidotu vairākus Lichess kontus no skolēnu vārdu saraksta.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">aizpildīt šo veidlapu</string>
-  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ievērojiet, ka klasē var būt līdz pat %1$s skolēni. Lai apmācītu vairāk skolēnu, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ievērojiet, ka klasē var būt līdz pat %1$s skolēni. Lai apmācītu vairāk skolēnu, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">izveidojiet vairāk klašu</string>
   <string name="studentsRealNamesOnePerLine">Skolēnu vārdi, katrs savā rindiņā</string>
   <string name="xisNowAStudentOfTheClass">%s tagad ir šīs klases skolēns</string>
