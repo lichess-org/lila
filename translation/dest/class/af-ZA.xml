@@ -12,7 +12,6 @@
   <string name="teachersX">Onderwyser: %s</string>
   <string name="newClass">Nuwe klas</string>
   <string name="closeClass">Maak klas toe</string>
-  <string name="closedByX">Gesluit deur %s</string>
   <string name="reopen">Heropen</string>
   <string name="removeStudent">Verwyder student</string>
   <string name="removedStudents">Verwyder</string>
