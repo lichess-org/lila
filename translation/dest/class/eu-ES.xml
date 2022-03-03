@@ -12,7 +12,6 @@
   <string name="teachersX">Irakasleak: %s</string>
   <string name="newClass">Klase berria</string>
   <string name="closeClass">Klasea itxi</string>
-  <string name="closedByX">%s erabiltzaileak itxi du</string>
   <string name="reopen">Berriz ireki</string>
   <string name="removeStudent">Ikaslea ezabatu</string>
   <string name="removedStudents">Ezabatuta</string>
@@ -89,7 +88,7 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="variantXOverLastY">%1$s azken %2$s-n</string>
   <string name="winrate">Garaipen ratioa</string>
   <string name="na">Ezezaguna</string>
-  <string name="news">Klaseko berriak</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Berriak aldatu</string>
   <string name="notifyAllStudents">Ikasle guztiei jakinarazi</string>
   <string name="nothingHere">Ezer ez dago hemen oraindik.</string>
