@@ -12,7 +12,6 @@
   <string name="teachersX">教师： %s</string>
   <string name="newClass">创建班级</string>
   <string name="closeClass">关闭班级</string>
-  <string name="closedByX">被 %s 关闭</string>
   <string name="reopen">重新开启</string>
   <string name="removeStudent">移除学生</string>
   <string name="removedStudents">已移除</string>
