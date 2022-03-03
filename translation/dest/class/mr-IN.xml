@@ -11,7 +11,6 @@
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नविन शिकवणी</string>
   <string name="closeClass">शिकवणी संपली</string>
-  <string name="closedByX">%s ला बंद झाले</string>
   <string name="reopen">परत सुरू करा</string>
   <string name="removeStudent">विद्यार्थी हटवा</string>
   <string name="removedStudents">काढून टाका</string>
@@ -60,7 +59,7 @@
   <string name="variantXOverLastY">%1$s मागील %2$s</string>
   <string name="winrate">जिंकण्याचे प्रमाण</string>
   <string name="na">लागू नाही</string>
-  <string name="news">शिकवणीच्या बातम्या</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">बातमीत बदल</string>
   <string name="notifyAllStudents">सर्व विद्यार्थ्याना सूचित करा</string>
   <string name="nothingHere">अजून येथे काही नाही.</string>
