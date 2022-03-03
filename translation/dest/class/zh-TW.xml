@@ -9,7 +9,6 @@
   <string name="teachersX">%s個教師</string>
   <string name="newClass">新的課程</string>
   <string name="closeClass">關閉課程</string>
-  <string name="closedByX">被%s關閉</string>
   <string name="reopen">重新開放</string>
   <string name="removeStudent">移除學生</string>
   <string name="removedStudents">移除</string>
