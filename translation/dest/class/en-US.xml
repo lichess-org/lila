@@ -90,7 +90,6 @@ Here is the link to access the class.</string>
   <string name="winrate">Winrate</string>
   <string name="na">N/A</string>
   <string name="overview">Overview</string>
-  <!-- <string name="news">News</string> -->
   <string name="classNews">Class news</string>
   <string name="editNews">Edit news</string>
   <string name="notifyAllStudents">Notify all students</string>
@@ -107,7 +106,7 @@ It will display a horizontal line.</string>
   <string name="createMultipleAccounts">Create multiple Lichess accounts at once</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">You can also %s to create multiple Lichess accounts from a list of student names.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">use this form</string>
-  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Note that a class can have up to %1$s students. To manage more students, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Note that a class can have up to %1$s students. To manage more students, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">create more classes</string>
   <string name="studentsRealNamesOnePerLine">Students\' real names, one per line</string>
   <string name="xisNowAStudentOfTheClass">%s is now a student of the class</string>
