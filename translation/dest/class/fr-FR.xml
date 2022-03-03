@@ -90,7 +90,7 @@ Voici le lien pour accéder à la classe.</string>
   <string name="winrate">Taux de victoire</string>
   <string name="na">Indisponible</string>
   <string name="overview">Vue d\'ensemble</string>
-  <string name="news">Actualité de la classe</string>
+  <!-- <string name="news">News</string> -->
   <string name="classNews">Actualité de la classe</string>
   <string name="editNews">Éditer les actualités</string>
   <string name="notifyAllStudents">Notifier tous les élèves</string>
