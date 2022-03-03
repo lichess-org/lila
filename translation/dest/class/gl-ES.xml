@@ -12,7 +12,6 @@
   <string name="teachersX">Adestradores: %s</string>
   <string name="newClass">Clase nova</string>
   <string name="closeClass">Pechar clase</string>
-  <string name="closedByX">Pechada por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Eliminar alumno</string>
   <string name="removedStudents">Eliminar</string>
