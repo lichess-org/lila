@@ -11,7 +11,6 @@
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नविन शिकवणी</string>
   <string name="closeClass">शिकवणी संपली</string>
-  <string name="closedByX">%s ला बंद झाले</string>
   <string name="reopen">परत सुरू करा</string>
   <string name="removeStudent">विद्यार्थी हटवा</string>
   <string name="removedStudents">काढून टाका</string>
