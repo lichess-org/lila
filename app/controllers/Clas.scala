@@ -436,7 +436,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
                         case F.Found =>
                           "warning" -> trans.clas.xAlreadyHasAPendingInvitation.txt(user.username)
                         case F.CantMsgKid(url) =>
-                          "warning" -> trans.clas.xIsAKiAccountWarning.txt(user.username, url)
+                          "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
                       }
                     }
                   }

@@ -113,5 +113,5 @@ It will display a horizontal line.</string>
   <string name="xisNowAStudentOfTheClass">%s is now a student of the class</string>
   <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s already has a pending invitation</string>
-  <string name="xIsAKiAccountWarning">%1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s</string>
+  <string name="xIsAKidAccountWarning">%1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s</string>
 </resources>
