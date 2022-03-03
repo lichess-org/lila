@@ -12,7 +12,6 @@
   <string name="teachersX">Irakasleak: %s</string>
   <string name="newClass">Klase berria</string>
   <string name="closeClass">Klasea itxi</string>
-  <string name="closedByX">%s erabiltzaileak itxi du</string>
   <string name="reopen">Berriz ireki</string>
   <string name="removeStudent">Ikaslea ezabatu</string>
   <string name="removedStudents">Ezabatuta</string>
