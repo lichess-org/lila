@@ -85,7 +85,6 @@
   <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
   <string name="winrate">승률</string>
   <string name="na">해당없음</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">뉴스 편집</string>
   <string name="notifyAllStudents">모든 학생에게 알림</string>
   <string name="nothingHere">비어있음</string>
