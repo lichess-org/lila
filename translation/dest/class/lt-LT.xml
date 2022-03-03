@@ -12,7 +12,6 @@
   <string name="teachersX">Mokytojai: %s</string>
   <string name="newClass">Nauja klasė</string>
   <string name="closeClass">Uždaryti klasę</string>
-  <string name="closedByX">Uždaryta %s</string>
   <string name="reopen">Atidaryti vėl</string>
   <string name="removeStudent">Pašalinti mokinį</string>
   <string name="removedStudents">Pašalinti</string>
@@ -95,7 +94,7 @@ Slaptažodis: %3$s</string>
   <string name="variantXOverLastY">%1$s per paskutines %2$s</string>
   <string name="winrate">Laimėjimo dažnumas</string>
   <string name="na">Neprieinama</string>
-  <string name="news">Klasės naujienos</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Keisti naujienas</string>
   <string name="notifyAllStudents">Pranešti visiems mokiniams</string>
   <string name="nothingHere">Kol kas nieko.</string>
