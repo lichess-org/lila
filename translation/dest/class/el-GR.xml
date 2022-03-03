@@ -12,7 +12,6 @@
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
   <string name="closeClass">Κλείσιμο τάξης</string>
-  <string name="closedByX">Έκλεισε από %s</string>
   <string name="reopen">Ξανανοίξτε</string>
   <string name="removeStudent">Απομάκρυνση μαθητή</string>
   <string name="removedStudents">Απομακρύνθηκε</string>
