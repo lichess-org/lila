@@ -4,4 +4,5 @@
   <string name="removeStudent">Fjarlæga nemanda</string>
   <string name="removedStudents">Fjarlægðir</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
+  <!-- <string name="news">News</string> -->
 </resources>
