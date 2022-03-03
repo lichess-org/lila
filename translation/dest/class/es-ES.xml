@@ -12,7 +12,6 @@
   <string name="teachersX">Profesores: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Cerrar clase</string>
-  <string name="closedByX">Cerrada por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Eliminar estudiante</string>
   <string name="removedStudents">Eliminado</string>
@@ -89,7 +88,7 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>
   <string name="na">No disponible</string>
-  <string name="news">Novedades de la clase</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Editar las novedades</string>
   <string name="notifyAllStudents">Notificar a todos los estudiantes</string>
   <string name="nothingHere">Aún no hay nada aquí.</string>
