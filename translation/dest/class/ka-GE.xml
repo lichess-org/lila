@@ -12,7 +12,6 @@
   <string name="teachersX">მასწავლებლები: %s</string>
   <string name="newClass">ახალი კლასი</string>
   <string name="closeClass">დახურე კლასი</string>
-  <string name="closedByX">დახურა %s-მ</string>
   <string name="reopen">ხელახლა გახსნა</string>
   <string name="removeStudent">ამოშალე მოსწავლე</string>
   <string name="removedStudents">ამოშლილია</string>
@@ -52,4 +51,5 @@
 აქაა ლინკი შენი კლასისთვის დასაკავშირებლად.</string>
   <string name="invitationToClass">მოწვეული ხარ კლასში \"%s\" როგორც მოსწავლე.</string>
   <string name="clickToViewInvitation">დააჭირე ლინკს რათა ნახო მოწვევა:</string>
+  <!-- <string name="news">News</string> -->
 </resources>
