@@ -12,7 +12,6 @@
   <string name="teachersX">Leraren: %s</string>
   <string name="newClass">Nieuwe klas</string>
   <string name="closeClass">Groep sluiten</string>
-  <string name="closedByX">Gesloten door %s</string>
   <string name="reopen">Heropen</string>
   <string name="removeStudent">Verwijder leerling</string>
   <string name="removedStudents">Verwijderd</string>
@@ -89,7 +88,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="variantXOverLastY">%1$s over laatste %2$s</string>
   <string name="winrate">Winratio</string>
   <string name="na">N.v.t.</string>
-  <string name="news">Nieuws voor de groep</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Bewerk nieuws</string>
   <string name="notifyAllStudents">Informeer alle studenten</string>
   <string name="nothingHere">Nog niets te zien hier.</string>
