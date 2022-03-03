@@ -12,7 +12,6 @@
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
-  <string name="closedByX">Dúnta ag %s</string>
   <string name="reopen">Athoscailt</string>
   <string name="removeStudent">Bain dalta</string>
   <string name="removedStudents">Bainte</string>
