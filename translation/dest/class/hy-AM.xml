@@ -12,7 +12,6 @@
   <string name="teachersX">Ուսուցիչներ՝ %s</string>
   <string name="newClass">Նոր խումբ</string>
   <string name="closeClass">Փակել խումբը</string>
-  <string name="closedByX">Խումբը փակել է %s</string>
   <string name="reopen">Վերաբացել</string>
   <string name="removeStudent">Հեռացնել աշակերտին</string>
   <string name="removedStudents">Հեռացված է</string>
