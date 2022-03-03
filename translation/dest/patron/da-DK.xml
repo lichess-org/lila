@@ -16,7 +16,6 @@
   <string name="thankYou">Tak for dit bidrag!</string>
   <string name="youHaveLifetime">Du har en livstid-protektor-konto. Det er ret fantastisk!</string>
   <string name="patronUntil">Du har en protektor-konto indtil %s.</string>
-  <string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til en gratis.</string>
   <string name="weAreNonProfit">Vi er en nonprofitorganisation, da vi mener, at alle bør have adgang til en gratis, verdensomspændende skakplatform.</string>
   <string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre dette muligt. Hvis du nyder at bruge Lichess, så overvej gerne at støtte os med et bidrag og bliv protektor!</string>
   <string name="lifetime">Livstid</string>
