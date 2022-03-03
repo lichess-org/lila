@@ -88,6 +88,7 @@
   <string name="variantXOverLastY">%1$s за последните %2$s</string>
   <string name="winrate">Процент на победи</string>
   <string name="na">Неналично</string>
+  <string name="news">Новини</string>
   <string name="editNews">Редактирай новини</string>
   <string name="notifyAllStudents">Извести всички ученици</string>
   <string name="nothingHere">Нищо тук, засега.</string>
