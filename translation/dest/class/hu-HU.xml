@@ -12,7 +12,7 @@
   <string name="teachersX">Tanárok: %s</string>
   <string name="newClass">Új osztály</string>
   <string name="closeClass">Bezárás osztály</string>
-  <string name="closedByX">%s zárta</string>
+  <string name="removedByX">Eltávolítva %s által</string>
   <string name="reopen">Nyissa meg újra</string>
   <string name="removeStudent">Tanuló eltávolítása</string>
   <string name="removedStudents">Eltávolítva</string>
@@ -89,6 +89,7 @@ Itt található a link az osztály eléréséhez.</string>
   <string name="variantXOverLastY">%1$s az elmúlt %2$s alatt</string>
   <string name="winrate">Nyerési arány</string>
   <string name="na">N/A</string>
+  <string name="overview">Áttekintés</string>
   <string name="news">Osztályhírek</string>
   <string name="editNews">Hírek szerkesztése</string>
   <string name="notifyAllStudents">Értesítsen minden hallgatót</string>
@@ -97,4 +98,12 @@ Itt található a link az osztály eléréséhez.</string>
   <string name="newsEdit2">Adja hozzá a legfrissebb híreket a tetején. Ne törölje a korábbi híreket.</string>
   <string name="newsEdit3">Különválaszthatja a ---
 Vízszintes vonalat jelenít meg.</string>
+  <string name="invite">Meghívás</string>
+  <string name="youAcceptedThisInvitation">Elfogadtad ezt a meghívást.</string>
+  <string name="youDeclinedThisInvitation">Visszautasítottad ezt a meghívást.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">vagy</string>
+  <string name="createMultipleAccounts">Egyszerre több Lichess fiók létrehozása</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s létrehozhatsz egyszerre több Lichess fiókot a tanulók neveit tartalmazó listából.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Ezen a felületen</string>
+  <string name="studentsRealNamesOnePerLine">Tanulók valódi nevei, soronként egy</string>
 </resources>
