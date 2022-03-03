@@ -95,4 +95,5 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="newsEdit2">Lisää tuoreet uutiset ylimmäksi. Älä poista aiempia uutisia.</string>
   <string name="newsEdit3">Erottele uutiset näin: --- 
 Se luo vaakasuoran erotinviivan.</string>
+  <string name="createMultipleAccounts">Luo kerralla monta Lichess-tunnusta</string>
 </resources>
