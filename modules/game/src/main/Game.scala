@@ -92,9 +92,9 @@ case class Game(
   def isTournament         = tournamentId.isDefined
   def isSimul              = simulId.isDefined
   def isSwiss              = swissId.isDefined
-  def canTakebackOrAddTime = !isTournament && !isSimul && !isSwiss
-  def isMandatory          = isTournament || isSimul || isSwiss || fromApi
+  def isMandatory          = isTournament || isSimul || isSwiss
   def nonMandatory         = !isMandatory
+  def canTakebackOrAddTime = !isMandatory
   def isClassical          = perfType contains Classical
 
   def hasChat = !isTournament && !isSimul && nonAi
@@ -354,7 +354,8 @@ case class Game(
       clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
     }
 
-  def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortableByUser = abortable && !fromApi
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
