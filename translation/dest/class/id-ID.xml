@@ -12,7 +12,6 @@
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
-  <string name="closedByX">Ditutup oleh %s</string>
   <string name="reopen">Buka kembali</string>
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
@@ -85,7 +84,7 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="variantXOverLastY">%1$s sampai %2$s</string>
   <string name="winrate">Rata-rata kemenangan</string>
   <string name="na">Tidak ada</string>
-  <string name="news">Berita kelas</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Ubah berita</string>
   <string name="notifyAllStudents">Beritahu semua siswa</string>
   <string name="nothingHere">Tidak ada disini.</string>
