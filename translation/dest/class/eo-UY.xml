@@ -12,7 +12,6 @@
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
   <string name="closeClass">Fermi klason</string>
-  <string name="closedByX">Fermita de %s</string>
   <string name="reopen">Remalfermu</string>
   <string name="removeStudent">Forigi lernanto</string>
   <string name="removedStudents">Forigita</string>
