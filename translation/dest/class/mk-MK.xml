@@ -12,7 +12,6 @@
   <string name="teachersX">Инструктори: %s</string>
   <string name="newClass">Нов час</string>
   <string name="closeClass">Затвори го часот</string>
-  <string name="closedByX">Затворен од %s</string>
   <string name="reopen">Отвори повторно</string>
   <string name="removeStudent">Отстрани ученик</string>
   <string name="removedStudents">Отстранет</string>
@@ -89,7 +88,7 @@
   <string name="variantXOverLastY">%1$s во последните %2$s</string>
   <string name="winrate">Стапка на победи</string>
   <string name="na">N/A</string>
-  <string name="news">Наставни новости</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Уредете ги вестите</string>
   <string name="notifyAllStudents">Извести ги сите ученици</string>
   <string name="nothingHere">За сега ова е празно.</string>
