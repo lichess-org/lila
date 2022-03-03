@@ -48,7 +48,7 @@ Passwort: %3$s</string>
   <string name="createDesc4">Verwende stattdessen das Einladungsformular, falls sie bereits eines besitzen.</string>
   <string name="createStudentWarning">Erstelle nur Konten für echte Schüler. Verwende dies nicht, um mehrere Konten für dich selbst zu erstellen. Du würdest gebannt werden.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
-  <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
+  <string name="generateANewUsername">Generiere einen neuen Benutzernamen</string>
   <string name="welcomeToClass">Willkommen in deiner Klasse: %s.
 Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="invitationToClass">Du bist eingeladen, der Klasse \"%s\" als Schüler beizutreten.</string>
