@@ -94,7 +94,6 @@
   <string name="variantXOverLastY">%1$s за последние %2$s</string>
   <string name="winrate">Процент побед</string>
   <string name="na">Не применимо</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">Изменить новость</string>
   <string name="notifyAllStudents">Известить всех учеников</string>
   <string name="nothingHere">Здесь пока ничего нет.</string>
