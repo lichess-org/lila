@@ -12,7 +12,6 @@
   <string name="teachersX">Professors: %s</string>
   <string name="newClass">Nova classe</string>
   <string name="closeClass">Tancar classe</string>
-  <string name="closedByX">Tancat per %s</string>
   <string name="reopen">Reobrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminat</string>
