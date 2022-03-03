@@ -12,7 +12,6 @@
   <string name="teachersX">Ұстаздар: %s</string>
   <string name="newClass">Жаңа үйірме</string>
   <string name="closeClass">Үйірмені жабу</string>
-  <string name="closedByX">Жапқан – %s</string>
   <string name="reopen">Қайта ашу</string>
   <string name="removeStudent">Шәкіртті шығару</string>
   <string name="removedStudents">Шығарылды</string>
