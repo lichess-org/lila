@@ -22,7 +22,7 @@ object teacherDashboard {
         h1(dataIcon := "", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
-          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.classNews()),
+          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
           a(
             cls := active.active("progress"),
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
