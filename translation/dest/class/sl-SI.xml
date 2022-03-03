@@ -114,4 +114,9 @@ Prikazal bo horizontalno črto.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">uporabite ta obrazec</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Upoštevajte, da ima razred lahko največ %1$s študentov. Če želite upravljati več študentov, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">ustvarite več razredov</string>
+  <string name="studentsRealNamesOnePerLine">Prava imena učencev, po eno v vrstico</string>
+  <string name="xisNowAStudentOfTheClass">%s je zdaj učenec razreda</string>
+  <string name="anInvitationHasBeenSentToX">Povabilo je bilo poslano na %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s že ima čakajoče povabilo</string>
+  <string name="xIsAKidAccountWarning">%1$s je otroški račun in ne more prejeti vašega sporočila. Ročno jim morate dati URL povabila: %2$s</string>
 </resources>
