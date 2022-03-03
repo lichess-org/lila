@@ -23,7 +23,7 @@ The UI is available in more than [130 languages](https://crowdin.com/project/lic
 Lichess is written in [Scala 2.13](https://www.scala-lang.org/),
 and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
-Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
+Pure chess logic is contained in the [scalachess](https://github.com/lichess-org/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
@@ -60,9 +60,9 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | ----------------- | ------- | ------------------------------------------------- |
 | Chromium / Chrome | last 10 | Full support                                      |
 | Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
+| Edge              | 91+     | Full support (reasonable support for 17+)         |
 | Opera             | 55+     | Reasonable support                                |
 | Safari            | 11.1+   | Reasonable support                                |
-| Edge              | 17+     | Reasonable support                                |
 
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about it!

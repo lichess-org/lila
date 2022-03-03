@@ -181,6 +181,12 @@
 Кралот е бесценет! Неговото губење значи изгубена партија.</string>
   <string name="queenOverBishop">Земи ја фигурата со најголема вредност!
 Кралица &gt; Ловец</string>
+  <string name="pieceValueExchange">Земи ја фигурата со најголема вредност!
+Не менувај
+фигура со поголема вредност за фигура со помала вредност.</string>
+  <string name="pieceValueLegal">Земи ја фигурата
+со најголема вредност!
+Осигурајте се дека вашиот потег е легален!</string>
   <string name="takeThePieceWithTheHighestValue">Земи ја фигурата со најголема вредност!</string>
   <string name="pieceValueComplete">Честитки! Ја познаваш вредноста на фигурите!
 Кралица = 9
@@ -222,6 +228,7 @@
   <string name="rightOn">Само така!</string>
   <string name="stageXComplete">Фаза %s комплетирана</string>
   <string name="next">Следно</string>
+  <string name="nextX">Следно: %s</string>
   <string name="backToMenu">Назад кон менито</string>
   <string name="puzzleFailed">Неисправно решение!</string>
   <string name="retry">Обиди се повторно</string>

@@ -34,7 +34,7 @@ final class Challenge(
   def apiList =
     ScopedBody(_.Challenge.Read) { implicit req => me =>
       implicit val lang = reqLang
-      api allFor me.id map { all =>
+      api.allFor(me.id, 300) map { all =>
         JsonOk(
           Json.obj(
             "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),

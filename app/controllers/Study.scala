@@ -426,7 +426,7 @@ final class Study(
     }
 
   private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
-    credits = 30,
+    credits = 31,
     duration = 1.minute,
     key = "export.study.pgn.ip"
   )

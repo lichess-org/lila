@@ -13,7 +13,6 @@ import lila.mod.ModActivity.{ dateFormat, Period }
 import lila.report.Room
 
 final class ModQueueStats(
-    reportApi: lila.report.ReportApi,
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
 )(implicit

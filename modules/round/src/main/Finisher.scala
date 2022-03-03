@@ -164,7 +164,7 @@ final private class Finisher(
     }
 
   private def incNbGames(game: Game)(user: User): Funit =
-    game.finished ?? {
+    game.finished ?? { user.noBot || game.nonAi } ?? {
       val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
       val result =

@@ -13,6 +13,7 @@
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Zen</string>
   <string name="showPlayerRatings">Показване на рейтинга на играчите</string>
+  <string name="explainShowPlayerRatings">Това позволява скриването на всички рейтинги от уебсайта за да можете да се фокусирате само на шахмата. Игрите все още може да са с рейтинг; тази настройка променя само това което виждате.</string>
   <string name="displayBoardResizeHandle">Показване на инструмента за промяна на размера на дъската</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Връщане на ход (с одобрение на противника)</string>
   <string name="inCasualGamesOnly">Само в приятелски игри</string>
   <string name="promoteToQueenAutomatically">Автоматично изкарване на царица</string>
+  <string name="explainPromoteToQueenAutomatically">Задръжте клавиша &lt;ctrl&gt; по време на произвеждане за да изключите временно авто-произвеждането</string>
   <string name="whenPremoving">Когато е направен предварителен ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когато остават по-малко от 30 секунди</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Изпратете в чата \"Good game, well played\" след загуба или реми</string>
   <string name="yourPreferencesHaveBeenSaved">Вашите предпочитания бяха записани.</string>
   <string name="scrollOnTheBoardToReplayMoves">За да прегледате ходовете, превъртете колелцето на мишката над дъската</string>
+  <string name="correspondenceEmailNotification">Ежедневен имейл със списък на Вашите кореспондентски игри</string>
 </resources>

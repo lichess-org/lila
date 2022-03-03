@@ -13,6 +13,7 @@ import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -68,6 +69,28 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.nodeList = tree.getNodeList(path);
     vm.node = treeOps.last(vm.nodeList)!;
     vm.mainline = treeOps.mainlineNodeList(tree.root);
+  }
+
+  let keyboardMove: KeyboardMove | undefined;
+
+  function setChessground(this: Controller, cg: CgApi): void {
+    ground(cg);
+    if (opts.pref.keyboardMove) {
+      keyboardMove = makeKeyboardMove(
+        {
+          data: {
+            game: { variant: { key: 'standard' } },
+            player: { color: vm.pov },
+          },
+          chessground: cg,
+          sendMove: playUserMove,
+          redraw: this.redraw,
+        },
+        { fen: this.vm.node.fen }
+      );
+      this.keyboardMove = keyboardMove;
+      requestAnimationFrame(() => this.redraw());
+    }
   }
 
   function withGround<A>(f: (cg: CgApi) => A): A | undefined {
@@ -159,6 +182,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    keyboardMove?.update({ fen: vm.node.fen });
   }
 
   function playUci(uci: Uci): void {
@@ -410,6 +434,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    keyboardMove?.update({ fen: vm.node.fen });
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -526,8 +551,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     getTree() {
       return tree;
     },
+    setChessground,
     ground,
     makeCgOpts,
+    keyboardMove,
     userJump,
     viewSolution,
     nextPuzzle,

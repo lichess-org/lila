@@ -45,7 +45,15 @@ case class Team(
 
 object Team {
 
+  type ID = String
+
   case class Mini(id: Team.ID, name: String)
+
+  val variants: Map[chess.variant.Variant, Mini] = chess.variant.Variant.all.view collect {
+    case v if v.exotic =>
+      val name = s"Lichess ${v.name}"
+      v -> Mini(nameToId(name), name)
+  } toMap
 
   val maxJoinCeiling = 50
 
@@ -54,8 +62,6 @@ object Team {
     else {
       15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
     } atMost maxJoinCeiling
-
-  type ID = String
 
   type Access = Int
   object Access {

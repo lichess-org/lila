@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">Анализ на играта на %s</string>
+  <string name="xHasNoChessInsights">%s все още няма анализ!</string>
+  <string name="insightsAreProtected">Анализът на %s e защитен</string>
+</resources>

@@ -129,6 +129,8 @@ case class Pref(
 
   def agree = copy(agreement = Agreement.current)
 
+  def hasKeyboardMove = keyboardMove == KeyboardMove.YES
+
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
     theme == "brown" &&

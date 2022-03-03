@@ -836,6 +836,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="currentMatchScore">Trenutni rezultat meča</string>
   <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računala, knjige, baze podataka ili neke druge osobe).</string>
   <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Slažem se da neću kreirati više računa (osim iz razloga navedenih u %s).</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>

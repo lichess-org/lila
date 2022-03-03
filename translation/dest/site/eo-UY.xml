@@ -177,6 +177,10 @@
     <item quantity="one">%s horo</item>
     <item quantity="other">%s horoj</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutoj</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rango</string>
   <string name="ratingStats">Rangaj statistikoj</string>
@@ -485,6 +489,7 @@
   <string name="cheat">Trompo</string>
   <string name="insult">Insulto</string>
   <string name="troll">Trolo</string>
+  <string name="ratingManipulation">Manipulado de rango</string>
   <string name="other">Io alia</string>
   <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
@@ -811,4 +816,9 @@
   <string name="welcome">Bonvenon!</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
+  <string name="noRestriction">Neniu limigo</string>
+  <string name="minimumRating">Minimuma rango</string>
+  <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
+  <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="simulDescription">Priskribo de la samtempludo</string>
 </resources>

@@ -40,7 +40,7 @@ final class UserForm(authenticator: Authenticator) {
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
-  private def nameField = optional(cleanText(minLength = 2, maxLength = 20))
+  private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
   case class Passwd(
       oldPasswd: String,
