@@ -93,7 +93,7 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="winrate">Uzvaru proporcija</string>
   <string name="na">N/A</string>
   <string name="overview">Pārskats</string>
-  <string name="news">Grupas jaunumi</string>
+  <!-- <string name="news">News</string> -->
   <string name="classNews">Klases jaunumi</string>
   <string name="editNews">Rediģēt jaunumus</string>
   <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
