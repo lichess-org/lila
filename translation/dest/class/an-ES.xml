@@ -12,7 +12,6 @@
   <string name="teachersX">Profesors: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Zarrar clase</string>
-  <string name="closedByX">Zarrada per %s</string>
   <string name="reopen">Reubrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminau</string>
