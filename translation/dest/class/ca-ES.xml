@@ -107,7 +107,7 @@ Mostrarà una línia separadora horitzontal.</string>
   <string name="createMultipleAccounts">Crea múltiples comptes de Lichess a la vegada</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Podeu també %s per crear múltiples comptes de Lichess d\'una llista de noms d\'alumnes.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utilitza aquest formulari</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tingueu en compte que una classe pot tenir com a molt %1$s alumnes. Per gestionar més alumnes, %2$s.</string>
+  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tingueu en compte que una classe pot tenir com a molt %1$s alumnes. Per gestionar més alumnes, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">crear més classes</string>
   <string name="studentsRealNamesOnePerLine">Noms reals dels alumnes, un per línia</string>
   <string name="xisNowAStudentOfTheClass">%s és un nou estudiant de la classe</string>
