@@ -12,7 +12,6 @@
   <string name="teachersX">Skolotāji: %s</string>
   <string name="newClass">Jauna klase</string>
   <string name="closeClass">Slēgt klasi</string>
-  <string name="closedByX">Aizvēra %s</string>
   <string name="reopen">Atkal atvērt</string>
   <string name="removeStudent">Noņemt skolēnu</string>
   <string name="removedStudents">Noņemts</string>
