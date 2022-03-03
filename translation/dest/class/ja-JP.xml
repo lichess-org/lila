@@ -12,7 +12,6 @@
   <string name="teachersX">講師：%s</string>
   <string name="newClass">新しい教室</string>
   <string name="closeClass">教室を閉鎖する</string>
-  <string name="closedByX">%s によって停止</string>
   <string name="reopen">再開</string>
   <string name="removeStudent">生徒を削除</string>
   <string name="removedStudents">削除済み</string>
@@ -86,7 +85,7 @@
   <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
   <string name="na">(無関係)</string>
-  <string name="news">教室ニュース</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
   <string name="nothingHere">まだありません。</string>
