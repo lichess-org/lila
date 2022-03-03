@@ -12,7 +12,6 @@
   <string name="teachersX">Ұстаздар: %s</string>
   <string name="newClass">Жаңа үйірме</string>
   <string name="closeClass">Үйірмені жабу</string>
-  <string name="closedByX">Жапқан – %s</string>
   <string name="reopen">Қайта ашу</string>
   <string name="removeStudent">Шәкіртті шығару</string>
   <string name="removedStudents">Шығарылды</string>
@@ -89,7 +88,7 @@
   <string name="variantXOverLastY">%1$s, кейінгі %2$s-де</string>
   <string name="winrate">Жеңіс үлесі</string>
   <string name="na">МлмЖоқ</string>
-  <string name="news">Үйірме жаңалықтары</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Жаңалықтарды өңдеу</string>
   <string name="notifyAllStudents">Барлық шәкірттерді ескерту</string>
   <string name="nothingHere">Әзір ештеңе жоқ.</string>
