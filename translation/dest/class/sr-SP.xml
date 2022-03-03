@@ -86,7 +86,6 @@
   <string name="variantXOverLastY">%1$s током претходних %2$s</string>
   <string name="winrate">Проценат победа</string>
   <string name="na">Није применљиво</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">Промени вести</string>
   <string name="notifyAllStudents">Обавести све ученике</string>
   <string name="nothingHere">Овде нема ничега, још увек.</string>
