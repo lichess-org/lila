@@ -100,7 +100,6 @@
   <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>
-  <!-- <string name="news">News</string> -->
   <string name="editNews">تعديل الأخبار</string>
   <string name="notifyAllStudents">إعلام جميع التلاميذ</string>
   <string name="nothingHere">لا يوجد شيء هنا, حتى الآن.</string>
