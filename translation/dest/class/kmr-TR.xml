@@ -12,7 +12,6 @@
   <string name="teachersX">Mamoste: %s</string>
   <string name="newClass">Waneya nû</string>
   <string name="closeClass">Waneyê bigir</string>
-  <string name="closedByX">Ji aliyê %s ve hat girtin</string>
   <string name="reopen">Ji nû ve veke</string>
   <string name="removeStudent">Şargirt derxîne</string>
   <string name="removedStudents">Hilatî</string>
@@ -23,4 +22,5 @@
   <string name="classDescription">Raveya Polê</string>
   <string name="visibleByBothStudentsAndTeachers">Ji aliyê mamoste û xwendekarên polê herdûya tê dîtin</string>
   <string name="teachersOfTheClass">Mamosteyên polê</string>
+  <!-- <string name="news">News</string> -->
 </resources>
