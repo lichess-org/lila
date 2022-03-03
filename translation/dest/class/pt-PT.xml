@@ -90,7 +90,6 @@ Aqui está o link para acederes à aula.</string>
   <string name="winrate">Taxa de vitórias</string>
   <string name="na">N/A</string>
   <string name="overview">Visão geral</string>
-  <!-- <string name="news">News</string> -->
   <string name="classNews">Novidades relativas à aula</string>
   <string name="editNews">Editar notícias</string>
   <string name="notifyAllStudents">Notificar todos os alunos</string>
@@ -106,7 +105,7 @@ Aqui está o link para acederes à aula.</string>
   <string name="createMultipleAccounts">Crie várias contas Lichess de uma vez</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Também pode %s para criar várias contas Lichess a partir de uma lista de nomes de alunos.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">use este formulário</string>
-  <string name="maxStudentsNote" comment="maxStudentsNote&#10;%1$s will be replaced with a large number (currently 100).&#10;%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tenha em atenção que uma turma só pode ter até %1$s alunos. Para gerir mais alunos, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tenha em atenção que uma turma só pode ter até %1$s alunos. Para gerir mais alunos, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">criar mais turmas</string>
   <string name="studentsRealNamesOnePerLine">Nomes verdadeiros dos alunos, um por linha</string>
   <string name="xisNowAStudentOfTheClass">%s é agora aluno da presente turma</string>
