@@ -12,7 +12,6 @@
   <string name="teachersX">Teachers: %s</string>
   <string name="newClass">New class</string>
   <string name="closeClass">Close class</string>
-  <string name="closedByX">Closed by %s</string>
   <string name="reopen">Reopen</string>
   <string name="removeStudent">Remove student</string>
   <string name="removedStudents">Removed</string>
@@ -89,7 +88,7 @@ Here is the link to access the class.</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
   <string name="winrate">Winrate</string>
   <string name="na">N/A</string>
-  <string name="news">Class news</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Edit news</string>
   <string name="notifyAllStudents">Notify all students</string>
   <string name="nothingHere">Nothing here, yet.</string>
