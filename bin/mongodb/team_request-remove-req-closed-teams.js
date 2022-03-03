@@ -1,30 +1,23 @@
-print('Removing pending requests from closed teams, for https://github.com/lichess-org/lila/issues/10516');
+print('Remove requests from closed teams, for https://github.com/lichess-org/lila/issues/10516');
 
-const reqsClosedTeams = db.team_request.aggregate([
-  { $group: { _id: '$team', req_ids: { $addToSet: '$_id' } } },
+agg = db.team_request.aggregate([
+  { $group: { _id: '$team', reqIds: { $addToSet: '$_id' } } },
   {
     $lookup: {
       from: 'team',
-      localField: '_id',
-      foreignField: '_id',
       as: 'team',
-      pipeline: [{ $match: { enabled: false } }, { $project: { enabled: '$enabled' } }],
+      let: { teamId: '$_id' },
+      pipeline: [{ $match: { $expr: { $eq: ['$_id', '$$teamId'] }, enabled: false } }, { $project: { _id: 1 } }],
     },
   },
   { $unwind: { path: '$team' } },
+  { $project: { reqIds: true, _id: false } },
+  { $unwind: { path: '$reqIds' } },
+  { $group: { _id: null, ids: { $push: '$reqIds' } } },
 ]);
 
-// returns
-// [
-//   {
-//     _id: 'closed-team-with-pending-requests',
-//     req_ids: [
-//       'test@closed-team-with-pending-requests',
-//       'test2@closed-team-with-pending-requests'
-//     ],
-//     team: { _id: 'closed-team-with-pending-requests', enabled: false }
-//   }
-// ]
-// each document listing the pending requests of closed teams
-
-reqsClosedTeams.forEach(closedTeam => db.team_request.deleteMany({ _id: { $in: closedTeam.req_ids } }));
+if (agg.hasNext()) {
+  reqIds = agg.next().ids;
+  print(reqIds.length + ' requests to delete');
+  db.team_request.deleteMany({ _id: { $in: reqIds } });
+} else print('Nothing to do');
