@@ -12,7 +12,6 @@
   <string name="teachersX">Викладачі: %s</string>
   <string name="newClass">Новий урок</string>
   <string name="closeClass">Закрити урок</string>
-  <string name="closedByX">Закрито %s</string>
   <string name="reopen">Відкрити знову</string>
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
