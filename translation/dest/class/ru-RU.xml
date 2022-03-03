@@ -12,7 +12,6 @@
   <string name="teachersX">Преподаватели: %s</string>
   <string name="newClass">Новый класс</string>
   <string name="closeClass">Закрыть класс</string>
-  <string name="closedByX">Класс закрыл %s</string>
   <string name="reopen">Открыть снова</string>
   <string name="removeStudent">Удалить ученика</string>
   <string name="removedStudents">Удалён</string>
@@ -95,7 +94,7 @@
   <string name="variantXOverLastY">%1$s за последние %2$s</string>
   <string name="winrate">Процент побед</string>
   <string name="na">Не применимо</string>
-  <string name="news">Название класса</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Изменить новость</string>
   <string name="notifyAllStudents">Известить всех учеников</string>
   <string name="nothingHere">Здесь пока ничего нет.</string>
