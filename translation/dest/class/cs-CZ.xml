@@ -12,7 +12,6 @@
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
   <string name="closeClass">Zavřít třídu</string>
-  <string name="closedByX">Uzavřel/a %s</string>
   <string name="reopen">Znovu otevřít</string>
   <string name="removeStudent">Odstranit studenta</string>
   <string name="removedStudents">Odstraněno</string>
@@ -95,7 +94,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="variantXOverLastY">%1$s za posledních %2$s</string>
   <string name="winrate">Podíl výher</string>
   <string name="na">N/A</string>
-  <string name="news">Novinky třídy</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Upravit novinky</string>
   <string name="notifyAllStudents">Upozornit všechny studenty</string>
   <string name="nothingHere">Zatím zde nic není.</string>
