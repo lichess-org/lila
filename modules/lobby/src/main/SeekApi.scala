@@ -16,9 +16,9 @@ final class SeekApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import config._
 
-  sealed private trait CacheKey
-  private object ForAnon extends CacheKey
-  private object ForUser extends CacheKey
+  private type CacheKey = Boolean
+  private val ForAnon = false
+  private val ForUser = true
 
   private def allCursor =
     coll
