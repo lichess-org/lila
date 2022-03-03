@@ -12,7 +12,6 @@
   <string name="teachersX">Opettajat: %s</string>
   <string name="newClass">Uusi luokka</string>
   <string name="closeClass">Sulje luokka</string>
-  <string name="closedByX">%s on sulkenut tunnuksesi</string>
   <string name="reopen">Avaa uudelleen</string>
   <string name="removeStudent">Poista oppilas</string>
   <string name="removedStudents">Poistettu</string>
@@ -89,7 +88,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="variantXOverLastY">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
   <string name="na">Ei saatavilla</string>
-  <string name="news">Luokan uutiset</string>
+  <!-- <string name="news">News</string> -->
   <string name="editNews">Muokkaa uutisia</string>
   <string name="notifyAllStudents">Ilmoita kaikille oppilaille</string>
   <string name="nothingHere">Täällä ei ole vielä mitään.</string>
