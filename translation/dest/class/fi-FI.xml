@@ -12,7 +12,6 @@
   <string name="teachersX">Opettajat: %s</string>
   <string name="newClass">Uusi luokka</string>
   <string name="closeClass">Sulje luokka</string>
-  <string name="closedByX">%s on sulkenut tunnuksesi</string>
   <string name="reopen">Avaa uudelleen</string>
   <string name="removeStudent">Poista oppilas</string>
   <string name="removedStudents">Poistettu</string>
