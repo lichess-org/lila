@@ -90,7 +90,7 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
   <string name="winrate">Percentatge de victòries</string>
   <string name="na">No disponible</string>
   <string name="overview">Visió general</string>
-  <string name="news">Novetats de la classe</string>
+  <!-- <string name="news">News</string> -->
   <string name="classNews">Novetats de la classe</string>
   <string name="editNews">Editar les novetats</string>
   <string name="notifyAllStudents">Notifica a tots els estudiants</string>
