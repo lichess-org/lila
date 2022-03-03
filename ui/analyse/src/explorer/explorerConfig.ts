@@ -47,9 +47,13 @@ export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
   allDbs: ExplorerDb[] = ['lichess', 'player'];
   myName?: string;
+  participants: (string | undefined)[];
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     this.myName = document.body.dataset['user'];
+    this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
+      name => name && name != this.myName
+    );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
@@ -80,7 +84,7 @@ export class ExplorerConfigCtrl {
   selectPlayer = (name?: string) => {
     name = name == 'me' ? this.myName : name;
     if (!name) return;
-    if (name != this.myName) {
+    if (name != this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
       this.data.playerName.previous(previous.slice(0, 20));
@@ -289,7 +293,7 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  const onSelect = (name: string) => {
+  const onSelect = (name: string | undefined) => {
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
@@ -318,7 +322,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(name =>
           h(
             `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {

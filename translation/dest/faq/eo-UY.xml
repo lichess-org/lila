@@ -37,6 +37,7 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
+  <string name="ratingLeaderboards">ĉefo tabulo de rango</string>
   <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>

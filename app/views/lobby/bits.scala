@@ -160,7 +160,7 @@ object bits {
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := "")(
-          if (current.pov.game.abortable) trans.abortTheGame() else trans.resignTheGame()
+          if (current.pov.game.abortableByUser) trans.abortTheGame() else trans.resignTheGame()
         )
       ),
       br,

@@ -59,4 +59,5 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="upcomingTourns">Artėjantys turnyrai</string>
   <string name="completedTourns">Baigti turnyrai</string>
   <string name="declinedRequests">Atsisakytos užklausos</string>
+  <string name="joinLichessVariantTeam">Prisijunkite prie oficialios %s komandos ir gaukite naujienas bei pranešimus apie renginius</string>
 </resources>

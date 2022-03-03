@@ -173,11 +173,11 @@
   <plurals name="nbMinutes">
     <item quantity="other">%s 分钟</item>
   </plurals>
-  <string name="time">时间限制</string>
+  <string name="time">时间</string>
   <string name="rating">等级分</string>
   <string name="ratingStats">等级分统计</string>
   <string name="username">用户名</string>
-  <string name="usernameOrEmail">用户名 / 邮箱</string>
+  <string name="usernameOrEmail">用户名 或 邮箱</string>
   <string name="changeUsername">更改用户名</string>
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
@@ -313,7 +313,7 @@
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
   <string name="xStartedStreaming">%s 开始直播</string>
   <string name="averageElo">平均等级分</string>
-  <string name="location">位置</string>
+  <string name="location">所在地</string>
   <string name="filterGames">筛选棋局</string>
   <string name="reset">重置</string>
   <string name="apply">应用</string>
@@ -593,7 +593,7 @@
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与Lichess官方的锦标赛或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给您带来无尽的国际象棋乐趣。</string>
   <string name="tournamentNotFound">找不到该锦标赛</string>
-  <string name="tournamentDoesNotExist">该锦标赛不存在。</string>
+  <string name="tournamentDoesNotExist">该锦标赛已不存在。</string>
   <string name="tournamentMayHaveBeenCanceled">该锦标赛可能已被取消，假如所有的选手在比赛开始之前退赛。</string>
   <string name="returnToTournamentsHomepage">返回锦标赛主页</string>
   <string name="weeklyPerfTypeRatingDistribution">本月%s的等级分分布</string>
@@ -604,7 +604,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
-  <string name="yourRating">你的排名</string>
+  <string name="yourRating">您的积分</string>
   <string name="cumulative">累计</string>
   <string name="glicko2Rating">Glicko-2 等级分</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
@@ -707,7 +707,7 @@
   <string name="findBetterMoveForWhite">为白方找更好走法</string>
   <string name="findBetterMoveForBlack">为黑方找更好走法</string>
   <string name="resumeLearning">继续学习</string>
-  <string name="youCanDoBetter">再接再厉</string>
+  <string name="youCanDoBetter">加油！有更好的一步棋·！</string>
   <string name="tryAnotherMoveForWhite">为白方另找走法</string>
   <string name="tryAnotherMoveForBlack">为黑方另找走法</string>
   <string name="solution">解答</string>
@@ -784,7 +784,7 @@
   <string name="youAreNowPartOfTeam">你现在是团队的成员。</string>
   <string name="youHaveJoinedTeamX">你已加入\"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">你举报的用户已被封禁</string>
-  <string name="congratsYouWon">恭喜你获得了胜利！</string>
+  <string name="congratsYouWon">恭喜恭喜，你获胜了！</string>
   <string name="gameVsX">与 %1$s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">有人审查了您的教练简介。</string>
@@ -843,7 +843,7 @@
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
-  <string name="hangOn">挂起！</string>
+  <string name="hangOn">等等！</string>
   <string name="gameInProgress">您正在与 %s 进行对局。</string>
   <string name="abortTheGame">中止本局</string>
   <string name="resignTheGame">认输</string>

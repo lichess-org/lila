@@ -405,7 +405,6 @@ object mon {
       val fullSize = histogram("tournament.lilaHttp.fullSize").withoutTags()
       val nbTours  = gauge("tournament.lilaHttp.nbTours").withoutTags()
     }
-    def standingOverload = counter("tournament.standing.overload").withoutTags()
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(
         Map(
@@ -419,7 +418,6 @@ object mon {
       timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
-    def standingOverload      = counter("swiss.standing.overload").withoutTags()
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
     val scoringGet            = future("swiss.scoring.get")

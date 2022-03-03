@@ -17,6 +17,7 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
+POST  /api/games/export/_ids           controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # Bookmark
@@ -679,6 +680,7 @@ POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: Strin
 POST  /api/swiss/:id/edit              controllers.Swiss.apiUpdate(id: String)
 POST  /api/swiss/:id/join              controllers.Swiss.apiJoin(id: String)
 POST  /api/swiss/:id/terminate         controllers.Swiss.apiTerminate(id: String)
+GET   /api/swiss/:id                   controllers.Swiss.apiShow(id: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
 GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
 GET   /api/simul                       controllers.Simul.apiList

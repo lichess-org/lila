@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -11,6 +12,7 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
 import lila.swiss.{ Swiss => SwissModel, SwissForm }
+import lila.user.{ User => UserModel }
 
 final class Swiss(
     env: Env,
@@ -37,7 +39,7 @@ final class Swiss(
             for {
               verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
               version  <- env.swiss.version(swiss.id)
-              isInTeam <- isCtxInTheTeam(swiss.teamId)
+              isInTeam <- ctx.me ?? isUserInTheTeam(swiss.teamId)
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
@@ -62,10 +64,11 @@ final class Swiss(
           api = _ =>
             swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
               for {
-                socketVersion <- getBool("socketVersion").??(env.swiss version swiss.id dmap some)
-                isInTeam      <- isCtxInTheTeam(swiss.teamId)
-                playerInfo    <- get("playerInfo").?? { env.swiss.api.playerInfo(swiss, _) }
+                isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
                 verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
+                socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
+                playerInfo    <- get("playerInfo", ctx.req).?? { env.swiss.api.playerInfo(swiss, _) }
+                page = getInt("page", ctx.req).filter(0.<)
                 json <- env.swiss.json(
                   swiss = swiss,
                   me = ctx.me,
@@ -75,14 +78,22 @@ final class Swiss(
                   playerInfo = playerInfo,
                   isInTeam = isInTeam
                 )
-              } yield Ok(json)
+              } yield JsonOk(json)
             }
         )
       }
     }
 
-  private def isCtxInTheTeam(teamId: lila.team.Team.ID)(implicit ctx: Context) =
-    ctx.userId.??(u => env.team.cached.teamIds(u).dmap(_ contains teamId))
+  def apiShow(id: String) =
+    Action.async { implicit req =>
+      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+        case Some(swiss) => JsonOk(env.swiss.json.api(swiss)).fuccess
+        case _           => notFoundJson()
+      }
+    }
+
+  private def isUserInTheTeam(teamId: lila.team.Team.ID)(user: UserModel) =
+    env.team.cached.teamIds(user.id).dmap(_ contains teamId)
 
   def round(id: String, round: Int) =
     Open { implicit ctx =>
@@ -179,7 +190,7 @@ final class Swiss(
   private def bodyPassword(implicit req: Request[_]) =
     SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
 
-  private def doJoin(me: lila.user.User, id: SwissId, password: Option[String]) =
+  private def doJoin(me: UserModel, id: SwissId, password: Option[String]) =
     env.team.cached.teamIds(me.id) flatMap { teamIds =>
       env.swiss.api.join(id, me, teamIds.contains, password) flatMap { result =>
         fuccess {
@@ -275,7 +286,7 @@ final class Swiss(
   def pageOf(id: String, userId: String) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, lila.user.User normalize userId) flatMap {
+        env.swiss.api.pageOf(swiss, UserModel normalize userId) flatMap {
           _ ?? { page =>
             JsonOk {
               env.swiss.standingApi(swiss, page)
@@ -322,7 +333,7 @@ final class Swiss(
 
   private def WithEditableSwiss(
       id: String,
-      me: lila.user.User,
+      me: UserModel,
       fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).fuccess
   )(
       f: SwissModel => Fu[Result]
@@ -352,7 +363,7 @@ final class Swiss(
     else ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
 
   private val streamerCache =
-    env.memo.cacheApi[SwissModel.Id, List[lila.user.User.ID]](64, "swiss.streamers") {
+    env.memo.cacheApi[SwissModel.Id, List[UserModel.ID]](64, "swiss.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture { id =>

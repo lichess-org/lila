@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -254,6 +254,8 @@ export default class RoundController {
     if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
     else this.redraw();
   };
+
+  userJumpPlyCount = (plyCount: Ply) => this.userJump(this.ply + plyCount);
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
@@ -496,6 +498,8 @@ export default class RoundController {
     return true; // prevents default socket pubsub
   };
 
+  crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
+
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
       return crazyValid(this.data, drop.role, drop.key);
@@ -713,14 +717,14 @@ export default class RoundController {
 
   canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
 
-  offerDraw = (v: boolean): void => {
+  offerDraw = (v: boolean, immediately?: boolean): void => {
     if (this.canOfferDraw()) {
       if (this.drawConfirm) {
         if (v) this.doOfferDraw();
         clearTimeout(this.drawConfirm);
         this.drawConfirm = undefined;
       } else if (v) {
-        if (this.data.pref.confirmResign)
+        if (this.data.pref.confirmResign && !immediately)
           this.drawConfirm = setTimeout(() => {
             this.offerDraw(false);
           }, 3000);
@@ -738,7 +742,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
   };

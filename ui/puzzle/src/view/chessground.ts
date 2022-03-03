@@ -7,7 +7,7 @@ import { h, VNode } from 'snabbdom';
 export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      insert: vnode => ctrl.setChessground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: _ => ctrl.ground()!.destroy(),
     },
   });

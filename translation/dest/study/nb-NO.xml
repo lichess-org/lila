@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Fastspikrede kapittelkommenter</string>
   <string name="saveChapter">Lagre kapittelet</string>
   <string name="clearAnnotations">Fjern notater</string>
+  <string name="clearVariations">Fjern varianter</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Du kan ikke angre!</string>
   <string name="clearAllCommentsInThisChapter">Fjern alle kommentarer og figurer i dette kapittelet?</string>
