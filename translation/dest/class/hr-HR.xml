@@ -12,7 +12,6 @@
   <string name="teachersX">Nastavnici: %s</string>
   <string name="newClass">Nova nastava</string>
   <string name="closeClass">Zatvori nastavu</string>
-  <string name="closedByX">Zatvoren od %s</string>
   <string name="reopen">Ponovno otvori</string>
   <string name="removeStudent">Ukloni studenta</string>
   <string name="removedStudents">Uklonjen</string>
