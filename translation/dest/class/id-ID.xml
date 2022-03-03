@@ -12,7 +12,6 @@
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
-  <string name="closedByX">Ditutup oleh %s</string>
   <string name="reopen">Buka kembali</string>
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
