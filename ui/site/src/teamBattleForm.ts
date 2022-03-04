@@ -30,7 +30,7 @@ lichess.load.then(() => {
                 .split('\n')
                 .map(t => t.split(' ')[0])
                 .slice(0, -1);
-              callback(res.filter(t => !current.includes(t.id)));
+              callback(res.filter(t => !current.includes(t.id) && !t.id.includes("lichess")));
             },
             _ => callback([])
           );
