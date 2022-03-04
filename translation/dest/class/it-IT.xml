@@ -90,6 +90,7 @@ Questo è il link per accedere alla lezione.</string>
   <string name="winrate">Percentuale di vittorie</string>
   <string name="na">N/A</string>
   <string name="overview">Panoramica</string>
+  <string name="news">Notizie</string>
   <string name="classNews">News della classe</string>
   <string name="editNews">Modifica notizie</string>
   <string name="notifyAllStudents">Notifica tutti gli studenti</string>
@@ -111,4 +112,5 @@ Questo è il link per accedere alla lezione.</string>
   <string name="xisNowAStudentOfTheClass">%s è ora uno studente della classe</string>
   <string name="anInvitationHasBeenSentToX">Un invito è stato inviato a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ha già un invito in sospeso</string>
+  <string name="xIsAKidAccountWarning">%1$s è un profilo per bambini e non può ricevere il tuo messaggio. Devi dare loro l\'URL d\'invito manualmente: %2$s</string>
 </resources>
