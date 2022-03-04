@@ -12,6 +12,7 @@
   <string name="teachersX">Irakasleak: %s</string>
   <string name="newClass">Klase berria</string>
   <string name="closeClass">Klasea itxi</string>
+  <string name="removedByX">%s erabiltzaileak ezabatu du</string>
   <string name="reopen">Berriz ireki</string>
   <string name="removeStudent">Ikaslea ezabatu</string>
   <string name="removedStudents">Ezabatuta</string>
@@ -88,10 +89,28 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="variantXOverLastY">%1$s azken %2$s-n</string>
   <string name="winrate">Garaipen ratioa</string>
   <string name="na">Ezezaguna</string>
+  <string name="overview">Laburpena</string>
+  <string name="news">Albisteak</string>
+  <string name="classNews">Klaseko berriak</string>
   <string name="editNews">Berriak aldatu</string>
   <string name="notifyAllStudents">Ikasle guztiei jakinarazi</string>
   <string name="nothingHere">Ezer ez dago hemen oraindik.</string>
   <string name="newsEdit1">Klaseko albiste guztiak leku bakarrean.</string>
   <string name="newsEdit2">Albiste berrienak goian gehitu. Ez ezabatu albiste zaharrak.</string>
   <string name="newsEdit3">Albisteak --- ikurrarekin banatu. Horrela marra bat agertuko da.</string>
+  <string name="invite">Gonbidatu</string>
+  <string name="youHaveBeenInvitedByX">%s erabiltzaileak gonbidatu zaitu.</string>
+  <string name="youAcceptedThisInvitation">Gonbidapen hau onartu egin duzu.</string>
+  <string name="youDeclinedThisInvitation">Gonbidapen hau baztertu egin duzu.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">edo</string>
+  <string name="createMultipleAccounts">Sortu Lichess kontu bat baino gehiago batera</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s ikasle talde batentzako hainbat Lichess kontu sortu ditzakezu.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Formulario hau erabiliz</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Klase batek %1$s ikasle izan ditzake. Ikasle gehiago izateko %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">sortu klase gehiago</string>
+  <string name="studentsRealNamesOnePerLine">Ikasleen benetako izenak, bat lerro bakoitzean</string>
+  <string name="xisNowAStudentOfTheClass">%s klaseko ikaslea da orain</string>
+  <string name="anInvitationHasBeenSentToX">Gonbidapena bidali diozu %s erabiltzaileari</string>
+  <string name="xAlreadyHasAPendingInvitation">%s erabiltzaileak onartu gabeko gonbidapen bat du oraindik</string>
+  <string name="xIsAKidAccountWarning">%1$s erabiltzaileak haurren kontu bat du eta ezin du zure mezurik jaso. Gonbidapenaren helbidea eskuz eman behar diozu: %2$s</string>
 </resources>
