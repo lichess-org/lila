@@ -108,7 +108,7 @@ Oto link do klasy.</string>
   <string name="youAcceptedThisInvitation">Zaakceptowałeś zaproszenie.</string>
   <string name="youDeclinedThisInvitation">Odrzuciłeś zaproszenie.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">lub</string>
-  <string name="createMultipleAccounts">Utwórz wiele kont Lichess na raz</string>
+  <string name="createMultipleAccounts">Utwórz równocześnie wiele kont Lichess</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Możesz również %s aby utworzyć wiele kont Lichess z listy imion uczniów.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">użyć tego formularza</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Zauważ, że klasa może mieć do %1$s uczniów. Aby zarządzać większą liczbą uczniów, %2$s.</string>
