@@ -97,6 +97,7 @@ Oto link do klasy.</string>
   <string name="na">Niedostępne</string>
   <string name="overview">Przegląd</string>
   <string name="news">Wiadomości</string>
+  <string name="classNews">Aktualności klasowe</string>
   <string name="editNews">Edytuj aktualności</string>
   <string name="notifyAllStudents">Powiadom wszystkich uczniów</string>
   <string name="nothingHere">Jeszcze nic tu nie ma.</string>
@@ -109,11 +110,13 @@ Oto link do klasy.</string>
   <string name="youDeclinedThisInvitation">Odrzuciłeś zaproszenie.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">lub</string>
   <string name="createMultipleAccounts">Utwórz równocześnie wiele kont Lichess</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Możesz również %s aby utworzyć wiele kont Lichess z listy imion uczniów.</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Możesz również %s, aby utworzyć wiele kont Lichess z listy imion uczniów.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">użyć tego formularza</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Zauważ, że klasa może mieć do %1$s uczniów. Aby zarządzać większą liczbą uczniów, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Zauważ, że klasa może mieć maksymalnie %1$s uczniów. Aby zarządzać większą liczbą uczniów, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">utwórz więcej klas</string>
+  <string name="studentsRealNamesOnePerLine">Prawdziwe imiona i nazwiska uczniów, każdy uczeń w osobnej linii</string>
   <string name="xisNowAStudentOfTheClass">%s jest teraz uczniem klasy</string>
   <string name="anInvitationHasBeenSentToX">Wysłano zaproszenie do %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ma już oczekujące zaproszenie</string>
+  <string name="xIsAKidAccountWarning">%1$s jest kontem dziecka i dlatego nie może otrzymać Twojej wiadomości. Musisz podać mu adres URL zaproszenia w inny sposób: %2$s</string>
 </resources>
