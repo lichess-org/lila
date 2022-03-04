@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">ଶ୍ରେଣୀଗୁଡ଼ିକ</string>
-  <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରମାନଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
-  <string name="messageAllStudents">ସମସ୍ତ ଛାତ୍ରମାନଙ୍କୁ ନୂତନ ଶ୍ରେଣୀ ସାମଗ୍ରୀ ବିଷୟରେ ବାର୍ତ୍ତା ପଠାନ୍ତୁ</string>
+  <string name="lichessClasses">ଶ୍ରେଣୀ</string>
+  <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରଛାତ୍ରୀଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="messageAllStudents">ସମସ୍ତ ଛାତ୍ରଛାତ୍ରୀଙ୍କୁ ନୂତନ ଶ୍ରେଣୀ ସାମଗ୍ରୀ ବିଷୟରେ ବାର୍ତ୍ତା ପଠାନ୍ତୁ</string>
   <string name="noClassesYet">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଶ୍ରେଣୀ ନାହିଁ।</string>
   <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
   <string name="closeClass">ଶ୍ରେଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
@@ -27,6 +27,7 @@
   <string name="thisStudentAccountIsManaged">ଏହି ଛାତ୍ର ଆକାଉଣ୍ଟ୍ ଟି ପରିଚାଳିତ ଅଟେ</string>
   <string name="upgradeFromManaged">ପରିଚାଳିତରୁ ସ୍ୱୟଂଶାସିତକୁ ଅପଗ୍ରେଡ୍ କର</string>
   <string name="releaseDesc1">ଏକ ସ୍ନାତକ ଆକାଉଣ୍ଟ ପୁନର୍ବାର ପରିଚାଳନା କରାଯାଇପାରିବ ନାହିଁ। ଛାତ୍ର ଶିଶୁ ମୋଡ୍ ଟୋଗଲ୍ କରିବାକୁ ଏବଂ ନିଜେ ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ସମର୍ଥ ହେବେ।</string>
+  <string name="students">ଛାତ୍ରଛାତ୍ରୀ</string>
   <string name="overview">ଅବଲୋକନ</string>
   <string name="news">ଖବର</string>
   <string name="classNews">ଶ୍ରେଣୀର ଖବର</string>
