@@ -41,5 +41,6 @@
   <string name="amount">ରାଶି</string>
   <string name="transactionCompleted">ଆପଣଙ୍କ ଟ୍ରାଞ୍ଜାକସନ୍ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇଛି, ଏବଂ ଆପଣଙ୍କ ଦାନ ପାଇଁ ଏକ ରସିଦ ଆପଣଙ୍କୁ ଇମେଲ୍ କରାଯାଇଛି।</string>
   <string name="checkOutProfile">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ପୃଷ୍ଠା ଦେଖନ୍ତୁ!</string>
+  <string name="downgradeNextMonth">ଗୋଟିଏ ମାସରେ, ଆପଣଙ୍କୁ ପୁନର୍ବାର ଚାର୍ଜ କରାଯିବ ନାହିଁ, ଏବଂ ଆପଣଙ୍କ Lichess ଆକାଉଣ୍ଟ୍ ଏକ ସାଧାରଣ ଆକାଉଣ୍ଟ୍ ରୂପକୁ ଫେରିବ।</string>
   <string name="changeCurrency">ମୁଦ୍ରା ପରିବର୍ତ୍ତନ କର</string>
 </resources>
