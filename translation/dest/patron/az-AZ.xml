@@ -11,7 +11,6 @@
   <string name="thankYou">İanəniz üçün təşəkkürlər!</string>
   <string name="youHaveLifetime">Ömürlük Dəstəkçi hesabınız var. Bu möhtəşəmdir!</string>
   <string name="patronUntil">Dəstəkçi hesabınızın müddəti %s tarixində başa çatır.</string>
-  <string name="ifNotRenewed">Yeniləmədinizsə, hesabınız ödənişsiz hesaba çevriləcək.</string>
   <string name="weAreNonProfit">Hər kəsin pulsuz, dünya səviyyəli bir şahmat platformasına çıxışı olması lazım olduğuna inandığımız üçün mənfəət güdməyən bir təşkilatıq.</string>
   <string name="weRelyOnSupport">Bunu mümkün etmək üçün sizin kimi insanların dəstəyinə güvənirik. Lichess istifadə etməkdən xoşunuz gəlirsə, xahiş edərək Dəstəkçi olmaqla bizə dəstək olmağı əsirgəməyin!</string>
   <string name="lifetime">Ömürlük</string>

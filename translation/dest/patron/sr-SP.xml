@@ -10,7 +10,6 @@
   <string name="thankYou">Хвала на донацији!</string>
   <string name="youHaveLifetime">Имаш доживотни Патрон налог. То је врло страва!</string>
   <string name="patronUntil">Имаш Патрон налог до %s.</string>
-  <string name="ifNotRenewed">Ако донација не буде обновљена, бићеш враћен на бесплатан налог.</string>
   <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
   <string name="weRelyOnSupport">За наш успех нам је неопходна ваша помоћ. Ако уживате у Личесу, молимо размислите о помагању путем донација којим постајете Патрон!</string>
   <string name="lifetime">Доживотно</string>

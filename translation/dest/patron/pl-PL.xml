@@ -18,7 +18,6 @@
   <string name="thankYou">Dziękuję za darowiznę!</string>
   <string name="youHaveLifetime">Masz konto Dożywotnego Patrona. To całkiem niesamowite!</string>
   <string name="patronUntil">Masz konto patrona do %s.</string>
-  <string name="ifNotRenewed">Jeśli nie zostanie odnowione, stanie się ponownie zwykłym kontem.</string>
   <string name="weAreNonProfit">Jesteśmy stowarzyszeniem non-profit, ponieważ uważamy, że każdy powinien mieć dostęp do darmowej, światowej klasy platformy umożliwiającej grę w szachy.</string>
   <string name="weRelyOnSupport">Żeby było to możliwe, liczymy na wsparcie ze strony osób takich jak Ty. Jeśli lubisz korzystać z Lichess, rozważ wsparcie nas poprzez darowizny i stań się naszym patronem!</string>
   <string name="lifetime">Dożywotnie</string>
