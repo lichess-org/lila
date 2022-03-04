@@ -58,7 +58,9 @@ object side {
             }
           )
         },
-        variantTeamLinks.get(tour.variant) map { case (team, link) =>
+        variantTeamLinks.get(tour.variant) filter { case (team, _) =>
+          tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
+        } map { case (team, link) =>
           st.section(
             if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
             else trans.team.joinLichessVariantTeam(link)
