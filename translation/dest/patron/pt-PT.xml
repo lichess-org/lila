@@ -16,7 +16,7 @@
   <string name="thankYou">Obrigado pela tua doação!</string>
   <string name="youHaveLifetime">Tens um conta patrono vitalícia. Isso é bem fixe!</string>
   <string name="patronUntil">Tens uma conta de patrono até %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert">Se não for renovada, a sua conta será então revertida para uma conta normal.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Se não for renovada, a sua conta voltará a ser uma conta normal.</string>
   <string name="weAreNonProfit">Nós somos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
   <string name="weRelyOnSupport">Contamos com o apoio de pessoas como tu para o tornar possível. Se gostas de usar o Lichess, por favor considera apoiar-nos através de uma doação ao te tornares um patrono!</string>
   <string name="lifetime">Vitalícia</string>
