@@ -6,6 +6,9 @@
   <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
   <string name="closeClass">ଶ୍ରେଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
   <string name="aLinkToTheClassWillBeAdded">ବାର୍ତ୍ତା ଶେଷରେ ଶ୍ରେଣୀର ଏକ ଲିଙ୍କ୍ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ଯୋଡ଼ାଯିବ, ତେଣୁ ଆପଣଙ୍କୁ ଏହାକୁ ନିଜେ ଅନ୍ତର୍ଭୁକ୍ତ କରିବାକୁ ପଡ଼ିବ ନାହିଁ।</string>
+  <string name="className">ଶ୍ରେଣୀର ନା‍ଁ</string>
+  <string name="classDescription">ଶ୍ରେଣୀର ବର୍ଣ୍ଣନା</string>
+  <string name="teachersOfTheClass">ଶ୍ରେଣୀର ଶିକ୍ଷକଗଣ</string>
   <string name="resetPassword">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
   <string name="makeSureToCopy">ଏବେ ପାସ୍‍ୱାର୍ଡ଼ କପି କିମ୍ୱା ଲେଖିବାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ। ଆପଣ ଏହାକୁ ପୁନର୍ବାର ଦେଖିବାକୁ ସମର୍ଥ ହେବେ ନାହିଁ!</string>
   <string name="passwordX">ପାସ୍‍ୱାର୍ଡ଼: %s</string>
@@ -14,6 +17,8 @@
 ଉପଭୋକ୍ତା ନାମ: %2$s
 ପାସ୍‍ୱାର୍ଡ଼: %3$s</string>
   <string name="createDesc2">କୌଣସି ଇମେଲ୍ ଠିକଣା ଆବଶ୍ୟକ ନାହିଁ। ଏକ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି ହେବ, ଏବଂ ଆପଣଙ୍କୁ ଏହାକୁ ଛାତ୍ରଙ୍କ ନିକଟକୁ ପଠାଇବାକୁ ପଡ଼ିବ, ଯାହା ଫଳରେ ସେମାନେ ଲଗ୍ ଇନ୍ କରିପାରିବେ।</string>
+  <string name="welcomeToClass">ଆପଣଙ୍କ ଶ୍ରେଣୀକୁ ସ୍ଵାଗତ: %s।
+ଶ୍ରେଣୀକୁ ପ୍ରବେଶ କରିବାକୁ ଏଠାରେ ଲିଙ୍କ୍ ଅଛି।</string>
   <string name="managed">ପରିଚାଳିତ</string>
   <string name="thisStudentAccountIsManaged">ଏହି ଛାତ୍ର ଆକାଉଣ୍ଟ୍ ଟି ପରିଚାଳିତ ଅଟେ</string>
   <string name="upgradeFromManaged">ପରିଚାଳିତରୁ ସ୍ୱୟଂଶାସିତକୁ ଅପଗ୍ରେଡ୍ କର</string>
