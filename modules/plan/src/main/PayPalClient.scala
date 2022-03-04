@@ -85,11 +85,19 @@ final private class PayPalClient(
       )
     )
 
+  def cancelSubscription(sub: PayPalSubscription): Funit =
+    postOneNoResponse(
+      s"${path.subscriptions}/${sub.id}/cancel",
+      Json.obj("reason" -> "N/A")
+    ).void
+
   def getOrder(id: PayPalOrderId): Fu[Option[PayPalOrder]] =
     getOne[PayPalOrder](s"${path.orders}/$id")
 
   def getSubscription(id: PayPalSubscriptionId): Fu[Option[PayPalSubscription]] =
-    getOne[PayPalSubscription](s"${path.subscriptions}/$id")
+    getOne[PayPalSubscription](s"${path.subscriptions}/$id") recover {
+      case CantParseException(json, _) if json.str("status").has("CANCELLED") => none
+    }
 
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
     get[A](url) dmap some recover { case _: NotFoundException =>
@@ -108,6 +116,11 @@ final private class PayPalClient(
     request(url) flatMap { _.post(data) flatMap response[A] }
   }
 
+  private def postOneNoResponse(url: String, data: JsObject): Funit = {
+    logger.info(s"POST $url $data")
+    request(url) flatMap { _.post(data) } void
+  }
+
   private val logger = lila.plan.logger branch "payPal"
 
   private def request(url: String) = tokenCache.get {} map { bearer =>
@@ -120,9 +133,9 @@ final private class PayPalClient(
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
-      case 200 | 201 =>
-        (implicitly[Reads[A]] reads res.body[JsValue].pp).fold(
-          errs => fufail(s"[payPal] Can't parse ${res.body} --- $errs"),
+      case 200 | 201 | 204 =>
+        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
+          errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
           fuccess
         )
       case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
@@ -164,6 +177,8 @@ object PayPalClient {
   class StatusException(status: Int, msg: String)         extends PayPalException(s"$status $msg")
   class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
+  case class CantParseException(json: JsValue, err: JsError)
+      extends PayPalException(s"[payPal] Can't parse $json --- ${err.errors}")
 
   import io.methvin.play.autoconfig._
   private[plan] case class Config(

@@ -86,6 +86,8 @@ export default function (stripePublicKey: string, pricing: Pricing) {
     const giftDest = getGiftDest();
     const enabled = getDest() != 'gift' || !!giftDest;
     toggleInput($checkout.find('.service button'), enabled);
+    $checkout.find('.service .paypal--disabled').toggleClass('none', enabled);
+    $checkout.find('.service .paypal:not(.paypal--disabled)').toggleClass('none', !enabled);
   };
 
   toggleCheckout();

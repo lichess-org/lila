@@ -258,12 +258,12 @@ final class PlanApi(
         }
     } yield ()
 
-    def userSubscriptionId(user: User): Fu[Option[StripeSubscriptionId]] =
+    def userSubscriptionId(user: User): Fu[Option[PayPalSubscriptionId]] =
       userPatron(user) map {
         _.flatMap { _.payPalCheckout.flatMap(_.subscriptionId) }
       }
 
-    def userSubscription(user: User): Fu[Option[StripeSubscription]] =
+    def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
       userSubscriptionId(user) flatMap {
         _ ?? payPalClient.getSubscription
       }

@@ -213,7 +213,8 @@ object index {
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
                           div(cls := "paypal paypal--order"),
-                          div(cls := "paypal paypal--subscription")
+                          div(cls := "paypal paypal--subscription"),
+                          button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
                         )
                       else
                         a(
