@@ -2,7 +2,10 @@
 <resources>
   <string name="lichessClasses">ଶ୍ରେଣୀଗୁଡ଼ିକ</string>
   <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରମାନଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍‍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="noClassesYet">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଶ୍ରେଣୀ ନାହିଁ।</string>
   <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
+  <string name="closeClass">ଶ୍ରେଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
+  <string name="aLinkToTheClassWillBeAdded">ବାର୍ତ୍ତା ଶେଷରେ ଶ୍ରେଣୀର ଏକ ଲିଙ୍କ୍ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ଯୋଡ଼ାଯିବ, ତେଣୁ ଆପଣଙ୍କୁ ଏହାକୁ ନିଜେ ଅନ୍ତର୍ଭୁକ୍ତ କରିବାକୁ ପଡ଼ିବ ନାହିଁ।</string>
   <string name="resetPassword">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
   <string name="makeSureToCopy">ଏବେ ପାସ୍‍ୱାର୍ଡ଼ କପି କିମ୍ୱା ଲେଖିବାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ। ଆପଣ ଏହାକୁ ପୁନର୍ବାର ଦେଖିବାକୁ ସମର୍ଥ ହେବେ ନାହିଁ!</string>
   <string name="passwordX">ପାସ୍‍ୱାର୍ଡ଼: %s</string>
