@@ -6,4 +6,6 @@
   <string name="theKing">loD ta\'</string>
   <string name="theKingIsSlow">QIt vIH loD ta\'</string>
   <string name="theKnight">Sargh</string>
+  <string name="thePawn">mang</string>
+  <string name="itMovesForwardOnly">\'et neH jaH</string>
 </resources>
