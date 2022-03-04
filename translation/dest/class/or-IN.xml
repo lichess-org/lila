@@ -22,4 +22,5 @@
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ ଗୋଟେ ଶ୍ରେଣୀରେ କେବଳ %1$s ଜଣ ଛାତ୍ର ରହିପାରିବେ। ଅଧିକ ଛାତ୍ର ପରିଚାଳନା କରିବାକୁ, %2$s।</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">ଅଧିକ ଶ୍ରେଣୀ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="studentsRealNamesOnePerLine">ଛାତ୍ରମାନଙ୍କ ପ୍ରକୃତ ନାମ, ପ୍ରତି ଧାଡ଼ିରେ ଗୋଟିଏ</string>
+  <string name="xisNowAStudentOfTheClass">ଏବେ %s ଶ୍ରେଣୀର ଜଣେ ଛାତ୍ର ଅଟନ୍ତି</string>
 </resources>
