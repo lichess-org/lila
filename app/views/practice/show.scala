@@ -25,7 +25,7 @@ object show {
             "practice" -> data.practice,
             "study"    -> data.study,
             "data"     -> data.analysis,
-            "i18n"     -> board.userAnalysisI18n(),
+            "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys)),
             "explorer" -> views.html.board.bits.explorerConfig
           )
         )}""")
