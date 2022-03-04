@@ -27,5 +27,7 @@
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">ଅଧିକ ଶ୍ରେଣୀ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="studentsRealNamesOnePerLine">ଛାତ୍ରମାନଙ୍କ ପ୍ରକୃତ ନାମ, ପ୍ରତି ଧାଡ଼ିରେ ଗୋଟିଏ</string>
   <string name="xisNowAStudentOfTheClass">ଏବେ %s ଶ୍ରେଣୀର ଜଣେ ଛାତ୍ର ଅଟନ୍ତି</string>
+  <string name="anInvitationHasBeenSentToX">%sଙ୍କୁ ଏକ ନିମନ୍ତ୍ରଣ ପଠାଯାଇଛି</string>
+  <string name="xAlreadyHasAPendingInvitation">%sଙ୍କ ପାଖରେ ଆଗରୁ ଏକ ବିଚାରାଧୀନ ନିମନ୍ତ୍ରଣ ଅଛି</string>
   <string name="xIsAKidAccountWarning">%1$s ଏକ ଶିଶୁ ଆକାଉଣ୍ଟ୍ ଅଟେ ଏବଂ ଆପଣଙ୍କ ବାର୍ତ୍ତା ପ୍ରାପ୍ତ କରିପାରିବ ନାହିଁ। ଆପଣଙ୍କୁ ସେମାନଙ୍କୁ ହସ୍ତକୃତ ଭାବରେ ନିମନ୍ତ୍ରଣ URL ପଠାଇବାକୁ ପଡ଼ିବ: %2$s</string>
 </resources>
