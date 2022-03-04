@@ -12,6 +12,7 @@
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova turma</string>
   <string name="closeClass">Fechar turma</string>
+  <string name="removedByX">Removido por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Remover aluno</string>
   <string name="removedStudents">Removido</string>
@@ -88,10 +89,20 @@ Aqui está o link para acessar a turma.</string>
   <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Índice de vitórias</string>
   <string name="na">N/A</string>
+  <string name="overview">Visão Geral</string>
+  <string name="classNews">Novidades sobre as aulas</string>
   <string name="editNews">Editar notícias</string>
   <string name="notifyAllStudents">Notificar todos os alunos</string>
   <string name="nothingHere">Nada aqui, ainda.</string>
   <string name="newsEdit1">Todas as notícias sobre a aula num único campo.</string>
   <string name="newsEdit2">Adicione as notícias recentes no topo. Não exclua notícias anteriores.</string>
   <string name="newsEdit3">Separe as notícias com --- tal irá mostrar uma linha horizontal.</string>
+  <string name="invite">Convidar</string>
+  <string name="youHaveBeenInvitedByX">Você foi convidado por %s.</string>
+  <string name="youAcceptedThisInvitation">Você aceitou este convite.</string>
+  <string name="youDeclinedThisInvitation">Você recusou este convite.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>
+  <string name="createMultipleAccounts">Crie várias contas no Lichess de uma vez</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Você também pode %s para criar várias contas no Lichess a partir de uma lista de nomes de alunos.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">use este formulário</string>
 </resources>
