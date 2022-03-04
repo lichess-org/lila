@@ -82,10 +82,9 @@ final class SimulApi(
     repo.update(simul) >>- publish() inject simul
   }
 
-  def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
+  def addApplicant(simulId: Simul.ID, user: User, isInTeam: TeamID => Boolean, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
-      if (simul.nbAccepted >= Game.maxPlayingRealtime) simul
-      else {
+      if (simul.nbAccepted < Game.maxPlayingRealtime && simul.team.forall(isInTeam)) {
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
         Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
           simul addApplicant SimulApplicant.make(
@@ -100,7 +99,7 @@ final class SimulApi(
             )
           )
         }
-      }
+      } else simul
     }
 
   def removeApplicant(simulId: Simul.ID, user: User): Funit =
