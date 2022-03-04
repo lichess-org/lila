@@ -12,6 +12,7 @@
   <string name="teachersX">Leraren: %s</string>
   <string name="newClass">Nieuwe klas</string>
   <string name="closeClass">Groep sluiten</string>
+  <string name="removedByX">Verwijderd door %s</string>
   <string name="reopen">Heropen</string>
   <string name="removeStudent">Verwijder leerling</string>
   <string name="removedStudents">Verwijderd</string>
@@ -88,6 +89,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="variantXOverLastY">%1$s over laatste %2$s</string>
   <string name="winrate">Winratio</string>
   <string name="na">N.v.t.</string>
+  <string name="overview">Overzicht</string>
   <string name="news">Nieuws</string>
   <string name="editNews">Bewerk nieuws</string>
   <string name="notifyAllStudents">Informeer alle studenten</string>
@@ -95,4 +97,19 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="newsEdit1">Alle groepsnieuws in een enkel veld.</string>
   <string name="newsEdit2">Voeg het laatste nieuws toe aan de top. Verwijder vorig nieuws niet.</string>
   <string name="newsEdit3">Scheid het nieuws met --- het zal als een horizontale lijn worden weergeven.</string>
+  <string name="invite">Uitnodigen</string>
+  <string name="youHaveBeenInvitedByX">Je bent uitgenodigd door %s.</string>
+  <string name="youAcceptedThisInvitation">Je hebt deze uitnodiging geaccepteerd.</string>
+  <string name="youDeclinedThisInvitation">Je hebt deze uitnodiging geweigerd.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">of</string>
+  <string name="createMultipleAccounts">Meerdere Lichess-accounts tegelijk aanmaken</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Je kunt ook %s om meerdere Lichess-accounts te maken van een lijst met leerlingnamen.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">gebruik dit formulier</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Merk op dat een klas tot %1$s leerlingen kan hebben. Om meer leerlingen te beheren, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">maak meer klassen</string>
+  <string name="studentsRealNamesOnePerLine">De echte namen van de leerlingen, één per regel</string>
+  <string name="xisNowAStudentOfTheClass">%s is nu een leerling van de klas</string>
+  <string name="anInvitationHasBeenSentToX">Een uitnodiging is verstuurd naar %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s heeft al een uitnodiging in behandeling</string>
+  <string name="xIsAKidAccountWarning">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
 </resources>
