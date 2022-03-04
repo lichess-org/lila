@@ -88,6 +88,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="variantXOverLastY">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
   <string name="na">Ei saatavilla</string>
+  <string name="news">Uutiset</string>
   <string name="classNews">Luokan uutiset</string>
   <string name="editNews">Muokkaa uutisia</string>
   <string name="notifyAllStudents">Ilmoita kaikille oppilaille</string>
@@ -96,6 +97,18 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="newsEdit2">Lisää tuoreet uutiset ylimmäksi. Älä poista aiempia uutisia.</string>
   <string name="newsEdit3">Erottele uutiset näin: --- 
 Se luo vaakasuoran erotinviivan.</string>
+  <string name="invite">Kutsu</string>
+  <string name="youAcceptedThisInvitation">Olet hyväksynyt tämän kutsun.</string>
+  <string name="youDeclinedThisInvitation">Olet hylännyt tämän kutsun.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">tai</string>
   <string name="createMultipleAccounts">Luo kerralla monta Lichess-tunnusta</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s voit myös luoda monta Lichess-tunnusta oppilaiden nimilistasta.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Tällä lomakkeella</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Huomaa, että luokalla voi olla korkeintaan %1$s oppilasta. Jos haluat ohjata tätä enemmän oppilaita, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">luo lisää luokkia</string>
+  <string name="studentsRealNamesOnePerLine">Oppilaiden oikeat nimet, yksi per rivi</string>
+  <string name="xisNowAStudentOfTheClass">%s on nyt luokan oppilas</string>
+  <string name="anInvitationHasBeenSentToX">Käyttäjälle %s lähetettiin kutsu</string>
+  <string name="xAlreadyHasAPendingInvitation">%s on jo saanut kutsun, joka odottaa vastausta</string>
   <string name="xIsAKidAccountWarning">%1$s on lapsitunnus eikä voi vastaanottaa viestiäsi. Sinun on annettava kutsun URL-osoite oppilaalle käsin: %2$s</string>
 </resources>
