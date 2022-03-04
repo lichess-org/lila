@@ -12,6 +12,7 @@
   <string name="teachersX">Insegnanti: %s</string>
   <string name="newClass">Nuova classe</string>
   <string name="closeClass">Chiudi la classe</string>
+  <string name="removedByX">Rimosso da %s</string>
   <string name="reopen">Riapri</string>
   <string name="removeStudent">Rimuovi studente</string>
   <string name="removedStudents">Rimosso</string>
@@ -88,10 +89,26 @@ Questo è il link per accedere alla lezione.</string>
   <string name="variantXOverLastY">%1$s sopra gli ultimi %2$s</string>
   <string name="winrate">Percentuale di vittorie</string>
   <string name="na">N/A</string>
+  <string name="overview">Panoramica</string>
+  <string name="classNews">News della classe</string>
   <string name="editNews">Modifica notizie</string>
   <string name="notifyAllStudents">Notifica tutti gli studenti</string>
   <string name="nothingHere">Non c\'è ancora niente qui.</string>
   <string name="newsEdit1">Tutte le news di classe in un unico campo.</string>
   <string name="newsEdit2">Aggiungi le notizie recenti in alto. Non eliminare le notizie precedenti.</string>
   <string name="newsEdit3">Separa le notizie con --- mostrerà una linea orizzontale.</string>
+  <string name="invite">Invita</string>
+  <string name="youHaveBeenInvitedByX">Sei stato invitato da %s.</string>
+  <string name="youAcceptedThisInvitation">Hai accettato questo invito.</string>
+  <string name="youDeclinedThisInvitation">Hai rifiutato questo invito.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">o</string>
+  <string name="createMultipleAccounts">Crea più profili di Lichess in una volta</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Puoi anche %s per creare più profili di Lichess da un elenco di nomi degli studenti.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">usa questo modulo</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Nota che una classe può avere fino a %1$s studenti. Per gestire più studenti, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">crea più classi</string>
+  <string name="studentsRealNamesOnePerLine">Nomi veri degli studenti, uno per riga</string>
+  <string name="xisNowAStudentOfTheClass">%s è ora uno studente della classe</string>
+  <string name="anInvitationHasBeenSentToX">Un invito è stato inviato a %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ha già un invito in sospeso</string>
 </resources>
