@@ -43,7 +43,7 @@
   <string name="opponentLeftChoices">El teu contrincant ha abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Sigues amable en el xat!</string>
+  <string name="talkInChat">Sisplau, sigues amable al xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
