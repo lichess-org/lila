@@ -12,6 +12,7 @@
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Ny klasse</string>
   <string name="closeClass">Steng klasse</string>
+  <string name="removedByX">Fjerna av %s</string>
   <string name="reopen">Opne opp att</string>
   <string name="removeStudent">Fjern elev</string>
   <string name="removedStudents">Fjerna</string>
@@ -88,10 +89,18 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Vinstrate</string>
   <string name="na">N/A (ikkje tilgjengeleg)</string>
+  <string name="overview">Oversikt</string>
+  <string name="news">Nyhende</string>
+  <string name="classNews">Klassenyhende</string>
   <string name="editNews">Rediger nyhende</string>
   <string name="notifyAllStudents">Send melding til alle elevar</string>
   <string name="nothingHere">Tomt så langt.</string>
   <string name="newsEdit1">Alle klassenyhende i eit enkelt felt.</string>
   <string name="newsEdit2">Legg inn dei siste nyhendene på toppen. Ikkje slett tidlegare nyhende.</string>
   <string name="newsEdit3">Sett inn --- mellom kvar nyhende, det vil visast med ei horisontal linje.</string>
+  <string name="invite">Inviter</string>
+  <string name="youHaveBeenInvitedByX">Du er invitert av %s.</string>
+  <string name="youAcceptedThisInvitation">Du aksepterte denne invitasjonen.</string>
+  <string name="youDeclinedThisInvitation">Du avviste denne invitasjonen.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eller</string>
 </resources>
