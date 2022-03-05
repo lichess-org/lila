@@ -157,7 +157,7 @@
   <string name="changeEmail">ଇମେଲ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="email">ଇମେଲ୍</string>
   <string name="passwordReset">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
-  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
+  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଗଲେ?</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%sଟିଏ ପ୍ରହେଳିକା</item>
     <item quantity="other">%sଟି ପ୍ରହେଳିକା</item>
