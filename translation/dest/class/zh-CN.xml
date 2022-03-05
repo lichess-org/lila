@@ -104,4 +104,11 @@
   <string name="createMultipleAccounts">一次创建多个 Lichess 账户</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">您也可以%s通过学生名称列表创建多个 Lichess 账户</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表单</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">请注意，一个班级最多可以有 %1$s 名学生。如需管理更多学生，%2$s。</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">创建更多班级</string>
+  <string name="studentsRealNamesOnePerLine">学生的真实姓名，每行一个</string>
+  <string name="xisNowAStudentOfTheClass">%s 现在是班级的学生</string>
+  <string name="anInvitationHasBeenSentToX">邀请已发送到 %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s 已经有待处理的邀请</string>
+  <string name="xIsAKidAccountWarning">%1$s 是未成年账户，无法接收您的消息。您必须手动给他发送邀请链接： %2$s</string>
 </resources>
