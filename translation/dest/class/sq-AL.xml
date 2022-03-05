@@ -107,4 +107,10 @@ Do të shfaqë një vijë horizontale.</string>
   <string name="createMultipleAccounts">Krijoni një numër llogarish Lichess njëherësh</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Mundeni edhe të %s që të krijoni disa llogari Lichess që nga një listë emrash nxënësish.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">përdorni këtë formular</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Kin parasysh se klasa mund të ketë deri në %1$s nxënës. Që të administroni më tepër nxënës, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">krijoni më tepër klasa</string>
+  <string name="studentsRealNamesOnePerLine">Emrat e njëmendtë të nxënësve, një për rresht</string>
+  <string name="xisNowAStudentOfTheClass">%s tani është një nxënës i klasës</string>
+  <string name="anInvitationHasBeenSentToX">Për %s u dërgua një ftesë</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ka tashmë një ftesë pezull</string>
 </resources>
