@@ -65,7 +65,7 @@
   <string name="giftPatronWings">Падарыць крылы спонсара іншаму гульцу</string>
   <string name="update">Абнавіць</string>
   <string name="changeMonthlyAmount">Змяніць штомесячную суму (%s)</string>
-  <string name="cancelSupport">Cкасаваць падтрымку</string>
+  <string name="cancelSupport">скасаваць падтрымку</string>
   <string name="xOrY">%1$s ці %2$s</string>
   <string name="decideHowMuch">Колькі каштуе Lichess, на вашу думку:</string>
   <string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
