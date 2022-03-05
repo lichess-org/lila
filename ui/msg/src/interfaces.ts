@@ -14,9 +14,7 @@ export interface Contact {
 export interface User extends LightUser {
   online: boolean;
 }
-export interface Me extends User {
-  kid: boolean;
-}
+export interface Me extends User {}
 export interface Msg {
   user: string;
   text: string;

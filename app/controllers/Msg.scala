@@ -120,7 +120,7 @@ final class Msg(
   private def inboxJson(me: lila.user.User) =
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
       Json.obj(
-        "me"       -> lightUserWrites.writes(me.light).add("kid" -> me.kid),
+        "me"       -> me.light,
         "contacts" -> threads
       )
     }
