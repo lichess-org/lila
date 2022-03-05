@@ -912,7 +912,7 @@
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш трэнерски профіль.</string>
-  <string name="newPendingReview">Новы водгук</string>
+  <string name="newPendingReview">Новы водгук у чаканні</string>
   <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
   <string name="refundXpointsTimeControlY">Вяртанне: %1$s %2$s балаў рэйтынгу.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
