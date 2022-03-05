@@ -94,6 +94,9 @@
   <string name="variantXOverLastY">%1$s на працягу апошніх %2$s</string>
   <string name="winrate">Адсотак перамог</string>
   <string name="na">Не дастасоўваецца</string>
+  <string name="overview">Агляд</string>
+  <string name="news">Навіны</string>
+  <string name="classNews">Навіны занятку</string>
   <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>
   <string name="nothingHere">Пакуль нічога.</string>
@@ -101,4 +104,8 @@
   <string name="newsEdit2">Дадавайце апошнія навіну ўверсе. Не выдаляйце папярэднія навіны.</string>
   <string name="newsEdit3">Падзяляйце навіны з дапамогай ---
 Гэта адлюструе гарызантальную лінію.</string>
+  <string name="invite">Запрасіць</string>
+  <string name="youAcceptedThisInvitation">Вы прынялі запрашэнне.</string>
+  <string name="youDeclinedThisInvitation">Вы адхілілі запрашэнне.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
 </resources>
