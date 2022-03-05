@@ -18,6 +18,7 @@
   <string name="thankYou">Дзякуй за ваш унёсак!</string>
   <string name="youHaveLifetime">У вас пажыццёвы ўліковы запіс спонсара. Гэта вельмі крута!</string>
   <string name="patronUntil">Вы спонсар да %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Калі не аднавіцца, тады ваш уліковы запіс стане звычайным.</string>
   <string name="weAreNonProfit">Мы некамерцыйная арганізацыя, таму што лічым, што кожны варты мець доступ да бясплатнай шахматнай платформы сусветнага ўзроўня.</string>
   <string name="weRelyOnSupport">Мы разлічваем на дапамогу такіх людзей як вы, каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце пра магчымасць дапамагчы нам грашовым ахвяраваннем і стаць спонсарам!</string>
   <string name="lifetime">Пажыццёва</string>
@@ -64,7 +65,7 @@
   <string name="giftPatronWings">Падарыць крылы спонсара іншаму гульцу</string>
   <string name="update">Абнавіць</string>
   <string name="changeMonthlyAmount">Змяніць штомесячную суму (%s)</string>
-  <string name="cancelSupport">скасаваць падтрымку</string>
+  <string name="cancelSupport">Cкасаваць падтрымку</string>
   <string name="xOrY">%1$s ці %2$s</string>
   <string name="decideHowMuch">Колькі каштуе Lichess, на вашу думку:</string>
   <string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
