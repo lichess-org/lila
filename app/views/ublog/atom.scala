@@ -41,6 +41,10 @@ object atom {
       renderPost(post, authorOfBlog(post.blog))
     }
 
+  private val termAttr   = attr("term")
+  private val labelAttr  = attr("label")
+  private val schemeAttr = attr("scheme")
+
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
       tag("id")(post._id),
@@ -51,10 +55,13 @@ object atom {
         href := s"$netBaseUrl${urlOfPost(post)}"
       ),
       tag("title")(post.title),
-      // tag("category")(
-      //   tag("term")(doc.getText("blog.category")),
-      //   tag("label")(slugify(~doc.getText("blog.category")))
-      // ),
+      post.topics.map { topic =>
+        tag("category")(
+          termAttr := topic.url,
+          labelAttr := topic.value,
+          schemeAttr := s"$netBaseUrl${routes.Ublog.topic(topic.url)}"
+        )
+      },
       tag("content")(tpe := "html")(
         thumbnail(post, _.Large),
         "<br>", // yes, scalatags encodes it.
