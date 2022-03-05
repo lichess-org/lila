@@ -48,7 +48,8 @@
   <string name="blackResigned">pajpu\' HurghwI\'</string>
   <string name="whiteLeftTheGame">mejpu\' chISwI\'</string>
   <string name="blackLeftTheGame">mejpu\' HurghwI\'</string>
-  <string name="blackDidntMove">vIHbe\' QujwI\' qIj</string>
+  <string name="whiteDidntMove">vIHpu\'be QujwI\' chIS</string>
+  <string name="blackDidntMove">vIHpu\'be\' QujwI\' qIj</string>
   <string name="requestAComputerAnalysis">poj De\'wI\' \'e\' yItlhob</string>
   <string name="computerAnalysis">De\'wI\' poj</string>
   <string name="computerAnalysisAvailable">SaH De\'wI\' poj</string>
@@ -58,6 +59,7 @@
   <string name="loadingEngine">nIqHom lI\'lI\'...</string>
   <string name="cloudAnalysis">\'eng poj</string>
   <string name="showThreat">Qob \'ang</string>
+  <string name="move">mIw</string>
   <string name="whiteDrawBlack">QujwI\' chIS / pagh /QujwI\' qIj</string>
   <string name="delete">Qaw\'</string>
   <string name="blunder">Qagh</string>
