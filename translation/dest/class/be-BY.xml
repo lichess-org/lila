@@ -12,6 +12,7 @@
   <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
   <string name="closeClass">Скончыць занятак</string>
+  <string name="removedByX">Выдаліў(-ла): %s</string>
   <string name="reopen">Пераадкрыць</string>
   <string name="removeStudent">Выдаліць студэнта</string>
   <string name="removedStudents">Выдаленыя</string>
@@ -53,7 +54,7 @@
   <string name="invitationToClass">Вас запрасілі на занятак \"%s\" у якасці студэнта(кі).</string>
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
   <plurals name="nbPendingInvitations">
-    <item quantity="one">Адно чакаючае запрашэнне</item>
+    <item quantity="one">Адно запрашэнне ў чаканні</item>
     <item quantity="few">%s чакаючых запрашэння</item>
     <item quantity="many">%s чакаючых запрашэнняў</item>
     <item quantity="other">%s чакаючых запрашэнняў</item>
@@ -105,7 +106,18 @@
   <string name="newsEdit3">Падзяляйце навіны з дапамогай ---
 Гэта адлюструе гарызантальную лінію.</string>
   <string name="invite">Запрасіць</string>
+  <string name="youHaveBeenInvitedByX">Вас запрасіў(-ла) - %s.</string>
   <string name="youAcceptedThisInvitation">Вы прынялі запрашэнне.</string>
   <string name="youDeclinedThisInvitation">Вы адхілілі запрашэнне.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
+  <string name="createMultipleAccounts">Адначасова стварыць некалькі ўліковых запісаў Lichess</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Вы таксама можаце %s каб стварыць некалькі ўліковых запісаў Lichess са спісу імён студэнтаў.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">выкарыстаць гэту форму</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Звярніце ўвагу, што на занятку можа прысутнічаць не больш за %1$s студэнтаў. Каб выкладаць большай колькасці студэнтаў - %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">стварыце яшчэ некалькі заняткаў</string>
+  <string name="studentsRealNamesOnePerLine">Сапраўдныя імёны студэнтаў, па аднаму на радок</string>
+  <string name="xisNowAStudentOfTheClass">%s зараз на занятку</string>
+  <string name="anInvitationHasBeenSentToX">Запрашэнне адпраўлена да %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ужо мае запрашэнне</string>
+  <string name="xIsAKidAccountWarning">Уліковы запіс %1$s - дзіцячы, таму не можа атрымліваць паведамленні. Вам трэба перадаць запрашальную спасылку ўласнаручна: %2$s</string>
 </resources>
