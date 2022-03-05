@@ -604,7 +604,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
-  <string name="yourRating">您的积分</string>
+  <string name="yourRating">你的等级分</string>
   <string name="cumulative">累计</string>
   <string name="glicko2Rating">Glicko-2 等级分</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
