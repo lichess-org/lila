@@ -49,7 +49,7 @@
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiss hät d\'Partie verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partie verlah</string>
-  <string name="whiteDidntMove">Wiss hät nöd zoge</string>
+  <string name="whiteDidntMove">Wiis hät nöt zogä</string>
   <string name="blackDidntMove">Schwarz hät nöd zoge</string>
   <string name="requestAComputerAnalysis">E Computeranalyse aafordere</string>
   <string name="computerAnalysis">Computer-Analyse</string>
@@ -700,7 +700,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din Punkteschtand: %s</string>
-  <string name="language">Sproch</string>
+  <string name="language">Schprach</string>
   <string name="background">Hindergrund</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>

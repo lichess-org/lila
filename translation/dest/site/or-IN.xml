@@ -157,7 +157,7 @@
   <string name="changeEmail">ଇମେଲ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="email">ଇମେଲ୍</string>
   <string name="passwordReset">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
-  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
+  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଗଲେ?</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%sଟିଏ ପ୍ରହେଳିକା</item>
     <item quantity="other">%sଟି ପ୍ରହେଳିକା</item>
@@ -272,7 +272,9 @@
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="searchOrStartNewDiscussion">ଖୋଜ କିମ୍ବା ନୂଆ ବାର୍ତ୍ତାଳାପ ଆରମ୍ଭ କର</string>
   <string name="edit">ସମ୍ପାଦନା</string>
+  <string name="rapid">ଶୀଘ୍ର</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="classicalDesc">ଶାସ୍ତ୍ରୀୟ ଖେଳ: ୨୫ ମିନିଟ୍ ଓ ଅଧିକ</string>
   <string name="puzzleDesc">ଚେସ୍ କୌଶଳ ପ୍ରଶିକ୍ଷକ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>

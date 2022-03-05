@@ -12,7 +12,6 @@
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
   <string name="closeClass">کلاس را ببندید</string>
-  <string name="closedByX">توسط %s بسته شد</string>
   <string name="reopen">بازگشایی</string>
   <string name="removeStudent">دانش‌جو را خارج کنید</string>
   <string name="removedStudents">حذف شده</string>
@@ -81,7 +80,6 @@
   <string name="timePlaying">زمان بازی کردن</string>
   <string name="winrate">نرخِ برد</string>
   <string name="na">در دسترس نیست</string>
-  <string name="news">اخبار کلاس</string>
   <string name="editNews">خبرها را ویرایش نمایید</string>
   <string name="notifyAllStudents">اطلاع دادن به تمام دانش آموزان</string>
   <string name="nothingHere">اینجا هنوز چیزی نیست.</string>

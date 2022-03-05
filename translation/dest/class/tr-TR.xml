@@ -12,7 +12,6 @@
   <string name="teachersX">Eğitmenler: %s</string>
   <string name="newClass">Yeni sınıf</string>
   <string name="closeClass">Sınıfı kapatın</string>
-  <string name="closedByX">%s tarafından kapatıldı</string>
   <string name="reopen">Yeniden açın</string>
   <string name="removeStudent">Öğrenciyi çıkarın</string>
   <string name="removedStudents">Çıkarıldı</string>
@@ -89,7 +88,6 @@ Sınıfa erişim linki burada.</string>
   <string name="variantXOverLastY">%1$s sondan %2$s</string>
   <string name="winrate">Kazanma Oranı</string>
   <string name="na">Mevcut değil</string>
-  <string name="news">Sınıf haberleri</string>
   <string name="editNews">Haberleri düzenle</string>
   <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>
   <string name="nothingHere">Henüz bir şey yok.</string>

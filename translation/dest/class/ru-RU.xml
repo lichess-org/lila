@@ -12,7 +12,6 @@
   <string name="teachersX">Преподаватели: %s</string>
   <string name="newClass">Новый класс</string>
   <string name="closeClass">Закрыть класс</string>
-  <string name="closedByX">Класс закрыл %s</string>
   <string name="reopen">Открыть снова</string>
   <string name="removeStudent">Удалить ученика</string>
   <string name="removedStudents">Удалён</string>
@@ -95,11 +94,17 @@
   <string name="variantXOverLastY">%1$s за последние %2$s</string>
   <string name="winrate">Процент побед</string>
   <string name="na">Не применимо</string>
-  <string name="news">Название класса</string>
+  <string name="overview">Просмотр</string>
+  <string name="news">Новости</string>
   <string name="editNews">Изменить новость</string>
   <string name="notifyAllStudents">Известить всех учеников</string>
   <string name="nothingHere">Здесь пока ничего нет.</string>
   <string name="newsEdit1">Все новости класса в одном поле.</string>
   <string name="newsEdit2">Добавляйте свежие новости сверху. Не удаляйте предыдущие новости.</string>
   <string name="newsEdit3">Разделяйте новости с помощью трёх дефисов --- они превратятся в горизонтальную линию.</string>
+  <string name="invite">Пригласить</string>
+  <string name="youHaveBeenInvitedByX">Вы были приглашены %s.</string>
+  <string name="youAcceptedThisInvitation">Вы приняли это приглашение.</string>
+  <string name="youDeclinedThisInvitation">Вы отклонили это приглашение.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
 </resources>

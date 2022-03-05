@@ -16,6 +16,7 @@
   <string name="thankYou">Danke für die Schpänd!</string>
   <string name="youHaveLifetime">Du häsch es läbelangs Gönnerkonto. Das isch grossartig!</string>
   <string name="patronUntil">Du häsch es Gönnerkonto bis %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Falls du nöd erneuere tuesch, wird dis Konto in es Regulärs umgwandlet.</string>
   <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" haa.</string>
   <string name="weRelyOnSupport">Mir sind uf d\'Underschtützig vu so Lüt wie du aagwise, zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
   <string name="lifetime">Läbeslang</string>

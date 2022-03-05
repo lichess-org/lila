@@ -12,7 +12,6 @@
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
   <string name="closeClass">סגור כיתה</string>
-  <string name="closedByX">נסגר ע\"י %s</string>
   <string name="reopen">נפתח מחדש</string>
   <string name="removeStudent">הסר תלמידים</string>
   <string name="removedStudents">הוסרו</string>
@@ -95,7 +94,6 @@
   <string name="variantXOverLastY">%1$s לאורך ה%2$s האחרונה</string>
   <string name="winrate">מדד ניצחון</string>
   <string name="na">N/A</string>
-  <string name="news">חדשות הכיתה</string>
   <string name="editNews">ערוך חדשות</string>
   <string name="notifyAllStudents">הודע לכל התלמידים</string>
   <string name="nothingHere">אין פה כלום בינתיים.</string>

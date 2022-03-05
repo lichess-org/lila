@@ -12,7 +12,6 @@
   <string name="teachersX">jan pi pana sona: %s</string>
   <string name="newClass">kulupu sin</string>
   <string name="closeClass">o pini e kulupu</string>
-  <string name="closedByX">jan %s li pini e ni</string>
   <string name="reopen">kama sin</string>
   <string name="removeStudent">o weka e jan pi kama sona</string>
   <string name="removedStudents">tenpo pini la weka</string>
@@ -49,6 +48,5 @@ nimi awen: %3$s</string>
   <string name="progress">pali tawa</string>
   <string name="winrate">nanpa pi pini pona</string>
   <string name="na">jo ken ala</string>
-  <string name="news">kama sin kulupu</string>
   <string name="editNews">ante e kama sin</string>
 </resources>

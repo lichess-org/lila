@@ -12,7 +12,6 @@
   <string name="teachersX">Lærere: %s</string>
   <string name="newClass">Ny klasse</string>
   <string name="closeClass">Lukk klasse</string>
-  <string name="closedByX">Lukket av %s</string>
   <string name="reopen">Gjenåpne</string>
   <string name="removeStudent">Fjern elev</string>
   <string name="removedStudents">Fjernet</string>
@@ -89,7 +88,6 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Seiersrate</string>
   <string name="na">N/A (ikke tilgjengelig)</string>
-  <string name="news">Klasse-nyheter</string>
   <string name="editNews">Rediger nyheter</string>
   <string name="notifyAllStudents">Send melding til alle elever</string>
   <string name="nothingHere">Foreløpig tomt.</string>

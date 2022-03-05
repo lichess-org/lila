@@ -12,7 +12,7 @@
   <string name="teachersX">Инструктори: %s</string>
   <string name="newClass">Нов час</string>
   <string name="closeClass">Затвори го часот</string>
-  <string name="closedByX">Затворен од %s</string>
+  <string name="removedByX">Отстрането од %s</string>
   <string name="reopen">Отвори повторно</string>
   <string name="removeStudent">Отстрани ученик</string>
   <string name="removedStudents">Отстранет</string>
@@ -89,7 +89,9 @@
   <string name="variantXOverLastY">%1$s во последните %2$s</string>
   <string name="winrate">Стапка на победи</string>
   <string name="na">N/A</string>
-  <string name="news">Наставни новости</string>
+  <string name="overview">Преглед</string>
+  <string name="news">Новости</string>
+  <string name="classNews">Наставни новости</string>
   <string name="editNews">Уредете ги вестите</string>
   <string name="notifyAllStudents">Извести ги сите ученици</string>
   <string name="nothingHere">За сега ова е празно.</string>
@@ -97,4 +99,19 @@
   <string name="newsEdit2">Додади ја последната вест на врвот. Не бриши ги претходните вести.</string>
   <string name="newsEdit3">Оддели ги вестите со ---
 Ќе биде покажано како линија.</string>
+  <string name="invite">Покани</string>
+  <string name="youHaveBeenInvitedByX">Поканети сте од %s.</string>
+  <string name="youAcceptedThisInvitation">Ја прифативте оваа покана.</string>
+  <string name="youDeclinedThisInvitation">Ја одбивте оваа покана.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
+  <string name="createMultipleAccounts">Креирајте неколку Lichess сметки наеднаш</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Можете и да ја %s за да креирате неколку Lichess сметки од листа со имиња на студенти.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">искористете оваа форма</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Внимание, класот може да има до %1$s студенти. За повеќе студенти, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">креирајте повеќе класови</string>
+  <string name="studentsRealNamesOnePerLine">Вистински имиња на студентите, едно по линија</string>
+  <string name="xisNowAStudentOfTheClass">%s сега е студент во класот</string>
+  <string name="anInvitationHasBeenSentToX">Покана беше испратена до %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s веќе има неприфатена покана</string>
+  <string name="xIsAKidAccountWarning">%1$s е детска сметка и не може да ја прими Вашата порака. Мора да им пратите покана мануелно преку УРЛ линк: %2$s</string>
 </resources>

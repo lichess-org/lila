@@ -12,7 +12,6 @@
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
   <string name="closeClass">Κλείσιμο τάξης</string>
-  <string name="closedByX">Έκλεισε από %s</string>
   <string name="reopen">Ξανανοίξτε</string>
   <string name="removeStudent">Απομάκρυνση μαθητή</string>
   <string name="removedStudents">Απομακρύνθηκε</string>
@@ -89,7 +88,6 @@
   <string name="variantXOverLastY">%1$s για τις τελευταίες %2$s</string>
   <string name="winrate">Ποσοστό νικών</string>
   <string name="na">Μη διαθέσιμο</string>
-  <string name="news">Νέα τάξης</string>
   <string name="editNews">Διαχείριση νέων</string>
   <string name="notifyAllStudents">Ειδοποιήστε όλους τους μαθητές</string>
   <string name="nothingHere">Δεν υπάρχει τίποτα εδώ ακόμα.</string>
