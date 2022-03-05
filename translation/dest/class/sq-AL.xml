@@ -12,6 +12,7 @@
   <string name="teachersX">Mësues: %s</string>
   <string name="newClass">Kurs i ri</string>
   <string name="closeClass">Mbylle kursin</string>
+  <string name="removedByX">Hequr nga %s</string>
   <string name="reopen">Rihape</string>
   <string name="removeStudent">Fshij nxënësin</string>
   <string name="removedStudents">U fshi</string>
@@ -88,6 +89,9 @@ Ja një lidhje për t’u futur te kursi.</string>
   <string name="variantXOverLastY">%1$s gjatë %2$s të fundit</string>
   <string name="winrate">Perqindja e fitoreve</string>
   <string name="na">N/A</string>
+  <string name="overview">Përmbledhje</string>
+  <string name="news">Lajme</string>
+  <string name="classNews">Lajme kursi</string>
   <string name="editNews">Redaktoni lajmet</string>
   <string name="notifyAllStudents">Njoftoji krejt nxënësit</string>
   <string name="nothingHere">Asgjë këtu, ende.</string>
@@ -95,4 +99,12 @@ Ja një lidhje për t’u futur te kursi.</string>
   <string name="newsEdit2">Shtoji lajmet e fundit në krye. Mos fshi lajmet e mëparshme.</string>
   <string name="newsEdit3">Ndaji lajmet me ---
 Do të shfaqë një vijë horizontale.</string>
+  <string name="invite">Ftoni</string>
+  <string name="youHaveBeenInvitedByX">Jeni ftuar nga %s.</string>
+  <string name="youAcceptedThisInvitation">E pranuat këtë ftesë.</string>
+  <string name="youDeclinedThisInvitation">E hodhët postë këtë ftesë.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ose</string>
+  <string name="createMultipleAccounts">Krijoni një numër llogarish Lichess njëherësh</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Mundeni edhe të %s që të krijoni disa llogari Lichess që nga një listë emrash nxënësish.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">përdorni këtë formular</string>
 </resources>
