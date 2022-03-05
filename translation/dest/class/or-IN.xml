@@ -7,6 +7,8 @@
   <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
   <string name="closeClass">ଶ୍ରେଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
   <string name="removedByX">%sଙ୍କ ଦ୍ୱାରା କାଢ଼ିଦିଆଗଲା</string>
+  <string name="removeStudent">ଛାତ୍ରଙ୍କୁ କାଢ଼ିଦେବା</string>
+  <string name="removedStudents">କାଢ଼ିଦିଆଯାଇଛନ୍ତି</string>
   <string name="aLinkToTheClassWillBeAdded">ବାର୍ତ୍ତା ଶେଷରେ ଶ୍ରେଣୀର ଏକ ଲିଙ୍କ୍ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ଯୋଡ଼ାଯିବ, ତେଣୁ ଆପଣଙ୍କୁ ଏହାକୁ ନିଜେ ଅନ୍ତର୍ଭୁକ୍ତ କରିବାକୁ ପଡ଼ିବ ନାହିଁ।</string>
   <string name="className">ଶ୍ରେଣୀର ନା‍ଁ</string>
   <string name="classDescription">ଶ୍ରେଣୀର ବର୍ଣ୍ଣନା</string>
