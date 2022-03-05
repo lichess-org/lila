@@ -107,6 +107,8 @@ GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.community(lang: String = "all", page: Int ?= 1)
+GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: String = "all")
+GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: String)
 GET   /blog/community/:lang            controllers.Ublog.community(lang: String, page: Int ?= 1)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 

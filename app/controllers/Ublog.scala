@@ -245,6 +245,13 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def communityAtom(code: String) = Action.async { implicit req =>
+    val lang = Lang.get(code).filter(LangList.popularNoRegion.contains)
+    env.ublog.paginator.liveByCommunity(lang, page = 1) map { posts =>
+      Ok(html.ublog.atom.community(code, posts.currentPageResults)) as XML
+    }
+  }
+
   def liked(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       Reasonable(page, 15) {
@@ -284,7 +291,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         implicit val lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-            Ok(html.ublog.atom(user, blog, posts.currentPageResults)) as XML
+            Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML
           }
         }
     }
