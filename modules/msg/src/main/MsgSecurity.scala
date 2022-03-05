@@ -18,6 +18,7 @@ final private class MsgSecurity(
     colls: MsgColls,
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
+    getBotUserIds: lila.user.GetBotIds,
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
@@ -139,7 +140,8 @@ final private class MsgSecurity(
           !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
-            kidCheck(contacts, isNew)
+            kidCheck(contacts, isNew) >>&
+            getBotUserIds().map { botIds => !contacts.userIds.exists(botIds.contains) }
         }
       }
 
@@ -195,4 +197,5 @@ private object MsgSecurity {
   case object Block           extends Reject
   case object Limit           extends Reject
   case object Invalid         extends Reject
+  case object BotUser         extends Reject
 }

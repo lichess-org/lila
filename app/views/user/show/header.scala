@@ -103,7 +103,7 @@ object header {
           ),
           (ctx.isAuth && !ctx.is(u)) option
             views.html.relation.actions(
-              u.id,
+              u.light,
               relation = social.relation,
               followable = social.followable,
               blocked = social.blocked

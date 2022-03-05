@@ -19,29 +19,31 @@ final class Relation(
 
   val api = env.relation.api
 
-  private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
-    (ctx.userId ?? { api.fetchRelation(_, userId) }) zip
-      (ctx.isAuth ?? { env.pref.api followable userId }) zip
-      (ctx.userId ?? { api.fetchBlocks(userId, _) }) flatMap { case ((relation, followable), blocked) =>
-        negotiate(
-          html = fuccess(Ok {
-            if (mini)
-              html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation)
-            else
-              html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
-          }),
-          api = _ =>
-            fuccess(
-              Ok(
-                Json.obj(
-                  "followable" -> followable,
-                  "following"  -> relation.contains(true),
-                  "blocking"   -> relation.contains(false)
+  private def renderActions(username: String, mini: Boolean)(implicit ctx: Context) =
+    env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
+      (ctx.userId ?? { api.fetchRelation(_, user.id) }) zip
+        (ctx.isAuth ?? { env.pref.api followable user.id }) zip
+        (ctx.userId ?? { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
+          negotiate(
+            html = fuccess(Ok {
+              if (mini)
+                html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
+              else
+                html.relation.actions(user, relation = relation, blocked = blocked, followable = followable)
+            }),
+            api = _ =>
+              fuccess(
+                Ok(
+                  Json.obj(
+                    "followable" -> followable,
+                    "following"  -> relation.contains(true),
+                    "blocking"   -> relation.contains(false)
+                  )
                 )
               )
-            )
-        )
-      }
+          )
+        }
+    }
 
   private val FollowLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 150,
@@ -49,7 +51,7 @@ final class Relation(
     key = "follow.user"
   )
 
-  def follow(userId: String) =
+  def follow(username: String) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
         api.reachedMaxFollowing(me.id) flatMap {
@@ -60,8 +62,8 @@ final class Relation(
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
               ) inject Ok
           case _ =>
-            api.follow(me.id, UserModel normalize userId).recoverDefault >> renderActions(
-              userId,
+            api.follow(me.id, UserModel normalize username).recoverDefault >> renderActions(
+              username,
               getBool("mini")
             )
         }
@@ -82,11 +84,11 @@ final class Relation(
       }(fuccess(Api.Limited)) map apiC.toHttp
     }
 
-  def unfollow(userId: String) =
+  def unfollow(username: String) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
-        api.unfollow(me.id, UserModel normalize userId).recoverDefault >> renderActions(
-          userId,
+        api.unfollow(me.id, UserModel normalize username).recoverDefault >> renderActions(
+          username,
           getBool("mini")
         )
       }(rateLimitedFu)
@@ -99,16 +101,22 @@ final class Relation(
       }(fuccess(Api.Limited)) map apiC.toHttp
     }
 
-  def block(userId: String) =
+  def block(username: String) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
-        api.block(me.id, UserModel normalize userId).recoverDefault >> renderActions(userId, getBool("mini"))
+        api.block(me.id, UserModel normalize username).recoverDefault >> renderActions(
+          username,
+          getBool("mini")
+        )
       }(rateLimitedFu)
     }
 
-  def unblock(userId: String) =
+  def unblock(username: String) =
     Auth { implicit ctx => me =>
-      api.unblock(me.id, UserModel normalize userId).recoverDefault >> renderActions(userId, getBool("mini"))
+      api.unblock(me.id, UserModel normalize username).recoverDefault >> renderActions(
+        username,
+        getBool("mini")
+      )
     }
 
   def following(username: String, page: Int) =

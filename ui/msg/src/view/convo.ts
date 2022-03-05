@@ -37,23 +37,22 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       renderMsgs(ctrl, convo),
       h('div.msg-app__convo__reply', [
         convo.relations.out === false || convo.relations.in === false
-          ? h(
-              'div.msg-app__convo__reply__block.text',
-              {
-                attrs: { 'data-icon': '' },
-              },
-              'This conversation is blocked.'
-            )
+          ? blocked('This conversation is blocked.')
+          : ctrl.data.me.bot
+          ? blocked('Bot accounts cannot send nor receive messages.')
           : convo.postable
           ? renderInteract(ctrl, user)
-          : h(
-              'div.msg-app__convo__reply__block.text',
-              {
-                attrs: { 'data-icon': '' },
-              },
-              `${user.name} doesn't accept new messages.`
-            ),
+          : blocked(`${user.name} doesn't accept new messages.`),
       ]),
     ]
   );
 }
+
+const blocked = (msg: String) =>
+  h(
+    'div.msg-app__convo__reply__block.text',
+    {
+      attrs: { 'data-icon': '' },
+    },
+    msg
+  );

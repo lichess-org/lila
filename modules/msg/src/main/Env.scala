@@ -11,6 +11,7 @@ import lila.hub.actorApi.socket.remote.TellUserIn
 final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
+    getBotUserIds: lila.user.GetBotIds,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
