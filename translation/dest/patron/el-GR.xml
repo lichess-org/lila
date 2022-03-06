@@ -16,6 +16,7 @@
   <string name="thankYou">Σας ευχαριστούμε για την δωρεά!</string>
   <string name="youHaveLifetime">Έχετε λογαριασμό Lifetime Patron. Αυτό είναι φανταστικό!</string>
   <string name="patronUntil">Έχετε έναν λογαριασμό Υποστηρικτή μέχρι %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Εάν δεν ανανεωθεί, ο λογαριασμός σας θα επανέλθει σε έναν κανονικό.</string>
   <string name="weAreNonProfit">Είμαστε μια μη κερδοσκοπική οργάνωση που πιστεύει ότι όλοι πρέπει να έχουν πρόσβαση σε μια δωρεάν, παγκόσμιας κλάσης σκακιστική πλατφόρμα.</string>
   <string name="weRelyOnSupport">Βασιζόμαστε στην υποστήριξη από ανθρώπους σαν εσάς για να το πραγματοποιήσουμε. Αν νιώθετε ευχαρίστηση να χρησιμοποιείτε το Lichess, παρακαλώ σκεφτείτε να μας υποστηρίξετε με δωρεά και να γίνεται Υποστηρικτής!</string>
   <string name="lifetime">Για πάντα</string>
