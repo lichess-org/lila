@@ -119,7 +119,7 @@ final class TournamentApi(
       data: TeamBattle.DataForm.Setup,
       filterExistingTeamIds: Set[TeamID] => Fu[Set[TeamID]]
   ): Funit =
-    filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
+    filterExistingTeamIds(data.potentialTeamIds.filter(!TeamBattle.blacklist(_))) flatMap { teamIds =>
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >>-
         cached.tourCache.clear(tour.id)
     }
