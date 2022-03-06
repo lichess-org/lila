@@ -196,6 +196,7 @@ Pion = 1</string>
   <string name="rightOn">Teat sekali!</string>
   <string name="stageXComplete">Tahap %s lengkap</string>
   <string name="next">Berikutnya</string>
+  <string name="nextX">Selanjutnya: %s</string>
   <string name="backToMenu">Kembali ke menu</string>
   <string name="puzzleFailed">Teka-teki gagal!</string>
   <string name="retry">Coba lagi</string>
