@@ -88,6 +88,7 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Seiersrate</string>
   <string name="na">N/A (ikke tilgjengelig)</string>
+  <string name="news" comment="news&#10;&#10;On a class page, refers to the class news tab – a place for announcements and other information.">Nyheter</string>
   <string name="editNews">Rediger nyheter</string>
   <string name="notifyAllStudents">Send melding til alle elever</string>
   <string name="nothingHere">Foreløpig tomt.</string>
