@@ -226,6 +226,7 @@
   <string name="rightOn">Μπράβο!</string>
   <string name="stageXComplete">Στάδιο %s ολοκληρώθηκε</string>
   <string name="next">Επόμενο</string>
+  <string name="nextX">Επόμενο: %s</string>
   <string name="backToMenu">Επιστροφή στο μενού</string>
   <string name="puzzleFailed">Αποτύχατε τον γρίφο!</string>
   <string name="retry">Ξαναδοκιμάστε</string>
