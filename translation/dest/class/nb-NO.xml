@@ -12,6 +12,7 @@
   <string name="teachersX">Lærere: %s</string>
   <string name="newClass">Ny klasse</string>
   <string name="closeClass">Lukk klasse</string>
+  <string name="removedByX" comment="removedByX&#10;&#10;Appears on the student's page when they have been removed from a class.&#10;&#10;%s is the username that removed the student – this can be done by class teachers.">Fjernet av %s</string>
   <string name="reopen">Gjenåpne</string>
   <string name="removeStudent">Fjern elev</string>
   <string name="removedStudents">Fjernet</string>
@@ -88,11 +89,28 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Seiersrate</string>
   <string name="na">N/A (ikke tilgjengelig)</string>
+  <string name="overview">Oversikt</string>
   <string name="news" comment="news&#10;&#10;On a class page, refers to the class news tab – a place for announcements and other information.">Nyheter</string>
+  <string name="classNews">Klassenyheter</string>
   <string name="editNews">Rediger nyheter</string>
   <string name="notifyAllStudents">Send melding til alle elever</string>
   <string name="nothingHere">Foreløpig tomt.</string>
   <string name="newsEdit1">Alle klasse-nyheter i et enkelt felt.</string>
   <string name="newsEdit2">Legg inn de siste nyhetene på toppen. Ikke slett tidligere nyheter.</string>
   <string name="newsEdit3">Skill enkeltnyheter med --- det blir vist som en horisontal linje.</string>
+  <string name="invite">Send innbydelse</string>
+  <string name="youHaveBeenInvitedByX">Du har mottatt en innbydelse fra %s.</string>
+  <string name="youAcceptedThisInvitation">Du godtok innbydelsen.</string>
+  <string name="youDeclinedThisInvitation">Du avslo innbydelsen.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eller</string>
+  <string name="createMultipleAccounts">Opprett flere Lichess-kontoer samtidig</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kan også %s for å opprette flere Lichess-kontoer fra en liste med navn på elevene.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">bruke dette skjemaet</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Legg merke til at en klasse kan ha opp til %1$s elever. %2$s ved behov.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">Opprett flere klasser</string>
+  <string name="studentsRealNamesOnePerLine">Elevenes virkelige navn, ett på hver linje</string>
+  <string name="xisNowAStudentOfTheClass">%s er nå elev i klassen</string>
+  <string name="anInvitationHasBeenSentToX">En innbydelse er sendt til %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s har allerede en utestående innbydelse</string>
+  <string name="xIsAKidAccountWarning">%1$s er en barnekonto og kan ikke motta meldingen din. Du må sende innbydelseslenken på et annet vis: %2$s</string>
 </resources>
