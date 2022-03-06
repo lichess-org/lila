@@ -48,7 +48,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   );
 }
 
-const blocked = (msg: String) =>
+const blocked = (msg: string) =>
   h(
     'div.msg-app__convo__reply__block.text',
     {
