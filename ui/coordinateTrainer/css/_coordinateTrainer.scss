@@ -236,3 +236,7 @@ svg.coords-svg {
 .start {
   width: fit-content;
 }
+
+.main-board square.selected {
+  background-color: inherit;
+}
