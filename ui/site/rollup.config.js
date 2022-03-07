@@ -121,10 +121,6 @@ export default rollupProject({
     input: 'src/clas.ts',
     output: 'clas',
   },
-  coordinate: {
-    input: 'src/coordinate.ts',
-    output: 'coordinate',
-  },
   captcha: {
     input: 'src/captcha.ts',
     output: 'captcha',
