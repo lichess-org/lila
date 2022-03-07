@@ -9,7 +9,7 @@ final class Coordinate(env: Env) extends LilaController(env) {
       ctx.userId ?? { userId =>
         env.coordinate.api getScore userId map (_.some)
       } map { score =>
-        views.html.coordinate.home(score)
+        views.html.coordinate.coordinate.home(score)
       }
     }
 
@@ -20,12 +20,8 @@ final class Coordinate(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           _ => fuccess(BadRequest),
-          data => env.coordinate.api.addScore(me.id, data.isWhite, data.score)
-        ) >> {
-        env.coordinate.api getScore me.id map { s =>
-          Ok(views.html.coordinate.scoreCharts(s))
-        }
-      }
+          data => env.coordinate.api.addScore(me.id, data.isWhite, data.score) inject Ok(())
+        )
     }
 
   def color =
