@@ -78,6 +78,9 @@ case class Report(
   def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
 
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
+
+  def isAlreadySlain(sus: User) =
+    (isCheat && sus.marks.engine) || (isBoost && sus.marks.boost) || (isComm && sus.marks.troll)
 }
 
 object Report {
