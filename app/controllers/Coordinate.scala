@@ -9,7 +9,7 @@ final class Coordinate(env: Env) extends LilaController(env) {
       ctx.userId ?? { userId =>
         env.coordinate.api getScore userId map (_.some)
       } map { score =>
-        views.html.coordinate.coordinate.home(score)
+        views.html.coordinate.show(score)
       }
     }
 

@@ -11,9 +11,9 @@ import play.api.i18n.Lang
 
 import controllers.routes
 
-object coordinate {
+object show {
 
-  def home(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
+  def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = cssTag("coordinateTrainer"),
