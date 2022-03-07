@@ -1,0 +1,230 @@
+@import '../../puz/css/font';
+@import 'layout';
+@import 'zen';
+
+$mq-col1: $mq-not-medium;
+$mq-col2: $mq-medium;
+$mq-col3: $mq-x-large;
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+.trainer {
+  grid-area: main;
+  display: grid;
+
+  .side {
+    @extend %zen;
+    grid-area: side;
+  }
+
+  .main-board {
+    grid-area: board;
+  }
+
+  .table {
+    grid-area: table;
+  }
+
+  .progress {
+    @extend %zen;
+    grid-area: progress;
+  }
+
+  grid-template-areas: 'board' 'progress' 'table' 'side';
+  grid-row-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-width $block-gap $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      'board    . table'
+      'board    . side'
+      'progress . side'
+      '.        . side';
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-areas:
+      'side . board    . table'
+      'side . progress . .'
+      'side . .        . .';
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
+  }
+
+  &.wrong {
+    $c-wrong: $c-bad;
+
+    .progress_bar {
+      background-color: $c-wrong;
+    }
+
+    .score {
+      color: $c-wrong !important;
+    }
+
+    .coord--current {
+      fill: $c-wrong !important;
+    }
+  }
+
+  &.init {
+    @include breakpoint($mq-col1) {
+      .explanation {
+        order: 2;
+        margin: 1em;
+      }
+    }
+
+    .explanation {
+      @extend %page-text-shadow !optional;
+    }
+  }
+}
+
+#jqstooltip {
+  box-sizing: content-box;
+}
+
+.score,
+.timer {
+  @extend %zen;
+  font-family: 'storm';
+  font-size: 5em;
+  margin: $block-gap;
+}
+
+.hurry {
+  color: $c-bad !important;
+}
+
+.box {
+  padding: $block-gap;
+  margin-top: $block-gap;
+
+  h1 {
+    font-size: 1.5em;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  p {
+    margin-top: 1em;
+  }
+
+  &.current-status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+form.color {
+  margin-top: $block-gap;
+
+  i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    padding: 0;
+  }
+
+  .color_white i {
+    background-image: url(../piece/cburnett/wK.svg);
+  }
+
+  .color_random i {
+    background-image: url(../images/wbK.svg);
+  }
+
+  .color_black i {
+    background-image: url(../piece/cburnett/bK.svg);
+  }
+}
+
+svg.coords-svg {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+
+  text.coord {
+    font-weight: bold;
+    text-shadow: 0 10px 10px #444;
+
+    &--current {
+      transform: translate(22px, 60px);
+      fill: #fff;
+      opacity: 0.8;
+      font-size: 30px;
+      animation: slideInCurrent 150ms;
+
+      // for animating the removal of this element
+      transition: opacity 150ms, transform 150ms;
+    }
+
+    &--next {
+      transform: translate(64px, 64px);
+      fill: #eee;
+      opacity: 0.7;
+      font-size: 12px;
+      animation: slideInNext 150ms;
+    }
+  }
+
+  @keyframes slideInCurrent {
+    from {
+      transform: translate(64px, 60px);
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    to {
+      transform: translate(22px, 60px);
+      font-size: 30px;
+      opacity: 0.8;
+    }
+  }
+  @keyframes slideInNext {
+    from {
+      transform: translate(84px, 64px);
+      opacity: 0;
+    }
+    to {
+      transform: translate(64px, 64px);
+      opacity: 1;
+    }
+  }
+}
+
+.progress_bar {
+  @extend %box-radius;
+
+  width: 100%;
+  height: 10px;
+  background-color: $c-secondary;
+}
+
+.table {
+  @extend %flex-column;
+  align-items: center;
+  justify-content: space-around;
+
+  .explanation li {
+    list-style: outside disc;
+    margin: 0.5em 0 0.5em 1em;
+  }
+}
+
+.start {
+  width: fit-content;
+}
