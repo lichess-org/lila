@@ -150,6 +150,14 @@ form.color {
   }
 }
 
+$current-opacity: 0.8;
+$current-font-size: 30px;
+$current-x: 22px;
+$current-y: 60px;
+$next-opacity: 0.7;
+$next-font-size: 12px;
+$next-x: 64px;
+$next-y: 64px;
 svg.coords-svg {
   position: absolute;
   z-index: 3;
@@ -163,10 +171,10 @@ svg.coords-svg {
     text-shadow: 0 10px 10px #444;
 
     &--current {
-      transform: translate(22px, 60px);
+      transform: translate($current-x, $current-y);
+      font-size: $current-font-size;
+      opacity: $current-opacity;
       fill: #fff;
-      opacity: 0.8;
-      font-size: 30px;
       animation: slideInCurrent 150ms;
 
       // for animating the removal of this element
@@ -174,34 +182,34 @@ svg.coords-svg {
     }
 
     &--next {
-      transform: translate(64px, 64px);
+      transform: translate($next-x, $next-y);
+      font-size: $next-font-size;
+      opacity: $next-opacity;
       fill: #eee;
-      opacity: 0.7;
-      font-size: 12px;
       animation: slideInNext 150ms;
     }
   }
 
   @keyframes slideInCurrent {
     from {
-      transform: translate(64px, 60px);
-      font-size: 12px;
-      opacity: 0.7;
+      transform: translate($next-x, $next-y);
+      font-size: $next-font-size;
+      opacity: $next-opacity;
     }
     to {
-      transform: translate(22px, 60px);
-      font-size: 30px;
-      opacity: 0.8;
+      transform: translate($current-x, $current-y);
+      font-size: $current-font-size;
+      opacity: $current-opacity;
     }
   }
   @keyframes slideInNext {
     from {
-      transform: translate(84px, 64px);
+      transform: translate($next-x + 20px, $next-y);
       opacity: 0;
     }
     to {
-      transform: translate(64px, 64px);
-      opacity: 1;
+      transform: translate($next-x, $next-y);
+      opacity: $next-opacity;
     }
   }
 }
