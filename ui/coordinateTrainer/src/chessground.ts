@@ -30,7 +30,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     selectable: { enabled: false },
     events: {
       insert(elements: cg.Elements) {
-        resizeHandle(elements, ctrl.config.resizePref, 0);
+        resizeHandle(elements, ctrl.config.resizePref, ctrl.playing ? 2 : 0);
       },
       select: ctrl.onChessgroundSelect,
     },

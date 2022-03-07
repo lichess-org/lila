@@ -94,6 +94,9 @@ export default class CoordinateTrainerCtrl {
     this.currentKey = '';
     this.nextKey = '';
 
+    // Redraw the chessground to remove the resize handle
+    this.chessground?.redrawAll();
+
     // In case random is selected, recompute orientation
     this.setOrientation(orientationFromColorChoice(this.colorChoice));
 
@@ -125,6 +128,7 @@ export default class CoordinateTrainerCtrl {
     this.updateScoreList();
     requestAnimationFrame(() => this.updateCharts());
     this.redraw();
+    this.chessground?.redrawAll();
 
     if (this.isAuth) {
       xhr.text('/training/coordinate/score', {
