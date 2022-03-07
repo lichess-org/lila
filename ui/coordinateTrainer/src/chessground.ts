@@ -18,7 +18,6 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
 }
 
 function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
-  //TODO prevent board from being highlight able
   return {
     orientation: ctrl.orientation,
     blockTouchScroll: true,
