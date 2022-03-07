@@ -99,6 +99,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="newsEdit3">Erottele uutiset näin: --- 
 Se luo vaakasuoran erotinviivan.</string>
   <string name="invite">Kutsu</string>
+  <string name="youHaveBeenInvitedByX">%s on kutsunut sinut.</string>
   <string name="youAcceptedThisInvitation">Olet hyväksynyt tämän kutsun.</string>
   <string name="youDeclinedThisInvitation">Olet hylännyt tämän kutsun.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">tai</string>
