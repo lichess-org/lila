@@ -109,7 +109,7 @@ final class ChallengeApi(
       }
     }
 
-  def sendRematchOf(game: Game, user: User): Fu[Boolean] =
+  def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
 
   def setDestUser(c: Challenge, u: User): Funit = {

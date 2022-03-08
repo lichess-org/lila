@@ -442,18 +442,16 @@ final class Challenge(
         )
     }
 
-  def rematchOf(gameId: String) =
+  def offerRematchForGame(gameId: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { g =>
         Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMap {
           _ ?? { opponent =>
-            env.challenge.granter(me.some, opponent, g.perfType) flatMap {
+            env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
               case Some(d) =>
-                BadRequest(jsonError {
-                  lila.challenge.ChallengeDenied translated d
-                }).fuccess
+                BadRequest { jsonError(lila.challenge.ChallengeDenied translated d) }.fuccess
               case _ =>
-                api.sendRematchOf(g, me) map {
+                api.offerRematchForGame(g, me) map {
                   case true => jsonOkResult
                   case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
                 }
