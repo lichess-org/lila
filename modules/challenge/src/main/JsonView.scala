@@ -83,6 +83,7 @@ final class JsonView(
           "name" -> c.perfType.trans
         )
       )
+      .add("rematchOf" -> c.rematchOf)
       .add("direction" -> direction.map(_.name))
       .add("initialFen" -> c.initialFen)
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))

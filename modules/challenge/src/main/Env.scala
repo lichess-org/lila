@@ -14,6 +14,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
+    idGenerator: lila.game.IdGenerator,
     lightUser: lila.common.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,

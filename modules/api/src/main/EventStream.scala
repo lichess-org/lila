@@ -116,7 +116,7 @@ final class EventStream(
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
             _ foreach { c =>
-              val json = challengeJson("challenge")(c.copy(_id = gameId)) ++ challengeCompat(c, me)
+              val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
               queue offer json.some
             }
           }
