@@ -267,7 +267,7 @@ final class Challenge(
   )
 
   private val BotChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
-    80 * 5,
+    400,
     1.day,
     key = "challenge.bot.create.ip"
   )
@@ -328,7 +328,7 @@ final class Challenge(
                   case Some(dest) if dest.isBot => 1
                   case _                        => 5
                 }
-                BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) cost else 0) {
+                BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
                   ChallengeUserRateLimit(me.id, cost = cost) {
                     val challenge = makeOauthChallenge(config, me, destUser)
                     (destUser, config.acceptByToken) match {
