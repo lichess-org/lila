@@ -147,11 +147,11 @@ object home {
             div(cls := "about-side")(
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer(
-                "Lichess",
+                "ChessUqam",
                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
               ),
               " ",
-              a(href := "/about")(trans.aboutX("Lichess"), "...")
+              a(href := "/about")(trans.aboutX("ChessUqam"), "...")
             )
         ),
         featured map { g =>
@@ -191,7 +191,7 @@ object home {
         ),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
-          a(href := "/about")(trans.aboutX("Lichess")),
+          a(href := "/about")(trans.aboutX("ChessUqam")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
