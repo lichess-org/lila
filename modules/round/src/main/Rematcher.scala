@@ -56,8 +56,12 @@ final private class Rematcher(
     }
 
   def no(pov: Pov): Fu[Events] = {
-    if (isOffering(pov)) messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
-    else if (isOffering(!pov)) {
+    if (isOffering(pov)) {
+      pov.opponent.userId foreach { forId =>
+        Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
+      }
+      messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
+    } else if (isOffering(!pov)) {
       declined put pov.fullId
       messenger.volatile(pov.game, trans.rematchOfferDeclined.txt())
     }

@@ -18,6 +18,7 @@ final class Rematches {
     .build[Game.ID, NextGame]()
 
   def get                        = cache.getIfPresent _
+  def getOffered(prev: Game.ID)  = get(prev) collect { case Offered(id) => id }
   def getAccepted(prev: Game.ID) = get(prev) collect { case Accepted(id) => id }
   def put                        = cache.put _
 }

@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.game.actorApi.{ FinishGame, StartGame }
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, Pov, Rematches }
 import lila.user.{ LightUserApi, User, UserRepo }
 
 final class EventStream(
@@ -18,6 +18,7 @@ final class EventStream(
     onlineApiUsers: lila.bot.OnlineApiUsers,
     userRepo: UserRepo,
     gameJsonView: lila.game.JsonView,
+    rematches: Rematches,
     lightUserApi: LightUserApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -119,6 +120,16 @@ final class EventStream(
               val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
               queue offer json.some
             }
+          }
+
+        // pretend like the rematch cancel is a challenge cancel
+        case lila.hub.actorApi.round.RematchCancel(gameId) =>
+          rematches.getOffered(gameId) foreach { id =>
+            val json = Json.obj(
+              "type"      -> "challengeCanceled",
+              "challenge" -> Json.obj("id" -> id)
+            )
+            queue.offer(json.some).unit
           }
       }
 
