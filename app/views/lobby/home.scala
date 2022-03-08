@@ -173,7 +173,7 @@ object home {
           )
         ),
         bits.lastPosts(lastPost, ublogPosts),
-        div(cls := "lobby__support")(
+        /*div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
@@ -188,7 +188,7 @@ object home {
               span(trans.playChessInStyle())
             )
           )
-        ),
+        ),*/
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("ChessUqam")),
