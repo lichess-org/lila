@@ -115,6 +115,7 @@ export interface StudyData {
   description?: string;
   topics?: Topic[];
   admin: boolean;
+  hideRatings?: boolean;
 }
 
 export type Topic = string;

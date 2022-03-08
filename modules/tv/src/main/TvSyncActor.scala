@@ -23,7 +23,7 @@ final private[tv] class TvSyncActor(
   Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.all.map { c =>
-    c -> new ChannelSyncActor(c, onSelect = this.!, gameProxyRepo.game, rematches.of, lightUserSync)
+    c -> new ChannelSyncActor(c, onSelect = this.!, gameProxyRepo.game, rematches.getAccepted, lightUserSync)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()

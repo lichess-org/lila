@@ -101,9 +101,9 @@
   <string name="rankedInSwissTournament">Umiestnený ako #%1$s v %2$s</string>
   <string name="signedUp">Registrácia na lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Pripojenie sa k %s tímu</item>
-    <item quantity="few">Pripojenie sa k %s tímom</item>
-    <item quantity="many">Pripojenie sa k %s tímom</item>
-    <item quantity="other">Pripojenie sa k %s tímom</item>
+    <item quantity="one">Pripojený k %s tímu</item>
+    <item quantity="few">Pripojený k %s tímom</item>
+    <item quantity="many">Pripojený k %s tímom</item>
+    <item quantity="other">Pripojený k %s tímom</item>
   </plurals>
 </resources>

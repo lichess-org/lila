@@ -12,7 +12,7 @@
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
   <string name="closeClass">Κλείσιμο τάξης</string>
-  <string name="closedByX">Έκλεισε από %s</string>
+  <string name="removedByX" comment="removedByX&#10;&#10;Appears on the student's page when they have been removed from a class.&#10;&#10;%s is the username that removed the student – this can be done by class teachers.">Διεγράφη από τον %s</string>
   <string name="reopen">Ξανανοίξτε</string>
   <string name="removeStudent">Απομάκρυνση μαθητή</string>
   <string name="removedStudents">Απομακρύνθηκε</string>
@@ -89,7 +89,9 @@
   <string name="variantXOverLastY">%1$s για τις τελευταίες %2$s</string>
   <string name="winrate">Ποσοστό νικών</string>
   <string name="na">Μη διαθέσιμο</string>
-  <string name="news">Νέα τάξης</string>
+  <string name="overview">Επισκόπηση</string>
+  <string name="news" comment="news&#10;&#10;On a class page, refers to the class news tab – a place for announcements and other information.">Νέα</string>
+  <string name="classNews">Τα νέα της τάξης</string>
   <string name="editNews">Διαχείριση νέων</string>
   <string name="notifyAllStudents">Ειδοποιήστε όλους τους μαθητές</string>
   <string name="nothingHere">Δεν υπάρχει τίποτα εδώ ακόμα.</string>
@@ -97,4 +99,19 @@
   <string name="newsEdit2">Προσθήκη πρόσφατων νέων στη κορυφή. Να μη διαγραφούν τα προηγούμενα νέα.</string>
   <string name="newsEdit3">Να διαχωρίζονται τα νέα με ---
 Θα εμφανιστεί μια οριζόντια γραμμή.</string>
+  <string name="invite">Πρόσκληση</string>
+  <string name="youHaveBeenInvitedByX">Έχετε προσκληθεί από τον χρήστη %s.</string>
+  <string name="youAcceptedThisInvitation">Αποδεχθήκατε την πρόσκληση.</string>
+  <string name="youDeclinedThisInvitation">Απορρίψατε την πρόσκληση.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ή</string>
+  <string name="createMultipleAccounts">Δημιουργία πολλών λογαριασμών Lichess ταυτόχρονα</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Μπορείτε επίσης να %s για να δημιουργήσετε πολλούς λογαριασμούς Lichess από μια λίστα με ονόματα μαθητών.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">χρησιμοποιήσετε αυτήν τη φόρμα</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Μία τάξη μπορεί να έχει έως %1$s μαθητές. Για να διαχειριστείτε περισσότερους μαθητές, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">δημιουργήστε περισσότερες τάξεις</string>
+  <string name="studentsRealNamesOnePerLine">Τα πραγματικά ονόματα των μαθητών, ένα ανά γραμμή</string>
+  <string name="xisNowAStudentOfTheClass">Ο %s είναι πλέον μαθητής αυτής της τάξης</string>
+  <string name="anInvitationHasBeenSentToX">Μια πρόσκληση στάλθηκε στον χρήστη %s</string>
+  <string name="xAlreadyHasAPendingInvitation">Έχει ήδη σταλεί πρόσκληση στον χρήστη %s</string>
+  <string name="xIsAKidAccountWarning">Ο χρήστης %1$s είναι λογαριασμός παιδιού και δεν μπορεί να λάβει το μήνυμά σας. Πρέπει να του δώσετε το URL της πρόσκλησης: %2$s</string>
 </resources>

@@ -12,15 +12,15 @@
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Ny klasse</string>
   <string name="closeClass">Steng klasse</string>
-  <string name="closedByX">Stengt av %s</string>
+  <string name="removedByX">Fjerna av %s</string>
   <string name="reopen">Opne opp att</string>
   <string name="removeStudent">Fjern elev</string>
   <string name="removedStudents">Fjerna</string>
   <string name="inviteTheStudentBack">Invitér eleven attende</string>
   <string name="sendAMessage">Send ei melding til alle elevar.</string>
   <string name="aLinkToTheClassWillBeAdded">Det vil automatisk bli lagt til ei lenke etter meldinga, så det er ikkje naudsynt å legge inn ei sjølv.</string>
-  <string name="className">Namn på klassa</string>
-  <string name="classDescription">Omtale av klassa</string>
+  <string name="className">Namn på klassen</string>
+  <string name="classDescription">Omtale av klassen</string>
   <string name="visibleByBothStudentsAndTeachers">Synleg for klassens lærarar og elevar</string>
   <string name="teachersOfTheClass">Klassens lærarar</string>
   <string name="addLichessUsernames">Invitér lærarar ved å legge inn brukarnamna deira. Eitt brukarnamn på kvar linje.</string>
@@ -57,7 +57,7 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
     <item quantity="one">Ein ventande invitasjon</item>
     <item quantity="other">%s ventande invitasjonar</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">Synleg berre for klassas lærarar</string>
+  <string name="onlyVisibleToTeachers">Synleg berre for klassens lærarar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>
   <string name="thisStudentAccountIsManaged">Denne elevkontoen blir administrert</string>
@@ -65,7 +65,7 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="release">Frigje</string>
   <string name="releaseTheAccount">Frigje kontoen slik at eleven kan styre den sjølv.</string>
   <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
-  <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
+  <string name="releaseDesc2">Eleven vil bli i klassen sjølv om kontoen er frigjeven.</string>
   <string name="realUniqueEmail">Korrekt, unik e-postadresse for eleven. Vi sender ei stadfestingsmelding til adressa med ei lenke for å frigi kontoen.</string>
   <string name="closeStudent">Steng elevkonto</string>
   <string name="closeTheAccount">Steng elevkontoen permanent.</string>
@@ -89,11 +89,28 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Vinstrate</string>
   <string name="na">N/A (ikkje tilgjengeleg)</string>
-  <string name="news">Klassenyhende</string>
+  <string name="overview">Oversikt</string>
+  <string name="news">Nyhende</string>
+  <string name="classNews">Klassenyhende</string>
   <string name="editNews">Rediger nyhende</string>
   <string name="notifyAllStudents">Send melding til alle elevar</string>
   <string name="nothingHere">Tomt så langt.</string>
   <string name="newsEdit1">Alle klassenyhende i eit enkelt felt.</string>
   <string name="newsEdit2">Legg inn dei siste nyhendene på toppen. Ikkje slett tidlegare nyhende.</string>
   <string name="newsEdit3">Sett inn --- mellom kvar nyhende, det vil visast med ei horisontal linje.</string>
+  <string name="invite">Inviter</string>
+  <string name="youHaveBeenInvitedByX">Du er invitert av %s.</string>
+  <string name="youAcceptedThisInvitation">Du aksepterte denne invitasjonen.</string>
+  <string name="youDeclinedThisInvitation">Du avviste denne invitasjonen.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eller</string>
+  <string name="createMultipleAccounts">Opprett fleire Lichesskontoar på ein gong</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kan òg %s for å oppretta fleire Lichess-kontoar frå ei liste med elevnamn.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">bruk dette skjemaet</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Legg merke til at klassen kan ha opp til %1$s elevar. For å administrera fleire elevar, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">opprett flere klassar</string>
+  <string name="studentsRealNamesOnePerLine">Dei verkelege namna til elevane, eitt på kvar linje</string>
+  <string name="xisNowAStudentOfTheClass">%s er no elev av klassen</string>
+  <string name="anInvitationHasBeenSentToX">Ein invitasjon er sendt til %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s har allereie ein uteståande invitasjon</string>
+  <string name="xIsAKidAccountWarning">%1$s er ein barnekonto og kan ikkj ta mot meldinga di. Du må gje invitasjons-URLen manuelt: %2$s</string>
 </resources>

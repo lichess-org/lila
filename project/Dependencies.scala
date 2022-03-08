@@ -8,7 +8,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"         %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"            %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"                   % "joda-time"                       % "2.10.13"
-  val chess       = "org.lichess"                %% "scalachess"                      % "10.4.5"
+  val chess       = "org.lichess"                %% "scalachess"                      % "10.4.6"
   val compression = "org.lichess"                %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
@@ -19,7 +19,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
-  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.1.0"  % Test
+  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.2.11"  % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
   val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.14.1" % Test
   val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
@@ -35,7 +35,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.3"
+    val version = "2.5.6"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.2"

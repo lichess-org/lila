@@ -11,7 +11,6 @@
   <string name="thankYou">Aitäh annetuse eest!</string>
   <string name="youHaveLifetime">Sinul on eluaegne toetuskonto. See on väga lahe!</string>
   <string name="patronUntil">Sul on toetuskonto kuni %s.</string>
-  <string name="ifNotRenewed">Kui ei uuendata, siis konto muutub tagasi tasuta kontoks.</string>
   <string name="weAreNonProfit">Me oleme mittetulundusühing, sest me usume, et igal ühel on õigus tasuta ja kvaliteetsele male platvormile.</string>
   <string name="weRelyOnSupport">Me vajame abi inimestelt nagu sina, et teha seda võimalikuks. Kui sa naudid Lichessi siis palun kaalu meie toetamist annetades ja saades toetajaks!</string>
   <string name="lifetime">Eluaegne</string>

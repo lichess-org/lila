@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Пытанні і адказы</string>
+  <string name="faqAbbreviation">Частыя пытанні</string>
   <string name="frequentlyAskedQuestions">Частыя пытанні</string>
   <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). Lichess вымаўляцца як %1$s.</string>

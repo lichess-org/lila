@@ -29,8 +29,8 @@ final class ChallengeApi(
 
   import Challenge._
 
-  def allFor(userId: User.ID): Fu[AllChallenges] =
-    createdByDestId(userId) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
+  def allFor(userId: User.ID, max: Int = 50): Fu[AllChallenges] =
+    createdByDestId(userId, max) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
@@ -56,8 +56,8 @@ final class ChallengeApi(
 
   def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId(userId: User.ID) = countInFor get userId flatMap { nb =>
-    if (nb > 5) repo.createdByPopularDestId()(userId)
+  def createdByDestId(userId: User.ID, max: Int = 50) = countInFor get userId flatMap { nb =>
+    if (nb > 5) repo.createdByPopularDestId(max)(userId)
     else repo.createdByDestId()(userId)
   }
 
@@ -109,7 +109,7 @@ final class ChallengeApi(
       }
     }
 
-  def sendRematchOf(game: Game, user: User): Fu[Boolean] =
+  def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
 
   def setDestUser(c: Challenge, u: User): Funit = {

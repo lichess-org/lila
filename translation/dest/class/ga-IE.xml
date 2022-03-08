@@ -12,7 +12,6 @@
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
-  <string name="closedByX">Dúnta ag %s</string>
   <string name="reopen">Athoscailt</string>
   <string name="removeStudent">Bain dalta</string>
   <string name="removedStudents">Bainte</string>
@@ -98,7 +97,6 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="variantXOverLastY">%1$s le %2$s lá anuas</string>
   <string name="winrate">Ráta buaite</string>
   <string name="na">N/B</string>
-  <string name="news">Nuacht ranga</string>
   <string name="editNews">Cuir nuacht in eagar</string>
   <string name="notifyAllStudents">Cuir in iúl do gach dalta</string>
   <string name="nothingHere">Níl aon rud anseo, fós.</string>

@@ -468,6 +468,7 @@
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
+  <string name="importedByX">Diimpor oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini ditutup.</string>
   <string name="blog">Blog</string>
   <string name="notes">Catatan</string>

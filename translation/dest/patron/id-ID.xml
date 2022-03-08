@@ -15,7 +15,6 @@
   <string name="thankYou">Terima kasih untuk donasi Anda!</string>
   <string name="youHaveLifetime">Anda memiliki akun Lifetime Patron. Itu luar biasa!</string>
   <string name="patronUntil">Anda memiliki akun Penyokong hingga %s.</string>
-  <string name="ifNotRenewed">Jika tidak diperpanjang, Anda akan diturunkan menjadi gratis.</string>
   <string name="weAreNonProfit">Kami adalah bukanlah asosiasi mencari keuntungan karena kami percaya setiap orang harus memiliki akses ke platform catur kelas dunia yang gratis.</string>
   <string name="weRelyOnSupport">Kami mengandalkan dukungan dari orang-orang seperti Anda jika memungkinkan. Jika Anda menikmati menggunakan Lichess, silakan pertimbangkan mendukung kami dengan menyumbang dan menjadi Penyokong!</string>
   <string name="lifetime">Sepanjang waktu</string>

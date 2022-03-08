@@ -56,7 +56,8 @@ object bits {
                 }
               ),
               td(
-                views.html.relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false)
+                views.html.relation
+                  .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
               )
             )
           }
@@ -83,7 +84,7 @@ object bits {
               td(userLink(r.user)),
               ctx.pref.showRatings option td(showBestPerf(r.user)),
               td(trans.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
-              td(actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false))
+              td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             )
           },
           pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))

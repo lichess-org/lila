@@ -20,7 +20,6 @@
   <string name="thankYou">شكرا لتبرعك!</string>
   <string name="youHaveLifetime">لديك حساب راعي مدى الحياة، هذا رائع جداً!</string>
   <string name="patronUntil">لديك حساب راعي حتى %s.</string>
-  <string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
   <string name="weAreNonProfit">نحن رابطة غير ربحية لأننا نؤمن ان الجميع يجب أن يكون لديه وصول مجاني لمنصة شطرنج من الطراز العالمي.</string>
   <string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lichess، يرجى النظر في دعمنا وأن تصبح راعي!</string>
   <string name="lifetime">مدى الحياة</string>

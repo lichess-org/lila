@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Juga amb un amic</string>
-  <string name="playWithTheMachine">Juga amb la màquina</string>
+  <string name="playWithTheMachine">Juga contra la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'adversari</string>
@@ -30,7 +30,7 @@
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Cursa finalitzada</string>
-  <string name="variantEnding">Acabament de variant</string>
+  <string name="variantEnding">Final de variant</string>
   <string name="newOpponent">Nou adversari</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Unir-se a la partida</string>
@@ -43,7 +43,7 @@
   <string name="opponentLeftChoices">El teu contrincant ha abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Sigues amable en el xat!</string>
+  <string name="talkInChat">Sisplau, sigues amable al xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
@@ -64,7 +64,7 @@
   <string name="showThreat">Mostrar amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
-  <string name="promoteVariation">Promoure variant</string>
+  <string name="promoteVariation">Promocionar variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variació</string>
@@ -77,7 +77,7 @@
   <string name="close">Tancar</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empatat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>

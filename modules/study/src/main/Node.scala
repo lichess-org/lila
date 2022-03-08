@@ -81,8 +81,7 @@ case class Node(
     copy(
       comments = Comments(Nil),
       shapes = Shapes(Nil),
-      glyphs = Glyphs.empty,
-      score = none
+      glyphs = Glyphs.empty
     )
 
   def clearVariations: Node =

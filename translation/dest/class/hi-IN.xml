@@ -12,7 +12,6 @@
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नई कक्षा</string>
   <string name="closeClass">बंद कक्षा</string>
-  <string name="closedByX">%s द्वारा बंद किया गया</string>
   <string name="reopen">फिर से खोलना</string>
   <string name="removeStudent">छात्र को हटाओ</string>
   <string name="removedStudents">हटा दिया</string>
@@ -87,7 +86,6 @@
   <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
   <string name="winrate">जीत दर</string>
   <string name="na">N/A</string>
-  <string name="news">कक्षा समाचार</string>
   <string name="editNews">समाचार संपादित करें</string>
   <string name="notifyAllStudents">सभी छात्रों को सूचित करें</string>
   <string name="nothingHere">अभी तक यहाँ कुछ भी नहीं है</string>

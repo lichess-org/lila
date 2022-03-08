@@ -8,8 +8,8 @@
   <string name="time">ସମୟ</string>
   <string name="createNewGame">ଏକ ନୂଆ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="skip">ବାଦ୍ ଦିଅ</string>
-  <string name="thisWeek">ଏହି ସପ୍ତାହ</string>
-  <string name="thisMonth">ଏହି ମାସ</string>
+  <string name="thisWeek">ଚଳିତ ସପ୍ତାହ</string>
+  <string name="thisMonth">ଚଳିତ ମାସ</string>
   <string name="allTime">ସର୍ବକାଳୀନ</string>
   <string name="clickToReload">ପୁନଃଲୋଡ୍ କରିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ</string>
   <string name="thisRunHasExpired">ଏହି ରନ୍ ସମୟ ସମାପ୍ତ ହୋଇଛି!</string>

@@ -39,6 +39,10 @@ object post {
           description = post.intro
         )
         .some,
+      atomLinkTag = link(
+        href := routes.Ublog.userAtom(user.username),
+        st.title := trans.ublog.xBlog.txt(user.username)
+      ).some,
       robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH)
     ) {
       main(cls := "page-menu page-small")(
