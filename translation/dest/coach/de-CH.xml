@@ -25,8 +25,8 @@
   <string name="publicStudies">Öffentlichi Schtudie</string>
   <string name="youtubeVideos">YouTube Videos</string>
   <plurals name="studentReviews">
-    <item quantity="one">1 Schüeler-Bewertig</item>
-    <item quantity="other">%s Schüler-Bewertige</item>
+    <item quantity="one">1 Schüeler-Bewertigigen</item>
+    <item quantity="other">%s Schüelerbewertige</item>
   </plurals>
   <string name="thankYouForReview">Danke für dini Bewertig!</string>
   <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
