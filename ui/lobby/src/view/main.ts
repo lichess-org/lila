@@ -13,10 +13,10 @@ export default function (ctrl: LobbyController) {
   if (ctrl.redirecting) body = spinner();
   else
     switch (ctrl.tab) {
-      case 'pools':
-        body = renderPools.render(ctrl);
-        data = { hook: renderPools.hooks(ctrl) };
-        break;
+      //case 'pools':
+        //body = renderPools.render(ctrl);
+        //data = { hook: renderPools.hooks(ctrl) };
+        //break;
       case 'real_time':
         body = renderRealTime(ctrl);
         break;

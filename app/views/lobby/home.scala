@@ -227,7 +227,7 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
-    trans.quickPairing,
+    //trans.quickPairing,
     trans.lobby,
     trans.custom,
     trans.anonymous

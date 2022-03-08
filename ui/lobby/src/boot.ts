@@ -8,17 +8,17 @@ export default function LichessLobby(opts: LobbyOpts) {
   opts.element = document.querySelector('.lobby__app') as HTMLElement;
   opts.pools = [
     // mirrors modules/pool/src/main/PoolList.scala
-    { id: '1+0', lim: 1, inc: 0, perf: 'Bullet' },
-    { id: '2+1', lim: 2, inc: 1, perf: 'Bullet' },
-    { id: '3+0', lim: 3, inc: 0, perf: 'Blitz' },
-    { id: '3+2', lim: 3, inc: 2, perf: 'Blitz' },
-    { id: '5+0', lim: 5, inc: 0, perf: 'Blitz' },
-    { id: '5+3', lim: 5, inc: 3, perf: 'Blitz' },
-    { id: '10+0', lim: 10, inc: 0, perf: 'Rapid' },
-    { id: '10+5', lim: 10, inc: 5, perf: 'Rapid' },
-    { id: '15+10', lim: 15, inc: 10, perf: 'Rapid' },
-    { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
-    { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
+    //{ id: '1+0', lim: 1, inc: 0, perf: 'Bullet' },
+    //{ id: '2+1', lim: 2, inc: 1, perf: 'Bullet' },
+    //{ id: '3+0', lim: 3, inc: 0, perf: 'Blitz' },
+    //{ id: '3+2', lim: 3, inc: 2, perf: 'Blitz' },
+    //{ id: '5+0', lim: 5, inc: 0, perf: 'Blitz' },
+    //{ id: '5+3', lim: 5, inc: 3, perf: 'Blitz' },
+    //{ id: '10+0', lim: 10, inc: 0, perf: 'Rapid' },
+    //{ id: '10+5', lim: 10, inc: 5, perf: 'Rapid' },
+    //{ id: '15+10', lim: 15, inc: 10, perf: 'Rapid' },
+    //{ id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
+    //{ id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
   const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
     nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
