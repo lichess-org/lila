@@ -8,7 +8,7 @@
   <plurals name="xGamesFound">
     <item quantity="other">%s 局ありました</item>
   </plurals>
-  <string name="opponentName">対局相手</string>
+  <string name="opponentName">対戦相手名</string>
   <string name="loser">敗者</string>
   <string name="from">From</string>
   <string name="to">To</string>

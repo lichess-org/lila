@@ -12,6 +12,7 @@
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
+  <string name="removedByX" comment="removedByX&#10;&#10;Appears on the student's page when they have been removed from a class.&#10;&#10;%s is the username that removed the student – this can be done by class teachers.">Dikeluarkan oleh %s</string>
   <string name="reopen">Buka kembali</string>
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
@@ -90,4 +91,5 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="newsEdit1">Semua berita kelas dalam satu tempat.</string>
   <string name="newsEdit2">Tambahkan berita terbaru di atas. Jangan hapus berita sebelumnya.</string>
   <string name="newsEdit3">Pisahkan berita dengan --- itu akan menampilkan garis horizontal.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">atau</string>
 </resources>

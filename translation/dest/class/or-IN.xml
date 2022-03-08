@@ -6,8 +6,8 @@
   <string name="noClassesYet">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଶ୍ରେଣୀ ନାହିଁ।</string>
   <string name="newClass">ନୂଆ ଶ୍ରେଣୀ</string>
   <string name="closeClass">ଶ୍ରେଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
-  <string name="removedByX">%sଙ୍କ ଦ୍ୱାରା କାଢ଼ିଦିଆଗଲା</string>
-  <string name="removeStudent">ଛାତ୍ରଙ୍କୁ କାଢ଼ିଦେବା</string>
+  <string name="removedByX" comment="removedByX&#10;&#10;Appears on the student's page when they have been removed from a class.&#10;&#10;%s is the username that removed the student – this can be done by class teachers.">%sଙ୍କ ଦ୍ୱାରା କାଢ଼ିଦିଆ ଯାଇଛନ୍ତି</string>
+  <string name="removeStudent">ଛାତ୍ରଙ୍କୁ କାଢ଼ିଦେବା</string>
   <string name="removedStudents">ବାହାର କରିଦିଆ ଯାଇଛନ୍ତି</string>
   <string name="aLinkToTheClassWillBeAdded">ବାର୍ତ୍ତା ଶେଷରେ ଶ୍ରେଣୀର ଏକ ଲିଙ୍କ୍ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ଯୋଡ଼ାଯିବ, ତେଣୁ ଆପଣଙ୍କୁ ଏହାକୁ ନିଜେ ଅନ୍ତର୍ଭୁକ୍ତ କରିବାକୁ ପଡ଼ିବ ନାହିଁ।</string>
   <string name="className">ଶ୍ରେଣୀର ନା‍ଁ</string>
@@ -33,7 +33,7 @@
   <string name="students">ଛାତ୍ରଛାତ୍ରୀ</string>
   <string name="noRemovedStudents">କୌଣସି ବାହାର କରାଯାଇଥିବା ଛାତ୍ର ନାହାଁନ୍ତି।</string>
   <string name="overview">ଅବଲୋକନ</string>
-  <string name="news">ଖବର</string>
+  <string name="news" comment="news&#10;&#10;On a class page, refers to the class news tab – a place for announcements and other information.">ଖବର</string>
   <string name="classNews">ଶ୍ରେଣୀର ଖବର</string>
   <string name="invite">ନିମନ୍ତ୍ରଣ</string>
   <string name="youHaveBeenInvitedByX">ଆପଣଙ୍କୁ %s ନିମନ୍ତ୍ରଣ କରିଛନ୍ତି।</string>
