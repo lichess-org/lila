@@ -41,4 +41,5 @@
   <string name="guidelines">упатства</string>
   <string name="canIChangeMyUsername">Дали можам да го сменам моето корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеи</string>
+  <string name="ownerUniqueTrophies">Овој трофеј е уникатен на Lichess, никој друг освен %1$s никогаш нема да го има.</string>
 </resources>
