@@ -25,7 +25,20 @@
   <string name="howCanIBecomeModerator">Како можам да станам модератор?</string>
   <string name="youCannotApply">Не е можно да се пријавите за да станете модератор. Доколку видиме некој кој мислиме дека би бил добар како модератор, директно ќе го контактираме.</string>
   <string name="isCorrespondenceDifferent">Дали кореспонденцијата се разликува од нормалниот шах?</string>
+  <string name="basedOnGameDuration">Контролите на време во Lichess се засноваат на проценетото времетраење на играта = %1$s.
+На пример, проценетото времетраење на 5+3 игра е 5 × 60 + 40 × 3 = 420 секунди.</string>
+  <string name="durationFormula">(почетното време на часовникот во секунди) + 40 × (зголемување на времето)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
+  <string name="whatVariantsCanIplay">Кои варијации можам да ги играм на Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess поддржува класичен шах и %1$s.</string>
+  <string name="eightVariants">8 шаховски варијации</string>
+  <string name="goodIntroduction">добар вовед</string>
   <string name="accounts">Сметки</string>
   <string name="noUpperCaseDot">Не.</string>
+  <string name="whatUsernameCanIchoose">Кое корисничко име можам да го користам?</string>
+  <string name="usernamesNotOffensive">Општо земено, корисничките имиња не треба да бидат: навредливи, да имитираат некој друг или да рекламираат. Можете да прочитате повеќе за ова %1$s.</string>
+  <string name="guidelines">упатства</string>
   <string name="canIChangeMyUsername">Дали можам да го сменам моето корисничко име?</string>
+  <string name="uniqueTrophies">Уникатни трофеи</string>
 </resources>
