@@ -299,7 +299,7 @@ final class Challenge(
                     case None                       => Redirect(routes.Challenge.show(c.id)).fuccess
                     case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).fuccess
                     case Some(dest) =>
-                      env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
+                      env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
                         case Some(denied) =>
                           showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
                         case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
@@ -335,7 +335,7 @@ final class Challenge(
                       case (Some(dest), Some(strToken)) =>
                         apiChallengeAccept(dest, challenge, strToken)(me, config.message)
                       case _ =>
-                        destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
+                        destUser ?? { env.challenge.granter.isDenied(me.some, _, config.perfType) } flatMap {
                           case Some(denied) =>
                             BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
                           case _ =>
