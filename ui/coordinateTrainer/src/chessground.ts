@@ -23,7 +23,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     blockTouchScroll: true,
     coordinates: false,
     addPieceZIndex: ctrl.config.is3d,
-    movable: { free: false },
+    movable: { free: false, color: undefined },
     drawable: { enabled: false },
     draggable: { enabled: false },
     selectable: { enabled: false },
