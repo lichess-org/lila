@@ -202,6 +202,9 @@ trait FormHelper { self: I18nHelper =>
 
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
+    
+    def departement(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "input")()(modifiers))
 
     def passwordComplexityMeter(labelContent: Frag): Frag =
       div(cls := "password-complexity")(

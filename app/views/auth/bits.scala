@@ -12,7 +12,7 @@ import lila.user.User
 
 object bits {
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+  def formFields(username: Field, password: Field, depcheck: Option[Field], departement: Option[Field], emailOption: Option[Field], register: Boolean)(implicit
       ctx: Context
   ) =
     frag(
@@ -25,12 +25,21 @@ object bits {
       form3.passwordModified(password, trans.password())(
         autocomplete := (if (register) "new-password" else "current-password")
       ),
+      
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
         )
-      }
+      },
+      //register option form3.checkbox(username, "Je suis membre de la communaute Uqam"),
+      //register option form3.departement(username, "Departement")(),
+      depcheck.map { check =>
+        form3.checkbox(check, "Je suis membre de la communaute Uqam")
+      },
+      departement.map { dep =>
+        form3.departement(dep, "Departement")()
+      },
     )
 
   def passwordReset(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
