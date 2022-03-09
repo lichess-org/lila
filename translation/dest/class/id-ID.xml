@@ -12,7 +12,7 @@
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
-  <string name="removedByX" comment="removedByX&#10;&#10;Appears on the student's page when they have been removed from a class.&#10;&#10;%s is the username that removed the student – this can be done by class teachers.">Dikeluarkan oleh %s</string>
+  <string name="removedByX">Dikeluarkan oleh %s</string>
   <string name="reopen">Buka kembali</string>
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
