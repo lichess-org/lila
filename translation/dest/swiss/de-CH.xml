@@ -42,9 +42,9 @@ Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationA">En Sied git 1 Punkt und es Remis en halbe Punkt. 
 Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
-  <string name="sonnebornBergerScore">Mit de Sonneborn-Berger Wertig</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger-Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
-Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gägner ergänd zämme die sog. SB-Zahl (Sonneborn Zahl) für en Schpiller. Bi Punktgliichheit isch die höcher SB-Zahl vorne.</string>
+Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämmezellt die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktgliichheit entscheidet die höcheri SB-Zahl.</string>
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
   <string name="dutchSystem">Niederländische System</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
