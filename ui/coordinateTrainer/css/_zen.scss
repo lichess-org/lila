@@ -6,6 +6,8 @@
 
 #friend_box,
 .site-title-nav,
-.site-buttons {
+.site-buttons,
+.score,
+.timer {
   @extend %zen;
 }
