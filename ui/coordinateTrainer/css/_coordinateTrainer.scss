@@ -173,7 +173,7 @@ svg.coords-svg {
   }
 
   g.current {
-    transform: translate($current-x, $current-y);
+    transform: translate3d($current-x, $current-y, 0);
     opacity: $current-opacity;
     animation: slideInCurrent $timing;
 
@@ -188,7 +188,7 @@ svg.coords-svg {
   }
 
   g.next {
-    transform: translate($next-x, $next-y);
+    transform: translate3d($next-x, $next-y, 0);
     opacity: $next-opacity;
     animation: slideInNext $timing;
 
@@ -200,11 +200,11 @@ svg.coords-svg {
 
   @keyframes slideInCurrent {
     from {
-      transform: translate($next-x, $next-y);
+      transform: translate3d($next-x, $next-y, 0);
       opacity: $next-opacity;
     }
     to {
-      transform: translate($current-x, $current-y);
+      transform: translate3d($current-x, $current-y, 0);
       opacity: $current-opacity;
     }
   }
@@ -218,11 +218,11 @@ svg.coords-svg {
   }
   @keyframes slideInNext {
     from {
-      transform: translate($next-x + 20px, $next-y);
+      transform: translate3d($next-x + 20px, $next-y, 0);
       opacity: 0;
     }
     to {
-      transform: translate($next-x, $next-y);
+      transform: translate3d($next-x, $next-y, 0);
       opacity: $next-opacity;
     }
   }
