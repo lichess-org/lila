@@ -1,0 +1,193 @@
+@import '../../puz/css/font';
+@import 'layout';
+@import 'zen';
+
+.trainer {
+  &.wrong {
+    $c-wrong: $c-bad;
+
+    .progress__bar {
+      background-color: $c-wrong;
+    }
+
+    .score {
+      color: $c-wrong !important;
+    }
+
+    .coord--current {
+      fill: $c-wrong !important;
+    }
+  }
+
+  &.init {
+    .explanation {
+      @extend %page-text-shadow !optional;
+    }
+  }
+}
+
+#jqstooltip {
+  box-sizing: content-box;
+}
+
+.score,
+.timer {
+  font-family: 'storm';
+  font-size: 5em;
+  margin: $block-gap;
+}
+
+.hurry {
+  color: $c-brag !important;
+}
+
+.box {
+  padding: $block-gap;
+  margin-top: $block-gap;
+
+  h1 {
+    font-size: 1.5em;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  p {
+    margin-top: 1em;
+  }
+
+  &.current-status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+form.color {
+  margin-top: $block-gap;
+
+  i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    padding: 0;
+  }
+
+  .color_white i {
+    background-image: url(../piece/cburnett/wK.svg);
+  }
+
+  .color_random i {
+    background-image: url(../images/wbK.svg);
+  }
+
+  .color_black i {
+    background-image: url(../piece/cburnett/bK.svg);
+  }
+}
+
+$current-opacity: 0.8;
+$current-font-size: 30px;
+$current-x: 22px;
+$current-y: 60px;
+$next-opacity: 0.7;
+$next-font-size: 12px;
+$next-x: 64px;
+$next-y: 64px;
+$timing: 150ms;
+svg.coords-svg {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+
+  text {
+    font-weight: bold;
+    text-shadow: 0 10px 10px #444;
+  }
+
+  g.current {
+    transform: translate3d($current-x, $current-y, 0);
+    opacity: $current-opacity;
+    animation: slideInCurrent $timing;
+
+    text {
+      fill: #fff;
+      font-size: $current-font-size;
+      animation: enlargeCurrent $timing;
+    }
+
+    // for animating the removal of this element
+    transition: opacity $timing, transform $timing;
+  }
+
+  g.next {
+    transform: translate3d($next-x, $next-y, 0);
+    opacity: $next-opacity;
+    animation: slideInNext $timing;
+
+    text {
+      fill: #eee;
+      font-size: $next-font-size;
+    }
+  }
+
+  @keyframes slideInCurrent {
+    from {
+      transform: translate3d($next-x, $next-y, 0);
+      opacity: $next-opacity;
+    }
+    to {
+      transform: translate3d($current-x, $current-y, 0);
+      opacity: $current-opacity;
+    }
+  }
+  @keyframes enlargeCurrent {
+    from {
+      font-size: $next-font-size;
+    }
+    to {
+      font-size: $current-font-size;
+    }
+  }
+  @keyframes slideInNext {
+    from {
+      transform: translate3d($next-x + 20px, $next-y, 0);
+      opacity: 0;
+    }
+    to {
+      transform: translate3d($next-x, $next-y, 0);
+      opacity: $next-opacity;
+    }
+  }
+}
+
+.progress {
+  @extend %box-radius;
+  background-color: $c-bg-zebra;
+  &__bar {
+    @extend %box-radius;
+    width: 100%;
+    height: 10px;
+    background-color: $c-secondary;
+  }
+}
+
+.table {
+  @extend %flex-column;
+  align-items: center;
+  justify-content: space-around;
+
+  .explanation li {
+    list-style: outside disc;
+    margin: 0.5em 0 0.5em 1em;
+  }
+}
+
+.start {
+  width: fit-content;
+}
