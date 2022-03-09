@@ -4,7 +4,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.nl2br
 
 import controllers.routes
 
@@ -39,7 +38,7 @@ object search {
                       "#",
                       view.post.number
                     ),
-                    p(nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200)))
+                    p(shorten(view.post.text, 200))
                   ),
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
