@@ -6,7 +6,7 @@
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE-Titel</string>
   <string name="confirmTitle">Beschtätig da din Titel und mir prüefed dini Bewerbig.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick eus e Mail a %s und mir prüefed dini Bewerbig.</string>
-  <string name="location">Ortschaft</string>
+  <string name="location">Land</string>
   <string name="languages">Schprache</string>
   <string name="rating">Wertigs-Zahl</string>
   <string name="hourlyRate">Schtundesatz</string>
@@ -26,7 +26,7 @@
   <string name="youtubeVideos">YouTube Videos</string>
   <plurals name="studentReviews">
     <item quantity="one">1 Schüeler-Bewertig</item>
-    <item quantity="other">%s Schüler-Bewertige</item>
+    <item quantity="other">%s Schüeler-Bewertige</item>
   </plurals>
   <string name="thankYouForReview">Danke für dini Bewertig!</string>
   <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
