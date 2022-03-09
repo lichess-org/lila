@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
+
 object home {
 
   def apply(homepage: Homepage)(implicit ctx: Context) = {
@@ -49,7 +50,8 @@ object home {
         )
         .some,
       withHrefLangs = "".some
-    ) {
+    ){
+     if(ctx.isAuth){
       main(
         cls := List(
           "lobby"            -> true,
@@ -201,8 +203,25 @@ object home {
           a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
+        
       )
+     }
+     else{
+       main(
+        cls := List(
+          "lobby"            -> true,
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
+          "lobby--no-simuls" -> simuls.isEmpty
+        )
+      )(
+        div(cls := "lobby")(
+              a(cls := "blue", href := "/login")(trans.signIn())
+            )
+      )
+     }
     }
+
+  
   }
 
   private val i18nKeys = List(
