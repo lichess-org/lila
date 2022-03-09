@@ -6,7 +6,7 @@
   &.wrong {
     $c-wrong: $c-bad;
 
-    .progress_bar {
+    .progress__bar {
       background-color: $c-wrong;
     }
 
@@ -166,11 +166,15 @@ svg.coords-svg {
   }
 }
 
-.progress_bar {
+.progress {
   @extend %box-radius;
-  width: 100%;
-  height: 10px;
-  background-color: $c-secondary;
+  background-color: $c-bg-zebra;
+  &__bar {
+    @extend %box-radius;
+    width: 100%;
+    height: 10px;
+    background-color: $c-secondary;
+  }
 }
 
 .table {
