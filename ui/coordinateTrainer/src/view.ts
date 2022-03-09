@@ -100,9 +100,8 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
           { attrs: { viewBox: '0 0 100 100' } },
           ['current', 'next'].map((modifier: CoordModifier) =>
             h(
-              'text',
+              `g.${modifier}`,
               {
-                attrs: { class: `coord coord--${modifier}` },
                 key: `${ctrl.score}-${modifier}`,
                 style:
                   modifier === 'current'
@@ -114,7 +113,7 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
                       } as unknown as VNodeStyle)
                     : undefined,
               },
-              modifier === 'current' ? ctrl.currentKey : ctrl.nextKey
+              h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
             )
           )
         )

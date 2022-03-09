@@ -158,6 +158,7 @@ $next-opacity: 0.7;
 $next-font-size: 12px;
 $next-x: 64px;
 $next-y: 64px;
+$timing: 150ms;
 svg.coords-svg {
   position: absolute;
   z-index: 3;
@@ -166,40 +167,53 @@ svg.coords-svg {
   pointer-events: none;
   user-select: none;
 
-  text.coord {
+  text {
     font-weight: bold;
     text-shadow: 0 10px 10px #444;
+  }
 
-    &--current {
-      transform: translate($current-x, $current-y);
-      font-size: $current-font-size;
-      opacity: $current-opacity;
+  g.current {
+    transform: translate($current-x, $current-y);
+    opacity: $current-opacity;
+    animation: slideInCurrent $timing;
+
+    text {
       fill: #fff;
-      animation: slideInCurrent 150ms;
-
-      // for animating the removal of this element
-      transition: opacity 150ms, transform 150ms;
+      font-size: $current-font-size;
+      animation: enlargeCurrent $timing;
     }
 
-    &--next {
-      transform: translate($next-x, $next-y);
-      font-size: $next-font-size;
-      opacity: $next-opacity;
+    // for animating the removal of this element
+    transition: opacity $timing, transform $timing;
+  }
+
+  g.next {
+    transform: translate($next-x, $next-y);
+    opacity: $next-opacity;
+    animation: slideInNext $timing;
+
+    text {
       fill: #eee;
-      animation: slideInNext 150ms;
+      font-size: $next-font-size;
     }
   }
 
   @keyframes slideInCurrent {
     from {
       transform: translate($next-x, $next-y);
-      font-size: $next-font-size;
       opacity: $next-opacity;
     }
     to {
       transform: translate($current-x, $current-y);
-      font-size: $current-font-size;
       opacity: $current-opacity;
+    }
+  }
+  @keyframes enlargeCurrent {
+    from {
+      font-size: $next-font-size;
+    }
+    to {
+      font-size: $current-font-size;
     }
   }
   @keyframes slideInNext {
