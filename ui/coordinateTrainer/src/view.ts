@@ -40,41 +40,39 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
   const sideContent: VNode[] = [h('div.box', [h('h1', trans('coordinates')), ctrl.isAuth ? scoreCharts(ctrl) : null])];
   if (!ctrl.playing) {
     sideContent.push(
-      ...[
-        h('form.color.buttons', [
-          h(
-            'group.radio',
-            ['black', 'random', 'white'].map((color: ColorChoice) =>
-              h('div', [
-                h('input', {
+      h('form.color.buttons', [
+        h(
+          'group.radio',
+          ['black', 'random', 'white'].map((color: ColorChoice) =>
+            h('div', [
+              h('input', {
+                attrs: {
+                  type: 'radio',
+                  id: `coord_color_${color}`,
+                  name: 'color',
+                  value: color,
+                  checked: color === ctrl.colorChoice,
+                },
+                on: {
+                  change: e => {
+                    const target = e.target as HTMLInputElement;
+                    ctrl.setColorChoice(target.value as ColorChoice);
+                  },
+                },
+              }),
+              h(
+                `label.color_${color}`,
+                {
                   attrs: {
-                    type: 'radio',
-                    id: `coord_color_${color}`,
-                    name: 'color',
-                    value: color,
-                    checked: color === ctrl.colorChoice,
+                    for: `coord_color_${color}`,
                   },
-                  on: {
-                    change: e => {
-                      const target = e.target as HTMLInputElement;
-                      ctrl.setColorChoice(target.value as ColorChoice);
-                    },
-                  },
-                }),
-                h(
-                  `label.color_${color}`,
-                  {
-                    attrs: {
-                      for: `coord_color_${color}`,
-                    },
-                  },
-                  h('i')
-                ),
-              ])
-            )
-          ),
-        ]),
-      ]
+                },
+                h('i')
+              ),
+            ])
+          )
+        ),
+      ])
     );
   }
   if (ctrl.playing || ctrl.hasPlayed) {
