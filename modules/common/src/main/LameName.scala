@@ -64,6 +64,7 @@ object LameName {
     "poop",
     "poxyu",
     "pussy",
+    "putin",
     "resign",
     "retard",
     "shit",
