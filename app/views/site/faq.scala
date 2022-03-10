@@ -104,7 +104,10 @@ object faq {
           isCorrespondenceDifferent.txt(),
           p(
             youCanUseOpeningBookNoEngine()
-          )
+          ),
+          p(
+            pleaseReadFairPlayPage(a(href := routes.Page.loneBookmark("fair-play"))(FairPlayPage()))
+          ),
         ),
         h2(gameplay()),
         question(
