@@ -383,48 +383,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .clas-wall {
+  @include rendered-markdown;
+
   margin: 4em 0;
   font-size: 1.1em;
-  line-height: 1.6em;
-
-  img {
-    max-width: 100%;
-    max-height: 40vh;
-  }
-
-  li {
-    list-style: disc outside;
-    margin: 0.2em 0 0 1.2em;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    margin: 0.7em 0;
-  }
-
-  h2 {
-    margin-top: 1.8em;
-    border-bottom: 1px solid $c-brag;
-    line-height: 1.5em;
-    padding-bottom: 0.5em;
-  }
-
-  h3 {
-    @include fluid-size('font-size', 18px, 27px);
-
-    font-weight: bold;
-    margin: 1.6em 0 1em 0;
-  }
-
-  h4 {
-    @include fluid-size('font-size', 17px, 23px);
-  }
-
-  em {
-    font-style: italic;
-  }
 
   &__actions {
     @extend %flex-center;
