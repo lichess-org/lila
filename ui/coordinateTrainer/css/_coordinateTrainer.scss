@@ -77,6 +77,10 @@ form.color {
   }
 }
 
+form.mode .mode_option {
+  width: 50%;
+}
+
 form.color {
   .color_white i {
     background-image: url(../piece/cburnett/wK.svg);
@@ -193,4 +197,14 @@ svg.coords-svg {
 
 .start {
   width: fit-content;
+}
+
+.keyboard-input {
+  input.keyboard {
+    width: 4em;
+  }
+
+  span {
+    margin-left: 1em;
+  }
 }

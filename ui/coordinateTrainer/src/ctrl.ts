@@ -39,7 +39,7 @@ export default class CoordinateTrainerCtrl {
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
-    this.mode = config.modePref || 'findSquare';
+    this.mode = config.modePref || 'nameSquare';
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
 
@@ -180,6 +180,27 @@ export default class CoordinateTrainerCtrl {
       this.wrongTimeout = setTimeout(() => {
         this.wrong = false;
       }, 500);
+    }
+  };
+
+  onKeyboardInputChange = (e: KeyboardEvent) => {
+    if (!e.isTrusted) return;
+
+    //TODO de duplicate
+    const input = e.target as HTMLInputElement;
+    if (input.value === this.currentKey) {
+      this.score++;
+      this.advanceCoordinates();
+      input.value = '';
+    }
+
+    if (input.value.length === 2) {
+      clearTimeout(this.wrongTimeout);
+      this.wrong = true;
+      this.wrongTimeout = setTimeout(() => {
+        this.wrong = false;
+      }, 500);
+      input.value = '';
     }
   };
 }

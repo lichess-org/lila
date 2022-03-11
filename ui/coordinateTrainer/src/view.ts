@@ -1,5 +1,5 @@
 import { h, VNode, VNodeStyle } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { ColorChoice, Mode, CoordModifier } from './interfaces';
@@ -44,7 +44,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
         h(
           'group.radio',
           ['findSquare', 'nameSquare'].map((mode: Mode) =>
-            h('div', [
+            h('div.mode_option', [
               h('input', {
                 attrs: {
                   type: 'radio',
@@ -153,12 +153,12 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
   ]);
 }
 
-function table(ctrl: CoordinateTrainerCtrl): VNode {
+function explanation(ctrl: CoordinateTrainerCtrl): VNode {
   const { trans } = ctrl;
-  return h('div.table', [
-    ctrl.hasPlayed
-      ? null
-      : h('div.explanation', [
+  return h(
+    'div.explanation',
+    ctrl.mode === 'findSquare'
+      ? [
           h('p', trans('knowingTheChessBoard')),
           h('ul', [
             h('li', trans('mostChessCourses')),
@@ -166,7 +166,14 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
             h('li', trans('youCanAnalyseAGameMoreEffectively')),
           ]),
           h('p', trans('aSquareNameAppears')),
-        ]),
+        ]
+      : [h('p', 'Type in the coordinate for the highlighted square!')] //TODO
+  );
+}
+
+function table(ctrl: CoordinateTrainerCtrl): VNode {
+  return h('div.table', [
+    ctrl.hasPlayed ? null : explanation(ctrl),
     ctrl.playing
       ? null
       : h(
@@ -174,7 +181,7 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
           {
             hook: bind('click', ctrl.start),
           },
-          trans('startTraining')
+          ctrl.trans('startTraining')
         ),
   ]);
 }
@@ -186,6 +193,22 @@ function progress(ctrl: CoordinateTrainerCtrl): VNode {
   );
 }
 
+function keyboardInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
+  return ctrl.mode === 'nameSquare'
+    ? h('div.keyboard-input', [
+        h('input.keyboard', {
+          hook: {
+            insert: vnode => {
+              window.Mousetrap.bind('enter', () => (vnode.elm as HTMLInputElement).focus());
+            },
+          },
+          on: { input: ctrl.onKeyboardInputChange },
+        }),
+        h('span', 'Press <enter> to focus'),
+      ])
+    : null;
+}
+
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h(
     'div.trainer',
@@ -195,6 +218,6 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
         init: !ctrl.hasPlayed,
       },
     },
-    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl)]
+    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), keyboardInput(ctrl)]
   );
 }
