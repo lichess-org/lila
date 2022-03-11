@@ -387,6 +387,11 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   margin: 4em 0;
   font-size: 1.1em;
+  line-height: 1.6em;
+
+  img {
+    max-height: 40vh;
+  }
 
   &__actions {
     @extend %flex-center;
