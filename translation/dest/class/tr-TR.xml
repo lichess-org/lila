@@ -90,6 +90,7 @@ Sınıfa erişim linki burada.</string>
   <string name="winrate">Kazanma Oranı</string>
   <string name="na">Mevcut değil</string>
   <string name="overview">Genel Bakış</string>
+  <string name="news">Haberler</string>
   <string name="editNews">Haberleri düzenle</string>
   <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>
   <string name="nothingHere">Henüz bir şey yok.</string>
@@ -97,4 +98,6 @@ Sınıfa erişim linki burada.</string>
   <string name="newsEdit2">Yeni haberleri en üstte göster. Eski haberleri silme.</string>
   <string name="newsEdit3">Haberleri şununla ayırın ---
 Bu yatay bir çizgi oluşturacaktır.</string>
+  <string name="youAcceptedThisInvitation">Bu daveti kabul ettiniz.</string>
+  <string name="youDeclinedThisInvitation">Bu daveti reddettiniz.</string>
 </resources>
