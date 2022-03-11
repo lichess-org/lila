@@ -197,6 +197,8 @@ export default class CoordinateTrainerCtrl {
     if (!e.isTrusted) return;
 
     const input = e.target as HTMLInputElement;
+    input.value = input.value.toLowerCase().replace(/[^a-h1-8]/, '');
+
     if (input.value === this.currentKey) {
       this.score++;
       this.advanceCoordinates();

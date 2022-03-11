@@ -208,3 +208,17 @@ svg.coords-svg {
     margin-left: 1em;
   }
 }
+
+.cg-shapes {
+  circle {
+    animation: fadeIn 100ms;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
