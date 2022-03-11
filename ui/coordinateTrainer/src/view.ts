@@ -125,7 +125,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
 
 function board(ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.main-board', [
-    ctrl.playing
+    ctrl.playing && ctrl.mode === 'findSquare'
       ? h(
           'svg.coords-svg',
           { attrs: { viewBox: '0 0 100 100' } },

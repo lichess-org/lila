@@ -129,6 +129,11 @@ export default class CoordinateTrainerCtrl {
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
     this.nextKey = newKey(this.nextKey);
+
+    if (this.mode === 'nameSquare') {
+      this.chessground?.setShapes([{ orig: this.currentKey as Key, brush: 'green' }]);
+    }
+
     this.redraw();
   };
 
@@ -137,6 +142,7 @@ export default class CoordinateTrainerCtrl {
     this.updateScoreList();
     requestAnimationFrame(() => this.updateCharts());
     this.redraw();
+    this.chessground?.setShapes([]);
     this.chessground?.redrawAll();
 
     if (this.isAuth) {
@@ -168,6 +174,14 @@ export default class CoordinateTrainerCtrl {
     sparkline(svgElement, this.config.scores[color], { interactive: true });
   };
 
+  handleWrong = () => {
+    clearTimeout(this.wrongTimeout);
+    this.wrong = true;
+    this.wrongTimeout = setTimeout(() => {
+      this.wrong = false;
+    }, 500);
+  };
+
   onChessgroundSelect = (key: Key) => {
     if (!this.playing) return;
 
@@ -175,31 +189,23 @@ export default class CoordinateTrainerCtrl {
       this.score++;
       this.advanceCoordinates();
     } else {
-      clearTimeout(this.wrongTimeout);
-      this.wrong = true;
-      this.wrongTimeout = setTimeout(() => {
-        this.wrong = false;
-      }, 500);
+      this.handleWrong();
     }
   };
 
   onKeyboardInputChange = (e: KeyboardEvent) => {
     if (!e.isTrusted) return;
 
-    //TODO de duplicate
     const input = e.target as HTMLInputElement;
     if (input.value === this.currentKey) {
       this.score++;
       this.advanceCoordinates();
       input.value = '';
+      return;
     }
 
     if (input.value.length === 2) {
-      clearTimeout(this.wrongTimeout);
-      this.wrong = true;
-      this.wrongTimeout = setTimeout(() => {
-        this.wrong = false;
-      }, 500);
+      this.handleWrong();
       input.value = '';
     }
   };
