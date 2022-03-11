@@ -2,7 +2,7 @@ import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
-import { ColorChoice, CoordModifier } from './interfaces';
+import { ColorChoice, Mode, CoordModifier } from './interfaces';
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
@@ -40,6 +40,35 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
   const sideContent: VNode[] = [h('div.box', [h('h1', trans('coordinates')), ctrl.isAuth ? scoreCharts(ctrl) : null])];
   if (!ctrl.playing) {
     sideContent.push(
+      h('form.mode.buttons', [
+        h(
+          'group.radio',
+          ['findSquare', 'nameSquare'].map((mode: Mode) =>
+            h('div', [
+              h('input', {
+                attrs: {
+                  type: 'radio',
+                  id: `coord_mode_${mode}`,
+                  name: 'mode',
+                  value: mode,
+                  checked: mode === ctrl.mode,
+                },
+                on: {
+                  change: e => {
+                    const target = e.target as HTMLInputElement;
+                    ctrl.setMode(target.value as Mode);
+                  },
+                },
+              }),
+              h(
+                `label.mode_${mode}`,
+                { attrs: { for: `coord_mode_${mode}` } },
+                mode === 'findSquare' ? trans('findSquare') : trans('nameSquare') //TODO
+              ),
+            ])
+          )
+        ),
+      ]),
       h('form.color.buttons', [
         h(
           'group.radio',

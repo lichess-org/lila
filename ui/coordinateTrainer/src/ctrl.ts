@@ -2,7 +2,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, CoordinateTrainerConfig, Redraw } from './interfaces';
+import { ColorChoice, CoordinateTrainerConfig, Mode, Redraw } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -19,6 +19,7 @@ const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
   config: CoordinateTrainerConfig;
+  mode: Mode;
   colorChoice: ColorChoice;
   orientation: Color;
   isAuth: boolean;
@@ -38,6 +39,7 @@ export default class CoordinateTrainerCtrl {
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
+    this.mode = config.modePref || 'findSquare';
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
 
@@ -65,6 +67,13 @@ export default class CoordinateTrainerCtrl {
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
   }
+
+  setMode = (m: Mode) => {
+    if (this.mode === m) return;
+    this.mode = m;
+    this.redraw();
+    //TODO xhr
+  };
 
   setColorChoice = (c: ColorChoice) => {
     if (this.colorChoice === c) return;

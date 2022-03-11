@@ -63,6 +63,7 @@
   }
 }
 
+form.mode,
 form.color {
   margin-top: $block-gap;
 
@@ -74,7 +75,9 @@ form.color {
     background-repeat: no-repeat;
     padding: 0;
   }
+}
 
+form.color {
   .color_white i {
     background-image: url(../piece/cburnett/wK.svg);
   }
