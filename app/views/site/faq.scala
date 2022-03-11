@@ -106,7 +106,7 @@ object faq {
             youCanUseOpeningBookNoEngine()
           ),
           p(
-            pleaseReadFairPlayPage(a(href := routes.Page.loneBookmark("fair-play"))(FairPlayPage()))
+            pleaseReadFairPlayPage(a(href := routes.Page.loneBookmark("fair-play"))(fairPlayPage()))
           ),
         ),
         h2(gameplay()),
