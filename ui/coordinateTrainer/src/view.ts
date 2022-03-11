@@ -155,20 +155,21 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
 
 function explanation(ctrl: CoordinateTrainerCtrl): VNode {
   const { trans } = ctrl;
-  return h(
-    'div.explanation',
+  return h('div.explanation', [
+    h('p', trans('knowingTheChessBoard')),
+    h('ul', [
+      h('li', trans('mostChessCourses')),
+      h('li', trans('talkToYourChessFriends')),
+      h('li', trans('youCanAnalyseAGameMoreEffectively')),
+    ]),
+    h('strong', trans(ctrl.mode)),
     ctrl.mode === 'findSquare'
-      ? [
-          h('p', trans('knowingTheChessBoard')),
-          h('ul', [
-            h('li', trans('mostChessCourses')),
-            h('li', trans('talkToYourChessFriends')),
-            h('li', trans('youCanAnalyseAGameMoreEffectively')),
-          ]),
-          h('p', trans('aSquareNameAppears')),
-        ]
-      : [h('p', 'Type in the coordinate for the highlighted square!')] //TODO
-  );
+      ? h('p', trans('aSquareNameAppears'))
+      : h(
+          'p',
+          'A square is circled on the board and you must type in the coordinate. You have 30 seconds correctly map as many squares as possible!'
+        ), //TODO
+  ]);
 }
 
 function table(ctrl: CoordinateTrainerCtrl): VNode {

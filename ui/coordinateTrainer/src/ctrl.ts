@@ -183,7 +183,7 @@ export default class CoordinateTrainerCtrl {
   };
 
   onChessgroundSelect = (key: Key) => {
-    if (!this.playing) return;
+    if (!this.playing || this.mode !== 'findSquare') return;
 
     if (key === this.currentKey) {
       this.score++;

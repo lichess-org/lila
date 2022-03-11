@@ -1044,6 +1044,8 @@ val `talkToYourChessFriends` = new I18nKey("coordinates:talkToYourChessFriends")
 val `youCanAnalyseAGameMoreEffectively` = new I18nKey("coordinates:youCanAnalyseAGameMoreEffectively")
 val `aSquareNameAppears` = new I18nKey("coordinates:aSquareNameAppears")
 val `startTraining` = new I18nKey("coordinates:startTraining")
+val `findSquare` = new I18nKey("coordinates:findSquare")
+val `nameSquare` = new I18nKey("coordinates:nameSquare")
 
 }
 

@@ -30,6 +30,8 @@ object bits {
     trans.coordinates.startTraining,
     trans.coordinates.talkToYourChessFriends,
     trans.coordinates.youCanAnalyseAGameMoreEffectively,
+    trans.coordinates.findSquare,
+    trans.coordinates.nameSquare,
     trans.storm.score,
     trans.time
   ).map(_.key)
