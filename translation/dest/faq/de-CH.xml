@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Hüfig Gfrögt</string>
+  <string name="faqAbbreviation">Hüfig gschtellti Frage (FAQ)</string>
   <string name="frequentlyAskedQuestions">Oft geschtellti Frage</string>
   <string name="whyIsLichessCalledLichess">Wieso de Name Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch e Kombinazion us live/light/libre und Schach. Usgschproche wirds: %1$s.</string>
@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator z\'bewerbe. Wänn mir öpper gsehnd, wo mir dänked, dass er en guete Moderator chönnt sii, kontaktiered mir ihn diräkt.</string>
   <string name="isCorrespondenceDifferent">Underscheidet sich Fernschach vo normalem Schach?</string>
+  <string name="pleaseReadFairPlayPage">Meh Infos chasch uf eusere %s läse</string>
+  <string name="fairPlayPage">\"Fairplay-Siite\"</string>
   <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtoht dä Hauptunderschiid idä Reglä für Fürnschach dodrin, dass äs Eröffnigsbuäch erlaubt isch. D\'Verwändig vo Schachkompis isch aber immer no verbotä und füährt zunärä Markiärig vom Konto wäg unerlaubter Underschtützig dur Schachkompis. Obwohl d\'ICCF d\'Verwändig vo Schachkompis in Färnschachpartiiä erlaubt, isch das uf Lichess nöd gschtattät.</string>
   <string name="gameplay">Schpiilerläbnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Ziitkontrolle sind?</string>
