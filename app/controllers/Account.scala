@@ -31,7 +31,7 @@ final class Account(
         fuccess(html.account.profile(me, err))
       } { profile =>
         env.user.repo.setProfile(me.id, profile) inject
-          Redirect(routes.Account.profile).flashSuccess
+          Redirect(routes.User show me.username).flashSuccess
       }
     }
 
