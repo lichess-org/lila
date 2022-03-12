@@ -25,6 +25,7 @@
   <string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
   <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
   <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
+  <string name="pleaseReadFairPlayPage">Voor meer informatie, zie onze %s</string>
   <string name="youCanUseOpeningBookNoEngine">Op Lichess is het belangrijkste verschil in de regels voor correspondentieschaak dat een openingsboek is toegestaan. Het gebruik van engines is nog steeds verboden en leidt tot een overeenkomstige markering. Hoewel ICCF gebruik van engines in correspondentieschaak toestaat, doet Lichess dat niet.</string>
   <string name="gameplay">Spelregels</string>
   <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>

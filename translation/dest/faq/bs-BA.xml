@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="youCannotApply">Nije moguće aplicirati da postanete moderator. Ako vidimo nekoga za koga mislimo da bi bio dobar kao moderator, direktno ćemo kontaktirati s njim.</string>
   <string name="isCorrespondenceDifferent">Je li dopisni šah različit od standardnog?</string>
+  <string name="pleaseReadFairPlayPage">Za više informacija pogledajte %s</string>
+  <string name="fairPlayPage">stranica za fer-plej</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichessu, glavna razlika u pravilima za dopisni šah jest da je dozvoljeno upotrebljavati knjige o šahovskim otvaranjima i baze podataka o njima. Upotreba šahovskih programa i dalje je zabranjena i rezultirat će time da igrač bude označen zbog nje. Iako ICCF dozvoljava upotrebu programa u dopisnom šahu, to nije slučaj s Lichessom.</string>
   <string name="durationFormula">(početno vrijeme) + 40 × (bonus vrijeme)</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
