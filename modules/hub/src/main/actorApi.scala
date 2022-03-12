@@ -278,6 +278,7 @@ package round {
   case object FishnetStart
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
+  case class RematchCancel(gameId: String)
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)

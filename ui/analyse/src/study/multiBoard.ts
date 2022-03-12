@@ -95,7 +95,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
 function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.playing', [
     h('input', {
-      attrs: { type: 'checkbox' },
+      attrs: { type: 'checkbox', checked: ctrl.playing },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
       }),

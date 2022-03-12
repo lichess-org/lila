@@ -61,12 +61,11 @@ final class AccountClosure(
       _       <- webSubscriptionApi.unsubscribeByUser(u)
       _       <- streamerApi.demote(u.id)
       reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-      _       <- selfClose ?? modLogApi.selfCloseAccount(u.id, reports)
+      _       <- if (selfClose) modLogApi.selfCloseAccount(u.id, reports) else modLogApi.closeAccount(by.id, u.id)
       _       <- appealApi.onAccountClose(u)
       _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
         activityWrite.unfollowAll(u, _)
       }
-      _ <- !selfClose ?? modLogApi.closeAccount(by.id, u.id)
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: User.ID) =

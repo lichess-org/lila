@@ -12,6 +12,8 @@ case class LightUser(
   def titleName = title.fold(name)(_ + " " + name)
 
   def isBot = title has "BOT"
+
+  def is(name: String) = id == LightUser.normalize(name)
 }
 
 object LightUser {
@@ -32,11 +34,13 @@ object LightUser {
 
   def fallback(name: String) =
     LightUser(
-      id = name.toLowerCase,
+      id = normalize(name),
       name = name,
       title = None,
       isPatron = false
     )
+
+  def normalize(name: String) = name.toLowerCase
 
   final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {
     def apply(u: UserID) = f(u)

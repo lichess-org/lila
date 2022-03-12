@@ -226,7 +226,8 @@ object User {
     def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
   }
   case class Contacts(orig: Contact, dest: Contact) {
-    def hasKid = orig.isKid || dest.isKid
+    def hasKid  = orig.isKid || dest.isKid
+    def userIds = List(orig.id, dest.id)
   }
 
   case class PlayTime(total: Int, tv: Int) {

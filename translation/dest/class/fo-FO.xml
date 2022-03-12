@@ -12,7 +12,6 @@
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Nýggjur flokkur</string>
   <string name="closeClass">Lat flokk aftur</string>
-  <string name="closedByX">%s lat flokk aftur</string>
   <string name="reopen">Lat upp</string>
   <string name="removeStudent">Koyr næming úr</string>
   <string name="removedStudents">Úrkoyrdur</string>
@@ -84,7 +83,6 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="variantXOverLastY">%1$s yvir seinastu %2$s</string>
   <string name="winrate">Tal á sigrum</string>
   <string name="na">N/A</string>
-  <string name="news">Flokstíðindi</string>
   <string name="editNews">Ritstjórna tíðindi</string>
   <string name="notifyAllStudents">Gev øllum næmingum boð</string>
   <string name="nothingHere">Einki her enn.</string>

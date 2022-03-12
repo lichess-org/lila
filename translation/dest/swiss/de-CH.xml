@@ -36,15 +36,14 @@
   <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nod gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Ziile, trännt dur e Leerschtell.</string>
   <string name="newSwiss">Neus Turnier nach \"Schweizer System\"</string>
   <string name="swissVsArenaQ">Wänn nach \"Schweizer System\" anstatt Arena Turnier?</string>
-  <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliich Aazahl Schpiil und 2 Schpiller träffed nur 1 Mal ufenand.
-Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
+  <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliichi Aazahl Schpiil und gliichi Schpiller träffed nur eimal ufenand. Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
   <string name="pointsCalculationA">En Sied git 1 Punkt und es Remis en halbe Punkt. 
 Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
-  <string name="sonnebornBergerScore">Mit de Sonneborn-Berger Wertig</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger-Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
-Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gägner ergänd zämme die sog. SB-Zahl (Sonneborn Zahl) für en Schpiller. Bi Punktgliichheit isch die höcher SB-Zahl vorne.</string>
+Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämmezellt die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktgliichheit entscheidet die höcheri SB-Zahl.</string>
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
   <string name="dutchSystem">Niederländische System</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
@@ -54,8 +53,8 @@ Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gäg
   <string name="restrictedToTeamsQ">Wieso isch es (bi Lichess) nur uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turnier nach \"Schweizer System\" sind nöd fürs Online-Schach konzipiert. Vu de Schpiller wird Pünktlichkeit, Durchhaltevermöge und Geduld verlangt.
 Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, als villiicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</string>
-  <string name="numberOfByesQ">Wievill \"byes\" (spiilfreii Runde) chan en Schpiller überchoo?</string>
-  <string name="numberOfByesA">Än Spillär chunnt jedes Mal, wänn s Paarigssystem kä Paarig für ihn findät, äs Adiö vo eim Punkt übär. Zuäsätzlich wird än halbä Punkt vergäh, wänn än Spillär ämnä Turniär z\'spaat biitritt.</string>
+  <string name="numberOfByesQ">Wievill \"byes\" (schpillfrei mit Punkt) chan en Schpiller überchoo?</string>
+  <string name="numberOfByesA">Wänn für en Schpiller kei Paarig gfunde wird, gits es \"bye\" - das bedütet dass er i dere Rundi nöd schpille muess, aber trotzdem en Punkt überchunnt. Zuesätzlich gits en halbe Punkt, wänn en Spiller erscht spöter is Turnier iischtiigt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zur Partie ahtritt?</string>
   <string name="whatIfOneDoesntPlayA">Siini Ziit wird laufe und wänn sie um isch, verlürt er das Schpiil.
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 

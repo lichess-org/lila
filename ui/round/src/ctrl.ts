@@ -421,7 +421,7 @@ export default class RoundController {
             role: o.role,
             color: playedColor,
           },
-          o.uci.substr(2, 2) as cg.Key
+          o.uci.slice(2, 4) as cg.Key
         );
       else {
         // This block needs to be idempotent, even for castling moves in

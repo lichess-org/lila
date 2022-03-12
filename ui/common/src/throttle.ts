@@ -31,13 +31,13 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
  * or rejects).
  */
 export function finallyDelay<T extends (...args: any) => Promise<void>>(
-  delay: () => number,
+  delay: (...args: Parameters<T>) => number,
   wrapped: T
 ): (...args: Parameters<T>) => Promise<void> {
   return function (this: any, ...args: Parameters<T>): Promise<void> {
     const self = this;
     return new Promise(resolve => {
-      wrapped.apply(self, args).finally(() => setTimeout(resolve, delay()));
+      wrapped.apply(self, args).finally(() => setTimeout(resolve, delay.apply(self, args)));
     });
   };
 }

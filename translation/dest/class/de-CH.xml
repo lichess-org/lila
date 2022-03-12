@@ -12,7 +12,7 @@
   <string name="teachersX">Lehrer: %s</string>
   <string name="newClass">Neui Klass</string>
   <string name="closeClass">Klass schlüüsse</string>
-  <string name="closedByX">Geschlossen von %s</string>
+  <string name="removedByX">Entfernt vu %s</string>
   <string name="reopen">Wieder öffne</string>
   <string name="removeStudent">Schüeler entferne</string>
   <string name="removedStudents">Entfernt</string>
@@ -89,7 +89,9 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="variantXOverLastY">%1$s über die letschte %2$s</string>
   <string name="winrate">Gwünnrate</string>
   <string name="na">Nöd verfüegbar</string>
-  <string name="news">Klasse Neuigkeite</string>
+  <string name="overview">Übersicht</string>
+  <string name="news">Neuigkeite</string>
+  <string name="classNews">Klasse news</string>
   <string name="editNews">Neuigkeite bearbeite</string>
   <string name="notifyAllStudents">Benachrichtig alli Schüeler</string>
   <string name="nothingHere">No nüt da.</string>
@@ -97,4 +99,19 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="newsEdit2">Füeg die aktuelle Neuigkeite obe zue. Lösch kei vorherigi Neuigkeite.</string>
   <string name="newsEdit3">Tränn Neuigkeite mit ---
 Es wird als horizontali Linie aazeigt.</string>
+  <string name="invite">Iilade</string>
+  <string name="youHaveBeenInvitedByX">Du bisch iiglade vu %s.</string>
+  <string name="youAcceptedThisInvitation">Du häsch die Iiladig aagnah.</string>
+  <string name="youDeclinedThisInvitation">Du häsch die Iiladig abglehnt.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>
+  <string name="createMultipleAccounts">Mach mehreri Lichess Konti gliichzitig</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du chasch au mit %s, us ere Lischte vu Schüelernäme, mehreri Lichess Konti mache.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">benutz das Formular</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Dänk dra, dass e Klass nur %1$s Schüeler chan haa. Für s\'Verwalte vu meh Schüeler, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">mach witeri Klasse</string>
+  <string name="studentsRealNamesOnePerLine">Die richtige Näme vu de Schüeler, eine pro Ziile</string>
+  <string name="xisNowAStudentOfTheClass">%s isch jetzt en Schüeler vu de Klass</string>
+  <string name="anInvitationHasBeenSentToX">An %s isch e Iiladig gsändet worde</string>
+  <string name="xAlreadyHasAPendingInvitation">%s hät bereits e usstehendi Iiladig</string>
+  <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iiladigs URL manuell übermittle: %2$s</string>
 </resources>

@@ -78,7 +78,7 @@ object player {
                 "round__now-playing" -> true,
                 "blindfold"          -> ctx.pref.isBlindfold
               )
-            )(bits.others(playing, simul))
+            )(bits.others(playing, simul.filter(_ isHost ctx.me)))
         ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )

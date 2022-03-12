@@ -136,7 +136,7 @@ object post {
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := canActuallyReact option routes.ForumPost.react(post.id, r, !mine(r)).url,
+          dataHref := canActuallyReact option routes.ForumPost.react(post.categId, post.id, r, !mine(r)).url,
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {

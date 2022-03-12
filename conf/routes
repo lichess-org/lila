@@ -107,6 +107,8 @@ GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.community(lang: String = "all", page: Int ?= 1)
+GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: String = "all")
+GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: String)
 GET   /blog/community/:lang            controllers.Ublog.community(lang: String, page: Int ?= 1)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
@@ -442,7 +444,7 @@ POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String, 
 POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String)
-POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
+POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id: String)
 
 # Notify
 GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
@@ -549,8 +551,8 @@ POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: St
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
+POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug: String, id: String, reaction: String, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
-POST  /forum/post/:id/react/:reaction/:v controllers.ForumPost.react(id: String, reaction: String, v: Boolean)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Msg compat

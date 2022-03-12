@@ -97,7 +97,7 @@ final class Setup(
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
             case Some(user) =>
-              env.challenge.granter(ctx.me, user, none) map {
+              env.challenge.granter.isDenied(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
                 case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
@@ -124,7 +124,7 @@ final class Setup(
               ),
             config =>
               userId ?? env.user.repo.enabledById flatMap { destUser =>
-                destUser ?? { env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
+                destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(

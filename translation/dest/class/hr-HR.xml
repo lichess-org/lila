@@ -12,7 +12,7 @@
   <string name="teachersX">Nastavnici: %s</string>
   <string name="newClass">Nova nastava</string>
   <string name="closeClass">Zatvori nastavu</string>
-  <string name="closedByX">Zatvoren od %s</string>
+  <string name="removedByX">Uklonjen od %s</string>
   <string name="reopen">Ponovno otvori</string>
   <string name="removeStudent">Ukloni studenta</string>
   <string name="removedStudents">Uklonjen</string>
@@ -91,7 +91,9 @@ Lozinka: %3$s</string>
   <string name="variantXOverLastY">%1$s u zadnjih %2$s</string>
   <string name="winrate">Stopa pobjede</string>
   <string name="na">N/A</string>
-  <string name="news">Nastavne novosti</string>
+  <string name="overview">Pregled</string>
+  <string name="news">Vijesti</string>
+  <string name="classNews">Nastavne novosti</string>
   <string name="editNews">Uređivanje vijesti</string>
   <string name="notifyAllStudents">Obavijesti sve studente</string>
   <string name="nothingHere">Još nema ničega ovdje.</string>
@@ -99,4 +101,19 @@ Lozinka: %3$s</string>
   <string name="newsEdit2">Postavi posljednje novosti na vrh. Nemoj obrisati prethodne novosti.</string>
   <string name="newsEdit3">Odvoji novosti sa ---
 To će prikazati horizontalnu liniju.</string>
+  <string name="invite">Pozovi</string>
+  <string name="youHaveBeenInvitedByX">Pozvani ste od %s.</string>
+  <string name="youAcceptedThisInvitation">Prihvatili ste pozivnicu.</string>
+  <string name="youDeclinedThisInvitation">Odbili ste pozivnicu.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ili</string>
+  <string name="createMultipleAccounts">Napravite više Lichess računa odjednom</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Također možete %s da bi kreirali više Lichess računa odjednom iz popisa imena studenata.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">koristiti ovaj obrazac</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Razred može imati do %1$s studenata. Za dodatne studente, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">kreirajte nove razrede</string>
+  <string name="studentsRealNamesOnePerLine">Stvarna imena studenata, jedno po redu</string>
+  <string name="xisNowAStudentOfTheClass">%s je sada student u razredu</string>
+  <string name="anInvitationHasBeenSentToX">Pozivnica je poslana %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s već ima aktivnu pozivnicu</string>
+  <string name="xIsAKidAccountWarning">%1$s je dječji račun i ne može primati vaše poruke. Morate mu ručno poslati link: %2$s</string>
 </resources>

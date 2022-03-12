@@ -12,7 +12,6 @@
   <string name="teachersX">Profesors: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Zarrar clase</string>
-  <string name="closedByX">Zarrada per %s</string>
   <string name="reopen">Reubrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminau</string>
@@ -84,7 +83,6 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="variantXOverLastY">%1$s sobre los zaguers %2$s</string>
   <string name="winrate">Percentache de victorias</string>
   <string name="na">N/A</string>
-  <string name="news">Noticias d\'a clase</string>
   <string name="editNews">Editar noticias</string>
   <string name="notifyAllStudents">Notificar a totz los estudiants</string>
   <string name="nothingHere">Encara no i hai brenca aquí.</string>

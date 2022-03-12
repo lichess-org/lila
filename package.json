@@ -47,6 +47,7 @@
     "ui/chess",
     "ui/cli",
     "ui/common",
+    "ui/coordinateTrainer",
     "ui/dasher",
     "ui/editor",
     "ui/game",

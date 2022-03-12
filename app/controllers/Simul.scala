@@ -168,9 +168,11 @@ final class Simul(env: Env) extends LilaController(env) {
   def join(id: String, variant: String) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
-        env.simul.api.addApplicant(id, me, variant) inject {
-          if (HTTPRequest isXhr ctx.req) jsonOkResult
-          else Redirect(routes.Simul.show(id))
+        env.team.cached.teamIds(me.id) flatMap { teamIds =>
+          env.simul.api.addApplicant(id, me, teamIds.contains, variant) inject {
+            if (HTTPRequest isXhr ctx.req) jsonOkResult
+            else Redirect(routes.Simul.show(id))
+          }
         }
       }
     }

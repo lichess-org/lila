@@ -82,16 +82,12 @@ $section-margin-more: 5vh;
 
   &__desc {
     @extend %box-neat;
+    @include rendered-markdown;
 
     padding: 1.5em 2.5em;
     background: $c-bg-high;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
-
-    ol li {
-      list-style: decimal;
-      list-style-position: inside;
-    }
   }
 
   &__members {

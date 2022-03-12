@@ -12,7 +12,6 @@
   <string name="teachersX">Õpetajad: %s</string>
   <string name="newClass">Uus klass</string>
   <string name="closeClass">Sulge klass</string>
-  <string name="closedByX">Suletud %s poolt</string>
   <string name="reopen">Ava uuesti</string>
   <string name="removeStudent">Eemalda õpilane</string>
   <string name="removedStudents">Eemaldatud</string>
@@ -86,7 +85,6 @@ Siin on link klassi sisenemiseks.</string>
   <string name="variantXOverLastY">%1$s viimase %2$s jooksul</string>
   <string name="winrate">Võiduprotsent</string>
   <string name="na">Puudub</string>
-  <string name="news">Klassi uudised</string>
   <string name="editNews">Muuda uudist</string>
   <string name="notifyAllStudents">Teata kõiki õpilasi</string>
   <string name="nothingHere">Siin pole veel midagi.</string>

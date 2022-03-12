@@ -15,6 +15,7 @@
   <string name="thankYou">ご寄付ありがとう！</string>
   <string name="youHaveLifetime">あなたに永久パトロン・アカウントを贈ります。すばらしい！</string>
   <string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
+  <string name="ifNotRenewedThenAccountWillRevert">更新しないとアカウントが通常のアカウントに戻ります。</string>
   <string name="weAreNonProfit">Lichess は非営利団体です。ワールドクラスのチェスサイトを誰もが無料で使えるべきだと考えているからです。</string>
   <string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lichess を楽しんでいるのなら、寄付をしてパトロンになってみるのはどうでしょう。</string>
   <string name="lifetime">永久資格</string>

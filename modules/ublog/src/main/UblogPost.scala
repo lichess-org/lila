@@ -66,7 +66,8 @@ object UblogPost {
       intro: String,
       image: Option[UblogImage],
       created: Recorded,
-      lived: Option[Recorded]
+      lived: Option[Recorded],
+      topics: List[UblogTopic]
   ) extends BasePost
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])

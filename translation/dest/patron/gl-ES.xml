@@ -16,6 +16,7 @@
   <string name="thankYou">Grazas pola túa doazón!</string>
   <string name="youHaveLifetime">Tes unha conta de patrón vitalicia. Iso si que presta!</string>
   <string name="patronUntil">Tes unha conta de patrón ata o %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Se non renovas, a túa conta devirá nunha conta normal.</string>
   <string name="weAreNonProfit">Somos unha asociación sen ánimo de lucro porque pensamos que todos deberían ter acceso a unha plataforma de xadrez gratuíta e de nivel mundial.</string>
   <string name="weRelyOnSupport">Contamos co apoio de persoas coma ti para facelo posíbel. Se desfrutas usando Lichess, por favor considera apoiarnos doando e facéndote padrón!</string>
   <string name="lifetime">De por vida</string>

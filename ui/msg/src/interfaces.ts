@@ -15,7 +15,7 @@ export interface User extends LightUser {
   online: boolean;
 }
 export interface Me extends User {
-  kid: boolean;
+  bot: boolean;
 }
 export interface Msg {
   user: string;

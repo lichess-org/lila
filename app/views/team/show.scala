@@ -239,7 +239,7 @@ object show {
 
   private object markdown {
     import scala.concurrent.duration._
-    private val renderer = new lila.common.Markdown(list = true)
+    private val renderer = new lila.common.Markdown(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)

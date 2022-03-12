@@ -177,7 +177,7 @@ export default class MsgCtrl {
   report = () => {
     const user = this.data.convo?.user;
     if (user) {
-      const text = this.reportableMsg()?.text.slice(0, 140);
+      const text = this.reportableMsg()?.text.replace(/\n/g, '\r\n').slice(0, 140);
       if (text)
         network
           .report(user.name, text)

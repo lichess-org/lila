@@ -12,7 +12,6 @@
   <string name="teachersX">Giáo viên: %s</string>
   <string name="newClass">Lớp học mới</string>
   <string name="closeClass">Đóng lớp học</string>
-  <string name="closedByX">Được đóng bởi %s</string>
   <string name="reopen">Mở lại</string>
   <string name="removeStudent">Loại bỏ học viên</string>
   <string name="removedStudents">Đã gỡ bỏ</string>
@@ -85,7 +84,6 @@ Mật khẩu: %3$s</string>
   <string name="variantXOverLastY">%1$s qua %2$s cuối</string>
   <string name="winrate">Tỉ lệ thắng</string>
   <string name="na">Không xác định</string>
-  <string name="news">Tin lớp học</string>
   <string name="editNews">Sửa tin tức</string>
   <string name="notifyAllStudents">Thông báo tất cả học viên</string>
   <string name="nothingHere">Không có gì ở đây.</string>

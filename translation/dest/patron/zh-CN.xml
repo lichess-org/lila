@@ -15,6 +15,7 @@
   <string name="thankYou">感谢您的捐赠！</string>
   <string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
   <string name="patronUntil">您的赞助帐户直到 %s。</string>
+  <string name="ifNotRenewedThenAccountWillRevert">如果未续订，您的账户将会恢复为普通账户。</string>
   <string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的象棋平台。</string>
   <string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lichess，请考虑捐赠并成为赞助者来支持我们！</string>
   <string name="lifetime">终生</string>

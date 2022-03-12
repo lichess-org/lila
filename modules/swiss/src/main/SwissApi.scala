@@ -159,7 +159,7 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
           .flatMap { rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
-              swiss.isEnterable ?? {
+              verify(swiss, me).dmap(_.accepted && swiss.isEnterable) >>& {
                 colls.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
                   colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) inject true
               }

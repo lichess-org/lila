@@ -12,7 +12,6 @@
   <string name="teachersX">Kelennerien: %s</string>
   <string name="newClass">Klas nevez</string>
   <string name="closeClass">Serriñ ar c\'hlas</string>
-  <string name="closedByX">Bet serret gant %s</string>
   <string name="reopen">Digeriñ en-dro</string>
   <string name="removeStudent">Skarzhañ ur studier</string>
   <string name="removedStudents">Lemet</string>
@@ -96,7 +95,6 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="variantXOverLastY">%1$s e-pad an/ar %2$s</string>
   <string name="winrate">Feur trec\'h</string>
   <string name="na">N\'eus ket</string>
-  <string name="news">Keleier ar c\'hlas</string>
   <string name="editNews">Cheñch ar c\'heleier</string>
   <string name="notifyAllStudents">Kemenn an holl studierien</string>
   <string name="nothingHere">Netra amañ evit poent.</string>

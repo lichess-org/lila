@@ -12,7 +12,6 @@
   <string name="teachersX">교사: %s</string>
   <string name="newClass">새 클래스</string>
   <string name="closeClass">클래스 닫기</string>
-  <string name="closedByX">%s에 의해 닫힘</string>
   <string name="reopen">다시 열기</string>
   <string name="removeStudent">학생 삭제</string>
   <string name="removedStudents">삭제됨</string>
@@ -86,7 +85,6 @@
   <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
   <string name="winrate">승률</string>
   <string name="na">해당없음</string>
-  <string name="news">클래스 뉴스</string>
   <string name="editNews">뉴스 편집</string>
   <string name="notifyAllStudents">모든 학생에게 알림</string>
   <string name="nothingHere">비어있음</string>
