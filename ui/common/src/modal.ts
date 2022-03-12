@@ -14,6 +14,7 @@ interface Modal extends BaseModal {
 
 interface SnabModal extends BaseModal {
   content: MaybeVNodes;
+  onClose(): void;
 }
 
 export default function modal(opts: Modal) {
@@ -53,7 +54,7 @@ export function snabModal(opts: SnabModal): VNode {
   return h(
     'div#modal-overlay',
     {
-      ...(opts.onClose && !opts.noClickAway ? { hook: bind('click', close) } : {}),
+      ...(!opts.noClickAway ? { hook: bind('click', close) } : {}),
     },
     [
       h(
