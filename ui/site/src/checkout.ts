@@ -145,10 +145,11 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
         const amount = getAmount();
         if (!amount) return;
         return xhr
-          .json(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+          .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
             method: 'post',
             body: xhrFormData($checkout, amount),
           })
+          .then(res => res.json())
           .then(data => {
             if (data.error) showErrorThenReload(data.error);
             else if (data.order?.id) return data.order.id;
@@ -156,9 +157,9 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
           });
       },
       onApprove: (data: any, _actions: any) => {
-        xhr.json('/patron/paypal/capture/' + data.orderID, { method: 'POST' }).then(() => {
-          lichess.reload();
-        });
+        xhr
+          .json('/patron/paypal/capture/' + data.orderID, { method: 'POST' })
+          .then(() => location.assign('/patron/thanks'));
       },
     })
     .render('.paypal--order');
@@ -172,10 +173,11 @@ function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: (
         const amount = getAmount();
         if (!amount) return;
         return xhr
-          .json(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+          .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
             method: 'post',
             body: xhrFormData($checkout, amount),
           })
+          .then(res => res.json())
           .then(data => {
             if (data.error) showErrorThenReload(data.error);
             else if (data.subscription?.id) return data.subscription.id;
@@ -183,9 +185,9 @@ function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: (
           });
       },
       onApprove: (data: any, _actions: any) => {
-        xhr.json(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID}`, { method: 'POST' }).then(() => {
-          lichess.reload();
-        });
+        xhr
+          .json(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID}`, { method: 'POST' })
+          .then(() => location.assign('/patron/thanks'));
       },
     })
     .render('.paypal--subscription');
@@ -198,15 +200,11 @@ function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAm
     if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
-    fetch(`/patron/stripe/checkout?currency=${pricing.currency}`, {
-      ...xhr.defaultInit,
-      headers: {
-        ...xhr.jsonHeader,
-        ...xhr.xhrHeader,
-      },
-      method: 'post',
-      body: xhrFormData($checkout, amount),
-    })
+    xhr
+      .jsonAnyResponse(`/patron/stripe/checkout?currency=${pricing.currency}`, {
+        method: 'post',
+        body: xhrFormData($checkout, amount),
+      })
       .then(res => res.json())
       .then(data => {
         if (data.error) showErrorThenReload(data.error);

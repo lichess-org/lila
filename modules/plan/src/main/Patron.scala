@@ -63,14 +63,15 @@ object Patron {
   case class UserId(value: String) extends AnyVal
 
   case class Stripe(customerId: StripeCustomerId)
-  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId])
+  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]) {
+    def renew = subscriptionId.isDefined
+  }
 
   case class PayPalLegacy(
       email: Option[PayPalLegacy.Email],
       subId: Option[PayPalLegacy.SubId],
       lastCharge: DateTime
   ) {
-
     def renew = subId.isDefined
   }
   object PayPalLegacy {
