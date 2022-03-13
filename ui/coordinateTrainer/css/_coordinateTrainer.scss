@@ -177,6 +177,21 @@ svg.coords-svg {
   }
 }
 
+rect.current-target {
+  animation: shrinkIn 70ms linear;
+  stroke: $c-secondary;
+}
+@keyframes shrinkIn {
+  from {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .progress {
   @extend %box-radius;
   background-color: $c-bg-zebra;
@@ -203,27 +218,33 @@ svg.coords-svg {
   width: fit-content;
 }
 
-.keyboard-input {
+.coordinate-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: $block-gap;
+}
+
+.keyboard-container {
+  display: flex;
+  align-items: center;
+
   input.keyboard {
     width: 4em;
+    margin-right: 1em;
   }
-
-  span {
-    margin-left: 1em;
+  &.hidden {
+    display: none;
   }
 }
 
-rect.current-target {
-  animation: shrinkIn 70ms linear;
-  stroke: $c-secondary;
-}
-@keyframes shrinkIn {
-  from {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
+.files-ranks {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  button.file-rank {
+    //TODO
+    height: 3em;
+    border-width: 3px;
   }
 }

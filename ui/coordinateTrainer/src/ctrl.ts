@@ -27,6 +27,7 @@ export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
   colorChoice: ColorChoice;
   config: CoordinateTrainerConfig;
+  coordinateInputMethod: 'text' | 'buttons' = 'text';
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth: boolean;
@@ -71,6 +72,9 @@ export default class CoordinateTrainerCtrl {
     window.Mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
 
     window.Mousetrap.bind('enter', () => (this.playing ? null : this.start()));
+    //TODO fix issue where enter is swallowed when radio button is focused
+    // https://craig.is/killing/mice#api.stopCallback
+    // window.Mousetrap.stopCallback();
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
   }
@@ -99,6 +103,12 @@ export default class CoordinateTrainerCtrl {
   setOrientation = (o: Color) => {
     this.orientation = o;
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
+    this.redraw();
+  };
+
+  toggleInputMethod = () => {
+    if (this.coordinateInputMethod === 'text') this.coordinateInputMethod = 'buttons';
+    else this.coordinateInputMethod = 'text';
     this.redraw();
   };
 
@@ -216,15 +226,20 @@ export default class CoordinateTrainerCtrl {
     if (!e.isTrusted || !this.playing) {
       input.value = '';
       if (e.which === 13) this.start();
-    } else if (input.value.length === 1) {
-      // clear input if it begins with a number
+    } else this.checkKeyboardInput();
+  };
+
+  checkKeyboardInput = () => {
+    const input = this.keyboardInput;
+    if (input.value.length === 1) {
+      // clear input if it begins with anything other than a file
       input.value = input.value.replace(/[^a-h]/, '');
     } else if (input.value.length === 2 && input.value === this.currentKey) {
       input.value = '';
       this.handleCorrect();
     } else if (input.value.length === 2 && !input.value.match(/[a-h][1-8]/)) {
-      // if they've entered e.g. "aa", change this to "a"
-      input.value = input.value[0];
+      // if they've entered e.g. "ab", change this to "b"
+      input.value = input.value[1];
     } else if (input.value.length >= 2) {
       input.value = '';
       this.handleWrong();

@@ -194,9 +194,16 @@ function progress(ctrl: CoordinateTrainerCtrl): VNode {
   );
 }
 
-function keyboardInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
-  return ctrl.mode === 'nameSquare'
-    ? h('div.keyboard-input', [
+function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
+  const coordinateInput = [
+    h(
+      'div.keyboard-container',
+      {
+        class: {
+          hidden: ctrl.coordinateInputMethod === 'buttons',
+        },
+      },
+      [
         h('input.keyboard', {
           hook: {
             insert: vnode => {
@@ -205,9 +212,39 @@ function keyboardInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
           },
           on: { keyup: ctrl.onKeyboardInputKeyUp },
         }),
-        h('span', 'Press <enter> to start'),
-      ])
-    : null;
+        h('strong', 'Press <enter> to start'),
+      ]
+    ),
+    ctrl.coordinateInputMethod === 'buttons'
+      ? h(
+          'div.files-ranks',
+          'abcdefgh12345678'.split('').map((fileOrRank: string) =>
+            h(
+              'button.file-rank',
+              {
+                on: {
+                  click: () => {
+                    if (ctrl.playing) {
+                      ctrl.keyboardInput.value += fileOrRank;
+                      ctrl.checkKeyboardInput();
+                    }
+                  },
+                },
+              },
+              fileOrRank
+            )
+          )
+        )
+      : null,
+  ];
+  const inputMethodSwitcher = ctrl.playing
+    ? null
+    : h(
+        'a',
+        { on: { click: () => ctrl.toggleInputMethod() } },
+        ctrl.coordinateInputMethod === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
+      );
+  return ctrl.mode === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
 }
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
@@ -219,6 +256,6 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
         init: !ctrl.hasPlayed,
       },
     },
-    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), keyboardInput(ctrl)]
+    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
   );
 }

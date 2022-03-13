@@ -32,11 +32,11 @@ $mq-col3: $mq-x-large;
     grid-area: progress;
   }
 
-  .keyboard-input {
-    grid-area: kb-input;
+  .coordinate-input {
+    grid-area: co-input;
   }
 
-  grid-template-areas: 'board' 'progress' 'kb-input' 'table' 'side';
+  grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
   grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
@@ -46,7 +46,7 @@ $mq-col3: $mq-x-large;
       'board    . table'
       'board    . side'
       'progress . side'
-      'kb-input . side'
+      'co-input . side'
       '.        . side';
   }
 
@@ -54,7 +54,7 @@ $mq-col3: $mq-x-large;
     grid-template-areas:
       'side . board    . table'
       'side . progress . .'
-      'side . kb-input . .'
+      'side . co-input . .'
       'side . .        . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
