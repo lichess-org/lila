@@ -200,12 +200,12 @@ function keyboardInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
         h('input.keyboard', {
           hook: {
             insert: vnode => {
-              window.Mousetrap.bind('enter', () => (vnode.elm as HTMLInputElement).focus());
+              ctrl.keyboardInput = vnode.elm as HTMLInputElement;
             },
           },
-          on: { input: ctrl.onKeyboardInputChange },
+          on: { keyup: ctrl.onKeyboardInputKeyUp },
         }),
-        h('span', 'Press <enter> to focus'),
+        h('span', 'Press <enter> to start'),
       ])
     : null;
 }

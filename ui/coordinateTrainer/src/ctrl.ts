@@ -14,27 +14,34 @@ const newKey = (oldKey: Key | ''): Key => {
   return (files[Math.floor(Math.random() * files.length)] + rows[Math.floor(Math.random() * files.length)]) as Key;
 };
 
+const targetSvg = `
+<g transform="translate(50, 50)">
+  <rect class="current-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
+</g>
+`;
+
 export const DURATION = 30 * 1000;
 const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
-  config: CoordinateTrainerConfig;
-  mode: Mode;
-  colorChoice: ColorChoice;
-  orientation: Color;
-  isAuth: boolean;
-  playing = false;
-  hasPlayed = false;
-  trans: Trans;
   chessground: CgApi | undefined;
+  colorChoice: ColorChoice;
+  config: CoordinateTrainerConfig;
+  currentKey: Key | '' = 'a1';
+  hasPlayed = false;
+  isAuth: boolean;
+  keyboardInput: HTMLInputElement;
+  mode: Mode;
+  nextKey: Key | '' = newKey('a1');
+  orientation: Color;
+  playing = false;
   redraw: Redraw;
   score = 0;
-  currentKey: Key | '' = 'a1';
-  nextKey: Key | '' = newKey('a1');
-  timeLeft = DURATION;
   timeAtStart: Date;
-  wrongTimeout: number;
+  timeLeft = DURATION;
+  trans: Trans;
   wrong: boolean;
+  wrongTimeout: number;
   zen: boolean;
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
@@ -58,12 +65,12 @@ export default class CoordinateTrainerCtrl {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
-      requestAnimationFrame(this.updateCharts);
     });
 
+    $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
     window.Mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
 
-    $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
+    window.Mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
   }
@@ -109,6 +116,8 @@ export default class CoordinateTrainerCtrl {
     // In case random is selected, recompute orientation
     this.setOrientation(orientationFromColorChoice(this.colorChoice));
 
+    if (this.mode === 'nameSquare') this.keyboardInput.focus();
+
     setTimeout(() => {
       this.timeAtStart = new Date();
       this.advanceCoordinates();
@@ -130,14 +139,8 @@ export default class CoordinateTrainerCtrl {
     this.currentKey = this.nextKey;
     this.nextKey = newKey(this.nextKey);
 
-    if (this.mode === 'nameSquare') {
-      const customSvg = `
-        <g transform="translate(50, 50)">
-          <rect class="current-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
-        </g>
-      `;
-      this.chessground?.setShapes([{ orig: this.currentKey as Key, customSvg }]);
-    }
+    if (this.mode === 'nameSquare')
+      this.chessground?.setShapes([{ orig: this.currentKey as Key, customSvg: targetSvg }]);
 
     this.redraw();
   };
@@ -149,6 +152,11 @@ export default class CoordinateTrainerCtrl {
     this.redraw();
     this.chessground?.setShapes([]);
     this.chessground?.redrawAll();
+
+    if (this.mode === 'nameSquare') {
+      this.keyboardInput.blur();
+      this.keyboardInput.value = '';
+    }
 
     if (this.isAuth) {
       xhr.text('/training/coordinate/score', {
@@ -179,6 +187,12 @@ export default class CoordinateTrainerCtrl {
     sparkline(svgElement, this.config.scores[color], { interactive: true });
   };
 
+  handleCorrect = () => {
+    this.score++;
+    this.advanceCoordinates();
+    this.wrong = false;
+  };
+
   handleWrong = () => {
     clearTimeout(this.wrongTimeout);
     this.wrong = true;
@@ -190,42 +204,30 @@ export default class CoordinateTrainerCtrl {
   onChessgroundSelect = (key: Key) => {
     if (!this.playing || this.mode !== 'findSquare') return;
 
-    if (key === this.currentKey) {
-      this.score++;
-      this.advanceCoordinates();
-    } else {
-      this.handleWrong();
-    }
+    if (key === this.currentKey) this.handleCorrect();
+    else this.handleWrong();
   };
 
-  onKeyboardInputChange = (e: KeyboardEvent) => {
-    if (!e.isTrusted) return;
-
-    const input = e.target as HTMLInputElement;
+  onKeyboardInputKeyUp = (e: KeyboardEvent) => {
     // normalize input value
+    const input = e.target as HTMLInputElement;
     input.value = input.value.toLowerCase().replace(/[^a-h1-8]/, '');
 
-    // if they've entered e.g. "1", clear the value
-    if (input.value.length === 1) {
+    if (!e.isTrusted || !this.playing) {
+      input.value = '';
+      if (e.which === 13) this.start();
+    } else if (input.value.length === 1) {
+      // clear input if it begins with a number
       input.value = input.value.replace(/[^a-h]/, '');
-      return;
-    }
-
-    if (input.value === this.currentKey) {
-      this.score++;
-      this.advanceCoordinates();
+    } else if (input.value.length === 2 && input.value === this.currentKey) {
       input.value = '';
-      return;
-    }
-
-    // if they've entered e.g. "aa", change this to "a"
-    if (input.value.length === 2 && !input.value.match(/[a-h][1-8]/)) {
+      this.handleCorrect();
+    } else if (input.value.length === 2 && !input.value.match(/[a-h][1-8]/)) {
+      // if they've entered e.g. "aa", change this to "a"
       input.value = input.value[0];
-    }
-
-    if (input.value.length >= 2) {
-      this.handleWrong();
+    } else if (input.value.length >= 2) {
       input.value = '';
+      this.handleWrong();
     }
   };
 }
