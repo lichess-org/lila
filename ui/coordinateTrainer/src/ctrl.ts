@@ -202,7 +202,14 @@ export default class CoordinateTrainerCtrl {
     if (!e.isTrusted) return;
 
     const input = e.target as HTMLInputElement;
+    // normalize input value
     input.value = input.value.toLowerCase().replace(/[^a-h1-8]/, '');
+
+    // if they've entered e.g. "1", clear the value
+    if (input.value.length === 1) {
+      input.value = input.value.replace(/[^a-h]/, '');
+      return;
+    }
 
     if (input.value === this.currentKey) {
       this.score++;
@@ -211,7 +218,12 @@ export default class CoordinateTrainerCtrl {
       return;
     }
 
-    if (input.value.length === 2) {
+    // if they've entered e.g. "aa", change this to "a"
+    if (input.value.length === 2 && !input.value.match(/[a-h][1-8]/)) {
+      input.value = input.value[0];
+    }
+
+    if (input.value.length >= 2) {
       this.handleWrong();
       input.value = '';
     }
