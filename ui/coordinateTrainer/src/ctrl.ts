@@ -131,7 +131,12 @@ export default class CoordinateTrainerCtrl {
     this.nextKey = newKey(this.nextKey);
 
     if (this.mode === 'nameSquare') {
-      this.chessground?.setShapes([{ orig: this.currentKey as Key, brush: 'green' }]);
+      const customSvg = `
+        <g transform="translate(50, 50)">
+          <rect class="current-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
+        </g>
+      `;
+      this.chessground?.setShapes([{ orig: this.currentKey as Key, customSvg }]);
     }
 
     this.redraw();

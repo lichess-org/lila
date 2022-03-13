@@ -17,6 +17,10 @@
     .coord--current {
       fill: $c-wrong !important;
     }
+
+    .current-target {
+      stroke: $c-wrong;
+    }
   }
 
   &.init {
@@ -209,16 +213,17 @@ svg.coords-svg {
   }
 }
 
-.cg-shapes {
-  circle {
-    animation: fadeIn 100ms;
+rect.current-target {
+  animation: shrinkIn 70ms linear;
+  stroke: $c-secondary;
+}
+@keyframes shrinkIn {
+  from {
+    transform: scale(1.4);
+    opacity: 0;
   }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
