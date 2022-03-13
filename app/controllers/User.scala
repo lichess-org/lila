@@ -514,19 +514,25 @@ final class User(
 
   def opponents =
     Auth { implicit ctx => me =>
-      for {
-        ops         <- env.game.favoriteOpponents(me.id)
-        followables <- env.pref.api.followables(ops map (_._1.id))
-        relateds <-
-          ops
-            .zip(followables)
-            .map { case ((u, nb), followable) =>
-              relationApi.fetchRelation(me.id, u.id) map {
-                lila.relation.Related(u, nb.some, followable, _)
-              }
-            }
-            .sequenceFu
-      } yield html.relation.bits.opponents(me, relateds)
+      get("u")
+        .ifTrue(isGranted(_.BoostHunter))
+        .??(env.user.repo.named)
+        .map(_ | me)
+        .flatMap { user =>
+          for {
+            ops         <- env.game.favoriteOpponents(user.id)
+            followables <- env.pref.api.followables(ops map (_._1.id))
+            relateds <-
+              ops
+                .zip(followables)
+                .map { case ((u, nb), followable) =>
+                  relationApi.fetchRelation(user.id, u.id) map {
+                    lila.relation.Related(u, nb.some, followable, _)
+                  }
+                }
+                .sequenceFu
+          } yield html.relation.bits.opponents(user, relateds)
+        }
     }
 
   def perfStat(username: String, perfKey: String) =
