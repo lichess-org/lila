@@ -34,8 +34,8 @@
     "typescript": "^4.5.5"
   },
   "scripts": {
-    "format": "prettier --write .",
-    "check-format": "prettier --check .",
+    "format": "prettier --config ./.prettierrc.json --write .",
+    "check-format": "prettier --config ./.prettierrc.json --check .",
     "lint": "eslint . --ext .ts"
   },
   "workspaces": [
