@@ -110,20 +110,21 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           .sloppy
           .start pipe { dbGame =>
           // apply the result from the board or the tags
-          game.situation.status match {
-            case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
-            case None =>
-              parsed.tags.resultColor
-                .map {
-                  case Some(color)                        => TagResult(status, color.some)
-                  case None if status == Status.Outoftime => TagResult(status, none)
-                  case None                               => TagResult(Status.Draw, none)
-                }
-                .filter(_.status > Status.Started)
-                .fold(dbGame) { res =>
-                  dbGame.finish(res.status, res.winner).game
-                }
-          }
+
+          val tagStatus: Option[TagResult] = parsed.tags.resultColor
+            .map {
+              case Some(color)                        => TagResult(status, color.some)
+              case None if status == Status.Outoftime => TagResult(status, none)
+              case None                               => TagResult(Status.Draw, none)
+            }
+            .filter(_.status > Status.Started)
+
+          tagStatus
+            .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
+            .fold(dbGame) { res =>
+              dbGame.finish(res.status, res.winner).game
+            }
+
         }
 
         Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
