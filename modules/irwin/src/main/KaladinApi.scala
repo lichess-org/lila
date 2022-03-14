@@ -120,7 +120,7 @@ final class KaladinApi(
   }
 
   private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit =
-    if (pred.percent >= thresholds.get().mark)
+    if (pred.percent >= thresholds.get().mark && user.title.isEmpty)
       modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
         lila.mon.mod.kaladin.mark.increment().unit
     else if (pred.percent >= thresholds.get().report) for {
