@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">¿Cómo puedo convertirme en moderador?</string>
   <string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
   <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para más información, lee</string>
+  <string name="fairPlayPage">página de juego limpio</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecánica de juego</string>
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>

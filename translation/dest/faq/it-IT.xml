@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Come posso diventare un moderatore?</string>
   <string name="youCannotApply">Non è possibile fare domanda per diventare un moderatore. Se vediamo qualcuno che pensiamo possa essere un moderatore, li contatteremo direttamente.</string>
   <string name="isCorrespondenceDifferent">La partite per corrispondenza sono diverse dagli scacchi normali?</string>
+  <string name="pleaseReadFairPlayPage">Per ulteriori informazioni, leggi la nostra %s</string>
+  <string name="fairPlayPage">pagina sul fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori scacchistici è ancora proibito e comporterà la loro segnalazione per l\'utilizzo del computer. Sebbene ICCF consenta l\'uso dei motori scacchistici nel gioco per corrispondenza, Lichess no.</string>
   <string name="gameplay">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altre cadenze di gioco?</string>

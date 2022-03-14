@@ -180,9 +180,9 @@ object header {
                     br,
                     a(href := routes.Relation.following(u.username))(trans.friends())
                   ),
-                  ctx is u option frag(
+                  ctx.is(u) || isGranted(_.BoostHunter) option frag(
                     br,
-                    a(href := routes.User.opponents)(trans.favoriteOpponents())
+                    a(href := s"${routes.User.opponents}?u=${u.username}")(trans.favoriteOpponents())
                   ),
                   u.playTime.map { playTime =>
                     frag(

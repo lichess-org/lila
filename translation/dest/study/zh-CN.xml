@@ -56,7 +56,7 @@
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
-  <string name="studyPgn"> PGN研究</string>
+  <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="downloadGame">下载棋局</string>
