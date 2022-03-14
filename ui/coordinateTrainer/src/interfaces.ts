@@ -18,12 +18,7 @@ export interface CoordinateTrainerConfig {
   is3d: boolean;
   modePref: Mode;
   resizePref: number;
-  scores: {
-    white: number[];
-    black: number[];
-    whiteNameSquare: number[];
-    blackNameSquare: number[];
-  };
+  scores: ModeScores;
 }
 
 export type CoordModifier = 'next' | 'current';

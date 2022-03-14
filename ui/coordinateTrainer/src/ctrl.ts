@@ -51,21 +51,11 @@ export default class CoordinateTrainerCtrl {
     this.mode = config.modePref || 'nameSquare';
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
+    this.modeScores = config.scores;
 
     this.isAuth = document.body.hasAttribute('data-user');
     this.trans = lichess.trans(this.config.i18n);
     this.redraw = redraw;
-
-    this.modeScores = {
-      findSquare: {
-        white: config.scores.white || [],
-        black: config.scores.black || [],
-      },
-      nameSquare: {
-        white: config.scores.whiteNameSquare || [],
-        black: config.scores.blackNameSquare || [],
-      },
-    };
 
     const setZen = throttle(1000, zen =>
       xhr.text('/pref/zen', {
@@ -96,7 +86,6 @@ export default class CoordinateTrainerCtrl {
     this.mode = m;
     this.updateCharts();
     this.redraw();
-    //TODO xhr
   };
 
   setColorChoice = (c: ColorChoice) => {

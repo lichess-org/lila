@@ -5,6 +5,7 @@ import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { ColorChoice, Mode, CoordModifier } from './interfaces';
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
+  //TODO placeholders
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
   return h(
     'div.scores',
