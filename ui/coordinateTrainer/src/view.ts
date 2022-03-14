@@ -167,7 +167,7 @@ function explanation(ctrl: CoordinateTrainerCtrl): VNode {
       ? h('p', trans('aSquareNameAppears'))
       : h(
           'p',
-          'A square is circled on the board and you must type in the coordinate. You have 30 seconds correctly map as many squares as possible!'
+          'A square is highlighted on the board and you must type in the coordinate. You have 30 seconds correctly to map as many squares as possible!'
         ), //TODO
   ]);
 }

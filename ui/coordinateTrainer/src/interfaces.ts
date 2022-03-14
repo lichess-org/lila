@@ -11,6 +11,8 @@ export interface CoordinateTrainerConfig {
   scores: {
     white: number[];
     black: number[];
+    whiteNameSquare: number[];
+    blackNameSquare: number[];
   };
 }
 

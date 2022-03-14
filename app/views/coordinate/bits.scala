@@ -15,8 +15,10 @@ object bits {
     "resizePref" -> ctx.pref.resizeHandle,
     "is3d"       -> ctx.pref.is3d,
     "scores" -> Json.obj(
-      "white" -> scoreOption.fold(List[Int]())(_.white),
-      "black" -> scoreOption.fold(List[Int]())(_.black)
+      "white"           -> scoreOption.fold(List[Int]())(_.white),
+      "black"           -> scoreOption.fold(List[Int]())(_.black),
+      "whiteNameSquare" -> scoreOption.fold(List[Int]())(_.whiteNameSquare),
+      "blackNameSquare" -> scoreOption.fold(List[Int]())(_.blackNameSquare)
     )
   )
 
