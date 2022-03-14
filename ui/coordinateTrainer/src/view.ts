@@ -9,8 +9,8 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
   return h(
     'div.scores',
     [
-      ['white', 'averageScoreAsWhiteX', ctrl.config.scores.white],
-      ['black', 'averageScoreAsBlackX', ctrl.config.scores.black],
+      ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode].white],
+      ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
     ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
       scoreList.length
         ? h('chart_container', [

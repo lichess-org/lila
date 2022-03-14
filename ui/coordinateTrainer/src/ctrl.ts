@@ -2,7 +2,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, CoordinateTrainerConfig, Mode, Redraw } from './interfaces';
+import { ColorChoice, CoordinateTrainerConfig, Mode, ModeScores, Redraw } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -33,6 +33,7 @@ export default class CoordinateTrainerCtrl {
   isAuth: boolean;
   keyboardInput: HTMLInputElement;
   mode: Mode;
+  modeScores: ModeScores;
   nextKey: Key | '' = newKey('a1');
   orientation: Color;
   playing = false;
@@ -54,6 +55,17 @@ export default class CoordinateTrainerCtrl {
     this.isAuth = document.body.hasAttribute('data-user');
     this.trans = lichess.trans(this.config.i18n);
     this.redraw = redraw;
+
+    this.modeScores = {
+      findSquare: {
+        white: config.scores.white || [],
+        black: config.scores.black || [],
+      },
+      nameSquare: {
+        white: config.scores.whiteNameSquare || [],
+        black: config.scores.blackNameSquare || [],
+      },
+    };
 
     const setZen = throttle(1000, zen =>
       xhr.text('/pref/zen', {
@@ -82,6 +94,7 @@ export default class CoordinateTrainerCtrl {
   setMode = (m: Mode) => {
     if (this.mode === m) return;
     this.mode = m;
+    this.updateCharts();
     this.redraw();
     //TODO xhr
   };
@@ -178,9 +191,9 @@ export default class CoordinateTrainerCtrl {
 
   updateScoreList = () => {
     // we only ever display the last 20 scores
-    const scoreList = this.config.scores[this.orientation];
-    if (scoreList.length >= 20) this.config.scores[this.orientation] = scoreList.slice(1, 20);
-    this.config.scores[this.orientation].push(this.score);
+    const scoreList = this.modeScores[this.mode][this.orientation];
+    if (scoreList.length >= 20) this.modeScores[this.mode][this.orientation] = scoreList.slice(1, 20);
+    this.modeScores[this.mode][this.orientation].push(this.score);
   };
 
   updateCharts = () => {
@@ -194,7 +207,7 @@ export default class CoordinateTrainerCtrl {
   updateChart = (svgElement: SVGSVGElement, color: Color) => {
     const parent = svgElement.parentElement as HTMLDivElement;
     svgElement.setAttribute('width', `${parent.offsetWidth}px`);
-    sparkline(svgElement, this.config.scores[color], { interactive: true });
+    sparkline(svgElement, this.modeScores[this.mode][color], { interactive: true });
   };
 
   handleCorrect = () => {
