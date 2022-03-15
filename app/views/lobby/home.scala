@@ -9,6 +9,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
+import views.html.chat
 
 
 object home {
@@ -65,6 +66,7 @@ object home {
             div(cls := "bg-switch__thumb")
           ),
           div(cls := "lobby__start")(
+            
             ctx.blind option h2("Play"),
             a(
               href := routes.Setup.hookForm,
@@ -89,8 +91,12 @@ object home {
                 "disabled"                      -> currentGame.isDefined
               ),
               trans.playWithTheMachine()
-            )
+            ),
+
+            
+          
           ),
+
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
@@ -109,23 +115,8 @@ object home {
                 strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
               )
             )
-          )
-        ),
-        currentGame.map(bits.currentGameInfo) orElse
-          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
-            else bits.lobbyApp
-          },
-        div(cls := "lobby__side")(
-          ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(
-            views.html.streamer.bits liveStreams streams,
-            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
-              trans.streamersMenu(),
-              " »"
-            )
           ),
+
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             !ctx.isBot option frag(
@@ -143,7 +134,7 @@ object home {
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
                 trans.more(),
                 " »"
-              )
+              ),
             )
           else
             div(cls := "about-side")(
@@ -154,7 +145,26 @@ object home {
               ),
               " ",
               a(href := "/about")(trans.aboutX("ChessUqam"), "...")
+            ),
+          
+          
+        ),
+        currentGame.map(bits.currentGameInfo) orElse
+          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
+          playban.map(bits.playbanInfo) getOrElse {
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
+        div(cls := "lobby__side")(
+          ctx.blind option h2("Highlights"),
+          ctx.noKid option st.section(cls := "lobby__streams")(
+            views.html.streamer.bits liveStreams streams,
+            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+              trans.streamersMenu(),
+              " »"
             )
+          ),
+          
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
