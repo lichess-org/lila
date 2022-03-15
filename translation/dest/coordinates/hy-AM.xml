@@ -5,9 +5,9 @@
   <string name="averageScoreAsWhiteX">Միջին հաշիվը սպիտակներով՝ %s</string>
   <string name="averageScoreAsBlackX">Միջին հաշիվը սևերով՝ %s</string>
   <string name="knowingTheChessBoard">Շախմատի կոորդինատները իմանալը շատ կարևոր հմտություն է:</string>
-  <string name="mostChessCourses">Շախմատի դասընթացների ժամանակ այն լայնորեն կիրառվում է:</string>
+  <string name="mostChessCourses">Շախմատային դասընթացներում և խնդիրներում լայնորեն կիրառվում է նոտագրությունը:</string>
   <string name="talkToYourChessFriends">Հեշտանում է ընկերների հետ խոսելը, երբ երկուսն էլ հասկանում են «շախմատի լեզուն»:</string>
   <string name="youCanAnalyseAGameMoreEffectively">Պարտիաներ վերլուծելն ավելի արդյունավետ է, եթե կոորդինատներով դաշտերը փնտելու վրա ժամանակ չի ծախսվում:</string>
-  <string name="aSquareNameAppears">Տախտակի վրա կհայտնվի քառակուսի, որի վրա գրված կլինի դաշտի անունը և Դուք պետք է ճիշտ սեղմեք տվյալ դաշտի վրա: Դրա համար Դուք ունեք 30 վայրկյան, որպեսզի գտնեք շատ դաշտեր:</string>
+  <string name="aSquareNameAppears">Երբ հայտնվի դաշտի անունը, պետք է սեղմեք խաղատախտակի անհրաժեշտ դաշտը։ Առավել շատ դաշտեր գտնելու համար ունեք 30 վայրկյան։</string>
   <string name="startTraining">Սկսել ուսուցումը</string>
 </resources>
