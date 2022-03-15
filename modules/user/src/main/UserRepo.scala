@@ -574,6 +574,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
 
+  def hasTitle(id: ID): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
+
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler
     coll.updateField($id(user.id), User.BSONFields.plan, plan).void
