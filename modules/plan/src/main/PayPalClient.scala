@@ -12,6 +12,8 @@ import lila.common.config
 import lila.common.WebService
 import lila.memo.CacheApi
 import lila.user.User
+import java.util.Currency
+import play.api.libs.ws.StandaloneWSRequest
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -33,9 +35,20 @@ final private class PayPalClient(
 
   private object path {
     val orders        = "v2/checkout/orders"
+    val plans         = "v1/billing/plans"
     val subscriptions = "v1/billing/subscriptions"
     val token         = "v1/oauth2/token"
     val events        = "v1/notifications/webhooks-events"
+  }
+
+  private val patronMonthProductId = "PATRON-MONTH"
+
+  private val plans = cacheApi(32, "plan.payPal.plans") {
+    _.buildAsyncFuture[Currency, PayPalPlan] { cur =>
+      getPlans() flatMap {
+        _.find(p => p.currency.has(cur)).fold(createPlan(cur))(fuccess)
+      }
+    }
   }
 
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
@@ -67,24 +80,26 @@ final private class PayPalClient(
   )
 
   def createSubscription(checkout: PlanCheckout, user: User): Fu[PayPalSubscriptionCreated] =
-    postOne[PayPalSubscriptionCreated](
-      path.subscriptions,
-      Json.obj(
-        "plan_id"   -> config.monthlyPlanId,
-        "custom_id" -> user.id,
-        "plan" -> Json.obj(
-          "billing_cycles" -> Json.arr(
-            Json.obj(
-              "sequence"     -> 1,
-              "total_cycles" -> 0,
-              "pricing_scheme" -> Json.obj(
-                "fixed_price" -> checkout.money
+    plans.get(checkout.money.currency) flatMap { plan =>
+      postOne[PayPalSubscriptionCreated](
+        path.subscriptions,
+        Json.obj(
+          "plan_id"   -> plan.id.value,
+          "custom_id" -> user.id,
+          "plan" -> Json.obj(
+            "billing_cycles" -> Json.arr(
+              Json.obj(
+                "sequence"     -> 1,
+                "total_cycles" -> 0,
+                "pricing_scheme" -> Json.obj(
+                  "fixed_price" -> checkout.money
+                )
               )
             )
           )
         )
       )
-    )
+    }
 
   def cancelSubscription(sub: PayPalSubscription): Funit =
     postOneNoResponse(
@@ -102,6 +117,51 @@ final private class PayPalClient(
 
   def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
     getOne[PayPalEvent](s"${path.events}/$id")
+
+  private val plansPerPage = 20
+
+  def getPlans(page: Int = 1): Fu[List[PayPalPlan]] =
+    get(s"${path.plans}?product_id=$patronMonthProductId&page_size=$plansPerPage&page=$page") {
+      (__ \ "plans").read[List[PayPalPlan]]
+    }.flatMap { plans =>
+      if (plans.size == plansPerPage) getPlans(page + 1).map(plans ::: _)
+      else fuccess(plans)
+    }.map(_.filter(_.active))
+
+  def createPlan(currency: Currency): Fu[PayPalPlan] =
+    postOne[PayPalPlan](
+      path.plans,
+      Json.obj(
+        "product_id"  -> patronMonthProductId,
+        "name"        -> s"Monthly Patron $currency",
+        "description" -> s"Support Lichess and get Patron wings. The subscription is renewed every month. Currency: $currency",
+        "status"      -> "ACTIVE",
+        "billing_cycles" -> Json.arr(
+          Json.obj(
+            "frequency" -> Json.obj(
+              "interval_unit"  -> "MONTH",
+              "interval_count" -> 1
+            ),
+            "tenure_type"  -> "REGULAR",
+            "sequence"     -> 1,
+            "total_cycles" -> 0,
+            "pricing_scheme" -> Json.obj(
+              "fixed_price" -> Json.obj(
+                "value"         -> "1",
+                "currency_code" -> currency.getCurrencyCode
+              )
+            )
+          )
+        ),
+        "payment_preferences" -> Json.obj(
+          "auto_bill_outstanding"     -> true,
+          "payment_failure_threshold" -> 3
+        )
+      )
+    )
+
+  private val fullResponse = (ws: StandaloneWSRequest) =>
+    ws.addHttpHeaders("Prefer" -> "return=representation")
 
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
     get[A](url) dmap some recover { case _: NotFoundException =>
@@ -131,7 +191,8 @@ final private class PayPalClient(
     ws.url(s"${config.endpoint}/$url")
       .withHttpHeaders(
         "Authorization" -> s"Bearer $bearer",
-        "Content-Type"  -> "application/json"
+        "Content-Type"  -> "application/json",
+        "Prefer"        -> "return=representation" // important for plans
       )
   }
 
@@ -188,9 +249,7 @@ object PayPalClient {
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: config.Secret,
-      products: ProductIds,
-      monthlyPlanId: String
+      @ConfigName("keys.secret") secretKey: config.Secret
   )
   implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
   implicit private[plan] val payPalConfigLoader = AutoConfig.loader[Config]

@@ -4,7 +4,7 @@ import java.text.NumberFormat
 import java.util.{ Currency, Locale }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsArray, JsObject }
 
 import lila.user.User
 
@@ -208,4 +208,14 @@ case class PayPalEvent(id: PayPalEventId, event_type: String, resource_type: Str
   def tpe         = event_type
   def resourceTpe = resource_type
   def resourceId  = resource str "id"
+}
+
+case class PayPalPlanId(value: String) extends AnyVal with StringValue
+case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cycles: JsArray) {
+  def active = status == "ACTIVE"
+  val currency = for {
+    cycle   <- billing_cycles.value.headOption
+    pricing <- cycle obj "pricing_scheme"
+    price   <- pricing.get[PayPalAmount]("fixed_price")(JsonHandlers.payPal.AmountReads)
+  } yield price.money.currency
 }
