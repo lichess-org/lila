@@ -2,7 +2,7 @@ package lila.plan
 
 import play.api.libs.json._
 
-final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonHandlers._
 
@@ -36,25 +36,25 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
     }
   }
 
-  def payPal(js: JsValue): Funit = ~ {
+  def payPal(js: JsValue): Funit = {
     def log = logger branch "payPal.webhook"
-    for {
-      id   <- js str "id"
-      tpe  <- js str "event_type"
-      data <- js obj "resource"
-    } yield {
-      println(data)
-      log.debug(s"$tpe $id ${Json.stringify(data).take(100)}")
-      tpe match {
-        case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
-        // {
-        //   for {
-        //     userId <- data.str("custom_id")
-        //     subId  <- data.str("id")
-        //   } yield api.paypalSubscriptionActivated(PayPalSubscriptionId(subId), userId)
-        // } | fufail(s"Invalid PayPal webhook $data")
-        case _ => funit
-      }
+    import JsonHandlers.payPal._
+    js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
+      case None =>
+        log.warn(s"Forged event ${js str "id"} ${Json.stringify(js).take(2000)}")
+        funit
+      case Some(event) =>
+        log.info(
+          s"${event.tpe}: ${event.id} / ${event.resourceTpe}: ${event.resourceId} / ${Json.stringify(event.resource).take(2000)}"
+        )
+        event.tpe match {
+          case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
+          case "BILLING.SUBSCRIPTION.CANCELLED" =>
+            event.resourceId.map(PayPalSubscriptionId) ?? api.payPal.subscriptionUser flatMap {
+              _ ?? api.cancel
+            }
+          case _ => funit
+        }
     }
   }
 

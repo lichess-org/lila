@@ -4,6 +4,7 @@ import java.text.NumberFormat
 import java.util.{ Currency, Locale }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
+import play.api.libs.json.JsObject
 
 import lila.user.User
 
@@ -201,3 +202,10 @@ case class PayPalPayer(payer_id: PayPalPayerId, address: Option[PayPalAddress]) 
   def id = payer_id
 }
 case class PayPalAddress(country_code: Option[Country])
+
+case class PayPalEventId(value: String) extends AnyVal with StringValue
+case class PayPalEvent(id: PayPalEventId, event_type: String, resource_type: String, resource: JsObject) {
+  def tpe         = event_type
+  def resourceTpe = resource_type
+  def resourceId  = resource str "id"
+}

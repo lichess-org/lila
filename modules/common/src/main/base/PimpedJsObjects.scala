@@ -89,6 +89,11 @@ final class PimpedJsValue(private val js: JsValue) extends AnyVal {
       (obj \ key).asOpt[JsObject]
     }
 
+  def get[A: Reads](key: String): Option[A] =
+    js.asOpt[JsObject] flatMap { obj =>
+      (js \ key).asOpt[A]
+    }
+
   def arr(key: String): Option[JsArray] =
     js.asOpt[JsObject] flatMap { obj =>
       (obj \ key).asOpt[JsArray]

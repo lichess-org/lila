@@ -79,7 +79,7 @@ final class Env(
 
   lazy val api: PlanApi = wire[PlanApi]
 
-  lazy val webhookHandler = wire[WebhookHandler]
+  lazy val webhook = wire[PlanWebhook]
 
   private lazy val expiration = new Expiration(
     userRepo,

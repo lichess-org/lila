@@ -188,6 +188,8 @@ final class PlanApi(
 
   object payPal {
 
+    def getEvent = payPalClient.getEvent _
+
     def onLegacyCharge(ipn: PlanForm.Ipn, ip: IpAddress, key: String): Funit = for {
       money      <- ipn.money.fold[Fu[Money]](fufail(s"Invalid paypal charge ${ipn.txnId}"))(fuccess)
       pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
@@ -385,6 +387,12 @@ final class PlanApi(
           }
         }
     } yield ()
+
+    def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
+      subscriptionIdPatron(id) flatMap { _.map(_.id.value) ?? userRepo.byId }
+
+    private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
+      patronColl.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
   }
 
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit = {

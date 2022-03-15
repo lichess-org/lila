@@ -35,6 +35,7 @@ final private class PayPalClient(
     val orders        = "v2/checkout/orders"
     val subscriptions = "v1/billing/subscriptions"
     val token         = "v1/oauth2/token"
+    val events        = "v1/notifications/webhooks-events"
   }
 
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
@@ -98,6 +99,9 @@ final private class PayPalClient(
     getOne[PayPalSubscription](s"${path.subscriptions}/$id") recover {
       case CantParseException(json, _) if json.str("status").has("CANCELLED") => none
     }
+
+  def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
+    getOne[PayPalEvent](s"${path.events}/$id")
 
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
     get[A](url) dmap some recover { case _: NotFoundException =>

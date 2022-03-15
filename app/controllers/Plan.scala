@@ -162,9 +162,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def webhook =
     Action.async(parse.json) { req =>
       if (req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG"))
-        env.plan.webhookHandler.payPal(req.body) inject Ok("kthxbye")
+        env.plan.webhook.payPal(req.body) inject Ok("kthxbye")
       else
-        env.plan.webhookHandler.stripe(req.body) inject Ok("kthxbye")
+        env.plan.webhook.stripe(req.body) inject Ok("kthxbye")
     }
 
   def badStripeApiCall: PartialFunction[Throwable, Result] = { case e: StripeException =>
