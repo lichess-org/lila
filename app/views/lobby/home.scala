@@ -210,13 +210,29 @@ object home {
        main(
         cls := List(
           "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
-          "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
-        div(cls := "lobby")(
-              a(cls := "blue", href := "/login")(trans.signIn())
-            )
+        div(cls := "lobby__app")(
+          div(cls := "lobby__start")(
+
+              a(
+              href := "/login",
+              cls := List(
+                "button" -> true,
+              ),
+              trans.signIn()
+            ),
+
+            a(
+              href := "/signup",
+              cls := List(
+                "button button-red" -> true,
+              ),
+              trans.signUp()
+            ),
+          )
+            ),
+
       )
      }
     }
