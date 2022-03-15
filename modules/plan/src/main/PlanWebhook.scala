@@ -22,6 +22,7 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
           name <- event str "type"
           data <- (event \ "data" \ "object").asOpt[JsObject]
         } yield {
+          lila.mon.plan.webhook("stripe", name).increment()
           log.debug(s"$name $id ${Json.stringify(data).take(100)}")
           name match {
             case "customer.subscription.deleted" =>
@@ -44,6 +45,7 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
         log.warn(s"Forged event ${js str "id"} ${Json.stringify(js).take(2000)}")
         funit
       case Some(event) =>
+        lila.mon.plan.webhook("payPal", event.tpe).increment()
         log.info(
           s"${event.tpe}: ${event.id} / ${event.resourceTpe}: ${event.resourceId} / ${Json.stringify(event.resource).take(2000)}"
         )

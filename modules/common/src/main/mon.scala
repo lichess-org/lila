@@ -438,6 +438,8 @@ object mon {
     val goal    = gauge("plan.goal").withoutTags()
     val current = gauge("plan.current").withoutTags()
     val percent = gauge("plan.percent").withoutTags()
+    def webhook(service: String, tpe: String) =
+      counter("plan.webhook").withTags(Map("service" -> service, "tpe" -> tpe))
     object charge {
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
