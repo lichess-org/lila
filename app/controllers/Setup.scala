@@ -63,7 +63,7 @@ final class Setup(
     }
 
   def ai = OpenBody { implicit ctx =>
-    NoBot {
+    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
         implicit val req = ctx.body
         forms.ai
@@ -86,7 +86,7 @@ final class Setup(
               }
           )
       }(rateLimitedFu)
-    }
+    }(rateLimitedFu)
   }
 
   def friendForm(userId: Option[String]) =
