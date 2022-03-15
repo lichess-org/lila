@@ -12,6 +12,7 @@
   <string name="teachersX">Преподаватели: %s</string>
   <string name="newClass">Новый класс</string>
   <string name="closeClass">Закрыть класс</string>
+  <string name="removedByX">Исключён пользователем %s</string>
   <string name="reopen">Открыть снова</string>
   <string name="removeStudent">Удалить ученика</string>
   <string name="removedStudents">Удалён</string>
@@ -96,6 +97,7 @@
   <string name="na">Не применимо</string>
   <string name="overview">Просмотр</string>
   <string name="news">Новости</string>
+  <string name="classNews">Новости класса</string>
   <string name="editNews">Изменить новость</string>
   <string name="notifyAllStudents">Известить всех учеников</string>
   <string name="nothingHere">Здесь пока ничего нет.</string>
@@ -107,4 +109,14 @@
   <string name="youAcceptedThisInvitation">Вы приняли это приглашение.</string>
   <string name="youDeclinedThisInvitation">Вы отклонили это приглашение.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
+  <string name="createMultipleAccounts">Создать несколько Lichess аккаунтов одновременно</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Также вы можете %s чтобы, создать несколько аккаунтов Lichess из списка учеников.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">используйте эту форму</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Обратите внимание, что в классе может быть до %1$s учеников. Если этого мало то, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">создайте больше классов</string>
+  <string name="studentsRealNamesOnePerLine">Настоящие имена учеников, по одному на каждой строке</string>
+  <string name="xisNowAStudentOfTheClass">%s теперь ученик этого класса</string>
+  <string name="anInvitationHasBeenSentToX">Приглашение пользователю %s было отправлено</string>
+  <string name="xAlreadyHasAPendingInvitation">Вы уже отправили приглашение %s</string>
+  <string name="xIsAKidAccountWarning">%1$s детский аккаунт и не может получить ваше сообщение. Вам нужно передать им ссылку на приглашение вручную: %2$s</string>
 </resources>

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Korleis kan eg bli moderator?</string>
   <string name="youCannotApply">Det er ikkje mogleg å søke om å bli moderator. Ser vi nokon vi trur kan bli gode moderatorar kontaktar vi dei direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondansesjakk annleis enn vanleg sjakk?</string>
+  <string name="pleaseReadFairPlayPage">Les vår %s for meir informasjon</string>
+  <string name="fairPlayPage">side om fair play</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess er bruk av opningsbok tillaten i korrespondansesjakk, men ikkje i vanleg sjakk. Bruk av maskinanalyse er derimot forboden og vil få konsekvensar i form av merknad for maskinfusk. Sjølv om ICCF tillèt maskinanalyse i korrespondansesjakk, gjeld ikke dette på Lichess.</string>
   <string name="gameplay">Spelforløp</string>
   <string name="howBulletBlitzEtcDecided">Kor går skiljene mellom tidskontrollane for bullet, lyn, snøgg og klassisk sjakk?</string>

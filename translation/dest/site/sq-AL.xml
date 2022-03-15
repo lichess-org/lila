@@ -345,7 +345,7 @@
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
-  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PNG</string>
+  <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>

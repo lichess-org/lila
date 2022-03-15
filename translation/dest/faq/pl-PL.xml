@@ -28,6 +28,8 @@
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
   <string name="isCorrespondenceDifferent">Czym różnią się szachy korespondencyjne od zwykłych szachów?</string>
+  <string name="pleaseReadFairPlayPage">By dowiedzieć się więcej, przeczytaj %s</string>
+  <string name="fairPlayPage">stronę o fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, główną różnicą w zasadach szachów korespondencyjnych polega na tym że jest dozwolony \"opening book\". Używanie silników nadal jest niedozwolone i będzie skutkowało flagging\'iem twojego konta. Chociaż ICCF pozwala używanie silników w szachach korespondencyjnych, Lichess nie.</string>
   <string name="gameplay">Rozgrywka</string>
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
