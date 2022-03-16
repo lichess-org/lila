@@ -72,7 +72,7 @@ export class Autoplay {
     }
   }
 
-  active(delay?: AutoplayDelay): boolean {
-    return (!delay || delay === this.delay) && !!this.timeout;
-  }
+  active = (delay?: AutoplayDelay) => (!delay || delay === this.delay) && !!this.timeout;
+
+  getDelay = () => this.delay;
 }
