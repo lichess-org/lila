@@ -93,6 +93,7 @@
   <string name="attackYourOpponentsKing">Գրոհե՛ք մրցակցի արքային այնպես, որ նրան հնարավոր չլինի պաշտպանել։</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
+  <string name="enPassant">Կողանցիկ հարված</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
   <string name="puzzles">Խնդիրներ</string>

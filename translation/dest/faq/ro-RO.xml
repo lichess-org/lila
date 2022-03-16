@@ -24,8 +24,8 @@
   <string name="howCanIBecomeModerator">Cum pot deveni un moderator?</string>
   <string name="youCannotApply">Nu este posibil să aplici pentru a deveni moderator. Dacă vedem pe cineva care credem noi ca este bun de moderator, îl vom contacta direct.</string>
   <string name="isCorrespondenceDifferent">Este șahul prin corespondență diferit față de șahul normal?</string>
-  <string name="pleaseReadFairPlayPage">Pentru mai multe informații, citiți %s noastre</string>
-  <string name="fairPlayPage">pagina de joc corect</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Pentru mai multe informații, citiți %s</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">pagina de joc corect</string>
   <string name="youCanUseOpeningBookNoEngine">Pe Lichess, diferența principală de regulament pentru șahul prin corespondență este că o carte de deschideri in șah este permisă. Utilizarea de motoare pentru a automatiza șahul sunt încă nepermise ți vor rezulta în marcharea contului tău pentru motor de asistență. Deși ICCF permite motor de asistență la șahul prin corespondență, Lichess nu permite acest lucru.</string>
   <string name="gameplay">Joc</string>
   <string name="howBulletBlitzEtcDecided">Cum sunt decise controalele de timp Bullet, Blitz și alte?</string>

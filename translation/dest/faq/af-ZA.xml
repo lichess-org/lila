@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hoe kan ek moderator word?</string>
   <string name="youCannotApply">Dit is nie moontlik om aansoek te doen om moderator te word nie. As ons iemand sien wat volgens ons goed sal wees as moderator, sal ons hulle direk kontak.</string>
   <string name="isCorrespondenceDifferent">Is korrespondensie anders as normale skaak?</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Lees asb. ons %s vir meer inligting</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">bladsy oor regverdige spel</string>
   <string name="youCanUseOpeningBookNoEngine">Op Lichess is die belangrikste verskil in reëls vir korrespondensie-skaak dat \'n openingsboek toegelaat word. Die gebruik van enjins is steeds verbode en sal daartoe gelei word dat dit vir enjinbystand gemerk word. Alhoewel ICCF die gebruik van enjins in korrespondensie toelaat, doen Lichess dit nie.</string>
   <string name="gameplay">Spel</string>
   <string name="howBulletBlitzEtcDecided">Hoe word daar besluit oor Bullet, Blitz en ander tydsbeheer?</string>

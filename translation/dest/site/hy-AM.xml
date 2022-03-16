@@ -471,7 +471,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
-  <string name="puzzles">խնդիրներ</string>
+  <string name="puzzles">Խնդիրներ</string>
   <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>

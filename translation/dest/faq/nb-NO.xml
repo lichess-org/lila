@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hvordan kan jeg bli moderator?</string>
   <string name="youCannotApply">Det er ikke mulig å søke om å bli moderator. Hvis vi ser noen som vi tror kan gjøre en god jobb som moderator, så kontakter vi vedkommende direkte.</string>
   <string name="isCorrespondenceDifferent">Er fjernsjakk forskjellig fra vanlig sjakk?</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Les %s for mer informasjon</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">siden vår om sportslig opptreden</string>
   <string name="youCanUseOpeningBookNoEngine">Hos Lichess er den viktigste regelforskjellen for fjernsjakk at det er lov å bruke åpningsbøker. Maskinanalyse er fremdeles forbudt og vil føre til at man får anmerkning for maskinbistand. Selv om ICCF tillater bruk av maskinanalyse i fjernsjakk, så er ikke det tilfellet hos Lichess.</string>
   <string name="gameplay">Spillforløp</string>
   <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
