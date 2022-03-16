@@ -26,7 +26,7 @@ final class ChatTimeout(
         coll.insert
           .one(
             $doc(
-              "_id"       -> makeId,
+              "_id"       -> (lila.common.ThreadLocalRandom nextString 8),
               "chat"      -> chat.id,
               "mod"       -> mod.id,
               "user"      -> user.id,
@@ -59,10 +59,6 @@ final class ChatTimeout(
       case objs =>
         coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
     }
-
-  private val idSize = 8
-
-  private def makeId = lila.common.ThreadLocalRandom nextString idSize
 }
 
 object ChatTimeout {
