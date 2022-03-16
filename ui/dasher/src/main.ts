@@ -6,7 +6,7 @@ import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 const patch = init([classModule, attributesModule]);
 
-export default function LichessDasher(element: Element, opts: DasherOpts) {
+export default async function LichessDasher(element: Element, opts: DasherOpts) {
   let vnode: VNode, ctrl: DasherCtrl;
 
   const redraw: Redraw = () => {
@@ -15,9 +15,8 @@ export default function LichessDasher(element: Element, opts: DasherOpts) {
 
   redraw();
 
-  return xhr.json('/dasher').then(data => {
-    ctrl = makeCtrl(opts, data, redraw);
-    redraw();
-    return ctrl;
-  });
+  const data = await xhr.json('/dasher');
+  ctrl = makeCtrl(opts, data, redraw);
+  redraw();
+  return ctrl;
 }
