@@ -13,13 +13,13 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.2"  % "compile"
-  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.5.3"
+  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.6.0"
   val galimatias  = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.11.1"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
-  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.2.11"  % Test
+  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.2.11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
   val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.14.1" % Test
   val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
