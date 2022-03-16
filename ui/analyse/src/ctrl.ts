@@ -398,9 +398,7 @@ export default class AnalyseCtrl {
     } else this.jump(path);
   };
 
-  private canJumpTo(path: Tree.Path): boolean {
-    return !this.study || this.study.canJumpTo(path);
-  }
+  canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
   userJumpIfCan(path: Tree.Path): void {
     if (this.canJumpTo(path)) this.userJump(path);

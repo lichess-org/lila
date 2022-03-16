@@ -1,20 +1,26 @@
 import AnalyseCtrl from './ctrl';
 
-import * as control from './control';
-
 export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
-  private timeout: number | undefined;
+  private timeout: Timeout | undefined;
   private delay: AutoplayDelay | undefined;
+  private redrawInterval: Timeout | undefined;
+
+  lastMoveAt: number | undefined;
 
   constructor(private ctrl: AnalyseCtrl) {}
 
   private move(): boolean {
-    if (control.canGoForward(this.ctrl)) {
-      control.next(this.ctrl);
-      this.ctrl.redraw();
-      return true;
+    const child = this.ctrl.node.children[0];
+    if (child) {
+      const path = this.ctrl.path + child.id;
+      if (this.ctrl.canJumpTo(path)) {
+        this.ctrl.jump(path);
+        this.lastMoveAt = performance.now();
+        this.ctrl.redraw();
+        return true;
+      }
     }
     this.stop();
     this.ctrl.redraw();
@@ -52,16 +58,23 @@ export class Autoplay {
   }
 
   start(delay: AutoplayDelay): void {
-    this.delay = delay;
     this.stop();
+    this.delay = delay;
     this.schedule();
+    if (delay == 'realtime') this.redrawInterval = setInterval(this.ctrl.redraw, 100);
   }
 
   stop(): void {
+    this.delay = undefined;
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = undefined;
     }
+    if (this.redrawInterval) {
+      clearInterval(this.redrawInterval);
+      this.redrawInterval = undefined;
+    }
+    this.lastMoveAt = undefined;
   }
 
   toggle(delay: AutoplayDelay): void {
