@@ -11,7 +11,7 @@ import lila.user.User
 
 object atom {
 
-  import views.html.base.atom.atomDate
+  import views.html.base.atom.{ atomDate, category }
   import views.html.ublog.blog.urlOfBlog
   import views.html.ublog.post.{ thumbnail, urlOfPost }
 
@@ -41,10 +41,6 @@ object atom {
       renderPost(post, authorOfBlog(post.blog))
     }
 
-  private val termAttr   = attr("term")
-  private val labelAttr  = attr("label")
-  private val schemeAttr = attr("scheme")
-
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
       tag("id")(post._id),
@@ -56,10 +52,10 @@ object atom {
       ),
       tag("title")(post.title),
       post.topics.map { topic =>
-        tag("category")(
-          termAttr := topic.url,
-          labelAttr := topic.value,
-          schemeAttr := s"$netBaseUrl${routes.Ublog.topic(topic.url)}"
+        category(
+          term = topic.url,
+          label = topic.value,
+          scheme = s"$netBaseUrl${routes.Ublog.topic(topic.url)}".some
         )
       },
       tag("content")(tpe := "html")(
