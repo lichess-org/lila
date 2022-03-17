@@ -38,8 +38,8 @@
   <string name="swissVsArenaQ">Wänn nach \"Schweizer System\" anstatt Arena Turnier?</string>
   <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliichi Aazahl Schpiil und gliichi Schpiller träffed nur eimal ufenand. Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
-  <string name="pointsCalculationA">En Sied git 1 Punkt und es Remis en halbe Punkt. 
-Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
+  <string name="pointsCalculationA">Für en Sieg gits 1 Punkt und für es Remis en halbe Punkt. 
+Hät en Schpiller mal kein Gägner, gits für die Rundi es Freilos ( \"bye\" ) und 1 Gratispunkt.</string>
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
