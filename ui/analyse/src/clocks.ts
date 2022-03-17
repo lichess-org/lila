@@ -24,7 +24,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     ctrl.autoplay.lastMoveAt;
 
   if (lastMoveAt) {
-    const spent = (performance.now() - lastMoveAt) / 10;
+    const spent = (Date.now() - lastMoveAt) / 10;
     const i = isWhiteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }

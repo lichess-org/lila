@@ -17,7 +17,7 @@ export class Autoplay {
       const path = this.ctrl.path + child.id;
       if (this.ctrl.canJumpTo(path)) {
         this.ctrl.jump(path);
-        this.lastMoveAt = performance.now();
+        this.lastMoveAt = Date.now();
         this.ctrl.redraw();
         return true;
       }
