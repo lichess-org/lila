@@ -27,54 +27,59 @@ final class UblogRank(
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
   def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
-    colls.post
-      .aggregateOne() { framework =>
-        import framework._
-        Match($id(postId)) -> List(
-          PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
-          UnwindField("blog"),
-          Project(
-            $doc(
-              "tier"     -> "$blog.tier",
-              "likes"    -> $doc("$size" -> "$likers"),
-              "topics"   -> "$topics",
-              "at"       -> "$lived.at",
-              "language" -> true,
-              "title"    -> true
+    colls.post.update.one(
+      $id(postId),
+      if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
+    ) flatMap { res =>
+      colls.post
+        .aggregateOne() { framework =>
+          import framework._
+          Match($id(postId)) -> List(
+            PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
+            UnwindField("blog"),
+            Project(
+              $doc(
+                "tier"     -> "$blog.tier",
+                "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
+                "topics"   -> "$topics",
+                "at"       -> "$lived.at",
+                "language" -> true,
+                "title"    -> true
+              )
             )
           )
-        )
-      }
-      .map { docOption =>
-        for {
-          doc      <- docOption
-          id       <- doc.getAsOpt[UblogPost.Id]("_id")
-          likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
-          topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
-          liveAt   <- doc.getAsOpt[DateTime]("at")
-          tier     <- doc int "tier"
-          language <- doc.getAsOpt[Lang]("language")
-          title    <- doc string "title"
-        } yield (id, topics, likes, liveAt, tier, language, title)
-      }
-      .flatMap {
-        _.fold(fuccess(UblogPost.Likes(v ?? 1))) {
-          case (id, topics, prevLikes, liveAt, tier, language, title) =>
-            val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
+        }
+        .map { docOption =>
+          for {
+            doc      <- docOption
+            id       <- doc.getAsOpt[UblogPost.Id]("_id")
+            likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
+            topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
+            liveAt   <- doc.getAsOpt[DateTime]("at")
+            tier     <- doc int "tier"
+            language <- doc.getAsOpt[Lang]("language")
+            title    <- doc string "title"
+          } yield (id, topics, likes, liveAt, tier, language, title)
+        }
+        .flatMap {
+          case None                                                     => fuccess(UblogPost.Likes(0))
+          case Some((id, topics, likes, liveAt, tier, language, title)) =>
+            // Multiple updates may race to set denormalized likes and rank,
+            // but values should be approximately correct, match a real like
+            // count (though perhaps not the latest one), and any uncontended
+            // query will set the precisely correct value.
             colls.post.update.one(
               $id(postId),
               $set(
                 "likes" -> likes,
                 "rank"  -> computeRank(topics, likes, liveAt, language, tier)
-              ) ++ {
-                if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
-              }
+              )
             ) >>- {
-              if (v && tier >= UblogBlog.Tier.LOW)
+              if (res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW)
                 timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
             } inject likes
         }
-      }
+    }
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMap {
