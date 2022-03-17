@@ -4,14 +4,13 @@ import Challenge.TimeControl
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo, IdGenerator, Pov, Rematches }
+import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.memo.CacheApi
 import lila.user.User
 
 final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
     gameRepo: GameRepo,
-    idGenerator: IdGenerator,
     rematches: Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -40,14 +39,13 @@ final class ChallengeMaker(
   // pov of the challenger
   private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] = for {
     initialFen <- gameRepo initialFen pov.game
-    nextGameId <- idGenerator.game
+    nextGameId <- rematches.offer(pov.ref)
   } yield {
     val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
       case (Some(clock), _) => TimeControl.Clock(clock.config)
       case (_, Some(days))  => TimeControl.Correspondence(days)
       case _                => TimeControl.Unlimited
     }
-    rematches.put(pov.gameId, Rematches.Offered(nextGameId))
     Challenge.make(
       variant = pov.game.variant,
       initialFen = initialFen,
