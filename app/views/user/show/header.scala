@@ -270,32 +270,26 @@ object header {
         )
     ),
     notes.isEmpty option div("No note yet"),
-    notes
-      .filter { n =>
-        ctx.me.exists(n.isFrom) ||
-        isGranted(_.Admin) ||
-        (!n.dox && isGranted(_.ModNote))
-      }
-      .map { note =>
-        div(cls := "note")(
-          p(cls := "note__text")(richText(note.text, expandImg = false)),
-          p(cls := "note__meta")(
-            userIdLink(note.from.some),
+    notes.map { note =>
+      div(cls := "note")(
+        p(cls := "note__text")(richText(note.text, expandImg = false)),
+        p(cls := "note__meta")(
+          userIdLink(note.from.some),
+          br,
+          note.dox option "dox ",
+          momentFromNow(note.date),
+          (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,
-            note.dox option "dox ",
-            momentFromNow(note.date),
-            (ctx.me.exists(note.isFrom) && !note.mod) option frag(
-              br,
-              postForm(action := routes.User.deleteNote(note._id))(
-                submitButton(
-                  cls := "button-empty button-red confirm button text",
-                  style := "float:right",
-                  dataIcon := ""
-                )("Delete")
-              )
+            postForm(action := routes.User.deleteNote(note._id))(
+              submitButton(
+                cls := "button-empty button-red confirm button text",
+                style := "float:right",
+                dataIcon := ""
+              )("Delete")
             )
           )
         )
-      }
+      )
+    }
   )
 }

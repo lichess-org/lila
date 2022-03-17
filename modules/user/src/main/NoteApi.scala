@@ -16,8 +16,6 @@ case class Note(
   def isFrom(user: User) = user.id == from
 }
 
-case class UserNotes(user: User, notes: List[Note])
-
 final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
