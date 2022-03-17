@@ -16,7 +16,7 @@ private class PlanConfig(
     @ConfigName("collection.charge") val chargeColl: CollName,
     val stripe: StripeClient.Config,
     val oer: CurrencyApi.Config,
-    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
+    @ConfigName("payPal.ipn_key") val payPalIpnKey: Secret
 )
 
 @Module
