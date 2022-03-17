@@ -36,7 +36,7 @@ final class UblogRank(
           Project(
             $doc(
               "tier"     -> "$blog.tier",
-              "likes"    -> $doc("$size" -> "$likers"),
+              "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
               "topics"   -> "$topics",
               "at"       -> "$lived.at",
               "language" -> true,
@@ -60,19 +60,27 @@ final class UblogRank(
       .flatMap {
         _.fold(fuccess(UblogPost.Likes(v ?? 1))) {
           case (id, topics, prevLikes, liveAt, tier, language, title) =>
-            val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
             colls.post.update.one(
               $id(postId),
-              $set(
-                "likes" -> likes,
-                "rank"  -> computeRank(topics, likes, liveAt, language, tier)
-              ) ++ {
-                if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
+              if (v) $addToSet("likers" -> user.id)
+              else $pull("likers"       -> user.id)
+            ) flatMap { res =>
+              if (res.nModified > 0) {
+                // Multiple updates may race to set denormalized likes and
+                // rank, but the values should be approximately correct and any
+                // uncontended query will restore the precisely correct value.
+                val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
+                colls.post.update.one(
+                  $id(postId),
+                  $set("likes" -> likes, "rank" -> computeRank(topics, likes, liveAt, language, tier))
+                ) >>- {
+                  if (v && tier >= UblogBlog.Tier.LOW)
+                    timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
+                } inject likes
+              } else {
+                fuccess(prevLikes)
               }
-            ) >>- {
-              if (v && tier >= UblogBlog.Tier.LOW)
-                timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
-            } inject likes
+            }
         }
       }
 
