@@ -5,29 +5,25 @@ import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, UserContext }
 
-final class ForumAccess(teamApi: lila.team.TeamApi) {
-
-  private def userBelongsToTeam(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    teamApi.belongsTo(teamId, userId)
-
-  private def userOwnsTeam(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    teamApi.leads(teamId, userId)
+final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     ctx.me ?? { me =>
       Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
-        userBelongsToTeam(teamId, me.id)
+        teamApi.belongsTo(teamId, me.id) >>& teamCached.forumAccess.get(teamId).flatMap {
+          case Team.Access.NONE    => fuFalse
+          case Team.Access.MEMBERS => fuTrue
+          case Team.Access.LEADERS => teamApi.leads(teamId, me.id)
+        }
       }
     }
 
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    ctx.me.filter(canForum) ?? { me =>
-      Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
-        userBelongsToTeam(teamId, me.id)
-      }
-    }
+    ctx.me.exists(canWriteInAnyForum) ?? isGrantedRead(categSlug)
 
-  private def canForum(u: User) =
+  private def canWriteInAnyForum(u: User) =
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
@@ -37,7 +33,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi) {
     else
       Categ.slugToTeamId(categSlug) ?? { teamId =>
         ctx.userId ?? {
-          userOwnsTeam(teamId, _)
+          teamApi.leads(teamId, _)
         }
       }
 }

@@ -15,12 +15,6 @@ private[controllers] trait ForumController { self: LilaController =>
   protected def access    = env.api.forumAccess
   protected def teamCache = env.team.cached
 
-  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
-    env.team.api.belongsTo(teamId, userId)
-
-  protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
-    env.team.api.leads(teamId, userId)
-
   protected def CategGrantWrite[A <: Result](
       categSlug: String
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
