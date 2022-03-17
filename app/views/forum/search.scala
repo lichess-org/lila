@@ -43,7 +43,7 @@ object search {
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
                     br,
-                    authorLink(view.post)
+                    bits.authorLink(view.post)
                   )
                 )
               },

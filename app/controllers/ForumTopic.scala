@@ -61,14 +61,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         OptionFuOk(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
           for {
             unsub    <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
-            canWrite <- isGrantedWrite(categSlug)
+            canWrite <- access.isGrantedWrite(categSlug)
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
             }
             form <- ctx.me.ifTrue(
               canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
-            canModCateg <- isGrantedMod(categ.slug)
+            canModCateg <- access.isGrantedMod(categ.slug)
             _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
           } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
         }
