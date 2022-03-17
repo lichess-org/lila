@@ -204,17 +204,27 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
     countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
       case Some((prevLikes, createdAt)) =>
-        val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
-        coll {
-          _.update.one(
+        coll { c =>
+          c.update.one(
             $id(studyId),
-            $set(
-              F.likes -> likes,
-              F.rank  -> Study.Rank.compute(likes, createdAt)
-            ) ++ {
-              if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)
+            if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)
+          ) flatMap { res =>
+            if (res.nModified > 0) {
+              // Multiple updates may race to set denormalized likes and rank,
+              // but the values should be approximately correct and any
+              // uncontended write will restore the precisely correct value.
+              val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
+              c.update.one(
+                $id(studyId),
+                $set(
+                  F.likes -> likes,
+                  F.rank  -> Study.Rank.compute(likes, createdAt)
+                )
+              ) inject likes
+            } else {
+              fuccess(prevLikes)
             }
-          ) inject likes
+          }
         }
     }
 
@@ -259,7 +269,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
           Project(
             $doc(
               "_id"       -> false,
-              F.likes     -> $doc("$size" -> s"$$${F.likers}"),
+              F.likes     -> $doc("$size" -> s"$$${F.likers}"), // do not use denormalized field
               F.createdAt -> true
             )
           )
