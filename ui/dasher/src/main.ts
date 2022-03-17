@@ -7,7 +7,8 @@ import { init, VNode, classModule, attributesModule } from 'snabbdom';
 const patch = init([classModule, attributesModule]);
 
 export default async function LichessDasher(element: Element, opts: DasherOpts) {
-  let vnode: VNode, ctrl: DasherCtrl;
+  let vnode: VNode,
+    ctrl: DasherCtrl | undefined = undefined;
 
   const redraw: Redraw = () => {
     vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
