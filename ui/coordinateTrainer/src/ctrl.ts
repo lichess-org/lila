@@ -162,6 +162,7 @@ export default class CoordinateTrainerCtrl {
 
   stop = () => {
     this.playing = false;
+    this.wrong = false;
     this.updateScoreList();
     requestAnimationFrame(() => this.updateCharts());
     this.redraw();

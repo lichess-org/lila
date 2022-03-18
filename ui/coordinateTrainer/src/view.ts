@@ -197,7 +197,7 @@ function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
           },
           on: { keyup: ctrl.onKeyboardInputKeyUp },
         }),
-        h('strong', 'Press <enter> to start'),
+        ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
       ]
     ),
     ctrl.coordinateInputMethod === 'buttons'
