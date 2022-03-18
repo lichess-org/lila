@@ -10,8 +10,8 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
 ) {
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    ctx.me ?? { me =>
-      Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
+    Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
+      ctx.me ?? { me =>
         teamApi.belongsTo(teamId, me.id) >>& teamCached.forumAccess.get(teamId).flatMap {
           case Team.Access.NONE    => fuFalse
           case Team.Access.MEMBERS => fuTrue
