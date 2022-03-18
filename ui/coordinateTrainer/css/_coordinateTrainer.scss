@@ -245,8 +245,8 @@ rect.current-target {
   width: 100%;
   grid-template-columns: repeat(8, 1fr);
   button.file-rank {
-    //TODO
     height: 3em;
     border-width: 3px;
+    font-weight: bold;
   }
 }

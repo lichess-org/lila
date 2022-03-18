@@ -27,7 +27,7 @@ export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
   colorChoice: ColorChoice;
   config: CoordinateTrainerConfig;
-  coordinateInputMethod: 'text' | 'buttons' = 'text';
+  coordinateInputMethod: 'text' | 'buttons';
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth: boolean;
@@ -52,6 +52,9 @@ export default class CoordinateTrainerCtrl {
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.modeScores = config.scores;
+
+    // Assume a smaller viewport means mobile, and default to buttons
+    this.coordinateInputMethod = window.innerWidth >= 980 ? 'text' : 'buttons';
 
     this.isAuth = document.body.hasAttribute('data-user');
     this.trans = lichess.trans(this.config.i18n);
