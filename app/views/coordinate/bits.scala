@@ -27,6 +27,7 @@ object bits {
   )
 
   private val i18nKeys = List(
+    trans.coordinates.aSquareIsHighlighted,
     trans.coordinates.aSquareNameAppears,
     trans.coordinates.averageScoreAsBlackX,
     trans.coordinates.averageScoreAsWhiteX,
