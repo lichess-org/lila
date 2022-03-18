@@ -222,7 +222,7 @@ rect.current-target {
   display: flex;
   flex-direction: column;
   width: 100%;
-  row-gap: $block-gap;
+  row-gap: 1em;
 }
 
 .keyboard-container {

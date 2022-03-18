@@ -5,7 +5,6 @@ import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { ColorChoice, Mode, CoordModifier } from './interfaces';
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
-  //TODO placeholders
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
   return h(
     'div.scores',
@@ -14,7 +13,7 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
       ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
     ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
       scoreList.length
-        ? h('chart_container', [
+        ? h('div', [
             h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
             h(
               'div.user_chart',
@@ -38,7 +37,7 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
 function side(ctrl: CoordinateTrainerCtrl): VNode {
   const { trans } = ctrl;
 
-  const sideContent: VNode[] = [h('div.box', [h('h1', trans('coordinates')), ctrl.isAuth ? scoreCharts(ctrl) : null])];
+  const sideContent: MaybeVNode[] = [h('div.box', h('h1', trans('coordinates')))];
   if (!ctrl.playing) {
     sideContent.push(
       h('form.mode.buttons', [
@@ -61,11 +60,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                   },
                 },
               }),
-              h(
-                `label.mode_${mode}`,
-                { attrs: { for: `coord_mode_${mode}` } },
-                mode === 'findSquare' ? trans('findSquare') : trans('nameSquare') //TODO
-              ),
+              h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, trans(mode)),
             ])
           )
         ),
@@ -107,19 +102,17 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
   }
   if (ctrl.playing || ctrl.hasPlayed) {
     sideContent.push(
-      ...[
-        h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
-        ...(ctrl.playing
-          ? [
-              h('div.box.current-status', [
-                h('h1', trans('time')),
-                h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
-              ]),
-            ]
-          : []),
-      ]
+      h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
+      ctrl.playing
+        ? h('div.box.current-status', [
+            h('h1', trans('time')),
+            h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
+          ])
+        : null
     );
   }
+
+  if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));
 
   return h('div.side', sideContent);
 }

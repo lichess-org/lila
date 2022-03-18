@@ -199,6 +199,8 @@ export default class CoordinateTrainerCtrl {
     sparkline(svgElement, this.modeScores[this.mode][color], { interactive: true });
   };
 
+  hasModeScores = (): boolean => this.modeScores[this.mode].white.length + this.modeScores[this.mode].black.length > 0;
+
   handleCorrect = () => {
     this.score++;
     this.advanceCoordinates();
