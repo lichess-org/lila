@@ -13,21 +13,18 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
       ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
     ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
       scoreList.length
-        ? h('div', [
+        ? h('div.color-chart', [
             h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
-            h(
-              'div.user_chart',
-              h('svg.sparkline', {
-                attrs: {
-                  height: '80px',
-                  'stroke-width': '3',
-                  id: `${color}-sparkline`,
-                },
-                hook: {
-                  insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color),
-                },
-              })
-            ),
+            h('svg.sparkline', {
+              attrs: {
+                height: '80px',
+                'stroke-width': '3',
+                id: `${color}-sparkline`,
+              },
+              hook: {
+                insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color),
+              },
+            }),
           ])
         : null
     )
@@ -38,6 +35,17 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
   const { trans } = ctrl;
 
   const sideContent: MaybeVNode[] = [h('div.box', h('h1', trans('coordinates')))];
+  if (ctrl.playing || ctrl.hasPlayed) {
+    sideContent.push(
+      h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
+      ctrl.playing
+        ? h('div.box.current-status', [
+            h('h1', trans('time')),
+            h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
+          ])
+        : null
+    );
+  }
   if (!ctrl.playing) {
     sideContent.push(
       h('form.mode.buttons', [
@@ -100,18 +108,6 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
       ])
     );
   }
-  if (ctrl.playing || ctrl.hasPlayed) {
-    sideContent.push(
-      h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
-      ctrl.playing
-        ? h('div.box.current-status', [
-            h('h1', trans('time')),
-            h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
-          ])
-        : null
-    );
-  }
-
   if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));
 
   return h('div.side', sideContent);

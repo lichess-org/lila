@@ -55,10 +55,6 @@
     text-align: center;
   }
 
-  p {
-    margin-top: 1em;
-  }
-
   &.current-status {
     width: 100%;
     display: flex;
@@ -97,6 +93,12 @@ form.color {
   .color_black i {
     background-image: url(../piece/cburnett/bK.svg);
   }
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
 }
 
 $current-opacity: 0.8;
