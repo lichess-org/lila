@@ -569,18 +569,23 @@ final class Mod(
 
   def apiUserLog(username: String) =
     SecureScoped(_.ModLog) { implicit req => me =>
+      import lila.common.Json._
       env.user.repo named username flatMap {
         _ ?? { user =>
-          env.mod.logApi.userHistory(user.id) map { logs =>
-            import lila.common.Json._
-            JsonOk(Json.arr {
-              logs.map { log =>
+          for {
+            logs      <- env.mod.logApi.userHistory(user.id)
+            notes     <- env.socialInfo.fetchNotes(user, me.user)
+            notesJson <- lila.user.JsonView.notes(notes)(env.user.lightUserApi)
+          } yield JsonOk(
+            Json.obj(
+              "logs" -> Json.arr(logs.map { log =>
                 Json
                   .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
                   .add("details", log.details)
-              }
-            })
-          }
+              }),
+              "notes" -> notesJson
+            )
+          )
         }
       }
     }
