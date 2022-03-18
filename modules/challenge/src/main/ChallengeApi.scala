@@ -37,11 +37,10 @@ final class ChallengeApi(
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
       case false =>
-        repo.like(c).flatMap { _ ?? repo.cancel } >>
-          repo.insert(c) >>- {
-            uncacheAndNotify(c)
-            Bus.publish(Event.Create(c), "challenge")
-          } inject true
+        repo.insertIfMissing(c) >>- {
+          uncacheAndNotify(c)
+          Bus.publish(Event.Create(c), "challenge")
+        } inject true
     }
 
   def byId = repo byId _
