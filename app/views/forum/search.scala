@@ -6,10 +6,13 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 
 import controllers.routes
+import lila.team.Team
 
 object search {
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView])(implicit ctx: Context) = {
+  def apply(text: String, pager: Paginator[lila.forum.PostView], myTeamIds: Set[Team.ID])(implicit
+      ctx: Context
+  ) = {
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -29,22 +32,32 @@ object search {
           if (pager.nbResults > 0)
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.map { view =>
-                tr(cls := "paginated")(
-                  td(
-                    a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                      view.categ.name,
-                      " - ",
-                      view.topic.name,
-                      "#",
-                      view.post.number
-                    ),
-                    p(shorten(view.post.text, 200))
-                  ),
+                val info =
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
                     br,
                     bits.authorLink(view.post)
                   )
+                tr(cls := "paginated")(
+                  if (view.categ.team.forall(myTeamIds.contains))
+                    frag(
+                      td(
+                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                          view.categ.name,
+                          " - ",
+                          view.topic.name,
+                          "#",
+                          view.post.number
+                        ),
+                        p(shorten(view.post.text, 200))
+                      ),
+                      info
+                    )
+                  else
+                    frag(
+                      td("[You can't access this team forum post]"),
+                      info
+                    )
                 )
               },
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)

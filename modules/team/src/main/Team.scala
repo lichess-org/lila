@@ -83,6 +83,7 @@ object Team {
 
     def toArray: Array[String] = value split IdsStr.separator
     def toList                 = value.nonEmpty ?? toArray.toList
+    def toSet                  = value.nonEmpty ?? toArray.toSet
   }
 
   object IdsStr {
