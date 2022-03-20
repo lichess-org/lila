@@ -105,5 +105,8 @@
   <string name="newsEdit3">Відокремте новини через ---
 Вони будуть відображені в горизонтальну лінію.</string>
   <string name="invite">Запросити</string>
+  <string name="youAcceptedThisInvitation">Ви прийняли запрошення.</string>
+  <string name="youDeclinedThisInvitation">Ви відхилили запрошення.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
+  <string name="createMultipleAccounts">Створюйте кілька облікових записів Lichess одночасно</string>
 </resources>
