@@ -11,6 +11,7 @@ import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
 case class User(
     id: String,
     username: String,
+    dep: String,
     perfs: Perfs,
     count: Count,
     enabled: Boolean,
@@ -260,6 +261,7 @@ object User {
   object BSONFields {
     val id                    = "_id"
     val username              = "username"
+    val dep                   = "dep"
     val perfs                 = "perfs"
     val count                 = "count"
     val enabled               = "enabled"
@@ -314,6 +316,7 @@ object User {
       User(
         id = r str id,
         username = r str username,
+        dep = "Informatique", //r str dep,
         perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
           if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
           else perfs
@@ -339,6 +342,7 @@ object User {
       BSONDocument(
         id         -> o.id,
         username   -> o.username,
+        dep        -> o.dep,
         perfs      -> o.perfs,
         count      -> o.count,
         enabled    -> o.enabled,
