@@ -64,8 +64,10 @@ als villiicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</s
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 
 Doch er chann jederziit wieder is Turnier iischtiige.</string>
   <string name="lateJoinQ">Chönd Schpiller au schpöter is Turnier iischtiige?</string>
-  <string name="lateJoinA">Ja - sogar dänn no, wänn bereits die halbi Aazahl vu de Turnierrunde scho gschpillt sind! So chann mer z.B. bi me Turnier mit 11 Runde no iistiige bevor die 6. Rundi startet oder bi 12 Runde bevor die 7. Rundi startet. 
- Jedem \"Spaatiistiger\" wird en halbe Punkt guet-gschribe, obwohl er mehreri Runde verpasst hät.</string>
+  <string name="lateJoinA">Chann mer au schpöter no in es Turnier iischtiige?
+Ja - sogar dänn no, wänn bereits die halb Aazahl Runde scho gschpillt sind! So chann mer z.B. in es 
+11-Runde-Turnier no iischtiige vor die 6. Rundi startet oder bi 12 Runde, bevor die 7. Rundi startet. 
+Jedem \"Schpaatiistiiger\" wird en halbe Punkt guet-gschribe, obwohl er mehreri Runde verpasst hät.</string>
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - sie sind nur e zusätzlichi Spillmöglichkeit.</string>
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
