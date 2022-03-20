@@ -12,6 +12,7 @@
   <string name="teachersX">Викладачі: %s</string>
   <string name="newClass">Новий урок</string>
   <string name="closeClass">Закрити урок</string>
+  <string name="removedByX">Видалений %s</string>
   <string name="reopen">Відкрити знову</string>
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
@@ -94,6 +95,8 @@
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
   <string name="winrate">Відсоток перемог</string>
   <string name="na">Недоступно</string>
+  <string name="news">Новини</string>
+  <string name="classNews">Новини класу</string>
   <string name="editNews">Редагувати новини</string>
   <string name="notifyAllStudents">Сповістити всіх учнів</string>
   <string name="nothingHere">Тут нічого, поки що.</string>
@@ -101,4 +104,6 @@
   <string name="newsEdit2">Додавайте останні новини зверху. Не видаляйте попередні новини.</string>
   <string name="newsEdit3">Відокремте новини через ---
 Вони будуть відображені в горизонтальну лінію.</string>
+  <string name="invite">Запросити</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
 </resources>
