@@ -3,31 +3,23 @@
 @import 'zen';
 @import 'svgAnimation';
 
-.trainer {
-  &.wrong {
-    $c-wrong: $c-bad;
+.wrong {
+  $c-wrong: $c-bad;
 
-    .progress__bar {
-      background-color: $c-wrong;
-    }
-
-    .score {
-      color: $c-wrong !important;
-    }
-
-    .coord--current {
-      fill: $c-wrong !important;
-    }
-
-    .current-target {
-      stroke: $c-wrong;
-    }
+  .progress__bar {
+    background-color: $c-wrong;
   }
 
-  &.init {
-    .explanation {
-      @extend %page-text-shadow !optional;
-    }
+  .score {
+    color: $c-wrong !important;
+  }
+
+  .coord--current {
+    fill: $c-wrong !important;
+  }
+
+  .current-target {
+    stroke: $c-wrong;
   }
 }
 
@@ -44,7 +36,10 @@
 
 .box {
   padding: $block-gap;
-  margin-top: $block-gap;
+
+  &:not(:first-child) {
+    margin-top: $block-gap;
+  }
 
   h1 {
     font-size: 1.5em;
@@ -113,12 +108,17 @@ form.color {
   @extend %flex-column;
   align-items: center;
   justify-content: space-around;
+}
 
-  .explanation li {
+.explanation {
+  @extend %page-text-shadow !optional;
+
+  li {
     list-style: outside disc;
     margin: 0.5em 0 0.5em 1em;
   }
-  .explanation strong {
+
+  strong {
     display: block;
     margin: 1em 0 0.5em 0;
   }

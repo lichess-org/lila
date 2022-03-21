@@ -238,7 +238,6 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
     {
       class: {
         wrong: ctrl.wrong,
-        init: !ctrl.hasPlayed,
       },
     },
     [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]

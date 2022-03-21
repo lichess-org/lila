@@ -48,7 +48,7 @@ export default class CoordinateTrainerCtrl {
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
-    this.mode = config.modePref || 'nameSquare';
+    this.mode = config.modePref || 'findSquare';
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.modeScores = config.scores;
