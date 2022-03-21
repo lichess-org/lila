@@ -66,6 +66,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                     const target = e.target as HTMLInputElement;
                     ctrl.setMode(target.value as Mode);
                   },
+                  keyup: ctrl.onRadioInputKeyUp,
                 },
               }),
               h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, trans(mode)),
@@ -91,6 +92,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                     const target = e.target as HTMLInputElement;
                     ctrl.setColorChoice(target.value as ColorChoice);
                   },
+                  keyup: ctrl.onRadioInputKeyUp,
                 },
               }),
               h(

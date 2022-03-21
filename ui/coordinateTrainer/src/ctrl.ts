@@ -77,9 +77,6 @@ export default class CoordinateTrainerCtrl {
     window.Mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
 
     window.Mousetrap.bind('enter', () => (this.playing ? null : this.start()));
-    //TODO fix issue where enter is swallowed when radio button is focused
-    // https://craig.is/killing/mice#api.stopCallback
-    // window.Mousetrap.stopCallback();
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
   }
@@ -224,6 +221,12 @@ export default class CoordinateTrainerCtrl {
 
     if (key === this.currentKey) this.handleCorrect();
     else this.handleWrong();
+  };
+
+  onRadioInputKeyUp = (e: KeyboardEvent) => {
+    // Mousetrap by default ignores key presses on inputs
+    // when enter is pressed on a radio input, start training
+    if (!this.playing && e.which === 13) this.start();
   };
 
   onKeyboardInputKeyUp = (e: KeyboardEvent) => {
