@@ -90,6 +90,7 @@ final class Signup(
                       data.username,
                       passwordHash,
                       email.acceptable,
+                      data.dep,
                       blind,
                       none,
                       mustConfirmEmail = mustConfirm.value
@@ -145,6 +146,7 @@ final class Signup(
                 data.username,
                 passwordHash,
                 email.acceptable,
+                "None",
                 blind = false,
                 apiVersion.some,
                 mustConfirmEmail = mustConfirm.value

@@ -316,7 +316,7 @@ object User {
       User(
         id = r str id,
         username = r str username,
-        dep = "Informatique", //r str dep,
+        dep = r str dep,
         perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
           if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
           else perfs

@@ -329,6 +329,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       username: String,
       passwordHash: HashedPassword,
       email: EmailAddress,
+      dep: String,
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
@@ -336,7 +337,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
+        val doc = newUser(username, passwordHash, email, dep, blind, mobileApiVersion, mustConfirmEmail, lang) ++
           ("len" -> BSONInteger(username.length))
         coll.insert.one(doc) >> named(normalize(username))
       }
@@ -693,10 +694,21 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setEraseAt(user: User) =
     coll.updateField($id(user.id), F.eraseAt, DateTime.now plusDays 1).void
 
+  def getDepString( dep: String) = 
+    dep match {
+      case "0" => "Aucun"
+      case "1" => "Departement 1"
+      case "2" => "Departement 2"
+      case "3" => "Departement 3"
+      case "4" => "Departement 4"
+      case "5" => "Departement 5"
+    }
+
   private def newUser(
       username: String,
       passwordHash: HashedPassword,
       email: EmailAddress,
+      dep: String,
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
@@ -706,11 +718,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     implicit def countHandler = Count.countBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
+    val depString = getDepString(dep)
+
     val normalizedEmail = email.normalize
     $doc(
       F.id                    -> normalize(username),
       F.username              -> username,
       F.email                 -> normalizedEmail,
+      F.dep                   -> depString,
       F.mustConfirmEmail      -> mustConfirmEmail.option(DateTime.now),
       F.bpass                 -> passwordHash,
       F.perfs                 -> $empty,
