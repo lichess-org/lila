@@ -897,4 +897,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="until">Indtil</string>
   <string name="lichessDbExplanation">Ratede partier indsamlet fra alle Lichess-spillere</string>
   <string name="switchSides">Skift side</string>
+  <string name="closingAccountWithdrawAppeal">Hvis du lukker din konto, vil din appel blive trukket tilbage</string>
 </resources>
