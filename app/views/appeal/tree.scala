@@ -10,6 +10,7 @@ import lila.user.User
 
 object tree {
 
+  import trans.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
   import views.html.base.navTree._
 
@@ -290,6 +291,7 @@ object tree {
             )
         ),
         div(cls := "appeal__rules")(
+          p(cls := "text warning-closure", dataIcon := "")(closingAccountWithdrawAppeal()),
           p(cls := "text", dataIcon := "")(doNotMessageModerators()),
           p(
             a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(

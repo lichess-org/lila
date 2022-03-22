@@ -104,4 +104,8 @@
     animation: 20s reveal;
     animation-fill-mode: forwards;
   }
+
+  .warning-closure {
+    color: $c-bad;
+  }
 }
