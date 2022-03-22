@@ -897,4 +897,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
   <string name="switchSides">Changer de couleur</string>
+  <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
 </resources>
