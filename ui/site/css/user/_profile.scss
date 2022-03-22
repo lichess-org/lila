@@ -83,8 +83,7 @@
       margin-right: 1rem;
     }
 
-    &:hover,
-    &:hover::before {
+    &:hover {
       @include transition;
 
       background: $c-primary;
