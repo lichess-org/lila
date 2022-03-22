@@ -2,6 +2,7 @@ package lila.coordinate
 
 import play.api.data._
 import play.api.data.Forms._
+import chess.Color
 
 object CoordinateForm {
 
@@ -13,14 +14,14 @@ object CoordinateForm {
 
   val score = Form(
     mapping(
-      "mode"  -> text.verifying(Set("findSquare", "nameSquare") contains _),
-      "color" -> text.verifying(Set("white", "black") contains _),
+      "mode" -> lila.common.Form
+        .trim(text)
+        .verifying(CoordMode.all.map(_.key).contains _)
+        .transform[CoordMode](m => CoordMode.all.find(_.key == m).get, _.key),
+      "color" -> lila.common.Form.color.mapping,
       "score" -> number(min = 0, max = 100)
     )(ScoreData.apply)(ScoreData.unapply)
   )
 
-  case class ScoreData(mode: String, color: String, score: Int) {
-    def isFindSquareMode = mode == "findSquare"
-    def isWhite          = color == "white"
-  }
+  case class ScoreData(mode: CoordMode, color: Color, score: Int)
 }

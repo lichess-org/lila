@@ -1,7 +1,7 @@
 package lila.common
 
-import chess.format.FEN
-import chess.format.Forsyth
+import chess.Color
+import chess.format.{ FEN, Forsyth }
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -135,6 +135,12 @@ object Form {
     choices.map(_._1).toList contains key
 
   def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
+
+  object color {
+    val mapping: Mapping[Color] = trim(text)
+      .verifying(Color.all.map(_.name).contains _)
+      .transform[Color](c => Color.fromWhite(c == "white"), _.name)
+  }
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")

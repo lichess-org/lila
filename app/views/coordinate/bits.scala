@@ -16,12 +16,12 @@ object bits {
     "is3d"       -> ctx.pref.is3d,
     "scores" -> Json.obj(
       "findSquare" -> Json.obj(
-        "white" -> scoreOption.fold(List[Int]())(_.white),
-        "black" -> scoreOption.fold(List[Int]())(_.black)
+        "white" -> scoreOption.??(_.white),
+        "black" -> scoreOption.??(_.black)
       ),
       "nameSquare" -> Json.obj(
-        "white" -> scoreOption.fold(List[Int]())(_.whiteNameSquare),
-        "black" -> scoreOption.fold(List[Int]())(_.blackNameSquare)
+        "white" -> scoreOption.??(_.whiteNameSquare),
+        "black" -> scoreOption.??(_.blackNameSquare)
       )
     )
   )
