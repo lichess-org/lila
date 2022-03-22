@@ -9,7 +9,7 @@
   <string name="talkToYourChessFriends">Torna-se mais fácil falar de xadrez com os teus amigos, já que ambos entendem o \"idioma do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
   <string name="aSquareNameAppears">O nome da casa aparece no tabuleiro e tens de clicar na casa correspondente. Tenta reconhecer o maior número de casas em 30 segundos!</string>
-  <string name="aSquareIsHighlighted">É destacado um quadrado no tabuleiro e o jogador deve inserir a coordenada (p. ex., \"e4\"). Terá 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
+  <string name="aSquareIsHighlighted">É destacado um quadrado no tabuleiro e o jogador deve inserir a coordenada (p. ex. \"e4\"). Terá 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
   <string name="startTraining">Começar o treino</string>
   <string name="findSquare">Encontrar quadrado</string>
   <string name="nameSquare">Designar quadrado</string>
