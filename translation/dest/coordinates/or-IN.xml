@@ -2,4 +2,6 @@
 <resources>
   <string name="averageScoreAsWhiteX">ଧଳା ଭାବରେ ହାରାହାରି ସ୍କୋର୍: %s</string>
   <string name="averageScoreAsBlackX">କଳା ଭାବରେ ହାରାହାରି ସ୍କୋର୍: %s</string>
+  <string name="findSquare">ଘର ଖୋଜିବା</string>
+  <string name="nameSquare">ଘରର ନାମକରଣ</string>
 </resources>
