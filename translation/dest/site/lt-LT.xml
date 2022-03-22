@@ -978,4 +978,5 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="until">Iki</string>
   <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>
   <string name="switchSides">Pakeisti puses</string>
+  <string name="closingAccountWithdrawAppeal">paskyras</string>
 </resources>
