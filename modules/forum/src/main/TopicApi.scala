@@ -6,17 +6,12 @@ import scala.concurrent.duration._
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
-import lila.common.config.MaxPerPage
 import lila.db.dsl._
-import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.memo.CacheApi
 import lila.pref.PrefApi
 import lila.security.{Granter => MasterGranter}
 import lila.user.{Holder, User}
-
-import scala.concurrent.Await
-import scala.util.{Failure, Success, Try}
 
 final private[forum] class TopicApi(
     env: Env,
@@ -47,7 +42,7 @@ final private[forum] class TopicApi(
           }
         }
       }
-      postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
+      postMaxPerPage <- prefApi.getPref(forUser).map(_.postMaxPerPage)
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
         env.paginator.topicPosts(topic, page, postMaxPerPage, forUser) map { (categ, topic, _).some }
@@ -147,7 +142,7 @@ final private[forum] class TopicApi(
   }
 
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] = for {
-    postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
+    postMaxPerPage <- prefApi.getPref(forUser).map(_.postMaxPerPage)
     stickyTopics <- env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
         env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>

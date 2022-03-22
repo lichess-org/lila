@@ -117,7 +117,7 @@ final class PostApi(
 
   def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] = {
     for {
-      postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
+      postMaxPerPage <- prefApi.getPref(forUser).map(_.postMaxPerPage)
       postUrlDataFu <-get(postId) flatMap {
         case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
         case Some((topic, post)) =>

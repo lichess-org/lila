@@ -425,13 +425,14 @@ object Pref {
       ALWAYS  -> "Always"
     )
   }
+
   object PaginationDefaults {
     val postMaxPerPageChoices = Set(10,20,50)
     val topicMaxPerPageChoices = Set(10,20,50,100)
-    val postMaxPerPage = MaxPerPage(10)
-    val topicMaxPerPage = MaxPerPage(10)
-    val categMaxPerPage = MaxPerPage(10)
-    val searchMaxPerPage = MaxPerPage(10)
+    val postMaxPerPage : MaxPerPage = MaxPerPage(10)
+    val topicMaxPerPage : MaxPerPage = MaxPerPage(10)
+    val categMaxPerPage : MaxPerPage = MaxPerPage(10)
+    val searchMaxPerPage : MaxPerPage = MaxPerPage(10)
   }
 
   object Agreement {
