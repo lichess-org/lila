@@ -897,4 +897,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="until">Fins a</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
   <string name="switchSides">Canviar de banda</string>
+  <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
 </resources>
