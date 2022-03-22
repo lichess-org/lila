@@ -191,11 +191,17 @@ object pref {
             ),
             setting(
               trans.preferences.topicMaxPerPage(),
-              radios(form("topicMaxPerPage"), PaginationDefaults.topicMaxPerPageChoices map { x => (x,x.toString)} )
+              radios(
+                form("topicMaxPerPage"),
+                PaginationDefaults.topicMaxPerPageChoices map { x => (x, x.toString) }
+              )
             ),
             setting(
               trans.preferences.postMaxPerPage(),
-              radios(form("postMaxPerPage"), PaginationDefaults.postMaxPerPageChoices map { x => (x,x.toString)} )
+              radios(
+                form("postMaxPerPage"),
+                PaginationDefaults.postMaxPerPageChoices map { x => (x, x.toString) }
+              )
             ),
             setting(
               trans.shareYourInsightsData(),

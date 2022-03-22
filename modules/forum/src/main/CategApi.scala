@@ -69,14 +69,14 @@ final class CategApi(env: Env, prefApi: PrefApi)(implicit ec: scala.concurrent.E
   def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
     for {
       topicMaxPerPage <- prefApi.getPref(forUser.get).map(_.topicMaxPerPage)
-      categTopicViews <-env.categRepo bySlug slug flatMap { _ ?? { categ =>
-        for {
-          topicView <- env.paginator.categTopics(categ, page, topicMaxPerPage, forUser)
-        } yield (categ, topicView).some
-      }}
+      categTopicViews <- env.categRepo bySlug slug flatMap {
+        _ ?? { categ =>
+          for {
+            topicView <- env.paginator.categTopics(categ, page, topicMaxPerPage, forUser)
+          } yield (categ, topicView).some
+        }
+      }
     } yield categTopicViews
-
-
 
   def denormalize(categ: Categ): Funit =
     for {

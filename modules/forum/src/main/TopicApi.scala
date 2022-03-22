@@ -7,11 +7,11 @@ import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
 import lila.db.dsl._
-import lila.hub.actorApi.timeline.{ForumPost, Propagate}
+import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.memo.CacheApi
 import lila.pref.PrefApi
-import lila.security.{Granter => MasterGranter}
-import lila.user.{Holder, User}
+import lila.security.{ Granter => MasterGranter }
+import lila.user.{ Holder, User }
 
 final private[forum] class TopicApi(
     env: Env,
@@ -202,4 +202,3 @@ final private[forum] class TopicApi(
           .void
     } yield ()
 }
-

@@ -2,7 +2,7 @@ package lila.pref
 
 import play.api.data._
 import play.api.data.Forms._
-import lila.common.Form.{numberIn, stringIn}
+import lila.common.Form.{ numberIn, stringIn }
 import lila.common.config.MaxPerPage
 
 object PrefForm {
@@ -48,15 +48,15 @@ object PrefForm {
         "sound"    -> booleanNumber,
         "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
-      "follow"       -> booleanNumber,
-      "challenge"    -> checkedNumber(Pref.Challenge.choices),
-      "message"      -> checkedNumber(Pref.Message.choices),
-      "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "mention"      -> optional(booleanNumber),
-      "topicMaxPerPage"-> numberIn(Set(10, 20, 50, 100)),
-      "postMaxPerPage"-> numberIn(Set(10, 20, 50)),
-      "insightShare" -> numberIn(Set(0, 1, 2)),
-      "ratings"      -> optional(booleanNumber)
+      "follow"          -> booleanNumber,
+      "challenge"       -> checkedNumber(Pref.Challenge.choices),
+      "message"         -> checkedNumber(Pref.Message.choices),
+      "studyInvite"     -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "mention"         -> optional(booleanNumber),
+      "topicMaxPerPage" -> numberIn(Set(10, 20, 50, 100)),
+      "postMaxPerPage"  -> numberIn(Set(10, 20, 50)),
+      "insightShare"    -> numberIn(Set(0, 1, 2)),
+      "ratings"         -> optional(booleanNumber)
     )(PrefData.apply)(PrefData.unapply)
   )
 

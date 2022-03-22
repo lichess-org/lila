@@ -9,7 +9,6 @@ import lila.db.paginator._
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
-
 final class ForumPaginator(
     topicRepo: TopicRepo,
     postRepo: PostRepo
@@ -29,7 +28,12 @@ final class ForumPaginator(
       maxPerPage = userMaxPerPage
     )
 
-  def categTopics(categ: Categ, page: Int, userMaxPerPage: MaxPerPage, forUser: Option[User] ): Fu[Paginator[TopicView]] =
+  def categTopics(
+      categ: Categ,
+      page: Int,
+      userMaxPerPage: MaxPerPage,
+      forUser: Option[User]
+  ): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
       maxPerPage = userMaxPerPage,

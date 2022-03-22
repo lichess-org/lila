@@ -47,7 +47,7 @@ final class PrefApi(
 
   def getPref(user: Option[User]): Fu[Pref] = user match {
     case Some(u) => getPref(u)
-    case None => Future {Pref.default}
+    case None    => Future { Pref.default }
   }
 
   def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) dmap pref
