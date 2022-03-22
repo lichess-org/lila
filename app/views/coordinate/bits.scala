@@ -15,12 +15,19 @@ object bits {
     "resizePref" -> ctx.pref.resizeHandle,
     "is3d"       -> ctx.pref.is3d,
     "scores" -> Json.obj(
-      "white" -> scoreOption.fold(List[Int]())(_.white),
-      "black" -> scoreOption.fold(List[Int]())(_.black)
+      "findSquare" -> Json.obj(
+        "white" -> scoreOption.??(_.white),
+        "black" -> scoreOption.??(_.black)
+      ),
+      "nameSquare" -> Json.obj(
+        "white" -> scoreOption.??(_.whiteNameSquare),
+        "black" -> scoreOption.??(_.blackNameSquare)
+      )
     )
   )
 
   private val i18nKeys = List(
+    trans.coordinates.aSquareIsHighlighted,
     trans.coordinates.aSquareNameAppears,
     trans.coordinates.averageScoreAsBlackX,
     trans.coordinates.averageScoreAsWhiteX,
@@ -30,6 +37,8 @@ object bits {
     trans.coordinates.startTraining,
     trans.coordinates.talkToYourChessFriends,
     trans.coordinates.youCanAnalyseAGameMoreEffectively,
+    trans.coordinates.findSquare,
+    trans.coordinates.nameSquare,
     trans.storm.score,
     trans.time
   ).map(_.key)
