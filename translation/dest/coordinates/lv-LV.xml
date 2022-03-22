@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Būs vieglāk runāt ar saviem šaha draugiem, jo abi sapratīsiet \"šaha valodu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Varēsi efektīvāk analizēt spēli, ja nevajadzēs ik reizi meklēt lauciņa nosaukumu.</string>
   <string name="aSquareNameAppears">Uz galdiņa parādās koordinātes, un jums jāklikšķina uz attiecīgā lauciņa. 30 sekundēs jums pareizi jāatrod pēc iespējas vairāk lauciņu!</string>
+  <string name="aSquareIsHighlighted">Viens no galdiņa lauciņiem tiek atzīmēts un jums jāievada tā koordinātas (piemēram, \"e4\"). Jums ir 30 sekundes, lai pareizi atminētu pēc iespējas vairāk lauciņu!</string>
   <string name="startTraining">Sākt treniņu</string>
+  <string name="findSquare">Atrast lauciņu</string>
+  <string name="nameSquare">Nosaukt lauciņu</string>
 </resources>
