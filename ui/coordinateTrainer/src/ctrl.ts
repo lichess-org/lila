@@ -48,7 +48,6 @@ export default class CoordinateTrainerCtrl {
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
-    this.mode = config.modePref || 'findSquare';
     this.colorChoice = config.colorPref || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.modeScores = config.scores;
@@ -59,6 +58,9 @@ export default class CoordinateTrainerCtrl {
     this.isAuth = document.body.hasAttribute('data-user');
     this.trans = lichess.trans(this.config.i18n);
     this.redraw = redraw;
+
+    this.mode = window.location.hash === '#name' ? 'nameSquare' : 'findSquare';
+    window.location.hash = `#${this.mode.substring(0, 4)}`;
 
     const setZen = throttle(1000, zen =>
       xhr.text('/pref/zen', {
@@ -84,6 +86,7 @@ export default class CoordinateTrainerCtrl {
   setMode = (m: Mode) => {
     if (this.mode === m) return;
     this.mode = m;
+    window.location.hash = `#${this.mode.substring(0, 4)}`;
     this.updateCharts();
     this.redraw();
   };
