@@ -897,4 +897,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
+  <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
 </resources>
