@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Μπορείτε να αναλύσετε ένα παιχνίδι αποτελεσματικότερα εάν δεν χρειάζεται να αναζητάτε τα ονόματα των τετραγώνων.</string>
   <string name="aSquareNameAppears">Ένα όνομα τετραγώνου εμφανίζεται στη σκακιέρα και πρέπει να πατήσετε το σωστό τετράγωνο. Έχετε 30 δευτερόλεπτα για να αναγνωρίσετε όσο το δυνατόν περισσότερα τετράγωνα!</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
+  <string name="findSquare">Εύρεση τετραγώνου</string>
+  <string name="nameSquare">Ονομασία τετραγώνου</string>
 </resources>
