@@ -2,23 +2,30 @@ package lila.forum
 
 import actorApi._
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.ReadPreference
-import scala.util.chaining._
 
+import scala.util.chaining._
 import lila.common.Bus
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
-import lila.security.{ Granter => MasterGranter }
+import lila.pref.PrefApi
+import lila.pref.Pref.PaginationDefaults
+import lila.security.{Granter => MasterGranter}
 import lila.user.User
+
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationInt
+import scala.util.{Failure, Success}
 
 final class PostApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    config: ForumConfig,
     modLog: ModlogApi,
+    prefApi: PrefApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
@@ -50,31 +57,34 @@ final class PostApi(
         categId = categ.id,
         modIcon = modIcon option true
       )
-      env.postRepo findDuplicate post flatMap {
-        case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-        case _ =>
-          env.postRepo.coll.insert.one(post) >>
-            env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-              shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
-            } >>
-            env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet ?? (indexer ! InsertPost(post))
-              !categ.quiet ?? env.recent.invalidate()
-              promotion.save(me, post.text)
-              shutup ! {
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
-              }
-              if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet && !topic.isTooBig)
-                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
+      for {
+        postMaxPerPage <- prefApi.getPref(me).map(_.postMaxPerPage)
+        postFu <- env.postRepo findDuplicate post flatMap {
+          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+          case _ =>
+            env.postRepo.coll.insert.one(post) >>
+              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
+                shouldHideOnPost(topic, postMaxPerPage) ?? env.topicRepo.hide(topic.id, value = true)
+              } >>
+              env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+                !categ.quiet ?? (indexer ! InsertPost(post))
+                !categ.quiet ?? env.recent.invalidate()
+                promotion.save(me, post.text)
+                shutup ! {
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
                 }
-              lila.mon.forum.post.create.increment()
-              env.mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(actorApi.CreatePost(post), "forumPost")
-            } inject post
-      }
+                if (anonMod) logAnonPost(me.id, post, edit = false)
+                else if (!post.troll && !categ.quiet && !topic.isTooBig)
+                  timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                    _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
+                  }
+                lila.mon.forum.post.create.increment()
+                env.mentionNotifier.notifyMentionedUsers(post, topic)
+                Bus.publish(actorApi.CreatePost(post), "forumPost")
+              } inject post
+        }
+      } yield postFu
     }
 
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
@@ -96,24 +106,29 @@ final class PostApi(
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 
-  private def shouldHideOnPost(topic: Topic) =
+  private def shouldHideOnPost(topic: Topic, postMaxPerPage : MaxPerPage) =
     topic.visibleOnHome && {
+      lila.log("auth").warn("are we gonna hide? " + (topic.nbPosts == postMaxPerPage.value))
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == config.postMaxPerPage.value ||
+        topic.nbPosts == postMaxPerPage.value ||
         (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
 
-  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
-    get(postId) flatMap {
-      case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-      case Some((topic, post)) =>
+  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] = {
+    for {
+      postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
+      postUrlDataFu <-get(postId) flatMap {
+        case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
+        case Some((topic, post)) =>
         env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / config.postMaxPerPage.value + 1
-          PostUrlData(topic.categId, topic.slug, page, post.number).some
-        }
+        val page = nb / postMaxPerPage.value + 1
+        PostUrlData(topic.categId, topic.slug, page, post.number).some
+      }
       case _ => fuccess(none)
-    }
+      }
+    } yield postUrlDataFu
+  }
 
   def get(postId: Post.ID): Fu[Option[(Topic, Post)]] =
     getPost(postId) flatMap {
@@ -139,7 +154,7 @@ final class PostApi(
         )
     }
 
-  def views(posts: List[Post]): Fu[List[PostView]] =
+  def views(posts: List[Post], maxPerPage : MaxPerPage ): Fu[List[PostView]] =
     for {
       topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
       categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
@@ -147,14 +162,16 @@ final class PostApi(
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
-      } yield PostView(post, topic, categ, topic lastPage config.postMaxPerPage)
+      } yield PostView(post, topic, categ, topic lastPage maxPerPage)
     }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
-    env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
+    env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap {
+      views(_,PaginationDefaults.searchMaxPerPage)
+    }
 
-  def viewOf(post: Post): Fu[Option[PostView]] =
-    views(List(post)) dmap (_.headOption)
+  def viewOf(post: Post, maxPerPage: MaxPerPage): Fu[Option[PostView]] =
+    views(List(post), maxPerPage) dmap (_.headOption)
 
   def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
     env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
@@ -185,31 +202,35 @@ final class PostApi(
     }
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
-    env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
-      _ ?? { post =>
-        viewOf(post) flatMap {
-          _ ?? { view =>
-            for {
-              first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
-              _ <-
-                if (first) env.topicApi.delete(view.categ, view.topic)
-                else
-                  env.postRepo.coll.delete.one($id(view.post.id)) >>
-                    (env.topicApi denormalize view.topic) >>
-                    (env.categApi denormalize view.categ) >>-
-                    env.recent.invalidate() >>-
-                    (indexer ! RemovePost(post.id))
-              _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
-                mod.id,
-                post.userId,
-                post.author,
-                text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
-              )
-            } yield ()
-          }
+    for {
+      topicMaxPerPage <- prefApi.getPref(mod).map(_.topicMaxPerPage)
+      postUnit <- env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
+        _ ?? { post =>
+          viewOf(post,topicMaxPerPage) flatMap {
+            _ ?? { view =>
+              for {
+                first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
+                _ <-
+                  if (first) env.topicApi.delete(view.categ, view.topic)
+                  else
+                    env.postRepo.coll.delete.one($id(view.post.id)) >>
+                      (env.topicApi denormalize view.topic) >>
+                      (env.categApi denormalize view.categ) >>-
+                      env.recent.invalidate() >>-
+                      (indexer ! RemovePost(post.id))
+                _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
+                  mod.id,
+                  post.userId,
+                  post.author,
+                  text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+                )
+              } yield ()
+            }
+         }
         }
       }
-    }
+    } yield postUnit
+
 
   def allUserIds(topicId: Topic.ID) = env.postRepo allUserIdsByTopicId topicId
 
@@ -251,7 +272,7 @@ final class PostApi(
       }
     }
 
-  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit =
+  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit = {
     env.topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
         userId,
@@ -262,4 +283,5 @@ final class PostApi(
         edit
       )
     }
+  }
 }

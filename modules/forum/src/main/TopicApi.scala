@@ -1,29 +1,34 @@
 package lila.forum
 
 import actorApi._
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.memo.CacheApi
-import lila.security.{ Granter => MasterGranter }
-import lila.user.{ Holder, User }
+import lila.pref.PrefApi
+import lila.security.{Granter => MasterGranter}
+import lila.user.{Holder, User}
+
+import scala.concurrent.Await
+import scala.util.{Failure, Success, Try}
 
 final private[forum] class TopicApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    config: ForumConfig,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -42,9 +47,10 @@ final private[forum] class TopicApi(
           }
         }
       }
+      postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        env.paginator.topicPosts(topic, page, postMaxPerPage, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -140,14 +146,16 @@ final private[forum] class TopicApi(
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
-  def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
-    env.topicRepo.stickyByCateg(categ) flatMap { topics =>
+  def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] = for {
+    postMaxPerPage <- prefApi.getPref(forUser.get).map(_.postMaxPerPage)
+    stickyTopics <- env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
         env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-          TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
+          TopicView(categ, topic, post, topic lastPage postMaxPerPage, forUser)
         }
       }.sequenceFu
     }
+  } yield stickyTopics
 
   def delete(categ: Categ, topic: Topic): Funit =
     env.postRepo.idsByTopicId(topic.id) flatMap { postIds =>
@@ -199,3 +207,4 @@ final private[forum] class TopicApi(
           .void
     } yield ()
 }
+

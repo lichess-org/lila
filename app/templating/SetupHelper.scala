@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
+import chess.{Mode, Speed}
 import chess.variant.Variant
+import lila.common.config.MaxPerPage
 import play.api.i18n.Lang
-
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{I18nKeys => trans}
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
@@ -69,6 +69,10 @@ trait SetupHelper { self: I18nHelper =>
     ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
       (d.toString, s"$d days", none)
     }
+
+  val topicMaxPerPageChoices: List[String] = List("10","20","50","100")
+
+  val forumMaxPerPageChoices: List[String] = List("10","20","50")
 
   def translatedTimeModeChoices(implicit lang: Lang) =
     List(

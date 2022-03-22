@@ -23,6 +23,7 @@ object config {
     def compare(other: Int) = Integer.compare(value, other)
     def atMost(max: Int)    = Max(value atMost max)
   }
+
   case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue

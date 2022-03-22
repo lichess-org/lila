@@ -5,6 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.pref.PrefCateg
+import lila.pref.Pref.PaginationDefaults
 
 import controllers.routes
 
@@ -187,6 +188,14 @@ object pref {
             setting(
               trans.receiveForumNotifications(),
               radios(form("mention"), booleanChoices)
+            ),
+            setting(
+              trans.preferences.topicMaxPerPage(),
+              radios(form("topicMaxPerPage"), PaginationDefaults.topicMaxPerPageChoices map { x => (x,x.toString)} )
+            ),
+            setting(
+              trans.preferences.postMaxPerPage(),
+              radios(form("postMaxPerPage"), PaginationDefaults.postMaxPerPageChoices map { x => (x,x.toString)} )
             ),
             setting(
               trans.shareYourInsightsData(),

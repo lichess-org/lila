@@ -2,9 +2,11 @@ package lila.forum
 
 import lila.common.paginator._
 import lila.db.dsl._
+import lila.pref.Pref.PaginationDefaults
+import lila.pref.PrefApi
 import lila.user.User
 
-final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CategApi(env: Env, prefApi: PrefApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -16,7 +18,7 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
           CategView(
             categ,
             topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage config.postMaxPerPage)
+              (topic, post, topic lastPage PaginationDefaults.categMaxPerPage)
             },
             forUser
           )
@@ -65,11 +67,16 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
   }
 
   def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
-    env.categRepo bySlug slug flatMap {
-      _ ?? { categ =>
-        env.paginator.categTopics(categ, page, forUser) dmap { (categ, _).some }
-      }
-    }
+    for {
+      topicMaxPerPage <- prefApi.getPref(forUser.get).map(_.topicMaxPerPage)
+      categTopicViews <-env.categRepo bySlug slug flatMap { _ ?? { categ =>
+        for {
+          topicView <- env.paginator.categTopics(categ, page, topicMaxPerPage, forUser)
+        } yield (categ, topicView).some
+      }}
+    } yield categTopicViews
+
+
 
   def denormalize(categ: Categ): Funit =
     for {

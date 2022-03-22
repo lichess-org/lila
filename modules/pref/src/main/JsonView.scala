@@ -36,6 +36,8 @@ object JsonView {
       "coordColor"       -> p.coordColor,
       "submitMove"       -> p.submitMove,
       "confirmResign"    -> p.confirmResign,
+      "topicMaxPerPage"  -> p.topicMaxPerPage.value,
+      "postMaxPerPage"   -> p.postMaxPerPage.value,
       "mention"          -> p.mention,
       "corresEmailNotif" -> p.corresEmailNotif,
       "insightShare"     -> p.insightShare,

@@ -7,10 +7,10 @@ import lila.common.config.MaxPerPage
 
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
-    val maxPerPage: MaxPerPage,
     /** Returns the results for the current page.
       * The result is cached.
       */
+    val maxPerPage: MaxPerPage,
     val currentPageResults: Seq[A],
     /** Returns the number of results.
       * The result is cached.

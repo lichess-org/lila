@@ -1,22 +1,23 @@
 package lila.forum
 
-import scala.concurrent.ExecutionContext
+import lila.common.config.MaxPerPage
 
+import scala.concurrent.ExecutionContext
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
+
 final class ForumPaginator(
     topicRepo: TopicRepo,
-    postRepo: PostRepo,
-    config: ForumConfig
+    postRepo: PostRepo
 )(implicit ec: ExecutionContext) {
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+  def topicPosts(topic: Topic, page: Int, userMaxPerPage: MaxPerPage, me: Option[User]): Fu[Paginator[Post]] =
     Paginator(
       new Adapter(
         collection = postRepo.coll,
@@ -25,13 +26,13 @@ final class ForumPaginator(
         sort = postRepo.sortQuery
       ),
       currentPage = page,
-      maxPerPage = config.postMaxPerPage
+      maxPerPage = userMaxPerPage
     )
 
-  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+  def categTopics(categ: Categ, page: Int, userMaxPerPage: MaxPerPage, forUser: Option[User] ): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
-      maxPerPage = config.postMaxPerPage,
+      maxPerPage = userMaxPerPage,
       adapter = new AdapterLike[TopicView] {
 
         def nbResults: Fu[Int] =
@@ -61,7 +62,7 @@ final class ForumPaginator(
                 doc   <- docs
                 topic <- doc.asOpt[Topic]
                 post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
-              } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
+              } yield TopicView(categ, topic, post, page, forUser)
             }
 
         private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
