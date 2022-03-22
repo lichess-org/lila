@@ -874,4 +874,5 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>
   <string name="switchSides">Ruil kante</string>
+  <string name="closingAccountWithdrawAppeal">Sluiting van jou rekening beteken terugtrekking van jou appèl</string>
 </resources>
