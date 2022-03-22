@@ -86,16 +86,23 @@
 
 נא לא לבקש את דרגת LM.</string>
   <string name="whatUsernameCanIchoose">מה יכול להיות שם המשתמש שלי?</string>
+  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. ניתן לקרוא עוד על ה-%1$s.</string>
   <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="whatIsProvisionalRating">מדוע מופיע סימן שאלה (?) ליד הדירוג שלי?</string>
+  <string name="provisionalRatingExplanation">משמעות סימן השאלה היא שהדירוג זמני. הסיבות לכך כוללות:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
+  <string name="similarOpponents">יריבים ברמה דומה</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="ratingLeaderboards">טבלת הדירוג</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
