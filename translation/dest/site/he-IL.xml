@@ -980,4 +980,5 @@
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך לוח</string>
+  <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
 </resources>
