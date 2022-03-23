@@ -240,6 +240,8 @@
   <string name="error.min">%s ରୁ ଅଧିକ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
+  <string name="whiteCastlingKingside">ଧଳା O-O</string>
+  <string name="blackCastlingKingside">କଳା O-O</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
   <string name="createdSimuls">ନୂଆରେ ତିଆରି କରିଥିବା ସିମଲ୍</string>
   <string name="hostANewSimul">ଏକ ନୂଆ ସିମଲ୍ ଆୟୋଜନ କରନ୍ତୁ</string>
