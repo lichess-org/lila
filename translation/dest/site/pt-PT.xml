@@ -898,4 +898,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
   <string name="switchSides">Trocar de lado</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
 </resources>

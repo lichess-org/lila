@@ -5,10 +5,18 @@
   <string name="averageScoreAsWhiteX">Durchschnittlichi Punktzahl mit Wiss: %s</string>
   <string name="averageScoreAsBlackX">Durchschnittlichi Punktzahl mit Schwarz: %s</string>
   <string name="knowingTheChessBoard">D\'Koordinate vom Schachbrätt z\'känne, isch e wichtigi Fähigkeit:</string>
-  <string name="mostChessCourses">Die meischte Schach Kürs und Üebige verwänded die algebraisch Notazion.</string>
-  <string name="talkToYourChessFriends">Es machts eifacher mit de Schachfründe rede, wänn beidi die \"Schach-Schprach\" verschtöhnd.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Du chasch es Schpiil effektiver analysiere, wänn du d\'Koordinate schnäll gsehsch.</string>
-  <string name="aSquareNameAppears">Üebig: Es erschiined Koordinate (z. B. c3) uf em Brätt und du muesch ufs entschprächendi Fäld klicke. 
-Du häsch - pro Durchgang - immer 30 Sekunde Ziit, zum möglichscht vill Fälder richtig z\'identifiziere!</string>
+  <string name="mostChessCourses">Die meischte Schach Kürs und Üebige 
+verwänded die algebraischi Notazion.</string>
+  <string name="talkToYourChessFriends">Es machts eifacher mit Schachfründe rede, 
+wänn alli die \"Schach-Schprach\" verschtöhnd.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpiil effektiver analysiere, 
+wänn me d\'Koordinate schnäll gseht.</string>
+  <string name="aSquareNameAppears">Üebig: Uf em Brätt erschined Koordinate - z.B. c3 - und mer muess 
+ufs entschprächendi Fäld klicke. Pro Durchgang gits 30 Sekunde, 
+zum möglichscht vill Fälder richtig z\'erkänne!</string>
+  <string name="aSquareIsHighlighted">Uf em Brätt isch es Fäld markiert und me muess die richtige Koordinate - z.B. \"e4\" - aageh. 
+s\'Ziel isch - innert 30 Sekunde - so vill Fälder wie möglich z\'benänne!</string>
   <string name="startTraining">Training schtarte</string>
+  <string name="findSquare">Fäld finde</string>
+  <string name="nameSquare">Fäld benänne</string>
 </resources>

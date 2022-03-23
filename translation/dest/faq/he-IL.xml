@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל?</string>
   <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">לקבלת מידע נוסף, בבקשה קראו את ה-%s שלנו</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">עלון ההסבר על משחק הוגן</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים לשחמט התכתבויות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע בהתכתבויות, ליצ\'ס לא.</string>
   <string name="gameplay">משחק</string>
   <string name="howBulletBlitzEtcDecided">איך קליע, בזק וזמני משחק אחרים מוחלטים?</string>
@@ -70,6 +72,7 @@
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
   <string name="accounts">חשבונות</string>
   <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
   <string name="showYourTitle">אם יש לך תואר OTB, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי ה-%1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
 
 אימות כשחקן בעל התואר בליצ\'ס נותן גישה לשחק בטורנירי זירה לשחקנים מוכתרים.
@@ -77,16 +80,29 @@
 לבסוף יש תואר כבוד %2$s.</string>
   <string name="verificationForm">טופס אימות</string>
   <string name="noUpperCaseDot">לא.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">הדרגה הלא רשמית הזו היא לשם כבוד וקיימת ב-Lichess בלבד. 
+
+אנו מעניקים אותה לשחקנים ראויים לציון שמפגינים אזרחות טובה ב-Lichess, על פי שיקול דעתנו. אם הינך זכאי לדרגה זו, תקבל מאיתנו הודעה בנידון עם אפשרות לאשר או לדחות את ההצעה. 
+
+נא לא לבקש את דרגת LM.</string>
+  <string name="whatUsernameCanIchoose">מה יכול להיות שם המשתמש שלי?</string>
+  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. ניתן לקרוא עוד על ה-%1$s.</string>
   <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="whatIsProvisionalRating">מדוע מופיע סימן שאלה (?) ליד הדירוג שלי?</string>
+  <string name="provisionalRatingExplanation">משמעות סימן השאלה היא שהדירוג זמני. הסיבות לכך כוללות:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
+  <string name="similarOpponents">יריבים ברמה דומה</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="ratingLeaderboards">טבלת הדירוג</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
   <string name="displayPreferences">הגדרות תצוגה</string>

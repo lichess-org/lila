@@ -897,4 +897,5 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="until">Eddig</string>
   <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
   <string name="switchSides">Oldal megfordítása</string>
+  <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
 </resources>

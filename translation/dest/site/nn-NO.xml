@@ -898,4 +898,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="until">Til</string>
   <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
   <string name="switchSides">Byt side</string>
+  <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
 </resources>

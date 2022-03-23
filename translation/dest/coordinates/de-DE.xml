@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Es macht es einfacher dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
   <string name="aSquareNameAppears">Der Feldname wird auf dem Brett angezeigt und du musst auf das zugehörige Feld klicken. Du hast 30 Sekunden, um möglichst viele Felder zu erkennen!</string>
+  <string name="aSquareIsHighlighted">Ein Feld ist auf dem Brett markiert und du musst dessen Koordinaten eingeben (z.B. \"e4\"). Du hast 30 Sekunden, um so viele Felder wie möglich korrekt zu benennen!</string>
   <string name="startTraining">Training beginnen</string>
+  <string name="findSquare">Feld finden</string>
+  <string name="nameSquare">Feld benennen</string>
 </resources>

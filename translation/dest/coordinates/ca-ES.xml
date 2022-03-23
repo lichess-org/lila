@@ -8,6 +8,9 @@
   <string name="mostChessCourses">La majoria de cursos i exercicis usa la notació algebraica de forma extensiva.</string>
   <string name="talkToYourChessFriends">Facilita la comunicació amb altres jugadors, ja que tots enteneu l’«idioma dels escacs».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
-  <string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-nenla casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
+  <string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-ne la casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
+  <string name="aSquareIsHighlighted">Es marca una casella en el tauler i heu d\'introduir-ne la seva coordenada (p. ex. \"e4\"). Teniu 30 segons per mapejar correctament totes les coordenades que pugueu!</string>
   <string name="startTraining">Comença l\'entrenament</string>
+  <string name="findSquare">Cerca caselles</string>
+  <string name="nameSquare">Anomena caselles</string>
 </resources>

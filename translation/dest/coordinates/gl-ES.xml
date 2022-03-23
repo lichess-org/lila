@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Fai que sexa máis doado falar cos teus amigos xadrecistas, xa que ambos entendedes a \"linguaxe do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Podes analizar unha partida máis efectivamente se non precisas buscar o nome das casas.</string>
   <string name="aSquareNameAppears">O nome dunha casa aparece no taboleiro e debes pinchar na casa correcta. Tés 30 segundos para recoñecer tantas casas como podas!</string>
+  <string name="aSquareIsHighlighted">Un cadrado está destacado no taboleiro e debes introducir a coordenada (p.ex. \"e4\"). Tes 30 segundos para situar correctamente todos os cadrados que poidas!</string>
   <string name="startTraining">Comezar adestramento</string>
+  <string name="findSquare">Buscar cadrado</string>
+  <string name="nameSquare">Nome do cadrado</string>
 </resources>

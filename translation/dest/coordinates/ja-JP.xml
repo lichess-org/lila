@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">またチェスの友人と話をするのも簡単になります。双方がいわば「チェス語」を理解しているからです。</string>
   <string name="youCanAnalyseAGameMoreEffectively">このマスはどこか、いちいち探すことがなくなれば、ゲームの検討も効率よくできます。</string>
   <string name="aSquareNameAppears">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。30 秒間でできるだけ多くのマスをクリックします。</string>
+  <string name="aSquareIsHighlighted">ボード上にハイライト表示されるマスの座標（たとえば「e4」）を入力してください。30 秒間にできるだけ多くのマスの座標を正しく入力します。</string>
   <string name="startTraining">トレーニングを開始</string>
+  <string name="findSquare">マスを探す</string>
+  <string name="nameSquare">マスの名前を入力</string>
 </resources>
