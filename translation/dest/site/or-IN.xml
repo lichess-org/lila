@@ -263,6 +263,7 @@
   <string name="boardGeometry">ବୋର୍ଡ ଜ୍ୟାମିତି</string>
   <string name="boardSize">ବୋର୍ଡ ଆକାର</string>
   <string name="embedInYourWebsite">ଆପଣଙ୍କ ୱେବସାଇଟ୍ ରେ ଗ୍ରନ୍ଥନ କରନ୍ତୁ</string>
+  <string name="chessBasics">ଚେସ୍ ମୌଳିକ</string>
   <string name="invalidPgn">ଅବୈଧ PGN</string>
   <string name="invalidFen">ଅବୈଧ FEN</string>
   <string name="solution">ସମାଧାନ</string>
