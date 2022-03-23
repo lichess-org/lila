@@ -1,6 +1,6 @@
 import { MsgData, Contact, Convo, Msg, LastMsg, Search, SearchResult, Typing, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
-import { finallyDelay, throttlePromise } from 'common/throttle';
+import throttle from 'common/throttle';
 import * as network from './network';
 import { scroller } from './view/scroller';
 

@@ -2,7 +2,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
+import { ColorChoice, TimeControlChoice, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -40,6 +40,7 @@ export default class CoordinateTrainerCtrl {
   redraw: Redraw;
   score = 0;
   timeAtStart: Date;
+  timeControlChoice: TimeControlChoice;
   timeLeft = DURATION;
   trans: Trans;
   wrong: boolean;
@@ -49,6 +50,7 @@ export default class CoordinateTrainerCtrl {
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
     this.colorChoice = (lichess.storage.get('coordinateTrainer.colorChoice') as ColorChoice) || 'random';
+    this.timeControlChoice = (lichess.storage.get('coordinateTrainer.timeControlChoice') as TimeControlChoice) || 'thirtySeconds';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.modeScores = config.scores;
 
@@ -107,6 +109,12 @@ export default class CoordinateTrainerCtrl {
     this.colorChoice = c;
     this.setOrientation(orientationFromColorChoice(c));
     lichess.storage.set('coordinateTrainer.colorChoice', this.colorChoice);
+  };
+
+  setTimeControlChoice = (c: TimeControlChoice) => {
+    if (this.timeControlChoice === c) return;
+    this.timeControlChoice = c;
+    lichess.storage.set('coordinateTrainer.timeControlChoice', this.timeControlChoice);
   };
 
   setOrientation = (o: Color) => {

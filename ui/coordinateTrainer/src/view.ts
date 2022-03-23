@@ -2,7 +2,7 @@ import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
-import { ColorChoice, Mode, CoordModifier } from './interfaces';
+import { ColorChoice, TimeControlChoice, Mode, CoordModifier } from './interfaces';
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
@@ -107,7 +107,41 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
             ])
           )
         ),
-      ])
+      ]),
+      h('form.timeControl.buttons', [
+          h(
+            'group.radio',
+            ['noTime', 'thirtySeconds', 'oneMinute'].map((timeControl: TimeControlChoice) =>
+              h('div', [
+                h('input', {
+                  attrs: {
+                    type: 'radio',
+                    id: `coord_timeControl_${timeControl}`,
+                    name: 'timeControl',
+                    value: timeControl,
+                    checked: timeControl === ctrl.timeControlChoice,
+                  },
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.setTimeControlChoice(target.value as TimeControlChoice);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
+                  },
+                }),
+                h(
+                  `label.timeControl_${timeControl}`,
+                  {
+                    attrs: {
+                      for: `coord_timeControl_${timeControl}`,
+                    },
+                  },
+                  h('i')
+                ),
+              ])
+            )
+          ),
+        ])
     );
   }
   if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));

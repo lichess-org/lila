@@ -8,7 +8,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import makeStudy from './study/studyCtrl';
-import throttle, { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
@@ -280,16 +280,14 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttlePromise(
-    finallyDelay(800, () => {
-      if (!this.embed && !defined(this.node.dests))
-        this.socket.sendAnaDests({
-          variant: this.data.game.variant.key,
-          fen: this.node.fen,
-          path: this.path,
-        });
-    })
-  );
+  getDests: () => void = throttle(800, () => {
+    if (!this.embed && !defined(this.node.dests))
+      this.socket.sendAnaDests({
+        variant: this.data.game.variant.key,
+        fen: this.node.fen,
+        path: this.path,
+      });
+  });
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,

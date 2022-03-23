@@ -4,6 +4,8 @@ export type Mode = 'findSquare' | 'nameSquare';
 
 export type InputMethod = 'text' | 'buttons';
 
+export type TimeControlChoice = 'noTime' | 'thirtySeconds' | 'oneMinute'
+
 interface WhiteBlackScores {
   white: number[];
   black: number[];
