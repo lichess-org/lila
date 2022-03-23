@@ -280,14 +280,16 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttlePromise(finallyDelay(800, () => {
-    if (!this.embed && !defined(this.node.dests))
-      this.socket.sendAnaDests({
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      });
-  }));
+  getDests: () => void = throttlePromise(
+    finallyDelay(800, () => {
+      if (!this.embed && !defined(this.node.dests))
+        this.socket.sendAnaDests({
+          variant: this.data.game.variant.key,
+          fen: this.node.fen,
+          path: this.path,
+        });
+    })
+  );
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
