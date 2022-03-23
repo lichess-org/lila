@@ -1,12 +1,17 @@
 package lila.challenge
 
 import Challenge.TimeControl
-import lila.game.{ Game, Pov }
+import com.github.blemale.scaffeine.Cache
+import scala.concurrent.duration._
+
+import lila.game.{ Game, GameRepo, Pov, Rematches }
+import lila.memo.CacheApi
 import lila.user.User
 
 final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: GameRepo,
+    rematches: Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def makeRematchFor(gameId: Game.ID, dest: User): Fu[Option[Challenge]] =
@@ -32,22 +37,25 @@ final class ChallengeMaker(
     }
 
   // pov of the challenger
-  private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] =
-    gameRepo initialFen pov.game map { initialFen =>
-      val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-        case (Some(clock), _) => TimeControl.Clock(clock.config)
-        case (_, Some(days))  => TimeControl.Correspondence(days)
-        case _                => TimeControl.Unlimited
-      }
-      Challenge.make(
-        variant = pov.game.variant,
-        initialFen = initialFen,
-        timeControl = timeControl,
-        mode = pov.game.mode,
-        color = (!pov.color).name,
-        challenger = Challenge.toRegistered(pov.game.variant, timeControl)(challenger),
-        destUser = dest.some,
-        rematchOf = pov.gameId.some
-      )
+  private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] = for {
+    initialFen <- gameRepo initialFen pov.game
+    nextGameId <- rematches.offer(pov.ref)
+  } yield {
+    val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
+      case (Some(clock), _) => TimeControl.Clock(clock.config)
+      case (_, Some(days))  => TimeControl.Correspondence(days)
+      case _                => TimeControl.Unlimited
     }
+    Challenge.make(
+      variant = pov.game.variant,
+      initialFen = initialFen,
+      timeControl = timeControl,
+      mode = pov.game.mode,
+      color = (!pov.color).name,
+      challenger = Challenge.toRegistered(pov.game.variant, timeControl)(challenger),
+      destUser = dest.some,
+      rematchOf = pov.gameId.some,
+      id = nextGameId.some
+    )
+  }
 }

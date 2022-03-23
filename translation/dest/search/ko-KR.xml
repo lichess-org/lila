@@ -29,4 +29,8 @@
   <string name="include">포함</string>
   <string name="descending">내림차순</string>
   <string name="ascending">오름차순</string>
+  <plurals name="gamesFound">
+    <item quantity="other">%s 게임 검색됨</item>
+  </plurals>
+  <string name="ratingExplanation">두 플레이어의 평균 레이팅</string>
 </resources>

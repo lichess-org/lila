@@ -15,6 +15,7 @@ object queue {
   def apply(
       appeals: List[Appeal.WithUser],
       inquiries: Map[User.ID, Inquiry],
+      markedByMe: Set[User.ID],
       scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int
@@ -32,8 +33,11 @@ object queue {
           appeals.map { case Appeal.WithUser(appeal, user) =>
             tr(cls := List("new" -> appeal.isUnread))(
               td(
-                userIdLink(appeal.id.some),
+                userIdLink(appeal.id.some, params = "?mod"),
                 br,
+                markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked-by-me text")(
+                  "My mark"
+                ),
                 views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption map { msg =>

@@ -18,7 +18,7 @@
   <string name="thankYou">Dėkojame už jūsų paramą!</string>
   <string name="youHaveLifetime">Jūs turite Rėmėjo Gyvenimui paskyrą. Kietai!</string>
   <string name="patronUntil">Jūs turite Rėmėjo paskyrą iki %s.</string>
-  <string name="ifNotRenewed">Jei ji nebus atnaujinta, būsite grąžintas į nemokamą paskyrą.</string>
+  <string name="ifNotRenewedThenAccountWillRevert" comment="ifNotRenewedThenAccountWillRevert&#10;&#10;i.e. you will no longer have patron wings if you do not pay to renew.">Jei nebus atnaujinta, jūsų paskyra atsivers į įprastą paskyrą.</string>
   <string name="weAreNonProfit">Mes esame nepelno asocijacija, nes tikime, kad visi turėtų turėti prieigą prie nemokamos, pasaulinės klasės šachmatų platformos.</string>
   <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lichess, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
   <string name="lifetime">Gyvenimui</string>

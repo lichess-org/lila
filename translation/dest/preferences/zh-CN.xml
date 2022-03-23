@@ -13,6 +13,7 @@
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示玩家等级分</string>
+  <string name="explainShowPlayerRatings">该选项可在全站内隐藏显示等级分，使你可以专注在下棋本身。对局依旧会影响等级分，只是不显示而已。</string>
   <string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">悔棋（需要对手同意）</string>
   <string name="inCasualGamesOnly">仅限于无积分对局</string>
   <string name="promoteToQueenAutomatically">兵自动升为后</string>
+  <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
   <string name="whenPremoving">预先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">输棋、和棋后自动发送：“厉害，玩得不错！”</string>
   <string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>
   <string name="scrollOnTheBoardToReplayMoves">在棋盘上滚动鼠标滚轮以回退</string>
+  <string name="correspondenceEmailNotification">每日发送邮件通知您正在进行的通讯棋局</string>
 </resources>

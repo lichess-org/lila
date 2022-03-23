@@ -3,7 +3,7 @@ import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view';
 import { TagArray } from './interfaces';
-import { findTag, isFinished, resultOf } from './studyChapters';
+import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 
 interface PlayerNames {
   white: string;
@@ -24,7 +24,16 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
     materialDiffs = renderMaterialDiffs(ctrl);
 
   return (['white', 'black'] as Color[]).map(color =>
-    renderPlayer(tags, clocks, materialDiffs, playerNames, color, ticking === color, ctrl.bottomColor() !== color)
+    renderPlayer(
+      tags,
+      clocks,
+      materialDiffs,
+      playerNames,
+      color,
+      ticking === color,
+      ctrl.bottomColor() !== color,
+      study.data.hideRatings && looksLikeLichessGame(tags)
+    )
   );
 }
 
@@ -35,10 +44,11 @@ function renderPlayer(
   playerNames: PlayerNames,
   color: Color,
   ticking: boolean,
-  top: boolean
+  top: boolean,
+  hideRatings?: boolean
 ): VNode {
   const title = findTag(tags, `${color}title`),
-    elo = findTag(tags, `${color}elo`),
+    elo = hideRatings ? undefined : findTag(tags, `${color}elo`),
     result = resultOf(tags, color === 'white');
   return h(
     `div.study__player.study__player-${top ? 'top' : 'bot'}`,

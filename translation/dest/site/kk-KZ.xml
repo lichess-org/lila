@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Ақ</string>
   <string name="black">Қара</string>
+  <string name="asWhite">ақпен</string>
+  <string name="asBlack">қарамен</string>
   <string name="randomColor">Кез-келген түс</string>
   <string name="createAGame">Ойын бастау</string>
   <string name="whiteIsVictorious">Ақ жеңді</string>
@@ -138,7 +140,7 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
-  <string name="drawByMutualAgreement">Өзара мақұлданған тепе-теңдік</string>
+  <string name="drawByMutualAgreement">Келісімді тепе-теңдік</string>
   <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
   <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
@@ -343,6 +345,7 @@
   <string name="leaderboard">Мықтылар қатары</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
+  <string name="orUploadPgnFile">Немесе PGN файл жүктеңіз</string>
   <string name="fromPosition">Күйден бастап</string>
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
@@ -785,7 +788,6 @@
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
-  <string name="agreementAccount">Мен бірнеше тіркелгі жасамаймын деп уәде беремін.</string>
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>

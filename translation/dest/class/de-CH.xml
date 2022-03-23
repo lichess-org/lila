@@ -4,15 +4,15 @@
   <string name="teachClassesOfChessStudents">Klasse vu Schachlerende mit Lichess Werchzüg underrichte.</string>
   <string name="features">Funktione</string>
   <string name="quicklyGenerateSafeUsernames">Schnälli Erschtellig vu Benutzernäme und Passwörter für Schüeler</string>
-  <string name="trackStudentProgress">Verfolg de Fortschritt vu diine Schüeler - in Schpiil und Ufgabe</string>
+  <string name="trackStudentProgress">Verfolg de Fortschritt vu dine Schüeler - in Schpiil und Ufgabe</string>
   <string name="messageAllStudents">Benachrichtig all Schüeler über neus Lehrmaterial</string>
-  <string name="freeForAllForever">100% choschtelos für all, für immer ohni Werbig oder Tracker</string>
+  <string name="freeForAllForever">100% gratis für jedermann, für immer, ohni Werbig oder Tracker</string>
   <string name="applyToBeLichessTeacher">Bewirb dich als Lichess Schachlehrer</string>
   <string name="noClassesYet">Bis jetzt kei Klasse.</string>
   <string name="teachersX">Lehrer: %s</string>
   <string name="newClass">Neui Klass</string>
   <string name="closeClass">Klass schlüüsse</string>
-  <string name="closedByX">Geschlossen von %s</string>
+  <string name="removedByX">Entfernt vu %s</string>
   <string name="reopen">Wieder öffne</string>
   <string name="removeStudent">Schüeler entferne</string>
   <string name="removedStudents">Entfernt</string>
@@ -49,7 +49,7 @@ Passwort: %3$s</string>
   <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess uusgschlosse.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erschtell en neue Benutzername</string>
-  <string name="welcomeToClass">Willkomme i diinere Klass: %s.
+  <string name="welcomeToClass">Willkomme i dinere Klass: %s.
 Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="invitationToClass">Du bisch iiglade, de Klass \"%s\" als Schüeler biizträte.</string>
   <string name="clickToViewInvitation">Klick uf de Link zum die Iiladig zeige:</string>
@@ -89,7 +89,9 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="variantXOverLastY">%1$s über die letschte %2$s</string>
   <string name="winrate">Gwünnrate</string>
   <string name="na">Nöd verfüegbar</string>
-  <string name="news">Klasse Neuigkeite</string>
+  <string name="overview">Übersicht</string>
+  <string name="news">Neuigkeite</string>
+  <string name="classNews">Klasse news</string>
   <string name="editNews">Neuigkeite bearbeite</string>
   <string name="notifyAllStudents">Benachrichtig alli Schüeler</string>
   <string name="nothingHere">No nüt da.</string>
@@ -97,4 +99,19 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="newsEdit2">Füeg die aktuelle Neuigkeite obe zue. Lösch kei vorherigi Neuigkeite.</string>
   <string name="newsEdit3">Tränn Neuigkeite mit ---
 Es wird als horizontali Linie aazeigt.</string>
+  <string name="invite">Iilade</string>
+  <string name="youHaveBeenInvitedByX">Du bisch iiglade vu %s.</string>
+  <string name="youAcceptedThisInvitation">Du häsch die Iiladig aagnah.</string>
+  <string name="youDeclinedThisInvitation">Du häsch die Iiladig abglehnt.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>
+  <string name="createMultipleAccounts">Mach mehreri Lichess Konti gliichzitig</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du chasch au mit %s, us ere Lischte vu Schüelernäme, mehreri Lichess Konti mache.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">benutz das Formular</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Dänk dra, dass e Klass nur %1$s Schüeler chan haa. Für s\'Verwalte vu meh Schüeler, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">mach witeri Klasse</string>
+  <string name="studentsRealNamesOnePerLine">Die richtige Näme vu de Schüeler, eine pro Ziile</string>
+  <string name="xisNowAStudentOfTheClass">%s isch jetzt en Schüeler vu de Klass</string>
+  <string name="anInvitationHasBeenSentToX">An %s isch e Iiladig gsändet worde</string>
+  <string name="xAlreadyHasAPendingInvitation">%s hät bereits e usstehendi Iiladig</string>
+  <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iiladigs URL manuell übermittle: %2$s</string>
 </resources>

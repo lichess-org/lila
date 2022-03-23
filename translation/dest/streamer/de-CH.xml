@@ -20,7 +20,7 @@
   <string name="rule3">Lichess wird automatisch din Sttream erkänä und folgändi Zuäsatzdiänscht aktiviärä:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Liis eusi %s, um Fairplay für alli während dim Schtriim z\'gwährleistä.</string>
   <string name="streamingFairplayFAQ">streamä Fairplay FAQ</string>
-  <string name="perks">Vorteil fürs Streame mitämä Schlüssälwort</string>
+  <string name="perks">Vorteil fürs Streame mitem Schlüsselwort</string>
   <string name="perk1">Bechum äs flammänds Streamer-Symbol uf dim Lichess-Profil.</string>
   <string name="perk2">Wird ad Schpitzä vodä Streamerlischtä gsetzt.</string>
   <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
@@ -30,9 +30,9 @@
   <string name="pleaseFillIn">Bitte füll dini Streamer-Informationä uus und lad äs Bild ufä.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wenn du parat bisch, als Streamer/-in aazeigt z\'wärdä, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fordärä än Überprüäfig dur Moderatorä aa</string>
-  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
-Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
-Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
+  <string name="anotherLanguage">Falls du innere andere Schprach als Änglisch streamst, dänn füeg, am Aafang vu dim Stream Titel, die richtig Schprachmarkierig (%s) ii und zwar iigschlosse vu eckige Chlammere. Wie z. B. es \"[DE]\" für Dütsch, \"[FR]\" für Französisch oder ebe \"[CH]\" für Schwizerdütsch usw.
+Uf \"Twitch\" oder \"YouTube\" chann mer das vorher iischtelle, i de Lichess-Streamer Iischtellige nöd. 
+Wänn din Stream in Änglisch isch, muesch kei Schprachmarkierig bifüege.</string>
   <string name="twitchUsername">Din Twitch-Benutzernamä oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>

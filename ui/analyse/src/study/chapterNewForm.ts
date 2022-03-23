@@ -287,7 +287,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               ])
             : null,
           activeTab === 'pgn'
-            ? h('div.form-groupabel', [
+            ? h('div.form-group', [
                 h('textarea#chapter-pgn.form-control', {
                   attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
@@ -364,22 +364,18 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               modeChoices.map(c => option(c[0], mode, noarg(c[1])))
             ),
           ]),
-          modalButton(noarg('createChapter')),
+          h(
+            'div.form-actions.single',
+            h(
+              'button.button',
+              {
+                attrs: { type: 'submit' },
+              },
+              noarg('createChapter')
+            )
+          ),
         ]
       ),
     ],
   });
-}
-
-export function modalButton(name: string): VNode {
-  return h(
-    'div.form-actions.single',
-    h(
-      'button.button',
-      {
-        attrs: { type: 'submit' },
-      },
-      name
-    )
-  );
 }

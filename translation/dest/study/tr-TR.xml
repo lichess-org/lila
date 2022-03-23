@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>
   <string name="saveChapter">Bölümü kaydet</string>
   <string name="clearAnnotations">Açıklamaları sil</string>
+  <string name="clearVariations">Varyasyonları sil</string>
   <string name="deleteChapter">Bölümü sil</string>
   <string name="deleteThisChapter">Bu bölüm silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="clearAllCommentsInThisChapter">Bu bölümdeki bütün yorumlar ve işaretler temizlensin mi?</string>
@@ -156,11 +157,11 @@
   <string name="nextChapter">Sonraki bölüm</string>
   <string name="prevChapter">Önceki bölüm</string>
   <string name="studyActions">Çalışma seçenekleri</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Konular</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Konularım</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Popüler konular</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Konuları yönet</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Baştan başlat</string>
+  <string name="topics">Konular</string>
+  <string name="myTopics">Konularım</string>
+  <string name="popularTopics">Popüler konular</string>
+  <string name="manageTopics">Konuları yönet</string>
+  <string name="back">Baştan başlat</string>
   <string name="playAgain">Tekrar oyna</string>
   <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
   <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>

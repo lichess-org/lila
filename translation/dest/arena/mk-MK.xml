@@ -40,4 +40,17 @@
   <string name="thisIsPrivate">Ова е приватен турнир</string>
   <string name="shareUrl">Споделете го URL-то за да поканите некого: %s</string>
   <string name="drawStreak">Низа ремија: Кога играчот ќе добие низа ремија во арената, ќе добие поен само за првото реми, односно за ремијата со повеќе од %s потези. Низата на ремија може да биде прекината само со победа, не и со загуба или реми.</string>
+  <string name="history">Историја на Арена</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Прегледај го тимот</item>
+    <item quantity="other">Прегледајте ги сите %s тимови</item>
+  </plurals>
+  <string name="newTeamBattle">Нова тимска битка</string>
+  <string name="customStartDate">Прилагоден датум на почеток</string>
+  <string name="customStartDateHelp">Во вашата локална временска зона. Ова ја отфрла поставката „Време пред да започне турнирот“</string>
+  <string name="allowBerserk">Дозволи Берсерк</string>
+  <string name="allowBerserkHelp">Им овозможува на играчите да го преполоват своето време со можност да добијат екстра поени</string>
+  <string name="allowChatHelp">Дозволете играчите да разговараат во соба за разговор</string>
+  <string name="arenaStreaks">Арена серија</string>
+  <string name="arenaStreaksHelp">После 2 победи, последователни победи носат 4 поени наместо 2.</string>
 </resources>

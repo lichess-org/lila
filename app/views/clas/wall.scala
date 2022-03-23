@@ -41,7 +41,7 @@ object wall {
           form3.globalError(form),
           form3.group(
             form("wall"),
-            trans.clas.news()
+            trans.clas.classNews()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),

@@ -81,8 +81,12 @@ case class Node(
     copy(
       comments = Comments(Nil),
       shapes = Shapes(Nil),
-      glyphs = Glyphs.empty,
-      score = none
+      glyphs = Glyphs.empty
+    )
+
+  def clearVariations: Node =
+    copy(
+      children = children.first.fold(Node.emptyChildren) { child => Children(Vector(child.clearVariations)) }
     )
 
   def merge(n: Node): Node =
@@ -294,6 +298,13 @@ object Node {
       children.first.fold(this) { main =>
         copy(children = children.update(main updateMainlineLast f))
       }
+
+    def clearVariations =
+      copy(
+        children = children.first.fold(Node.emptyChildren) { child =>
+          Children(Vector(child.clearVariations))
+        }
+      )
 
     lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 

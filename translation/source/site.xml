@@ -504,6 +504,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
+  <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -795,7 +796,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="currentMatchScore">Current match score</string>
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
   <string name="agreementNice">I agree that I will always be respectful to other players.</string>
-  <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
@@ -897,4 +898,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
   <string name="switchSides">Switch sides</string>
+  <string name="closingAccountWithdrawAppeal">Closing your account will withdraw your appeal</string>
 </resources>

@@ -12,7 +12,6 @@
   <string name="teachersX">Profesori: %s</string>
   <string name="newClass">Clasă nouă</string>
   <string name="closeClass">Închide clasa</string>
-  <string name="closedByX">Închisă de %s</string>
   <string name="reopen">Redeschide</string>
   <string name="removeStudent">Elimină student</string>
   <string name="removedStudents">Eliminat</string>
@@ -92,7 +91,7 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="variantXOverLastY">%1$s peste ultimele %2$s</string>
   <string name="winrate">Rată de câștig</string>
   <string name="na">N/A</string>
-  <string name="news">Noutăți în clasă</string>
+  <string name="news">Noutăți</string>
   <string name="editNews">Editare noutăți</string>
   <string name="notifyAllStudents">Anunță toți studenții</string>
   <string name="nothingHere">Nimic aici, momentan.</string>

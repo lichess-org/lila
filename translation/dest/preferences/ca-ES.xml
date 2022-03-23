@@ -12,8 +12,8 @@
   <string name="chessPieceSymbol">Símbol de la peça</string>
   <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
-  <string name="showPlayerRatings">Mostra la clasificació dels jugadors</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Això permet amagar tots els ratings de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
+  <string name="showPlayerRatings">Mostra les puntuacions del jugador</string>
+  <string name="explainShowPlayerRatings">Això permet amagar totes les puntuacions de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
   <string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
   <string name="onlyOnInitialPosition">Només en posició inicial</string>
   <string name="blindfoldChess">Escacs a cegues (peces invisibles)</string>
@@ -23,7 +23,7 @@
   <string name="horizontalGreenProgressBars">Barres horitzontals verdes de temps</string>
   <string name="soundWhenTimeGetsCritical">So quan quedi poc temps</string>
   <string name="giveMoreTime">Donar més temps</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportament durant la partida</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportament del tauler</string>
   <string name="howDoYouMovePieces">Com mous les peces?</string>
   <string name="clickTwoSquares">Fes clic en dues caselles</string>
   <string name="dragPiece">Mou una peça</string>
@@ -32,7 +32,7 @@
   <string name="takebacksWithOpponentApproval">Torna enrere (amb l\'aprovació de l\'oponent)</string>
   <string name="inCasualGamesOnly">Només en els jocs amistosos</string>
   <string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Mantingui la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
+  <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
@@ -44,8 +44,9 @@
   <string name="castleByMovingTwoSquares">Moure el rei dues caselles</string>
   <string name="castleByMovingOntoTheRook">Moure el rei a la torre</string>
   <string name="inputMovesWithTheKeyboard">Moure peces amb el teclat</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Apuntar fletxes a jugades legals</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Fletxes cap a moviments vàlids</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dir “Bona partida, ben jugat!” quan perds o fas taules</string>
   <string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Desplaceu-vos amb la rodeta pel tauler per reproduir jugades</string>
+  <string name="scrollOnTheBoardToReplayMoves">Desplaça\'t amb la rodeta pel tauler per reproduir jugades</string>
+  <string name="correspondenceEmailNotification">Correu electrònic diari de notificació amb les vostres partides per correspondència</string>
 </resources>

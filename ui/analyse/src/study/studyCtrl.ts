@@ -43,6 +43,7 @@ import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
+import { storedProp } from 'common/storage';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -83,6 +84,8 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
+  const relayRecProp = storedProp('relay.rec', true);
+
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
@@ -94,7 +97,7 @@ export default function (
       // path is at ctrl.path
       mode: {
         sticky: sticked,
-        write: true,
+        write: !relayData || relayRecProp(),
       },
       // how many events missed because sync=off
       behind: 0,
@@ -117,7 +120,7 @@ export default function (
     startTour,
     notif,
     onBecomingContributor() {
-      vm.mode.write = true;
+      vm.mode.write = !relayData || relayRecProp();
     },
     admin: data.admin,
     redraw,
@@ -316,8 +319,9 @@ export default function (
   if (members.canContribute()) form.openIfNew();
 
   const currentNode = () => ctrl.node;
+  const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
 
-  const share = shareCtrl(data, currentChapter, currentNode, relay, redraw, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, onMainline, relay, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -392,6 +396,10 @@ export default function (
     const i = chs.findIndex(ch => ch.id === vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
   });
+  const hasNextChapter = () => {
+    const chs = chapters.list();
+    return chs[chs.length - 1].id != vm.chapterId;
+  };
 
   const socketHandlers: Handlers = {
     path(d) {
@@ -499,7 +507,7 @@ export default function (
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
       else if (d.w && d.w.s === lichess.sri) {
-        vm.mode.write = true;
+        vm.mode.write = !relayData || relayRecProp();
         vm.chapterId = d.p.chapterId;
       }
       xhrReload();
@@ -675,6 +683,7 @@ export default function (
     },
     toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
+      if (relayData) relayRecProp(vm.mode.write);
       xhrReload();
     },
     isWriting,
@@ -686,6 +695,7 @@ export default function (
     gamebookPlay: () => gamebookPlay,
     prevChapter,
     nextChapter,
+    hasNextChapter,
     goToPrevChapter() {
       const chapter = prevChapter();
       if (chapter) setChapter(chapter.id);

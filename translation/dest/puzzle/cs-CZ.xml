@@ -58,6 +58,8 @@
   <string name="continueTheStreak">Pokračovat v sérii</string>
   <string name="newStreak">Nová série</string>
   <string name="fromMyGames">Z mých partií</string>
+  <string name="lookupOfPlayer">Vyhledat úlohy z her hráče</string>
+  <string name="fromXGames">Úlohy z her hráče %s</string>
   <string name="searchPuzzles">Hledat hádanky</string>
   <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
 Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
@@ -76,5 +78,7 @@ Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!
     <item quantity="other">%s k opakování</item>
   </plurals>
   <string name="percentSolved">%s vyřešeno</string>
+  <string name="noPuzzlesToShow">Nic k zobrazení, jděte nejdříve zkusit nějaké úlohy!</string>
+  <string name="improvementAreasDescription">Tyto procvičujte pro zlepšení!</string>
   <string name="strengthDescription">V těchto tématech se vám daří nejvíc</string>
 </resources>

@@ -94,6 +94,8 @@ final class Env(
 
   lazy val accountClosure = wire[AccountClosure]
 
+  lazy val forumAccess = wire[ForumAccess]
+
   lazy val cli = wire[Cli]
 
   private lazy val influxEvent = new InfluxEvent(

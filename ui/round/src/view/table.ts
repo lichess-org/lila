@@ -51,6 +51,8 @@ export const renderTablePlay = (ctrl: RoundController) => {
               : button.standard(ctrl, game.takebackable, '', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
+              : ctrl.data.game.threefold
+              ? button.claimThreefold(ctrl)
               : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
@@ -63,7 +65,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
       ? [submit]
       : [
           button.opponentGone(ctrl),
-          button.threefoldClaimDraw(ctrl),
+          button.threefoldSuggestion(ctrl),
           button.cancelDrawOffer(ctrl),
           button.answerOpponentDrawOffer(ctrl),
           button.cancelTakebackProposition(ctrl),

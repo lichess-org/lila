@@ -59,4 +59,5 @@
   <string name="upcomingTourns">טורנירים קרובים</string>
   <string name="completedTourns">טורנירים שהשלמת</string>
   <string name="declinedRequests">בקשות שנדחתו</string>
+  <string name="joinLichessVariantTeam">הצטרפו לקבוצת %s הרשמית של ליצ\'ס בכדי לקבל עדכונים על חדשות וארועים</string>
 </resources>

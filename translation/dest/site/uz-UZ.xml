@@ -17,6 +17,8 @@
   <string name="stalemate">Pat, durrang</string>
   <string name="white">Oq</string>
   <string name="black">Qora</string>
+  <string name="asWhite">oqlar sifatida</string>
+  <string name="asBlack">qoralar sifatida</string>
   <string name="randomColor">Tasodifiy tarafda</string>
   <string name="createAGame">O\'yin yaratish</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
@@ -24,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Siz oqlarda o\'ynaysiz</string>
   <string name="youPlayTheBlackPieces">Siz qoralarda o\'ynaysiz</string>
   <string name="itsYourTurn">Sizning yurishingiz!</string>
+  <string name="cheatDetected">Girromlik topildi</string>
   <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
   <string name="raceFinished">Musobaqa yakunlandi</string>
@@ -46,6 +49,8 @@
   <string name="blackResigned">Qoralar taslim bo\'ldi</string>
   <string name="whiteLeftTheGame">Oqlar o\'yinni tashlab ketdi</string>
   <string name="blackLeftTheGame">Qoralar o\'yinni tashlab ketdi</string>
+  <string name="whiteDidntMove">Oqlar yurmadi</string>
+  <string name="blackDidntMove">Qoralar yurmadi</string>
   <string name="requestAComputerAnalysis">Kompyuter tahlili uchun so\'rov</string>
   <string name="computerAnalysis">Kompyuter tahlili</string>
   <string name="computerAnalysisAvailable">Kompyuter tahlili mavjud</string>
@@ -84,12 +89,16 @@
     <item quantity="one">%s yarim yurishda Mot</item>
     <item quantity="other">%s yarim-yurishlarda Mot</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">O\'yin topilmadi</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
   <string name="openingExplorer">Sharhlovchini ochish</string>
+  <string name="openingEndgameExplorer">Uyinni boshlamoq/tugatmoq</string>
   <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
   <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan g\'alabaga to\'sqinlik qilindi</string>
   <string name="lossSavedBy50MoveRule">Mag\'lubiyatdan 50 yurish qoidasaga asosan saqlanildi</string>
+  <string name="winOr50MovesByPriorMistake">Hato uchun yutmoq yoki 50-ta qadam yurish</string>
+  <string name="lossOr50MovesByPriorMistake">Hato uchun yutqazmoq yoki 50-ta qadam yurish</string>
   <string name="allSet">Xammasi yaxshi!</string>
   <string name="importPgn">PGN ni import qilish</string>
   <string name="delete">O\'chirish</string>
@@ -334,6 +343,7 @@
   <string name="leaderboard">Sardorlar ro\'yhati</string>
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
+  <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
   <string name="fromPosition">Ushbu joyidan</string>
   <string name="continueFromHere">Shu joydan davom etish</string>
   <string name="toStudy">O\'rganish</string>
@@ -421,6 +431,7 @@
   <string name="boardEditor">Doskani tahrilovchi</string>
   <string name="setTheBoard">Doskani sozlash</string>
   <string name="popularOpenings">Mashhur shahmat yurishlari</string>
+  <string name="endgamePositions">Endshpil pozitsiyalari</string>
   <string name="startPosition">Boshlang\'ich joylashuv</string>
   <string name="clearBoard">Doskani tozalash</string>
   <string name="loadPosition">Shahmat ma\'lum bir holatini o\'qib olish</string>
@@ -435,6 +446,7 @@
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Mamlakat yoki bayroq</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
@@ -756,7 +768,6 @@
   <string name="currentMatchScore">Joriy o\'yin holati</string>
   <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
-  <string name="agreementAccount">Men bir nechta hisob ochmaslikka roziman.</string>
   <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>

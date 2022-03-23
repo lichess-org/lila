@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
-import lila.common.ThreadLocalRandom.nextFloat
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
@@ -64,35 +63,35 @@ final private class ExplorerIndexer(
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
-  // probability of the game being indexed, between 0 and 1
-  private def probability(game: Game, rating: Int): Float = {
+  // probability of the game being indexed, between 0 and 100
+  private def probability(game: Game, rating: Int): Int = {
     import lila.rating.PerfType._
     game.perfType ?? {
-      case Correspondence | Classical => 1.00f
+      case Correspondence | Classical => 100
 
-      case Rapid if rating >= 2200 => 1.00f
-      case Rapid if rating >= 2000 => 0.83f
-      case Rapid if rating >= 1800 => 0.46f
-      case Rapid if rating >= 1600 => 0.39f
-      case Rapid                   => 0.02f
+      case Rapid if rating >= 2200 => 100
+      case Rapid if rating >= 2000 => 83
+      case Rapid if rating >= 1800 => 46
+      case Rapid if rating >= 1600 => 39
+      case Rapid                   => 2
 
-      case Blitz if rating >= 2500 => 1.00f
-      case Blitz if rating >= 2200 => 0.38f
-      case Blitz if rating >= 2000 => 0.18f
-      case Blitz if rating >= 1600 => 0.13f
-      case Blitz                   => 0.02f
+      case Blitz if rating >= 2500 => 100
+      case Blitz if rating >= 2200 => 38
+      case Blitz if rating >= 2000 => 18
+      case Blitz if rating >= 1600 => 13
+      case Blitz                   => 2
 
-      case Bullet if rating >= 2500 => 1.00f
-      case Bullet if rating >= 2200 => 0.48f
-      case Bullet if rating >= 2000 => 0.27f
-      case Bullet if rating >= 1800 => 0.19f
-      case Bullet if rating >= 1600 => 0.18f
-      case Bullet                   => 0.02f
+      case Bullet if rating >= 2500 => 100
+      case Bullet if rating >= 2200 => 48
+      case Bullet if rating >= 2000 => 27
+      case Bullet if rating >= 1800 => 19
+      case Bullet if rating >= 1600 => 18
+      case Bullet                   => 2
 
-      case UltraBullet => 1.00f
+      case UltraBullet => 100
 
-      case _ if rating >= 1600 => 1.00f // variant games
-      case _                   => 0.50f // noob variant games
+      case _ if rating >= 1600 => 100 // variant games
+      case _                   => 50  // noob variant games
     }
   }
 
@@ -103,7 +102,7 @@ final private class ExplorerIndexer(
       if whiteRating >= 1501
       if blackRating >= 1501
       averageRating = (whiteRating + blackRating) / 2
-      if probability(game, averageRating) > nextFloat()
+      if probability(game, averageRating) > (game.id.hashCode % 100)
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>

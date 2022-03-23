@@ -20,8 +20,8 @@ object bits {
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(implicit ctx: Context) =
-    ctx.pref.showRatings option frag(
-      div(cls := "lobby__leaderboard lobby__box")(
+    frag(
+      ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
@@ -42,7 +42,7 @@ object bits {
           )
         )
       ),
-      div(cls := "lobby__winners lobby__box")(
+      div(cls := s"lobby__box ${if (ctx.pref.showRatings) "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
@@ -160,7 +160,7 @@ object bits {
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := "")(
-          if (current.pov.game.abortable) trans.abortTheGame() else trans.resignTheGame()
+          if (current.pov.game.abortableByUser) trans.abortTheGame() else trans.resignTheGame()
         )
       ),
       br,

@@ -65,6 +65,17 @@
     }
   }
 
+  .marked-by-me {
+    @extend %box-radius;
+
+    border-radius: 20px;
+    padding: 1rem;
+    background: mix($c-warn, $c-bg-box, 60%);
+    border: 1px solid $c-warn;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
   .appeal-presets {
     margin-right: 1em;
   }
@@ -92,5 +103,9 @@
   #help-engine-deny:target form {
     animation: 20s reveal;
     animation-fill-mode: forwards;
+  }
+
+  .warning-closure {
+    color: $c-bad;
   }
 }

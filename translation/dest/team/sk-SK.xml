@@ -59,4 +59,5 @@ Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť va
   <string name="upcomingTourns">Nadchádzajúce turnaje</string>
   <string name="completedTourns">Ukončené turnaje</string>
   <string name="declinedRequests">Zamietnuté žiadosti</string>
+  <string name="joinLichessVariantTeam">Pridajte sa k oficiálnemu tímu %s a sledujte novinky a udalosti</string>
 </resources>

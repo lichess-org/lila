@@ -39,7 +39,12 @@ object post {
           description = post.intro
         )
         .some,
-      robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH)
+      atomLinkTag = link(
+        href := routes.Ublog.userAtom(user.username),
+        st.title := trans.ublog.xBlog.txt(user.username)
+      ).some,
+      robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH),
+      csp = defaultCsp.withTwitter.some
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),

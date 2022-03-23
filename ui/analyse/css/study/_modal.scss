@@ -48,14 +48,21 @@
     }
 
     button {
-      opacity: 0.5;
+      opacity: 0.8;
 
       &:hover {
         opacity: 1;
       }
     }
+  }
 
-    overflow: hidden;
+  .form-actions-secondary {
+    margin-bottom: -1rem;
+
+    a {
+      padding: 0.8em 1em;
+      display: inline-block;
+    }
   }
 
   &.chapter-new .tabs-horiz {

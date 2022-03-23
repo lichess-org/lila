@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Rögzített megjegyzés</string>
   <string name="saveChapter">Fejezet mentése</string>
   <string name="clearAnnotations">Jelölések eltávolítása</string>
+  <string name="clearVariations">Változatok törlése</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="clearAllCommentsInThisChapter">Eltávolítasz minden megjegyzést, jelölést és rajzot ebből a fejezetből?</string>
@@ -156,11 +157,12 @@
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
   <string name="studyActions">Lecke műveletek</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Témakörök</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Saját témaköreim</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Népszerű témakörök</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Témakörök kezelése</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Vissza</string>
+  <string name="topics">Témakörök</string>
+  <string name="myTopics">Saját témaköreim</string>
+  <string name="popularTopics">Népszerű témakörök</string>
+  <string name="manageTopics">Témakörök kezelése</string>
+  <string name="back">Vissza</string>
   <string name="playAgain">Újra</string>
   <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
+  <string name="youCompletedThisLesson">Gratulálunk! Sikeresen befejezted ezt a részt.</string>
 </resources>

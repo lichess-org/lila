@@ -20,6 +20,8 @@ object TeamBattle {
   val maxTeams     = 200
   val displayTeams = 10
 
+  val blacklist = Set("lichess-swiss", "lichess-curator", "lichess-productions", "lichess-broadcasts")
+
   def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
   case class TeamVs(teams: chess.Color.Map[TeamID])

@@ -504,6 +504,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
+  <string name="importedByX">Importert av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notat</string>
@@ -795,7 +796,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="currentMatchScore">Gjeldande kampscore</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
-  <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg er innforstått med at eg ikkje kan oppretta fleire kontoar, så sant årsakene ikkje fell inn under %s.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
@@ -897,4 +898,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="until">Til</string>
   <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
   <string name="switchSides">Byt side</string>
+  <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
 </resources>

@@ -74,6 +74,7 @@ object faq {
             li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
             li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
             li(a(href := "https://lidraughts.org")("lidraughts.org")),
+            li(a(href := "https://playstrategy.org")("playstrategy.org")),
             li(a(href := "https://lishogi.org")("lishogi.org"))
           )
         ),
@@ -104,6 +105,9 @@ object faq {
           isCorrespondenceDifferent.txt(),
           p(
             youCanUseOpeningBookNoEngine()
+          ),
+          p(
+            pleaseReadFairPlayPage(a(href := routes.Page.loneBookmark("fair-play"))(fairPlayPage()))
           )
         ),
         h2(gameplay()),

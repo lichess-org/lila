@@ -12,7 +12,6 @@
   <string name="teachersX">Lärare: %s</string>
   <string name="newClass">Ny klass</string>
   <string name="closeClass">Stäng lektionen</string>
-  <string name="closedByX">Stängd av %s</string>
   <string name="reopen">Öppna igen</string>
   <string name="removeStudent">Ta bort student</string>
   <string name="removedStudents">Borttagen</string>
@@ -89,7 +88,6 @@ Här är länken för att komma till klassen.</string>
   <string name="variantXOverLastY">%1$s under de senaste %2$s</string>
   <string name="winrate">Segerfrekvens</string>
   <string name="na">Ej tillämpbar</string>
-  <string name="news">Klassnyheter</string>
   <string name="editNews">Redigera nyheter</string>
   <string name="notifyAllStudents">Meddela alla studenter</string>
   <string name="nothingHere">Inget här, ännu.</string>

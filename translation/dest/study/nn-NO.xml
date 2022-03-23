@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Fastspikra kapittelkommentar</string>
   <string name="saveChapter">Lagre kapittelet</string>
   <string name="clearAnnotations">Fjern notat</string>
+  <string name="clearVariations">Fjern variantar</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Avgjerda er endeleg og kan ikkje angrast!</string>
   <string name="clearAllCommentsInThisChapter">Fjern alle kommentarar og figurar i dette kapittelet?</string>
@@ -156,11 +157,11 @@
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Førre kapittel</string>
   <string name="studyActions">Studiehandlingar</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Tema</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Mine tema</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Omtykte tema</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Administrer tema</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Tilbake</string>
+  <string name="topics">Tema</string>
+  <string name="myTopics">Mine tema</string>
+  <string name="popularTopics">Omtykte tema</string>
+  <string name="manageTopics">Administrer tema</string>
+  <string name="back">Tilbake</string>
   <string name="playAgain">Spel på ny</string>
   <string name="whatWouldYouPlay">Kva vil du spela i denne stillinga?</string>
   <string name="youCompletedThisLesson">Gratulerar! Du har fullført denne leksjonen.</string>

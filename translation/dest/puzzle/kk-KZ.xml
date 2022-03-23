@@ -13,6 +13,7 @@
   <string name="specialMoves">Ерекше жүрістер</string>
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
+  <string name="yourPuzzleRatingWillNotChange">Сіздің жұмбақ шешу рейтингіңіз өзгермейді. Жұмбақтар жарыс емес екенін ескеріңіз. Мұндағы рейтингтің қызметі – сіздің деңгейіңізге сәйкес жұмбақты табуға көмекші болу.</string>
   <string name="findTheBestMoveForWhite">Ақтың пайдасына ең тиімді жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қараның пайдасына ең тиімді жүрісті табыңыз.</string>
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
@@ -38,8 +39,16 @@
   <string name="normal">Қалыпты</string>
   <string name="easier">Жеңілдеу</string>
   <string name="easiest">Ең жеңілі</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Жұмбақ рейтингіңізден төмен бір ұпай</item>
+    <item quantity="other">Жұмбақ рейтингіңізден төмен %s ұпай</item>
+  </plurals>
   <string name="harder">Қиындау</string>
   <string name="hardest">Ең қиыны</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Жұмбақ рейтингіңізден жоғары бір ұпай</item>
+    <item quantity="other">Жұмбақ рейтингіңізден жоғары %s ұпай</item>
+  </plurals>
   <string name="example">Мысал</string>
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
   <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
@@ -49,4 +58,29 @@
   <string name="history">Жұмбақ журналы</string>
   <string name="solved">шешілді</string>
   <string name="failed">шешілмеді</string>
+  <string name="streakDescription">Қиындай беретін жұмбақтарды шешіп, жеңістер тізбегін құрыңыз. Уақытта шектеу жоқ. Бір бұрыс қадам болса, ойын бітті! Бірақ бір бәйгеде бір жүрісті өткізіп жібере аласыз.</string>
+  <string name="yourStreakX">Жеңістер тізбегі: %s</string>
+  <string name="streakSkipExplanation">Тізбегіңіз үзілмес үшін бұл жүрісті өткізіп жіберіңіз. Әр бәйгеде бір рет қана жасауға болады.</string>
+  <string name="continueTheStreak">Тізбекті жалғастыру</string>
+  <string name="newStreak">Жаңа тізбек</string>
+  <string name="fromMyGames">Менің ойындарымнан</string>
+  <string name="lookupOfPlayer">Бір ойыншының ойындарынан жұмбақ іздеу</string>
+  <string name="fromXGames">%s ойындарынан жұмбақтар</string>
+  <string name="searchPuzzles">Жұмбақ іздеу</string>
+  <string name="fromMyGamesNone">Дерекқорыңызда жұмбақ жоқ (бірақ сізге деген құрметіміз одан азайған емес).
+Жүйрік әрі классикалық ойын ойнап, жұмбақ құрылуына себепші болыңыз!</string>
+  <string name="fromXGamesFound">%2$s ойында %1$s жұмбақ табылды</string>
+  <string name="puzzleDashboardDescription">Жаттығып, талдап, ақыл шыңдаңыз!</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s ойнадыңыз</item>
+    <item quantity="other">%s ойнадыңыз</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s-н қайта ойнау</item>
+    <item quantity="other">%s-н қайта ойнау</item>
+  </plurals>
+  <string name="percentSolved">%s шешілді</string>
+  <string name="noPuzzlesToShow">Мәлімет жоқ. Алдымен жұмбақ шешіп көріңіз!</string>
+  <string name="improvementAreasDescription">Жетістігіңізді арттыру үшін осыны көріңіз!</string>
+  <string name="strengthDescription">Осы тақырыпта сізде үздік нәтиже</string>
 </resources>

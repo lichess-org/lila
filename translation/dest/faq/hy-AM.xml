@@ -21,6 +21,7 @@
   <string name="leavingGameWithoutResigningExplanation">Եթե ձեր մրցակիցը հաճախ է կասեցնում կամ լքում խաղը, նա ժամանակավորապես արգելափակվում է, ընդ որում՝ արգելափակման մասին իմանում է միայն նա։ Եթե արգելափակումից հետո նա շարունակում է իրեն պահել նույնկերպ, նա կրկին արգելափակվում է, բայց արդեն ավելի երկար ժամանակով։ Հետագայում նրա մասնակցային հաշիվը կարող է ամբողջովին արգելափակվել։</string>
   <string name="howCanIBecomeModerator">Ես կարո՞ղ եմ դառնալ մոդերատոր։</string>
   <string name="youCannotApply">Մենք չենք ընդունում մոդերատոր դառնալու հայտեր։ Եթե մենք տեսնում ենք, որ ինչ-որ մեկը, մեր կարծիքով, կարող է դառնալ լավ մոդերատոր, նրա հետ կապվում ենք ինքներս։</string>
+  <string name="goodIntroduction">լավ բացատրություն</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
   <string name="threefoldRepetitionLowerCase">եռակի կրկնություն</string>
   <string name="configure">կարգավորել</string>

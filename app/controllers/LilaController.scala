@@ -267,23 +267,32 @@ abstract private[controllers] class LilaController(val env: Env)
       scoped: RequestHeader => Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) securedScopedAction(perm, req)(scoped)
+      if (HTTPRequest isOAuth req) SecureScoped(perm)(scoped)(req)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
     }
+
   protected def SecureOrScopedBody(perm: Permission.Selector)(
       secure: BodyContext[_] => Holder => Fu[Result],
-      scoped: RequestHeader => Holder => Fu[Result]
+      scoped: Request[_] => Holder => Fu[Result]
   ): Action[AnyContent] =
     Action.async(parse.anyContent) { req =>
-      if (HTTPRequest isOAuth req) securedScopedAction(perm, req.map(_ => ()))(scoped)
+      if (HTTPRequest isOAuth req) SecuredScopedBody(perm)(scoped)(req)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
     }
-  private def securedScopedAction(perm: Permission.Selector, req: Request[Unit])(
+
+  protected def SecureScoped(perm: Permission.Selector)(
       f: RequestHeader => Holder => Fu[Result]
   ) =
     Scoped() { req => me =>
       IfGranted(perm, req, me)(f(req)(Holder(me)))
-    }(req)
+    }
+
+  protected def SecuredScopedBody(perm: Permission.Selector)(
+      f: Request[_] => Holder => Fu[Result]
+  ) =
+    ScopedBody() { req => me =>
+      IfGranted(perm, req, me)(f(req)(Holder(me)))
+    }
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (isGranted(perm)) f else authorizationFailed

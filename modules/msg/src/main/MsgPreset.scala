@@ -57,9 +57,9 @@ Thank you for your understanding."""
 
     def byModerator = compose("A moderator") _
 
-    def byTeamLeader = compose("A team leader") _
+    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug") _
 
     private def compose(by: String)(reason: String) =
-      s"""$by deleted one of your posts for this reason: $reason. Please read our Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
+      s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
   }
 }

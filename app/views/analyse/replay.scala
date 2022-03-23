@@ -180,7 +180,7 @@ object replay {
           div(cls := "blind-content none")(
             h2("PGN downloads"),
             pgnLinks,
-            input(tpe := "hidden", value := pgn, cls := "game-pgn"),
+            textarea(style := "opacity: 0.01; height: 0", tabindex := -1, cls := "game-pgn")(pgn),
             button(cls := "copy-pgn", dataRel := "game-pgn")(
               "Copy PGN to clipboard"
             )

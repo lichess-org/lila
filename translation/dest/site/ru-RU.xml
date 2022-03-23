@@ -93,14 +93,15 @@
     <item quantity="many">Мат в %s полуходов</item>
     <item quantity="other">Мат в %s полуходов</item>
   </plurals>
+  <string name="dtzWithRounding">Правило 50 ходов: объявляется ничья, если на протяжении последних 50 ходов ни одна фигура не была взята и ни одна пешка не сделала хода</string>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">База дебютов</string>
-  <string name="openingEndgameExplorer">Справочник начал и окончаний</string>
+  <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
-  <string name="winOr50MovesByPriorMistake">Победа или 50 ходов после последней ошибки</string>
+  <string name="winOr50MovesByPriorMistake">Победа или правило 50 ходов</string>
   <string name="lossOr50MovesByPriorMistake">Поражение или 50 ходов после последней ошибки</string>
   <string name="unknownDueToRounding">Победа/поражение гарантируется только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
   <string name="allSet">Готово!</string>
@@ -566,6 +567,7 @@
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
+  <string name="importedByX">Импортировано %s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="blog">Блог</string>
   <string name="notes">Заметки</string>
@@ -729,7 +731,7 @@
   <string name="downloadImported">Скачать в исходном виде</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Прокручивайте колесо в области компьютерных вариантов, чтобы просмотреть их.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Пролистывайте варианты для их просмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="receiveForumNotifications">Получать уведомления при упоминании на форуме</string>
@@ -863,9 +865,9 @@
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
-  <string name="playEveryGame">Доигрывайте каждую начатую партию.</string>
-  <string name="tryToWin">Попытайтесь выиграть в каждой начатой партии (или хотя бы свести ее вничью).</string>
-  <string name="resignLostGames">Сдавайтесь в проигранных партиях (не ждите окончания времени).</string>
+  <string name="playEveryGame">Доигрывайте все партии, которые начинали.</string>
+  <string name="tryToWin">Пытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
+  <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
   <string name="thankYouForReading">Спасибо за внимание!</string>
@@ -873,7 +875,7 @@
   <string name="currentMatchScore">Счёт в текущем матче</string>
   <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
-  <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я согласен с тем, что не должен создавать множество учётных записей (за исключением причин, указанных в %s).</string>
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
@@ -907,11 +909,11 @@
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
-  <string name="gameVsX">Партия против %1$s</string>
+  <string name="gameVsX">Игра против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Новый соискатель</string>
-  <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
+  <string name="lostAgainstTOSViolator">Вы проиграли тому, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
@@ -931,7 +933,7 @@
   <string name="minimumRatedGames">Минимум рейтинговых игр</string>
   <string name="minimumRating">Минимальный рейтинг</string>
   <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
-  <string name="onlyTitled">Только игроки со званиями</string>
+  <string name="onlyTitled">Только титулованные игроки</string>
   <string name="onlyTitledHelp">Требует официального звания для участия в турнире</string>
   <string name="positionInputHelp">Вставьте правильную строку FEN, чтобы каждая игра начиналась с заданной позиции.
 Это работает только для стандартных игр, но не с вариантами.
@@ -953,7 +955,7 @@
   <string name="onlyTeamMembers">Только члены клуба</string>
   <string name="navigateMoveTree">Навигация по нотации</string>
   <string name="mouseTricks">Движения мышкой</string>
-  <string name="toggleLocalAnalysis">Включить локальный анализ</string>
+  <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
@@ -962,7 +964,7 @@
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
   <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
   <string name="onlyWorksOnce">Это сработает только один раз.</string>
-  <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, возможности открыть его уже не будет.</string>
+  <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, вы уже не сможете открыть его.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>
@@ -975,4 +977,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
   <string name="switchSides">Сменить сторону</string>
+  <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
 </resources>

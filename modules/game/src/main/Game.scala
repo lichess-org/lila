@@ -89,12 +89,13 @@ case class Game(
   def simulId      = metadata.simulId
   def swissId      = metadata.swissId
 
-  def isTournament = tournamentId.isDefined
-  def isSimul      = simulId.isDefined
-  def isSwiss      = swissId.isDefined
-  def isMandatory  = isTournament || isSimul || isSwiss
-  def isClassical  = perfType contains Classical
-  def nonMandatory = !isMandatory
+  def isTournament         = tournamentId.isDefined
+  def isSimul              = simulId.isDefined
+  def isSwiss              = swissId.isDefined
+  def isMandatory          = isTournament || isSimul || isSwiss
+  def nonMandatory         = !isMandatory
+  def canTakebackOrAddTime = !isMandatory
+  def isClassical          = perfType contains Classical
 
   def hasChat = !isTournament && !isSimul && nonAi
 
@@ -349,11 +350,12 @@ case class Game(
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
-    playable && nonMandatory && {
+    playable && canTakebackOrAddTime && {
       clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
     }
 
-  def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortableByUser = abortable && !fromApi
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
@@ -560,6 +562,8 @@ case class Game(
 
   def showBookmarks = hasBookmarks ?? bookmarks.toString
 
+  def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
+
   def userIds = playerMaps(_.userId)
 
   def twoUserIds: Option[(User.ID, User.ID)] =
@@ -615,10 +619,10 @@ case class Game(
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
   def drawReason = {
-    if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
+    else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
     else None
   }
 

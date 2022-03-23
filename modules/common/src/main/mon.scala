@@ -170,6 +170,10 @@ object mon {
       val count = counter("round.expiration.count").withoutTags()
     }
     val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
+    object correspondenceEmail {
+      val emails = histogram("round.correspondenceEmail.emails").withoutTags()
+      val time   = future("round.correspondenceEmail.time")
+    }
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
@@ -245,9 +249,14 @@ object mon {
   }
   object mod {
     object report {
-      val highest                = gauge("mod.report.highest").withoutTags()
-      val close                  = counter("mod.report.close").withoutTags()
-      def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
+      val highest = gauge("mod.report.highest").withoutTags()
+      val close   = counter("mod.report.close").withoutTags()
+      def create(reason: String, score: Int) = counter("mod.report.create").withTags(
+        Map(
+          "reason" -> reason,
+          "score"  -> score.toString
+        )
+      )
     }
     object log {
       val create = counter("mod.log.create").withoutTags()
@@ -396,7 +405,6 @@ object mon {
       val fullSize = histogram("tournament.lilaHttp.fullSize").withoutTags()
       val nbTours  = gauge("tournament.lilaHttp.nbTours").withoutTags()
     }
-    def standingOverload = counter("tournament.standing.overload").withoutTags()
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(
         Map(
@@ -410,7 +418,6 @@ object mon {
       timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
-    def standingOverload      = counter("swiss.standing.overload").withoutTags()
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
     val scoringGet            = future("swiss.scoring.get")

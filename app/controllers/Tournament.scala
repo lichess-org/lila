@@ -210,18 +210,26 @@ final class Tournament(
       }
     }
 
+  private val JoinLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+    credits = 30,
+    duration = 10 minutes,
+    key = "tournament.user.join"
+  )
+
   def join(id: String) =
-    AuthBody(parse.json) { implicit ctx => implicit me =>
+    AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
         NoPlayban {
-          val data = TournamentForm.TournamentJoin(
-            password = ctx.body.body.\("p").asOpt[String],
-            team = ctx.body.body.\("team").asOpt[String]
-          )
-          doJoin(id, data, me).dmap(_.error) map {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-          }
+          JoinLimitPerUser(me.id) {
+            val data = TournamentForm.TournamentJoin(
+              password = ctx.body.body.\("p").asOpt[String],
+              team = ctx.body.body.\("team").asOpt[String]
+            )
+            doJoin(id, data, me).dmap(_.error) map {
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+            }
+          }(rateLimitedJson.fuccess)
         }
       }
     }
@@ -229,17 +237,18 @@ final class Tournament(
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
-      else {
-        val data = TournamentForm.joinForm
-          .bindFromRequest()
-          .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
-        doJoin(id, data, me) map { result =>
-          result.error match {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("error" -> error))
+      else
+        JoinLimitPerUser(me.id) {
+          val data = TournamentForm.joinForm
+            .bindFromRequest()
+            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+          doJoin(id, data, me) map { result =>
+            result.error match {
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("error" -> error))
+            }
           }
-        }
-      }
+        }(rateLimitedJson.fuccess)
     }
 
   private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
@@ -296,7 +305,7 @@ final class Tournament(
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
@@ -365,7 +374,7 @@ final class Tournament(
       else doApiCreate(me)
     }
 
-  private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(implicit req: Request[_]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -645,6 +654,6 @@ final class Tournament(
       }
   }
 
-  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
+  private def getUserTeamIds(user: UserModel): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
 }

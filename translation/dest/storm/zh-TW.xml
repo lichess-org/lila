@@ -36,13 +36,24 @@
   <string name="raceComplete">完賽！</string>
   <string name="spectating">觀戰中</string>
   <string name="joinTheRace">加入競賽！</string>
+  <string name="startTheRace">開始比賽</string>
   <string name="yourRankX">你的排名: %s</string>
   <string name="waitForRematch">等候重賽</string>
   <string name="nextRace">下一場競賽</string>
   <string name="joinRematch">再來一局</string>
   <string name="waitingToStart">等待開始</string>
   <string name="createNewGame">開始新遊戲</string>
+  <string name="joinPublicRace">加入公開比賽</string>
+  <string name="raceYourFriends">和好友比賽</string>
   <string name="skip">跳過</string>
   <string name="skipHelp">每場賽可略一手棋</string>
   <string name="skipExplanation">跳過這一步來維持您的連擊紀錄！每次遊玩只能使用一次。</string>
+  <string name="failedPuzzles">失敗了的謎題</string>
+  <string name="slowPuzzles">慢 謎題</string>
+  <string name="thisWeek">本星期</string>
+  <string name="thisMonth">本月</string>
+  <string name="allTime">總計</string>
+  <string name="clickToReload">點擊以重新加載</string>
+  <string name="thisRunHasExpired">本次比賽已過期！</string>
+  <string name="thisRunWasOpenedInAnotherTab">本次沖刺已經在另一個標籤頁中打開！</string>
 </resources>

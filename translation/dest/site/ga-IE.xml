@@ -213,6 +213,13 @@
     <item quantity="many">%s uair</item>
     <item quantity="other">%s uair</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s nóiméad</item>
+    <item quantity="two">%s nóiméad</item>
+    <item quantity="few">%s nóiméad</item>
+    <item quantity="many">%s nóiméad</item>
+    <item quantity="other">%s nóiméad</item>
+  </plurals>
   <string name="time">Am</string>
   <string name="rating">Rátáil</string>
   <string name="ratingStats">Staitisticí rátála</string>
@@ -546,6 +553,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Tír nó brat</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
+  <string name="oneUrlPerLine">URL amháin an líne.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
   <string name="previouslyOnLichessTV">Roimhe seo ar Lichess TV</string>
   <string name="onlinePlayers">Imreoirí ar líne</string>
@@ -592,6 +600,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="reportDescriptionHelp">Greamaigh an nasc chuig an gcluiche/na cluichí agus mínigh cad atá cearr le hiompar an úsáideora. Ná habair go díreach go mbíonn \"caimiléireacht\" ar bun acu, ach inis dúinn faoin dóigh a fuair tú amach faoi. Faraor, déanfar do thuairisc a phróiseáil níos tapúla más i mBéarla atá sé.</string>
   <string name="error.provideOneCheatedGameLink">Cuir nasc ar fáil chuig cluiche amháin ar a laghad ar tharla caimiléireacht ann le do thoil.</string>
   <string name="by">ó%s</string>
+  <string name="importedByX">Iompórtáilte ag %s</string>
   <string name="thisTopicIsNowClosed">Tá an topaic seo dúnta anois.</string>
   <string name="blog">Blag</string>
   <string name="notes">Nótaí</string>
@@ -907,7 +916,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="currentMatchScore">Scór reatha an chluiche</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
   <string name="agreementNice">Aontaím go mbeidh meas agam i gcónaí ar fhicheallaithe eile.</string>
-  <string name="agreementAccount">Aontaím nach gcruthóidh mé scata cuntas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Aontaím nach gcruthóidh mé cuntais iolracha (ach amháin ar na cúiseanna atá luaite sa %s).</string>
   <string name="agreementPolicy">Aontaím go leanfaidh mé gach polasaí Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cuardaigh nó cuir tús le comhrá nua</string>
   <string name="edit">Athraigh</string>

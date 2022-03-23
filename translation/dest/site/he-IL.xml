@@ -47,8 +47,8 @@
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
-  <string name="whiteResigned">הלבן פרש</string>
-  <string name="blackResigned">השחור פרש</string>
+  <string name="whiteResigned">הלבן נכנע</string>
+  <string name="blackResigned">השחור נכנע</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
   <string name="whiteDidntMove">לבן לא ביצע מסע</string>
@@ -521,7 +521,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">שורה עבור כל כתובת.</string>
+  <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
@@ -567,6 +567,7 @@
   <string name="reportDescriptionHelp">הדבק את הקישור למשחק(ים) והסבר מה לא בסדר בהתנהגות המשתמש</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
+  <string name="importedByX">מיובא ע\"י %s</string>
   <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
@@ -877,7 +878,7 @@
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
-  <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם הם עבור סיבות כמצוין ב%s).</string>
   <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
@@ -979,4 +980,5 @@
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך לוח</string>
+  <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
 </resources>

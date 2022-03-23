@@ -12,7 +12,6 @@
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
   <string name="closeClass">کلاس را ببندید</string>
-  <string name="closedByX">توسط %s بسته شد</string>
   <string name="reopen">بازگشایی</string>
   <string name="removeStudent">دانش‌جو را خارج کنید</string>
   <string name="removedStudents">حذف شده</string>
@@ -40,10 +39,12 @@
   <string name="inviteDesc1">اگر دانش آموز هم اکنون دارای یک حساب در lichess می باشد، شما می توانید او را به کلاس دعوت کنید.</string>
   <string name="inviteDesc2">آنها یک پیام در lichess حاوی یک لینک برای ورود به کلاس دریافت خواهند کرد.</string>
   <string name="inviteDesc3">مهم: فقط دانش آموزانی که میشناسید و میخواهند وارد کلاس بشوند را دعوت کنید.</string>
+  <string name="inviteDesc4">هرگز دعوت‌های ناخواسته را برای بازیکنان دلخواه ارسال نکنید.</string>
   <string name="createANewLichessAccount">ساخت یک حساب جدید در lichess</string>
   <string name="createDesc1">اگر دانش آموز هنوز حساب lichess ندارد، شما می توانید از اینجا برای او حساب درست کنید.</string>
   <string name="createDesc2">هیچ آدرس ایمیلی نیاز نیست. یک رمز عبور ساخته خواهد شد و شما باید آن را به دانش آموز انتقال بدهید تا بتواند وارد شود.</string>
   <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
+  <string name="createDesc4">اگر قبلاً یکی دارند، به جای آن از فرم دعوت استفاده کنید.</string>
   <string name="createStudentWarning">فقط برای دانش آموزان واقعی حساب باز کنید. از این امکان برای درست کردن چندین حساب برای خود استفاده نکنید. در غیر این صورت حساب شما مسدود خواهد شد.</string>
   <string name="lichessUsername">نام کاربریِ Lichess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
@@ -79,7 +80,6 @@
   <string name="timePlaying">زمان بازی کردن</string>
   <string name="winrate">نرخِ برد</string>
   <string name="na">در دسترس نیست</string>
-  <string name="news">اخبار کلاس</string>
   <string name="editNews">خبرها را ویرایش نمایید</string>
   <string name="notifyAllStudents">اطلاع دادن به تمام دانش آموزان</string>
   <string name="nothingHere">اینجا هنوز چیزی نیست.</string>

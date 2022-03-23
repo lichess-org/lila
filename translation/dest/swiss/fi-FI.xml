@@ -88,8 +88,8 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="pairingSystemArena">Kuka tahansa vastustaja, jonka sijoitus on lähellä omaasi</string>
   <string name="pairingSystemSwiss">Pisteiden ja muiden sijoituskriteerien perusteella sopivin pari</string>
   <string name="pairingWaitTime">Parin odotusaika</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Nopea: ei odota kaikkia pelaajia</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Hidas: odottaa kaikkia pelaajia</string>
+  <string name="pairingWaitTimeArena">Nopea: ei odota kaikkia pelaajia</string>
+  <string name="pairingWaitTimeSwiss">Hidas: odottaa kaikkia pelaajia</string>
   <string name="identicalPairing">Saman parin toistuminen</string>
   <string name="possibleButNotConsecutive">Mahdollista, mutta ei peräjälkeen</string>
   <string name="identicalForbidden">Ei sallittu</string>

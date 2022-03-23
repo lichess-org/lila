@@ -27,7 +27,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
         var moves  = 0
         Source(List(gameJsonView(game, initialFen))) concat
           Source
-            .queue[JsObject](Game.maxPlies, akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject]((game.turns + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
               moves += 1
               if (game.finished || moves <= delayKeepsFirstMoves) List(js)
@@ -40,14 +40,17 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
               val clocks = for {
                 clk        <- game.clock
                 clkHistory <- game.clockHistory
-              } yield (Vector(clk.config.initTime) ++ clkHistory.white, Vector(clk.config.initTime) ++ clkHistory.black)
+              } yield (
+                Vector(clk.config.initTime) ++ clkHistory.white,
+                Vector(clk.config.initTime) ++ clkHistory.black
+              )
               val clockOffset = game.startColor.fold(0, 1)
               Replay.situations(game.pgnMoves, initialFen, game.variant) foreach {
                 _.zipWithIndex foreach { case (s, index) =>
                   val clk = for {
                     (clkWhite, clkBlack) <- clocks
-                    white <- clkWhite.lift((index + 1 - clockOffset) >> 1)
-                    black <- clkBlack.lift((index + clockOffset) >> 1)
+                    white                <- clkWhite.lift((index + 1 - clockOffset) >> 1)
+                    black                <- clkBlack.lift((index + clockOffset) >> 1)
                   } yield (white, black)
                   queue offer toJson(
                     Forsyth exportBoard s.board,

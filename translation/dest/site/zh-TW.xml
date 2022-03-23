@@ -48,6 +48,8 @@
   <string name="blackResigned">黑方認輸</string>
   <string name="whiteLeftTheGame">白方棄局</string>
   <string name="blackLeftTheGame">黑方棄局</string>
+  <string name="whiteDidntMove">白方沒有走棋</string>
+  <string name="blackDidntMove">黑方沒有走棋</string>
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="computerAnalysisAvailable">電腦分析可用</string>
@@ -166,6 +168,9 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="other">%s小時</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s 分鐘</item>
   </plurals>
   <string name="time">時間</string>
   <string name="rating">評級</string>
@@ -315,6 +320,7 @@
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
   <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
+  <string name="orUploadPgnFile">或者上傳一個PGN文件</string>
   <string name="fromPosition">自定義局面</string>
   <string name="continueFromHere">从此處繼續</string>
   <string name="toStudy">研究</string>
@@ -433,6 +439,8 @@
   <string name="tournamentWinners">比赛赢家</string>
   <string name="name">名</string>
   <string name="description">描述</string>
+  <string name="descPrivate">內部簡介</string>
+  <string name="descPrivateHelp">僅團隊成員可見，設置後將覆蓋公開簡介為團隊成員展示。</string>
   <string name="no">否</string>
   <string name="yes">是</string>
   <string name="help">幫助：</string>
@@ -518,8 +526,13 @@
   <string name="increment">加秒</string>
   <string name="error.required">本项必填</string>
   <string name="error.email">這個電子郵件地址無效</string>
+  <string name="error.email_acceptable">該電子郵件地址是不可用。請重新檢查後重試。</string>
+  <string name="error.email_unique">電子郵件地址無效或已被使用</string>
+  <string name="error.email_different">這已經是您的電子郵件地址</string>
   <string name="error.minLength">至少應有 %s 個字元長</string>
   <string name="error.maxLength">最多不能超過 %s 個字元長</string>
+  <string name="error.min">最少 %s 個字符</string>
+  <string name="error.max">最大不能超過 %s</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
   <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
@@ -604,8 +617,10 @@
   <string name="downloadImported">下载已导入棋局</string>
   <string name="crosstable">历史表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">將鼠標移到電腦分析變招上進行預覽</string>
   <string name="analysisShapesHowTo">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
   <string name="letOtherPlayersMessageYou">允許其他人發送私訊給您</string>
+  <string name="receiveForumNotifications">在論壇中被提及時接收通知</string>
   <string name="shareYourInsightsData">分享您的慧眼数据</string>
   <string name="withNobody">不分享</string>
   <string name="withFriends">與好友分享</string>
@@ -616,6 +631,7 @@
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
+  <string name="sessions">會話</string>
   <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>
@@ -733,7 +749,6 @@
   <string name="currentMatchScore">最近的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
-  <string name="agreementAccount">我同意我不會創造許多副帳</string>
   <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
@@ -779,6 +794,8 @@
   <string name="welcome">歡迎！</string>
   <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
+  <string name="coachManager">教練管理</string>
+  <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消錦標賽</string>
   <string name="tournDescription">錦標賽敘述</string>
   <string name="tournDescriptionHelp">有甚麼特別要告訴參賽者的嗎？盡量不要太長。可以使用Markdown網址 [name](https://url)。</string>
@@ -788,15 +805,34 @@
   <string name="noRestriction">沒有限制</string>
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
+  <string name="maximumWeeklyRating">每週最高評分</string>
+  <string name="onlyTitled">僅限有頭銜玩家</string>
+  <string name="onlyTitledHelp">需要官方頭銜才能加入比賽</string>
+  <string name="positionInputHelp">將一個有效的 FEN 粘貼於此作為所有對局的起始位置。
+僅適用於標準國際象棋，對變體無效。
+你可以試用 %s 來生成 FEN，然後將其粘貼到這裡。
+置空表示以標準位置開始比賽。</string>
+  <string name="cancelSimul">取消車輪戰</string>
+  <string name="simulHostcolor">主持所執方</string>
   <string name="estimatedStart">預計開始時間</string>
+  <string name="simulFeatured">展示在 %s</string>
+  <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的車輪戰，對私人車輪戰無效。</string>
+  <string name="simulDescription">車輪戰描述</string>
   <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
+  <string name="markdownAvailable">%s 可用於更高級的格式。</string>
+  <string name="embedsAvailable">粘貼對局URL或學習章節URL來嵌入。</string>
   <string name="inYourLocalTimezone">在你的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>
   <string name="noChat">無聊天室</string>
   <string name="onlyTeamLeaders">僅限各隊隊長</string>
   <string name="onlyTeamMembers">僅限各隊伍</string>
+  <string name="navigateMoveTree">定位</string>
   <string name="mouseTricks">滑鼠功能</string>
+  <string name="toggleLocalAnalysis">切換本地計算機分析</string>
+  <string name="toggleAllAnalysis">切換所有(本地+服務器) 的電腦分析</string>
+  <string name="playComputerMove">走電腦推薦的最佳著法</string>
   <string name="analysisOptions">分析局面</string>
+  <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
   <string name="closedAccountChangedMind">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
@@ -805,6 +841,13 @@
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>
+  <string name="hangOn">等一下！</string>
+  <string name="gameInProgress">您正在與 %s 進行對局。</string>
   <string name="abortTheGame">中止本局</string>
+  <string name="resignTheGame">認輸</string>
   <string name="youCantStartNewGame">直到當下這局下完之前，你無法開始新的棋局</string>
+  <string name="since">自</string>
+  <string name="until">直到</string>
+  <string name="lichessDbExplanation">來自 Lichess 用戶的所有評分遊戲</string>
+  <string name="switchSides">更換所持顏色</string>
 </resources>

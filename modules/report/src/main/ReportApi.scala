@@ -64,7 +64,7 @@ final class ReportApi(
           )
           .flatMap { prev =>
             val report = Report.make(scored, prev)
-            lila.mon.mod.report.create(report.reason.key).increment()
+            lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
             if (
               report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
@@ -225,13 +225,15 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(open.map(_.id)), ModId.lichess)
+      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), ModId.lichess)
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
     for {
       all <- recent(suspect, 10)
-      closed = all.filter(_.done.map(_.by) has ModId.lichess.value)
+      closed = all
+        .filter(_.done.map(_.by) has ModId.lichess.value)
+        .filterNot(_ isAlreadySlain suspect.user)
       _ <-
         coll.update
           .one(

@@ -460,6 +460,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или знаме</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
+  <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Свързани играчи</string>
@@ -503,6 +504,7 @@
   <string name="reportDescriptionHelp">Поставете линк към играта и обяснете какъв е проблемът с поведението на този потребител. Не казвайте единствено, че мами, но ни кажете как сте стигнали до този извод. Вашият доклад ще бъде обработен по-бързо, ако е написан на английски.</string>
   <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
   <string name="by">от %s</string>
+  <string name="importedByX">Внесени от %s</string>
   <string name="thisTopicIsNowClosed">Темата е затворена</string>
   <string name="blog">Блог</string>
   <string name="notes">Белeжки</string>
@@ -794,7 +796,7 @@
   <string name="currentMatchScore">Текущ резултат</string>
   <string name="agreementAssistance">Съгласявам се, че никога няма да получавам помощ по време на игра (от компютър, книга, база данни или друг човек).</string>
   <string name="agreementNice">Съгласявам се, че винаги ще уважавам другите играчи.</string>
-  <string name="agreementAccount">Съгласявам се, че няма да си правя няколко акаунта.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Съгласявам се, че няма да се регистрирам няколко пъти (с изключение на причините изброени в %s).</string>
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
@@ -805,7 +807,7 @@
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
   <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
-  <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
+  <string name="correspondenceDesc">Кореспондентски игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Вашият въпрос може вече да има отговор %1$s</string>

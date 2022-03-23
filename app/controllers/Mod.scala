@@ -3,6 +3,7 @@ package controllers
 import ornicar.scalalib.Zero
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json.Json
 import play.api.mvc._
 import scala.annotation.nowarn
 import views._
@@ -23,7 +24,6 @@ final class Mod(
 ) extends LilaController(env) {
 
   private def modApi    = env.mod.api
-  private def modLogApi = env.mod.logApi
   private def assessApi = env.mod.assessApi
 
   implicit private def asMod(holder: Holder) = AsMod(holder.user)
@@ -65,12 +65,16 @@ final class Mod(
       }
     }
 
-  def publicChatTimeout =
-    SecureBody(_.ChatTimeout) { implicit ctx => me =>
+  def publicChatTimeout = {
+    def doTimeout(implicit req: Request[_], me: Holder) =
       FormResult(lila.chat.ChatTimeout.form) { data =>
         env.chat.api.userChat.publicTimeout(data, me)
-      }(ctx.body)
-    }
+      }
+    SecureOrScopedBody(_.ChatTimeout)(
+      secure = ctx => me => doTimeout(ctx.body, me),
+      scoped = req => me => doTimeout(req, me)
+    )
+  }
 
   def booster(username: String, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
@@ -563,10 +567,31 @@ final class Mod(
       }
     }
 
-  private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
-    env.report.api getSuspect username flatMap {
-      _ ?? f
+  def apiUserLog(username: String) =
+    SecureScoped(_.ModLog) { implicit req => me =>
+      import lila.common.Json._
+      env.user.repo named username flatMap {
+        _ ?? { user =>
+          for {
+            logs      <- env.mod.logApi.userHistory(user.id)
+            notes     <- env.socialInfo.fetchNotes(user, me.user)
+            notesJson <- lila.user.JsonView.notes(notes)(env.user.lightUserApi)
+          } yield JsonOk(
+            Json.obj(
+              "logs" -> Json.arr(logs.map { log =>
+                Json
+                  .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
+                  .add("details", log.details)
+              }),
+              "notes" -> notesJson
+            )
+          )
+        }
+      }
     }
+
+  private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
+    env.report.api getSuspect username flatMap { _ ?? f }
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
       secure: Context => Holder => A => Fu[Result]

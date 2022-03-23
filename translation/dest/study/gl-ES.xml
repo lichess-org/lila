@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Comentario do capítulo fixado</string>
   <string name="saveChapter">Gardar capítulo</string>
   <string name="clearAnnotations">Borrar anotacións</string>
+  <string name="clearVariations">Borrar variacións</string>
   <string name="deleteChapter">Borrar capítulo</string>
   <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
   <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo?</string>
@@ -156,11 +157,11 @@
   <string name="nextChapter">Capítulo seguinte</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Accións de estudo</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Temas</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Os meus temas</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Temas populares</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Manexar temas</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Voltar</string>
+  <string name="topics">Temas</string>
+  <string name="myTopics">Os meus temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Manexar temas</string>
+  <string name="back">Voltar</string>
   <string name="playAgain">Xogar de novo</string>
   <string name="whatWouldYouPlay">Qué xogarías en esta posición?</string>
   <string name="youCompletedThisLesson">Parabéns! Completaches esta leción.</string>

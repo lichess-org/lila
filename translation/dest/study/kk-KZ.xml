@@ -156,4 +156,12 @@
   <string name="nextChapter">Келесі бөлім</string>
   <string name="prevChapter">Алдыңғы бөлім</string>
   <string name="studyActions">Зерттеу әрекеттері</string>
+  <string name="topics">Тақырыптар</string>
+  <string name="myTopics">Менің тақырыптарым</string>
+  <string name="popularTopics">Белгілі тақырыптар</string>
+  <string name="manageTopics">Тақырыптарды басқару</string>
+  <string name="back">Кері қайту</string>
+  <string name="playAgain">Қайта ойнау</string>
+  <string name="whatWouldYouPlay">Осы күйде не ойнамақсыз?</string>
+  <string name="youCompletedThisLesson">Құтты болсын! Сіз бұл сабақты бітірдіңіз.</string>
 </resources>

@@ -19,4 +19,8 @@
   <string name="startDate">Ngày bắt đầu trong múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
+  <string name="broadcastUrl">Link buổi phát sóng</string>
+  <string name="currentRoundUrl">Link vòng đấu hiện tại</string>
+  <string name="currentGameUrl">Link ván đấu hiện tại</string>
+  <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
 </resources>

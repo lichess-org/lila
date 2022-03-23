@@ -35,4 +35,5 @@
     <item quantity="one">%s partita trovata</item>
     <item quantity="other">%s partite trovate</item>
   </plurals>
+  <string name="ratingExplanation">Punteggio medio dei giocatori</string>
 </resources>

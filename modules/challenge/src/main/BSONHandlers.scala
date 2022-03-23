@@ -64,11 +64,8 @@ private object BSONHandlers {
       )
   }
   implicit val AnonymousBSONHandler = new BSON[Challenger.Anonymous] {
-    def reads(r: Reader) = Challenger.Anonymous(r.str("s"))
-    def writes(w: Writer, a: Challenger.Anonymous) =
-      $doc(
-        "s" -> a.secret
-      )
+    def reads(r: Reader)                           = Challenger.Anonymous(r.str("s"))
+    def writes(w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
   }
   implicit val DeclineReasonBSONHandler = tryHandler[DeclineReason](
     { case BSONString(k) => Success(Challenge.DeclineReason(k)) },

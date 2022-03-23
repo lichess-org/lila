@@ -218,8 +218,8 @@ o pali e tawa tu.</string>
   <string name="nailedIt">pona a.</string>
   <string name="rightOn">sina pona a!</string>
   <string name="stageXComplete">wan #%s li pini</string>
-  <string name="yourScore">nanpa sina</string>
   <string name="next">ijo kama</string>
+  <string name="nextX">kama: %s</string>
   <string name="backToMenu">o tawa lipu open</string>
   <string name="puzzleFailed">sina pakala e musi!</string>
   <string name="retry">kama sin</string>

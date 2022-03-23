@@ -6,12 +6,12 @@
   </plurals>
   <string name="score">ସ୍କୋର୍</string>
   <string name="time">ସମୟ</string>
-  <string name="createNewGame">ଏକ ନୂତନ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="createNewGame">ଏକ ନୂଆ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="skip">ବାଦ୍ ଦିଅ</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">ଏହି ସପ୍ତାହ</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">ଏହି ମାସ</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">ସର୍ବକାଳୀନ</string>
+  <string name="thisWeek">ଚଳିତ ସପ୍ତାହ</string>
+  <string name="thisMonth">ଚଳିତ ମାସ</string>
+  <string name="allTime">ସର୍ବକାଳୀନ</string>
   <string name="clickToReload">ପୁନଃଲୋଡ୍ କରିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">ଏହି ରନ୍ ସମୟ ସମାପ୍ତ ହୋଇଛି!</string>
+  <string name="thisRunHasExpired">ଏହି ରନ୍ ସମୟ ସମାପ୍ତ ହୋଇଛି!</string>
   <string name="thisRunWasOpenedInAnotherTab">ଏହି ରନ୍ ଅନ୍ୟ ଏକ ଟ୍ୟାବରେ ଖୋଲା ଯାଇଥିଲା!</string>
 </resources>

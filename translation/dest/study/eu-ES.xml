@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>
   <string name="saveChapter">Kapitulua gorde</string>
   <string name="clearAnnotations">Iruzkinak garbitu</string>
+  <string name="clearVariations">Garbitu aldaerak</string>
   <string name="deleteChapter">Kapitulua ezabatu</string>
   <string name="deleteThisChapter">Kapitulu hau ezabatu egin nahi duzu? Ez dago atzera egiterik!</string>
   <string name="clearAllCommentsInThisChapter">Kapitulu honetako iruzkin guztiak ezabatu?</string>
@@ -156,11 +157,11 @@
   <string name="nextChapter">Hurrengo kapitulua</string>
   <string name="prevChapter">Aurreko kapitulua</string>
   <string name="studyActions">Azterlanen akzioak</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Gaiak</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Nire gaiak</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Gai arrakastatsuak</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Kudeatu gaiak</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Atzera joan</string>
+  <string name="topics">Gaiak</string>
+  <string name="myTopics">Nire gaiak</string>
+  <string name="popularTopics">Gai arrakastatsuak</string>
+  <string name="manageTopics">Kudeatu gaiak</string>
+  <string name="back">Atzera joan</string>
   <string name="playAgain">Jokatu berriz</string>
   <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>

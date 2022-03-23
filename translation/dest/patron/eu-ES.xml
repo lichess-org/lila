@@ -16,7 +16,7 @@
   <string name="thankYou">Eskerrik asko zure dohaintzagatik!</string>
   <string name="youHaveLifetime">Bizi guztirako babesle kontua duzu. Hori ederra da!</string>
   <string name="patronUntil">Babesle kontua duzu egun honetara arte %s.</string>
-  <string name="ifNotRenewed">Ez baduzu berritzen, doako kontua izatera pasatuko zara.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ez baduzu berritzen, zure kontua kontu arrunt bihurtuko da.</string>
   <string name="weAreNonProfit">Irabazi asmorik gabeko elkartea gara, edonork xakean jokatzeko mundu-mailako plataforma baterako sarbidea izan beharko lukeela uste dugulako.</string>
   <string name="weRelyOnSupport">Hau posible egiteko zu bezalako jendearen babesletza behar dugu. Lichess gustuko baduzu, gure Babesle izan zaitezke!</string>
   <string name="lifetime">Bizi guztirako</string>

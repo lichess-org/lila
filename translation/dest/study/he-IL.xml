@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">תגובה על הפרק המוצמד</string>
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
+  <string name="clearVariations">נקה וריאציות</string>
   <string name="deleteChapter">מחק פרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">נקה את כל ההערות, גליפים וצורות מצוירות בפרק זה?</string>
@@ -164,11 +165,11 @@
   <string name="nextChapter">פרק הבא</string>
   <string name="prevChapter">הפרק הקודם</string>
   <string name="studyActions">פעולות לוח למידה</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">נושאים</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">נושאים שלי</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">נושאים פופולריים</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">נהל נושאים</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">חזרה</string>
+  <string name="topics">נושאים</string>
+  <string name="myTopics">נושאים שלי</string>
+  <string name="popularTopics">נושאים פופולריים</string>
+  <string name="manageTopics">נהל נושאים</string>
+  <string name="back">חזרה</string>
   <string name="playAgain">הפעל שוב</string>
   <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
   <string name="youCompletedThisLesson">ברכות השיעור הסתיים בצלחה</string>

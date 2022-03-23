@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Коментар на главата</string>
   <string name="saveChapter">Запази глава</string>
   <string name="clearAnnotations">Изтрий анотациите</string>
+  <string name="clearVariations">Изчисти вариациите</string>
   <string name="deleteChapter">Изтрий глава</string>
   <string name="deleteThisChapter">Изтриване на главата? Това е необратимо!</string>
   <string name="clearAllCommentsInThisChapter">Изтрий всички коментари, специални символи и нарисувани форми в главата?</string>
@@ -156,11 +157,11 @@
   <string name="nextChapter">Следваща глава</string>
   <string name="prevChapter">Предишна глава</string>
   <string name="studyActions">Опции за учене</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Теми</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Моите теми</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Популярни теми</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Управление на теми</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Обратно</string>
+  <string name="topics">Теми</string>
+  <string name="myTopics">Моите теми</string>
+  <string name="popularTopics">Популярни теми</string>
+  <string name="manageTopics">Управление на теми</string>
+  <string name="back">Обратно</string>
   <string name="playAgain">Играйте отново</string>
   <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>
   <string name="youCompletedThisLesson">Поздравления! Вие завършихте този урок.</string>

@@ -41,5 +41,5 @@
     <item quantity="many">נמצאו %s משחקים</item>
     <item quantity="other">נמצאו %s משחקים</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">הדירוג הממוצע של שני השחקנים</string>
+  <string name="ratingExplanation">הדירוג הממוצע של שני השחקנים</string>
 </resources>

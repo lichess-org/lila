@@ -74,7 +74,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
-  <string name="embedInYourWebsite">Вставить на свой сайт или в блог</string>
+  <string name="embedInYourWebsite">Вставить в свой сайт или блог</string>
   <string name="readMoreAboutEmbedding">Подробнее о вставке на сайт</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Вставлять на сайт можно только публичные студии!</string>
   <string name="open">Открыть</string>
@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
   <string name="saveChapter">Сохранить главу</string>
   <string name="clearAnnotations">Очистить аннотацию</string>
+  <string name="clearVariations">Очистить варианты</string>
   <string name="deleteChapter">Удалить главу</string>
   <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
   <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>

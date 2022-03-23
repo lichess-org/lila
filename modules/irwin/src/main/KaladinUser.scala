@@ -24,7 +24,7 @@ case class KaladinUser(
   def recentlyQueued = queuedAt isAfter DateTime.now.minusWeeks(1)
 
   def queueAgain(by: KaladinUser.Requester): Option[KaladinUser] =
-    if (startedAt.isEmpty && by.priority > priority)
+    if ((startedAt.isEmpty && by.priority > priority) || by.isMod)
       copy(
         priority = by.priority,
         queuedBy = by
@@ -50,11 +50,13 @@ object KaladinUser {
   )
 
   sealed abstract class Requester(val priority: Int) {
-    def name = toString
+    def name  = toString
+    def isMod = false
   }
   object Requester {
     case class Mod(id: User.ID) extends Requester(100) {
-      override def name = id
+      override def name  = id
+      override def isMod = true
     }
     case object TopOnline        extends Requester(10)
     case object TournamentLeader extends Requester(20)

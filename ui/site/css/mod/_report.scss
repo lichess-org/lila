@@ -144,6 +144,11 @@ $c-report-high-over: white;
     @include user_marks;
   }
 
+  .marked-by-me {
+    @include user_marks;
+    background: mix($c-warn, $c-bg-box, 60%);
+  }
+
   .appeal-queue {
     td p {
       margin: 0.5em 0 0 0;

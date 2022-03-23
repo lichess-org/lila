@@ -62,6 +62,7 @@ export interface StudyCtrl {
   gamebookPlay(): GamebookPlayCtrl | undefined;
   prevChapter(): StudyChapterMeta | undefined;
   nextChapter(): StudyChapterMeta | undefined;
+  hasNextChapter(): boolean;
   goToPrevChapter(): void;
   goToNextChapter(): void;
   mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>): void;
@@ -114,6 +115,7 @@ export interface StudyData {
   description?: string;
   topics?: Topic[];
   admin: boolean;
+  hideRatings?: boolean;
 }
 
 export type Topic = string;

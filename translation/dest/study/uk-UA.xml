@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Закріплений коментар розділу</string>
   <string name="saveChapter">Зберегти розділ</string>
   <string name="clearAnnotations">Очистити анотацію</string>
+  <string name="clearVariations">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
   <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>
@@ -164,11 +165,11 @@
   <string name="nextChapter">Наступний розділ</string>
   <string name="prevChapter">Попередній розділ</string>
   <string name="studyActions">Команди дослідження</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Теми</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Мої теми</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Популярні теми</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Управління темами</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Назад</string>
+  <string name="topics">Теми</string>
+  <string name="myTopics">Мої теми</string>
+  <string name="popularTopics">Популярні теми</string>
+  <string name="manageTopics">Управління темами</string>
+  <string name="back">Назад</string>
   <string name="playAgain">Грати знову</string>
   <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
   <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>

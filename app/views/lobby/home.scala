@@ -47,7 +47,8 @@ object home {
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
-        .some
+        .some,
+      withHrefLangs = "".some
     ) {
       main(
         cls := List(

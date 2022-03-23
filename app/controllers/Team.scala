@@ -162,11 +162,8 @@ final class Team(
     }
   def kickUser(teamId: String, userId: String) =
     Scoped(_.Team.Write) { _ => me =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          if (team leaders me.id) api.kick(team, userId, me) inject jsonOkResult
-          else Forbidden(jsonError("Not your team")).fuccess
-        }
+      WithOwnedTeamEnabledApi(teamId, me) {
+        api.kick(_, userId, me) inject Api.Done
       }
     }
 
@@ -216,27 +213,31 @@ final class Team(
       }
     }
 
+  private val OneAtAtATime = new lila.common.WorkQueue.Unbuffered[UserModel.ID]
+
   def create =
     AuthBody { implicit ctx => implicit me =>
-      api hasJoinedTooManyTeams me flatMap { tooMany =>
-        if (tooMany) tooManyTeams(me)
-        else
-          LimitPerWeek(me) {
-            implicit val req = ctx.body
-            forms.create
-              .bindFromRequest()
-              .fold(
-                err =>
-                  forms.anyCaptcha map { captcha =>
-                    BadRequest(html.team.form.create(err, captcha))
-                  },
-                data =>
-                  api.create(data, me) map { team =>
-                    Redirect(routes.Team.show(team.id)).flashSuccess
-                  }
-              )
-          }
-      }
+      OneAtAtATime(me.id) {
+        api hasJoinedTooManyTeams me flatMap { tooMany =>
+          if (tooMany) tooManyTeams(me)
+          else
+            LimitPerWeek(me) {
+              implicit val req = ctx.body
+              forms.create
+                .bindFromRequest()
+                .fold(
+                  err =>
+                    forms.anyCaptcha map { captcha =>
+                      BadRequest(html.team.form.create(err, captcha))
+                    },
+                  data =>
+                    api.create(data, me) map { team =>
+                      Redirect(routes.Team.show(team.id)).flashSuccess
+                    }
+                )
+            }
+        }
+      } | rateLimitedFu
     }
 
   def mine =
@@ -262,35 +263,37 @@ final class Team(
         me =>
           api.teamEnabled(id) flatMap {
             _ ?? { team =>
-              api hasJoinedTooManyTeams me flatMap { tooMany =>
-                if (tooMany)
-                  negotiate(
-                    html = tooManyTeams(me),
-                    api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
-                  )
-                else
-                  negotiate(
-                    html = webJoin(team, me, request = none, password = none),
-                    api = _ => {
-                      implicit val body = ctx.body
-                      forms
-                        .apiRequest(team)
-                        .bindFromRequest()
-                        .fold(
-                          newJsonFormError,
-                          setup =>
-                            api.join(team, me, setup.message, setup.password) flatMap {
-                              case Requesting.Joined => jsonOkResult.fuccess
-                              case Requesting.NeedRequest =>
-                                BadRequest(jsonError("This team requires confirmation.")).fuccess
-                              case Requesting.NeedPassword =>
-                                BadRequest(jsonError("This team requires a password.")).fuccess
-                              case _ => notFoundJson("Team not found")
-                            }
-                        )
-                    }
-                  )
-              }
+              OneAtAtATime(me.id) {
+                api hasJoinedTooManyTeams me flatMap { tooMany =>
+                  if (tooMany)
+                    negotiate(
+                      html = tooManyTeams(me),
+                      api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+                    )
+                  else
+                    negotiate(
+                      html = webJoin(team, me, request = none, password = none),
+                      api = _ => {
+                        implicit val body = ctx.body
+                        forms
+                          .apiRequest(team)
+                          .bindFromRequest()
+                          .fold(
+                            newJsonFormError,
+                            setup =>
+                              api.join(team, me, setup.message, setup.password) flatMap {
+                                case Requesting.Joined => jsonOkResult.fuccess
+                                case Requesting.NeedRequest =>
+                                  BadRequest(jsonError("This team requires confirmation.")).fuccess
+                                case Requesting.NeedPassword =>
+                                  BadRequest(jsonError("This team requires a password.")).fuccess
+                                case _ => notFoundJson("Team not found")
+                              }
+                          )
+                      }
+                    )
+                }
+              } | rateLimitedFu
             }
           },
       scoped = implicit req =>
@@ -304,17 +307,19 @@ final class Team(
                 .fold(
                   newJsonFormError,
                   setup =>
-                    api.join(team, me, setup.message, setup.password) flatMap {
-                      case Requesting.Joined => jsonOkResult.fuccess
-                      case Requesting.NeedPassword =>
-                        Forbidden(jsonError("This team requires a password.")).fuccess
-                      case Requesting.NeedRequest =>
-                        Forbidden(
-                          jsonError(
-                            "This team requires confirmation, and is not owned by the oAuth app owner."
-                          )
-                        ).fuccess
-                    }
+                    OneAtAtATime(me.id) {
+                      api.join(team, me, setup.message, setup.password) flatMap {
+                        case Requesting.Joined => jsonOkResult.fuccess
+                        case Requesting.NeedPassword =>
+                          Forbidden(jsonError("This team requires a password.")).fuccess
+                        case Requesting.NeedRequest =>
+                          Forbidden(
+                            jsonError(
+                              "This team requires confirmation, and is not owned by the oAuth app owner."
+                            )
+                          ).fuccess
+                      }
+                    } | rateLimitedJson.fuccess
                 )
             }
           }
@@ -539,6 +544,25 @@ final class Team(
       }
     }
 
+  def apiRequests(teamId: String) =
+    Scoped(_.Team.Read) { _ => me =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
+        api.requestsWithUsers(team) map { reqs =>
+          Api.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
+        }
+      }
+    }
+
+  def apiRequestProcess(teamId: String, userId: String, decision: String) =
+    Scoped(_.Team.Write) { req => me =>
+      WithOwnedTeamEnabledApi(teamId, me) { team =>
+        api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
+          case None      => fuccess(Api.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision) inject Api.Done
+        }
+      }
+    }
+
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
       req: Request[_]
   ): Either[Form[_], Fu[RateLimit.Result]] =
@@ -595,4 +619,13 @@ You received this because you are subscribed to messages of the team $url."""
       if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound
     }
+
+  private def WithOwnedTeamEnabledApi(teamId: String, me: UserModel)(
+      f: TeamModel => Fu[Api.ApiResult]
+  ): Fu[Result] =
+    api teamEnabled teamId flatMap {
+      case Some(team) if team leaders me.id => f(team)
+      case Some(_)                          => fuccess(Api.ClientError("Not your team"))
+      case None                             => fuccess(Api.NoData)
+    } map apiC.toHttp
 }

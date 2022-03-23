@@ -54,10 +54,14 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queueOf(me.user) zip env.report.api.inquiries.allBySuspect zip reportC.getScores map {
+      env.appeal.api.queueOf(
+        me.user
+      ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
-          Ok(html.appeal.queue(appeals, inquiries, scores, streamers, nbAppeals))
+          env.mod.logApi.wereMarkedBy(me.id, appeals.map(_.user.id)) map { markedByMap =>
+            Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
+          }
       }
     }
 
@@ -96,10 +100,11 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
       ctx: Context
   ) =
     for {
-      users   <- env.security.userLogins(suspect.user, 100)
-      logins  <- userC.loginsTableData(suspect.user, users, 100)
-      appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
-      inquiry <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
+      users      <- env.security.userLogins(suspect.user, 100)
+      logins     <- userC.loginsTableData(suspect.user, users, 100)
+      appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
+      inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
+      markedByMe <- env.mod.logApi.wasMarkedBy(me.id, suspect.user.id)
     } yield html.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
@@ -107,7 +112,8 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
       logins = logins,
       appeals = appeals,
       renderIp = env.mod.ipRender(me),
-      inquiry = inquiry.filter(_.mod == me.user.id)
+      inquiry = inquiry.filter(_.mod == me.user.id),
+      markedByMe = markedByMe
     )
 
   def mute(username: String) =

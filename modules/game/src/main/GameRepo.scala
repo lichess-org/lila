@@ -86,7 +86,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def remove(id: ID) = coll.delete.one($id(id)).void
 
   def userPovsByGameIds(
-      gameIds: List[String],
+      gameIds: List[Game.ID],
       user: User,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Pov]] =
@@ -105,7 +105,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
 
-  def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
+  def gamesForAssessment(userId: User.ID, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished
@@ -119,7 +119,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] =
+  def extraGamesForIrwin(userId: User.ID, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished
@@ -360,7 +360,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def finish(
       id: ID,
       winnerColor: Option[Color],
-      winnerId: Option[String],
+      winnerId: Option[User.ID],
       status: Status
   ) =
     coll.update.one(
@@ -416,7 +416,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     } void
   }
 
-  def removeRecentChallengesOf(userId: String) =
+  def removeRecentChallengesOf(userId: User.ID) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
         Query.createdSince(DateTime.now minusHours 1)
@@ -466,7 +466,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)
 
   private[game] def favoriteOpponents(
-      userId: String,
+      userId: User.ID,
       opponentLimit: Int,
       gameLimit: Int
   ): Fu[List[(User.ID, Int)]] = {
@@ -514,7 +514,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
 
-  def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
+  def lastGameBetween(u1: User.ID, u2: User.ID, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](
       $doc(
         F.playerUids $all List(u1, u2),

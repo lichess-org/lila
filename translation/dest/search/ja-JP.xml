@@ -8,7 +8,7 @@
   <plurals name="xGamesFound">
     <item quantity="other">%s 局ありました</item>
   </plurals>
-  <string name="opponentName">対局相手</string>
+  <string name="opponentName">対戦相手名</string>
   <string name="loser">敗者</string>
   <string name="from">From</string>
   <string name="to">To</string>
@@ -32,5 +32,5 @@
   <plurals name="gamesFound">
     <item quantity="other">%s 局ありました</item>
   </plurals>
-  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">両プレイヤーのレーティング平均</string>
+  <string name="ratingExplanation">両プレイヤーのレーティング平均</string>
 </resources>

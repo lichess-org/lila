@@ -44,7 +44,7 @@ object bits {
     }
 
   private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = {
-    val isMine = myTeam(t.id)
+    val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(

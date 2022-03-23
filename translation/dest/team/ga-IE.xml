@@ -62,4 +62,5 @@ D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoire
   <string name="upcomingTourns">Comórtais le teacht</string>
   <string name="completedTourns">Comórtais críochnaithe</string>
   <string name="declinedRequests">Iarrataí Diúltaithe</string>
+  <string name="joinLichessVariantTeam">Bí ar an bhfoireann oifigiúil %s le haghaidh nuachta agus imeachtaí</string>
 </resources>

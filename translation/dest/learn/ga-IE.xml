@@ -234,8 +234,8 @@ i dhá bheart!</string>
   <string name="nailedIt">Ceart.</string>
   <string name="rightOn">Mar sin!</string>
   <string name="stageXComplete">Léibhéal %s críochnaithe</string>
-  <string name="yourScore">Do scór</string>
   <string name="next">Ar Aghaidh</string>
+  <string name="nextX">Ar Aghaidh: %s</string>
   <string name="backToMenu">Ar ais don roghchlár</string>
   <string name="puzzleFailed">Theip ar an bhfadhb!</string>
   <string name="retry">Bain triail as arís</string>

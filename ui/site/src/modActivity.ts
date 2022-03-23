@@ -27,6 +27,7 @@ const conf = (title: string, xaxis: Date[]) => ({
   },
   yaxis: {
     opposite: true,
+    min: 0,
   },
   legend: {
     position: 'top',

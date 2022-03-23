@@ -16,7 +16,7 @@ import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
-import { path as treePath } from 'tree';
+import { ops as treeOps, path as treePath } from 'tree';
 import { render as acplView } from './acpl';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
@@ -45,6 +45,7 @@ import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
 import spinner from 'common/spinner';
+import stepwiseScroll from 'common/wheel';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -92,26 +93,33 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   return undefined;
 }
 
-function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  return h(
-    'div.analyse__moves.areplay',
-    [
+export const renderNextChapter = (ctrl: AnalyseCtrl) =>
+  !ctrl.embed && ctrl.study?.hasNextChapter()
+    ? h(
+        'button.next.text',
+        {
+          attrs: {
+            'data-icon': '',
+            type: 'button',
+          },
+          hook: bind('click', ctrl.study.goToNextChapter),
+          class: {
+            highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline),
+          },
+        },
+        ctrl.trans.noarg('nextChapter')
+      )
+    : null;
+
+const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
+  h('div.analyse__moves.areplay', [
+    h('div', [
       ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
       renderTreeView(ctrl, concealOf),
-    ].concat(renderResult(ctrl))
-  );
-}
-
-function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
-  if (ctrl.gamebookPlay()) return;
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
-  e.preventDefault();
-  if (e.deltaY > 0) control.next(ctrl);
-  else if (e.deltaY < 0) control.prev(ctrl);
-  ctrl.redraw();
-  return false;
-}
+      ...renderResult(ctrl),
+    ]),
+    !ctrl.practice && !gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
+  ]);
 
 function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
@@ -409,7 +417,19 @@ export default function (ctrl: AnalyseCtrl): VNode {
             hook:
               'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
-                : bindNonPassive('wheel', (e: WheelEvent) => wheel(ctrl, e)),
+                : bindNonPassive(
+                    'wheel',
+                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                      if (ctrl.gamebookPlay()) return;
+                      const target = e.target as HTMLElement;
+                      if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                        return;
+                      e.preventDefault();
+                      if (e.deltaY > 0 && scroll) control.next(ctrl);
+                      else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                      ctrl.redraw();
+                    })
+                  ),
           },
           [
             ...(playerStrips || []),

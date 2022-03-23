@@ -56,10 +56,10 @@
   <string name="skipExplanation">Прапусціце ход, каб захаваць серыю! Працуе адзін раз на гонку.</string>
   <string name="failedPuzzles">Нявырашыная задачы</string>
   <string name="slowPuzzles">Павольныя задачы</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">На гэтым тыдні</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">У гэтым месяцы</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">За ўвесь час</string>
+  <string name="thisWeek">На гэтым тыдні</string>
+  <string name="thisMonth">У гэтым месяцы</string>
+  <string name="allTime">За ўвесь час</string>
   <string name="clickToReload">Націсніце, каб перазагрузіць</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Гэта спроба скончылася!</string>
+  <string name="thisRunHasExpired">Гэта спроба скончылася!</string>
   <string name="thisRunWasOpenedInAnotherTab">Гэта спроба адкрыта ў іншай укладцы!</string>
 </resources>

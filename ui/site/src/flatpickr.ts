@@ -12,7 +12,7 @@ lichess.load.then(() => {
         };
     flatpickr(this, {
       minDate: minDate == 'yesterday' ? new Date(Date.now() - 1000 * 3600 * 24) : minDate,
-      maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 3),
+      maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 12),
       monthSelectorType: 'static',
       disableMobile: true, // https://flatpickr.js.org/mobile-support/ https://github.com/lichess-org/lila/issues/8110
       ...config,

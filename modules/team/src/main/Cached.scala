@@ -17,11 +17,11 @@ final class Cached(
 
   val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",
-    initialCapacity = 4096,
+    initialCapacity = 32768,
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    expireAfter = Syncache.ExpireAfterAccess(10 minutes)
   )
 
   def blockingTeamName(id: Team.ID) = nameCache sync id
@@ -30,7 +30,7 @@ final class Cached(
 
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 65536,
+    initialCapacity = 131072,
     compute = u =>
       memberRepo.coll
         .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { framework =>
@@ -69,18 +69,19 @@ final class Cached(
         },
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    expireAfter = Syncache.ExpireAfterWrite(40 minutes)
   )
 
   def syncTeamIds                  = teamIdsCache sync _
   def teamIds                      = teamIdsCache async _
   def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
+  def teamIdsSet(userId: User.ID)  = teamIds(userId).dmap(_.toSet)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
   val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
-    _.expireAfterAccess(25 minutes)
-      .maximumSize(65536)
+    _.expireAfterAccess(40 minutes)
+      .maximumSize(131072)
       .buildAsyncFuture[User.ID, Int] { userId =>
         teamIds(userId) flatMap { ids =>
           ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
@@ -95,4 +96,9 @@ final class Cached(
 
   def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     leaders.get(teamId).dmap(_ contains userId)
+
+  val forumAccess = cacheApi[Team.ID, Team.Access](4096, "team.forum.access") {
+    _.expireAfterWrite(5 minutes)
+      .buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
+  }
 }

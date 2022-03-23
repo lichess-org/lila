@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Devine mai ușor să discuți cu prietenii tăi șahiști, căci înțelegeți „limba șahului”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Poți analiza o partidă mai eficient dacă stii să recunoști rapid coordonatele.</string>
   <string name="aSquareNameAppears">O notație apare pe tablă și trebuie să dai click pe pătrățica corectă conform notației. Ai 30 de secunde să identifici cât mai multe pătrățele!</string>
+  <string name="aSquareIsHighlighted">Un pătrat este evidențiat pe tablă și trebuie să introduci coordonatele acestuia (de exemplu, \"e4\"). Ai 30 de secunde pentru a cartografia corect cât mai multe pătrate!</string>
   <string name="startTraining">Începe antrenamentul</string>
+  <string name="findSquare">Găsește pătratul</string>
+  <string name="nameSquare">Denumește pătratul</string>
 </resources>

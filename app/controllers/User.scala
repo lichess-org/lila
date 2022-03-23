@@ -75,7 +75,7 @@ final class User(
       }
     }
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
-    if (HTTPRequest.isSynchronousHttp(ctx.req)) {
+    if (HTTPRequest isSynchronousHttp ctx.req) {
       for {
         as     <- env.activity.read.recent(u)
         nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
@@ -476,6 +476,17 @@ final class User(
       )(ctx.body)
     }
 
+  def apiReadNote(username: String) =
+    Scoped() { implicit req => me =>
+      env.user.repo named username flatMap {
+        _ ?? {
+          env.socialInfo.fetchNotes(_, me) flatMap {
+            lila.user.JsonView.notes(_)(env.user.lightUserApi)
+          } map JsonOk
+        }
+      }
+    }
+
   def apiWriteNote(username: String) =
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
@@ -514,19 +525,25 @@ final class User(
 
   def opponents =
     Auth { implicit ctx => me =>
-      for {
-        ops         <- env.game.favoriteOpponents(me.id)
-        followables <- env.pref.api.followables(ops map (_._1.id))
-        relateds <-
-          ops
-            .zip(followables)
-            .map { case ((u, nb), followable) =>
-              relationApi.fetchRelation(me.id, u.id) map {
-                lila.relation.Related(u, nb.some, followable, _)
-              }
-            }
-            .sequenceFu
-      } yield html.relation.bits.opponents(me, relateds)
+      get("u")
+        .ifTrue(isGranted(_.BoostHunter))
+        .??(env.user.repo.named)
+        .map(_ | me)
+        .flatMap { user =>
+          for {
+            ops         <- env.game.favoriteOpponents(user.id)
+            followables <- env.pref.api.followables(ops map (_._1.id))
+            relateds <-
+              ops
+                .zip(followables)
+                .map { case ((u, nb), followable) =>
+                  relationApi.fetchRelation(user.id, u.id) map {
+                    lila.relation.Related(u, nb.some, followable, _)
+                  }
+                }
+                .sequenceFu
+          } yield html.relation.bits.opponents(user, relateds)
+        }
     }
 
   def perfStat(username: String, perfKey: String) =

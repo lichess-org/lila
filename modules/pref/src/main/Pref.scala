@@ -33,10 +33,10 @@ case class Pref(
     challenge: Int,
     message: Int,
     studyInvite: Int,
-    coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
     mention: Boolean,
+    corresEmailNotif: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
@@ -62,8 +62,7 @@ case class Pref(
 
   def realSoundSet = SoundSet(soundSet)
 
-  def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
-  def coordsClass    = Coords classOf coords
+  def coordsClass = Coords classOf coords
 
   def hasDgt = tags contains Tag.dgt
 
@@ -127,6 +126,8 @@ case class Pref(
   def agreementNeededSince: Option[DateTime] = agreement < Agreement.current option Agreement.changedAt
 
   def agree = copy(agreement = Agreement.current)
+
+  def hasKeyboardMove = keyboardMove == KeyboardMove.YES
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -232,6 +233,8 @@ object Pref {
   }
 
   object Mention extends BooleanPref
+
+  object CorresEmailNotif extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -466,10 +469,10 @@ object Pref {
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
-    coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     mention = true,
+    corresEmailNotif = false,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,

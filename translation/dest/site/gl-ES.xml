@@ -460,7 +460,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Enlaces ás redes sociais</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Unha URL por liña.</string>
+  <string name="oneUrlPerLine">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
@@ -504,6 +504,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="reportDescriptionHelp">Pega a ligazón á(s) partida(s) e explica o que é incorrecto no comportamento dese usuario. Non digas só \"fan trampas\", cóntanos como chegaches a esa conclusión. A túa denuncia será procesada máis rapidamente se está escrita en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos un enlace a un xogo con trampas.</string>
   <string name="by">por %s</string>
+  <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está xa pechado.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
@@ -795,7 +796,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, un libro, unha base de datos ou de outra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
-  <string name="agreementAccount">Comprométome a non crear múltiples contas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estou dacordo con que non crearei múltiples contas (excepto polas razóns indicadas en %s).</string>
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
@@ -896,4 +897,5 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="until">Ata</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
   <string name="switchSides">Cambiar de lado</string>
+  <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
 </resources>

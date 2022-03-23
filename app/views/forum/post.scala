@@ -44,7 +44,7 @@ object post {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
         (!post.erased || canModCateg) option div(
-          authorLink(
+          bits.authorLink(
             post = post,
             cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
           ),
@@ -136,7 +136,7 @@ object post {
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := canActuallyReact option routes.ForumPost.react(post.id, r, !mine(r)).url,
+          dataHref := canActuallyReact option routes.ForumPost.react(post.categId, post.id, r, !mine(r)).url,
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {

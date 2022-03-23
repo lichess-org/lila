@@ -93,17 +93,17 @@
     <item quantity="many">Мат в %s напівходів</item>
     <item quantity="other">Мат у %s напівходів</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' при округленні в залежності від кількості напівходів, доки не почнеться наступне захоплення або хiд пiшаком</string>
+  <string name="dtzWithRounding">DTZ50\'\' при округленні в залежності від кількості напівходів, доки не відбудеться наступне взяття або хiд пiшаком</string>
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
-  <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
+  <string name="openingEndgameExplorer">Перегляд дебюту/ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
   <string name="winOr50MovesByPriorMistake">Перемога або 50 ходiв за попередньою помилкою</string>
   <string name="lossOr50MovesByPriorMistake">Програш або 50 ходiв за попередньою помилкою</string>
-  <string name="unknownDueToRounding">Перемога/програш гарантуються лише в тому випадку, якщо з моменту останнього захоплення або ходу пішака, відстежується рекомендована базова лінія, через можливе заокруглення значень DTZ в систематичних табличних базах.</string>
+  <string name="unknownDueToRounding">Перемога/поразка гарантовані лише в тому випадку, якщо з моменту останнього взяття або ходу пішака відстежується рекомендована базова лінія, через можливе заокруглення значень DTZ в систематичних табличних базах.</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
   <string name="delete">Видалити</string>
@@ -402,7 +402,7 @@
   <string name="leaderboard">Дошка лідерів</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
-  <string name="orUploadPgnFile">Або завантажте PNG файл</string>
+  <string name="orUploadPgnFile">Або завантажте PGN файл</string>
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
@@ -522,6 +522,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна або прапор</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
+  <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
   <string name="onlinePlayers">Гравці онлайн</string>
@@ -567,6 +568,7 @@
   <string name="reportDescriptionHelp">Вставте посилання на гру (ігри) та поясніть, що не так із поведінкою цього користувача. Не пишіть просто \"він шахраює\", а розкажіть, як ви дійшли до такого висновку. Вашу скаргу розглянуть швидше, якщо ви напишете її англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
   <string name="by">від %s</string>
+  <string name="importedByX">Завантажено гравцем - %s</string>
   <string name="thisTopicIsNowClosed">Обговорення закрито.</string>
   <string name="blog">Блог</string>
   <string name="notes">Нотатки</string>
@@ -874,7 +876,7 @@
   <string name="currentMatchScore">Поточний рахунок матчу</string>
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
   <string name="agreementNice">Я погоджуюся, що я завжди буду ставитись чемно до інших гравців.</string>
-  <string name="agreementAccount">Я погоджуюся, що я не буду створювати більше одного облікового запису.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я погоджуюсь с тим, що не буду створювати декілька облікових записів (крім причин, описаних у %s).</string>
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>

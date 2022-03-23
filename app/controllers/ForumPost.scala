@@ -16,7 +16,11 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     OpenBody { implicit ctx =>
       NotForKids {
         if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
-        else env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
+        else
+          for {
+            teamIds <- ctx.userId ?? env.team.cached.teamIdsSet
+            posts   <- env.forumSearch(text, page, ctx.troll)
+          } yield html.forum.search(text, posts, teamIds)
       }
     }
 
@@ -38,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       for {
                         captcha     <- forms.anyCaptcha
                         unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
-                        canModCateg <- isGrantedMod(categ.slug)
+                        canModCateg <- access.isGrantedMod(categ.slug)
                       } yield BadRequest(
                         html.forum.topic
                           .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
@@ -98,7 +102,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                   preset =
                     if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
-                    else MsgPreset.forumDeletion.byTeamLeader
+                    else MsgPreset.forumDeletion.byTeamLeader(categSlug)
                 } env.msg.api.systemPost(userId, preset(reason))
                 NoContent
               }
@@ -107,11 +111,13 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def react(id: String, reaction: String, v: Boolean) =
+  def react(categSlug: String, id: String, reaction: String, v: Boolean) =
     Auth { implicit ctx => me =>
-      postApi.react(id, me, reaction, v) map {
-        _ ?? { post =>
-          Ok(views.html.forum.post.reactions(post, canReact = true))
+      CategGrantWrite(categSlug) {
+        postApi.react(categSlug, id, me, reaction, v) map {
+          _ ?? { post =>
+            Ok(views.html.forum.post.reactions(post, canReact = true))
+          }
         }
       }
     }

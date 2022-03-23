@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
   <string name="saveChapter">Gem kapitel</string>
   <string name="clearAnnotations">Ryd annoteringer</string>
+  <string name="clearVariations">Ryd variationer</string>
   <string name="deleteChapter">Slet kapitel</string>
   <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>
@@ -136,7 +137,7 @@
   <string name="interestingMove">Interessant træk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Træktvang</string>
   <string name="equalPosition">Lige stilling</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret stilling</string>
   <string name="whiteIsSlightlyBetter">Hvid står lidt bedre</string>

@@ -85,6 +85,7 @@ interface CrazyPocket {
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
+  noab?: boolean;
   socketSend: SocketSend;
   onChange(d: RoundData): void;
   element: HTMLElement;

@@ -253,7 +253,7 @@ final private[round] class RoundAsyncActor(
 
     case Abort(playerId) =>
       handle(PlayerId(playerId)) { pov =>
-        pov.game.abortable ?? finisher.abort(pov)
+        pov.game.abortableByUser ?? finisher.abort(pov)
       }
 
     case Resign(playerId) =>

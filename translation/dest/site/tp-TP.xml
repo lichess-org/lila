@@ -12,7 +12,7 @@
   <string name="strength">wawa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
   <string name="chat">tomo toki</string>
-  <string name="resign">o pini e musi tan anpa</string>
+  <string name="resign">o anpa</string>
   <string name="checkmate">jan lawa li moli</string>
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
@@ -45,8 +45,8 @@
   <string name="forceDraw">o pini sama</string>
   <string name="talkInChat">o pona tawa jan!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">jan nanpa wan li kepeken linja ni la ona li musi lon poka sina.</string>
-  <string name="whiteResigned">walo li pini e musi tan anpa</string>
-  <string name="blackResigned">pimeja li pini e musi tan anpa</string>
+  <string name="whiteResigned">walo li anpa</string>
+  <string name="blackResigned">pimeja li anpa</string>
   <string name="whiteLeftTheGame">walo li weka tan musi</string>
   <string name="blackLeftTheGame">pimeja li weka tan musi</string>
   <string name="whiteDidntMove">walo li tawa ala</string>
@@ -141,7 +141,7 @@
     <item quantity="one">jan musi wan</item>
     <item quantity="other">jan musi %s</item>
   </plurals>
-  <string name="drawByMutualAgreement">anpa ala tan wile pi jan musi tu</string>
+  <string name="drawByMutualAgreement">pini sama tan wile ale</string>
   <string name="fiftyMovesWithoutProgress">tawa mute mute luka luka la musi li tawa ala</string>
   <string name="currentGames">musi pi tenpo ni</string>
   <plurals name="nbGames">
@@ -792,7 +792,7 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="currentMatchScore">nanpa pona pi kulupu musi ni</string>
   <string name="agreementAssistance">mi toki wawa e ni: mi musi la, jan ante en lipu en ilo sona li pona ala e musi mi.</string>
   <string name="agreementNice">mi toki wawa e ni: mi pona tawa jan ante lon tenpo ale.</string>
-  <string name="agreementAccount">mi toki wawa e ni: mi pali ala e lipu lawa ante tawa mi.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">mi pilin sama tawa ni: mi pali ala e sinpin mute (tan lon %s li ala e ni).</string>
   <string name="agreementPolicy">mi toki wawa e ni: mi pali ala e ijo ni: ona li ike tawa nasin lawa pi ilo Lichess.</string>
   <string name="searchOrStartNewDiscussion">o lukin anu open e toki</string>
   <string name="edit">o ante</string>

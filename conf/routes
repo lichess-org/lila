@@ -17,6 +17,7 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
+POST  /api/games/export/_ids           controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # Bookmark
@@ -106,13 +107,14 @@ GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.community(lang: String = "all", page: Int ?= 1)
+GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: String = "all")
+GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: String)
 GET   /blog/community/:lang            controllers.Ublog.community(lang: String, page: Int ?= 1)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
-POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
@@ -125,6 +127,7 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, p
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme: String)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1)
+GET   /training/mobile/history                controllers.Puzzle.mobileHistory(page: Int ?= 1)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
@@ -394,6 +397,8 @@ GET   /api/team/:id                           controllers.Team.apiShow(id: Strin
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: String)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: String)
+GET   /api/team/:id/requests                  controllers.Team.apiRequests(id: String)
+POST  /api/team/:id/request/:userId/:decision controllers.Team.apiRequestProcess(id: String, userId: String, decision: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
@@ -406,7 +411,7 @@ GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
-GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/niklasf/fishnet")
+GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
@@ -436,7 +441,7 @@ POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String, 
 POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String)
-POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
+POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id: String)
 
 # Notify
 GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
@@ -543,8 +548,8 @@ POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: St
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
+POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug: String, id: String, reaction: String, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
-POST  /forum/post/:id/react/:reaction/:v controllers.ForumPost.react(id: String, reaction: String, v: Boolean)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Msg compat
@@ -650,14 +655,16 @@ POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
-GET   /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int)
+GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String, status: List[Int])
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
+GET   /api/user/:name/note             controllers.User.apiReadNote(name: String)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/user/:name/current-game     controllers.User.tvExport(name: String)
 GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name: String, perfKey: String)
+GET   /api/user/:name/mod-log          controllers.Mod.apiUserLog(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id: String)
@@ -674,6 +681,7 @@ POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: Strin
 POST  /api/swiss/:id/edit              controllers.Swiss.apiUpdate(id: String)
 POST  /api/swiss/:id/join              controllers.Swiss.apiJoin(id: String)
 POST  /api/swiss/:id/terminate         controllers.Swiss.apiTerminate(id: String)
+GET   /api/swiss/:id                   controllers.Swiss.apiShow(id: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
 GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
 GET   /api/simul                       controllers.Simul.apiList
@@ -845,5 +853,7 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
+
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)

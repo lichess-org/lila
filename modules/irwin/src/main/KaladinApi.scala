@@ -119,11 +119,9 @@ final class KaladinApi(
     }
   }
 
-  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit =
-    if (pred.percent >= thresholds.get().mark)
-      modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
-        lila.mon.mod.kaladin.mark.increment().unit
-    else if (pred.percent >= thresholds.get().report) for {
+  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit = {
+
+    def sendReport = for {
       suspect <- getSuspect(user.suspectId.value)
       kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod
       _ <- reportApi.create(
@@ -136,7 +134,17 @@ final class KaladinApi(
           )
       )
     } yield lila.mon.mod.kaladin.report.increment().unit
+
+    if (pred.percent >= thresholds.get().mark)
+      userRepo.hasTitle(user.id) flatMap {
+        case true => sendReport
+        case false =>
+          modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
+            lila.mon.mod.kaladin.mark.increment().unit
+      }
+    else if (pred.percent >= thresholds.get().report) sendReport
     else funit
+  }
 
   object notification {
 

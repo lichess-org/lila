@@ -78,6 +78,7 @@
   <string name="pinnedChapterComment">章の優先表示コメント</string>
   <string name="saveChapter">章を保存</string>
   <string name="clearAnnotations">注釈をクリア</string>
+  <string name="clearVariations">手順をクリア</string>
   <string name="deleteChapter">章を削除</string>
   <string name="deleteThisChapter">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="clearAllCommentsInThisChapter">この章のコメントと図形をすべて削除しますか？</string>
@@ -152,11 +153,11 @@
   <string name="nextChapter">次の章</string>
   <string name="prevChapter">前の章</string>
   <string name="studyActions">研究の操作</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">トピック</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">自分のトピック</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">人気のトピック</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">トピックの管理</string>
-  <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">戻る</string>
+  <string name="topics">トピック</string>
+  <string name="myTopics">自分のトピック</string>
+  <string name="popularTopics">人気のトピック</string>
+  <string name="manageTopics">トピックの管理</string>
+  <string name="back">戻る</string>
   <string name="playAgain">もう一度プレイ</string>
   <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
   <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>

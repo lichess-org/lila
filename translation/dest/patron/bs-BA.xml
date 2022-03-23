@@ -16,7 +16,7 @@
   <string name="thankYou">Hvala Vam na donaciji!</string>
   <string name="youHaveLifetime">Imate doživotni račun pokrovitelja. To je baš fenomenalno!</string>
   <string name="patronUntil">Imate račun pokrovitelja do %s.</string>
-  <string name="ifNotRenewed">Ako ga ne obnovite do tada, status pokrovitelja će Vam se besplatno ukinuti.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ako ga ne obnovite, Vaš će se račun vratiti na obični.</string>
   <string name="weAreNonProfit">Mi smo neprofitno udruženje jer vjerujemo da bi svi trebali imati pristup besplatnoj šahovskoj platformi svjetske klase.</string>
   <string name="weRelyOnSupport">Da bi to omogućili, oslanjamo se na podršku ljudi poput Vas. Ako uživate u korištenju Lichess-a, molimo Vas da razmislite o podršci putem donacija i da postanite naš pokrovitelj!</string>
   <string name="lifetime">Doživotno</string>

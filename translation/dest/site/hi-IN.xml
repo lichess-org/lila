@@ -21,8 +21,8 @@
   <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
-  <string name="whiteIsVictorious">सफेद विजय हुआ</string>
-  <string name="blackIsVictorious">काले की जय</string>
+  <string name="whiteIsVictorious">सफेद जीता</string>
+  <string name="blackIsVictorious">काला जीता</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
   <string name="itsYourTurn">यह आपकी बारी है!</string>
@@ -99,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
   <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
   <string name="lossOr50MovesByPriorMistake">हार​ अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
+  <string name="unknownDueToRounding">जीत/नुकसान की गारंटी केवल तभी दी जाती है जब Syzygy टेबलबेस में DTZ मानों के संभावित राउंडिंग के कारण अंतिम कैप्चर या पॉन मूव के बाद से अनुशंसित टेबलबेस लाइन का पालन किया गया हो।</string>
   <string name="allSet">सब तैयार!</string>
   <string name="importPgn">PGN आयात करें</string>
   <string name="delete">हटाएँ</string>
@@ -458,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश या झंडा</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">प्रति पंक्ति एक कड़ी</string>
+  <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
   <string name="onlinePlayers">ऑनलाइन खिलाड़ियों</string>
@@ -502,6 +503,7 @@
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
   <string name="by">%s द्वारा</string>
+  <string name="importedByX">%s द्वारा आयातित</string>
   <string name="thisTopicIsNowClosed">यह विषय अब बंद हो चुका है|</string>
   <string name="blog">ब्लॉग</string>
   <string name="notes">टिप्पणियाँ</string>
@@ -764,7 +766,7 @@
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड</item>
+    <item quantity="other">%s सेकंड समय बचे है ।</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>
@@ -796,7 +798,6 @@
   <string name="currentMatchScore">वर्तमान मैच का स्कोर</string>
   <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
-  <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>

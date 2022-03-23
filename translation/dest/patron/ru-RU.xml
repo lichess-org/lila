@@ -18,7 +18,7 @@
   <string name="thankYou">Благодарим вас за пожертвование!</string>
   <string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
   <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
-  <string name="ifNotRenewed">Если не будет продлено, то вы будете переведены на бесплатный план.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то учётная запись опять станет обычной.</string>
   <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
   <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
   <string name="lifetime">Пожизненная</string>

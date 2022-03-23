@@ -67,6 +67,7 @@ Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\", kể cả n�
 Lý do là chúng không có một cách công bằng nào có thể giải quyết trường hợp có người chơi rời khỏi giải trước khi giải đấu kết thúc. Không thể mong đợi tất cả mọi người đều có thể chơi hết các ván đấu của họ trong một giải đấu online. Điều đó không thể xảy ra, và vì thế, hầu hết các giải đấu vòng tròn sẽ không hoạt động một cách công bằng, điều đó mâu thuẫn với lý do nó tồn tại ngay từ đầu.
 Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
   <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>
+  <string name="joinOrCreateTeam">Tham gia hoặc tạo một nhóm</string>
   <string name="nowPlaying">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>
   <string name="comparison">So sánh</string>

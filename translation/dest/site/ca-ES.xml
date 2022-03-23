@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Juga amb un amic</string>
-  <string name="playWithTheMachine">Juga amb la màquina</string>
+  <string name="playWithTheMachine">Juga contra la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'adversari</string>
@@ -30,7 +30,7 @@
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Cursa finalitzada</string>
-  <string name="variantEnding">Acabament de variant</string>
+  <string name="variantEnding">Final de variant</string>
   <string name="newOpponent">Nou adversari</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Unir-se a la partida</string>
@@ -43,7 +43,7 @@
   <string name="opponentLeftChoices">El teu contrincant ha abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Sigues amable en el xat!</string>
+  <string name="talkInChat">Sisplau, sigues amable al xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
@@ -64,7 +64,7 @@
   <string name="showThreat">Mostrar amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
-  <string name="promoteVariation">Promoure variant</string>
+  <string name="promoteVariation">Promocionar variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variació</string>
@@ -77,7 +77,7 @@
   <string name="close">Tancar</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empatat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
@@ -459,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Una URL per línia.</string>
+  <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
+  <string name="importedByX">Importat per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -794,7 +795,7 @@
   <string name="currentMatchScore">Valoració actual de partides</string>
   <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
-  <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estic d\'acord en no crear múltiples comptes (excepte per les raons detallades als %s).</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
@@ -896,4 +897,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="until">Fins a</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
   <string name="switchSides">Canviar de banda</string>
+  <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
 </resources>

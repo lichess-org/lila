@@ -5,8 +5,9 @@
   <string name="youCanPasteThisInTheForumToEmbed">Embed လုပ်ရန် အတွက် ဤစာများကို ဖိရမ်တွင် ကူးထည့်နိုင်ပါသည်</string>
   <string name="embedInYourWebsite">မိမိ ဝက်ဗ်ဆိုက် သို့မဟုတ် ဘလော့ဂ်တွင် embed လုပ်ပါ</string>
   <string name="readMoreAboutEmbedding">Embed လုပ်ခြင်းနှင့် ပတ်သက်၍ နောက်ထပ် ဖတ်ရှုမည်</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">အကြောင်းအရာ</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">ကျွန်ုပ် ရွေးချယ်ထားသည့် အကြောင်းအရာများ</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">လူကြိုက်များသည့် အကြောင်းအရာများ</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">အကြောင်းအရာများကို စီမံခန့်ခွဲခြင်း</string>
+  <string name="clearVariations">လိုင်းကွဲများကို ရှင်းပစ်ပါ</string>
+  <string name="topics">အကြောင်းအရာ</string>
+  <string name="myTopics">ကျွန်ုပ် ရွေးချယ်ထားသည့် အကြောင်းအရာများ</string>
+  <string name="popularTopics">လူကြိုက်များသည့် အကြောင်းအရာများ</string>
+  <string name="manageTopics">အကြောင်းအရာများကို စီမံခန့်ခွဲခြင်း</string>
 </resources>

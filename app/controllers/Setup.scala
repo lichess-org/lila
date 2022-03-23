@@ -42,6 +42,12 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
+  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
+    50,
+    1.day,
+    key = "setup.post.bot.ai"
+  )
+
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
@@ -56,10 +62,32 @@ final class Setup(
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
-  def ai =
-    process(_ => forms.ai) { config => implicit ctx =>
-      processor ai config
-    }
+  def ai = OpenBody { implicit ctx =>
+    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
+      PostRateLimit(ctx.ip) {
+        implicit val req = ctx.body
+        forms.ai
+          .bindFromRequest()
+          .fold(
+            err =>
+              negotiate(
+                html = keyPages.home(Results.BadRequest),
+                api = _ => jsonFormError(err)
+              ),
+            config =>
+              processor.ai(config)(ctx) flatMap { pov =>
+                negotiate(
+                  html = fuccess(redirectPov(pov)),
+                  api = apiVersion =>
+                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                      Created(data) as JSON
+                    }
+                )
+              }
+          )
+      }(rateLimitedFu)
+    }(rateLimitedFu)
+  }
 
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
@@ -69,7 +97,7 @@ final class Setup(
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
             case Some(user) =>
-              env.challenge.granter(ctx.me, user, none) map {
+              env.challenge.granter.isDenied(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
                 case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
@@ -96,7 +124,7 @@ final class Setup(
               ),
             config =>
               userId ?? env.user.repo.enabledById flatMap { destUser =>
-                destUser ?? { env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
+                destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
@@ -105,11 +133,7 @@ final class Setup(
                     )
                   case None =>
                     import lila.challenge.Challenge._
-                    val timeControl = config.makeClock map {
-                      TimeControl.Clock.apply
-                    } orElse config.makeDaysPerTurn.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited
+                    val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
                       initialFen = config.fen,
@@ -275,42 +299,18 @@ final class Setup(
   def apiAi =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      PostRateLimit(HTTPRequest ipAddress req) {
-        forms.api.ai
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            config =>
-              processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView(pov.game, config.fen)) as JSON
-              }
-          )
-      }(rateLimitedFu)
-    }
-
-  private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
-    OpenBody { implicit ctx =>
-      PostRateLimit(ctx.ip) {
-        implicit val req = ctx.body
-        form(ctx)
-          .bindFromRequest()
-          .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
-            config =>
-              op(config)(ctx) flatMap { pov =>
-                negotiate(
-                  html = fuccess(redirectPov(pov)),
-                  api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
-                      Created(data) as JSON
-                    }
-                )
-              }
-          )
+      BotAiRateLimit(me.id, cost = me.isBot ?? 1) {
+        PostRateLimit(HTTPRequest ipAddress req) {
+          forms.api.ai
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              config =>
+                processor.apiAi(config, me) map { pov =>
+                  Created(env.game.jsonView(pov.game, config.fen)) as JSON
+                }
+            )
+        }(rateLimitedFu)
       }(rateLimitedFu)
     }
 

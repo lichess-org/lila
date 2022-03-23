@@ -172,7 +172,7 @@ public class RatingCalculator {
       double C = A + (( (A-B)*fA ) / (fB - fA));
       double fC = f(C , delta, phi, v, a, tau);
 
-      if ( fC * fB < 0 ) {
+      if ( fC * fB <= 0 ) {
         A = B;
         fA = fB;
       } else {

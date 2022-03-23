@@ -1,6 +1,8 @@
 package lila.team
 
 import org.joda.time.DateTime
+import java.security.MessageDigest
+import java.nio.charset.StandardCharsets.UTF_8
 import scala.util.chaining._
 
 import lila.user.User
@@ -38,16 +40,20 @@ case class Team(
   def publicMembers: Boolean = !hideMembers.has(true)
 
   def passwordMatches(pw: String) =
-    password.forall(teamPw =>
-      teamPw.size == pw.size && teamPw.zip(pw).foldLeft(0) { case (acc, (a, b)) =>
-        acc | (a ^ b) // constant time
-      } == 0
-    )
+    password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 }
 
 object Team {
 
+  type ID = String
+
   case class Mini(id: Team.ID, name: String)
+
+  val variants: Map[chess.variant.Variant, Mini] = chess.variant.Variant.all.view collect {
+    case v if v.exotic =>
+      val name = s"Lichess ${v.name}"
+      v -> Mini(nameToId(name), name)
+  } toMap
 
   val maxJoinCeiling = 50
 
@@ -56,8 +62,6 @@ object Team {
     else {
       15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
     } atMost maxJoinCeiling
-
-  type ID = String
 
   type Access = Int
   object Access {
@@ -79,6 +83,7 @@ object Team {
 
     def toArray: Array[String] = value split IdsStr.separator
     def toList                 = value.nonEmpty ?? toArray.toList
+    def toSet                  = value.nonEmpty ?? toArray.toSet
   }
 
   object IdsStr {

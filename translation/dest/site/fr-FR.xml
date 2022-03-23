@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
+  <string name="importedByX">Importée par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -794,7 +795,7 @@
   <string name="currentMatchScore">Résultat actuel (match)</string>
   <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (ni d\'un programme d\'échecs, ni d\'un livre, ni d\'une base de données, ni d\'autrui).</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
-  <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">J\'accepte de ne pas créer de comptes multiples (sauf pour les raisons indiquées dans les %s).</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
@@ -896,4 +897,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
   <string name="switchSides">Changer de couleur</string>
+  <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
 </resources>

@@ -11,42 +11,63 @@ import lila.user.User
 
 object atom {
 
-  import views.html.base.atom.atomDate
+  import views.html.base.atom.{ atomDate, category }
   import views.html.ublog.blog.urlOfBlog
   import views.html.ublog.post.{ thumbnail, urlOfPost }
 
-  def apply(
+  def user(
       user: User,
       blog: UblogBlog,
       posts: Seq[UblogPost.PreviewPost]
-  )(implicit ctx: Lang) =
+  )(implicit lang: Lang) =
     views.html.base.atom(
       elems = posts,
       htmlCall = routes.Ublog.index(user.username),
-      atomCall = routes.Blog.atom,
+      atomCall = routes.Ublog.userAtom(user.username),
       title = trans.ublog.xBlog.txt(user.username),
       updated = posts.headOption.flatMap(_.lived).map(_.at)
     ) { post =>
-      frag(
-        tag("id")(s"$netBaseUrl${urlOfBlog(blog)}"),
-        tag("published")(post.lived.map(_.at) map atomDate),
-        link(
-          rel := "alternate",
-          tpe := "text/html",
-          href := s"$netBaseUrl${urlOfPost(post)}"
-        ),
-        tag("title")(post.title),
-        // tag("category")(
-        //   tag("term")(doc.getText("blog.category")),
-        //   tag("label")(slugify(~doc.getText("blog.category")))
-        // ),
-        tag("content")(tpe := "html")(
-          thumbnail(post, _.Large),
-          "<br>", // yes, scalatags encodes it.
-          post.intro
-        ),
-        tag("tag")("media:thumbnail")(attr("url") := thumbnail.url(post, _.Large)),
-        tag("author")(tag("name")(user.titleUsername))
-      )
+      renderPost(post, authorOfBlog(post.blog))
     }
+
+  def community(code: String, posts: Seq[UblogPost.PreviewPost]) =
+    views.html.base.atom(
+      elems = posts,
+      htmlCall = routes.Ublog.community(code),
+      atomCall = routes.Ublog.communityAtom(code),
+      title = "Lichess community blogs",
+      updated = posts.headOption.flatMap(_.lived).map(_.at)
+    ) { post =>
+      renderPost(post, authorOfBlog(post.blog))
+    }
+
+  private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
+    frag(
+      tag("id")(post._id),
+      tag("published")(post.lived.map(_.at) map atomDate),
+      link(
+        rel := "alternate",
+        tpe := "text/html",
+        href := s"$netBaseUrl${urlOfPost(post)}"
+      ),
+      tag("title")(post.title),
+      post.topics.map { topic =>
+        category(
+          term = topic.url,
+          label = topic.value,
+          scheme = s"$netBaseUrl${routes.Ublog.topic(topic.url)}".some
+        )
+      },
+      tag("content")(tpe := "html")(
+        thumbnail(post, _.Large),
+        "<br>", // yes, scalatags encodes it.
+        post.intro
+      ),
+      tag("tag")("media:thumbnail")(attr("url") := thumbnail.url(post, _.Large)),
+      tag("author")(tag("name")(authorName))
+    )
+
+  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match {
+    case UblogBlog.Id.User(userId) => titleNameOrId(userId)
+  }
 }

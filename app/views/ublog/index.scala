@@ -73,7 +73,11 @@ object index {
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = "Community blogs"
+      title = "Community blogs",
+      atomLinkTag = link(
+        href := routes.Ublog.communityAtom(lang.fold("all")(_.code)),
+        st.title := "Lichess community blogs"
+      ).some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion, ctx.req)
@@ -96,6 +100,12 @@ object index {
                       cls := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                   }
+              ),
+              a(
+                cls := "atom",
+                st.title := "Atom RSS feed",
+                href := routes.Ublog.communityAtom(lang.fold("all")(_.code)),
+                dataIcon := ""
               )
             )
           ),

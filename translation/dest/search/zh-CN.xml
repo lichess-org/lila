@@ -32,4 +32,5 @@
   <plurals name="gamesFound">
     <item quantity="other">找到 %s 个对局</item>
   </plurals>
+  <string name="ratingExplanation">两位玩家的平均等级分</string>
 </resources>

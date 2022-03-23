@@ -266,12 +266,12 @@
     <item quantity="other">%s վարկանիշային</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s հաղթեց</item>
-    <item quantity="other">%s հաղթանակներ</item>
+    <item quantity="one">%s հաղթանակ</item>
+    <item quantity="other">%s հաղթանակ</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s պարտվեց</item>
-    <item quantity="other">%s պարտություններ</item>
+    <item quantity="one">%s պարտություն</item>
+    <item quantity="other">%s պարտություն</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s ոչ-ոքի</item>
@@ -458,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Երկիր կամ դրոշ</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
+  <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
@@ -470,7 +471,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
-  <string name="puzzles">խնդիրներ</string>
+  <string name="puzzles">Խնդիրներ</string>
   <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>

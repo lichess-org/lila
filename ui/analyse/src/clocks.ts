@@ -18,8 +18,13 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
 
   const study = ctrl.study,
     relay = study && study.data.chapter.relay;
-  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter)) {
-    const spent = (Date.now() - relay.lastMoveAt) / 10;
+
+  const lastMoveAt =
+    (relay?.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter) && relay.lastMoveAt) ||
+    ctrl.autoplay.lastMoveAt;
+
+  if (lastMoveAt) {
+    const spent = (Date.now() - lastMoveAt) / 10;
     const i = isWhiteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }

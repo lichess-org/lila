@@ -171,7 +171,7 @@
   <string name="viewInFullSize">Глядзець у поўным памеры</string>
   <string name="logOut">Выйсці</string>
   <string name="signIn">Увайсці</string>
-  <string name="youNeedAnAccountToDoThat">Патрэбны акаўнт каб зрабіць гэта</string>
+  <string name="youNeedAnAccountToDoThat">Вам патрэбны ўліковы запіс, каб зрабіць гэта</string>
   <string name="signUp">Зарэгістравацца</string>
   <string name="computersAreNotAllowedToPlay">Майце на ўвазе, што да гульні не дапускаюцца «камп’ютарныя гульцы» і гульцы, якія карыстаюцца дапамогай камп’ютару. Любыя дапаможныя сродкі – шахматныя вылічальныя праграмы, базы звестак ці парады іншых гульцоў – забаронены. Мы просім вас гуляць па правілах. Таксама не ўхваляецца стварэнне некалькіх уліковых запісаў: пры злоўжыванні гэта можа прывесці да перманентнай блакіроўкі.</string>
   <string name="games">Гульні</string>
@@ -188,7 +188,7 @@
   <string name="variants">Варыянты</string>
   <string name="timeControl">Абмежаванне часу</string>
   <string name="realTime">Жывая гульня</string>
-  <string name="correspondence">Ліставанне</string>
+  <string name="correspondence">Па ліставанні</string>
   <string name="daysPerTurn">Дзён на ход</string>
   <string name="oneDay">Aдзін дзень</string>
   <plurals name="nbDays">
@@ -389,7 +389,7 @@
   <string name="mustBeInTeam">Вы павінны быць удзельнікам каманды %s</string>
   <string name="youAreNotInTeam">Вы не ўдзельнік каманды %s</string>
   <string name="backToGame">Вярнуцца да гульні</string>
-  <string name="siteDescription">Бясплатныя шахматы – анлайн. Гуляйцеся хоць цяпер. Зручны інтэрфэйс. Рэгістравацца неабавязкова. Ніякай рэкламы і плагінаў. Можна гуляцца з камп’ютарам, сябрамі ці выпадковымі апанентамі.</string>
+  <string name="siteDescription">Бясплатныя анлайн шахматы. Зручны інтэрфэйс. Без рэгістрацыі, без рэкламы, без дадатковых плагінаў. Гуляйце у шахматы з камп\'ютарам, сябрамі ці выпадковымі супернікамі.</string>
   <string name="xJoinedTeamY">%1$s далучыўся да каманды %2$s</string>
   <string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
   <string name="xStartedStreaming">%s пачаў трансляцыю</string>
@@ -521,6 +521,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна або сцяг</string>
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
+  <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
@@ -566,6 +567,7 @@
   <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
+  <string name="importedByX">Імпартваў/-ла %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
   <string name="blog">Блог</string>
   <string name="notes">Нататкі</string>
@@ -687,7 +689,7 @@
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
-  <string name="tournamentFAQ">FAQ турніру</string>
+  <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
   <string name="keyboardShortcuts">Скароты</string>
@@ -717,7 +719,7 @@
   <string name="cumulative">Сукупна</string>
   <string name="glicko2Rating">Рэйтынг Glicko-2</string>
   <string name="checkYourEmail">Праверце сваю пошту</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Ліст атасланы на вашу электронную пошту. Перайдзіце па спасылцы ў лісце, каб актываваць ваш акаўнт.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Мы адаслалі ліст на вашу электронную пошту. Націсніце на спасылку ў лісце, каб актываваць ваш уліковы запіс.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на вашу пошту %s. Перайдзіце па спасылцы ў лісце, каб аднавіць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
@@ -733,10 +735,10 @@
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
   <string name="receiveForumNotifications">Атрымоўваць паведамленні, калі узгадваць на форме</string>
-  <string name="shareYourInsightsData">Хто бачыць маю статыстыку</string>
-  <string name="withNobody">Ніхто</string>
-  <string name="withFriends">Сябры</string>
-  <string name="withEverybody">Усе</string>
+  <string name="shareYourInsightsData">Дзяліцца вашым шахматнымі аналітычнымі данымі</string>
+  <string name="withNobody">Ні з кім</string>
+  <string name="withFriends">З сябрамі</string>
+  <string name="withEverybody">З усімі</string>
   <string name="kidMode">Дзіцячы рэжым</string>
   <string name="kidModeExplanation">Гэта для бяспекі. У дзіцячым рэжыме адключаны ўсе камунікацыі на сайце. Уключыце гэта для вашых дзяцей і школьнікаў, каб абараніць іх ад іншых карыстачоў Інтэрнэту.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дзіцячым рэжыме лагатып lichess атрымвае значок у выглядзе %s, так што вы ведаеце, што вашы дзеці знаходзяцца ў бяспецы.</string>
@@ -753,7 +755,7 @@
   <string name="fullFeatured">Паўнавартасны</string>
   <string name="phoneAndTablet">Для смартфонаў і планшэтаў</string>
   <string name="bulletBlitzClassical">«Куля», бліц, класічны рэжым</string>
-  <string name="correspondenceChess">Гульня па ліставанні</string>
+  <string name="correspondenceChess">Шахматы па ліставанні</string>
   <string name="onlineAndOfflinePlay">Гульня анлайн і афлайн</string>
   <string name="viewTheSolution">Паглядзець рашэнне</string>
   <string name="followAndChallengeFriends">Падпісацца і выклікаць на гульню сяброў</string>
@@ -873,7 +875,7 @@
   <string name="currentMatchScore">Лік бягучага матчу</string>
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
   <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
-  <string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я пагаджаюся не ствараць некалькі ўліковых запісаў (акрамя выпадкаў апісаных у %s).</string>
   <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
@@ -884,11 +886,11 @@
   <string name="blitzDesc">Хуткія гульні: ад 3 да 8 хвілін</string>
   <string name="rapidDesc">Хуткія гульні: ад 8 да 25 хвілін</string>
   <string name="classicalDesc">Класічныя гульні: 25 хвілін і больш</string>
-  <string name="correspondenceDesc">Завочныя гульні: адзін або некалькі дзён на ход</string>
+  <string name="correspondenceDesc">Гульні па ліставанні: адзін або некалькі дзён на ход</string>
   <string name="puzzleDesc">Трэнер па шахматнай тактыцы</string>
   <string name="important">Важліва</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Ваш запыт можа ужо мець адказ %1$s</string>
-  <string name="inTheFAQ">у FAQ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Адказ на ваша пытанне можа ўжо існаваць %1$s</string>
+  <string name="inTheFAQ">у частых пытаннях</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
   <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
@@ -910,7 +912,7 @@
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш трэнерски профіль.</string>
-  <string name="newPendingReview">Новы водгук</string>
+  <string name="newPendingReview">Новы водгук у чаканні</string>
   <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
   <string name="refundXpointsTimeControlY">Вяртанне: %1$s %2$s балаў рэйтынгу.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
@@ -959,11 +961,11 @@
   <string name="analysisOptions">Параметры аналізу</string>
   <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
-  <string name="reopenYourAccount">Пераадкрыць акаўнт</string>
-  <string name="closedAccountChangedMind">Калі пасля закрыцця акаўнту, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
+  <string name="reopenYourAccount">Пераадкрыць уліковы запіс</string>
+  <string name="closedAccountChangedMind">Калі пасля закрыцця ўліковага запісу, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
   <string name="onlyWorksOnce">Гэта спрацуе толькі адзін раз.</string>
   <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
-  <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
+  <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з уліковым запісам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
   <string name="tournamentEntryCode">Код далучэння да турніру</string>
   <string name="hangOn">Пачакайце!</string>

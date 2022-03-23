@@ -24,4 +24,16 @@
   <string name="sortBy">Подреди по</string>
   <string name="analysis">Анализа</string>
   <string name="onlyAnalysed">Само партии со достапна компјутерска анализа</string>
+  <string name="color">Боја</string>
+  <string name="evaluation">Евалуација</string>
+  <string name="maxNumber">Максимален број</string>
+  <string name="maxNumberExplanation">Максимален број на игри да се вратат</string>
+  <string name="include">Вклучено</string>
+  <string name="descending">Опаѓачки</string>
+  <string name="ascending">Растечки</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Пронајдена е %s партија</item>
+    <item quantity="other">Пронајдени се %s партии</item>
+  </plurals>
+  <string name="ratingExplanation">Просечен рејтинг на двајцата играчи</string>
 </resources>

@@ -78,6 +78,7 @@
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
   <string name="clearAnnotations">清除注解</string>
+  <string name="clearVariations">清除棋路</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
@@ -107,7 +108,7 @@
   <string name="visibility">权限</string>
   <string name="public">公开</string>
   <string name="unlisted">未列出</string>
-  <string name="inviteOnly">仅邀请</string>
+  <string name="inviteOnly">仅限邀请</string>
   <string name="allowCloning">允许复制</string>
   <string name="nobody">没人</string>
   <string name="onlyMe">仅自己</string>
@@ -152,11 +153,11 @@
   <string name="nextChapter">下一章节</string>
   <string name="prevChapter">上一章节</string>
   <string name="studyActions">研讨操作</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">主题</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">我的主题</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">热门主题</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">管理主题</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">回到起始</string>
+  <string name="topics">主题</string>
+  <string name="myTopics">我的主题</string>
+  <string name="popularTopics">热门主题</string>
+  <string name="manageTopics">管理主题</string>
+  <string name="back">回到起始</string>
   <string name="playAgain">重玩</string>
   <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
   <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>

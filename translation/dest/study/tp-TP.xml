@@ -94,9 +94,9 @@
   <string name="nextChapter">wan pi nanpa kama</string>
   <string name="prevChapter">wan pi nanpa pini</string>
   <string name="studyActions">pali ken pi lipu sona</string>
-  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu</string>
-  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu mi</string>
-  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">kulupu lipu pi jan mute</string>
-  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">o ante e kulupu lipu</string>
-  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">o tawa open</string>
+  <string name="topics">kulupu lipu</string>
+  <string name="myTopics">kulupu lipu mi</string>
+  <string name="popularTopics">kulupu lipu pi jan mute</string>
+  <string name="manageTopics">o ante e kulupu lipu</string>
+  <string name="back">o tawa open</string>
 </resources>

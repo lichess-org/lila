@@ -125,12 +125,12 @@ final class PostApi(
   def getPost(postId: Post.ID): Fu[Option[Post]] =
     env.postRepo.coll.byId[Post](postId)
 
-  def react(postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+  def react(categSlug: String, postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       env.postRepo.coll.ext
         .findAndUpdate[Post](
-          selector = $id(postId) ++ $doc("userId" $ne me.id),
+          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
             else $pull(s"reactions.$reaction"       -> me.id)

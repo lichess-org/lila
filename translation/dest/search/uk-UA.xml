@@ -41,4 +41,5 @@
     <item quantity="many">%s ігор знайдено</item>
     <item quantity="other">%s гри знайдено</item>
   </plurals>
+  <string name="ratingExplanation">Середній рейтинг обох гравців</string>
 </resources>

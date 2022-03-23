@@ -30,8 +30,8 @@
   <string name="threeChecks">ତିନି ଚେକ୍</string>
   <string name="raceFinished">ରେସ୍ ସମାପ୍ତ</string>
   <string name="variantEnding">ବିଭିନ୍ନ ପ୍ରକାର ସମାପ୍ତ</string>
-  <string name="newOpponent">ନୂତନ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ |</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">ତୁମର ପ୍ରତିଦ୍ୱନ୍ଦୀ ତୁମ ସହିତ ଏକ ନୂତନ ଖେଳ ଖେଳିବାକୁ ଚାହାଁନ୍ତି</string>
+  <string name="newOpponent">ନୂଆ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଆପଣଙ୍କ ସହ ଏକ ନୂଆ ଖେଳ ଖେଳିବାକୁ ଚାହାଁନ୍ତି</string>
   <string name="joinTheGame">ଖେଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
   <string name="whitePlays">ଧଳାର ପାଳି</string>
   <string name="blackPlays">କଳାର ପାଳି</string>
@@ -64,7 +64,7 @@
   <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
   <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
   <string name="deleteFromHere">ଏଠାରୁ ବିଲୋପ କରନ୍ତୁ</string>
-  <string name="move">ସ୍ଥାନାନ୍ତରିତ କରନ୍ତୁ</string>
+  <string name="move">ପଦକ୍ଷେପ</string>
   <string name="close">ବନ୍ଦ</string>
   <string name="winning">ଜିତିବା</string>
   <string name="losing">ହାରିବା</string>
@@ -157,7 +157,7 @@
   <string name="changeEmail">ଇମେଲ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="email">ଇମେଲ୍</string>
   <string name="passwordReset">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
-  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
+  <string name="forgotPassword">ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଗଲେ?</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%sଟିଏ ପ୍ରହେଳିକା</item>
     <item quantity="other">%sଟି ପ୍ରହେଳିକା</item>
@@ -165,6 +165,7 @@
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="cancel">ବାତିଲ୍ କର</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
+  <string name="send">ପଠାନ୍ତୁ</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <plurals name="nbStudies">
     <item quantity="one">%sଟିଏ ଅଧ୍ୟୟନ</item>
@@ -187,7 +188,10 @@
   <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="player">ଖେଳାଳି</string>
+  <string name="createANewTournament">ଏକ ନୂଆ ଟୁର୍ନାମେଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
+  <string name="recommendNotTouching">ଏଗୁଡ଼ିକୁ ସ୍ପର୍ଶ ନକରିବାକୁ ଆମେ ସୁପାରିଶ କରୁ।</string>
+  <string name="fewerPlayers">ଯଦି ଆପଣ ପ୍ରବେଶ ଆବଶ୍ୟକତାକୁ ସେଟ୍ କରନ୍ତି, ତେବେ ଆପଣଙ୍କ ଟୁର୍ନାମେଣ୍ଟରେ କମ୍ ଖେଳାଳି ରହିବେ।</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
@@ -205,16 +209,17 @@
   <string name="no">ନାହିଁ</string>
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
-  <string name="createANewTopic">ଏକ ନୂତନ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="createANewTopic">ଏକ ନୂଆ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="user">ଉପଭୋକ୍ତା</string>
   <string name="reason">କାରଣ</string>
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
+  <string name="importedByX">%sଙ୍କ ଦ୍ୱାରା ଆମଦାନୀ ହୋଇଛି</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="newPassword">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="newPasswordAgain">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼ (ପୁନଃ)</string>
-  <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
+  <string name="newPasswordsDontMatch">ନୂଆ ପାସ୍‍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
   <string name="privacy">ଗୋପନୀୟତା</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
@@ -236,9 +241,12 @@
   <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
+  <string name="createdSimuls">ନୂଆରେ ତିଆରି କରିଥିବା ସିମଲ୍</string>
+  <string name="hostANewSimul">ଏକ ନୂଆ ସିମଲ୍ ଆୟୋଜନ କରନ୍ତୁ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="newTournament">ନୂଆ ଟୁର୍ନାମେଣ୍ଟ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
-  <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
+  <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
   <string name="viewTheSolution">ସମାଧାନ ଦେଖନ୍ତୁ</string>
   <plurals name="availableInNbLanguages">
@@ -249,7 +257,7 @@
   <string name="yourScore">ଆପଣଙ୍କ ସ୍କୋର୍: %s</string>
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
-  <string name="dark">ଗାଢ଼</string>
+  <string name="dark">ଗାଢ଼</string>
   <string name="embedInYourWebsite">ଆପଣଙ୍କ ୱେବସାଇଟ୍ ରେ ଗ୍ରନ୍ଥନ କରନ୍ତୁ</string>
   <string name="invalidPgn">ଅବୈଧ PGN</string>
   <string name="invalidFen">ଅବୈଧ FEN</string>
@@ -258,11 +266,15 @@
   <string name="why">କାହିଁକି?</string>
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
   <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
-  <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
+  <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="lifetimeScore">ଆଜୀବନ ସ୍କୋର୍</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ମୁଁ ସହମତ ଯେ ମୁଁ ଏକାଧିକ ଆକାଉଣ୍ଟ୍ ସୃଷ୍ଟି କରିବି ନାହିଁ (%sରେ ଦର୍ଶାଯାଇଥିବା କାରଣ ବ୍ୟତୀତ)।</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="searchOrStartNewDiscussion">ଖୋଜ କିମ୍ବା ନୂଆ ବାର୍ତ୍ତାଳାପ ଆରମ୍ଭ କର</string>
   <string name="edit">ସମ୍ପାଦନା</string>
+  <string name="rapid">ଶୀଘ୍ର</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="classicalDesc">ଶାସ୍ତ୍ରୀୟ ଖେଳ: ୨୫ ମିନିଟ୍ ଓ ଅଧିକ</string>
   <string name="puzzleDesc">ଚେସ୍ କୌଶଳ ପ୍ରଶିକ୍ଷକ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
@@ -271,5 +283,7 @@
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
+  <string name="youCantStartNewGame">ଏହି ଖେଳ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଣ ଏକ ନୂଆ ଖେଳ ଆରମ୍ଭ କରିପାରିବେ ନାହିଁ।</string>
   <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
+  <string name="closingAccountWithdrawAppeal">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ କରିବା ଆପଣଙ୍କ ଆବେଦନ ପ୍ରତ୍ୟାହାର କରାଇଦେବ</string>
 </resources>

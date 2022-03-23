@@ -227,8 +227,8 @@ in twee skuiwe!</string>
   <string name="nailedIt">Mooi skoot.</string>
   <string name="rightOn">Kolskoot!</string>
   <string name="stageXComplete">Fase %s voltooi</string>
-  <string name="yourScore">Jou telling</string>
   <string name="next">Volgende</string>
+  <string name="nextX">Volgende: %s</string>
   <string name="backToMenu">Terug na kieslys</string>
   <string name="puzzleFailed">Kopkrapper misluk!</string>
   <string name="retry">Probeer weer</string>

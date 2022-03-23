@@ -16,12 +16,13 @@ mkdir -p public/compiled
 
 apps1="common"
 apps2="chess palantir"
-apps3="ceval game tree chat nvui puz"
-apps4="site swiss msg cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech serviceWorker dgt storm racer"
-site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser inquiry modSearch clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity tvGames ublog ublogForm"
-round_plugins="nvui keyboardMove"
+apps3="ceval game tree chat nvui puz keyboardMove"
+apps4="site swiss msg cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech serviceWorker dgt storm racer coordinateTrainer"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser inquiry modSearch clas captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity tvGames ublog ublogForm"
+round_plugins="nvui"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
+keyboardMove_plugins="keyboardMove"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -71,6 +72,7 @@ else
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
     parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
+    parallel --gnu $P_OPTS build_plugin keyboardMove ::: $keyboardMove_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3 $apps4; do (build $app); done
@@ -78,5 +80,6 @@ else
     for plugin in $round_plugins; do (build_plugin round $plugin); done
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
     for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
+    for plugin in $keyboardMove_plugins; do (build_plugin keyboardMove $plugin); done
   fi
 fi

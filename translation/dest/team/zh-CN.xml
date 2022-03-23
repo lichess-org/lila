@@ -50,4 +50,5 @@
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>
   <string name="declinedRequests">被拒的请求</string>
+  <string name="joinLichessVariantTeam">加入 %s 官方团队以获取最新消息和事件</string>
 </resources>

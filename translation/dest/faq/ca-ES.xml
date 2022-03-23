@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Com em puc convertir en moderador?</string>
   <string name="youCannotApply">No es pot sol·licitar ser moderador. Si veiem a algú que considerem que seria un bon moderador, ens posarem en contacte amb ell directament.</string>
   <string name="isCorrespondenceDifferent">Els escacs per correspondència son diferents dels escacs normals?</string>
+  <string name="pleaseReadFairPlayPage">Per obtenir més informació, llegiu la nostra %s</string>
+  <string name="fairPlayPage">pàgina de joc net</string>
   <string name="youCanUseOpeningBookNoEngine">A Lichess, la principal diferència en les regles dels escacs per correspondència és que es permet un llibre d\'obertures. L\'ús de motors d\'anàlisi segueix estant prohibit i donarà a lloc a que s\'etiqueti l\'usuari com a trampós. Tot i que la ICC permet l\'ús del motor d\'anàlisi en partides per correspondència, Lichess no ho permet.</string>
   <string name="gameplay">Mecànica de joc</string>
   <string name="howBulletBlitzEtcDecided">Com es decideixen els controls de temps a Bullet, Blitz i altres?</string>

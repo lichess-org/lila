@@ -112,10 +112,11 @@ object String {
     }
   }
 
-  private[this] def oneline(s: String) = s.replace('\n', ' ')
+  private val onelineR = """\s+""".r
   def shorten(text: String, length: Int, sep: String = "…") = {
-    if (text.lengthIs > length + sep.length) oneline(text take length) ++ sep
-    else oneline(text)
+    val oneline = onelineR.replaceAllIn(text, " ")
+    if (oneline.lengthIs > length + sep.length) oneline.take(length) ++ sep
+    else oneline
   }
 
   def isShouting(text: String) =
@@ -136,12 +137,12 @@ object String {
 
   object base64 {
     import java.util.Base64
-    import java.nio.charset.StandardCharsets
+    import java.nio.charset.StandardCharsets.UTF_8
     def encode(txt: String) =
-      Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
+      Base64.getEncoder.encodeToString(txt getBytes UTF_8)
     def decode(txt: String): Option[String] =
       try {
-        Some(new String(Base64.getDecoder decode txt, StandardCharsets.UTF_8))
+        Some(new String(Base64.getDecoder decode txt, UTF_8))
       } catch {
         case _: java.lang.IllegalArgumentException => none
       }

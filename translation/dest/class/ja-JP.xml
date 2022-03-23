@@ -3,16 +3,16 @@
   <string name="lichessClasses">Lichess 教室</string>
   <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
-  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成する</string>
+  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成</string>
   <string name="trackStudentProgress">対局やタクティクス問題での生徒の進歩を表示</string>
-  <string name="messageAllStudents">新しい教材について全生徒に通知する</string>
+  <string name="messageAllStudents">新しい教材について全生徒に通知</string>
   <string name="freeForAllForever">誰にでも永久に完全無料、広告・トラッカーなし</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
   <string name="noClassesYet">まだ教室がありません。</string>
   <string name="teachersX">講師：%s</string>
   <string name="newClass">新しい教室</string>
   <string name="closeClass">教室を閉鎖する</string>
-  <string name="closedByX">%s によって停止</string>
+  <string name="removedByX">%s によって削除</string>
   <string name="reopen">再開</string>
   <string name="removeStudent">生徒を削除</string>
   <string name="removedStudents">削除済み</string>
@@ -86,11 +86,28 @@
   <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
   <string name="na">(無関係)</string>
-  <string name="news">教室ニュース</string>
+  <string name="overview">概要</string>
+  <string name="news">ニュース</string>
+  <string name="classNews">教室ニュース</string>
   <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
   <string name="nothingHere">まだありません。</string>
   <string name="newsEdit1">教室のニュースをすべてひとつのフィールドに入れます。</string>
   <string name="newsEdit2">最新ニュースをいちばん上に追加、古いものも削除しないこと。</string>
   <string name="newsEdit3">項目の間に「---」を入れてください、横線が表示されます。</string>
+  <string name="invite">招待</string>
+  <string name="youHaveBeenInvitedByX">あなたは %s に招待されました。</string>
+  <string name="youAcceptedThisInvitation">あなたはこの招待を承認しました。</string>
+  <string name="youDeclinedThisInvitation">あなたはこの招待を拒否しました。</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">または</string>
+  <string name="createMultipleAccounts">一度に複数の Lichess アカウントを作成する</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">また%s生徒の名前のリストから複数の Lichess アカウントを作成することもできます。</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">このフォームで</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">教室の生徒数の上限は %1$s 人です。さらに多くの生徒を扱うには、%2$s。</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">複数の教室を作成します</string>
+  <string name="studentsRealNamesOnePerLine">生徒の実名、1 行に 1 つずつ</string>
+  <string name="xisNowAStudentOfTheClass">%s は現在この教室の生徒です</string>
+  <string name="anInvitationHasBeenSentToX">%s に招待が送信されました</string>
+  <string name="xAlreadyHasAPendingInvitation">%s はすでに招待ずみです</string>
+  <string name="xIsAKidAccountWarning">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
 </resources>

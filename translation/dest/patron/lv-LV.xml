@@ -17,7 +17,7 @@
   <string name="thankYou">Paldies par ziedojumu!</string>
   <string name="youHaveLifetime">Jums ir Mūžīgs Sponsora konts. Tas ir lieliski!</string>
   <string name="patronUntil">Jums ir Sponsora konts līdz %s.</string>
-  <string name="ifNotRenewed">Ja neatjaunosiet, tiksiet pazemināts uz bezmaksas kontu.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ja neturpināsiet sponsorēt, jūsu konts atkal kļūs par parastu kontu.</string>
   <string name="weAreNonProfit">Esam bezpeļņas asociācija, jo ticam, ka visiem pienākas piekļuve augstākā kalibra bezmaksas šaha platformai.</string>
   <string name="weRelyOnSupport">Mēs paļaujamies uz jums, lai to padarītu iespējamu. Ja jums patīk izmantot Lichess, lūdzu atbalstiet mūs ziedojot un kļūstot par Sponsoru!</string>
   <string name="lifetime">Mūžīgi</string>

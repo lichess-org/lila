@@ -72,6 +72,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
     byOrderedIds(userIds, ReadPreference.secondaryPreferred)
 
+  def optionsByIds(userIds: Seq[ID]): Fu[List[Option[User]]] =
+    coll.optionsByOrderedIds[User, User.ID](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
@@ -570,6 +573,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
+
+  def hasTitle(id: ID): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
 
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler

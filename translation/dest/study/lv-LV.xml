@@ -84,6 +84,7 @@
   <string name="pinnedChapterComment">Piesprausts nodaļas komentārs</string>
   <string name="saveChapter">Saglabāt nodaļu</string>
   <string name="clearAnnotations">Notīrīt piezīmes</string>
+  <string name="clearVariations">Notīrīt variantus</string>
   <string name="deleteChapter">Dzēst nodaļu</string>
   <string name="deleteThisChapter">Vai dzēst šo nodaļu? Atpakaļceļa nav!</string>
   <string name="clearAllCommentsInThisChapter">Notīrīt visus komentārus un figūras šajā nodaļā?</string>

@@ -13,7 +13,7 @@
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Zeig Spiller Wertige</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
+  <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Aafangsschtellig</string>
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
@@ -31,15 +31,15 @@
   <string name="premovesPlayingDuringOpponentTurn">Voruszüg (Premoves), während de Gägner am Zug isch</string>
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
   <string name="inCasualGamesOnly">Nur bi ungwertete Schpiil</string>
-  <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Damä</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
+  <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Dame</string>
+  <string name="explainPromoteToQueenAutomatically">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal gliicher Stellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtziit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
-  <string name="confirmResignationAndDrawOffers">Beschtätig Ufgab und Remis-Aagebot</string>
+  <string name="confirmResignationAndDrawOffers">Ufgab und Remis Aagebot beschtätige</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade Usfüherig</string>
   <string name="castleByMovingTwoSquares">Zieh de König 2 Fälder</string>
   <string name="castleByMovingOntoTheRook">Zieh de König zum Turm</string>
@@ -48,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Säg \"guet gschpillt\" nach ere Niderlag oder bi me Remis</string>
   <string name="yourPreferencesHaveBeenSaved">Dini Iischtellige sind gschpeicheret.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll - mit em Muusrad uf em Brätt - alli Züg vor- und rückwärts</string>
+  <string name="correspondenceEmailNotification">Täglichi E-Mail-Benachrichtigung, wo Dini Fernschachpartie uflischtet</string>
 </resources>
