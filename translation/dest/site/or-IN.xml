@@ -266,6 +266,8 @@
   <string name="chessBasics">ଚେସ୍ ମୌଳିକ</string>
   <string name="invalidPgn">ଅବୈଧ PGN</string>
   <string name="invalidFen">ଅବୈଧ FEN</string>
+  <string name="learnFromYourMistakes">ନିଜ ଭୁଲରୁ ଶିଖନ୍ତୁ</string>
+  <string name="youCanDoBetter">ଆପଣ ଆହୁରି ଭଲ କରିପାରିବେ</string>
   <string name="solution">ସମାଧାନ</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
