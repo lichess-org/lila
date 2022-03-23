@@ -25,7 +25,7 @@
 	<string name="howCanIBecomeModerator">如何成为仲裁人？</string>
 	<string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
 	<string name="isCorrespondenceDifferent">非即时棋是否不同于常规棋？</string>
-	<string name="youCanUseOpeningBookNoEngine">在 Lishogi，通信棋的主要区别是允许使用开局普，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通信棋中使用引擎，但 Lishogi 不允许。</string>
+	<string name="youCanUseOpeningBookNoEngine">在 Lishogi，通信棋的主要区别是允许使用开局谱，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通信棋中使用引擎，但 Lishogi 不允许。</string>
 	<string name="gameplay">对弈</string>
 	<string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
 	<string name="basedOnGameDuration">Lishogi时限基于预计的游戏持续时间 = %1$s
