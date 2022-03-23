@@ -11,7 +11,6 @@ object bits {
 
   def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) = Json.obj(
     "i18n"       -> i18nJsObject(i18nKeys),
-    "colorPref"  -> ctx.pref.coordColorName,
     "resizePref" -> ctx.pref.resizeHandle,
     "is3d"       -> ctx.pref.is3d,
     "scores" -> Json.obj(

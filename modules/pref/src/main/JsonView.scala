@@ -33,7 +33,6 @@ object JsonView {
       "replay"           -> p.replay,
       "challenge"        -> p.challenge,
       "message"          -> p.message,
-      "coordColor"       -> p.coordColor,
       "submitMove"       -> p.submitMove,
       "confirmResign"    -> p.confirmResign,
       "mention"          -> p.mention,
