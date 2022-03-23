@@ -2,7 +2,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, CoordinateTrainerConfig, Mode, ModeScores, Redraw } from './interfaces';
+import { ColorChoice, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -27,7 +27,7 @@ export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
   colorChoice: ColorChoice;
   config: CoordinateTrainerConfig;
-  coordinateInputMethod: 'text' | 'buttons';
+  coordinateInputMethod: InputMethod;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth: boolean;
@@ -48,19 +48,25 @@ export default class CoordinateTrainerCtrl {
 
   constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
     this.config = config;
-    this.colorChoice = config.colorPref || 'random';
+    this.colorChoice = (lichess.storage.get('coordinateTrainer.colorChoice') as ColorChoice) || 'random';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.modeScores = config.scores;
 
     // Assume a smaller viewport means mobile, and default to buttons
-    this.coordinateInputMethod = window.innerWidth >= 980 ? 'text' : 'buttons';
+    const savedInputMethod = lichess.storage.get('coordinateTrainer.coordinateInputMethod');
+    if (savedInputMethod) this.coordinateInputMethod = savedInputMethod as InputMethod;
+    else this.coordinateInputMethod = window.innerWidth >= 980 ? 'text' : 'buttons';
 
     this.isAuth = document.body.hasAttribute('data-user');
     this.trans = lichess.trans(this.config.i18n);
     this.redraw = redraw;
 
-    this.mode = window.location.hash === '#name' ? 'nameSquare' : 'findSquare';
-    window.location.hash = `#${this.mode.substring(0, 4)}`;
+    if (window.location.hash.length == 5) {
+      this.mode = window.location.hash === '#name' ? 'nameSquare' : 'findSquare';
+    } else {
+      this.mode = lichess.storage.get('coordinateTrainer.mode') === 'nameSquare' ? 'nameSquare' : 'findSquare';
+    }
+    this.saveMode();
 
     const setZen = throttle(1000, zen =>
       xhr.text('/pref/zen', {
@@ -86,23 +92,21 @@ export default class CoordinateTrainerCtrl {
   setMode = (m: Mode) => {
     if (this.mode === m) return;
     this.mode = m;
-    window.location.hash = `#${this.mode.substring(0, 4)}`;
+    this.saveMode();
     this.updateCharts();
     this.redraw();
+  };
+
+  saveMode = () => {
+    window.location.hash = `#${this.mode.substring(0, 4)}`;
+    lichess.storage.set('coordinateTrainer.mode', this.mode);
   };
 
   setColorChoice = (c: ColorChoice) => {
     if (this.colorChoice === c) return;
     this.colorChoice = c;
     this.setOrientation(orientationFromColorChoice(c));
-
-    if (this.isAuth) {
-      const colorChoiceToPref = { white: 1, random: 2, black: 3 };
-      xhr.text('/training/coordinate/color', {
-        method: 'post',
-        body: xhr.form({ color: colorChoiceToPref[c] }),
-      });
-    }
+    lichess.storage.set('coordinateTrainer.colorChoice', this.colorChoice);
   };
 
   setOrientation = (o: Color) => {
@@ -115,6 +119,7 @@ export default class CoordinateTrainerCtrl {
     if (this.coordinateInputMethod === 'text') this.coordinateInputMethod = 'buttons';
     else this.coordinateInputMethod = 'text';
     this.redraw();
+    lichess.storage.set('coordinateTrainer.coordinateInputMethod', this.coordinateInputMethod);
   };
 
   start = () => {
