@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="coordinates">ସ୍ଥାନାଙ୍କ</string>
   <string name="averageScoreAsWhiteX">ଧଳା ଭାବରେ ହାରାହାରି ସ୍କୋର୍: %s</string>
   <string name="averageScoreAsBlackX">କଳା ଭାବରେ ହାରାହାରି ସ୍କୋର୍: %s</string>
   <string name="aSquareIsHighlighted">ବୋର୍ଡରେ ଗୋଟିଏ ଘର ହାଇଲାଇଟ୍ କରାଯିବ ଏବଂ ଆପଣଙ୍କୁ ତା\'ର ସ୍ଥାନାଙ୍କ ପ୍ରବେଶ କରିବାକୁ ପଡ଼ିବ (ଯଥା \"e4\")। ଯଥାସମ୍ଭବ ଘରଗୁଡ଼ିକୁ ସଠିକ୍ ଭାବରେ ମ୍ୟାପ୍ କରିବା ପାଇଁ ଆପଣଙ୍କୁ ୩୦ ସେକେଣ୍ଡ ଦିଆଯିବ!</string>
