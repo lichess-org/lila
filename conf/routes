@@ -115,7 +115,6 @@ GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: S
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
-POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
