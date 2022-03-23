@@ -6,7 +6,9 @@
   <string name="queenCombinesRookAndBishop">ରାଣୀ = ଡଙ୍ଗା + ହାତୀ</string>
   <string name="theKing">ରଜା</string>
   <string name="theKnight">ଘୋଡ଼ା</string>
+  <string name="itMovesInAnLShape">ଏହା ଏକ L ଆକୃତିରେ ଗତି କରେ</string>
   <string name="thePawn">ସୈନିକ</string>
+  <string name="itMovesForwardOnly">ଏହା କେବଳ ଆଗକୁ ବଢ଼େ</string>
   <string name="boardSetup">ବୋର୍ଡ ସେଟଅପ୍</string>
   <string name="advanced">ବିକଶିତ</string>
   <string name="pieceValue">ଗୋଟିର ମୂଲ୍ୟ</string>
