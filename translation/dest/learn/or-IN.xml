@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="theRook">ଡଙ୍ଗା</string>
+  <string name="itMovesInStraightLines">ଏହା ସରଳ ରେଖାରେ ଗତି କରେ</string>
   <string name="theBishop">ହାତୀ</string>
+  <string name="itMovesDiagonally">ଏହା କର୍ଣ୍ଣରେ ଗତି କରେ</string>
   <string name="theQueen">ରାଣୀ</string>
   <string name="queenCombinesRookAndBishop">ରାଣୀ = ଡଙ୍ଗା + ହାତୀ</string>
   <string name="theKing">ରଜା</string>
