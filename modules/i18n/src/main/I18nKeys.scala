@@ -1048,6 +1048,7 @@ val `aSquareIsHighlighted` = new I18nKey("coordinates:aSquareIsHighlighted")
 val `startTraining` = new I18nKey("coordinates:startTraining")
 val `findSquare` = new I18nKey("coordinates:findSquare")
 val `nameSquare` = new I18nKey("coordinates:nameSquare")
+val `noTime` = new I18nKey("coordinated:noTime")
 
 }
 

@@ -1,5 +1,7 @@
 export type ColorChoice = Color | 'random';
 
+export type TimeControlChoice = 'noTime' | 'thirtySeconds' | 'oneMinute';
+
 export type Mode = 'findSquare' | 'nameSquare';
 
 export type InputMethod = 'text' | 'buttons';

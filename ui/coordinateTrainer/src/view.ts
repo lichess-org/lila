@@ -2,7 +2,21 @@ import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
-import { ColorChoice, Mode, CoordModifier } from './interfaces';
+import { ColorChoice, TimeControlChoice, Mode, CoordModifier } from './interfaces';
+
+const timeControls: { [key: string]: string } = {
+  thirtySeconds: '0:30',
+  oneMinute: '1:00',
+};
+
+function timeControlString(timeControl: TimeControlChoice, ctrl: CoordinateTrainerCtrl): string {
+  const { trans } = ctrl;
+  if (timeControl === 'noTime') {
+    return trans('noTime');
+  } else {
+    return timeControls[timeControl];
+  }
+}
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
@@ -70,6 +84,40 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                 },
               }),
               h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, trans(mode)),
+            ])
+          )
+        ),
+      ]),
+      h('form.timeControl.buttons', [
+        h(
+          'group.radio',
+          ['noTime', 'thirtySeconds', 'oneMinute'].map((timeControl: TimeControlChoice) =>
+            h('div.timeControl_option', [
+              h('input', {
+                attrs: {
+                  type: 'radio',
+                  id: `coord_timeControl_${timeControl}`,
+                  name: 'timeControl',
+                  value: timeControl,
+                  checked: timeControl === ctrl.timeControlChoice,
+                },
+                on: {
+                  change: e => {
+                    const target = e.target as HTMLInputElement;
+                    ctrl.setTimeControlChoice(target.value as TimeControlChoice);
+                  },
+                  keyup: ctrl.onRadioInputKeyUp,
+                },
+              }),
+              h(
+                `label.timeControl_${timeControl}`,
+                {
+                  attrs: {
+                    for: `coord_timeControl_${timeControl}`,
+                  },
+                },
+                timeControlString(timeControl, ctrl)
+              ),
             ])
           )
         ),

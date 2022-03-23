@@ -38,6 +38,7 @@ object bits {
     trans.coordinates.youCanAnalyseAGameMoreEffectively,
     trans.coordinates.findSquare,
     trans.coordinates.nameSquare,
+    trans.coordinates.noTime,
     trans.storm.score,
     trans.time
   ).map(_.key)

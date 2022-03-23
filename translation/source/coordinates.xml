@@ -13,4 +13,5 @@
   <string name="startTraining">Start training</string>
   <string name="findSquare">Find square</string>
   <string name="nameSquare">Name square</string>
+  <string name="noTime">Disable</string>
 </resources>
