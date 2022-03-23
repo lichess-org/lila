@@ -8,7 +8,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import makeStudy from './study/studyCtrl';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle, { throttlePromise, finallyDelay } from 'common/throttle';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';

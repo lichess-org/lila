@@ -203,11 +203,9 @@ export default class MsgCtrl {
     if (userId == this.data.convo?.user.id) this.openConvo(userId);
   };
 
-  sendTyping = throttlePromise(
-    finallyDelay(3000, (user: string) => {
-      if (this.textStore?.get()) network.typing(user);
-    })
-  );
+  sendTyping = throttle(3000, (user: string) => {
+    if (this.textStore?.get()) network.typing(user);
+  });
 
   receiveTyping = (userId: string, cancel?: any) => {
     if (this.typing) {
