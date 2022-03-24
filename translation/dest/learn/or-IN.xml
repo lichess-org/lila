@@ -12,6 +12,8 @@
   <string name="thePawn">ସୈନିକ</string>
   <string name="itMovesForwardOnly">ଏହା କେବଳ ଆଗକୁ ବଢ଼େ</string>
   <string name="capture">ଗିରଫ କରିବା</string>
+  <string name="escape">ଆପଣ ଆକ୍ରମଣର ଶିକାର ହେଉଛନ୍ତି!
+ବିପଦରୁ ରକ୍ଷା ପାଆନ୍ତୁ!</string>
   <string name="boardSetup">ବୋର୍ଡ ସେଟଅପ୍</string>
   <string name="advanced">ବିକଶିତ</string>
   <string name="pieceValue">ଗୋଟିର ମୂଲ୍ୟ</string>
