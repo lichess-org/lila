@@ -78,5 +78,6 @@
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">ବିକାଶ</string>
   <string name="nextChapter">ପରବର୍ତ୍ତୀ ଅଧ୍ୟାୟ</string>
   <string name="prevChapter">ପୂର୍ବବର୍ତ୍ତୀ ଅଧ୍ୟାୟ</string>
+  <string name="topics">ବିଷୟ</string>
   <string name="back">ଫେରନ୍ତୁ</string>
 </resources>
