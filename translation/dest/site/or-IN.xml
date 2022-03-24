@@ -60,6 +60,7 @@
   <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
   <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
   <string name="goDeeper">ଗଭୀରକୁ ଯାଆନ୍ତୁ</string>
+  <string name="showThreat">ବିପଦ ଦେଖାଅ</string>
   <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
   <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
   <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
