@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
   <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle ja sinun on klikattava oikeaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
   <string name="startTraining">Aloita harjoitus</string>
+  <string name="findSquare">Etsi ruutu</string>
+  <string name="nameSquare">Nimeä ruutu</string>
 </resources>
