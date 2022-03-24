@@ -212,10 +212,13 @@
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
   <string name="createANewTopic">ଏକ ନୂଆ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="topics">ବିଷୟ</string>
+  <string name="createTheTopic">ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="user">ଉପଭୋକ୍ତା</string>
   <string name="reason">କାରଣ</string>
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
   <string name="importedByX">%sଙ୍କ ଦ୍ୱାରା ଆମଦାନୀ ହୋଇଛି</string>
+  <string name="thisTopicIsNowClosed">ଏହି ବିଷୟଟି ବର୍ତ୍ତମାନ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>
@@ -288,6 +291,7 @@
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
   <string name="mentionedYouInX">ଆପଣଙ୍କୁ \"%1$s\"ରେ ଉଲ୍ଲେଖ କରିଛନ୍ତି।</string>
+  <string name="xMentionedYouInY">%1$s ଆପଣଙ୍କୁ \"%2$s\"ରେ ଉଲ୍ଲେଖ କରିଛନ୍ତି।</string>
   <string name="newPendingReview">ନୂଆ ବିଚାରାଧୀନ ସମୀକ୍ଷା</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
