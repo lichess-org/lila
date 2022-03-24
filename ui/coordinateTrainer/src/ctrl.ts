@@ -21,6 +21,8 @@ const durationFromTimeControlChoice = (timeControlChoice: TimeControlChoice): nu
       return 30 * 1000;
     case 'oneMinute':
       return 60 * 1000;
+    case 'noTime':
+      return 0;
     default:
       console.warn(`Invalid time control ${timeControlChoice}.`);
       return 30 * 1000;
@@ -62,6 +64,7 @@ export default class CoordinateTrainerCtrl {
   score = 0;
   timeAtStart: Date;
   timeControlChoice: TimeControlChoice;
+  timeDisabled = false;
   timeLeft = this.duration;
   trans: Trans;
   wrong: boolean;
@@ -73,6 +76,7 @@ export default class CoordinateTrainerCtrl {
     this.colorChoice = (lichess.storage.get('coordinateTrainer.colorChoice') as ColorChoice) || 'random';
     this.timeControlChoice =
       (lichess.storage.get('coordinateTrainer.timeControlChoice') as TimeControlChoice) || 'thirtySeconds';
+    this.timeDisabled = this.timeControlChoice ? false : true;
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
     this.modeScores = config.scores;
@@ -150,6 +154,11 @@ export default class CoordinateTrainerCtrl {
   setDuration = (d: number) => {
     this.duration = d;
     this.timeLeft = d;
+    if (this.duration) {
+      this.timeDisabled = false;
+    } else {
+      this.timeDisabled = true;
+    }
   };
 
   toggleInputMethod = () => {
@@ -165,6 +174,8 @@ export default class CoordinateTrainerCtrl {
     this.score = 0;
     this.currentKey = '';
     this.nextKey = '';
+
+    console.debug(this.timeDisabled);
 
     // Redraw the chessground to remove the resize handle
     this.chessground?.redrawAll();
@@ -190,7 +201,7 @@ export default class CoordinateTrainerCtrl {
     this.timeLeft = this.duration - timeSpent;
     this.redraw();
 
-    if (this.timeLeft > 0) setTimeout(this.tick, TICK_DELAY);
+    if (this.timeLeft > 0 || this.timeDisabled) setTimeout(this.tick, TICK_DELAY);
     else this.stop();
   };
 

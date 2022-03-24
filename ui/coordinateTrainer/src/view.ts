@@ -53,7 +53,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
     sideContent.push(
       h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
       ctrl.playing
-        ? h('div.box.current-status', [
+        ? h('div.box.current-status', { class: { disabled: ctrl.timeDisabled } }, [
             h('h1', trans('time')),
             h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
           ])
