@@ -168,7 +168,7 @@ object home {
             h2(cls := "title text", dataIcon := "")(trans.latestForumPosts()),
             span(cls := "more")(trans.more(), " »")
           ),
-          div(cls := "lobby__box__content")(
+          div(cls := "lobby__box__content forum-content")(
             views.html.forum.post recent forumRecent
           )
         ),

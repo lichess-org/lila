@@ -212,20 +212,20 @@ object show {
                   )
                 )
               ),
-              info.forum map { forumPosts =>
+              info.forum map { forumTopics =>
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
-                  forumPosts.take(10).map { post =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                  forumTopics.take(10).map { topic =>
+                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(topic.lastPost.postId))(
                       div(cls := "meta")(
-                        strong(post.topicName),
+                        strong(topic.topicName),
                         em(
-                          post.userId map titleNameOrId,
+                          topic.lastPost.userId map titleNameOrId,
                           " • ",
-                          momentFromNow(post.createdAt)
+                          momentFromNow(topic.lastPost.time)
                         )
                       ),
-                      p(shorten(post.text, 200))
+                      p(shorten(topic.lastPost.text, 200))
                     )
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")

@@ -2,19 +2,20 @@ package lila.forum
 
 import actorApi._
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.ReadPreference
 
 import scala.util.chaining._
+import scala.collection.mutable
 import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.db.dsl._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
 import lila.pref.PrefApi
 import lila.pref.Pref.PaginationDefaults
-import lila.security.{ Granter => MasterGranter }
+import lila.security.{Granter => MasterGranter}
 import lila.user.User
 
 final class PostApi(
@@ -172,30 +173,33 @@ final class PostApi(
   def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
     env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
-        topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
+        topics.find(_.id == post.topicId) map {
+          PostLiteView(post, _)
+        }
       }
     }
+
   def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
     env.postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
     liteViews(List(post)) dmap (_.headOption)
 
-  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
+  def recentPosts(posts: List[Post])
+  : Fu[List[RecentTopic]] = {
+    val recentMap = new mutable.HashMap[String, RecentTopic] // schlawg is a dirty, filthy boy
     env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
         topics find (_.id == post.topicId) map { topic =>
-          MiniForumPost(
-            isTeam = post.isTeam,
-            postId = post.id,
-            topicName = topic.name,
-            userId = post.userId,
-            text = post.text take 200,
-            createdAt = post.createdAt
-          )
+          recentMap.getOrElseUpdate(topic.name, new RecentTopic(
+            topic.name,
+            post.isTeam,
+            RecentPost(post.id, post.text, post.userId, post.createdAt))).update(post)
         }
       }
+      recentMap.values.toList.sorted
     }
+  }
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     for {

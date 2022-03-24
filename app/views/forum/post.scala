@@ -5,29 +5,39 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.forum.Post
+import lila.forum.{Post, RecentTopic}
 import lila.security.Granter
-
 import controllers.routes
 
 object post {
 
-  def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) =
-    ol(
-      posts map { p =>
-        li(
-          a(
-            dataIcon := p.isTeam.option(""),
-            cls := "post_link text",
-            href := routes.ForumPost.redirect(p.postId),
-            title := p.topicName
-          )(
-            shorten(p.topicName, 30)
+  def recent(topics: List[RecentTopic])(implicit ctx: Context) =
+    table(cls := "forum")(
+      topics map { t =>
+        tr(
+          td(
+            cls := "topic-cell",
+            a(
+              cls := "text",
+              dataIcon := t.isTeam.option(""),
+              href := routes.ForumPost.redirect(t.lastPost.postId),
+              title := t.topicName,
+              t.topicName
+            )
           ),
-          " ",
-          userIdLink(p.userId, withOnline = false),
-          " ",
-          span(cls := "extract")(shorten(p.text, 70))
+          td(
+            cls := "post-cell",
+            if (t.allUsers.size > 1)
+              span(
+                span(cls := "extract", t.numPosts.toString + " " + trans.latestForumPostsNewBy().render + " "),
+                t.allUsers.toList.filter(_ != t.lastPost.userId.get) map {
+                  u => span(cls := "name", userIdLink(Option(u), withOnline = false), ", ")
+                }
+              ),
+            span(cls := "name", userIdLink(t.lastPost.userId, withOnline = false)),
+            span(cls := "text", " " + trans.latestForumPostsSaid().render + " "),
+            span(cls := "extract", t.lastPost.text)
+          )
         )
       }
     )

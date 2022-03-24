@@ -1,27 +1,27 @@
 package lila.app
 package mashup
 
-import lila.forum.MiniForumPost
-import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
+import lila.forum.RecentTopic
+import lila.team.{Request, RequestRepo, RequestWithUser, Team, TeamApi}
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
 import lila.simul.{ Simul, SimulApi }
 
 case class TeamInfo(
-    mine: Boolean,
-    ledByMe: Boolean,
-    myRequest: Option[Request],
-    subscribed: Boolean,
-    requests: List[RequestWithUser],
-    forum: Option[List[MiniForumPost]],
-    tours: TeamInfo.PastAndNext,
-    simuls: Seq[Simul]
-) {
+                     mine: Boolean,
+                     ledByMe: Boolean,
+                     myRequest: Option[Request],
+                     subscribed: Boolean,
+                     requests: List[RequestWithUser],
+                     forum: Option[List[RecentTopic]],
+                     tours: TeamInfo.PastAndNext,
+                     simuls: Seq[Simul]
+                   ) {
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = forum.??(_.flatMap(_.userId))
+  def userIds = forum.??(_.flatMap(_.allUsers.toList)) // should we use allusers here or lastPost.userId?
 }
 
 object TeamInfo {
