@@ -12,7 +12,7 @@ import lila.user.Holder
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](400, 5.minutes, key = "forum.topic")
+    new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
 
   def form(categSlug: String) =
     Auth { implicit ctx => me =>

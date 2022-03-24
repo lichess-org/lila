@@ -10,7 +10,7 @@ import lila.msg.MsgPreset
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](400, 5.minutes, key = "forum.post")
+    new lila.memo.RateLimit[IpAddress](4, 5.minutes, key = "forum.post")
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
