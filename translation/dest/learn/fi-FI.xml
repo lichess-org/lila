@@ -156,7 +156,7 @@ linnoittautua daamisivustalle!</string>
   <string name="castlingComplete">Onneksi olkoon! Kannattaa linnoittautua lähes aina.</string>
   <string name="enPassant">Ohestalyönti</string>
   <string name="theSpecialPawnMove">Sotilaan erikoissiirto</string>
-  <string name="enPassantIntro">Kun vastustajan nappula liikkuu kaksi ruutua, voit syödä sen kuin se olisi liikkunut vain yhden.</string>
+  <string name="enPassantIntro">Kun vastustajan sotilas siirtyy kaksi ruutua, voit lyödä sen aivan kuin se olisi siirtynyt vain yhden.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Musta liikkui sotilaallaan
 kaksi ruutua!
 Lyö se ohesta.</string>
