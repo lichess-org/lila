@@ -21,12 +21,6 @@ object actions {
       ctx.userId map { myId =>
         (!user.is(myId)) ?? frag(
           !blocked option frag(
-            a(
-              titleOrText(trans.challenge.challengeToPlay.txt()),
-              href := s"${routes.Lobby.home}?user=${user.name}#friend",
-              cls := "btn-rack__btn",
-              dataIcon := ""
-            ),
             !user.isBot option a(
               titleOrText(trans.composeMessage.txt()),
               href := routes.Msg.convo(user.name),

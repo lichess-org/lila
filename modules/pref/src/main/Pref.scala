@@ -375,6 +375,7 @@ object Pref {
     val RATING = 2
     val FRIEND = 3
     val ALWAYS = 4
+    val ANON   = 5
 
     val ratingThreshold = 300
 
@@ -382,7 +383,8 @@ object Pref {
       NEVER  -> "Never",
       RATING -> s"If rating is ± $ratingThreshold",
       FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      ALWAYS -> "If logged in",
+      ANON -> "Always"
     )
   }
 
