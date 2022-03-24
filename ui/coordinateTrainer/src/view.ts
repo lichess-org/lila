@@ -225,7 +225,9 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
 function progress(ctrl: CoordinateTrainerCtrl): VNode {
   return h(
     'div.progress',
-    ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / ctrl.duration)}%` } }) : null
+    ctrl.hasPlayed
+      ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / ctrl.duration)}%` } })
+      : null
   );
 }
 

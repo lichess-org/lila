@@ -18,12 +18,12 @@ const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
 const durationFromTimeControlChoice = (timeControlChoice: TimeControlChoice): number => {
   switch (timeControlChoice) {
     case 'thirtySeconds':
-      return 30 * 1000
+      return 30 * 1000;
     case 'oneMinute':
-      return 60 * 1000
+      return 60 * 1000;
     default:
       console.warn(`Invalid time control ${timeControlChoice}.`);
-      return 30 * 1000
+      return 30 * 1000;
   }
 };
 
@@ -40,7 +40,7 @@ const targetSvg = `
 </g>
 `;
 
-const DEFAULT_DURATION = 30 * 1000;  // TODO: Move in ctrl
+const DEFAULT_DURATION = 30 * 1000; // TODO: Move in ctrl
 const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
@@ -143,14 +143,14 @@ export default class CoordinateTrainerCtrl {
   setTimeControlChoice = (c: TimeControlChoice) => {
     if (this.timeControlChoice === c) return;
     this.timeControlChoice = c;
-    this.setDuration(durationFromTimeControlChoice(c));  // Required for default value.
+    this.setDuration(durationFromTimeControlChoice(c)); // Required for default value.
     lichess.storage.set('coordinateTrainer.timeControlChoice', this.timeControlChoice);
   };
 
   setDuration = (d: number) => {
     this.duration = d;
     this.timeLeft = d;
-  }
+  };
 
   toggleInputMethod = () => {
     if (this.coordinateInputMethod === 'text') this.coordinateInputMethod = 'buttons';
