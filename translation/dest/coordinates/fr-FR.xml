@@ -13,4 +13,5 @@
   <string name="startTraining">Démarrer l\'entrainement</string>
   <string name="findSquare">Trouver la case</string>
   <string name="nameSquare">Nommer la case</string>
+  <string name="noTime">Désactivé</string>
 </resources>

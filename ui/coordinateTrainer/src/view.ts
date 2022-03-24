@@ -1,7 +1,7 @@
 import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import chessground from './chessground';
-import CoordinateTrainerCtrl, { DURATION } from './ctrl';
+import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControlChoice, Mode, CoordModifier } from './interfaces';
 
 const timeControls: { [key: string]: string } = {
@@ -225,7 +225,7 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
 function progress(ctrl: CoordinateTrainerCtrl): VNode {
   return h(
     'div.progress',
-    ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }) : null
+    ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / ctrl.duration)}%` } }) : null
   );
 }
 

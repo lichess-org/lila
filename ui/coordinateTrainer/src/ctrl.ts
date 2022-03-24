@@ -15,6 +15,18 @@ import {
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
 
+const durationFromTimeControlChoice = (timeControlChoice: TimeControlChoice): number => {
+  switch (timeControlChoice) {
+    case 'thirtySeconds':
+      return 30 * 1000
+    case 'oneMinute':
+      return 60 * 1000
+    default:
+      console.warn(`Invalid time control ${timeControlChoice}.`);
+      return 30 * 1000
+  }
+};
+
 const newKey = (oldKey: Key | ''): Key => {
   // disallow the previous coordinate's row or file from being selected
   const files = 'abcdefgh'.replace(oldKey[0], '');
@@ -28,7 +40,7 @@ const targetSvg = `
 </g>
 `;
 
-export const DURATION = 30 * 1000;
+const DEFAULT_DURATION = 30 * 1000;  // TODO: Move in ctrl
 const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
@@ -37,6 +49,7 @@ export default class CoordinateTrainerCtrl {
   config: CoordinateTrainerConfig;
   coordinateInputMethod: InputMethod;
   currentKey: Key | '' = 'a1';
+  duration = DEFAULT_DURATION;
   hasPlayed = false;
   isAuth: boolean;
   keyboardInput: HTMLInputElement;
@@ -49,7 +62,7 @@ export default class CoordinateTrainerCtrl {
   score = 0;
   timeAtStart: Date;
   timeControlChoice: TimeControlChoice;
-  timeLeft = DURATION;
+  timeLeft = this.duration;
   trans: Trans;
   wrong: boolean;
   wrongTimeout: number;
@@ -61,6 +74,7 @@ export default class CoordinateTrainerCtrl {
     this.timeControlChoice =
       (lichess.storage.get('coordinateTrainer.timeControlChoice') as TimeControlChoice) || 'thirtySeconds';
     this.orientation = orientationFromColorChoice(this.colorChoice);
+    this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
     this.modeScores = config.scores;
 
     // Assume a smaller viewport means mobile, and default to buttons
@@ -120,17 +134,23 @@ export default class CoordinateTrainerCtrl {
     lichess.storage.set('coordinateTrainer.colorChoice', this.colorChoice);
   };
 
-  setTimeControlChoice = (c: TimeControlChoice) => {
-    if (this.timeControlChoice === c) return;
-    this.timeControlChoice = c;
-    lichess.storage.set('coordinateTrainer.timeControlChoice', this.timeControlChoice);
-  };
-
   setOrientation = (o: Color) => {
     this.orientation = o;
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   };
+
+  setTimeControlChoice = (c: TimeControlChoice) => {
+    if (this.timeControlChoice === c) return;
+    this.timeControlChoice = c;
+    this.setDuration(durationFromTimeControlChoice(c));  // Required for default value.
+    lichess.storage.set('coordinateTrainer.timeControlChoice', this.timeControlChoice);
+  };
+
+  setDuration = (d: number) => {
+    this.duration = d;
+    this.timeLeft = d;
+  }
 
   toggleInputMethod = () => {
     if (this.coordinateInputMethod === 'text') this.coordinateInputMethod = 'buttons';
@@ -143,7 +163,6 @@ export default class CoordinateTrainerCtrl {
     this.playing = true;
     this.hasPlayed = true;
     this.score = 0;
-    this.timeLeft = DURATION;
     this.currentKey = '';
     this.nextKey = '';
 
@@ -152,6 +171,9 @@ export default class CoordinateTrainerCtrl {
 
     // In case random is selected, recompute orientation
     this.setOrientation(orientationFromColorChoice(this.colorChoice));
+
+    // Custom duration
+    this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
 
     if (this.mode === 'nameSquare') this.keyboardInput.focus();
 
@@ -164,8 +186,8 @@ export default class CoordinateTrainerCtrl {
   };
 
   private tick = () => {
-    const timeSpent = Math.min(DURATION, new Date().getTime() - +this.timeAtStart);
-    this.timeLeft = DURATION - timeSpent;
+    const timeSpent = Math.min(this.duration, new Date().getTime() - +this.timeAtStart);
+    this.timeLeft = this.duration - timeSpent;
     this.redraw();
 
     if (this.timeLeft > 0) setTimeout(this.tick, TICK_DELAY);
