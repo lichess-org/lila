@@ -174,8 +174,6 @@ export default class CoordinateTrainerCtrl {
     this.currentKey = '';
     this.nextKey = '';
 
-    console.debug(this.timeDisabled);
-
     // Redraw the chessground to remove the resize handle
     this.chessground?.redrawAll();
 
