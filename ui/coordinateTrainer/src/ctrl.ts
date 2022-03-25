@@ -75,7 +75,10 @@ export default class CoordinateTrainerCtrl {
     this.config = config;
     this.colorChoice = (lichess.storage.get('coordinateTrainer.colorChoice') as ColorChoice) || 'random';
     this.timeControlChoice =
-      (lichess.storage.get('coordinateTrainer.timeControlChoice') as TimeControlChoice) || 'thirtySeconds';
+      (lichess.storage.get('coordinateTrainer.timeControlChoice') as TimeControlChoice) ||
+      document.body.classList.contains('kid')
+        ? 'noTime'
+        : 'thirtySeconds';
     this.timeDisabled = this.timeControlChoice ? false : true;
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
