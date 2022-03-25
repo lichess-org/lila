@@ -12,7 +12,7 @@ const timeControls: { [key: string]: string } = {
 function timeControlString(timeControl: TimeControlChoice, ctrl: CoordinateTrainerCtrl): string {
   const { trans } = ctrl;
   if (timeControl === 'noTime') {
-    return trans('noTime');
+    return trans('disableTime');
   } else {
     return timeControls[timeControl];
   }
