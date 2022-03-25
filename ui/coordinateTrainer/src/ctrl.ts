@@ -23,9 +23,6 @@ const durationFromTimeControlChoice = (timeControlChoice: TimeControlChoice): nu
       return 60 * 1000;
     case 'noTime':
       return 0;
-    default:
-      console.warn(`Invalid time control ${timeControlChoice}.`);
-      return 30 * 1000;
   }
 };
 
