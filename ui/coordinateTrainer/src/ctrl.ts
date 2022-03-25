@@ -196,7 +196,7 @@ export default class CoordinateTrainerCtrl {
     this.timeLeft = this.duration - timeSpent;
     this.redraw();
 
-    if (this.timeLeft > 0 || this.timeDisabled) setTimeout(this.tick, TICK_DELAY);
+    if (this.timeLeft > 0) setTimeout(this.tick, TICK_DELAY);
     else this.stop();
   };
 
