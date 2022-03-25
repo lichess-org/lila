@@ -174,14 +174,13 @@ export default class CoordinateTrainerCtrl {
     this.currentKey = '';
     this.nextKey = '';
 
+    this.timeLeft = this.duration;
+
     // Redraw the chessground to remove the resize handle
     this.chessground?.redrawAll();
 
     // In case random is selected, recompute orientation
     this.setOrientation(orientationFromColorChoice(this.colorChoice));
-
-    // Custom duration
-    this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
 
     if (this.mode === 'nameSquare') this.keyboardInput.focus();
 
