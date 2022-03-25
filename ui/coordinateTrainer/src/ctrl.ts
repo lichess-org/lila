@@ -157,11 +157,7 @@ export default class CoordinateTrainerCtrl {
   setDuration = (d: number) => {
     this.duration = d;
     this.timeLeft = d;
-    if (this.duration) {
-      this.timeDisabled = false;
-    } else {
-      this.timeDisabled = true;
-    }
+    this.timeDisabled = !this.duration;
   };
 
   toggleInputMethod = () => {
