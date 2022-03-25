@@ -76,7 +76,7 @@ export default class CoordinateTrainerCtrl {
       document.body.classList.contains('kid')
         ? 'noTime'
         : 'thirtySeconds';
-    this.timeDisabled = this.timeControlChoice  === 'noTime';
+    this.timeDisabled = this.timeControlChoice === 'noTime';
     this.orientation = orientationFromColorChoice(this.colorChoice);
     this.setDuration(durationFromTimeControlChoice(this.timeControlChoice));
     this.modeScores = config.scores;
@@ -185,7 +185,9 @@ export default class CoordinateTrainerCtrl {
       this.timeAtStart = new Date();
       this.advanceCoordinates();
       this.advanceCoordinates();
-      this.tick();
+      if (!this.timeDisabled) {
+        this.tick();
+      }
     }, 1000);
   };
 
