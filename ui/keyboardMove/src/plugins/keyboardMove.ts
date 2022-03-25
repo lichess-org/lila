@@ -106,6 +106,91 @@ export default (opts: Opts) => {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
+
+  // JUNK speech code
+  if ('webkitSpeechRecognition' in window) {
+    console.log('found speech recognition API');
+
+    interface IWindow extends Window {
+      webkitSpeechRecognition: any;
+    }
+
+    const { webkitSpeechRecognition } = window as unknown as IWindow;
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.lang = 'en-US';
+    recognition.maxAlternatives = 5;
+
+    const massagePart = (part: string) => {
+      if (['to', 'takes'].includes(part)) return '';
+      const replacements: { [token: string]: string } = {
+        before: 'b4',
+        define: 'd5',
+        asics: 'a6',
+        esox: 'e6',
+      };
+      if (replacements[part]) return replacements[part];
+      if (part.match(/8[0-8]/)) return part.replace('8', 'a');
+      if (part.match(/t[0-8]/)) return part.replace('t', 'd');
+      return part
+        .replace(/alpha/g, 'a')
+        .replace(/bravo|bee|be/g, 'b')
+        .replace(/charlie|see|sea/g, 'c')
+        .replace(/delta/g, 'd')
+        .replace(/echo/g, 'e')
+        .replace(/foxtrot/g, 'f')
+        .replace(/golf/g, 'g')
+        .replace(/hotel|each/g, 'h')
+        .replace(/knight|night/g, 'N')
+        .replace(/bishop/g, 'B')
+        .replace(/brooke|brook|rook/g, 'R')
+        .replace(/queen/g, 'Q')
+        .replace(/king/g, 'K')
+        .replace(/promote/g, '=')
+        .replace(/one|won/g, '1')
+        .replace(/two|too/g, '2')
+        .replace(/three/g, '3')
+        .replace(/four|for/g, '4')
+        .replace(/five/g, '5')
+        .replace(/six/g, '6')
+        .replace(/seven/g, '7')
+        .replace(/eight|ate/g, '8')
+        .replace(/\s/g, '');
+    };
+    const massage = (transcript: string): string => {
+      const parts = transcript.toLowerCase().split(' ');
+      return parts.map(massagePart).join('');
+    };
+
+    // recognition.onstart = function() { ... }
+    const validMove = (move: string): boolean => !!move.match(/^[NBRQK]?[a-h]?[1-8]?[a-h][1-8]$/);
+    recognition.onresult = (event: any) => {
+      let moveToSubmit = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcripts = [];
+        const massages = [];
+        for (const j of [0, 1, 2, 3, 4]) {
+          if (!event.results[i][j]) continue;
+          transcripts.push(event.results[i][j].transcript);
+          massages.push(massage(event.results[i][j].transcript));
+          if (validMove(massages[j])) {
+            console.log(massages[j]);
+            if (!moveToSubmit) moveToSubmit = massages[j];
+          }
+        }
+        console.log(transcripts.join(' || '));
+        console.log(massages.join(' || '));
+      }
+      if (moveToSubmit) submit(moveToSubmit, { isTrusted: true, yourMove: false });
+    };
+    // recognition.onerror = function(event) { ... }
+    recognition.onend = function () {
+      recognition.start();
+    };
+    recognition.start();
+  }
+  // JUNK
+
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
