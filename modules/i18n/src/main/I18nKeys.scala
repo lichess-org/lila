@@ -738,6 +738,7 @@ val `since` = new I18nKey("since")
 val `until` = new I18nKey("until")
 val `lichessDbExplanation` = new I18nKey("lichessDbExplanation")
 val `switchSides` = new I18nKey("switchSides")
+val `closingAccountWithdrawAppeal` = new I18nKey("closingAccountWithdrawAppeal")
 val `opponentLeftCounter` = new I18nKey("opponentLeftCounter")
 val `mateInXHalfMoves` = new I18nKey("mateInXHalfMoves")
 val `nbBlunders` = new I18nKey("nbBlunders")
@@ -1046,7 +1047,10 @@ val `mostChessCourses` = new I18nKey("coordinates:mostChessCourses")
 val `talkToYourChessFriends` = new I18nKey("coordinates:talkToYourChessFriends")
 val `youCanAnalyseAGameMoreEffectively` = new I18nKey("coordinates:youCanAnalyseAGameMoreEffectively")
 val `aSquareNameAppears` = new I18nKey("coordinates:aSquareNameAppears")
+val `aSquareIsHighlighted` = new I18nKey("coordinates:aSquareIsHighlighted")
 val `startTraining` = new I18nKey("coordinates:startTraining")
+val `findSquare` = new I18nKey("coordinates:findSquare")
+val `nameSquare` = new I18nKey("coordinates:nameSquare")
 
 }
 

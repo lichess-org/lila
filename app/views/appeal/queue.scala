@@ -33,7 +33,7 @@ object queue {
           appeals.map { case Appeal.WithUser(appeal, user) =>
             tr(cls := List("new" -> appeal.isUnread))(
               td(
-                userIdLink(appeal.id.some),
+                userIdLink(appeal.id.some, params = "?mod"),
                 br,
                 markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked-by-me text")(
                   "My mark"

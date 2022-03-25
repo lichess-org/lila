@@ -32,7 +32,11 @@ $mq-col3: $mq-x-large;
     grid-area: progress;
   }
 
-  grid-template-areas: 'board' 'progress' 'table' 'side';
+  .coordinate-input {
+    grid-area: co-input;
+  }
+
+  grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
   grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
@@ -42,6 +46,7 @@ $mq-col3: $mq-x-large;
       'board    . table'
       'board    . side'
       'progress . side'
+      'co-input . side'
       '.        . side';
   }
 
@@ -49,16 +54,21 @@ $mq-col3: $mq-x-large;
     grid-template-areas:
       'side . board    . table'
       'side . progress . .'
+      'side . co-input . .'
       'side . .        . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
+}
 
-  &.init {
-    @include breakpoint($mq-col1) {
-      .explanation {
-        order: 2;
-        margin: 1em;
-      }
-    }
+@include breakpoint($mq-col1) {
+  .explanation {
+    order: 2;
+    margin: 2em 1em 0 1em;
+  }
+}
+
+@include breakpoint($mq-col3) {
+  .box:first-child {
+    margin-top: $block-gap;
   }
 }
