@@ -7,16 +7,16 @@ import lila.user.User
 import scala.collection.mutable
 
 case class CategView(
-                      categ: Categ,
-                      lastPost: Option[(Topic, Post, Int)],
-                      forUser: Option[User]
-                    ) {
+    categ: Categ,
+    lastPost: Option[(Topic, Post, Int)],
+    forUser: Option[User]
+) {
 
   def nbTopics = categ nbTopics forUser
 
   def nbPosts = categ nbPosts forUser
 
-  def lastPostId = categ lastPostId forUser
+  def lastPostId     = categ lastPostId forUser
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
   def slug = categ.slug
@@ -45,11 +45,11 @@ case class TopicView(
 }
 
 case class PostView(
-                     post: Post,
-                     topic: Topic,
-                     categ: Categ,
-                     topicLastPage: Int
-                   ) {
+    post: Post,
+    topic: Topic,
+    categ: Categ,
+    topicLastPage: Int
+) {
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
 }
@@ -58,11 +58,9 @@ case class PostLiteView(post: Post, topic: Topic)
 
 case class RecentPost(postId: String, text: String, userId: Option[User.ID], time: DateTime)
 
-class RecentTopic(
-                   val topicName: String,
-                   val isTeam: Boolean,
-                   var lastPost: RecentPost) extends Ordered[RecentTopic] {
-  val allUsers = mutable.Set.empty[User.ID]
+class RecentTopic(val topicName: String, val isTeam: Boolean, var lastPost: RecentPost)
+    extends Ordered[RecentTopic] {
+  val allUsers      = mutable.Set.empty[User.ID]
   var numPosts: Int = 0
 
   def compare(that: RecentTopic): Int = 0 - this.lastPost.time.compareTo(that.lastPost.time)
@@ -75,13 +73,13 @@ class RecentTopic(
 }
 
 case class MiniForumPost(
-                          isTeam: Boolean,
-                          postId: String,
-                          topicName: String,
-                          userId: Option[String],
-                          text: String,
-                          createdAt: DateTime
-                        )
+    isTeam: Boolean,
+    postId: String,
+    topicName: String,
+    userId: Option[String],
+    text: String,
+    createdAt: DateTime
+)
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
 

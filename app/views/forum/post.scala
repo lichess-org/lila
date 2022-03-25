@@ -5,7 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.forum.{Post, RecentTopic}
+import lila.forum.{ Post, RecentTopic }
 import lila.security.Granter
 import controllers.routes
 
@@ -29,9 +29,12 @@ object post {
             cls := "post-cell",
             if (t.allUsers.size > 1)
               span(
-                span(cls := "extract", t.numPosts.toString + " " + trans.latestForumPostsNewBy().render + " "),
-                t.allUsers.toList.filter(_ != t.lastPost.userId.get) map {
-                  u => span(cls := "name", userIdLink(Option(u), withOnline = false), ", ")
+                span(
+                  cls := "extract",
+                  t.numPosts.toString + " " + trans.latestForumPostsNewBy().render + " "
+                ),
+                t.allUsers.toList.filter(_ != t.lastPost.userId.get) map { u =>
+                  span(cls := "name", userIdLink(Option(u), withOnline = false), ", ")
                 }
               ),
             span(cls := "name", userIdLink(t.lastPost.userId, withOnline = false)),

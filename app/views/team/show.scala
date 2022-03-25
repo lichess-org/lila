@@ -216,7 +216,10 @@ object show {
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   forumTopics.take(10).map { topic =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(topic.lastPost.postId))(
+                    a(
+                      cls := "team-show__forum__post",
+                      href := routes.ForumPost.redirect(topic.lastPost.postId)
+                    )(
                       div(cls := "meta")(
                         strong(topic.topicName),
                         em(

@@ -7,10 +7,10 @@ import lila.user.User
 import scala.collection.mutable
 
 final class ForumRecent(
-                         postApi: PostApi,
-                         postRepo: PostRepo,
-                         cacheApi: lila.memo.CacheApi
-                       )(implicit ec: scala.concurrent.ExecutionContext) {
+    postApi: PostApi,
+    postRepo: PostRepo,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val nb: Int = 30
 
@@ -63,7 +63,7 @@ final class ForumRecent(
   private def fetch(key: String): Fu[List[RecentTopic]] = {
     (key.split(";").toList match {
       case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
+      case categs          => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.recentPosts
   }
 }

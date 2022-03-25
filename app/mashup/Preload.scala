@@ -7,7 +7,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.event.Event
 import lila.forum.RecentTopic
-import lila.game.{Game, Pov}
+import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
@@ -40,13 +40,13 @@ final class Preload(
   import Preload._
 
   def apply(
-             posts: Fu[List[RecentTopic]],
-             tours: Fu[List[Tournament]],
-             swiss: Option[Swiss],
-             events: Fu[List[Event]],
-             simuls: Fu[List[Simul]],
-             streamerSpots: Int
-           )(implicit ctx: Context): Fu[Homepage] =
+      posts: Fu[List[RecentTopic]],
+      tours: Fu[List[Tournament]],
+      swiss: Option[Swiss],
+      events: Fu[List[Event]],
+      simuls: Fu[List[Simul]],
+      streamerSpots: Int
+  )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
       posts.mon(_.lobby segment "posts") zip
       tours.mon(_.lobby segment "tours") zip
@@ -74,7 +74,8 @@ final class Preload(
           .mon(_.lobby segment "currentGame") zip
           lightUserApi
             .preloadMany {
-              tWinners.map(_.userId) ::: posts.flatMap(_.allUsers.toList) ::: entries.flatMap(_.userIds).toList
+              tWinners
+                .map(_.userId) ::: posts.flatMap(_.allUsers.toList) ::: entries.flatMap(_.userIds).toList
             }
             .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
             Homepage(
@@ -124,19 +125,19 @@ final class Preload(
 object Preload {
 
   case class Homepage(
-                       data: JsObject,
-                       userTimeline: Vector[Entry],
-                       forumRecent: List[RecentTopic],
-                       tours: List[Tournament],
-                       swiss: Option[Swiss],
-                       events: List[Event],
-                       simuls: List[Simul],
-                       featured: Option[Game],
-                       leaderboard: List[User.LightPerf],
-                       tournamentWinners: List[Winner],
-                       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
-                       streams: LiveStreams.WithTitles,
-                       playban: Option[TempBan],
+      data: JsObject,
+      userTimeline: Vector[Entry],
+      forumRecent: List[RecentTopic],
+      tours: List[Tournament],
+      swiss: Option[Swiss],
+      events: List[Event],
+      simuls: List[Simul],
+      featured: Option[Game],
+      leaderboard: List[User.LightPerf],
+      tournamentWinners: List[Winner],
+      puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
+      streams: LiveStreams.WithTitles,
+      playban: Option[TempBan],
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
