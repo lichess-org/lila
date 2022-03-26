@@ -213,7 +213,7 @@ export default class CoordinateTrainerCtrl {
   stop = () => {
     this.playing = false;
     this.wrong = false;
-    this.updateScoreList();
+    if (this.timeControlChoice == 'thirtySeconds') { this.updateScoreList() };
     requestAnimationFrame(() => this.updateCharts());
     this.redraw();
     this.chessground?.setShapes([]);
@@ -224,7 +224,7 @@ export default class CoordinateTrainerCtrl {
       this.keyboardInput.value = '';
     }
 
-    if (this.isAuth) {
+    if (this.isAuth && this.timeControlChoice == 'thirtySeconds') {
       xhr.text('/training/coordinate/score', {
         method: 'post',
         body: xhr.form({ mode: this.mode, color: this.orientation, score: this.score }),
