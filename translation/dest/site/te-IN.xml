@@ -317,6 +317,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
   <string name="ratedMoreThanInPerf">%2$s లో ≥ %1$s గా రేట్ చేయబడింది</string>
+  <string name="ratedLessThanInPerf">గత వారంలో %2$sలో ≤ %1$s రేట్ చేయబడింది</string>
   <string name="mustBeInTeam">15 / 5000
 Translation results
 ఈ బృందంలో ఉండాలి, %s</string>
@@ -333,7 +334,11 @@ Translation results
   <string name="apply">సమర్పించండి</string>
   <string name="save">సేవ్</string>
   <string name="leaderboard">లీడర్‌బోర్డు</string>
+  <string name="pasteTheFenStringHere">FEN వచనాన్ని ఇక్కడ అతికించండి</string>
+  <string name="pasteThePgnStringHere">PGN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
+  <string name="fromPosition">స్థానం నుండి</string>
+  <string name="continueFromHere">ఇక్కడ నుండి కొనసాగండి</string>
   <string name="graph">గ్రాఫ్</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
