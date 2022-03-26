@@ -79,8 +79,8 @@ final class Game(
             user = user,
             format = format,
             vs = vs,
-            since = getLong("since", req) map { new DateTime(_) },
-            until = getLong("until", req) map { new DateTime(_) },
+            since = getTimestamp("since", req),
+            until = getTimestamp("until", req),
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
@@ -104,7 +104,7 @@ final class Game(
               .as(gameContentType(config))
               .fuccess
           else {
-            val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
+            val date = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
                 source =>
