@@ -48,8 +48,8 @@ final class ChallengeApi(
   def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
   def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
 
-  val countInFor = cacheApi[User.ID, Int](65536, "challenge.countInFor") {
-    _.expireAfterAccess(20 minutes)
+  val countInFor = cacheApi[User.ID, Int](131072, "challenge.countInFor") {
+    _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.countCreatedByDestId)
   }
 
