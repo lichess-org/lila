@@ -213,8 +213,10 @@ export default class CoordinateTrainerCtrl {
   stop = () => {
     this.playing = false;
     this.wrong = false;
-    if (this.timeControlChoice == 'thirtySeconds') { this.updateScoreList() };
-    requestAnimationFrame(() => this.updateCharts());
+    if (this.timeControlChoice == 'thirtySeconds') {
+      this.updateScoreList();
+      requestAnimationFrame(() => this.updateCharts());
+    }
     this.redraw();
     this.chessground?.setShapes([]);
     this.chessground?.redrawAll();
