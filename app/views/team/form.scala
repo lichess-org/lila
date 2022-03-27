@@ -137,9 +137,10 @@ object form {
           form3.select(
             f,
             Seq(
-              Team.Access.NONE    -> "Hide the forum",
-              Team.Access.LEADERS -> "Show to team leaders",
-              Team.Access.MEMBERS -> "Show to members"
+              Team.Access.EVERYONE -> "Show to everyone",
+              Team.Access.MEMBERS  -> "Show to members",
+              Team.Access.LEADERS  -> "Show to team leaders",
+              Team.Access.NONE     -> "Hide the forum"
             )
           )
         }
