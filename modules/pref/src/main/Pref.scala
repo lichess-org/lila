@@ -33,7 +33,6 @@ case class Pref(
     challenge: Int,
     message: Int,
     studyInvite: Int,
-    coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
     mention: Boolean,
@@ -63,8 +62,7 @@ case class Pref(
 
   def realSoundSet = SoundSet(soundSet)
 
-  def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
-  def coordsClass    = Coords classOf coords
+  def coordsClass = Coords classOf coords
 
   def hasDgt = tags contains Tag.dgt
 
@@ -471,7 +469,6 @@ object Pref {
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
-    coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     mention = true,

@@ -854,7 +854,7 @@ und beeinflussen die Wertungszahl der Spieler</string>
   <string name="minimumRating">Niedrigste Wertungszahl</string>
   <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Erfordert einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
   <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
 Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
@@ -897,4 +897,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
+  <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
 </resources>

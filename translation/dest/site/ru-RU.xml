@@ -977,4 +977,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
   <string name="switchSides">Сменить сторону</string>
+  <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
 </resources>

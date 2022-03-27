@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Ľahšie sa dorozumiete so svojimi šachovými priateľmi, pretože obaja budete hovoriť \"rečou šachu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Môžete efektívnejšie analyzovať partie, ak nebudete neustále potrebovať hľadať názvy polí.</string>
   <string name="aSquareNameAppears">Na šachovnici sa objaví názov poľa a Vašou úlohou je kliknúť naň. Máte 30 sekúnd na správne označenie čo najväčšieho počtu polí!</string>
+  <string name="aSquareIsHighlighted">Na šachovnici sa zvýraznení pole a Vašou úlohou je zadať súradnice (napr. \"e4\"). Máte 30 sekúnd na určenie čo najviac polí.</string>
   <string name="startTraining">Začať tréning</string>
+  <string name="findSquare">Nájsť pole</string>
+  <string name="nameSquare">Pomenovať pole</string>
 </resources>

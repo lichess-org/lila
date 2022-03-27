@@ -896,4 +896,5 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="until">Noiz arte</string>
   <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
   <string name="switchSides">Aldatu kolorea</string>
+  <string name="closingAccountWithdrawAppeal">Kontua ixten baduzu, zure kexa bertan behera geldituko da</string>
 </resources>

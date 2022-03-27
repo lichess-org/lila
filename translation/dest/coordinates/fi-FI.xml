@@ -5,9 +5,12 @@
   <string name="averageScoreAsWhiteX">Keskimääräinen tulos valkeana: %s</string>
   <string name="averageScoreAsBlackX">Keskimääräinen tulos mustana: %s</string>
   <string name="knowingTheChessBoard">Shakkilaudan koordinaattien hallinta on erittäin tärkeä kyky shakinpelaajalle:</string>
-  <string name="mostChessCourses">Useimmilla shakkikursseilla ja harjoitteissa algebrallinen merkintätapa vilisee siellä ja täällä.</string>
-  <string name="talkToYourChessFriends">Keskusteleminen shakkikavereidesi kanssa helpottuu, kun ymmärrätte puolin ja toisin \"shakin kieltä\".</string>
+  <string name="mostChessCourses">Shakkikursseilla ja -harjoituksissa käytetään useimmiten algebrallista merkintätapaa.</string>
+  <string name="talkToYourChessFriends">On helpompaa puhua shakkikavereidesi kanssa, kun ymmärrätte puolin ja toisin \"shakin kieltä\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
-  <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle ja sinun on klikattava oikeaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
+  <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle, ja sinun on klikattava sitä vastaavaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
+  <string name="aSquareIsHighlighted">Laudalla valitaan vuorotellen eri ruutuja, ja tehtävänäsi on kirjoittaa kunkin ruudun koordinaatit (esim. \"e4\"). Yritä saada 30 sekunnin aikana mahdollisimman monta ruutua oikein!</string>
   <string name="startTraining">Aloita harjoitus</string>
+  <string name="findSquare">Etsi ruutu</string>
+  <string name="nameSquare">Nimeä ruutu</string>
 </resources>

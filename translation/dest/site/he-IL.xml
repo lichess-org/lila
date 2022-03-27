@@ -47,8 +47,8 @@
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
-  <string name="whiteResigned">הלבן פרש</string>
-  <string name="blackResigned">השחור פרש</string>
+  <string name="whiteResigned">הלבן נכנע</string>
+  <string name="blackResigned">השחור נכנע</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
   <string name="whiteDidntMove">לבן לא ביצע מסע</string>
@@ -980,4 +980,5 @@
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך לוח</string>
+  <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
 </resources>

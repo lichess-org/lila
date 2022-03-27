@@ -898,4 +898,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="until">Fino al</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>
   <string name="switchSides">Cambia colore</string>
+  <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
 </resources>

@@ -858,4 +858,5 @@
   <string name="until">終了</string>
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
+  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">アカウントを閉鎖すると異議申立ても取り下げになります</string>
 </resources>

@@ -12,6 +12,7 @@
   <string name="teachersX">Викладачі: %s</string>
   <string name="newClass">Новий урок</string>
   <string name="closeClass">Закрити урок</string>
+  <string name="removedByX">Видалений %s</string>
   <string name="reopen">Відкрити знову</string>
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
@@ -94,6 +95,9 @@
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
   <string name="winrate">Відсоток перемог</string>
   <string name="na">Недоступно</string>
+  <string name="overview">Огляд</string>
+  <string name="news">Новини</string>
+  <string name="classNews">Новини класу</string>
   <string name="editNews">Редагувати новини</string>
   <string name="notifyAllStudents">Сповістити всіх учнів</string>
   <string name="nothingHere">Тут нічого, поки що.</string>
@@ -101,4 +105,19 @@
   <string name="newsEdit2">Додавайте останні новини зверху. Не видаляйте попередні новини.</string>
   <string name="newsEdit3">Відокремте новини через ---
 Вони будуть відображені в горизонтальну лінію.</string>
+  <string name="invite">Запросити</string>
+  <string name="youHaveBeenInvitedByX">%s запросив вас.</string>
+  <string name="youAcceptedThisInvitation">Ви прийняли запрошення.</string>
+  <string name="youDeclinedThisInvitation">Ви відхилили запрошення.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
+  <string name="createMultipleAccounts">Створюйте кілька облікових записів Lichess одночасно</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Також ви можете використати %s, щоб створити декілька облікових записів Lichess зі списку імен учнів.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">використовуйте цю форму</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Майте на увазі, що в класі може бути до %1$s учнів. Щоб добавити більшу кількість учнів, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">створити більше класів</string>
+  <string name="studentsRealNamesOnePerLine">Справжні імена учнів, по одному на рядок</string>
+  <string name="xisNowAStudentOfTheClass">%s тепер новий учень класу</string>
+  <string name="anInvitationHasBeenSentToX">Запрошення було надіслано %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s уже отримав запрошення</string>
+  <string name="xIsAKidAccountWarning">%1$s є обліковим записом дитини та не може отримати ваше повідомлення. Ви повинні дати їм URL-адресу запрошення вручну: %2$s</string>
 </resources>
