@@ -35,6 +35,7 @@ function resultBar(move: OpeningMoveStats): VNode {
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
+  const sumTotal = data.white + data.black + data.draws;
   const movesWithCurrent =
     data.moves.length > 1
       ? [
@@ -54,23 +55,23 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     h(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
-      movesWithCurrent.map(move =>
-        h(
+      movesWithCurrent.map(move => {
+        const total = move.white + move.draws + move.black;
+        return h(
           `tr${move.uci ? '' : '.sum'}`,
           {
             key: move.uci,
             attrs: {
               'data-uci': move.uci,
-              title: moveTooltip(ctrl, move),
             },
           },
           [
             h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-            h('td', numberFormat(move.white + move.draws + move.black)),
-            h('td', resultBar(move)),
+            h('td', { attrs: { title: ((total / sumTotal) * 100).toFixed(1) + '%' } }, numberFormat(total)),
+            h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
           ]
-        )
-      )
+        );
+      })
     ),
   ]);
 }
