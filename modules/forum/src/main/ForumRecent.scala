@@ -28,7 +28,7 @@ final class ForumRecent(
   private val teamCache = cacheApi[String, List[RecentTopic]](512, "forum.team.recent") {
     _.expireAfterWrite(1 hour)
       .buildAsyncFuture { id =>
-        postRepo.recentInCateg(teamSlug(id), 6) flatMap postApi.recentPosts
+        postRepo.recentInCateg(teamSlug(id), 6) flatMap postApi.recentPostsTeam
       }
   }
 

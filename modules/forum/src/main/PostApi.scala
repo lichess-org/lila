@@ -187,6 +187,23 @@ final class PostApi(
       }
       recentMap.values.toList.sorted
     }
+  }
+
+  // redundant topics collapse is not currently used in team UI, necessitating this new function
+  // which gives us the old behavior.  delete this comment at some point, it's just for diff info
+  def recentPostsTeam(posts: List[Post]): Fu[List[RecentTopic]] = {
+    env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+      posts flatMap { post =>
+        topics find (_.id == post.topicId) map { topic =>
+          new RecentTopic(
+            topic.name,
+            post.isTeam,
+            RecentPost(post.id, post.text, post.userId, post.createdAt)
+          )
+        }
+      }
+    }
+  }
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
