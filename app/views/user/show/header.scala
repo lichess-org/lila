@@ -101,7 +101,7 @@ object header {
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
           ),
-          !ctx.is(u) option
+          (!ctx.is(u) && !social.blocked) option
             a(
               titleOrText(trans.challenge.challengeToPlay.txt()),
               href := s"${routes.Lobby.home}?user=${u.username}#friend",
