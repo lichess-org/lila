@@ -5,17 +5,13 @@ import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControlChoice, Mode, CoordModifier } from './interfaces';
 
 const timeControls: { [key: string]: string } = {
+  noTime: '∞',
   thirtySeconds: '0:30',
   oneMinute: '1:00',
 };
 
-function timeControlString(timeControl: TimeControlChoice, ctrl: CoordinateTrainerCtrl): string {
-  const { trans } = ctrl;
-  if (timeControl === 'noTime') {
-    return trans('disableTime');
-  } else {
-    return timeControls[timeControl];
-  }
+function timeControlString(timeControl: TimeControlChoice): string {
+  return timeControls[timeControl];
 }
 
 function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
@@ -116,7 +112,7 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                     for: `coord_timeControl_${timeControl}`,
                   },
                 },
-                timeControlString(timeControl, ctrl)
+                timeControlString(timeControl)
               ),
             ])
           )
