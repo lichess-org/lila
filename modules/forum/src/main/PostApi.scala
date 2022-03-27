@@ -187,6 +187,7 @@ final class PostApi(
       }
       recentMap.values.toList.sorted
     }
+  }
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
