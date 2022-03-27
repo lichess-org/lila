@@ -2,7 +2,6 @@ package lila.forum
 
 import actorApi._
 import scala.concurrent.duration._
-
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting

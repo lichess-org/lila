@@ -1,7 +1,7 @@
 package lila.forum
 
+import scala.collection.mutable
 import org.joda.time.DateTime
-
 import lila.user.User
 
 case class CategView(
@@ -52,14 +52,21 @@ case class PostView(
 
 case class PostLiteView(post: Post, topic: Topic)
 
-case class MiniForumPost(
-    isTeam: Boolean,
-    postId: String,
-    topicName: String,
-    userId: Option[String],
-    text: String,
-    createdAt: DateTime
-)
+case class RecentPost(postId: String, text: String, userId: Option[User.ID], time: DateTime)
+
+class RecentTopic(val topicName: String, val isTeam: Boolean, var lastPost: RecentPost)
+    extends Ordered[RecentTopic] {
+  val allUsers      = mutable.Set.empty[User.ID]
+  var numPosts: Int = 0
+
+  def compare(that: RecentTopic): Int = 0 - this.lastPost.time.compareTo(that.lastPost.time)
+
+  def update(p: Post): Unit = {
+    if (p.createdAt.isAfter(lastPost.time)) lastPost = RecentPost(p.id, p.text, p.userId, p.createdAt)
+    numPosts += 1
+    allUsers += p.userId.getOrElse(User.anonymous)
+  }
+}
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
 
