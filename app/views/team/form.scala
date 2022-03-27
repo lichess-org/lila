@@ -129,8 +129,6 @@ object form {
           help = frag(
             "Who can see the team forum on the team page?",
             br,
-            "Note that the forum remains accessible through direct URL access or forum search.",
-            br,
             "Only team members can post in the team forum."
           ).some
         ) { f =>
