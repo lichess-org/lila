@@ -26,6 +26,9 @@ export interface ExplorerData {
 }
 
 export interface OpeningData extends ExplorerData, Partial<OpeningMoveStats> {
+  white: number;
+  black: number;
+  draws: number;
   moves: OpeningMoveStats[];
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];

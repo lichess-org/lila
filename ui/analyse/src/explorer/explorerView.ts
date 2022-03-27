@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
-import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
@@ -37,11 +36,13 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
   const movesWithCurrent =
-    data.moves.length > 1 && [data.white, data.black, data.draws].every(defined)
+    data.moves.length > 1
       ? [
           ...data.moves,
           {
-            ...data,
+            white: data.white,
+            black: data.black,
+            draws: data.draws,
             uci: '',
             san: 'Σ',
           } as OpeningMoveStats,
