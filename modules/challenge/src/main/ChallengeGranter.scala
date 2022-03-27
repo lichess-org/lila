@@ -54,8 +54,8 @@ final class ChallengeGranter(
     fromOption
       .fold[Fu[Option[ChallengeDenied.Reason]]] {
         prefApi.getPref(dest).map(_.challenge) map {
-          case Pref.Challenge.ANON => none
-          case _                   => YouAreAnon.some
+          case Pref.Challenge.ALWAYS => none
+          case _                     => YouAreAnon.some
         }
       } { from =>
         relationApi.fetchRelation(dest, from) zip
@@ -74,9 +74,9 @@ final class ChallengeGranter(
                   (diff > ratingThreshold) option RatingOutsideRange(pt)
                 }
               }
-            case (_, Pref.Challenge.ALWAYS) => none
-            case _ if from == dest          => SelfChallenge.some
-            case _                          => none
+            case (_, Pref.Challenge.REGISTERED) => none
+            case _ if from == dest              => SelfChallenge.some
+            case _                              => none
           }
       }
       .map {

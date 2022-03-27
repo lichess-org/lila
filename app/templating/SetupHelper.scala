@@ -272,8 +272,8 @@ trait SetupHelper { self: I18nHelper =>
         trans.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
       ),
       (Pref.Challenge.FRIEND, trans.onlyFriends.txt()),
-      (Pref.Challenge.ALWAYS, trans.ifLoggedIn.txt()),
-      (Pref.Challenge.ANON, trans.always.txt())
+      (Pref.Challenge.REGISTERED, trans.ifRegistered.txt()),
+      (Pref.Challenge.ALWAYS, trans.always.txt())
     )
 
   def translatedMessageChoices(implicit lang: Lang) =
