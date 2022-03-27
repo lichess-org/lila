@@ -87,9 +87,27 @@ function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   }
   if (ctrl.explorer.opts.showRatings) {
     if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
-    if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+    if (move.averageOpponentRating) {
+      const perf = move.averageOpponentRating + Math.round(performanceDelta(move, ctrl.explorer.config.data.color()));
+      return `Performance rating: ${perf}, average opponent: ${move.averageOpponentRating}`;
+    }
   }
   return '';
+}
+
+function performanceDelta(move: OpeningMoveStats, color: Color): number {
+  // https://handbook.fide.com/chapter/B022017
+  const fide = [
+    -800, -677, -589, -538, -501, -470, -444, -422, -401, -383, -366, -351, -336, -322, -309, -296, -284, -273, -262,
+    -251, -240, -230, -220, -211, -202, -193, -184, -175, -166, -158, -149, -141, -133, -125, -117, -110, -102, -95,
+    -87, -80, -72, -65, -57, -50, -43, -36, -29, -21, -14, -7, 0, 7, 14, 21, 29, 36, 43, 50, 57, 65, 72, 80, 87, 95,
+    102, 110, 117, 125, 133, 141, 149, 158, 166, 175, 184, 193, 202, 211, 220, 230, 240, 251, 262, 273, 284, 296, 309,
+    322, 336, 351, 366, 383, 401, 422, 444, 470, 501, 538, 589, 677, 800, /* 100 + 1: */ 800,
+  ];
+  const p = (100 * move[color] + 50 * move.draws) / (move.white + move.black + move.draws);
+  const idx = Math.floor(p);
+  const alpha = p - idx;
+  return (1 - alpha) * fide[idx] + alpha * fide[idx + 1];
 }
 
 function showResult(winner?: Color): VNode {
