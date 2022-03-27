@@ -25,7 +25,7 @@ export interface ExplorerData {
   tablebase?: true;
 }
 
-export interface OpeningData extends ExplorerData, Partial<OpeningMoveStats> {
+export interface OpeningData extends ExplorerData {
   white: number;
   black: number;
   draws: number;
