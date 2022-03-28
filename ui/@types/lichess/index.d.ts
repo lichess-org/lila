@@ -63,8 +63,8 @@ interface Lichess {
 
   // misc
   advantageChart?: {
-    update(data: any): void;
-    (data: any, trans: Trans, el: HTMLElement): void;
+    update(data: any, mainline: any[]): void;
+    (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
   RoundNVUI?(redraw: () => void): {

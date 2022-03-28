@@ -39,7 +39,7 @@ export default class ServerEval {
   };
 
   onMergeAnalysisData = () => {
-    if (lichess.advantageChart) lichess.advantageChart.update(this.root.data);
+    if (lichess.advantageChart) lichess.advantageChart.update(this.root.data, this.root.mainline);
   };
   request = () => {
     this.root.socket.send('requestAnalysis', this.chapterId());
@@ -61,7 +61,7 @@ export function view(ctrl: ServerEval): VNode {
         lichess.requestIdleCallback(
           () =>
             lichess.loadScript('javascripts/chart/acpl.js').then(() => {
-              lichess.advantageChart!(ctrl.root.data, ctrl.root.trans, el);
+              lichess.advantageChart!(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el);
               ctrl.chartEl(el as HighchartsHTMLElement);
             }),
           800
