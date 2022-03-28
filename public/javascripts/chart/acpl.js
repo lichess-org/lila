@@ -2,9 +2,9 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.advantageChart = function (data, mainline, trans, el) {
-  lichess.loadScript('javascripts/chart/common.js').then(function () {
+  lichess.loadModule('chart.common').then(function () {
     lichess.loadScript('javascripts/chart/division.js').then(function () {
-      lichess.chartCommon('highchart').then(function () {
+      LichessChartCommon('highchart').then(function () {
         lichess.advantageChart.update = function (d, mainline) {
           el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
         };

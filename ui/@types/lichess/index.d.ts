@@ -251,12 +251,14 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
+  readonly LichessChartCommon: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
+  readonly Highcharts: any;
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;

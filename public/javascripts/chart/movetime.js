@@ -15,9 +15,9 @@ function formatClock(centis) {
 }
 lichess.movetimeChart = function (data, trans, hunter) {
   if (!data.game.moveCentis) return; // imported games
-  lichess.loadScript('javascripts/chart/common.js').then(function () {
+  lichess.loadModule('chart.common').then(function () {
     lichess.loadScript('javascripts/chart/division.js').then(function () {
-      lichess.chartCommon('highchart').then(function () {
+      LichessChartCommon('highchart').then(function () {
         lichess.movetimeChart.render = function () {
           $('#movetimes-chart:not(.rendered)').each(function () {
             $(this).addClass('rendered');

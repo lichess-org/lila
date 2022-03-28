@@ -29,8 +29,8 @@ lichess.ratingHistoryChart = function (data, { singlePerfName, perfIndex }) {
   var indexFilter = function (_, i) {
     return !singlePerfName || i === singlePerfIndex;
   };
-  lichess.loadScript('javascripts/chart/common.js').then(function () {
-    lichess.chartCommon('highstock').then(function () {
+  lichess.loadModule('chart.common').then(function () {
+    LichessChartCommon('highchart').then(function () {
       // support: Fx when user bio overflows
       var disabled = {
         enabled: false,
