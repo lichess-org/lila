@@ -6,4 +6,9 @@ export default rollupProject({
     input: 'src/common.ts',
     output: 'chart.common',
   },
+  ratingDistribution: {
+    name: 'LichessChartRatingDistribution',
+    input: 'src/ratingDistribution.ts',
+    output: 'chart.ratingDistribution',
+  },
 });

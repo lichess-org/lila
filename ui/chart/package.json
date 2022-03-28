@@ -9,6 +9,7 @@
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
     "@types/web": "^0",
+    "@types/highcharts": "=4.2.57",
     "rollup": "^2",
     "typescript": "^4.5"
   },
@@ -17,6 +18,8 @@
   },
   "scripts": {
     "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "prod": "rollup --config --config-prod",
+    "plugin-dev": "rollup --config --config-plugin",
+    "plugin-prod": "rollup --config --config-prod --config-plugin"
   }
 }
