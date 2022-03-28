@@ -92,9 +92,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .filter('.' + panel)
       .addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !lichess.movetimeChart)
-      lichess
-        .loadScript('javascripts/chart/movetime.js')
-        .then(() => lichess.movetimeChart(data, ctrl.trans, ctrl.opts.hunter));
+      lichess.loadModule('chart.movetime').then(() => window.LichessChartMovetime(data, ctrl.trans, ctrl.opts.hunter));
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };

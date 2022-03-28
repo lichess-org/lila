@@ -11,4 +11,9 @@ export default rollupProject({
     input: 'src/ratingDistribution.ts',
     output: 'chart.ratingDistribution',
   },
+  movetime: {
+    name: 'LichessChartMovetime',
+    input: 'src/movetime.ts',
+    output: 'chart.movetime',
+  },
 });

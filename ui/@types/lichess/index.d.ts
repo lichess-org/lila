@@ -252,6 +252,7 @@ interface Window {
   readonly LichessCli: any;
   readonly LichessRound: any;
   readonly LichessChartCommon: any;
+  readonly LichessChartMovetime: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

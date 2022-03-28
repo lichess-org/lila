@@ -22,6 +22,7 @@ site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser inquiry modSearch cl
 round_plugins="nvui"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
+chart_plugins="ratingDistribution movetime"
 keyboardMove_plugins="keyboardMove"
 
 if [ $mode == "upgrade" ]; then
@@ -72,6 +73,7 @@ else
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
     parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
+    parallel --gnu $P_OPTS build_plugin chart ::: $chart_plugins
     parallel --gnu $P_OPTS build_plugin keyboardMove ::: $keyboardMove_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
@@ -80,6 +82,7 @@ else
     for plugin in $round_plugins; do (build_plugin round $plugin); done
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
     for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
+    for plugin in $chart_plugins; do (build_plugin chart $plugin); done
     for plugin in $keyboardMove_plugins; do (build_plugin keyboardMove $plugin); done
   fi
 fi
