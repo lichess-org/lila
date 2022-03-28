@@ -28,10 +28,10 @@ object perfStat {
         jsModule("user"),
         ratingChart.map { rc =>
           frag(
-            jsTag("chart/ratingHistory.js"),
-            embedJsUnsafeLoadThen(
-              s"lichess.ratingHistoryChart($rc,{singlePerfName:'${perfType.trans(lila.i18n.defaultLang)}'});"
-            )
+            jsModule("chart.ratingHistory"),
+            embedJsUnsafeLoadThen {
+              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans(lila.i18n.defaultLang)}'});"
+            }
           )
         }
       ),

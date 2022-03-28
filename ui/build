@@ -22,7 +22,7 @@ site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser inquiry modSearch cl
 round_plugins="nvui"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
-chart_plugins="ratingDistribution movetime"
+chart_plugins="ratingDistribution ratingHistory movetime"
 keyboardMove_plugins="keyboardMove"
 
 if [ $mode == "upgrade" ]; then
