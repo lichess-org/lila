@@ -244,6 +244,7 @@
   <string name="error.maxLength">ସର୍ବାଧିକ ଦୈର୍ଘ୍ୟ ହେଉଛି %s</string>
   <string name="error.min">%s ରୁ ଅଧିକ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
+  <string name="ifRegistered">ଯଦି ପଞ୍ଜିକୃତ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="whiteCastlingKingside">ଧଳା O-O</string>
   <string name="blackCastlingKingside">କଳା O-O</string>
@@ -298,5 +299,5 @@
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
   <string name="youCantStartNewGame">ଏହି ଖେଳ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଣ ଏକ ନୂଆ ଖେଳ ଆରମ୍ଭ କରିପାରିବେ ନାହିଁ।</string>
   <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
-  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ କରିବା ଆପଣଙ୍କ ଆବେଦନ ପ୍ରତ୍ୟାହାର କରାଇଦେବ</string>
+  <string name="closingAccountWithdrawAppeal">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ କରିବା ଆପଣଙ୍କ ଆବେଦନ ପ୍ରତ୍ୟାହାର କରାଇଦେବ</string>
 </resources>
