@@ -12,9 +12,9 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
   const makeSerieData = (d: any, mainline: any[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
-      let color = node.ply & 1,
-        cp;
+      const color = node.ply & 1;
 
+      let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
       } else if (node.san.includes('#')) {
