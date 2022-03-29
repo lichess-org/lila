@@ -574,7 +574,7 @@
   <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
   <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
-  <string name="ifRegistered">Si enregistré</string>
+  <string name="ifRegistered">Si inscrit</string>
   <string name="onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>
   <string name="menu">Menu</string>
