@@ -1,10 +1,10 @@
 import divisionLines from './division';
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 
-export default async function (data: any, trans: Trans, hunter: boolean) {
+const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans: Trans, hunter: boolean) => {
   if (!data.game.moveCentis) return; // imported games
   await loadHighcharts('highchart');
-  window.LichessChartGame!.movetime.render = () => {
+  movetime.render = () => {
     $('#movetimes-chart:not(.rendered)').each(function (this: ChartElm) {
       const chartElm = this;
       $(chartElm).addClass('rendered');
@@ -93,12 +93,8 @@ export default async function (data: any, trans: Trans, hunter: boolean) {
         labels.push(label);
       });
 
-      const disabled = {
-        enabled: false,
-      };
-      const noText = {
-        text: null,
-      };
+      const disabled = { enabled: false };
+      const noText = { text: null };
       const clickableOptions = {
         cursor: 'pointer',
         events: {
@@ -285,8 +281,8 @@ export default async function (data: any, trans: Trans, hunter: boolean) {
     });
     lichess.pubsub.emit('analysis.change.trigger');
   };
-  window.LichessChartGame!.movetime.render();
-}
+  movetime.render();
+};
 
 const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
 
@@ -302,3 +298,5 @@ const formatClock = (centis: number) => {
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
 };
+
+export default movetime;

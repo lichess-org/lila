@@ -1,9 +1,9 @@
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
-export default async function (data: any, mainline: any[], trans: Trans, el: ChartElm) {
+const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
   await loadHighcharts('highchart');
-  window.LichessChartGame!.acpl.update = (d: any, mainline: any[]) =>
+  acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
@@ -22,10 +22,7 @@ export default async function (data: any, mainline: any[], trans: Trans, el: Cha
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
         cp = node.eval.cp;
-      } else
-        return {
-          y: null,
-        };
+      } else return { y: null };
 
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = color === 1 ? '.' : '...';
@@ -47,13 +44,9 @@ export default async function (data: any, mainline: any[], trans: Trans, el: Cha
     });
   };
 
-  var disabled = {
-    enabled: false,
-  };
-  var noText = {
-    text: null,
-  };
-  var serieData = makeSerieData(data, mainline);
+  const disabled = { enabled: false };
+  const noText = { text: null };
+  const serieData = makeSerieData(data, mainline);
   el.highcharts = window.Highcharts.chart(el, {
     credits: disabled,
     legend: disabled,
@@ -152,6 +145,8 @@ export default async function (data: any, mainline: any[], trans: Trans, el: Cha
     else el.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
   };
   lichess.pubsub.emit('analysis.change.trigger');
-}
+};
 
 const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
+
+export default acpl;

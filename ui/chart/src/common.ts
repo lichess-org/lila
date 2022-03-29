@@ -11,7 +11,7 @@ export interface MovePoint {
 
 let highchartsPromise: Promise<any> | undefined;
 
-export async function loadHighcharts(tpe: string): Promise<any> {
+export async function loadHighcharts(tpe: string) {
   if (highchartsPromise) return highchartsPromise;
   const file = tpe === 'highstock' ? 'highstock.js' : 'highcharts.js';
   highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, {

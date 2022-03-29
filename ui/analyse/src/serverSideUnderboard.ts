@@ -91,7 +91,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !window.LichessChartGame?.movetime.update)
+    if ((panel == 'move-times' || ctrl.opts.hunter) && !window.LichessChartGame?.movetime.render)
       lichess
         .loadModule('chart.game')
         .then(() => window.LichessChartGame!.movetime(data, ctrl.trans, ctrl.opts.hunter));

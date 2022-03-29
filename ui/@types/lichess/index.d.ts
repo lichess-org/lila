@@ -251,9 +251,15 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
-  readonly LichessChartGame?: {
-    acpl: any;
-    movetime: any;
+  readonly LichessChartGame: {
+    acpl: {
+      (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
+      update?(data: any, mainline: any[]): void;
+    };
+    movetime: {
+      (data: any, trans: Trans, hunter: boolean): Promise<void>;
+      render?(): void;
+    };
   };
   readonly LichessChartRatingHistory?: any;
   readonly stripeHandler: any;

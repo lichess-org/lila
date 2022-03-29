@@ -38,7 +38,8 @@ export default class ServerEval {
     this.lastPly(false);
   };
 
-  onMergeAnalysisData = () => window.LichessChartGame?.acpl.update(this.root.data, this.root.mainline);
+  onMergeAnalysisData = () =>
+    window.LichessChartGame?.acpl.update && window.LichessChartGame.acpl.update(this.root.data, this.root.mainline);
 
   request = () => {
     this.root.socket.send('requestAnalysis', this.chapterId());
