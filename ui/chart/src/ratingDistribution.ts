@@ -10,7 +10,7 @@ export default async function (data: any) {
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
     const cumul = [];
-    for (var i = 0; i < data.freq.length; i++) cumul.push(Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100));
+    for (let i = 0; i < data.freq.length; i++) cumul.push(Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100));
     Highcharts.chart(this, {
       credits: disabled,
       legend: disabled,

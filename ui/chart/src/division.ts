@@ -4,7 +4,7 @@ interface Division {
 }
 
 export default function (div: Division, trans: Trans) {
-  let divisionLines = [];
+  const divisionLines = [];
   if (div.middle) {
     divisionLines.push({
       label: {

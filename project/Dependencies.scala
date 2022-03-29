@@ -21,7 +21,7 @@ object Dependencies {
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.2.11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
-  val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.14.1" % Test
+  val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.15.0" % Test
   val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"                    % "0.13.1"
 

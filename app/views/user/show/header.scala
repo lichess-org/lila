@@ -101,13 +101,12 @@ object header {
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
           ),
-          (ctx.isAuth && !ctx.is(u)) option
-            views.html.relation.actions(
-              u.light,
-              relation = social.relation,
-              followable = social.followable,
-              blocked = social.blocked
-            ),
+          !ctx.is(u) option views.html.relation.actions(
+            u.light,
+            relation = social.relation,
+            followable = social.followable,
+            blocked = social.blocked
+          ),
           a(
             cls := "btn-rack__btn",
             href := routes.User.download(u.username),
