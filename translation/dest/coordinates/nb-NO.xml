@@ -9,7 +9,8 @@
   <string name="talkToYourChessFriends">Det gjør det lettere å snakke med sjakk-vennene dine, siden dere begge forstår \"sjakkens språk\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Det er lettere å analysere partier dersom du ikke må lete for å finne navn på feltene.</string>
   <string name="aSquareNameAppears">Navet på et felt dukker opp på brettet. Du har 30 sekunder til å identifisere så mange felter som mulig!</string>
+  <string name="aSquareIsHighlighted">Et felt blir markert på brettet og du må taste inn feltnavnet (f.eks. «e4»). Du skal identifisere så mange felt som mulig i løpet av 30 sekunder.</string>
   <string name="startTraining">Begynn trening</string>
   <string name="findSquare">Finn felt</string>
-  <string name="nameSquare">Navngi felt</string>
+  <string name="nameSquare">Angi feltnavn</string>
 </resources>
