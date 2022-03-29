@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Det er lettere å analysere partier dersom du ikke må lete for å finne navn på feltene.</string>
   <string name="aSquareNameAppears">Navet på et felt dukker opp på brettet. Du har 30 sekunder til å identifisere så mange felter som mulig!</string>
   <string name="startTraining">Begynn trening</string>
+  <string name="findSquare">Finn felt</string>
+  <string name="nameSquare">Navngi felt</string>
 </resources>
