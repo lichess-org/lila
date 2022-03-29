@@ -12,4 +12,5 @@
   <string name="aSquareIsHighlighted">Un escaque se resalta en el tablero y debes introducir su coordenada (ej. \"e4\"). ¡Tienes 30 segundos para marcar correctamente tantos escaques como sea posible!</string>
   <string name="startTraining">Comenzar entrenamiento</string>
   <string name="findSquare">Encontrar escaque</string>
+  <string name="nameSquare">Nombrar escaque</string>
 </resources>
