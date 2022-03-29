@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вы ведаеце дзе кожная клетка знаходзіцца.</string>
   <string name="aSquareNameAppears">Назва клетцы будзе з\'яўляцца на дошцы і вам трэба клікнуць на яе. У вас ёсць 30 секундаў, каб вызначыць як мага больш клетак!</string>
   <string name="startTraining">Пачаць трэніроўку</string>
+  <string name="findSquare">Знайдзіце клетку</string>
+  <string name="nameSquare">Назавіце клетку</string>
 </resources>
