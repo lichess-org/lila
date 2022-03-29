@@ -129,17 +129,16 @@ object form {
           help = frag(
             "Who can see the team forum on the team page?",
             br,
-            "Note that the forum remains accessible through direct URL access or forum search.",
-            br,
             "Only team members can post in the team forum."
           ).some
         ) { f =>
           form3.select(
             f,
             Seq(
-              Team.Access.NONE    -> "Hide the forum",
-              Team.Access.LEADERS -> "Show to team leaders",
-              Team.Access.MEMBERS -> "Show to members"
+              Team.Access.EVERYONE -> "Show to everyone",
+              Team.Access.MEMBERS  -> "Show to members",
+              Team.Access.LEADERS  -> "Show to team leaders",
+              Team.Access.NONE     -> "Hide the forum"
             )
           )
         }
