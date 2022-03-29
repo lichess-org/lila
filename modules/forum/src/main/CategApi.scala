@@ -17,7 +17,6 @@ final class CategApi(env: Env, prefApi: PrefApi, config: ForumConfig)(implicit
       categs <- env.categRepo withTeams teams
       views <- (categs map { categ =>
         env.postApi get (categ lastPostId forUser) map { topicPost =>
-          lila.log("auth").warn("here we are")
           CategView(
             categ,
             topicPost map { case (topic, post) =>
