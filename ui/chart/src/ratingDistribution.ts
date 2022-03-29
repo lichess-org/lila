@@ -1,6 +1,7 @@
+import { loadHighcharts } from './common';
+
 export default async function (data: any) {
-  await lichess.loadModule('chart.common');
-  await window.LichessChartCommon('highchart');
+  await loadHighcharts('highchart');
   const trans = lichess.trans(data.i18n);
   const Highcharts = window.Highcharts;
   const disabled = { enabled: false };

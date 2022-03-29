@@ -15,14 +15,14 @@ cd "$(git rev-parse --show-toplevel)"
 mkdir -p public/compiled
 
 apps1="common"
-apps2="chess palantir chart"
+apps2="chess palantir"
 apps3="ceval game tree chat nvui puz keyboardMove"
 apps4="site swiss msg cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech serviceWorker dgt storm racer coordinateTrainer"
 site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser inquiry modSearch clas captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity tvGames ublog ublogForm"
 round_plugins="nvui"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
-chart_plugins="ratingDistribution ratingHistory movetime acpl"
+chart_plugins="ratingDistribution ratingHistory game"
 keyboardMove_plugins="keyboardMove"
 
 if [ $mode == "upgrade" ]; then

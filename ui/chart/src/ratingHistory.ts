@@ -1,3 +1,5 @@
+import { loadHighcharts } from './common';
+
 interface Opts {
   singlePerfName: string;
   perfIndex: number;
@@ -27,8 +29,7 @@ export default async function (data: any, { singlePerfName, perfIndex }: Opts) {
     return;
   }
   const indexFilter = (_: any, i: number) => !singlePerfName || i === singlePerfIndex;
-  await lichess.loadModule('chart.common');
-  await window.LichessChartCommon('highstock');
+  await loadHighcharts('highstock');
   // support: Fx when user bio overflows
   const disabled = {
     enabled: false,

@@ -251,10 +251,11 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
-  readonly LichessChartCommon: any;
-  readonly LichessChartMovetime: any;
-  readonly LichessChartRatingHistory: any;
-  readonly LichessChartAcpl?: any;
+  readonly LichessChartGame?: {
+    acpl: any;
+    movetime: any;
+  };
+  readonly LichessChartRatingHistory?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

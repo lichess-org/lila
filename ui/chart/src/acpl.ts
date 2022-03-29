@@ -1,10 +1,9 @@
-import { ChartElm, MovePoint } from './common';
+import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
 export default async function (data: any, mainline: any[], trans: Trans, el: ChartElm) {
-  await lichess.loadModule('chart.common');
-  await window.LichessChartCommon('highchart');
-  window.LichessChartAcpl.update = (d: any, mainline: any[]) =>
+  await loadHighcharts('highchart');
+  window.LichessChartGame!.acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];

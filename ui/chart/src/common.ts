@@ -9,12 +9,15 @@ export interface MovePoint {
   marker?: any;
 }
 
-export default async function (tpe: string): Promise<any> {
-  if (window.LichessChartCommon.highchartsPromise) return window.LichessChartCommon.highchartsPromise;
+let highchartsPromise: Promise<any> | undefined;
+
+export async function loadHighcharts(tpe: string): Promise<any> {
+  if (highchartsPromise) return highchartsPromise;
   const file = tpe === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  window.LichessChartCommon.highchartsPromise = await lichess.loadScript('vendor/highcharts-4.2.5/' + file, {
+  highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, {
     noVersion: true,
   });
+  await highchartsPromise;
   // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
   // issue is fixed since Highcharts v6.1.1.
   const Highcharts = window.Highcharts;
