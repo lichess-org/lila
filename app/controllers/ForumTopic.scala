@@ -16,7 +16,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       credits = 2,
       duration = 5.minutes,
       key = "forum.topic",
-      enforce = env.dev.rateLimit.value
+      enforce = env.net.rateLimit.value
     )
 
   def form(categSlug: String) =
