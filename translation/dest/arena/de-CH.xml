@@ -10,9 +10,10 @@
   <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Werdet 2 Schpiil in Serie gunne, gits für die nächschte Schpiil doppleti Pünkt. E Flamme bi de Punktzahl zeigt das. Doppleti Pünkt gits so lang, bis es Schpiil verlore wird oder Remis ändet. 
 Biischpiil: 4 Sieg und dänn Remis git 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1) dänn wider normal</string>
   <string name="berserk">Arena Bärsärk</string>
-  <string name="berserkAnswer">Klickt en Schpiller vor Schpiilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkziit. Wänn er das Schpiil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
+  <string name="berserkAnswer">Klickt en Schpiller vor Schpiilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkziit. 
+Wänn er das Schpiil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
-Im Ziitmodus mit Inkrement entfernt \"Berserk\" s\'Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
+Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
 
 Bi Schpiil ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
 
@@ -21,9 +22,10 @@ De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiil meh als 6 Züg gsch
   <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
 Wänn 2 oder meh Schpiller gliich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
   <string name="howDoesPairingWork">Wie werded d\'Paarige gmacht?</string>
-  <string name="howDoesPairingWorkAnswer">Am Aafang werded d\'Paarige gemäss Wertigszahl gmacht. 
-Sobald Partie gschpillt sind, gahts zrugg zur Turnierübersicht. Dänn werded Schpiller mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt.
-Wer schnäll schpillt und sofort wider zrugg zur Turnierbersicht gaht, de hät meh Schpiil und chann au meh Pünkt mache.</string>
+  <string name="howDoesPairingWorkAnswer">Am Aafang werded Paarige gemäss Wertigszahl gmacht. 
+Sobald es Schpiil beändet isch, gahts zrugg id Turnierübersicht. Dänn werded Schpiller 
+mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt. 
+Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpiil und cha meh Pünkt mache.</string>
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
   <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierziit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiil wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
