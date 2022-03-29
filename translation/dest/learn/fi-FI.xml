@@ -156,17 +156,17 @@ linnoittautua daamisivustalle!</string>
   <string name="castlingComplete">Onneksi olkoon! Kannattaa linnoittautua lähes aina.</string>
   <string name="enPassant">Ohestalyönti</string>
   <string name="theSpecialPawnMove">Sotilaan erikoissiirto</string>
-  <string name="enPassantIntro">Kun vastustajan nappula liikkuu kaksi ruutua, voit syödä sen kuin se olisi liikkunut vain yhden.</string>
+  <string name="enPassantIntro">Kun vastustajan sotilas siirtyy kaksi ruutua, voit lyödä sen aivan kuin se olisi siirtynyt vain yhden.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Musta liikkui sotilaallaan
 kaksi ruutua!
 Lyö se ohesta.</string>
   <string name="enPassantOnlyWorksImmediately">Ohestalyönti onnistuu vain
 välittömästi sen jälkeen, kun
-vastustaja liikuttaa sotilasta.</string>
+vastustaja on siirtänyt sotilasta.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ohestalyönti onnistuu vain
 kun sotilaasi on viidennellä rivillä.</string>
   <string name="takeAllThePawnsEnPassant">Lyö kaikki sotilaat ohesta!</string>
-  <string name="enPassantComplete">Onnittelut! Tiedät nyt mikä on ohestalyönti.</string>
+  <string name="enPassantComplete">Onnittelut! Osaat nyt ohestalyönnin.</string>
   <string name="stalemate">Patti</string>
   <string name="theGameIsADraw">Peli päättyy tasan</string>
   <string name="stalemateIntro">Kun pelaaja ei ole shakissa mutta hänellä ei ole laillista siirtoa, tilanne on patti. Peli päätty tasan, kumpikaan ei voita, kumpikaan ei häviä.</string>

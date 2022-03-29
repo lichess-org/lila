@@ -12,5 +12,5 @@
   <string name="aSquareIsHighlighted">Uma casa é marcada no tabuleiro e você deve digitar a coordenada (p. ex. \"e4\"). Você tem 30 segundos para localizar corretamente o maior número de casas possível!</string>
   <string name="startTraining">Começar treino</string>
   <string name="findSquare">Ache a casa</string>
-  <string name="nameSquare">Digite a coordenada</string>
+  <string name="nameSquare">Nome da casa</string>
 </resources>

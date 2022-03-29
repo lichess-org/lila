@@ -12,7 +12,7 @@ import { GlyphCtrl } from './studyGlyph';
 import { CommentForm } from './commentForm';
 import { TopicsCtrl } from './topics';
 import RelayCtrl from './relay/relayCtrl';
-import { ServerEvalCtrl } from './serverEval';
+import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudyShareCtrl } from './studyShare';
 import { TagsCtrl } from './studyTags';
@@ -35,7 +35,7 @@ export interface StudyCtrl {
   commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   topics: TopicsCtrl;
-  serverEval: ServerEvalCtrl;
+  serverEval: ServerEval;
   share: StudyShareCtrl;
   tags: TagsCtrl;
   studyDesc: DescriptionCtrl;

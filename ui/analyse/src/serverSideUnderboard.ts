@@ -64,7 +64,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!lichess.advantageChart) startAdvantageChart();
-      else if (lichess.advantageChart.update) lichess.advantageChart.update(d);
+      else if (lichess.advantageChart.update) lichess.advantageChart.update(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-loader').remove();
     });
   }
@@ -74,12 +74,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
   function startAdvantageChart() {
     if (lichess.advantageChart || lichess.AnalyseNVUI) return;
-    const loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
+    const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess.loadScript('javascripts/chart/acpl.js').then(function () {
-      lichess.advantageChart!(data, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
+      lichess.advantageChart!(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
     });
   }
 
@@ -92,9 +92,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .filter('.' + panel)
       .addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !lichess.movetimeChart)
-      lichess
-        .loadScript('javascripts/chart/movetime.js')
-        .then(() => lichess.movetimeChart(data, ctrl.trans, ctrl.opts.hunter));
+      lichess.loadModule('chart.movetime').then(() => window.LichessChartMovetime(data, ctrl.trans, ctrl.opts.hunter));
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };
