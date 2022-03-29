@@ -371,18 +371,20 @@ object Pref {
   }
 
   object Challenge {
-    val NEVER  = 1
-    val RATING = 2
-    val FRIEND = 3
-    val ALWAYS = 4
+    val NEVER      = 1
+    val RATING     = 2
+    val FRIEND     = 3
+    val REGISTERED = 4
+    val ALWAYS     = 5
 
     val ratingThreshold = 300
 
     val choices = Seq(
-      NEVER  -> "Never",
-      RATING -> s"If rating is ± $ratingThreshold",
-      FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      NEVER      -> "Never",
+      RATING     -> s"If rating is ± $ratingThreshold",
+      FRIEND     -> "Only friends",
+      REGISTERED -> "If registered",
+      ALWAYS     -> "Always"
     )
   }
 
@@ -466,7 +468,7 @@ object Pref {
     coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.ALWAYS,
+    challenge = Challenge.REGISTERED,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
