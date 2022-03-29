@@ -882,7 +882,7 @@
   <string name="edit">Рэдагаваць</string>
   <string name="rapid">Хуткія</string>
   <string name="classical">Класіка</string>
-  <string name="ultraBulletDesc">Па-вар\'яцку хуткія гульні: меней 30 секунд</string>
+  <string name="ultraBulletDesc">Вар\'яцкі хуткія гульні: меней 30 секунд</string>
   <string name="bulletDesc">Вельмі хуткія гульні: меней 3 хвілін</string>
   <string name="blitzDesc">Хуткія гульні: ад 3 да 8 хвілін</string>
   <string name="rapidDesc">Хуткія гульні: ад 8 да 25 хвілін</string>
