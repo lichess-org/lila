@@ -1,8 +1,26 @@
 import spinner from './component/spinner';
+import * as xhr from 'common/xhr';
+
+type LinkType = 'youtube' | 'study' | 'game' | 'twitter';
+
+interface Parsed {
+  type: LinkType;
+  src: string;
+}
+interface Candidate {
+  element: HTMLAnchorElement;
+  parent: HTMLElement;
+  type: LinkType;
+  src: string;
+}
+
+interface Group {
+  parent: HTMLElement | null;
+  index: number;
+}
 
 function toYouTubeEmbedUrl(url: string) {
-  if (!url) return;
-  const m = url.match(
+  const m = url?.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i
   );
   if (!m) return;
@@ -21,22 +39,9 @@ function toYouTubeEmbedUrl(url: string) {
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 
-type LinkType = 'youtube' | 'study' | 'game';
-
-interface Parsed {
-  type: LinkType;
-  src: string;
-}
-interface Candidate {
-  element: HTMLAnchorElement;
-  parent: HTMLElement;
-  type: LinkType;
-  src: string;
-}
-
-interface Group {
-  parent: HTMLElement | null;
-  index: number;
+function toTwitterEmbedUrl(url: string) {
+  const m = url?.match(/(?:https?:\/\/)?(?:www\.)?(?:twitter\.com)\/([^/]+\/status\/\d+)/i);
+  return m && `https://twitter.com/${m[1]}`;
 }
 
 lichess.load.then(() => {
@@ -47,6 +52,12 @@ lichess.load.then(() => {
     notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
+    const tw = toTwitterEmbedUrl(a.href);
+    if (tw)
+      return {
+        type: 'twitter',
+        src: tw,
+      };
     const yt = toYouTubeEmbedUrl(a.href);
     if (yt)
       return {
@@ -94,6 +105,20 @@ lichess.load.then(() => {
             expandYoutubes(as, wait + 200);
           }, wait);
         });
+  }
+
+  let twitterLoaded = false;
+  function expandTwitter(a: Candidate) {
+    const theme = $('body').data('theme') == 'light' ? 'light' : 'dark';
+    $(a.element).replaceWith(
+      $(
+        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${theme}"><a href="${a.src}">${a.src}</a></blockquote>`
+      )
+    );
+    if (!twitterLoaded) {
+      twitterLoaded = true;
+      xhr.script('https://platform.twitter.com/widgets.js');
+    }
   }
 
   function expand(a: Candidate) {
@@ -209,6 +234,8 @@ lichess.load.then(() => {
     .filter(a => a) as Candidate[];
 
   expandYoutubes(as.filter(a => a.type === 'youtube'));
+
+  as.filter(a => a.type === 'twitter').forEach(expandTwitter);
 
   expandStudies(
     as

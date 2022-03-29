@@ -64,7 +64,7 @@ object categ {
                 momentFromNow(post.createdAt)
               ),
               br,
-              trans.by(authorLink(post))
+              trans.by(bits.authorLink(post))
             )
           }
         )
@@ -139,7 +139,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by(authorLink(post))
+                  trans.by(bits.authorLink(post))
                 )
               }
             )

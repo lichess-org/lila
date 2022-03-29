@@ -43,8 +43,7 @@ case class TopicView(
 case class PostView(
     post: Post,
     topic: Topic,
-    categ: Categ,
-    topicLastPage: Int
+    categ: Categ
 ) {
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)

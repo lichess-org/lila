@@ -897,4 +897,5 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="until">Ata</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
   <string name="switchSides">Cambiar de lado</string>
+  <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
 </resources>

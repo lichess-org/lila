@@ -65,10 +65,12 @@ object Team {
 
   type Access = Int
   object Access {
-    val NONE    = 0
-    val LEADERS = 10
-    val MEMBERS = 20
-    val all     = List(NONE, LEADERS, MEMBERS)
+    val NONE      = 0
+    val LEADERS   = 10
+    val MEMBERS   = 20
+    val EVERYONE  = 30
+    val allInTeam = List(NONE, LEADERS, MEMBERS)
+    val all       = EVERYONE :: allInTeam
   }
 
   case class IdsStr(value: String) extends AnyVal {
@@ -83,6 +85,7 @@ object Team {
 
     def toArray: Array[String] = value split IdsStr.separator
     def toList                 = value.nonEmpty ?? toArray.toList
+    def toSet                  = value.nonEmpty ?? toArray.toSet
   }
 
   object IdsStr {

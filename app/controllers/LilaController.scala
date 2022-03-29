@@ -267,7 +267,7 @@ abstract private[controllers] class LilaController(val env: Env)
       scoped: RequestHeader => Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) SecuredScoped(perm)(scoped)(req)
+      if (HTTPRequest isOAuth req) SecureScoped(perm)(scoped)(req)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
     }
 
@@ -280,7 +280,7 @@ abstract private[controllers] class LilaController(val env: Env)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
     }
 
-  protected def SecuredScoped(perm: Permission.Selector)(
+  protected def SecureScoped(perm: Permission.Selector)(
       f: RequestHeader => Holder => Fu[Result]
   ) =
     Scoped() { req => me =>

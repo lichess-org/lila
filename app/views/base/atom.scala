@@ -36,4 +36,15 @@ object atom {
 
   private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date
+
+  private val termAttr   = attr("term")
+  private val labelAttr  = attr("label")
+  private val schemeAttr = attr("scheme")
+
+  def category(term: String, label: String, scheme: Option[String] = None) =
+    tag("category")(
+      termAttr := term,
+      labelAttr := label,
+      schemeAttr := scheme
+    )
 }

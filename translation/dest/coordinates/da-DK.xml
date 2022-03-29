@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Det gør det lettere at snakke med dine skakvenner, når I begge forstår \"skakkens sprog\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kan analysere et parti mere effektivt, hvis du ikke skal lede efter feltnavne.</string>
   <string name="aSquareNameAppears">Der vises et feltnavn på brættet, og du skal så klikke på det rigtige felt. Du har 30 sekunder til at genkende så mange felter som muligt!</string>
+  <string name="aSquareIsHighlighted">Et felt fremhæves på brættet, og du skal så indtaste koordinatet (f.eks. \"e4\"). Du har 30 sekunder til at kortlægge så mange felter som muligt!</string>
   <string name="startTraining">Start træning</string>
+  <string name="findSquare">Find felt</string>
+  <string name="nameSquare">Navngiv felt</string>
 </resources>

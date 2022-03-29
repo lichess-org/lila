@@ -83,8 +83,10 @@ final class TeamApi(
       teamRepo.coll.update.one($id(team.id), team).void >>
         !team.leaders(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)
-        } >>-
-        (indexer ! InsertTeam(team))
+        } >>- {
+          cached.forumAccess.invalidate(team.id)
+          indexer ! InsertTeam(team)
+        }
     }
 
   def mine(me: User): Fu[List[Team]] =

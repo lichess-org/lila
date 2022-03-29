@@ -137,7 +137,7 @@ export default class AnalyseCtrl {
 
     {
       const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1));
+        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
       if (hashPly) {
         // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
         window.history.replaceState(null, '', loc.pathname + loc.search);
@@ -266,8 +266,8 @@ export default class AnalyseCtrl {
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
-    return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
+    const start = uci[1] === '@' ? 2 : 0;
+    return [uci.slice(start, start + 2), uci.slice(2, 4)] as Key[];
   }
 
   private showGround(): void {
@@ -398,9 +398,7 @@ export default class AnalyseCtrl {
     } else this.jump(path);
   };
 
-  private canJumpTo(path: Tree.Path): boolean {
-    return !this.study || this.study.canJumpTo(path);
-  }
+  canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
   userJumpIfCan(path: Tree.Path): void {
     if (this.canJumpTo(path)) this.userJump(path);

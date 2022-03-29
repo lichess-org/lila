@@ -17,11 +17,11 @@ final class Cached(
 
   val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",
-    initialCapacity = 4096,
+    initialCapacity = 32768,
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    expireAfter = Syncache.ExpireAfterAccess(10 minutes)
   )
 
   def blockingTeamName(id: Team.ID) = nameCache sync id
@@ -75,6 +75,7 @@ final class Cached(
   def syncTeamIds                  = teamIdsCache sync _
   def teamIds                      = teamIdsCache async _
   def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
+  def teamIdsSet(userId: User.ID)  = teamIds(userId).dmap(_.toSet)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
@@ -95,4 +96,9 @@ final class Cached(
 
   def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     leaders.get(teamId).dmap(_ contains userId)
+
+  val forumAccess = cacheApi[Team.ID, Team.Access](4096, "team.forum.access") {
+    _.expireAfterWrite(5 minutes)
+      .buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
+  }
 }

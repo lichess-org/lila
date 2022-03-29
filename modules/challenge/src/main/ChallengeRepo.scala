@@ -69,7 +69,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       x ::: y
     }
 
-  @nowarn("cat=unused") def like(c: Challenge) =
+  private def sameOrigAndDest(c: Challenge) =
     ~(for {
       challengerId <- c.challengerUserId
       destUserId   <- c.destUserId
@@ -80,6 +80,13 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
         "destUser.id"   -> destUserId
       )
     ))
+
+  def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+    case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
+    case Some(prev) if prev.id == c.id                        => funit
+    case Some(prev)                                           => cancel(prev) >> insert(c)
+    case None                                                 => insert(c)
+  }
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))

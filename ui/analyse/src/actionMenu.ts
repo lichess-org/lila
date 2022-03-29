@@ -72,9 +72,14 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.autoplay',
     speeds.map(speed => {
+      const active = ctrl.autoplay.getDelay() == speed.delay;
       return h(
-        'a.button.button-empty',
+        'a.button',
         {
+          class: {
+            active,
+            'button-empty': !active,
+          },
           hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw),
         },
         ctrl.trans.noarg(speed.name)

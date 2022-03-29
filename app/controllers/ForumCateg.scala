@@ -21,12 +21,16 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
     Open { implicit ctx =>
       NotForKids {
         Reasonable(page, 50, errorPage = notFound) {
-          OptionFuOk(categApi.show(slug, page, ctx.me)) { case (categ, topics) =>
+          OptionFuResult(categApi.show(slug, page, ctx.me)) { case (categ, topics) =>
             for {
-              canWrite    <- isGrantedWrite(categ.slug)
+              canRead     <- access.isGrantedRead(categ.slug)
+              canWrite    <- access.isGrantedWrite(categ.slug)
               stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
               _           <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
-            } yield html.forum.categ.show(categ, topics, canWrite, stickyPosts)
+              res <-
+                if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).fuccess
+                else notFound
+            } yield res
           }
         }
       }

@@ -17,6 +17,8 @@
   <string name="stalemate">Pat, durrang</string>
   <string name="white">Oq</string>
   <string name="black">Qora</string>
+  <string name="asWhite">oqlar sifatida</string>
+  <string name="asBlack">qoralar sifatida</string>
   <string name="randomColor">Tasodifiy tarafda</string>
   <string name="createAGame">O\'yin yaratish</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
@@ -24,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Siz oqlarda o\'ynaysiz</string>
   <string name="youPlayTheBlackPieces">Siz qoralarda o\'ynaysiz</string>
   <string name="itsYourTurn">Sizning yurishingiz!</string>
+  <string name="cheatDetected">Girromlik topildi</string>
   <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
   <string name="raceFinished">Musobaqa yakunlandi</string>
@@ -86,12 +89,16 @@
     <item quantity="one">%s yarim yurishda Mot</item>
     <item quantity="other">%s yarim-yurishlarda Mot</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">O\'yin topilmadi</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
   <string name="openingExplorer">Sharhlovchini ochish</string>
+  <string name="openingEndgameExplorer">Uyinni boshlamoq/tugatmoq</string>
   <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
   <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan g\'alabaga to\'sqinlik qilindi</string>
   <string name="lossSavedBy50MoveRule">Mag\'lubiyatdan 50 yurish qoidasaga asosan saqlanildi</string>
+  <string name="winOr50MovesByPriorMistake">Hato uchun yutmoq yoki 50-ta qadam yurish</string>
+  <string name="lossOr50MovesByPriorMistake">Hato uchun yutqazmoq yoki 50-ta qadam yurish</string>
   <string name="allSet">Xammasi yaxshi!</string>
   <string name="importPgn">PGN ni import qilish</string>
   <string name="delete">O\'chirish</string>

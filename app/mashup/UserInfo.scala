@@ -11,6 +11,7 @@ import lila.relation.RelationApi
 import lila.security.Granter
 import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Trophies, TrophyApi, User }
+import scala.concurrent.ExecutionContext
 
 case class UserInfo(
     user: User,
@@ -80,7 +81,11 @@ object UserInfo {
         }
 
     def fetchNotes(u: User, me: User) =
-      noteApi.get(u, me, Granter(_.ModNote)(me))
+      noteApi.get(u, me, Granter(_.ModNote)(me)) dmap {
+        _.filter { n =>
+          (!n.dox || Granter(_.Admin)(me))
+        }
+      }
   }
 
   case class NbGames(
@@ -130,7 +135,7 @@ object UserInfo {
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  )(implicit ec: ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip

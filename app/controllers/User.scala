@@ -75,7 +75,7 @@ final class User(
       }
     }
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
-    if (HTTPRequest.isSynchronousHttp(ctx.req)) {
+    if (HTTPRequest isSynchronousHttp ctx.req) {
       for {
         as     <- env.activity.read.recent(u)
         nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
@@ -474,6 +474,17 @@ final class User(
               Ok(views.html.user.show.header.noteZone(user, notes))
             }
       )(ctx.body)
+    }
+
+  def apiReadNote(username: String) =
+    Scoped() { implicit req => me =>
+      env.user.repo named username flatMap {
+        _ ?? {
+          env.socialInfo.fetchNotes(_, me) flatMap {
+            lila.user.JsonView.notes(_)(env.user.lightUserApi)
+          } map JsonOk
+        }
+      }
     }
 
   def apiWriteNote(username: String) =

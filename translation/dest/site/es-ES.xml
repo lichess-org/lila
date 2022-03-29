@@ -897,4 +897,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="until">Hasta</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
   <string name="switchSides">Cambiar color</string>
+  <string name="closingAccountWithdrawAppeal">Cerrar tu cuenta retirará tu apelación</string>
 </resources>

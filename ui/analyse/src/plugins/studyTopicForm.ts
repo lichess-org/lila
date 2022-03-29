@@ -3,9 +3,11 @@ import * as xhr from 'common/xhr';
 import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
-  const tagify = new Tagify(document.getElementById('form3-topics') as HTMLInputElement, {
+  const input = document.getElementById('form3-topics') as HTMLInputElement;
+  console.log(input.dataset['max']);
+  const tagify = new Tagify(input, {
     pattern: /.{2,}/,
-    maxTags: 30,
+    maxTags: parseInt(input.dataset['max']!) || 64,
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) => xhr.json(xhr.url('/study/topic/autocomplete', { term })),

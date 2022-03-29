@@ -17,7 +17,6 @@ object Environment
     with AiHelper
     with GameHelper
     with UserHelper
-    with ForumHelper
     with I18nHelper
     with SecurityHelper
     with TeamHelper

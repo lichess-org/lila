@@ -858,4 +858,5 @@
   <string name="until">終了</string>
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
+  <string name="closingAccountWithdrawAppeal">アカウントを閉鎖すると異議申立ても取り下げになります</string>
 </resources>

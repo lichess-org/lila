@@ -966,4 +966,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
+  <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
 </resources>

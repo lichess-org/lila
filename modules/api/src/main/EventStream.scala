@@ -124,10 +124,10 @@ final class EventStream(
 
         // pretend like the rematch cancel is a challenge cancel
         case lila.hub.actorApi.round.RematchCancel(gameId) =>
-          rematches.getOffered(gameId) foreach { id =>
+          rematches.getOffered(gameId).map(_.nextId) foreach { challengeId =>
             val json = Json.obj(
               "type"      -> "challengeCanceled",
-              "challenge" -> Json.obj("id" -> id)
+              "challenge" -> Json.obj("id" -> challengeId)
             )
             queue.offer(json.some).unit
           }

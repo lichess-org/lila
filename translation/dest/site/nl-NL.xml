@@ -897,4 +897,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
+  <string name="closingAccountWithdrawAppeal">Het sluiten van je account zal je beroep terugtrekken</string>
 </resources>

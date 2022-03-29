@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="aSquareIsHighlighted">ကစားခုံပေါ်တွင် အကွက် တစ်ကွက်ကို လင်းပြထားမည်၊  ထို ကစားခုံကွက်၏ တန်းတိုင် အမှတ်အသားကို ဖြေဆို ထည့်သွင်းပေးရမည်။  စက္ကန့်-၃၀ အတွင်း ကစားခုံကွက် တတ်နိုင်သမျှ အများဆုံးကို ဖြေဆိုပါ။</string>
+  <string name="findSquare">ပေးထားသည့် ကစားခုံကွက်ကို ရှာပါ</string>
+  <string name="nameSquare">ပေးထားသည့် ကစားခုံကွက်၏ အမည်ကို ဖော်ပြပါ</string>
+</resources>

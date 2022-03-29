@@ -18,7 +18,8 @@ sealed trait UserContext {
 
   def isAnon = !isAuth
 
-  def is(user: User): Boolean = me contains user
+  def is(user: User): Boolean                  = me contains user
+  def is(user: lila.common.LightUser): Boolean = userId contains user.id
 
   def isUserId(id: User.ID): Boolean = userId contains id
 

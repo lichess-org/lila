@@ -1,20 +1,20 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.advantageChart = function (data, trans, el) {
-  lichess.loadScript('javascripts/chart/common.js').then(function () {
+lichess.advantageChart = function (data, mainline, trans, el) {
+  lichess.loadModule('chart.common').then(function () {
     lichess.loadScript('javascripts/chart/division.js').then(function () {
-      lichess.chartCommon('highchart').then(function () {
-        lichess.advantageChart.update = function (d) {
-          el.highcharts && el.highcharts.series[0].setData(makeSerieData(d));
+      LichessChartCommon('highchart').then(function () {
+        lichess.advantageChart.update = function (d, mainline) {
+          el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
         };
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
         if (data.player.color === 'white') blurs.reverse();
 
-        var makeSerieData = function (d) {
+        var makeSerieData = function (d, mainline) {
           var partial = !d.analysis || d.analysis.partial;
-          return d.treeParts.slice(1).map(function (node) {
+          return mainline.slice(1).map(function (node) {
             var color = node.ply & 1,
               cp;
 
@@ -56,7 +56,7 @@ lichess.advantageChart = function (data, trans, el) {
         var noText = {
           text: null,
         };
-        var serieData = makeSerieData(data);
+        var serieData = makeSerieData(data, mainline);
         el.highcharts = Highcharts.chart(el, {
           credits: disabled,
           legend: disabled,
@@ -113,7 +113,7 @@ lichess.advantageChart = function (data, trans, el) {
           tooltip: {
             pointFormatter: function (format) {
               format = format.replace('{series.name}', trans('advantage'));
-              const ev = data.treeParts[this.x + 1].eval;
+              const ev = mainline[this.x + 1].eval;
               if (!ev) return;
               else if (ev.mate) return format.replace('{point.y}', '#' + ev.mate);
               else if (typeof ev.cp !== 'undefined') {

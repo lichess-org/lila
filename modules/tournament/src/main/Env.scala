@@ -102,13 +102,6 @@ final class Env(
     text = "lila-http endpoint. Set to /tournament/{id} to only use lila.".some
   ).taggedWith[TournamentReloadEndpoint]
 
-  lazy val lilaHttpTourIdSetting = settingStore[Tournament.ID](
-    "lilaHttpTourId",
-    default = "none",
-    text =
-      "Which single tournament ID to send to lila-http. Empty = all tournaments. Random = no tournament.".some
-  ).taggedWith[LilaHttpTourId]
-
   lazy val jsonView: JsonView = wire[JsonView]
 
   lazy val apiJsonView = wire[ApiJsonView]

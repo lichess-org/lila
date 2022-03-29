@@ -624,6 +624,8 @@
   <string name="tools">Ostilhoù</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
+  <string name="error.email_unique">Chomlec\'h postel fazius pe implijet dija</string>
+  <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
   <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
@@ -885,7 +887,9 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="welcome">Degemer mat!</string>
+  <string name="cancelTournament">Nullañ an tournamant</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
   <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
   <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>

@@ -5,6 +5,7 @@ import lila.common.Form.trueish
 import lila.common.IsMobile
 
 import play.api.mvc.RequestHeader
+import org.joda.time.DateTime
 
 trait RequestGetter {
 
@@ -24,6 +25,9 @@ trait RequestGetter {
 
   protected def getLong(name: String, req: RequestHeader) =
     get(name, req) flatMap (_.toLongOption)
+
+  protected def getTimestamp(name: String, req: RequestHeader) =
+    getLong(name, req) map { new DateTime(_) }
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
     (getInt(name) exists trueish) || (get(name) exists trueish)

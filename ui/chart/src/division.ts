@@ -1,5 +1,10 @@
-lichess.divisionLines = function (div, trans) {
-  var divisionLines = [];
+interface Division {
+  middle?: number;
+  end?: number;
+}
+
+export default function (div: Division, trans: Trans) {
+  const divisionLines = [];
   if (div.middle) {
     divisionLines.push({
       label: {
@@ -8,7 +13,7 @@ lichess.divisionLines = function (div, trans) {
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#639B24',
@@ -22,7 +27,7 @@ lichess.divisionLines = function (div, trans) {
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#3093cc',
@@ -38,7 +43,7 @@ lichess.divisionLines = function (div, trans) {
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#cc9730',
@@ -46,4 +51,4 @@ lichess.divisionLines = function (div, trans) {
       value: div.end,
     });
   return divisionLines;
-};
+}

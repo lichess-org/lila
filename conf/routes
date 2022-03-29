@@ -115,7 +115,6 @@ GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: S
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
-POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
@@ -662,10 +661,12 @@ GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String, status: List[Int])
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
+GET   /api/user/:name/note             controllers.User.apiReadNote(name: String)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/user/:name/current-game     controllers.User.tvExport(name: String)
 GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name: String, perfKey: String)
+GET   /api/user/:name/mod-log          controllers.Mod.apiUserLog(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id: String)

@@ -16,7 +16,7 @@
   <string name="thankYou">Faleminderit për dhurimin tuaj!</string>
   <string name="youHaveLifetime">Keni një llogari të përjetshme Bamirësi. Kjo është me të vërtetë fantastike!</string>
   <string name="patronUntil">Keni një llogari Bamirësi deri më %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert">Po nuk u rinovua, llogaria juaj do të rikthehet atëherë si llogari e rregullt.</string>
+  <string name="ifNotRenewedThenAccountWillRevert" comment="ifNotRenewedThenAccountWillRevert&#10;&#10;i.e. you will no longer have patron wings if you do not pay to renew.">Po nuk u rinovua, llogaria juaj do të rikthehet atëherë si llogari e rregullt.</string>
   <string name="weAreNonProfit">Jemi një ent jofitimprurës, ngaqë besojmë se gjithkush duhet të ketë mundësi të përdorë një platformë shahu të lirë, të kalibrit botëror.</string>
   <string name="weRelyOnSupport">Për ta bërë të mundur këtë, mbështetemi në përkrahjen e njerëzve si ju. Nëse ju pëlqen të përdorni Lichess-in, ju lutemi, shihni mundësinë të na përkrahni duke dhuruar ose duke u bërë një Bamirës!</string>
   <string name="lifetime">Pergjithmone</string>
@@ -58,6 +58,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="nextPayment">Pagesa pasuese</string>
   <string name="youWillBeChargedXOnY">Do t’ju faturohen %1$s më datë %2$s.</string>
   <string name="makeAdditionalDonation">Bëni një dhurim shtesë</string>
+  <string name="giftPatronWings">Dhurojini një lojtari krahë Patron-i</string>
   <string name="update">Përditësoje</string>
   <string name="changeMonthlyAmount">Ndryshoni shumën mujore (%s)</string>
   <string name="cancelSupport">anuloni përkrahjen tuaj</string>

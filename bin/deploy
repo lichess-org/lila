@@ -101,6 +101,8 @@ PROFILES = {
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
 
 

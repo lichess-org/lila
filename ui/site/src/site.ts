@@ -26,6 +26,7 @@ lichess.info = info;
 loadClockWidget();
 
 lichess.load.then(() => {
+  $('#user_tag').removeAttr('href');
   moduleLaunchers();
 
   requestAnimationFrame(() => {

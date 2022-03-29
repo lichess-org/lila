@@ -8,7 +8,7 @@ import lila.common.paginator.Paginator
 
 object atom {
 
-  import views.html.base.atom.atomDate
+  import views.html.base.atom.{ atomDate, category }
 
   def apply(
       pager: Paginator[io.prismic.Document]
@@ -30,9 +30,9 @@ object atom {
           href := s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug)}"
         ),
         tag("title")(doc.getText("blog.title")),
-        tag("category")(
-          tag("term")(doc.getText("blog.category")),
-          tag("label")(slugify(~doc.getText("blog.category")))
+        category(
+          term = slugify(~doc.getText("blog.category")),
+          label = ~doc.getText("blog.category")
         ),
         tag("content")(tpe := "html")(
           doc.getText("blog.shortlede"),
