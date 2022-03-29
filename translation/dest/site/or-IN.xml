@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅନ୍ତୁ |</string>
   <string name="gameOver">ଖେଳ ସମାପ୍ତ</string>
   <string name="waitingForOpponent">ପ୍ରତିପକ୍ଷକୁ ଅପେକ୍ଷା</string>
-  <string name="waiting">ଅପେକ୍ଷା</string>
+  <string name="waiting">ଅପେକ୍ଷାରତ</string>
   <string name="yourTurn">ତୁମର ପାଳି</string>
   <string name="aiNameLevelAiLevel">%1$s ସ୍ତର %2$s</string>
   <string name="level">ସ୍ତର</string>
