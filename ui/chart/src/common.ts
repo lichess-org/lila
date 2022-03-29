@@ -1,3 +1,14 @@
+export interface ChartElm extends HTMLElement {
+  highcharts: any;
+}
+
+export interface MovePoint {
+  y: number;
+  x?: number;
+  name?: any;
+  marker?: any;
+}
+
 export default async function (tpe: string): Promise<any> {
   if (window.LichessChartCommon.highchartsPromise) return window.LichessChartCommon.highchartsPromise;
   const file = tpe === 'highstock' ? 'highstock.js' : 'highcharts.js';

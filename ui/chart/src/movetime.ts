@@ -1,13 +1,5 @@
 import divisionLines from './division';
-
-interface MovePoint {
-  x: number;
-  y: number;
-  marker?: any;
-}
-interface ChartElm extends HTMLElement {
-  highcharts: any;
-}
+import { ChartElm, MovePoint } from './common';
 
 export default function (data: any, trans: Trans, hunter: boolean) {
   if (!data.game.moveCentis) return; // imported games

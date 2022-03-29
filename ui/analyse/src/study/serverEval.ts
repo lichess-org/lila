@@ -60,7 +60,7 @@ export function view(ctrl: ServerEval): VNode {
         ctrl.lastPly(false);
         lichess.requestIdleCallback(
           () =>
-            lichess.loadScript('javascripts/chart/acpl.js').then(() => {
+            lichess.loadModule('chart.acpl').then(() => {
               lichess.advantageChart!(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el);
               ctrl.chartEl(el as HighchartsHTMLElement);
             }),

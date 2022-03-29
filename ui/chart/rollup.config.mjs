@@ -21,4 +21,9 @@ export default rollupProject({
     input: 'src/movetime.ts',
     output: 'chart.movetime',
   },
+  acpl: {
+    name: 'LichessChartAcpl',
+    input: 'src/acpl.ts',
+    output: 'chart.acpl',
+  },
 });
