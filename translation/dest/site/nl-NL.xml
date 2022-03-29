@@ -574,6 +574,7 @@
   <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
   <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="ifRegistered">Indien geregistreerd</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
