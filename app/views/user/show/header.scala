@@ -101,20 +101,12 @@ object header {
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
           ),
-          (!ctx.is(u) && !social.blocked) option
-            a(
-              titleOrText(trans.challenge.challengeToPlay.txt()),
-              href := s"${routes.Lobby.home}?user=${u.username}#friend",
-              cls := "btn-rack__btn",
-              dataIcon := ""
-            ),
-          (ctx.isAuth && !ctx.is(u)) option
-            views.html.relation.actions(
-              u.light,
-              relation = social.relation,
-              followable = social.followable,
-              blocked = social.blocked
-            ),
+          !ctx.is(u) option views.html.relation.actions(
+            u.light,
+            relation = social.relation,
+            followable = social.followable,
+            blocked = social.blocked
+          ),
           a(
             cls := "btn-rack__btn",
             href := routes.User.download(u.username),
