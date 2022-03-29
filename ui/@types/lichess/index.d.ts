@@ -254,6 +254,7 @@ interface Window {
   readonly LichessChartCommon: any;
   readonly LichessChartMovetime: any;
   readonly LichessChartRatingHistory: any;
+  readonly LichessChartAcpl?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

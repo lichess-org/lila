@@ -63,8 +63,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       }
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
-      if (!lichess.advantageChart) startAdvantageChart();
-      else if (lichess.advantageChart.update) lichess.advantageChart.update(d, ctrl.mainline);
+      if (!window.LichessChartAcpl) startAdvantageChart();
+      else if (window.LichessChartAcpl.update) window.LichessChartAcpl.update(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-loader').remove();
     });
   }
@@ -73,14 +73,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     return `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
-    if (lichess.advantageChart || lichess.AnalyseNVUI) return;
+    if (window.LichessChartAcpl || lichess.AnalyseNVUI) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess
       .loadModule('chart.acpl')
-      .then(() => lichess.advantageChart!(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement));
+      .then(() => window.LichessChartAcpl!(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement));
   }
 
   const storage = lichess.storage.make('analysis.panel');

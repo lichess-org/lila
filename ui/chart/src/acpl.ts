@@ -4,9 +4,8 @@ import divisionLines from './division';
 export default async function (data: any, mainline: any[], trans: Trans, el: ChartElm) {
   await lichess.loadModule('chart.common');
   await window.LichessChartCommon('highchart');
-  window.LichessChartAcpl.update = function (d, mainline) {
+  window.LichessChartAcpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
-  };
 
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
