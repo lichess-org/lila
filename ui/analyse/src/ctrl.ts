@@ -266,7 +266,8 @@ export default class AnalyseCtrl {
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
-    return [uci.slice(uci[1] === '@' ? 2 : 0, 2), uci.slice(2, 2)] as Key[];
+    const start = uci[1] === '@' ? 2 : 0;
+    return [uci.slice(start, start + 2), uci.slice(2, 4)] as Key[];
   }
 
   private showGround(): void {
