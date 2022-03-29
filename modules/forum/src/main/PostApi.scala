@@ -4,13 +4,15 @@ import actorApi._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
-import scala.util.chaining._
 
+import scala.util.chaining._
 import lila.common.Bus
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
+import lila.pref.PrefApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 
@@ -23,7 +25,8 @@ final class PostApi(
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -55,7 +58,9 @@ final class PostApi(
         case _ =>
           env.postRepo.coll.insert.one(post) >>
             env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-              shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
+              prefApi.getPref(me).flatMap { pref =>
+                shouldHideOnPost(topic, pref.postMaxPerPage) ?? env.topicRepo.hide(topic.id, value = true)
+              }
             } >>
             env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet ?? (indexer ! InsertPost(post))
@@ -96,22 +101,23 @@ final class PostApi(
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 
-  private def shouldHideOnPost(topic: Topic) =
+  private def shouldHideOnPost(topic: Topic, postMaxPerPage: MaxPerPage) = {
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == config.postMaxPerPage.value ||
+        topic.nbPosts == postMaxPerPage.value ||
         (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
+  }
 
   def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
-        env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / config.postMaxPerPage.value + 1
-          PostUrlData(topic.categId, topic.slug, page, post.number).some
-        }
+        for {
+          nb   <- env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number)
+          pref <- prefApi.getPref(forUser)
+        } yield PostUrlData(topic.categId, topic.slug, nb / pref.postMaxPerPage.value + 1, post.number).some
       case _ => fuccess(none)
     }
 
@@ -147,7 +153,7 @@ final class PostApi(
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
-      } yield PostView(post, topic, categ, topic lastPage config.postMaxPerPage)
+      } yield PostView(post, topic, categ)
     }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =

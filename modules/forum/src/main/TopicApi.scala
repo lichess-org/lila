@@ -1,15 +1,18 @@
 package lila.forum
 
 import actorApi._
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.memo.CacheApi
+import lila.pref.PrefApi
+import lila.pref.Pref
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ Holder, User }
 
@@ -23,7 +26,8 @@ final private[forum] class TopicApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -42,9 +46,10 @@ final private[forum] class TopicApi(
           }
         }
       }
+      pref <- prefApi.getPref(forUser)
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        env.paginator.topicPosts(topic, page, pref.postMaxPerPage, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -141,12 +146,14 @@ final private[forum] class TopicApi(
   }
 
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
-    env.topicRepo.stickyByCateg(categ) flatMap { topics =>
-      topics.map { topic =>
-        env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-          TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
-        }
-      }.sequenceFu
+    prefApi.getPref(forUser) flatMap { pref =>
+      env.topicRepo.stickyByCateg(categ) flatMap { topics =>
+        topics.map { topic =>
+          env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
+            TopicView(categ, topic, post, topic lastPage pref.postMaxPerPage, forUser)
+          }
+        }.sequenceFu
+      }
     }
 
   def delete(categ: Categ, topic: Topic): Funit =

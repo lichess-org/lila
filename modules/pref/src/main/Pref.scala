@@ -1,7 +1,7 @@
 package lila.pref
 
 import org.joda.time.DateTime
-
+import lila.common.config.MaxPerPage
 import lila.user.User
 
 case class Pref(
@@ -36,6 +36,8 @@ case class Pref(
     submitMove: Int,
     confirmResign: Int,
     mention: Boolean,
+    topicMaxPerPage: MaxPerPage,
+    postMaxPerPage: MaxPerPage,
     corresEmailNotif: Boolean,
     insightShare: Int,
     keyboardMove: Int,
@@ -327,6 +329,15 @@ object Pref {
     )
   }
 
+  object Forum {
+    val TOPIC_MAX_PER_PAGE = MaxPerPage(10)
+    val POST_MAX_PER_PAGE  = MaxPerPage(10)
+    val CATEG_MAX_PER_PAGE = MaxPerPage(10)
+
+    val topicMaxPerPageChoices = List(10, 20, 50, 100)
+    val postMaxPerPageChoices  = List(10, 20, 50)
+  }
+
   object Coords {
     val NONE    = 0
     val INSIDE  = 1
@@ -472,6 +483,8 @@ object Pref {
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     mention = true,
+    topicMaxPerPage = Forum.TOPIC_MAX_PER_PAGE,
+    postMaxPerPage = Forum.POST_MAX_PER_PAGE,
     corresEmailNotif = false,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,

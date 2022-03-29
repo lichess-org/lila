@@ -664,6 +664,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="receiveForumNotifications">Receive notifications when mentioned in the forum</string>
+  <string name="topicMaxPerPage">Number of topics per page</string>
+  <string name="postMaxPerPage">Number of posts per page</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>

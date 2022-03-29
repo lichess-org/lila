@@ -1,7 +1,7 @@
 package lila.pref
 
+import lila.common.config.MaxPerPage
 import reactivemongo.api.bson._
-
 import lila.db.BSON
 import lila.db.dsl._
 
@@ -43,6 +43,8 @@ private object PrefHandlers {
         submitMove = r.getD("submitMove", Pref.default.submitMove),
         confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
         mention = r.getD("mention", Pref.default.mention),
+        topicMaxPerPage = MaxPerPage(r.getD("topicMaxPerPage", Pref.Forum.TOPIC_MAX_PER_PAGE.value)),
+        postMaxPerPage = MaxPerPage(r.getD("postMaxPerPage", Pref.Forum.POST_MAX_PER_PAGE.value)),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
         zen = r.getD("zen", Pref.default.zen),
@@ -89,6 +91,8 @@ private object PrefHandlers {
         "submitMove"       -> o.submitMove,
         "confirmResign"    -> o.confirmResign,
         "mention"          -> o.mention,
+        "topicMaxPerPage"  -> o.topicMaxPerPage.value,
+        "postMaxPerPage"   -> o.postMaxPerPage.value,
         "insightShare"     -> o.insightShare,
         "keyboardMove"     -> o.keyboardMove,
         "zen"              -> o.zen,

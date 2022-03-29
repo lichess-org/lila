@@ -3,7 +3,7 @@ package lila.pref
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-
+import scala.concurrent.Future
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.User
@@ -42,6 +42,8 @@ final class PrefApi(
   def getPref(user: User): Fu[Pref] = cache get user.id dmap {
     _ getOrElse Pref.create(user)
   }
+
+  def getPref(user: Option[User]): Fu[Pref] = user.map(getPref) | Future { Pref.default }
 
   def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) dmap pref
 
