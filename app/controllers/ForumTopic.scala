@@ -12,7 +12,10 @@ import lila.user.Holder
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
+    if (env.forum.config.godMode)
+      new lila.memo.RateLimit[IpAddress](credits = 0, 0.seconds, key = "forum.topic", enforce = false)
+    else
+      new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
 
   def form(categSlug: String) =
     Auth { implicit ctx => me =>

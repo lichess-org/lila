@@ -4,7 +4,7 @@ import lila.common.paginator._
 import lila.db.dsl._
 import lila.user.User
 
-final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -16,7 +16,7 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
           CategView(
             categ,
             topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage config.postMaxPerPage)
+              (topic, post, topic lastPage env.config.postMaxPerPage)
             },
             forUser
           )

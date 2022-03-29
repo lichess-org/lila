@@ -16,7 +16,6 @@ import lila.user.{ Holder, User }
 final private[forum] class TopicApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    config: ForumConfig,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -144,7 +143,7 @@ final private[forum] class TopicApi(
     env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
         env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-          TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
+          TopicView(categ, topic, post, topic lastPage env.config.postMaxPerPage, forUser)
         }
       }.sequenceFu
     }

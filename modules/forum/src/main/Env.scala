@@ -13,7 +13,8 @@ import lila.pref.PrefApi
 import play.api.libs.ws.StandaloneWSClient
 
 @Module
-final private class ForumConfig(
+final class ForumConfig( // removed private to enable access to godMode from elsewhere (esp api.ForumAccess)
+    @ConfigName(name = "god_mode") val godMode: Boolean = false,
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
     @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
 )
@@ -37,7 +38,7 @@ final class Env(
     ws: StandaloneWSClient
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
+  val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
   lazy val categRepo = new CategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))

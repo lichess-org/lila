@@ -17,7 +17,6 @@ import lila.user.User
 final class PostApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    config: ForumConfig,
     modLog: ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -99,7 +98,7 @@ final class PostApi(
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == config.postMaxPerPage.value ||
+        topic.nbPosts == env.config.postMaxPerPage.value ||
         (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
@@ -109,7 +108,7 @@ final class PostApi(
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / config.postMaxPerPage.value + 1
+          val page = nb / env.config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
         }
       case _ => fuccess(none)
