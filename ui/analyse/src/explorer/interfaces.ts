@@ -90,6 +90,7 @@ export interface OpeningMoveStats extends MoveStats {
   draws: number;
   averageRating?: number;
   averageOpponentRating?: number;
+  performance?: number;
   game?: OpeningGame;
 }
 export interface TablebaseMoveStats extends MoveStats {
