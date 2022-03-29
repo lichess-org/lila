@@ -642,6 +642,7 @@
   <string name="error.min">Musi być dłuższe lub równe %s</string>
   <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
+  <string name="ifRegistered">Jeśli jesteś zarejestrowany</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
