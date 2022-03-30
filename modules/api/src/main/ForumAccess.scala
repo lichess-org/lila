@@ -13,10 +13,10 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   case object Read  extends Operation
   case object Write extends Operation
 
-  def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
+  private def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
     Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
       ctx.me ?? { me =>
-        fuccess(Granter(Permission.ModerateForum)(me)) >>| teamCached.forumAccess.get(teamId).flatMap {
+        teamCached.forumAccess.get(teamId).flatMap {
           case Team.Access.NONE => fuFalse
           case Team.Access.EVERYONE =>
             op match {
@@ -34,10 +34,14 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     }
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    isGranted(categSlug, Read)
+    if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
+    else isGranted(categSlug, Read)
 
-  def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Write)
+  def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(implicit
+      ctx: UserContext
+  ): Fu[Boolean] =
+    if (tryingToPostAsMod && ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
+    else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Write)
 
   private def canWriteInAnyForum(u: User) =
     !u.isBot && {
