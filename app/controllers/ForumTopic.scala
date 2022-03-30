@@ -62,7 +62,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           for {
             unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
             canRead     <- access.isGrantedRead(categ.slug)
-            canWrite    <- access.isGrantedWrite(categ.slug)
+            canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.slug)
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
