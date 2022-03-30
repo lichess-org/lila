@@ -27,5 +27,8 @@ export default function (ctrl: KeyboardController): void {
       }
     })
     .bind('z', () => lichess.pubsub.emit('zen'))
-    .bind('f', ctrl.flip);
+    .bind('f', ctrl.flip)
+    .bind('n', () => {
+      if (ctrl.vm.mode === 'view') ctrl.nextPuzzle();
+    });
 }
