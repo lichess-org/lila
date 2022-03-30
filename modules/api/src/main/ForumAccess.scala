@@ -34,13 +34,13 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     }
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
+    if (ctx.me ?? Granter(Permission.Shusher)) fuTrue
     else isGranted(categSlug, Read)
 
   def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(implicit
       ctx: UserContext
   ): Fu[Boolean] =
-    if (tryingToPostAsMod && ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
+    if (tryingToPostAsMod && ctx.me ?? Granter(Permission.Shusher)) fuTrue
     else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Write)
 
   private def canWriteInAnyForum(u: User) =
