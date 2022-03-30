@@ -9,19 +9,35 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+  sealed trait Operation
+  case object Read  extends Operation
+  case object Write extends Operation
+
+  def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
     Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
       ctx.me ?? { me =>
-        teamApi.belongsTo(teamId, me.id) >>& teamCached.forumAccess.get(teamId).flatMap {
-          case Team.Access.NONE    => fuFalse
-          case Team.Access.MEMBERS => fuTrue
+        fuccess(Granter(Permission.ModerateForum)(me)) >>| teamCached.forumAccess.get(teamId).flatMap {
+          case Team.Access.NONE => fuFalse
+          case Team.Access.EVERYONE =>
+            op match {
+              case Read => fuTrue
+              case Write =>
+                teamApi.belongsTo(
+                  teamId,
+                  me.id
+                ) // when the team forum is open to everyone, you still need to belong to the team in order to post
+            }
+          case Team.Access.MEMBERS => teamApi.belongsTo(teamId, me.id)
           case Team.Access.LEADERS => teamApi.leads(teamId, me.id)
         }
       }
     }
 
+  def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+    isGranted(categSlug, Read)
+
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    ctx.me.exists(canWriteInAnyForum) ?? isGrantedRead(categSlug)
+    ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Write)
 
   private def canWriteInAnyForum(u: User) =
     !u.isBot && {

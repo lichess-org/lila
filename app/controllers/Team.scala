@@ -87,6 +87,7 @@ final class Team(
       ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+      team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isForumFor(_.MEMBERS) && isMember) ||
       (isGranted(_.ModerateForum) && requestModView)

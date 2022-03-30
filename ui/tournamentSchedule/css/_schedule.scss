@@ -55,7 +55,7 @@ $c-tour-max-rating: #8572ff;
 
     &.now {
       top: 24px;
-      height: calc(100% - 1.6em);
+      height: calc(100% - 2em);
       margin-left: 1px;
       border-left: 3px dashed $c-accent;
       &::after {
@@ -97,7 +97,7 @@ $c-tour-max-rating: #8572ff;
   }
 
   &-user-created {
-    background-color: $c-tour-user;
+    background-color: $c-primary;
   }
 
   &-hourly {

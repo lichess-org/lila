@@ -936,4 +936,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="until">Līdz</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
+  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">Konta slēgšana atsauks jūsu iesniegumu</string>
 </resources>

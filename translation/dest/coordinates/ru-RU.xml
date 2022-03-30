@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Вам будет проще общаться с другом-шахматистом, если вы оба будете понимать «язык шахмат».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Анализировать игры гораздо проще, когда не тратится время на поиск полей по их координатам.</string>
   <string name="aSquareNameAppears">Когда появится название поля, вы должны кликнуть по нужному полю на доске. У вас есть 30 секунд, чтобы правильно указать как можно больше полей!</string>
+  <string name="aSquareIsHighlighted">На доске подсвечивается поле, и вы должны ввести его координаты (например, «e4»). У вас есть 30 секунд, чтобы правильно отметить как можно больше полей!</string>
   <string name="startTraining">Начать тренировку</string>
+  <string name="findSquare">Найти поле</string>
+  <string name="nameSquare">Обозначить поле</string>
 </resources>

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Як я можу стати модератором?</string>
   <string name="youCannotApply">Ми не приймаємо заявок у модератори. Якщо ми побачимо когось, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ним безпосередньо.</string>
   <string name="isCorrespondenceDifferent">Заочні шахи відрізняються від звичайних?</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Щоб отримати більше інформації, будь ласка прочитайте нашу %s</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">сторінку правил чесної гри</string>
   <string name="youCanUseOpeningBookNoEngine">На Lichess головна відмінність правил для заочних шахів полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонено і призведе до покарання за користування рушієм. Хоча організація ICCF дозволяє використовувати рушії у заочних іграх, на Lichess так робити не можна.</string>
   <string name="gameplay">Хід гри</string>
   <string name="howBulletBlitzEtcDecided">Як визначається контроль часу Куля, Бліц та інший?</string>

@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Rozmowa ze znajomymi szachistami będzie łatwiejsza, gdy będziecie się porozumiewać w „języku szachów”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Analiza partii przebiega sprawniej, jeśli nie musisz szukać pól mając ich współrzędne.</string>
   <string name="aSquareNameAppears">Gdy pojawią się współrzędne musisz jak najszybciej kliknąć we właściwe pole. Masz 30 sekund aby wskazać tak wiele pól jak to możliwe!</string>
+  <string name="aSquareIsHighlighted">Musisz znaleźć współrzędne pola podświetlonego na szachownicy (np. \"e4\"). Masz 30 sekund, aby poprawnie wskazać jak najwięcej pól!</string>
   <string name="startTraining">Rozpocznij trening</string>
+  <string name="findSquare">Znajdź pole</string>
+  <string name="nameSquare">Nazwij pole</string>
 </resources>

@@ -1,28 +1,33 @@
-lichess.divisionLines = function (div, trans) {
-  var divisionLines = [];
+interface Division {
+  middle?: number;
+  end?: number;
+}
+
+export default function (div: Division, trans: Trans) {
+  const lines = [];
   if (div.middle) {
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('opening'),
         verticalAlign: 'top',
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#639B24',
       width: 1,
       value: 0,
     });
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('middlegame'),
         verticalAlign: 'top',
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#3093cc',
@@ -31,19 +36,19 @@ lichess.divisionLines = function (div, trans) {
     });
   }
   if (div.end)
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('endgame'),
         verticalAlign: 'top',
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak,
+          color: window.Highcharts.theme.lichess.text.weak,
         },
       },
       color: '#cc9730',
       width: div.end === null ? 0 : 1,
       value: div.end,
     });
-  return divisionLines;
-};
+  return lines;
+}

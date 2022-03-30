@@ -28,7 +28,7 @@ object topic {
             frag(
               h2(trans.study.myTopics()),
               postForm(cls := "form3", action := routes.Study.topics)(
-                form3.textarea(form("topics"))(rows := 10),
+                form3.textarea(form("topics"))(rows := 10, attrData("max") := StudyTopics.userMax),
                 form3.submit(trans.save())
               )
             )

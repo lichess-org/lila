@@ -147,7 +147,7 @@ final class PostApi(
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
-      } yield PostView(post, topic, categ, topic lastPage config.postMaxPerPage)
+      } yield PostView(post, topic, categ)
     }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =

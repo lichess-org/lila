@@ -131,6 +131,9 @@ export default class ExplorerCtrl {
   );
 
   empty: OpeningData = {
+    white: 0,
+    black: 0,
+    draws: 0,
     isOpening: true,
     moves: [],
     fen: '',

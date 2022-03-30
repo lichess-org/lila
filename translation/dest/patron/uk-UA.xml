@@ -18,6 +18,7 @@
   <string name="thankYou">Дякуємо за ваш внесок!</string>
   <string name="youHaveLifetime">У вас довічний обліковий запис \"Покровителя\". Це доволі круто!</string>
   <string name="patronUntil">Ваш обліковий запис Покровителя діє до %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert" comment="ifNotRenewedThenAccountWillRevert&#10;&#10;i.e. you will no longer have patron wings if you do not pay to renew.">Якщо не буде продовжений, ваш обліковий запис перетвориться на звичайний обліковий запис.</string>
   <string name="weAreNonProfit">Ми неприбуткова асоціація, тому що ми вважаємо, що кожен повинен мати доступ до безкоштовної шахової платформи світового рівня.</string>
   <string name="weRelyOnSupport">Ми покладаємося на підтримку таких як ви, щоб зробити його можливим. Якщо вам подобається користуватися Lichess, будь ласка, підтримайте нас, зробивши внесок і ставши Покровителем!</string>
   <string name="lifetime">Довічне</string>
@@ -61,7 +62,7 @@
   <string name="nextPayment">Наступний платіж</string>
   <string name="youWillBeChargedXOnY">З %2$s буде списано %1$s.</string>
   <string name="makeAdditionalDonation">Зробити додатковий внесок</string>
-  <string name="giftPatronWings">Подарувати крила Покровителя гравцю</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift. The word 'gift' is used as a verb in this string.">Подарувати крила Покровителя гравцю</string>
   <string name="update">Оновити</string>
   <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>
   <string name="cancelSupport">скасувати підтримку</string>

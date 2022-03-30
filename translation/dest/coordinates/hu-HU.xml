@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Könnyebbé teszi a sakk társalgást a barátokkal, ha mindketten beszélik a \"sakk nyelvét\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">A játszmák hatékonyabban elemezhetőek, ha nem kell keresgetni a mezőket.</string>
   <string name="aSquareNameAppears">Mindig arra a mezőre kell kattintani, amelyiknek a neve megjelenik a tábla előtt. A cél, minél több találat elérése 30 másodperc alatt.</string>
+  <string name="aSquareIsHighlighted">Egy mező kiemeltté válik a sakktáblán és neked be kell írni a koordinátáját (pl. \"e4\"). Van 30 másodperced minél több mezőt helyesen eltalálni!</string>
   <string name="startTraining">Gyakorlás kezdése</string>
+  <string name="findSquare">Találd meg a mezőt</string>
+  <string name="nameSquare">Nevezd meg a mezőt</string>
 </resources>

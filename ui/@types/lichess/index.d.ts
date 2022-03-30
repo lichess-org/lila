@@ -63,8 +63,8 @@ interface Lichess {
 
   // misc
   advantageChart?: {
-    update(data: any): void;
-    (data: any, trans: Trans, el: HTMLElement): void;
+    update(data: any, mainline: any[]): void;
+    (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
   RoundNVUI?(redraw: () => void): {
@@ -251,12 +251,24 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
+  readonly LichessChartGame: {
+    acpl: {
+      (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
+      update?(data: any, mainline: any[]): void;
+    };
+    movetime: {
+      (data: any, trans: Trans, hunter: boolean): Promise<void>;
+      render?(): void;
+    };
+  };
+  readonly LichessChartRatingHistory?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
+  readonly Highcharts: any;
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
