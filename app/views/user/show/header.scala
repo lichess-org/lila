@@ -29,6 +29,8 @@ object header {
           )
         else
           h1(userSpan(u, withPowerTip = false)),
+          
+        h3(depSpan(u, withPowerTip = false)),
         div(
           cls := List(
             "trophies" -> true,
@@ -147,6 +149,11 @@ object header {
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
+
+                  profile.nonEmptyRealName map { name =>
+                    p(cls := "name")(u.dep)
+                  },
+                  
                   profile.nonEmptyBio map { bio =>
                     p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
                   }

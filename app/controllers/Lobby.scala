@@ -15,7 +15,7 @@ final class Lobby(
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pools"   -> lila.pool.PoolList.json
+      //"pools"   -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
       "domain" -> env.net.assetDomain.value

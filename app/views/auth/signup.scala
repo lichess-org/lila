@@ -31,7 +31,7 @@ object signup {
           ),
           action := routes.Auth.signupPost
         )(
-          auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
+          auth.bits.formFields2(form("username"), form("password"), form("depcheck"), form("department"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
             trans.computersAreNotAllowedToPlay(),

@@ -80,12 +80,14 @@ final class SecurityForm(
 
     val emailField = withAcceptableDns(acceptableUniqueEmail(none))
 
+
     val website = HcaptchaForm(
       Form(
         mapping(
           "username"  -> username,
           "password"  -> text(minLength = passwordMinLength),
           "email"     -> emailField,
+          "department" -> nonEmptyText,
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
@@ -234,6 +236,7 @@ object SecurityForm {
       username: String,
       password: String,
       email: String,
+      dep: String,
       agreement: AgreementData,
       fp: Option[String]
   ) {

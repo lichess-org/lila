@@ -10,9 +10,19 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.security.HcaptchaForm
 import lila.user.User
 
+
 object bits {
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+  val choices = List(
+      0 -> "Aucun",
+      1 -> "Departement 1",
+      2 -> "Departement 2",
+      3 -> "Departement 3",
+      4 -> "Departement 4",
+      5 -> "Departement 5"
+    )
+
+  def formFields(username: Field, password: Field, depcheck: Option[Field], departement: Option[Field], emailOption: Option[Field], register: Boolean)(implicit
       ctx: Context
   ) =
     frag(
@@ -25,12 +35,52 @@ object bits {
       form3.passwordModified(password, trans.password())(
         autocomplete := (if (register) "new-password" else "current-password")
       ),
+      
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
         )
-      }
+      },
+      //register option form3.checkbox(username, "Je suis membre de la communaute Uqam"),
+      //register option form3.departement(username, "Departement")(),
+      
+      depcheck.map { check =>
+        form3.checkbox(check, "Je suis membre de la communaute Uqam")
+      },
+      
+      departement.map { dep =>
+        form3.departement(dep, "Departement")()
+      },
+    )
+
+  def formFields2(username: Field, password: Field, depcheck: Field, departement: Field, emailOption: Option[Field], register: Boolean)(implicit
+      ctx: Context
+  ) =
+    frag(
+      form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
+        frag(
+          form3.input(f)(autofocus, required, autocomplete := "username"),
+          p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
+        )
+      },
+      form3.passwordModified(password, trans.password())(
+        autocomplete := (if (register) "new-password" else "current-password")
+      ),
+      
+      register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
+      emailOption.map { email =>
+        form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
+          form3.input(_, typ = "email")(required)
+        )
+      },
+      //register option form3.checkbox(username, "Je suis membre de la communaute Uqam"),
+      //register option form3.departement(username, "Departement")(),
+
+      form3.checkbox(depcheck, "Je suis membre de la communaute Uqam"),
+      form3.group(departement, "Departement")(
+        form3.select(_, choices)
+      )
     )
 
   def passwordReset(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =

@@ -205,8 +205,23 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     )(
       withOnline ?? lineIcon(user),
       withTitle option titleTag(user.title),
-      name | user.username,
+      name | user.username ,
       userRating(user, withPerfRating, withBestRating)
+    )
+  def depSpan(
+      user: User,
+      cssClass: Option[String] = None,
+      withOnline: Boolean = true,
+      withPowerTip: Boolean = true,
+      withTitle: Boolean = true,
+      withBestRating: Boolean = false,
+      withPerfRating: Option[PerfType] = None,
+      name: Option[Frag] = None
+  )(implicit lang: Lang): Frag =
+    p(
+      
+    )(
+      user.dep,
     )
 
   def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Tag = {

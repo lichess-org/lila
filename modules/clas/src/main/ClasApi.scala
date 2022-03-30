@@ -238,6 +238,7 @@ final class ClasApi(
           username = data.username,
           passwordHash = authenticator.passEnc(password),
           email = email,
+          dep = "none",
           blind = false,
           mobileApiVersion = none,
           mustConfirmEmail = false,

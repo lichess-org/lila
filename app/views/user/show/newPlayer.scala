@@ -10,7 +10,7 @@ object newPlayer {
 
   def apply(u: User) =
     div(cls := "new-player")(
-      h2("Welcome to lichess.org!"),
+      h2("Welcome to ChessUqam!"),
       p(
         "This is your profile page.",
         u.profile.isEmpty option frag(

@@ -9,6 +9,8 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
+import views.html.chat
+
 
 object home {
 
@@ -17,7 +19,7 @@ object home {
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+        s"ChessUqam • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
         jsModule("lobby"),
@@ -49,7 +51,8 @@ object home {
         )
         .some,
       withHrefLangs = "".some
-    ) {
+    ){
+     if(ctx.isAuth){
       main(
         cls := List(
           "lobby"            -> true,
@@ -63,6 +66,7 @@ object home {
             div(cls := "bg-switch__thumb")
           ),
           div(cls := "lobby__start")(
+            
             ctx.blind option h2("Play"),
             a(
               href := routes.Setup.hookForm,
@@ -87,8 +91,12 @@ object home {
                 "disabled"                      -> currentGame.isDefined
               ),
               trans.playWithTheMachine()
-            )
+            ),
+
+            
+          
           ),
+
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
@@ -107,23 +115,8 @@ object home {
                 strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
               )
             )
-          )
-        ),
-        currentGame.map(bits.currentGameInfo) orElse
-          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
-            else bits.lobbyApp
-          },
-        div(cls := "lobby__side")(
-          ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(
-            views.html.streamer.bits liveStreams streams,
-            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
-              trans.streamersMenu(),
-              " »"
-            )
           ),
+
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             !ctx.isBot option frag(
@@ -141,18 +134,37 @@ object home {
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
                 trans.more(),
                 " »"
-              )
+              ),
             )
           else
             div(cls := "about-side")(
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer(
-                "Lichess",
+                "ChessUqam",
                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
               ),
               " ",
-              a(href := "/about")(trans.aboutX("Lichess"), "...")
+              a(href := "/about")(trans.aboutX("ChessUqam"), "...")
+            ),
+          
+          
+        ),
+        currentGame.map(bits.currentGameInfo) orElse
+          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
+          playban.map(bits.playbanInfo) getOrElse {
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
+        div(cls := "lobby__side")(
+          ctx.blind option h2("Highlights"),
+          ctx.noKid option st.section(cls := "lobby__streams")(
+            views.html.streamer.bits liveStreams streams,
+            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+              trans.streamersMenu(),
+              " »"
             )
+          ),
+          
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
@@ -173,7 +185,7 @@ object home {
           )
         ),
         bits.lastPosts(lastPost, ublogPosts),
-        div(cls := "lobby__support")(
+        /*div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
@@ -188,10 +200,10 @@ object home {
               span(trans.playChessInStyle())
             )
           )
-        ),
+        ),*/
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
-          a(href := "/about")(trans.aboutX("Lichess")),
+          a(href := "/about")(trans.aboutX("ChessUqam")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
@@ -201,8 +213,41 @@ object home {
           a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
+        
       )
+     }
+     else{
+       main(
+        cls := List(
+          "lobby"            -> true,
+        )
+      )(
+        div(cls := "lobby__app")(
+          div(cls := "lobby__start")(
+
+              a(
+              href := "/login",
+              cls := List(
+                "button" -> true,
+              ),
+              trans.signIn()
+            ),
+
+            a(
+              href := "/signup",
+              cls := List(
+                "button button-red" -> true,
+              ),
+              trans.signUp()
+            ),
+          )
+            ),
+
+      )
+     }
     }
+
+  
   }
 
   private val i18nKeys = List(
@@ -227,7 +272,7 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
-    trans.quickPairing,
+    //trans.quickPairing,
     trans.lobby,
     trans.custom,
     trans.anonymous
