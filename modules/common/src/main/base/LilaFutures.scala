@@ -10,7 +10,7 @@ import scala.util.Try
 import lila.common.Chronometer
 import LilaTypes._
 
-final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
+final class LilaFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   @inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
@@ -180,7 +180,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     }
 }
 
-final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
+final class LilaFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
   def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
     fua.flatMap { if (_) fub else fuFalse }(EC.parasitic)
@@ -191,7 +191,7 @@ final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
   @inline def unary_! = fua.map { !_ }(EC.parasitic)
 }
 
-final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
+final class LilaFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
 
   def orFail(msg: => String)(implicit ec: EC): Fu[A] =
     fua flatMap {
@@ -222,13 +222,13 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
     }
 }
 
-// final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
+// final class LilaFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
 
 //   def flatten: Fu[A] = fua.flatMap {
 //     _.fold[Fu[A]](fufail(_), fuccess(_))
 //   }(EC.parasitic)
 // }
 
-final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+final class LilaIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
   def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = Future.sequence(t)
 }

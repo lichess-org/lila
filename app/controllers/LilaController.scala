@@ -31,7 +31,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
-  implicit final protected class LilaPimpedResult(result: Result) {
+  implicit final protected class LilaLilaResult(result: Result) {
     def fuccess                           = scala.concurrent.Future successful result
     def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
     def flashSuccess: Result              = flashSuccess("")
