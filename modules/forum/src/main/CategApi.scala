@@ -20,7 +20,7 @@ final class CategApi(env: Env, prefApi: PrefApi, config: ForumConfig)(implicit
           CategView(
             categ,
             topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage pref.postMaxPerPage)
+              (topic, post, topic lastPage pref.forumMaxPerPage)
             },
             forUser
           )
@@ -72,7 +72,7 @@ final class CategApi(env: Env, prefApi: PrefApi, config: ForumConfig)(implicit
     for {
       categ  <- env.categRepo bySlug slug
       pref   <- prefApi.getPref(forUser)
-      topics <- env.paginator.categTopics(categ.get, page, pref.topicMaxPerPage, forUser)
+      topics <- env.paginator.categTopics(categ.get, page, pref.forumMaxPerPage, forUser)
     } yield Option(
       (
         categ.get,

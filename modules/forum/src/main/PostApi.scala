@@ -59,7 +59,7 @@ final class PostApi(
           env.postRepo.coll.insert.one(post) >>
             env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
               prefApi.getPref(me).flatMap { pref =>
-                shouldHideOnPost(topic, pref.postMaxPerPage) ?? env.topicRepo.hide(topic.id, value = true)
+                shouldHideOnPost(topic, pref.forumMaxPerPage) ?? env.topicRepo.hide(topic.id, value = true)
               }
             } >>
             env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
@@ -117,7 +117,7 @@ final class PostApi(
         for {
           nb   <- env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number)
           pref <- prefApi.getPref(forUser)
-        } yield PostUrlData(topic.categId, topic.slug, nb / pref.postMaxPerPage.value + 1, post.number).some
+        } yield PostUrlData(topic.categId, topic.slug, nb / pref.forumMaxPerPage.value + 1, post.number).some
       case _ => fuccess(none)
     }
 

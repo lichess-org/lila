@@ -53,8 +53,7 @@ object PrefForm {
       "message"         -> checkedNumber(Pref.Message.choices),
       "studyInvite"     -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "mention"         -> optional(booleanNumber),
-      "topicMaxPerPage" -> numberIn(Pref.Forum.topicMaxPerPageChoices),
-      "postMaxPerPage"  -> numberIn(Pref.Forum.postMaxPerPageChoices),
+      "forumMaxPerPage" -> numberIn(Pref.Forum.maxPerPageChoices),
       "insightShare"    -> numberIn(Set(0, 1, 2)),
       "ratings"         -> optional(booleanNumber)
     )(PrefData.apply)(PrefData.unapply)
@@ -102,8 +101,7 @@ object PrefForm {
       message: Int,
       studyInvite: Option[Int],
       mention: Option[Int],
-      topicMaxPerPage: Int,
-      postMaxPerPage: Int,
+      forumMaxPerPage: Int,
       insightShare: Int,
       ratings: Option[Int]
   ) {
@@ -131,8 +129,7 @@ object PrefForm {
         submitMove = behavior.submitMove,
         corresEmailNotif = behavior.corresEmailNotif.fold(Pref.default.corresEmailNotif)(_ == 1),
         mention = mention.fold(Pref.default.mention)(_ == 1),
-        topicMaxPerPage = MaxPerPage(topicMaxPerPage),
-        postMaxPerPage = MaxPerPage(postMaxPerPage),
+        forumMaxPerPage = MaxPerPage(forumMaxPerPage),
         insightShare = insightShare,
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
@@ -184,8 +181,7 @@ object PrefForm {
         message = pref.message,
         studyInvite = pref.studyInvite.some,
         mention = (if (pref.mention) 1 else 0).some,
-        topicMaxPerPage = pref.topicMaxPerPage.value,
-        postMaxPerPage = pref.postMaxPerPage.value,
+        forumMaxPerPage = pref.forumMaxPerPage.value,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some
       )

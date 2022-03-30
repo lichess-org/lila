@@ -49,7 +49,7 @@ final private[forum] class TopicApi(
       pref <- prefApi.getPref(forUser)
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.paginator.topicPosts(topic, page, pref.postMaxPerPage, forUser) map { (categ, topic, _).some }
+        env.paginator.topicPosts(topic, page, pref.forumMaxPerPage, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -150,7 +150,7 @@ final private[forum] class TopicApi(
       env.topicRepo.stickyByCateg(categ) flatMap { topics =>
         topics.map { topic =>
           env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-            TopicView(categ, topic, post, topic lastPage pref.postMaxPerPage, forUser)
+            TopicView(categ, topic, post, topic lastPage pref.forumMaxPerPage, forUser)
           }
         }.sequenceFu
       }

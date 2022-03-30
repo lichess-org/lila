@@ -190,17 +190,10 @@ object pref {
               radios(form("mention"), booleanChoices)
             ),
             setting(
-              trans.topicMaxPerPage(),
+              trans.forumMaxPerPage(),
               radios(
-                form("topicMaxPerPage"),
-                Pref.Forum.topicMaxPerPageChoices.map { p => (p.toString, p.toString) }
-              )
-            ),
-            setting(
-              trans.postMaxPerPage(),
-              radios(
-                form("postMaxPerPage"),
-                Pref.Forum.postMaxPerPageChoices.map { p => (p.toString, p.toString) }
+                form("forumMaxPerPage"),
+                Pref.Forum.maxPerPageChoices.map { p => (p.toString, p.toString) }
               )
             ),
             setting(

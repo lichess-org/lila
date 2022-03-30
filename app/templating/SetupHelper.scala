@@ -70,11 +70,8 @@ trait SetupHelper { self: I18nHelper =>
       (d.toString, s"$d days", none)
     }
 
-  val topicMaxPerPageChoices =
-    Pref.Forum.topicMaxPerPageChoices.map { p => (p.toString, p.toString) }
-
-  val postMaxPerPageChoices =
-    Pref.Forum.postMaxPerPageChoices.map { p => (p.toString, p.toString) }
+  val forumMaxPerPageChoices =
+    Pref.Forum.maxPerPageChoices.map { p => (p.toString, p.toString) }
 
   def translatedTimeModeChoices(implicit lang: Lang) =
     List(
