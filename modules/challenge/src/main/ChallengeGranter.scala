@@ -52,7 +52,12 @@ final class ChallengeGranter(
       ec: scala.concurrent.ExecutionContext
   ): Fu[Option[ChallengeDenied]] =
     fromOption
-      .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
+      .fold[Fu[Option[ChallengeDenied.Reason]]] {
+        prefApi.getPref(dest).map(_.challenge) map {
+          case Pref.Challenge.ALWAYS => none
+          case _                     => YouAreAnon.some
+        }
+      } { from =>
         relationApi.fetchRelation(dest, from) zip
           prefApi.getPref(dest).map(_.challenge) map {
             case (Some(Block), _)                                  => YouAreBlocked.some
@@ -69,9 +74,9 @@ final class ChallengeGranter(
                   (diff > ratingThreshold) option RatingOutsideRange(pt)
                 }
               }
-            case (_, Pref.Challenge.ALWAYS) => none
-            case _ if from == dest          => SelfChallenge.some
-            case _                          => none
+            case (_, Pref.Challenge.REGISTERED) => none
+            case _ if from == dest              => SelfChallenge.some
+            case _                              => none
           }
       }
       .map {

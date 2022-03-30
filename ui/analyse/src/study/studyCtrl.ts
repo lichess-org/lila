@@ -15,7 +15,7 @@ import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
-import { ctrl as serverEvalCtrl } from './serverEval';
+import ServerEval from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
@@ -193,7 +193,7 @@ export default function (
     redraw
   );
 
-  const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
+  const serverEval = new ServerEval(ctrl, () => vm.chapterId);
 
   const topics: TopicsCtrl = topicsCtrl(
     topics => send('setTopics', topics),

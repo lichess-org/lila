@@ -788,7 +788,7 @@ final class StudyApi(
   def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) =
     sequenceStudy(studyId) { study =>
       Contribute(who.u, study) {
-        val topics    = StudyTopics.fromStrs(topicStrs)
+        val topics    = StudyTopics.fromStrs(topicStrs, StudyTopics.studyMax)
         val newStudy  = study.copy(topics = topics.some)
         val newTopics = study.topics.fold(topics)(topics.diff)
         (study != newStudy) ?? {
@@ -804,7 +804,7 @@ final class StudyApi(
 
   def addTopics(studyId: Study.Id, topics: List[String]) =
     sequenceStudy(studyId) { study =>
-      studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics))
+      studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics, StudyTopics.studyMax))
     }
 
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) =

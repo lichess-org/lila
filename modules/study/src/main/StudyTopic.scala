@@ -40,13 +40,16 @@ case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
 
 object StudyTopics {
 
+  val studyMax = 30
+  val userMax  = 128
+
   val empty = StudyTopics(Nil)
 
-  def fromStrs(strs: Seq[String]) =
+  def fromStrs(strs: Seq[String], max: Int) =
     StudyTopics {
       strs.view
         .flatMap(StudyTopic.fromStr)
-        .take(64)
+        .take(max)
         .toList
         .distinct
     }
@@ -89,8 +92,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   } dmap StudyTopics.apply
 
   def userTopics(userId: User.ID): Fu[StudyTopics] =
-    userTopicRepo.coll(_.byId(userId)).dmap {
-      _.flatMap(_.getAsOpt[StudyTopics]("topics")) | StudyTopics.empty
+    userTopicRepo.coll {
+      _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
+        .dmap(_.fold(StudyTopics.empty)(StudyTopics.apply))
     }
 
   private case class TagifyTopic(value: String)
@@ -101,7 +105,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       if (json.trim.isEmpty) StudyTopics.empty
       else
         Json.parse(json).validate[List[TagifyTopic]] match {
-          case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
+          case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)
           case _                    => StudyTopics.empty
         }
     userTopicRepo.coll {
@@ -114,15 +118,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   }
 
   def userTopicsAdd(userId: User.ID, topics: StudyTopics): Funit =
-    topics.value.nonEmpty ??
-      userTopicRepo.coll {
-        _.update
-          .one(
-            $id(userId),
-            $addToSet("topics" -> $doc("$each" -> topics)),
-            upsert = true
-          )
-      }.void
+    topics.value.nonEmpty ?? userTopics(userId).flatMap { prev =>
+      val newTopics = prev ++ topics
+      (newTopics != prev) ??
+        userTopicRepo.coll {
+          _.update.one($id(userId), $set("topics" -> newTopics), upsert = true)
+        }.void
+    }
 
   def popular(nb: Int): Fu[StudyTopics] =
     topicRepo

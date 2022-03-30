@@ -84,10 +84,10 @@ object page {
       jsModule("user"),
       info.ratingChart.map { ratingChart =>
         frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafeLoadThen(
-            s"lichess.ratingHistoryChart($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
-          )
+          jsModule("chart.ratingHistory"),
+          embedJsUnsafeLoadThen {
+            s"LichessChartRatingHistory($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
+          }
         )
       },
       withSearch option jsModule("gameSearch"),

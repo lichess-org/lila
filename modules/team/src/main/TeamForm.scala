@@ -31,7 +31,7 @@ final private[team] class TeamForm(
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
-    val chat        = "chat"        -> numberIn(Team.Access.all)
+    val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
   }

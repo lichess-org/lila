@@ -88,6 +88,8 @@ object side {
             )
           )
         else br,
+        small(trans.by(userIdLink(s.createdBy.some))),
+        br,
         absClientDateTime(s.startsAt)
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(

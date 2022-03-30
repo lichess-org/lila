@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
-import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
@@ -36,12 +35,15 @@ function resultBar(move: OpeningMoveStats): VNode {
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
+  const sumTotal = data.white + data.black + data.draws;
   const movesWithCurrent =
-    data.moves.length > 1 && [data.white, data.black, data.draws].every(defined)
+    data.moves.length > 1
       ? [
           ...data.moves,
           {
-            ...data,
+            white: data.white,
+            black: data.black,
+            draws: data.draws,
             uci: '',
             san: 'Σ',
           } as OpeningMoveStats,
@@ -53,23 +55,23 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     h(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
-      movesWithCurrent.map(move =>
-        h(
+      movesWithCurrent.map(move => {
+        const total = move.white + move.draws + move.black;
+        return h(
           `tr${move.uci ? '' : '.sum'}`,
           {
             key: move.uci,
             attrs: {
               'data-uci': move.uci,
-              title: moveTooltip(ctrl, move),
             },
           },
           [
             h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-            h('td', numberFormat(move.white + move.draws + move.black)),
-            h('td', resultBar(move)),
+            h('td', { attrs: { title: ((total / sumTotal) * 100).toFixed(1) + '%' } }, numberFormat(total)),
+            h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
           ]
-        )
-      )
+        );
+      })
     ),
   ]);
 }
@@ -85,7 +87,8 @@ function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   }
   if (ctrl.explorer.opts.showRatings) {
     if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
-    if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+    if (move.averageOpponentRating)
+      return `Performance rating: ${move.performance}, average opponent: ${move.averageOpponentRating}`;
   }
   return '';
 }
