@@ -11,7 +11,7 @@ final class ForumRecent(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val nb: Int = 10
+  private val nb: Int = 30
 
   private val categIds = List(
     "general-chess-discussion",

@@ -6,10 +6,10 @@ import play.api.libs.json._
 
 import lila.api.Context
 import lila.event.Event
-import lila.forum.RecentTopic
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
+import lila.forum.MiniForumPost
 import lila.streamer.LiveStreams
 import lila.swiss.Swiss
 import lila.timeline.Entry
@@ -40,7 +40,7 @@ final class Preload(
   import Preload._
 
   def apply(
-      posts: Fu[List[RecentTopic]],
+      posts: Fu[List[MiniForumPost]],
       tours: Fu[List[Tournament]],
       swiss: Option[Swiss],
       events: Fu[List[Event]],
@@ -75,7 +75,7 @@ final class Preload(
           lightUserApi
             .preloadMany {
               tWinners
-                .map(_.userId) ::: posts.flatMap(_.allUsers.toList) ::: entries.flatMap(_.userIds).toList
+                .map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
             }
             .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
             Homepage(
@@ -127,7 +127,7 @@ object Preload {
   case class Homepage(
       data: JsObject,
       userTimeline: Vector[Entry],
-      forumRecent: List[RecentTopic],
+      forumRecent: List[MiniForumPost],
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],

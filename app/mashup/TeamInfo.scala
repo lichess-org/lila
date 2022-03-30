@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import lila.forum.RecentTopic
+import lila.forum.MiniForumPost
 import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
@@ -14,14 +14,14 @@ case class TeamInfo(
     myRequest: Option[Request],
     subscribed: Boolean,
     requests: List[RequestWithUser],
-    forum: Option[List[RecentTopic]],
+    forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
 ) {
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = forum.??(_.flatMap(_.allUsers.toList)) // should we use allusers here or lastPost.userId?
+  def userIds = forum.??(_.flatMap(_.userId))
 }
 
 object TeamInfo {

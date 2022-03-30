@@ -1,8 +1,8 @@
 .lobby__forum {
-  td.topic-cell {
-    width: 35%;
-  }
-  td.post-cell {
+  li {
+    margin: 0.6em 0;
+    padding-left: 9px;
+    line-height: 14px;
     white-space: nowrap;
   }
   div.forum-content {
