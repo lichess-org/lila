@@ -64,6 +64,7 @@ interface Step {
 type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
+  console.log(root);
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
@@ -150,8 +151,8 @@ export function render(ctrl: KeyboardMove, includeChatShortcut = false) {
       },
       hook: onInsert(input =>
         lichess
-          .loadModule('keyboardMove.keyboardMove')
-          .then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
+          .loadIife('keyboardMove', 'LichessKeyboardMove')
+          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
       ),
     }),
     ctrl.hasFocus() ? h('em', focusText) : h('strong', 'Press <enter> to focus'),

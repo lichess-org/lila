@@ -15,6 +15,7 @@ interface Lichess {
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   loadModule(name: string): Promise<void>;
+  loadIife(name: string, iife: keyof Window): Promise<any>;
   hopscotch: any;
   userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;
@@ -69,7 +70,6 @@ interface Lichess {
   movetimeChart: any;
   playMusic(): any;
   quietMode?: boolean;
-  keyboardMove?: any;
   analysis?: any; // expose the analysis ctrl
 }
 
@@ -260,6 +260,7 @@ interface Window {
     };
   };
   readonly LichessChartRatingHistory?: any;
+  readonly LichessKeyboardMove?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

@@ -20,7 +20,7 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export const keyboardMove = (opts: Opts) => {
+export default (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -193,4 +193,3 @@ function readClocks(clockCtrl: any | undefined) {
 function simplePlural(nb: number, word: string) {
   return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }
-lichess.keyboardMove = keyboardMove;

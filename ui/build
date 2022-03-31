@@ -23,7 +23,6 @@ round_plugins="nvui"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
 chart_plugins="ratingDistribution ratingHistory game"
-keyboardMove_plugins="keyboardMove"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -73,7 +72,6 @@ else
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
     parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
     parallel --gnu $P_OPTS build_plugin chart ::: $chart_plugins
-    parallel --gnu $P_OPTS build_plugin keyboardMove ::: $keyboardMove_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3 $apps4; do (build $app); done
@@ -82,6 +80,5 @@ else
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
     for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
     for plugin in $chart_plugins; do (build_plugin chart $plugin); done
-    for plugin in $keyboardMove_plugins; do (build_plugin keyboardMove $plugin); done
   fi
 fi

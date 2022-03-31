@@ -1,5 +1,5 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
-import { keyboardMove } from './keyboardMove';
+import keyboardMove from './keyboardMove';
 
 // Tips for working with this file:
 // - use https://lichess.org/editor to create positions and get their FENs
