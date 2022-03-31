@@ -1,10 +1,10 @@
-const resolve = require('@rollup/plugin-node-resolve').default;
-const commonjs = require('@rollup/plugin-commonjs');
-const typescript = require('@rollup/plugin-typescript');
-const terser = require('rollup-plugin-terser').terser;
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
 // const analyze = require('rollup-plugin-analyzer');
 
-module.exports = targets => {
+export default targets => {
   return args => {
     const prod = args['config-prod'];
     const target = targets[args['config-plugin'] || 'main'];
