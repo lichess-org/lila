@@ -1,7 +1,6 @@
 package lila.forum
 
 import scala.util.chaining._
-import scala.concurrent.Future
 import actorApi._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -162,6 +161,7 @@ final class PostApi(
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
+
   def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
     env.postRepo.byIds(postIds) flatMap liteViews
 
@@ -182,11 +182,9 @@ final class PostApi(
           )
         }
       }
-    } flatMap (posts =>
-      Future {
-        (posts.groupBy(_.topicName) map (e => e._2.maxBy(_.createdAt))).toList
-          .sortBy(_.createdAt)(Ordering[DateTime].reverse)
-      }
+    } map (posts =>
+      (posts.groupBy(_.topicName) map (e => e._2.maxBy(_.createdAt))).toList
+        .sortBy(_.createdAt)(Ordering[DateTime].reverse)
     )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
