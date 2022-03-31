@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import extendTablesortNumber from './component/tablesort-number';
-import spinnerHtml from './component/spinner';
+import extendTablesortNumber from 'common/tablesort-number';
+import spinnerHtml from 'common/spinner';
 import tablesort from 'tablesort';
 
 lichess.load.then(() => {

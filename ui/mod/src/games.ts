@@ -1,4 +1,4 @@
-import extendTablesortNumber from './component/tablesort-number';
+import extendTablesortNumber from 'common/tablesort-number';
 import tablesort from 'tablesort';
 import debounce from 'common/debounce';
 import { formToXhr } from 'common/xhr';

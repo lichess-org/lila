@@ -54,7 +54,7 @@
     "ui/game",
     "ui/keyboardMove",
     "ui/nvui",
-    "ui/speech",
+    "ui/mod",
     "ui/palantir",
     "ui/insight",
     "ui/learn",

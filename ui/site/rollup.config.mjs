@@ -104,22 +104,6 @@ export default rollupProject({
     input: 'src/user.ts',
     output: 'user',
   },
-  modUser: {
-    input: 'src/modUser.ts',
-    output: 'mod.user',
-  },
-  inquiry: {
-    input: 'src/inquiry.ts',
-    output: 'inquiry',
-  },
-  modGames: {
-    input: 'src/modGames.ts',
-    output: 'mod.games',
-  },
-  modSearch: {
-    input: 'src/modSearch.ts',
-    output: 'mod.search',
-  },
   clas: {
     input: 'src/clas.ts',
     output: 'clas',
@@ -205,10 +189,6 @@ export default rollupProject({
     output: 'flatpickr',
     name: 'LichessFlatpickr',
   },
-  teamAdmin: {
-    input: 'src/teamAdmin.ts',
-    output: 'team.admin',
-  },
   appeal: {
     input: 'src/appeal.ts',
     output: 'appeal',
@@ -224,11 +204,6 @@ export default rollupProject({
   userGamesDownload: {
     input: 'src/userGamesDownload.ts',
     output: 'userGamesDownload',
-  },
-  modActivity: {
-    input: 'src/modActivity.ts',
-    output: 'modActivity',
-    name: 'modActivity',
   },
   tvGames: {
     input: 'src/tvGames.ts',

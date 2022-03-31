@@ -1,3 +1,4 @@
+/// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
 
 export default function extendTablesortNumber() {

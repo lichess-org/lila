@@ -1,7 +1,7 @@
 import tablesort from 'tablesort';
 
 import { loadScript } from './component/assets';
-import extendTablesortNumber from './component/tablesort-number';
+import extendTablesortNumber from 'common/tablesort-number';
 import * as xhr from 'common/xhr';
 
 import type { Result as UserCompleteResult } from './userComplete';
