@@ -41,7 +41,7 @@ const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-lichess.RoundNVUI = function (redraw: Redraw) {
+export default function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -289,7 +289,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
       );
     },
   };
-};
+}
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {

@@ -225,7 +225,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
     // assuming standard chess
-    return defined(uci) ? [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key] : undefined;
+    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 2) as Key] : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
@@ -258,7 +258,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function revertUserMove(): void {
-    if (lichess.PuzzleNVUI) instantRevertUserMove();
+    if (window.LichessPuzzleNvui) instantRevertUserMove();
     else setTimeout(instantRevertUserMove, 100);
   }
 
@@ -607,6 +607,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     showRatings: opts.showRatings,
-    nvui: lichess.PuzzleNVUI ? (lichess.PuzzleNVUI(redraw) as NvuiPlugin) : undefined,
+    nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
   };
 }
