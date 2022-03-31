@@ -526,6 +526,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     playBestMove,
     flip,
     flipped: () => flipped,
+    nextPuzzle,
   });
 
   // If the page loads while being hidden (like when changing settings),
