@@ -162,8 +162,6 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
-  <string name="latestForumPostsNewBy">new by</string>
-  <string name="latestForumPostsSaid">said:</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>
   <string name="discussions">Conversations</string>

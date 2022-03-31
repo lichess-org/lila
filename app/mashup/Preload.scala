@@ -74,8 +74,7 @@ final class Preload(
           .mon(_.lobby segment "currentGame") zip
           lightUserApi
             .preloadMany {
-              tWinners
-                .map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
             }
             .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
             Homepage(

@@ -11,9 +11,9 @@ import controllers.routes
 
 object post {
 
-  def recent(topics: List[MiniForumPost])(implicit ctx: Context) =
+  def recent(posts: List[MiniForumPost])(implicit ctx: Context) =
     ol(
-      topics map { p =>
+      posts map { p =>
         li(
           a(
             dataIcon := p.isTeam.option(""),
