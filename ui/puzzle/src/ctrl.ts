@@ -225,7 +225,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
     // assuming standard chess
-    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 2) as Key] : undefined;
+    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key] : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
