@@ -242,4 +242,9 @@ export default rollupProject({
     input: 'src/ublogForm.ts',
     output: 'ublogForm',
   },
+  speech: {
+    name: 'LichessSpeech',
+    input: 'src/speech.ts',
+    output: 'speech',
+  },
 });
