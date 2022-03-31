@@ -112,7 +112,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
-    setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
+    setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
       jump(initialPath);
       redraw();
