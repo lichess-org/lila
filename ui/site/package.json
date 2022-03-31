@@ -40,6 +40,8 @@
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
+    "site-dev": "$npm_execpath run deps && rollup --config rollup.config.site.mjs",
+    "site-prod": "$npm_execpath run deps && rollup --config rollup.config.site.mjs --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
     "dev": "$npm_execpath run deps && rollup --config",
     "prod": "$npm_execpath run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
     "plugin-dev": "rollup --config --config-plugin",
