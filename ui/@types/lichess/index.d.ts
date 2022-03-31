@@ -70,9 +70,6 @@ interface Lichess {
   RoundNVUI?(redraw: () => void): {
     render(ctrl: any): any;
   };
-  AnalyseNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
   PuzzleNVUI?(redraw: () => void): {
     render(ctrl: any): any;
   };
@@ -251,6 +248,9 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
+  readonly LichessAnalyseNvui?: (redraw: () => void) => {
+    render(ctrl: any): any;
+  };
   readonly LichessChartGame: {
     acpl: {
       (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
