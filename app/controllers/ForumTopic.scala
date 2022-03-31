@@ -12,7 +12,12 @@ import lila.user.Holder
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
+    new lila.memo.RateLimit[IpAddress](
+      credits = 2,
+      duration = 5.minutes,
+      key = "forum.topic",
+      enforce = env.net.rateLimit.value
+    )
 
   def form(categSlug: String) =
     Auth { implicit ctx => me =>
@@ -62,7 +67,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           for {
             unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
             canRead     <- access.isGrantedRead(categ.slug)
-            canWrite    <- access.isGrantedWrite(categ.slug)
+            canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.slug)
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
