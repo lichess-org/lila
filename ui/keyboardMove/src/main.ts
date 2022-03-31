@@ -64,7 +64,6 @@ interface Step {
 type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
-  console.log(root);
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;

@@ -27,7 +27,7 @@ export default (opts: Opts) => {
 
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
-  const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
+  const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
