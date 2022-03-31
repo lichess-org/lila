@@ -1,14 +1,16 @@
 .lobby__forum {
+
   li {
     margin: 0.6em 0;
     padding-left: 9px;
     line-height: 14px;
     white-space: nowrap;
   }
-  div.forum-content {
-    height: 288px;
-    overflow-y: auto;
+
+  &__content {
+    max-height: 248px;
   }
+
   .extract {
     @extend %roboto;
   }

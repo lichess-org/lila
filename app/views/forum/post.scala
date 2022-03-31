@@ -5,30 +5,29 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.forum.{ Post, MiniForumPost }
+import lila.forum.{ MiniForumPost, Post }
 import lila.security.Granter
 import controllers.routes
 
 object post {
 
   def recent(topics: List[MiniForumPost])(implicit ctx: Context) =
-//    table(cls := "forum")(
-      ol(
-        topics map { p =>
-          li(
-            a(
-              dataIcon := p.isTeam.option(""),
-              cls := "post_link text",
-              href := routes.ForumPost.redirect(p.postId),
-              title := p.topicName
-            )(
-              shorten(p.topicName, 30)
-            ),
-            " ",
-            userIdLink(p.userId, withOnline = false),
-            " ",
-            span(cls := "extract")(shorten(p.text, 70))
-          )
+    ol(
+      topics map { p =>
+        li(
+          a(
+            dataIcon := p.isTeam.option(""),
+            cls := "post_link text",
+            href := routes.ForumPost.redirect(p.postId),
+            title := p.topicName
+          )(
+            shorten(p.topicName, 30)
+          ),
+          " ",
+          userIdLink(p.userId, withOnline = false),
+          " ",
+          span(cls := "extract")(p.text)
+        )
       }
     )
 

@@ -1,11 +1,11 @@
 package lila.forum
 
+import scala.util.chaining._
+import scala.concurrent.Future
 import actorApi._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
-import scala.util.chaining._
-
 import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
@@ -182,7 +182,12 @@ final class PostApi(
           )
         }
       }
-    }
+    } flatMap (posts =>
+      Future {
+        (posts.groupBy(_.topicName) map (e => e._2.maxBy(_.createdAt))).toList
+          .sortBy(_.createdAt)(Ordering[DateTime].reverse)
+      }
+    )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
