@@ -35,6 +35,7 @@
   <string name="xOrY">%1$s ବା %2$s</string>
   <string name="decideHowMuch">Lichess ଆପଣଙ୍କ ପାଇଁ କେତେ ମୂଲ୍ୟବାନ ତାହା ସ୍ଥିର କରନ୍ତୁ:</string>
   <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
+  <string name="stopPaymentsPayPal">PayPal ସଦସ୍ୟତା ବାତିଲ୍ କରି ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
   <string name="noLongerSupport">ଆଉ Lichess କୁ ସମର୍ଥନ କରନ୍ତି ନାହିଁ</string>
   <string name="date">ତାରିଖ</string>
   <string name="amount">ରାଶି</string>
