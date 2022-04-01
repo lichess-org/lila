@@ -32,7 +32,6 @@
   <string name="otherAmount">أخرى</string>
   <string name="pleaseEnterAmountInX">يرجى كتابة المبلغ بالدولار الامريكي %s</string>
   <string name="withCreditCard">بطاقة ائتمان</string>
-  <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
   <string name="celebratedPatrons">الرعاة المتميزون والذين بفضلهم ما زالت Lichess قائمة</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
