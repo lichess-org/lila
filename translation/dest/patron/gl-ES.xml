@@ -64,6 +64,7 @@ Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</st
   <string name="xOrY">%1$s ou %2$s</string>
   <string name="decideHowMuch">Decide canto vale Lichess para ti:</string>
   <string name="stopPayments">Retira a túa tarxeta de crédito e detén os pagos:</string>
+  <string name="stopPaymentsPayPal">Cancelar subscrición de PayPal e deter os pagos:</string>
   <string name="noLongerSupport">Xa non apoias a Lichess</string>
   <string name="viewOthers">Ver outros patróns de Lichess</string>
   <string name="date">Data</string>
