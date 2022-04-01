@@ -2,7 +2,7 @@ package lila.base
 
 import play.api.libs.json._
 
-final class PimpedJsObject(private val js: JsObject) extends AnyVal {
+final class LilaJsObject(private val js: JsObject) extends AnyVal {
 
   def str(key: String): Option[String] =
     (js \ key).asOpt[String]
@@ -62,7 +62,7 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
     }
 }
 
-final class PimpedJsValue(private val js: JsValue) extends AnyVal {
+final class LilaJsValue(private val js: JsValue) extends AnyVal {
 
   def str(key: String): Option[String] =
     js.asOpt[JsObject] flatMap { obj =>

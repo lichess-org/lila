@@ -165,7 +165,7 @@ object show {
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 ),
-              ((isGranted(_.ManageTeam) || isGranted(_.ChatTimeout)) && !requestedModView) option a(
+              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
                 cls := "button button-red"
               )(

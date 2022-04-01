@@ -23,34 +23,34 @@ trait Lilaisms
   type StringValue = lila.base.LilaTypes.StringValue
   type IntValue    = lila.base.LilaTypes.IntValue
 
-  @inline implicit def toPimpedFuture[A](f: Fu[A])               = new PimpedFuture(f)
-  @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean])     = new PimpedFutureBoolean(f)
-  @inline implicit def toPimpedFutureOption[A](f: Fu[Option[A]]) = new PimpedFutureOption(f)
-  @inline implicit def toPimpedIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]) =
-    new PimpedIterableFuture(t)
+  @inline implicit def toLilaFuture[A](f: Fu[A])               = new LilaFuture(f)
+  @inline implicit def toLilaFutureBoolean(f: Fu[Boolean])     = new LilaFutureBoolean(f)
+  @inline implicit def toLilaFutureOption[A](f: Fu[Option[A]]) = new LilaFutureOption(f)
+  @inline implicit def toLilaIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]) =
+    new LilaIterableFuture(t)
 
-  @inline implicit def toPimpedJsObject(jo: JsObject) = new PimpedJsObject(jo)
-  @inline implicit def toPimpedJsValue(jv: JsValue)   = new PimpedJsValue(jv)
+  @inline implicit def toLilaJsObject(jo: JsObject) = new LilaJsObject(jo)
+  @inline implicit def toLilaJsValue(jv: JsValue)   = new LilaJsValue(jv)
 
   @inline implicit def toAugmentedAny(b: Any)      = new AugmentedAny(b)
-  @inline implicit def toPimpedBoolean(b: Boolean) = new PimpedBoolean(b)
-  @inline implicit def toPimpedInt(i: Int)         = new PimpedInt(i)
-  @inline implicit def toPimpedLong(l: Long)       = new PimpedLong(l)
-  @inline implicit def toPimpedFloat(f: Float)     = new PimpedFloat(f)
-  @inline implicit def toPimpedDouble(d: Double)   = new PimpedDouble(d)
+  @inline implicit def toLilaBoolean(b: Boolean) = new LilaBoolean(b)
+  @inline implicit def toLilaInt(i: Int)         = new LilaInt(i)
+  @inline implicit def toLilaLong(l: Long)       = new LilaLong(l)
+  @inline implicit def toLilaFloat(f: Float)     = new LilaFloat(f)
+  @inline implicit def toLilaDouble(d: Double)   = new LilaDouble(d)
 
-  @inline implicit def toPimpedTryList[A](l: List[Try[A]]) = new PimpedTryList(l)
-  @inline implicit def toPimpedList[A](l: List[A])         = new PimpedList(l)
-  @inline implicit def toPimpedSeq[A](l: Seq[A])           = new PimpedSeq(l)
-  @inline implicit def toPimpedByteArray(ba: Array[Byte])  = new PimpedByteArray(ba)
+  @inline implicit def toLilaTryList[A](l: List[Try[A]]) = new LilaTryList(l)
+  @inline implicit def toLilaList[A](l: List[A])         = new LilaList(l)
+  @inline implicit def toLilaSeq[A](l: Seq[A])           = new LilaSeq(l)
+  @inline implicit def toLilaByteArray(ba: Array[Byte])  = new LilaByteArray(ba)
 
-  @inline implicit def toPimpedOption[A](a: Option[A])           = new PimpedOption(a)
-  @inline implicit def toPimpedString(s: String)                 = new PimpedString(s)
-  @inline implicit def toPimpedConfig(c: Config)                 = new PimpedConfig(c)
-  @inline implicit def toPimpedDateTime(d: DateTime)             = new PimpedDateTime(d)
-  @inline implicit def toPimpedTry[A](t: Try[A])                 = new PimpedTry(t)
-  @inline implicit def toPimpedEither[A, B](e: Either[A, B])     = new PimpedEither(e)
-  @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
+  @inline implicit def toLilaOption[A](a: Option[A])           = new LilaOption(a)
+  @inline implicit def toLilaString(s: String)                 = new LilaString(s)
+  @inline implicit def toLilaConfig(c: Config)                 = new LilaConfig(c)
+  @inline implicit def toLilaDateTime(d: DateTime)             = new LilaDateTime(d)
+  @inline implicit def toLilaTry[A](t: Try[A])                 = new LilaTry(t)
+  @inline implicit def toLilaEither[A, B](e: Either[A, B])     = new LilaEither(e)
+  @inline implicit def toLilaFiniteDuration(d: FiniteDuration) = new LilaFiniteDuration(d)
 
   @inline implicit def toRichValidated[E, A](v: Validated[E, A]) = new RichValidated(v)
 }

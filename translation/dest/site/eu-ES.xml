@@ -574,6 +574,7 @@
   <string name="error.min">%s edo handiagoa izan behar da</string>
   <string name="error.max">%s edo txikiagoa izan behar da</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
+  <string name="ifRegistered">Izena emanda badago</string>
   <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>

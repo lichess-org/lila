@@ -15,6 +15,7 @@ import {
   hopscotch,
   userComplete,
   loadModule,
+  loadIife,
 } from './component/assets';
 import widget from './component/widget';
 import idleTimer from './component/idle-timer';
@@ -45,6 +46,7 @@ export default function () {
   l.jsModule = jsModule;
   l.loadScript = loadScript;
   l.loadModule = loadModule;
+  l.loadIife = loadIife;
   l.hopscotch = hopscotch;
   l.userComplete = userComplete;
   l.makeChat = makeChat;

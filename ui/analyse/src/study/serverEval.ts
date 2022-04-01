@@ -16,7 +16,7 @@ export default class ServerEval {
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {
     lichess.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
-      if (!lichess.advantageChart || this.lastPly() === mainlinePly) return;
+      if (!window.LichessChartGame || this.lastPly() === mainlinePly) return;
       const lp = this.lastPly(typeof mainlinePly === 'undefined' ? this.lastPly() : mainlinePly),
         el = this.chartEl(),
         chart = el && el.highcharts;
@@ -38,9 +38,9 @@ export default class ServerEval {
     this.lastPly(false);
   };
 
-  onMergeAnalysisData = () => {
-    if (lichess.advantageChart) lichess.advantageChart.update(this.root.data, this.root.mainline);
-  };
+  onMergeAnalysisData = () =>
+    window.LichessChartGame?.acpl.update && window.LichessChartGame.acpl.update(this.root.data, this.root.mainline);
+
   request = () => {
     this.root.socket.send('requestAnalysis', this.chapterId());
     this.requested(true);
@@ -58,14 +58,11 @@ export function view(ctrl: ServerEval): VNode {
     {
       hook: onInsert(el => {
         ctrl.lastPly(false);
-        lichess.requestIdleCallback(
-          () =>
-            lichess.loadScript('javascripts/chart/acpl.js').then(() => {
-              lichess.advantageChart!(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el);
-              ctrl.chartEl(el as HighchartsHTMLElement);
-            }),
-          800
-        );
+        lichess.requestIdleCallback(async () => {
+          await lichess.loadModule('chart.game');
+          window.LichessChartGame!.acpl(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el);
+          ctrl.chartEl(el as HighchartsHTMLElement);
+        }, 800);
       }),
     },
     [h('div.study__message', spinner())]

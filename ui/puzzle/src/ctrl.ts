@@ -112,7 +112,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
-    setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
+    setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
       jump(initialPath);
       redraw();
@@ -225,7 +225,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
     // assuming standard chess
-    return defined(uci) ? [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key] : undefined;
+    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key] : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
@@ -258,7 +258,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function revertUserMove(): void {
-    if (lichess.PuzzleNVUI) instantRevertUserMove();
+    if (window.LichessPuzzleNvui) instantRevertUserMove();
     else setTimeout(instantRevertUserMove, 100);
   }
 
@@ -526,6 +526,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     playBestMove,
     flip,
     flipped: () => flipped,
+    nextPuzzle,
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -606,6 +607,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     showRatings: opts.showRatings,
-    nvui: lichess.PuzzleNVUI ? (lichess.PuzzleNVUI(redraw) as NvuiPlugin) : undefined,
+    nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
   };
 }

@@ -4,9 +4,9 @@ interface Division {
 }
 
 export default function (div: Division, trans: Trans) {
-  const divisionLines = [];
+  const lines = [];
   if (div.middle) {
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('opening'),
         verticalAlign: 'top',
@@ -20,7 +20,7 @@ export default function (div: Division, trans: Trans) {
       width: 1,
       value: 0,
     });
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('middlegame'),
         verticalAlign: 'top',
@@ -36,7 +36,7 @@ export default function (div: Division, trans: Trans) {
     });
   }
   if (div.end)
-    divisionLines.push({
+    lines.push({
       label: {
         text: trans('endgame'),
         verticalAlign: 'top',
@@ -50,5 +50,5 @@ export default function (div: Division, trans: Trans) {
       width: div.end === null ? 0 : 1,
       value: div.end,
     });
-  return divisionLines;
+  return lines;
 }

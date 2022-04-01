@@ -11,7 +11,7 @@ import scala.util.Try
 
 import LilaTypes._
 
-final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
+final class LilaOption[A](private val self: Option[A]) extends AnyVal {
 
   def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
 
@@ -27,7 +27,7 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
   def has(a: A) = self contains a
 }
 
-final class PimpedString(private val s: String) extends AnyVal {
+final class LilaString(private val s: String) extends AnyVal {
 
   def replaceIf(t: Char, r: Char): String =
     if (s.indexOf(t.toInt) >= 0) s.replace(t, r) else s
@@ -39,14 +39,14 @@ final class PimpedString(private val s: String) extends AnyVal {
     if (s.contains(t)) s.replace(t, r) else s
 }
 
-final class PimpedConfig(private val config: Config) extends AnyVal {
+final class LilaConfig(private val config: Config) extends AnyVal {
 
   def millis(name: String): Int              = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
   def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
   def duration(name: String): FiniteDuration = millis(name).millis
 }
 
-final class PimpedDateTime(private val date: DateTime) extends AnyVal {
+final class LilaDateTime(private val date: DateTime) extends AnyVal {
   def getSeconds: Long         = date.getMillis / 1000
   def getCentis: Long          = date.getMillis / 10
   def toNow                    = new Duration(date, DateTime.now)
@@ -54,7 +54,7 @@ final class PimpedDateTime(private val date: DateTime) extends AnyVal {
   def atLeast(other: DateTime) = if (other isAfter date) other else date
 }
 
-final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
+final class LilaTry[A](private val v: Try[A]) extends AnyVal {
 
   def fold[B](fe: Exception => B, fa: A => B): B =
     v match {
@@ -72,7 +72,7 @@ final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
     }
 }
 
-final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
+final class LilaEither[A, B](private val v: Either[A, B]) extends AnyVal {
 
   def orElse(other: => Either[A, B]): Either[A, B] =
     v match {
@@ -81,7 +81,7 @@ final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
     }
 }
 
-final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
+final class LilaFiniteDuration(private val d: FiniteDuration) extends AnyVal {
 
   def toCentis =
     chess.Centis {

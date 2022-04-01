@@ -4,7 +4,6 @@ import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
   const input = document.getElementById('form3-topics') as HTMLInputElement;
-  console.log(input.dataset['max']);
   const tagify = new Tagify(input, {
     pattern: /.{2,}/,
     maxTags: parseInt(input.dataset['max']!) || 64,

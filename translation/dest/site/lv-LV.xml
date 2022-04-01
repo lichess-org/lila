@@ -608,6 +608,7 @@
   <string name="error.min">Jābūt vismaz %s</string>
   <string name="error.max">Nedrīkst būt lielāks par %s</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
+  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Registrētie lietotāji</string>
   <string name="onlyExistingConversations">Tikai iesāktajās sarunās</string>
   <string name="onlyFriends">Tikai draugi</string>
   <string name="menu">Izvēlne</string>
@@ -936,5 +937,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="until">Līdz</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
-  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">Konta slēgšana atsauks jūsu iesniegumu</string>
+  <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
 </resources>

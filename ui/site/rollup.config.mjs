@@ -3,6 +3,9 @@ import { dirname } from 'path';
 import rollupProject from '@build/rollupProject';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 export default rollupProject({
   main: {
@@ -238,5 +241,10 @@ export default rollupProject({
   ublogForm: {
     input: 'src/ublogForm.ts',
     output: 'ublogForm',
+  },
+  speech: {
+    name: 'LichessSpeech',
+    input: 'src/speech.ts',
+    output: 'speech',
   },
 });

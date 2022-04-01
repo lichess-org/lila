@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Si mund të bëhem moderator?</string>
   <string name="youCannotApply">Nuk është e mundur të aplikoni për t’u bërë moderator. Nëse shohim dikë që mendojmë se do të ishte moderator i mirë, do të lidhemi me të drejtpërsëdrejti.</string>
   <string name="isCorrespondenceDifferent">A është loja me korrespondence ndryshe nga shahu normal?</string>
+  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Për më tepër hollësi, ju lutemi, lexoni %s</string>
+  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">faqen tonë për lojë të ndershme</string>
   <string name="youCanUseOpeningBookNoEngine">Në Lichess, dallimi kryesor në rregullat për shahun me korrespondenë është se lejohet hapja e librave. Përdorimi i makinave të shahut është ende e ndaluar dhe do të sjellë shënim për asistencë nga makina. Edhe pse ICCF-ja lejon përdorim makinash shahu në lojëra me korrespondencë, Lichess-i s’e lejon.</string>
   <string name="gameplay">Loja</string>
   <string name="howBulletBlitzEtcDecided">Si përcaktohen Bullet-i, Blit-i dhe kontrolle të tjerë të kohës?</string>

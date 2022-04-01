@@ -90,6 +90,7 @@
   <string name="error.maxLength">အက္ခရာ အများဆုံး %s လုံး သာပါရှိနိုင်သည်</string>
   <string name="error.min">အက္ခရာ အနည်းဆုံး %s လုံး ပါရှိရမည်</string>
   <string name="error.max">အက္ခရာ အများဆုံး %s လုံးသာ ပါရှိနိုင်သည်</string>
+  <string name="ifRegistered">မှတ်ပုံတင်ထားလျှင်</string>
   <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">(%s တွင် ဖော်ပြထားသော အကြောင်းရင်းတို့ အတွက်မှ လွဲ၍) အသုံးပြုခွင့် အကောင့် တစ်ခုထက် ပို၍ မပြုလုပ်ရန် သဘောတူပါသည်။</string>
   <string name="important">အရေးကြီးပါသည်</string>

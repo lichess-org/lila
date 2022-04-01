@@ -642,8 +642,9 @@
   <string name="error.min">Павінна быць не менш за %s</string>
   <string name="error.max">Павінна быць не больш за %s</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
+  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Калі зарэгістраваны</string>
   <string name="onlyExistingConversations">Толькі існыя размовы</string>
-  <string name="onlyFriends">Толькі з сябрамі</string>
+  <string name="onlyFriends">Толькі сябрам</string>
   <string name="menu">Меню</string>
   <string name="castling">Ракіроўка</string>
   <string name="whiteCastlingKingside">Белыя O-O</string>
@@ -734,7 +735,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
-  <string name="receiveForumNotifications">Атрымоўваць паведамленні, калі узгадваць на форме</string>
+  <string name="receiveForumNotifications">Атрымоўваць паведамленні, пры згадванні на форуме</string>
   <string name="shareYourInsightsData">Дзяліцца вашым шахматнымі аналітычнымі данымі</string>
   <string name="withNobody">Ні з кім</string>
   <string name="withFriends">З сябрамі</string>
@@ -881,7 +882,7 @@
   <string name="edit">Рэдагаваць</string>
   <string name="rapid">Хуткія</string>
   <string name="classical">Класіка</string>
-  <string name="ultraBulletDesc">Па-вар\'яцку хуткія гульні: меней 30 секунд</string>
+  <string name="ultraBulletDesc">Вар\'яцкі хуткія гульні: меней 30 секунд</string>
   <string name="bulletDesc">Вельмі хуткія гульні: меней 3 хвілін</string>
   <string name="blitzDesc">Хуткія гульні: ад 3 да 8 хвілін</string>
   <string name="rapidDesc">Хуткія гульні: ад 8 да 25 хвілін</string>
@@ -977,4 +978,5 @@
   <string name="until">Да</string>
   <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
   <string name="switchSides">Змяніць бок</string>
+  <string name="closingAccountWithdrawAppeal">Закрыцце вашага ўліковага запісу адкліча вашу апеляцыю</string>
 </resources>
