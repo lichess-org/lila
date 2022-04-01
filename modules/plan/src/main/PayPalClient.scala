@@ -34,11 +34,12 @@ final private class PayPalClient(
   }
 
   private object path {
-    val orders        = "v2/checkout/orders"
-    val plans         = "v1/billing/plans"
-    val subscriptions = "v1/billing/subscriptions"
-    val token         = "v1/oauth2/token"
-    val events        = "v1/notifications/webhooks-events"
+    val orders                     = "v2/checkout/orders"
+    def capture(id: PayPalOrderId) = s"$orders/$id/capture"
+    val plans                      = "v1/billing/plans"
+    val subscriptions              = "v1/billing/subscriptions"
+    val token                      = "v1/oauth2/token"
+    val events                     = "v1/notifications/webhooks-events"
   }
 
   private val patronMonthProductId = "PATRON-MONTH"
@@ -78,6 +79,10 @@ final private class PayPalClient(
       )
     )
   )
+
+  // actually triggers the payment for a onetime order
+  def captureOrder(id: PayPalOrderId): Fu[PayPalOrder] =
+    postOne[PayPalOrder](path capture id, Json.obj())
 
   def createSubscription(checkout: PlanCheckout, user: User): Fu[PayPalSubscriptionCreated] =
     plans.get(checkout.money.currency) flatMap { plan =>
@@ -160,9 +165,6 @@ final private class PayPalClient(
       )
     )
 
-  private val fullResponse = (ws: StandaloneWSRequest) =>
-    ws.addHttpHeaders("Prefer" -> "return=representation")
-
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
     get[A](url) dmap some recover { case _: NotFoundException =>
       None
@@ -192,7 +194,7 @@ final private class PayPalClient(
       .withHttpHeaders(
         "Authorization" -> s"Bearer $bearer",
         "Content-Type"  -> "application/json",
-        "Prefer"        -> "return=representation" // important for plans
+        "Prefer"        -> "return=representation" // important for plans and orders
       )
   }
 

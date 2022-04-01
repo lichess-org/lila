@@ -168,10 +168,10 @@ case class PayPalOrder(
     case s"$userId"         => (userId.some, none)
     case _                  => (none, none)
   }
-  def isApproved        = status == "APPROVED"
-  def isApprovedCapture = isApproved && intent == "CAPTURE"
-  def capturedMoney     = isApprovedCapture ?? purchase_units.headOption.map(_.amount.money)
-  def country           = payer.address.flatMap(_.country_code)
+  def isCompleted        = status == "COMPLETED"
+  def isCompletedCapture = isCompleted && intent == "CAPTURE"
+  def capturedMoney      = isCompletedCapture ?? purchase_units.headOption.map(_.amount.money)
+  def country            = payer.address.flatMap(_.country_code)
 }
 case class PayPalPayment(amount: PayPalAmount)
 case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: DateTime)
