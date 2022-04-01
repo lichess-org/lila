@@ -177,8 +177,12 @@
           height: 55px;
         }
 
-        #paypal-button-container {
-          height: 55px;
+        .paypal {
+          display: flex;
+
+          iframe {
+            color-scheme: normal;
+          }
         }
       }
 
