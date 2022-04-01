@@ -26,7 +26,7 @@ object post {
           " ",
           userIdLink(p.userId, withOnline = false),
           " ",
-          span(cls := "extract")(p.text)
+          span(cls := "extract")(shorten(p.text, 70))
         )
       }
     )
