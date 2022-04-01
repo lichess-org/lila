@@ -92,7 +92,7 @@ object indexStripe {
                     a(dataForm := "switch")(trans.cancel())
                   ),
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
-                    p(stopPayments()),
+                    p(stopPaymentsPayPal()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
                     a(dataForm := "cancel")(trans.cancel())
                   )
