@@ -28,7 +28,6 @@
   <string name="otherAmount">その他</string>
   <string name="pleaseEnterAmountInX">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
   <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
   <string name="whereMoneyGoes">このお金は何に使われますか？</string>
