@@ -164,6 +164,8 @@ final class UserAnalysis(
         )
     }
 
+  private def forecastReload = JsonOk(Json.obj("reload" -> true))
+
   def forecasts(fullId: String) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
@@ -178,8 +180,9 @@ final class UserAnalysis(
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
                     _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                  } recover { case Forecast.OutOfSync =>
-                    JsonOk(Json.obj("reload" -> true))
+                  } recover {
+                    case Forecast.OutOfSync        => forecastReload
+                    case _: lila.round.ClientError => forecastReload
                   }
             )
       }
@@ -197,9 +200,9 @@ final class UserAnalysis(
               err => BadRequest(err.toString).fuccess,
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-                env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
                   lila.common.Future.sleep(wait.millis) inject
-                  Ok(Json.obj("reload" -> true))
+                  forecastReload
               }
             )
       }
