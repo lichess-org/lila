@@ -559,7 +559,7 @@
   <string name="increment">Pliiĝo</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
-  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Se registrita</string>
+  <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
   <string name="onlyFriends">Nur amikoj</string>
   <string name="menu">Menuo</string>
