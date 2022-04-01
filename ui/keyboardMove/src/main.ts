@@ -150,8 +150,8 @@ export function render(ctrl: KeyboardMove, includeChatShortcut = false) {
       },
       hook: onInsert(input =>
         lichess
-          .loadModule('keyboardMove.keyboardMove')
-          .then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
+          .loadIife('keyboardMove', 'LichessKeyboardMove')
+          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
       ),
     }),
     ctrl.hasFocus() ? h('em', focusText) : h('strong', 'Press <enter> to focus'),

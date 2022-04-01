@@ -37,14 +37,13 @@ import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 
-export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
-
+const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
 const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-lichess.AnalyseNVUI = function (redraw: Redraw) {
+export default function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
@@ -247,7 +246,7 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
       ]);
     },
   };
-};
+}
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function () {
