@@ -4,7 +4,7 @@
   "private": true,
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "main": "index.js",
+  "main": "index.mjs",
   "type": "commonjs",
   "dependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",

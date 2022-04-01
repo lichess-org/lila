@@ -15,6 +15,7 @@ interface Lichess {
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   loadModule(name: string): Promise<void>;
+  loadIife(name: string, iife: keyof Window): Promise<any>;
   hopscotch: any;
   userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;
@@ -67,18 +68,8 @@ interface Lichess {
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
-  RoundNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
-  AnalyseNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
-  PuzzleNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
   playMusic(): any;
   quietMode?: boolean;
-  keyboardMove?: any;
   analysis?: any; // expose the analysis ctrl
 }
 
@@ -229,6 +220,10 @@ declare namespace Editor {
   }
 }
 
+type Nvui = (redraw: () => void) => {
+  render(ctrl: any): any;
+};
+
 interface Window {
   lichess: Lichess;
 
@@ -251,6 +246,9 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
+  readonly LichessRoundNvui?: Nvui;
+  readonly LichessAnalyseNvui?: Nvui;
+  readonly LichessPuzzleNvui?: Nvui;
   readonly LichessChartGame: {
     acpl: {
       (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
@@ -262,6 +260,7 @@ interface Window {
     };
   };
   readonly LichessChartRatingHistory?: any;
+  readonly LichessKeyboardMove?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

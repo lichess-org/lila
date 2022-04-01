@@ -12,7 +12,7 @@ export default rollupProject({
     output: 'puzzle.dashboard',
   },
   nvui: {
-    name: 'NVUI',
+    name: 'LichessPuzzleNvui',
     input: 'src/plugins/nvui.ts',
     output: 'puzzle.nvui',
   },

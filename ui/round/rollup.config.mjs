@@ -7,7 +7,7 @@ export default rollupProject({
     output: 'round',
   },
   nvui: {
-    name: 'NVUI',
+    name: 'LichessRoundNvui',
     input: 'src/plugins/nvui.ts',
     output: 'round.nvui',
   },

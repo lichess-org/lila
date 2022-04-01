@@ -20,14 +20,14 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export const keyboardMove = (opts: Opts) => {
+export default (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
 
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
-  const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
+  const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
@@ -193,4 +193,3 @@ function readClocks(clockCtrl: any | undefined) {
 function simplePlural(nb: number, word: string) {
   return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }
-lichess.keyboardMove = keyboardMove;

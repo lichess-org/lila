@@ -28,11 +28,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastFen: string;
 
-  if (!lichess.AnalyseNVUI) {
+  if (window.LichessAnalyseNvui) {
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
-      setTimeout(function () {
-        (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown');
-      }, 50);
+      setTimeout(
+        () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
+        50
+      );
       if (v) $('#acpl-chart').each((_, e) => (e as HighchartsHTMLElement).highcharts.reflow());
     });
     lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
@@ -73,7 +74,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     return `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
-    if (window.LichessChartGame?.acpl.update || lichess.AnalyseNVUI) return;
+    if (window.LichessChartGame?.acpl.update || window.LichessAnalyseNvui) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));

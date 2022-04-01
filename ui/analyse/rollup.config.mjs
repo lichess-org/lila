@@ -7,6 +7,7 @@ export default rollupProject({
     output: 'analysisBoard', // can't call it analyse.js, triggers adblockers :facepalm:
   },
   nvui: {
+    name: 'LichessAnalyseNvui',
     input: 'src/plugins/nvui.ts',
     output: 'analysisBoard.nvui',
   },

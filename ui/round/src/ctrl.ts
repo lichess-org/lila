@@ -101,7 +101,7 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
-    if (lichess.RoundNVUI) this.nvui = lichess.RoundNVUI(redraw) as NvuiPlugin;
+    if (window.LichessRoundNvui) this.nvui = window.LichessRoundNvui(redraw) as NvuiPlugin;
 
     if (d.clock)
       this.clock = new ClockController(d, {
