@@ -574,6 +574,7 @@
   <string name="error.min">Ha de ser major o igual que %s</string>
   <string name="error.max">Ha de ser menor o igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
+  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Només usuaris registrats</string>
   <string name="onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
   <string name="menu">Menú</string>

@@ -891,4 +891,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="since">Që nga</string>
   <string name="until">Deri më</string>
   <string name="switchSides">Ndërroni palët</string>
+  <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
 </resources>

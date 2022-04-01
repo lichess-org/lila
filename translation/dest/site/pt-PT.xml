@@ -575,6 +575,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="error.min">Deve ser pelo menos %s</string>
   <string name="error.max">Deve ser no máximo %s</string>
   <string name="ifRatingIsPlusMinusX">Se a pontuação for ± %s</string>
+  <string name="ifRegistered">Se registado</string>
   <string name="onlyExistingConversations">Apenas conversas existentes</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>

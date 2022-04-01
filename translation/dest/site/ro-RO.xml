@@ -608,6 +608,7 @@
   <string name="error.min">Trebuie să fie mai mare sau egal cu %s</string>
   <string name="error.max">Trebuie să fie mai mic sau egal cu %s</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
+  <string name="ifRegistered">Dacă este înregistrat</string>
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>

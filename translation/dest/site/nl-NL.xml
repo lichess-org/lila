@@ -574,6 +574,7 @@
   <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
   <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Indien geregistreerd</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
@@ -897,5 +898,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
-  <string name="closingAccountWithdrawAppeal">Het sluiten van je account zal je beroep terugtrekken</string>
+  <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
 </resources>
