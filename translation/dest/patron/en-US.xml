@@ -63,6 +63,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
+  <string name="stopPaymentsPayPal">Cancel PayPal subscription and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>
