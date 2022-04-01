@@ -65,6 +65,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="xOrY">%1$s ili %2$s</string>
   <string name="decideHowMuch">Odlučite koliko Vam vrijedi Lichess:</string>
   <string name="stopPayments">Povucite kreditnu karticu i zaustavite plaćanja:</string>
+  <string name="stopPaymentsPayPal">Otkažite PayPal pretplatu i zaustavite plaćanja:</string>
   <string name="noLongerSupport">Više ne podržava Lichess</string>
   <string name="viewOthers">Pogledajte ostale Lichess Pokrovitelje</string>
   <string name="date">Datum</string>
