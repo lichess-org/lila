@@ -24,8 +24,8 @@
   <string name="howCanIBecomeModerator">Kaip galiu tapti moderatoriumi?</string>
   <string name="youCannotApply">Nėra įmanoma aplikuoti, norint tapti moderatoriumi. Jei pastebėsime ką nors, kas atrodys vertas būti geru moderatoriumi, mes su jais susisieksime tiesiogiai.</string>
   <string name="isCorrespondenceDifferent">Ar korespondencija skiriasi nuo įprastų šachmatų?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Norėdami sužinoti daugiau galite paskaityti mūsų %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">sąžiningo žaidimo puslapį</string>
+  <string name="pleaseReadFairPlayPage">Norėdami sužinoti daugiau galite paskaityti mūsų %s</string>
+  <string name="fairPlayPage">sąžiningo žaidimo puslapį</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess pagrindinis skirtumas korespondencinių šachmatų taisyklėse yra, kad leidžiamos debiutų knygos. Variklių naudojimas vis dar draudžiamas ir galite būti pažymėti kaip sukčiaujantys kompiuteriu. Nors ICCF leidžia variklių naudojimą korespondenciniuose šachmatuose - Lichess ne.</string>
   <string name="gameplay">Žaidimas</string>
   <string name="howBulletBlitzEtcDecided">Kaip nusprendžiama laiko kontrolė kulkos, žaibo ir kituose žaidimuose?</string>
