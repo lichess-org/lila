@@ -62,5 +62,6 @@ private[plan] object JsonHandlers {
     implicit val SubscriptionReads        = Json.reads[PayPalSubscription]
     implicit val EventReads               = Json.reads[PayPalEvent]
     implicit val PlanReads                = Json.reads[PayPalPlan]
+    implicit val CaptureReads             = Json.reads[PayPalCapture]
   }
 }

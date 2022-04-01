@@ -391,6 +391,9 @@ final class PlanApi(
     def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
       subscriptionIdPatron(id) flatMap { _.map(_.id.value) ?? userRepo.byId }
 
+    def onCaptureCompleted(capture: PayPalCapture) =
+      logger.info(s"Charged $capture")
+
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
       patronColl.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
   }

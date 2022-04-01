@@ -219,3 +219,11 @@ case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cy
     price   <- pricing.get[PayPalAmount]("fixed_price")(JsonHandlers.payPal.AmountReads)
   } yield price.money.currency
 }
+case class PayPalCapture(
+    amount: PayPalAmount,
+    custom_id: String,
+    status: String
+) {
+  def isCompleted   = status == "COMPLETED"
+  def capturedMoney = isCompleted option amount.money
+}

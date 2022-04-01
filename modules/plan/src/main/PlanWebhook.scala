@@ -42,7 +42,7 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
     import JsonHandlers.payPal._
     js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
       case None =>
-        log.warn(s"Forged event ${js str "id"} ${Json.stringify(js).take(2000)}")
+        log.warn(s"Forged event ${js str "id"} ${Json stringify js take 2000}")
         funit
       case Some(event) =>
         lila.mon.plan.webhook("payPal", event.tpe).increment()
@@ -50,6 +50,16 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
           s"${event.tpe}: ${event.id} / ${event.resourceTpe}: ${event.resourceId} / ${Json.stringify(event.resource).take(2000)}"
         )
         event.tpe match {
+          case "PAYMENT.CAPTURE.COMPLETED" =>
+            CaptureReads
+              .reads(event.resource)
+              .fold(
+                err => {
+                  log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
+                  funit
+                },
+                capture => api.payPal.onCaptureCompleted(capture)
+              )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
             event.resourceId.map(PayPalSubscriptionId) ?? api.payPal.subscriptionUser flatMap {
