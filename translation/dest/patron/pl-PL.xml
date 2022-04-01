@@ -68,6 +68,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="xOrY">%1$s lub %2$s</string>
   <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
   <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
+  <string name="stopPaymentsPayPal">Anuluj subskrypcję PayPal i zatrzymaj płatności:</string>
   <string name="noLongerSupport">Nie wspieraj już Lichess</string>
   <string name="viewOthers">Zobacz innych patronów Lichess</string>
   <string name="date">Data</string>
