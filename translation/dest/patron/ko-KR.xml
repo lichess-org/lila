@@ -27,7 +27,6 @@
   <string name="otherAmount">기타</string>
   <string name="pleaseEnterAmountInX">금액을 %s로 입력해주세요</string>
   <string name="withCreditCard">신용카드</string>
-  <string name="withPaypal">페이팔</string>
   <string name="weAreSmallTeam">우리는 작은 팀이기 때문에 당신의 지원이 큰 차이를 만듭니다!</string>
   <string name="celebratedPatrons">Lichess를 가능하게 만든 유명한 후원자들</string>
   <string name="whereMoneyGoes">돈은 어디에 쓰이나요?</string>
