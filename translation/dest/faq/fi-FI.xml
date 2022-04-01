@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Kuinka voin päästä moderaattoriksi?</string>
   <string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
   <string name="isCorrespondenceDifferent">Onko kirjeshakki erilaista kuin tavallinen shakki?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Lisätietoja saat lukemalla %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">reilun pelin sivumme</string>
+  <string name="pleaseReadFairPlayPage">Lisätietoja saat lukemalla %s</string>
+  <string name="fairPlayPage">reilun pelin sivumme</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, Lichess ei hyväksy sitä.</string>
   <string name="gameplay">Pelaaminen</string>
   <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
