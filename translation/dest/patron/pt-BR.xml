@@ -29,7 +29,6 @@
   <string name="otherAmount">Outro</string>
   <string name="pleaseEnterAmountInX">Por favor, insira um valor em %s</string>
   <string name="withCreditCard">Cartão de Crédito</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
   <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
