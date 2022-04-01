@@ -68,6 +68,7 @@
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Решите, что для вас значит Lichess:</string>
   <string name="stopPayments">Отзовите кредитную карту и прекратите платежи:</string>
+  <string name="stopPaymentsPayPal">Отменить подписку PayPal и остановить платежи:</string>
   <string name="noLongerSupport">Больше не поддерживать Lichess</string>
   <string name="viewOthers">Посмотреть других покровителей Lichess</string>
   <string name="date">Дата</string>
