@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Kā varu kļūt par moderatoru?</string>
   <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
   <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Papildus informācijai, lūdzu lasiet mūsu %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">godīgas spēlēšanas lapu</string>
+  <string name="pleaseReadFairPlayPage">Papildus informācijai, lūdzu lasiet mūsu %s</string>
+  <string name="fairPlayPage">godīgas spēlēšanas lapu</string>
   <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
   <string name="gameplay">Spēles apraksts</string>
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
