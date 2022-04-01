@@ -66,6 +66,7 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="xOrY">%1$s sau %2$s</string>
   <string name="decideHowMuch">Decide cât valorează Lichess pentru tine:</string>
   <string name="stopPayments">Retrage-ți cardul de credit și oprește plățile:</string>
+  <string name="stopPaymentsPayPal">Anulează abonamentul PayPal și oprește plățile:</string>
   <string name="noLongerSupport">Nu mai susține Lichess</string>
   <string name="viewOthers">Vezi alți Patroni Lichess</string>
   <string name="date">Dată</string>
