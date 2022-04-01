@@ -586,6 +586,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="increment">Dodatak</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="ifRegistered">Ako su registrovani</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
