@@ -31,7 +31,6 @@
   <string name="otherAmount">Другое</string>
   <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
   <string name="celebratedPatrons">Выдающиеся спонсоры, благодаря которым существует Lichess</string>
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
