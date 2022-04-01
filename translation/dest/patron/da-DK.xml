@@ -29,7 +29,6 @@
   <string name="otherAmount">Andet</string>
   <string name="pleaseEnterAmountInX">Angiv venligst et beløb i %s</string>
   <string name="withCreditCard">Kreditkort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lille hold, så din støtte gør en kæmpe forskel!</string>
   <string name="celebratedPatrons">De værdsatte protektorer, som gør Lichess mulig</string>
   <string name="whereMoneyGoes">Hvad går pengene til?</string>
