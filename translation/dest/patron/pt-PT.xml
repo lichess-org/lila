@@ -64,6 +64,7 @@ No entanto, os patronos têm direito a um novo ícone de perfil fixe.</string>
   <string name="xOrY">%1$s ou %2$s</string>
   <string name="decideHowMuch">Decide quanto é que o Lichess vale para ti:</string>
   <string name="stopPayments">Retirar o seu cartão de crédito e parar os pagamentos:</string>
+  <string name="stopPaymentsPayPal">Cancelar a subscrição do PayPal e interromper pagamentos:</string>
   <string name="noLongerSupport">Já não suporta o Lichess</string>
   <string name="viewOthers">Ver outros patronos do Lichess</string>
   <string name="date">Data</string>
