@@ -29,7 +29,6 @@
   <string name="otherAmount">Bestelakoa</string>
   <string name="pleaseEnterAmountInX">Idatzi kopurua %stan</string>
   <string name="withCreditCard">Kreditu txartela</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>
   <string name="celebratedPatrons">Hauek dira Lichess posible egiten duten Babesleak</string>
   <string name="whereMoneyGoes">Nora doa dirua?</string>

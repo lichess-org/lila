@@ -454,6 +454,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lando aŭ flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
+  <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
@@ -558,6 +559,7 @@
   <string name="increment">Pliiĝo</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
+  <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
   <string name="onlyFriends">Nur amikoj</string>
   <string name="menu">Menuo</string>
@@ -814,8 +816,10 @@
   <string name="resVsX">%1$s kontraŭ %2$s</string>
   <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
+  <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
   <string name="noRestriction">Neniu limigo</string>
@@ -823,4 +827,7 @@
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
+  <string name="tournChat">Babilejo de turnira</string>
+  <string name="noChat">Malaktivigi babilejon</string>
+  <string name="focusChat">Babilejo de fokuso</string>
 </resources>

@@ -574,6 +574,7 @@
   <string name="error.min">Deve ser maior ou igual a %s</string>
   <string name="error.max">Deve ser menor ou igual a %s</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
+  <string name="ifRegistered">Se registrado</string>
   <string name="onlyExistingConversations">Apenas conversas iniciadas</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
@@ -896,5 +897,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
   <string name="switchSides">Trocar de lado</string>
-  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">Encerrar sua conta anulará seu apelo</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
 </resources>

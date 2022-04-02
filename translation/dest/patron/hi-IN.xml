@@ -28,7 +28,6 @@
   <string name="otherAmount">अन्य</string>
   <string name="pleaseEnterAmountInX">कृपया %s में राशि दर्ज करें</string>
   <string name="withCreditCard">क्रेडिट कार्ड</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">हमारी एक छोटी टीम हैं, इसलिए आपका समर्थन हमारे लिए बहुत बड़ी बात है!</string>
   <string name="celebratedPatrons">प्रसिद्ध संरक्षक जो लिचेस को संभव बनाते हैं</string>
   <string name="whereMoneyGoes">पैसा कहां जाता है?</string>

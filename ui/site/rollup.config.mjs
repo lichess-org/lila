@@ -155,7 +155,7 @@ export default rollupProject({
   plan: {
     input: 'src/plan.ts',
     output: 'plan',
-    name: 'planStart',
+    name: 'plan',
   },
   login: {
     input: 'src/login.ts',

@@ -28,7 +28,6 @@
   <string name="otherAmount">その他</string>
   <string name="pleaseEnterAmountInX">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
   <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
   <string name="whereMoneyGoes">このお金は何に使われますか？</string>
@@ -63,6 +62,7 @@
   <string name="xOrY">%1$s または %2$s</string>
   <string name="decideHowMuch">Lichess の値打ちをご自分で決めてください：</string>
   <string name="stopPayments">クレジットカードでの支払いを止める：</string>
+  <string name="stopPaymentsPayPal">PayPal のサブスクリプションをキャンセルして支払を停止：</string>
   <string name="noLongerSupport">Lichess への寄付をやめました</string>
   <string name="viewOthers">他の Lichess パトロンを表示</string>
   <string name="date">日付</string>

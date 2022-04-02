@@ -541,6 +541,7 @@
   <string name="error.min">%s 以上にしてください</string>
   <string name="error.max">%s 以下にしてください</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
+  <string name="ifRegistered">登録ユーザーだけ</string>
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>

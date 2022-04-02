@@ -12,7 +12,7 @@ object thanks {
 
   def apply(
       patron: Option[lila.plan.Patron],
-      customer: Option[lila.plan.StripeCustomer],
+      stripeCustomer: Option[lila.plan.StripeCustomer],
       gift: Option[lila.plan.Patron]
   )(implicit
       ctx: Context
@@ -36,7 +36,11 @@ object thanks {
                 ", thanks to you!"
               )
             case (_, Some(pat)) =>
-              if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
+              if (
+                pat.payPal.exists(_.renew) ||
+                pat.payPalCheckout.exists(_.renew) ||
+                stripeCustomer.exists(_.renew)
+              ) ctx.me map { me =>
                 p(
                   permanentPatron(),
                   br,

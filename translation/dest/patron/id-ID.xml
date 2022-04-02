@@ -27,7 +27,6 @@
   <string name="otherAmount">Lainnya</string>
   <string name="pleaseEnterAmountInX">Silakan masukkan sebuah jumlah dalam bentuk %s</string>
   <string name="withCreditCard">Kartu Kredit</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Kami adalah tim kecil, jadi dukungan Anda membuat perubahan besar!</string>
   <string name="celebratedPatrons">Sorakan Penyokong yang membuat Lichess menjadi ada</string>
   <string name="whereMoneyGoes">Kemana uang itu pergi?</string>

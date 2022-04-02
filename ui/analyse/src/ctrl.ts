@@ -787,7 +787,7 @@ export default class AnalyseCtrl {
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };
 
-  mergeAnalysisData(data: ServerEvalData): void {
+  mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
@@ -801,7 +801,7 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci, uciQueue?: Uci[]): void {
+  playUci(uci: Uci, uciQueue?: Uci[]) {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);

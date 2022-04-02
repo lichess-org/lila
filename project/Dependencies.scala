@@ -53,10 +53,11 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.8-lila_1.8"
-    val api     = "com.typesafe.play" %% "play"        % version
-    val json    = "com.typesafe.play" %% "play-json"   % "2.9.2"
-    val mailer  = "com.typesafe.play" %% "play-mailer" % "8.0.1"
+    val version  = "2.8.8-lila_1.8"
+    val api      = "com.typesafe.play" %% "play"           % version
+    val json     = "com.typesafe.play" %% "play-json"      % "2.9.2"
+    val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.2"
+    val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
   }
 
   object playWs {

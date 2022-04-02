@@ -31,7 +31,6 @@
   <string name="otherAmount">Drugo</string>
   <string name="pleaseEnterAmountInX">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
   <string name="celebratedPatrons">Slavni pokrovitelji, ki so naredili Lichess možen</string>
   <string name="whereMoneyGoes">Kam gre denar?</string>

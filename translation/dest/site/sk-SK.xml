@@ -636,6 +636,7 @@
   <string name="error.min">Minimálna dĺžka je %s znakov</string>
   <string name="error.max">Maximálna dĺžka je %s znakov</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
+  <string name="ifRegistered">Ak sú registrovaní</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>

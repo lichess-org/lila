@@ -11,7 +11,7 @@ final class AugmentedAny(private val self: Any) extends AnyVal {
   def unit: Unit = ()
 }
 
-final class PimpedBoolean(private val self: Boolean) extends AnyVal {
+final class LilaBoolean(private val self: Boolean) extends AnyVal {
 
   /** Replaces scalaz boolean ops
     * so ?? works on Zero and not Monoid
@@ -21,7 +21,7 @@ final class PimpedBoolean(private val self: Boolean) extends AnyVal {
   def option[A](a: => A): Option[A] = if (self) Some(a) else None
 }
 
-final class PimpedLong(private val self: Long) extends AnyVal {
+final class LilaLong(private val self: Long) extends AnyVal {
 
   def atLeast(bottomValue: Long): Long = max(self, bottomValue)
 
@@ -35,7 +35,7 @@ final class PimpedLong(private val self: Long) extends AnyVal {
     else Integer.MIN_VALUE
 }
 
-final class PimpedInt(private val self: Int) extends AnyVal {
+final class LilaInt(private val self: Int) extends AnyVal {
 
   def atLeast(bottomValue: Int): Int = max(self, bottomValue)
 
@@ -44,7 +44,7 @@ final class PimpedInt(private val self: Int) extends AnyVal {
   def squeeze(bottom: Int, top: Int): Int = max(min(self, top), bottom)
 }
 
-final class PimpedFloat(private val self: Float) extends AnyVal {
+final class LilaFloat(private val self: Float) extends AnyVal {
 
   def atLeast(bottomValue: Float): Float = max(self, bottomValue)
 
@@ -53,7 +53,7 @@ final class PimpedFloat(private val self: Float) extends AnyVal {
   def squeeze(bottom: Float, top: Float): Float = max(min(self, top), bottom)
 }
 
-final class PimpedDouble(private val self: Double) extends AnyVal {
+final class LilaDouble(private val self: Double) extends AnyVal {
 
   def atLeast(bottomValue: Double): Double = max(self, bottomValue)
 

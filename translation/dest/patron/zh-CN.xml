@@ -28,7 +28,6 @@
   <string name="otherAmount">其他</string>
   <string name="pleaseEnterAmountInX">请输入金额（%s）</string>
   <string name="withCreditCard">信用卡</string>
-  <string name="withPaypal">贝宝（PayPal）</string>
   <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
   <string name="celebratedPatrons">著名的赞助者让 Lichess 成为可能。</string>
   <string name="whereMoneyGoes">捐助都会去哪儿？</string>
