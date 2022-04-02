@@ -29,11 +29,13 @@
   <string name="doNotReportInForum">請不要在論壇中檢舉使用者</string>
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
   <string name="doNotMessageModerators">請不要直接私訊管理員。</string>
+  <string name="onlyReports">只有用舉報表格作出的舉報才會有效</string>
   <string name="wantReportBug">我想要提出遊戲bug</string>
   <string name="reportBugInDiscord">在 Lichess 的 Discord 伺服器</string>
   <string name="illegalPawnCapture">不合規則的移動(吃法)</string>
   <string name="illegalCastling">后的不合規則移動或不可能的移動</string>
   <string name="castlingRules">請確定后的移動的規則</string>
+  <string name="knightMate">當對手在棋盤上不只一個王，有可能用一隻騎士或主教將死對方</string>
   <string name="noRatingPoints">不會得到評分</string>
   <string name="errorPage">錯誤頁面</string>
   <string name="reportErrorPage">如果你遇到了錯誤頁面，你可以回報它:</string>
@@ -42,6 +44,7 @@
   <string name="sendAppealTo">您可以將上訴寄到%s</string>
   <string name="ifLegit">如果你的上訴是合理的，我們會盡快撤除懲處。</string>
   <string name="accountLost">若您確實有使用引擎輔助，就算只有一次，您的帳號仍會被永久停用。</string>
+  <string name="doNotDeny">不要否認曾經作弊。如果你想被允許開設新帳號，就必須承認你作過的，並展示出你明白那是錯的。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">合作，法律，商業等</string>
   <string name="monetizing">在 Lichess 上獲得營利</string>
