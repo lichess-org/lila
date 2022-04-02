@@ -645,6 +645,7 @@
   <string name="error.min">לפחות %s</string>
   <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="ifRegistered">אם רשום</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>
