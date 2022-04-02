@@ -14,7 +14,11 @@ import lila.security.{ Granter => MasterGranter }
 import lila.user.{ Holder, User }
 
 final private[forum] class TopicApi(
-    env: Env,
+    postRepo: PostRepo,
+    topicRepo: TopicRepo,
+    categRepo: CategRepo,
+    mentionNotifier: MentionNotifier,
+    paginator: ForumPaginator,
     indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,
     modLog: lila.mod.ModlogApi,
@@ -35,16 +39,16 @@ final private[forum] class TopicApi(
       forUser: Option[User]
   ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
-      data <- env.categRepo bySlug categSlug flatMap {
+      data <- categRepo bySlug categSlug flatMap {
         _ ?? { categ =>
-          env.topicRepo.forUser(forUser).byTree(categSlug, slug) dmap {
+          topicRepo.forUser(forUser).byTree(categSlug, slug) dmap {
             _ map (categ -> _)
           }
         }
       }
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -54,7 +58,7 @@ final private[forum] class TopicApi(
     }
     def apply(topic: Topic): Fu[Option[Topic]] = {
       val key = (~topic.userId, topic.name)
-      cache.getIfPresent(key) ?? env.topicRepo.coll.byId[Topic] orElse {
+      cache.getIfPresent(key) ?? topicRepo.coll.byId[Topic] orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
@@ -66,7 +70,7 @@ final private[forum] class TopicApi(
       data: ForumForm.TopicData,
       me: User
   ): Fu[Topic] =
-    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug,
@@ -90,9 +94,9 @@ final private[forum] class TopicApi(
       findDuplicate(topic) flatMap {
         case Some(dup) => fuccess(dup)
         case None =>
-          env.postRepo.coll.insert.one(post) >>
-            env.topicRepo.coll.insert.one(topic withPost post) >>
-            env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+          postRepo.coll.insert.one(post) >>
+            topicRepo.coll.insert.one(topic withPost post) >>
+            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet ?? (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
@@ -104,7 +108,7 @@ final private[forum] class TopicApi(
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id))
                   .toFollowersOf(me.id)
               lila.mon.forum.post.create.increment()
-              env.mentionNotifier.notifyMentionedUsers(post, topic)
+              mentionNotifier.notifyMentionedUsers(post, topic)
               Bus.publish(actorApi.CreatePost(post), "forumPost")
             } inject topic
       }
@@ -131,57 +135,50 @@ final private[forum] class TopicApi(
       categId = categ.id,
       modIcon = true.some
     )
-    env.postRepo.coll.insert.one(post) >>
-      env.topicRepo.coll.insert.one(topic withPost post) >>
-      env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
+    postRepo.coll.insert.one(post) >>
+      topicRepo.coll.insert.one(topic withPost post) >>
+      categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
       (indexer ! InsertPost(post)) >>-
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
-    env.topicRepo.stickyByCateg(categ) flatMap { topics =>
+    topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
-        env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
+        postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
           TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
       }.sequenceFu
     }
 
-  def delete(categ: Categ, topic: Topic): Funit =
-    env.postRepo.idsByTopicId(topic.id) flatMap { postIds =>
-      (env.postRepo removeByTopic topic.id zip env.topicRepo.coll.delete.one($id(topic.id))) >>
-        (env.categApi denormalize categ) >>-
-        (indexer ! RemovePosts(postIds))
-    }
-
   def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
-    env.topicRepo.close(topic.id, topic.open) >> {
+    topicRepo.close(topic.id, topic.open) >> {
       MasterGranter.is(_.ModerateForum)(mod) ??
         modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
     }
 
   def toggleHide(categ: Categ, topic: Topic, mod: Holder): Funit =
-    env.topicRepo.hide(topic.id, topic.visibleOnHome) >> {
+    topicRepo.hide(topic.id, topic.visibleOnHome) >> {
       MasterGranter.is(_.ModerateForum)(mod) ?? {
-        env.postRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
+        postRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
           modLog.toggleHideTopic(mod.id, categ.id, topic.slug, topic.visibleOnHome)
       }
     }
 
   def toggleSticky(categ: Categ, topic: Topic, mod: Holder): Funit =
-    env.topicRepo.sticky(topic.id, !topic.isSticky) >> {
+    topicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter.is(_.ModerateForum)(mod) ??
         modLog.toggleStickyTopic(mod.id, categ.id, topic.slug, !topic.isSticky)
     }
 
   def denormalize(topic: Topic): Funit =
     for {
-      nbPosts       <- env.postRepo countByTopic topic
-      lastPost      <- env.postRepo lastByTopic topic
-      nbPostsTroll  <- env.postRepo.unsafe countByTopic topic
-      lastPostTroll <- env.postRepo.unsafe lastByTopic topic
+      nbPosts       <- postRepo countByTopic topic
+      lastPost      <- postRepo lastByTopic topic
+      nbPostsTroll  <- postRepo.unsafe countByTopic topic
+      lastPostTroll <- postRepo.unsafe lastByTopic topic
       _ <-
-        env.topicRepo.coll.update
+        topicRepo.coll.update
           .one(
             $id(topic.id),
             topic.copy(

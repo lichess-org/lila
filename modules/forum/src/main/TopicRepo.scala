@@ -37,6 +37,9 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def hide(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "hidden", value).void
 
+  def remove(topic: Topic): Funit =
+    coll.delete.one($id(topic.id)).void
+
   def sticky(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "sticky", value).void
 

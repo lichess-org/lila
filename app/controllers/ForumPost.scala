@@ -101,7 +101,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
             CategGrantMod(categSlug) {
-              postApi.delete(categSlug, id, me) inject {
+              env.forum.delete.post(categSlug, id, me) inject {
                 implicit val req = ctx.body
                 for {
                   userId    <- post.userId

@@ -10,7 +10,6 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
-import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 
@@ -21,7 +20,7 @@ final class PostApi(
     mentionNotifier: MentionNotifier,
     indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,
-    modLog: ModlogApi,
+    modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
@@ -186,22 +185,6 @@ final class PostApi(
       }
     }
 
-  def delete(categSlug: String, postId: String, mod: User): Fu[Option[PostView]] =
-    postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
-      _ ?? { post =>
-        viewOf(post) flatMap {
-          _ ?? { view =>
-            MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
-              mod.id,
-              post.userId,
-              post.author,
-              text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
-            ) inject view.some
-          }
-        }
-      }
-    }
-
   def allUserIds(topicId: Topic.ID) = postRepo allUserIdsByTopicId topicId
 
   def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
@@ -211,6 +194,22 @@ final class PostApi(
       .find($doc("userId" -> userId))
       .sort($doc("createdAt" -> -1))
       .cursor[Post](ReadPreference.secondaryPreferred)
+
+  def categsForUser(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
+    for {
+      categs <- categRepo withTeams teams
+      views <- categs.map { categ =>
+        get(categ lastPostId forUser) map { topicPost =>
+          CategView(
+            categ,
+            topicPost map { case (topic, post) =>
+              (topic, post, topic lastPage config.postMaxPerPage)
+            },
+            forUser
+          )
+        }
+      }.sequenceFu
+    } yield views
 
   private def recentUserIds(topic: Topic, newPostNumber: Int) =
     postRepo.coll

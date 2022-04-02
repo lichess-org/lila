@@ -51,31 +51,13 @@ final class Env(
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 
-  lazy val categApi: CategApi = {
-    val mk = (env: Env) => wire[CategApi]
-    mk(this)
-  }
+  lazy val categApi: CategApi = wire[CategApi]
 
-  lazy val topicApi: TopicApi = {
-    val mk = (env: Env) => wire[TopicApi]
-    mk(this)
-  }
+  lazy val topicApi: TopicApi = wire[TopicApi]
 
   lazy val postApi: PostApi = wire[PostApi]
 
-  def delete(categSlug: String, postId: String, mod: User): Funit =
-    postApi.delete(categSlug, postId, mod) flatMap {
-      _ ?? { view =>
-        postRepo.isFirstPost(view.topic.id, view.post.id) flatMap {
-          case true => topicApi.delete(view.categ, view.topic)
-          case false =>
-            postRepo.remove(view.post) >>
-              (topicApi denormalize view.topic) >>
-              (categApi denormalize view.categ) >>-
-              (forumSearch ! RemovePost(view.post.id))
-        }
-      }
-    }
+  lazy val delete: ForumDelete = wire[ForumDelete]
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
