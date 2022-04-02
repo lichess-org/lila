@@ -49,6 +49,10 @@ case class PostView(
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
 }
 
+object PostView {
+  case class WithReadPerm(view: PostView, canRead: Boolean)
+}
+
 case class PostLiteView(post: Post, topic: Topic)
 
 case class MiniForumPost(

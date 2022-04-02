@@ -23,9 +23,13 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
         else
           for {
-            teamIds <- ctx.userId ?? env.team.cached.teamIdsSet
-            posts   <- env.forumSearch(text, page, ctx.troll)
-          } yield html.forum.search(text, posts, teamIds)
+            paginator <- env.forumSearch(text, page, ctx.troll)
+            posts <- paginator.mapFutureResults(post =>
+              access.isGrantedRead(post.categ.id) map { canRead =>
+                lila.forum.PostView.WithReadPerm(post, canRead)
+              }
+            )
+          } yield html.forum.search(text, posts)
       }
     }
 
