@@ -450,7 +450,6 @@
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
-  <string name="gameCompletionRate">Voltooide partijen: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
