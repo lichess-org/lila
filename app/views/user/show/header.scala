@@ -109,6 +109,12 @@ object header {
           ),
           a(
             cls := "btn-rack__btn",
+            href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
+            titleOrText(trans.openingExplorer.txt()),
+            dataIcon := ""
+          ),
+          a(
+            cls := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
             dataIcon := ""
