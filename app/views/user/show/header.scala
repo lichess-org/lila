@@ -174,9 +174,6 @@ object header {
                   u.seenAt.map { seen =>
                     p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
                   },
-                  info.completionRatePercent.map { c =>
-                    p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
-                  },
                   ctx is u option
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
