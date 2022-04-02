@@ -27,8 +27,6 @@
   "scripts": {
     "compile": "tsc --incremental --declaration",
     "dev": "$npm_execpath run compile && rollup --config",
-    "prod": "$npm_execpath run compile && rollup --config --config-prod",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "prod": "$npm_execpath run compile && rollup --config --config-prod"
   }
 }

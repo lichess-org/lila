@@ -6,6 +6,11 @@ yarn compile -w
 ```
 
 ```
+cd ui/keyboardMove
+yarn dev -w
+```
+
+```
 cd ui/other
 yarn dev -w
 ```
