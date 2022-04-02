@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 
 import { DasherCtrl } from './dasher';
 import links from './links';

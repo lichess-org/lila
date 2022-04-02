@@ -1,5 +1,5 @@
 import { h, VNode, Hooks } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';

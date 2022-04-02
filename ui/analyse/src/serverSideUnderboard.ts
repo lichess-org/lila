@@ -70,9 +70,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
-  }
+  const chartLoader = () =>
+    `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+
   function startAdvantageChart() {
     if (window.LichessChartGame?.acpl.update || window.LichessAnalyseNvui) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;

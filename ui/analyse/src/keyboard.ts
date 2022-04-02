@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;

@@ -1,7 +1,7 @@
 import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import * as xhr from './studyXhr';

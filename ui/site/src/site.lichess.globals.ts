@@ -2,7 +2,7 @@ import StrongSocket from './component/socket';
 import { requestIdleCallback, escapeHtml } from './component/functions';
 import makeChat from './component/chat';
 import once from './component/once';
-import spinnerHtml from './component/spinner';
+import { spinnerHtml } from 'common/spinner';
 import sri from './component/sri';
 import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';

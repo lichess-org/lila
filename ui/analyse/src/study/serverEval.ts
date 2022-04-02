@@ -1,6 +1,6 @@
 import { defined, prop } from 'common';
 import { bind, onInsert } from 'common/snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom } from 'common/spinner';
 import Highcharts from 'highcharts';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -65,13 +65,13 @@ export function view(ctrl: ServerEval): VNode {
         }, 800);
       }),
     },
-    [h('div.study__message', spinner())]
+    [h('div.study__message', spinnerVdom())]
   );
 }
 
 const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');
 
-const requested = () => h('div.study__server-eval.requested.padded', spinner());
+const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom());
 
 function requestButton(ctrl: ServerEval) {
   const root = ctrl.root,

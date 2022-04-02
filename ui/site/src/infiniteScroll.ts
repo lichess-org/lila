@@ -1,4 +1,3 @@
-import spinnerHtml from './component/spinner';
 import * as xhr from 'common/xhr';
 
 export default function InfiniteScroll(selector: string) {
@@ -28,7 +27,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         );
     })
       .then(() => {
-        nav.innerHTML = spinnerHtml;
+        nav.innerHTML = lichess.spinnerHtml;
         return xhr.text(nextUrl);
       })
       .then(

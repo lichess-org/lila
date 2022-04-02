@@ -1,5 +1,5 @@
 import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
 import { boolSetting } from '../../boolSetting';
 import { option, plural, richHTML } from '../../util';

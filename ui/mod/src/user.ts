@@ -1,7 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import extendTablesortNumber from 'common/tablesort-number';
-import spinnerHtml from 'common/spinner';
 import tablesort from 'tablesort';
 
 lichess.load.then(() => {
@@ -26,7 +25,7 @@ lichess.load.then(() => {
   }
 
   function loadZone() {
-    $zone.html(spinnerHtml).removeClass('none');
+    $zone.html(lichess.spinnerHtml).removeClass('none');
     $('#main-wrap').addClass('full-screen-force');
     $zone.html('');
     streamLoad();
