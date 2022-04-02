@@ -3,14 +3,17 @@ package lila.forum
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config._
+import lila.forum.actorApi.RemovePost
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
+import lila.mon
 import lila.notify.NotifyApi
-import lila.relation.RelationApi
 import lila.pref.PrefApi
-import play.api.libs.ws.StandaloneWSClient
+import lila.relation.RelationApi
+import lila.user.User
 
 @Module
 final private class ForumConfig(
@@ -58,10 +61,21 @@ final class Env(
     mk(this)
   }
 
-  lazy val postApi: PostApi = {
-    val mk = (env: Env) => wire[PostApi]
-    mk(this)
-  }
+  lazy val postApi: PostApi = wire[PostApi]
+
+  def delete(categSlug: String, postId: String, mod: User): Funit =
+    postApi.delete(categSlug, postId, mod) flatMap {
+      _ ?? { view =>
+        postRepo.isFirstPost(view.topic.id, view.post.id) flatMap {
+          case true => topicApi.delete(view.categ, view.topic)
+          case false =>
+            postRepo.remove(view.post) >>
+              (topicApi denormalize view.topic) >>
+              (categApi denormalize view.categ) >>-
+              (forumSearch ! RemovePost(view.post.id))
+        }
+      }
+    }
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
