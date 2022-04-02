@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
-  <string name="gameCompletionRate">Oyun tamamlanma oranı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilini düzenle</string>
   <string name="firstName">Ad</string>
