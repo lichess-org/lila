@@ -76,15 +76,13 @@ final class AskPipelines[K, R](
     name: String
 )(implicit
     ec: ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    system: akka.actor.ActorSystem
 ) {
 
   def apply(key: K): Fu[R] = pipelines.get(key).get
 
   private val pipelines: LoadingCache[K, AskPipeline[R]] =
-    lila.common.LilaCache
-      .scaffeine(mode)
+    lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => new AskPipeline[R](() => compute(key), timeout, name = s"$name:$key"))
 }

@@ -46,16 +46,14 @@ final class AsyncActorSequencers(
     logging: Boolean = true
 )(implicit
     system: akka.actor.ActorSystem,
-    ec: ExecutionContext,
-    mode: play.api.Mode
+    ec: ExecutionContext
 ) {
 
   def apply[A](key: String)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)
 
   private val sequencers: LoadingCache[String, AsyncActorSequencer] =
-    lila.common.LilaCache
-      .scaffeine(mode)
+    lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
 }
