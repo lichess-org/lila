@@ -416,7 +416,6 @@
   <string name="profileCompletion">资料完成度：%s</string>
   <string name="xRating">%s等级分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
-  <string name="gameCompletionRate">棋局完成率：%s</string>
   <string name="profile">个人资料</string>
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
