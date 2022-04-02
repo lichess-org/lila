@@ -374,7 +374,6 @@
   <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
   <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
-  <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
   <string name="firstName">Enw cyntaf</string>
