@@ -7,8 +7,9 @@ import { terser } from 'rollup-plugin-terser';
 export default targets => {
   return args => {
     const prod = args['config-prod'];
-    const target = targets[args['config-plugin'] || 'main'];
-    return {
+    const selected = args['config-all'] ? Object.values(targets) : [targets[args['config-plugin'] || 'main']];
+    console.log(selected);
+    return selected.map(target => ({
       input: target.input,
       external: target.external,
       output: [
@@ -49,6 +50,6 @@ export default targets => {
         //   summaryOnly: true,
         // }),
       ],
-    };
+    }));
   };
 };

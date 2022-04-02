@@ -21,8 +21,7 @@
     "tablesort": "^5.3"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod",
+    "all-dev": "rollup --config --config-all",
     "plugin-dev": "rollup --config --config-plugin",
     "plugin-prod": "rollup --config --config-prod --config-plugin"
   }
