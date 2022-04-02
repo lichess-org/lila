@@ -421,7 +421,6 @@ Translation results
   <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
   <string name="xRating">%s రేటింగ్</string>
   <string name="ifNoneLeaveEmpty">ఏదీ లేకుంటే, ఖాళీగా వదిలివేయండి</string>
-  <string name="gameCompletionRate">గేమ్ పూర్తి రేటు: %s</string>
   <string name="profile">ప్రొఫైల్</string>
   <string name="editProfile">ప్రొఫైల్ మార్చాలి</string>
   <string name="firstName">ఇచ్చిన పేరు</string>
