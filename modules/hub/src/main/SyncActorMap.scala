@@ -3,7 +3,6 @@ package lila.hub
 import com.github.benmanes.caffeine.cache._
 import java.util.concurrent.TimeUnit
 import ornicar.scalalib.Zero
-import play.api.Mode
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 import scala.jdk.CollectionConverters._
@@ -11,7 +10,7 @@ import scala.jdk.CollectionConverters._
 final class SyncActorMap[T <: SyncActor](
     mkActor: String => T,
     accessTimeout: FiniteDuration
-)(implicit mode: Mode) {
+) {
 
   def getOrMake(id: String): T = actors get id
 
@@ -48,9 +47,7 @@ final class SyncActorMap[T <: SyncActor](
   def touchOrMake(id: String): Unit = actors.get(id).unit
 
   private[this] val actors: LoadingCache[String, T] =
-    lila.common.LilaCache
-      .caffeine(mode)
-      .recordStats
+    lila.common.LilaCache.caffeine.recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
         def onRemoval(id: String, actor: T, cause: RemovalCause): Unit =

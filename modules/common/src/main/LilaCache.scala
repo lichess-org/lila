@@ -6,7 +6,7 @@ import com.github.blemale.scaffeine.Scaffeine
 
 object LilaCache {
 
-  def caffeine(mode: Mode): Caffeine[Any, Any] = Caffeine.newBuilder().scheduler(Scheduler.systemScheduler)
+  def caffeine: Caffeine[Any, Any] = Caffeine.newBuilder().scheduler(Scheduler.systemScheduler)
 
-  def scaffeine(mode: Mode): Scaffeine[Any, Any] = Scaffeine().scheduler(Scheduler.systemScheduler)
+  def scaffeine: Scaffeine[Any, Any] = Scaffeine().scheduler(Scheduler.systemScheduler)
 }

@@ -81,7 +81,7 @@ object MongoCache {
         keyToString,
         (wrapper: LoaderWrapper[K, V]) =>
           build(wrapper)(
-            scaffeine(mode).recordStats().initialCapacity(cacheApi.actualCapacity(initialCapacity))
+            scaffeine.recordStats().initialCapacity(cacheApi.actualCapacity(initialCapacity))
           ),
         coll
       )
@@ -100,7 +100,7 @@ object MongoCache {
         name,
         dbTtl,
         _ => "",
-        wrapper => build(wrapper)(scaffeine(mode).initialCapacity(1)),
+        wrapper => build(wrapper)(scaffeine.initialCapacity(1)),
         coll
       )
 
