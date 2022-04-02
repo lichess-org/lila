@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xChessInsights">%s 的对局洞察</string>
+  <string name="xHasNoChessInsights">%s还没有对洞察！</string>
+  <string name="insightsAreProtected">%s的对局洞察被保护</string>
   <string name="cantSeeInsights">对不起，你无法查看 %s 的洞察</string>
   <string name="generateInsights">生成 %s 的洞察报告</string>
   <string name="crunchingData">正在为你处理数据</string>
