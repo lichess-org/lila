@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%s 的對局洞察</string>
+  <string name="xHasNoChessInsights">%s 還沒有對局洞察</string>
+  <string name="insightsAreProtected">%s 的對局洞察被保護</string>
+</resources>
