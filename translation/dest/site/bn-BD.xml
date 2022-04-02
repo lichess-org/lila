@@ -435,7 +435,6 @@
   <string name="profileCompletion">প্রোফাইল সম্পন্ন: %s</string>
   <string name="xRating">%s অনুপাত</string>
   <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
-  <string name="gameCompletionRate">খেলার সম্পন্ন অনুপাত: %s</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
   <string name="firstName">প্রথম নাম</string>
