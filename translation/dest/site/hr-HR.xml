@@ -482,7 +482,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="profileCompletion">Profil je uređen %s</string>
   <string name="xRating">%s rejting</string>
   <string name="ifNoneLeaveEmpty">Nemaš rejting? Ostavi polje prazno</string>
-  <string name="gameCompletionRate">Stopa završavanja partija: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
