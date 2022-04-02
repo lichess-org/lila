@@ -6,7 +6,7 @@
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">等待對手</string>
   <string name="waiting">請稍等</string>
-  <string name="yourTurn">輪到您了</string>
+  <string name="yourTurn">該你走</string>
   <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
   <string name="level">難度</string>
   <string name="strength">強度</string>
@@ -423,6 +423,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">國家或旗幟</string>
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
+  <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -465,6 +466,7 @@
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">%s作</string>
+  <string name="importedByX">由%s滙入</string>
   <string name="thisTopicIsNowClosed">本话题已关闭。</string>
   <string name="blog">博客</string>
   <string name="notes">笔记</string>
@@ -748,6 +750,7 @@
   <string name="currentMatchScore">最近的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不會開設多個帳號(除了於%s列明的原因以外)</string>
   <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
