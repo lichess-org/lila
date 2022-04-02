@@ -40,7 +40,7 @@ const setupActionForm = () => {
       }),
     1000
   );
-  $(form).on('click', 'button', e => {
+  $(form).on('click', 'button', (e: Event) => {
     const button = e.target as HTMLButtonElement;
     const action = button.getAttribute('value');
     const nbSelected = form.querySelectorAll('input:checked').length;
@@ -51,6 +51,7 @@ const setupActionForm = () => {
       debouncedSubmit();
       return false;
     }
+    return;
   });
 };
 
@@ -77,7 +78,7 @@ const expandCheckboxZone = (table: HTMLTableElement, onSelect: OnSelect) =>
   $(table).on('click', 'td:first-child', (e: MouseEvent) => {
     if ((e.target as HTMLElement).tagName == 'INPUT') onSelect(e.target as HTMLInputElement, e.shiftKey);
     else {
-      const input = (e.target as HTMLTableDataCellElement).querySelector('input') as HTMLInputElement | undefined;
+      const input = (e.target as HTMLTableElement).querySelector('input') as HTMLInputElement | undefined;
       if (input) {
         input.checked = !input.checked;
         onSelect(input, e.shiftKey);

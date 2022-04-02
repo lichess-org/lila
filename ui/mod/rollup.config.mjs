@@ -3,8 +3,8 @@ import rollupProject from '@build/rollupProject';
 export default rollupProject({
   activity: {
     input: 'src/activity.ts',
-    output: 'modActivity',
-    name: 'modActivity',
+    output: 'mod.activity',
+    name: 'LichessModActivity',
   },
   user: {
     input: 'src/user.ts',
@@ -12,7 +12,7 @@ export default rollupProject({
   },
   inquiry: {
     input: 'src/inquiry.ts',
-    output: 'inquiry',
+    output: 'mod.inquiry',
   },
   games: {
     input: 'src/games.ts',
