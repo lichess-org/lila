@@ -58,7 +58,10 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
                   log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
                   funit
                 },
-                capture => api.payPal.onCaptureCompleted(capture)
+                capture =>
+                  fuccess {
+                    api.payPal.onCaptureCompleted(capture)
+                  }
               )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
