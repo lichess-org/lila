@@ -469,7 +469,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="profileCompletion">Profil je %s završen</string>
   <string name="xRating">%s rejting</string>
   <string name="ifNoneLeaveEmpty">Ako nemate rejting, ostavite polje prazno</string>
-  <string name="gameCompletionRate">Procenat završavanja partija: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredite profil</string>
   <string name="firstName">Ime</string>
