@@ -446,7 +446,6 @@
   <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
   <string name="xRating">%s gunaankan</string>
   <string name="ifNoneLeaveEmpty">काहीही नसल्यास रिक्त सोडा</string>
-  <string name="gameCompletionRate">गेम पूर्ण करण्याचा दर %s</string>
   <string name="profile">प्रोफाइल</string>
   <string name="editProfile">प्रोफाईल संपादित करा</string>
   <string name="firstName">नाव</string>
