@@ -10,7 +10,7 @@ import lila.team.Team
 
 object search {
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView], myTeamIds: Set[Team.ID])(implicit
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(implicit
       ctx: Context
   ) = {
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
@@ -31,7 +31,8 @@ object search {
         table(cls := "slist slist-pad search__results")(
           if (pager.nbResults > 0)
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { view =>
+              pager.currentPageResults.map { viewWithRead =>
+                val view = viewWithRead.view
                 val info =
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
@@ -39,7 +40,7 @@ object search {
                     bits.authorLink(view.post)
                   )
                 tr(cls := "paginated")(
-                  if (view.categ.team.forall(myTeamIds.contains))
+                  if (viewWithRead.canRead)
                     frag(
                       td(
                         a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
