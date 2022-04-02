@@ -8,7 +8,6 @@ export default targets => {
   return args => {
     const prod = args['config-prod'];
     const selected = args['config-all'] ? Object.values(targets) : [targets[args['config-plugin'] || 'main']];
-    console.log(selected);
     return selected.map(target => ({
       input: target.input,
       external: target.external,
