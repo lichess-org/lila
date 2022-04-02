@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Ako sa môžem stať moderátorom?</string>
   <string name="youCannotApply">Není možné podať prihlášku pre pozíciu moderátora. Ak si všimneme niekoho o kom si myslíme, že by bol dobrým moderátorom, sami ho kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korešpondenčný šach odlišný od normálneho šachu?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Viac informácií nájdete na našej %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">stránke fair play</string>
+  <string name="pleaseReadFairPlayPage">Viac informácií nájdete na našej %s</string>
+  <string name="fairPlayPage">stránke fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Pokiaľ ide o Lichess, hlavný rozdiel v pravidlách pre korešpondenčný šach spočíva v tom, že je povolená opening book. Používanie enginov je stále zakázané a bude mať za následok označenie pomoc s enginom. Aj keď ICCF umožňuje použitie enginu v korešpondencii, Lichess nie.</string>
   <string name="gameplay">Hrateľnosť</string>
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>

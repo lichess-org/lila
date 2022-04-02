@@ -642,7 +642,7 @@
   <string name="error.min">Павінна быць не менш за %s</string>
   <string name="error.max">Павінна быць не больш за %s</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
-  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Калі зарэгістраваны</string>
+  <string name="ifRegistered">Калі зарэгістраваны</string>
   <string name="onlyExistingConversations">Толькі існыя размовы</string>
   <string name="onlyFriends">Толькі сябрам</string>
   <string name="menu">Меню</string>

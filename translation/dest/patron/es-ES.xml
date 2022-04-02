@@ -29,7 +29,6 @@
   <string name="otherAmount">Otro</string>
   <string name="pleaseEnterAmountInX">Especifica un importe en %s</string>
   <string name="withCreditCard">Tarjeta de crédito</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo pequeño, ¡por eso tu apoyo marca una gran diferencia!</string>
   <string name="celebratedPatrons">Los célebres patrones que hacen posible Lichess</string>
   <string name="whereMoneyGoes">¿A dónde va el dinero?</string>
@@ -65,6 +64,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decide cuanto vale Lichess para ti:</string>
   <string name="stopPayments">Retira tu tarjeta de crédito y detén los pagos:</string>
+  <string name="stopPaymentsPayPal">Cancelar suscripción de PayPal y detener los pagos:</string>
   <string name="noLongerSupport">Ya no apoyas a Lichess</string>
   <string name="viewOthers">Ver otros Patrones de Lichess</string>
   <string name="date">Fecha</string>

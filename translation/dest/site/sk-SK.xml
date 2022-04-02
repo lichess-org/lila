@@ -636,7 +636,7 @@
   <string name="error.min">Minimálna dĺžka je %s znakov</string>
   <string name="error.max">Maximálna dĺžka je %s znakov</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
-  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Ak sú registrovaní</string>
+  <string name="ifRegistered">Ak sú registrovaní</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>

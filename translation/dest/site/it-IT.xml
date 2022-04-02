@@ -575,7 +575,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="error.min">Deve essere almeno %s</string>
   <string name="error.max">Deve essere al massimo %s</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
-  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Se registrati</string>
+  <string name="ifRegistered">Se registrati</string>
   <string name="onlyExistingConversations">Solo conversazioni esistenti</string>
   <string name="onlyFriends">Solo amici</string>
   <string name="menu">Menù</string>

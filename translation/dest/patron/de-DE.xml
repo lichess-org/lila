@@ -29,7 +29,6 @@
   <string name="otherAmount">Anderer Betrag</string>
   <string name="pleaseEnterAmountInX">Bitte gib einen Betrag in %s ein</string>
   <string name="withCreditCard">Kreditkarte</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Wir sind ein kleines Team, deswegen macht deine Unterstützung einen riesen Unterschied!</string>
   <string name="celebratedPatrons">Die gefeierten Unterstützer, die Lichess möglich machen</string>
   <string name="whereMoneyGoes">Wohin fließt das Geld?</string>
@@ -65,6 +64,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="xOrY">%1$s oder %2$s</string>
   <string name="decideHowMuch">Entscheide wieviel dir Lichess wert ist:</string>
   <string name="stopPayments">Deine Kreditkarte zurückziehen und Zahlungen beenden:</string>
+  <string name="stopPaymentsPayPal">PayPal-Abonnement kündigen und Zahlungen stoppen:</string>
   <string name="noLongerSupport">Lichess nicht weiter unterstützen</string>
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>

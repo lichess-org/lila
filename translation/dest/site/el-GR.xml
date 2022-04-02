@@ -575,7 +575,7 @@
   <string name="error.min">Πρέπει να είναι τουλάχιστον %s</string>
   <string name="error.max">Πρέπει να είναι το πολύ %s</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
-  <string name="ifRegistered" comment="ifRegistered&#10;&#10;In the site settings, users can choose who can challenge them for a game. This is one of the options, allowing only registered users to challenge you. Other options include &quot;only friends&quot; and &quot;alsways&quot; (even anonymous users).">Εάν είναι εγγεγραμμένοι</string>
+  <string name="ifRegistered">Εάν είναι εγγεγραμμένοι</string>
   <string name="onlyExistingConversations">Μόνο υπάρχουσες συνομιλίες</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
   <string name="menu">Κατάλογος</string>

@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Nola bihur naiteke moderatzaile?</string>
   <string name="youCannotApply">Ezin da moderatzaile izateko eskaerarik egin. Norbait moderatzaile izan daitekeela uste badugu zuzenean jarriko gara berarekin kontaktuan.</string>
   <string name="isCorrespondenceDifferent">Zein dira posta bidezko partidak eta xake arruntaren arteko desberdintasunak?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Informazio gehiagorako, irakurri gure %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">joko garbiari buruzko orria</string>
+  <string name="pleaseReadFairPlayPage">Informazio gehiagorako, irakurri gure %s</string>
+  <string name="fairPlayPage">joko garbiari buruzko orria</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessen posta bidezko xakearen arauen desberdintasun handiena, hasiera liburua erabili daitekeela da. Analisi-motoreak erabiltzea debekatuta dago eta laguntza erabiltzeagatik markatuko ditugu hori egiten duten jokalariak. Nahiz eta ICCFk analisi-motoreak erabiltzea uztean duen, Lichessek ez.</string>
   <string name="gameplay">Jokoa</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>

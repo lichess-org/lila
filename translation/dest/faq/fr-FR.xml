@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Comment puis-je devenir modérateur ?</string>
   <string name="youCannotApply">Il n\'est pas possible de postuler pour devenir modérateur. Si nous rencontrons quelqu\'un qui nous semble être efficace comme modérateur, nous le contacterons directement.</string>
   <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">Pour plus d’informations, lisez notre %s</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">page sur l\'esprit sportif</string>
+  <string name="pleaseReadFairPlayPage">Pour plus d’informations, lisez notre %s</string>
+  <string name="fairPlayPage">page sur l\'esprit sportif</string>
   <string name="youCanUseOpeningBookNoEngine">Sur Lichess, la principale différence entre les règles des échecs par correspondance est qu\'un livre d\'ouverture est autorisé. L\'utilisation de moteurs est toujours interdite et entraînera le signalement d\'une assistance moteur. Bien que l\'ICCF autorise l\'utilisation des moteurs dans la correspondance, ce n\'est pas le cas du Lichess.</string>
   <string name="gameplay">Règles du jeu et jouabilité</string>
   <string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>

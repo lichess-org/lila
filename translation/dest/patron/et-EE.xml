@@ -21,7 +21,6 @@
   <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
   <string name="otherAmount">Muu</string>
   <string name="withCreditCard">Krediitkaart</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
   <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
   <string name="whereMoneyGoes">Kuhu raha läheb?</string>
