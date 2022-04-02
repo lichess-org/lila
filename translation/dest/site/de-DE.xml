@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil vollständig zu %s</string>
   <string name="xRating">%s Wertungszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
-  <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
