@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Karelerin adlarını iyice bilirsen oyunları daha etkili bir şekilde analiz edebilirsin.</string>
   <string name="aSquareNameAppears">Bu alıştırma için tahta üzerinde adı görünen karelere tıklaman gerekiyor. 30 saniye içinde mümkün olduğunca çok kareyi bulmaya çalış!</string>
   <string name="startTraining">Antrenmana başla</string>
+  <string name="findSquare">Kareleri bul</string>
+  <string name="nameSquare">Kareleri yaz</string>
 </resources>
