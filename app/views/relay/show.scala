@@ -26,29 +26,29 @@ object show {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.relay=${safeJsonValue(
-          Json.obj(
-            "relay"    -> data.relay,
-            "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
-            "data"     -> data.analysis,
-            "i18n"     -> bits.jsI18n,
-            "tagTypes" -> lila.study.PgnTags.typesToString,
-            "userId"   -> ctx.userId,
-            "chat" -> chatOption.map(c =>
-              chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                writeable = ctx.userId.??(rt.study.canChat),
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                localMod = ctx.userId.??(rt.study.canContribute)
-              )
-            ),
-            "explorer"      -> views.html.board.bits.explorerConfig,
-            "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
-            "socketVersion" -> socketVersion.value
-          )
-        )}""")
+            Json.obj(
+              "relay"    -> data.relay,
+              "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
+              "data"     -> data.analysis,
+              "i18n"     -> bits.jsI18n,
+              "tagTypes" -> lila.study.PgnTags.typesToString,
+              "userId"   -> ctx.userId,
+              "chat" -> chatOption.map(c =>
+                chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  writeable = ctx.userId.??(rt.study.canChat),
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
+                  localMod = ctx.userId.??(rt.study.canContribute)
+                )
+              ),
+              "explorer"      -> views.html.board.bits.explorerConfig,
+              "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
+              "socketVersion" -> socketVersion.value
+            )
+          )}""")
       ),
       chessground = false,
       zoomable = true,

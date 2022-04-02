@@ -17,7 +17,7 @@ object embed {
       title = replay titleOf pov,
       cssModule = "analyse.embed"
     )(
-      div(cls := "is2d")(
+      div(cls    := "is2d")(
         main(cls := "analyse")
       ),
       footer {
@@ -37,12 +37,12 @@ object embed {
       analyseTag,
       embedJsUnsafeLoadThen(
         s"""analyseEmbed(${safeJsonValue(
-          Json.obj(
-            "data"  -> data,
-            "embed" -> true,
-            "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-          )
-        )})""",
+            Json.obj(
+              "data"  -> data,
+              "embed" -> true,
+              "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+            )
+          )})""",
         config.nonce
       )
     )

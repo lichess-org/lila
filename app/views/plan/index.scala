@@ -49,8 +49,8 @@ object index {
         },
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
-          lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
-        )})""")
+            lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
+          )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -104,17 +104,17 @@ object index {
               ),
               div(cls := "content")(
                 div(
-                  cls := "plan_checkout",
-                  attr("data-email") := email.??(_.value),
+                  cls                          := "plan_checkout",
+                  attr("data-email")           := email.??(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
                   ctx.me map { me =>
                     st.group(cls := "radio buttons dest")(
                       div(
                         input(
-                          tpe := "radio",
+                          tpe  := "radio",
                           name := "dest",
-                          id := "dest_me",
+                          id   := "dest_me",
                           checked,
                           value := "me"
                         ),
@@ -122,9 +122,9 @@ object index {
                       ),
                       div(
                         input(
-                          tpe := "radio",
-                          name := "dest",
-                          id := "dest_gift",
+                          tpe   := "radio",
+                          name  := "dest",
+                          id    := "dest_gift",
                           value := "gift"
                         ),
                         label(`for` := "dest_gift")(giftPatronWings())
@@ -133,12 +133,12 @@ object index {
                   },
                   div(cls := "gift complete-parent none")(
                     st.input(
-                      name := "giftUsername",
-                      value := "",
-                      cls := "user-autocomplete",
-                      placeholder := trans.clas.lichessUsername.txt(),
+                      name         := "giftUsername",
+                      value        := "",
+                      cls          := "user-autocomplete",
+                      placeholder  := trans.clas.lichessUsername.txt(),
                       autocomplete := "off",
-                      dataTag := "span",
+                      dataTag      := "span",
                       autofocus
                     )
                   ),
@@ -146,9 +146,9 @@ object index {
                     div(
                       st.title := singleDonation.txt(),
                       input(
-                        tpe := "radio",
-                        name := "freq",
-                        id := "freq_onetime",
+                        tpe   := "radio",
+                        name  := "freq",
+                        id    := "freq_onetime",
                         value := "onetime"
                       ),
                       label(`for` := "freq_onetime")(onetime())
@@ -156,9 +156,9 @@ object index {
                     div(
                       st.title := recurringBilling.txt(),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_monthly",
+                        id   := "freq_monthly",
                         checked,
                         value := "monthly"
                       ),
@@ -167,12 +167,12 @@ object index {
                     div(
                       st.title := payLifetimeOnce.txt(pricing.lifetime.display),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_lifetime",
+                        id   := "freq_lifetime",
                         patron.exists(_.isLifetime) option disabled,
                         value := "lifetime",
-                        cls := List("lifetime-check" -> patron.exists(_.isLifetime))
+                        cls   := List("lifetime-check" -> patron.exists(_.isLifetime))
                       ),
                       label(`for` := "freq_lifetime")(lifetime())
                     )
@@ -183,22 +183,22 @@ object index {
                         val id = s"plan_${money.code}"
                         div(
                           input(
-                            cls := money == pricing.default option "default",
-                            tpe := "radio",
-                            name := "plan",
+                            cls   := money == pricing.default option "default",
+                            tpe   := "radio",
+                            name  := "plan",
                             st.id := id,
                             money == pricing.default option checked,
-                            value := money.amount,
+                            value               := money.amount,
                             attr("data-amount") := money.amount
                           ),
                           label(`for` := id)(money.display)
                         )
                       },
-                      div(cls := "other")(
+                      div(cls     := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
-                          `for` := "plan_other",
-                          title := pleaseEnterAmountInX.txt(pricing.currencyCode),
+                          `for`                    := "plan_other",
+                          title                    := pleaseEnterAmountInX.txt(pricing.currencyCode),
                           attr("data-trans-other") := otherAmount.txt()
                         )(otherAmount())
                       )
@@ -224,7 +224,7 @@ object index {
                         )
                       else
                         a(
-                          cls := "button",
+                          cls  := "button",
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
                         )("Log in to donate")
                     ),

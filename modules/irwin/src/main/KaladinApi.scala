@@ -17,7 +17,7 @@ import lila.report.Mod
 import lila.report.ModId
 import lila.report.Report
 import lila.report.Reporter
-import lila.report.{ Suspect }
+import lila.report.Suspect
 import lila.tournament.Tournament
 import lila.tournament.TournamentTop
 import lila.user.Holder

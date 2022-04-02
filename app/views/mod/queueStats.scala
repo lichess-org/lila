@@ -41,7 +41,7 @@ object queueStats {
         span(p.period.key),
         Period.all.map { per =>
           a(
-            cls := (p.period == per).option("current"),
+            cls  := (p.period == per).option("current"),
             href := routes.Mod.queues(per.key)
           )(per.toString)
         }

@@ -23,7 +23,7 @@ case class OpenGraph(
     private def tag(name: String, value: String) =
       meta(
         property := s"og:$name",
-        content := value
+        content  := value
       )
 
     private val tupledTag = (tag _).tupled
