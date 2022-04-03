@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="movePieceFromE2ToE4">Moure la peça d\'e2 a e4</string>
+  <string name="moveKnightToC3">Moure el cavall a c3</string>
+  <string name="kingsideCastle">Enroc curt</string>
+  <string name="queensideCastle">Enroc llarg</string>
+  <string name="offerOrAcceptDraw">Oferir o acceptar taules</string>
+  <string name="ifItIsLegalToCastleBothWays">Si és possible enrocar-se de les dues maneres, premer enter per enrocar-se curt</string>
+</resources>
