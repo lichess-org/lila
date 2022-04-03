@@ -1,5 +1,5 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
-import { Prop, prop } from 'common';
+import { Prop, propWithEffect } from 'common';
 import keyboardMove from './keyboardMove';
 
 // Tips for working with this file:
@@ -22,7 +22,6 @@ const defaultCtrl = {
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   drop: unexpectedErrorThrower('drop'),
-  hasFocus: () => true,
   hasSelected: () => undefined,
   jump: () => null,
   justSelected: () => true,
@@ -31,10 +30,10 @@ const defaultCtrl = {
   resign: unexpectedErrorThrower('resign'),
   san: unexpectedErrorThrower('san'),
   select: unexpectedErrorThrower('select'),
-  setFocus: () => null,
   update: () => null,
   usedSan: true,
-  helpModalOpen: prop(false),
+  helpModalOpen: propWithEffect(false, () => null),
+  isFocused: propWithEffect(false, () => null),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 

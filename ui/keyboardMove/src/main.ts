@@ -18,8 +18,7 @@ export interface KeyboardMove {
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
-  hasFocus(): boolean;
-  setFocus(v: boolean): void;
+  isFocused: Prop<boolean>;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
@@ -69,7 +68,7 @@ interface Step {
 type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
-  let focus = false;
+  const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
@@ -115,11 +114,6 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
     },
-    hasFocus: () => focus,
-    setFocus(v) {
-      focus = v;
-      root.redraw();
-    },
     san(orig, dest) {
       usedSan = true;
       root.chessground.cancelMove();
@@ -141,6 +135,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
     helpModalOpen,
+    isFocused,
   };
 }
 
@@ -157,7 +152,7 @@ export function render(ctrl: KeyboardMove) {
           .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
       ),
     }),
-    ctrl.hasFocus()
+    ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()

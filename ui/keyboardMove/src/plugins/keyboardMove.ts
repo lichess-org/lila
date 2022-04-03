@@ -135,8 +135,8 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
         isTrusted: e.isTrusted,
       });
   });
-  opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
-  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
+  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.which > 36 && e.which < 41) {
