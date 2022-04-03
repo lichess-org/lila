@@ -16,5 +16,6 @@
   <string name="includingAXToIndicateACapture">\"x\":n lisääminen lyönnin merkitsemiseksi ei ole pakollista</string>
   <string name="bothTheLetterOAndTheDigitZero">Linnoituksen merkitsemiseen voi käyttää sekä \"o\"-kirjainta että \"0\"-numeroa</string>
   <string name="ifItIsLegalToCastleBothWays">Jos linnoitus on mahdollinen molempiin suuntiin, tee lyhyt linnoitus painamalla Enteriä</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Isoilla ja pienillä kirjaimilla on väliä vain moniselitteisissä tilanteissa, joissa pitää tehdä ero lähetin (B) ja b-sotilaan välillä</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Esisiirron voit tehdä yksinkertaisesti kirjoittamalla haluamasi esisiirron ennen omaa siirtovuoroasi</string>
 </resources>
