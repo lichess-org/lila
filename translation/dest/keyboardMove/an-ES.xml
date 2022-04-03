@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="kingsideCastle">Enroque curto</string>
+  <string name="queensideCastle">Enroque largo</string>
+  <string name="promoteC8ToQueen">Promocionar c8 a dama</string>
+</resources>
