@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="performAMove">Jouer un coup</string>
+  <string name="movePieceFromE2ToE4">Déplacer la pièce de e2 à e4</string>
+  <string name="moveKnightToC3">Placer le cavalier à c3</string>
+  <string name="kingsideCastle">Faire le petit roque</string>
+  <string name="queensideCastle">Faire le grand roque</string>
+  <string name="promoteC8ToQueen">Faire la promotion à une dame à c8</string>
+</resources>
