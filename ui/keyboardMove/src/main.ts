@@ -6,6 +6,7 @@ import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { propWithEffect, Prop } from 'common';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -29,8 +30,7 @@ export interface KeyboardMove {
   clock(): ClockController | undefined;
   draw(): void;
   resign(v: boolean, immediately?: boolean): void;
-  isHelpModalOpen(): boolean;
-  setHelpModalOpen(v: boolean): void;
+  helpModalOpen: Prop<boolean>;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -70,7 +70,7 @@ type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
   let focus = false;
-  let helpModalOpen = false;
+  const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
@@ -140,11 +140,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    isHelpModalOpen: () => helpModalOpen,
-    setHelpModalOpen(v: boolean) {
-      helpModalOpen = v;
-      root.redraw();
-    },
+    helpModalOpen,
   };
 }
 
@@ -164,11 +160,11 @@ export function render(ctrl: KeyboardMove) {
     ctrl.hasFocus()
       ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
-    ctrl.isHelpModalOpen()
+    ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
           content: [h('div.scrollable', spinner())],
-          onClose: () => ctrl.setHelpModalOpen(false),
+          onClose: () => ctrl.helpModalOpen(false),
           onInsert: async ($wrap: Cash) => {
             const [, html] = await Promise.all([
               lichess.loadCssPath('keyboardMove.help'),

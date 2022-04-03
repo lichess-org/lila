@@ -1,4 +1,5 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
+import { prop } from 'common';
 import keyboardMove from './keyboardMove';
 
 // Tips for working with this file:
@@ -33,8 +34,7 @@ const defaultCtrl = {
   setFocus: () => null,
   update: () => null,
   usedSan: true,
-  isHelpModalOpen: () => false,
-  setHelpModalOpen: unexpectedErrorThrower('setHelpModalOpen'),
+  helpModalOpen: prop(false),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -104,7 +104,7 @@ describe('keyboardMove', () => {
       input,
       ctrl: {
         ...defaultCtrl,
-        setHelpModalOpen: mockSetHelpModalOpen,
+        helpModalOpen: prop(false),
       },
     }) as any;
 
