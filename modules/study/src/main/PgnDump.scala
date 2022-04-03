@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Shape, Shapes, Gamebook }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -18,7 +18,7 @@ final class PgnDump(
     net: lila.common.config.NetConfig
 )(implicit ec: ExecutionContext) {
 
-  import PgnDump._
+  import PgnDump._ // what is this doing...
 
   def apply(study: Study, flags: WithFlags): Source[String, _] =
     chapterRepo
@@ -78,6 +78,7 @@ final class PgnDump(
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*") // required for SCID to import
+        // add an AnalysisMode tag here.
       ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
@@ -95,7 +96,7 @@ final class PgnDump(
 
 object PgnDump {
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
+  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean, interactive: Boolean)
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
@@ -117,7 +118,22 @@ object PgnDump {
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
-  // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
+  // [%hint Optional, on-demand hint for the player.]
+  // [%wrong When any other move played is wrong.]
+  // pass in gamebook.cleanUp as argument.
+  private def gamebookComment(gamebook: Gamebook): Option[String] = {
+    def render(as: String)(gamebookComment: Option[String]) = {
+      gamebookComment match {
+        case None => ""
+        case Some(gamebookComment) => s"%[%$as ${gamebookComment}]"
+      }
+    }
+    val hint = render("hint")(gamebook.hint)
+    val wrong = render("wrong")(gamebook.deviation)
+    s"$hint$wrong".some.filter(_.nonEmpty)
+  }
+
+  // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4] ... 
   private def shapeComment(shapes: Shapes): Option[String] = {
     def render(as: String)(shapes: List[String]) =
       shapes match {
