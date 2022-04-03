@@ -852,4 +852,5 @@
   <string name="until">直到</string>
   <string name="lichessDbExplanation">來自 Lichess 用戶的所有評分遊戲</string>
   <string name="switchSides">更換所持顏色</string>
+  <string name="closingAccountWithdrawAppeal">關閉帳戶將會收回你的上訴</string>
 </resources>
