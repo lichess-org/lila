@@ -85,6 +85,11 @@ export default (opts: Opts) => {
         opts.ctrl.draw();
         clear();
       }
+    } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
+      if (['help', '?'].includes(v.toLowerCase())) {
+        opts.ctrl.setHelpModalOpen(true);
+        clear();
+      }
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
       // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
       // updates when it is still the player's turn

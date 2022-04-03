@@ -33,6 +33,8 @@ const defaultCtrl = {
   setFocus: () => null,
   update: () => null,
   usedSan: true,
+  isHelpModalOpen: () => false,
+  setHelpModalOpen: unexpectedErrorThrower('setHelpModalOpen'),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -92,6 +94,23 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockMillisOf.mock.calls.length).toBe(2);
+    expect(input.value).toBe('');
+  });
+
+  test('opens help modal with ?', () => {
+    input.value = '?';
+    const mockSetHelpModalOpen = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        setHelpModalOpen: mockSetHelpModalOpen,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockSetHelpModalOpen.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 
