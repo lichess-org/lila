@@ -80,13 +80,14 @@ final class Team(
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      (isGranted(_.ChatTimeout) && requestModView)
+      (isGranted(_.Shusher) && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(implicit
       ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+      team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isForumFor(_.MEMBERS) && isMember) ||
       (isGranted(_.ModerateForum) && requestModView)

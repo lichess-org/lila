@@ -1,6 +1,6 @@
 import { Ctrl, NotifyData, Notification } from './interfaces';
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
 
 export default function view(ctrl: Ctrl): VNode {

@@ -16,9 +16,9 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0.0.51",
-    "rollup": "^2.66.1",
-    "typescript": "^4.5.5"
+    "@types/web": "^0",
+    "rollup": "^2",
+    "typescript": "^4"
   },
   "dependencies": {
     "common": "2.0.0",
@@ -27,8 +27,6 @@
   "scripts": {
     "compile": "tsc --incremental --declaration",
     "dev": "$npm_execpath run compile && rollup --config",
-    "prod": "$npm_execpath run compile && rollup --config --config-prod",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "prod": "$npm_execpath run compile && rollup --config --config-prod"
   }
 }

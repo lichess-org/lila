@@ -65,6 +65,9 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
 
+  def remove(post: Post): Funit =
+    coll.delete.one($id(post.id)).void
+
   def removeByTopic(topicId: String): Funit =
     coll.delete.one(selectTopic(topicId)).void
 

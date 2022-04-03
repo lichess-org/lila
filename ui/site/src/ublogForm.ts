@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
-import spinner from './component/spinner';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 
@@ -40,7 +39,7 @@ const setupImage = (form: HTMLFormElement) => {
       },
       err => replace(wrap(`<bad>${err}</bad>`))
     );
-    replace(wrap(spinner));
+    replace(wrap(lichess.spinnerHtml));
     return false;
   };
   $(form).on('submit', submit);

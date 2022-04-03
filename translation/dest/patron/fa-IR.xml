@@ -28,7 +28,6 @@
   <string name="otherAmount">دیگر</string>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
   <string name="withCreditCard">کارت اعتباری</string>
-  <string name="withPaypal">پی‌پال</string>
   <string name="weAreSmallTeam">ما یک تیم کوچک هستیم، بنابراین پشتیبانی شما تغییر بزرگی ایجاد می‌کند!</string>
   <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>

@@ -29,7 +29,6 @@
   <string name="otherAmount">Άλλο</string>
   <string name="pleaseEnterAmountInX">Εισάγετε ένα ποσό σε %s</string>
   <string name="withCreditCard">Πιστωτική κάρτα</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
   <string name="celebratedPatrons">Οι διάσημοι Υποστηρικτές που έκαναν το Lichess πραγματικότητα</string>
   <string name="whereMoneyGoes">Που πηγαίνουν τα χρήματα;</string>

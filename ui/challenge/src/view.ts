@@ -1,6 +1,6 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>

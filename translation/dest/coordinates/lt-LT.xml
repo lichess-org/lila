@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Tai leidžia paprasčiau kalbėti su jūsų šachmatų draugais, kadangi abu suprantate „šachmatų kalbą“.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Galite efektyviau analizuoti partijas, kadangi nereikia ieškoti langelių pavadinimų.</string>
   <string name="aSquareNameAppears">Ant lentos pasirodys langelio pavadinimas, o jūs turėsite spustelėti tinkamą langelį. Turite 30 sekundžių atpažinti kiek galima daugiau langelių!</string>
+  <string name="aSquareIsHighlighted">Lentoje buvo pažymėtas langelis. Jums reikia suvesti jo koordinates (pvz. \"e4\"). Jūs turite trisdešimt sekundžių teisingai pažymėti kiek įmanoma daugiau langelių!</string>
   <string name="startTraining">Pradėti treniruotę</string>
+  <string name="findSquare">Rasti langelį</string>
+  <string name="nameSquare">Pavadinti langelį</string>
 </resources>

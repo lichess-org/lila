@@ -574,6 +574,7 @@
   <string name="error.min">Muss mindestens %s sein</string>
   <string name="error.max">Darf höchstens %s sein</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
+  <string name="ifRegistered">Wenn registriert</string>
   <string name="onlyExistingConversations">Nur bestehende Konversationen</string>
   <string name="onlyFriends">Nur Freunde</string>
   <string name="menu">Menü</string>

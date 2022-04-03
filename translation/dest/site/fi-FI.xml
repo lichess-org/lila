@@ -897,5 +897,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="until">Saakka</string>
   <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
   <string name="switchSides">Vaihda puolta</string>
-  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">Jos suljet tunnuksesi, valituksesi raukeaa</string>
+  <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
 </resources>

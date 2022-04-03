@@ -20,14 +20,14 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export const keyboardMove = (opts: Opts) => {
+export default (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
 
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
-  const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
+  const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
@@ -85,6 +85,11 @@ export const keyboardMove = (opts: Opts) => {
         opts.ctrl.draw();
         clear();
       }
+    } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
+      if (['help', '?'].includes(v.toLowerCase())) {
+        opts.ctrl.helpModalOpen(true);
+        clear();
+      }
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
       // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
       // updates when it is still the player's turn
@@ -130,8 +135,8 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
         isTrusted: e.isTrusted,
       });
   });
-  opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
-  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
+  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.which > 36 && e.which < 41) {
@@ -193,4 +198,3 @@ function readClocks(clockCtrl: any | undefined) {
 function simplePlural(nb: number, word: string) {
   return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }
-lichess.keyboardMove = keyboardMove;

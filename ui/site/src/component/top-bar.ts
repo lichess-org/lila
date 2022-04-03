@@ -1,9 +1,8 @@
 import pubsub from './pubsub';
-import spinnerHtml from './spinner';
 import { loadCssPath, loadModule } from './assets';
 
 export default function () {
-  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
+  const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;

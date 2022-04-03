@@ -643,6 +643,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="error.min">Turi būti didesnis arba lygus %s</string>
   <string name="error.max">Turi būti mažesnis arba lygus %s</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
+  <string name="ifRegistered">Jei jau užsiregistravote</string>
   <string name="onlyExistingConversations">Tik esami pokalbiai</string>
   <string name="onlyFriends">Tik draugai</string>
   <string name="menu">Meniu</string>

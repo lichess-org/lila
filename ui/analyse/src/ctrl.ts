@@ -125,7 +125,7 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
 
-    if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
+    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -137,7 +137,7 @@ export default class AnalyseCtrl {
 
     {
       const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1));
+        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
       if (hashPly) {
         // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
         window.history.replaceState(null, '', loc.pathname + loc.search);
@@ -266,8 +266,8 @@ export default class AnalyseCtrl {
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
-    return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
+    const start = uci[1] === '@' ? 2 : 0;
+    return [uci.slice(start, start + 2), uci.slice(2, 4)] as Key[];
   }
 
   private showGround(): void {
@@ -787,7 +787,7 @@ export default class AnalyseCtrl {
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };
 
-  mergeAnalysisData(data: ServerEvalData): void {
+  mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
@@ -801,7 +801,7 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci, uciQueue?: Uci[]): void {
+  playUci(uci: Uci, uciQueue?: Uci[]) {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);

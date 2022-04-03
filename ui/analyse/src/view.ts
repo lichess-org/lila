@@ -44,7 +44,7 @@ import relayTour from './study/relay/relayTourView';
 import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {

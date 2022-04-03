@@ -575,6 +575,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="error.min">Må vera større eller lik %s</string>
   <string name="error.max">Må vera mindre eller lik %s</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
+  <string name="ifRegistered">Dersom registrert</string>
   <string name="onlyExistingConversations">Berre eksisterande samtalar</string>
   <string name="onlyFriends">Berre vener</string>
   <string name="menu">Meny</string>

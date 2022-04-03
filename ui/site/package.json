@@ -11,19 +11,18 @@
     "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.4",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0.0.51",
+    "@types/web": "^0",
     "@types/yaireo__tagify": "^4.9.0",
     "@types/zxcvbn": "^4.4.0",
     "chessground": "^8.2.0",
-    "rollup": "^2.66.1",
+    "rollup": "^2",
     "rollup-plugin-copy": "^3.3.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4"
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@toast-ui/editor": "^3.1.2",
     "@yaireo/tagify": "^4.9.5",
-    "apexcharts": "^3.33.0",
     "chat": "2.0.0",
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
@@ -35,13 +34,13 @@
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
-    "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
     "dev": "$npm_execpath run deps && rollup --config",
     "prod": "$npm_execpath run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
+    "all-dev": "rollup --config --config-all",
     "plugin-dev": "rollup --config --config-plugin",
     "plugin-prod": "rollup --config --config-prod --config-plugin"
   }

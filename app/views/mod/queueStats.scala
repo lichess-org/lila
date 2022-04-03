@@ -17,8 +17,8 @@ object queueStats {
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
-        jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity.queues(${safeJsonValue(p.json)})""")
+        jsModule("mod.activity"),
+        embedJsUnsafeLoadThen(s"""LichessModActivity.queues(${safeJsonValue(p.json)})""")
       )
     ) {
       main(cls := "page-menu")(

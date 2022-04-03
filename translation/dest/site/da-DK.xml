@@ -574,6 +574,7 @@
   <string name="error.min">Skal være større eller lig med %s</string>
   <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
+  <string name="ifRegistered">Hvis registreret</string>
   <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>
   <string name="menu">Menu</string>

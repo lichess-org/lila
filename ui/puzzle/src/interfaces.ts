@@ -28,6 +28,7 @@ export interface KeyboardController {
   playBestMove(): void;
   flip(): void;
   flipped(): boolean;
+  nextPuzzle(): void;
 }
 
 export type ThemeKey = string;

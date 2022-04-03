@@ -101,13 +101,18 @@ object header {
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
           ),
-          (ctx.isAuth && !ctx.is(u)) option
-            views.html.relation.actions(
-              u.light,
-              relation = social.relation,
-              followable = social.followable,
-              blocked = social.blocked
-            ),
+          !ctx.is(u) option views.html.relation.actions(
+            u.light,
+            relation = social.relation,
+            followable = social.followable,
+            blocked = social.blocked
+          ),
+          a(
+            cls := "btn-rack__btn",
+            href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
+            titleOrText(trans.openingExplorer.txt()),
+            dataIcon := ""
+          ),
           a(
             cls := "btn-rack__btn",
             href := routes.User.download(u.username),
@@ -168,9 +173,6 @@ object header {
                   p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map { seen =>
                     p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
-                  },
-                  info.completionRatePercent.map { c =>
-                    p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                   },
                   ctx is u option
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(

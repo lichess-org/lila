@@ -3,7 +3,7 @@
   <string name="team">Equipo</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membros</item>
+    <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todos os equipos</string>

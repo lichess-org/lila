@@ -22,6 +22,9 @@ export const ensureOk = (res: Response): Response => {
 
 /* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
+  jsonAnyResponse(url, init).then(res => ensureOk(res).json());
+
+export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
     ...defaultInit,
     headers: {
@@ -29,7 +32,7 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
       ...xhrHeader,
     },
     ...init,
-  }).then(res => ensureOk(res).json());
+  });
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>

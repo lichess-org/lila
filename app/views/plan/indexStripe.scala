@@ -1,11 +1,11 @@
 package views.html.plan
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
-
-import controllers.routes
 
 object indexStripe {
 
@@ -20,16 +20,14 @@ object indexStripe {
       stripePublicKey: String,
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(implicit
-      ctx: Context
-  ) =
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
         index.stripeScript,
         jsModule("plan"),
-        embedJsUnsafeLoadThen(s"""planStart("$stripePublicKey")""")
+        embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
       ),
       csp = defaultCsp.withStripe.some
     ) {
@@ -94,7 +92,7 @@ object indexStripe {
                     a(dataForm := "switch")(trans.cancel())
                   ),
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
-                    p(stopPayments()),
+                    p(stopPaymentsPayPal()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
                     a(dataForm := "cancel")(trans.cancel())
                   )

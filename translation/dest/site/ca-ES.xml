@@ -574,6 +574,7 @@
   <string name="error.min">Ha de ser major o igual que %s</string>
   <string name="error.max">Ha de ser menor o igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
+  <string name="ifRegistered">Només usuaris registrats</string>
   <string name="onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
   <string name="menu">Menú</string>

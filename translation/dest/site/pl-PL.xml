@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Graj ze znajomym</string>
+  <string name="playWithAFriend">Partia ze znajomym</string>
   <string name="playWithTheMachine">Graj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
@@ -642,6 +642,7 @@
   <string name="error.min">Musi być dłuższe lub równe %s</string>
   <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
+  <string name="ifRegistered">Jeśli jesteś zarejestrowany</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
@@ -976,5 +977,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
   <string name="switchSides">Zmień kolor</string>
-  <string name="closingAccountWithdrawAppeal" comment="closingAccountWithdrawAppeal&#10;&#10;Appeals can be made by players who's accounts were marked as cheating, among other things. If they choose to close their account, their appeal is automatically withdrawn.">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
+  <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
 </resources>

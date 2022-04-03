@@ -11,7 +11,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       NotForKids {
         for {
           teamIds <- ctx.userId ?? teamCache.teamIdsList
-          categs  <- categApi.list(teamIds, ctx.me)
+          categs  <- postApi.categsForUser(teamIds, ctx.me)
           _       <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
         } yield html.forum.categ.index(categs)
       }

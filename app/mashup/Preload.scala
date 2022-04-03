@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 import lila.api.Context
 import lila.event.Event
-import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
@@ -40,7 +39,6 @@ final class Preload(
   import Preload._
 
   def apply(
-      posts: Fu[List[MiniForumPost]],
       tours: Fu[List[Tournament]],
       swiss: Option[Swiss],
       events: Fu[List[Event]],
@@ -48,7 +46,6 @@ final class Preload(
       streamerSpots: Int
   )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
-      posts.mon(_.lobby segment "posts") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
@@ -68,19 +65,16 @@ final class Preload(
         .filterNot(liveStreamApi.isStreaming)
         .??(msgApi.hasUnreadLichessMessage) flatMap {
         // format: off
-        case (((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
+        case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
         (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
           .mon(_.lobby segment "currentGame") zip
           lightUserApi
-            .preloadMany {
-              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
-            }
+            .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
             .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
             Homepage(
               data,
               entries,
-              posts,
               tours,
               swiss,
               events,
@@ -126,7 +120,6 @@ object Preload {
   case class Homepage(
       data: JsObject,
       userTimeline: Vector[Entry],
-      forumRecent: List[MiniForumPost],
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],

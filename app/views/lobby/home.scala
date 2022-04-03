@@ -163,15 +163,6 @@ object home {
           views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
-            h2(cls := "title text", dataIcon := "")(trans.latestForumPosts()),
-            span(cls := "more")(trans.more(), " »")
-          ),
-          div(cls := "lobby__box__content")(
-            views.html.forum.post recent forumRecent
-          )
-        ),
         bits.lastPosts(lastPost, ublogPosts),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(

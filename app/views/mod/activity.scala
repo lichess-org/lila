@@ -16,8 +16,10 @@ object activity {
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
-        jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})""")
+        jsModule("mod.activity"),
+        embedJsUnsafeLoadThen(
+          s"""LichessModActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})"""
+        )
       )
     ) {
       main(cls := "page-menu")(

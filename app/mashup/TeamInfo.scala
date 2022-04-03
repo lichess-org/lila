@@ -41,7 +41,7 @@ object TeamInfo {
 
 final class TeamInfoApi(
     api: TeamApi,
-    forumRecent: lila.forum.ForumRecent,
+    forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
@@ -56,7 +56,7 @@ final class TeamInfoApi(
       mine       <- me.??(m => api.belongsTo(team.id, m.id))
       myRequest  <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
       subscribed <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts <- withForum(mine) ?? forumRecent.team(team.id).dmap(some)
+      forumPosts <- withForum(mine) ?? forumRecent(team.id).dmap(some)
       tours      <- tournaments(team, 5, 5)
       simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(

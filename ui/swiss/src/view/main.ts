@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { dataIcon, bind, onInsert } from 'common/snabbdom';
 import { numberRow } from './util';
 import SwissCtrl from '../ctrl';

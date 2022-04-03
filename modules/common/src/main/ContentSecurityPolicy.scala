@@ -27,6 +27,13 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.stripe.com" :: frameSrc
     )
 
+  def withPayPal =
+    copy(
+      connectSrc = "https://*.paypal.com" :: connectSrc,
+      scriptSrc = "https://*.paypal.com" :: scriptSrc,
+      frameSrc = "https://*.paypal.com" :: frameSrc
+    )
+
   def finalizeWithTwitch =
     copy(
       defaultSrc = Nil,

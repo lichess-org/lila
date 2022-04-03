@@ -29,7 +29,6 @@
   <string name="otherAmount">Anna</string>
   <string name="pleaseEnterAmountInX">Ver venleg å oppgje eit beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
   <string name="celebratedPatrons">Dei akta bidragsytarane som gjer Lichess mogleg</string>
   <string name="whereMoneyGoes">Kva går pengane til?</string>
@@ -65,6 +64,7 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
+  <string name="stopPaymentsPayPal">Avslutt PayPal abonnement og stopp betalingar:</string>
   <string name="noLongerSupport">Avslutt å støtte Lichess</string>
   <string name="viewOthers">Sjå andre Lichess-mesenar</string>
   <string name="date">Dato</string>
