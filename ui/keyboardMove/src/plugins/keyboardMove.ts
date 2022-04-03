@@ -87,7 +87,7 @@ export default (opts: Opts) => {
       }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
       if (['help', '?'].includes(v.toLowerCase())) {
-        opts.ctrl.setHelpModalOpen(true);
+        opts.ctrl.helpModalOpen(true);
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
