@@ -48,6 +48,7 @@
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="decideHowMuch">決定 Lichess 對你來說有什麼價值：</string>
   <string name="stopPayments">提取您的信用卡並停止付款：</string>
+  <string name="stopPaymentsPayPal">取消PayPal 訂閱並停止付款</string>
   <string name="noLongerSupport">不再贊助 Lichess</string>
   <string name="viewOthers">查看其他 Lichess 贊助者</string>
   <string name="date">日期</string>
