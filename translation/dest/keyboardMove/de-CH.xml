@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Befehl per Taschtatur</string>
+  <string name="performAMove">En Zug mache</string>
+  <string name="movePieceFromE2ToE4">Beweg d\'Figur vu e2 uf e4</string>
+  <string name="moveKnightToC3">Stell de Schpringer uf c3</string>
+  <string name="kingsideCastle">Rochade Königssiite</string>
+  <string name="queensideCastle">Rochade Damesiite</string>
+  <string name="promoteC8ToQueen">Mach uf c8 e Dame</string>
+  <string name="dropARookAtB4">Stell uf b4 en Turm inne (nur bi Crazyhouse) </string>
+  <string name="offerOrAcceptDraw">Offerier oder akzeptier es Remis</string>
+  <string name="readOutClocks">Die Schachuhr vorlesen</string>
+  <string name="otherCommands">Anderi Befehl</string>
+  <string name="tips">Vorschläg</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Wänn die obe zeigti Notazion ungwohnt isch, chann mer da meh drüber lerne:</string>
+  <string name="includingAXToIndicateACapture">Es zuesätzlichs \"x\", zum en Schlagzug markiere, isch freiwillig</string>
+  <string name="bothTheLetterOAndTheDigitZero">Für Rochiere cha me de Buechstabe \"o\" und au d\'Zahl \"0\" verwände</string>
+  <string name="ifItIsLegalToCastleBothWays">Wänn beidi Rochade möglich sind, benutz \"Enter\" für d\'Königssiite</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, z.B. wenn \"D\"ame und \"d\"-Bauer involviert sind</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Um einen Zug im Voraus auszuführen, tippe einfach den gewünschten Zug ein, bevor du am Zug bist</string>
+</resources>
