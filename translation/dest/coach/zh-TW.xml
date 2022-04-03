@@ -20,4 +20,5 @@
   <string name="youtubeVideos">在 Youtube 上的影片</string>
   <string name="thankYouForReview">謝謝您的評論！</string>
   <string name="reviewCoach">給這個教練評論</string>
+  <string name="describeExperienceWith">描述你接受%s訓練的經驗</string>
 </resources>
