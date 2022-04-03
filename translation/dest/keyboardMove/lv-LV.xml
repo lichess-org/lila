@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Tastatūras komandu ievade</string>
+  <string name="performAMove">Veikt gājienu</string>
+  <string name="movePieceFromE2ToE4">Kustināt figūru no e2 uz e4</string>
+  <string name="moveKnightToC3">Kustināt zirdziņu uz c3</string>
+  <string name="kingsideCastle">Karaļa puses rokāde</string>
+  <string name="queensideCastle">Dāmas puses rokāde</string>
+  <string name="promoteC8ToQueen">Paaugstināt c8 par dāmu</string>
+  <string name="dropARookAtB4">Novietot torni lauciņā b4 (tikai Crazyhouse variantā)</string>
+  <string name="offerOrAcceptDraw">Piedāvāt vai vienoties par neizširtu</string>
+</resources>
