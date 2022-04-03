@@ -549,7 +549,7 @@
   <plurals name="nbForumPosts">
     <item quantity="other">%s個論壇貼文</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
+  <string name="tpTimeSpentPlaying">花在下棋上的時間：%s</string>
   <string name="watchGames">觀看對局直播</string>
   <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
@@ -594,7 +594,7 @@
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
   <string name="newTournament">新比赛</string>
   <string name="tournamentHomeTitle">国际象棋赛事均设有不同的时间控制和变体</string>
-  <string name="tournamentHomeDescription">加入快节奏的国际象棋比赛！ 加入定时赛事，或创建自己的。 子弹，闪电，经典，菲舍尔任意制，王到中心，三次将军，并提供更多的选择为无尽的国际象棋乐趣。</string>
+  <string name="tournamentHomeDescription">加入快節奏的國際象棋比賽！加入定時賽事，或創建自己的。子彈，閃電，經典，菲舍爾任意制，王到中心，三次將軍，並提供更多的選擇為無盡的國際象棋樂趣。</string>
   <string name="tournamentNotFound">找不到该比赛</string>
   <string name="tournamentDoesNotExist">这个比赛不存在。</string>
   <string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的对手在比赛开始之前离开。</string>
@@ -646,7 +646,7 @@
   <string name="zeroAdvertisement">沒有廣告</string>
   <string name="fullFeatured">功能全面</string>
   <string name="phoneAndTablet">手機和平板電腦</string>
-  <string name="bulletBlitzClassical">快棋與慢棋</string>
+  <string name="bulletBlitzClassical">子彈，閃電，經典</string>
   <string name="correspondenceChess">通訊賽</string>
   <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
@@ -752,7 +752,7 @@
   <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
   <string name="lifetimeScore">帳戶總分</string>
-  <string name="currentMatchScore">最近的對局分數</string>
+  <string name="currentMatchScore">現時的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不會開設多個帳號(除了於%s列明的原因以外)</string>
