@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">你現在是觀眾</string>
   <string name="pgnTags">PGN 標籤</string>
   <string name="like">喜歡</string>
+  <string name="unlike">取消喜歡</string>
   <string name="newTag">新標籤</string>
   <string name="commentThisPosition">對於目前局面的評論</string>
   <string name="commentThisMove">對於此棋步的評論</string>
@@ -88,6 +89,7 @@
   <string name="empty">空的</string>
   <string name="startFromInitialPosition">從起始局面開始</string>
   <string name="editor">編輯器</string>
+  <string name="startFromCustomPosition">從自定的局面開始</string>
   <string name="loadAGameByUrl">以連結導入棋局</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
   <string name="automatic">自動</string>
@@ -110,6 +112,8 @@
   <string name="members">成員</string>
   <string name="everyone">所有人</string>
   <string name="enableSync">允許同步</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">同步：讓所有人停留在同一個局面</string>
+  <string name="noLetPeopleBrowseFreely">不同步：允許所有人自由進行瀏覽</string>
   <string name="pinnedStudyComment">置頂研究留言</string>
   <string name="start">開始</string>
   <string name="save">存檔</string>
@@ -132,4 +136,10 @@
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
   <string name="nextChapter">下一章</string>
   <string name="prevChapter">上一章</string>
+  <string name="topics">主題</string>
+  <string name="myTopics">我的主題</string>
+  <string name="manageTopics">管理主題</string>
+  <string name="back">後退</string>
+  <string name="playAgain">再玩一次</string>
+  <string name="youCompletedThisLesson">恭喜！您完成了這個課程。</string>
 </resources>
