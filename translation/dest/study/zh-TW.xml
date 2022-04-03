@@ -48,6 +48,7 @@
   <string name="getAFullComputerAnalysis">請求伺服器完整的分析主要走法</string>
   <string name="makeSureTheChapterIsComplete">確認此章節已完成，您只能要求分析一次</string>
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
+  <string name="shareChanges">向旁觀者分享這些變動並將其保留在伺服器中</string>
   <string name="playing">下棋中</string>
   <string name="first">第一頁</string>
   <string name="previous">上一頁</string>
@@ -77,6 +78,7 @@
   <string name="pinnedChapterComment">置頂留言</string>
   <string name="saveChapter">儲存章節</string>
   <string name="clearAnnotations">清除註記</string>
+  <string name="clearVariations">清除變化</string>
   <string name="deleteChapter">刪除章節</string>
   <string name="deleteThisChapter">刪除此章節? 此動作將無法取消！</string>
   <string name="clearAllCommentsInThisChapter">清除此章節中的所有註釋和圖形嗎？</string>
@@ -91,6 +93,7 @@
   <string name="editor">編輯器</string>
   <string name="startFromCustomPosition">從自定的局面開始</string>
   <string name="loadAGameByUrl">以連結導入棋局</string>
+  <string name="loadAPositionFromFen">透過FEN讀取局面</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
   <string name="automatic">自動</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
