@@ -45,7 +45,7 @@ object help {
                 li(
                   trans.keyboardMove.ifTheAboveMoveNotationIsUnfamiliar(),
                   a(target := "_blank", href := "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)")(
-                    "Algebraic notation (chess)"
+                    "Algebraic notation"
                   )
                 ),
                 li(trans.keyboardMove.includingAXToIndicateACapture()),
