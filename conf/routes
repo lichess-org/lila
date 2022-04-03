@@ -859,3 +859,6 @@ GET   /robots.txt                      controllers.Main.robots
 GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)
+
+# Keyboard move
+GET   /keyboard-move/help              controllers.KeyboardMove.help
