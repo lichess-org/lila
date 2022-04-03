@@ -15,4 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Não conhece essa notação? Saiba mais aqui:</string>
   <string name="includingAXToIndicateACapture">Incluir um \"x\" para indicar uma captura é opcional</string>
   <string name="bothTheLetterOAndTheDigitZero">Tanto a letra \"o\" quanto o algarismo zero \"0\" podem ser usados para o roque</string>
+  <string name="ifItIsLegalToCastleBothWays">Se ambos os roques forem possíveis, aperte Enter para fazer o roque curto</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Só é preciso usar maiúscula em situações ambíguas envolvendo um bispo e o peão da b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Para fazer um pré-lance, basta digitá-lo antes do seu turno</string>
 </resources>
