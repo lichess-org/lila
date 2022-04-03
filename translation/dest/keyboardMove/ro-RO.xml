@@ -15,4 +15,6 @@
   <string name="includingAXToIndicateACapture">Includerea unui \"x\" pentru a indica o captură este opțională</string>
   <string name="bothTheLetterOAndTheDigitZero">Atât litera \"o\" cât și cifra zero \"0\" pot fi folosite pentru rocadă</string>
   <string name="ifItIsLegalToCastleBothWays">Dacă ambele rocade sunt posibile, folosește Enter pentru a face rocada mică</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Capitalizarea contează doar în situații ambigue în care este implicat un nebun și pionul de pe coloana b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Pentru muta în avans, pur și simplu tastați mutarea dorită înainte de a fi rândul dumneavoastră</string>
 </resources>
