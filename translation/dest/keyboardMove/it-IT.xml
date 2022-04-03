@@ -17,4 +17,5 @@
   <string name="bothTheLetterOAndTheDigitZero">Per arroccare è possibile usare sia la lettera \"o\" sia la cifra \"0\"</string>
   <string name="ifItIsLegalToCastleBothWays">In caso sia possibile arroccare sia lungo sia corto, usa il tasto Invio per arroccare corto</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">L\'uso delle maiuscole è rilevante solo in situazioni ambigue che coinvolgono un alfiere ed il pedone b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Per premuovere puoi semplicemente digitare la premossa desiderata prima che sia il tuo turno</string>
 </resources>
