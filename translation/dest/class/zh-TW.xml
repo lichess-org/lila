@@ -37,6 +37,8 @@
   <string name="lastActiveDate">活動</string>
   <string name="managed">管理</string>
   <string name="release">正式版</string>
+  <string name="closeStudent">關閉帳戶</string>
+  <string name="closeTheAccount">永久關閉學生帳戶</string>
   <string name="teachers">教師</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s位教師</item>
