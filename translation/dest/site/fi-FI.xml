@@ -573,6 +573,7 @@
   <string name="error.min">Luvun on oltava vähintään %s</string>
   <string name="error.max">Luvun on oltava enintään %s</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
+  <string name="ifRegistered">Vain rekisteröityneet</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
