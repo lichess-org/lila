@@ -3,19 +3,19 @@
   <string name="keyboardInputCommands">Tastatureingabebefehle</string>
   <string name="performAMove">Einen Zug ausführen</string>
   <string name="movePieceFromE2ToE4">Eine Figur von e2 nach e4 ziehen</string>
-  <string name="moveKnightToC3">Einen Springer nach c3 ziehen</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Einen Springer nach c3 ziehen</string>
   <string name="kingsideCastle">Rochade auf dem Königsflügel</string>
   <string name="queensideCastle">Rochade auf dem Damenflügel</string>
   <string name="promoteC8ToQueen">Wandle auf c8 zur Dame um</string>
   <string name="dropARookAtB4">Setze einen Turm auf b4 ein (Nur in der Crazyhouse-Variante)</string>
   <string name="offerOrAcceptDraw">Biete oder nimm ein Remis an</string>
-  <string name="readOutClocks">Die Schachuhr vorlesen</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud.">Die Schachuhr vorlesen</string>
   <string name="otherCommands">Andere Befehle</string>
   <string name="tips">Tipps</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Wenn dir die oben gezeigte Notation nicht vertraut ist, kannst du hier mehr darüber lernen:</string>
   <string name="includingAXToIndicateACapture">Ein zusätzliches \"x\", um einen Schlagzug anzuzeigen ist optional</string>
   <string name="bothTheLetterOAndTheDigitZero">Sowohl der Buchstabe \"o\" als auch die Zahl \"0\" können bei der Rochade benutzt werden</string>
   <string name="ifItIsLegalToCastleBothWays">Falls beide Rochaden erlaubt sind, benutze die Eingabetaste, um auf der Königsseite zu rochieren</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, z.B. wenn \"D\"ame und \"d\"-Bauer involviert sind</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, wenn Läufer (\"B\") und b-Bauer zu unterscheiden sind</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Um einen Zug im Voraus auszuführen, tippe einfach den gewünschten Zug ein, bevor du am Zug bist</string>
 </resources>
