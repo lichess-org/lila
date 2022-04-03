@@ -105,9 +105,7 @@ object PgnDump {
     chessPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
-      },
+      comments = flags.comments ?? concatComments(node), 
       opening = none,
       result = none,
       variations = flags.variations ?? {
@@ -118,14 +116,21 @@ object PgnDump {
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
+  private def concatComments(node: Node): List[String] = {
+    val comments = node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+    node.gamebook match {
+      case None => comments
+      case Some(Gamebook(_,_)) => comments ::: gamebookComment(node.gamebook.get.cleanUp).toList
+    }
+  }
+
   // [%hint Optional, on-demand hint for the player.]
   // [%wrong When any other move played is wrong.]
-  // pass in gamebook.cleanUp as argument.
   private def gamebookComment(gamebook: Gamebook): Option[String] = {
-    def render(as: String)(gamebookComment: Option[String]) = {
-      gamebookComment match {
+    def render(as: String)(gamebookEntry: Option[String]) = {
+      gamebookEntry match {
         case None => ""
-        case Some(gamebookComment) => s"%[%$as ${gamebookComment}]"
+        case Some(gamebookEntry) => s"%[%$as ${gamebookEntry}]"
       }
     }
     val hint = render("hint")(gamebook.hint)
