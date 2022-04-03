@@ -183,6 +183,10 @@
     <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutos</item>
+  </plurals>
   <string name="time">Tiempo</string>
   <string name="rating">Puntuación</string>
   <string name="ratingStats">Estatisticas de puntuación</string>
@@ -562,7 +566,14 @@
   <string name="error.required">Este campo ye obligatorio</string>
   <string name="error.email">Esta adreza de correu no ye valida</string>
   <string name="error.email_acceptable">Esta adreza de correu no ye acceptable. Compreba-la y torna-lo a intentar.</string>
+  <string name="error.email_unique">Adreza de correu-e invalida u ya en uso</string>
+  <string name="error.email_different">Este ye lo correu que ya tiens agora</string>
+  <string name="error.minLength">Ha de tener a lo menos %s caracters de largo</string>
+  <string name="error.maxLength">Ha de tener como muito %s caracters de largo</string>
+  <string name="error.min">Ha de tener lo menos %s</string>
+  <string name="error.max">Ha de tener como muito %s</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación ye ± %s</string>
+  <string name="ifRegistered">Si ye rechistrau</string>
   <string name="onlyExistingConversations">Nomás las conversas existents</string>
   <string name="onlyFriends">Nomás amigos</string>
   <string name="menu">Menú</string>
@@ -784,6 +795,7 @@
   <string name="currentMatchScore">Puntuación actual</string>
   <string name="agreementAssistance">Me comprometo a no recibir aduya externa entre las mías partidas (d\'un ordinador, un libro, una base de datos u unatra persona).</string>
   <string name="agreementNice">Me comprometo a respectar siempre a atros chugadors.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Soi d\'acuerdo en no crear cuentas multiples (fueras de por las razons indicadas en as %s).</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
@@ -851,6 +863,7 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
   <string name="markdownAvailable">Lo formato %s ye disponibles pa una sintaxi mas abanzada.</string>
+  <string name="embedsAvailable">Apega la URL d\'una partida u d\'un capitol d\'estudio pa incrustar-lo.</string>
   <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
   <string name="tournChat">Conversa d\'o torneyo</string>
   <string name="noChat">Sin conversa</string>
@@ -871,4 +884,14 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
   <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
   <string name="tournamentEntryCode">Codigo de participación en o torneyo</string>
+  <string name="hangOn">Aguar-te!</string>
+  <string name="gameInProgress">Yes chugando una partida con %s.</string>
+  <string name="abortTheGame">Cancelar la partida</string>
+  <string name="resignTheGame">Abandonar la partida</string>
+  <string name="youCantStartNewGame">No puetz encomenzar una nueva partida dica que no remates esta.</string>
+  <string name="since">Dende</string>
+  <string name="until">Dica</string>
+  <string name="lichessDbExplanation">Partidas per puntos de totz es chugadors de Lichess</string>
+  <string name="switchSides">Cambiar de color</string>
+  <string name="closingAccountWithdrawAppeal">Si zarras la tuya cuenta s\'eliminará la tuya apelación</string>
 </resources>
