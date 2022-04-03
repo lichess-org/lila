@@ -150,5 +150,6 @@
   <string name="manageTopics">管理主題</string>
   <string name="back">後退</string>
   <string name="playAgain">再玩一次</string>
+  <string name="whatWouldYouPlay">你會在這个位置上怎麼走？</string>
   <string name="youCompletedThisLesson">恭喜！您完成了這個課程。</string>
 </resources>
