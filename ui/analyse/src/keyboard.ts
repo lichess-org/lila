@@ -95,11 +95,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabModal({
     class: 'keyboard-help',
-    onInsert($wrap: Cash) {
-      lichess.loadCssPath('analyse.keyboard');
-      xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
-        $wrap.find('.scrollable').html(html);
-      });
+    onInsert: async ($wrap: Cash) => {
+      const [, html] = await Promise.all([
+        lichess.loadCssPath('analyse.keyboard'),
+        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
+      ]);
+      $wrap.find('.scrollable').html(html);
     },
     onClose() {
       ctrl.keyboardHelp = false;

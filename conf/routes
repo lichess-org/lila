@@ -832,6 +832,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 # Help
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
+GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
