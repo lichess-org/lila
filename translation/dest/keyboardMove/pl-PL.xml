@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="movePieceFromE2ToE4">Przenieś bierkę z e2 na e4</string>
+  <string name="moveKnightToC3">Przenieś skoczka na c3</string>
+  <string name="kingsideCastle">Krótka roszada</string>
+  <string name="queensideCastle">Długa roszada</string>
+  <string name="promoteC8ToQueen">Promocja c8 do hetmana</string>
+</resources>
