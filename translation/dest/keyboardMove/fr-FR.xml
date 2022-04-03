@@ -6,4 +6,14 @@
   <string name="kingsideCastle">Faire le petit roque</string>
   <string name="queensideCastle">Faire le grand roque</string>
   <string name="promoteC8ToQueen">Faire la promotion à une dame à c8</string>
+  <string name="dropARookAtB4">Déposer une tour à b4 (variante Crazyhouse seulement)</string>
+  <string name="offerOrAcceptDraw">Offrir ou accepter la nulle</string>
+  <string name="otherCommands">Autres commandes</string>
+  <string name="tips">Conseils</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Vous ne connaissez pas la notation utilisée? Pour en savoir plus :</string>
+  <string name="includingAXToIndicateACapture">Inclure un « x » pour indiquer qu\'une capture est facultative</string>
+  <string name="bothTheLetterOAndTheDigitZero">La lettre « o » et le chiffre zéro « 0 » peuvent être utilisés pour le roque</string>
+  <string name="ifItIsLegalToCastleBothWays">Si les deux roques sont possibles, appuyez sur la touche Entrée pour faire le petit roque</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">En cas d\'ambiguïté, la majuscule permet de différencier le fou du pion b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Pour jouer un coup à l\'avance, il suffit de l\'entrer au clavier</string>
 </resources>
