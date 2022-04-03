@@ -536,6 +536,7 @@
   <string name="error.min">最少不小于 %s</string>
   <string name="error.max">最大不能超过 %s</string>
   <string name="ifRatingIsPlusMinusX">允许等级分范围±%s</string>
+  <string name="ifRegistered">如已注册</string>
   <string name="onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">仅好友</string>
   <string name="menu">菜单</string>
@@ -852,4 +853,5 @@
   <string name="until">直到</string>
   <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
   <string name="switchSides">更换所持颜色</string>
+  <string name="closingAccountWithdrawAppeal">关闭您的帐户将撤回您的上诉</string>
 </resources>
