@@ -12,6 +12,7 @@
   <string name="teachersX">Profesors: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Zarrar clase</string>
+  <string name="removedByX">Eliminau per %s</string>
   <string name="reopen">Reubrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminau</string>
@@ -45,6 +46,7 @@ Clau: %3$s</string>
   <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de dar-le-ne a los estudiants, asinas podrán iniciar sesión.</string>
   <string name="createDesc3">Important: un estudiant no ha de tener multiples cuentas.</string>
   <string name="createDesc4">Si ya en tienen una, fe servir lo formulario d\'invitación.</string>
+  <string name="createStudentWarning">Crea nomás cuentas pa estudiants reals. No fagas servir esto pa fer multples cuenta per tu mesmo. Podrías estar blocau.</string>
   <string name="lichessUsername">Nombre d\'usuario de Lichess</string>
   <string name="generateANewUsername">Chenerar un nuevo nombre d\'usuario</string>
   <string name="welcomeToClass">Bienveniu a la tuya clase: %s.
@@ -65,6 +67,8 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="releaseDesc1">Una cuenta liberada no se puede tornar a chestionar de nuevo. Lo estudiant podrá cambiar lo modo infantil y restablir la clau per ell mesmo.</string>
   <string name="releaseDesc2">Lo estudiant remanirá en a clase dimpués que la suya cuenta sía liberada.</string>
   <string name="realUniqueEmail">Adreza de correu electronico real y sola d\'o estudiant. Ninviaremos un correu electronico de confirmación, con un vinclo pa liberar la cuenta.</string>
+  <string name="closeStudent">Zarrar cuenta</string>
+  <string name="closeTheAccount">Zarrar pa cutio esta cuenta d\'estudiant.</string>
   <string name="teachers">Profesors</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
@@ -83,10 +87,13 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="variantXOverLastY">%1$s sobre los zaguers %2$s</string>
   <string name="winrate">Percentache de victorias</string>
   <string name="na">N/A</string>
+  <string name="classNews">Noticias d\'a clase</string>
   <string name="editNews">Editar noticias</string>
   <string name="notifyAllStudents">Notificar a totz los estudiants</string>
   <string name="nothingHere">Encara no i hai brenca aquí.</string>
   <string name="newsEdit1">Totas las noticias de clase en un solo puesto.</string>
   <string name="newsEdit2">Anyade las noticias recients en a parte superior. No elimina las noticias anteriors.</string>
   <string name="newsEdit3">Deseparar noticias con --- amostrará una linia horizontal.</string>
+  <string name="invite">Convidar</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">u</string>
 </resources>
