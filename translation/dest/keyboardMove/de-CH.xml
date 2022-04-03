@@ -16,6 +16,6 @@
   <string name="includingAXToIndicateACapture">Es zuesätzlichs \"x\", zum en Schlagzug markiere, isch freiwillig</string>
   <string name="bothTheLetterOAndTheDigitZero">Für Rochiere cha me de Buechstabe \"o\" und au d\'Zahl \"0\" verwände</string>
   <string name="ifItIsLegalToCastleBothWays">Wänn beidi Rochade möglich sind, benutz \"Enter\" für d\'Königssiite</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, z.B. wenn \"D\"ame und \"d\"-Bauer involviert sind</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Um einen Zug im Voraus auszuführen, tippe einfach den gewünschten Zug ein, bevor du am Zug bist</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Grossschribig isch nu bi zweidütige Fäll vu Bedütig, z.B. wänn de \"d - Puur\" chönnt mit de Dame verwächslet werde</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Für en \"Voruszug\" (premove) eifach de gwünschti Zug iitippe, bevor me draa isch</string>
 </resources>
