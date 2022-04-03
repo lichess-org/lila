@@ -186,7 +186,7 @@ Allow: /
 
   def keyboardMoveHelp =
     Open { implicit ctx =>
-      Ok(html.site.keyboardMove.help).fuccess
+      Ok(html.site.helpModal.keyboardMove).fuccess
     }
 
   def movedPermanently(to: String) =

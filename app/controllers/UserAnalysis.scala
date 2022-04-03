@@ -210,6 +210,6 @@ final class UserAnalysis(
 
   def help =
     Open { implicit ctx =>
-      Ok(html.analyse.help(getBool("study"))).fuccess
+      Ok(html.site.helpModal.analyse(getBool("study"))).fuccess
     }
 }
