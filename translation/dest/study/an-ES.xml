@@ -126,6 +126,20 @@
   <string name="deleteTheStudyChatHistory">Quiers borrar de verdat lo historial de chat? Esta acción no se puede desfer!</string>
   <string name="deleteStudy">Borrar estudio</string>
   <string name="whereDoYouWantToStudyThat">Án quiers estudiar ixo?</string>
+  <string name="goodMove">Buena chugada</string>
+  <string name="mistake">Error</string>
+  <string name="brilliantMove">Chugada brilant</string>
+  <string name="blunder">Error grieu</string>
+  <string name="interestingMove">Chugada interesant</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Chugada dubdosa</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Chugada unica</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Posición igualada</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posición poco clara</string>
+  <string name="whiteIsSlightlyBetter">Las blancas son una mica millor</string>
+  <string name="blackIsSlightlyBetter">Las negras son una mica millor</string>
+  <string name="whiteIsBetter">Las blancas son millor</string>
+  <string name="blackIsBetter">Las negras son millor</string>
   <string name="whiteIsWinning">Las blancas son ganando</string>
   <string name="blackIsWinning">Las negras son ganando</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novedat</string>
