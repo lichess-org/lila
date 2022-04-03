@@ -94,6 +94,9 @@
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
+  <string name="winOr50MovesByPriorMistake">贏棋或因先前錯誤50步作和</string>
+  <string name="lossOr50MovesByPriorMistake">輸棋或因先前錯誤50步作和</string>
+  <string name="unknownDueToRounding">由上次吃子或兵動開始按殘局庫建議走法走才能保證勝敗的判斷正確。這是因為Syzygy殘局庫的DTZ數值可能經過四捨五入。</string>
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入 PGN</string>
   <string name="delete">刪除</string>
@@ -535,6 +538,7 @@
   <string name="error.min">最少 %s 個字符</string>
   <string name="error.max">最大不能超過 %s</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
+  <string name="ifRegistered">如已註冊</string>
   <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
   <string name="menu">菜单</string>
