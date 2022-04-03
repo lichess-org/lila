@@ -1,5 +1,5 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
-import { prop } from 'common';
+import { Prop, prop } from 'common';
 import keyboardMove from './keyboardMove';
 
 // Tips for working with this file:
@@ -104,7 +104,7 @@ describe('keyboardMove', () => {
       input,
       ctrl: {
         ...defaultCtrl,
-        helpModalOpen: prop(false),
+        helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
       },
     }) as any;
 
