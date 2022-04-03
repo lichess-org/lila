@@ -16,6 +16,6 @@
   <string name="includingAXToIndicateACapture">Ein zusätzliches \"x\", um einen Schlagzug anzuzeigen ist optional</string>
   <string name="bothTheLetterOAndTheDigitZero">Sowohl der Buchstabe \"o\" als auch die Zahl \"0\" können bei der Rochade benutzt werden</string>
   <string name="ifItIsLegalToCastleBothWays">Falls beide Rochaden erlaubt sind, benutze die Eingabetaste, um auf der Königsseite zu rochieren</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung macht nur in un-eindeutigen Situationen einen Unterschied, z.B. wenn \"D\"ame und \"d\"-Bauer involviert sind</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Groß-/Kleinschreibung ist nur in nicht eindeutigen Situationen ausschlaggebend, z.B. wenn \"D\"ame und \"d\"-Bauer involviert sind</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Um einen Zug im Voraus auszuführen, tippe einfach den gewünschten Zug ein, bevor du am Zug bist</string>
 </resources>
