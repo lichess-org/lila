@@ -95,5 +95,16 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="newsEdit2">Anyade las noticias recients en a parte superior. No elimina las noticias anteriors.</string>
   <string name="newsEdit3">Deseparar noticias con --- amostrará una linia horizontal.</string>
   <string name="invite">Convidar</string>
+  <string name="youHaveBeenInvitedByX">Has estau convidau per %s.</string>
+  <string name="youAcceptedThisInvitation">Has acceptau esta invitación.</string>
+  <string name="youDeclinedThisInvitation">Has refusau esta invitación.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">u</string>
+  <string name="createMultipleAccounts">Crear multiples cuentas de Lichess de vez</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Tamién puetz %s pa crear multiples cuentas de Lichess dende una lista de nombres d\'estudiants.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">fer servir este formulario</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Considera que cada clase puede tener dica %1$s estudiants. Pa chestionar mas estudiants, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">crea mas clases</string>
+  <string name="studentsRealNamesOnePerLine">Nombres reals d\'os estudiants, uno per linia</string>
+  <string name="xisNowAStudentOfTheClass">%s ye un nuevo estudiant d\'a clase</string>
+  <string name="anInvitationHasBeenSentToX">S\'ha ninviau una invitación a %s</string>
 </resources>
