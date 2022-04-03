@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Comandi da tastiera</string>
+  <string name="performAMove">Fai una mossa</string>
+  <string name="movePieceFromE2ToE4">Muovi un pezzo da e2 a e4</string>
+  <string name="moveKnightToC3">Muovi un cavallo in c3</string>
+  <string name="kingsideCastle">Arrocco corto</string>
+  <string name="queensideCastle">Arrocco lungo</string>
+  <string name="promoteC8ToQueen">Promuovi il pedone c8 a regina</string>
+  <string name="dropARookAtB4">Piazza una torre in b4 (solo per la variante Crazyhouse)</string>
+  <string name="offerOrAcceptDraw">Offri o accetta una patta</string>
+  <string name="readOutClocks">Leggi gli orologi ad alta voce</string>
+  <string name="otherCommands">Altri comandi</string>
+  <string name="tips">Suggerimenti</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Se la notazione in uso non ti è familiare, puoi consultare</string>
+  <string name="includingAXToIndicateACapture">Aggiungere una \"x\" per indicare una cattura è facoltativo</string>
+  <string name="bothTheLetterOAndTheDigitZero">Per arroccare è possibile usare sia la lettera \"o\" sia la cifra \"0\"</string>
+  <string name="ifItIsLegalToCastleBothWays">In caso sia possibile arroccare sia lungo sia corto, usa il tasto Invio per arroccare corto</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">L\'uso delle maiuscole è rilevante solo in situazioni ambigue che coinvolgono un alfiere ed il pedone b</string>
+</resources>
