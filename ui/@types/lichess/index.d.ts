@@ -11,7 +11,7 @@ interface Lichess {
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
-  loadCssPath(path: string): void;
+  loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   loadModule(name: string): Promise<void>;
