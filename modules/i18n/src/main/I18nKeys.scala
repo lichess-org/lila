@@ -2333,4 +2333,26 @@ val `insightsSettings` = new I18nKey("insight:insightsSettings")
 
 }
 
+object keyboardMove {
+val `keyboardInputCommands` = new I18nKey("keyboardMove:keyboardInputCommands")
+val `performAMove` = new I18nKey("keyboardMove:performAMove")
+val `movePieceFromE2ToE4` = new I18nKey("keyboardMove:movePieceFromE2ToE4")
+val `moveKnightToC3` = new I18nKey("keyboardMove:moveKnightToC3")
+val `kingsideCastle` = new I18nKey("keyboardMove:kingsideCastle")
+val `queensideCastle` = new I18nKey("keyboardMove:queensideCastle")
+val `promoteC8ToQueen` = new I18nKey("keyboardMove:promoteC8ToQueen")
+val `dropARookAtB4` = new I18nKey("keyboardMove:dropARookAtB4")
+val `offerOrAcceptDraw` = new I18nKey("keyboardMove:offerOrAcceptDraw")
+val `readOutClocks` = new I18nKey("keyboardMove:readOutClocks")
+val `otherCommands` = new I18nKey("keyboardMove:otherCommands")
+val `tips` = new I18nKey("keyboardMove:tips")
+val `ifTheAboveMoveNotationIsUnfamiliar` = new I18nKey("keyboardMove:ifTheAboveMoveNotationIsUnfamiliar")
+val `includingAXToIndicateACapture` = new I18nKey("keyboardMove:includingAXToIndicateACapture")
+val `bothTheLetterOAndTheDigitZero` = new I18nKey("keyboardMove:bothTheLetterOAndTheDigitZero")
+val `ifItIsLegalToCastleBothWays` = new I18nKey("keyboardMove:ifItIsLegalToCastleBothWays")
+val `capitalizationOnlyMattersInAmbiguousSituations` = new I18nKey("keyboardMove:capitalizationOnlyMattersInAmbiguousSituations")
+val `toPremoveSimplyTypeTheDesiredPremove` = new I18nKey("keyboardMove:toPremoveSimplyTypeTheDesiredPremove")
+
+}
+
 }
