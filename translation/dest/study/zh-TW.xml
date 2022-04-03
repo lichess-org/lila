@@ -124,9 +124,13 @@
   <string name="deleteTheStudyChatHistory">確定要清空課程對話紀錄嗎？此操作無法還原！</string>
   <string name="deleteStudy">刪除此研究</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">你確定要刪除整個研究？不能回頭喔！輸入研究名稱確認：%s</string>
+  <string name="whereDoYouWantToStudyThat">要從哪裡開始研究呢？</string>
   <string name="goodMove">好棋</string>
   <string name="mistake">失誤</string>
+  <string name="brilliantMove">妙着</string>
   <string name="blunder">嚴重失誤</string>
+  <string name="interestingMove">有趣的一着</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">值得商榷的一着</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
@@ -142,6 +146,7 @@
   <string name="prevChapter">上一章</string>
   <string name="topics">主題</string>
   <string name="myTopics">我的主題</string>
+  <string name="popularTopics">熱門主題</string>
   <string name="manageTopics">管理主題</string>
   <string name="back">後退</string>
   <string name="playAgain">再玩一次</string>
