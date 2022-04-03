@@ -54,7 +54,11 @@
   <string name="timePlaying">奕棋時間</string>
   <string name="winrate">勝率</string>
   <string name="na">N/A</string>
+  <string name="news">最新消息</string>
+  <string name="classNews">課程消息</string>
   <string name="editNews">編輯通知</string>
   <string name="notifyAllStudents">提醒所有的學生</string>
   <string name="nothingHere">這裡還沒有任何東西</string>
+  <string name="invite">邀請</string>
+  <string name="createMultipleAccounts">同時開設多個Lichess帳戶</string>
 </resources>
