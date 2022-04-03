@@ -832,6 +832,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 # Help
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
+GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
@@ -859,6 +860,3 @@ GET   /robots.txt                      controllers.Main.robots
 GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)
-
-# Keyboard move
-GET   /keyboard-move/help              controllers.KeyboardMove.help

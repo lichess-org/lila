@@ -1,10 +1,10 @@
-package views.html.keyboardMove
+package views.html.site
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
-object help {
+object keyboardMove {
 
   private def header(text: Frag) =
     tr(
@@ -20,7 +20,7 @@ object help {
   private val or             = raw("""<or>/</or>""")
   private def k(str: String) = raw(s"""<kbd>$str</kbd>""")
 
-  def apply()(implicit ctx: Context) =
+  def help(implicit ctx: Context) =
     frag(
       h2(trans.keyboardMove.keyboardInputCommands()),
       table(

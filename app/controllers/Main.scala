@@ -184,6 +184,11 @@ Allow: /
       Ok(html.site.faq()).fuccess
     }
 
+  def keyboardMoveHelp =
+    Open { implicit ctx =>
+      Ok(html.site.keyboardMove.help).fuccess
+    }
+
   def movedPermanently(to: String) =
     Action {
       MovedPermanently(to)

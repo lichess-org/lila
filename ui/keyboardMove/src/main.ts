@@ -1,11 +1,11 @@
-import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
-import { Api as CgApi } from 'chessground/api';
-import { onInsert } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
 import * as xhr from 'common/xhr';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { Api as CgApi } from 'chessground/api';
+import { h } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
+import { snabModal } from 'common/modal';
+import { spinnerVdom as spinner } from 'common/spinner';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -172,7 +172,7 @@ export function render(ctrl: KeyboardMove) {
           onInsert: async ($wrap: Cash) => {
             const [, html] = await Promise.all([
               lichess.loadCssPath('keyboardMove.help'),
-              xhr.text(xhr.url('/keyboard-move/help', {})),
+              xhr.text(xhr.url('/help/keyboard-move', {})),
             ]);
             $wrap.find('.scrollable').html(html);
           },
