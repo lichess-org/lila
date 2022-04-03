@@ -40,8 +40,12 @@
   <string name="createDesc2">不需要任何電子信箱。課程密碼會自動建立，而您必須將此密碼傳給學生，他們才能登入</string>
   <string name="createDesc3">注意：學生不得擁有多個帳號。</string>
   <string name="createDesc4">如果他們已經有帳號，請使用邀請。</string>
+  <string name="createStudentWarning">僅為每個真實的學生創建賬戶，不要用此功能為你自己創建多個賬戶，否則你會被封號。</string>
   <string name="lichessUsername">Lichess上的使用者名稱</string>
   <string name="generateANewUsername">產生一個新的使用者名稱</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">%s個待處理的邀請</item>
+  </plurals>
   <string name="lastActiveDate">活動</string>
   <string name="managed">管理</string>
   <string name="release">正式版</string>
@@ -62,11 +66,18 @@
   <string name="timePlaying">奕棋時間</string>
   <string name="winrate">勝率</string>
   <string name="na">N/A</string>
+  <string name="overview">概覽</string>
   <string name="news">最新消息</string>
   <string name="classNews">課程消息</string>
   <string name="editNews">編輯通知</string>
   <string name="notifyAllStudents">提醒所有的學生</string>
   <string name="nothingHere">這裡還沒有任何東西</string>
   <string name="invite">邀請</string>
+  <string name="youHaveBeenInvitedByX">%s邀請你加入</string>
+  <string name="youAcceptedThisInvitation">你接受了此邀請</string>
+  <string name="youDeclinedThisInvitation">你拒絕了此邀請</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">或</string>
   <string name="createMultipleAccounts">同時開設多個Lichess帳戶</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表單</string>
+  <string name="studentsRealNamesOnePerLine">學生的真實姓名，每行一個</string>
 </resources>
