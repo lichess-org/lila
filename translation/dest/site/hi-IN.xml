@@ -450,7 +450,6 @@
   <string name="profileCompletion">प्रोफाइल पूरा: %s</string>
   <string name="xRating">%s रेटिंग</string>
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
-  <string name="gameCompletionRate">खेल पूरा दर: %s</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
   <string name="firstName">प्रथम नाम</string>

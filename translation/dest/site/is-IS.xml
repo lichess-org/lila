@@ -430,7 +430,6 @@
   <string name="profileCompletion">Ágrip tilbúið: %s</string>
   <string name="xRating">%s stig</string>
   <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
-  <string name="gameCompletionRate">Leikir fullkláraðir: %s</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
   <string name="firstName">Fornafn</string>

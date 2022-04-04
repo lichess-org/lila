@@ -2,7 +2,8 @@
 <resources>
   <string name="arenaTournaments">Arena Turnier</string>
   <string name="isItRated">Isch es gwertet?</string>
-  <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
+  <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. 
+Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
   <string name="isRated">Das Turnier isch gwertet und wird dini Wertig beiiflusse.</string>
   <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiiflusse.</string>
   <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiiflusse.</string>
@@ -13,11 +14,13 @@ Biischpiil: 4 Sieg und dänn Remis git 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1) dän
   <string name="berserkAnswer">Klickt en Schpiller vor Schpiilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkziit. 
 Wänn er das Schpiil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
-Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
+Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. 
+(1+2 isch e Usnahm, es wird zu 1+0.)
 
 Bi Schpiil ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
 
-De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiil meh als 6 Züg gschpillt worde sind.</string>
+De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiil 
+meh als 6 Züg gschpillt worde sind.</string>
   <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
   <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
 Wänn 2 oder meh Schpiller gliich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
@@ -29,7 +32,8 @@ Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpi
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
   <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierziit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiil wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
-  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug. Isch nach 12 Sekunde nöd zoge, gits es Forfait für de Gägner.</string>
+  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug... 
+Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller 0 Pünkt.</item>
     <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller 0 Pünkt.</item>

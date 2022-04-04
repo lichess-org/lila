@@ -67,6 +67,7 @@ Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</str
   <string name="xOrY">%1$s alebo %2$s</string>
   <string name="decideHowMuch">Rozhodnite sa, čo pre vás Lichess znamená:</string>
   <string name="stopPayments">Vyberte svoju kreditnú kartu a zastavte platby:</string>
+  <string name="stopPaymentsPayPal">Zrušiť PayPal predplatné a zastaviť platby:</string>
   <string name="noLongerSupport">Nepodporovať Lichess</string>
   <string name="viewOthers">Zobraziť iných Lichess Patronov</string>
   <string name="date">Dátum</string>

@@ -506,7 +506,6 @@
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s hodnotenie</string>
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
-  <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>

@@ -512,7 +512,6 @@
   <string name="profileCompletion">Profil zaključen: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Če ni, pustite prazno</string>
-  <string name="gameCompletionRate">Delež zaključenih iger: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>

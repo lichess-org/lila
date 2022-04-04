@@ -23,6 +23,8 @@ import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
+import { fromNodeList } from 'tree/dist/path';
+import { last } from 'tree/dist/ops';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -85,6 +87,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           chessground: cg,
           sendMove: playUserMove,
           redraw: this.redraw,
+          userJumpPlyDelta,
         },
         { fen: this.vm.node.fen }
       );
@@ -443,6 +446,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.selectSquare(null));
     jump(path);
     speech.node(vm.node, true);
+  }
+
+  function userJumpPlyDelta(plyDelta: Ply) {
+    // ensure we are jumping to a valid ply
+    let maxValidPly = vm.mainline.length - 1;
+    if (last(vm.mainline)?.puzzle == 'fail' && vm.mode != 'view') maxValidPly -= 1;
+    const newPly = Math.min(Math.max(vm.node.ply + plyDelta, 0), maxValidPly);
+    userJump(fromNodeList(vm.mainline.slice(0, newPly + 1)));
   }
 
   function viewSolution(): void {

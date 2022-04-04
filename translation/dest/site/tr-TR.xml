@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
-  <string name="gameCompletionRate">Oyun tamamlanma oranı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilini düzenle</string>
   <string name="firstName">Ad</string>
@@ -574,6 +573,7 @@
   <string name="error.min">%s değerinden büyük veya eşit olmalıdır</string>
   <string name="error.max">%s değerinden küçük veya eşit olmalıdır</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
+  <string name="ifRegistered">Hesabı olanlar</string>
   <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="menu">Menü</string>
@@ -895,4 +895,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="until">Seçili tarihe kadar</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
   <string name="switchSides">Renk değiştir</string>
+  <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
 </resources>

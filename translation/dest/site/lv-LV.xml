@@ -481,7 +481,6 @@
   <string name="profileCompletion">Profils aizpildīts: %s</string>
   <string name="xRating">%s reitings</string>
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
-  <string name="gameCompletionRate">Pabeigto spēļu attiecība: %s</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
   <string name="firstName">Vārds</string>
