@@ -255,7 +255,7 @@ export default class RoundController {
     else this.redraw();
   };
 
-  userJumpPlyCount = (plyCount: Ply) => this.userJump(this.ply + plyCount);
+  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
