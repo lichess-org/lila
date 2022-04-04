@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="movePieceFromE2ToE4">将棋子从 e2 移动到 e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">将马移动到 c3</string>
+  <string name="kingsideCastle">短易位</string>
+  <string name="queensideCastle">长易位</string>
+  <string name="promoteC8ToQueen">移至 c8 升变为后</string>
+  <string name="dropARookAtB4">在 b4 放一个车（仅适用于 Crazyhouse 变体）</string>
+</resources>
