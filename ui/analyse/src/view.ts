@@ -235,8 +235,8 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
-            else return true;
-            return false;
+            else if (action === 'analysis' && ctrl.studyPractice)
+              window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
           },
           ctrl.redraw
         );
@@ -249,12 +249,10 @@ function controls(ctrl: AnalyseCtrl) {
             'div.features',
             ctrl.studyPractice
               ? [
-                  h('a.fbt', {
+                  h('button.fbt', {
                     attrs: {
                       title: noarg('analysis'),
-                      target: '_blank',
-                      rel: 'noopener',
-                      href: ctrl.studyPractice.analysisUrl(),
+                      'data-act': 'analysis',
                       'data-icon': '',
                     },
                   }),
