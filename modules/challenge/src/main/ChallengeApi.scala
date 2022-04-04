@@ -109,7 +109,14 @@ final class ChallengeApi(
     }
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
-    challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
+    challengeMaker.makeRematchOf(game, user) flatMap {
+      _ ?? { challenge =>
+        create(challenge) recover lila.db.recoverDuplicateKey { _ =>
+          logger.warn(s"${game.id} duplicate key ${challenge.id}")
+          false
+        }
+      }
+    }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u
