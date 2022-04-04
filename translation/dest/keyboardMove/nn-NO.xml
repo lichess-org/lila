@@ -12,4 +12,10 @@
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Les sjakkur-tidene høgt</string>
   <string name="otherCommands">Andre kommandoar</string>
   <string name="tips">Tips</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Dersom du er ukjent med notasjonen ovanfor kan du få meir informasjon her:</string>
+  <string name="includingAXToIndicateACapture">Det er valfritt å føye til ein \"x\" for å markere at trekket slår ut ei av brikkene til motspelaren</string>
+  <string name="bothTheLetterOAndTheDigitZero">Både bokstaven \"o\" og talet null \"0\" kan brukast ved rokade</string>
+  <string name="ifItIsLegalToCastleBothWays">Bruk enter-tasten for å ta kort rokade dersom det er lovleg å rokera til båe sider</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Skilnad mellom stor og liten bokstav har berre meining i tvitydige situasjonar med ein laupar (bishop) og ein b-bonde</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">For å gjere eit førehandstrekk kan du ganske enkelt tasta inn trekket før det er din tur</string>
 </resources>
