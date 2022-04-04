@@ -92,6 +92,7 @@ final class ChallengeApi(
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
       if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
+      else if (c.declined) fuccess(Invalid("The challenge has been declined."))
       else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
