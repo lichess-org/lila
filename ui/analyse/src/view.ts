@@ -235,6 +235,8 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
+            else return true;
+            return false;
           },
           ctrl.redraw
         );

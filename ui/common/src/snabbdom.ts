@@ -31,13 +31,13 @@ export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks
   return bind('submit', e => (e.preventDefault(), f(e)), redraw, false);
 }
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => boolean, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
     el.addEventListener(
       mousedownEvent,
       e => {
-        f(e);
-        e.preventDefault();
+        const propagate = f(e);
+        if (propagate === false) e.preventDefault();
         if (redraw) redraw();
       },
       { passive: false }
