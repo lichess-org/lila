@@ -451,7 +451,6 @@
   <string name="profileCompletion">Завършеност на профила: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
-  <string name="gameCompletionRate">Завършени игри: %s</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
   <string name="firstName">Име</string>

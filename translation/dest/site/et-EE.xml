@@ -422,7 +422,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="profileCompletion">Profiili täidetud: %s</string>
   <string name="xRating">%s reiting</string>
   <string name="ifNoneLeaveEmpty">Kui pole, jäta tühjaks</string>
-  <string name="gameCompletionRate">Lõpuni mängimise protsent: %s</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
   <string name="firstName">Eesnimi</string>

@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
-  <string name="gameCompletionRate">Prosent fullførte partier: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>

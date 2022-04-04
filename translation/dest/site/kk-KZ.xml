@@ -445,7 +445,6 @@
   <string name="profileCompletion">Куәлігіңіздің толуы: %s</string>
   <string name="xRating">%s рейтингі</string>
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
-  <string name="gameCompletionRate">Ойындарды аяқтау деңгейі: %s</string>
   <string name="profile">Куәлік</string>
   <string name="editProfile">Куәлікті өзгерту</string>
   <string name="firstName">Атыңыз</string>

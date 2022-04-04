@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil teljessége: %s</string>
   <string name="xRating">%s értékszám</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
-  <string name="gameCompletionRate">Végigjátszott partik aránya: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>

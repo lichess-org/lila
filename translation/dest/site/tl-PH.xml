@@ -431,7 +431,6 @@
   <string name="profileCompletion">Pagkakompleto ng profile: %s</string>
   <string name="xRating">%s marka</string>
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
-  <string name="gameCompletionRate">Katayuan ng pagkakompleto ng laro: %s</string>
   <string name="profile">Profile</string>
   <string name="editProfile">I-edit ang profile</string>
   <string name="firstName">Pangalan</string>

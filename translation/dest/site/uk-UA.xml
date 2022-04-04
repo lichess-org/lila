@@ -513,7 +513,6 @@
   <string name="profileCompletion">Заповненість профілю: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">Якщо немає - лишіть порожнім</string>
-  <string name="gameCompletionRate">Завершених ігор: %s</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>

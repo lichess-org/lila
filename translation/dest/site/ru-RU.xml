@@ -512,7 +512,6 @@
   <string name="profileCompletion">Профиль заполнен на %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
-  <string name="gameCompletionRate">Завершённых игр: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>

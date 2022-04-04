@@ -206,6 +206,7 @@
   <string name="rightOn">很不錯！</string>
   <string name="stageXComplete">階段 %s 成功</string>
   <string name="next">繼續</string>
+  <string name="nextX">接下來:%s</string>
   <string name="backToMenu">回到選單</string>
   <string name="puzzleFailed">解題失敗！</string>
   <string name="retry">重試</string>
