@@ -96,7 +96,7 @@ final class PgnDump(
 
 object PgnDump {
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean, interactive: Boolean)
+  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
