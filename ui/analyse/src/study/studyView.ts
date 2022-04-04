@@ -35,7 +35,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
   return h(
     'span.' + opts.tab,
     {
-      attrs: { title: opts.hint },
+      attrs: { role: 'tab', title: opts.hint },
       class: { active: opts.tab === opts.ctrl.vm.toolTab() },
       hook: bind(
         'mousedown',
@@ -56,7 +56,7 @@ function buttons(root: AnalyseCtrl): VNode {
     showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
     noarg = root.trans.noarg;
   return h('div.study__buttons', [
-    h('div.left-buttons.tabs-horiz', [
+    h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky
         ? h(
@@ -172,6 +172,7 @@ export function side(ctrl: StudyCtrl): VNode {
       'span.' + key,
       {
         class: { active: !tourShow?.active && activeTab === key },
+        attrs: { role: 'tab' },
         hook: bind(
           'mousedown',
           () => {
@@ -199,6 +200,7 @@ export function side(ctrl: StudyCtrl): VNode {
         ),
         attrs: {
           'data-icon': '',
+          role: 'tab',
         },
       },
       'Broadcast'
@@ -209,7 +211,7 @@ export function side(ctrl: StudyCtrl): VNode {
       ? null
       : makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
 
-  const tabs = h('div.tabs-horiz', [
+  const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
     chaptersTab,
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
@@ -219,6 +221,7 @@ export function side(ctrl: StudyCtrl): VNode {
       ? h(
           'span.more',
           {
+            attrs: { role: 'tab' },
             hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
           },
           [iconTag('')]
