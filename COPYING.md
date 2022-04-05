@@ -1,7 +1,7 @@
 # Copying Lila
 
 Any file in this project that does not state otherwise and is not listed as an
-exception below is part of lila and copyright (c) 2012-2021 the lila authors.
+exception below is part of lila and copyright (c) 2012-2022 the lila authors.
 
 For a list of the authors see the commit log or
 https://github.com/lichess-org/lila/graphs/contributors.
