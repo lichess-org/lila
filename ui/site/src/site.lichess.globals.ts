@@ -18,7 +18,6 @@ import {
   loadIife,
 } from './component/assets';
 import widget from './component/widget';
-import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
 import announce from './component/announce';
@@ -50,7 +49,6 @@ export default () => {
   l.hopscotch = hopscotch;
   l.userComplete = userComplete;
   l.makeChat = makeChat;
-  l.idleTimer = idleTimer;
   l.pubsub = pubsub;
   l.unload = unload;
   l.redirect = redirect;
