@@ -15,6 +15,6 @@
 விளையாடி மகிழுங்கள், உங்கள் காய்கள் எப்பொழுதும் எதிரியின் ராஜாவை நோக்கி செல்லட்டும்!</string>
   <string name="logInToLichess">lichess.org க்குள் உள் நுளை, %s</string>
   <string name="common_orPaste">(கிளிக் செயல்படவில்லையா? அதை உங்கள் உலாவியில் ஒட்ட முயற்சிக்கவும்!)</string>
-  <string name="common_note">இது உங்கள் %s பயன்பாட்டின் தொடர்பான சேவை மின்னஞ்சல்.</string>
+  <string name="common_note">இது உங்கள் %s பயன்பாட்டிற்கு தொடர்பான சேவை மின்னஞ்சல்.</string>
   <string name="common_contact">எங்களை தொடர்பு கொள்ள, %s ஐப் பயன்படுத்தவும்.</string>
 </resources>
