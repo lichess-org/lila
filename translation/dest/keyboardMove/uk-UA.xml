@@ -16,4 +16,6 @@
   <string name="includingAXToIndicateACapture">Включаючи \"x\", щоб вказати, що захоплення необов\'язкове</string>
   <string name="bothTheLetterOAndTheDigitZero">І літеру \"о\", і цифру \"0\" можна використовувати для рокіровки</string>
   <string name="ifItIsLegalToCastleBothWays">Якщо можливі обидві рокіровки, використовуйте \"Enter\" для короткої рокіровки</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Регістр має значення лише у випадках, коли необхідно відрізнити слона від пішака b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Для ходу на випередження просто введіть нову команду до того, як настане ваш хід</string>
 </resources>
