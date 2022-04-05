@@ -4,7 +4,7 @@
   <string name="donateAsX">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
-  <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
+  <string name="becomePatron">ଜଣେ Lichess Patron ବନନ୍ତୁ</string>
   <string name="xBecamePatron">%s ଜଣେ Lichess Patron ପାଲଟିଲେ</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
