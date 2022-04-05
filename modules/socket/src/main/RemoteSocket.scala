@@ -52,7 +52,7 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds).unit
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "corresAlarm")
+      Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online

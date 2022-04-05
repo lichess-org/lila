@@ -36,7 +36,7 @@ final class Env(
   lazy val api = wire[NotifyApi]
 
   // api actor
-  Bus.subscribeFun("corresAlarm") {
+  Bus.subscribeFun("notify") {
     case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
       api.markAllRead(userIds.map(Notification.Notifies.apply)).unit
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
