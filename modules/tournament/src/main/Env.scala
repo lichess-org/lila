@@ -118,7 +118,7 @@ final class Env(
 
   system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
 
-  system.actorOf(Props(wire[CreatedOrganizer]))
+  wire[CreatedOrganizer]
 
   wire[StartedOrganizer]
 
