@@ -7,6 +7,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
   return h(
     'span',
     {
+      attrs: { role: 'tab' },
       class: {
         active: key === active,
         glowing: key !== active && key === 'pools' && !!ctrl.poolMember,

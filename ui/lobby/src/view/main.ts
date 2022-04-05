@@ -28,7 +28,7 @@ export default function (ctrl: LobbyController) {
         break;
     }
   return h('div.lobby__app.lobby__app-' + ctrl.tab, [
-    h('div.tabs-horiz', renderTabs(ctrl)),
+    h('div.tabs-horiz', { attrs: { role: 'tablist' } }, renderTabs(ctrl)),
     h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body),
   ]);
 }
