@@ -17,8 +17,7 @@ private class TournamentConfig(
     @ConfigName("collection.tournament") val tournamentColl: CollName,
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
-    @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
-    @ConfigName("api_actor.name") val apiActorName: String
+    @ConfigName("collection.leaderboard") val leaderboardColl: CollName
 )
 
 @Module
@@ -116,7 +115,7 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
-  system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
+  wire[TournamentBusHandler]
 
   wire[CreatedOrganizer]
 

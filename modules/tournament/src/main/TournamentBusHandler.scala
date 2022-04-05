@@ -2,30 +2,27 @@ package lila.tournament
 
 import akka.actor._
 import org.joda.time.DateTime
+import scala.concurrent.ExecutionContext
 
 import lila.game.actorApi.FinishGame
 import lila.user.User
 
-final private[tournament] class ApiActor(
+final private class TournamentBusHandler(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-) extends Actor {
+)(implicit ec: ExecutionContext) {
 
-  implicit def ec = context.dispatcher
-
-  lila.common.Bus.subscribe(
-    self,
+  lila.common.Bus.subscribeFun(
     "finishGame",
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamKick"
-  )
-
-  def receive = {
+    "teamKick",
+    "berserk"
+  ) {
 
     case FinishGame(game, _, _) => api.finishGame(game).unit
 
