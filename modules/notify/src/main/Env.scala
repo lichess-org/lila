@@ -9,8 +9,7 @@ import lila.common.Bus
 import lila.common.config._
 
 private class NotifyConfig(
-    @ConfigName("collection.notify") val notifyColl: CollName,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("collection.notify") val notifyColl: CollName
 )
 
 @Module
@@ -37,30 +36,20 @@ final class Env(
   lazy val api = wire[NotifyApi]
 
   // api actor
-  Bus.subscribe(
-    system.actorOf(
-      Props(new Actor {
-        def receive = {
-          case lila.hub.actorApi.notify.Notified(userId) =>
-            api.markAllRead(Notification.Notifies(userId)).unit
-          case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-            api.markAllRead(userIds.map(Notification.Notifies.apply)).unit
-          case lila.game.actorApi.CorresAlarmEvent(pov) =>
-            pov.player.userId ?? { userId =>
-              lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
-                api addNotification Notification.make(
-                  Notification.Notifies(userId),
-                  CorresAlarm(
-                    gameId = pov.gameId,
-                    opponent = opponent
-                  )
-                )
-              }
-            }
+  Bus.subscribeFun("corresAlarm") {
+    case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+      api.markAllRead(userIds.map(Notification.Notifies.apply)).unit
+    case lila.game.actorApi.CorresAlarmEvent(pov) =>
+      pov.player.userId ?? { userId =>
+        lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
+          api addNotification Notification.make(
+            Notification.Notifies(userId),
+            CorresAlarm(
+              gameId = pov.gameId,
+              opponent = opponent
+            )
+          )
         }
-      }),
-      name = config.actorName
-    ),
-    "corresAlarm"
-  )
+      }
+  }
 }

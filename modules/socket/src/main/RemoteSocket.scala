@@ -22,7 +22,6 @@ import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos 
 
 final class RemoteSocket(
     redisClient: RedisClient,
-    notification: lila.hub.actors.Notification,
     shutdown: CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -52,7 +51,8 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate(_ + userId).unit
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds).unit
-    case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
+    case In.NotifiedBatch(userIds) =>
+      Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "corresAlarm")
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online

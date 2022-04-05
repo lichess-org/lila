@@ -17,7 +17,6 @@ object actors {
   case class TournamentApi(actor: ActorSelection) extends Actor
   case class Bookmark(actor: ActorSelection)      extends Actor
   case class Shutup(actor: ActorSelection)        extends Actor
-  case class Notification(actor: ActorSelection)  extends Actor
   case class Timeline(actor: ActorSelection)      extends Actor
   case class Report(actor: ActorSelection)        extends Actor
   case class Renderer(actor: ActorSelection)      extends Actor
@@ -45,7 +44,6 @@ final class Env(
   val bookmark      = Bookmark(select("actor.bookmark"))
   val report        = Report(select("actor.report"))
   val shutup        = Shutup(select("actor.shutup"))
-  val notification  = Notification(select("actor.notify"))
 
   private def select(name: String) =
     system.actorSelection("/user/" + config.getString(name))
