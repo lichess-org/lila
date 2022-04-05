@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">キーボード入力コマンド</string>
+  <string name="performAMove">指し手の入力</string>
+  <string name="movePieceFromE2ToE4">駒を e2 から e4 に動かす</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">ナイトを c3 に動かす</string>
+  <string name="kingsideCastle">キングサイド・キャスリング</string>
+  <string name="queensideCastle">クイーンサイド・キャスリング</string>
+  <string name="promoteC8ToQueen">c8 でクイーンに昇格</string>
+</resources>
