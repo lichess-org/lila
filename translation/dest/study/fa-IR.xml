@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">شما حالا یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
+  <string name="unlike">نمی پسندم</string>
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
   <string name="commentThisMove">نظر دادن به این حرکت</string>
@@ -80,6 +81,7 @@
   <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
   <string name="saveChapter">ذخیره فصل</string>
   <string name="clearAnnotations">حاشیه‌نویسی را پاک نمایید</string>
+  <string name="clearVariations">پاک کردن تغییرات</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">تمام نظرات، شکلها و نمایه‌های ترسیم شده در این فصل پاک شوند؟</string>
