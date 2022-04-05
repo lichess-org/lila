@@ -120,7 +120,7 @@ final class Env(
 
   system.actorOf(Props(wire[CreatedOrganizer]))
 
-  system.actorOf(Props(wire[StartedOrganizer]))
+  wire[StartedOrganizer]
 
   wire[TournamentNotify]
 

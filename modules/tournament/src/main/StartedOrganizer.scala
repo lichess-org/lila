@@ -3,58 +3,43 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
-import lila.common.LilaStream
+import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import scala.concurrent.ExecutionContext
 
 final private class StartedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     socket: TournamentSocket
-)(implicit mat: akka.stream.Materializer)
-    extends Actor {
+)(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
-  implicit def ec = context.dispatcher
+  var runCounter = 0
 
-  override def preStart(): Unit = {
-    context setReceiveTimeout 60.seconds
-    context.system.scheduler.scheduleOnce(25 seconds, self, Tick(0)).unit
-  }
+  ResilientScheduler(every = Every(1 seconds), timeout = AtMost(30 seconds), initialDelay = 25 seconds) {
 
-  case class Tick(it: Int)
+    val doAllTournaments = runCounter % 20 == 0
 
-  def scheduleNext(prev: Int): Unit =
-    context.system.scheduler.scheduleOnce(1 second, self, Tick(prev + 1)).unit
-
-  def receive = {
-
-    case ReceiveTimeout =>
-      val msg = "tournament.StartedOrganizer timed out!"
-      pairingLogger.error(msg)
-      throw new RuntimeException(msg)
-
-    case Tick(tickIt) =>
-      val doAllTournaments = tickIt % 20 == 0
-      tournamentRepo
-        .startedCursorWithNbPlayersGte {
-          if (doAllTournaments) none // every 20s, do all tournaments
-          else if (tickIt % 2 == 0) 50.some // every 2s, do all decent tournaments
-          else 1000.some // always do massive tournaments
+    tournamentRepo
+      .startedCursorWithNbPlayersGte {
+        if (doAllTournaments) none // every 20s, do all tournaments
+        else if (runCounter % 2 == 0) 50.some // every 2s, do all decent tournaments
+        else 1000.some // always do massive tournaments
+      }
+      .documentSource()
+      .mapAsyncUnordered(4) { tour =>
+        processTour(tour) recover { case e: Exception =>
+          logger.error(s"StartedOrganizer $tour", e)
+          0
         }
-        .documentSource()
-        .mapAsyncUnordered(4) { tour =>
-          processTour(tour) recover { case e: Exception =>
-            logger.error(s"StartedOrganizer $tour", e)
-            0
-          }
-        }
-        .toMat(LilaStream.sinkCount)(Keep.right)
-        .run()
-        .addEffect { nb =>
-          if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
-        }
-        .monSuccess(_.tournament.startedOrganizer.tick)
-        .addEffectAnyway(scheduleNext(tickIt))
-        .unit
+      }
+      .toMat(LilaStream.sinkCount)(Keep.right)
+      .run()
+      .addEffect { nb =>
+        if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
+        runCounter = runCounter + 1
+      }
+      .monSuccess(_.tournament.startedOrganizer.tick)
+      .void
   }
 
   private def processTour(tour: Tournament): Funit =
