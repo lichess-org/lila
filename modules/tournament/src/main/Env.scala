@@ -122,6 +122,8 @@ final class Env(
 
   system.actorOf(Props(wire[StartedOrganizer]))
 
+  wire[TournamentNotify]
+
   private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
   scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
     schedulerActor ! TournamentScheduler.ScheduleNow

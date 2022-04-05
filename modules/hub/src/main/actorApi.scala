@@ -313,3 +313,7 @@ package plan {
   case class PlanGift(from: String, to: String, lifetime: Boolean)
   case class PlanExpire(userId: String)
 }
+
+package push {
+  case class TourSoon(tourId: String, tourName: String, userIds: List[String])
+}

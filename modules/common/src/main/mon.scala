@@ -627,6 +627,7 @@ object mon {
       val corresAlarm = send("corresAlarm") _
       val finish      = send("finish") _
       val message     = send("message") _
+      val tourSoon    = send("tourSoon") _
       object challenge {
         val create = send("challengeCreate") _
         val accept = send("challengeAccept") _

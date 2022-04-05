@@ -6,21 +6,18 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User
+import reactivemongo.api.ReadPreference
 
 final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
+  private[push] def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
     coll
-      .find(
-        $doc(
-          "userId" -> userId
-        )
-      )
+      .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))
-      .cursor[Bdoc]()
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list(max)
-      .map { docs =>
-        docs.flatMap { doc =>
+      .map {
+        _.flatMap { doc =>
           for {
             endpoint <- doc.string("endpoint")
             auth     <- doc.string("auth")
