@@ -2,7 +2,6 @@ import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import LobbyController from './ctrl';
 import { PoolMember, Hook } from './interfaces';
-import idleTimer from 'common/idle-timer';
 
 interface Handlers {
   [key: string]: (data: any) => void;
@@ -40,7 +39,7 @@ export default class LobbySocket {
       },
     };
 
-    idleTimer(
+    lichess.idleTimer(
       3 * 60 * 1000,
       () => send('idle', true),
       () => {

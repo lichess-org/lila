@@ -1,6 +1,5 @@
 import { makeSocket, SimulSocket } from './socket';
 import xhr from './xhr';
-import idleTimer from 'common/idle-timer';
 import { SimulData, SimulOpts } from './interfaces';
 
 export default class SimulCtrl {
@@ -18,7 +17,7 @@ export default class SimulCtrl {
   private setupCreatedHost = () => {
     lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
     let hostIsAround = true;
-    idleTimer(
+    lichess.idleTimer(
       15 * 60 * 1000,
       () => {
         hostIsAround = false;
