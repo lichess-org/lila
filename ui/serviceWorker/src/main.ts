@@ -30,11 +30,10 @@ async function handleNotificationClick(event: NotificationEvent) {
 
   // determine url
   const data = event.notification.data.userData;
-  let url = '/';
+  let url = data.path || '/';
   if (data.fullId) url = '/' + data.fullId;
   else if (data.threadId) url = '/inbox/' + data.threadId;
   else if (data.challengeId) url = '/' + data.challengeId;
-  else if (data.tourId) url = '/tournament/' + data.tourId;
 
   // focus open window with same url
   for (const client of windowClients) {

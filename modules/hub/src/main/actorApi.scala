@@ -315,5 +315,5 @@ package plan {
 }
 
 package push {
-  case class TourSoon(tourId: String, tourName: String, userIds: List[String])
+  case class TourSoon(tourId: String, tourName: String, userIds: List[String], swiss: Boolean)
 }

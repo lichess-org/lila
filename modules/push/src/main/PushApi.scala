@@ -270,13 +270,16 @@ final private class PushApi(
             title = tour.tourName,
             body = "The tournament is about to start!",
             stacking = Stacking.ChallengeAccept,
-            payload = Json.obj(
-              "userId" -> userId,
-              "userData" -> Json.obj(
-                "type"   -> "tourSoon",
-                "tourId" -> tour.tourId
+            payload = Json
+              .obj(
+                "userId" -> userId,
+                "userData" -> Json.obj(
+                  "type"     -> "tourSoon",
+                  "tourId"   -> tour.tourId,
+                  "tourName" -> tour.tourName,
+                  "path"     -> s"/${if (tour.swiss) "swiss" else "tournament"}/${tour.tourId}"
+                )
               )
-            )
           )
       )
     }

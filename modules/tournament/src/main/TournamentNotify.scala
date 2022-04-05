@@ -9,22 +9,22 @@ import lila.common.Bus
 import lila.common.{ AtMost, Every, ResilientScheduler }
 import lila.hub.actorApi.push.TourSoon
 
-final private class TournamentNotify(repo: TournamentRepo, cached: Cached, socket: TournamentSocket)(implicit
+final private class TournamentNotify(repo: TournamentRepo, cached: Cached)(implicit
     ec: ExecutionContext,
     system: ActorSystem
 ) {
 
-  private val doneMemo = new lila.memo.ExpireSetMemo(5 minutes)
+  private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
 
   ResilientScheduler(every = Every(10 seconds), timeout = AtMost(10 seconds), initialDelay = 1 minute) {
     repo
-      .soonStarting(DateTime.now.plusMinutes(0), DateTime.now.plusMinutes(60), doneMemo.keys)
+      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
       .flatMap {
         _.map { tour =>
           doneMemo put tour.id
           cached ranking tour map { ranking =>
             Bus.publish(
-              TourSoon(tourId = tour.id, tourName = tour.name, ranking.playerIndex.toList),
+              TourSoon(tourId = tour.id, tourName = tour.name, ranking.playerIndex.toList, swiss = false),
               "tourSoon"
             )
           }

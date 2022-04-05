@@ -77,6 +77,8 @@ final class Env(
 
   private lazy val officialSchedule = wire[SwissOfficialSchedule]
 
+  wire[SwissNotify]
+
   lila.common.Bus.subscribeFun(
     "finishGame",
     "adjustCheater",
