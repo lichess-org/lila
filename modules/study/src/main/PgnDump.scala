@@ -18,7 +18,7 @@ final class PgnDump(
     net: lila.common.config.NetConfig
 )(implicit ec: ExecutionContext) {
 
-  import PgnDump._ // what is this doing...
+  import PgnDump._
 
   def apply(study: Study, flags: WithFlags): Source[String, _] =
     chapterRepo
