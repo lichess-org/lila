@@ -24,4 +24,5 @@
   <string name="broadcastUrl">آدرس اینترنتی پخش زنده</string>
   <string name="currentRoundUrl">آدرس اینترنتی دور بازی کنونی</string>
   <string name="currentGameUrl">آدرس اینترنتی بازی در جریان</string>
+  <string name="downloadAllRounds">دانلود تمام بازی ها</string>
 </resources>
