@@ -24,7 +24,9 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
   };
   return h(
-    'div.rclock.rclock-' + position,
+    // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
+    // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
+    `div.rclock.rclock-${position}.rclock-${player.color}`,
     {
       class: {
         outoftime: millis <= 0,
