@@ -136,7 +136,7 @@ final class IrcApi(
       }
 
   def nameClosePreset(username: String): Funit =
-    zulip(_.mod.commsPublic, "/" + username)("@**remind** here in 48h to close this account")
+    zulip(_.mod.usernames, "/" + username)("@**remind** here in 48h to close this account")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
