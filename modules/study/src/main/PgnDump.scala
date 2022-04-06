@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes, Gamebook }
+import lila.tree.Node.{ Shape, Shapes, Gamebook, Comments }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -32,7 +32,7 @@ final class PgnDump(
         tags = makeTags(study, chapter),
         turns = toTurns(chapter.root)(flags).toList,
         initial = Initial(
-          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          combineComments(chapter.root.comments, chapter.root.shapes, chapter.root.gamebook)
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -96,7 +96,7 @@ final class PgnDump(
 
 object PgnDump {
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean, interactive: Boolean)
+  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
@@ -105,9 +105,7 @@ object PgnDump {
     chessPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
-      },
+      comments = flags.comments ?? combineComments(node.comments, node.shapes, node.gamebook), 
       opening = none,
       result = none,
       variations = flags.variations ?? {
@@ -118,19 +116,26 @@ object PgnDump {
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
-  // [%hint Optional, on-demand hint for the player.]
-  // [%wrong When any other move played is wrong.]
-  // pass in gamebook.cleanUp as argument.
+  private def combineComments(comments: Comments, shapes: Shapes, gamebook: Option[Gamebook]): List[String] = {
+    val combinedComments = comments.list.map(_.text.value) ::: shapeComment(shapes).toList
+    gamebook match {
+      case None => combinedComments
+      case Some(Gamebook(_,_)) => combinedComments ::: gamebookComment(gamebook.get.cleanUp).toList
+    }
+  }
+
+  // [%hint Optional, on-demand hint for the player.] ...
+  // [%wrong When any other move played is wrong.] ...
   private def gamebookComment(gamebook: Gamebook): Option[String] = {
-    def render(as: String)(gamebookComment: Option[String]) = {
-      gamebookComment match {
+    def render(as: String)(gamebookEntry: Option[String]) = {
+      gamebookEntry match {
         case None => ""
-        case Some(gamebookComment) => s"%[%$as ${gamebookComment}]"
+        case Some(gamebookEntry) => s"[%$as ${gamebookEntry}]"
       }
     }
     val hint = render("hint")(gamebook.hint)
     val wrong = render("wrong")(gamebook.deviation)
-    s"$hint$wrong".some.filter(_.nonEmpty)
+    s"$hint$wrong".trim.some.filter(_.nonEmpty)
   }
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4] ... 
