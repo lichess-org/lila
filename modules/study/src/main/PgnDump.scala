@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Shape, Shapes, Gamebook, Comments }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -32,7 +32,7 @@ final class PgnDump(
         tags = makeTags(study, chapter),
         turns = toTurns(chapter.root)(flags).toList,
         initial = Initial(
-          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          combineComments(chapter.root.comments, chapter.root.shapes, chapter.root.gamebook)
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -78,6 +78,7 @@ final class PgnDump(
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*") // required for SCID to import
+        // add an AnalysisMode tag here.
       ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
@@ -104,9 +105,7 @@ object PgnDump {
     chessPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
-      },
+      comments = flags.comments ?? combineComments(node.comments, node.shapes, node.gamebook), 
       opening = none,
       result = none,
       variations = flags.variations ?? {
@@ -117,7 +116,29 @@ object PgnDump {
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
-  // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
+  private def combineComments(comments: Comments, shapes: Shapes, gamebook: Option[Gamebook]): List[String] = {
+    val combinedComments = comments.list.map(_.text.value) ::: shapeComment(shapes).toList
+    gamebook match {
+      case None => combinedComments
+      case Some(Gamebook(_,_)) => combinedComments ::: gamebookComment(gamebook.get.cleanUp).toList
+    }
+  }
+
+  // [%hint Optional, on-demand hint for the player.] ...
+  // [%wrong When any other move played is wrong.] ...
+  private def gamebookComment(gamebook: Gamebook): Option[String] = {
+    def render(as: String)(gamebookEntry: Option[String]) = {
+      gamebookEntry match {
+        case None => ""
+        case Some(gamebookEntry) => s"[%$as ${gamebookEntry}]"
+      }
+    }
+    val hint = render("hint")(gamebook.hint)
+    val wrong = render("wrong")(gamebook.deviation)
+    s"$hint$wrong".trim.some.filter(_.nonEmpty)
+  }
+
+  // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4] ... 
   private def shapeComment(shapes: Shapes): Option[String] = {
     def render(as: String)(shapes: List[String]) =
       shapes match {
