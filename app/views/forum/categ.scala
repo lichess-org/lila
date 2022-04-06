@@ -40,7 +40,8 @@ object categ {
       categ: lila.forum.Categ,
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
-      stickyPosts: List[lila.forum.TopicView]
+      stickyPosts: List[lila.forum.TopicView],
+      pager: Paginator[lila.forum.PostView.WithReadPerm]
   )(implicit ctx: Context) = {
 
     val newTopicButton = canWrite option
@@ -77,6 +78,7 @@ object categ {
     views.html.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
+      moreJs = infiniteScrollTag,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"Forum: ${categ.name}",
@@ -109,6 +111,89 @@ object categ {
           )
         ),
         bar
+      )
+    }
+  }
+
+  def show2(
+             categ: lila.forum.Categ,
+             pager: Paginator[lila.forum.TopicView],
+             canWrite: Boolean,
+             stickyPosts: List[lila.forum.TopicView]
+           )(implicit ctx: Context) = {
+
+    val newTopicButton = canWrite option
+      a(
+        href := routes.ForumTopic.form(categ.slug),
+        cls := "button button-empty button-green text",
+        dataIcon := ""
+      )(
+        trans.createANewTopic()
+      )
+    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) =
+      tr(cls := List("sticky" -> sticky))(
+        td(cls := "subject")(
+          a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
+        ),
+        td(cls := "right")(topic.nbReplies.localize),
+        td(
+          topic.lastPost.map { post =>
+            frag(
+              a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
+                momentFromNow(post.createdAt)
+              ),
+              br,
+              trans.by(bits.authorLink(post))
+            )
+          }
+        )
+      )
+    val bar = div(cls := "bar")(
+      span(),
+      //views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), pager, showPost = false),
+      newTopicButton
+    )
+
+    views.html.base.layout(
+      title = categ.name,
+      moreCss = cssTag("forum"),
+      moreJs = infiniteScrollTag,
+      openGraph = lila.app.ui
+        .OpenGraph(
+          title = s"Forum: ${categ.name}",
+          url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+          description = categ.desc
+        )
+        .some,
+    ) {
+      main(cls := "forum forum-categ box")(
+        h1(
+          a(
+            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+            dataIcon := "",
+            cls := "text"
+          ),
+          categ.team.fold(frag(categ.name))(teamIdToName),
+          span(), pager.nbResults.toString + " ",
+          newTopicButton
+        ),
+        div(cls:="bar"),
+        table(cls := "topics slist slist-pad")(
+          thead(
+            tr(
+              th,
+              th(cls := "right")(trans.replies()),
+              th(trans.lastPost())
+            )
+          ),
+          tbody( cls := "infinite-scroll",
+            stickyPosts map showTopic(sticky = true),
+
+            pager.currentPageResults map showTopic(sticky = false),
+
+            pagerNextTable(pager, n => routes.ForumCateg.show(categ.slug, n).url)
+          )
+        )
       )
     }
   }

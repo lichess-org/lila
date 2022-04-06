@@ -16,7 +16,7 @@ final class ForumPaginator(
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+  def topicPosts(topic: Topic, page: Int, me: Option[User], index: Int): Fu[Paginator[Post]] =
     Paginator(
       new Adapter(
         collection = postRepo.coll,
@@ -24,11 +24,12 @@ final class ForumPaginator(
         projection = none,
         sort = postRepo.sortQuery
       ),
-      currentPage = page,
-      maxPerPage = config.postMaxPerPage
+      currentPage = page,// should be index / config.postMaxPerPage.value + 1
+      maxPerPage = config.postMaxPerPage,
+      index = index
     )
 
-  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+  def categTopics(categ: Categ, page: Int, forUser: Option[User], index: Int): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.postMaxPerPage,

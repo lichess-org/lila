@@ -95,11 +95,10 @@ object topic {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
-
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href := routes.ForumCateg.show(categ.slug),
+            href := routes.ForumCateg.show(categ.slug ),
             dataIcon := "",
             cls := "text"
           ),
