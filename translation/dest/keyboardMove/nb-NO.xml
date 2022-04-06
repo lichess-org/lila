@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Tastaturkommandoer</string>
+  <string name="performAMove">Utfør et trekk</string>
+  <string name="movePieceFromE2ToE4">Flytt brikke fra e2 til e4</string>
+</resources>
