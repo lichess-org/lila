@@ -81,7 +81,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       )
     ))
 
-  def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+  private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
     case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
     case Some(prev) if prev.id == c.id                        => funit
     case Some(prev)                                           => cancel(prev) >> insert(c)

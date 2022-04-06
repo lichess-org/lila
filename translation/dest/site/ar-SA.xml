@@ -565,7 +565,6 @@
   <string name="profileCompletion">اكتمال الملف الشخصي: %s</string>
   <string name="xRating">تقييم %s</string>
   <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
-  <string name="gameCompletionRate">معدل إكمال المباراة: %s</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>

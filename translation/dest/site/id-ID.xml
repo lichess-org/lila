@@ -416,7 +416,6 @@
   <string name="profileCompletion">Kelengkapan profil %s</string>
   <string name="xRating">peringkat %s</string>
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
-  <string name="gameCompletionRate">Tingkat penyelesaian permainan: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>

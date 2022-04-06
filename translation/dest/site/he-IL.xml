@@ -512,7 +512,6 @@
   <string name="profileCompletion">השלמת הפרופיל: %s</string>
   <string name="xRating">דירוג %s</string>
   <string name="ifNoneLeaveEmpty">אם אין, השאר ריק</string>
-  <string name="gameCompletionRate">אחוזי השלמת משחקים: %s</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">ערוך פרופיל</string>
   <string name="firstName">שם פרטי</string>
@@ -645,6 +644,7 @@
   <string name="error.min">לפחות %s</string>
   <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="ifRegistered">אם רשום</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>

@@ -55,7 +55,7 @@ function renderPalantir(ctrl: Ctrl) {
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
   return [
-    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
+    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, { attrs: { role: 'tablist' } }, [
       ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
       renderPalantir(ctrl),
     ]),
@@ -74,6 +74,7 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
   return h(
     'div.mchat__tab.' + tab,
     {
+      attrs: { role: 'tab' },
       class: { 'mchat__tab-active': tab === active },
       hook: bind('click', () => ctrl.setTab(tab)),
     },

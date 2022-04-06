@@ -224,6 +224,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .batchSize(1)
       .cursor[Tournament]()
 
+  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
+    coll
+      .find(createdSelect ++ $doc("startsAt" $gt from $lt to, "_id" $nin notIds))
+      .cursor[Tournament]()
+      .list(5)
+
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
       _.filter(_.isStillWorthEntering)

@@ -235,6 +235,8 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
+            else if (action === 'analysis' && ctrl.studyPractice)
+              window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
           },
           ctrl.redraw
         );
@@ -247,12 +249,10 @@ function controls(ctrl: AnalyseCtrl) {
             'div.features',
             ctrl.studyPractice
               ? [
-                  h('a.fbt', {
+                  h('button.fbt', {
                     attrs: {
                       title: noarg('analysis'),
-                      target: '_blank',
-                      rel: 'noopener',
-                      href: ctrl.studyPractice.analysisUrl(),
+                      'data-act': 'analysis',
                       'data-icon': '',
                     },
                   }),
@@ -380,6 +380,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     {
       hook: {
         insert: vn => {
+          const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!!playerBars != $('body').hasClass('header-margin')) {
             requestAnimationFrame(() => {
@@ -387,7 +388,16 @@ export default function (ctrl: AnalyseCtrl): VNode {
               ctrl.redraw();
             });
           }
-          gridHacks.start(vn.elm as HTMLElement);
+          if (ctrl.opts.chat) {
+            const chatEl = document.createElement('section');
+            chatEl.classList.add('mchat');
+            elm.appendChild(chatEl);
+            const chatOpts = ctrl.opts.chat;
+            chatOpts.instance?.then(c => c.destroy());
+            chatOpts.parseMoves = true;
+            chatOpts.instance = lichess.makeChat(chatOpts);
+          }
+          gridHacks.start(elm);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -504,15 +514,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 ]
           ),
       study && study.relay && relayManager(study.relay),
-      ctrl.opts.chat &&
-        h('section.mchat', {
-          hook: onInsert(_ => {
-            const chatOpts = ctrl.opts.chat;
-            chatOpts.instance?.then(c => c.destroy());
-            chatOpts.parseMoves = true;
-            chatOpts.instance = lichess.makeChat(chatOpts);
-          }),
-        }),
       ctrl.embed
         ? null
         : h('div.chat__members.none', {

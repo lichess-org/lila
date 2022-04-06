@@ -34,15 +34,16 @@ object index {
       moreJs = frag(
         stripeScript,
         payPalPublicKey map { key =>
+          val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
           frag(
             // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
             // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
             script(
-              src := s"https://www.paypal.com/sdk/js?client-id=${key}&currency=${pricing.currency}&locale=${ctx.lang.locale}",
+              src := s"https://www.paypal.com/sdk/js?client-id=${key}&currency=${pricing.currency}$localeParam",
               namespaceAttr := "paypalOrder"
             ),
             script(
-              src := s"https://www.paypal.com/sdk/js?client-id=${key}&vault=true&intent=subscription&currency=${pricing.currency}&locale=${ctx.lang.locale}",
+              src := s"https://www.paypal.com/sdk/js?client-id=${key}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
               namespaceAttr := "paypalSubscription"
             )
           )

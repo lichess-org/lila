@@ -446,7 +446,6 @@
   <string name="profileCompletion">ಪ್ರೊಫೈಲ್ ಪೂರ್ಣತೆ: %s</string>
   <string name="xRating">%s ಧಾರಣೆ</string>
   <string name="ifNoneLeaveEmpty">ಧಾರಣೆ ಇಲ್ಲವಾದರೆ, ಈ ಜಾಗ ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ</string>
-  <string name="gameCompletionRate">ಆಟವನ್ನು ಪೂರ್ತಿಗೊಳಿಸುವ ದರ: %s</string>
   <string name="profile">ಪ್ರೊಫೈಲು</string>
   <string name="editProfile">ಪ್ರೊಫೈಲ್ ಪರಿಷ್ಕರಿಸಿ</string>
   <string name="firstName">ಹೆಸರು</string>

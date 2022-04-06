@@ -255,7 +255,7 @@ export default class RoundController {
     else this.redraw();
   };
 
-  userJumpPlyCount = (plyCount: Ply) => this.userJump(this.ply + plyCount);
+  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
@@ -571,31 +571,30 @@ export default class RoundController {
     speech.status(this);
   };
 
-  challengeRematch = (): void => {
-    xhr.challengeRematch(this.data.game.id).then(() => {
-      lichess.pubsub.emit('challenge-app.open');
-      if (lichess.once('rematch-challenge'))
-        setTimeout(() => {
-          lichess.hopscotch(function () {
-            window.hopscotch
-              .configure({
-                i18n: { doneBtn: 'OK, got it' },
-              })
-              .startTour({
-                id: 'rematch-challenge',
-                showPrevButton: true,
-                steps: [
-                  {
-                    title: 'Challenged to a rematch',
-                    content: 'Your opponent is offline, but they can accept this challenge later!',
-                    target: '#challenge-app',
-                    placement: 'bottom',
-                  },
-                ],
-              });
-          });
-        }, 1000);
-    });
+  challengeRematch = async () => {
+    await xhr.challengeRematch(this.data.game.id);
+    lichess.pubsub.emit('challenge-app.open');
+    if (lichess.once('rematch-challenge'))
+      setTimeout(() => {
+        lichess.hopscotch(function () {
+          window.hopscotch
+            .configure({
+              i18n: { doneBtn: 'OK, got it' },
+            })
+            .startTour({
+              id: 'rematch-challenge',
+              showPrevButton: true,
+              steps: [
+                {
+                  title: 'Challenged to a rematch',
+                  content: 'Your opponent is offline, but they can accept this challenge later!',
+                  target: '#challenge-app',
+                  placement: 'bottom',
+                },
+              ],
+            });
+        });
+      }, 1000);
   };
 
   private makeCorrespondenceClock = (): void => {

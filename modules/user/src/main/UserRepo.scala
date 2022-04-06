@@ -603,13 +603,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(s"${F.perfs}.${perfType.key}" -> true).some
       )
       .cursor[Bdoc]()
-      .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]())
+      .list()
       .map {
-        _.view
-          .map { doc =>
-            ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
-          }
-          .to(Map)
+        _.view.map { doc =>
+          ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
+        }.toMap
       }
 
   def setSeenAt(id: ID): Unit =

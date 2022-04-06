@@ -450,7 +450,6 @@
   <string name="profileCompletion">Perfil completat: %s</string>
   <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
-  <string name="gameCompletionRate">Percentatge de finalització de partides: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>

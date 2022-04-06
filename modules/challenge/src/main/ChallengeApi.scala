@@ -92,6 +92,7 @@ final class ChallengeApi(
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
       if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
+      else if (c.declined) fuccess(Invalid("The challenge has been declined."))
       else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
@@ -109,7 +110,14 @@ final class ChallengeApi(
     }
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
-    challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
+    challengeMaker.makeRematchOf(game, user) flatMap {
+      _ ?? { challenge =>
+        create(challenge) recover lila.db.recoverDuplicateKey { _ =>
+          logger.warn(s"${game.id} duplicate key ${challenge.id}")
+          false
+        }
+      }
+    }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u

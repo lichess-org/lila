@@ -17,8 +17,7 @@ private class TournamentConfig(
     @ConfigName("collection.tournament") val tournamentColl: CollName,
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
-    @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
-    @ConfigName("api_actor.name") val apiActorName: String
+    @ConfigName("collection.leaderboard") val leaderboardColl: CollName
 )
 
 @Module
@@ -116,16 +115,15 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
-  system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
+  wire[TournamentBusHandler]
 
-  system.actorOf(Props(wire[CreatedOrganizer]))
+  wire[CreatedOrganizer]
 
-  system.actorOf(Props(wire[StartedOrganizer]))
+  wire[StartedOrganizer]
 
-  private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
-  scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
-    schedulerActor ! TournamentScheduler.ScheduleNow
-  }
+  wire[TournamentNotify]
+
+  wire[TournamentScheduler]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }

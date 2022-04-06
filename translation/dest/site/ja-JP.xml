@@ -420,7 +420,6 @@
   <string name="profileCompletion">プロフィール記入率：%s</string>
   <string name="xRating">%s レーティング</string>
   <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
-  <string name="gameCompletionRate">ゲーム完了率：%s</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>

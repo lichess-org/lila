@@ -65,6 +65,7 @@ Aber en Lichess Gönner chann sich mit dem coole Flamme Icon sis Profil schmück
   <string name="xOrY">%1$s oder %2$s</string>
   <string name="decideHowMuch">Entscheid wie vill dir Lichess wert isch:</string>
   <string name="stopPayments">Dini Kreditcharte zruggzieh und Zahlige beände:</string>
+  <string name="stopPaymentsPayPal">De PayPal Uftrag anulliere und d\'Zahlige stoppe:</string>
   <string name="noLongerSupport">Lichess nöd witer underschtütze</string>
   <string name="viewOthers">Lueg dir anderi Lichess Gönner aa</string>
   <string name="date">Datum</string>

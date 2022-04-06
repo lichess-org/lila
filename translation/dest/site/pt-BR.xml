@@ -450,7 +450,6 @@
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
-  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>

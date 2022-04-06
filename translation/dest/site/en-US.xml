@@ -451,7 +451,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="profileCompletion">Profile completion: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
-  <string name="gameCompletionRate">Game completion rate: %s</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>

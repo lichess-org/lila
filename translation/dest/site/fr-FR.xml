@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil rempli à %s</string>
   <string name="xRating">Classement %s</string>
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
-  <string name="gameCompletionRate">Termine %s de ses parties</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>

@@ -125,7 +125,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { title },
+        attrs: { role: 'tab', title },
         hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
       },
       name
@@ -201,7 +201,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               }),
             }),
           ]),
-          h('div.tabs-horiz', [
+          h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),

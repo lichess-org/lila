@@ -59,7 +59,7 @@ export interface RootController {
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
-  userJumpPlyCount?: (plyCount: Ply) => void;
+  userJumpPlyDelta?: (plyDelta: Ply) => void;
   redraw: Redraw;
 }
 interface Step {
@@ -126,8 +126,8 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     hasSelected: () => cgState.selected,
     confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
-    jump(plyCount: number) {
-      root.userJumpPlyCount && root.userJumpPlyCount(plyCount);
+    jump(plyDelta: number) {
+      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
       root.redraw();
     },
     justSelected: () => performance.now() - lastSelect < 500,
