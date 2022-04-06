@@ -31,6 +31,9 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
         running: isRunning,
         emerg: millis < clock.emergMs,
       },
+      // this key ensures that when the board is flipped, the clock is redrawn. solves bug where clock
+      // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
+      key: player.color,
     },
     clock.opts.nvui
       ? [
