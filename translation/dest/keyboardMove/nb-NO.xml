@@ -13,4 +13,9 @@
   <string name="otherCommands">Andre kommandoer</string>
   <string name="tips">Tips</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">For dem som ikke kjenner til notasjonen ovenfor, finnes mer informasjon her:</string>
+  <string name="includingAXToIndicateACapture">Det er valgfritt å bruke «x» for å markere et slag</string>
+  <string name="bothTheLetterOAndTheDigitZero">Både bokstaven «o» og sifferet null «0» kan brukes ved rokade</string>
+  <string name="ifItIsLegalToCastleBothWays">Bruk linjeskifttasten for kort rokade hvis det er lov å rokere til begge sider</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Stor eller liten bokstav har bare betydning for å skille mellom en løper («B») og b-bonden</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Forhåndstrekk tastes inn før det er din tur</string>
 </resources>
