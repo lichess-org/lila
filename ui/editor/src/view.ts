@@ -193,8 +193,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                   change(e) {
                     const el = e.target as HTMLSelectElement;
-                    let value = el.selectedOptions[0].getAttribute('data-fen');
-                    console.log(e, value);
+                    const value = el.selectedOptions[0].getAttribute('data-fen');
                     if (!value || !ctrl.setFen(value)) el.value = '';
                   },
                 },

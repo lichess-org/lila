@@ -574,7 +574,7 @@
   <string name="typePrivateNotesHere">Залишайте приватні нотатки тут</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
-  <string name="invalidAuthenticationCode">Невірний код аутентифікації</string>
+  <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
@@ -642,6 +642,7 @@
   <string name="error.min">Має бути принаймні %s</string>
   <string name="error.max">Має бути щонайбільше %s</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
+  <string name="ifRegistered">Якщо зареєстровані</string>
   <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
   <string name="onlyFriends">Тільки друзям</string>
   <string name="menu">Меню</string>
@@ -660,7 +661,7 @@
   <string name="watch">Перегляд</string>
   <string name="videoLibrary">Відеотека</string>
   <string name="streamersMenu">Стрімери</string>
-  <string name="mobileApp">Мобільний додаток</string>
+  <string name="mobileApp">Мобільний застосунок</string>
   <string name="webmasters">Розробникам</string>
   <string name="about">Про сайт</string>
   <string name="aboutX">Про %s</string>
@@ -787,7 +788,7 @@
   <string name="usernameAlreadyUsed">Таке ім\'я користувача вже використовується, будь ласка, спробуйте інше.</string>
   <string name="usernamePrefixInvalid">Ім\'я користувача має починатися з літери.</string>
   <string name="usernameSuffixInvalid">Ім\'я користувача має закінчуватися літерою або цифрою.</string>
-  <string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
+  <string name="usernameCharsInvalid">Ім\'я користувача має містити лише літери, цифри, символи підкреслення і тире.</string>
   <string name="usernameUnacceptable">Неприпустиме ім\'я користувача.</string>
   <string name="playChessInStyle">Грайте в шахи стильно</string>
   <string name="chessBasics">Шахові основи</string>
@@ -975,4 +976,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
+  <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
 </resources>

@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">キーボード入力コマンド</string>
+  <string name="performAMove">指し手の入力</string>
+  <string name="movePieceFromE2ToE4">駒を e2 から e4 に動かす</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">ナイトを c3 に動かす</string>
+  <string name="kingsideCastle">キングサイド・キャスリング</string>
+  <string name="queensideCastle">クイーンサイド・キャスリング</string>
+  <string name="promoteC8ToQueen">c8 でクイーンに昇格</string>
+  <string name="dropARookAtB4">ルークを b4 に打つ（クレージーハウスのみ）</string>
+  <string name="offerOrAcceptDraw">ドローの提案または受諾</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">残り時間の読み上げ</string>
+  <string name="otherCommands">その他のコマンド</string>
+  <string name="tips">ヒント</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">上の記号がわからない方は、こちらをご覧ください。</string>
+  <string name="includingAXToIndicateACapture">駒取りを示す「x」は省略もできます</string>
+  <string name="bothTheLetterOAndTheDigitZero">キャスリングには文字「o」と数字「0」のどちらも使えます</string>
+  <string name="ifItIsLegalToCastleBothWays">両方にキャスリングできる場合は、Enter キーでキングサイドにキャスリングします</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">大文字小文字の区別に意味があるのは B（ビショップ）と b （ポーン）の場合だけです</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">プリムーブは単に相手の手番のうちに手を入力しておくだけです</string>
+</resources>
