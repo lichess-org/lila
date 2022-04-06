@@ -7,9 +7,9 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "rollup": "^2.66.1",
+    "rollup": "^2",
     "types-serviceworker": "^0.0.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4"
   },
   "scripts": {
     "dev": "rollup --config",

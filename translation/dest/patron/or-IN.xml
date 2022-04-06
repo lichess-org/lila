@@ -4,8 +4,8 @@
   <string name="donateAsX">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
-  <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
-  <string name="xBecamePatron">%s ଜଣେ Lichess Patron ହେଲେ</string>
+  <string name="becomePatron">ଜଣେ Lichess Patron ବନନ୍ତୁ</string>
+  <string name="xBecamePatron">%s ଜଣେ Lichess Patron ପାଲଟିଲେ</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
     <item quantity="other">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
@@ -19,7 +19,6 @@
   <string name="otherAmount">ଅନ୍ୟ</string>
   <string name="pleaseEnterAmountInX">ଦୟାକରି %s ରେ ଏକ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ</string>
   <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
-  <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">ଟଙ୍କା କୁଆଡ଼େ ଯାଏ?</string>
   <string name="serversAndDeveloper">ସର୍ବପ୍ରଥମେ, ଶକ୍ତିଶାଳୀ ସର୍ଭର।
 ତା\'ପରେ ଆମେ ଏକ ପୂର୍ଣ୍ଣକାଳୀନ ବିକାଶକାରୀ: %sଙ୍କୁ, Lichess ର ପ୍ରତିଷ୍ଠାତା, ଦେୟ ଦେଇଥାଉ।</string>
@@ -36,6 +35,7 @@
   <string name="xOrY">%1$s ବା %2$s</string>
   <string name="decideHowMuch">Lichess ଆପଣଙ୍କ ପାଇଁ କେତେ ମୂଲ୍ୟବାନ ତାହା ସ୍ଥିର କରନ୍ତୁ:</string>
   <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
+  <string name="stopPaymentsPayPal">PayPal ସଦସ୍ୟତା ବାତିଲ୍ କରି ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
   <string name="noLongerSupport">ଆଉ Lichess କୁ ସମର୍ଥନ କରନ୍ତି ନାହିଁ</string>
   <string name="date">ତାରିଖ</string>
   <string name="amount">ରାଶି</string>

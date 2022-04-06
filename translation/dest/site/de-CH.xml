@@ -451,7 +451,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
   <string name="xRating">%s Wärtigszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
-  <string name="gameCompletionRate">Aateil vu beändete Schpiil: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
   <string name="firstName">Vornamä</string>
@@ -575,6 +574,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="error.min">Muess mindeschtens %s sii</string>
   <string name="error.max">Dörf höchschtens %s sii</string>
   <string name="ifRatingIsPlusMinusX">Wänn d\'Wertig ± %s isch</string>
+  <string name="ifRegistered">Wänn regischtriert</string>
   <string name="onlyExistingConversations">Nur bestehendi Underhaltige</string>
   <string name="onlyFriends">Nur Fründe</string>
   <string name="menu">Menü</string>

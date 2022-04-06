@@ -506,7 +506,6 @@
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s hodnotenie</string>
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
-  <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
@@ -636,6 +635,7 @@
   <string name="error.min">Minimálna dĺžka je %s znakov</string>
   <string name="error.max">Maximálna dĺžka je %s znakov</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
+  <string name="ifRegistered">Ak sú registrovaní</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
@@ -966,4 +966,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
+  <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
 </resources>

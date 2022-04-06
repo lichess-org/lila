@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profiilia täytetty: %s</string>
   <string name="xRating">%s-vahvuusluku</string>
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
-  <string name="gameCompletionRate">Pelien loppuunvientiprosentti: %s</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Luvun on oltava vähintään %s</string>
   <string name="error.max">Luvun on oltava enintään %s</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
+  <string name="ifRegistered">Vain rekisteröityneet</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
@@ -897,4 +897,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="until">Saakka</string>
   <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
   <string name="switchSides">Vaihda puolta</string>
+  <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
 </resources>

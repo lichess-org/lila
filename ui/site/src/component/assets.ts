@@ -7,18 +7,24 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 
-const loadedCss = new Map<string, true>();
-export const loadCss = (url: string) => {
+const loadedCss = new Map<string, Promise<void>>();
+export const loadCss = (url: string): Promise<void> => {
   if (!loadedCss.has(url)) {
-    loadedCss.set(url, true);
     const el = document.createElement('link');
     el.rel = 'stylesheet';
     el.href = assetUrl(url);
+    loadedCss.set(
+      url,
+      new Promise<void>(resolve => {
+        el.onload = () => resolve();
+      })
+    );
     document.head.append(el);
   }
+  return loadedCss.get(url)!;
 };
 
-export const loadCssPath = (key: string) =>
+export const loadCssPath = (key: string): Promise<void> =>
   loadCss(`css/${key}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
 
 export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
@@ -30,6 +36,10 @@ export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> 
 };
 
 export const loadModule = (name: string): Promise<void> => loadScript(jsModule(name));
+export const loadIife = async (name: string, iife: keyof Window) => {
+  await loadModule(name);
+  return window[iife];
+};
 
 export const userComplete = async (): Promise<UserComplete> => {
   loadCssPath('complete');

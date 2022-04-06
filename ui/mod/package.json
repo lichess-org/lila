@@ -1,0 +1,28 @@
+{
+  "name": "mod",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org mod",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lichess": "2.0.0",
+    "@types/web": "^0",
+    "@types/cash": "8.0.0",
+    "rollup": "^2",
+    "typescript": "^4",
+    "@types/yaireo__tagify": "^4.9.0"
+  },
+  "dependencies": {
+    "common": "2.0.0",
+    "@yaireo/tagify": "^4.9.5",
+    "apexcharts": "^3.33",
+    "tablesort": "^5.3"
+  },
+  "scripts": {
+    "all-dev": "rollup --config --config-all",
+    "plugin-dev": "rollup --config --config-plugin",
+    "plugin-prod": "rollup --config --config-prod --config-plugin"
+  }
+}

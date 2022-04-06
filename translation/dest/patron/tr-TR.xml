@@ -17,7 +17,7 @@ sonsuza kadar!</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
-  <string name="ifNotRenewedThenAccountWillRevert" comment="ifNotRenewedThenAccountWillRevert&#10;&#10;i.e. you will no longer have patron wings if you do not pay to renew.">Bağışınızı yenilemediğiniz takdirde hesabınız normal hesaba çevrilecektir.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Bağışınızı yenilemediğiniz takdirde hesabınız normal hesaba çevrilecektir.</string>
   <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
   <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
   <string name="lifetime">Ömür Boyu</string>
@@ -30,7 +30,6 @@ sonsuza kadar!</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmountInX">Lütfen %s cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
   <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
@@ -67,6 +66,7 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
+  <string name="stopPaymentsPayPal">PayPal aboneliğini iptal et ve ödemeleri durdur:</string>
   <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
   <string name="viewOthers">Diğer Lichess Destekçilerini gör</string>
   <string name="date">Tarih</string>

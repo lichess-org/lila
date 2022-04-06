@@ -129,10 +129,6 @@
       padding-top: 3px;
     }
 
-    ::before {
-      vertical-align: middle;
-    }
-
     @include breakpoint($mq-col1) {
       height: $col1-uniboard-controls;
 

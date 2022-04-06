@@ -450,7 +450,6 @@
   <string name="profileCompletion">Perfil completat: %s</string>
   <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
-  <string name="gameCompletionRate">Percentatge de finalització de partides: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Ha de ser major o igual que %s</string>
   <string name="error.max">Ha de ser menor o igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
+  <string name="ifRegistered">Només usuaris registrats</string>
   <string name="onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
   <string name="menu">Menú</string>

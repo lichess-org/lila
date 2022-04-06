@@ -171,17 +171,6 @@ final class PlaybanApi(
 
   def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
-  def completionRate(userId: User.ID): Fu[Option[Double]] =
-    coll.primitiveOne[Vector[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
-      outcomes.collect {
-        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
-        case Outcome.Good                                                        => true
-      } match {
-        case c if c.sizeIs >= 5 => Some(c.count(identity).toDouble / c.size)
-        case _                  => none
-      }
-    }
-
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
     coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
       import framework._

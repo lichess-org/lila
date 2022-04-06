@@ -31,7 +31,6 @@
   <string name="otherAmount">Drugo</string>
   <string name="pleaseEnterAmountInX">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
   <string name="celebratedPatrons">Slavni pokrovitelji, ki so naredili Lichess možen</string>
   <string name="whereMoneyGoes">Kam gre denar?</string>
@@ -68,6 +67,7 @@ Ali pa %s.</string>
   <string name="xOrY">%1$s ali %2$s</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
+  <string name="stopPaymentsPayPal">Prekličite naročnino na PayPal in ustavite plačila:</string>
   <string name="noLongerSupport">Ni več podpore Lichess</string>
   <string name="viewOthers">Ogled drugih Lichess pokroviteljev</string>
   <string name="date">Datum</string>

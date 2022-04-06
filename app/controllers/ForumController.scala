@@ -16,9 +16,10 @@ private[controllers] trait ForumController { self: LilaController =>
   protected def teamCache = env.team.cached
 
   protected def CategGrantWrite[A <: Result](
-      categSlug: String
+      categSlug: String,
+      tryingToPostAsMod: Boolean = false
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    access.isGrantedWrite(categSlug) flatMap { granted =>
+    access.isGrantedWrite(categSlug, tryingToPostAsMod) flatMap { granted =>
       if (granted) a
       else fuccess(Forbidden("You cannot post to this category"))
     }

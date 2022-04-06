@@ -182,7 +182,7 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsModule("inquiry")
+      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry")
     )
 
   private def hrefLang(lang: String, path: String) =

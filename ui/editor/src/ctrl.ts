@@ -5,7 +5,7 @@ import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
 
@@ -13,7 +13,6 @@ export default class EditorCtrl {
   cfg: Editor.Config;
   options: Editor.Options;
   trans: Trans;
-  extraPositions: Editor.OpeningPosition[];
   chessground: CgApi | undefined;
   redraw: Redraw;
 
@@ -37,18 +36,6 @@ export default class EditorCtrl {
     this.trans = lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
-
-    this.extraPositions = [
-      {
-        fen: INITIAL_FEN,
-        epd: INITIAL_EPD,
-        name: this.trans('startPosition'),
-      },
-      {
-        fen: 'prompt',
-        name: this.trans('loadPosition'),
-      },
-    ];
 
     if (cfg.positions) {
       cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
@@ -162,13 +149,9 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition(): void {
-    this.setFen(INITIAL_FEN);
-  }
+  startPosition = () => this.setFen(INITIAL_FEN);
 
-  clearBoard(): void {
-    this.setFen(EMPTY_FEN);
-  }
+  clearBoard = () => this.setFen(EMPTY_FEN);
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') {

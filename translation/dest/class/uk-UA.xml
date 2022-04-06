@@ -95,6 +95,7 @@
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
   <string name="winrate">Відсоток перемог</string>
   <string name="na">Недоступно</string>
+  <string name="overview">Огляд</string>
   <string name="news">Новини</string>
   <string name="classNews">Новини класу</string>
   <string name="editNews">Редагувати новини</string>
@@ -111,6 +112,7 @@
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
   <string name="createMultipleAccounts">Створюйте кілька облікових записів Lichess одночасно</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Також ви можете використати %s, щоб створити декілька облікових записів Lichess зі списку імен учнів.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">використовуйте цю форму</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Майте на увазі, що в класі може бути до %1$s учнів. Щоб добавити більшу кількість учнів, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">створити більше класів</string>
   <string name="studentsRealNamesOnePerLine">Справжні імена учнів, по одному на рядок</string>

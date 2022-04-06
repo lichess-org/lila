@@ -1,8 +1,12 @@
-import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
+import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
+import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
+import { snabModal } from 'common/modal';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { propWithEffect, Prop } from 'common';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -14,8 +18,7 @@ export interface KeyboardMove {
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
-  hasFocus(): boolean;
-  setFocus(v: boolean): void;
+  isFocused: Prop<boolean>;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
@@ -26,6 +29,7 @@ export interface KeyboardMove {
   clock(): ClockController | undefined;
   draw(): void;
   resign(v: boolean, immediately?: boolean): void;
+  helpModalOpen: Prop<boolean>;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -55,7 +59,7 @@ export interface RootController {
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
-  userJumpPlyCount?: (plyCount: Ply) => void;
+  userJumpPlyDelta?: (plyDelta: Ply) => void;
   redraw: Redraw;
 }
 interface Step {
@@ -64,7 +68,8 @@ interface Step {
 type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
-  let focus = false;
+  const isFocused = propWithEffect(false, root.redraw);
+  const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
@@ -109,11 +114,6 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
     },
-    hasFocus: () => focus,
-    setFocus(v) {
-      focus = v;
-      root.redraw();
-    },
     san(orig, dest) {
       usedSan = true;
       root.chessground.cancelMove();
@@ -126,22 +126,20 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     hasSelected: () => cgState.selected,
     confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
-    jump(plyCount: number) {
-      root.userJumpPlyCount && root.userJumpPlyCount(plyCount);
+    jump(plyDelta: number) {
+      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
       root.redraw();
     },
-    justSelected() {
-      return performance.now() - lastSelect < 500;
-    },
+    justSelected: () => performance.now() - lastSelect < 500,
     clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
+    helpModalOpen,
+    isFocused,
   };
 }
 
-export function render(ctrl: KeyboardMove, includeChatShortcut = false) {
-  let focusText = 'Enter SAN (Nc3) or UCI (b1c3) moves';
-  if (includeChatShortcut) focusText += ', or type / to focus chat';
+export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
     h('input', {
       attrs: {
@@ -150,10 +148,26 @@ export function render(ctrl: KeyboardMove, includeChatShortcut = false) {
       },
       hook: onInsert(input =>
         lichess
-          .loadModule('keyboardMove.keyboardMove')
-          .then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
+          .loadIife('keyboardMove', 'LichessKeyboardMove')
+          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
       ),
     }),
-    ctrl.hasFocus() ? h('em', focusText) : h('strong', 'Press <enter> to focus'),
+    ctrl.isFocused()
+      ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, type ? to learn more')
+      : h('strong', 'Press <enter> to focus'),
+    ctrl.helpModalOpen()
+      ? snabModal({
+          class: 'keyboard-move-help',
+          content: [h('div.scrollable', spinner())],
+          onClose: () => ctrl.helpModalOpen(false),
+          onInsert: async ($wrap: Cash) => {
+            const [, html] = await Promise.all([
+              lichess.loadCssPath('keyboardMove.help'),
+              xhr.text(xhr.url('/help/keyboard-move', {})),
+            ]);
+            $wrap.find('.scrollable').html(html);
+          },
+        })
+      : null,
   ]);
 }

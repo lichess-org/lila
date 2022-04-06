@@ -512,7 +512,6 @@
   <string name="profileCompletion">Профиль заполнен на %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
-  <string name="gameCompletionRate">Завершённых игр: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
@@ -642,6 +641,7 @@
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
+  <string name="ifRegistered">Если зарегистрированы</string>
   <string name="onlyExistingConversations">Только существующие обсуждения</string>
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>

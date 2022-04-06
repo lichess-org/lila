@@ -161,17 +161,16 @@ object replay {
                   )
                 }
               ),
-              div(cls := "analyse__underboard__menu")(
+              div(role := "tablist", cls := "analyse__underboard__menu")(
                 game.analysable option
-                  span(
-                    cls := "computer-analysis",
-                    dataPanel := "computer-analysis"
-                  )(trans.computerAnalysis()),
+                  span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                    trans.computerAnalysis()
+                  ),
                 !game.isPgnImport option frag(
-                  game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
-                  cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
+                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
+                  cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
                 ),
-                span(dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
+                span(role := "tab", dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
               )
             )
           )

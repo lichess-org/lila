@@ -25,7 +25,10 @@ export interface ExplorerData {
   tablebase?: true;
 }
 
-export interface OpeningData extends ExplorerData, Partial<OpeningMoveStats> {
+export interface OpeningData extends ExplorerData {
+  white: number;
+  black: number;
+  draws: number;
   moves: OpeningMoveStats[];
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];
@@ -87,6 +90,7 @@ export interface OpeningMoveStats extends MoveStats {
   draws: number;
   averageRating?: number;
   averageOpponentRating?: number;
+  performance?: number;
   game?: OpeningGame;
 }
 export interface TablebaseMoveStats extends MoveStats {

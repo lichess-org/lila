@@ -29,16 +29,10 @@ case class UserInfo(
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
-    insightVisible: Boolean,
-    completionRate: Option[Double]
+    insightVisible: Boolean
 ) {
 
   def crosstable = nbs.crosstable
-
-  def completionRatePercent =
-    completionRate.map { cr =>
-      math.round(cr * 100)
-    }
 
   def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 }
@@ -153,10 +147,9 @@ object UserInfo {
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-        playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
           // format: off
-          case (((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul) =>
+          case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
           new UserInfo(
             user = user,
@@ -180,8 +173,7 @@ object UserInfo {
             teamIds = teamIds,
             isStreamer = isStreamer,
             isCoach = isCoach,
-            insightVisible = insightVisible,
-            completionRate = completionRate
+            insightVisible = insightVisible
           )
         }
   }

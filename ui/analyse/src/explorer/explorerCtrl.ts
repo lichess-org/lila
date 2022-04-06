@@ -67,7 +67,7 @@ export default class ExplorerCtrl {
         this.config.selectPlayer(parts[1]);
         this.config.data.color(parts[2] == 'black' ? 'black' : 'white');
       }
-      if (e) this.root.redraw();
+      if (e) this.reload();
     }
   };
 
@@ -131,6 +131,9 @@ export default class ExplorerCtrl {
   );
 
   empty: OpeningData = {
+    white: 0,
+    black: 0,
+    draws: 0,
     isOpening: true,
     moves: [],
     fen: '',

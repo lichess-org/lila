@@ -6,7 +6,7 @@
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">等待對手</string>
   <string name="waiting">請稍等</string>
-  <string name="yourTurn">輪到您了</string>
+  <string name="yourTurn">該你走</string>
   <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
   <string name="level">難度</string>
   <string name="strength">強度</string>
@@ -87,6 +87,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">在%s步內將死對手</item>
   </plurals>
+  <string name="dtzWithRounding">經過四捨五入的DTZ50\'\'，是基於到下次吃子或兵動的半步數目。</string>
   <string name="noGameFound">未找到遊戲</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
   <string name="openingExplorer">開局瀏覽器</string>
@@ -94,6 +95,9 @@
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
+  <string name="winOr50MovesByPriorMistake">贏棋或因先前錯誤50步作和</string>
+  <string name="lossOr50MovesByPriorMistake">輸棋或因先前錯誤50步作和</string>
+  <string name="unknownDueToRounding">由上次吃子或兵動開始按殘局庫建議走法走才能保證勝敗的判斷正確。這是因為Syzygy殘局庫的DTZ數值可能經過四捨五入。</string>
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入 PGN</string>
   <string name="delete">刪除</string>
@@ -415,7 +419,6 @@
   <string name="profileCompletion">個人檔案完成度:%s</string>
   <string name="xRating">%s評分</string>
   <string name="ifNoneLeaveEmpty">如果沒有，請留空</string>
-  <string name="gameCompletionRate">棋局完成率：%s</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
   <string name="firstName">名</string>
@@ -424,6 +427,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">國家或旗幟</string>
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
+  <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -466,6 +470,7 @@
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">%s作</string>
+  <string name="importedByX">由%s滙入</string>
   <string name="thisTopicIsNowClosed">本话题已关闭。</string>
   <string name="blog">博客</string>
   <string name="notes">笔记</string>
@@ -534,6 +539,7 @@
   <string name="error.min">最少 %s 個字符</string>
   <string name="error.max">最大不能超過 %s</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
+  <string name="ifRegistered">如已註冊</string>
   <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
   <string name="menu">菜单</string>
@@ -543,7 +549,7 @@
   <plurals name="nbForumPosts">
     <item quantity="other">%s個論壇貼文</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
+  <string name="tpTimeSpentPlaying">花在下棋上的時間：%s</string>
   <string name="watchGames">觀看對局直播</string>
   <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
@@ -588,7 +594,7 @@
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
   <string name="newTournament">新比赛</string>
   <string name="tournamentHomeTitle">国际象棋赛事均设有不同的时间控制和变体</string>
-  <string name="tournamentHomeDescription">加入快节奏的国际象棋比赛！ 加入定时赛事，或创建自己的。 子弹，闪电，经典，菲舍尔任意制，王到中心，三次将军，并提供更多的选择为无尽的国际象棋乐趣。</string>
+  <string name="tournamentHomeDescription">加入快節奏的國際象棋比賽！加入定時賽事，或創建自己的。子彈，閃電，經典，菲舍爾任意制，王到中心，三次將軍，並提供更多的選擇為無盡的國際象棋樂趣。</string>
   <string name="tournamentNotFound">找不到该比赛</string>
   <string name="tournamentDoesNotExist">这个比赛不存在。</string>
   <string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的对手在比赛开始之前离开。</string>
@@ -640,7 +646,7 @@
   <string name="zeroAdvertisement">沒有廣告</string>
   <string name="fullFeatured">功能全面</string>
   <string name="phoneAndTablet">手機和平板電腦</string>
-  <string name="bulletBlitzClassical">快棋與慢棋</string>
+  <string name="bulletBlitzClassical">子彈，閃電，經典</string>
   <string name="correspondenceChess">通訊賽</string>
   <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
@@ -746,9 +752,10 @@
   <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
   <string name="lifetimeScore">帳戶總分</string>
-  <string name="currentMatchScore">最近的對局分數</string>
+  <string name="currentMatchScore">現時的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不會開設多個帳號(除了於%s列明的原因以外)</string>
   <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
@@ -850,4 +857,5 @@
   <string name="until">直到</string>
   <string name="lichessDbExplanation">來自 Lichess 用戶的所有評分遊戲</string>
   <string name="switchSides">更換所持顏色</string>
+  <string name="closingAccountWithdrawAppeal">關閉帳戶將會收回你的上訴</string>
 </resources>

@@ -15,9 +15,12 @@ object index {
 
   private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
 
+  private val namespaceAttr = attr("data-namespace")
+
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
+      payPalPublicKey: Option[String],
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String],
@@ -30,6 +33,21 @@ object index {
       moreCss = cssTag("plan"),
       moreJs = frag(
         stripeScript,
+        payPalPublicKey map { key =>
+          val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
+          frag(
+            // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+            // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+            script(
+              src := s"https://www.paypal.com/sdk/js?client-id=${key}&currency=${pricing.currency}$localeParam",
+              namespaceAttr := "paypalOrder"
+            ),
+            script(
+              src := s"https://www.paypal.com/sdk/js?client-id=${key}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+              namespaceAttr := "paypalSubscription"
+            )
+          )
+        },
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
           lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
@@ -42,7 +60,7 @@ object index {
           description = freeChess.txt()
         )
         .some,
-      csp = defaultCsp.withStripe.some
+      csp = defaultCsp.withStripe.withPayPal.some
     ) {
       main(cls := "page-menu plan")(
         st.aside(cls := "page-menu__menu recent-patrons")(
@@ -91,16 +109,6 @@ object index {
                   attr("data-email") := email.??(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
-                  raw(s"""
-<form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org one-time")}
-</form>
-<form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormRecurring(pricing, "lichess.org monthly")}
-</form>
-<form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org lifetime")}
-</form>"""),
                   ctx.me map { me =>
                     st.group(cls := "radio buttons dest")(
                       div(
@@ -209,7 +217,11 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          button(cls := "paypal button")(withPaypal())
+                          payPalPublicKey.isDefined option frag(
+                            div(cls := "paypal paypal--order"),
+                            div(cls := "paypal paypal--subscription"),
+                            button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
+                          )
                         )
                       else
                         a(
@@ -224,7 +236,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         a(cls := "stripe")("Apple Pay")
                       )
                     ),
-                    form(cls := "currency none", action := routes.Plan.index)(
+                    form(cls := "currency none", action := routes.Plan.list)(
                       select(name := "currency")(
                         lila.plan.CurrencyApi.currencyList.map { cur =>
                           option(
@@ -257,36 +269,6 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
 
   private def showCurrency(cur: Currency)(implicit ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
-
-  private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="button_subtype" value="services">
-"""
-
-  private def payPalFormRecurring(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) =
-    s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="a3" class="amount" value="">
-  <input type="hidden" name="p3" value="1">
-  <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="src" value="1">
-"""
-
-  private def payPalForm(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  <input type="hidden" name="item_name" value="$itemName">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
-"""
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(

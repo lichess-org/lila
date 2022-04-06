@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil rempli à %s</string>
   <string name="xRating">Classement %s</string>
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
-  <string name="gameCompletionRate">Termine %s de ses parties</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
   <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
+  <string name="ifRegistered">Si inscrit</string>
   <string name="onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>
   <string name="menu">Menu</string>

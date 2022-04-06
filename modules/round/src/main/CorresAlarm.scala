@@ -72,7 +72,7 @@ final private class CorresAlarm(
         val pov = Pov(game, game.turnColor)
         pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
           case true  => // already looking at the game
-          case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "corresAlarm")
+          case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
         } >> coll.delete.one($id(game.id))
       }
       .toMat(LilaStream.sinkCount)(Keep.right)

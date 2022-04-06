@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
-  <string name="gameCompletionRate">Prosent fullførte partier: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Må være minst %s</string>
   <string name="error.max">Må være maks %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
+  <string name="ifRegistered">Hvis registrert</string>
   <string name="onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>
   <string name="menu">Meny</string>
@@ -897,4 +897,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="until">Til</string>
   <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
   <string name="switchSides">Skift side</string>
+  <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
 </resources>

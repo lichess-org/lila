@@ -215,7 +215,6 @@ package tv {
 }
 
 package notify {
-  case class Notified(userId: String)
   case class NotifiedBatch(userIds: Iterable[String])
 }
 
@@ -313,4 +312,8 @@ package plan {
   case class PlanStart(userId: String)
   case class PlanGift(from: String, to: String, lifetime: Boolean)
   case class PlanExpire(userId: String)
+}
+
+package push {
+  case class TourSoon(tourId: String, tourName: String, userIds: List[String], swiss: Boolean)
 }

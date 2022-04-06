@@ -1,5 +1,6 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
-import { keyboardMove } from './keyboardMove';
+import { Prop, propWithEffect } from 'common';
+import keyboardMove from './keyboardMove';
 
 // Tips for working with this file:
 // - use https://lichess.org/editor to create positions and get their FENs
@@ -21,7 +22,6 @@ const defaultCtrl = {
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   drop: unexpectedErrorThrower('drop'),
-  hasFocus: () => true,
   hasSelected: () => undefined,
   jump: () => null,
   justSelected: () => true,
@@ -30,9 +30,10 @@ const defaultCtrl = {
   resign: unexpectedErrorThrower('resign'),
   san: unexpectedErrorThrower('san'),
   select: unexpectedErrorThrower('select'),
-  setFocus: () => null,
   update: () => null,
   usedSan: true,
+  helpModalOpen: propWithEffect(false, () => null),
+  isFocused: propWithEffect(false, () => null),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -92,6 +93,23 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockMillisOf.mock.calls.length).toBe(2);
+    expect(input.value).toBe('');
+  });
+
+  test('opens help modal with ?', () => {
+    input.value = '?';
+    const mockSetHelpModalOpen = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockSetHelpModalOpen.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 

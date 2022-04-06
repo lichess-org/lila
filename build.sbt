@@ -61,7 +61,7 @@ lazy val i18n = smallModule("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove".split(' ').toList,
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
@@ -347,7 +347,7 @@ lazy val mailer = module("mailer",
 
 lazy val plan = module("plan",
   Seq(common, user),
-  Seq(specs2) ++ reactivemongo.bundle
+  Seq(specs2, play.jsonJoda) ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",

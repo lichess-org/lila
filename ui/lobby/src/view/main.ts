@@ -1,5 +1,5 @@
 import { h, VNodeData } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import renderTabs from './tabs';
 import * as renderPools from './pools';
 import renderRealTime from './realTime/main';
@@ -28,7 +28,7 @@ export default function (ctrl: LobbyController) {
         break;
     }
   return h('div.lobby__app.lobby__app-' + ctrl.tab, [
-    h('div.tabs-horiz', renderTabs(ctrl)),
+    h('div.tabs-horiz', { attrs: { role: 'tablist' } }, renderTabs(ctrl)),
     h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body),
   ]);
 }

@@ -427,11 +427,19 @@ object mon {
     val json                  = future("swiss.json")
   }
   object plan {
-    val paypal  = histogram("plan.amount").withTag("service", "paypal")
+    object paypalLegacy {
+      val amount = histogram("plan.amount").withTag("service", "paypal")
+    }
+    object paypalCheckout {
+      val amount           = histogram("plan.amount").withTag("service", "paypalCheckout")
+      val fetchAccessToken = future("plan.paypal.accessToken")
+    }
     val stripe  = histogram("plan.amount").withTag("service", "stripe")
     val goal    = gauge("plan.goal").withoutTags()
     val current = gauge("plan.current").withoutTags()
     val percent = gauge("plan.percent").withoutTags()
+    def webhook(service: String, tpe: String) =
+      counter("plan.webhook").withTags(Map("service" -> service, "tpe" -> tpe))
     object charge {
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
@@ -619,6 +627,7 @@ object mon {
       val corresAlarm = send("corresAlarm") _
       val finish      = send("finish") _
       val message     = send("message") _
+      val tourSoon    = send("tourSoon") _
       object challenge {
         val create = send("challengeCreate") _
         val accept = send("challengeAccept") _

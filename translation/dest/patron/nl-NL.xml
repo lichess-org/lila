@@ -29,7 +29,6 @@
   <string name="otherAmount">Overige</string>
   <string name="pleaseEnterAmountInX">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
   <string name="celebratedPatrons">Enkele zeer gewaardeerde patronen die Lichess mogelijk maken</string>
   <string name="whereMoneyGoes">Waar wordt het geld aan uitgegeven?</string>
@@ -65,6 +64,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="xOrY">%1$s of %2$s</string>
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
+  <string name="stopPaymentsPayPal">Abonnement via PayPal annuleren en betalingen stoppen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>

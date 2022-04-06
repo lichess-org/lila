@@ -8,7 +8,7 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
@@ -125,7 +125,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { title },
+        attrs: { role: 'tab', title },
         hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
       },
       name
@@ -201,7 +201,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               }),
             }),
           ]),
-          h('div.tabs-horiz', [
+          h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),

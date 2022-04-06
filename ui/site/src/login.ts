@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import spinnerHtml from './component/spinner';
 
 import type * as PasswordComplexity from './passwordComplexity';
 
@@ -27,7 +26,7 @@ export function loginStart() {
             requestAnimationFrame(() => $f.find('.two-factor input').val('')[0]!.focus());
             $f.find('.submit').prop('disabled', false);
             if (text === 'InvalidTotpToken') $f.find('.two-factor .error').removeClass('none');
-          } else if (res.ok) location.href = text.startsWith('ok:') ? text.substr(3) : '/';
+          } else if (res.ok) location.href = text.startsWith('ok:') ? text.slice(3) : '/';
           else {
             try {
               const el = $(text).find(selector);
@@ -69,7 +68,7 @@ export function signupStart() {
         .prop('disabled', true)
         .removeAttr('data-icon')
         .addClass('frameless')
-        .html(spinnerHtml);
+        .html(lichess.spinnerHtml);
     else return false;
   });
 

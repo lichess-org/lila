@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, lad den være tom</string>
-  <string name="gameCompletionRate">Gennemførelsesprocent af spil: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Skal være større eller lig med %s</string>
   <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
+  <string name="ifRegistered">Hvis registreret</string>
   <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>
   <string name="menu">Menu</string>

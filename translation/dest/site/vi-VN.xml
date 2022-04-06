@@ -429,7 +429,6 @@ Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm l
   <string name="profileCompletion">Hoàn thành profile: %s</string>
   <string name="xRating">Rate %s</string>
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
-  <string name="gameCompletionRate">Tỉ lệ hoàn thành game: %s</string>
   <string name="profile">Hồ sơ</string>
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>

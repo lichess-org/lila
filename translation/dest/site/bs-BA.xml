@@ -469,7 +469,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="profileCompletion">Profil je %s završen</string>
   <string name="xRating">%s rejting</string>
   <string name="ifNoneLeaveEmpty">Ako nemate rejting, ostavite polje prazno</string>
-  <string name="gameCompletionRate">Procenat završavanja partija: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredite profil</string>
   <string name="firstName">Ime</string>
@@ -586,6 +585,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="increment">Dodatak</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="ifRegistered">Ako su registrovani</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
@@ -865,4 +865,5 @@ Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donaci
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Zamijenite strane</string>
+  <string name="closingAccountWithdrawAppeal">Zatvaranje Vašeg računa povući će Vašu žalbu</string>
 </resources>

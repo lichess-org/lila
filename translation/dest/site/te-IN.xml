@@ -317,6 +317,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
   <string name="ratedMoreThanInPerf">%2$s లో ≥ %1$s గా రేట్ చేయబడింది</string>
+  <string name="ratedLessThanInPerf">గత వారంలో %2$sలో ≤ %1$s రేట్ చేయబడింది</string>
   <string name="mustBeInTeam">15 / 5000
 Translation results
 ఈ బృందంలో ఉండాలి, %s</string>
@@ -333,7 +334,39 @@ Translation results
   <string name="apply">సమర్పించండి</string>
   <string name="save">సేవ్</string>
   <string name="leaderboard">లీడర్‌బోర్డు</string>
+  <string name="pasteTheFenStringHere">FEN వచనాన్ని ఇక్కడ అతికించండి</string>
+  <string name="pasteThePgnStringHere">PGN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
+  <string name="fromPosition">స్థానం నుండి</string>
+  <string name="continueFromHere">ఇక్కడ నుండి కొనసాగండి</string>
+  <string name="toStudy">చదువు</string>
+  <string name="importGame">దిగుమతి ఆట</string>
+  <string name="importGameExplanation">బ్రౌజ్ చేయగల రీప్లేని పొందడానికి గేమ్ PGNని అతికించండి,
+కంప్యూటర్ విశ్లేషణ, గేమ్ చాట్ మరియు భాగస్వామ్యం చేయదగిన URL.</string>
+  <string name="thisIsAChessCaptcha">ఇది చెస్ క్యాప్చా.</string>
+  <string name="clickOnTheBoardToMakeYourMove">మీ కదలికను చేయడానికి మరియు మీరు మానవుడని నిరూపించుకోవడానికి బోర్డుపై క్లిక్ చేయండి.</string>
+  <string name="captcha.fail">దయచేసి చెస్ క్యాప్చాను పరిష్కరించండి.</string>
+  <string name="notACheckmate">చెక్‌మేట్ కాదు</string>
+  <string name="whiteCheckmatesInOneMove">ఒక కదలికలో చెక్‌మేట్‌కి తెలుపు</string>
+  <string name="blackCheckmatesInOneMove">ఒక కదలికలో చెక్‌మేట్‌కి నలుపు</string>
+  <string name="retry">మళ్లీ ప్రయత్నించండి</string>
+  <string name="reconnecting">మళ్లీ కనెక్ట్ అవుతోంది</string>
+  <string name="favoriteOpponents">ఇష్టమైన ప్రత్యర్థులు</string>
+  <string name="follow">అనుసరించండి</string>
+  <string name="following">అనుసరిస్తోంది</string>
+  <string name="unfollow">అనుసరించవద్దు</string>
+  <string name="followX">అనుసరించండి %s</string>
+  <string name="unfollowX">అనుసరించవద్దు %s</string>
+  <string name="block">నిరోధించు</string>
+  <string name="blocked">నిరోధించబడింది</string>
+  <string name="unblock">నిరోనిరోధించబడిందిబడింది</string>
+  <string name="followsYou">మిమ్మల్ని అనుసరిస్తుంది</string>
+  <string name="xStartedFollowingY">%1$s %2$sని అనుసరించడం ప్రారంభించారు</string>
+  <string name="more">మరింత</string>
+  <string name="memberSince">అప్పటి నుండి సభ్యుడు</string>
+  <string name="lastSeenActive">సక్రియం %s</string>
+  <string name="player">ఆటగాడు</string>
+  <string name="list">జాబితా</string>
   <string name="graph">గ్రాఫ్</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
@@ -378,17 +411,25 @@ Translation results
   <string name="boardEditor">బోర్డు ఎడిటర్</string>
   <string name="setTheBoard">బోర్డు సెట్ చేయండి</string>
   <string name="popularOpenings">జనాదరణ పొందిన ఓపెనింగ్స్</string>
+  <string name="endgamePositions">ముగింపు గేమ్ స్థానాలు</string>
+  <string name="chess960StartPosition">Chess960 ప్రారంభ స్థానం: %s</string>
   <string name="startPosition">ప్రారంభ స్థానం</string>
   <string name="clearBoard">క్లియర్ బోర్డు</string>
   <string name="loadPosition">స్థానం లోడ్</string>
   <string name="isPrivate">ప్రైవేట్</string>
   <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
   <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
+  <string name="xRating">%s రేటింగ్</string>
+  <string name="ifNoneLeaveEmpty">ఏదీ లేకుంటే, ఖాళీగా వదిలివేయండి</string>
   <string name="profile">ప్రొఫైల్</string>
   <string name="editProfile">ప్రొఫైల్ మార్చాలి</string>
+  <string name="firstName">ఇచ్చిన పేరు</string>
+  <string name="lastName">ఇంటిపేరు</string>
+  <string name="biography">జీవిత చరిత్ర</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">మీ దేశం లేదా జెండా</string>
   <string name="thankYou">ధన్యవాదాలు!</string>
   <string name="socialMediaLinks">సోషల్ మీడియా లింక్‌లు</string>
+  <string name="oneUrlPerLine">పంక్తికి ఒక URL.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="previouslyOnLichessTV">గతంలో Lichess TVలో</string>
   <string name="onlinePlayers">ఆన్‌లైన్ ప్లేయర్‌లు</string>
@@ -432,6 +473,7 @@ Translation results
   <string name="reportDescriptionHelp">గేమ్/గేమ్‌ల లింక్‌ను పంపండి మరియు ఈ వినియోగదారు ప్రవర్తనలో తప్పు ఏమిటో వివరించండి. \"వారు మోసం చేసారు\" అని చెప్పకండి, కానీ మీరు ఈ నిర్ణయానికి ఎలా వచ్చారో మాకు చెప్పండి. మీ నివేదికను ఆంగ్లంలో వ్రాస్తే వేగంగా ప్రాసెస్ చేయబడుతుంది.</string>
   <string name="error.provideOneCheatedGameLink">దయచేసి కనీసం మోసం చేసిన ఆట ఒక లింక్‌నైనౌ అందించండి.</string>
   <string name="by">%s చే</string>
+  <string name="importedByX">%s ద్వారా దిగుమతి చేయబడింది</string>
   <string name="thisTopicIsNowClosed">ఈ అంశం ఇప్పుడు మూసివేయబడింది.</string>
   <string name="blog">బ్లాగ్</string>
   <string name="notes">గమనిక</string>
@@ -447,6 +489,9 @@ Translation results
   <string name="newPasswordStrength">పాస్వర్డ్ బలం</string>
   <string name="clockInitialTime">గడియారం ప్రారంభ సమయం</string>
   <string name="clockIncrement">గడియారం పెంపు</string>
+  <string name="privacy">గోప్యత</string>
+  <string name="privacyPolicy">గోప్యతా విధానం</string>
+  <string name="letOtherPlayersFollowYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
   <string name="tools">పరికరాలు</string>
   <string name="error.required">ఈ సమాచారం అవసరం</string>
   <string name="castling">కాస్లింగ్</string>

@@ -123,11 +123,29 @@ final class SwissApi(
             s.copy(nextRoundAt = none)
           else s
         }
-      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
+      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >> {
+        (swiss.perfType != old.perfType) ?? recomputePlayerRatings(swiss)
+      } >>- {
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
       } inject swiss.some
     }
+
+  private def recomputePlayerRatings(swiss: Swiss): Funit = for {
+    ranking <- rankingApi(swiss)
+    perfs   <- userRepo.perfOf(ranking.keys, swiss.perfType)
+    update = colls.player.update(ordered = false)
+    elements <- perfs.map { case (userId, perf) =>
+      update.element(
+        q = $id(SwissPlayer.makeId(swiss.id, userId)),
+        u = $set(
+          SwissPlayer.Fields.rating      -> perf.intRating,
+          SwissPlayer.Fields.provisional -> perf.provisional.option(true)
+        )
+      )
+    }.sequenceFu
+    _ <- update many elements
+  } yield ()
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
     Sequencing(swiss.id)(notFinishedById) { old =>

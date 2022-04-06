@@ -1,7 +1,7 @@
 import * as control from './control';
 import { KeyboardController } from './interfaces';
 
-export default function (ctrl: KeyboardController): void {
+export default (ctrl: KeyboardController) =>
   window.Mousetrap.bind(['left', 'k'], () => {
     control.prev(ctrl);
     ctrl.redraw();
@@ -27,5 +27,7 @@ export default function (ctrl: KeyboardController): void {
       }
     })
     .bind('z', () => lichess.pubsub.emit('zen'))
-    .bind('f', ctrl.flip);
-}
+    .bind('f', ctrl.flip)
+    .bind('n', () => {
+      if (ctrl.vm.mode === 'view') ctrl.nextPuzzle();
+    });

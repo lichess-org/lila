@@ -17,6 +17,7 @@
 این یک تنظیمات بله/خیر است
 
 این تنظیمات به شما این اجازه را می دهد که انتخاب کنید که ریتینگ بازیکنان دیگر نشان داده شود یا نه. این تنظیمات برای این است که بعضی از بازیکنان، بازی خود را تحت تاثیر ریتینگ بقیه بازیکنان قرار می دهند</string>
+  <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
@@ -35,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">پس گرفتن حرکت (با تایید حریف)</string>
   <string name="inCasualGamesOnly">در بازی های غیررسمی</string>
   <string name="promoteToQueenAutomatically">ترفیع کردن به وزیر به صورت خودکار</string>
+  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>

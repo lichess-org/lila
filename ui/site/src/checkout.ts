@@ -9,15 +9,18 @@ export interface Pricing {
   lifetime: number;
 }
 
-export default function (publicKey: string, pricing: Pricing) {
+const $checkout = $('div.plan_checkout');
+const getFreq = () => $checkout.find('group.freq input:checked').val();
+const getDest = () => $checkout.find('group.dest input:checked').val();
+const showErrorThenReload = (error: string) => {
+  alert(error);
+  location.assign('/patron');
+};
+
+export default function (stripePublicKey: string, pricing: Pricing) {
   contactEmail();
 
-  const $checkout = $('div.plan_checkout');
-
   const hasLifetime = $('#freq_lifetime').prop('disabled');
-
-  const getFreq = () => $checkout.find('group.freq input:checked').val();
-  const getDest = () => $checkout.find('group.dest input:checked').val();
 
   const toggleInput = ($input: Cash, enable: boolean) =>
     $input.prop('disabled', !enable).toggleClass('disabled', !enable);
@@ -27,14 +30,17 @@ export default function (publicKey: string, pricing: Pricing) {
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
-  const selectAmountGroup = function () {
+  const onFreqChange = function () {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
+    const sub = freq == 'monthly';
+    $checkout.find('.paypal--order').toggle(!sub);
+    $checkout.find('.paypal--subscription').toggle(sub);
   };
-  selectAmountGroup();
+  onFreqChange();
 
-  $checkout.find('group.freq input').on('change', selectAmountGroup);
+  $checkout.find('group.freq input').on('change', onFreqChange);
 
   $checkout.find('group.dest input').on('change', () => {
     const isGift = getDest() == 'gift';
@@ -80,9 +86,8 @@ export default function (publicKey: string, pricing: Pricing) {
     const giftDest = getGiftDest();
     const enabled = getDest() != 'gift' || !!giftDest;
     toggleInput($checkout.find('.service button'), enabled);
-    let custom = $('body').data('user');
-    if (enabled && giftDest) custom += ' ' + giftDest;
-    $checkout.find('form.paypal_checkout:not(.monthly) input[name=custom]').val(custom);
+    $checkout.find('.service .paypal--disabled').toggleClass('none', enabled);
+    $checkout.find('.service .paypal:not(.paypal--disabled)').toggleClass('none', !enabled);
   };
 
   toggleCheckout();
@@ -94,54 +99,6 @@ export default function (publicKey: string, pricing: Pricing) {
         freq == 'lifetime' ? pricing.lifetime : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
   };
-
-  $checkout.find('button.paypal').on('click', function () {
-    const freq = getFreq(),
-      amount = getAmountToCharge();
-    if (!amount) return;
-    const $form = $checkout.find('form.paypal_checkout.' + freq);
-    $form.find('input.amount').val('' + amount);
-    ($form[0] as HTMLFormElement).submit();
-    $checkout.find('.service').html(lichess.spinnerHtml);
-  });
-
-  const stripe = window.Stripe(publicKey);
-  const showErrorThenReload = (error: string) => {
-    alert(error);
-    location.assign('/patron');
-  };
-  $checkout.find('.service .stripe').on('click', function () {
-    const freq = getFreq(),
-      amount = getAmountToCharge();
-    if (!amount) return;
-    $checkout.find('.service').html(lichess.spinnerHtml);
-
-    fetch(`/patron/stripe/checkout?currency=${pricing.currency}`, {
-      ...xhr.defaultInit,
-      headers: {
-        ...xhr.jsonHeader,
-        ...xhr.xhrHeader,
-      },
-      method: 'post',
-      body: xhr.form({
-        email: $checkout.data('email'),
-        amount,
-        freq,
-        gift: $checkout.find('.gift input').val(),
-      }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) showErrorThenReload(data.error);
-        else if (data.session?.id) {
-          stripe
-            .redirectToCheckout({
-              sessionId: data.session.id,
-            })
-            .then((result: any) => showErrorThenReload(result.error.message));
-        } else location.assign('/patron');
-      });
-  });
 
   const $currencyForm = $('form.currency');
   $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
@@ -155,14 +112,114 @@ export default function (publicKey: string, pricing: Pricing) {
     ($currencyForm[0] as HTMLFormElement).submit();
   });
 
-  // Close Checkout on page navigation:
-  $(window).on('popstate', function () {
-    window.stripeHandler.close();
-  });
-
   const queryParams = new URLSearchParams(location.search);
   for (const name of ['dest', 'freq']) {
     if (queryParams.has(name))
       $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
   }
+
+  payPalOrderStart($checkout, pricing, getAmountToCharge);
+  payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
+  stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
+}
+
+const xhrFormData = ($checkout: Cash, amount: number) =>
+  xhr.form({
+    email: $checkout.data('email'),
+    amount,
+    freq: getFreq(),
+    gift: $checkout.find('.gift input').val(),
+  });
+
+const payPalStyle = {
+  layout: 'horizontal',
+  color: 'blue',
+  height: 55,
+};
+
+function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  (window.paypalOrder as any)
+    .Buttons({
+      style: payPalStyle,
+      createOrder: (_data: any, _actions: any) => {
+        const amount = getAmount();
+        if (!amount) return;
+        return xhr
+          .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+            method: 'post',
+            body: xhrFormData($checkout, amount),
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) showErrorThenReload(data.error);
+            else if (data.order?.id) return data.order.id;
+            else location.assign('/patron');
+          });
+      },
+      onApprove: (data: any, _actions: any) => {
+        xhr
+          .json('/patron/paypal/capture/' + data.orderID, { method: 'POST' })
+          .then(() => location.assign('/patron/thanks'));
+      },
+    })
+    .render('.paypal--order');
+}
+
+function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  (window.paypalSubscription as any)
+    .Buttons({
+      style: payPalStyle,
+      createSubscription: (_data: any, _actions: any) => {
+        const amount = getAmount();
+        if (!amount) return;
+        return xhr
+          .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
+            method: 'post',
+            body: xhrFormData($checkout, amount),
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) showErrorThenReload(data.error);
+            else if (data.subscription?.id) return data.subscription.id;
+            else location.assign('/patron');
+          });
+      },
+      onApprove: (data: any, _actions: any) => {
+        xhr
+          .json(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID}`, { method: 'POST' })
+          .then(() => location.assign('/patron/thanks'));
+      },
+    })
+    .render('.paypal--subscription');
+}
+
+function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {
+  const stripe = window.Stripe(publicKey);
+  $checkout.find('.service .stripe').on('click', function () {
+    const amount = getAmount();
+    if (!amount) return;
+    $checkout.find('.service').html(lichess.spinnerHtml);
+
+    xhr
+      .jsonAnyResponse(`/patron/stripe/checkout?currency=${pricing.currency}`, {
+        method: 'post',
+        body: xhrFormData($checkout, amount),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) showErrorThenReload(data.error);
+        else if (data.session?.id) {
+          stripe
+            .redirectToCheckout({
+              sessionId: data.session.id,
+            })
+            .then((result: any) => showErrorThenReload(result.error.message));
+        } else location.assign('/patron');
+      });
+  });
+
+  // Close Checkout on page navigation:
+  $(window).on('popstate', function () {
+    window.stripeHandler.close();
+  });
 }

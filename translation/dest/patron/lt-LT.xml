@@ -18,7 +18,7 @@
   <string name="thankYou">Dėkojame už jūsų paramą!</string>
   <string name="youHaveLifetime">Jūs turite Rėmėjo Gyvenimui paskyrą. Kietai!</string>
   <string name="patronUntil">Jūs turite Rėmėjo paskyrą iki %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert" comment="ifNotRenewedThenAccountWillRevert&#10;&#10;i.e. you will no longer have patron wings if you do not pay to renew.">Jei nebus atnaujinta, jūsų paskyra atsivers į įprastą paskyrą.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Jei nebus atnaujinta, jūsų paskyra atsivers į įprastą paskyrą.</string>
   <string name="weAreNonProfit">Mes esame nepelno asocijacija, nes tikime, kad visi turėtų turėti prieigą prie nemokamos, pasaulinės klasės šachmatų platformos.</string>
   <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lichess, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
   <string name="lifetime">Gyvenimui</string>
@@ -31,7 +31,6 @@
   <string name="otherAmount">Kita</string>
   <string name="pleaseEnterAmountInX">Įveskite sumą %s</string>
   <string name="withCreditCard">Banko kortele</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
   <string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti Lichess</string>
   <string name="whereMoneyGoes">Kur eina pinigai?</string>
@@ -69,6 +68,7 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="xOrY">%1$s arba %2$s</string>
   <string name="decideHowMuch">Nuspręskite, kiek jums vertas Lichess:</string>
   <string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
+  <string name="stopPaymentsPayPal">Atšaukti PayPal prenumeratą ir sustabdyti mokėjimus:</string>
   <string name="noLongerSupport">Daugiau neberemti Lichess</string>
   <string name="viewOthers">Peržiūrėti kitus Lichess rėmėjus</string>
   <string name="date">Data</string>

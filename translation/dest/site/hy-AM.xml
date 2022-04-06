@@ -449,7 +449,6 @@
   <string name="profileCompletion">Մասնակցային էջը լրացված է %s-ով</string>
   <string name="xRating">%s վարկանիշ</string>
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
-  <string name="gameCompletionRate">Ավարտված պարտիաներ` %s</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
@@ -558,6 +557,7 @@
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
+  <string name="ifRegistered">Եթե գրանցված է</string>
   <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>
   <string name="onlyFriends">Միայն ընկերները</string>
   <string name="menu">Մենյու</string>

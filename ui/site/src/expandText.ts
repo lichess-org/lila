@@ -1,4 +1,3 @@
-import spinner from './component/spinner';
 import * as xhr from 'common/xhr';
 
 type LinkType = 'youtube' | 'study' | 'game' | 'twitter';
@@ -242,7 +241,7 @@ lichess.load.then(() => {
       .filter(a => a.type === 'study')
       .map(a => {
         a.element.classList.add('embedding_analyse');
-        a.element.innerHTML = spinner;
+        a.element.innerHTML = lichess.spinnerHtml;
         return a;
       })
   );

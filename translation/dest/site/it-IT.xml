@@ -451,7 +451,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="profileCompletion">Completamento del profilo: %s</string>
   <string name="xRating">%s punteggio</string>
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
-  <string name="gameCompletionRate">Percentuale di partite finite: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
@@ -575,6 +574,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="error.min">Deve essere almeno %s</string>
   <string name="error.max">Deve essere al massimo %s</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
+  <string name="ifRegistered">Se registrati</string>
   <string name="onlyExistingConversations">Solo conversazioni esistenti</string>
   <string name="onlyFriends">Solo amici</string>
   <string name="menu">Menù</string>

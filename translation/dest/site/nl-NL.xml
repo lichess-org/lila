@@ -450,7 +450,6 @@
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
-  <string name="gameCompletionRate">Voltooide partijen: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
   <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="ifRegistered">Indien geregistreerd</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
@@ -897,5 +897,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
-  <string name="closingAccountWithdrawAppeal">Het sluiten van je account zal je beroep terugtrekken</string>
+  <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
 </resources>

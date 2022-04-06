@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profilaren osaera: %s</string>
   <string name="xRating">%s sailkapena</string>
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
-  <string name="gameCompletionRate">Osorik jokatutako partida ratioa: %s</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
   <string name="firstName">Izena</string>
@@ -574,6 +573,7 @@
   <string name="error.min">%s edo handiagoa izan behar da</string>
   <string name="error.max">%s edo txikiagoa izan behar da</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
+  <string name="ifRegistered">Izena emanda badago</string>
   <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>

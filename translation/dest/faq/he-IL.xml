@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל?</string>
   <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
-  <string name="pleaseReadFairPlayPage" comment="pleaseReadFairPlayPage&#10;&#10;%s is 'fair play page', a separate string available for translation..">לקבלת מידע נוסף, בבקשה קראו את ה-%s שלנו</string>
-  <string name="fairPlayPage" comment="fairPlayPage&#10;&#10;Part of the longer string 'For more information, please read our fair play page'">עלון ההסבר על משחק הוגן</string>
+  <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את ה-%s שלנו</string>
+  <string name="fairPlayPage">עלון ההסבר על משחק הוגן</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים לשחמט התכתבויות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע בהתכתבויות, ליצ\'ס לא.</string>
   <string name="gameplay">משחק</string>
   <string name="howBulletBlitzEtcDecided">איך קליע, בזק וזמני משחק אחרים מוחלטים?</string>

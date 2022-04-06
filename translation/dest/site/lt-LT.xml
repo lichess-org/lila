@@ -513,7 +513,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="profileCompletion">Profilio užbaigimas: %s</string>
   <string name="xRating">%s reitingas</string>
   <string name="ifNoneLeaveEmpty">Jei neturite, palikite tuščią</string>
-  <string name="gameCompletionRate">Partijų užbaigimas: %s</string>
   <string name="profile">Profilis</string>
   <string name="editProfile">Redaguoti profilį</string>
   <string name="firstName">Vardas</string>
@@ -643,6 +642,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="error.min">Turi būti didesnis arba lygus %s</string>
   <string name="error.max">Turi būti mažesnis arba lygus %s</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
+  <string name="ifRegistered">Jei jau užsiregistravote</string>
   <string name="onlyExistingConversations">Tik esami pokalbiai</string>
   <string name="onlyFriends">Tik draugai</string>
   <string name="menu">Meniu</string>

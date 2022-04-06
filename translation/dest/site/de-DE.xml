@@ -450,7 +450,6 @@
   <string name="profileCompletion">Profil vollständig zu %s</string>
   <string name="xRating">%s Wertungszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
-  <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
@@ -574,6 +573,7 @@
   <string name="error.min">Muss mindestens %s sein</string>
   <string name="error.max">Darf höchstens %s sein</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
+  <string name="ifRegistered">Wenn registriert</string>
   <string name="onlyExistingConversations">Nur bestehende Konversationen</string>
   <string name="onlyFriends">Nur Freunde</string>
   <string name="menu">Menü</string>

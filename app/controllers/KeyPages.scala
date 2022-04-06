@@ -20,7 +20,6 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
   def homeHtml(implicit ctx: Context): Fu[Frag] =
     env
       .preloader(
-        posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).recoverDefault,
         tours = env.tournament.cached.onHomepage.getUnit.recoverDefault,
         swiss = env.swiss.feature.onHomepage.getUnit.getIfPresent,
         events = env.event.api.promoteTo(ctx.req).recoverDefault,

@@ -29,7 +29,6 @@
   <string name="otherAmount">Andet</string>
   <string name="pleaseEnterAmountInX">Angiv venligst et beløb i %s</string>
   <string name="withCreditCard">Kreditkort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lille hold, så din støtte gør en kæmpe forskel!</string>
   <string name="celebratedPatrons">De værdsatte protektorer, som gør Lichess mulig</string>
   <string name="whereMoneyGoes">Hvad går pengene til?</string>
@@ -65,6 +64,7 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Beslut hvor meget Lichess er værd for dig:</string>
   <string name="stopPayments">Træk dit kreditkort tilbage og stop betalinger:</string>
+  <string name="stopPaymentsPayPal">Annuller PayPal-abonnement og stop betalinger:</string>
   <string name="noLongerSupport">Støt ikke længere Lichess</string>
   <string name="viewOthers">Se andre Lichess-protektorer</string>
   <string name="date">Dato</string>

@@ -10,7 +10,12 @@ import lila.msg.MsgPreset
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](4, 5.minutes, key = "forum.post")
+    new lila.memo.RateLimit[IpAddress](
+      credits = 4,
+      duration = 5.minutes,
+      key = "forum.post",
+      enforce = env.net.rateLimit.value
+    )
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
@@ -18,27 +23,31 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
         else
           for {
-            teamIds <- ctx.userId ?? env.team.cached.teamIdsSet
-            posts   <- env.forumSearch(text, page, ctx.troll)
-          } yield html.forum.search(text, posts, teamIds)
+            paginator <- env.forumSearch(text, page, ctx.troll)
+            posts <- paginator.mapFutureResults(post =>
+              access.isGrantedRead(post.categ.id) map { canRead =>
+                lila.forum.PostView.WithReadPerm(post, canRead)
+              }
+            )
+          } yield html.forum.search(text, posts)
       }
     }
 
   def create(categSlug: String, slug: String, page: Int) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        CategGrantWrite(categSlug) {
-          implicit val req = ctx.body
-          OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
-            if (topic.closed) fuccess(BadRequest("This topic is closed"))
-            else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
-            else
-              categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-                forms
-                  .post(me, inOwnTeam)
-                  .bindFromRequest()
-                  .fold(
-                    err =>
+        implicit val req = ctx.body
+        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+          if (topic.closed) fuccess(BadRequest("This topic is closed"))
+          else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
+          else
+            categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+              forms
+                .post(me, inOwnTeam)
+                .bindFromRequest()
+                .fold(
+                  err =>
+                    CategGrantWrite(categSlug, tryingToPostAsMod = true) {
                       for {
                         captcha     <- forms.anyCaptcha
                         unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
@@ -46,16 +55,18 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       } yield BadRequest(
                         html.forum.topic
                           .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
-                      ),
-                    data =>
+                      )
+                    },
+                  data =>
+                    CategGrantWrite(categSlug, tryingToPostAsMod = ~data.modIcon) {
                       CreateRateLimit(ctx.ip) {
                         postApi.makePost(categ, topic, data, me) map { post =>
                           Redirect(routes.ForumPost.redirect(post.id))
                         }
                       }(rateLimitedFu)
-                  )
-              }
-          }
+                    }
+                )
+            }
         }
       }
     }
@@ -94,7 +105,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
             CategGrantMod(categSlug) {
-              postApi.delete(categSlug, id, me) inject {
+              env.forum.delete.post(categSlug, id, me) inject {
                 implicit val req = ctx.body
                 for {
                   userId    <- post.userId

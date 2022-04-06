@@ -25,7 +25,7 @@ object PoolList {
 
   val json = Json toJson all
 
-  implicit private class PimpedInt(self: Int) {
+  implicit private class LilaInt(self: Int) {
     def ++(increment: Int) = chess.Clock.Config(self * 60, increment)
     def players            = NbPlayers(self)
   }

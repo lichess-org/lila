@@ -51,35 +51,29 @@ modal.onClose = undefined as (() => void) | undefined;
 
 export function snabModal(opts: SnabModal): VNode {
   const close = opts.onClose!;
-  return h(
-    'div#modal-overlay',
-    {
-      ...(!opts.noClickAway ? { hook: bind('click', close) } : {}),
-    },
-    [
-      h(
-        'div#modal-wrap.' + opts.class,
-        {
-          hook: onInsert(el => {
-            bindWrap($(el));
-            opts.onInsert && opts.onInsert($(el));
-          }),
-        },
-        [
-          h('span.close', {
-            attrs: {
-              'data-icon': '',
-              role: 'button',
-              'aria-label': 'Close',
-              tabindex: '0',
-            },
-            hook: onInsert(el => bindClose(el, close)),
-          }),
-          h('div', opts.content),
-        ]
-      ),
-    ]
-  );
+  return h('div#modal-overlay', opts.noClickAway ? {} : { hook: bind('click', close) }, [
+    h(
+      'div#modal-wrap.' + opts.class,
+      {
+        hook: onInsert(el => {
+          bindWrap($(el));
+          opts.onInsert && opts.onInsert($(el));
+        }),
+      },
+      [
+        h('span.close', {
+          attrs: {
+            'data-icon': '',
+            role: 'button',
+            'aria-label': 'Close',
+            tabindex: '0',
+          },
+          hook: onInsert(el => bindClose(el, close)),
+        }),
+        h('div', opts.content),
+      ]
+    ),
+  ]);
 }
 
 const bindClose = (el: HTMLElement, close: () => void) => {
@@ -109,5 +103,6 @@ export function trapFocus(event: FocusEvent) {
 export const focusFirstChild = (parent: Cash) => {
   const children = parent.find(focusableSelectors);
   // prefer child 1 over child 0 because child 0 should be a close button
-  (children[1] ?? children[0])?.focus();
+  // use setTimeout to avoid race conditions with snabbdom
+  setTimeout(() => (children[1] ?? children[0])?.focus());
 };

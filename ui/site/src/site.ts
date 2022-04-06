@@ -7,7 +7,6 @@ import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
 import loadClockWidget from './component/clock-widget';
-import moduleLaunchers from './component/module-launchers';
 import OnlineFriends from './component/friends';
 import powertip from './component/powertip';
 import pubsub from './component/pubsub';
@@ -27,7 +26,6 @@ loadClockWidget();
 
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
-  moduleLaunchers();
 
   requestAnimationFrame(() => {
     miniBoard.initAll();

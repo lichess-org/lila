@@ -481,7 +481,6 @@
   <string name="profileCompletion">Completarea profilului: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
-  <string name="gameCompletionRate">Procent jocuri încheiate: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Editează profilul</string>
   <string name="firstName">Prenume</string>
@@ -608,6 +607,7 @@
   <string name="error.min">Trebuie să fie mai mare sau egal cu %s</string>
   <string name="error.max">Trebuie să fie mai mic sau egal cu %s</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
+  <string name="ifRegistered">Dacă este înregistrat</string>
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>

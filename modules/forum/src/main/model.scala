@@ -43,11 +43,14 @@ case class TopicView(
 case class PostView(
     post: Post,
     topic: Topic,
-    categ: Categ,
-    topicLastPage: Int
+    categ: Categ
 ) {
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+}
+
+object PostView {
+  case class WithReadPerm(view: PostView, canRead: Boolean)
 }
 
 case class PostLiteView(post: Post, topic: Topic)

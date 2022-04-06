@@ -28,7 +28,6 @@
   <string name="otherAmount">Other</string>
   <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
   <string name="celebratedPatrons">The celebrated Patrons who make Lichess possible</string>
   <string name="whereMoneyGoes">Where does the money go?</string>
@@ -64,6 +63,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
+  <string name="stopPaymentsPayPal">Cancel PayPal subscription and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>
