@@ -128,8 +128,8 @@ final class PlaybanApi(
           game.clock
             .filter {
               _.remainingTime(loser.color) < Centis(1000) &&
-              game.turnOf(loser) &&
-              Status.Resign.is(status)
+                game.turnOf(loser) &&
+                Status.Resign.is(status)
             }
             .map { c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)

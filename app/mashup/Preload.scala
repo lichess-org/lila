@@ -67,33 +67,33 @@ final class Preload(
         // format: off
         case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
-          .mon(_.lobby segment "currentGame") zip
-          lightUserApi
-            .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
-            .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
-            Homepage(
-              data,
-              entries,
-              tours,
-              swiss,
-              events,
-              simuls,
-              feat,
-              lead,
-              tWinners,
-              puzzle,
-              streams.excludeUsers(events.flatMap(_.hostedBy)),
-              playban,
-              currentGame,
-              simulIsFeaturable,
-              blindGames,
-              lobbySocket.counters,
-              lastPostCache.apply,
-              ublogPosts,
-              hasUnreadLichessMessage = lichessMsg
-            )
-          }
+          (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
+            .mon(_.lobby segment "currentGame") zip
+            lightUserApi
+              .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
+              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              Homepage(
+                data,
+                entries,
+                tours,
+                swiss,
+                events,
+                simuls,
+                feat,
+                lead,
+                tWinners,
+                puzzle,
+                streams.excludeUsers(events.flatMap(_.hostedBy)),
+                playban,
+                currentGame,
+                simulIsFeaturable,
+                blindGames,
+                lobbySocket.counters,
+                lastPostCache.apply,
+                ublogPosts,
+                hasUnreadLichessMessage = lichessMsg
+              )
+            }
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =

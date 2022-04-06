@@ -73,8 +73,8 @@ final class JsonView(
         (me, myInfo) match {
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
-          case (Some(user), None)                          => verify(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), Some(_)) => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), None)    => verify(tour.conditions, user, getUserTeamIds) map some
         }
       }
       stats       <- statsApi(tour)
@@ -283,10 +283,10 @@ final class JsonView(
         "id"          -> game.id,
         "fen"         -> chess.format.Forsyth.boardAndColor(game.situation),
         "orientation" -> game.naturalOrientation.name,
-        "color"       -> game.naturalOrientation.name, // app BC https://github.com/lichess-org/lila/issues/7195
-        "lastMove"    -> ~game.lastMoveKeys,
-        "white"       -> ofPlayer(featured.white, game player chess.White),
-        "black"       -> ofPlayer(featured.black, game player chess.Black)
+        "color"    -> game.naturalOrientation.name, // app BC https://github.com/lichess-org/lila/issues/7195
+        "lastMove" -> ~game.lastMoveKeys,
+        "white"    -> ofPlayer(featured.white, game player chess.White),
+        "black"    -> ofPlayer(featured.black, game player chess.Black)
       )
       .add(
         // not named `clock` to avoid conflict with lichobile

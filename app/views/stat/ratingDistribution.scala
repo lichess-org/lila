@@ -21,12 +21,12 @@ object ratingDistribution {
       moreJs = frag(
         jsModule("chart.ratingDistribution"),
         embedJsUnsafeLoadThen(s"""LichessChartRatingDistribution(${safeJsonValue(
-          Json.obj(
-            "freq"     -> data,
-            "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
-            "i18n"     -> i18nJsObject(i18nKeys)
-          )
-        )})""")
+            Json.obj(
+              "freq"     -> data,
+              "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+              "i18n"     -> i18nJsObject(i18nKeys)
+            )
+          )})""")
       )
     ) {
       main(cls := "page-menu")(
@@ -40,8 +40,8 @@ object ratingDistribution {
                 PerfType.leaderboardable map { pt =>
                   a(
                     dataIcon := pt.iconChar,
-                    cls := (perfType == pt).option("current"),
-                    href := routes.User.ratingDistribution(pt.key)
+                    cls      := (perfType == pt).option("current"),
+                    href     := routes.User.ratingDistribution(pt.key)
                   )(pt.trans)
                 }
               )
