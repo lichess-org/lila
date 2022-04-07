@@ -717,7 +717,7 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
-    <item quantity="other">Бірінші жүріске %s секунд бар</item>
+    <item quantity="other">Бірінші жүріске %s  секунд бар</item>
   </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="anotherWasX">Тағы %s</string>

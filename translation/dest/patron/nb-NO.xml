@@ -64,6 +64,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
+  <string name="stopPaymentsPayPal">Avslutt PayPal-abonnement og stans betalinger:</string>
   <string name="noLongerSupport">Avbryt støtten til Lichess</string>
   <string name="viewOthers">Vis andre Lichess-patroner</string>
   <string name="date">Dato</string>
