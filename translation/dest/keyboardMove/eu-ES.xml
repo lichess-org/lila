@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Teklatuko sarrera komandoak</string>
+  <string name="performAMove">Egin ezazu jokaldi bat</string>
+  <string name="movePieceFromE2ToE4">Mugitu pieza e2-tik e4-ra</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Mugitu zaldia c3-ra</string>
+  <string name="kingsideCastle">Endrokea erregearen aldera</string>
+  <string name="queensideCastle">Endrokea erreginaren aldera</string>
+  <string name="promoteC8ToQueen">c8 erregina bilakatu</string>
+  <string name="offerOrAcceptDraw">Berdinketa eskeini edo onartu</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Ozen esan erlojuak</string>
+</resources>
