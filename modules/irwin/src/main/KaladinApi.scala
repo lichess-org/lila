@@ -92,6 +92,7 @@ final class KaladinApi(
       coll
         .find($doc("response.at" $exists true, "response.read" $ne true))
         .sort($doc("response.at" -> 1))
+        .hint(coll hint "response.at_1_response.read_1")
         .cursor[KaladinUser]()
         .list(50)
         .flatMap { docs =>

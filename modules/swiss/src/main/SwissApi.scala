@@ -144,7 +144,7 @@ final class SwissApi(
         )
       )
     }.sequenceFu
-    _ <- update many elements
+    _ <- elements.nonEmpty ?? update.many(elements).void
   } yield ()
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =

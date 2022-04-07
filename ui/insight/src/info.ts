@@ -1,4 +1,5 @@
 import { onInsert } from 'common/snabbdom';
+import { numberFormat } from 'common/number';
 import userLink from 'common/userLink';
 import { h } from 'snabbdom';
 import Ctrl from './ctrl';
@@ -10,7 +11,7 @@ export default function (ctrl: Ctrl) {
   return h('div.info.box', [
     h('div.top', userLink(ctrl.user.name, ctrl.user.title, ctrl.user.patron)),
     h('div.content', [
-      h('p', ['Insights over ', h('strong', ctrl.user.nbGames), ' rated games.']),
+      h('p', ['Insights over ', h('strong', numberFormat(ctrl.user.nbGames)), ' rated games.']),
       h(
         'p.share',
         ctrl.own
