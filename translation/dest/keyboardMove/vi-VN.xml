@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Lệnh từ bàn phím</string>
+  <string name="performAMove">Thực hiện nước đi</string>
+  <string name="movePieceFromE2ToE4">Đưa quân từ e2 đến e4</string>
+</resources>
