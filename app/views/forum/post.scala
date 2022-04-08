@@ -6,7 +6,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
-import lila.security.Granter
 
 import controllers.routes
 
