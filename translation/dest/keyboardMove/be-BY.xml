@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="kingsideCastle">Кароткая ракіроўка</string>
+  <string name="offerOrAcceptDraw">Прапанаваць ці пагадзіцца на нічыю</string>
+  <string name="tips">Падказкі</string>
+</resources>
