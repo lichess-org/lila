@@ -87,7 +87,7 @@ final class Swiss(
   def apiShow(id: String) =
     Action.async { implicit req =>
       env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
-        case Some(swiss) => JsonOk(env.swiss.json.api(swiss)).fuccess
+        case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
         case _           => notFoundJson()
       }
     }
@@ -153,9 +153,7 @@ final class Swiss(
                 jsonFormErrorDefaultLang,
                 data =>
                   tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited) {
-                    JsonOk {
-                      env.swiss.api.create(data, me, teamId) map env.swiss.json.api
-                    }
+                    env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
                   }
               )
         }
@@ -244,9 +242,9 @@ final class Swiss(
           .fold(
             newJsonFormError,
             data => {
-              env.swiss.api.update(swiss.id, data) map {
+              env.swiss.api.update(swiss.id, data) flatMap {
                 _ ?? { swiss =>
-                  JsonOk(env.swiss.json.api(swiss))
+                  env.swiss.json.api(swiss) map JsonOk
                 }
               }
             }
@@ -323,7 +321,7 @@ final class Swiss(
         env.swiss.api
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
-          .map(env.swiss.json.api)
+          .mapAsync(4)(env.swiss.json.api)
           .throttle(20, 1.second)
       }.fuccess
     }

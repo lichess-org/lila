@@ -13,11 +13,20 @@ case class IrwinReport(
     date: DateTime
 ) {
 
-  def suspectId = SuspectId(_id)
+  def userId = _id
+
+  def suspectId = SuspectId(userId)
 
   def note: String = games.sortBy(-_.activation).map { g =>
     s"#${g.gameId} = ${g.activation}"
   } mkString ", "
+
+  def add(report: IrwinReport) = {
+    val newIds = report.games.map(_.gameId).toSet
+    report.copy(
+      games = (games.filterNot(g => newIds(g.gameId)) ::: report.games)
+    )
+  }
 }
 
 object IrwinReport {
