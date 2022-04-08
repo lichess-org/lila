@@ -148,10 +148,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
         ? [
             ['broadcastUrl', ctrl.relay.tourPath()],
             ['currentRoundUrl', ctrl.relay.roundPath()],
-            ['currentGameUrl', `${ctrl.relay.roundPath()}/${chapter.id}`],
+            ['currentGameUrl', addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
           ]
         : [
-            ['studyUrl', addPly(`/study/${studyId}`), true],
+            ['studyUrl', `/study/${studyId}`],
             ['currentChapterUrl', addPly(`/study/${studyId}/${chapter.id}`), true],
           ]
       ).map(([i18n, path, pastable]: [string, string, boolean]) =>
