@@ -26,10 +26,12 @@ final class SwissJson(
   import SwissJson._
   import BsonHandlers._
 
-  def api(swiss: Swiss) =
+  def api(swiss: Swiss) = statsApi(swiss) map { stats =>
     swissJsonBase(swiss) ++ Json.obj(
+      "stats" -> stats,
       "rated" -> swiss.settings.rated
     )
+  }
 
   def apply(
       swiss: Swiss,
