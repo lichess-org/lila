@@ -6,6 +6,7 @@
   <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Пахадзіць канём на c3</string>
   <string name="kingsideCastle">Кароткая ракіроўка</string>
   <string name="queensideCastle">Доўгая ракіроўка</string>
+  <string name="promoteC8ToQueen">Пераўтварыць c8 на ферзя</string>
   <string name="dropARookAtB4">Паставіць ладдзю на b4 (толькі для Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Прапанаваць ці пагадзіцца на нічыю</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Агучыць астатак часу</string>
