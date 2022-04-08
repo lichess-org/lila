@@ -35,8 +35,9 @@ final private[forum] class TopicApi(
   def show(
       categSlug: String,
       slug: String,
+      forUser: Option[User],
       page: Int,
-      forUser: Option[User]
+      slice: Boolean
   ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data <- categRepo bySlug categSlug flatMap {
@@ -48,7 +49,7 @@ final private[forum] class TopicApi(
       }
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        paginator.topicPosts(topic, forUser, page, slice) map { (categ, topic, _).some }
       }
     } yield res
 

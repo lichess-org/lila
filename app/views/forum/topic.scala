@@ -3,7 +3,7 @@ package forum
 
 import play.api.data.Form
 import lila.api.Context
-import lila.app.templating.Environment.{ pagerNextTable, _ }
+import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import controllers.routes
@@ -103,13 +103,13 @@ object topic {
               categ,
               topic,
               p,
-              s"${routes.ForumTopic.show(categ.slug, topic.slug, 0 - posts.currentPage).url}#${p.number}",
+              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage, false).url}#${p.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
           },
-          pagerNext(posts, n => routes.ForumTopic.show(categ.slug, topic.slug, n).url)
+          pagerNext(posts, n => routes.ForumTopic.show(categ.slug, topic.slug, n, true).url)
         ),
         div(cls := "forum-topic__actions")(
           if (topic.isOld)
@@ -166,7 +166,7 @@ object topic {
         formWithCaptcha.map { case (form, captcha) =>
           postForm(
             cls := "form3 reply",
-            action := s"${routes.ForumPost.create(categ.slug, topic.slug, 0 - posts.currentPage)}#reply",
+            action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
             form3.group(

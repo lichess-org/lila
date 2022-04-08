@@ -7,14 +7,6 @@ import lila.common.config.MaxPerPage
 
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
-    /** So there's some new functionality here expressed through negative currentPage values
-      * that is only relevant to a few instances declared in ForumPaginator for infinite scroll.
-      * Basically it is used to request ALL results "up to" a specific page in some uris and redirects
-      * For example lichess.org/forum/blah/page=3 will fetch results 21-30 whereas page=-3
-      * will fetch results 1-30.  I think this has maybe a 5% shot of surviving review but it's worth a shot
-      * to avoid introducing a new request parameter, currently values less than -40 are considered
-      * invalid.  NOTE:  This has no effect on any existing uses of paginator outside of ForumPaginator.
-      */
     val maxPerPage: MaxPerPage,
     /** Returns the results for the current page.
       * The result is cached.
@@ -28,17 +20,12 @@ final class Paginator[A] private[paginator] (
 
   /** Returns the previous page.
     */
-  def previousPage: Option[Int] = {
-    val page = if (currentPage < 0) 0 - currentPage else currentPage
-    (page > 1) option (page - 1)
-  }
+  def previousPage: Option[Int] = (currentPage > 1) option (currentPage - 1)
 
   /** Returns the next page.
     */
-  def nextPage: Option[Int] = {
-    val page = if (currentPage < 0) 0 - currentPage else currentPage
-    (page < nbPages && currentPageResults.nonEmpty) option (page + 1)
-  }
+  def nextPage: Option[Int] =
+    (currentPage < nbPages && currentPageResults.nonEmpty) option (currentPage + 1)
 
   /** Returns the number of pages.
     */
@@ -104,14 +91,12 @@ object Paginator {
       adapter: AdapterLike[A],
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
-  )(implicit ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] = {
-    if (currentPage < -40 || currentPage == 0)
-      Validated.invalid("Current page is invalid") // see comment line 10'ish
-    else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
+  )(implicit ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] =
+    if (currentPage < 1) Validated.invalid("Max per page must be greater than zero")
+    else if (maxPerPage.value <= 0) Validated.invalid("Current page must be greater than zero")
     else
       Validated.valid(for {
         results   <- adapter.slice((currentPage - 1) * maxPerPage.value, maxPerPage.value)
         nbResults <- adapter.nbResults
       } yield new Paginator(currentPage, maxPerPage, results, nbResults))
-  }
 }

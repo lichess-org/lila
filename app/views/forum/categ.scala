@@ -5,7 +5,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-
 import controllers.routes
 
 object categ {
@@ -38,7 +37,7 @@ object categ {
 
   def show(
       categ: lila.forum.Categ,
-      pager: Paginator[lila.forum.TopicView],
+      topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
   )(implicit ctx: Context) = {
@@ -61,7 +60,7 @@ object categ {
           topic.lastPost.map { post =>
             frag(
               a(
-                href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page = 0 - topic.lastPage)}#${post.number}"
+                href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page = topic.lastPage)}#${post.number}"
               )(
                 momentFromNow(post.createdAt)
               ),
@@ -110,8 +109,8 @@ object categ {
           tbody(
             cls := "infinite-scroll",
             stickyPosts map showTopic(sticky = true),
-            pager.currentPageResults map showTopic(sticky = false),
-            pagerNextTable(pager, n => routes.ForumCateg.show(categ.slug, n).url)
+            topics.currentPageResults map showTopic(sticky = false),
+            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n, true).url)
           )
         )
       )

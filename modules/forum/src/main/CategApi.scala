@@ -56,10 +56,10 @@ final class CategApi(
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
   }
 
-  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
+  def show(slug: String, forUser: Option[User], page: Int, slice: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
     categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        paginator.categTopics(categ, page, forUser) dmap { (categ, _).some }
+        paginator.categTopics(categ, forUser, page, slice) dmap { (categ, _).some }
       }
     }
 

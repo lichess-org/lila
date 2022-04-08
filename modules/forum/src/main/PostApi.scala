@@ -113,7 +113,7 @@ final class PostApi(
           PostUrlData(
             topic.categId,
             topic.slug,
-            0 - (1 + post.number / config.postMaxPerPage.value),
+            1 + post.number / config.postMaxPerPage.value,
             post.number
           ).some
         }

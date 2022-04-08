@@ -16,7 +16,7 @@ final class ForumPaginator(
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+  def topicPosts(topic: Topic, me: Option[User], page: Int, inSlice: Boolean): Fu[Paginator[Post]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.postMaxPerPage,
@@ -28,15 +28,15 @@ final class ForumPaginator(
             postRepo.coll
               .find(selector, none: Option[Bdoc])
               .sort(postRepo.sortQuery)
-              .skip(if (page < 0) 0 else offset)
+              .skip(if (inSlice) offset else 0)
               .cursor[Post](ReadPreference.primary)
-              .list(if (page > 0) length else nb.min((0 - page) * config.postMaxPerPage.value))
+              .list(if (inSlice) length else nb.min(page * config.postMaxPerPage.value))
           }
         }
       }
     )
 
-  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+  def categTopics(categ: Categ, forUser: Option[User], page: Int, inSlice: Boolean): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.topicMaxPerPage,
@@ -52,8 +52,8 @@ final class ForumPaginator(
               import framework._
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
-                Skip(if (page < 0) 0 else offset),
-                Limit(if (page > 0) length else (0 - page) * config.topicMaxPerPage.value),
+                Skip(if (inSlice) offset else 0),
+                Limit(if (inSlice) length else page * config.topicMaxPerPage.value),
                 PipelineOperator(
                   $lookup.simple(
                     from = postRepo.coll,

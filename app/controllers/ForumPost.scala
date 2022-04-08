@@ -37,7 +37,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     AuthBody { implicit ctx => me =>
       NoBot {
         implicit val req = ctx.body
-        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+        OptionFuResult(topicApi.show(categSlug, slug, ctx.me, page, false)) { case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
           else

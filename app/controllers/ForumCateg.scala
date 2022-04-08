@@ -22,10 +22,10 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  def show(slug: String, page: Int) =
+  def show(slug: String, page: Int, slice: Boolean) =
     OpenBody { implicit ctx =>
       NotForKids {
-        OptionFuResult(categApi.show(slug, page, ctx.me)) { case (categ, topics) =>
+        OptionFuResult(categApi.show(slug, ctx.me, page, slice)) { case (categ, topics) =>
           for {
             canRead     <- access.isGrantedRead(slug)
             canWrite    <- access.isGrantedWrite(slug)
