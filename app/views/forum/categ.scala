@@ -59,9 +59,7 @@ object categ {
         td(
           topic.lastPost.map { post =>
             frag(
-              a(
-                href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page = topic.lastPage)}#${post.number}"
-              )(
+              a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
                 momentFromNow(post.createdAt)
               ),
               br,

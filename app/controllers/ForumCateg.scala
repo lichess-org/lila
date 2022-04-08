@@ -24,8 +24,8 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
         Reasonable(page, 50, errorPage = notFound) {
           OptionFuResult(categApi.show(slug, ctx.me, page, slice)) { case (categ, topics) =>
             for {
-              canRead     <- access.isGrantedRead(slug)
-              canWrite    <- access.isGrantedWrite(slug)
+              canRead     <- access.isGrantedRead(categ.slug)
+              canWrite    <- access.isGrantedWrite(categ.slug)
               stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
               _           <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
               res <-

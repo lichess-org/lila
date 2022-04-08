@@ -87,7 +87,7 @@ object topic {
       openGraph = lila.app.ui
         .OpenGraph(
           title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, 0 - posts.currentPage).url}",
+          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
         .some
@@ -104,7 +104,7 @@ object topic {
               categ,
               topic,
               p,
-              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage, false).url}#${p.number}",
+              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}#${p.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
