@@ -2,12 +2,11 @@ package controllers
 
 import cats.implicits._
 import play.api.libs.json._
-
 import scala.concurrent.duration._
 import views._
+
 import lila.app._
 import lila.common.IpAddress
-import lila.common.paginator.Paginator
 import lila.user.Holder
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {

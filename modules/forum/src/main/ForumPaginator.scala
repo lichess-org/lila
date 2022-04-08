@@ -1,12 +1,11 @@
 package lila.forum
 
 import scala.concurrent.ExecutionContext
+import reactivemongo.api.ReadPreference
 
 import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
 import lila.user.User
-import reactivemongo.api.ReadPreference
 
 final class ForumPaginator(
     topicRepo: TopicRepo,
@@ -36,7 +35,12 @@ final class ForumPaginator(
       }
     )
 
-  def categTopics(categ: Categ, forUser: Option[User], page: Int, inSlice: Boolean): Fu[Paginator[TopicView]] =
+  def categTopics(
+      categ: Categ,
+      forUser: Option[User],
+      page: Int,
+      inSlice: Boolean
+  ): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.topicMaxPerPage,
