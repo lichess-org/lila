@@ -94,6 +94,7 @@ export default class RacerCtrl {
     this.boost.setPlayers(data.players);
     if (data.startsIn && this.status() == 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
+      this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
       else this.run.clock.start();
     }

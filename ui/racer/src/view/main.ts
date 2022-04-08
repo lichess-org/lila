@@ -18,7 +18,12 @@ export default function (ctrl: RacerCtrl): VNode {
         [`racer--${ctrl.status()}`]: true,
       },
     },
-    [renderBoard(ctrl), h('div.puz-side', selectScreen(ctrl)), renderRace(ctrl), renderHistory(ctrl)]
+    [
+      renderBoard(ctrl),
+      h('div.puz-side', selectScreen(ctrl)),
+      renderRace(ctrl),
+      ctrl.status() === 'post' && ctrl.run.history.length > 0 ? renderHistory(ctrl) : null,
+    ]
   );
 }
 
