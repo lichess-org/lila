@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Comandos do teclado</string>
+  <string name="performAMove">Realizar um movimento</string>
+  <string name="movePieceFromE2ToE4">Mova a peça de e2 para e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Mova o cavalo para c3</string>
   <string name="tips">Dicas</string>
 </resources>
