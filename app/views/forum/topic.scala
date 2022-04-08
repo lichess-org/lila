@@ -2,12 +2,10 @@ package views.html
 package forum
 
 import play.api.data.Form
-
 import lila.api.Context
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ pagerNextTable, _ }
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-
 import controllers.routes
 
 object topic {
@@ -77,48 +75,42 @@ object topic {
       canModCateg: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
+      title = s"${topic.name} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsModule("expandText")
+        jsModule("expandText"),
+        infiniteScrollTag
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
+          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, 0 - posts.currentPage).url}",
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
         .some
     ) {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
-      val pager = views.html.base.bits
-        .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
-          a(
-            href := routes.ForumCateg.show(categ.slug ),
-            dataIcon := "",
-            cls := "text"
-          ),
+          a(cls := "text", href := routes.ForumCateg.show(categ.slug), dataIcon := ""),
           topic.name
         ),
-        pager,
-        div(cls := "forum-topic__posts expand-text")(
+        div(cls := "forum-topic__posts expand-text infinite-scroll")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,
               topic,
               p,
-              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              s"${routes.ForumTopic.show(categ.slug, topic.slug, 0 - posts.currentPage).url}#${p.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
-          }
+          },
+          pagerNext(posts, n => routes.ForumTopic.show(categ.slug, topic.slug, n).url)
         ),
-        pager,
         div(cls := "forum-topic__actions")(
           if (topic.isOld)
             p(trans.thisTopicIsArchived())
@@ -174,7 +166,7 @@ object topic {
         formWithCaptcha.map { case (form, captcha) =>
           postForm(
             cls := "form3 reply",
-            action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
+            action := s"${routes.ForumPost.create(categ.slug, topic.slug, 0 - posts.currentPage)}#reply",
             novalidate
           )(
             form3.group(

@@ -16,23 +16,30 @@ final class ForumPaginator(
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User], index: Int): Fu[Paginator[Post]] =
-    Paginator(
-      new Adapter(
-        collection = postRepo.coll,
-        selector = postRepo.forUser(me) selectTopic topic.id,
-        projection = none,
-        sort = postRepo.sortQuery
-      ),
-      currentPage = page,// should be index / config.postMaxPerPage.value + 1
-      maxPerPage = config.postMaxPerPage,
-      index = index
-    )
-
-  def categTopics(categ: Categ, page: Int, forUser: Option[User], index: Int): Fu[Paginator[TopicView]] =
+  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.postMaxPerPage,
+      adapter = new AdapterLike[Post] {
+        private def selector   = postRepo.forUser(me) selectTopic topic.id
+        def nbResults: Fu[Int] = postRepo.coll.secondaryPreferred.countSel(selector)
+        def slice(offset: Int, length: Int): Fu[Seq[Post]] = {
+          nbResults flatMap { nb =>
+            postRepo.coll
+              .find(selector, none: Option[Bdoc])
+              .sort(postRepo.sortQuery)
+              .skip(if (page < 0) 0 else offset)
+              .cursor[Post](ReadPreference.primary)
+              .list(if (page > 0) length else nb.min((0 - page) * config.postMaxPerPage.value))
+          }
+        }
+      }
+    )
+
+  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+    Paginator(
+      currentPage = page,
+      maxPerPage = config.topicMaxPerPage,
       adapter = new AdapterLike[TopicView] {
 
         def nbResults: Fu[Int] =
@@ -45,8 +52,8 @@ final class ForumPaginator(
               import framework._
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
-                Skip(offset),
-                Limit(length),
+                Skip(if (page < 0) 0 else offset),
+                Limit(if (page > 0) length else (0 - page) * config.topicMaxPerPage.value),
                 PipelineOperator(
                   $lookup.simple(
                     from = postRepo.coll,

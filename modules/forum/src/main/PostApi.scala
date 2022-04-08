@@ -110,8 +110,12 @@ final class PostApi(
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / config.postMaxPerPage.value + 1
-          PostUrlData(topic.categId, topic.slug, page, post.number).some
+          PostUrlData(
+            topic.categId,
+            topic.slug,
+            0 - (1 + post.number / config.postMaxPerPage.value),
+            post.number
+          ).some
         }
       case _ => fuccess(none)
     }
