@@ -196,7 +196,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = shorten(t.lastMsg.text, 175, "..."),
+                body = shorten(t.lastMsg.text, 57 - 3, "..."),
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
