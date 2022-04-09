@@ -37,29 +37,32 @@ final class LobbySocket(
 
   private val actor: SyncActor = new SyncActor {
 
-    private val members            = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    // private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    private val members = lila.common.LilaCache.scaffeine
+      .expireAfterWrite(1 minute)
+      .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds     = new collection.mutable.StringBuilder(1024)
 
     val process: SyncActor.Receive = {
 
-      case GetMember(sri, promise) => promise success members.get(sri.value)
+      case GetMember(sri, promise) => promise success members.getIfPresent(sri.value)
 
       case GetSrisP(promise) =>
-        promise success Sris(members.keySet.view.map(Sri.apply).toSet)
+        promise success Sris(members.asMap().keySet.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
       case Cleanup =>
-        idleSris filterInPlace members.contains
-        hookSubscriberSris filterInPlace members.contains
+        idleSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
+        hookSubscriberSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
 
-      case Join(member) => members += (member.sri.value -> member)
+      case Join(member) => members.put(member.sri.value, member)
 
       case LeaveBatch(sris) => sris foreach quit
       case LeaveAll =>
-        members.clear()
+        members.invalidateAll()
         idleSris.clear()
         hookSubscriberSris.clear()
 
@@ -69,7 +72,7 @@ final class LobbySocket(
         send(
           P.Out.tellSris(
             hookSubscriberSris diff idleSris withFilter { sri =>
-              members get sri exists { biter.showHookTo(hook, _) }
+              members getIfPresent sri exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
             makeMessage("had", hook.render)
           )
@@ -134,7 +137,7 @@ final class LobbySocket(
       )
 
     private def quit(sri: Sri): Unit = {
-      members -= sri.value
+      members invalidate sri.value
       idleSris -= sri.value
       hookSubscriberSris -= sri.value
     }
