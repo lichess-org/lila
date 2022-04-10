@@ -64,6 +64,7 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="xOrY">%1$s vagy %2$s</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
+  <string name="stopPaymentsPayPal">PayPal előfizetés törlése és anyagi támogatás leállítása:</string>
   <string name="noLongerSupport">A Lichess támogatásának leállítása</string>
   <string name="viewOthers">A többi Patron böngészése</string>
   <string name="date">Dátum</string>
