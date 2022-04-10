@@ -1,4 +1,3 @@
-@import 'history';
 @import 'play-again';
 
 .storm--end {
@@ -16,10 +15,6 @@
     grid-area: stats;
   }
 
-  &__history {
-    grid-area: history;
-  }
-
   .storm-play-again {
     grid-area: play;
   }
@@ -29,7 +24,11 @@
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
   @include breakpoint($mq-col2) {
-    grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
+    grid-template-areas:
+      'high high'
+      'score stats'
+      'play play'
+      'history history';
   }
 
   &__high {

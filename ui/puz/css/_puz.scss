@@ -2,6 +2,7 @@
 @import 'side';
 @import 'combo';
 @import 'clock';
+@import 'history';
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
@@ -20,5 +21,9 @@
 
   &-board {
     grid-area: board;
+  }
+
+  &-history {
+    grid-area: history;
   }
 }
