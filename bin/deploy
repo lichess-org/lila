@@ -257,7 +257,7 @@ def deploy_script(profile, session, run, url):
     return [
         "echo \\# Downloading ...",
         f"mkdir -p {ARTIFACT_DIR}",
-        f"mkdir -p {deploy_dir}/application.home_IS_UNDEFINED/logs",
+        f"mkdir -p {deploy_dir}/logs",
         f"[ -f {artifact_zip} ] || wget --header={shlex.quote(auth_header)} --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
         "echo",
         "echo \\# Unpacking ...",
