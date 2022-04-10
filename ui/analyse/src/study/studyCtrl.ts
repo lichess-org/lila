@@ -289,6 +289,7 @@ export default function (
     // path could be gone (because of subtree deletion), go as far as possible
     ctrl.userJump(ctrl.tree.longestValidPath(nextPath));
 
+    history.replaceState(null, '', `/study/${data.id}/${data.chapter.id}`);
     vm.justSetChapterId = undefined;
 
     configurePractice();
