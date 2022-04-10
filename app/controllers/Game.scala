@@ -86,7 +86,7 @@ final class Game(
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
-            flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            flags = requestPgnFlags(req, extended = false),
             sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m.id == "openingexplorer" => env.apiExplorerGamesPerSecond.get()
