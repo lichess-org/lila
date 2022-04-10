@@ -788,7 +788,6 @@
   <string name="currentMatchScore">امتیاز بازی فعلی</string>
   <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از انجین ، کتاب ، پایگاه داده یا شخصی دیگر)</string>
   <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">موافقت می کنم که چندین حساب ایجاد نخواهم کرد (به جز در موارد ذکر شده در شرایط خدمات).</string>
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
