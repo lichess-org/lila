@@ -29,7 +29,7 @@ on:
       - '.sbtopts.default'
 
 jobs:
-  openjdk14:
+  openjdk17:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
