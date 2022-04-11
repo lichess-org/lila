@@ -7,5 +7,8 @@
   <string name="kingsideCastle">Roque pequeno</string>
   <string name="queensideCastle">Roque grande</string>
   <string name="promoteC8ToQueen">Promover c8 a rainha</string>
+  <string name="offerOrAcceptDraw">Oferecer ou aceitar empate</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Ler os relógios</string>
+  <string name="otherCommands">Outros comandos</string>
   <string name="tips">Dicas</string>
 </resources>
