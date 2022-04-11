@@ -44,7 +44,7 @@ final class Team(
   def show(id: String, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuOk(api team id) { renderTeam(_, page, mod) }
+        OptionFuOk(api team id) { renderTeam(_, page, mod && isGranted(_.ManageTeam)) }
       }
     }
 
@@ -63,6 +63,7 @@ final class Team(
     for {
       info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
+      log     <- requestModView.??(env.mod.logApi.teamLog(team.id))
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached
@@ -72,7 +73,7 @@ final class Team(
         info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield html.team.show(team, members, info, chat, version, requestModView)
+    } yield html.team.show(team, members, info, chat, version, requestModView, log)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
       implicit ctx: Context
@@ -188,21 +189,34 @@ final class Team(
     }
 
   def close(id: String) =
-    Secure(_.ManageTeam) { implicit ctx => me =>
+    SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        api.delete(team) >>
-          env.mod.logApi.deleteTeam(me.id, team.id, team.name) inject
-          Redirect(routes.Team all 1).flashSuccess
+        implicit val body = ctx.body
+        forms.explain
+          .bindFromRequest()
+          .fold(
+            _ => funit,
+            explain =>
+              api.delete(team, me.user, explain) >>
+                env.mod.logApi.deleteTeam(me.id, team.id, explain)
+          ) inject Redirect(routes.Team all 1).flashSuccess
       }
     }
 
   def disable(id: String) =
-    Auth { implicit ctx => me =>
+    AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        api.toggleEnabled(team, me) >>
-          env.mod.logApi.disableTeam(me.id, team.id, team.name) inject
-          Redirect(routes.Team show id).flashSuccess
-      }
+        implicit val body = ctx.body
+        forms.explain
+          .bindFromRequest()
+          .fold(
+            _ => funit,
+            explain =>
+              api.toggleEnabled(team, me, explain) >> {
+                team.enabled ?? env.mod.logApi.disableTeam(me.id, team.id, explain)
+              }
+          )
+      } inject Redirect(routes.Team show id).flashSuccess
     }
 
   def form =

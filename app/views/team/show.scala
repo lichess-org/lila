@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
+import lila.mod.Modlog
 
 object show {
 
@@ -21,7 +22,8 @@ object show {
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[lila.socket.Socket.SocketVersion],
-      requestedModView: Boolean = false
+      requestedModView: Boolean = false,
+      log: List[Modlog] = Nil
   )(implicit
       ctx: Context
   ) =
@@ -188,6 +190,7 @@ object show {
           ),
           div(cls := "team-show__content__col2")(
             standardFlash(),
+            log.nonEmpty option renderLog(log),
             st.section(cls := "team-show__desc")(
               markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
@@ -260,4 +263,19 @@ object show {
 
   private def joinAt(url: String)(implicit ctx: Context) =
     a(cls := "button button-green", href := url)(joinTeam())
+
+  private def renderLog(entries: List[Modlog])(implicit ctx: Context) = div(cls := "team-show__log")(
+    h2("Mod log"),
+    ul(
+      entries.map { e =>
+        li(
+          userIdLink(e.mod.some),
+          " ",
+          e.showAction,
+          ": ",
+          Modlog.explain(e)
+        )
+      }
+    )
+  )
 }
