@@ -100,6 +100,7 @@
     <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
   </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>
+  <string name="loadAGameFromXOrY">從%1$s或%2$s載入棋局</string>
   <string name="createChapter">建立章節</string>
   <string name="configureLiveBroadcast">直播設定</string>
   <string name="createStudy">建立研究</string>
@@ -140,8 +141,10 @@
   <string name="blackIsBetter">黑方占優勢</string>
   <string name="whiteIsWinning">白方要取得勝利了</string>
   <string name="blackIsWinning">黑方要取得勝利了</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">發展</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻擊</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">時間壓力</string>
   <string name="nextChapter">下一章</string>
   <string name="prevChapter">上一章</string>
   <string name="topics">主題</string>
