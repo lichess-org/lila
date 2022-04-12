@@ -492,6 +492,7 @@ Translation results
   <string name="privacy">గోప్యత</string>
   <string name="privacyPolicy">గోప్యతా విధానం</string>
   <string name="letOtherPlayersFollowYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
+  <string name="letOtherPlayersChallengeYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
   <string name="tools">పరికరాలు</string>
   <string name="error.required">ఈ సమాచారం అవసరం</string>
   <string name="castling">కాస్లింగ్</string>
