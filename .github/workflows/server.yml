@@ -29,7 +29,7 @@ on:
       - '.sbtopts.default'
 
 jobs:
-  openjdk14:
+  openjdk17:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -41,8 +41,8 @@ jobs:
           key: ${{ runner.os }}-sbt-${{ hashFiles('**/project/build.properties') }}-${{ hashFiles('**/build.sbt') }}-${{ hashFiles('**/project/Dependencies.scala') }}
       - uses: actions/setup-java@v3
         with:
-          distribution: zulu
-          java-version: 14.0.1
+          distribution: temurin
+          java-version: 17
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
       - run: ./lila -Depoll=true "test;stage"
       - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt

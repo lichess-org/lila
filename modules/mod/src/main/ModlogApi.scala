@@ -181,15 +181,32 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     }
 
-  def deleteTeam(mod: User.ID, id: String, name: String) =
+  def deleteTeam(mod: User.ID, id: String, explain: String) =
     add {
-      Modlog(mod, none, Modlog.deleteTeam, details = s"$id / $name".take(200).some)
+      Modlog(
+        mod,
+        none,
+        Modlog.deleteTeam,
+        details = s"$id: ${explain take 200}".some
+      ) indexAs "team"
     }
 
-  def disableTeam(mod: User.ID, id: String, name: String) =
+  def disableTeam(mod: User.ID, id: String, explain: String) =
     add {
-      Modlog(mod, none, Modlog.disableTeam, details = s"$id / $name".take(200).some)
+      Modlog(
+        mod,
+        none,
+        Modlog.disableTeam,
+        details = s"$id: ${explain take 200}".some
+      ) indexAs "team"
     }
+
+  def teamLog(teamId: String): Fu[List[Modlog]] =
+    repo.coll
+      .find($doc("index" -> "team", "details" $startsWith s"$teamId: "))
+      .sort($sort desc "date")
+      .cursor[Modlog]()
+      .list(30)
 
   def terminateTournament(mod: User.ID, name: String) =
     add {

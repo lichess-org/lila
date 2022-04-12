@@ -39,7 +39,7 @@ object form {
     }
 
   def edit(t: Team, form: Form[_])(implicit ctx: Context) = {
-    bits.layout(title = s"Edit Team ${t.name}") {
+    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -61,24 +61,27 @@ object form {
           ctx.userId.exists(t.leaders) || isGranted(_.ManageTeam) option frag(
             hr,
             t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
+              explainInput,
               submitButton(
                 dataIcon := "",
-                cls := "submit button text confirm button-empty button-red",
+                cls := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
             ),
             isGranted(_.ManageTeam) option
               postForm(cls := "inline", action := routes.Team.close(t.id))(
+                explainInput,
                 submitButton(
                   dataIcon := "",
-                  cls := "text button button-empty button-red confirm",
+                  cls := "text button button-empty button-red explain",
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.delete())
               ),
             (t.disabled && isGranted(_.ManageTeam)) option
               postForm(cls := "inline", action := routes.Team.disable(t.id))(
+                explainInput,
                 submitButton(
-                  cls := "button button-empty confirm",
+                  cls := "button button-empty explain",
                   st.title := "Re-enables the team and restores memberships"
                 )("Re-enable")
               )
@@ -87,6 +90,8 @@ object form {
       )
     }
   }
+
+  private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def textFields(form: Form[_])(implicit ctx: Context) = frag(
     form3.group(form("description"), trans.description(), help = markdownAvailable.some)(

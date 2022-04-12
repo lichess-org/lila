@@ -846,9 +846,9 @@
   <string name="opening">Дэбют</string>
   <string name="middlegame">Мітальшпіль</string>
   <string name="endgame">Эндшпіль</string>
-  <string name="conditionalPremoves">Хады на апярэджанне пры ўмове</string>
+  <string name="conditionalPremoves">Умоўныя хады на апярэджанне</string>
   <string name="addCurrentVariation">Дадаць бягучы варыянт</string>
-  <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умову для хода на апярэджанне</string>
+  <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умоўныя ходы на апярэджанне</string>
   <string name="noConditionalPremoves">Хады на апярэджанне без умоў</string>
   <string name="playX">Згуляць %s</string>
   <plurals name="andSaveNbPremoveLines">

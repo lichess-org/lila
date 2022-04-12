@@ -68,6 +68,7 @@
   <string name="xOrY">%1$s ці %2$s</string>
   <string name="decideHowMuch">Колькі каштуе Lichess, на вашу думку:</string>
   <string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
+  <string name="stopPaymentsPayPal">Скасаваць падпіску PayPal і прыпыніць плацяжы:</string>
   <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
   <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
   <string name="date">Дата</string>

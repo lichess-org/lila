@@ -83,6 +83,9 @@ object racer {
       s.skip,
       s.skipHelp,
       s.skipExplanation,
+      s.puzzlesPlayed,
+      s.failedPuzzles,
+      s.slowPuzzles,
       trans.flipBoard
     ).map(_.key)
   }

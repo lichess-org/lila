@@ -126,7 +126,7 @@ object Team {
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.lengthIs / 2)) slug else randomId()
+      if (slug.lengthIs > (name.length / 2)) slug else randomId()
     }
 
   private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8

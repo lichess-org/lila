@@ -295,12 +295,12 @@ final class TeamApi(
       teamIds.nonEmpty ?? teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
     }
 
-  def toggleEnabled(team: Team, by: User): Funit =
+  def toggleEnabled(team: Team, by: User, explain: String): Funit =
     if (
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
       (team.leaders(by.id) && !team.leaders(team.createdBy))
     ) {
-      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}")
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}: $explain")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
@@ -312,10 +312,12 @@ final class TeamApi(
       teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums
-  def delete(team: Team): Funit =
+  def delete(team: Team, by: User, explain: String): Funit =
     teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByTeam(team.id) >>-
-      (indexer ! RemoveTeam(team.id))
+      memberRepo.removeByTeam(team.id) >>- {
+        logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+        (indexer ! RemoveTeam(team.id))
+      }
 
   def syncBelongsTo(teamId: Team.ID, userId: User.ID): Boolean =
     cached.syncTeamIds(userId) contains teamId

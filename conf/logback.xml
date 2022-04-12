@@ -9,7 +9,7 @@
 
   <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
-    <file>${application.home}/logs/all.log</file>
+    <file>${application.home:-.}/logs/all.log</file>
     <encoder><pattern>%date %-5level %logger{30} %message%n%xException{60}</pattern></encoder>
   </appender>
 
@@ -17,7 +17,7 @@
   <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
   <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
-    <file>${application.home}/logs/error.log</file>
+    <file>${application.home:-.}/logs/error.log</file>
     <encoder><pattern>%date %-5level %logger %message%n%xException</pattern></encoder>
   </appender>
 
@@ -37,74 +37,74 @@
 
   <logger name="reactivemongo" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/reactivemongo.log</file>
+      <file>${application.home:-.}/logs/reactivemongo.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
 
   <logger name="round" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/round.log</file>
+      <file>${application.home:-.}/logs/round.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="swiss" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/swiss.log</file>
+      <file>${application.home:-.}/logs/swiss.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="relay" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/relay.log</file>
+      <file>${application.home:-.}/logs/relay.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="lobby" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/lobby.log</file>
+      <file>${application.home:-.}/logs/lobby.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="tournament" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/tournament.log</file>
+      <file>${application.home:-.}/logs/tournament.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="fishnet" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/fishnet.log</file>
+      <file>${application.home:-.}/logs/fishnet.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="crosstable" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/crosstable.log</file>
+      <file>${application.home:-.}/logs/crosstable.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="plan" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/plan.log</file>
+      <file>${application.home:-.}/logs/plan.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="csrf" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/csrf.log</file>
+      <file>${application.home:-.}/logs/csrf.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="http" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/http.log</file>
+      <file>${application.home:-.}/logs/http.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
   <logger name="auth" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/auth.log</file>
+      <file>${application.home:-.}/logs/auth.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>

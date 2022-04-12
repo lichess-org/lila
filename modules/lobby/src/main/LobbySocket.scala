@@ -35,31 +35,34 @@ final class LobbySocket(
   private var lastCounters = LobbyCounters(0, 0)
   def counters             = lastCounters
 
-  val trouper: SyncActor = new SyncActor {
+  private val actor: SyncActor = new SyncActor {
 
-    private val members            = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    // private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    private val members = lila.common.LilaCache.scaffeine
+      .expireAfterWrite(1 minute)
+      .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds     = new collection.mutable.StringBuilder(1024)
 
     val process: SyncActor.Receive = {
 
-      case GetMember(sri, promise) => promise success members.get(sri.value)
+      case GetMember(sri, promise) => promise success members.getIfPresent(sri.value)
 
       case GetSrisP(promise) =>
-        promise success Sris(members.keySet.view.map(Sri.apply).toSet)
+        promise success Sris(members.asMap().keySet.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
       case Cleanup =>
-        idleSris filterInPlace members.contains
-        hookSubscriberSris filterInPlace members.contains
+        idleSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
+        hookSubscriberSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
 
-      case Join(member) => members += (member.sri.value -> member)
+      case Join(member) => members.put(member.sri.value, member)
 
       case LeaveBatch(sris) => sris foreach quit
       case LeaveAll =>
-        members.clear()
+        members.invalidateAll()
         idleSris.clear()
         hookSubscriberSris.clear()
 
@@ -69,7 +72,7 @@ final class LobbySocket(
         send(
           P.Out.tellSris(
             hookSubscriberSris diff idleSris withFilter { sri =>
-              members get sri exists { biter.showHookTo(hook, _) }
+              members getIfPresent sri exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
             makeMessage("had", hook.render)
           )
@@ -134,14 +137,14 @@ final class LobbySocket(
       )
 
     private def quit(sri: Sri): Unit = {
-      members -= sri.value
+      members invalidate sri.value
       idleSris -= sri.value
       hookSubscriberSris -= sri.value
     }
   }
 
   // solve circular reference
-  lobby ! LobbySyncActor.SetSocket(trouper)
+  lobby ! LobbySyncActor.SetSocket(actor)
 
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 14,
@@ -177,7 +180,7 @@ final class LobbySocket(
           user <- member.user
         } lobby ! CancelSeek(id, user)
       }
-    case ("idle", o) => trouper ! SetIdle(member.sri, ~(o boolean "d"))
+    case ("idle", o) => actor ! SetIdle(member.sri, ~(o boolean "d"))
     // entering a pool
     case ("poolIn", o) if !member.bot =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
@@ -220,18 +223,18 @@ final class LobbySocket(
         lobby ! HookSub(member, value = true)
       }
     // leaving the hooks view
-    case ("hookOut", _) => trouper ! HookSub(member, value = false)
+    case ("hookOut", _) => actor ! HookSub(member, value = false)
   }
 
   private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
-    trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse {
+    actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
       userOpt ?? userRepo.enabledById flatMap { user =>
         (user ?? { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
         }) map { blocks =>
           val member = Member(sri, user map { LobbyUser.make(_, blocks) })
-          trouper ! Join(member)
+          actor ! Join(member)
           member
         }
       }
@@ -244,7 +247,7 @@ final class LobbySocket(
         getOrConnect(sri, userId)
       }
 
-    case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
+    case P.In.DisconnectSris(sris) => actor ! LeaveBatch(sris)
 
     case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
@@ -261,7 +264,7 @@ final class LobbySocket(
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
       lobby ! LeaveAll
-      trouper ! LeaveAll
+      actor ! LeaveAll
   }
 
   private val messagesHandled: Set[String] =

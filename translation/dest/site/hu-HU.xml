@@ -573,6 +573,7 @@
   <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
   <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
+  <string name="ifRegistered">Csak regisztrált</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
   <string name="menu">Menü</string>
