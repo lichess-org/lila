@@ -938,4 +938,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
+  <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
 </resources>
