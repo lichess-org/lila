@@ -48,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">패배하거나 무승부 시 \"Good game, well played\"라고 말합니다.</string>
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="scrollOnTheBoardToReplayMoves">보드에서 스크롤을 해서 수를 앞 뒤로 이동</string>
+  <string name="correspondenceEmailNotification">매일 일간 게임의 목록을 보여주는 알림 메일을 받기</string>
 </resources>
