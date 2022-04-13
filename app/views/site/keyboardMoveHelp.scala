@@ -11,7 +11,7 @@ object helpModal {
   private val or                          = tag("or")
   private val kbd                         = tag("kbd")
 
-  def round (implicit ctx: Context) =
+  def round(implicit ctx: Context) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -22,7 +22,7 @@ object helpModal {
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(kbd("f"), trans.flipBoard()),
           row(kbd("z"), trans.preferences.zenMode()),
-          row(kbd("?"), trans.showHelpDialog()),
+          row(kbd("?"), trans.showHelpDialog())
         )
       )
     )
