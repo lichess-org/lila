@@ -21,7 +21,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
     Open { implicit ctx =>
       NotForKids {
         Reasonable(page, 50, errorPage = notFound) {
-          OptionFuResult(categApi.show(slug, page, ctx.me)) { case (categ, topics) =>
+          OptionFuResult(categApi.show(slug, ctx.me, page)) { case (categ, topics) =>
             for {
               canRead     <- access.isGrantedRead(categ.slug)
               canWrite    <- access.isGrantedWrite(categ.slug)
