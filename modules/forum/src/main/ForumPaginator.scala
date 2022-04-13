@@ -30,8 +30,7 @@ final class ForumPaginator(
   def categTopics(
       categ: Categ,
       forUser: Option[User],
-      page: Int,
-      inSlice: Boolean
+      page: Int
   ): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
@@ -48,8 +47,8 @@ final class ForumPaginator(
               import framework._
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
-                Skip(if (inSlice) offset else 0),
-                Limit(if (inSlice) length else page * config.topicMaxPerPage.value),
+                Skip(offset),
+                Limit(length),
                 PipelineOperator(
                   $lookup.simple(
                     from = postRepo.coll,

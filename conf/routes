@@ -540,7 +540,7 @@ GET   /kaladin                         controllers.Irwin.kaladin
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
-GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1, slice: Boolean ?= false)
+GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: String)

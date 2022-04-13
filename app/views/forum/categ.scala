@@ -109,7 +109,7 @@ object categ {
             cls := "infinite-scroll",
             stickyPosts map showTopic(sticky = true),
             topics.currentPageResults map showTopic(sticky = false),
-            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n, true).url)
+            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
           )
         )
       )

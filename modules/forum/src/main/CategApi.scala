@@ -58,12 +58,11 @@ final class CategApi(
   def show(
       slug: String,
       forUser: Option[User],
-      page: Int,
-      slice: Boolean
+      page: Int
   ): Fu[Option[(Categ, Paginator[TopicView])]] =
     categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        paginator.categTopics(categ, forUser, page, slice) dmap { (categ, _).some }
+        paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }
     }
 
