@@ -11,6 +11,21 @@ object helpModal {
   private val or                          = tag("or")
   private val kbd                         = tag("kbd")
 
+  def round (implicit ctx: Context) =
+    frag(
+      h2(trans.keyboardShortcuts()),
+      table(
+        tbody(
+          header(trans.navigateMoveTree()),
+          row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
+          row(frag(kbd("j"), or, kbd("k")), trans.keyMoveBackwardOrForward()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
+          row(kbd("f"), trans.flipBoard()),
+          row(kbd("z"), trans.preferences.zenMode()),
+          row(kbd("?"), trans.showHelpDialog()),
+        )
+      )
+    )
   def analyse(isStudy: Boolean)(implicit ctx: Context) =
     frag(
       h2(trans.keyboardShortcuts()),

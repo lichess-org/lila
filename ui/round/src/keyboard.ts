@@ -1,4 +1,8 @@
 import RoundController from './ctrl';
+import {h, VNode} from "snabbdom";
+import * as xhr from 'common/xhr';
+import { snabModal } from 'common/modal';
+import { spinnerVdom as spinner } from 'common/spinner';
 
 export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 
@@ -22,4 +26,26 @@ export const init = (ctrl: RoundController) =>
       ctrl.redraw();
     })
     .bind('f', ctrl.flipNow)
-    .bind('z', () => lichess.pubsub.emit('zen'));
+    .bind('z', () => lichess.pubsub.emit('zen'))
+    .bind('?', () => {
+      ctrl.keyboardHelp = !ctrl.keyboardHelp;
+      ctrl.redraw();
+    });
+
+export function view(ctrl: RoundController): VNode {
+    return snabModal({
+        class: 'keyboard-help',
+        onInsert: async ($wrap: Cash) => {
+            const [, html] = await Promise.all([
+                lichess.loadCssPath('round.keyboard'),
+                xhr.text(xhr.url('/round/help', {})),
+            ]);
+            $wrap.find('.scrollable').html(html);
+        },
+        onClose() {
+            ctrl.keyboardHelp = false;
+            ctrl.redraw();
+        },
+        content: [h('div.scrollable', spinner())],
+    });
+}
