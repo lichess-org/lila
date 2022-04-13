@@ -78,6 +78,7 @@
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
+  <string name="clearVariations">파생 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>
