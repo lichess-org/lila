@@ -12,6 +12,7 @@
   <string name="teachersX">교사: %s</string>
   <string name="newClass">새 클래스</string>
   <string name="closeClass">클래스 닫기</string>
+  <string name="removedByX">%s가 제거함</string>
   <string name="reopen">다시 열기</string>
   <string name="removeStudent">학생 삭제</string>
   <string name="removedStudents">삭제됨</string>
@@ -85,6 +86,8 @@
   <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
   <string name="winrate">승률</string>
   <string name="na">해당없음</string>
+  <string name="news">소식</string>
+  <string name="classNews">학급 소식</string>
   <string name="editNews">뉴스 편집</string>
   <string name="notifyAllStudents">모든 학생에게 알림</string>
   <string name="nothingHere">비어있음</string>
@@ -92,4 +95,8 @@
   <string name="newsEdit2">상단에 최근 뉴스를 추가하세요. 이전 뉴스를 삭제하지 마세요.</string>
   <string name="newsEdit3">각 뉴스를 ---로 구분하세요.
 가로선으로 보이게 됩니다.</string>
+  <string name="invite">초대하기</string>
+  <string name="youHaveBeenInvitedByX">%s가 당신을 초대했습니다.</string>
+  <string name="youAcceptedThisInvitation">초대를 수락했습니다.</string>
+  <string name="youDeclinedThisInvitation">초대를 거절했습니다.</string>
 </resources>
