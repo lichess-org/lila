@@ -8,6 +8,7 @@
     <item quantity="other">%s člana</item>
   </plurals>
   <string name="allTeams">Svi timovi</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Timovi koje vodiš</string>
   <string name="newTeam">Novi tim</string>
   <string name="myTeams">Moji timovi</string>
   <string name="noTeamFound">Nijedan tim nije pronađen</string>
