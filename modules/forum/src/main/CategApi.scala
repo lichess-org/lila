@@ -41,8 +41,7 @@ final class CategApi(
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
-      text =
-        "Welcome to the %s forum!" format name,
+      text = "Welcome to the %s forum!" format name,
       number = 1,
       troll = false,
       hidden = topic.hidden,
