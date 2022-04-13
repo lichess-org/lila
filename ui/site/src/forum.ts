@@ -27,22 +27,54 @@ lichess.load.then(() => {
       return false;
     });
 
-  $('.forum').on('click', '.reactions-auth button', e => {
-    const href = e.target.getAttribute('data-href');
-    if (href) {
-      const $rels = $(e.target).parent();
-      if ($rels.hasClass('loading')) return;
-      $rels.addClass('loading');
-      xhr.text(href, { method: 'post' }).then(
-        html => {
-          $rels.replaceWith(html);
-          $rels.removeClass('loading');
-        },
-        _ => {
-          lichess.announce({ msg: 'Failed to send forum post reaction' });
+  $('.forum-post__message').each(function (this: HTMLElement) {
+    if (this.innerText.match(/(^|\n)>/)) {
+      const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
+      let result = '';
+      let quote = [];
+      for (const line of this.innerHTML.split('<br>')) {
+        if (line.startsWith('&gt;')) quote.push(hiddenQuotes + line.substring(4).trim());
+        else {
+          if (quote.length > 0) {
+            result += `<blockquote>${quote.join('<br>')}</blockquote>`;
+            quote = [];
+          }
+          result += line + '<br>';
         }
-      );
+      }
+      if (quote.length > 0) result += `<blockquote>${quote.join('<br>')}</blockquote>`;
+      this.innerHTML = result;
     }
+  });
+
+  $('.edit.button')
+    .add('.edit-post-cancel')
+    .on('click', function (this: HTMLButtonElement, e) {
+      e.preventDefault();
+
+      const $post = $(this).closest('.forum-post'),
+        $form = $post.find('form.edit-post-form').toggle();
+
+      ($form[0] as HTMLFormElement).reset();
+    });
+
+  $('.quote.button').on('click', function (this: HTMLButtonElement) {
+    const $post = $(this).closest('.forum-post'),
+      authorUsername = $post.find('.author').attr('href')?.substring(3),
+      author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
+      anchor = $post.find('.anchor').text(),
+      message = $post.find('.forum-post__message')[0] as HTMLElement,
+      response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
+
+    let quote = message.innerText
+      .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
+      .trim()
+      .split('\n')
+      .map(line => '> ' + line)
+      .join('\n');
+    quote = `${author} said in ${anchor}:\n${quote}\n`;
+    response.value =
+      response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
   });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
@@ -95,6 +127,24 @@ lichess.load.then(() => {
           }
         );
       });
+  });
+
+  $('.forum').on('click', '.reactions-auth button', e => {
+    const href = e.target.getAttribute('data-href');
+    if (href) {
+      const $rels = $(e.target).parent();
+      if ($rels.hasClass('loading')) return;
+      $rels.addClass('loading');
+      xhr.text(href, { method: 'post' }).then(
+        html => {
+          $rels.replaceWith(html);
+          $rels.removeClass('loading');
+        },
+        _ => {
+          lichess.announce({ msg: 'Failed to send forum post reaction' });
+        }
+      );
+    }
   });
 
   const replyStorage = lichess.tempStorage.make('forum.reply' + location.pathname);

@@ -2,9 +2,9 @@ package lila.forum
 
 import scala.concurrent.ExecutionContext
 import reactivemongo.api.ReadPreference
-
 import lila.common.paginator._
 import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.user.User
 
 final class ForumPaginator(
@@ -15,24 +15,16 @@ final class ForumPaginator(
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, me: Option[User], page: Int, inSlice: Boolean): Fu[Paginator[Post]] =
+  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
     Paginator(
+      new Adapter(
+        collection = postRepo.coll,
+        selector = postRepo.forUser(me) selectTopic topic.id,
+        projection = none,
+        sort = postRepo.sortQuery
+      ),
       currentPage = page,
-      maxPerPage = config.postMaxPerPage,
-      adapter = new AdapterLike[Post] {
-        private def selector   = postRepo.forUser(me) selectTopic topic.id
-        def nbResults: Fu[Int] = postRepo.coll.secondaryPreferred.countSel(selector)
-        def slice(offset: Int, length: Int): Fu[Seq[Post]] = {
-          nbResults flatMap { nb =>
-            postRepo.coll
-              .find(selector, none: Option[Bdoc])
-              .sort(postRepo.sortQuery)
-              .skip(if (inSlice) offset else 0)
-              .cursor[Post](ReadPreference.primary)
-              .list(if (inSlice) length else nb.min(page * config.postMaxPerPage.value))
-          }
-        }
-      }
+      maxPerPage = config.postMaxPerPage
     )
 
   def categTopics(

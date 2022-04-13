@@ -544,7 +544,7 @@ GET   /forum/:slug                     controllers.ForumCateg.show(slug: String,
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: String)
-GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1, slice: Boolean ?= false)
+GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug: String, slug: String)

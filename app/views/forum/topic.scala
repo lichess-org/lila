@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
+
 import controllers.routes
 
 object topic {
@@ -76,12 +77,11 @@ object topic {
       canModCateg: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${topic.name} • ${categ.name}",
+      title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsModule("expandText"),
-        infiniteScrollTag
+        jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
@@ -93,25 +93,33 @@ object topic {
         .some
     ) {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
+      val pager = views.html.base.bits
+        .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
-          a(cls := "text", href := routes.ForumCateg.show(categ.slug), dataIcon := ""),
+          a(
+            href := routes.ForumCateg.show(categ.slug),
+            dataIcon := "",
+            cls := "text"
+          ),
           topic.name
         ),
-        div(cls := "forum-topic__posts expand-text infinite-scroll")(
+        pager,
+        div(cls := "forum-topic__posts expand-text")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,
               topic,
               p,
-              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}#${p.number}",
+              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
-          },
-          pagerNext(posts, n => routes.ForumTopic.show(categ.slug, topic.slug, n, true).url)
+          }
         ),
+        pager,
         div(cls := "forum-topic__actions")(
           if (topic.isOld)
             p(trans.thisTopicIsArchived())

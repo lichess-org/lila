@@ -42,7 +42,7 @@ final class CategApi(
       author = none,
       userId = User.lichessId.some,
       text =
-        "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+        "Welcome to the %s forum!" format name,
       number = 1,
       troll = false,
       hidden = topic.hidden,
