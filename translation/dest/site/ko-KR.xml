@@ -101,18 +101,18 @@
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
   <string name="byCPL">평가치변화</string>
-  <string name="openStudy">연구를 열기</string>
+  <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
-  <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
-  <string name="evaluationGauge">평가치를 표시</string>
-  <string name="multipleLines">해석 라인 수</string>
-  <string name="cpus">CPU 갯수</string>
+  <string name="bestMoveArrow">최선의 수 화살표</string>
+  <string name="evaluationGauge">평가치 게이지</string>
+  <string name="multipleLines">다중 분석 수</string>
+  <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
-  <string name="infiniteAnalysis">무한분석</string>
-  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
+  <string name="infiniteAnalysis">무한 분석</string>
+  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">심각한 실수</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">잘못된 판단</string>
+  <string name="inaccuracy">사소한 실수</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
@@ -466,6 +466,7 @@
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
+  <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
@@ -534,6 +535,7 @@
   <string name="error.min">최소 %s자 이어야 합니다.</string>
   <string name="error.max">최대 %s자 이어야 합니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
@@ -851,4 +853,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
   <string name="switchSides">색 바꾸기</string>
+  <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
 </resources>
