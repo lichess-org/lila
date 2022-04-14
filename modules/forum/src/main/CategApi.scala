@@ -41,8 +41,7 @@ final class CategApi(
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
-      text =
-        "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+      text = "Welcome to the %s forum!" format name,
       number = 1,
       troll = false,
       hidden = topic.hidden,
@@ -56,10 +55,14 @@ final class CategApi(
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
   }
 
-  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
+  def show(
+      slug: String,
+      forUser: Option[User],
+      page: Int
+  ): Fu[Option[(Categ, Paginator[TopicView])]] =
     categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        paginator.categTopics(categ, page, forUser) dmap { (categ, _).some }
+        paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }
     }
 

@@ -4,7 +4,6 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.forum
 
 private[controllers] trait ForumController { self: LilaController =>
 
