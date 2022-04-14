@@ -3,7 +3,7 @@
   <string name="keyboardInputCommands">Hotkeys</string>
   <string name="performAMove">Einen Zug machen</string>
   <string name="movePieceFromE2ToE4">Eine Figur von e2 nach e4 bewegen</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Mit Einem Springer nach c3 ziehen</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Einen Springer nach c3 ziehen</string>
   <string name="kingsideCastle">Rochade auf dem Königsflügel</string>
   <string name="queensideCastle">Rochade auf dem Damenflügel</string>
   <string name="promoteC8ToQueen">Wandle c8 zur Dame um</string>
