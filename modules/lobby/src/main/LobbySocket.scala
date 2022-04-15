@@ -119,7 +119,7 @@ final class LobbySocket(
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => this ! Cleanup)
+    system.scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 
