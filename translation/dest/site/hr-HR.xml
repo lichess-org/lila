@@ -608,6 +608,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="ifRegistered">Ako je registriran</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Izbornik</string>
@@ -937,4 +938,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
+  <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
 </resources>

@@ -5,7 +5,7 @@
   <string name="editYourBlogPost">Bearbeite deinen Blog-Beitrag</string>
   <string name="saveDraft">Entwurf speichern</string>
   <string name="postTitle">Beitragstitel</string>
-  <string name="postIntro">Beitragseinleitung</string>
+  <string name="postIntro">Einleitung</string>
   <string name="postBody">Beitragsinhalt</string>
   <string name="drafts">Entwürfe</string>
   <string name="published">Veröffentlicht</string>
