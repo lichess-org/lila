@@ -55,8 +55,9 @@ final class LobbySocket(
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
       case Cleanup =>
-        idleSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
-        hookSubscriberSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
+        val membersMap = members.asMap()
+        idleSris filterInPlace membersMap.contains
+        hookSubscriberSris filterInPlace membersMap.contains
 
       case Join(member) => members.put(member.sri.value, member)
 
