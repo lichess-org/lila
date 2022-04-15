@@ -39,7 +39,7 @@ final class LobbySocket(
 
     // private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
     private val members = lila.common.LilaCache.scaffeine
-      .expireAfterWrite(1 minute)
+      .expireAfterWrite(1 hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
