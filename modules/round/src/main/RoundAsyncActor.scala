@@ -3,7 +3,7 @@ package lila.round
 import actorApi._, round._
 import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
@@ -561,7 +561,7 @@ object RoundAsyncActor {
   }
 
   implicit private[round] val takebackSituationZero: Zero[TakebackSituation] =
-    Zero.instance(TakebackSituation(0, none))
+    Zero(TakebackSituation(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

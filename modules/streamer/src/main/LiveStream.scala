@@ -63,7 +63,7 @@ object LiveStreams {
       )
   }
 
-  implicit val zero = ornicar.scalalib.Zero.instance(WithTitles(LiveStreams(Nil), Map.empty))
+  implicit val zero = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
 }
 
 final class LiveStreamApi(

@@ -5,7 +5,9 @@ object Dependencies {
 
   val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
-  val scalalib     = "com.github.ornicar"         %% "scalalib"                        % "7.0.2"
+  val cats         = "org.typelevel"              %% "cats-core"                       % "2.7.0"
+  val alleycats    = "org.typelevel"              %% "alleycats-core"                  % "2.7.0"
+  val scalalib     = "com.github.ornicar"         %% "scalalib"                        % "7.1.0"
   val hasher       = "com.roundeights"            %% "hasher"                          % "1.2.1"
   val jodaTime     = "joda-time"                   % "joda-time"                       % "2.10.14"
   val chess        = "org.lichess"                %% "scalachess"                      % "10.4.9"

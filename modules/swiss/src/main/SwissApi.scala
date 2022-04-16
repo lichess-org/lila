@@ -2,7 +2,7 @@ package lila.swiss
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._

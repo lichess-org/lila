@@ -4,7 +4,7 @@ import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import org.joda.time.{ DateTime, Duration }
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.concurrent.duration._
 import scala.concurrent.Future
 import scala.util.Try

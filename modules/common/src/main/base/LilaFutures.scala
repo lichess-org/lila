@@ -1,7 +1,7 @@
 package lila.base
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext => EC, Future, Await }

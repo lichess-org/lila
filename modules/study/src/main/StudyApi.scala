@@ -896,7 +896,7 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: User.ID): Fu[Boolean] =
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
-  import ornicar.scalalib.Zero
+  import alleycats.Zero
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 

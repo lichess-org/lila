@@ -1,7 +1,7 @@
 package lila.db
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.{ Failure, Success }
