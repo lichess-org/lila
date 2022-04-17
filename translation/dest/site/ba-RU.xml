@@ -36,6 +36,13 @@
   <string name="joinTheGame">Уйынға ҡушылырға</string>
   <string name="whitePlays">Аҡтарҙың йөрөүе</string>
   <string name="blackPlays">Ҡараларҙың йөрөүе</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Һеҙҙең көндәшегеҙ уйындан сыҡты. Һеҙ еңеүегеҙҙе %s секундтан белдерә алағыҙ.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Һеҙҙең көндәшегеҙ уйындан сыҡты. Һеҙ еңеүҙе алырға мөмкин, тигеҙ иҫәп менән килешергә йәки көтөргә.</string>
+  <string name="forceResignation">Еңеү тураһында белдереү</string>
+  <string name="forceDraw">Тигеҙ иҫәп менән белдереү</string>
+  <string name="talkInChat">Зинһар, чатта яғымлы булығыҙ!</string>
   <string name="depthX">Тәрәнлек %s</string>
   <string name="move">Йөрөү</string>
   <string name="draw">Тиңлек</string>
