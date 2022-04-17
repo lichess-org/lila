@@ -42,13 +42,13 @@ function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
       {
         attrs: {
           method: 'post',
-          action: '/' + g.id + '/delete',
+          action: `/${g.id}/delete`,
         },
         hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
       },
       [
         h(
-          'button.button.text.thin',
+          'button.button.text.button-thin.button-red',
           {
             attrs: {
               type: 'submit',
