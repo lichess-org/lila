@@ -21,12 +21,14 @@ final private class TournamentNotify(repo: TournamentRepo, cached: Cached)(impli
       .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
       .flatMap {
         _.map { tour =>
+          lila.mon.tournament.notifier.tournaments.increment()
           doneMemo put tour.id
           cached ranking tour map { ranking =>
             Bus.publish(
               TourSoon(tourId = tour.id, tourName = tour.name, ranking.playerIndex.toList, swiss = false),
               "tourSoon"
             )
+            lila.mon.tournament.notifier.tournaments.increment(ranking.playerIndex.size)
           }
         }.sequenceFu.void
       }
