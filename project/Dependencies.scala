@@ -19,7 +19,7 @@ object Dependencies {
   val galimatias   = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
   val scalatags    = "com.lihaoyi"                %% "scalatags"                       % "0.11.1"
   val lettuce      = "io.lettuce"                  % "lettuce-core"                    % "6.1.8.RELEASE"
-  val epoll        = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
+  val epoll        = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.75.Final" classifier "linux-x86_64"
   val autoconfig   = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest    = "org.scalatest"              %% "scalatest"                       % "3.2.11" % Test
   val uaparser     = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
@@ -57,7 +57,7 @@ object Dependencies {
   }
 
   object play {
-    val version  = "2.8.8-lila_1.8"
+    val version  = "2.8.16-lila_1.9"
     val api      = "com.typesafe.play" %% "play"           % version
     val json     = "com.typesafe.play" %% "play-json"      % "2.9.2"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.2"
@@ -65,7 +65,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.1.3"
+    val version = "2.2.0-M1"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
@@ -79,7 +79,7 @@ object Dependencies {
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.16"
+    val version    = "2.6.19"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
     val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
