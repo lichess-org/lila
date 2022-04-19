@@ -43,7 +43,7 @@ object features {
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
-              "Deep Stockfish 14.1 server analysis"
+              "Deep Stockfish 15 server analysis"
             ),
             tr(unlimited)(
               "Instant local Stockfish 14+ analysis (depth 99)"
