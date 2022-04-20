@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Εντολές από το πληκτρολόγιο</string>
+  <string name="performAMove">Κάντε μία κίνηση</string>
+  <string name="movePieceFromE2ToE4">Μετακινήστε το κομμάτι από το e2 στο e4</string>
   <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Μετακινήστε τον ίππο στο c3</string>
   <string name="kingsideCastle">Μικρό ροκέ</string>
   <string name="queensideCastle">Μεγάλο ροκέ</string>
@@ -12,4 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Αν δε γνωρίζετε τον παρακάτω συμβολισμό, μπορείτε να μάθετε περισσότερα για αυτόν εδώ:</string>
   <string name="includingAXToIndicateACapture">Το \"x\", δηλώνει αιχμαλώτιση και είναι προαιρετικό</string>
   <string name="bothTheLetterOAndTheDigitZero">Τόσο το γράμμα «ο» όσο και ο αριθμός «0» μπορούν να χρησιμοποιηθούν για το ροκέ</string>
+  <string name="ifItIsLegalToCastleBothWays">Εάν μπορείτε να κάνετε και τα δύο ροκέ, πατήστε το enter για να κάνετε το μικρό</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Η χρήση κεφαλαίων γραμμάτων έχει σημασία μόνο σε κινήσεις που αφορούν αξιωματικό και πιόνι της b στήλης</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Για να κάνετε premove, πληκτρολογήστε την αντίστοιχη κίνηση πριν τη σειρά σας</string>
 </resources>
