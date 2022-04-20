@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Μετακινήστε τον ίππο στο c3</string>
+  <string name="kingsideCastle">Μικρό ροκέ</string>
+  <string name="queensideCastle">Μεγάλο ροκέ</string>
+  <string name="promoteC8ToQueen">Προαγωγή του c8 σε βασίλισσα</string>
+  <string name="dropARookAtB4">Τοποθετήστε έναν πύργο στο b4 (μόνο για την παραλλαγή Crazyhouse)</string>
+  <string name="offerOrAcceptDraw">Προτείνετε ή δεχτείτε ισοπαλία</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Ανάγνωση χρόνων στο ρολόι</string>
+  <string name="otherCommands">Άλλες εντολές</string>
+  <string name="tips">Συμβουλές</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Αν δε γνωρίζετε τον παρακάτω συμβολισμό, μπορείτε να μάθετε περισσότερα για αυτόν εδώ:</string>
+  <string name="includingAXToIndicateACapture">Το \"x\", δηλώνει αιχμαλώτιση και είναι προαιρετικό</string>
+  <string name="bothTheLetterOAndTheDigitZero">Τόσο το γράμμα «ο» όσο και ο αριθμός «0» μπορούν να χρησιμοποιηθούν για το ροκέ</string>
+</resources>
