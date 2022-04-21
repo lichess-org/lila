@@ -9,6 +9,7 @@ import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 import { Cache } from './cache';
 import { parseFen } from 'chessops/fen';
+import { isStandardMaterial } from 'chessops/chess';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
 
@@ -70,7 +71,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const analysable = pos.isOk;
 
   // select nnue > hce > wasm > asmjs
-  const officialStockfish = rules == 'chess' && (!analysable || pos.value.isStandardMaterial());
+  const officialStockfish = rules == 'chess' && (!analysable || isStandardMaterial(pos.value));
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   let supportsNnue = false;
