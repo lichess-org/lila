@@ -32,7 +32,7 @@ const perfOrSpeed = (variant: VariantKey, timeMode: TimeMode, time: number, incr
 
 export default class SetupController {
   root: LobbyController;
-  store: Partial<Record<GameType, StoredJsonProp<SetupStore>>> = {};
+  store: Record<GameType, StoredJsonProp<SetupStore>>;
   gameType: GameType | null = null;
   lastValidFen = '';
   fenError = false;
@@ -65,28 +65,30 @@ export default class SetupController {
     this.blindModeColor = propWithEffect('random', this.onPropChange);
 
     // Initialize stores with default props as necessary
-    for (const gameType of ['hook', 'friend', 'ai']) {
-      this.store[gameType as GameType] = storedJsonProp(`lobby.gameSetup.${gameType}`, () =>
-        this.getDefaultProps(gameType as GameType)
-      );
-    }
+    this.store = {
+      hook: this.makeSetupStore('hook'),
+      friend: this.makeSetupStore('friend'),
+      ai: this.makeSetupStore('ai'),
+    };
   }
 
-  getDefaultProps = (gameType: GameType): SetupStore => ({
-    variant: 'standard',
-    fen: '',
-    timeMode: gameType === 'hook' ? 'realTime' : 'unlimited',
-    time: 5,
-    increment: 3,
-    days: 2,
-    gameMode: gameType === 'ai' || !this.root.data.me ? 'casual' : 'rated',
-    ratingMin: -500,
-    ratingMax: 500,
-    aiLevel: 1,
-  });
+  private makeSetupStore = (gameType: GameType) =>
+    storedJsonProp<SetupStore>(`lobby.gameSetup.${gameType}`, () => ({
+      variant: 'standard',
+      fen: '',
+      timeMode: gameType === 'hook' ? 'realTime' : 'unlimited',
+      time: 5,
+      increment: 3,
+      days: 2,
+      gameMode: gameType === 'ai' || !this.root.data.me ? 'casual' : 'rated',
+      ratingMin: -500,
+      ratingMax: 500,
+      aiLevel: 1,
+    }));
 
   savePropsToStore = () =>
-    this.store[this.gameType!]!({
+    this.gameType &&
+    this.store[this.gameType]({
       variant: this.variant(),
       fen: this.fen(),
       timeMode: this.timeMode(),
@@ -99,25 +101,19 @@ export default class SetupController {
       aiLevel: this.aiLevel(),
     });
 
-  loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
-    const storeProps = this.store[this.gameType!]!();
+  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+    const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = propWithEffect(forceOptions?.variant ? forceOptions.variant : storeProps.variant, this.onPropChange);
-    this.fen = propWithEffect(forceOptions?.fen ? forceOptions.fen : storeProps.fen, this.onPropChange);
-    this.timeMode = propWithEffect(
-      forceOptions?.timeMode ? forceOptions.timeMode : storeProps.timeMode,
-      this.onPropChange
-    );
-    this.timeV = propWithEffect(sliderInitVal(storeProps.time, timeVToTime, 100)!, this.onPropChange);
-    this.incrementV = propWithEffect(
-      sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!,
-      this.onPropChange
-    );
-    this.daysV = propWithEffect(sliderInitVal(storeProps.days, daysVToDays, 20)!, this.onPropChange);
-    this.gameMode = propWithEffect(storeProps.gameMode, this.onPropChange);
-    this.ratingMin = propWithEffect(storeProps.ratingMin, this.onPropChange);
-    this.ratingMax = propWithEffect(storeProps.ratingMax, this.onPropChange);
-    this.aiLevel = propWithEffect(storeProps.aiLevel, this.onPropChange);
+    this.variant = this.propWithApply(forceOptions?.variant || storeProps.variant);
+    this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
+    this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
+    this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
+    this.incrementV = this.propWithApply(sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!);
+    this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
+    this.gameMode = this.propWithApply(storeProps.gameMode);
+    this.ratingMin = this.propWithApply(storeProps.ratingMin);
+    this.ratingMax = this.propWithApply(storeProps.ratingMax);
+    this.aiLevel = this.propWithApply(storeProps.aiLevel);
 
     // Upon loading the props from the store, immediately call onPropChange. This has some important
     // effects:
@@ -131,7 +127,7 @@ export default class SetupController {
     this.onPropChange();
   };
 
-  onPropChange = () => {
+  private onPropChange = () => {
     if (this.gameMode() === 'rated' && this.ratedModeDisabled()) {
       // reassign with propWithEffect here to avoid calling this.onPropChange
       this.gameMode = propWithEffect('casual', this.onPropChange);
@@ -139,6 +135,8 @@ export default class SetupController {
     this.savePropsToStore();
     this.root.redraw();
   };
+
+  private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
     this.root.leavePool();
@@ -194,8 +192,7 @@ export default class SetupController {
   // be opened. Used in boot.ts for hook-like games ("New opponent" button).
   hookRatingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
-    const hookStore = storedJsonProp('lobby.gameSetup.hook', () => this.getDefaultProps('hook'));
-    const { variant, timeMode, time, increment, ratingMin, ratingMax } = hookStore();
+    const { variant, timeMode, time, increment, ratingMin, ratingMax } = this.makeSetupStore('hook')();
     const rating = this.root.data.ratingMap[perfOrSpeed(variant, timeMode, time, increment)];
     return `${rating + ratingMin}-${rating + ratingMax}`;
   };
