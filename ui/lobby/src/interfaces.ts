@@ -1,11 +1,16 @@
-import { VNode } from 'snabbdom';
-
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
+export type GameType = 'hook' | 'friend' | 'ai';
+export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
+export type GameMode = 'casual' | 'rated';
+
+export interface Variant {
+  id: number;
+  key: VariantKey;
+  name: string;
+  icon: string;
+}
 
 export interface Hook {
   id: string;
@@ -48,7 +53,8 @@ export interface Pool {
 }
 
 export interface LobbyOpts {
-  element: HTMLElement;
+  appElement: HTMLElement;
+  tableElement: HTMLElement;
   socketSend: SocketSend;
   pools: Pool[];
   blindMode: boolean;
@@ -68,6 +74,9 @@ export interface LobbyData {
     isBot: boolean;
     username: string;
   };
+  ratingMap: Record<Perf | Speed, number> | null;
+  counters: { members: number; rounds: number };
+  hasUnreadLichessMessage: boolean;
 }
 
 export interface NowPlaying {
@@ -102,3 +111,22 @@ export interface PoolMember {
 
 export type PoolId = string;
 export type PoolRange = string;
+
+export interface SetupStore {
+  variant: VariantKey;
+  fen: string;
+  timeMode: TimeMode;
+  gameMode: GameMode;
+  ratingMin: number;
+  ratingMax: number;
+  aiLevel: number;
+  time: number;
+  increment: number;
+  days: number;
+}
+
+export interface ForceSetupOptions {
+  variant?: VariantKey;
+  fen?: string;
+  timeMode?: TimeMode;
+}
