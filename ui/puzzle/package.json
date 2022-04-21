@@ -24,7 +24,7 @@
     "chart.js": "^3.7.0",
     "chess": "2.0.0",
     "chessground": "^8.2.0",
-    "chessops": "^0.10.5",
+    "chessops": "^0.11",
     "common": "2.0.0",
     "keyboardMove": "1.0.0",
     "nvui": "2.0.0",

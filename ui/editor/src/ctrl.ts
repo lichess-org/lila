@@ -96,14 +96,12 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
+    return makeFen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
-      pos => {
-        return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
-      },
+      pos => makeFen(pos.toSetup()),
       _ => undefined
     );
   }
