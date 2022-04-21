@@ -22,7 +22,7 @@
   "dependencies": {
     "chess": "2.0.0",
     "chessground": "^8.2.0",
-    "chessops": "^0.11",
+    "chessops": "^0.12",
     "common": "2.0.0",
     "puz": "2.0.0",
     "snabbdom": "^3.3.1"
