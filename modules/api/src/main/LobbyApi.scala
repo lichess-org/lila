@@ -30,8 +30,8 @@ final class LobbyApi(
               "me" -> ctx.me.map { u =>
                 Json.obj("username" -> u.username).add("isBot" -> u.isBot)
               },
-              "seeks"                   -> JsArray(seeks.map(_.render)),
-              "nowPlaying"              -> JsArray(displayedPovs map nowPlaying),
+              "seeks"                   -> seeks.map(_.render),
+              "nowPlaying"              -> displayedPovs.map(nowPlaying),
               "nbNowPlaying"            -> povs.size,
               "ratingMap"               -> ctx.me.map(_.perfs.ratingMap),
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage,
