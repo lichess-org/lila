@@ -19,11 +19,15 @@ const perfOrSpeed = (variant: VariantKey, timeMode: TimeMode, time: number, incr
   if (timeMode !== 'realTime') return 'correspondence';
 
   const totalGameTime = time * 60 + increment * 40;
-  if (totalGameTime < 30) return 'ultraBullet';
-  else if (totalGameTime < 180) return 'bullet';
-  else if (totalGameTime < 480) return 'blitz';
-  else if (totalGameTime < 1500) return 'rapid';
-  else return 'classical';
+  return totalGameTime < 30
+    ? 'ultraBullet'
+    : totalGameTime < 180
+    ? 'bullet'
+    : totalGameTime < 480
+    ? 'blitz'
+    : totalGameTime < 1500
+    ? 'rapid'
+    : 'classical';
 };
 
 export default class SetupController {
@@ -165,21 +169,18 @@ export default class SetupController {
         this.root.redraw();
       }
     );
-  }, 200);
+  }, 300);
 
-  ratedModeDisabled = (): boolean => {
-    return (
-      // anonymous games cannot be rated
-      !this.root.data.me ||
-      // unlimited games cannot be rated
-      (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
-      // variants with very low time cannot be rated
-      (this.variant() !== 'standard' &&
-        (this.timeMode() !== 'realTime' ||
-          (this.time() < 0.5 && this.increment() == 0) ||
-          (this.time() == 0 && this.increment() < 2)))
-    );
-  };
+  ratedModeDisabled = (): boolean =>
+    // anonymous games cannot be rated
+    !this.root.data.me ||
+    // unlimited games cannot be rated
+    (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
+    // variants with very low time cannot be rated
+    (this.variant() !== 'standard' &&
+      (this.timeMode() !== 'realTime' ||
+        (this.time() < 0.5 && this.increment() == 0) ||
+        (this.time() == 0 && this.increment() < 2)));
 
   selectedPerfOrSpeed = () => perfOrSpeed(this.variant(), this.timeMode(), this.time(), this.increment());
 

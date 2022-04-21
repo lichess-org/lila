@@ -108,7 +108,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 h('input.range', {
                   attrs: { type: 'range', min: '0', max: '38', value: setupCtrl.timeV() },
                   on: {
-                    change: (e: Event) => setupCtrl.timeV(parseFloat((e.target as HTMLInputElement).value)),
+                    input: (e: Event) => setupCtrl.timeV(parseFloat((e.target as HTMLInputElement).value)),
                   },
                 }),
               ])
@@ -120,7 +120,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 h('input.range', {
                   attrs: { type: 'range', min: '0', max: '30', value: setupCtrl.incrementV() },
                   on: {
-                    change: (e: Event) => setupCtrl.incrementV(parseInt((e.target as HTMLInputElement).value)),
+                    input: (e: Event) => setupCtrl.incrementV(parseInt((e.target as HTMLInputElement).value)),
                   },
                 }),
               ])
@@ -134,7 +134,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                   h('input.range', {
                     attrs: { type: 'range', min: '1', max: '7', value: setupCtrl.daysV() },
                     on: {
-                      change: (e: Event) => setupCtrl.daysV(parseInt((e.target as HTMLInputElement).value)),
+                      input: (e: Event) => setupCtrl.daysV(parseInt((e.target as HTMLInputElement).value)),
                     },
                   }),
                 ])
