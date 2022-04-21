@@ -4,10 +4,22 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
+import {
+  LobbyOpts,
+  LobbyData,
+  Tab,
+  Mode,
+  Sort,
+  Hook,
+  Seek,
+  Pool,
+  PoolMember,
+  GameType,
+  ForceSetupOptions,
+} from './interfaces';
 import LobbySocket from './socket';
 import Filter from './filter';
-import Setup from './setup';
+import SetupController from './setupCtrl';
 
 export default class LobbyController {
   data: LobbyData;
@@ -25,7 +37,7 @@ export default class LobbyController {
   trans: Trans;
   pools: Pool[];
   filter: Filter;
-  setup: Setup;
+  setupCtrl: SetupController;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -38,17 +50,43 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.isBot = !!opts.data.me?.isBot;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
-    this.setup = new Setup(lichess.storage.make, this);
+    this.setupCtrl = new SetupController(this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me?.username.toLowerCase());
-    (this.tab = this.isBot ? 'now_playing' : this.stores.tab.get()),
-      (this.mode = this.stores.mode.get()),
-      (this.sort = this.stores.sort.get()),
-      (this.trans = opts.trans);
+    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get();
+    this.mode = this.stores.mode.get();
+    this.sort = this.stores.sort.get();
+    this.trans = opts.trans;
+
+    const locationHash = location.hash.replace('#', '');
+    if (['ai', 'friend', 'hook'].includes(locationHash)) {
+      let friendUser;
+      const forceOptions: ForceSetupOptions = {};
+      const urlParams = new URLSearchParams(location.search);
+      if (locationHash === 'hook') {
+        if (urlParams.get('time') === 'realTime') {
+          this.tab = 'real_time';
+          forceOptions.timeMode = 'realTime';
+        } else if (urlParams.get('time') === 'correspondence') {
+          this.tab = 'seeks';
+          forceOptions.timeMode = 'correspondence';
+        }
+      } else if (urlParams.get('fen')) {
+        forceOptions.fen = urlParams.get('fen')!;
+        forceOptions.variant = 'fromPosition';
+      } else if (urlParams.get('user')) {
+        friendUser = urlParams.get('user')!;
+      }
+
+      if (!this.data.me && friendUser) setTimeout(() => alert(this.trans('youNeedAnAccountToDoThat')));
+      else this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+
+      history.replaceState(null, '', '/');
+    }
 
     this.poolInStorage = lichess.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
