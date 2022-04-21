@@ -99,7 +99,7 @@ final class Setup(
             case Some(user) =>
               env.challenge.granter.isDenied(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
+                case None => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
           }
         }

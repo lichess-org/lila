@@ -62,8 +62,8 @@ object variant {
         st.aside(cls := "page-menu__menu subnav")(
           lila.rating.PerfType.variants map { pt =>
             a(
-              cls := List("text" -> true, "active" -> active.has(pt)),
-              href := routes.Page.variant(pt.key),
+              cls      := List("text" -> true, "active" -> active.has(pt)),
+              href     := routes.Page.variant(pt.key),
               dataIcon := pt.iconChar
             )(pt.trans)
           }

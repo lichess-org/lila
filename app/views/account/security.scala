@@ -58,7 +58,7 @@ object security {
         tr(
           td(cls := "icon")(
             span(
-              cls := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
+              cls      := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
               dataIcon := (if (s.session.isMobile) "" else "")
             )
           ),
@@ -77,7 +77,7 @@ object security {
           curSessionId.map { cur =>
             td(
               s.session.id != cur option
-                postForm(action := routes.Account.signout(s.session.id))(
+                postForm(action    := routes.Account.signout(s.session.id))(
                   submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "")
                 )
             )
@@ -106,8 +106,8 @@ object security {
             }
           ),
           td(
-            postForm(action := routes.OAuth.revokeClient)(
-              input(tpe := "hidden", name := "origin", value := client.origin),
+            postForm(action    := routes.OAuth.revokeClient)(
+              input(tpe        := "hidden", name             := "origin", value    := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
             )
           )

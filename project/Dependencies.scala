@@ -5,29 +5,29 @@ object Dependencies {
 
   val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
-  val cats         = "org.typelevel"              %% "cats-core"                       % "2.7.0"
-  val alleycats    = "org.typelevel"              %% "alleycats-core"                  % "2.7.0"
-  val scalalib     = "com.github.ornicar"         %% "scalalib"                        % "7.1.0"
-  val hasher       = "com.roundeights"            %% "hasher"                          % "1.2.1"
-  val jodaTime     = "joda-time"                   % "joda-time"                       % "2.10.14"
-  val chess        = "org.lichess"                %% "scalachess"                      % "10.4.10"
-  val compression  = "org.lichess"                %% "compression"                     % "1.6"
-  val maxmind      = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
-  val prismic      = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
-  val scaffeine    = "com.github.blemale"         %% "scaffeine"                       % "5.1.2"  % "compile"
-  val googleOAuth  = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.6.0"
-  val galimatias   = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
-  val scalatags    = "com.lihaoyi"                %% "scalatags"                       % "0.11.1"
-  val lettuce      = "io.lettuce"                  % "lettuce-core"                    % "6.1.8.RELEASE"
-  val epoll        = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
-  val autoconfig   = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
-  val scalatest    = "org.scalatest"              %% "scalatest"                       % "3.2.11" % Test
-  val uaparser     = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
-  val specs2Core   = "org.specs2"                 %% "specs2-core"                     % "4.15.0" % Test
-  val specs2Cats   = "org.specs2"                 %% "specs2-cats"                     % "4.15.0" % Test
+  val cats        = "org.typelevel"      %% "cats-core"                       % "2.7.0"
+  val alleycats   = "org.typelevel"      %% "alleycats-core"                  % "2.7.0"
+  val scalalib    = "com.github.ornicar" %% "scalalib"                        % "7.1.0"
+  val hasher      = "com.roundeights"    %% "hasher"                          % "1.2.1"
+  val jodaTime    = "joda-time"           % "joda-time"                       % "2.10.14"
+  val chess       = "org.lichess"        %% "scalachess"                      % "10.4.10"
+  val compression = "org.lichess"        %% "compression"                     % "1.6"
+  val maxmind     = "com.sanoma.cda"     %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
+  val prismic     = "io.prismic"         %% "scala-kit"                       % "1.2.19-THIB213"
+  val scaffeine   = "com.github.blemale" %% "scaffeine"                       % "5.1.2" % "compile"
+  val googleOAuth = "com.google.auth"     % "google-auth-library-oauth2-http" % "1.6.0"
+  val galimatias  = "io.mola.galimatias"  % "galimatias"                      % "0.2.1"
+  val scalatags   = "com.lihaoyi"        %% "scalatags"                       % "0.11.1"
+  val lettuce     = "io.lettuce"          % "lettuce-core"                    % "6.1.8.RELEASE"
+  val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.65.Final" classifier "linux-x86_64"
+  val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
+  val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
+  val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.13.0"
+  val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.15.0" % Test
+  val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.15.0" % Test
   val specs2Bundle = Seq(specs2Core, specs2Cats)
-  val apacheText   = "org.apache.commons"          % "commons-text"                    % "1.9"
-  val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"                    % "0.13.1"
+  val apacheText   = "org.apache.commons"          % "commons-text"      % "1.9"
+  val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
 
   object flexmark {
     val version = "0.62.2"

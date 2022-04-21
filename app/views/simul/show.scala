@@ -24,24 +24,24 @@ object show {
       moreJs = frag(
         jsModule("simul"),
         embedJsUnsafeLoadThen(s"""LichessSimul.start(${safeJsonValue(
-          Json.obj(
-            "data"          -> data,
-            "i18n"          -> bits.jsI18n(),
-            "socketVersion" -> socketVersion.value,
-            "userId"        -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              views.html.chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                localMod = ctx.userId has sim.hostId
-              )
-            },
-            "showRatings" -> ctx.pref.showRatings
-          )
-        )})""")
+            Json.obj(
+              "data"          -> data,
+              "i18n"          -> bits.jsI18n(),
+              "socketVersion" -> socketVersion.value,
+              "userId"        -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                views.html.chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+                  localMod = ctx.userId has sim.hostId
+                )
+              },
+              "showRatings" -> ctx.pref.showRatings
+            )
+          )})""")
       )
     ) {
       main(cls := "simul")(
