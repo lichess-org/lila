@@ -173,6 +173,13 @@ object home {
   private val i18nKeys = List(
     trans.realTime,
     trans.correspondence,
+    trans.unlimited,
+    trans.timeControl,
+    trans.incrementInSeconds,
+    trans.minutesPerSide,
+    trans.daysPerTurn,
+    trans.ratingRange,
+    trans.nbPlayers,
     trans.nbGamesInPlay,
     trans.player,
     trans.time,
@@ -180,6 +187,7 @@ object home {
     trans.cancel,
     trans.casual,
     trans.rated,
+    trans.perfRatingX,
     trans.variant,
     trans.mode,
     trans.list,
@@ -192,9 +200,17 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
+    trans.playWithAFriend,
+    trans.playWithTheMachine,
+    trans.strength,
+    trans.pasteTheFenStringHere,
     trans.quickPairing,
     trans.lobby,
     trans.custom,
-    trans.anonymous
+    trans.anonymous,
+    trans.side,
+    trans.white,
+    trans.randomColor,
+    trans.black
   ).map(_.key)
 }
