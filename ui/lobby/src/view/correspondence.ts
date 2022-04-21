@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import { tds, perfNames } from './util';
 import LobbyController from '../ctrl';
-import { Seek, MaybeVNodes } from '../interfaces';
+import { Seek } from '../interfaces';
 import perfIcons from 'common/perfIcons';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
@@ -46,14 +46,11 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
       h(
         'a.button',
         {
-          hook: bind('click', () => {
-            $('.lobby__start .config_hook')
-              .each(function (this: HTMLElement) {
-                this.dataset.hrefAddon = '?time=correspondence';
-              })
-              .trigger('mousedown')
-              .trigger('click');
-          }),
+          hook: bind(
+            'click',
+            () => ctrl.setupCtrl.openModal('hook', { variant: 'standard', timeMode: 'correspondence' }),
+            ctrl.redraw
+          ),
         },
         ctrl.trans('createAGame')
       ),
