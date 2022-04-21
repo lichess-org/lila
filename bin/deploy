@@ -55,9 +55,9 @@ SERVER_FILES = [
     ".sbtopts.default",
 ]
 
-ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs"
+ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs?per_page=100"
 
-SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs"
+SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
