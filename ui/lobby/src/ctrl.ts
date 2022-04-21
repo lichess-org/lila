@@ -82,9 +82,7 @@ export default class LobbyController {
         friendUser = urlParams.get('user')!;
       }
 
-      if (!this.data.me && friendUser) setTimeout(() => alert(this.trans('youNeedAnAccountToDoThat')));
-      else this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
-
+      this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
       history.replaceState(null, '', '/');
     }
 
