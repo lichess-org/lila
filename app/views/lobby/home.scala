@@ -62,33 +62,7 @@ object home {
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
-          div(cls := "lobby__start")(
-            ctx.blind option h2("Play"),
-            a(
-              href := routes.Setup.hookForm,
-              cls := List(
-                "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
-              ),
-              trans.createAGame()
-            ),
-            a(
-              href := routes.Setup.friendForm(none),
-              cls := List(
-                "button button-metal config_friend" -> true,
-                "disabled"                          -> currentGame.isDefined
-              ),
-              trans.playWithAFriend()
-            ),
-            a(
-              href := routes.Setup.aiForm,
-              cls := List(
-                "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
-              ),
-              trans.playWithTheMachine()
-            )
-          ),
+          div(cls := "lobby__start")(),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(

@@ -48,20 +48,6 @@ final class Setup(
     key = "setup.post.bot.ai"
   )
 
-  def aiForm =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms aiFilled get("fen").map(FEN.clean)) map { form =>
-          html.setup.forms.ai(
-            form,
-            env.fishnet.aiPerfApi.intRatings,
-            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict")),
-            editorC.editorUrl
-          )
-        }
-      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
-    }
-
   def ai = OpenBody { implicit ctx =>
     BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
@@ -88,26 +74,6 @@ final class Setup(
       }(rateLimitedFu)
     }(rateLimitedFu)
   }
-
-  def friendForm(userId: Option[String]) =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req)
-        fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
-          val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
-          userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
-            case Some(user) =>
-              env.challenge.granter.isDenied(ctx.me, user, none) map {
-                case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
-              }
-          }
-        }
-      else
-        fuccess {
-          Redirect(s"${routes.Lobby.home}#friend")
-        }
-    }
 
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
@@ -164,22 +130,6 @@ final class Setup(
               }
           )
       }(rateLimitedFu)
-    }
-
-  def hookForm =
-    Open { implicit ctx =>
-      NoBot {
-        if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          val timeMode = get("time")
-          fuccess(forms.hookFilled(timeModeString = timeMode)) map {
-            html.setup.forms.hook(_, timeMode.isDefined)
-          }
-        }
-        else
-          fuccess {
-            Redirect(s"${routes.Lobby.home}#hook")
-          }
-      }
     }
 
   private def hookResponse(res: HookResult) =
