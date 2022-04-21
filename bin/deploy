@@ -171,7 +171,7 @@ def update_workflow_run_db(db, session, workflow_url, *, silent=False):
 
         if "next" not in res.links:
             break
-        url = res.links["next"]["url"]
+        url = res.links["last"]["url"]
 
     if not silent:
         print(f"Added/updated {new} workflow run(s).")

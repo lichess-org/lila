@@ -1,6 +1,6 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http._
@@ -29,7 +29,7 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def executionContext = env.executionContext
   implicit def scheduler        = env.scheduler
 
-  implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
+  implicit protected val LilaResultZero = Zero[Result](Results.NotFound)
 
   implicit final protected class LilaResult(result: Result) {
     def fuccess                           = scala.concurrent.Future successful result

@@ -37,9 +37,8 @@ final class LobbySocket(
 
   private val actor: SyncActor = new SyncActor {
 
-    // private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
     private val members = lila.common.LilaCache.scaffeine
-      .expireAfterWrite(1 minute)
+      .expireAfterWrite(1 hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
@@ -55,8 +54,9 @@ final class LobbySocket(
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
       case Cleanup =>
-        idleSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
-        hookSubscriberSris filterInPlace { sri => members.getIfPresent(sri).isDefined }
+        val membersMap = members.asMap()
+        idleSris filterInPlace membersMap.contains
+        hookSubscriberSris filterInPlace membersMap.contains
 
       case Join(member) => members.put(member.sri.value, member)
 
@@ -118,7 +118,7 @@ final class LobbySocket(
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => this ! Cleanup)
+    system.scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 

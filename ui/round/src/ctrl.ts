@@ -83,6 +83,8 @@ export default class RoundController {
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {

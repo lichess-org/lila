@@ -13,7 +13,7 @@
     "typescript": "^4"
   },
   "dependencies": {
-    "chessops": "^0.10.5"
+    "chessops": "^0.11"
   },
   "scripts": {
     "dev": "rollup --config",

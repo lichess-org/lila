@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json._
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._

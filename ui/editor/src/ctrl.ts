@@ -4,7 +4,7 @@ import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
-import { Castles, setupPosition } from 'chessops/variant';
+import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
@@ -96,14 +96,12 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
+    return makeFen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
-      pos => {
-        return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
-      },
+      pos => makeFen(pos.toSetup()),
       _ => undefined
     );
   }
@@ -149,7 +147,7 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = () => this.setFen(INITIAL_FEN);
+  startPosition = () => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
   clearBoard = () => this.setFen(EMPTY_FEN);
 

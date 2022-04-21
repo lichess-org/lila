@@ -138,8 +138,7 @@ final class Round(
                   Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
                 case (Some(player), Some(_)) if player == requestedPov =>
                   Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-                case _ =>
-                  Redirect(routes.Round.watcher(gameId, "white")).fuccess
+                case _ => Redirect(routes.Round.watcher(gameId, "white")).fuccess
               }
             case None =>
               watch(pov)
@@ -369,5 +368,10 @@ final class Round(
             }
           }
         }
+    }
+
+  def help =
+    Open { implicit ctx =>
+      Ok(html.site.helpModal.round).fuccess
     }
 }

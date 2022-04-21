@@ -292,6 +292,7 @@ POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId:
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
+GET   /round/help                                controllers.Round.help
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home

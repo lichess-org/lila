@@ -1,6 +1,6 @@
 package lila.study
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.concurrent.duration._
 
 import lila.hub.AsyncActorSequencers

@@ -89,7 +89,7 @@ final class Setup(
                 api = _ => jsonFormError(err)
               ),
             config =>
-              userId ?? env.user.repo.enabledById flatMap { destUser =>
+              userId ?? env.user.repo.enabledNamed flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)

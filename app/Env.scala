@@ -152,7 +152,7 @@ final class Env(
 
   def scheduler = system.scheduler
 
-  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("app.renderer.name"))
+  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 }
 
 final class EnvBoot(

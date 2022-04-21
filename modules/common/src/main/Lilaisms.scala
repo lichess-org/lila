@@ -16,7 +16,6 @@ trait Lilaisms
     with scalalib.OrnicarOption
     with scalalib.Regex
     with scalalib.Zeros
-    with scalalib.Zero.Syntax
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax {
 

@@ -2,7 +2,7 @@ package lila.base
 
 import java.lang.Math.{ max, min }
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 final class AugmentedAny(private val self: Any) extends AnyVal {
 
