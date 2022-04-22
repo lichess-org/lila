@@ -7,7 +7,7 @@ import renderSetupModal from './setup/modal';
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
   const hasOngoingRealTimeGame = !!data.nowPlaying.find(nowPlaying => nowPlaying.speed !== 'correspondence');
-  const hookDisabled = opts.playban || data.hasUnreadLichessMessage || data.me?.isBot || hasOngoingRealTimeGame;
+  const hookDisabled = opts.playban || opts.hasUnreadLichessMessage || data.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
   return h('div.lobby__table', [
     h('div.bg-switch', { attrs: { title: 'Dark mode' } }, [h('div.bg-switch__track'), h('div.bg-switch__thumb')]),

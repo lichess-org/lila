@@ -58,6 +58,7 @@ export interface LobbyOpts {
   socketSend: SocketSend;
   pools: Pool[];
   blindMode: boolean;
+  hasUnreadLichessMessage: boolean;
   playban: boolean;
   showRatings: boolean;
   data: LobbyData;
@@ -76,7 +77,6 @@ export interface LobbyData {
   };
   ratingMap: Record<Perf | Speed, number> | null;
   counters: { members: number; rounds: number };
-  hasUnreadLichessMessage: boolean;
 }
 
 export interface NowPlaying {
