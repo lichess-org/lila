@@ -81,8 +81,11 @@ export default class SetupController {
     };
   }
 
+  // Namespace the store by username for user specific modal settings
+  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.data.me?.username || 'anon'}.${gameType}`;
+
   private makeSetupStore = (gameType: GameType) =>
-    storedJsonProp<SetupStore>(`lobby.gameSetup.${gameType}`, () => ({
+    storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
       variant: 'standard',
       fen: '',
       timeMode: gameType === 'hook' ? 'realTime' : 'unlimited',
@@ -109,11 +112,6 @@ export default class SetupController {
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
 
-    // Prop validity should be checked now. There is at least one case where this will matter. If a
-    // user is logged in and playing rated hook games, logs out, and then attempts to play a hook
-    // game as anonymous via this modal _without changing any props_, they would be attempting
-    // something unallowed: rated games as anonymous. This way, we ensure that props are always
-    // valid upon load.
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
     // immediately save them to the store. This way, the user can know that whatever they saw last
