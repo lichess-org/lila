@@ -3,7 +3,16 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
 import LobbyController from './ctrl';
-import { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore, TimeMode } from './interfaces';
+import {
+  ForceSetupOptions,
+  GameMode,
+  GameType,
+  InputValue,
+  PoolMember,
+  RealValue,
+  SetupStore,
+  TimeMode,
+} from './interfaces';
 import {
   daysVToDays,
   incrementVToIncrement,
@@ -52,13 +61,13 @@ export default class SetupController {
   // The following three quantities are suffixed with 'V' to draw attention to the
   // fact that they are not the true quantities. They represent the value of the
   // input element. Use time(), increment(), and days() below for the true quantities.
-  timeV: Prop<number>;
-  incrementV: Prop<number>;
-  daysV: Prop<number>;
+  timeV: Prop<InputValue>;
+  incrementV: Prop<InputValue>;
+  daysV: Prop<InputValue>;
 
-  time: () => number = () => timeVToTime(this.timeV());
-  increment: () => number = () => incrementVToIncrement(this.incrementV());
-  days: () => number = () => daysVToDays(this.daysV());
+  time: () => RealValue = () => timeVToTime(this.timeV());
+  increment: () => RealValue = () => incrementVToIncrement(this.incrementV());
+  days: () => RealValue = () => daysVToDays(this.daysV());
 
   constructor(ctrl: LobbyController) {
     this.root = ctrl;

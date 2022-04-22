@@ -5,6 +5,11 @@ export type GameType = 'hook' | 'friend' | 'ai';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
 
+// These are not true quantities. They represent the value of input elements
+export type InputValue = number;
+// Visible value computed from the input value
+export type RealValue = number;
+
 export interface Variant {
   id: number;
   key: VariantKey;

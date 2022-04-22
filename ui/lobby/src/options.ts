@@ -1,4 +1,4 @@
-import { GameMode, GameType, TimeMode, Variant } from './interfaces';
+import { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
 export const variants: Variant[] = [
   { id: 1, icon: '', key: 'standard', name: 'Standard' },
@@ -92,9 +92,9 @@ export const sliderTimes = [
   180,
 ];
 
-export const timeVToTime = (v: number) => (v < sliderTimes.length ? sliderTimes[v] : 180);
+export const timeVToTime = (v: InputValue): RealValue => (v < sliderTimes.length ? sliderTimes[v] : 180);
 
-export const incrementVToIncrement = (v: number): number => {
+export const incrementVToIncrement = (v: InputValue): RealValue => {
   if (v <= 20) return v;
   switch (v) {
     case 21:
@@ -120,7 +120,7 @@ export const incrementVToIncrement = (v: number): number => {
   }
 };
 
-export const daysVToDays = (v: number) => {
+export const daysVToDays = (v: InputValue): RealValue => {
   if (v <= 3) return v;
   switch (v) {
     case 4:
@@ -137,7 +137,11 @@ export const daysVToDays = (v: number) => {
 // When we store timeV, incrementV, and daysV in local storage, we save the actual time, increment,
 // and days, and not the value of the input element. We use this function to recompute the value of the
 // input element.
-export const sliderInitVal = (v: number, f: (x: number) => number, max: number) => {
+export const sliderInitVal = (
+  v: RealValue,
+  f: (x: InputValue) => RealValue,
+  max: InputValue
+): InputValue | undefined => {
   for (let i = 0; i < max; i++) {
     if (f(i) === v) return i;
   }
