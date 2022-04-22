@@ -316,8 +316,10 @@ declare type VariantKey =
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'chess960'

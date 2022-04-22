@@ -23,7 +23,7 @@ import {
   variants,
 } from './options';
 
-const perfOrSpeed = (variant: VariantKey, timeMode: TimeMode, time: number, increment: number): Perf | Speed => {
+const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
   if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
   if (timeMode !== 'realTime') return 'correspondence';
 
@@ -193,11 +193,11 @@ export default class SetupController {
         (this.time() < 0.5 && this.increment() == 0) ||
         (this.time() == 0 && this.increment() < 2)));
 
-  selectedPerfOrSpeed = () => perfOrSpeed(this.variant(), this.timeMode(), this.time(), this.increment());
+  selectedPerf = () => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
 
   ratingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
-    const rating = this.root.data.ratingMap[this.selectedPerfOrSpeed()];
+    const rating = this.root.data.ratingMap[this.selectedPerf()];
     return `${rating + this.ratingMin()}-${rating + this.ratingMax()}`;
   };
 
@@ -206,7 +206,7 @@ export default class SetupController {
   hookRatingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
     const { variant, timeMode, time, increment, ratingMin, ratingMax } = this.makeSetupStore('hook')();
-    const rating = this.root.data.ratingMap[perfOrSpeed(variant, timeMode, time, increment)];
+    const rating = this.root.data.ratingMap[getPerf(variant, timeMode, time, increment)];
     return `${rating + ratingMin}-${rating + ratingMax}`;
   };
 
