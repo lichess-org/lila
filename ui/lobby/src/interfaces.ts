@@ -79,6 +79,7 @@ export interface LobbyMe {
 export interface LobbyData {
   hooks: Hook[];
   seeks: Seek[];
+  me?: LobbyMe;
   nbNowPlaying: number;
   nowPlaying: NowPlaying[];
   ratingMap: Record<Perf, number> | null;

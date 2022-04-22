@@ -47,6 +47,7 @@ export default class LobbyController {
   constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.data.hooks = [];
+    this.me = opts.data.me;
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
