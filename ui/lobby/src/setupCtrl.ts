@@ -269,7 +269,14 @@ export default class SetupController {
 
     const { ok, redirected, url } = response;
     if (!ok) {
-      document.body.innerHTML = await response.text();
+      const errs: { [key: string]: [string] } = await response.json();
+      alert(
+        errs
+          ? Object.keys(errs)
+              .map(k => `${k}: ${errs[k][0]}`)
+              .join('\n')
+          : 'Invalid setup'
+      );
     } else if (redirected) {
       location.href = url;
     } else {

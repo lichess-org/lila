@@ -55,11 +55,7 @@ final class Setup(
         forms.ai
           .bindFromRequest()
           .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
+            jsonFormError,
             config =>
               processor.ai(config)(ctx) flatMap { pov =>
                 negotiate(
@@ -83,11 +79,7 @@ final class Setup(
           .friend(ctx)
           .bindFromRequest()
           .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
+            jsonFormError,
             config =>
               userId ?? env.user.repo.enabledNamed flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
