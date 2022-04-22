@@ -256,15 +256,18 @@ export default class SetupController {
     } catch (e) {
       this.loading = false;
       this.root.redraw();
-      alert('Sorry, we encountered in error while creating your game. Please try again.');
+      alert('Sorry, we encountered an error while creating your game. Please try again.');
       return;
     }
 
-    if (response.redirected) {
-      location.href = response.url;
+    const { ok, redirected, url } = response;
+    if (!ok) {
+      document.body.innerHTML = await response.text();
+    } else if (redirected) {
+      location.href = url;
+    } else {
+      this.loading = false;
+      this.closeModal();
     }
-
-    this.loading = false;
-    this.closeModal();
   };
 }
