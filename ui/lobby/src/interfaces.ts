@@ -80,7 +80,7 @@ export interface LobbyData {
     isBot: boolean;
     username: string;
   };
-  ratingMap: Record<Perf | Speed, number> | null;
+  ratingMap: Record<Perf, number> | null;
   counters: { members: number; rounds: number };
 }
 
