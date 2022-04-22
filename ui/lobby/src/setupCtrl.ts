@@ -278,7 +278,6 @@ export default class SetupController {
           : 'Invalid setup'
       );
     } else if (redirected) {
-      this.loading = true;
       location.href = url;
     } else {
       this.loading = false;
