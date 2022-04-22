@@ -418,7 +418,7 @@ object mon {
       timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
     object notifier {
       def tournaments = counter("tournament.notify.tournaments").withoutTags()
-      def players = counter("tournament.notify.players").withoutTags()
+      def players     = counter("tournament.notify.players").withoutTags()
     }
   }
   object swiss {

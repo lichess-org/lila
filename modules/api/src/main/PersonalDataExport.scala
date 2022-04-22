@@ -74,8 +74,8 @@ final class PersonalDataExport(
         msgEnv.api
           .allMessagesOf(user.id)
           .throttle(heavyPerSecond, 1 second)
-          .map { case (text, date) =>
-            s"${textDate(date)}\n$text$bigSep"
+          .map { case (date, recipient, text) =>
+            s"${textDate(date)} -> $recipient\n$text$bigSep"
           }
 
     def gameChatsLookup(lookup: Bdoc) =

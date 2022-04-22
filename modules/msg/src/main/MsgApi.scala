@@ -260,7 +260,7 @@ final class MsgApi(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
   )
 
-  def allMessagesOf(userId: User.ID): Source[(String, DateTime), _] =
+  def allMessagesOf(userId: User.ID): Source[(DateTime, String, User.ID), _] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
@@ -299,16 +299,18 @@ final class MsgApi(
             )
           ),
           Unwind("msg"),
-          Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
+          Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true, "msg.tid" -> true))
         )
       }
       .documentSource()
       .mapConcat { doc =>
         (for {
-          msg  <- doc child "msg"
-          text <- msg string "text"
-          date <- msg.getAsOpt[DateTime]("date")
-        } yield (text, date)).toList
+          msg       <- doc child "msg"
+          text      <- msg string "text"
+          date      <- msg.getAsOpt[DateTime]("date")
+          tid       <- msg string "tid"
+          recipient <- tid.split(MsgThread.idSep).find(_ != userId)
+        } yield (date, recipient, text)).toList
       }
 }
 
