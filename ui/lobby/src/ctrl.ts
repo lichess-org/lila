@@ -16,6 +16,7 @@ import {
   PoolMember,
   GameType,
   ForceSetupOptions,
+  LobbyMe,
 } from './interfaces';
 import LobbySocket from './socket';
 import Filter from './filter';
@@ -24,7 +25,7 @@ import SetupController from './setupCtrl';
 export default class LobbyController {
   data: LobbyData;
   playban: any;
-  isBot: boolean;
+  me?: LobbyMe;
   socket: LobbySocket;
   stores: Stores;
   tab: Tab;
@@ -48,7 +49,6 @@ export default class LobbyController {
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.isBot = !!opts.data.me?.isBot;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
 
@@ -56,8 +56,8 @@ export default class LobbyController {
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
-    this.stores = makeStores(this.data.me?.username.toLowerCase());
-    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get();
+    this.stores = makeStores(this.me?.username.toLowerCase());
+    this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.stores.sort.get();
     this.trans = opts.trans;
@@ -185,7 +185,7 @@ export default class LobbyController {
   };
 
   clickPool = (id: string) => {
-    if (!this.data.me) {
+    if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id == id)!);
       this.setTab('real_time');
     } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
@@ -264,7 +264,7 @@ export default class LobbyController {
       if (range) member.range = range;
       if (match) {
         this.setTab('pools');
-        if (this.data.me) this.enterPool(member);
+        if (this.me) this.enterPool(member);
         else setTimeout(() => this.clickPool(member.id), 1500);
         history.replaceState(null, '', '/');
       }

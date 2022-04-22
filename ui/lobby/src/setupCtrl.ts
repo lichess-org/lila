@@ -82,7 +82,7 @@ export default class SetupController {
   }
 
   // Namespace the store by username for user specific modal settings
-  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.data.me?.username || 'anon'}.${gameType}`;
+  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
   private makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -92,7 +92,7 @@ export default class SetupController {
       time: 5,
       increment: 3,
       days: 2,
-      gameMode: gameType === 'ai' || !this.root.data.me ? 'casual' : 'rated',
+      gameMode: gameType === 'ai' || !this.root.me ? 'casual' : 'rated',
       ratingMin: -500,
       ratingMax: 500,
       aiLevel: 1,
@@ -182,7 +182,7 @@ export default class SetupController {
 
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
-    !this.root.data.me ||
+    !this.root.me ||
     // unlimited games cannot be rated
     (this.gameType === 'hook' && this.timeMode() === 'unlimited') ||
     // variants with very low time cannot be rated

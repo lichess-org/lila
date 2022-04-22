@@ -71,15 +71,16 @@ export interface LobbyOpts {
   trans: Trans;
 }
 
+export interface LobbyMe {
+  isBot: boolean;
+  username: string;
+}
+
 export interface LobbyData {
   hooks: Hook[];
   seeks: Seek[];
   nbNowPlaying: number;
   nowPlaying: NowPlaying[];
-  me?: {
-    isBot: boolean;
-    username: string;
-  };
   ratingMap: Record<Perf, number> | null;
   counters: { members: number; rounds: number };
 }

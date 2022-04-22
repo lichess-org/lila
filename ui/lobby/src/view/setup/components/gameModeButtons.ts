@@ -5,7 +5,7 @@ import { GameMode } from '../../../interfaces';
 import { gameModes } from '../../../options';
 
 export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
-  if (!ctrl.data.me) return null;
+  if (!ctrl.me) return null;
 
   const { trans, setupCtrl } = ctrl;
   return h(

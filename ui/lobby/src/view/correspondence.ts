@@ -41,7 +41,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
 }
 
 function createSeek(ctrl: LobbyController): VNode | undefined {
-  if (ctrl.data.me && ctrl.data.seeks.length < 8)
+  if (ctrl.me && ctrl.data.seeks.length < 8)
     return h('div.create', [
       h(
         'a.button',
@@ -75,7 +75,7 @@ export default function (ctrl: LobbyController): MaybeVNodes {
             do {
               el = el.parentNode as HTMLElement;
               if (el.nodeName === 'TR') {
-                if (!ctrl.data.me) {
+                if (!ctrl.me) {
                   if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
                   return;
                 }

@@ -76,7 +76,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
 
 const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => {
   const { trans, setupCtrl } = ctrl;
-  const showTimeModePicker = ctrl.data.me || allowAnonymous;
+  const showTimeModePicker = ctrl.me || allowAnonymous;
   return showTimeModePicker
     ? h('div.label_select', [
         h('label', { attrs: { for: 'sf_timeMode' } }, trans('timeControl')),

@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
-  if (!ctrl.data.me || ctrl.opts.blindMode) return null;
+  if (!ctrl.me || ctrl.opts.blindMode) return null;
 
   const { trans, setupCtrl } = ctrl;
   return h(
