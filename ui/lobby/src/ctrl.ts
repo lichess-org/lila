@@ -196,7 +196,7 @@ export default class LobbyController {
   };
 
   enterPool = (member: PoolMember) => {
-    poolRangeStorage.set(member.id, member.range);
+    poolRangeStorage.set(this.me, member);
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
@@ -260,7 +260,7 @@ export default class LobbyController {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
         member: any = { id: match![1], blocking: match![2] },
-        range = poolRangeStorage.get(member.id);
+        range = poolRangeStorage.get(this.me, member.id);
       if (range) member.range = range;
       if (match) {
         this.setTab('pools');
