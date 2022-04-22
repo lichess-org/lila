@@ -7,22 +7,24 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
   const { opts, data } = ctrl;
   if (opts.blindMode || !data.ratingMap) return null;
 
-  const selectedPerfOrSpeed = ctrl.setupCtrl.selectedPerfOrSpeed();
-  let perfOrSpeed: { key: string; icon: string; name: string } | undefined = variants.find(
-    ({ key }) => key === selectedPerfOrSpeed
-  );
-  if (!perfOrSpeed) perfOrSpeed = speeds.find(({ key }) => key === selectedPerfOrSpeed);
+  const selectedPerf = ctrl.setupCtrl.selectedPerf();
 
-  return h(
-    'div.ratings',
-    opts.showRatings
-      ? [
-          ...ctrl.trans.vdom(
-            'perfRatingX',
-            h('strong', { attrs: { 'data-icon': perfOrSpeed!.icon } }, data.ratingMap[selectedPerfOrSpeed])
-          ),
-          perfOrSpeed!.name,
-        ]
-      : [h('i', { attrs: { 'data-icon': perfOrSpeed!.icon } }), perfOrSpeed!.name]
+  const perfOrSpeed: { key: string; icon: string; name: string } | undefined =
+    variants.find(({ key }) => key === selectedPerf) || speeds.find(({ key }) => key === selectedPerf);
+
+  return (
+    perfOrSpeed &&
+    h(
+      'div.ratings',
+      opts.showRatings
+        ? [
+            ...ctrl.trans.vdom(
+              'perfRatingX',
+              h('strong', { attrs: { 'data-icon': perfOrSpeed.icon } }, data.ratingMap[selectedPerf])
+            ),
+            perfOrSpeed.name,
+          ]
+        : [h('i', { attrs: { 'data-icon': perfOrSpeed.icon } }), perfOrSpeed.name]
+    )
   );
 };

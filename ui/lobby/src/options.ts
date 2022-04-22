@@ -33,7 +33,7 @@ export const variantsForGameType = (baseVariants: Variant[], gameType: GameType)
 export const variantsWhereWhiteIsBetter: VariantKey[] = ['antichess', 'atomic', 'horde', 'racingKings', 'threeCheck'];
 
 export const speeds: { key: Speed; name: string; icon: string }[] = [
-  { icon: '', name: 'UltraBullet', key: 'ultraBullet' },
+  { icon: '', key: 'ultraBullet', name: 'UltraBullet' },
   { icon: '', key: 'bullet', name: 'Bullet' },
   { icon: '', key: 'blitz', name: 'Blitz' },
   { icon: '', key: 'rapid', name: 'Rapid' },

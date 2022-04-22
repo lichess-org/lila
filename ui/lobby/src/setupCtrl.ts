@@ -193,7 +193,7 @@ export default class SetupController {
         (this.time() < 0.5 && this.increment() == 0) ||
         (this.time() == 0 && this.increment() < 2)));
 
-  selectedPerf = () => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
+  selectedPerf = (): Perf => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
 
   ratingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
