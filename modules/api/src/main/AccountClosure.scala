@@ -61,8 +61,8 @@ final class AccountClosure(
       _       <- webSubscriptionApi.unsubscribeByUser(u)
       _       <- streamerApi.demote(u.id)
       reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-      _       <- if (selfClose) modLogApi.selfCloseAccount(u.id, reports) else modLogApi.closeAccount(by.id, u.id)
-      _       <- appealApi.onAccountClose(u)
+      _ <- if (selfClose) modLogApi.selfCloseAccount(u.id, reports) else modLogApi.closeAccount(by.id, u.id)
+      _ <- appealApi.onAccountClose(u)
       _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
         activityWrite.unfollowAll(u, _)
       }

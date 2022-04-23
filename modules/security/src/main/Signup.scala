@@ -190,7 +190,7 @@ final class Signup(
       user.username,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
-        .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
+          .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
     )
   }
 

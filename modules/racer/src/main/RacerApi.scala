@@ -116,6 +116,6 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
   }
 
   // work around circular dependency
-  private var socket: Option[RacerSocket] = None
+  private var socket: Option[RacerSocket]           = None
   private[racer] def registerSocket(s: RacerSocket) = { socket = s.some }
 }

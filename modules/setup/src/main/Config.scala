@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Game => ChessGame, Situation, Clock, Speed }
+import chess.{ Clock, Game => ChessGame, Situation, Speed }
 import chess.variant.{ FromPosition, Variant }
 import chess.format.FEN
 

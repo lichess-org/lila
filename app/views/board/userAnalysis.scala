@@ -27,13 +27,13 @@ object userAnalysis {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
-          Json.obj(
-            "data"     -> data,
-            "i18n"     -> userAnalysisI18n(withForecast = withForecast),
-            "explorer" -> bits.explorerConfig,
-            "wiki"     -> pov.game.variant.standard
-          )
-        )}""")
+            Json.obj(
+              "data"     -> data,
+              "i18n"     -> userAnalysisI18n(withForecast = withForecast),
+              "explorer" -> bits.explorerConfig,
+              "wiki"     -> pov.game.variant.standard
+            )
+          )}""")
       ),
       csp = defaultCsp.withWebAssembly.withWikiBooks.some,
       chessground = false,
@@ -59,8 +59,8 @@ object userAnalysis {
             chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
               a(
                 dataIcon := iconByVariant(v),
-                cls := (pov.game.variant == v).option("current"),
-                href := routes.UserAnalysis.parseArg(v.key)
+                cls      := (pov.game.variant == v).option("current"),
+                href     := routes.UserAnalysis.parseArg(v.key)
               )(v.name)
             }
           ),

@@ -27,11 +27,11 @@ object index {
         roundTag,
         embedJsUnsafeLoadThen(
           s"""LichessRound.boot(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> views.html.round.jsI18n(pov.game)
-            )
-          )})"""
+              Json.obj(
+                "data" -> data,
+                "i18n" -> views.html.round.jsI18n(pov.game)
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("tv.single"),

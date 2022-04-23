@@ -151,30 +151,30 @@ object UserInfo {
           // format: off
           case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
-          new UserInfo(
-            user = user,
-            ranks = userCached.rankingsOf(user.id),
-            nbs = nbs,
-            hasSimul = hasSimul,
-            ratingChart = ratingChart,
-            nbFollowers = nbFollowers,
-            nbForumPosts = nbForumPosts,
-            ublog = ublog,
-            nbStudies = nbStudies,
-            trophies = trophies ::: trophyApi.roleBasedTrophies(
-              user,
-              Granter(_.PublicMod)(user),
-              Granter(_.Developer)(user),
-              Granter(_.Verified)(user),
-              Granter(_.ContentTeam)(user)
-            ),
-            shields = shields,
-            revolutions = revols,
-            teamIds = teamIds,
-            isStreamer = isStreamer,
-            isCoach = isCoach,
-            insightVisible = insightVisible
-          )
+            new UserInfo(
+              user = user,
+              ranks = userCached.rankingsOf(user.id),
+              nbs = nbs,
+              hasSimul = hasSimul,
+              ratingChart = ratingChart,
+              nbFollowers = nbFollowers,
+              nbForumPosts = nbForumPosts,
+              ublog = ublog,
+              nbStudies = nbStudies,
+              trophies = trophies ::: trophyApi.roleBasedTrophies(
+                user,
+                Granter(_.PublicMod)(user),
+                Granter(_.Developer)(user),
+                Granter(_.Verified)(user),
+                Granter(_.ContentTeam)(user)
+              ),
+              shields = shields,
+              revolutions = revols,
+              teamIds = teamIds,
+              isStreamer = isStreamer,
+              isCoach = isCoach,
+              insightVisible = insightVisible
+            )
         }
   }
 }
