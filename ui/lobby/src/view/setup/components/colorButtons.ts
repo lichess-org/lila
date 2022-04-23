@@ -4,8 +4,8 @@ import LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';
 
-const renderBlindModeColorPicker = (ctrl: LobbyController) =>
-  (ctrl.setupCtrl.gameType === 'hook'
+const renderBlindModeColorPicker = (ctrl: LobbyController) => [
+  ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
         h('label', { attrs: { for: 'sf_color' } }, ctrl.trans('side')),
@@ -19,10 +19,9 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) =>
           },
           colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor()))
         ),
-      ]
-  ).concat([
-    h('button', { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } }, 'Create the game'),
-  ]);
+      ]),
+  h('button', { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } }, 'Create the game'),
+];
 
 export const colorButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;

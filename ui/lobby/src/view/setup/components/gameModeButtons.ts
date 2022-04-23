@@ -27,7 +27,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
               change: (e: Event) => setupCtrl.gameMode((e.target as HTMLInputElement).value as GameMode),
             },
           }),
-          h('label.required', { class: { disabled }, attrs: { for: `sf_mode_${key}` } }, name),
+          h('label', { class: { disabled }, attrs: { for: `sf_mode_${key}` } }, name),
         ]);
       })
     )
