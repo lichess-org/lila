@@ -26,9 +26,7 @@ export const levelButtons = (ctrl: LobbyController) => {
                   h(`input#sf_level_${level}`, {
                     attrs: { name: 'level', type: 'radio', value: level, checked: level === setupCtrl.aiLevel() },
                     on: {
-                      change: (e: Event) => 
-                        setupCtrl.aiLevel(parseInt((e.target as HTMLInputElement).value))
-                      ,
+                      change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLInputElement).value)),
                     },
                   }),
                   h('label', { attrs: { for: `sf_level_${level}` } }, level),
