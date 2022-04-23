@@ -9,8 +9,6 @@ import lila.rating.RatingRange
 
 object filter {
 
-  import bits._
-
   def apply(form: Form[_])(implicit ctx: Context) =
     frag(
       st.form(novalidate)(
