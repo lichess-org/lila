@@ -1,6 +1,7 @@
+import { Prop } from 'common';
 import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
-import { TimeMode } from '../../../interfaces';
+import { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
 import { option } from './option';
 
@@ -76,8 +77,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
 
 const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => {
   const { trans, setupCtrl } = ctrl;
-  const showTimeModePicker = ctrl.me || allowAnonymous;
-  return showTimeModePicker
+  return ctrl.me || allowAnonymous
     ? h('div.label_select', [
         h('label', { attrs: { for: 'sf_timeMode' } }, trans('timeControl')),
         h(
@@ -93,6 +93,14 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
     : null;
 };
 
+const inputRange = (min: number, max: number, prop: Prop<InputValue>) =>
+  h('input.range', {
+    attrs: { type: 'range', min, max, value: prop() },
+    on: {
+      input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)),
+    },
+  });
+
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
   const { trans, setupCtrl } = ctrl;
   return h(
@@ -105,38 +113,22 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
             ? h('div.time_choice.range', [
                 `${trans('minutesPerSide')}: `,
                 h('span', showTime(setupCtrl.time())),
-                h('input.range', {
-                  attrs: { type: 'range', min: '0', max: '38', value: setupCtrl.timeV() },
-                  on: {
-                    input: (e: Event) => setupCtrl.timeV(parseFloat((e.target as HTMLInputElement).value)),
-                  },
-                }),
+                inputRange(0, 38, setupCtrl.timeV),
               ])
             : null,
           setupCtrl.timeMode() === 'realTime'
             ? h('div.increment_choice.range', [
                 `${trans('incrementInSeconds')}: `,
                 h('span', setupCtrl.increment()),
-                h('input.range', {
-                  attrs: { type: 'range', min: '0', max: '30', value: setupCtrl.incrementV() },
-                  on: {
-                    input: (e: Event) => setupCtrl.incrementV(parseInt((e.target as HTMLInputElement).value)),
-                  },
-                }),
+                inputRange(0, 30, setupCtrl.incrementV),
               ])
-            : null,
-          setupCtrl.timeMode() === 'correspondence'
+            : setupCtrl.timeMode() === 'correspondence'
             ? h(
                 'div.correspondence',
                 h('div.days_choice.range', [
                   `${trans('daysPerTurn')}: `,
                   h('span', setupCtrl.days()),
-                  h('input.range', {
-                    attrs: { type: 'range', min: '1', max: '7', value: setupCtrl.daysV() },
-                    on: {
-                      input: (e: Event) => setupCtrl.daysV(parseInt((e.target as HTMLInputElement).value)),
-                    },
-                  }),
+                  inputRange(1, 7, setupCtrl.daysV),
                 ])
               )
             : null,
