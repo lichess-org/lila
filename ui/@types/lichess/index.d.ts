@@ -7,7 +7,6 @@ interface Lichess {
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   powertip: any;
-  widget: any;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;

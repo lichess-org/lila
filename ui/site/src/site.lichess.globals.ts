@@ -17,7 +17,6 @@ import {
   loadModule,
   loadIife,
 } from './component/assets';
-import widget from './component/widget';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
@@ -38,7 +37,6 @@ export default () => {
   l.tempStorage = tempStorage;
   l.once = once;
   l.powertip = powertip;
-  l.widget = widget;
   l.spinnerHtml = spinnerHtml;
   l.assetUrl = assetUrl;
   l.loadCss = loadCss;
