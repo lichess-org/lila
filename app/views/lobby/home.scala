@@ -31,8 +31,9 @@ object home {
                   "remainingSeconds" -> (pb.remainingSeconds + 3)
                 )
               },
-              "showRatings" -> ctx.pref.showRatings,
-              "i18n"        -> i18nJsObject(i18nKeys)
+              "showRatings"             -> ctx.pref.showRatings,
+              "hasUnreadLichessMessage" -> hasUnreadLichessMessage,
+              "i18n"                    -> i18nJsObject(i18nKeys)
             )
           )})"""
         )
@@ -62,33 +63,7 @@ object home {
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
-          div(cls := "lobby__start")(
-            ctx.blind option h2("Play"),
-            a(
-              href := routes.Setup.hookForm,
-              cls := List(
-                "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
-              ),
-              trans.createAGame()
-            ),
-            a(
-              href := routes.Setup.friendForm(none),
-              cls := List(
-                "button button-metal config_friend" -> true,
-                "disabled"                          -> currentGame.isDefined
-              ),
-              trans.playWithAFriend()
-            ),
-            a(
-              href := routes.Setup.aiForm,
-              cls := List(
-                "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
-              ),
-              trans.playWithTheMachine()
-            )
-          ),
+          div(cls := "lobby__start")(),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
@@ -199,6 +174,13 @@ object home {
   private val i18nKeys = List(
     trans.realTime,
     trans.correspondence,
+    trans.unlimited,
+    trans.timeControl,
+    trans.incrementInSeconds,
+    trans.minutesPerSide,
+    trans.daysPerTurn,
+    trans.ratingRange,
+    trans.nbPlayers,
     trans.nbGamesInPlay,
     trans.player,
     trans.time,
@@ -206,6 +188,7 @@ object home {
     trans.cancel,
     trans.casual,
     trans.rated,
+    trans.perfRatingX,
     trans.variant,
     trans.mode,
     trans.list,
@@ -218,9 +201,17 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
+    trans.playWithAFriend,
+    trans.playWithTheMachine,
+    trans.strength,
+    trans.pasteTheFenStringHere,
     trans.quickPairing,
     trans.lobby,
     trans.custom,
-    trans.anonymous
+    trans.anonymous,
+    trans.side,
+    trans.white,
+    trans.randomColor,
+    trans.black
   ).map(_.key)
 }

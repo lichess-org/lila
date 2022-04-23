@@ -3,13 +3,14 @@ package lila.api
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
-import lila.lobby.SeekApi
+import lila.lobby.{ LobbySocket, SeekApi }
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
     gameProxyRepo: lila.round.GameProxyRepo,
-    gameJson: lila.game.JsonView
+    gameJson: lila.game.JsonView,
+    lobbySocket: LobbySocket
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
@@ -21,9 +22,14 @@ final class LobbyApi(
             "me" -> ctx.me.map { u =>
               Json.obj("username" -> u.username).add("isBot" -> u.isBot)
             },
-            "seeks"        -> JsArray(seeks.map(_.render)),
-            "nowPlaying"   -> JsArray(displayedPovs map nowPlaying),
-            "nbNowPlaying" -> povs.size
+            "seeks"        -> seeks.map(_.render),
+            "nowPlaying"   -> displayedPovs.map(nowPlaying),
+            "nbNowPlaying" -> povs.size,
+            "ratingMap"    -> ctx.me.map(_.perfs.ratingMap),
+            "counters" -> Json.obj(
+              "members" -> lobbySocket.counters.members,
+              "rounds"  -> lobbySocket.counters.rounds
+            )
           ) -> displayedPovs
         }
       }
