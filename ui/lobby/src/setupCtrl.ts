@@ -273,7 +273,7 @@ export default class SetupController {
       alert(
         errs
           ? Object.keys(errs)
-              .map(k => `${k}: ${errs[k][0]}`)
+              .map(k => `${k}: ${errs[k]}`)
               .join('\n')
           : 'Invalid setup'
       );

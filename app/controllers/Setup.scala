@@ -86,7 +86,7 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
+                      html = BadRequest(jsonError(message)).fuccess,
                       api = _ => BadRequest(jsonError(message)).fuccess
                     )
                   case None =>
