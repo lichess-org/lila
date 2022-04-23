@@ -30,7 +30,7 @@ export const init = (node: HTMLElement) => {
     domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
     ['white', 'black'].forEach(color =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
-        $(this).clock({
+        lichess.clockWidget(this, {
           time: parseInt(this.getAttribute('data-time')!),
           pause: color != turnColor,
         });
@@ -59,8 +59,8 @@ export const update = (node: HTMLElement, data: UpdateData) => {
   const turnColor = fenColor(data.fen);
   const renderClock = (time: number | undefined, color: string) => {
     if (!isNaN(time!))
-      $el.find('.mini-game__clock--' + color).clock('set', {
-        time,
+      lichess.clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
+        time: time!,
         pause: color != turnColor,
       });
   };
@@ -70,12 +70,8 @@ export const update = (node: HTMLElement, data: UpdateData) => {
 
 export const finish = (node: HTMLElement, win?: string) =>
   ['white', 'black'].forEach(color => {
-    const $clock = $(node)
-      .find('.mini-game__clock--' + color)
-      .each(function (this: HTMLElement) {
-        $(this).clock('destroy');
-      });
+    const $clock = $(node).find('.mini-game__clock--' + color);
+    // don't interfer with snabbdom clocks
     if (!$clock.data('managed'))
-      // snabbdom
       $clock.replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`);
   });
