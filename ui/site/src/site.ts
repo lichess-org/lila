@@ -6,7 +6,6 @@ import announce from './component/announce';
 import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
-import loadClockWidget from './component/clock-widget';
 import OnlineFriends from './component/friends';
 import powertip from './component/powertip';
 import pubsub from './component/pubsub';
@@ -21,8 +20,6 @@ import { trapFocus } from 'common/modal';
 
 exportLichessGlobals();
 lichess.info = info;
-
-loadClockWidget();
 
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');

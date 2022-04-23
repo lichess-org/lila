@@ -45,7 +45,7 @@ export default function (opts: RoundOpts): void {
   function startTournamentClock() {
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
-        $(this).clock({
+        lichess.clockWidget(this, {
           time: parseFloat($(this).data('time')),
         });
       });

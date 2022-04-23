@@ -7,6 +7,7 @@ interface Lichess {
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   powertip: any;
+  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
@@ -487,7 +488,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  clock: any;
 }
 
 declare namespace PowerTip {

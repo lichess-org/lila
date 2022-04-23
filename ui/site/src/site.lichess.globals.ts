@@ -6,6 +6,7 @@ import { spinnerHtml } from 'common/spinner';
 import sri from './component/sri';
 import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';
+import clockWidget from './component/clock-widget';
 import {
   assetUrl,
   loadCss,
@@ -37,6 +38,7 @@ export default () => {
   l.tempStorage = tempStorage;
   l.once = once;
   l.powertip = powertip;
+  l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
   l.assetUrl = assetUrl;
   l.loadCss = loadCss;
