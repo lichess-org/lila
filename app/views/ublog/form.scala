@@ -132,6 +132,12 @@ object form {
               help = trans.ublog.publishHelp().some,
               half = true
             ),
+            form3.checkbox(
+              form("teamTopic"),
+              frag("make a gog"),
+              help = frag("gog making is fun").some,
+              half = true
+            ),
             form3.group(form("language"), trans.language(), half = true) { field =>
               form3.select(
                 field,
