@@ -140,6 +140,9 @@ Riddari = 3
 Finna = 1
 Til ber ikki at geva konginum eitt virði! Missir tú kongin, tapir tú talvið.</string>
   <string name="queenOverBishop">Tak fólkið við hægsta virðinum! Frúgv &gt; Bispur</string>
+  <string name="pieceValueExchange">Tak fólkið við hægsta virðinum!
+Ofra ikki
+eitt fólk av hægri virði fyri eitt fólk av lægri virði.</string>
   <string name="pieceValueLegal">Tak fólkið
 við hægsta virðinum!
 Ansa eftir at leikurin er lógligur!</string>
