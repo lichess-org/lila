@@ -11,49 +11,49 @@ object otherTrophies {
 
   def apply(info: lila.app.mashup.UserInfo)(implicit ctx: Context) =
     frag(
-      info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
+      info.trophies.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
         div(cls := "stacked")(
           trophies.sorted.map { trophy =>
             trophy.kind.icon.map { iconChar =>
               a(
                 awardCls(trophy),
-                href := trophy.kind.url.orElse(trophy.url),
+                href := trophy.anyUrl,
                 ariaTitle(s"${trophy.kind.name}")
               )(raw(iconChar))
             }
           }
         )
       },
-      info.shields.map { shield =>
+      info.trophies.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",
           ariaTitle(s"${shield.categ.name} Shield"),
           href := routes.Tournament.shields
         )(shield.categ.iconChar.toString)
       },
-      info.revolutions.map { revol =>
+      info.trophies.revolutions.map { revol =>
         a(
           cls := "revol_trophy combo-trophy",
           ariaTitle(s"${revol.variant.name} Revolution"),
           href := routes.Tournament.show(revol.tourId)
         )(revol.iconChar.toString)
       },
-      info.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
-      info.trophies.filter(_.kind.withCustomImage).map { t =>
+      info.trophies.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
+      info.trophies.trophies.filter(_.kind.withCustomImage).map { t =>
         a(
           awardCls(t),
-          href := t.kind.url,
+          href := t.anyUrl,
           ariaTitle(t.kind.name),
           style := "width: 65px; margin: 0 3px!important;"
         )(
           img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
         )
       },
-      info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
+      info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
         trophy.kind.icon.map { iconChar =>
           a(
             awardCls(trophy),
-            href := trophy.kind.url,
+            href := trophy.anyUrl,
             ariaTitle(trophy.kind.name)
           )(raw(iconChar))
         }
@@ -61,7 +61,7 @@ object otherTrophies {
       info.isCoach option
         a(
           href := routes.Coach.show(info.user.username),
-          cls := "trophy award icon3d coach",
+          cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
         )(""),
       (info.isStreamer && ctx.noKid) option {
@@ -93,8 +93,8 @@ object otherTrophies {
   transform: translateY(-9px);
   animation: psyche 0.3s ease-in-out infinite alternate;
 }"""),
-    a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
-      img(src := assetUrl("images/trophy/zug-trophy.png"))
+    a(awardCls(t), href := t.anyUrl, ariaTitle(t.kind.name))(
+      img(src           := assetUrl("images/trophy/zug-trophy.png"))
     )
   )
 }

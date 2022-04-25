@@ -171,8 +171,8 @@ object Challenge {
   object TimeControl {
     def make(clock: Option[chess.Clock.Config], days: Option[Int]) =
       clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
-    case object Unlimited                extends TimeControl
-    case class Correspondence(days: Int) extends TimeControl
+    case object Unlimited                        extends TimeControl
+    case class Correspondence(days: Int)         extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit     = config.limit

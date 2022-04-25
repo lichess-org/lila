@@ -14,7 +14,7 @@ export function hooks(ctrl: LobbyController): Hooks {
       const id =
         (e.target as HTMLElement).getAttribute('data-id') ||
         ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
-      if (id === 'custom') $('.config_hook').trigger('mousedown');
+      if (id === 'custom') ctrl.setupCtrl.openModal('hook');
       else if (id) ctrl.clickPool(id);
     },
     ctrl.redraw

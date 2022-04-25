@@ -11,7 +11,8 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret, Holder }
+import lila.user.{ Holder, TotpSecret, User => UserModel }
+import lila.i18n.I18nLangPicker
 
 final class Account(
     env: Env,
@@ -101,7 +102,12 @@ final class Account(
 
   def apiMe =
     Scoped() { req => me =>
-      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
+      env.api.userApi.extended(
+        me,
+        me.some,
+        withFollows = apiC.userWithFollows(req),
+        withTrophies = false
+      )(I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =

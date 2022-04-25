@@ -1,24 +1,20 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
-.game-setup {
+.game-setup#modal-wrap {
   display: block;
-
-  #modal-wrap {
-    width: 30em;
-
-    > div {
-      padding: 0;
-    }
-  }
-
+  width: 30em;
   text-align: center;
+
+  > div {
+    padding: 0;
+  }
 
   h2 {
     margin: 1.5rem 0;
   }
 
-  form > div {
+  .setup-content > div {
     padding: 0.5em 1em;
   }
 
@@ -54,7 +50,8 @@ $c-slider: $c-setup;
     @extend %flex-center;
 
     &.variant {
-      margin-bottom: 0.5em;
+      margin-bottom: 1em;
+      padding-bottom: 0;
     }
 
     label {
@@ -84,7 +81,7 @@ $c-slider: $c-setup;
     }
   }
 
-  #form3-fen.failure {
+  #fen-input.failure {
     background: mix($c-bg-box, $c-bad, 80%);
     box-shadow: 0 0 13px $c-bad;
   }
@@ -120,10 +117,9 @@ $c-slider: $c-setup;
     padding: 1em;
     width: 100%;
     text-align: center;
-  }
-
-  .ratings div {
-    display: none;
+    strong {
+      margin-right: 0.25em;
+    }
   }
 
   .color-submits {

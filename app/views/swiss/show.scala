@@ -33,25 +33,25 @@ object show {
         jsModule("swiss"),
         hasScheduleInput option jsModule("flatpickr"),
         embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> bits.jsI18n,
-              "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                  localMod = isLocalMod
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings
-            )
-            .add("schedule" -> hasScheduleInput)
-        )})""")
+            Json
+              .obj(
+                "data"   -> data,
+                "i18n"   -> bits.jsI18n,
+                "userId" -> ctx.userId,
+                "chat" -> chatOption.map { c =>
+                  chat.json(
+                    c.chat,
+                    name = trans.chatRoom.txt(),
+                    timeout = c.timeout,
+                    public = true,
+                    resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                    localMod = isLocalMod
+                  )
+                },
+                "showRatings" -> ctx.pref.showRatings
+              )
+              .add("schedule" -> hasScheduleInput)
+          )})""")
       ),
       moreCss = frag(
         cssTag("swiss.show"),

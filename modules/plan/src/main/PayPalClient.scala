@@ -70,7 +70,7 @@ final private class PayPalClient(
           "items" -> List(
             // TODO replace with product?
             Json.obj(
-              "name"        -> "One-time Patron",
+              "name" -> "One-time Patron",
               "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
               "unit_amount" -> data.checkout.money,
               "quantity"    -> 1
@@ -138,10 +138,10 @@ final private class PayPalClient(
     postOne[PayPalPlan](
       path.plans,
       Json.obj(
-        "product_id"  -> patronMonthProductId,
-        "name"        -> s"Monthly Patron $currency",
+        "product_id" -> patronMonthProductId,
+        "name"       -> s"Monthly Patron $currency",
         "description" -> s"Support Lichess and get Patron wings. The subscription is renewed every month. Currency: $currency",
-        "status"      -> "ACTIVE",
+        "status" -> "ACTIVE",
         "billing_cycles" -> Json.arr(
           Json.obj(
             "frequency" -> Json.obj(

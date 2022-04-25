@@ -24,7 +24,7 @@ case class IrwinReport(
   def add(report: IrwinReport) = {
     val newIds = report.games.map(_.gameId).toSet
     report.copy(
-      games = (games.filterNot(g => newIds(g.gameId)) ::: report.games)
+      games = games.filterNot(g => newIds(g.gameId)) ::: report.games
     )
   }
 }

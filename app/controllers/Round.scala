@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Pov, Game => GameModel, PgnDump }
+import lila.game.{ Game => GameModel, PgnDump, Pov }
 import lila.swiss.Swiss.{ Id => SwissId }
 import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }

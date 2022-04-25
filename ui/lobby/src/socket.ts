@@ -11,8 +11,6 @@ export default class LobbySocket {
   handlers: Handlers;
 
   constructor(readonly send: SocketSend, ctrl: LobbyController) {
-    this.send = send;
-
     this.handlers = {
       had(hook: Hook) {
         hookRepo.add(ctrl, hook);
