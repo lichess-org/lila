@@ -10,6 +10,7 @@ import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
+import lila.rating.Glicko
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
@@ -176,7 +177,7 @@ final class Setup(
                   hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
                   hookConfigWithRating = get("rr").fold(
                     hookConfig.withRatingRange(
-                      ctx.me.fold(0.some)(_.perfs.ratingOf(game.perfKey)),
+                      ctx.me.fold(Glicko.default.rating.toInt.some)(_.perfs.ratingOf(game.perfKey)),
                       get("deltaMin"),
                       get("deltaMax")
                     )
