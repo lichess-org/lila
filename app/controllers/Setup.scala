@@ -173,13 +173,23 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
-                    "rr"
-                  ) updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+                  hookConfigWithRating = get("rr").fold(
+                    hookConfig.withRatingRange(
+                      ctx.me.fold(0.some)(_.perfs.ratingOf(game.perfKey)),
+                      get("deltaMin"),
+                      get("deltaMax")
+                    )
+                  )(rr => hookConfig withRatingRange rr) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
-                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                      .hook(
+                        hookConfigWithRating,
+                        Sri(sri),
+                        HTTPRequest sid ctx.req,
+                        blocking ++ sameOpponents
+                      )
                 } yield hookResponse(hookResult)
               }
             }
