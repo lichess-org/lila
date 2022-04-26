@@ -183,6 +183,10 @@
     <item quantity="one">%s ಘಂಟೆ</item>
     <item quantity="other">%s ಘಂಟೆಗಳು</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s ನಿಮಿಷ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳು</item>
+  </plurals>
   <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಧಾರಣೆ ಅಂಕಿಅಂಶ</string>
@@ -454,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ದೇಶ ಅಥವಾ ಬಾವುಟ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
+  <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
