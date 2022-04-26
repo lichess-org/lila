@@ -82,11 +82,10 @@ def terser(js):
 
 
 def preprocess(js):
-    return re.sub(r"export default function ([^\{]+)\{", r"lichess.timeagoLocale = \1=> {", js)
+    return "{" + re.sub(r"export default function ([^\{]+)\{", r"lichess.timeagoLocale = \1=> {", js) + "\n}"
 
 def postprocess(js):
-    return "{" + js.strip() + "}"
-
+    return js.strip()
 
 
 if __name__ == '__main__':
