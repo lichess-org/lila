@@ -1,15 +1,13 @@
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from './throttle';
 
 export const runner = (hacks: () => void, throttleMs = 100): void => {
   let timeout: number | undefined;
 
-  const runHacks = throttlePromise(
-    finallyDelay(throttleMs, () =>
-      requestAnimationFrame(() => {
-        hacks();
-        schedule();
-      })
-    )
+  const runHacks = throttle(throttleMs, () =>
+    requestAnimationFrame(() => {
+      hacks();
+      schedule();
+    })
   );
 
   function schedule() {
