@@ -10,6 +10,7 @@ import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
+import lila.rating.Glicko
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
@@ -173,13 +174,23 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
-                    "rr"
-                  ) updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+                  hookConfigWithRating = get("rr").fold(
+                    hookConfig.withRatingRange(
+                      ctx.me.fold(Glicko.default.rating.toInt.some)(_.perfs.ratingOf(game.perfKey)),
+                      get("deltaMin"),
+                      get("deltaMax")
+                    )
+                  )(rr => hookConfig withRatingRange rr) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
-                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                      .hook(
+                        hookConfigWithRating,
+                        Sri(sri),
+                        HTTPRequest sid ctx.req,
+                        blocking ++ sameOpponents
+                      )
                 } yield hookResponse(hookResult)
               }
             }

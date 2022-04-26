@@ -37,8 +37,20 @@ object RatingRange {
       if min < max
     } yield RatingRange(min, max)
 
-  def orDefault(from: String)         = apply(from) | default
-  def orDefault(from: Option[String]) = from.flatMap(apply) | default
+  def apply(rating: Int, deltaMin: Option[String], deltaMax: Option[String]): Option[RatingRange] =
+    for {
+      dmin <- deltaMin.flatMap(_.toIntOption)
+      min = rating + dmin
+      if acceptable(min)
+      dmax <- deltaMax.flatMap(_.toIntOption)
+      max = rating + dmax
+      if acceptable(max)
+      if min < max
+    } yield RatingRange(min, max)
+
+  def orDefault(from: String) = apply(from) | default
+  def orDefault(rating: Option[Int], deltaMin: Option[String], deltaMax: Option[String]) =
+    rating.flatMap(r => apply(r, deltaMin, deltaMax)) | default
 
   def noneIfDefault(from: String) =
     if (from == default.toString) none
