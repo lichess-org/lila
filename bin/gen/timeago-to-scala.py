@@ -28,7 +28,8 @@ def main(args):
     if not args:
         print("// Usage:", file=sys.stderr)
         print("// $ git clone https://github.com/hustcc/timeago.js ../timeago.js", file=sys.stderr)
-        print("// (cd ../timeago.js && npm install && npm run build:esm", file=sys.stderr)
+        print("// $ # maybe edit timago.js tsconfig to adjust target")
+        print("// (cd ../timeago.js && npm install && npm run build:esm)", file=sys.stderr)
         print("// $ ./bin/gen/timeago-to-scala.py ../timeago.js/esm/lang/*.js > modules/i18n/src/main/TimeagoLocales.scala", file=sys.stderr)
         return 1
 
@@ -74,7 +75,7 @@ def main(args):
 
 
 def terser(js):
-    p = subprocess.Popen(["yarn", "run", "--silent", "terser", "--mangle", "--compress", "--toplevel", "--safari10"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
+    p = subprocess.Popen(["yarn", "run", "--silent", "terser", "--mangle", "--compress", "unsafe_arrows", "--toplevel", "--ecma", "2018", "--safari10"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
     stdout, stderr = p.communicate(js.encode("utf-8"))
     if p.returncode != 0:
         sys.exit(p.returncode)
@@ -82,7 +83,7 @@ def terser(js):
 
 
 def preprocess(js):
-    return "{" + re.sub(r"export default function ([^\{]+)\{", r"lichess.timeagoLocale = \1=> {", js) + "\n}"
+    return "{" + js.replace("export default", "lichess.timeagoLocale =") + "\n}"
 
 def postprocess(js):
     return js.strip()
