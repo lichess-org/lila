@@ -1,4 +1,5 @@
 import * as control from '../control';
+import * as keyboard from '../keyboard';
 import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
@@ -134,6 +135,7 @@ export default function (ctrl: Controller): VNode {
       controls(ctrl),
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
+      ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
     ]
   );
 }
