@@ -502,6 +502,7 @@
   <string name="reportDescriptionHelp">ಮೋಸ ನಡೆದಿದೆ ಎಂಬ ಸಂಶಯವಿರುವ ಆಟದ (ಆಟಗಳ) ಕೊಂಡಿ ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ. ಹಾಗೂ, ಈ ವ್ಯಕ್ತಿಯ ಅಥವಾ ಖಾತೆಯ ವರ್ತನೆಯಲ್ಲಿ ಏನು ಸಮಸ್ಯೆ ಇದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿ. ಕೇವಲ \"ಅವರು ಮೋಸ ಮಾಡಿದ್ದಾರೆ\" ಎಂದಷ್ಟೇ ಬರೆದು ಬಿಡಬೇಡಿ. ಬದಲಾಗಿ, ಹೇಗೆ ಈ ನಿರ್ಧಾರಕ್ಕೆ ಬಂದಿರಿ ಎಂಬುದನ್ನು ವಿವರಿಸಿ. ನಿಮ್ಮ ದೂರು ಇಂಗ್ಲಿಷ್ ಭಾಷೆಯಲ್ಲಿದ್ದರೆ ಬೇಗನೆಯೇ ಪರಿಹಾರ ಸಿಗುವ ಸಾಧ್ಯತೆ ಇದೆ.</string>
   <string name="error.provideOneCheatedGameLink">ದಯವಿಟ್ಟು ಮೋಸಕ್ಕೊಳಗಾದ ಒಂದಾದರೂ ಆಟದ ಕೊಂಡಿಯನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ.</string>
   <string name="by">%s ಅವರಿಂದ</string>
+  <string name="importedByX">%s import ಮಾಡಿದ್ದಾರೆ</string>
   <string name="thisTopicIsNowClosed">ಈ ವಿಷಯವನ್ನು ಈಗ ಮುಚ್ಚಲಾಗಿದೆ.</string>
   <string name="blog">ಬ್ಲಾಗ್</string>
   <string name="notes">ಟಿಪ್ಪಣಿಗಳು</string>
@@ -572,6 +573,7 @@
   <string name="error.min">ಕನಿಷ್ಠ %s ಸಂಖ್ಯೆಗಳು ಆದರೂ ಇರಬೇಕು</string>
   <string name="error.max">ಗರಿಷ್ಟ %s ಅಂಕೆಗಳು ಮಾತ್ರ ಇರಬಹುದಷ್ಟೇ</string>
   <string name="ifRatingIsPlusMinusX">ಧಾರಣೆ ± %s ಇದ್ದರೆ ಮಾತ್ರ</string>
+  <string name="ifRegistered">ನೊಂದಾಯಿಸಿದ್ದರೆ</string>
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="menu">ಮೆನು</string>
