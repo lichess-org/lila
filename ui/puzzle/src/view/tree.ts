@@ -1,6 +1,6 @@
 import { h, VNode, Classes } from 'snabbdom';
 import { defined } from 'common';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
 import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
@@ -20,15 +20,17 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: Controller, el) => {
-  const cont = el.parentNode;
-  const target = el.querySelector('.active');
-  if (!target) {
-    cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
-    return;
-  }
-  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
-});
+const autoScroll = throttlePromise(
+  finallyDelay(150, (ctrl: Controller, el) => {
+    const cont = el.parentNode;
+    const target = el.querySelector('.active');
+    if (!target) {
+      cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
+      return;
+    }
+    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+  })
+);
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
   return treePath.contains(ctx.ctrl.vm.path, path);

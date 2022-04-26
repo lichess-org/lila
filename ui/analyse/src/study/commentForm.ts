@@ -1,6 +1,6 @@
 import { prop, Prop } from 'common';
 import { onInsert } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
@@ -31,15 +31,17 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     doSubmit(text);
   }
 
-  const doSubmit = throttle(500, (text: string) => {
-    const cur = current();
-    if (cur)
-      root.study!.makeChange('setComment', {
-        ch: cur.chapterId,
-        path: cur.path,
-        text,
-      });
-  });
+  const doSubmit = throttlePromise(
+    finallyDelay(500, (text: string) => {
+      const cur = current();
+      if (cur)
+        root.study!.makeChange('setComment', {
+          ch: cur.chapterId,
+          path: cur.path,
+          text,
+        });
+    })
+  );
 
   function start(chapterId: string, path: Tree.Path, node: Tree.Node): void {
     opening(true);

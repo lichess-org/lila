@@ -3,7 +3,7 @@ import column from './columnView';
 import contextMenu from './contextMenu';
 import inline from './inlineView';
 import isCol1 from 'common/isCol1';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { enrichText, innerHTML, bindMobileTapHold } from '../util';
 import { h, Hooks, VNode } from 'snabbdom';
@@ -161,15 +161,17 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 }
 
-export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
-  const cont = el.parentElement?.parentElement;
-  if (!cont) return;
-  const target = el.querySelector<HTMLElement>('.active');
-  if (!target) {
-    cont.scrollTop = ctrl.path ? 99999 : 0;
-    return;
-  }
-  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
-});
+export const autoScroll = throttlePromise(
+  finallyDelay(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
+    const cont = el.parentElement?.parentElement;
+    if (!cont) return;
+    const target = el.querySelector<HTMLElement>('.active');
+    if (!target) {
+      cont.scrollTop = ctrl.path ? 99999 : 0;
+      return;
+    }
+    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+  })
+);
 
 export const nonEmpty = (x: unknown): boolean => !!x;

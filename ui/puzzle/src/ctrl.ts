@@ -6,7 +6,7 @@ import { PromotionCtrl } from 'chess/promotion';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -51,7 +51,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
-  const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+  const throttleSound = (name: string) => throttlePromise(finallyDelay(100, () => lichess.sound.play(name)));
   const loadSound = (file: string, volume?: number, delay?: number) => {
     setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true), delay || 1000);
     return () => lichess.sound.play(file, volume);
@@ -384,9 +384,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   }
 
-  const doStartCeval = throttle(800, function () {
-    ceval.start(vm.path, vm.nodeList, threatMode());
-  });
+  const doStartCeval = throttlePromise(
+    finallyDelay(800, function () {
+      ceval.start(vm.path, vm.nodeList, threatMode());
+    })
+  );
 
   const nextNodeBest = () => treeOps.withMainlineChild(vm.node, n => n.eval?.best);
 

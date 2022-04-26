@@ -31,9 +31,9 @@ import { commands } from 'nvui/command';
 import * as control from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { Api } from 'chessground/api';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+const throttled = (sound: string) => throttlePromise(finallyDelay(100, () => lichess.sound.play(sound)));
 const selectSound = throttled('select');
 const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');

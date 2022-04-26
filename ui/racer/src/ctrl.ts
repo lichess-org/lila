@@ -1,6 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
@@ -119,13 +119,17 @@ export default class RacerCtrl {
     return p?.score;
   };
 
-  join = throttle(1000, () => {
-    if (!this.isPlayer()) this.socketSend('racerJoin');
-  });
+  join = throttlePromise(
+    finallyDelay(1000, () => {
+      if (!this.isPlayer()) this.socketSend('racerJoin');
+    })
+  );
 
-  start = throttle(1000, () => {
-    if (this.isOwner()) this.socketSend('racerStart');
-  });
+  start = throttlePromise(
+    finallyDelay(1000, () => {
+      if (this.isOwner()) this.socketSend('racerStart');
+    })
+  );
 
   countdownSeconds = (): number | undefined =>
     this.status() == 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
@@ -252,11 +256,13 @@ export default class RacerCtrl {
 
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
 
-  private setZen = throttle(1000, zen =>
-    xhr.text('/pref/zen', {
-      method: 'post',
-      body: xhr.form({ zen: zen ? 1 : 0 }),
-    })
+  private setZen = throttlePromise(
+    finallyDelay(1000, zen =>
+      xhr.text('/pref/zen', {
+        method: 'post',
+        body: xhr.form({ zen: zen ? 1 : 0 }),
+      })
+    )
   );
 
   private toggleZen = () => lichess.pubsub.emit('zen');

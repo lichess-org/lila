@@ -1,5 +1,5 @@
 import { onInsert } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { option } from '../util';
@@ -112,13 +112,15 @@ function renderPgnTags(
 }
 
 export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: string[]): TagsCtrl {
-  const submit = throttle(500, function (name: string, value: string) {
-    root.study!.makeChange('setTag', {
-      chapterId: getChapter().id,
-      name,
-      value: value.substr(0, 140),
-    });
-  });
+  const submit = throttlePromise(
+    finallyDelay(500, function (name: string, value: string) {
+      root.study!.makeChange('setTag', {
+        chapterId: getChapter().id,
+        name,
+        value: value.substr(0, 140),
+      });
+    })
+  );
 
   return {
     submit(name: string) {

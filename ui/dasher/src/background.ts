@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -43,17 +43,19 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     list,
     trans,
     get: () => data.current,
-    set: throttle(700, (c: string) => {
-      data.current = c;
-      xhr
-        .text('/pref/bg', {
-          body: xhr.form({ bg: c }),
-          method: 'post',
-        })
-        .then(reloadAllTheThings, announceFail);
-      applyBackground(data, list);
-      redraw();
-    }),
+    set: throttlePromise(
+      finallyDelay(700, (c: string) => {
+        data.current = c;
+        xhr
+          .text('/pref/bg', {
+            body: xhr.form({ bg: c }),
+            method: 'post',
+          })
+          .then(reloadAllTheThings, announceFail);
+        applyBackground(data, list);
+        redraw();
+      })
+    ),
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;

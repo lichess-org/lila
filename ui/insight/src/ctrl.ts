@@ -1,4 +1,4 @@
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
 
@@ -58,37 +58,39 @@ export default class {
     this.vm.filters = {};
   }
 
-  askQuestion = throttle(1000, () => {
-    if (!this.validCombinationCurrent()) this.reset();
-    this.pushState();
-    this.vm.loading = true;
-    this.vm.broken = false;
-    this.redraw();
-    setTimeout(() => {
-      xhr
-        .json(this.env.postUrl, {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            metric: this.vm.metric.key,
-            dimension: this.vm.dimension.key,
-            filters: this.vm.filters,
-          }),
-        })
-        .then(
-          (answer: Chart) => {
-            this.vm.answer = answer;
-            this.vm.loading = false;
-            this.redraw();
-          },
-          () => {
-            this.vm.loading = false;
-            this.vm.broken = true;
-            this.redraw();
-          }
-        );
-    }, 1);
-  });
+  askQuestion = throttlePromise(
+    finallyDelay(1000, () => {
+      if (!this.validCombinationCurrent()) this.reset();
+      this.pushState();
+      this.vm.loading = true;
+      this.vm.broken = false;
+      this.redraw();
+      setTimeout(() => {
+        xhr
+          .json(this.env.postUrl, {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              metric: this.vm.metric.key,
+              dimension: this.vm.dimension.key,
+              filters: this.vm.filters,
+            }),
+          })
+          .then(
+            (answer: Chart) => {
+              this.vm.answer = answer;
+              this.vm.loading = false;
+              this.redraw();
+            },
+            () => {
+              this.vm.loading = false;
+              this.vm.broken = true;
+              this.redraw();
+            }
+          );
+      }, 1);
+    })
+  );
 
   makeUrl(dKey: string, mKey: string, filters: Filters) {
     let url = [this.env.pageUrl, mKey, dKey].join('/');

@@ -1,6 +1,6 @@
 import { MsgData, Contact, Convo, Msg, LastMsg, Search, SearchResult, Typing, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as network from './network';
 import { scroller } from './view/scroller';
 
@@ -203,9 +203,11 @@ export default class MsgCtrl {
     if (userId == this.data.convo?.user.id) this.openConvo(userId);
   };
 
-  sendTyping = throttle(3000, (user: string) => {
-    if (this.textStore?.get()) network.typing(user);
-  });
+  sendTyping = throttlePromise(
+    finallyDelay(3000, (user: string) => {
+      if (this.textStore?.get()) network.typing(user);
+    })
+  );
 
   receiveTyping = (userId: string, cancel?: any) => {
     if (this.typing) {

@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 
 type Key = string;
@@ -93,7 +93,7 @@ export function view(ctrl: SoundCtrl): VNode {
           hook: {
             insert(vnode) {
               const input = vnode.elm as HTMLInputElement,
-                setVolume = throttle(150, ctrl.volume);
+                setVolume = throttlePromise(finallyDelay(150, ctrl.volume));
               $(input).on('input', () => setVolume(parseFloat(input.value)));
             },
           },

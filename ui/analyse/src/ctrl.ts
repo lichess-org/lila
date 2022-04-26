@@ -8,7 +8,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import makeStudy from './study/studyCtrl';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
@@ -280,14 +280,16 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttle(800, () => {
-    if (!this.embed && !defined(this.node.dests))
-      this.socket.sendAnaDests({
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      });
-  });
+  getDests: () => void = throttlePromise(
+    finallyDelay(800, () => {
+      if (!this.embed && !defined(this.node.dests))
+        this.socket.sendAnaDests({
+          variant: this.data.game.variant.key,
+          fen: this.node.fen,
+          path: this.path,
+        });
+    })
+  );
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
@@ -330,7 +332,7 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+  private throttleSound = (name: string) => throttlePromise(finallyDelay(100, () => lichess.sound.play(name)));
 
   private sound = {
     move: this.throttleSound('move'),
@@ -338,9 +340,11 @@ export default class AnalyseCtrl {
     check: this.throttleSound('check'),
   };
 
-  private onChange: () => void = throttle(300, () => {
-    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
-  });
+  private onChange: () => void = throttlePromise(
+    finallyDelay(300, () => {
+      lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    })
+  );
 
   private updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
@@ -668,14 +672,16 @@ export default class AnalyseCtrl {
     return !this.node.threefold && !this.outcome();
   }
 
-  startCeval = throttle(800, () => {
-    if (this.ceval.enabled()) {
-      if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode());
-        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
-      } else this.ceval.stop();
-    }
-  });
+  startCeval = throttlePromise(
+    finallyDelay(800, () => {
+      if (this.ceval.enabled()) {
+        if (this.canUseCeval()) {
+          this.ceval.start(this.path, this.nodeList, this.threatMode());
+          this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
+        } else this.ceval.stop();
+      }
+    })
+  );
 
   toggleCeval = () => {
     if (!this.showComputer()) return;

@@ -1,7 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
 import { prop } from 'common';
-import throttle from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
@@ -299,22 +299,26 @@ export default function (
     ctrl.startCeval();
   }
 
-  const xhrReload = throttle(700, () => {
-    vm.loading = true;
-    return xhr
-      .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
-      .then(onReload, lichess.reload);
-  });
+  const xhrReload = throttlePromise(
+    finallyDelay(700, () => {
+      vm.loading = true;
+      return xhr
+        .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
+        .then(onReload, lichess.reload);
+    })
+  );
 
-  const onSetPath = throttle(300, (path: Tree.Path) => {
-    if (vm.mode.sticky && path !== data.position.path)
-      makeChange(
-        'setPath',
-        addChapterId({
-          path,
-        })
-      );
-  });
+  const onSetPath = throttlePromise(
+    finallyDelay(300, (path: Tree.Path) => {
+      if (vm.mode.sticky && path !== data.position.path)
+        makeChange(
+          'setPath',
+          addChapterId({
+            path,
+          })
+        );
+    })
+  );
 
   if (members.canContribute()) form.openIfNew();
 
