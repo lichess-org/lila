@@ -201,7 +201,11 @@ export default class SetupController {
 
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
     const valid =
-      color == 'random' && this.variant() == 'standard' && this.gameMode() == 'rated' && this.timeMode() == 'realTime';
+      color == 'random' &&
+      this.gameType === 'hook' &&
+      this.variant() == 'standard' &&
+      this.gameMode() == 'rated' &&
+      this.timeMode() == 'realTime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
