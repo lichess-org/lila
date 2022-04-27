@@ -4,7 +4,7 @@ import { Result } from '@badrap/result';
 import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 import { Cache } from './cache';
@@ -134,18 +134,16 @@ export default function (opts: CevalOpts): CevalCtrl {
   let worker: AbstractWorker<unknown> | undefined;
 
   let lastEmitFen: string | null = null;
-  const onEmit = throttlePromise(
-    finallyDelay(200, (ev: Tree.LocalEval, work: Work) => {
-      sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
-      curEval = ev;
-      opts.emit(ev, work);
-      if (ev.fen !== lastEmitFen && enabledAfterDisable()) {
-        // amnesty while auto disable not processed
-        lastEmitFen = ev.fen;
-        lichess.storage.fire('ceval.fen', ev.fen);
-      }
-    })
-  );
+  const onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
+    sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
+    curEval = ev;
+    opts.emit(ev, work);
+    if (ev.fen !== lastEmitFen && enabledAfterDisable()) {
+      // amnesty while auto disable not processed
+      lastEmitFen = ev.fen;
+      lichess.storage.fire('ceval.fen', ev.fen);
+    }
+  });
 
   const curDepth = () => (curEval ? curEval.depth : 0);
 
@@ -216,12 +214,10 @@ export default function (opts: CevalOpts): CevalCtrl {
         worker = new ThreadedWasmWorker(protocolOpts, {
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
-          downloadProgress: throttlePromise(
-            finallyDelay(200, mb => {
-              downloadProgress(mb);
-              opts.redraw();
-            })
-          ),
+          downloadProgress: throttle(200, mb => {
+            downloadProgress(mb);
+            opts.redraw();
+          }),
           version: 'b6939d',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
           cache: new Cache('ceval-wasm-cache'),
