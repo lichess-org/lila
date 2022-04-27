@@ -126,7 +126,7 @@ export default class LobbyController {
     let previous = initialCount;
     let timeouts: number[] = [];
     const display = (prev: number, cur: number, it: number) => {
-      elm.textContent = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps)); // TODO fix
+      elm.textContent = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
     };
     return (nb: number) => {
       if (!nb && nb !== 0) return;
