@@ -31,7 +31,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
  * or rejects).
  */
 export function finallyDelay<T extends (...args: any) => Promise<void>>(
-  delay: number,
+  delay: ((...args: Parameters<T>) => number) | any,
   wrapped: T
 ): (...args: Parameters<T>) => Promise<void> {
   return function (this: any, ...args: Parameters<T>): Promise<void> {
