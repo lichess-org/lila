@@ -33,6 +33,8 @@ export default function main(opts: LobbyOpts) {
     leavePool: ctrl.leavePool,
     setupCtrl: ctrl.setupCtrl,
     redraw: ctrl.redraw,
+    spreadPlayersNumber: ctrl.spreadPlayersNumber,
+    spreadGamesNumber: ctrl.spreadGamesNumber,
   };
 }
 

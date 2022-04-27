@@ -1,3 +1,4 @@
+import { numberFormat } from 'common/number';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
@@ -118,6 +119,25 @@ export default class LobbyController {
       if (this.poolMember) this.socket.poolOut(this.poolMember);
     });
   }
+
+  spreadPlayersNumber?: (nb: number) => void;
+  spreadGamesNumber?: (nb: number) => void;
+  initNumberSpreader = (elm: HTMLAnchorElement, nbSteps: number, initialCount: number) => {
+    let previous = initialCount;
+    let timeouts: number[] = [];
+    const display = (prev: number, cur: number, it: number) => {
+      elm.textContent = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps)); // TODO fix
+    };
+    return (nb: number) => {
+      if (!nb && nb !== 0) return;
+      timeouts.forEach(clearTimeout);
+      timeouts = [];
+      const interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
+      const prev = previous || nb;
+      previous = nb;
+      for (let i = 0; i < nbSteps; i++) timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
+    };
+  };
 
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);

@@ -1,7 +1,6 @@
 import * as xhr from 'common/xhr';
 import main from './main';
 import { LobbyOpts } from './interfaces';
-import { numberFormat } from 'common/number';
 
 export default function LichessLobby(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -23,20 +22,14 @@ export default function LichessLobby(opts: LobbyOpts) {
   opts.blindMode = $('body').hasClass('blind-mode');
   opts.trans = lichess.trans(opts.i18n);
 
-  const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
-    nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
-    getParameterByName = (name: string) => {
-      const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
-      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    };
   lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
     receive(t: string, d: any) {
       lobby.socketReceive(t, d);
     },
     events: {
-      n(_: string, msg: any) {
-        nbUserSpread(msg.d);
-        setTimeout(() => nbRoundSpread(msg.r), lichess.socket.pingInterval() / 2);
+      n(_: string, msg: { d: number; r: number }) {
+        lobby.spreadPlayersNumber && lobby.spreadPlayersNumber(msg.d);
+        setTimeout(() => lobby.spreadGamesNumber && lobby.spreadGamesNumber(msg.r), lichess.socket.pingInterval() / 2);
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
@@ -96,25 +89,4 @@ function suggestBgSwitch() {
         dasher.subs.background.set(document.body.classList.contains('dark') ? 'light' : 'dark')
       )
     );
-}
-
-function spreadNumber(selector: string, nbSteps: number) {
-  let el = document.querySelector(selector) as HTMLElement;
-  let previous = parseInt(el.getAttribute('data-count')!);
-  const display = (prev: number, cur: number, it: number) => {
-    el.textContent = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
-  };
-  let timeouts: number[] = [];
-  return (nb: number, overrideNbSteps?: number) => {
-    // find the element again since snabbdom will change it on its first draw
-    el = document.querySelector(selector) as HTMLElement;
-    if (!el || (!nb && nb !== 0)) return;
-    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
-    timeouts.forEach(clearTimeout);
-    timeouts = [];
-    const interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
-    const prev = previous || nb;
-    previous = nb;
-    for (let i = 0; i < nbSteps; i++) timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
-  };
 }
