@@ -16,6 +16,7 @@ case class UblogPost(
     image: Option[UblogImage],
     topics: List[UblogTopic],
     live: Boolean,
+    discuss: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],

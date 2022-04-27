@@ -113,19 +113,26 @@ final private[forum] class TopicApi(
       }
     }
 
-  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
+  def makeUblogDiscuss(categ: Categ, slug: String, name: String, url: String, authorId: String): Funit =
+    makeBlogTopic(categ, slug, name, url, authorId)
+
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit =
+    makeBlogTopic(categ, slug, name, url, User.lichessId)
+
+  def makeBlogTopic(categ: Categ, slug: String, name: String, url: String, uid: String) = {
     val topic = Topic.make(
       categId = categ.slug,
       slug = slug,
       name = name,
       troll = false,
-      userId = User.lichessId,
-      hidden = false
+      userId = uid,
+      hidden = false,
+      blogUrl = Option(url)
     )
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId.some,
+      userId = Option(uid),
       troll = false,
       hidden = false,
       text = s"Comments on $url",
@@ -140,7 +147,6 @@ final private[forum] class TopicApi(
       (indexer ! InsertPost(post)) >>-
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
-
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
@@ -152,8 +158,9 @@ final private[forum] class TopicApi(
 
   def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      MasterGranter.is(_.ModerateForum)(mod) ??
+      (MasterGranter.is(_.ModerateForum)(mod) || topic.canOwnerMod(mod.id)) ?? {
         modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
+      }
     }
 
   def toggleHide(categ: Categ, topic: Topic, mod: Holder): Funit =

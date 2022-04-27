@@ -104,7 +104,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           if (me.id == ~post.userId && !post.erased)
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
-            CategGrantMod(categSlug) {
+            TopicGrantMod(categSlug, ctx.me, topicId = Option(post.topicId)) {
               env.forum.delete.post(categSlug, id, me) inject {
                 implicit val req = ctx.body
                 for {
@@ -113,6 +113,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                   preset =
                     if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
+                    else if (false)
+                      MsgPreset.forumDeletion.byBlogAuthor("") // TODO have to look up the topic here i guess
                     else MsgPreset.forumDeletion.byTeamLeader(categSlug)
                 } env.msg.api.systemPost(userId, preset(reason))
                 NoContent

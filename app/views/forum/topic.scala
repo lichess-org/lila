@@ -95,11 +95,10 @@ object topic {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
-
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href := routes.ForumCateg.show(categ.slug),
+            href := topic.blogUrl.getOrElse(s"${routes.ForumCateg.show(categ.slug)}"),
             dataIcon := "",
             cls := "text"
           ),
@@ -157,19 +156,20 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg option frag(
+            canModCateg || topic.canOwnerMod(ctx.me) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
                 )
               ),
+            canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               ),
+            canModCateg || topic.canOwnerMod(ctx.me) option
               deleteModal
-            )
           )
         ),
         formWithCaptcha.map { case (form, captcha) =>

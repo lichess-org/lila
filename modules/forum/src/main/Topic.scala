@@ -23,7 +23,8 @@ case class Topic(
     closed: Boolean,
     hidden: Boolean,
     sticky: Option[Boolean],
-    userId: Option[String] = None // only since SB mutes
+    userId: Option[String] = None, // only since SB mutes
+    blogUrl: Option[String] = None
 ) {
 
   def id = _id
@@ -43,6 +44,10 @@ case class Topic(
   def looksLikeTeamForum = Categ.isTeamSlug(categId)
 
   def isSticky = ~sticky
+
+  def canOwnerMod(forUid: User.ID): Boolean = userId.contains(forUid)
+  def canOwnerMod(forUser: Option[User]): Boolean =
+    blogUrl.nonEmpty && forUser.isDefined && userId.contains(forUser.get.id)
 
   def withPost(post: Post): Topic =
     copy(
@@ -80,7 +85,8 @@ object Topic {
       name: String,
       userId: User.ID,
       troll: Boolean,
-      hidden: Boolean
+      hidden: Boolean,
+      blogUrl: Option[String] = None
   ): Topic =
     Topic(
       _id = ThreadLocalRandom nextString idSize,
@@ -98,6 +104,7 @@ object Topic {
       userId = userId.some,
       closed = false,
       hidden = hidden,
-      sticky = None
+      sticky = None,
+      blogUrl = blogUrl
     )
 }

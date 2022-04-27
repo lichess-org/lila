@@ -94,7 +94,7 @@ object categ {
             categ.team.fold(frag(categ.name))(teamIdToName)
           ),
           div(cls := "box__top__actions")(
-            newTopicButton
+            newTopicButton //, bits.searchForm("Search")
           )
         ),
         table(cls := "topics slist slist-pad")(

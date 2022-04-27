@@ -14,7 +14,8 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String,
-    quiet: Boolean = false
+    quiet: Boolean = false,
+    hidden: Boolean = false
 ) {
 
   def id = _id

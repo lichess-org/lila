@@ -70,26 +70,29 @@ object post {
                   title := "Delete"
                 )
               ).some
-            else if (canModCateg)
-              a(
-                cls := "mod delete button button-empty",
-                href := routes.ForumPost.delete(categ.slug, post.id),
-                dataIcon := "",
-                title := "Delete"
-              ).some
             else
-              post.userId map { userId =>
-                val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
-                frag(
-                  nbsp,
+              frag(
+                if (canModCateg || topic.canOwnerMod(me.id))
                   a(
-                    titleOrText(trans.reportXToModerators.txt(userId)),
-                    cls := "mod report button button-empty",
-                    href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
-                    dataIcon := ""
-                  )
-                )
-              }
+                    cls := "mod delete button button-empty",
+                    href := routes.ForumPost.delete(categ.slug, post.id),
+                    dataIcon := "",
+                    title := "Delete"
+                  ),
+                if (!canModCateg)
+                  post.userId map { userId =>
+                    val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+                    frag(
+                      nbsp,
+                      a(
+                        titleOrText(trans.reportXToModerators.txt(userId)),
+                        cls := "mod report button button-empty",
+                        href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
+                        dataIcon := ""
+                      )
+                    )
+                  }
+              ).some
           },
           (canReply && !post.erased) option button(
             cls := "mod quote button button-empty text",

@@ -133,9 +133,9 @@ object form {
               half = true
             ),
             form3.checkbox(
-              form("teamTopic"),
-              frag("make a gog"),
-              help = frag("gog making is fun").some,
+              form("discuss"),
+              trans.ublog.createBlogDiscussion(),
+              help = trans.ublog.createBlogDiscussionHelp().some,
               half = true
             ),
             form3.group(form("language"), trans.language(), half = true) { field =>

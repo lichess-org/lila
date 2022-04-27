@@ -87,7 +87,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def close(categSlug: String, slug: String) =
     Auth { implicit ctx => me =>
-      CategGrantMod(categSlug) {
+      TopicGrantMod(categSlug, ctx.me, topicSlug = Option(slug)) {
         OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
           topicApi.toggleClose(categ, topic, Holder(me)) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
