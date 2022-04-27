@@ -52,7 +52,8 @@ export default function LichessLobby(opts: LobbyOpts) {
     },
   });
   lichess.StrongSocket.firstConnect.then(() => {
-    const gameId = getParameterByName('hook_like');
+    const urlParams = new URLSearchParams(location.search);
+    const gameId = urlParams.get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobby.setupCtrl.makeSetupStore('hook')();
     xhr.text(xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }), {
