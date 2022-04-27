@@ -23,13 +23,14 @@ export default function LichessLobby(opts: LobbyOpts) {
   opts.trans = lichess.trans(opts.i18n);
 
   lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
-    receive(t: string, d: any) {
-      lobby.socketReceive(t, d);
-    },
+    receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: { d: number; r: number }) {
-        lobby.spreadPlayersNumber && lobby.spreadPlayersNumber(msg.d);
-        setTimeout(() => lobby.spreadGamesNumber && lobby.spreadGamesNumber(msg.r), lichess.socket.pingInterval() / 2);
+        lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
+        setTimeout(
+          () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
+          lichess.socket.pingInterval() / 2
+        );
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
@@ -42,12 +43,12 @@ export default function LichessLobby(opts: LobbyOpts) {
         lichess.contentLoaded();
       },
       redirect(e: RedirectTo) {
-        lobby.leavePool();
-        lobby.setRedirecting();
+        lobbyCtrl.leavePool();
+        lobbyCtrl.setRedirecting();
         lichess.redirect(e);
       },
       fen(e: any) {
-        lobby.gameActivity(e.id);
+        lobbyCtrl.gameActivity(e.id);
       },
     },
   });
@@ -55,16 +56,17 @@ export default function LichessLobby(opts: LobbyOpts) {
     const urlParams = new URLSearchParams(location.search);
     const gameId = urlParams.get('hook_like');
     if (!gameId) return;
-    const { ratingMin, ratingMax } = lobby.setupCtrl.makeSetupStore('hook')();
+    const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
     xhr.text(xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }), {
       method: 'post',
     });
-    lobby.setTab('real_time');
+    lobbyCtrl.setTab('real_time');
+    lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
   });
 
   opts.socketSend = lichess.socket.send;
-  const lobby = main(opts);
+  const lobbyCtrl = main(opts);
 
   suggestBgSwitch();
 }
