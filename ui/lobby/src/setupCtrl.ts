@@ -84,7 +84,7 @@ export default class SetupController {
   // Namespace the store by username for user specific modal settings
   private storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
-  private makeSetupStore = (gameType: GameType) =>
+  makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
       variant: 'standard',
       fen: '',
@@ -199,18 +199,13 @@ export default class SetupController {
     return `${rating + this.ratingMin()}-${rating + this.ratingMax()}`;
   };
 
-  // This function is a special version of the above function that does not require the modal to
-  // be opened. Used in boot.ts for hook-like games ("New opponent" button).
-  hookRatingRange = (): string => {
-    if (!this.root.data.ratingMap) return '';
-    const { variant, timeMode, time, increment, ratingMin, ratingMax } = this.makeSetupStore('hook')();
-    const rating = this.root.data.ratingMap[getPerf(variant, timeMode, time, increment)];
-    return `${rating + ratingMin}-${rating + ratingMax}`;
-  };
-
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
     const valid =
-      color == 'random' && this.variant() == 'standard' && this.gameMode() == 'rated' && this.timeMode() == 'realTime';
+      color == 'random' &&
+      this.gameType === 'hook' &&
+      this.variant() == 'standard' &&
+      this.gameMode() == 'rated' &&
+      this.timeMode() == 'realTime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {

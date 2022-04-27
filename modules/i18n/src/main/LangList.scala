@@ -17,6 +17,7 @@ object LangList {
     Lang("br", "FR")  -> "brezhoneg",
     Lang("bs", "BA")  -> "bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("co", "FR")  -> "corsu",
     Lang("cs", "CZ")  -> "čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",

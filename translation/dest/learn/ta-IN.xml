@@ -6,6 +6,10 @@
   <string name="resetMyProgress">என் முன்னேற்றம் மீட்டமைக்க</string>
   <string name="play">ஆடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
+  <string name="theRook">தி ரூக்</string>
+  <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
+  <string name="rookIntro">ரோக் ஒரு சக்திவாய்ந்த துண்டு. நீங்கள் கட்டளையிட தயாரா?</string>
+  <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர ரூக் மீது கிளிக் செய்யவும்!</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
   <string name="combat">போர்</string>
