@@ -33,9 +33,9 @@ object ChallengeDenied {
       case Reason.RatingOutsideRange(perf) =>
         trans.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => trans.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly               => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-      case Reason.BotUltraBullet            => "Bots cannot play UltraBullet. Choose a slower time control."
-      case Reason.SelfChallenge             => "You cannot challenge yourself."
+      case Reason.FriendsOnly    => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.BotUltraBullet => "Bots cannot play UltraBullet. Choose a slower time control."
+      case Reason.SelfChallenge  => "You cannot challenge yourself."
     }
 }
 

@@ -26,7 +26,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
               canRead     <- access.isGrantedRead(categ.slug)
               canWrite    <- access.isGrantedWrite(categ.slug)
               stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
-              _           <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
+              _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
               res <-
                 if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).fuccess
                 else notFound

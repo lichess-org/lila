@@ -15,6 +15,8 @@ case class Trophy(
   def compare(other: Trophy) =
     if (kind.order == other.kind.order) date compareTo other.date
     else Integer.compare(kind.order, other.kind.order)
+
+  def anyUrl = url orElse kind.url
 }
 
 case class TrophyKind(

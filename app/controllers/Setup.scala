@@ -10,6 +10,7 @@ import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
+import lila.rating.Glicko
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
@@ -48,20 +49,6 @@ final class Setup(
     key = "setup.post.bot.ai"
   )
 
-  def aiForm =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms aiFilled get("fen").map(FEN.clean)) map { form =>
-          html.setup.forms.ai(
-            form,
-            env.fishnet.aiPerfApi.intRatings,
-            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict")),
-            editorC.editorUrl
-          )
-        }
-      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
-    }
-
   def ai = OpenBody { implicit ctx =>
     BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
@@ -69,11 +56,7 @@ final class Setup(
         forms.ai
           .bindFromRequest()
           .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
+            jsonFormError,
             config =>
               processor.ai(config)(ctx) flatMap { pov =>
                 negotiate(
@@ -89,26 +72,6 @@ final class Setup(
     }(rateLimitedFu)
   }
 
-  def friendForm(userId: Option[String]) =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req)
-        fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
-          val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
-          userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
-            case Some(user) =>
-              env.challenge.granter.isDenied(ctx.me, user, none) map {
-                case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
-              }
-          }
-        }
-      else
-        fuccess {
-          Redirect(s"${routes.Lobby.home}#friend")
-        }
-    }
-
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
@@ -117,18 +80,14 @@ final class Setup(
           .friend(ctx)
           .bindFromRequest()
           .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
+            jsonFormError,
             config =>
               userId ?? env.user.repo.enabledNamed flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
+                      html = BadRequest(jsonError(message)).fuccess,
                       api = _ => BadRequest(jsonError(message)).fuccess
                     )
                   case None =>
@@ -164,22 +123,6 @@ final class Setup(
               }
           )
       }(rateLimitedFu)
-    }
-
-  def hookForm =
-    Open { implicit ctx =>
-      NoBot {
-        if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          val timeMode = get("time")
-          fuccess(forms.hookFilled(timeModeString = timeMode)) map {
-            html.setup.forms.hook(_, timeMode.isDefined)
-          }
-        }
-        else
-          fuccess {
-            Redirect(s"${routes.Lobby.home}#hook")
-          }
-      }
     }
 
   private def hookResponse(res: HookResult) =
@@ -231,13 +174,23 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
-                    "rr"
-                  ) updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+                  hookConfigWithRating = get("rr").fold(
+                    hookConfig.withRatingRange(
+                      ctx.me.fold(Glicko.default.rating.toInt.some)(_.perfs.ratingOf(game.perfKey)),
+                      get("deltaMin"),
+                      get("deltaMax")
+                    )
+                  )(rr => hookConfig withRatingRange rr) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
-                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                      .hook(
+                        hookConfigWithRating,
+                        Sri(sri),
+                        HTTPRequest sid ctx.req,
+                        blocking ++ sameOpponents
+                      )
                 } yield hookResponse(hookResult)
               }
             }

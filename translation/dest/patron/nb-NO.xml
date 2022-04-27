@@ -60,7 +60,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="giftPatronWings">Gi spiller patronvinger</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
-  <string name="cancelSupport">avbryt støtte</string>
+  <string name="cancelSupport">Avbryt støtten din</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>

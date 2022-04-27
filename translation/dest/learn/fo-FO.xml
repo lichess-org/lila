@@ -140,6 +140,12 @@ Riddari = 3
 Finna = 1
 Til ber ikki at geva konginum eitt virði! Missir tú kongin, tapir tú talvið.</string>
   <string name="queenOverBishop">Tak fólkið við hægsta virðinum! Frúgv &gt; Bispur</string>
+  <string name="pieceValueExchange">Tak fólkið við hægsta virðinum!
+Ofra ikki
+eitt fólk av hægri virði fyri eitt fólk av lægri virði.</string>
+  <string name="pieceValueLegal">Tak fólkið
+við hægsta virðinum!
+Ansa eftir at leikurin er lógligur!</string>
   <string name="takeThePieceWithTheHighestValue">Tak fólkið við hægsta virðinum!</string>
   <string name="pieceValueComplete">Til lukku! Tú kennir virðið á fólkunum!
 Frúgv = 9
@@ -180,6 +186,7 @@ Finna = 1</string>
   <string name="rightOn">Júst so!</string>
   <string name="stageXComplete">Stig %s fullført</string>
   <string name="next">Næst</string>
+  <string name="nextX">Næsta: %s</string>
   <string name="backToMenu">Aftur til valmyndina</string>
   <string name="puzzleFailed">Uppgávan miseydnaðist!</string>
   <string name="retry">Royn aftur</string>

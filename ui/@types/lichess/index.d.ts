@@ -7,7 +7,7 @@ interface Lichess {
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   powertip: any;
-  widget: any;
+  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
@@ -316,8 +316,10 @@ declare type VariantKey =
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'chess960'
@@ -488,7 +490,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  clock: any;
 }
 
 declare namespace PowerTip {

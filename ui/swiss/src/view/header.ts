@@ -1,12 +1,10 @@
-import { h, VNode } from 'snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
 import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
 
-function startClock(time: number) {
-  return {
-    insert: (vnode: VNode) => $(vnode.elm as HTMLElement).clock({ time }),
-  };
-}
+const startClock = (time: number): Hooks => ({
+  insert: (vnode: VNode) => lichess.clockWidget(vnode.elm as HTMLElement, { time }),
+});
 
 const oneDayInSeconds = 60 * 60 * 24;
 

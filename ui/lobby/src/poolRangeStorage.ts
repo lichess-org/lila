@@ -1,13 +1,11 @@
-function makeKey(poolId: string) {
-  return 'lobby-pool-range-' + poolId;
-}
+import { LobbyMe, PoolMember } from './interfaces';
 
-export function set(poolId: string, range?: string) {
-  const key = makeKey(poolId);
-  if (range) lichess.storage.set(key, range);
+const makeKey = (me: LobbyMe | undefined, poolId: string) => `lobby-pool-range.${me?.username || 'anon'}.${poolId}`;
+
+export const set = (me: LobbyMe | undefined, member: PoolMember) => {
+  const key = makeKey(me, member.id);
+  if (member.range) lichess.storage.set(key, member.range);
   else lichess.storage.remove(key);
-}
+};
 
-export function get(poolId: string) {
-  return lichess.storage.get(makeKey(poolId));
-}
+export const get = (me: LobbyMe | undefined, poolId: string) => lichess.storage.get(makeKey(me, poolId));

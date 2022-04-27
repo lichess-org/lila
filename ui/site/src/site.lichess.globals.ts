@@ -6,6 +6,7 @@ import { spinnerHtml } from 'common/spinner';
 import sri from './component/sri';
 import { storage, tempStorage } from './component/storage';
 import powertip from './component/powertip';
+import clockWidget from './component/clock-widget';
 import {
   assetUrl,
   loadCss,
@@ -17,7 +18,6 @@ import {
   loadModule,
   loadIife,
 } from './component/assets';
-import widget from './component/widget';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
@@ -38,7 +38,7 @@ export default () => {
   l.tempStorage = tempStorage;
   l.once = once;
   l.powertip = powertip;
-  l.widget = widget;
+  l.clockWidget = clockWidget;
   l.spinnerHtml = spinnerHtml;
   l.assetUrl = assetUrl;
   l.loadCss = loadCss;

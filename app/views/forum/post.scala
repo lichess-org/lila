@@ -17,9 +17,9 @@ object post {
         li(
           a(
             dataIcon := p.isTeam.option(""),
-            cls := "post_link text",
-            href := routes.ForumPost.redirect(p.postId),
-            title := p.topicName
+            cls      := "post_link text",
+            href     := routes.ForumPost.redirect(p.postId),
+            title    := p.topicName
           )(
             shorten(p.topicName, 30)
           ),
@@ -65,19 +65,19 @@ object post {
             if (!post.erased && post.canBeEditedBy(me))
               postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                 submitButton(
-                  cls := "mod delete button button-empty confirm",
+                  cls      := "mod delete button button-empty confirm",
                   dataIcon := "",
-                  title := "Delete"
+                  title    := "Delete"
                 )
               ).some
             else
               frag(
                 if (canModCateg || topic.canOwnerMod(me.id))
                   a(
-                    cls := "mod delete button button-empty",
-                    href := routes.ForumPost.delete(categ.slug, post.id),
+                    cls      := "mod delete button button-empty",
+                    href     := routes.ForumPost.delete(categ.slug, post.id),
                     dataIcon := "",
-                    title := "Delete"
+                    title    := "Delete"
                   ),
                 if (!canModCateg)
                   post.userId map { userId =>
@@ -95,8 +95,8 @@ object post {
               ).some
           },
           (canReply && !post.erased) option button(
-            cls := "mod quote button button-empty text",
-            tpe := "button",
+            cls      := "mod quote button button-empty text",
+            tpe      := "button",
             dataIcon := "❝"
           )("Quote")
         ),
@@ -111,15 +111,15 @@ object post {
         postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
             bits.dataTopic := topic.id,
-            name := "changes",
-            cls := "post-text-area edit-post-box",
-            minlength := 3,
+            name           := "changes",
+            cls            := "post-text-area edit-post-box",
+            minlength      := 3,
             required
           )(post.text),
           div(cls := "edit-buttons")(
             a(
-              cls := "edit-post-cancel",
-              href := routes.ForumPost.redirect(post.id),
+              cls   := "edit-post-cancel",
+              href  := routes.ForumPost.redirect(post.id),
               style := "margin-left:20px"
             )(
               trans.cancel()
@@ -139,7 +139,7 @@ object post {
         val size  = users.size
         button(
           dataHref := canActuallyReact option routes.ForumPost.react(post.categId, post.id, r, !mine(r)).url,
-          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          cls      := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {
               val who =
