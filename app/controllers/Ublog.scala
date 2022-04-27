@@ -67,7 +67,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     NotForKids {
       val categSlug = "community-blog-discussions"
       val topicSlug = s"ublog-${authorId}-${id}"
-      val redirect = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
+      val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
       env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>

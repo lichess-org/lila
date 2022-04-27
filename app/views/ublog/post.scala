@@ -107,19 +107,19 @@ object post {
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
-            if (post.live && post.discuss.getOrElse(false)) a(
-              href := routes.Ublog.discuss(post.created.by, post.id.value),
-              cls := "button text ublog-post__discuss",
-              dataIcon := ""
-            )(
-              "Discuss this blog post in the forum"
-            ),
+            if (post.live && post.discuss.getOrElse(false))
+              a(
+                href     := routes.Ublog.discuss(post.created.by, post.id.value),
+                cls      := "button text ublog-post__discuss",
+                dataIcon := ""
+              )(
+                "Discuss this blog post in the forum"
+              ),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
                 followButton(user, post, followed)
               ),
-
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
           )
