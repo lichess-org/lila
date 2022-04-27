@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಗೆಳಯ/ಗೆಳತಿಯೊಡನೆ  ಆಡಿ</string>
+  <string name="playWithAFriend">ಸ್ನೇಹಿತರೊಡನೆ ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
-  <string name="waiting">ಕಾಯಲಾಗುತ್ತಿದೆ</string>
+  <string name="waiting">ಎದುರಾಳಿಯು ಸವಾಲು ಸ್ವೀಕರಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ</string>
   <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
@@ -795,6 +795,7 @@
   <string name="currentMatchScore">ಪ್ರಸ್ತುತ ಪಂದ್ಯದ ಅಂಕಗಳು</string>
   <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ನಾನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೇನೆ (%s ಇಲ್ಲಿ ಹೇಳಿರುವ ಕಾರಣಗಳಿಗೆ ಹೊರತಾಗಿ).</string>
   <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
   <string name="edit">ತಿದ್ದಿ</string>
@@ -895,4 +896,5 @@
   <string name="until">ವರೆಗೆ</string>
   <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
+  <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
 </resources>
