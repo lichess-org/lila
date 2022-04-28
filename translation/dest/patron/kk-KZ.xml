@@ -24,7 +24,7 @@
   <string name="monthly">Ай сайын</string>
   <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
   <string name="onetime">Бір рет</string>
-  <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
+  <string name="singleDonation">Бір демеуіңіз Қамқоршы қанатын бір айға береді.</string>
   <string name="otherAmount">Басқа</string>
   <string name="pleaseEnterAmountInX">Мөлшерін %s-мен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
