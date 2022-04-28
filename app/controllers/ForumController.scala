@@ -34,24 +34,29 @@ private[controllers] trait ForumController { self: LilaController =>
       else fuccess(Forbidden("You cannot post to this category"))
     }
 
-  protected def TopicGrantMod[A <: Result](
+  protected def TopicGrantModBySlug[A <: Result](
       categSlug: String,
       forUser: Option[User],
-      topicSlug: Option[String] = None, // pass one
-      topicId: Option[String] = None    // or the other
+      topicSlug: String
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     access.isGrantedMod(categSlug) flatMap { granted =>
       if (granted | isGranted(_.ModerateForum)) a
-      else {
-        val fuTopic =
-          if (topicSlug.nonEmpty)
-            topicRepo.forUser(forUser).byTree(categSlug, topicSlug.get)
-          else
-            topicRepo.forUser(forUser).byId(topicId.get)
-        fuTopic flatMap { topic =>
+      else
+        topicRepo.forUser(forUser).byTree(categSlug, topicSlug) flatMap { topic =>
           if (topic.nonEmpty && topic.get.canOwnerMod(forUser)) a
           else fuccess(Forbidden("You cannot post to this category"))
         }
-      }
+    }
+
+  protected def TopicGrantModById[A <: Result](categSlug: String, forUser: Option[User], topicId: String)(
+      a: => Fu[A]
+  )(implicit ctx: Context): Fu[Result] =
+    access.isGrantedMod(categSlug) flatMap { granted =>
+      if (granted | isGranted(_.ModerateForum)) a
+      else
+        topicRepo.forUser(forUser).byId(topicId) flatMap { topic =>
+          if (topic.nonEmpty && topic.get.canOwnerMod(forUser)) a
+          else fuccess(Forbidden("You cannot post to this category"))
+        }
     }
 }

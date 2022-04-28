@@ -27,7 +27,7 @@ object categ {
           h1(dataIcon := "", cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
-        showCategs(categs.filterNot(_.categ.isTeam)),
+        showCategs(categs.filterNot(c => { c.categ.isTeam || c.categ.hidden })),
         if (categs.exists(_.categ.isTeam))
           frag(
             h1("Your teams boards"),
