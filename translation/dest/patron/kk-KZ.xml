@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Демеу</string>
+  <string name="donate">Демеу жасау</string>
   <string name="donateAsX">%s атынан демеу</string>
   <string name="lichessPatron">Личес Қамқоршысы</string>
   <string name="freeAccount">Тегін тіркелгі</string>
@@ -40,6 +40,7 @@
   <string name="changeOrContact">Иә, кез-келген уақытта, осы бетте.
 Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
+  <string name="otherMethods">Демеу берудің басқа жолдары бар ма?</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
   <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз.
@@ -66,7 +67,7 @@
   <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
   <string name="date">Күні</string>
   <string name="amount">Мөлшері</string>
-  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, ақшалай жәрдем түбіртегі поштаңызға жіберілді.</string>
+  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, түбіртек поштаңызға жіберілді.</string>
   <string name="permanentPatron">Енді сіз тұрақты Қамқоршы тіркелгісіне иесіз.</string>
   <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
   <string name="nowLifetime">Енді сіз мәңгіге Личес Қамқоршысысыз!</string>
