@@ -37,9 +37,7 @@ themes = [
   ['dubrovny', 'svg'],
   ['icpieces', 'svg'],
   ['horsey', 'svg'],
-  ['anarchy', 'svg'],
-  ['anarchy-candy', 'svg'],
-  ['anarchy-sepia', 'svg']
+  ['anarchy-candy', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
