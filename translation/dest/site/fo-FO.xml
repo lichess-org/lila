@@ -17,6 +17,8 @@
   <string name="stalemate">Pattstøða</string>
   <string name="white">Hvítur</string>
   <string name="black">Svartur</string>
+  <string name="asWhite">við hvítum</string>
+  <string name="asBlack">við svørtum</string>
   <string name="randomColor">Tilvildarligur litur</string>
   <string name="createAGame">Byrja eitt talv</string>
   <string name="whiteIsVictorious">Hvítur hevur vunnið</string>
@@ -24,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Tú telvar við hvítum</string>
   <string name="youPlayTheBlackPieces">Tú telvar við svørtum</string>
   <string name="itsYourTurn">Tú eigur leik!</string>
+  <string name="cheatDetected">Snýt uppdagað</string>
   <string name="kingInTheCenter">Kongur í miðjuni</string>
   <string name="threeChecks">Trý skák</string>
   <string name="raceFinished">Kapprenning liðug</string>
@@ -46,9 +49,12 @@
   <string name="blackResigned">Svartur legði kong</string>
   <string name="whiteLeftTheGame">Hvítur er farin frá talvinum</string>
   <string name="blackLeftTheGame">Svartur er farin frá talvinum</string>
+  <string name="whiteDidntMove">Hvítur leikti ikki</string>
+  <string name="blackDidntMove">Svartur leikti ikki</string>
   <string name="requestAComputerAnalysis">Bið um eina teldugreining</string>
   <string name="computerAnalysis">Teldugreining</string>
   <string name="computerAnalysisAvailable">Teldugreining tøk</string>
+  <string name="computerAnalysisDisabled">Teldugreining óvirkin</string>
   <string name="analysis">Greiningarborð</string>
   <string name="depthX">Dýpd %s</string>
   <string name="usingServerAnalysis">Nýtir ambætaragreining</string>

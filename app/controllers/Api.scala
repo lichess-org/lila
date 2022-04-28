@@ -9,8 +9,7 @@ import scala.util.chaining._
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.common.LightUser
+import lila.common.{ HTTPRequest, IpAddress, LightUser }
 
 final class Api(
     env: Env,
@@ -44,8 +43,13 @@ final class Api(
     }
 
   def user(name: String) =
-    CookieBasedApiRequest { ctx =>
-      userApi.extended(name, ctx.me, userWithFollows(ctx.req)) map toApiResult
+    CookieBasedApiRequest { implicit ctx =>
+      userApi.extended(
+        name,
+        ctx.me,
+        withFollows = userWithFollows(ctx.req),
+        withTrophies = getBool("trophies")
+      ) map toApiResult
     }
 
   private[controllers] def userWithFollows(req: RequestHeader) =

@@ -61,8 +61,10 @@ export default function LichessLobby(opts: LobbyOpts) {
   lichess.StrongSocket.firstConnect.then(() => {
     const gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    const ratingRange = lobby.setupCtrl.hookRatingRange();
-    xhr.text(`/setup/hook/${lichess.sri}/like/${gameId}?rr=${ratingRange || ''}`, { method: 'post' });
+    const { ratingMin, ratingMax } = lobby.setupCtrl.makeSetupStore('hook')();
+    xhr.text(xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }), {
+      method: 'post',
+    });
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
   });
