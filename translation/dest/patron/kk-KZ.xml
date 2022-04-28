@@ -13,18 +13,18 @@
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршаға арналған тегін шахмат! Мәңгіге!</string>
   <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
-  <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
+  <string name="thankYou">Демеуіңіз үшін көп рахмет!</string>
   <string name="youHaveLifetime">Сіз Мәңгіге Қамқоршы тіркелгісіне иесіз. Бәрекелді!</string>
   <string name="patronUntil">Сіз Қамқоршы тіркелгісіне %s дейін иесіз.</string>
   <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматты тегін ойнауға құқылы деп сенеміз.</string>
-  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жүрген жұртқа үміт артамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
+  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жүрген жұртқа үміт артамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай демеу көрсетуді сұраймыз!</string>
   <string name="lifetime">Мәңгіге</string>
   <string name="payLifetimeOnce">%s бір мәрте төлеп, Лическе мәңгі Қамқоршы болыңыз!</string>
   <string name="lifetimePatron">Лическе Мәңгіге Қамқоршы</string>
   <string name="monthly">Ай сайын</string>
   <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
   <string name="onetime">Бір рет</string>
-  <string name="singleDonation">Бір демеуіңіз Қамқоршы қанатын бір айға береді.</string>
+  <string name="singleDonation">Бір демеу көрсетсеңіз, Қамқоршы қанатына бір ай ие боласыз.</string>
   <string name="otherAmount">Басқа</string>
   <string name="pleaseEnterAmountInX">Мөлшерін %s-мен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
@@ -40,7 +40,6 @@
   <string name="changeOrContact">Иә, кез-келген уақытта, осы бетте.
 Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
-  <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
   <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз.
@@ -55,7 +54,7 @@
   <string name="currentStatus">Қазіргі мәртебе</string>
   <string name="nextPayment">Келесі төлем</string>
   <string name="youWillBeChargedXOnY">Сіз %2$s %1$s төлейтін боласыз.</string>
-  <string name="makeAdditionalDonation">Қосымша ақшалай жәрдем қазір жасаңыз</string>
+  <string name="makeAdditionalDonation">Қосымша демеу беру</string>
   <string name="giftPatronWings">Қамқоршы қанатын сыйға тарту</string>
   <string name="update">Жаңарту</string>
   <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
