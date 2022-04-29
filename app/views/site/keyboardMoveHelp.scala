@@ -35,6 +35,7 @@ object helpModal {
           header(trans.navigateMoveTree()),
           row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
           row(frag(kbd("j"), or, kbd("k")), trans.keyMoveBackwardOrForward()),
+          row(kbd("l"), trans.toggleLocalAnalysis()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("k"), or, kbd("j")), trans.keyGoToStartOrEnd()),
           row(kbd("f"), trans.flipBoard()),
