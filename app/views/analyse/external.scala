@@ -30,10 +30,7 @@ object external {
           src := assetUrl("images/icons/linked-rings.png")
         ),
         h1("External engine"),
-        strong(code(prompt.origin))
-      ),
-      prompt.insecure option flashMessage(cls := "flash-warning")(
-        "Does not use a secure connection"
+        strong(code(prompt.url.origin))
       ),
       p("Do you want to use this external engine on your device?"),
       form3.actions(
@@ -49,7 +46,7 @@ object external {
         p("Not owned or operated by lichess.org"),
         p(cls := "oauth__redirect")(
           "Will connect to ",
-          prompt.origin
+          prompt.url.origin
         )
       )
     )

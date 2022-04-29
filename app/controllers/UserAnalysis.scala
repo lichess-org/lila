@@ -1,5 +1,6 @@
 package controllers
 
+import cats.data.Validated
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
 import chess.variant.{ FromPosition, Standard, Variant }
@@ -220,10 +221,10 @@ final class UserAnalysis(
           officialStockfish = getBool("officialStockfish")
         )
         .prompt match {
-        case Some(prompt) =>
+        case Validated.Valid(prompt) =>
           Ok(html.analyse.external(prompt)).fuccess
-        case None =>
-          BadRequest.fuccess
+        case Validated.Invalid(err) =>
+          BadRequest(err).fuccess
       }
     }
 

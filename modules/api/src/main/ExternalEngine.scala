@@ -1,6 +1,7 @@
 package lila.api
 
 import scala.util.Try
+import cats.data.Validated
 import play.api.libs.json.Json
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
 
@@ -13,17 +14,21 @@ object ExternalEngine {
       variants: Option[String],
       officialStockfish: Boolean
   ) {
-    def prompt: Option[Prompt] =
+    def prompt: Validated[String, Prompt] =
       for {
-        unvalidatedUrl <- maybeUrl
+        unvalidatedUrl <- maybeUrl.toValid("url required")
         url <- Try {
-          URL.parse(
-            URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance),
-            unvalidatedUrl
+          EngineUrl(
+            URL.parse(
+              URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance),
+              unvalidatedUrl
+            )
           )
         }.toOption
-        if url.scheme == "ws" || url.scheme == "wss"
-        name <- maybeName
+          .toValid("url invalid")
+          .ensure("expected ws:// or wss://")(url => url.value.scheme == "ws" || url.value.scheme == "wss")
+          .ensure("secure wss:// required for remote engines")(_.secure)
+        name <- maybeName.toValid("name required")
       } yield Prompt(
         url = url,
         name = name,
@@ -34,20 +39,20 @@ object ExternalEngine {
       )
   }
 
+  case class EngineUrl(value: URL) extends AnyVal {
+    private def host: Option[String] = Option(value.host).map(_.toString)
+    def origin: String               = s"${value.scheme}://${~host}"
+    def secure = value.scheme == "wss" || host.exists(h => List("localhost", "[::1]", "127.0.0.1").has(h))
+  }
+
   case class Prompt(
-      url: URL,
+      url: EngineUrl,
       name: String,
       maxThreads: Int,
       maxHash: Option[Int],
       variants: Option[Array[String]],
       officialStockfish: Boolean
   ) {
-    private def host: Option[String] = Option(url.host).map(_.toString)
-
-    def origin: String = s"${url.scheme}://${~host}"
-
-    def insecure = url.scheme == "ws" && !host.exists(h => List("localhost", "[::1]", "127.0.0.1").has(h))
-
     def toJson = Json.obj(
       "url"               -> url.toString,
       "name"              -> name,
