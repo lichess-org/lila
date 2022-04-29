@@ -171,7 +171,9 @@ export class RemoteWorker extends AbstractWorker<RemoteWorkerOpts> {
   }
 
   boot() {
-    const ws = (this.ws = new WebSocket(this.opts.url));
+    const url = new URL(this.opts.url);
+    url.searchParams.set('sri', lichess.sri);
+    const ws = (this.ws = new WebSocket(url.href));
     ws.onmessage = e => this.protocol.received(e.data);
     ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
     ws.onclose = () => {
