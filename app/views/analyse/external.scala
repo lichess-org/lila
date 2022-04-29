@@ -29,7 +29,7 @@ object external {
           alt := "linked rings icon",
           src := assetUrl("images/icons/linked-rings.png")
         ),
-        h1("External engine"),
+        h1("External engine (BETA)"),
         strong(code(prompt.url.origin))
       ),
       p("Do you want to use this external engine on your device?"),
