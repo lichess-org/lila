@@ -29,10 +29,10 @@ export class Protocol {
     this.send = send;
 
     // Get engine name, version and options.
-    this.options = new Map<string, string | number>([
-      ['Threads', 1],
-      ['Hash', 16],
-      ['MultiPV', 1],
+    this.options = new Map([
+      ['Threads', '1'],
+      ['Hash', '16'],
+      ['MultiPV', '1'],
       ['UCI_Variant', 'chess'],
     ]);
     this.send('uci');

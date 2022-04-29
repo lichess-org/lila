@@ -78,8 +78,9 @@ export interface CevalCtrl {
   stop(): void;
   threads(): number;
   setThreads(threads: number): void;
-  hashSize: StoredProp<number> | undefined;
   maxThreads: number;
+  hashSize(): number;
+  setHashSize(hash: number): void;
   maxHashSize: number;
   infinite: StoredBooleanProp;
   supportsNnue: boolean;
