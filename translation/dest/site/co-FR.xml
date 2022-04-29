@@ -83,7 +83,7 @@
   <string name="whiteDrawBlack">Bianchi/ Patta/ Neri</string>
   <string name="averageRatingX">Livellu mezanu %s</string>
   <string name="recentGames">Partite recente</string>
-  <string name="topGames">Partite di altu rangu</string>
+  <string name="topGames">Partite di prima trinca</string>
   <string name="masterDbExplanation">2 millioni di partite OTB di ghjucatori classificati à più di %1$s da %2$s à %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Scaccu mattu in %s mezzu colpu</item>
@@ -339,7 +339,7 @@
   <string name="reset">Rimette à zeru</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
-  <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
+  <string name="leaderboard">Scacchera di i ghjucatori i più forti</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
   <string name="fromPosition">Partendu di a pusizione</string>
@@ -550,7 +550,7 @@
   <string name="studyMenu">Studià</string>
   <string name="practice">Addestrà</string>
   <string name="community">Cumunità</string>
-  <string name="tools">Arnese</string>
+  <string name="tools">Arnesi</string>
   <string name="increment">Raghjunta di tempu</string>
   <string name="error.required">U duminiu hè nicissariu</string>
   <string name="error.email">St\' indirizzu mail ùn hè valida</string>
