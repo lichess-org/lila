@@ -319,7 +319,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           max: ceval.maxThreads,
                           step: 1,
                           disabled: ceval.maxThreads <= 1,
-                          ...(ceval.maxThreads < 1 ? null : { title: notSupported }),
+                          ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
                         },
                         hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                       }),
