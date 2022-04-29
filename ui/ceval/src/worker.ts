@@ -183,6 +183,6 @@ export class RemoteWorker extends AbstractWorker<RemoteWorkerOpts> {
   destroy() {
     const ws = this.ws;
     this.ws = undefined; // do not reconnect
-    ws?.close();
+    if (ws && ws.readyState <= 1) ws.close();
   }
 }
