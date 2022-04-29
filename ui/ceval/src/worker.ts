@@ -160,7 +160,8 @@ export interface ExternalWorkerOpts {
   url: string;
   name: string;
   maxThreads: number;
-  maxHash: number | undefined;
+  maxHash: number | null;
+  variants: string[] | null;
   officialStockfish: boolean;
 }
 

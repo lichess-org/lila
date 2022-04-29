@@ -111,7 +111,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   }
 
   const externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
-  if (externalOpts && officialStockfish) technology = 'external';
+  if (externalOpts && (officialStockfish || externalOpts.variants?.includes(rules))) technology = 'external';
 
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads =
