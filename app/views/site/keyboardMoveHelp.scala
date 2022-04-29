@@ -34,7 +34,7 @@ object helpModal {
         tbody(
           header(trans.navigateMoveTree()),
           row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-          row(frag(kbd("h"), or, kbd("l")), trans.keyMoveBackwardOrForward()),
+          row(frag(kbd("j"), or, kbd("k")), trans.keyMoveBackwardOrForward()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("k"), or, kbd("j")), trans.keyGoToStartOrEnd()),
           row(kbd("f"), trans.flipBoard()),
