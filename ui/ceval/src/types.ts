@@ -94,6 +94,7 @@ export interface CevalCtrl {
   isDeeper(): boolean;
   destroy(): void;
   redraw(): void;
+  disconnectRemoteEngine(): void;
 }
 
 export interface ParentCtrl {

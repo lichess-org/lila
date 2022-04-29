@@ -356,5 +356,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     redraw: opts.redraw,
     cachable: technology == 'nnue' || technology == 'hce',
     analysable,
+    disconnectRemoteEngine() {
+      lichess.storage.remove('ceval.remote');
+    },
   };
 }

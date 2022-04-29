@@ -280,19 +280,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
-                    {
-                      name: 'Use NNUE',
-                      title: ceval.supportsNnue
-                        ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                        : notSupported,
-                      id: 'enable-nnue',
-                      checked: ceval.supportsNnue && ceval.enableNnue(),
-                      change: ceval.enableNnue,
-                      disabled: !ceval.supportsNnue,
-                    },
-                    ctrl
-                  ),
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -345,6 +332,38 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       }),
                       h('div.range_value', formatHashSize(ceval.hashSize())),
                     ]))('analyse-memory'),
+                  ceval.technology == 'remote'
+                    ? h('div.setting', [
+                        h('label', 'Remote engine'),
+                        h(
+                          'button.button.text.button-thin.button-red',
+                          {
+                            attrs: {
+                              'data-icon': '',
+                            },
+                            hook: bindNonPassive('click', () => {
+                              if (confirm('Disconnect remote engine and reload?')) {
+                                ceval.disconnectRemoteEngine();
+                                lichess.reload();
+                              }
+                            }),
+                          },
+                          'Disconnect'
+                        ),
+                      ])
+                    : ctrlBoolSetting(
+                        {
+                          name: 'Use NNUE',
+                          title: ceval.supportsNnue
+                            ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                            : notSupported,
+                          id: 'enable-nnue',
+                          checked: ceval.supportsNnue && ceval.enableNnue(),
+                          change: ceval.enableNnue,
+                          disabled: !ceval.supportsNnue,
+                        },
+                        ctrl
+                      ),
                 ]
               : []
           )
