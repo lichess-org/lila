@@ -220,8 +220,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const notSupported =
-    (ceval && ceval.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
+  const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
   const cevalConfig: MaybeVNodes =
     ceval && ceval.possible && ceval.allowed()
@@ -281,9 +280,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ceval.technology == 'external'
-                    ? null
-                    : ctrlBoolSetting(
+                  ceval.technology != 'external'
+                    ? ctrlBoolSetting(
                         {
                           name: 'Use NNUE',
                           title: ceval.supportsNnue
@@ -295,7 +293,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           disabled: !ceval.supportsNnue,
                         },
                         ctrl
-                      ),
+                      )
+                    : null,
                   (id => {
                     const max = 5;
                     return h('div.setting', [
