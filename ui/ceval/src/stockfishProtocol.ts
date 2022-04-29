@@ -1,5 +1,5 @@
 import { lichessRules } from 'chessops/compat';
-import { ProtocolOpts, Work } from './types';
+import { Work } from './types';
 
 const evalRegex = new RegExp(
   '' +
@@ -22,12 +22,10 @@ export class Protocol {
 
   private nextWork: Work | undefined;
 
-  private opts: ProtocolOpts | undefined;
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  connected(opts: ProtocolOpts, send: (cmd: string) => void): void {
-    this.opts = opts;
+  connected(send: (cmd: string) => void): void {
     this.send = send;
 
     // Get engine name, version and options.
@@ -143,7 +141,7 @@ export class Protocol {
   }
 
   private swapWork(): void {
-    if (!this.opts || !this.send || this.work) return;
+    if (!this.send || this.work) return;
 
     this.work = this.nextWork;
     this.nextWork = undefined;
@@ -154,12 +152,12 @@ export class Protocol {
 
       this.setOption(
         'UCI_Variant',
-        this.opts.variant === 'antichess'
+        this.work.variant === 'antichess'
           ? 'giveaway' // for old asmjs fallback
-          : lichessRules(this.opts.variant)
+          : lichessRules(this.work.variant)
       );
-      this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
-      this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
+      this.setOption('Threads', this.work.threads);
+      this.setOption('Hash', this.work.hashSize || 16);
       this.setOption('MultiPV', this.work.multiPv);
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));

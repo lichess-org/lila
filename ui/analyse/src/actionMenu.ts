@@ -318,10 +318,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           min: 1,
                           max: ceval.maxThreads,
                           step: 1,
-                          disabled: !ceval.threads,
-                          ...(ceval.threads ? null : { title: notSupported }),
+                          disabled: ceval.maxThreads <= 1,
+                          ...(ceval.maxThreads < 1 ? null : { title: notSupported }),
                         },
-                        hook: rangeConfig(() => (ceval.threads ? parseInt(ceval.threads()) : 1), ctrl.cevalSetThreads),
+                        hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                       }),
                       h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
                     ]);

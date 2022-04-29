@@ -1,4 +1,4 @@
-import { ProtocolOpts, Work } from './types';
+import { Work } from './types';
 import { Protocol } from './stockfishProtocol';
 import { Cache } from './cache';
 
@@ -25,7 +25,7 @@ declare global {
 export abstract class AbstractWorker<T> {
   private booted: boolean;
 
-  constructor(readonly protocolOpts: ProtocolOpts, readonly opts: T) {}
+  constructor(readonly opts: T) {}
 
   start(work: Work): void {
     if (!this.booted) {
@@ -67,7 +67,7 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
   protected boot() {
     this.worker = new Worker(lichess.assetUrl(this.opts.url, { sameDomain: true }));
     this.worker.addEventListener('message', e => this.protocol.received(e.data), true);
-    this.protocol.connected(this.protocolOpts, cmd => this.worker?.postMessage(cmd));
+    this.protocol.connected(cmd => this.worker?.postMessage(cmd));
   }
 
   destroy() {
@@ -143,10 +143,8 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
       const protocol = this.getProtocol();
       sf.addMessageListener(protocol.received.bind(protocol));
-      protocol.connected(this.protocolOpts, msg => sf.postMessage(msg));
+      protocol.connected(msg => sf.postMessage(msg));
       ThreadedWasmWorker.sf[this.opts.module] = sf;
-    } else {
-      // Note: Changed protocol options are ignored.
     }
   }
 

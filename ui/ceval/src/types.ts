@@ -9,13 +9,12 @@ export interface Eval {
   mate?: number;
 }
 
-export interface ProtocolOpts {
-  variant: VariantKey;
-  threads: false | (() => number | string);
-  hashSize: false | (() => number | string);
-}
-
 export interface Work {
+  variant: VariantKey;
+  threads: number;
+  hashSize: number | undefined;
+  stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;
@@ -25,7 +24,6 @@ export interface Work {
   currentFen: string;
   moves: string[];
   emit: (ev: Tree.LocalEval) => void;
-  stopRequested: boolean;
 }
 
 export interface EvalMeta {
@@ -78,7 +76,8 @@ export interface CevalCtrl {
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode?: boolean) => void;
   stop(): void;
-  threads: StoredProp<number> | undefined;
+  threads(): number;
+  setThreads(threads: number): void;
   hashSize: StoredProp<number> | undefined;
   maxThreads: number;
   maxHashSize: number;
