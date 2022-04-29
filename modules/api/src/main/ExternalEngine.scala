@@ -11,7 +11,7 @@ object ExternalEngine {
       maxThreads: Option[Int],
       maxHash: Option[Long],
       variants: Option[String],
-      officialStockfish: Boolean,
+      officialStockfish: Boolean
   ) {
     def prompt: Option[Prompt] =
       for {
@@ -30,7 +30,7 @@ object ExternalEngine {
         maxThreads = maxThreads | 1,
         maxHash = maxHash,
         variants = variants.map(_.split(",")),
-        officialStockfish = officialStockfish,
+        officialStockfish = officialStockfish
       )
   }
 

@@ -20,7 +20,7 @@ object external {
     location.href = '/analysis';
   });
 }), 2000);"""
-    ),
+    )
   ) {
     main(cls := "oauth box box-pad")(
       div(cls := "oauth__top")(
@@ -38,7 +38,12 @@ object external {
       p("Do you want to use this external engine on your device?"),
       form3.actions(
         a(href := routes.UserAnalysis.index)("Cancel"),
-        button(cls := "button disabled", disabled := true, id := "engine-authorize")("Authorize")
+        button(
+          cls                         := "button disabled",
+          disabled                    := true,
+          id                          := "engine-authorize",
+          attr("data-ceval-external") := prompt.toJson.toString
+        )("Authorize")
       ),
       div(cls := "oauth__footer")(
         p("Not owned or operated by lichess.org"),
