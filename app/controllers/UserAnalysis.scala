@@ -9,7 +9,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 import views._
 
-import lila.api.Context
+import lila.api.{ Context, ExternalEngine }
 import lila.app._
 import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
@@ -208,9 +208,22 @@ final class UserAnalysis(
       }
     }
 
-  def remote =
+  def external =
     Open { implicit ctx =>
-      Ok(html.analyse.remote()).fuccess
+      ExternalEngine
+        .Raw(
+          maybeUrl = get("url"),
+          maybeName = get("name"),
+          maxThreads = getInt("maxThreads"),
+          maxHash = getLong("maxHash"),
+          officialStockfish = getBool("officialStockfish")
+        )
+        .prompt match {
+        case Some(prompt) =>
+          Ok(html.analyse.external(prompt)).fuccess
+        case None =>
+          BadRequest.fuccess
+      }
     }
 
   def help =
