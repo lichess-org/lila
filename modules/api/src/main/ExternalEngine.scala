@@ -54,7 +54,7 @@ object ExternalEngine {
       officialStockfish: Boolean
   ) {
     def toJson = Json.obj(
-      "url"               -> url.toString,
+      "url"               -> url.value.toString,
       "name"              -> name,
       "maxThreads"        -> maxThreads,
       "maxHash"           -> maxHash,
