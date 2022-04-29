@@ -859,6 +859,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
+          this.ceval?.cachable &&
           this.data.evalPut &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
