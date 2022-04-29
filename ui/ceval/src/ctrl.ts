@@ -359,5 +359,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     disconnectExternalEngine() {
       lichess.storage.remove('ceval.external');
     },
+    cachable:
+      technology == 'nnue' || technology == 'hce' || (technology == 'external' && externalOpts!.officialStockfish),
   };
 }
