@@ -281,6 +281,21 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
+                  ceval.technology == 'external'
+                    ? null
+                    : ctrlBoolSetting(
+                        {
+                          name: 'Use NNUE',
+                          title: ceval.supportsNnue
+                            ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                            : notSupported,
+                          id: 'enable-nnue',
+                          checked: ceval.supportsNnue && ceval.enableNnue(),
+                          change: ceval.enableNnue,
+                          disabled: !ceval.supportsNnue,
+                        },
+                        ctrl
+                      ),
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -352,19 +367,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           'Disconnect'
                         ),
                       ])
-                    : ctrlBoolSetting(
-                        {
-                          name: 'Use NNUE',
-                          title: ceval.supportsNnue
-                            ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                            : notSupported,
-                          id: 'enable-nnue',
-                          checked: ceval.supportsNnue && ceval.enableNnue(),
-                          change: ceval.enableNnue,
-                          disabled: !ceval.supportsNnue,
-                        },
-                        ctrl
-                      ),
+                    : null,
                 ]
               : []
           )
