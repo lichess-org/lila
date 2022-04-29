@@ -148,6 +148,11 @@ export class Protocol {
     }
   }
 
+  disconnected(): void {
+    if (this.work && this.currentEval) this.work.emit(this.currentEval);
+    this.work = undefined;
+  }
+
   private stop(): void {
     if (this.work && !this.work.stopRequested) {
       this.work.stopRequested = true;

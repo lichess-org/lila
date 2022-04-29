@@ -1,7 +1,7 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
 
 import { Result } from '@badrap/result';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, RemoteWorker } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -106,6 +106,11 @@ export default function (opts: CevalOpts): CevalCtrl {
         // memory growth not supported
       }
     }
+  }
+
+  const remoteOpts = JSON.parse(lichess.storage.get('ceval.remote') || 'null');
+  if (remoteOpts) {
+    technology = 'remote';
   }
 
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
@@ -224,7 +229,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!worker) {
-      if (technology == 'nnue')
+      if (technology == 'remote') worker = new RemoteWorker(remoteOpts);
+      else if (technology == 'nnue')
         worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',

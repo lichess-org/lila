@@ -35,7 +35,7 @@ object userAnalysis {
             )
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withWikiBooks.some,
+      csp = defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(

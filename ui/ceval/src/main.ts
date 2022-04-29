@@ -3,6 +3,7 @@ import * as view from './view';
 import * as winningChances from './winningChances';
 
 export { CevalCtrl, NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
+export { RemoteWorkerOpts } from './worker';
 export { isEvalBetter, renderEval, sanIrreversible } from './util';
 export { ctrl, view, winningChances };
 
