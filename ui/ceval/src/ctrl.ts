@@ -49,8 +49,10 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
   }
 }
 
-function engineName(technology: CevalTechnology): string {
+function engineName(technology: CevalTechnology, externalOpts: ExternalWorkerOpts | null): string {
   switch (technology) {
+    case 'external':
+      return externalOpts!.name;
     case 'wasm':
     case 'asmjs':
       return 'Stockfish 10+';
@@ -350,16 +352,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     goDeeper,
     canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: engineName(technology),
+    engineName: engineName(technology, externalOpts),
     longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
-    cachable: technology == 'nnue' || technology == 'hce',
+    cachable:
+      technology == 'nnue' || technology == 'hce' || (technology == 'external' && externalOpts!.officialStockfish),
     analysable,
     disconnectExternalEngine() {
       lichess.storage.remove('ceval.external');
     },
-    cachable:
-      technology == 'nnue' || technology == 'hce' || (technology == 'external' && externalOpts!.officialStockfish),
   };
 }
