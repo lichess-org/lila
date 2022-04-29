@@ -167,6 +167,7 @@ export interface ExternalWorkerOpts {
 export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
   private protocol = new Protocol();
   private ws: WebSocket | undefined;
+  private session = Math.random().toString(36).slice(2, 12);
 
   protected getProtocol() {
     return this.protocol;
@@ -174,7 +175,7 @@ export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
 
   boot() {
     const url = new URL(this.opts.url);
-    url.searchParams.set('sri', lichess.sri);
+    url.searchParams.set('session', this.session);
     const ws = (this.ws = new WebSocket(url.href));
     ws.onmessage = e => this.protocol.received(e.data);
     ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
