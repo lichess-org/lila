@@ -139,7 +139,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Partita patta per via d\' un accusentu</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
-  <string name="currentGames">Partite ghjucate avali</string>
+  <string name="currentGames">Partite ghjucate in direttu</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
@@ -231,7 +231,7 @@
   <string name="unlimited">Senza limita</string>
   <string name="mode">Modu</string>
   <string name="casual">Senza classifica</string>
-  <string name="rated">Classificatu</string>
+  <string name="rated">Classificata</string>
   <string name="casualTournament">Senza classifica</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
