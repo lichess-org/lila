@@ -10,7 +10,8 @@ object ExternalEngine {
       maybeName: Option[String],
       maxThreads: Option[Int],
       maxHash: Option[Long],
-      officialStockfish: Boolean
+      variants: Option[String],
+      officialStockfish: Boolean,
   ) {
     def prompt: Option[Prompt] =
       for {
@@ -28,7 +29,8 @@ object ExternalEngine {
         name = name,
         maxThreads = maxThreads | 1,
         maxHash = maxHash,
-        officialStockfish = officialStockfish
+        variants = variants.map(_.split(",")),
+        officialStockfish = officialStockfish,
       )
   }
 
@@ -37,6 +39,7 @@ object ExternalEngine {
       name: String,
       maxThreads: Int,
       maxHash: Option[Long],
+      variants: Option[Array[String]],
       officialStockfish: Boolean
   ) {
     private def host: Option[String] = Option(url.host).map(_.toString)
@@ -50,6 +53,7 @@ object ExternalEngine {
       "name"              -> name,
       "maxThreads"        -> maxThreads,
       "maxHash"           -> maxHash,
+      "variants"          -> variants,
       "officialStockfish" -> officialStockfish
     )
   }

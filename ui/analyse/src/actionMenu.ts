@@ -332,9 +332,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       }),
                       h('div.range_value', formatHashSize(ceval.hashSize())),
                     ]))('analyse-memory'),
-                  ceval.technology == 'remote'
+                  ceval.technology == 'external'
                     ? h('div.setting', [
-                        h('label', 'Remote engine'),
+                        h('label', 'External engine'),
                         h(
                           'button.button.text.button-thin.button-red',
                           {
@@ -342,8 +342,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                               'data-icon': '',
                             },
                             hook: bindNonPassive('click', () => {
-                              if (confirm('Disconnect remote engine and reload?')) {
-                                ceval.disconnectRemoteEngine();
+                              if (confirm('Disconnect external engine and reload?')) {
+                                ceval.disconnectExternalEngine();
                                 lichess.reload();
                               }
                             }),

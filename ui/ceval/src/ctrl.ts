@@ -1,7 +1,7 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
 
 import { Result } from '@badrap/result';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, RemoteWorker, RemoteWorkerOpts } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -108,13 +108,13 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const remoteOpts: RemoteWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.remote') || 'null');
-  if (remoteOpts && officialStockfish) technology = 'remote';
+  const externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
+  if (externalOpts && officialStockfish) technology = 'external';
 
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads =
-    technology == 'remote'
-      ? remoteOpts!.maxThreads
+    technology == 'external'
+      ? externalOpts!.maxThreads
       : technology == 'nnue' || technology == 'hce'
       ? Math.min(
           Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
@@ -229,7 +229,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!worker) {
-      if (technology == 'remote') worker = new RemoteWorker(remoteOpts!);
+      if (technology == 'external') worker = new ExternalWorker(externalOpts!);
       else if (technology == 'nnue')
         worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
@@ -356,8 +356,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     redraw: opts.redraw,
     cachable: technology == 'nnue' || technology == 'hce',
     analysable,
-    disconnectRemoteEngine() {
-      lichess.storage.remove('ceval.remote');
+    disconnectExternalEngine() {
+      lichess.storage.remove('ceval.external');
     },
   };
 }

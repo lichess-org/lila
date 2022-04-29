@@ -216,6 +216,7 @@ final class UserAnalysis(
           maybeName = get("name"),
           maxThreads = getInt("maxThreads"),
           maxHash = getLong("maxHash"),
+          variants = get("variants"),
           officialStockfish = getBool("officialStockfish")
         )
         .prompt match {

@@ -2,7 +2,7 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'remote';
+export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
 
 export interface Eval {
   cp?: number;
@@ -94,7 +94,7 @@ export interface CevalCtrl {
   isDeeper(): boolean;
   destroy(): void;
   redraw(): void;
-  disconnectRemoteEngine(): void;
+  disconnectExternalEngine(): void;
 }
 
 export interface ParentCtrl {

@@ -156,13 +156,15 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   }
 }
 
-export interface RemoteWorkerOpts {
+export interface ExternalWorkerOpts {
   url: string;
   name: string;
   maxThreads: number;
+  maxHash: number | undefined;
+  officialStockfish: boolean;
 }
 
-export class RemoteWorker extends AbstractWorker<RemoteWorkerOpts> {
+export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
   private protocol = new Protocol();
   private ws: WebSocket | undefined;
 

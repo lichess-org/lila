@@ -81,7 +81,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   return [
     h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
-    ctrl.technology == 'remote'
+    ctrl.technology == 'external'
       ? h(
           'span.technology.good',
           {
@@ -89,7 +89,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               title: 'Engine running outside of the browser',
             },
           },
-          'REMOTE'
+          'EXTERNAL'
         )
       : ctrl.technology == 'nnue'
       ? h(
