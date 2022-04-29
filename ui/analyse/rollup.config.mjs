@@ -15,4 +15,8 @@ export default rollupProject({
     input: 'src/plugins/studyTopicForm.ts',
     output: 'study.topic.form',
   },
+  remote: {
+    input: 'src/plugins/remote.ts',
+    output: 'analysisBoard.remote',
+  },
 });
