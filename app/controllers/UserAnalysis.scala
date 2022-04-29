@@ -208,6 +208,11 @@ final class UserAnalysis(
       }
     }
 
+  def remote =
+    Open { implicit ctx =>
+      Ok(html.analyse.remote()).fuccess
+    }
+
   def help =
     Open { implicit ctx =>
       Ok(html.site.helpModal.analyse(getBool("study"))).fuccess

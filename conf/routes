@@ -161,6 +161,7 @@ POST  /racer/lobby                      controllers.Racer.lobby
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
+GET   /analysis/remote                 controllers.UserAnalysis.remote
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
