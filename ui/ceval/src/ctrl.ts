@@ -49,6 +49,18 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
   }
 }
 
+function engineName(technology: CevalTechnology): string {
+  switch (technology) {
+    case 'wasm':
+    case 'asmjs':
+      return 'Stockfish 10+';
+    case 'hce':
+      return 'Stockfish 11+';
+    case 'nnue':
+      return 'Stockfish 14+';
+  }
+}
+
 const cevalDisabledSentinel = '1';
 
 function enabledAfterDisable() {
@@ -332,7 +344,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     goDeeper,
     canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: () => worker?.engineName(),
+    engineName: engineName(technology),
+    longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
     cachable: technology == 'nnue' || technology == 'hce',
