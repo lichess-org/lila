@@ -1,6 +1,5 @@
-import { sync, Sync } from 'common/sync';
 import { ProtocolOpts, Work } from './types';
-import Protocol from './stockfishProtocol';
+import { Protocol } from './stockfishProtocol';
 import { Cache } from './cache';
 
 interface WasmStockfishModule {
@@ -24,26 +23,32 @@ declare global {
 }
 
 export abstract class AbstractWorker<T> {
-  protected protocol: Sync<Protocol>;
+  private booted: boolean;
 
-  constructor(protected protocolOpts: ProtocolOpts, protected opts: T) {
-    this.protocol = sync(this.boot());
+  constructor(readonly protocolOpts: ProtocolOpts, readonly opts: T) {}
+
+  start(work: Work): void {
+    if (!this.booted) {
+      this.boot();
+      this.booted = true;
+    }
+    this.getProtocol().compute(work);
   }
 
-  stop(): Promise<void> {
-    return this.protocol.promise.then(protocol => protocol.stop());
+  stop(): void {
+    this.getProtocol().compute(undefined);
   }
 
-  start(work: Work): Promise<void> {
-    return this.protocol.promise.then(protocol => protocol.start(work));
+  isComputing(): boolean {
+    return this.getProtocol().isComputing();
   }
 
-  isComputing: () => boolean = () => !!this.protocol.sync && this.protocol.sync.isComputing();
+  engineName(): string | undefined {
+    return this.getProtocol().engineName;
+  }
 
-  engineName: () => string | undefined = () => this.protocol.sync?.engineName.sync;
-
-  protected abstract boot(): Promise<Protocol>;
-  protected abstract send(cmd: string): void;
+  protected abstract getProtocol(): Protocol;
+  protected abstract boot(): void;
   abstract destroy(): void;
 }
 
@@ -52,28 +57,21 @@ export interface WebWorkerOpts {
 }
 
 export class WebWorker extends AbstractWorker<WebWorkerOpts> {
-  private worker: Worker;
+  private protocol = new Protocol();
+  private worker: Worker | undefined;
 
-  boot(): Promise<Protocol> {
+  protected getProtocol(): Protocol {
+    return this.protocol;
+  }
+
+  protected boot() {
     this.worker = new Worker(lichess.assetUrl(this.opts.url, { sameDomain: true }));
-    const protocol = new Protocol(this.send.bind(this), this.protocolOpts);
-    this.worker.addEventListener(
-      'message',
-      e => {
-        protocol.received(e.data);
-      },
-      true
-    );
-    protocol.init();
-    return Promise.resolve(protocol);
+    this.worker.addEventListener('message', e => this.protocol.received(e.data), true);
+    this.protocol.connected(this.protocolOpts, cmd => this.worker?.postMessage(cmd));
   }
 
   destroy() {
-    this.worker.terminate();
-  }
-
-  protected send(cmd: string) {
-    this.worker.postMessage(cmd);
+    this.worker?.terminate();
   }
 }
 
@@ -87,12 +85,15 @@ export interface ThreadedWasmWorkerOpts {
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
-  private static protocols: { Stockfish?: Protocol; StockfishMv?: Protocol } = {};
+  private static protocols = { Stockfish: new Protocol(), StockfishMv: new Protocol() };
   private static sf: { Stockfish?: Stockfish; StockfishMv?: Stockfish } = {};
 
-  async boot(): Promise<Protocol> {
-    let protocol = ThreadedWasmWorker.protocols[this.opts.module];
-    if (!protocol) {
+  protected getProtocol(): Protocol {
+    return ThreadedWasmWorker.protocols[this.opts.module];
+  }
+
+  protected async boot() {
+    if (!ThreadedWasmWorker.sf[this.opts.module]) {
       const version = this.opts.version;
       const cache = this.opts.cache;
 
@@ -139,25 +140,20 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
           lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
         wasmMemory: this.opts.wasmMemory,
       });
-      ThreadedWasmWorker.sf[this.opts.module] = sf;
 
-      // Initialize protocol.
-      protocol = new Protocol(this.send.bind(this), this.protocolOpts);
+      const protocol = this.getProtocol();
       sf.addMessageListener(protocol.received.bind(protocol));
-      protocol.init();
-      ThreadedWasmWorker.protocols[this.opts.module] = protocol;
+      protocol.connected(this.protocolOpts, msg => sf.postMessage(msg));
+      ThreadedWasmWorker.sf[this.opts.module] = sf;
+    } else {
+      // Note: Changed protocol options are ignored.
     }
-    return protocol;
   }
 
   destroy() {
     // Terminated instances to not get freed reliably
     // (https://github.com/lichess-org/lila/issues/7334). So instead of
     // destroying, just stop instances and keep them around for reuse.
-    this.protocol.sync?.stop();
-  }
-
-  send(cmd: string) {
-    ThreadedWasmWorker.sf[this.opts.module]?.postMessage(cmd);
+    this.getProtocol().compute(undefined);
   }
 }
