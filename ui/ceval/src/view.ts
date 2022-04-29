@@ -86,7 +86,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
           'span.technology.good',
           {
             attrs: {
-              title: 'Remote engine',
+              title: 'Engine running outside of the browser',
             },
           },
           'REMOTE'
