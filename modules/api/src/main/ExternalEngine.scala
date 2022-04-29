@@ -9,7 +9,7 @@ object ExternalEngine {
       maybeUrl: Option[String],
       maybeName: Option[String],
       maxThreads: Option[Int],
-      maxHash: Option[Long],
+      maxHash: Option[Int],
       variants: Option[String],
       officialStockfish: Boolean
   ) {
@@ -38,7 +38,7 @@ object ExternalEngine {
       url: URL,
       name: String,
       maxThreads: Int,
-      maxHash: Option[Long],
+      maxHash: Option[Int],
       variants: Option[Array[String]],
       officialStockfish: Boolean
   ) {

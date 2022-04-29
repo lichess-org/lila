@@ -220,7 +220,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const notSupported = 'Browser does not support this option';
+  const notSupported =
+    (ceval && ceval.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
   const cevalConfig: MaybeVNodes =
     ceval && ceval.possible && ceval.allowed()

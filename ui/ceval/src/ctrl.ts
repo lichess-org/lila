@@ -127,10 +127,10 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
-  const maxHashSize = Math.min(
-    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
-    growableSharedMem ? 1024 : 16
-  );
+  const maxHashSize =
+    technology == 'external'
+      ? externalOpts!.maxHash || 16
+      : Math.min(((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = () => {
     const stored = lichess.storage.get(storageKey('ceval.hash-size'));
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);

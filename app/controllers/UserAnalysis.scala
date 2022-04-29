@@ -215,7 +215,7 @@ final class UserAnalysis(
           maybeUrl = get("url"),
           maybeName = get("name"),
           maxThreads = getInt("maxThreads"),
-          maxHash = getLong("maxHash"),
+          maxHash = getInt("maxHash"),
           variants = get("variants"),
           officialStockfish = getBool("officialStockfish")
         )
