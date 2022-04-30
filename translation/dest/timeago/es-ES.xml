@@ -47,15 +47,15 @@
     <item quantity="other">hace %s días</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="one">hace %s semana</item>
+    <item quantity="one">hace %s semanas</item>
     <item quantity="other">hace %s semanas</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">hace %s mes</item>
+    <item quantity="one">Hace %s meses</item>
     <item quantity="other">hace %s meses</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">hace %s año</item>
+    <item quantity="one">Hace %s años</item>
     <item quantity="other">hace %s años</item>
   </plurals>
 </resources>
