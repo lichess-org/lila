@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="inNbSeconds">
+    <item quantity="one">za %s sekundę</item>
+    <item quantity="few">za %s sekundy</item>
+    <item quantity="many">za %s sekund</item>
+    <item quantity="other">za %s sekund</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">za %s minutę</item>
+    <item quantity="few">za %s minuty</item>
+    <item quantity="many">za %s minuty</item>
+    <item quantity="other">za %s minut</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">za %s godzinę</item>
+    <item quantity="few">za %s godziny</item>
+    <item quantity="many">za %s godzin</item>
+    <item quantity="other">za %s godzin</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">za %s dzień</item>
+    <item quantity="few">za %s dni</item>
+    <item quantity="many">za %s dni</item>
+    <item quantity="other">za %s dni</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">za %s tydzień</item>
+    <item quantity="few">za %s tygodnie</item>
+    <item quantity="many">za %s tygodni</item>
+    <item quantity="other">za %s tygodni</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">za %s miesiąc</item>
+    <item quantity="few">za %s miesiące</item>
+    <item quantity="many">za %s miesięcy</item>
+    <item quantity="other">za %s miesięcy</item>
+  </plurals>
+</resources>
