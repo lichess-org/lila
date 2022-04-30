@@ -1,20 +1,42 @@
+import { siteTrans } from './trans';
+
 type DateLike = Date | number | string;
+
 interface ElementWithDate extends Element {
   lichessDate: Date;
 }
 
-// divisors for minutes, hours, days, weeks, months, years
-const DIVS = [
-  60,
-  60 * 60,
-  60 * 60 * 24,
-  60 * 60 * 24 * 7,
-  60 * 60 * 2 * 365, // 24/12 = 2
-  60 * 60 * 24 * 365,
+const NEXT = [
+  9, // start showing seconds after 9 seconds
+  60, // minutes
+  60 * 60, // hours
+  60 * 60 * 48, // start showing days after 48 hours
+  60 * 60 * 24 * 7, // weeks
+  (60 * 60 * 24 * 365) / 12, // months
+  60 * 60 * 24 * 365, // years
 ];
 
-const LIMITS = [...DIVS];
-LIMITS[2] *= 2; // Show hours up to 2 days.
+const DIVS = [
+  1, // just now
+  1, // seconds
+  60, // minutes
+  60 * 60, // hours
+  60 * 60 * 24, // days
+  60 * 60 * 24 * 7, // weeks
+  (60 * 60 * 24 * 365) / 12, // months
+  60 * 60 * 24 * 365, // years
+];
+
+const I18N_KEYS = [
+  ['rightNow', 'justNow'],
+  ['nbSecondsAgo', 'inNbSeconds'],
+  ['nbMinutesAgo', 'inNbMinutes'],
+  ['nbHoursAgo', 'inNbHours'],
+  ['nbDaysAgo', 'inNbDays'],
+  ['nbWeeksAgo', 'inNbWeeks'],
+  ['nbMonthsAgo', 'inNbMonths'],
+  ['nbYearsAgo', 'inNbYears'],
+];
 
 // format Date / string / timestamp to Date instance.
 const toDate = (input: DateLike): Date =>
@@ -22,22 +44,10 @@ const toDate = (input: DateLike): Date =>
 
 // format the diff second to *** time ago
 const formatDiff = (diff: number): string => {
-  let agoin = 0;
-  if (diff < 0) {
-    agoin = 1;
-    diff = -diff;
-  }
-  const totalSec = diff;
-
-  let i = 0;
-  for (; i < 6 && diff >= LIMITS[i]; i++);
-  if (i > 0) diff /= DIVS[i - 1];
-
-  diff = Math.floor(diff);
-  i *= 2;
-
-  if (diff > (i === 0 ? 9 : 1)) i += 1;
-  return lichess.timeagoLocale(diff, i, totalSec)[agoin].replace('%s', diff);
+  const absDiff = Math.abs(diff);
+  let idx = 0;
+  while (idx < NEXT.length && absDiff >= NEXT[idx]) idx++;
+  return siteTrans.plural(I18N_KEYS[idx][diff < 0 ? 1 : 0], Math.floor(absDiff / DIVS[idx]));
 };
 
 let formatterInst: (date: Date) => string;
