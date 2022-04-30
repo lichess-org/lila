@@ -310,7 +310,7 @@
     <item quantity="other">%s studii</item>
   </plurals>
   <string name="viewTournament">Vede a ghjustra</string>
-  <string name="backToTournament">Turnà in a ghjustra</string>
+  <string name="backToTournament">Vultà in a ghjustra</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
@@ -336,7 +336,7 @@
   <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
   <string name="mustBeInTeam">Ci vole à esse membru di a squadra %s</string>
   <string name="youAreNotInTeam">Ùn site membru di a squadra %s</string>
-  <string name="backToGame">Turnà in a partita</string>
+  <string name="backToGame">Vultà in a partita</string>
   <string name="siteDescription">Hè un situ di scacchi in a reta di rigalu. Ghjucate à i scacchi in un interfaccia chjara. Ùn ci hè nè arregistramentu nè publicità, nè plugin dumandati. Ghjucate à i scacchi contru à l\' urdinatore, amichi, o aversariu di u mondu sanu.</string>
   <string name="xJoinedTeamY">%1$s hà ghjuntu a squadra %2$s</string>
   <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
@@ -787,7 +787,7 @@
   <string name="howToAvoidThis">Cumu evità stu prublemu?</string>
   <string name="playEveryGame">Ghjucate tutte e partite chè vo principate.</string>
   <string name="tryToWin">Cercate à vince (o omancu annullà) tutte e partite chè vo ghjucate.</string>
-  <string name="resignLostGames">Lasciate corre e partite perse ( ùn lasciate micca u riloghju turnà, abbandunate).</string>
+  <string name="resignLostGames">Lasciate corre e partite perse (ùn lasciate micca u riloghju turnà, abbandunate).</string>
   <string name="temporaryInconvenience">Scusate pè u scomudu tempurariu</string>
   <string name="wishYouGreatGames">è vi auguremu tante belle partite nantu à lichess.org.</string>
   <string name="thankYouForReading">Vi ringraziemu d\' avè lettu!</string>
