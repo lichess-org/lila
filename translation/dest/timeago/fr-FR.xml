@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="justNow">maintenant</string>
   <plurals name="inNbSeconds">
     <item quantity="one">dans %s seconde</item>
     <item quantity="other">dans %s secondes</item>
@@ -28,6 +29,7 @@
     <item quantity="one">dans %s an</item>
     <item quantity="other">dans %s ans</item>
   </plurals>
+  <string name="rightNow">à l\'instant</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">il y a %s seconde</item>
     <item quantity="other">il y a %s secondes</item>
