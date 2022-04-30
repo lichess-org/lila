@@ -53,4 +53,35 @@
   <string name="addAnotherTheme">Aghjunghje un altru tema</string>
   <string name="jumpToNextPuzzleImmediately">Passà à u prossimu publemu subitu subitu</string>
   <string name="puzzleDashboard">Statistichi di i prublemi</string>
+  <string name="improvementAreas">Duminii da miglurà</string>
+  <string name="strengths">A maestria</string>
+  <string name="history">Storia di i prublemi</string>
+  <string name="solved">risoltu</string>
+  <string name="failed">fiascatu</string>
+  <string name="streakDescription">Risulvite i prublemi di modu prugressivu è custruite una filara di vittorie. Ùn ci hè riloghju, dunque pudete piglià u tempu. Un sbagliu, è a partita hè persa! Pudete saltà un colpu durante una sessione.</string>
+  <string name="yourStreakX">A vostra filara:%s</string>
+  <string name="streakSkipExplanation">Lasciate corre issu colpu pè guardà a vostra filara. Ùn la pudete fà ch\' una volta durante issa sessione.</string>
+  <string name="continueTheStreak">Cuntinuate a filara</string>
+  <string name="newStreak">Filara nova</string>
+  <string name="fromMyGames">Strattu di e mo partite</string>
+  <string name="lookupOfPlayer">Cercà i prublemi in e partite di l\' altri ghjucatori</string>
+  <string name="fromXGames">Prublemi stratti di e partite di %s</string>
+  <string name="searchPuzzles">Cercà i prublemi</string>
+  <string name="fromMyGamesNone">Ùn avete prublemi in a databasa, ma li piaceria à Lichess d\' avè ne.
+
+Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\' avè un prublemu strattu di e vostre partite!</string>
+  <string name="fromXGamesFound">%1$s prublemi trovi in %2$s partite</string>
+  <string name="puzzleDashboardDescription">Addestrà, analisà, migliurà</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%sghjucatu</item>
+    <item quantity="other">ghjucati</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s à ghjucà da torna</item>
+    <item quantity="other">%s à ghjucà da torna</item>
+  </plurals>
+  <string name="percentSolved">%s risolti</string>
+  <string name="noPuzzlesToShow">Nunda à mustrà, ghjucate parechji prublemi innanzu!</string>
+  <string name="improvementAreasDescription">Addestrate vi in issi duminii pà prugressà du modu ottimu!</string>
+  <string name="strengthDescription">Avete riesciutu di modu ottimu in issi temi</string>
 </resources>
