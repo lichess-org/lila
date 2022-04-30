@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">juuri äsken</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s sekunnin kuluttua</item>
+    <item quantity="other">%s sekunnin kuluttua</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s minuutin kuluttua</item>
+    <item quantity="other">%s minuutin kuluttua</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s tunnin kuluttua</item>
+    <item quantity="other">%s tunnin kuluttua</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s päivän kuluttua</item>
+    <item quantity="other">%s päivän kuluttua</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s viikon kuluttua</item>
+    <item quantity="other">%s viikon kuluttua</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s kuukauden kuluttua</item>
+    <item quantity="other">%s kuukauden kuluttua</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s vuoden kuluttua</item>
+    <item quantity="other">%s vuoden kuluttua</item>
+  </plurals>
+  <string name="rightNow">juuri nyt</string>
+</resources>
