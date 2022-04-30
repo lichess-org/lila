@@ -570,7 +570,10 @@
   <string name="error.email_different">Hè dighjà u vostru indirizzu mai</string>
   <string name="error.minLength">Deve cuntene più di %s caratteri</string>
   <string name="error.maxLength">Deve cuntene menu di %s caratteri</string>
+  <string name="error.min">Ci vole à contene più di %s</string>
+  <string name="error.max">Ci vole à cuntene menu di %s</string>
   <string name="ifRatingIsPlusMinusX">S\' è a classifica hè ± %s</string>
+  <string name="ifRegistered">S\'è u membru hè arrigistratu</string>
   <string name="onlyExistingConversations">Soltantu è chjachjere principiate</string>
   <string name="onlyFriends">Soltantu amichi</string>
   <string name="menu">Listinu</string>
@@ -792,6 +795,7 @@
   <string name="currentMatchScore">Risultatu di u scontru attuale</string>
   <string name="agreementAssistance">Sò d\' accusentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, un libru, una databasa o d\' una altra persona).</string>
   <string name="agreementNice">Sò d\' accusentu chì seraghju sempre rispettosu di l\' altri ghjucatori.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
   <string name="agreementPolicy">Sò d\' accusentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
@@ -891,4 +895,5 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="until">Sin\' à</string>
   <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucatori di Lichess</string>
   <string name="switchSides">Invertì a scacchera</string>
+  <string name="closingAccountWithdrawAppeal">Chjude u vostru contu cancellerà a vostra chjama</string>
 </resources>
