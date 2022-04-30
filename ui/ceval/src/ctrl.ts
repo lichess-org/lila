@@ -49,6 +49,18 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
   }
 }
 
+function engineName(technology: CevalTechnology): string {
+  switch (technology) {
+    case 'wasm':
+    case 'asmjs':
+      return 'Stockfish 10+';
+    case 'hce':
+      return 'Stockfish 11+';
+    case 'nnue':
+      return 'Stockfish 14+';
+  }
+}
+
 const cevalDisabledSentinel = '1';
 
 function enabledAfterDisable() {
@@ -97,21 +109,27 @@ export default function (opts: CevalOpts): CevalCtrl {
   }
 
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
-  const maxThreads = Math.min(
-    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-    growableSharedMem ? 32 : initialAllocationMaxThreads
-  );
-  const threads = storedProp(
-    storageKey('ceval.threads'),
-    Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
-  );
+  const maxThreads =
+    technology == 'nnue' || technology == 'hce'
+      ? Math.min(
+          Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+          growableSharedMem ? 32 : initialAllocationMaxThreads
+        )
+      : 1;
+  const threads = () => {
+    const stored = lichess.storage.get(storageKey('ceval.threads'));
+    return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
+  };
 
   const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
   const maxHashSize = Math.min(
     ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
     growableSharedMem ? 1024 : 16
   );
-  const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
+  const hashSize = () => {
+    const stored = lichess.storage.get(storageKey('ceval.hash-size'));
+    return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
+  };
 
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
@@ -124,12 +142,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const pvBoard = prop<PvBoard | null>(null);
   const isDeeper = prop(false);
-
-  const protocolOpts = {
-    variant: opts.variant.key,
-    threads: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
-    hashSize: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
-  };
 
   let worker: AbstractWorker<unknown> | undefined;
 
@@ -148,9 +160,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const curDepth = () => (curEval ? curEval.depth : 0);
 
   const effectiveMaxDepth = () =>
-    isDeeper() || infinite()
-      ? 99
-      : defaultDepth(technology, protocolOpts.threads ? protocolOpts.threads() : 1, parseInt(multiPv()));
+    isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), parseInt(multiPv()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function (a, b) {
@@ -175,6 +185,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
 
     const work: Work = {
+      variant: opts.variant.key,
+      threads: threads(),
+      hashSize: hashSize(),
+      stopRequested: false,
+
       initialFen: steps[0].fen,
       moves: [],
       currentFen: step.fen,
@@ -186,7 +201,6 @@ export default function (opts: CevalOpts): CevalCtrl {
       emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);
       },
-      stopRequested: false,
     };
 
     if (threatMode) {
@@ -211,7 +225,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     if (!worker) {
       if (technology == 'nnue')
-        worker = new ThreadedWasmWorker(protocolOpts, {
+        worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
           downloadProgress: throttle(200, mb => {
@@ -223,14 +237,14 @@ export default function (opts: CevalOpts): CevalCtrl {
           cache: new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
-        worker = new ThreadedWasmWorker(protocolOpts, {
+        worker = new ThreadedWasmWorker({
           baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
           module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           version: 'a022fa',
           wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
         });
       else
-        worker = new WebWorker(protocolOpts, {
+        worker = new WebWorker({
           url: technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
         });
     }
@@ -281,9 +295,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     enabled,
     downloadProgress,
     multiPv,
-    threads: technology == 'hce' || technology == 'nnue' ? threads : undefined,
-    hashSize: technology == 'hce' || technology == 'nnue' ? hashSize : undefined,
+    threads,
+    setThreads(threads: number) {
+      lichess.storage.set(storageKey('ceval.threads'), threads.toString());
+    },
     maxThreads,
+    hashSize,
+    setHashSize(hash: number) {
+      lichess.storage.set(storageKey('ceval.hash-size'), hash.toString());
+    },
     maxHashSize,
     infinite,
     supportsNnue,
@@ -324,9 +344,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     goDeeper,
     canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: () => worker?.engineName(),
+    engineName: engineName(technology),
+    longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
+    cachable: technology == 'nnue' || technology == 'hce',
     analysable,
   };
 }

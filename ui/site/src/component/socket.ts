@@ -159,7 +159,7 @@ export default class StrongSocket {
 
     const message = JSON.stringify(msg);
     if (t == 'racerScore' && o.sign != this._sign) return;
-    if (t == 'move' && o.sign != this._sign && once(`socket.rep.${Math.round(Date.now() / 1000 / 3600)}`)) {
+    if (t == 'move' && o.sign != this._sign) {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
@@ -168,8 +168,9 @@ export default class StrongSocket {
       }
       if (!stack.includes('round.nvui'))
         setTimeout(() => {
-          this.send('rep', { n: `soc: ${message} ${stack}` });
-          lichess.socket.destroy();
+          if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
+            this.send('rep', { n: `soc: ${message} ${stack}` });
+          else lichess.socket.destroy();
         }, 10000);
     }
     this.debug('send ' + message);

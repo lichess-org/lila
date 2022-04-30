@@ -647,7 +647,7 @@ POST  /appeal/:username/snooze/:dur    controllers.Appeal.snooze(username: Strin
 POST  /appeal/:username/send-to-zulip  controllers.Appeal.sendToZulip(username: String)
 
 # Stats
-GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String)
+GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String, username: Option[String] ?= None)
 
 # API
 GET   /api                             controllers.Api.index
