@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Keyboard input commands</string>
+  <string name="performAMove">Perform a move</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Move piece from e2 to e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Move knight to c3</string>
+  <string name="kingsideCastle">Kingside castle</string>
+  <string name="queensideCastle">Queenside castle</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Promote c8 to queen</string>
+</resources>
