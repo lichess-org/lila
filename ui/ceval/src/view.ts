@@ -79,13 +79,8 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const version = ctrl.engineName();
   return [
-    h(
-      'span',
-      { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 14+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
-    ),
+    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
     ctrl.technology == 'nnue'
       ? h(
           'span.technology.good',

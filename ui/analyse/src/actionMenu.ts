@@ -318,10 +318,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           min: 1,
                           max: ceval.maxThreads,
                           step: 1,
-                          disabled: !ceval.threads,
-                          ...(ceval.threads ? null : { title: notSupported }),
+                          disabled: ceval.maxThreads <= 1,
+                          ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
                         },
-                        hook: rangeConfig(() => (ceval.threads ? parseInt(ceval.threads()) : 1), ctrl.cevalSetThreads),
+                        hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                       }),
                       h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
                     ]);
@@ -335,15 +335,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           min: 4,
                           max: Math.floor(Math.log2(ceval.maxHashSize)),
                           step: 1,
-                          disabled: !ceval.hashSize,
-                          ...(ceval.hashSize ? null : { title: notSupported }),
+                          disabled: ceval.maxHashSize <= 16,
+                          ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
                         },
                         hook: rangeConfig(
-                          () => Math.floor(Math.log2(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                          () => Math.floor(Math.log2(ceval.hashSize())),
                           v => ctrl.cevalSetHashSize(Math.pow(2, v))
                         ),
                       }),
-                      h('div.range_value', formatHashSize(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                      h('div.range_value', formatHashSize(ceval.hashSize())),
                     ]))('analyse-memory'),
                 ]
               : []

@@ -53,7 +53,8 @@ object PieceSet extends PieceSetObject {
     "icpieces",
     "shapes",
     "letter",
-    "horsey"
+    "horsey",
+    "anarcandy"
   ) map { name =>
     new PieceSet(name)
   }

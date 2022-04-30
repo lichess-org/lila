@@ -9,13 +9,12 @@ export interface Eval {
   mate?: number;
 }
 
-export interface ProtocolOpts {
-  variant: VariantKey;
-  threads: false | (() => number | string);
-  hashSize: false | (() => number | string);
-}
-
 export interface Work {
+  variant: VariantKey;
+  threads: number;
+  hashSize: number | undefined;
+  stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;
@@ -25,7 +24,6 @@ export interface Work {
   currentFen: string;
   moves: string[];
   emit: (ev: Tree.LocalEval) => void;
-  stopRequested: boolean;
 }
 
 export interface EvalMeta {
@@ -70,17 +68,21 @@ export interface CevalCtrl {
   enabled: Prop<boolean>;
   possible: boolean;
   analysable: boolean;
+  cachable: boolean;
   isComputing(): boolean;
-  engineName(): string | undefined;
+  engineName: string;
+  longEngineName(): string | undefined;
   variant: Variant;
   setHovering: (fen: string, uci?: string) => void;
   setPvBoard: (pvBoard: PvBoard | null) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode?: boolean) => void;
   stop(): void;
-  threads: StoredProp<number> | undefined;
-  hashSize: StoredProp<number> | undefined;
+  threads(): number;
+  setThreads(threads: number): void;
   maxThreads: number;
+  hashSize(): number;
+  setHashSize(hash: number): void;
   maxHashSize: number;
   infinite: StoredBooleanProp;
   supportsNnue: boolean;
