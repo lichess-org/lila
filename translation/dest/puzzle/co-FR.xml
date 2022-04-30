@@ -2,5 +2,28 @@
 <resources>
   <string name="puzzles">Prublemi</string>
   <string name="puzzleThemes">Temi di i prublemi</string>
-  <string name="recommended">Cunsigliata</string>
+  <string name="recommended">Cunsigliatu</string>
+  <string name="phases">Mumentu</string>
+  <string name="motifs">Figura</string>
+  <string name="advanced">Avanzatu</string>
+  <string name="lengths">Lunghezza</string>
+  <string name="mates">Scaccumatu</string>
+  <string name="goals">Scopu</string>
+  <string name="origin">Origine</string>
+  <string name="specialMoves">Colpu speciale</string>
+  <string name="didYouLikeThisPuzzle">Vi hà piaciutu stu prublemu?</string>
+  <string name="voteToLoadNextOne">Vutate pà carigà u prossimu!</string>
+  <string name="yourPuzzleRatingWillNotChange">A vostra classifica di prublemu ùn hà da cambià. Issi prublemi ùn sò una cumpetizione. A vostra classifica ci permette di prupone vi prublemi addattati à u vostru livellu attuale.</string>
+  <string name="findTheBestMoveForWhite">Truvate u colpu u più forte pè i bianchi.</string>
+  <string name="findTheBestMoveForBlack">Truvate u colpu u più forte pè i neri.</string>
+  <string name="toGetPersonalizedPuzzles">Per uttene prubemi persunalizati:</string>
+  <string name="puzzleId">Prublemu%s</string>
+  <string name="puzzleOfTheDay">Prubemu di u ghjornu</string>
+  <string name="clickToSolve">Clicheghja per risolve</string>
+  <string name="goodMove">Bellu colpu</string>
+  <string name="bestMove">U colpu u più forte!</string>
+  <string name="keepGoing">Cuntinuate…</string>
+  <string name="puzzleSuccess">Successu!</string>
+  <string name="puzzleComplete">Prublemu finitu!</string>
+  <string name="notTheMove">Ùn hè u colpu bonu!</string>
 </resources>
