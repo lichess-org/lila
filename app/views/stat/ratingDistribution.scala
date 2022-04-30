@@ -8,12 +8,13 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType
+import lila.user.{ User => UserModel }
 
 import controllers.routes
 
 object ratingDistribution {
 
-  def apply(perfType: PerfType, data: List[Int])(implicit ctx: Context) =
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[UserModel])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
@@ -22,9 +23,11 @@ object ratingDistribution {
         jsModule("chart.ratingDistribution"),
         embedJsUnsafeLoadThen(s"""LichessChartRatingDistribution(${safeJsonValue(
             Json.obj(
-              "freq"     -> data,
-              "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
-              "i18n"     -> i18nJsObject(i18nKeys)
+              "freq"        -> data,
+              "myRating"    -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+              "otherRating" -> otherUser.filter(_ => ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+              "otherPlayer" -> otherUser.map(_.username),
+              "i18n"        -> i18nJsObject(i18nKeys)
             )
           )})""")
       )
@@ -41,7 +44,10 @@ object ratingDistribution {
                   a(
                     dataIcon := pt.iconChar,
                     cls      := (perfType == pt).option("current"),
-                    href     := routes.User.ratingDistribution(pt.key)
+                    href := (otherUser match {
+                      case Some(u) => routes.User.ratingDistributionCompare(pt.key, u.username)
+                      case _       => routes.User.ratingDistribution(pt.key)
+                    })
                   )(pt.trans)
                 }
               )
