@@ -6,36 +6,16 @@ interface ElementWithDate extends Element {
   lichessDate: Date;
 }
 
-const NEXT = [
-  9, // start showing seconds after 9 seconds
-  60, // minutes
-  60 * 60, // hours
-  60 * 60 * 48, // start showing days after 48 hours
-  60 * 60 * 24 * 7, // weeks
-  (60 * 60 * 24 * 365) / 12, // months
-  60 * 60 * 24 * 365, // years
-];
-
-const DIVS = [
-  1, // just now
-  1, // seconds
-  60, // minutes
-  60 * 60, // hours
-  60 * 60 * 24, // days
-  60 * 60 * 24 * 7, // weeks
-  (60 * 60 * 24 * 365) / 12, // months
-  60 * 60 * 24 * 365, // years
-];
-
-const I18N_KEYS = [
-  ['rightNow', 'justNow'],
-  ['nbSecondsAgo', 'inNbSeconds'],
-  ['nbMinutesAgo', 'inNbMinutes'],
-  ['nbHoursAgo', 'inNbHours'],
-  ['nbDaysAgo', 'inNbDays'],
-  ['nbWeeksAgo', 'inNbWeeks'],
-  ['nbMonthsAgo', 'inNbMonths'],
-  ['nbYearsAgo', 'inNbYears'],
+// past, future, divisor, at least
+const units: [string, string, number, number][] = [
+  ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
+  ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
+  ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
+  ['nbDaysAgo', 'inNbDays', 60 * 60 * 24, 2],
+  ['nbHoursAgo', 'inNbHours', 60 * 60, 1],
+  ['nbMinutesAgo', 'inNbMinutes', 60, 1],
+  ['nbSecondsAgo', 'inNbSeconds', 1, 9],
+  ['rightNow', 'justNow', 1, 0],
 ];
 
 // format Date / string / timestamp to Date instance.
@@ -43,11 +23,10 @@ const toDate = (input: DateLike): Date =>
   input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
 
 // format the diff second to *** time ago
-const formatDiff = (diff: number): string => {
-  const absDiff = Math.abs(diff);
-  let idx = 0;
-  while (idx < NEXT.length && absDiff >= NEXT[idx]) idx++;
-  return siteTrans.plural(I18N_KEYS[idx][diff < 0 ? 1 : 0], Math.floor(absDiff / DIVS[idx]));
+const formatDiff = (seconds: number): string => {
+  const absSeconds = Math.abs(seconds);
+  const unit = units.find(unit => absSeconds >= unit[2] * unit[3])!;
+  return siteTrans.plural(unit[seconds < 0 ? 1 : 0], Math.floor(absSeconds / unit[2]));
 };
 
 let formatterInst: (date: Date) => string;
