@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">adesso</string>
+  <plurals name="inNbHours">
+    <item quantity="one">in %s ora</item>
+    <item quantity="other">in %s ore</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">in %s giorno</item>
+    <item quantity="other">in %s giorni</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">in %s settimana</item>
+    <item quantity="other">in %s settimane</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">in %s mese</item>
+    <item quantity="other">in %s mesi</item>
+  </plurals>
+</resources>
