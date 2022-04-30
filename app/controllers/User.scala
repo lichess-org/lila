@@ -610,12 +610,18 @@ final class User(
       }
     }
 
-  def ratingDistribution(perfKey: lila.rating.Perf.Key) =
+  def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[String] = None) =
     Open { implicit ctx =>
       lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match {
         case Some(perfType) =>
-          env.user.rankingApi.weeklyRatingDistribution(perfType) dmap { data =>
-            Ok(html.stat.ratingDistribution(perfType, data))
+          env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
+            username match {
+              case Some(name) =>
+                EnabledUser(name) { u =>
+                  fuccess(html.stat.ratingDistribution(perfType, data, Some(u)))
+                }
+              case _ => fuccess(html.stat.ratingDistribution(perfType, data, None))
+            }
           }
         case _ => notFound
       }

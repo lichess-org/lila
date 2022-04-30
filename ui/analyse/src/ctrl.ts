@@ -728,8 +728,7 @@ export default class AnalyseCtrl {
   };
 
   cevalSetHashSize = (v: number): void => {
-    if (!this.ceval.hashSize) return;
-    this.ceval.hashSize(v);
+    this.ceval.setHashSize(v);
     this.cevalReset();
   };
 
@@ -860,6 +859,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
+          this.ceval?.cachable &&
           this.data.evalPut &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves

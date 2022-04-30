@@ -133,7 +133,7 @@ private object I18nQuantity {
   private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
     lang.language -> (lang.language match {
 
-      case "fr" | "ff" | "kab" => french
+      case "fr" | "ff" | "kab" | "co" => french
 
       case "cs" | "sk" => czech
 

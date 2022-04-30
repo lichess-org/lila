@@ -49,6 +49,18 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
   }
 }
 
+function engineName(technology: CevalTechnology): string {
+  switch (technology) {
+    case 'wasm':
+    case 'asmjs':
+      return 'Stockfish 10+';
+    case 'hce':
+      return 'Stockfish 11+';
+    case 'nnue':
+      return 'Stockfish 14+';
+  }
+}
+
 const cevalDisabledSentinel = '1';
 
 function enabledAfterDisable() {
@@ -114,7 +126,10 @@ export default function (opts: CevalOpts): CevalCtrl {
     ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
     growableSharedMem ? 1024 : 16
   );
-  const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
+  const hashSize = () => {
+    const stored = lichess.storage.get(storageKey('ceval.hash-size'));
+    return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
+  };
 
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
@@ -172,7 +187,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     const work: Work = {
       variant: opts.variant.key,
       threads: threads(),
-      hashSize: technology == 'hce' || technology == 'nnue' ? Math.min(parseInt(hashSize()), maxHashSize) : undefined,
+      hashSize: hashSize(),
       stopRequested: false,
 
       initialFen: steps[0].fen,
@@ -285,7 +300,10 @@ export default function (opts: CevalOpts): CevalCtrl {
       lichess.storage.set(storageKey('ceval.threads'), threads.toString());
     },
     maxThreads,
-    hashSize: technology == 'hce' || technology == 'nnue' ? hashSize : undefined,
+    hashSize,
+    setHashSize(hash: number) {
+      lichess.storage.set(storageKey('ceval.hash-size'), hash.toString());
+    },
     maxHashSize,
     infinite,
     supportsNnue,
@@ -326,9 +344,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     goDeeper,
     canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: () => worker?.engineName(),
+    engineName: engineName(technology),
+    longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
+    cachable: technology == 'nnue' || technology == 'hce',
     analysable,
   };
 }

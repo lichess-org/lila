@@ -11,6 +11,30 @@ export default async function (data: any) {
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
     const cumul = [];
+    const buildRatingLine = (v: number, color: string, yCoord: number, label: string) => {
+      const right = v > 1800;
+      return v
+        ? [
+            {
+              label: {
+                text: label,
+                verticalAlign: 'top',
+                align: right ? 'right' : 'left',
+                y: yCoord,
+                x: right ? -5 : 5,
+                style: {
+                  color: color,
+                },
+                rotation: -0,
+              },
+              dashStyle: 'dash',
+              color: color,
+              width: 3,
+              value: v,
+            },
+          ]
+        : [];
+    };
     for (let i = 0; i < data.freq.length; i++) cumul.push(Math.round((arraySum(data.freq.slice(0, i)) / sum) * 100));
     Highcharts.chart(this, {
       credits: disabled,
@@ -74,30 +98,9 @@ export default async function (data: any) {
         gridLineWidth: 1,
         gridZIndex: -1,
         tickInterval: 100,
-        plotLines: (v => {
-          const right = v > 1800;
-          return v
-            ? [
-                {
-                  label: {
-                    text: trans.noarg('yourRating'),
-                    verticalAlign: 'top',
-                    align: right ? 'right' : 'left',
-                    y: 13,
-                    x: right ? -5 : 5,
-                    style: {
-                      color: colors[2],
-                    },
-                    rotation: -0,
-                  },
-                  dashStyle: 'dash',
-                  color: colors[2],
-                  width: 3,
-                  value: v,
-                },
-              ]
-            : [];
-        })(data.myRating),
+        plotLines: buildRatingLine(data.myRating, colors[2], 13, trans.noarg('yourRating')).concat(
+          buildRatingLine(data.otherRating, colors[6], 50, data.otherPlayer)
+        ),
       },
       yAxis: [
         {

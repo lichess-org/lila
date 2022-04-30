@@ -68,8 +68,10 @@ export interface CevalCtrl {
   enabled: Prop<boolean>;
   possible: boolean;
   analysable: boolean;
+  cachable: boolean;
   isComputing(): boolean;
-  engineName(): string | undefined;
+  engineName: string;
+  longEngineName(): string | undefined;
   variant: Variant;
   setHovering: (fen: string, uci?: string) => void;
   setPvBoard: (pvBoard: PvBoard | null) => void;
@@ -78,8 +80,9 @@ export interface CevalCtrl {
   stop(): void;
   threads(): number;
   setThreads(threads: number): void;
-  hashSize: StoredProp<number> | undefined;
   maxThreads: number;
+  hashSize(): number;
+  setHashSize(hash: number): void;
   maxHashSize: number;
   infinite: StoredBooleanProp;
   supportsNnue: boolean;
