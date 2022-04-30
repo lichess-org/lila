@@ -89,6 +89,7 @@
     <item quantity="one">Scaccu mattu in %s mezzu colpu</item>
     <item quantity="other">Scaccu mattu in %s mezzu colpi</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\" attundulatu, basatu nantu à u numeru di mezzicolpi sin\' à a prossima cattura o u prossimu muvimentu di pedinu</string>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
   <string name="openingExplorer">Espluratore d\' apertura</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">%s espluratore d\' apertura</string>
   <string name="winPreventedBy50MoveRule">A regula di i 50 copli impedisce a vittoria</string>
   <string name="lossSavedBy50MoveRule">A regula di i 50 colpi impedisce a difesa</string>
+  <string name="winOr50MovesByPriorMistake">Vittoria o 50 colpi dopu à un sbagliu</string>
+  <string name="lossOr50MovesByPriorMistake">Scunfitta o 50 colpi dopu à un sbagliu</string>
+  <string name="unknownDueToRounding">Vittoria / perdita garantita solu s\'è a linea cunsigliata di a basa hè stata seguitata da l\'ultima cattura o muvimentu di pedinu, per via di l\'arritundulamentu pussibule di i valori DTZ in a basa Syzygy.</string>
   <string name="allSet">Hè prontu!</string>
   <string name="importPgn">Impurtà u PGN</string>
   <string name="delete">Sfassà</string>
@@ -178,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ora</item>
     <item quantity="other">%s ore</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutu</item>
+    <item quantity="other">%s minuti</item>
   </plurals>
   <string name="time">Tempu</string>
   <string name="rating">Classifica</string>
@@ -342,6 +350,7 @@
   <string name="leaderboard">Scacchera di i ghjucatori i più forti</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
+  <string name="orUploadPgnFile">O telecarigate un ducumentu PGN</string>
   <string name="fromPosition">Partendu di a pusizione</string>
   <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
   <string name="toStudy">Studià</string>
@@ -449,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Paese o bandera</string>
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
+  <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucatore nantu à u situ</string>
@@ -492,6 +502,7 @@
   <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn si passa bè cù u cumpurtamentu di u ghjucatore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
   <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
   <string name="by">da %s</string>
+  <string name="importedByX">Impurtata da %s</string>
   <string name="thisTopicIsNowClosed">Stu tema hè chjosu avà.</string>
   <string name="blog">Bloggu</string>
   <string name="notes">Annutazioni</string>
@@ -557,6 +568,8 @@
   <string name="error.email_acceptable">St\' indirizzu mail ùn pò esse accettata. Verificate lu è provate da torna.</string>
   <string name="error.email_unique">St\' indirizzu mail ùn esista o hè dighjà pigliata</string>
   <string name="error.email_different">Hè dighjà u vostru indirizzu mai</string>
+  <string name="error.minLength">Deve cuntene più di %s caratteri</string>
+  <string name="error.maxLength">Deve cuntene menu di %s caratteri</string>
   <string name="ifRatingIsPlusMinusX">S\' è a classifica hè ± %s</string>
   <string name="onlyExistingConversations">Soltantu è chjachjere principiate</string>
   <string name="onlyFriends">Soltantu amichi</string>
