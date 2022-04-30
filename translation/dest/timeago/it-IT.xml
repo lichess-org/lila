@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">adesso</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">in %s secondo</item>
+    <item quantity="other">in %s secondi</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">in %s minuto</item>
+    <item quantity="other">in %s minuti</item>
+  </plurals>
   <plurals name="inNbHours">
     <item quantity="one">in %s ora</item>
     <item quantity="other">in %s ore</item>
@@ -16,5 +24,38 @@
   <plurals name="inNbMonths">
     <item quantity="one">in %s mese</item>
     <item quantity="other">in %s mesi</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">in %s anno</item>
+    <item quantity="other">in %s anni</item>
+  </plurals>
+  <string name="rightNow">adesso</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s secondo fa</item>
+    <item quantity="other">%s secondi fa</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minuto fa</item>
+    <item quantity="other">%s minuti fa</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s ora fa</item>
+    <item quantity="other">%s ore fa</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s giorno fa</item>
+    <item quantity="other">%s giorni fa</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s settimana fa</item>
+    <item quantity="other">%s settimane fa</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s mese fa</item>
+    <item quantity="other">%s mesi fa</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s anno fa</item>
+    <item quantity="other">%s anni fa</item>
   </plurals>
 </resources>
