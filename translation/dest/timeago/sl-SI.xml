@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">pravkar</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">v %s sekundi</item>
+    <item quantity="two">v %s sekundah</item>
+    <item quantity="few">v %s sekundah</item>
+    <item quantity="other">v %s sekundah</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">v %s minuti</item>
+    <item quantity="two">v %s minutah</item>
+    <item quantity="few">v %s minutah</item>
+    <item quantity="other">v %s minutah</item>
+  </plurals>
+</resources>
