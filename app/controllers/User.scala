@@ -627,9 +627,6 @@ final class User(
       }
     }
 
-  def ratingDistributionCompare(perfKey: lila.rating.Perf.Key, username: String) =
-    ratingDistribution(perfKey, Some(username))
-
   def myself =
     Auth { _ => me =>
       fuccess(Redirect(routes.User.show(me.username)))

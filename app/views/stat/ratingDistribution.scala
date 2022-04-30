@@ -44,10 +44,7 @@ object ratingDistribution {
                   a(
                     dataIcon := pt.iconChar,
                     cls      := (perfType == pt).option("current"),
-                    href := (otherUser match {
-                      case Some(u) => routes.User.ratingDistributionCompare(pt.key, u.username)
-                      case _       => routes.User.ratingDistribution(pt.key)
-                    })
+                    href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
                   )(pt.trans)
                 }
               )
