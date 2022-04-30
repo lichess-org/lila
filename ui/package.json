@@ -8,7 +8,9 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "dependencies": {},
+  "dependencies": {
+    "jest-environment-jsdom": "^28.0.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
