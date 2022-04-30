@@ -1,2 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">בדיוק עכשיו</string>
+  <plurals name="inNbMinutes">
+    <item quantity="one">תוך %s דקות</item>
+    <item quantity="two">תוך %s דקה</item>
+    <item quantity="many">תוך %s דקה</item>
+    <item quantity="other">תוך %s דקות</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">תוך %s שעה</item>
+    <item quantity="two">תוך %s שעות</item>
+    <item quantity="many">תוך %s שעות</item>
+    <item quantity="other">תוך %s שעות</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">תוך %s יום</item>
+    <item quantity="two">תוך %s ימים</item>
+    <item quantity="many">תוך %s ימים</item>
+    <item quantity="other">תוך %s ימים</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s שבוע</item>
+    <item quantity="two">בעוד כ %s</item>
+    <item quantity="many">בעוד כ %s שבועות</item>
+    <item quantity="other">בעוד כ %s שבועות</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">תוך %s חודש</item>
+    <item quantity="two">תוך %s חודשים</item>
+    <item quantity="many">תוך %s חודשים</item>
+    <item quantity="other">תוך %s חודשים</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">תוך %s שנה</item>
+    <item quantity="two">תוך %s שנים</item>
+    <item quantity="many">תוך %s שנים</item>
+    <item quantity="other">תוך %s שנים</item>
+  </plurals>
+  <string name="rightNow">עכשיו</string>
+</resources>
