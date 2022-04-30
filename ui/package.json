@@ -8,9 +8,6 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "dependencies": {
-    "jest-environment-jsdom": "^28.0.2"
-  },
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -28,7 +25,7 @@
     "gulp-sass-inheritance": "^1.1",
     "gulp-size": "^4.0.1",
     "gulp-sourcemaps": "^3.0.0",
-    "jest": "^28.0.3",
+    "jest": "^27.5.1",
     "node-sass": "^7.0.1",
     "plugin-error": "^1.0.1",
     "ts-jest": "^27.1.4",
