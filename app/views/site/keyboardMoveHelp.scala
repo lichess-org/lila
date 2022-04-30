@@ -41,6 +41,8 @@ object helpModal {
           row(kbd("f"), trans.flipBoard()),
           row(kbd("z"), trans.preferences.zenMode()),
           row(kbd("?"), trans.showHelpDialog())
+          row(kbd("n"), trans.nextPuzzle())
+          row(kbd("x"), trans.toggleThreatMode())
         )
       )
     )
