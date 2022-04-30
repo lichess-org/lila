@@ -47,15 +47,15 @@
     <item quantity="other">vor %s Täg</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="one">vor %s Woche</item>
-    <item quantity="other">vor %s Wochen</item>
+    <item quantity="one">vor %s Wuche</item>
+    <item quantity="other">vor %s Wuche</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">vor %s Monat</item>
-    <item quantity="other">vor %s Monaten</item>
+    <item quantity="one">vor %s Monet</item>
+    <item quantity="other">vor %s Mönet</item>
   </plurals>
   <plurals name="nbYearsAgo">
     <item quantity="one">vor %s Jahr</item>
-    <item quantity="other">vor %s Jahren</item>
+    <item quantity="other">vor %s Jahr</item>
   </plurals>
 </resources>
