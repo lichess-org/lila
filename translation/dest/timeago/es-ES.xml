@@ -2,48 +2,48 @@
 <resources>
   <string name="justNow">justo ahora</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">en %s segundo</item>
+    <item quantity="one">en %s segundos</item>
     <item quantity="other">en %s segundos</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">en %s minuto</item>
+    <item quantity="one">en %s minutos</item>
     <item quantity="other">en %s minutos</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">en %s hora</item>
+    <item quantity="one">en %s horas</item>
     <item quantity="other">en %s horas</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">en %s día</item>
+    <item quantity="one">en %s días</item>
     <item quantity="other">en %s días</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">en %s semana</item>
+    <item quantity="one">en %s semanas</item>
     <item quantity="other">en %s semanas</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">en %s mes</item>
+    <item quantity="one">en %s meses</item>
     <item quantity="other">en %s meses</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">en %s año</item>
+    <item quantity="one">en %s años</item>
     <item quantity="other">en %s años</item>
   </plurals>
   <string name="rightNow">ahora mismo</string>
   <plurals name="nbSecondsAgo">
-    <item quantity="one">hace %s segundo</item>
+    <item quantity="one">hace %s segundos</item>
     <item quantity="other">hace %s segundos</item>
   </plurals>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">hace %s minuto</item>
+    <item quantity="one">Hace %s minutos</item>
     <item quantity="other">hace %s minutos</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="one">hace %s hora</item>
+    <item quantity="one">Hace %s horas</item>
     <item quantity="other">hace %s horas</item>
   </plurals>
   <plurals name="nbDaysAgo">
-    <item quantity="one">hace %s día</item>
+    <item quantity="one">hace %s días</item>
     <item quantity="other">hace %s días</item>
   </plurals>
   <plurals name="nbWeeksAgo">
