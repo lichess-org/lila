@@ -2,32 +2,32 @@
 <resources>
   <string name="justNow">adesso</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">in %s secondo</item>
-    <item quantity="other">in %s secondi</item>
+    <item quantity="one">tra %s secondo</item>
+    <item quantity="other">tra %s secondi</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">in %s minuto</item>
-    <item quantity="other">in %s minuti</item>
+    <item quantity="one">tra %s minuto</item>
+    <item quantity="other">tra %s minuti</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">in %s ora</item>
-    <item quantity="other">in %s ore</item>
+    <item quantity="one">tra %s ora</item>
+    <item quantity="other">tra %s ore</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">in %s giorno</item>
-    <item quantity="other">in %s giorni</item>
+    <item quantity="one">tra %s giorno</item>
+    <item quantity="other">tra %s giorni</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">in %s settimana</item>
-    <item quantity="other">in %s settimane</item>
+    <item quantity="one">tra %s settimana</item>
+    <item quantity="other">tra %s settimane</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">in %s mese</item>
-    <item quantity="other">in %s mesi</item>
+    <item quantity="one">tra %s mese</item>
+    <item quantity="other">tra %s mesi</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">in %s anno</item>
-    <item quantity="other">in %s anni</item>
+    <item quantity="one">tra %s anno</item>
+    <item quantity="other">tra %s anni</item>
   </plurals>
   <string name="rightNow">adesso</string>
   <plurals name="nbSecondsAgo">
