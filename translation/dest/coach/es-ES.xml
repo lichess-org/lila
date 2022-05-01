@@ -13,7 +13,7 @@
 	<string name="hourlyRate">Tarifa por hora</string>
 	<string name="availability">Disponibilidad</string>
 	<string name="accepting">Acepta estudiantes</string>
-	<string name="notAccepting">Actualmente, no acepta estudiantes</string>
+	<string name="notAccepting">Actualmente no está aceptando estudiantes</string>
 	<string name="xCoachesStudents">%s entrena a estudiantes de shogi</string>
 	<string name="viewXProfile">Ver el perfil de Lishogi de %s</string>
 	<string name="sendPM">Enviar un mensaje privado</string>
