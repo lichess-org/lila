@@ -102,7 +102,9 @@ object perfStat {
             } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.ratingDistribution(perfType.key, u.username.some))(
+                  strong(percentile, "%")
+                ),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             }
