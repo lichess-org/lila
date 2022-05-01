@@ -165,7 +165,7 @@ object layout {
   def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
     embedJsUnsafe(
       s"""lichess={load:new Promise(r=>{document.addEventListener("DOMContentLoaded",r)}),quantity:${lila.i18n
-          .JsQuantity(lang)}}""",
+          .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}""",
       nonce
     )
 
@@ -205,7 +205,6 @@ object layout {
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
-  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
@@ -307,7 +306,6 @@ object layout {
           dataTheme        := ctx.currentBg,
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          dataI18n         := safeJsonValue(i18nJsObject(i18nKeys)),
           style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,

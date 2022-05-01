@@ -44,4 +44,4 @@ export const trans = (i18n: I18nDict) => {
   return trans;
 };
 
-export const siteTrans = trans(JSON.parse(document.body.getAttribute('data-i18n')!));
+export const siteTrans = trans(lichess.siteI18n);
