@@ -165,7 +165,7 @@ object layout {
   def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
     embedJsUnsafe(
       s"""lichess={load:new Promise(r=>{document.addEventListener("DOMContentLoaded",r)}),quantity:${lila.i18n
-          .JsQuantity(lang)}};$timeagoLocaleScript""",
+          .JsQuantity(lang)}}""",
       nonce
     )
 
@@ -307,6 +307,7 @@ object layout {
           dataTheme        := ctx.currentBg,
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataI18n         := safeJsonValue(i18nJsObject(i18nKeys)),
           style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,
@@ -327,10 +328,7 @@ object layout {
               "is3d"    -> ctx.pref.is3d
             )
           )(body),
-          ctx.me.exists(_.enabled) option div(
-            id       := "friend_box",
-            dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
-          )(
+          ctx.me.exists(_.enabled) option div(id := "friend_box")(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
             div(cls   := "content_wrap none")(
               div(cls := "content list")
@@ -433,5 +431,25 @@ object layout {
       )
   }
 
-  private val i18nKeys = List(trans.nbFriendsOnline.key)
+  private val i18nKeys = List(
+    // friends list
+    trans.nbFriendsOnline.key,
+    // timeago
+    trans.timeago.justNow.key,
+    trans.timeago.inNbSeconds.key,
+    trans.timeago.inNbMinutes.key,
+    trans.timeago.inNbHours.key,
+    trans.timeago.inNbDays.key,
+    trans.timeago.inNbWeeks.key,
+    trans.timeago.inNbMonths.key,
+    trans.timeago.inNbYears.key,
+    trans.timeago.rightNow.key,
+    trans.timeago.nbSecondsAgo.key,
+    trans.timeago.nbMinutesAgo.key,
+    trans.timeago.nbHoursAgo.key,
+    trans.timeago.nbDaysAgo.key,
+    trans.timeago.nbWeeksAgo.key,
+    trans.timeago.nbMonthsAgo.key,
+    trans.timeago.nbYearsAgo.key
+  )
 }
