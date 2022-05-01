@@ -366,7 +366,7 @@
   <string name="notACheckmate">Ùn ci hè scaccu mattu</string>
   <string name="whiteCheckmatesInOneMove">Tocca à i bianchi à fà scaccu mattu in un colpu</string>
   <string name="blackCheckmatesInOneMove">Tocca à i neri à fà scaccu mattu in un colpu</string>
-  <string name="retry">Pruvà da torna</string>
+  <string name="retry">Prova da torna</string>
   <string name="reconnecting">Ricunnettà si</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amicu in nantu à u situ</item>
