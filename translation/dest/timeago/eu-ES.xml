@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">orain</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">segundo %sen</item>
+    <item quantity="other">%s segundotan</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">minutu %sen</item>
+    <item quantity="other">%s minututan</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">ordu %sen</item>
+    <item quantity="other">%s ordutan</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">egun %sen</item>
+    <item quantity="other">%s egunetan</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">aste %sen</item>
+    <item quantity="other">%s egunetan</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">hilabete %sen</item>
+    <item quantity="other">%s hilabetetan</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">urte %sen</item>
+    <item quantity="other">%s urtetan</item>
+  </plurals>
+  <string name="rightNow">orain</string>
+</resources>
