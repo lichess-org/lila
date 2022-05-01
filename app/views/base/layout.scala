@@ -450,7 +450,7 @@ object layout {
       cache.getOrElseUpdate(
         lang,
         s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
-            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}""".pp
+            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
       )
 
     def apply(nonce: Nonce)(implicit lang: Lang) =
