@@ -310,7 +310,7 @@
     <item quantity="other">%s studii</item>
   </plurals>
   <string name="viewTournament">Vede a ghjustra</string>
-  <string name="backToTournament">Vultà in a ghjustra</string>
+  <string name="backToTournament">Vultà si ne in a ghjustra</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
@@ -336,7 +336,7 @@
   <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
   <string name="mustBeInTeam">Ci vole à esse membru di a squadra %s</string>
   <string name="youAreNotInTeam">Ùn site membru di a squadra %s</string>
-  <string name="backToGame">Vultà in a partita</string>
+  <string name="backToGame">Vultà si ne in a partita</string>
   <string name="siteDescription">Hè un situ di scacchi in a reta di rigalu. Ghjucate à i scacchi in un interfaccia chjara. Ùn ci hè nè arregistramentu nè publicità, nè plugin dumandati. Ghjucate à i scacchi contru à l\' urdinatore, amichi, o aversariu di u mondu sanu.</string>
   <string name="xJoinedTeamY">%1$s hà ghjuntu a squadra %2$s</string>
   <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
@@ -606,7 +606,7 @@
   <string name="hostANewSimul">Accoglie una simultanea nova</string>
   <string name="noSimulFound">A simulatanea ùn hè truvata</string>
   <string name="noSimulExplanation">Issa esibizione simultanea ùn esista.</string>
-  <string name="returnToSimulHomepage">Vultà in a pagina d\' accoglie di e simultanee</string>
+  <string name="returnToSimulHomepage">Vultà si ne in a pagina d\' accoglie di e simultanee</string>
   <string name="aboutSimul">A simultanea oppone un ghjucatore solu contru à parechji ghjucatori.</string>
   <string name="aboutSimulImage">Oppostu à 50 avversarii, Fischer hà vintu 47 partite, hà fattu 2 partite patte, è ne hà persu 1.</string>
   <string name="aboutSimulRealLife">U cuncettu hè apparitu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
@@ -633,7 +633,7 @@
   <string name="tournamentNotFound">Ùn avemu micca trovu u turneu</string>
   <string name="tournamentDoesNotExist">Issu turneu ùn esiste micca.</string>
   <string name="tournamentMayHaveBeenCanceled">U turneu pò esse annullatu s\'è i ghjucatori si ritiranu nanzu à u principiu.</string>
-  <string name="returnToTournamentsHomepage">Vultà in a pagina d\' accolta di u turneu</string>
+  <string name="returnToTournamentsHomepage">Vultà si ne in a pagina d\' accolta di u turneu</string>
   <string name="weeklyPerfTypeRatingDistribution">%s ripartizione di e valutazione di a settimana</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s ghjucatore issa settimana.</item>
