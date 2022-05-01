@@ -215,7 +215,7 @@ Pedinu = 1</string>
   <string name="stageXComplete">Tappa %s finita</string>
   <string name="next">Prossima</string>
   <string name="nextX">Prossimu: %s</string>
-  <string name="backToMenu">Vultà versu u listinu</string>
+  <string name="backToMenu">Vultà si ne versu u listinu</string>
   <string name="puzzleFailed">Prublemu mancatu!</string>
   <string name="retry">Prova da torna</string>
 </resources>
