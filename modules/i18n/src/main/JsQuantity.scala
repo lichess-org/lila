@@ -101,5 +101,5 @@ else return 'other';
         """return c == 1 ? 'one' : 'other';"""
     }
 
-  def apply(lang: Lang) = s"""function(c) {${body(lang)}}"""
+  def apply(lang: Lang) = s"""c=>{${body(lang)}}"""
 }
