@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { readFile, writeFile } = require('fs/promises');
 const { parseString } = require('xml2js');
 const path = require('path');
