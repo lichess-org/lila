@@ -28,7 +28,7 @@
 	<string name="youPlayTheWhitePieces">Juegas con blancas</string>
 	<string name="youPlayTheBlackPieces">Juegas con negras</string>
 	<string name="itsYourTurn">¡Es tu turno!</string>
-	<string name="cheatDetected">Cheat Detected</string>
+	<string name="cheatDetected">Cheat detectado</string>
 	<string name="variantEnding">Fin de la variante</string>
 	<string name="newOpponent">Nuevo oponente</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Tu oponente quiere la revancha</string>
@@ -91,7 +91,7 @@
 	<string name="openingExplorer">Explorador de aperturas</string>
 	<string name="xOpeningExplorer">Explorador de la apertura %s</string>
 	<string name="allSet">¡Listo!</string>
-	<string name="importKif">Import KIF</string>
+	<string name="importKif">Importar PGN</string>
 	<string name="importCsa">Import CSA</string>
 	<string name="delete">Borrar</string>
 	<string name="deleteThisImportedGame">¿Borrar este juego importado?</string>
@@ -266,7 +266,7 @@
 		<item quantity="other">%s en juego</item>
 	</plurals>
 	<string name="exportGames">Exportar partidas</string>
-	<string name="export">Export</string>
+	<string name="export">Exportar</string>
 	<string name="ratingRange">Rango de puntuación</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Dar %s segundo</item>
@@ -754,8 +754,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Fundamentos de shogi</string>
 	<string name="shogiResources">Recursos de shogi</string>
 	<string name="coaches">Entrenadores</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">PGN inválido</string>
+	<string name="invalidNotation">Notación inválida</string>
 	<string name="invalidFen">FEN inválido</string>
 	<string name="error.minLength">La longitud mínima es de %s</string>
 	<string name="error.maxLength">La longitud máxima es de %s</string>
@@ -883,5 +883,5 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="discussBlogForum">Discutir esta publicación en el foro</string>
 	<string name="invadingPieces">Invading pieces</string>
 	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="totalImpasseValue">Valor total</string>
 </resources>
