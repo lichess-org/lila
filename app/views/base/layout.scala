@@ -162,18 +162,11 @@ object layout {
         "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
-    embedJsUnsafe(
-      s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
-          .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}""",
-      nonce
-    )
-
   private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
     frag(
       chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
-      ctx.nonce map lichessJsObject,
+      ctx.nonce map inlineJs.apply,
       if (netConfig.minifiedAssets)
         jsModule("lichess")
       else
@@ -429,25 +422,38 @@ object layout {
       )
   }
 
-  private val i18nKeys = List(
-    // friends list
-    trans.nbFriendsOnline.key,
-    // timeago
-    trans.timeago.justNow.key,
-    trans.timeago.inNbSeconds.key,
-    trans.timeago.inNbMinutes.key,
-    trans.timeago.inNbHours.key,
-    trans.timeago.inNbDays.key,
-    trans.timeago.inNbWeeks.key,
-    trans.timeago.inNbMonths.key,
-    trans.timeago.inNbYears.key,
-    trans.timeago.rightNow.key,
-    trans.timeago.nbSecondsAgo.key,
-    trans.timeago.nbMinutesAgo.key,
-    trans.timeago.nbHoursAgo.key,
-    trans.timeago.nbDaysAgo.key,
-    trans.timeago.nbWeeksAgo.key,
-    trans.timeago.nbMonthsAgo.key,
-    trans.timeago.nbYearsAgo.key
-  )
+  object inlineJs {
+
+    private val i18nKeys = List(
+      trans.nbFriendsOnline.key,
+      trans.timeago.justNow.key,
+      trans.timeago.inNbSeconds.key,
+      trans.timeago.inNbMinutes.key,
+      trans.timeago.inNbHours.key,
+      trans.timeago.inNbDays.key,
+      trans.timeago.inNbWeeks.key,
+      trans.timeago.inNbMonths.key,
+      trans.timeago.inNbYears.key,
+      trans.timeago.rightNow.key,
+      trans.timeago.nbSecondsAgo.key,
+      trans.timeago.nbMinutesAgo.key,
+      trans.timeago.nbHoursAgo.key,
+      trans.timeago.nbDaysAgo.key,
+      trans.timeago.nbWeeksAgo.key,
+      trans.timeago.nbMonthsAgo.key,
+      trans.timeago.nbYearsAgo.key
+    )
+
+    private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
+
+    private def jsCode(implicit lang: Lang) =
+      cache.getOrElseUpdate(
+        lang,
+        s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
+            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}""".pp
+      )
+
+    def apply(nonce: Nonce)(implicit lang: Lang) =
+      embedJsUnsafe(jsCode, nonce)
+  }
 }
