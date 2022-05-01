@@ -5,9 +5,9 @@ import play.api.i18n.Lang
 object JsQuantity {
   private def body(lang: Lang): String =
     lang.language match {
-      case "fr" | "ff" | "kab" | "co" => // french
-        """
-return c < 2 ? 'one' : 'other';"""
+      case "fr" | "ff" | "kab" | "co" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" |
+          "nso" | "ti" | "wa" => // french
+        """return c <= 1 ? 'one' : 'other';"""
       case "cs" | "sk" => // czech
         """
 if (c == 1) return 'one';
@@ -91,8 +91,6 @@ else return 'other';
       """
       case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => // two
         """if (c == 1) return 'one'; else if (c == 2) return 'two'; else return 'other';"""
-      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" => // zero
-        """return (c == 0 || c == 1) ? 'one' : 'other';"""
       case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
           "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
           "tp" | "io" | "ia" => // none
