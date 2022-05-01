@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ghjucà cun un amicu</string>
+  <string name="playWithAFriend">Ghjucà cù un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Dumandà a vittoria</string>
   <string name="forceDraw">Dichjarà a partita patta</string>
   <string name="talkInChat">Pè piace, siate curtese in a discursata!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A prima persona chì ghjunghje issu URL hà da ghjucà cù voi.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A prima persona chì ghjunghje issu URL hà da  voi.</string>
   <string name="whiteResigned">I bianchi tralascianu</string>
   <string name="blackResigned">I neri tralascianu</string>
   <string name="whiteLeftTheGame">I bianchi lascianu a partita</string>
@@ -208,7 +208,7 @@
     <item quantity="other">A classifica hè attualizata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s prublemu</item>
+    <item quantity="one">%s </item>
     <item quantity="other">%s prublemi</item>
   </plurals>
   <string name="gamesPlayed">Partite ghjucate</string>
@@ -493,7 +493,7 @@
   <string name="reportAUser">Lagnà si d\' un utilizatore</string>
   <string name="user">Utilizatore</string>
   <string name="reason">Mutivu</string>
-  <string name="whatIsIheMatter">Chì hè u prublemu?</string>
+  <string name="whatIsIheMatter">Chì hè u ?</string>
   <string name="cheat">Ingannu</string>
   <string name="insult">Parullaccia</string>
   <string name="troll">Trollu</string>
@@ -613,7 +613,7 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da ghjucà cun parechji avversarii à tempu.</string>
+  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>
@@ -783,8 +783,8 @@
   <string name="why">Perchè?</string>
   <string name="pleasantChessExperience">Vulemu prupone una stonda di scacchi piacevule pè tutti.</string>
   <string name="goodPractice">A tale scopu, vulemu assicurà chì tutti i ghjucadori seguitinu e bone pratiche.</string>
-  <string name="potentialProblem">Quandu un prublemu hè rilevatu, mustrmu stu messaghju.</string>
-  <string name="howToAvoidThis">Cumu evità stu prublemu?</string>
+  <string name="potentialProblem">Quandu un  hè rilevatu, mustrmu stu messaghju.</string>
+  <string name="howToAvoidThis">Cumu evità stu ?</string>
   <string name="playEveryGame">Ghjucate tutte e partite chè vo principate.</string>
   <string name="tryToWin">Cercate à vince (o omancu annullà) tutte e partite chè vo ghjucate.</string>
   <string name="resignLostGames">Lasciate corre e partite perse (ùn lasciate micca u riloghju turnà, abbandunate).</string>
@@ -807,7 +807,7 @@
   <string name="rapidDesc">Partite rapide: da 8 à 25 minuti</string>
   <string name="classicalDesc">Partite classiche: 25 minuti è più</string>
   <string name="correspondenceDesc">Partite pè via di a currespondenza: unu o parechji ghorni pè ghjucà un colpu</string>
-  <string name="puzzleDesc">Intrenatore di tattica</string>
+  <string name="puzzleDesc">Allenatore di tattica</string>
   <string name="important">Impurtante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A vostra dumanda puderia avè dighjà una risposta %1$s</string>
   <string name="inTheFAQ">in a FAD</string>
@@ -831,8 +831,8 @@
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
-  <string name="newPendingReview">Un utilzatore cerca un intrenatore</string>
+  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenatore.</string>
+  <string name="newPendingReview">Un utilzatore cerca un allenatore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
