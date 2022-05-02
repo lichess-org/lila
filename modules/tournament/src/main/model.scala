@@ -55,7 +55,7 @@ case class PlayerInfoExt(
     recentPovs: List[lila.game.LightPov]
 )
 
-case class FullRanking(ranking: Map[User.ID, Int], playerIndex: Array[Player.ID], userIdsString: String)
+case class FullRanking(ranking: Map[User.ID, Int], playerIndex: Array[Player.ID])
 
 case class GameRanks(whiteRank: Int, blackRank: Int)
 
