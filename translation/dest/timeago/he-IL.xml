@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">בדיוק עכשיו</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">תוך שניה %s</item>
+    <item quantity="two">תוך %s שניות</item>
+    <item quantity="many">תוך %s שניות</item>
+    <item quantity="other">תוך %s שניות</item>
+  </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">תוך %s דקות</item>
     <item quantity="two">תוך %s דקה</item>
@@ -38,6 +44,12 @@
     <item quantity="other">תוך %s שנים</item>
   </plurals>
   <string name="rightNow">עכשיו</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">לפני שנייה %s</item>
+    <item quantity="two">לפני %s שניות</item>
+    <item quantity="many">לפני %s שניות</item>
+    <item quantity="other">לפני %s שניות</item>
+  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">לפני דקה %s</item>
     <item quantity="two">לפני %s דקות</item>
@@ -49,5 +61,29 @@
     <item quantity="two">לפני %s שעות</item>
     <item quantity="many">לפני %s שעות</item>
     <item quantity="other">לפני %s שעות</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">לפני יום %s</item>
+    <item quantity="two">לפני %s ימים</item>
+    <item quantity="many">לפני %s ימים</item>
+    <item quantity="other">לפני %s ימים</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">לפני שבוע %s</item>
+    <item quantity="two">לפני %s שבועות</item>
+    <item quantity="many">לפני %s שבועות</item>
+    <item quantity="other">לפני %s שבועות</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">לפני חודש %s</item>
+    <item quantity="two">לפני %s חודשים</item>
+    <item quantity="many">לפני %s חודשים</item>
+    <item quantity="other">לפני %s חודשים</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">לפני שנה %s</item>
+    <item quantity="two">לפני %s שנים</item>
+    <item quantity="many">לפני %s שנים</item>
+    <item quantity="other">לפני %s שנים</item>
   </plurals>
 </resources>
