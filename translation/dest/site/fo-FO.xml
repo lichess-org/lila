@@ -782,6 +782,7 @@
   <string name="currentMatchScore">Núverandi dystarstigatal</string>
   <string name="agreementAssistance">Eg lovi, at eg ongantíð taki ímóti hjálp, meðan eg telvi (frá telvingarteldum, bókum, dátugrunnum ella øðrum telvarum).</string>
   <string name="agreementNice">Eg lovi altíð at sýna virðing móti øðrum telvarum.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg játti at eg ikki fari at stovna fleiri kontur (uttan so at tað fellur undir grundirnar í %s).</string>
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
@@ -807,7 +808,13 @@
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
   <string name="subscribe">Melda til</string>
   <string name="unsubscribe">Melda teg úr</string>
+  <string name="mentionedYouInX">nevndi teg í \"%1$s\".</string>
+  <string name="invitedYouToX">bjóðaði tær til \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s bjóðaði tær til \"%2$s\".</string>
   <string name="congratsYouWon">Til lukku, tú vanst!</string>
+  <string name="gameVsX">Talv móti %1$s</string>
+  <string name="resVsX">%1$s móti %2$s</string>
+  <string name="timeAlmostUp">Tíðin er skjótt úti!</string>
   <string name="download">Tak niður</string>
   <string name="welcome">Vælkomin!</string>
   <string name="noChat">Einki kjatt</string>
