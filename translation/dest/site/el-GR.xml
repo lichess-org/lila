@@ -600,24 +600,24 @@
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
-  <string name="simultaneousExhibitions">Ταυτόχρονες εκθέσεις</string>
+  <string name="simultaneousExhibitions">Σιμουλτανέ</string>
   <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
-  <string name="createdSimuls">Πρόσφατα δημιουργημένες εκθέσεις</string>
-  <string name="hostANewSimul">Διοργάνωση νέας έκθεσης</string>
-  <string name="noSimulFound">Έκθεση δεν ευρέθη</string>
-  <string name="noSimulExplanation">Αυτή η ταυτόχρονη έκθεση δεν υπάρχει.</string>
-  <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα ταυτοχρόνων εκθέσεων</string>
-  <string name="aboutSimul">Οι ταυτόχρονες εκθέσεις αφορούν ένα μεμονωμένο παίκτη που αντιμετωπίζει αρκετούς παίκτες ταυτόχρονα.</string>
+  <string name="createdSimuls">Πρόσφατα σιμουλτανέ</string>
+  <string name="hostANewSimul">Διοργάνωση νέου σιμουλτανέ</string>
+  <string name="noSimulFound">Το σιμουλτανέ δε βρέθηκε</string>
+  <string name="noSimulExplanation">Αυτό το σιμουλτανέ δεν υπάρχει.</string>
+  <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα σιμουλτανέ</string>
+  <string name="aboutSimul">Τα σιμουλτανέ είναι διοργανώσεις στις οποίες ένας μεμονωμένος παίκτης αντιμετωπίζει πολλούς ταυτόχρονα.</string>
   <string name="aboutSimulImage">Από τους 50 αντιπάλους, ο Φίσερ κέρδισε 47 παιχνίδια, κατάφερε 2 ισοπαλίες και έχασε 1.</string>
-  <string name="aboutSimulRealLife">Η έννοια προέρχεται από πραγματικά γεγονότα. Σε πραγματικούς χώρους, ο διοργανωτής της έκθεσης μετακινείται από τραπέζι σε τραπέζι για να παίξει μία και μόνο κίνηση.</string>
-  <string name="aboutSimulRules">Όταν ξεκινήσει η έκθεση, κάθε παίκτης ξεκινά το παιχνίδι με τον διοργανωτή, ο οποίος έχει τα λευκά κομμάτια. Η διοργάνωση τελειώνει όταν όλα τα παιχνίδια ολοκληρωθούν.</string>
-  <string name="aboutSimulSettings">Οι ταυτόχρονες εκθέσεις είναι πάντα αβαθμολόγητες. Οι επαναλήψεις, ανακλήσεις κινήσεων και προσθήκες επιπλέον χρόνου έχουν απενεργοποιηθεί.</string>
+  <string name="aboutSimulRealLife">Η έννοια προέρχεται από πραγματικά γεγονότα. Σε πραγματικούς χώρους, ο διοργανωτής του σιμουλτανέ μετακινείται από τραπέζι σε τραπέζι για να παίξει μία και μόνο κίνηση.</string>
+  <string name="aboutSimulRules">Όταν ξεκινήσει το σιμουλτανέ, κάθε παίκτης ξεκινά το παιχνίδι με τον διοργανωτή, ο οποίος έχει τα λευκά κομμάτια. Η διοργάνωση τελειώνει όταν όλα τα παιχνίδια ολοκληρωθούν.</string>
+  <string name="aboutSimulSettings">Τα σιμουλτανέ είναι πάντα φιλικά. Οι επαναλήψεις, ανακλήσεις κινήσεων και προσθήκες επιπλέον χρόνου έχουν απενεργοποιηθεί.</string>
   <string name="create">Δημιουργήστε</string>
-  <string name="whenCreateSimul">Όταν δημιουργείτε μία έκθεση, θα έχετε να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
+  <string name="whenCreateSimul">Όταν δημιουργείτε ένα σιμουλτανέ, πρέπει να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
   <string name="simulVariantsHint">Εάν επιλέξετε διάφορες εκδοχές, κάθε παίκτης μπορεί να επιλέξει ποια θα παίξει.</string>
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
-  <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να σας βοηθήσει στην έκθεση.</string>
+  <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
   <string name="lichessTournaments">Πρωταθλήματα lichess</string>
   <string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
@@ -773,7 +773,7 @@
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
   <string name="noConditionalPremoves">Καμία υποθετική προκίνηση</string>
-  <string name="playX">Παίξτε %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Παίξτε %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
@@ -864,7 +864,7 @@
   <string name="simulHostcolor">Χρώμα διοργανωτή σε κάθε παιχνίδι</string>
   <string name="estimatedStart">Εκτιμώμενη ώρα έναρξης</string>
   <string name="simulFeatured">Προβεβλημένο στο %s</string>
-  <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
   <string name="markdownAvailable">Η μορφή %s είναι διαθέσιμη για μια πιο προχωρημένη σύνταξη.</string>
