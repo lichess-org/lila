@@ -38,4 +38,16 @@
     <item quantity="other">תוך %s שנים</item>
   </plurals>
   <string name="rightNow">עכשיו</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">לפני דקה %s</item>
+    <item quantity="two">לפני %s דקות</item>
+    <item quantity="many">לפני %s דקות</item>
+    <item quantity="other">לפני %s דקות</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">לפני שעה %s</item>
+    <item quantity="two">לפני %s שעות</item>
+    <item quantity="many">לפני %s שעות</item>
+    <item quantity="other">לפני %s שעות</item>
+  </plurals>
 </resources>
