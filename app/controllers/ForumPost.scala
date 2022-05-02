@@ -110,11 +110,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 for {
                   userId    <- post.userId
                   reasonOpt <- forms.deleteWithReason.bindFromRequest().value
+                  topic     <- topicRepo.forUser(ctx.me).byId(post.topicId)
                   reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                   preset =
                     if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
-                    else if (false)
-                      MsgPreset.forumDeletion.byBlogAuthor("") // TODO have to look up the topic here i guess
+                    else if (topic.nonEmpty && topic.get.canOwnerMod(ctx.me))
+                      MsgPreset.forumDeletion.byBlogAuthor(me.username)
                     else MsgPreset.forumDeletion.byTeamLeader(categSlug)
                 } env.msg.api.systemPost(userId, preset(reason))
                 NoContent

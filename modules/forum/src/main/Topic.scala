@@ -47,7 +47,7 @@ case class Topic(
 
   def canOwnerMod(forUid: User.ID): Boolean = userId.contains(forUid)
   def canOwnerMod(forUser: Option[User]): Boolean =
-    blogUrl.nonEmpty && forUser.isDefined && userId.contains(forUser.get.id)
+    blogUrl.isDefined && forUser.isDefined && userId.contains(forUser.get.id)
 
   def withPost(post: Post): Topic =
     copy(

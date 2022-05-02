@@ -323,6 +323,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         }
     }
   }
+
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled && blog.visible
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =

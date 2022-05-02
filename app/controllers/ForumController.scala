@@ -43,7 +43,7 @@ private[controllers] trait ForumController { self: LilaController =>
       if (granted | isGranted(_.ModerateForum)) a
       else
         topicRepo.forUser(forUser).byTree(categSlug, topicSlug) flatMap { topic =>
-          if (topic.nonEmpty && topic.get.canOwnerMod(forUser)) a
+          if (topic.isDefined && topic.get.canOwnerMod(forUser)) a
           else fuccess(Forbidden("You cannot post to this category"))
         }
     }
@@ -55,7 +55,7 @@ private[controllers] trait ForumController { self: LilaController =>
       if (granted | isGranted(_.ModerateForum)) a
       else
         topicRepo.forUser(forUser).byId(topicId) flatMap { topic =>
-          if (topic.nonEmpty && topic.get.canOwnerMod(forUser)) a
+          if (topic.isDefined && topic.get.canOwnerMod(forUser)) a
           else fuccess(Forbidden("You cannot post to this category"))
         }
     }
