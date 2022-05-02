@@ -370,6 +370,8 @@
   <string name="follow">Fylg</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Fylg ikki</string>
+  <string name="followX">Fylg %s</string>
+  <string name="unfollowX">Steðga at fylgja %s</string>
   <string name="block">Forða</string>
   <string name="blocked">Forðaður</string>
   <string name="unblock">Forða ikki</string>
@@ -432,6 +434,8 @@
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>
   <string name="popularOpenings">Væl dámd byrjanartalv</string>
+  <string name="endgamePositions">Endatalvstøður</string>
+  <string name="chess960StartPosition">Chess960-byrjanarstøða: %s</string>
   <string name="startPosition">Byrjanarstøðan</string>
   <string name="clearBoard">Rudda borðið</string>
   <string name="loadPosition">Les støðuna inn</string>
@@ -466,6 +470,7 @@
   <string name="name">Navn</string>
   <string name="description">Lýsing</string>
   <string name="descPrivate">Innanhýsis lýsing</string>
+  <string name="descPrivateHelp">Tekstur ið bert limir á liðnum fara síggja. Um hann er útfyltur, verður hann fyri limir brúktur í staðin fyri almennu lýsingina.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjálp:</string>
@@ -557,6 +562,7 @@
   <string name="error.email_acceptable">Henda teldupostaddressa er ikki góðtikin. Kanna, um hon er rætt, og royn so aftur.</string>
   <string name="error.email_unique">Teldupostaddressan er antin ógildug ella longu tikin</string>
   <string name="error.email_different">Hetta er longu tín teldupostadressa</string>
+  <string name="error.minLength">Minsta longdin er %s tekn</string>
   <string name="ifRatingIsPlusMinusX">Um styrkitalið er ± %s</string>
   <string name="onlyExistingConversations">Einastu samrøður, ið eru til</string>
   <string name="onlyFriends">Bert vinir</string>
@@ -801,4 +807,16 @@
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
   <string name="subscribe">Melda til</string>
   <string name="unsubscribe">Melda teg úr</string>
+  <string name="congratsYouWon">Til lukku, tú vanst!</string>
+  <string name="download">Tak niður</string>
+  <string name="welcome">Vælkomin!</string>
+  <string name="noChat">Einki kjatt</string>
+  <string name="onlyTeamLeaders">Bert liðleiðarar</string>
+  <string name="onlyTeamMembers">Bert limir av liðnum</string>
+  <string name="navigateMoveTree">Far runt í leiktrænum</string>
+  <string name="mouseTricks">Músasnildir</string>
+  <string name="playComputerMove">Telv besta telduleikin</string>
+  <string name="hangOn">Bíða líka!</string>
+  <string name="since">Síðan</string>
+  <string name="until">Til</string>
 </resources>
