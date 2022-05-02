@@ -50,4 +50,12 @@
     <item quantity="one">fa %s setmana</item>
     <item quantity="other">fa %s setmanes</item>
   </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">fa %s mes</item>
+    <item quantity="other">fa %s mesos</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">fa %s any</item>
+    <item quantity="other">fa %s anys</item>
+  </plurals>
 </resources>
