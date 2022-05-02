@@ -739,7 +739,7 @@
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
-  <string name="blackWinsGame">Les noirs gagnent</string>
+  <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
@@ -772,7 +772,7 @@
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
-  <string name="playX">Jouer %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
