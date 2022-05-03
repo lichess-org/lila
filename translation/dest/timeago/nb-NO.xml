@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="justNow">om litt</string>
   <plurals name="inNbSeconds">
     <item quantity="one">om %s sekund</item>
     <item quantity="other">om %s sekunder</item>
@@ -28,6 +29,7 @@
     <item quantity="one">om %s år</item>
     <item quantity="other">om %s år</item>
   </plurals>
+  <string name="rightNow">for litt siden</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">for %s sekund siden</item>
     <item quantity="other">for %s sekunder siden</item>
@@ -38,7 +40,7 @@
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="one">for %s time siden</item>
-    <item quantity="other">for %s timer sider</item>
+    <item quantity="other">for %s timer siden</item>
   </plurals>
   <plurals name="nbDaysAgo">
     <item quantity="one">for %s døgn siden</item>
