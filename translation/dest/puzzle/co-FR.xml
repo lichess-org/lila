@@ -72,10 +72,6 @@
 Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\' avè un  strattu di e vostre partite!</string>
   <string name="fromXGamesFound">%1$s prublemi trovi in %2$s partite</string>
   <string name="puzzleDashboardDescription">Addestrà, analisà, migliurà</string>
-  <plurals name="nbPlayed">
-    <item quantity="one">%s ghjucatu</item>
-    <item quantity="other">ghjucati</item>
-  </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s à ghjucà da torna</item>
     <item quantity="other">%s à ghjucà da torna</item>
