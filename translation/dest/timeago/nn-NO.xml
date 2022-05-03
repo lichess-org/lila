@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">nett no</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">om %s sekund</item>
+    <item quantity="other">om %s sekund</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">om %s minutt</item>
+    <item quantity="other">om %s minutt</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">om %s time</item>
+    <item quantity="other">om %s timar</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">om %s dag</item>
+    <item quantity="other">om %s dagar</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">om %s veke</item>
+    <item quantity="other">om %s veker</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">om %s månad</item>
+    <item quantity="other">om %s månader</item>
+  </plurals>
+</resources>
