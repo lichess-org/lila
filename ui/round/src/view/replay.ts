@@ -4,7 +4,7 @@ import * as status from 'game/status';
 import * as util from '../util';
 import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
@@ -17,27 +17,25 @@ const scrollMax = 99999,
   movesTag = 'l4x',
   rmovesTag = 'rm6';
 
-const autoScroll = throttlePromise(
-  finallyDelay(100, (movesEl: HTMLElement, ctrl: RoundController) =>
-    window.requestAnimationFrame(() => {
-      if (ctrl.data.steps.length < 7) return;
-      let st: number | undefined;
-      if (ctrl.ply < 3) st = 0;
-      else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
-      else {
-        const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
-        if (plyEl)
-          st = isCol1()
-            ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
-            : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-      }
-      if (typeof st == 'number') {
-        if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-        else if (isCol1()) movesEl.scrollLeft = st;
-        else movesEl.scrollTop = st;
-      }
-    })
-  )
+const autoScroll = throttlePromiseDelay(100, (movesEl: HTMLElement, ctrl: RoundController) =>
+  window.requestAnimationFrame(() => {
+    if (ctrl.data.steps.length < 7) return;
+    let st: number | undefined;
+    if (ctrl.ply < 3) st = 0;
+    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+    else {
+      const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
+      if (plyEl)
+        st = isCol1()
+          ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
+          : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (typeof st == 'number') {
+      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+      else if (isCol1()) movesEl.scrollLeft = st;
+      else movesEl.scrollTop = st;
+    }
+  })
 );
 
 const renderDrawOffer = () =>

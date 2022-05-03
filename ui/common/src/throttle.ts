@@ -49,7 +49,7 @@ export function finallyDelay<T extends (...args: any) => Promise<void>>(
  * completion plus a delay
  */
 export function throttlePromiseDelay<T extends (...args: any) => Promise<void>>(
-  delay: (...args: any) => number | undefined,
+  delay: (...args: Parameters<T>) => number | any,
   wrapped: T
 ): (...args: Parameters<T>) => void {
   let current: Promise<any> | undefined;

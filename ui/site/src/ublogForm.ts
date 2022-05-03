@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 
@@ -67,7 +67,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     ],
     autofocus: false,
     events: {
-      change: throttlePromise(finallyDelay(500, () => $('#form3-markdown').val(postProcess(editor.getMarkdown())))),
+      change: throttle(500, () => $('#form3-markdown').val(postProcess(editor.getMarkdown()))),
     },
     hooks: {
       addImageBlobHook() {
