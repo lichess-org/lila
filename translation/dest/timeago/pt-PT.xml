@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">agora mesmo</string>
+  <string name="rightNow">agora mesmo</string>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">há %s anos atrás</item>
+    <item quantity="other">%s anos atrás</item>
+  </plurals>
+</resources>

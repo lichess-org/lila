@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">avale avà</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">da quì à %s seconda</item>
+    <item quantity="other">da quì à %s seconde</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">da quì à %s minutu</item>
+    <item quantity="other">da quì à %s minuti</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">da quì à %s ora</item>
+    <item quantity="other">da quì à %s ore</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">da quì à %s ghjornu</item>
+    <item quantity="other">da quì à %s ghjorni</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">da quì à %s settimana</item>
+    <item quantity="other">da quì à %s settimane</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">da quì à %s mese</item>
+    <item quantity="other">da quì à %s mesi</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">da quì à %s annu</item>
+    <item quantity="other">da quì à %s anni</item>
+  </plurals>
+  <string name="rightNow">avà</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s seconda fà</item>
+    <item quantity="other">%s seconde fà</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minutu fà</item>
+    <item quantity="other">%s minuti fà</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s ora fà</item>
+    <item quantity="other">%s ore fà</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s ghjornu fà</item>
+    <item quantity="other">%s ghjorni fà</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s settimana fà</item>
+    <item quantity="other">%s settimane fà</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s mese fà</item>
+    <item quantity="other">%s mesi fà</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s annu fà</item>
+    <item quantity="other">%s anni fà</item>
+  </plurals>
+</resources>
