@@ -57,4 +57,19 @@
     <item quantity="few">prije %s dana</item>
     <item quantity="other">prije %s dana</item>
   </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">prije %s sedmicu</item>
+    <item quantity="few">prije %s sedmice</item>
+    <item quantity="other">prije %s sedmica</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">prije %s mjesec</item>
+    <item quantity="few">prije %s mjeseca</item>
+    <item quantity="other">prije %s mjeseci</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">prije %s godinu</item>
+    <item quantity="few">prije %s godine</item>
+    <item quantity="other">prije %s godina</item>
+  </plurals>
 </resources>
