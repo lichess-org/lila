@@ -192,7 +192,7 @@ object show {
             standardFlash(),
             log.nonEmpty option renderLog(log),
             st.section(cls := "team-show__desc")(
-              markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
+              bits.markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
@@ -239,16 +239,6 @@ object show {
         )
       )
     }
-
-  private object markdown {
-    import scala.concurrent.duration._
-    private val renderer = new lila.common.Markdown(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10 minutes)
-      .maximumSize(1024)
-      .build[String, String]()
-    def apply(team: Team, text: String): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
-  }
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
