@@ -41,7 +41,7 @@ object bits {
       )
     }
 
-  object markdown {
+  private[team] object markdown {
     import scala.concurrent.duration._
     private val renderer = new lila.common.Markdown(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
