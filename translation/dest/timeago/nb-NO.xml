@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="inNbSeconds">
+    <item quantity="one">om %s sekund</item>
+    <item quantity="other">om %s sekunder</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">om %s minutt</item>
+    <item quantity="other">om %s minutter</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">om %s time</item>
+    <item quantity="other">om %s timer</item>
+  </plurals>
+</resources>
