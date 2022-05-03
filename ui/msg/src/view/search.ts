@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
@@ -17,7 +17,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
           const input = vnode.elm as HTMLInputElement;
           input.addEventListener(
             'input',
-            throttlePromise(finallyDelay(500, () => ctrl.searchInput(input.value.trim())))
+            throttle(500, () => ctrl.searchInput(input.value.trim()))
           );
           input.addEventListener('blur', () =>
             setTimeout(() => {

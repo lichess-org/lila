@@ -1,5 +1,5 @@
 import * as game from 'game';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import modal from 'common/modal';
 import notify from 'common/notification';
 import * as xhr from './xhr';
@@ -163,9 +163,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   return {
     send,
     handlers,
-    moreTime: throttlePromise(finallyDelay(300, () => send('moretime'))),
+    moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
-    berserk: throttlePromise(finallyDelay(200, () => send('berserk', null, { ackable: true }))),
+    berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);
       send(typ, data);

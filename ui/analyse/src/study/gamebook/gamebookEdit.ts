@@ -1,6 +1,6 @@
 import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { iconTag } from '../../util';
 import { h, Hooks, VNode } from 'snabbdom';
@@ -151,16 +151,14 @@ function renderHint(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-const saveNode = throttlePromise(
-  finallyDelay(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
-    ctrl.socket.send('setGamebook', {
-      path: ctrl.path,
-      ch: ctrl.study!.vm.chapterId,
-      gamebook: gamebook,
-    });
-    ctrl.redraw();
-  })
-);
+const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
+  ctrl.socket.send('setGamebook', {
+    path: ctrl.path,
+    ch: ctrl.study!.vm.chapterId,
+    gamebook: gamebook,
+  });
+  ctrl.redraw();
+});
 
 function nodeGamebookValue(node: Tree.Node, field: 'deviation' | 'hint'): string {
   return (node.gamebook && node.gamebook[field]) || '';

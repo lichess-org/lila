@@ -31,11 +31,45 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
  * or rejects).
  */
 export function finallyDelay<T extends (...args: any) => Promise<void>>(
-  delay: (...args: any) => number | undefined,
+  delay: (...args: Parameters<T>) => number,
   wrapped: T
 ): (...args: Parameters<T>) => Promise<void> {
   return function (this: any, ...args: Parameters<T>): Promise<void> {
     const self = this;
+    return new Promise(resolve => {
+      wrapped.apply(self, args).finally(() => setTimeout(resolve, delay.apply(self, args)));
+    });
+  };
+}
+
+/***
+ * Wraps an asynchronous function to ensure only one call at a time is in
+ * flight. Any extra calls are dropped, except the last one, which waits for
+ * the previous call to complete and returns a promise that resolves after
+ * completion plus a delay
+ */
+export function throttlePromiseDelay<T extends (...args: any) => Promise<void>>(
+  delay: (...args: any) => number | undefined,
+  wrapped: T
+): (...args: Parameters<T>) => void {
+  let current: Promise<any> | undefined;
+  let afterCurrent: (() => void) | undefined;
+
+  return function (this: any, ...args: Parameters<T>) {
+    const self = this;
+    const exec = async () => {
+      afterCurrent = undefined;
+      current = wrapped.apply(self, args).finally(() => {
+        current = undefined;
+        if (afterCurrent) afterCurrent();
+      });
+
+      if (await current) afterCurrent = exec;
+      else exec();
+    };
+    if (current) afterCurrent = exec;
+    else exec();
+
     return new Promise(resolve => {
       wrapped.apply(self, args).finally(() => setTimeout(resolve, delay.apply(self, args)));
     });

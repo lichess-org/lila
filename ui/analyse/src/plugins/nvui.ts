@@ -33,11 +33,11 @@ import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind, MaybeVNodes } from 'common/snabbdom';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 
-const throttled = (sound: string) => throttlePromise(finallyDelay(100, () => lichess.sound.play(sound)));
+const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
 const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');

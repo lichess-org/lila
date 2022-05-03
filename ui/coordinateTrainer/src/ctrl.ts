@@ -1,6 +1,6 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { ColorChoice, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
 
@@ -68,15 +68,12 @@ export default class CoordinateTrainerCtrl {
     }
     this.saveMode();
 
-    const setZen = throttlePromise(
-      finallyDelay(1000, zen =>
-        xhr.text('/pref/zen', {
-          method: 'post',
-          body: xhr.form({ zen: zen ? 1 : 0 }),
-        })
-      )
+    const setZen = throttlePromiseDelay(1000, zen =>
+      xhr.text('/pref/zen', {
+        method: 'post',
+        body: xhr.form({ zen: zen ? 1 : 0 }),
+      })
     );
-
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));

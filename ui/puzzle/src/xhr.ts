@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import PuzzleStreak from './streak';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { StoredBooleanProp } from 'common/storage';
@@ -38,11 +38,9 @@ export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | und
   });
 }
 
-export const setZen = throttlePromise(
-  finallyDelay(1000, zen =>
-    xhr.text('/pref/zen', {
-      method: 'post',
-      body: xhr.form({ zen: zen ? 1 : 0 }),
-    })
-  )
+export const setZen = throttlePromiseDelay(1000, zen =>
+  xhr.text('/pref/zen', {
+    method: 'post',
+    body: xhr.form({ zen: zen ? 1 : 0 }),
+  })
 );

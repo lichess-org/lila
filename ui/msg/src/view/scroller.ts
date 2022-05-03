@@ -1,4 +1,4 @@
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 
 class Scroller {
   enabled = false;
@@ -10,13 +10,11 @@ class Scroller {
     this.element = e;
     this.element.addEventListener(
       'scroll',
-      throttlePromise(
-        finallyDelay(500, _ => {
-          const el = this.element;
-          this.enable(!!el && el.offsetHeight + el.scrollTop > el.scrollHeight - 20);
-        }),
-        { passive: true }
-      )
+      throttle(500, _ => {
+        const el = this.element;
+        this.enable(!!el && el.offsetHeight + el.scrollTop > el.scrollHeight - 20);
+      }),
+      { passive: true }
     );
   };
   auto = () => {

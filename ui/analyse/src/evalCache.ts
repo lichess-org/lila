@@ -1,5 +1,5 @@
 import { defined, prop } from 'common';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import throttle from 'common/throttle';
 import { CachedEval, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
 
@@ -75,23 +75,21 @@ export function make(opts: EvalCacheOpts): EvalCache {
   const upgradable = prop(false);
   lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2 && d.nb < 99999));
   return {
-    onCeval: throttlePromise(
-      finallyDelay(500, () => {
-        const node = opts.getNode(),
-          ev = node.ceval;
-        const fetched = fetchedByFen[node.fen];
-        if (
-          ev &&
-          !ev.cloud &&
-          node.fen in fetchedByFen &&
-          (!fetched || fetched.depth < ev.depth) &&
-          qualityCheck(ev) &&
-          opts.canPut()
-        ) {
-          opts.send('evalPut', toPutData(opts.variant, ev));
-        }
-      })
-    ),
+    onCeval: throttle(500, () => {
+      const node = opts.getNode(),
+        ev = node.ceval;
+      const fetched = fetchedByFen[node.fen];
+      if (
+        ev &&
+        !ev.cloud &&
+        node.fen in fetchedByFen &&
+        (!fetched || fetched.depth < ev.depth) &&
+        qualityCheck(ev) &&
+        opts.canPut()
+      ) {
+        opts.send('evalPut', toPutData(opts.variant, ev));
+      }
+    }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;

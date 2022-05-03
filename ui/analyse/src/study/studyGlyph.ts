@@ -1,6 +1,6 @@
 import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
-import { throttlePromise, finallyDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -47,16 +47,14 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
       });
   }
 
-  const toggleGlyph = throttlePromise(
-    finallyDelay(500, (id: Tree.GlyphId) => {
-      root.study!.makeChange(
-        'toggleGlyph',
-        root.study!.withPosition({
-          id,
-        })
-      );
-    })
-  );
+  const toggleGlyph = throttlePromiseDelay(500, (id: Tree.GlyphId) => {
+    root.study!.makeChange(
+      'toggleGlyph',
+      root.study!.withPosition({
+        id,
+      })
+    );
+  });
 
   return {
     root,
