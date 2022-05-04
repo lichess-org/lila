@@ -3,10 +3,6 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { bind } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 
-function renderRange(range: string) {
-  return h('div.range', range.replace('-', '–'));
-}
-
 export function hooks(ctrl: LobbyController): Hooks {
   return bind(
     'click',
@@ -37,8 +33,10 @@ export function render(ctrl: LobbyController) {
           attrs: { 'data-id': pool.id },
         },
         [
-          h('div.clock', pool.lim + '+' + pool.inc),
-          active && member!.range && ctrl.opts.showRatings ? renderRange(member!.range!) : h('div.perf', pool.perf),
+          h('div.clock', `${pool.lim}+${pool.inc}`),
+          active && member!.range && !ctrl.opts.hideRatings
+            ? h('div.range', member.range.replace('-', '–'))
+            : h('div.perf', pool.perf),
           active ? spinner() : null,
         ]
       );

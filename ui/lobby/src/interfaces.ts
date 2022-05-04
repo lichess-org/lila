@@ -65,7 +65,7 @@ export interface LobbyOpts {
   blindMode: boolean;
   hasUnreadLichessMessage: boolean;
   playban: boolean;
-  showRatings: boolean;
+  hideRatings: boolean;
   data: LobbyData;
   i18n: I18nDict;
   trans: Trans;
