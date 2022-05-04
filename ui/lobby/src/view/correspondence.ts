@@ -28,7 +28,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
             seek.username
           )
         : 'Anonymous',
-      seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
+      seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', {
