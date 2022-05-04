@@ -1,4 +1,5 @@
 .simul-list {
+  overflow: hidden;
   &__help {
     @extend %page-text-shadow !optional;
 

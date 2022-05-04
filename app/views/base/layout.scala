@@ -48,9 +48,15 @@ object layout {
       )}${crossorigin ?? "crossorigin"}>""")
 
   private def fontPreload(implicit ctx: Context) = frag(
-    preload(assetUrl(s"font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
+    preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
+    preload(
+      assetUrl("font/noto-sans-v14-latin-regular.woff2"),
+      "font",
+      crossorigin = true,
+      "font/woff2".some
+    ),
     !ctx.pref.pieceNotationIsLetter option
-      preload(assetUrl(s"font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+      preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
   private def boardPreload(implicit ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
