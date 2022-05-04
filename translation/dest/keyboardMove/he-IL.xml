@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">פקודות קלט מקלדת</string>
+  <string name="performAMove">בצע מהלך</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">הזז כלי מ-e2 ל-e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">הזז פרש ל-c3</string>
+  <string name="kingsideCastle">הצרחה קטנה</string>
+  <string name="queensideCastle">הצרחה גדולה</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">הַכְתר c8 למלכה</string>
+  <string name="offerOrAcceptDraw">הצע או קבל תיקו</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">הקרא שעונים</string>
+  <string name="otherCommands">פקודות אחרות</string>
+  <string name="tips">טיפים</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">אם רישום המהלכים הזה אינו מוכר לכם, למדו מכאן:</string>
+  <string name="includingAXToIndicateACapture">ניתן לכלול \"x\" כדי לסמן הכאה</string>
+  <string name="bothTheLetterOAndTheDigitZero">ניתן להשתמש גם באות \"o\" וגם בספרה \"0\" בעת הצרחה</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">אם הצרחה חוקית בשני הכיוונים, לחצו על אנטר כדי להצריח הצרחה קטנה</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">אותיות גדולות/קטנות משנות רק במקרים לא ברורים המערבים רץ ורגלי מטור b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">כדי לבצע מהלך מקדים, פשוט הקלידו את המהלך לפני תורכם</string>
+</resources>

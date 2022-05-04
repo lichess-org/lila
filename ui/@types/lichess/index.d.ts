@@ -34,6 +34,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
+  siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
@@ -59,7 +60,6 @@ interface Lichess {
   };
 
   timeago(date: number | Date): string;
-  timeagoLocale(a: number, b: number, c: number): any;
   dateFormat: () => (date: Date) => string;
 
   // misc

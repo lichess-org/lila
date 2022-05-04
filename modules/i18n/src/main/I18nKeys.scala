@@ -2356,4 +2356,24 @@ val `toPremoveSimplyTypeTheDesiredPremove` = new I18nKey("keyboardMove:toPremove
 
 }
 
+object timeago {
+val `justNow` = new I18nKey("timeago:justNow")
+val `rightNow` = new I18nKey("timeago:rightNow")
+val `inNbSeconds` = new I18nKey("timeago:inNbSeconds")
+val `inNbMinutes` = new I18nKey("timeago:inNbMinutes")
+val `inNbHours` = new I18nKey("timeago:inNbHours")
+val `inNbDays` = new I18nKey("timeago:inNbDays")
+val `inNbWeeks` = new I18nKey("timeago:inNbWeeks")
+val `inNbMonths` = new I18nKey("timeago:inNbMonths")
+val `inNbYears` = new I18nKey("timeago:inNbYears")
+val `nbSecondsAgo` = new I18nKey("timeago:nbSecondsAgo")
+val `nbMinutesAgo` = new I18nKey("timeago:nbMinutesAgo")
+val `nbHoursAgo` = new I18nKey("timeago:nbHoursAgo")
+val `nbDaysAgo` = new I18nKey("timeago:nbDaysAgo")
+val `nbWeeksAgo` = new I18nKey("timeago:nbWeeksAgo")
+val `nbMonthsAgo` = new I18nKey("timeago:nbMonthsAgo")
+val `nbYearsAgo` = new I18nKey("timeago:nbYearsAgo")
+
+}
+
 }

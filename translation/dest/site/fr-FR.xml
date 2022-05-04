@@ -49,8 +49,8 @@
   <string name="blackResigned">Les Noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les Blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
-  <string name="whiteDidntMove">Les blancs n\'ont pas bougé</string>
-  <string name="blackDidntMove">Les noirs n\'ont pas bougé</string>
+  <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
+  <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
@@ -364,8 +364,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="whiteCheckmatesInOneMove">Les blancs matent en un coup</string>
-  <string name="blackCheckmatesInOneMove">Les noirs matent en un coup</string>
+  <string name="whiteCheckmatesInOneMove">Les Blancs matent en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <plurals name="nbFriendsOnline">
@@ -738,8 +738,8 @@
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
-  <string name="whiteWinsGame">Les blancs gagnent</string>
-  <string name="blackWinsGame">Les noirs gagnent</string>
+  <string name="whiteWinsGame">Les Blancs gagnent</string>
+  <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
@@ -772,7 +772,7 @@
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
-  <string name="playX">Jouer %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
@@ -863,7 +863,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulHostcolor">Couleur des pièces jouées par l\'hôte pour chaque partie</string>
   <string name="estimatedStart">Heure de début estimée</string>
   <string name="simulFeatured">Simultanée diffusée sur %s</string>
-  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>

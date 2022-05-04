@@ -261,7 +261,7 @@ final private class PushApi(
     }
 
   def tourSoon(tour: TourSoon): Funit =
-    lila.common.Future.applySequentially(tour.userIds) { userId =>
+    lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
       pushToAll(
         userId,
         _.tourSoon,

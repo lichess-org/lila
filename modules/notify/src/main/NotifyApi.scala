@@ -93,9 +93,8 @@ final class NotifyApi(
     * unmodified.
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
-    shouldSkip(notification) flatMap {
-      case true  => fuccess(none)
-      case false => addNotificationWithoutSkipOrEvent(notification) inject notification.some
+    !shouldSkip(notification) flatMap {
+      _ ?? addNotificationWithoutSkipOrEvent(notification) inject notification.some
     }
 
   private def notifyUser(notifies: Notification.Notifies): Funit =

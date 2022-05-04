@@ -5,7 +5,7 @@
   <string name="menu">Listinu</string>
   <string name="progressX">Prugressi: %s</string>
   <string name="resetMyProgress">Ricumincià a prugressione</string>
-  <string name="youWillLoseAllYourProgress">Avete da perde tutta a vostr prugressione!</string>
+  <string name="youWillLoseAllYourProgress">Avete da perde a vostra prugressione!</string>
   <string name="play">ghjucate!</string>
   <string name="chessPieces">E pezze</string>
   <string name="theRook">A torra</string>
@@ -32,7 +32,7 @@
   <string name="lastOne">L\' ultima!</string>
   <string name="kingComplete">Avà pudete cummandà u cummandante!</string>
   <string name="theKnight">U cavallu</string>
-  <string name="itMovesInAnLShape">Si move cum\' un L</string>
+  <string name="itMovesInAnLShape">Si move cum\'è u L</string>
   <string name="knightIntro">Hè una sfida pè voi. U cavallu hè... una chjocca.</string>
   <string name="knightsHaveAFancyWay">U cavallu pò saltà tuttu intornu à ellu!</string>
   <string name="knightsCanJumpOverObstacles">U cavallu pò saltà sopra à l\' ostaculi! 
@@ -214,7 +214,8 @@ Pedinu = 1</string>
   <string name="rightOn">Ghjustu!</string>
   <string name="stageXComplete">Tappa %s finita</string>
   <string name="next">Prossima</string>
-  <string name="backToMenu">Vultà versu u listinu</string>
+  <string name="nextX">Prossimu: %s</string>
+  <string name="backToMenu">Vultà si ne versu u listinu</string>
   <string name="puzzleFailed">Prublemu mancatu!</string>
-  <string name="retry">Pruvà da torna</string>
+  <string name="retry">Prova da torna</string>
 </resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">właśnie teraz</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">za %s sekundę</item>
+    <item quantity="few">za %s sekundy</item>
+    <item quantity="many">za %s sekund</item>
+    <item quantity="other">za %s sekund</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">za %s minutę</item>
+    <item quantity="few">za %s minuty</item>
+    <item quantity="many">za %s minuty</item>
+    <item quantity="other">za %s minut</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">za %s godzinę</item>
+    <item quantity="few">za %s godziny</item>
+    <item quantity="many">za %s godzin</item>
+    <item quantity="other">za %s godzin</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">za %s dzień</item>
+    <item quantity="few">za %s dni</item>
+    <item quantity="many">za %s dni</item>
+    <item quantity="other">za %s dni</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">za %s tydzień</item>
+    <item quantity="few">za %s tygodnie</item>
+    <item quantity="many">za %s tygodni</item>
+    <item quantity="other">za %s tygodni</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">za %s miesiąc</item>
+    <item quantity="few">za %s miesiące</item>
+    <item quantity="many">za %s miesięcy</item>
+    <item quantity="other">za %s miesięcy</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">za %s rok</item>
+    <item quantity="few">za %s lata</item>
+    <item quantity="many">za %s lat</item>
+    <item quantity="other">za %s lat</item>
+  </plurals>
+  <string name="rightNow">w tej chwili</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekundę temu</item>
+    <item quantity="few">%s sekundy temu</item>
+    <item quantity="many">%s sekund temu</item>
+    <item quantity="other">%s sekund temu</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minutę temu</item>
+    <item quantity="few">%s minuty temu</item>
+    <item quantity="many">%s minut temu</item>
+    <item quantity="other">%s minut temu</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s godzinę temu</item>
+    <item quantity="few">%s godziny temu</item>
+    <item quantity="many">%s godzin temu</item>
+    <item quantity="other">%s godzin temu</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dzień temu</item>
+    <item quantity="few">%s dni temu</item>
+    <item quantity="many">%s dni temu</item>
+    <item quantity="other">%s dni temu</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s tydzień temu</item>
+    <item quantity="few">%s tygodnie temu</item>
+    <item quantity="many">%s tygodni temu</item>
+    <item quantity="other">%s tygodni temu</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s miesiąc temu</item>
+    <item quantity="few">%s miesiące temu</item>
+    <item quantity="many">%s miesięcy temu</item>
+    <item quantity="other">%s miesięcy temu</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s rok temu</item>
+    <item quantity="few">%s lata temu</item>
+    <item quantity="many">%s lat temu</item>
+    <item quantity="other">%s lat temu</item>
+  </plurals>
+</resources>

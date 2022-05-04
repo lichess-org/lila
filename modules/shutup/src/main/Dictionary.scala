@@ -248,6 +248,7 @@ fdp
 pd
 pute
 triche(ur|)
+conn?ard?
 """)
 
   def de = dict("""

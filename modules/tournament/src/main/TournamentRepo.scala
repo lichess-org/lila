@@ -226,7 +226,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
     coll
-      .find(createdSelect ++ $doc("startsAt" $gt from $lt to, "_id" $nin notIds))
+      .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
       .cursor[Tournament]()
       .list(5)
 

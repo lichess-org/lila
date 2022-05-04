@@ -49,9 +49,12 @@ object IpAddress {
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
+
+  def username = value.takeWhile(_ != '@')
+
   def conceal =
     value split '@' match {
-      case Array(user, domain) => s"${user take 3}*****@$domain"
+      case Array(name, domain) => s"${name take 3}*****@$domain"
       case _                   => value
     }
 
@@ -80,6 +83,10 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
   def isNoReply  = EmailAddress isNoReply value
   def isSendable = !isNoReply
 
+  def looksLikeFakeEmail =
+    domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
+      username.count('.' ==) >= 4
+
   // safer logs
   override def toString = "EmailAddress(****)"
 }
@@ -89,9 +96,10 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  val gmailDomains = Set("gmail.com", "googlemail.com")
+
   // adding normalized domains requires database migration!
-  private val gmailLikeNormalizedDomains =
-    Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
+  private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
 
   def isValid(str: String) =
     str.sizeIs < 320 &&

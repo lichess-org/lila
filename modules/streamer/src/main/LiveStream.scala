@@ -68,13 +68,13 @@ object LiveStreams {
 
 final class LiveStreamApi(
     cacheApi: lila.memo.CacheApi,
-    streamingActor: ActorRef
+    streaming: Streaming
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)
       .buildAsyncFuture { _ =>
-        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] dmap { s =>
+        fuccess(streaming.getLiveStreams) dmap { s =>
           LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
         } addEffect { s =>
           userIdsCache = s.streams.map(_.streamer.userId).toSet
