@@ -63,7 +63,11 @@ object home {
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
-          div(cls := "lobby__start")(),
+          div(cls := "lobby__start")(
+            a(cls := "button button-metal", trans.createAGame()),
+            a(cls := "button button-metal", trans.playWithAFriend()),
+            a(cls := "button button-metal", trans.playWithTheMachine())
+          ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
