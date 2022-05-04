@@ -12,4 +12,5 @@
   <string name="aSquareIsHighlighted">Когато на дъската се маркира квадрат, въведете координатите на маркирания квадрат. Имате 30 секунди да разпознаете колкото се може повече квадрата!</string>
   <string name="startTraining">Започни упражнението</string>
   <string name="findSquare">Намери полето</string>
+  <string name="nameSquare">Назови полето</string>
 </resources>
