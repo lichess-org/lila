@@ -16,15 +16,15 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
     perfOrSpeed &&
     h(
       'div.ratings',
-      opts.showRatings
-        ? [
+      opts.hideRatings
+        ? [h('i', { attrs: { 'data-icon': perfOrSpeed.icon } }), perfOrSpeed.name]
+        : [
             ...ctrl.trans.vdom(
               'perfRatingX',
               h('strong', { attrs: { 'data-icon': perfOrSpeed.icon } }, data.ratingMap[selectedPerf])
             ),
             perfOrSpeed.name,
           ]
-        : [h('i', { attrs: { 'data-icon': perfOrSpeed.icon } }), perfOrSpeed.name]
     )
   );
 };

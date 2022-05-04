@@ -23,18 +23,19 @@ object home {
         jsModule("lobby"),
         embedJsUnsafeLoadThen(
           s"""LichessLobby(${safeJsonValue(
-              Json.obj(
-                "data" -> data,
-                "playban" -> playban.map { pb =>
-                  Json.obj(
-                    "minutes"          -> pb.mins,
-                    "remainingSeconds" -> (pb.remainingSeconds + 3)
-                  )
-                },
-                "showRatings"             -> ctx.pref.showRatings,
-                "hasUnreadLichessMessage" -> hasUnreadLichessMessage,
-                "i18n"                    -> i18nJsObject(i18nKeys)
-              )
+              Json
+                .obj(
+                  "data" -> data,
+                  "i18n" -> i18nJsObject(i18nKeys)
+                )
+                .add("hideRatings" -> !ctx.pref.showRatings)
+                .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+                .add(
+                  "playban",
+                  playban.map { pb =>
+                    Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
+                  }
+                )
             )})"""
         )
       ),
