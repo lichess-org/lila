@@ -79,7 +79,7 @@ object post {
                     dataIcon := "",
                     title    := "Delete"
                   ),
-                if (!canModCateg)
+                else
                   post.userId map { userId =>
                     val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
                     frag(
