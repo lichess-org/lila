@@ -65,21 +65,21 @@ object post {
             if (!post.erased && post.canBeEditedBy(me))
               postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                 submitButton(
-                  cls      := "mod delete button button-empty confirm",
+                  cls := "mod delete button button-empty confirm",
                   dataIcon := "",
-                  title    := "Delete"
-                )
+                  title := "Delete"
+                ),
               ).some
             else
               frag(
                 if (canModCateg || topic.canOwnerMod(me.id))
                   a(
-                    cls      := "mod delete button button-empty",
-                    href     := routes.ForumPost.delete(categ.slug, post.id),
+                    cls := "mod delete button button-empty",
+                    href := routes.ForumPost.delete(categ.slug, post.id),
                     dataIcon := "",
-                    title    := "Delete"
-                  ),
-                if (!canModCateg)
+                    title := "Delete"
+                  )
+                else
                   post.userId map { userId =>
                     val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
                     frag(
