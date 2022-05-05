@@ -45,9 +45,9 @@ case class Topic(
 
   def isSticky = ~sticky
 
-  def canOwnerMod(forUid: User.ID): Boolean = userId.contains(forUid)
-  def canOwnerMod(forUser: Option[User]): Boolean =
-    blogUrl.isDefined && forUser.isDefined && userId.contains(forUser.get.id)
+  def isAuthor(user: User): Boolean = userId contains user.id
+  def isBlog                        = blogUrl.isDefined
+  def isBlogAuthor(user: User)      = isBlog && isAuthor(user)
 
   def withPost(post: Post): Topic =
     copy(

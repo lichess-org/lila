@@ -158,7 +158,7 @@ final private[forum] class TopicApi(
 
   def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter.is(_.ModerateForum)(mod) || topic.canOwnerMod(mod.id)) ?? {
+      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) ?? {
         modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
       }
     }

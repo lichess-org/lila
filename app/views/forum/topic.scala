@@ -156,7 +156,7 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg || topic.canOwnerMod(ctx.me) option
+            canModCateg || ctx.me.exists(topic.isAuthor) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
@@ -168,8 +168,7 @@ object topic {
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               ),
-            canModCateg || topic.canOwnerMod(ctx.me) option
-              deleteModal
+            canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
           )
         ),
         formWithCaptcha.map { case (form, captcha) =>

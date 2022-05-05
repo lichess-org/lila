@@ -65,19 +65,19 @@ object post {
             if (!post.erased && post.canBeEditedBy(me))
               postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                 submitButton(
-                  cls := "mod delete button button-empty confirm",
+                  cls      := "mod delete button button-empty confirm",
                   dataIcon := "",
-                  title := "Delete"
-                ),
+                  title    := "Delete"
+                )
               ).some
             else
               frag(
-                if (canModCateg || topic.canOwnerMod(me.id))
+                if (canModCateg || topic.isBlogAuthor(me))
                   a(
-                    cls := "mod delete button button-empty",
-                    href := routes.ForumPost.delete(categ.slug, post.id),
+                    cls      := "mod delete button button-empty",
+                    href     := routes.ForumPost.delete(categ.slug, post.id),
                     dataIcon := "",
-                    title := "Delete"
+                    title    := "Delete"
                   )
                 else
                   post.userId map { userId =>
