@@ -45,7 +45,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         language = post.language.code.some,
         topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
-        discuss = post.discuss.getOrElse(false),
+        discuss = ~post.discuss,
         gameId = "",
         move = ""
       )
