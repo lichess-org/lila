@@ -9,6 +9,7 @@
   <string name="postBody">Текст на публикацията</string>
   <string name="drafts">Чернови</string>
   <string name="published">Публикувана</string>
+  <string name="createBlogDiscussion">Активирай коментарите</string>
   <string name="publishOnYourBlog">Публикувайте във Вашия блог</string>
   <string name="publishHelp">Ако е отбелязано, публикацията ще бъде показана във Вашия блог. В противен случай ще остане частна, във Вашите чернови</string>
   <plurals name="publishedNbBlogPosts">
