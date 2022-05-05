@@ -36,27 +36,25 @@ private[controllers] trait ForumController { self: LilaController =>
 
   protected def TopicGrantModBySlug[A <: Result](
       categSlug: String,
-      forUser: Option[User],
+      me: User,
       topicSlug: String
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    access.isGrantedMod(categSlug) flatMap { granted =>
-      if (granted | isGranted(_.ModerateForum)) a
-      else
-        topicRepo.forUser(forUser).byTree(categSlug, topicSlug) flatMap { topic =>
-          if (topic.isDefined && topic.get.canOwnerMod(forUser)) a
-          else fuccess(Forbidden("You cannot post to this category"))
-        }
-    }
+    TopicGrantMod(categSlug, me)(topicRepo.byTree(categSlug, topicSlug))(a)
 
-  protected def TopicGrantModById[A <: Result](categSlug: String, forUser: Option[User], topicId: String)(
+  protected def TopicGrantModById[A <: Result](categSlug: String, me: User, topicId: String)(
+      a: => Fu[A]
+  )(implicit ctx: Context): Fu[Result] =
+    TopicGrantMod(categSlug, me)(topicRepo.forUser(me.some).byId(topicId))(a)
+
+  private def TopicGrantMod[A <: Result](categSlug: String, me: User)(getTopic: => Fu[Option[Topic]])(
       a: => Fu[A]
   )(implicit ctx: Context): Fu[Result] =
     access.isGrantedMod(categSlug) flatMap { granted =>
       if (granted | isGranted(_.ModerateForum)) a
       else
-        topicRepo.forUser(forUser).byId(topicId) flatMap { topic =>
-          if (topic.isDefined && topic.get.canOwnerMod(forUser)) a
-          else fuccess(Forbidden("You cannot post to this category"))
+        getTopic flatMap { topic =>
+          if (topic.exists(_ isBlogAuthor me)) a
+          else fuccess(Forbidden("You cannot moderate this forum"))
         }
     }
 }
