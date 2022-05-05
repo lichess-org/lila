@@ -9,6 +9,8 @@
   <string name="postBody">Conținut</string>
   <string name="drafts">Ciorne</string>
   <string name="published">Publicat</string>
+  <string name="createBlogDiscussion">Permite comentarii</string>
+  <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
   <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
   <plurals name="publishedNbBlogPosts">
