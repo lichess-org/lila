@@ -107,7 +107,7 @@ object post {
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
-            if (post.live && post.discuss.getOrElse(false))
+            if (post.live && ~post.discuss)
               a(
                 href     := routes.Ublog.discuss(post.created.by, post.id.value),
                 cls      := "button text ublog-post__discuss",
