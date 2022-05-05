@@ -98,7 +98,9 @@ object topic {
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href     := topic.blogUrl.getOrElse(s"${routes.ForumCateg.show(categ.slug)}"),
+            href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
+              routes.Ublog.redirect(id).url
+            },
             dataIcon := "",
             cls      := "text"
           ),

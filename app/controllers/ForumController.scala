@@ -53,7 +53,7 @@ private[controllers] trait ForumController { self: LilaController =>
       if (granted | isGranted(_.ModerateForum)) a
       else
         getTopic flatMap { topic =>
-          if (topic.exists(_ isBlogAuthor me)) a
+          if (topic.exists(_ isUblogAuthor me)) a
           else fuccess(Forbidden("You cannot moderate this forum"))
         }
     }

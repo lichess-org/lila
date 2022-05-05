@@ -23,8 +23,8 @@ case class Topic(
     closed: Boolean,
     hidden: Boolean,
     sticky: Option[Boolean],
-    userId: Option[String] = None, // only since SB mutes
-    blogUrl: Option[String] = None
+    userId: Option[User.ID] = None, // only since SB mutes
+    ublogId: Option[String] = None
 ) {
 
   def id = _id
@@ -46,8 +46,8 @@ case class Topic(
   def isSticky = ~sticky
 
   def isAuthor(user: User): Boolean = userId contains user.id
-  def isBlog                        = blogUrl.isDefined
-  def isBlogAuthor(user: User)      = isBlog && isAuthor(user)
+  def isUblog                       = ublogId.isDefined
+  def isUblogAuthor(user: User)     = isUblog && isAuthor(user)
 
   def withPost(post: Post): Topic =
     copy(
@@ -86,7 +86,7 @@ object Topic {
       userId: User.ID,
       troll: Boolean,
       hidden: Boolean,
-      blogUrl: Option[String] = None
+      ublogId: Option[String] = None
   ): Topic =
     Topic(
       _id = ThreadLocalRandom nextString idSize,
@@ -105,6 +105,6 @@ object Topic {
       closed = false,
       hidden = hidden,
       sticky = None,
-      blogUrl = blogUrl
+      ublogId = ublogId
     )
 }

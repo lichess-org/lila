@@ -63,28 +63,24 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def discuss(authorId: String, id: String) = Open { implicit ctx =>
+  def discuss(authorId: UserModel.ID, id: String) = Open { implicit ctx =>
     NotForKids {
-      val categSlug = "community-blog-discussions"
+      import lila.forum.Categ.ublogSlug
       val topicSlug = s"ublog-${authorId}-${id}"
-      val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
-      env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
+      val redirect  = Redirect(routes.ForumTopic.show(ublogSlug, topicSlug))
+      env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
           env.ublog.api.getPost(UblogPost.Id(id)) flatMap {
             _ ?? { post =>
-              env.forum.categRepo.bySlug(categSlug) flatMap {
-                _ ?? { cat =>
-                  env.forum.topicApi.makeUblogDiscuss(
-                    categ = cat,
-                    slug = topicSlug,
-                    name = post.title,
-                    url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
-                    authorId = post.created.by
-                  )
-                }
-              } inject redirect
-            }
+              env.forum.topicApi.makeUblogDiscuss(
+                slug = topicSlug,
+                name = post.title,
+                url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                ublogId = id,
+                authorId = post.created.by
+              )
+            } inject redirect
           }
       }
     }

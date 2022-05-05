@@ -72,7 +72,7 @@ object post {
               ).some
             else
               frag(
-                if (canModCateg || topic.isBlogAuthor(me))
+                if (canModCateg || topic.isUblogAuthor(me))
                   a(
                     cls      := "mod delete button button-empty",
                     href     := routes.ForumPost.delete(categ.slug, post.id),
