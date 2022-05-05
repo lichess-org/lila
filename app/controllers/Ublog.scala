@@ -63,10 +63,10 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def discuss(authorId: UserModel.ID, id: String) = Open { implicit ctx =>
+  def discuss(id: String) = Open { implicit ctx =>
     NotForKids {
       import lila.forum.Categ.ublogSlug
-      val topicSlug = s"ublog-${authorId}-${id}"
+      val topicSlug = s"ublog-${id}"
       val redirect  = Redirect(routes.ForumTopic.show(ublogSlug, topicSlug))
       env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
         case true => fuccess(redirect)

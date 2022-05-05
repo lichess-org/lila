@@ -109,7 +109,7 @@ object post {
           div(cls := "ublog-post__footer")(
             if (post.live && ~post.discuss)
               a(
-                href     := routes.Ublog.discuss(post.created.by, post.id.value),
+                href     := routes.Ublog.discuss(post.id.value),
                 cls      := "button text ublog-post__discuss",
                 dataIcon := ""
               )(
