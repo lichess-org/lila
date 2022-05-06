@@ -1,5 +1,5 @@
 import { Work } from './types';
-import { Protocol } from './stockfishProtocol';
+import { Protocol } from './protocol';
 import { Cache } from './cache';
 
 interface WasmStockfishModule {

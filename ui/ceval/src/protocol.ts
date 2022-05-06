@@ -1,14 +1,6 @@
+import { defined } from 'common';
 import { lichessRules } from 'chessops/compat';
 import { Work } from './types';
-
-const evalRegex = new RegExp(
-  '' +
-    /^info depth (\d+) seldepth \d+ multipv (\d+) /.source +
-    /score (cp|mate) ([-\d]+) /.source +
-    /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source +
-    /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source +
-    /pv (.+)/.source
-);
 
 const minDepth = 6;
 const maxStockfishPlies = 245;
@@ -46,8 +38,9 @@ export class Protocol {
     }
   }
 
-  received(text: string): void {
-    if (text === 'uciok') {
+  received(command: string): void {
+    const parts = command.trim().split(/\s+/g);
+    if (parts[0] === 'uciok') {
       // Analyse without contempt.
       this.setOption('UCI_AnalyseMode', 'true');
       this.setOption('Analysis Contempt', 'Off');
@@ -58,27 +51,49 @@ export class Protocol {
 
       this.send?.('ucinewgame');
       this.send?.('isready');
-    } else if (text === 'readyok') {
+    } else if (parts[0] === 'readyok') {
       this.swapWork();
-    } else if (text.startsWith('id name ')) {
-      this.engineName = text.substring('id name '.length);
-    } else if (text.startsWith('bestmove ')) {
+    } else if (parts[0] === 'id' && parts[1] === 'name') {
+      this.engineName = parts.slice(2).join(' ');
+    } else if (parts[0] === 'bestmove') {
       if (this.work && this.currentEval) this.work.emit(this.currentEval);
       this.work = undefined;
       this.swapWork();
       return;
-    } else if (this.work && !this.work.stopRequested) {
-      const matches = text.match(evalRegex);
-      if (!matches) return;
-
-      const depth = parseInt(matches[1]),
-        multiPv = parseInt(matches[2]),
-        isMate = matches[3] === 'mate',
-        povEv = parseInt(matches[4]),
-        evalType = matches[5],
-        nodes = parseInt(matches[6]),
-        elapsedMs: number = parseInt(matches[7]),
-        moves = matches[8].split(' ');
+    } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
+      let depth = 0,
+        nodes,
+        multiPv = 1,
+        elapsedMs,
+        evalType,
+        isMate = false,
+        povEv,
+        moves: string[] = [];
+      for (let i = 1; i < parts.length; i++) {
+        switch (parts[i]) {
+          case 'depth':
+            depth = parseInt(parts[++i]);
+            break;
+          case 'nodes':
+            nodes = parseInt(parts[++i]);
+            break;
+          case 'multipv':
+            multiPv = parseInt(parts[++i]);
+            break;
+          case 'time':
+            elapsedMs = parseInt(parts[++i]);
+            break;
+          case 'score':
+            isMate = parts[++i] === 'mate';
+            povEv = parseInt(parts[++i]);
+            if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound') evalType = parts[++i];
+            break;
+          case 'pv':
+            moves = parts.slice(++i);
+            i = parts.length;
+            break;
+        }
+      }
 
       // Sometimes we get #0. Let's just skip it.
       if (isMate && !povEv) return;
@@ -86,7 +101,7 @@ export class Protocol {
       // Track max pv index to determine when pv prints are done.
       if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
-      if (depth < minDepth) return;
+      if (depth < minDepth || !defined(nodes) || !defined(elapsedMs) || !defined(isMate) || !defined(povEv)) return;
 
       const pivot = this.work.threatMode ? 0 : 1;
       const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
