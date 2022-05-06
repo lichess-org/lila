@@ -4,4 +4,8 @@ include "version"
 # change for additional encryption of password hashes
 user.password.bpass.secret = "9qEYN0ThHer1KWLNekA76Q=="
 
+# set to true to display the logged in username as the tab title
+# (useful for ff containerized logins)
+user.show_in_window_title = false
+
 # override values from base.conf here

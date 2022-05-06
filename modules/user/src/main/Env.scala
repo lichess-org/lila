@@ -12,7 +12,8 @@ import lila.common.config._
 import lila.common.LightUser
 import lila.db.dsl.Coll
 
-private class UserConfig(
+class UserConfig(
+    @ConfigName( "show_in_window_title") val showInWindowTitle: Boolean,
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
     @ConfigName("collection.user") val collectionUser: CollName,
     @ConfigName("collection.note") val collectionNote: CollName,
@@ -37,7 +38,7 @@ final class Env(
     ws: StandaloneWSClient
 ) {
 
-  private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
+  val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
   val repo = new UserRepo(db(config.collectionUser))
 
