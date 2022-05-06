@@ -23,7 +23,7 @@ object request {
         bits.menu("requests".some),
         div(cls := "page-menu__content box box-pad team-show__desc")(
           h1(title),
-          p()(bits.markdown(t, t.description)),
+          p(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
             !t.open ?? frag(
               form3.group(form("message"), trans.message())(form3.textarea(_)()),
