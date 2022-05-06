@@ -1,11 +1,9 @@
 package views.html.team
 
 import scala.util.chaining._
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
 import controllers.routes
 
 object bits {
@@ -42,6 +40,16 @@ object bits {
           )
       )
     }
+
+  private[team] object markdown {
+    import scala.concurrent.duration._
+    private val renderer = new lila.common.Markdown(header = true, list = true, table = true)
+    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(10 minutes)
+      .maximumSize(1024)
+      .build[String, String]()
+    def apply(team: lila.team.Team, text: String): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
+  }
 
   private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = {
     val isMine = isMyTeamSync(t.id)
