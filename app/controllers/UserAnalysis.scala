@@ -214,6 +214,7 @@ final class UserAnalysis(
       ExternalEngine
         .Raw(
           maybeUrl = get("url"),
+          maybeSecret = get("secret"),
           maybeName = get("name"),
           maxThreads = getInt("maxThreads"),
           maxHash = getInt("maxHash"),

@@ -158,6 +158,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
 export interface ExternalWorkerOpts {
   url: string;
+  secret: string;
   name: string;
   maxThreads: number;
   maxHash: number | null;
@@ -176,6 +177,7 @@ export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
 
   boot() {
     const url = new URL(this.opts.url);
+    url.searchParams.set('secret', this.opts.secret);
     url.searchParams.set('session', this.session);
     const ws = (this.ws = new WebSocket(url.href));
     ws.onmessage = e => this.protocol.received(e.data);
