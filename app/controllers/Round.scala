@@ -131,17 +131,14 @@ final class Round(
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
-          get("pov").map(UserModel.normalize) match {
-            case Some(requestedPov) =>
-              (pov.player.userId, pov.opponent.userId) match {
-                case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-                case (Some(player), Some(_)) if player == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-                case _ => Redirect(routes.Round.watcher(gameId, "white")).fuccess
-              }
-            case None =>
-              watch(pov)
+          get("pov").map(UserModel.normalize).fold(watch(pov)) { requestedPov =>
+            (pov.player.userId, pov.opponent.userId) match {
+              case (Some(_), Some(opponent)) if opponent == requestedPov =>
+                Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+              case (Some(player), Some(_)) if player == requestedPov =>
+                Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+              case _ => Redirect(routes.Round.watcher(gameId, "white")).fuccess
+            }
           }
         case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
       }
