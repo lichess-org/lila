@@ -124,23 +124,7 @@ object form {
           form3.split(
             form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
             form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}"),
-          form3.split(
-            form3.checkbox(
-              form("live"),
-              trans.ublog.publishOnYourBlog(),
-              help = trans.ublog.publishHelp().some,
-              half = true
-            ),
-            form3.group(form("language"), trans.language(), half = true) { field =>
-              form3.select(
-                field,
-                LangList.popularNoRegion.map { l =>
-                  l.code -> l.toLocale.getDisplayLanguage
-                }
-              )
-            }
-          )
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}")
         )
       },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
@@ -159,9 +143,42 @@ object form {
           div(id := "markdown-editor")
         )
       },
-      form3.group(form("topics"), frag("Select the topics your post is about"))(
-        form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
-      ),
+      post.toOption match {
+        case None =>
+          form3.group(form("topics"), frag("Select the topics your post is about"))(
+            form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
+          )
+        case _ =>
+          div(
+            form3.split(
+              form3.group(form("topics"), frag("Select the topics your post is about"), half = true)(
+                form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
+              ),
+              form3.group(form("language"), trans.language(), half = true) { field =>
+                form3.select(
+                  field,
+                  LangList.popularNoRegion.map { l =>
+                    l.code -> l.toLocale.getDisplayLanguage
+                  }
+                )
+              }
+            ),
+            form3.split(
+              form3.checkbox(
+                form("discuss"),
+                trans.ublog.createBlogDiscussion(),
+                help = trans.ublog.createBlogDiscussionHelp().some,
+                half = true
+              ),
+              form3.checkbox(
+                form("live"),
+                trans.ublog.publishOnYourBlog(),
+                help = trans.ublog.publishHelp().some,
+                half = true
+              )
+            )
+          )
+      },
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },

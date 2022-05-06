@@ -26,6 +26,7 @@ object inquiry {
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(id).url
             case "swiss"      => routes.Swiss.show(id).url
+            case "forum"      => routes.ForumPost.redirect(id).url
             case _            => s"/$tpe/$id"
           }
           a(href := path)(path).some -> text

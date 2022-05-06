@@ -25,6 +25,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
       "topics"      -> optional(text),
       "live"        -> boolean,
+      "discuss"     -> boolean,
       "gameId"      -> text,
       "move"        -> text
     )(UblogPostData.apply)(UblogPostData.unapply)
@@ -44,6 +45,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         language = post.language.code.some,
         topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
+        discuss = ~post.discuss,
         gameId = "",
         move = ""
       )
@@ -65,6 +67,7 @@ object UblogForm {
       language: Option[String],
       topics: Option[String],
       live: Boolean,
+      discuss: Boolean,
       gameId: String,
       move: String
   ) {
@@ -82,6 +85,7 @@ object UblogForm {
         topics = topics ?? UblogTopic.fromStrList,
         image = none,
         live = false,
+        discuss = Option(false),
         created = UblogPost.Recorded(user.id, DateTime.now),
         updated = none,
         lived = none,
@@ -100,6 +104,7 @@ object UblogForm {
         language = LangList.removeRegion(realLanguage | prev.language),
         topics = topics ?? UblogTopic.fromStrList,
         live = live,
+        discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
