@@ -14,7 +14,7 @@ object external {
       """setTimeout(() => lichess.load.then(() => {
   const btn = document.getElementById('engine-authorize');
   btn.removeAttribute('disabled');
-  btn.setAttribute('class', 'button');
+  btn.classList.remove('disabled');
   btn.addEventListener('click', () => {
     lichess.storage.set('ceval.external', btn.getAttribute('data-ceval-external'));
     location.href = '/analysis';
@@ -24,11 +24,7 @@ object external {
   ) {
     main(cls := "oauth box box-pad")(
       div(cls := "oauth__top")(
-        img(
-          cls := "oauth__logo",
-          alt := "linked rings icon",
-          src := assetUrl("images/icons/linked-rings.png")
-        ),
+        oAuth.authorize.ringsImage,
         h1("External engine (ALPHA)"),
         strong(code(prompt.url.origin))
       ),
@@ -42,13 +38,7 @@ object external {
           attr("data-ceval-external") := prompt.toJson.toString
         )("Authorize")
       ),
-      div(cls := "oauth__footer")(
-        p("Not owned or operated by lichess.org"),
-        p(cls := "oauth__redirect")(
-          "Will connect to ",
-          prompt.url.origin
-        )
-      )
+      oAuth.authorize.footer(prompt.url.origin)
     )
   }
 }

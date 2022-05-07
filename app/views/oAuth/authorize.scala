@@ -10,23 +10,36 @@ import lila.oauth.AuthorizationRequest
 import lila.oauth.OAuthScope
 
 object authorize {
+
+  val ringsImage = img(
+    cls := "oauth__logo",
+    alt := "linked rings icon",
+    src := assetUrl("images/icons/linked-rings.png")
+  )
+
+  def footer(redirectUrl: String) = div(cls := "oauth__footer")(
+    p(
+      "Not owned or operated by lichess.org"
+    ),
+    p(cls := "oauth__redirect")(
+      "Will redirect to ",
+      redirectUrl
+    )
+  )
+
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafe(
         // ensure maximum browser compatibility
-        """setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','button')}, 2000);"""
+        """setTimeout(() => {const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('button')}, 2000);"""
       ),
       csp = defaultCsp.withLegacyCompatibility.some
     ) {
       main(cls := "oauth box box-pad")(
         div(cls := "oauth__top")(
-          img(
-            cls := "oauth__logo",
-            alt := "linked rings icon",
-            src := assetUrl("images/icons/linked-rings.png")
-          ),
+          ringsImage,
           h1("Authorize"),
           strong(code(prompt.redirectUri.clientOrigin))
         ),
@@ -54,15 +67,7 @@ object authorize {
             a(href := prompt.cancelUrl)("Cancel"),
             submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           ),
-          div(cls := "oauth__footer")(
-            p(
-              "Not owned or operated by lichess.org"
-            ),
-            p(cls := "oauth__redirect")(
-              "Will redirect to ",
-              prompt.redirectUri.withoutQuery
-            )
-          )
+          footer(prompt.redirectUri.withoutQuery)
         )
       )
     }
