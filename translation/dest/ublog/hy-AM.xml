@@ -9,6 +9,8 @@
   <string name="postBody">Գրառման տեքստ</string>
   <string name="drafts">Սևագրեր</string>
   <string name="published">Հրապարակված</string>
+  <string name="createBlogDiscussion">Միացնել մեկնաբանությունները</string>
+  <string name="createBlogDiscussionHelp">Ֆորումի թեման կստեղծվի՝ այնտեղ մեկնաբանություններ թողնելու հնարավորությամբ</string>
   <string name="publishOnYourBlog">Հրապարակել ձեր բլոգում</string>
   <string name="publishHelp">Եթե այս նշումն առկա է, գրառումը կերևա ձեր բլոգում։ Հակառակ դեպքում այն կլինի անձնական` ձեր գրառումների սևագրերի մեջ</string>
   <plurals name="publishedNbBlogPosts">
