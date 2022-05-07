@@ -1,6 +1,5 @@
 package controllers
 
-import cats.data.Validated
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
 import chess.variant.{ FromPosition, Standard, Variant }
@@ -209,25 +208,20 @@ final class UserAnalysis(
       }
     }
 
-  def external =
-    Open { implicit ctx =>
-      ExternalEngine
-        .Raw(
-          maybeUrl = get("url"),
-          maybeSecret = get("secret"),
-          maybeName = get("name"),
-          maxThreads = getInt("maxThreads"),
-          maxHash = getInt("maxHash"),
-          variants = get("variants"),
-          officialStockfish = getBool("officialStockfish")
-        )
-        .prompt match {
-        case Validated.Valid(prompt) =>
-          Ok(html.analyse.external(prompt)).fuccess
-        case Validated.Invalid(err) =>
-          BadRequest(err).fuccess
-      }
-    }
+  def external = Open { implicit ctx =>
+    ExternalEngine
+      .prompt(
+        maybeUrl = get("url"),
+        maybeSecret = get("secret"),
+        maybeName = get("name"),
+        maxThreads = getInt("maxThreads"),
+        maxHash = getInt("maxHash"),
+        variants = get("variants"),
+        officialStockfish = getBool("officialStockfish")
+      )
+      .fold(BadRequest(_), prompt => Ok(html.analyse.external(prompt)))
+      .fuccess
+  }
 
   def help =
     Open { implicit ctx =>
