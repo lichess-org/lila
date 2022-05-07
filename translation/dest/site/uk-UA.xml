@@ -188,7 +188,7 @@
   <string name="variants">Варіанти</string>
   <string name="timeControl">Контроль часу</string>
   <string name="realTime">Наживо</string>
-  <string name="correspondence">За листуванням</string>
+  <string name="correspondence">Заочні</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -226,7 +226,7 @@
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Місце в рейтингу оновлюється кожну хвилину</item>
+    <item quantity="one">Місце в рейтингу оновлюється щохвилини</item>
     <item quantity="few">Місце в рейтингу оновлюється кожні %s хвилини</item>
     <item quantity="many">Місце в рейтингу оновлюється кожні %s хвилин</item>
     <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
@@ -653,7 +653,7 @@
     <item quantity="one">%s повідомлення на форумі</item>
     <item quantity="few">%s повідомлення на форумі</item>
     <item quantity="many">%s повідомлень на форумі</item>
-    <item quantity="other">%s повідомлення на форумі</item>
+    <item quantity="other">%s повідомлень на форумі</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Дивитись ігри</string>
@@ -741,8 +741,8 @@
   <string name="withFriends">Друзям</string>
   <string name="withEverybody">Будь-кому</string>
   <string name="kidMode">Дитячий режим</string>
-  <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі все спілкування на сайті вимкнено. Увімкніть цю функцію для Ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб Ви знали, що Ваші діти в безпеці.</string>
+  <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі усе спілкування на сайті вимкнено. Увімкніть цю функцію для ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб ви знали, що ваші діти в безпеці.</string>
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
@@ -756,7 +756,7 @@
   <string name="fullFeatured">Повнофункціональний</string>
   <string name="phoneAndTablet">Для смартфонів та планшетів</string>
   <string name="bulletBlitzClassical">Куля, бліц, класичні шахи</string>
-  <string name="correspondenceChess">За листуванням</string>
+  <string name="correspondenceChess">Заочна</string>
   <string name="onlineAndOfflinePlay">Гра онлайн та оффлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
@@ -887,7 +887,7 @@
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
   <string name="classicalDesc">Класичні ігри: 25 хвилин і більше</string>
-  <string name="correspondenceDesc">За листуванням: один чи декілька днів на хід</string>
+  <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
