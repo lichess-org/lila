@@ -186,5 +186,5 @@ final object RawHtml {
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
   def justMarkdownLinks(escapedHtml: String): String =
-    markdownLinkRegex.replaceAllIn(escapedHtml, """<a href="$2">$1</a>""")
+    markdownLinkRegex.replaceAllIn(escapedHtml, """<a rel="nofollow noopener noreferrer" href="$2">$1</a>""")
 }
