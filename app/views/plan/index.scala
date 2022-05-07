@@ -20,34 +20,31 @@ object index {
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
-      payPalPublicKey: Option[String],
+      payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String],
       pricing: lila.plan.PlanPricing,
       methods: Set[String]
   )(implicit ctx: Context) = {
-
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
         stripeScript,
-        payPalPublicKey map { key =>
-          val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
-          frag(
-            // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
-            // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
-            script(
-              src := s"https://www.paypal.com/sdk/js?client-id=${key}&currency=${pricing.currency}$localeParam",
-              namespaceAttr := "paypalOrder"
-            ),
-            script(
-              src := s"https://www.paypal.com/sdk/js?client-id=${key}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
-              namespaceAttr := "paypalSubscription"
-            )
+        frag(
+          // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+          // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+          script(
+            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
+            namespaceAttr := "paypalOrder"
+          ),
+          script(
+            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+            namespaceAttr := "paypalSubscription"
           )
-        },
+        ),
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
             lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
@@ -217,11 +214,9 @@ object index {
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          payPalPublicKey.isDefined option frag(
-                            div(cls := "paypal paypal--order"),
-                            div(cls := "paypal paypal--subscription"),
-                            button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
-                          )
+                          div(cls := "paypal paypal--order"),
+                          div(cls := "paypal paypal--subscription"),
+                          button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
                         )
                       else
                         a(
