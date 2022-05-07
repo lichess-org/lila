@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">зараз</string>
+  <string name="justNow">щойно</string>
   <plurals name="inNbSeconds">
     <item quantity="one">за %s секунду</item>
     <item quantity="few">за %s секунди</item>
