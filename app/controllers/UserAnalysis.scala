@@ -209,17 +209,9 @@ final class UserAnalysis(
     }
 
   def external = Open { implicit ctx =>
-    ExternalEngine
-      .prompt(
-        maybeUrl = get("url"),
-        maybeSecret = get("secret"),
-        maybeName = get("name"),
-        maxThreads = getInt("maxThreads"),
-        maxHash = getInt("maxHash"),
-        variants = get("variants"),
-        officialStockfish = getBool("officialStockfish")
-      )
-      .fold(BadRequest(_), prompt => Ok(html.analyse.external(prompt)))
+    ExternalEngine.form
+      .bindFromRequest(ctx.req.queryString)
+      .fold(err => BadRequest(errorsAsJson(err)), prompt => Ok(html.analyse.external(prompt)))
       .fuccess
   }
 
