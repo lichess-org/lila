@@ -33,7 +33,7 @@ object authorize {
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafe(
         // ensure maximum browser compatibility
-        """setTimeout(() => {const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('button')}, 2000);"""
+        """setTimeout(function(){const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('button')}, 2000);"""
       ),
       csp = defaultCsp.withLegacyCompatibility.some
     ) {
