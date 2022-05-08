@@ -9,6 +9,8 @@
   <string name="postBody">Treść wpisu</string>
   <string name="drafts">Wersje robocze</string>
   <string name="published">Opublikowane</string>
+  <string name="createBlogDiscussion">Włącz komentarze</string>
+  <string name="createBlogDiscussionHelp">Na forum zostanie utworzony temat, pod którym inni będą mogli komentować Twój wpis</string>
   <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
   <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
   <plurals name="publishedNbBlogPosts">

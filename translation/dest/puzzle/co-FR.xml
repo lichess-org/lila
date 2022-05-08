@@ -40,14 +40,14 @@
   <string name="easier">Faciule</string>
   <string name="easiest">Faciule faciule</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">Un puntu sottu à a vostra classifica di </item>
-    <item quantity="other">%s punti sottu à a vostra classifica di </item>
+    <item quantity="one">Un puntu sottu à a vostra classifica di</item>
+    <item quantity="other">%s punti sottu à a vostra classifica di</item>
   </plurals>
   <string name="harder">Difficiule</string>
   <string name="hardest">Difficiule difficiule</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">Un puntu sopra à a vostra classifica di </item>
-    <item quantity="other">%s punti sopra à a vostra classifica di </item>
+    <item quantity="one">Un puntu sopra à a vostra classifica di</item>
+    <item quantity="other">%s punti sopra à a vostra classifica di</item>
   </plurals>
   <string name="example">Esempiu</string>
   <string name="addAnotherTheme">Aghjunghje un altru tema</string>
@@ -72,10 +72,6 @@
 Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\' avè un  strattu di e vostre partite!</string>
   <string name="fromXGamesFound">%1$s prublemi trovi in %2$s partite</string>
   <string name="puzzleDashboardDescription">Addestrà, analisà, migliurà</string>
-  <plurals name="nbPlayed">
-    <item quantity="one">%s ghjucatu</item>
-    <item quantity="other">ghjucati</item>
-  </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s à ghjucà da torna</item>
     <item quantity="other">%s à ghjucà da torna</item>

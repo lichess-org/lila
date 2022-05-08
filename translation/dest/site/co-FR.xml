@@ -241,7 +241,7 @@
   <string name="casual">Senza classifica</string>
   <string name="rated">Classificata</string>
   <string name="casualTournament">Senza classifica</string>
-  <string name="ratedTournament">Classificatu</string>
+  <string name="ratedTournament">Classificata</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
   <string name="rematchOfferSent">Offerta di rivincita mandata</string>
@@ -772,7 +772,7 @@
   <string name="addCurrentVariation">Aghjunghje a variante attuale</string>
   <string name="playVariationToCreateConditionalPremoves">Ghjcate una variante pè creà un precolpu cundiziunale</string>
   <string name="noConditionalPremoves">Ùn ci hè micca precolpu cundiziunale</string>
-  <string name="playX">Ghjucà%s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Ghjucà%s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">è salvà %s linea di precolpu</item>
     <item quantity="other">è salvà %s linea di precolpu</item>
@@ -861,7 +861,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="simulHostcolor">Culore di l\' ostu pè ogni partita</string>
   <string name="estimatedStart">Stimà l\' ore di u principiu</string>
   <string name="simulFeatured">Caratteristichi in %s</string>
-  <string name="simulFeaturedHelp">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
   <string name="markdownAvailable">%s hè disponibule pè una synttax più cumplessa.</string>

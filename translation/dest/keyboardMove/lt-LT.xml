@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Įvedimo klaviatūra komandos</string>
+  <string name="performAMove">Daryti ėjimą</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Perkelti figūrą iš e2 į e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Perkelti žirgą į c3</string>
+  <string name="kingsideCastle">Rokiruotė karaliaus pusėje</string>
+  <string name="queensideCastle">Rokiruotė karalienės pusėje</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Paaukštinti c8 į karalienę</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Pastatyti bokštą ties b4 (tik Crazyhouse variante)</string>
+  <string name="offerOrAcceptDraw">Pasiūlyti ar priimti lygiąsias</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Garsiai perskaityti laikrodžius</string>
+  <string name="otherCommands">Kitos komandos</string>
+  <string name="tips">Patarimai</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Jei pateiktas užrašymo būdas nepažįstamas sužinokite daugiau čia:</string>
+  <string name="includingAXToIndicateACapture">Pridėkite \"x\" nurodydami, kad kirtimas nėra būtinas</string>
+  <string name="bothTheLetterOAndTheDigitZero">Ir raidė \"o\" ir skaitmuo nulis \"0\" gali būti naudojami rokiruojantis</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Jeigu galima atlikti rokiruotę į abi puses, pasinaudodami enter galite rokiruotis į karaliaus pusę</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Didžiosios raidės svarbios tik tais atvejais, kai gali atsirasti dviprasmybių, pavyzdžiui kai galima judėti ir rikiu (B) ir b-stulpelio pėstininku</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Norėdami padaryti išankstinį ėjimą suveskite savo ėjimą prieš ateinant jūsų eilei</string>
+</resources>

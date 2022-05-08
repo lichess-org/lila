@@ -9,6 +9,8 @@
   <string name="postBody">Gönderi ana metni</string>
   <string name="drafts">Taslaklar</string>
   <string name="published">Yayımlanan</string>
+  <string name="createBlogDiscussion">Yorumları etkinleştir</string>
+  <string name="createBlogDiscussionHelp">İnsanların gönderiniz hakkında yorum yapabilmeleri için bir forum başlığı oluşturulacaktır</string>
   <string name="publishOnYourBlog">Bloğunda yayımla</string>
   <string name="publishHelp">İşaretliyse bloğunuzda bu gönderi paylaşılır. İşaretli değilse taslaklar arasında gizli kalır</string>
   <plurals name="publishedNbBlogPosts">

@@ -9,6 +9,8 @@
   <string name="postBody">本文</string>
   <string name="drafts">下書き</string>
   <string name="published">公開済み</string>
+  <string name="createBlogDiscussion">コメントを有効にする</string>
+  <string name="createBlogDiscussionHelp">フォーラムにトピックを作るといろんな人からコメントが来ます</string>
   <string name="publishOnYourBlog">ブログ上で公開</string>
   <string name="publishHelp">チェックすると投稿がブログに表示されます。しないと下書きで非公開となります。</string>
   <plurals name="publishedNbBlogPosts">
