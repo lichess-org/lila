@@ -142,13 +142,7 @@ object widgets {
         )
       } getOrElse {
         player.aiLevel map { level =>
-          frag(
-            span(aiName(level, withRating = false)),
-            ctx.pref.showRatings option frag(
-              br,
-              aiRating(level)
-            )
-          )
+          span(aiNameFrag(level))
         } getOrElse {
           player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
             frag(
