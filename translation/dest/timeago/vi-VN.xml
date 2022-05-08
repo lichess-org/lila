@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">ngay bây giờ</string>
+  <plurals name="inNbSeconds">
+    <item quantity="other">trong %s giây</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">trong %s phút</item>
+  </plurals>
+</resources>
