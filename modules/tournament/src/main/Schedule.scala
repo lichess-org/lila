@@ -317,13 +317,13 @@ object Schedule {
 
       case (Shield, variant, Blitz) if !variant.standard => TC(5 * 60, 0, 10, 1)
 
-      case (_, _, UltraBullet) => TC(30, 0, 0, 1)       // 30
-      case (_, _, HyperBullet) => TC(60, 0, 5, 1)       // 1 * 60 + 5 * 25
-      case (_, _, Bullet)      => TC(2 * 60, 0, 5, 1)   // 2 * 60 + 5 * 25
-      case (_, _, SuperBlitz)  => TC(4 * 60, 0, 5, 1)   // 4 * 60 + 5 * 25
-      case (_, _, Blitz)       => TC(5 * 60, 0, 10, 1)  // 5 * 60 + 10 * 25
-      case (_, _, HyperRapid)  => TC(10 * 60, 0, 10, 1) // 10 * 60 + 10 * 25
-      case (_, _, Rapid)       => TC(10 * 60, 0, 20, 1) // 10 * 60 + 20 * 25
+      case (_, _, UltraBullet) => TC(     30, 0,  0, 1) //      30
+      case (_, _, HyperBullet) => TC(      0, 0,  5, 1) //            5 * 25
+      case (_, _, Bullet)      => TC(      0, 0, 10, 1) //           10 * 25
+      case (_, _, SuperBlitz)  => TC( 3 * 60, 0, 10, 1) //  3 * 60 + 10 * 25
+      case (_, _, Blitz)       => TC( 5 * 60, 0, 10, 1) //  5 * 60 + 10 * 25
+      case (_, _, HyperRapid)  => TC( 5 * 60, 0, 15, 1) //  5 * 60 + 15 * 25
+      case (_, _, Rapid)       => TC(10 * 60, 0, 15, 1) // 10 * 60 + 15 * 25
       case (_, _, Classical)   => TC(15 * 60, 0, 30, 1) // 15 * 60 + 30 * 25
     }
   }
