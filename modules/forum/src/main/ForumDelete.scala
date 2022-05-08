@@ -35,7 +35,7 @@ final class ForumDelete(
             } >> {
               // Do we want to log this for all or is the team leader/blog author
               // report enough?  Comment out mod check and log it all for now.
-              //MasterGranter(_.ModerateForum)(mod) ??
+              // MasterGranter(_.ModerateForum)(mod) ??
               modLog.deletePost(
                 mod.id,
                 post.userId,
