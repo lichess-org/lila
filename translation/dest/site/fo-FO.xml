@@ -823,6 +823,7 @@
   <string name="navigateMoveTree">Far runt í leiktrænum</string>
   <string name="mouseTricks">Músasnildir</string>
   <string name="playComputerMove">Telv besta telduleikin</string>
+  <string name="onlyWorksOnce">Hetta riggar bert eina ferð.</string>
   <string name="hangOn">Bíða líka!</string>
   <string name="abortTheGame">Enda talvið</string>
   <string name="resignTheGame">Gev upp talvið</string>
