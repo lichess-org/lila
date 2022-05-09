@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">agora mesmo</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">em %s segundos</item>
+    <item quantity="other">em %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">dentro de %s minutos</item>
+    <item quantity="other">em %s minutos</item>
+  </plurals>
   <string name="rightNow">agora mesmo</string>
   <plurals name="nbYearsAgo">
     <item quantity="one">há %s anos atrás</item>
