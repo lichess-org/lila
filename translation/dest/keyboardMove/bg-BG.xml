@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="otherCommands">Други команди</string>
+  <string name="bothTheLetterOAndTheDigitZero">Буквата \"o\" и цифрата \"0\" могат да бъдат използвани за рокада</string>
+</resources>
