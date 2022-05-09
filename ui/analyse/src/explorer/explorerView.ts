@@ -294,7 +294,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         recentTable,
       ]);
     else lastShow = showEmpty(ctrl, data);
-  } else if (data && isTablebase(data)) {
+  } else if (data && isTablebase(data) && ctrl.eval.enabled()) {
     const row = (category: TablebaseCategory, title: string, tooltip?: string) =>
       showTablebase(
         ctrl,
