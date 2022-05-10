@@ -85,7 +85,7 @@
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
-  <string name="topGames">Найкращі ігри</string>
+  <string name="topGames">Кращі ігри</string>
   <string name="masterDbExplanation">Два мільйони ігор за дошкою %1$s+ гравців FIDE з рейтингом від %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s напівхід</item>
@@ -97,7 +97,7 @@
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
-  <string name="openingEndgameExplorer">Перегляд дебюту/ендпшілю</string>
+  <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
@@ -154,7 +154,7 @@
     <item quantity="other">%s гравців</item>
   </plurals>
   <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
-  <string name="fiftyMovesWithoutProgress">П\'ятдесят кроків без прогресу</string>
+  <string name="fiftyMovesWithoutProgress">П\'ятдесят ходів без прогресу</string>
   <string name="currentGames">Поточні ігри</string>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
@@ -226,7 +226,7 @@
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Місце в рейтингу оновлюється щохвилини</item>
+    <item quantity="one">Місце в рейтингу оновлюється кожну хвилину</item>
     <item quantity="few">Місце в рейтингу оновлюється кожні %s хвилини</item>
     <item quantity="many">Місце в рейтингу оновлюється кожні %s хвилин</item>
     <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
@@ -590,9 +590,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Дозволити іншим гравцям запрошувати Вас на навчання</string>
   <string name="sound">Звук</string>
   <string name="none">Немає</string>
-  <string name="fast">Швидка</string>
-  <string name="normal">Звичайна</string>
-  <string name="slow">Повільна</string>
+  <string name="fast">Швидко</string>
+  <string name="normal">Помірно</string>
+  <string name="slow">Повільно</string>
   <string name="insideTheBoard">Усередині шахівниці</string>
   <string name="outsideTheBoard">Поза шахівницею</string>
   <string name="onSlowGames">У повільних іграх</string>

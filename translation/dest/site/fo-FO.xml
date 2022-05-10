@@ -130,7 +130,7 @@
   <string name="flipBoard">Vend borði við</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
   <string name="claimADraw">Krev remis (javnleik)</string>
-  <string name="offerDraw">Eg bjóði remis</string>
+  <string name="offerDraw">Bjóða remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s telvari</item>
@@ -823,7 +823,11 @@
   <string name="navigateMoveTree">Far runt í leiktrænum</string>
   <string name="mouseTricks">Músasnildir</string>
   <string name="playComputerMove">Telv besta telduleikin</string>
+  <string name="onlyWorksOnce">Hetta riggar bert eina ferð.</string>
   <string name="hangOn">Bíða líka!</string>
+  <string name="abortTheGame">Enda talvið</string>
+  <string name="resignTheGame">Gev upp talvið</string>
+  <string name="youCantStartNewGame">Tú kanst ikki byrja eitt nýtt talv áðrenn hetta endar.</string>
   <string name="since">Síðan</string>
   <string name="until">Til</string>
 </resources>
