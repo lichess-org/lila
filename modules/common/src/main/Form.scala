@@ -151,6 +151,13 @@ object Form {
         def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
         def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
       }
+    def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
+      new Formatter[A] {
+        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { str =>
+          to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
+        }
+        def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
+      }
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] =
       new Formatter[A] {
         def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to

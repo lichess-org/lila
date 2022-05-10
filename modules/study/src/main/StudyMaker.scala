@@ -32,7 +32,7 @@ final private class StudyMaker(
         fen = data.form.fen,
         pgn = data.form.pgnStr,
         orientation = data.form.orientation.name,
-        mode = ChapterMaker.Mode.Normal.key,
+        mode = ChapterMaker.Mode.Normal,
         initial = true
       ),
       order = 1,

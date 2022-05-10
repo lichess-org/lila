@@ -450,6 +450,7 @@ object StudySocket {
         )(AtPosition.apply _)
         case class SetRole(userId: String, role: String)
         implicit val SetRoleReader: Reads[SetRole]                       = Json.reads[SetRole]
+        implicit val ChapterModeReader: Reads[ChapterMaker.Mode]         = optRead(ChapterMaker.Mode.apply)
         implicit val ChapterDataReader: Reads[ChapterMaker.Data]         = Json.reads[ChapterMaker.Data]
         implicit val ChapterEditDataReader: Reads[ChapterMaker.EditData] = Json.reads[ChapterMaker.EditData]
         implicit val ChapterDescDataReader: Reads[ChapterMaker.DescData] = Json.reads[ChapterMaker.DescData]

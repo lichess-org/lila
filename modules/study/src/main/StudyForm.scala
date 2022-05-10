@@ -4,7 +4,7 @@ import chess.format.FEN
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.cleanNonEmptyText
+import lila.common.Form.{ cleanNonEmptyText, formatter }
 
 object StudyForm {
 
@@ -46,7 +46,7 @@ object StudyForm {
           fen = fen,
           pgn = pgnStr,
           orientation = orientation.name,
-          mode = ChapterMaker.Mode.Normal.key,
+          mode = ChapterMaker.Mode.Normal,
           initial = false
         )
     }
@@ -58,12 +58,15 @@ object StudyForm {
 
   object importPgn {
 
+    implicit val modeFormat =
+      formatter.stringOptionFormatter[ChapterMaker.Mode](_.key, ChapterMaker.Mode.apply)
+
     lazy val form = Form(
       mapping(
         "name"          -> cleanNonEmptyText,
         "orientation"   -> optional(nonEmptyText),
         "variant"       -> optional(nonEmptyText),
-        "mode"          -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
+        "mode"          -> of[ChapterMaker.Mode],
         "initial"       -> boolean,
         "sticky"        -> boolean,
         "pgn"           -> nonEmptyText,
@@ -75,7 +78,7 @@ object StudyForm {
         name: String,
         orientationStr: Option[String] = None,
         variantStr: Option[String] = None,
-        mode: String,
+        mode: ChapterMaker.Mode,
         initial: Boolean,
         sticky: Boolean,
         pgn: String,

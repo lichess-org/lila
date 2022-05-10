@@ -73,7 +73,7 @@ final private class ChapterMaker(
     orientation match {
       case Orientation.Fixed(color)        => color
       case _ if tags.resultColor.isDefined => Color.white
-      case _                               => root.lastMainlineNode.color
+      case _                               => !root.lastMainlineNode.color
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -208,11 +208,11 @@ private[study] object ChapterMaker {
 
   trait ChapterData {
     def orientation: String
-    def mode: String
+    def mode: ChapterMaker.Mode
     def realOrientation = Color.fromName(orientation).fold[Orientation](Orientation.Auto)(Orientation.Fixed)
-    def isPractice      = mode == Mode.Practice.key
-    def isGamebook      = mode == Mode.Gamebook.key
-    def isConceal       = mode == Mode.Conceal.key
+    def isPractice      = mode == Mode.Practice
+    def isGamebook      = mode == Mode.Gamebook
+    def isConceal       = mode == Mode.Conceal
   }
 
   sealed trait Orientation
@@ -228,7 +228,7 @@ private[study] object ChapterMaker {
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
       orientation: String = "white", // can be "automatic"
-      mode: String = ChapterMaker.Mode.Normal.key,
+      mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,
       initial: Boolean = false,
       isDefaultName: Boolean = true
   ) extends ChapterData {
@@ -247,7 +247,7 @@ private[study] object ChapterMaker {
       id: Chapter.Id,
       name: Chapter.Name,
       orientation: String,
-      mode: String,
+      mode: ChapterMaker.Mode,
       description: String // boolean
   ) extends ChapterData {
     def hasDescription = description.nonEmpty
