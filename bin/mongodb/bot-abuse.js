@@ -1,15 +1,22 @@
 db.user4
-  .find({ title: 'BOT', 'count.winH': { $gt: 100 } })
+  .find({ title: 'BOT', 'count.winH': { $gt: 50 } })
   .sort({ createdAt: -1 })
-  .limit(1000)
+  .limit(500)
   .forEach(user => {
     agg = db.game5
       .aggregate([
         { $match: { us: user._id } },
-        { $project: { wid: 1, t: 1, ra: 1 } },
+        { $project: { us: 1, wid: 1, t: 1 } },
         {
           $addFields: {
-            sus: { $and: [{ $eq: ['$wid', user._id] }, { $lt: ['$t', 10] }, { $ne: ['$ra', true] }] },
+            sus: {
+              $and: [
+                { $eq: ['$wid', user._id] },
+                { $lt: ['$t', 15] },
+                { $or: [{ $eq: [{ $first: '$us' }, ''] }, { $eq: [{ $size: '$us' }, 1] }] },
+              ],
+            },
+            players: { $or: [{ $eq: [{ $first: '$us' }, ''] }, { $eq: [{ $size: '$us' }, 1] }] },
           },
         },
         { $sort: { ca: -1 } },
@@ -27,7 +34,7 @@ db.user4
     kos = agg.filter(o => o._id)[0];
     kos = kos ? kos.nb : 0;
     ratio = kos / (oks + kos);
-    if (ratio > 0.5) {
+    if (ratio > 0.3) {
       print(`https://lichess.org/@/${user.username} ${user.enabled} ${kos} / ${oks + kos}`);
     }
   });
