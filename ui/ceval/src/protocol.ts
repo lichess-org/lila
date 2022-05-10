@@ -38,6 +38,12 @@ export class Protocol {
     }
   }
 
+  disconnected(): void {
+    if (this.work && this.currentEval) this.work.emit(this.currentEval);
+    this.work = undefined;
+    this.send = undefined;
+  }
+
   received(command: string): void {
     const parts = command.trim().split(/\s+/g);
     if (parts[0] === 'uciok') {

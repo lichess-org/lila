@@ -1,7 +1,7 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
 
 import { Result } from '@badrap/result';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -49,8 +49,10 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
   }
 }
 
-function engineName(technology: CevalTechnology): string {
+function engineName(technology: CevalTechnology, externalOpts: ExternalWorkerOpts | null): string {
   switch (technology) {
+    case 'external':
+      return externalOpts!.name;
     case 'wasm':
     case 'asmjs':
       return 'Stockfish 10+';
@@ -108,9 +110,14 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
+  const externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
+  if (externalOpts && (officialStockfish || externalOpts.variants?.includes(rules))) technology = 'external';
+
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads =
-    technology == 'nnue' || technology == 'hce'
+    technology == 'external'
+      ? externalOpts!.maxThreads
+      : technology == 'nnue' || technology == 'hce'
       ? Math.min(
           Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
           growableSharedMem ? 32 : initialAllocationMaxThreads
@@ -122,10 +129,10 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
-  const maxHashSize = Math.min(
-    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
-    growableSharedMem ? 1024 : 16
-  );
+  const maxHashSize =
+    technology == 'external'
+      ? externalOpts!.maxHash || 16
+      : Math.min(((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = () => {
     const stored = lichess.storage.get(storageKey('ceval.hash-size'));
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
@@ -224,7 +231,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!worker) {
-      if (technology == 'nnue')
+      if (technology == 'external') worker = new ExternalWorker(externalOpts!);
+      else if (technology == 'nnue')
         worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
@@ -344,11 +352,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     goDeeper,
     canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: engineName(technology),
+    engineName: engineName(technology, externalOpts),
     longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
-    cachable: technology == 'nnue' || technology == 'hce',
+    cachable:
+      technology == 'nnue' || technology == 'hce' || (technology == 'external' && externalOpts!.officialStockfish),
     analysable,
+    disconnectExternalEngine() {
+      lichess.storage.remove('ceval.external');
+    },
   };
 }

@@ -192,6 +192,27 @@ object Form {
       }
   }
 
+  object url {
+    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+    private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    implicit val urlFormat = new Formatter[URL] {
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { url =>
+        Try(URL.parse(parser, url)).fold(
+          err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
+          Right(_)
+        )
+      }
+      def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
+    }
+    val field = of[URL]
+  }
+
+  object strings {
+    def separator(sep: String) = of[List[String]](
+      formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)
+    )
+  }
+
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(
       "The date must be set in the future",

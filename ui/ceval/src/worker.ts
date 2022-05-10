@@ -155,3 +155,42 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     this.getProtocol().compute(undefined);
   }
 }
+
+export interface ExternalWorkerOpts {
+  url: string;
+  secret: string;
+  name: string;
+  maxThreads: number;
+  maxHash: number | null;
+  variants: string[] | null;
+  officialStockfish: boolean;
+}
+
+export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
+  private protocol = new Protocol();
+  private ws: WebSocket | undefined;
+  private session = Math.random().toString(36).slice(2, 12);
+
+  protected getProtocol() {
+    return this.protocol;
+  }
+
+  boot() {
+    const url = new URL(this.opts.url);
+    url.searchParams.set('secret', this.opts.secret);
+    url.searchParams.set('session', this.session);
+    const ws = (this.ws = new WebSocket(url.href));
+    ws.onmessage = e => this.protocol.received(e.data);
+    ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
+    ws.onclose = () => {
+      this.protocol.disconnected();
+      if (this.ws) setTimeout(() => this.boot(), 10_000);
+    };
+  }
+
+  destroy() {
+    const ws = this.ws;
+    this.ws = undefined; // do not reconnect
+    if (ws && ws.readyState <= 1) ws.close();
+  }
+}
