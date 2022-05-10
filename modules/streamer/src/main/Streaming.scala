@@ -100,7 +100,7 @@ final private class Streaming(
     (youtubeStreamers.nonEmpty && googleApiKey.value.nonEmpty) ?? {
       val now = DateTime.now
       val res =
-        if (prevYouTubeStreams.list.isEmpty && prevYouTubeStreams.at.isAfter(now minusMinutes 3))
+        if (prevYouTubeStreams.list.isEmpty && prevYouTubeStreams.at.isAfter(now minusMinutes 15))
           fuccess(prevYouTubeStreams)
         else if (prevYouTubeStreams.at.isAfter(now minusMinutes 1))
           fuccess(prevYouTubeStreams)
@@ -119,7 +119,7 @@ final private class Streaming(
                 case JsSuccess(data, _) =>
                   fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
                 case JsError(err) =>
-                  fufail(s"youtube ${res.status} $err ${res.body.take(500)}")
+                  fufail(s"youtube ${res.status} $err ${res.body.take(200)}")
               }
             }
             .monSuccess(_.tv.streamer.youTube)
