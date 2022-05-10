@@ -35,6 +35,8 @@ object Json {
       }
     )
 
+  def stringRead[O](from: String => O): Reads[O] = Reads.of[String] map from
+
   def optRead[O](from: String => Option[O]): Reads[O] = Reads.of[String].flatMapResult { str =>
     from(str).fold[JsResult[O]](JsError(s"Invalid value: $str"))(JsSuccess(_))
   }

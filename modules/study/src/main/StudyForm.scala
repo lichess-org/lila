@@ -8,12 +8,18 @@ import lila.common.Form.{ cleanNonEmptyText, formatter }
 
 object StudyForm {
 
+  implicit private val modeFormat =
+    formatter.stringOptionFormatter[ChapterMaker.Mode](_.key, ChapterMaker.Mode.apply)
+
+  implicit private val orientationFormat =
+    formatter.stringFormatter[ChapterMaker.Orientation](_.key, ChapterMaker.Orientation.apply)
+
   object importGame {
 
     lazy val form = Form(
       mapping(
         "gameId"      -> optional(nonEmptyText),
-        "orientation" -> optional(nonEmptyText),
+        "orientation" -> optional(of[ChapterMaker.Orientation]),
         "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn"         -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
@@ -23,15 +29,12 @@ object StudyForm {
 
     case class Data(
         gameId: Option[String] = None,
-        orientationStr: Option[String] = None,
+        orientation: Option[ChapterMaker.Orientation] = None,
         fen: Option[FEN] = None,
         pgnStr: Option[String] = None,
         variantStr: Option[String] = None,
         asStr: Option[String] = None
     ) {
-
-      def orientation = orientationStr.flatMap(chess.Color.fromName) | chess.White
-
       def as: As =
         asStr match {
           case None | Some("study") => AsNewStudy
@@ -45,7 +48,7 @@ object StudyForm {
           variant = variantStr,
           fen = fen,
           pgn = pgnStr,
-          orientation = orientation.name,
+          orientation = orientation | ChapterMaker.Orientation.Auto,
           mode = ChapterMaker.Mode.Normal,
           initial = false
         )
@@ -58,13 +61,10 @@ object StudyForm {
 
   object importPgn {
 
-    implicit val modeFormat =
-      formatter.stringOptionFormatter[ChapterMaker.Mode](_.key, ChapterMaker.Mode.apply)
-
     lazy val form = Form(
       mapping(
         "name"          -> cleanNonEmptyText,
-        "orientation"   -> optional(nonEmptyText),
+        "orientation"   -> optional(of[ChapterMaker.Orientation]),
         "variant"       -> optional(nonEmptyText),
         "mode"          -> of[ChapterMaker.Mode],
         "initial"       -> boolean,
@@ -76,7 +76,7 @@ object StudyForm {
 
     case class Data(
         name: String,
-        orientationStr: Option[String] = None,
+        orientation: Option[ChapterMaker.Orientation] = None,
         variantStr: Option[String] = None,
         mode: ChapterMaker.Mode,
         initial: Boolean,
@@ -93,7 +93,7 @@ object StudyForm {
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
-            orientation = orientationStr | "white",
+            orientation = orientation | ChapterMaker.Orientation.Auto,
             mode = mode,
             initial = initial && index == 0,
             isDefaultName = index > 0 || isDefaultName

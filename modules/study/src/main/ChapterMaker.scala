@@ -58,7 +58,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        resolveOrientation(data.realOrientation, parsed.root, parsed.tags)
+        resolveOrientation(data.orientation, parsed.root, parsed.tags)
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -105,7 +105,7 @@ final private class ChapterMaker(
           setup = Chapter.Setup(
             none,
             variant,
-            resolveOrientation(data.realOrientation, root),
+            resolveOrientation(data.orientation, root),
             fromFen = isFromFen option true
           ),
           root = root,
@@ -143,7 +143,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         !game.synthetic option game.id,
         game.variant,
-        data.realOrientation match {
+        data.orientation match {
           case Orientation.Auto         => Color.white
           case Orientation.Fixed(color) => color
         }
@@ -207,18 +207,18 @@ private[study] object ChapterMaker {
   }
 
   trait ChapterData {
-    def orientation: String
+    def orientation: Orientation
     def mode: ChapterMaker.Mode
-    def realOrientation = Color.fromName(orientation).fold[Orientation](Orientation.Auto)(Orientation.Fixed)
-    def isPractice      = mode == Mode.Practice
-    def isGamebook      = mode == Mode.Gamebook
-    def isConceal       = mode == Mode.Conceal
+    def isPractice = mode == Mode.Practice
+    def isGamebook = mode == Mode.Gamebook
+    def isConceal  = mode == Mode.Conceal
   }
 
-  sealed trait Orientation
+  sealed abstract class Orientation(val key: String, val resolve: Option[Color])
   object Orientation {
-    case class Fixed(color: Color) extends Orientation
-    case object Auto               extends Orientation
+    case class Fixed(color: Color) extends Orientation(color.name, color.some)
+    case object Auto               extends Orientation("automatic", none)
+    def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed)
   }
 
   case class Data(
@@ -227,7 +227,7 @@ private[study] object ChapterMaker {
       variant: Option[String] = None,
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
-      orientation: String = "white", // can be "automatic"
+      orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,
       initial: Boolean = false,
       isDefaultName: Boolean = true
@@ -246,7 +246,7 @@ private[study] object ChapterMaker {
   case class EditData(
       id: Chapter.Id,
       name: Chapter.Name,
-      orientation: String,
+      orientation: Orientation,
       mode: ChapterMaker.Mode,
       description: String // boolean
   ) extends ChapterData {
