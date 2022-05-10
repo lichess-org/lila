@@ -15,7 +15,7 @@
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">след %s ден</item>
-    <item quantity="other">след %s дена</item>
+    <item quantity="other">след %s дни</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">след %s седмица</item>
@@ -41,5 +41,21 @@
   <plurals name="nbHoursAgo">
     <item quantity="one">преди %s час</item>
     <item quantity="other">Преди %s часа</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">преди %s ден</item>
+    <item quantity="other">Преди %s дни</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">преди %s седмица</item>
+    <item quantity="other">преди %s седмици</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">преди %s месец</item>
+    <item quantity="other">преди %s месеца</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">преди %s година</item>
+    <item quantity="other">преди %s години</item>
   </plurals>
 </resources>
