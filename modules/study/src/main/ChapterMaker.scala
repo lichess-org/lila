@@ -58,7 +58,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        resolveOrientation(data.orientation, parsed.root, parsed.tags)
+        resolveOrientation(data, parsed.root, parsed.tags)
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -69,11 +69,12 @@ final private class ChapterMaker(
       conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
     )
 
-  private def resolveOrientation(orientation: Orientation, root: Node.Root, tags: Tags = Tags.empty): Color =
-    orientation match {
+  private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
+    data.orientation match {
       case Orientation.Fixed(color)        => color
       case _ if tags.resultColor.isDefined => Color.white
-      case _                               => !root.lastMainlineNode.color
+      case _ if data.isGamebook            => !root.lastMainlineNode.color
+      case _                               => root.lastMainlineNode.color
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -104,7 +105,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         variant,
-        resolveOrientation(data.orientation, root),
+        resolveOrientation(data, root),
         fromFen = isFromFen option true
       ),
       root = root,
