@@ -9,6 +9,7 @@
   <string name="yourTurn">Таны ээлж</string>
   <string name="aiNameLevelAiLevel">%1$s түвшин %2$s</string>
   <string name="level">Түвшин</string>
+  <string name="strength">Чансаа</string>
   <string name="toggleTheChat">Чатыг нээх/хаах</string>
   <string name="chat">Чат</string>
   <string name="resign">Бууж өгөх</string>
@@ -16,6 +17,8 @@
   <string name="stalemate">Хайнцаа</string>
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
+  <string name="asWhite">цагаан тал</string>
+  <string name="asBlack">хар тал</string>
   <string name="randomColor">Дурын өнгө</string>
   <string name="createAGame">Үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
@@ -23,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Та цагаанаар тоглоно</string>
   <string name="youPlayTheBlackPieces">Та хараар тоглоно</string>
   <string name="itsYourTurn">Таны нүүх ээлж!</string>
+  <string name="cheatDetected">Булхай илэрлээ</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
   <string name="threeChecks">Гурван шаг</string>
   <string name="raceFinished">Тэмцээн өндөрлөлөө</string>
@@ -45,6 +49,8 @@
   <string name="blackResigned">Хар бууж өглөө</string>
   <string name="whiteLeftTheGame">Цагаан тоглолтыг орхилоо</string>
   <string name="blackLeftTheGame">Хар тоглолтыг орхилоо</string>
+  <string name="whiteDidntMove">Цагаан тал нүүсэнгүй</string>
+  <string name="blackDidntMove">Хар тал нүүсэнгүй</string>
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Компьютерийн шинжилгээ</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
