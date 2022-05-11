@@ -77,7 +77,7 @@ final private class ChapterMaker(
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
-    val variant = data.variant.flatMap(Variant.apply) | Variant.default
+    val variant = data.variant | Variant.default
     (data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match {
       case Some(sit) =>
         Node.Root(
@@ -224,7 +224,7 @@ private[study] object ChapterMaker {
   case class Data(
       name: Chapter.Name,
       game: Option[String] = None,
-      variant: Option[String] = None,
+      variant: Option[Variant] = None,
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
       orientation: Orientation = Orientation.Auto,

@@ -454,7 +454,8 @@ object StudySocket {
         implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] = stringRead(
           ChapterMaker.Orientation.apply
         )
-        implicit val ChapterDataReader: Reads[ChapterMaker.Data]         = Json.reads[ChapterMaker.Data]
+        implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
+        implicit val ChapterDataReader: Reads[ChapterMaker.Data] = Json.reads[ChapterMaker.Data]
         implicit val ChapterEditDataReader: Reads[ChapterMaker.EditData] = Json.reads[ChapterMaker.EditData]
         implicit val ChapterDescDataReader: Reads[ChapterMaker.DescData] = Json.reads[ChapterMaker.DescData]
         implicit val StudyDataReader: Reads[Study.Data]                  = Json.reads[Study.Data]

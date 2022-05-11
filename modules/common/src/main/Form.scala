@@ -214,6 +214,9 @@ object Form {
     val field = of[URL]
   }
 
+  implicit val variantFormat =
+    formatter.stringOptionFormatter[chess.variant.Variant](_.key, chess.variant.Variant.apply)
+
   object strings {
     def separator(sep: String) = of[List[String]](
       formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)

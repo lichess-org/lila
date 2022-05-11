@@ -1,10 +1,11 @@
 package lila.study
 
 import chess.format.FEN
+import chess.variant.Variant
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ cleanNonEmptyText, formatter }
+import lila.common.Form.{ cleanNonEmptyText, formatter, variantFormat }
 
 object StudyForm {
 
@@ -22,7 +23,7 @@ object StudyForm {
         "orientation" -> optional(of[ChapterMaker.Orientation]),
         "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn"         -> optional(nonEmptyText),
-        "variant"     -> optional(nonEmptyText),
+        "variant"     -> optional(of[Variant]),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
     )
@@ -32,7 +33,7 @@ object StudyForm {
         orientation: Option[ChapterMaker.Orientation] = None,
         fen: Option[FEN] = None,
         pgnStr: Option[String] = None,
-        variantStr: Option[String] = None,
+        variant: Option[Variant] = None,
         asStr: Option[String] = None
     ) {
       def as: As =
@@ -45,7 +46,7 @@ object StudyForm {
         ChapterMaker.Data(
           name = Chapter.Name(""),
           game = gameId,
-          variant = variantStr,
+          variant = variant,
           fen = fen,
           pgn = pgnStr,
           orientation = orientation | ChapterMaker.Orientation.Auto,
@@ -65,7 +66,7 @@ object StudyForm {
       mapping(
         "name"          -> cleanNonEmptyText,
         "orientation"   -> optional(of[ChapterMaker.Orientation]),
-        "variant"       -> optional(nonEmptyText),
+        "variant"       -> optional(of[Variant]),
         "mode"          -> of[ChapterMaker.Mode],
         "initial"       -> boolean,
         "sticky"        -> boolean,
@@ -77,7 +78,7 @@ object StudyForm {
     case class Data(
         name: String,
         orientation: Option[ChapterMaker.Orientation] = None,
-        variantStr: Option[String] = None,
+        variant: Option[Variant] = None,
         mode: ChapterMaker.Mode,
         initial: Boolean,
         sticky: Boolean,
@@ -91,7 +92,7 @@ object StudyForm {
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
-            variant = variantStr,
+            variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,
             mode = mode,

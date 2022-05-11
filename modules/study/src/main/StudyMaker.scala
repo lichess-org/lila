@@ -34,7 +34,7 @@ final private class StudyMaker(
       ChapterMaker.Data(
         game = none,
         name = Chapter.Name("Chapter 1"),
-        variant = data.form.variantStr,
+        variant = data.form.variant,
         fen = data.form.fen,
         pgn = data.form.pgnStr,
         orientation = data.form.orientation | ChapterMaker.Orientation.Auto,
