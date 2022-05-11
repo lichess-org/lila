@@ -9,6 +9,7 @@ private object BSONHandlers {
 
   implicit val PostEditBSONHandler = Macros.handler[OldVersion]
   implicit val PostBSONHandler     = Macros.handler[Post]
+  implicit val PollBSONHandler     = Macros.handler[Poll]
 
   implicit val TopicBSONHandler = Macros.handler[Topic]
 }

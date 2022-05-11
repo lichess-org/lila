@@ -4,7 +4,6 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-
 import lila.common.config._
 import lila.forum.actorApi.RemovePost
 import lila.hub.actorApi.team.CreateTeam
@@ -50,6 +49,8 @@ final class Env(
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
+
+  lazy val pollApi: PollApi = wire[PollApi]
 
   lazy val categApi: CategApi = wire[CategApi]
 

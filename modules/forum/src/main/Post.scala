@@ -1,10 +1,11 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import lila.user.User
 import lila.security.Granter
+import lila.poll.Poll
 
 case class OldVersion(text: String, createdAt: DateTime)
 
@@ -24,7 +25,8 @@ case class Post(
     updatedAt: Option[DateTime] = None,
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
-    reactions: Option[Post.Reactions] = None
+    reactions: Option[Post.Reactions] = None,
+    poll: Option[Poll.ID] = None
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -88,8 +90,8 @@ case class Post(
 
 object Post {
 
-  type ID        = String
-  type Reactions = Map[String, Set[User.ID]]
+  type ID         = String
+  type Reactions  = Map[String, Set[User.ID]]
 
   val idSize = 8
 
@@ -121,9 +123,9 @@ object Post {
       lang: Option[String],
       troll: Boolean,
       hidden: Boolean,
-      modIcon: Option[Boolean] = None
+      modIcon: Option[Boolean] = None,
+      pollId: Option[Poll.ID] = None
   ): Post = {
-
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,
@@ -136,7 +138,8 @@ object Post {
       hidden = hidden,
       createdAt = DateTime.now,
       categId = categId,
-      modIcon = modIcon
+      modIcon = modIcon,
+      pollId = pollId
     )
   }
 }

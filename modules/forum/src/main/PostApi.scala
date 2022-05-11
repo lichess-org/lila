@@ -52,6 +52,7 @@ final class PostApi(
         categId = categ.id,
         modIcon = modIcon option true
       )
+      post.poll = Some(Post.Poll.make("How many", List("1","2","3")))
       postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
         case _ =>
@@ -127,6 +128,20 @@ final class PostApi(
     postRepo.coll.byId[Post](postId)
 
   def react(categSlug: String, postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+    Post.Reaction.set(reaction) ?? {
+      if (v) lila.mon.forum.reaction(reaction).increment()
+      postRepo.coll.ext
+        .findAndUpdate[Post](
+          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
+          update = {
+            if (v) $addToSet(s"reactions.$reaction" -> me.id)
+            else $pull(s"reactions.$reaction"       -> me.id)
+          },
+          fetchNewObject = true
+        )
+    }
+
+  def vote(categSlug: String, postId: Post.ID, me: User, vote: String): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       postRepo.coll.ext

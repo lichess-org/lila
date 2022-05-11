@@ -240,7 +240,7 @@ object layout {
           st.headTitle {
             if (ctx.blind) "lichess"
             else if (netConfig.isProd) fullTitle | s"$title • lichess.org"
-            else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+            else ctx.me ?? {_.username}
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),

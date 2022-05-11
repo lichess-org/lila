@@ -136,6 +136,13 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
+  def vote(categSlug: String, id: String, vote: String) =
+    Auth { implicit ctx => me =>
+      CategGrantWrite(categSlug) {
+        postApi.vote(categSlug, id, me, vote)
+      }
+    }
+
   def redirect(id: String) =
     Open { implicit ctx =>
       OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>

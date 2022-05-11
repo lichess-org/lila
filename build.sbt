@@ -28,9 +28,9 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
 }
 
 lazy val modules = Seq(
-  common, db, rating, user, security, hub, socket,
-  msg, notifyModule, i18n, game, bookmark, search,
-  gameSearch, timeline, forum, forumSearch, team, teamSearch,
+  common, db, rating, user, security, hub, socket, msg,
+  notifyModule, i18n, game, bookmark, search, gameSearch,
+  timeline, poll, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
@@ -365,8 +365,13 @@ lazy val msg = module("msg",
   reactivemongo.bundle
 )
 
-lazy val forum = module("forum",
+lazy val poll = module("poll",
   Seq(common, db, user, security, hub, mod, notifyModule),
+  reactivemongo.bundle
+)
+
+lazy val forum = module("forum",
+  Seq(common, db, user, security, hub, mod, notifyModule, poll),
   reactivemongo.bundle
 )
 
