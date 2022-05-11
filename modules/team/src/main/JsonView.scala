@@ -2,7 +2,7 @@ package lila.team
 
 import play.api.libs.json._
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.{ jodaWrites, markdownFormat }
 import lila.user.LightUserApi
 
 final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {

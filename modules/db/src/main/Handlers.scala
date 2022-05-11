@@ -128,6 +128,9 @@ trait Handlers {
 
   implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
+  implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
+    stringAnyValHandler(_.value, lila.common.Markdown.apply)
+
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
       case BSONString(v) => Variant orDefault v

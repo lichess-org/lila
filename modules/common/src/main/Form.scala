@@ -223,6 +223,8 @@ object Form {
     )
   }
 
+  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
+
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(
       "The date must be set in the future",

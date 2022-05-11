@@ -66,4 +66,6 @@ object Iso {
   implicit val langIso = string[Lang](Lang.apply, _.toString)
 
   implicit val fenIso = string[FEN](FEN.apply, _.value)
+
+  implicit val markdownIso = string[Markdown](Markdown.apply, _.value)
 }

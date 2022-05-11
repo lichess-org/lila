@@ -54,7 +54,7 @@ final class TeamApi(
         name = setup.name,
         password = setup.password,
         description = setup.description,
-        descPrivate = setup.descPrivate.filter(_.nonEmpty),
+        descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
         open = setup.isOpen,
         createdBy = me
       )

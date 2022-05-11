@@ -3,6 +3,8 @@ package lila.blog
 import scala.concurrent.duration._
 import scala.util.matching.Regex
 
+import lila.common.{ Markdown, MarkdownRender }
+
 object BlogTransform {
 
   private val RemoveRegex          = """http://(\w{2}\.)?+lichess\.org""".r
@@ -15,7 +17,7 @@ object BlogTransform {
     private type Text = String
     private type Html = String
 
-    private val renderer = new lila.common.Markdown(table = true)
+    private val renderer = new MarkdownRender(table = true)
 
     // hash code collisions can't be a vector of attack here,
     // since only lichess team members can write these blog posts
@@ -32,7 +34,7 @@ object BlogTransform {
         m => {
           val markdown = m group 1
           val markup =
-            cache.get(markdown.hashCode, _ => renderer("prismic")(markdown.replace("<br>", "\n")))
+            cache.get(markdown.hashCode, _ => renderer("prismic")(Markdown(markdown.replace("<br>", "\n"))))
           Regex.quoteReplacement(markup)
         }
       )

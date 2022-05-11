@@ -31,7 +31,11 @@ import java.util.Arrays
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
-final class Markdown(
+final case class Markdown(value: String) extends AnyVal with StringValue {
+  def apply(f: String => String) = Markdown(f(value))
+}
+
+final class MarkdownRender(
     autoLink: Boolean = true,
     table: Boolean = false,
     strikeThrough: Boolean = false,
@@ -42,15 +46,14 @@ final class Markdown(
 ) {
 
   private type Key  = String
-  private type Text = String
   private type Html = String
 
   private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
-  extensions.add(Markdown.NofollowExtension)
-  extensions.add(Markdown.WhitelistedImageExtension)
+  extensions.add(MarkdownRender.NofollowExtension)
+  extensions.add(MarkdownRender.WhitelistedImageExtension)
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -74,30 +77,32 @@ final class Markdown(
 
   private val logger = lila.log("markdown")
 
-  private def mentionsToLinks(markdown: Text): Text =
-    RawHtml.atUsernameRegex.replaceAllIn(markdown, "[@$1](/@/$1)")
+  private def mentionsToLinks(markdown: Markdown): Markdown =
+    Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
   // https://github.com/vsch/flexmark-java/issues/496
-  private val tooManyUnderscoreRegex             = """(_{4,})""".r
-  private def preventStackOverflow(text: String) = tooManyUnderscoreRegex.replaceAllIn(text, "_" * 3)
+  private val tooManyUnderscoreRegex = """(_{4,})""".r
+  private def preventStackOverflow(text: Markdown) = Markdown(
+    tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
+  )
 
-  def apply(key: Key)(text: Text): Html =
+  def apply(key: Key)(text: Markdown): Html =
     Chronometer
       .sync {
         try {
-          renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text))))
+          renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
-            text
+            text.value
         }
       }
       .mon(_.markdown.time)
-      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.size}")
+      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
       .result
 }
 
-object Markdown {
+object MarkdownRender {
 
   private val rel = "nofollow noopener noreferrer"
 

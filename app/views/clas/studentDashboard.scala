@@ -58,7 +58,7 @@ object studentDashboard {
           }
         )
       ),
-      if (c.wall.nonEmpty) div(cls := "box__pad clas-wall")(wall),
+      if (c.wall.value.nonEmpty) div(cls := "box__pad clas-wall")(wall),
       div(cls := "students")(studentList(students))
     )
 

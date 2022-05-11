@@ -4,10 +4,11 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
+import lila.common.Markdown
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -19,7 +20,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     mapping(
       "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
       "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000),
+      "markdown"    -> toMarkdown(cleanNonEmptyText(minLength = 0, maxLength = 100_000)),
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
@@ -52,8 +53,8 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex               = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
-  private def removeLatex(str: String) = latexRegex.replaceAllIn(str, """\$\$ $1 \$\$""")
+  private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
+  private def removeLatex(markdown: Markdown) = markdown(m => latexRegex.replaceAllIn(m, """\$\$ $1 \$\$"""))
 }
 
 object UblogForm {
@@ -61,7 +62,7 @@ object UblogForm {
   case class UblogPostData(
       title: String,
       intro: String,
-      markdown: String,
+      markdown: Markdown,
       imageAlt: Option[String],
       imageCredit: Option[String],
       language: Option[String],
