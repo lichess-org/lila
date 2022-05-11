@@ -78,7 +78,7 @@ final private class ChapterMaker(
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant | Variant.default
-    (data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match {
+    val (root, isFromFen) = data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match {
       case Some(sit) =>
         Node.Root(
           ply = sit.turns,
@@ -97,26 +97,24 @@ final private class ChapterMaker(
           crazyData = variant.crazyhouse option Crazyhouse.Data.init,
           children = Node.emptyChildren
         ) -> false
-    }) match {
-      case (root, isFromFen) =>
-        Chapter.make(
-          studyId = study.id,
-          name = data.name,
-          setup = Chapter.Setup(
-            none,
-            variant,
-            resolveOrientation(data.orientation, root),
-            fromFen = isFromFen option true
-          ),
-          root = root,
-          tags = Tags.empty,
-          order = order,
-          ownerId = userId,
-          practice = data.isPractice,
-          gamebook = data.isGamebook,
-          conceal = None
-        )
     }
+    Chapter.make(
+      studyId = study.id,
+      name = data.name,
+      setup = Chapter.Setup(
+        none,
+        variant,
+        resolveOrientation(data.orientation, root),
+        fromFen = isFromFen option true
+      ),
+      root = root,
+      tags = Tags.empty,
+      order = order,
+      ownerId = userId,
+      practice = data.isPractice,
+      gamebook = data.isGamebook,
+      conceal = None
+    )
   }
 
   private[study] def fromGame(
