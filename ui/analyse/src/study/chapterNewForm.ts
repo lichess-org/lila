@@ -326,7 +326,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   attrs: { disabled: gameOrPgn },
                 },
                 gameOrPgn
-                  ? [h('option', noarg('automatic'))]
+                  ? [
+                      h(
+                        'option',
+                        {
+                          attrs: { value: 'standard' },
+                        },
+                        noarg('automatic')
+                      ),
+                    ]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),
