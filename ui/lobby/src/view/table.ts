@@ -23,7 +23,9 @@ export default function table(ctrl: LobbyController) {
             `a.button.button-metal.config_${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
-              hook: bind(opts.blindMode ? 'click' : 'mousedown', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),
+              hook: disabled
+                ? {}
+                : bind(opts.blindMode ? 'click' : 'mousedown', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),
             },
             trans(transKey)
           )
