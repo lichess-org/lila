@@ -193,7 +193,8 @@ final object RawHtml {
           )}">${m group 1}</a>"""
     )
 
-  private[this] val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm_\w+|gclid|gclsrc|_ga)=\w+""".r
+  private[this] val trackingParametersRegex =
+    """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
   def removeUrlTrackingParameters(url: String): String =
     trackingParametersRegex.replaceAllIn(url, "")
 
