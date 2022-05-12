@@ -124,6 +124,17 @@ object replay {
           div(cls := "analyse__controls"),
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(
+              div(role := "tablist", cls := "analyse__underboard__menu")(
+                game.analysable option
+                  span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                    trans.computerAnalysis()
+                  ),
+                !game.isPgnImport option frag(
+                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
+                  cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
+                ),
+                span(role := "tab", dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
+              ),
               div(cls := "analyse__underboard__panels")(
                 game.analysable option div(cls := "computer-analysis")(
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
@@ -160,17 +171,6 @@ object replay {
                     views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                   )
                 }
-              ),
-              div(role := "tablist", cls := "analyse__underboard__menu")(
-                game.analysable option
-                  span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                    trans.computerAnalysis()
-                  ),
-                !game.isPgnImport option frag(
-                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
-                  cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
-                ),
-                span(role := "tab", dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
               )
             )
           )
