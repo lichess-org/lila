@@ -4,7 +4,7 @@ import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder => jStringBuilder }
 import scala.annotation.{ switch, tailrec }
 
-import lila.common.base.StringUtils.escapeHtmlRaw
+import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 
 final object RawHtml {
 
@@ -75,7 +75,7 @@ final object RawHtml {
 
         do {
           val start = m.start
-          escapeHtmlRaw(sb, sArr, lastAppendIdx, start)
+          escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, start)
 
           val domainS = Math.max(m.start(1), start)
           val pathS   = m.start(2)
@@ -103,7 +103,7 @@ final object RawHtml {
             csb.append(sArr, pathS, end - pathS)
           }
 
-          val allButScheme = escapeHtmlRaw(csb.toString)
+          val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
 
           if (isTldInternal) {
             sb.append(s"""<a href="${if (allButScheme.isEmpty) "/"
@@ -128,7 +128,7 @@ final object RawHtml {
           lastAppendIdx = end
         } while (m.find)
 
-        escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
+        escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, sArr.length)
         sb.toString
       }
     } match {
@@ -184,7 +184,17 @@ final object RawHtml {
     }
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-
   def justMarkdownLinks(escapedHtml: String): String =
-    markdownLinkRegex.replaceAllIn(escapedHtml, """<a rel="nofollow noopener noreferrer" href="$2">$1</a>""")
+    markdownLinkRegex.replaceAllIn(
+      escapedHtml,
+      m =>
+        s"""<a rel="nofollow noopener noreferrer" href="${removeUrlTrackingParameters(
+            m group 2
+          )}">${m group 1}</a>"""
+    )
+
+  private[this] val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm_\w+|gclid|gclsrc|_ga)=\w+""".r
+  def removeUrlTrackingParameters(url: String): String =
+    trackingParametersRegex.replaceAllIn(url, "")
+
 }
