@@ -234,8 +234,8 @@ u dva poteza!</string>
   <string name="nailedIt">Točno tako.</string>
   <string name="rightOn">Tako je!</string>
   <string name="stageXComplete">Razina %s završena</string>
-  <string name="yourScore">Tvoj rezultat</string>
   <string name="next">Sljedeće</string>
+  <string name="nextX">Sljedeća %s</string>
   <string name="backToMenu">Povratak na izbornik</string>
   <string name="puzzleFailed">Problem neuspješno riješen!</string>
   <string name="retry">Pokušaj ponovno</string>

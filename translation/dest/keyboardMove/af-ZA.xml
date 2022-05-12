@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">Sleutelbord-invoerbevele</string>
+  <string name="performAMove">Maak \'n skuif</string>
+  <string name="movePieceFromE2ToE4">Skuif stuk van e2 na e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Skuif ruiter na c3</string>
+  <string name="kingsideCastle">Rokeer aan die koningskant</string>
+  <string name="queensideCastle">Rokeer aan die dameskant</string>
+  <string name="promoteC8ToQueen">Promoveer c8 na dame</string>
+  <string name="offerOrAcceptDraw">Bied of aanvaar \'n gelykop</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Lees die horlosies hardop</string>
+  <string name="otherCommands">Ander bevele</string>
+  <string name="tips">Wenke</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Indien bogenoemde notasie vir jou onbekend is, leer meer hier:</string>
+  <string name="bothTheLetterOAndTheDigitZero">Beide die letter \"o\" en die syfer \"0\" kan gebruik word vir rokeer</string>
+  <string name="ifItIsLegalToCastleBothWays">Indien dit wettig is om weerskante toe te rokeer, gebruik Enter vir die koningskant</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Hoofletters is slegs belangrik indien daar dubbelsinnige situasies is met \'n loper en \'n b-pion</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Vir vooraf-skuiwe, tik bloot die skuif voordat dit jou beurt is</string>
+</resources>

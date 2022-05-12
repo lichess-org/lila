@@ -13,7 +13,7 @@
   <string name="opponentName">प्रतिद्वंद्वी का नाम</string>
   <string name="loser">हारनेवाला</string>
   <string name="from">से</string>
-  <string name="to">को</string>
+  <string name="to">तक​</string>
   <string name="humanOrComputer">खिलाड़ी का प्रतिद्वंद्वी मानव था या कंप्यूटर</string>
   <string name="aiLevel">A.I. स्तर</string>
   <string name="source">स्रोत</string>
@@ -24,4 +24,15 @@
   <string name="sortBy">क्रमबद्ध करें</string>
   <string name="analysis">विश्लेषण</string>
   <string name="onlyAnalysed">केवल ऐसे गेम जहां कंप्यूटर विश्लेषण उपलब्ध है</string>
+  <string name="color">रंग</string>
+  <string name="evaluation">मूल्यांकन</string>
+  <string name="maxNumber">अधिकतम संख्या</string>
+  <string name="maxNumberExplanation">अधिक्तम खेल​</string>
+  <string name="include">शामिल करे</string>
+  <string name="descending">अवरोही</string>
+  <string name="ascending">आरोही</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s खेल मिले</item>
+    <item quantity="other">%s खेल मिले</item>
+  </plurals>
 </resources>

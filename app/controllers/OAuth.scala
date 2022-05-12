@@ -1,19 +1,21 @@
 package controllers
 
 import cats.data.Validated
+import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsNull, JsObject, JsString, JsValue, Json }
 import play.api.mvc._
+import scala.concurrent.duration._
 import scalatags.Text.all.stringFrag
 import views._
 
 import lila.api.Context
-import lila.common.HTTPRequest
 import lila.app._
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 
-final class OAuth(env: Env) extends LilaController(env) {
+final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def reqToAuthorizationRequest(req: RequestHeader) =
     AuthorizationRequest.Raw(
@@ -151,5 +153,29 @@ final class OAuth(env: Env) extends LilaController(env) {
               }
           )
       else Unauthorized(jsonError("Missing permission")).fuccess
+    }
+
+  private val testTokenRateLimit = new lila.memo.RateLimit[IpAddress](
+    credits = 10_000,
+    duration = 10.minutes,
+    key = "api.token.test"
+  )
+  def testTokens =
+    Action.async(parse.tolerantText) { req =>
+      val bearers = req.body.split(',').view.take(1000).toList
+      testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
+        env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
+          import lila.common.Json.jodaWrites
+          Api.Data(JsObject(tokens.map { case (bearer, token) =>
+            bearer.secret -> token.fold[JsValue](JsNull) { t =>
+              Json.obj(
+                "userId"  -> t.userId,
+                "scopes"  -> t.scopes.map(_.key).mkString(","),
+                "expires" -> t.expiresOrFarFuture
+              )
+            }
+          }))
+        }
+      }(fuccess(Api.Limited)) map apiC.toHttp
     }
 }

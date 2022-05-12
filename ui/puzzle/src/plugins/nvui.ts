@@ -34,13 +34,12 @@ import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
-
 const selectSound = throttled('select');
 const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-lichess.PuzzleNVUI = function (redraw: Redraw) {
+export default function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -243,7 +242,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
       );
     },
   };
-};
+}
 
 interface StepWithUci extends Tree.Node {
   uci: Uci;

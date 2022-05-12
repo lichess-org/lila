@@ -3,7 +3,7 @@ package views.html.board
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment._
-import lila.i18n.{ MessageKey, I18nKeys => trans }
+import lila.i18n.{ I18nKeys => trans, MessageKey }
 
 object userAnalysisI18n {
 
@@ -167,7 +167,16 @@ object userAnalysisI18n {
     trans.lossSavedBy50MoveRule,
     trans.allSet,
     trans.study.searchByUsername,
-    trans.mode
+    trans.mode,
+    trans.rated,
+    trans.casual,
+    trans.since,
+    trans.until,
+    trans.switchSides,
+    trans.lichessDbExplanation,
+    trans.player,
+    trans.asWhite,
+    trans.asBlack
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

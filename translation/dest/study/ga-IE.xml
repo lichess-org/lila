@@ -90,6 +90,7 @@
   <string name="pinnedChapterComment">Trácht caibidil greamaithe</string>
   <string name="saveChapter">Sábháil caibidil</string>
   <string name="clearAnnotations">Glan anótála</string>
+  <string name="clearVariations">Glan éagsúlachtaí</string>
   <string name="deleteChapter">Scrios caibidil</string>
   <string name="deleteThisChapter">Scrios an chaibidil seo? Níl aon dul ar ais!</string>
   <string name="clearAllCommentsInThisChapter">Glan gach trácht, glif agus cruthanna tarraingthe sa chaibidil seo?</string>
@@ -168,4 +169,12 @@
   <string name="nextChapter">Céad chaibidil eile</string>
   <string name="prevChapter">Caibidil roimhe seo</string>
   <string name="studyActions">Déan staidéar ar ghníomhartha</string>
+  <string name="topics">Topaicí</string>
+  <string name="myTopics">Mo thopaicí</string>
+  <string name="popularTopics">Topaicí choitianta</string>
+  <string name="manageTopics">Bainistigh topaicí</string>
+  <string name="back">Siar</string>
+  <string name="playAgain">Imir arís</string>
+  <string name="whatWouldYouPlay">Cad a dhéanfá sa suíomh seo?</string>
+  <string name="youCompletedThisLesson">Comhghairdeas! Chríochnaigh tú an ceacht seo.</string>
 </resources>

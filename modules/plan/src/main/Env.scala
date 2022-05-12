@@ -2,6 +2,7 @@ package lila.plan
 
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
+import com.softwaremill.tagging._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
@@ -15,10 +16,12 @@ private class PlanConfig(
     @ConfigName("collection.patron") val patronColl: CollName,
     @ConfigName("collection.charge") val chargeColl: CollName,
     val stripe: StripeClient.Config,
+    val payPal: PayPalClient.Config,
     val oer: CurrencyApi.Config,
-    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
+    @ConfigName("payPal.ipn_key") val payPalIpnKey: Secret
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -35,11 +38,10 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  import StripeClient.stripeConfigLoader
-  import CurrencyApi.currencyConfigLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
   val stripePublicKey = config.stripe.publicKey
+  val payPalPublicKey = config.payPal.publicKey
 
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
@@ -53,18 +55,20 @@ final class Env(
     text = "Stripe payment methods, separated by commas".some
   )
 
-  private lazy val patronColl = db(config.patronColl)
-  private lazy val chargeColl = db(config.chargeColl)
+  private lazy val patronColl = db(config.patronColl).taggedWith[PatronColl]
+  private lazy val chargeColl = db(config.chargeColl).taggedWith[ChargeColl]
 
   lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
   private lazy val stripeClient: StripeClient = wire[StripeClient]
 
+  private lazy val payPalClient: PayPalClient = wire[PayPalClient]
+
   lazy val currencyApi: CurrencyApi = wire[CurrencyApi]
 
   lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
-  lazy val checkoutForm = wire[CheckoutForm]
+  lazy val checkoutForm = wire[PlanCheckoutForm]
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
@@ -73,22 +77,9 @@ final class Env(
     chargeColl = chargeColl
   )
 
-  lazy val api = new PlanApi(
-    stripeClient = stripeClient,
-    patronColl = patronColl,
-    chargeColl = chargeColl,
-    notifier = notifier,
-    userRepo = userRepo,
-    lightUserApi = lightUserApi,
-    cacheApi = cacheApi,
-    mongoCache = mongoCache,
-    payPalIpnKey = config.payPalIpnKey,
-    monthlyGoalApi = monthlyGoalApi,
-    currencyApi = currencyApi,
-    pricingApi = priceApi
-  )
+  lazy val api: PlanApi = wire[PlanApi]
 
-  lazy val webhookHandler = new WebhookHandler(api)
+  lazy val webhook = wire[PlanWebhook]
 
   private lazy val expiration = new Expiration(
     userRepo,
@@ -112,3 +103,6 @@ final class Env(
       }
     }
 }
+
+private trait PatronColl
+private trait ChargeColl

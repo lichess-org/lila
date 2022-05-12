@@ -21,24 +21,25 @@ object show {
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
+        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
         puzzleTag,
         puzzleNvuiTag,
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
-          Json
-            .obj(
-              "data"        -> data,
-              "pref"        -> pref,
-              "i18n"        -> bits.jsI18n(streak = isStreak),
-              "showRatings" -> ctx.pref.showRatings
-            )
-            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-            .add("difficulty" -> difficulty.map(_.key))
-        )})""")
+            Json
+              .obj(
+                "data"        -> data,
+                "pref"        -> pref,
+                "i18n"        -> bits.jsI18n(streak = isStreak),
+                "showRatings" -> ctx.pref.showRatings
+              )
+              .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+              .add("difficulty" -> difficulty.map(_.key))
+          )})""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = defaultCsp.withWebAssembly.withAnyWs.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -51,11 +52,11 @@ object show {
             if (isStreak) trans.puzzle.streakDescription.txt()
             else
               s"Lichess tactic trainer: ${puzzle.color
-                .fold(
-                  trans.puzzle.findTheBestMoveForWhite,
-                  trans.puzzle.findTheBestMoveForBlack
-                )
-                .txt()}. Played by ${puzzle.plays} players."
+                  .fold(
+                    trans.puzzle.findTheBestMoveForWhite,
+                    trans.puzzle.findTheBestMoveForBlack
+                  )
+                  .txt()}. Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true,
@@ -63,7 +64,7 @@ object show {
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
+          div(cls    := "puzzle__side__metas")
         ),
         div(cls := "puzzle__board main-board")(chessgroundBoard),
         div(cls := "puzzle__tools"),

@@ -52,13 +52,11 @@
   }
 
   .explanation {
-    @extend %box-radius;
+    @extend %box-neat;
 
-    text-shadow: 1px 1px 1px #000;
     margin: 3em 10% 1em 10%;
     padding: 2em 3em 3em 3em;
-    background: $c-good;
-    color: $c-good-over;
+    background: mix($c-good, $c-bg-box, 30%);
     font-size: 1.3em;
 
     strong {
@@ -68,6 +66,7 @@
     .button {
       margin-top: 1em;
       display: block;
+      background: $c-good;
     }
   }
 

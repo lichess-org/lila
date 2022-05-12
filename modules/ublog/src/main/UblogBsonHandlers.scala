@@ -41,6 +41,7 @@ private object UblogBsonHandlers {
       "intro"   -> true,
       "image"   -> true,
       "created" -> true,
-      "lived"   -> true
+      "lived"   -> true,
+      "topics"  -> true
     )
 }

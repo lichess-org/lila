@@ -1,8 +1,8 @@
 package views
 package html.tournament
 
+import chess.variant.{ FromPosition, Standard }
 import controllers.routes
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -58,6 +58,14 @@ object side {
             }
           )
         },
+        variantTeamLinks.get(tour.variant) filter { case (team, _) =>
+          tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
+        } map { case (team, link) =>
+          st.section(
+            if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
+            else trans.team.joinLichessVariantTeam(link)
+          )
+        },
         tour.description map { d =>
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
@@ -91,10 +99,7 @@ object side {
         ),
         tour.noBerserk option div(cls := "text", dataIcon := "")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
-        !tour.isScheduled && tour.description.isEmpty option frag(
-          trans.by(userIdLink(tour.createdBy.some)),
-          br
-        ),
+        !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),

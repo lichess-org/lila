@@ -38,7 +38,7 @@
   <string name="youAreNowASpectator">Sekarang Anda adalah penonton</string>
   <string name="pgnTags">Tagar PGN</string>
   <string name="like">Suka</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Batal Suka</string>
+  <string name="unlike">Batal Suka</string>
   <string name="newTag">Tagar baru</string>
   <string name="commentThisPosition">Komentar di posisi ini</string>
   <string name="commentThisMove">Komentari langkah ini</string>
@@ -152,4 +152,8 @@
   <string name="nextChapter">Bab selanjutnya</string>
   <string name="prevChapter">Bab sebelumnya</string>
   <string name="studyActions">Pembelajaran</string>
+  <string name="topics">Topik</string>
+  <string name="popularTopics">Topik populer</string>
+  <string name="back">Kembali</string>
+  <string name="playAgain">Main lagi</string>
 </resources>

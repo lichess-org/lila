@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
   <string name="pgnTags">PGN-tunnisteet</string>
   <string name="like">Tykkää</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Poista tykkäys</string>
+  <string name="unlike">Poista tykkäys</string>
   <string name="newTag">Uusi tunniste</string>
   <string name="commentThisPosition">Kommentoi asemaa</string>
   <string name="commentThisMove">Kommentoi siirtoa</string>
@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>
   <string name="saveChapter">Tallenna luku</string>
   <string name="clearAnnotations">Poista kommentit</string>
+  <string name="clearVariations">Tyhjennä muunnelmat</string>
   <string name="deleteChapter">Poista luku</string>
   <string name="deleteThisChapter">Poistetaanko tämä luku? Et voi palauttaa sitä enää!</string>
   <string name="clearAllCommentsInThisChapter">Poista kaikki kommentit, symbolit ja piirtokuviot tästä luvusta?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Seuraava luku</string>
   <string name="prevChapter">Edellinen luku</string>
   <string name="studyActions">Tutkielmatoiminnot</string>
+  <string name="topics">Aiheet</string>
+  <string name="myTopics">Omat aiheeni</string>
+  <string name="popularTopics">Suositut aiheet</string>
+  <string name="manageTopics">Aiheiden hallinta</string>
+  <string name="back">Takaisin</string>
+  <string name="playAgain">Pelaa uudelleen</string>
+  <string name="whatWouldYouPlay">Mitä pelaisit tässä asemassa?</string>
+  <string name="youCompletedThisLesson">Onnittelut! Olet suorittanut tämän oppiaiheen.</string>
 </resources>

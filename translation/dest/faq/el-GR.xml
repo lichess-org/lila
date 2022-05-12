@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Πώς μπορώ να γίνω διαχειριστής;</string>
   <string name="youCannotApply">Δεν μπορείτε να κάνετε αίτηση για να γίνετε διαχειριστής. Αν δούμε κάποιον που πιστεύουμε ότι θα ήταν καλός διαχειριστής θα επικοινωνήσουμε απευθείας μαζί τους.</string>
   <string name="isCorrespondenceDifferent">Είναι το σκάκι αλληλογραφίας διαφορετικό από το κανονικό σκάκι;</string>
+  <string name="pleaseReadFairPlayPage">Για περισσότερες πληροφορίες, διαβάστε τη %s</string>
+  <string name="fairPlayPage">σελίδα fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Στο Lichess, η κύρια διαφορά στους κανόνες για το σκάκι αλληλογραφίας είναι ότι επιτρέπεται ένα opening book. Η χρήση μηχανών εξακολουθεί να απαγορεύεται και μπορεί να έχει ως αποτέλεσμα το κλείσιμο του λογαριασμού σας. Αν και το ICCF επιτρέπει τη χρήση μηχανών, το Lichess δεν το κάνει.</string>
   <string name="gameplay">Παιχνίδι</string>
   <string name="howBulletBlitzEtcDecided">Πώς αποφασίζεται ποιοι χρόνοι είναι τι (π.χ. Bullet, Blitz);</string>

@@ -1,11 +1,7 @@
 import { h, Hooks } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { bind } from 'common/snabbdom';
 import LobbyController from '../ctrl';
-
-function renderRange(range: string) {
-  return h('div.range', range.replace('-', '–'));
-}
 
 export function hooks(ctrl: LobbyController): Hooks {
   return bind(
@@ -14,7 +10,7 @@ export function hooks(ctrl: LobbyController): Hooks {
       const id =
         (e.target as HTMLElement).getAttribute('data-id') ||
         ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
-      if (id === 'custom') $('.config_hook').trigger('mousedown');
+      if (id === 'custom') ctrl.setupCtrl.openModal('hook');
       else if (id) ctrl.clickPool(id);
     },
     ctrl.redraw
@@ -37,8 +33,10 @@ export function render(ctrl: LobbyController) {
           attrs: { 'data-id': pool.id },
         },
         [
-          h('div.clock', pool.lim + '+' + pool.inc),
-          active && member!.range ? renderRange(member!.range!) : h('div.perf', pool.perf),
+          h('div.clock', `${pool.lim}+${pool.inc}`),
+          active && member!.range && !ctrl.opts.hideRatings
+            ? h('div.range', member.range.replace('-', '–'))
+            : h('div.perf', pool.perf),
           active ? spinner() : null,
         ]
       );

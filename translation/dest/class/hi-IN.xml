@@ -12,7 +12,6 @@
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नई कक्षा</string>
   <string name="closeClass">बंद कक्षा</string>
-  <string name="closedByX">%s द्वारा बंद किया गया</string>
   <string name="reopen">फिर से खोलना</string>
   <string name="removeStudent">छात्र को हटाओ</string>
   <string name="removedStudents">हटा दिया</string>
@@ -66,6 +65,9 @@
   <string name="releaseDesc1">मुक्त किए गए खाते को फिर से प्रबंधित नहीं किया जा सकता है। छात्र kid-mode को टॉगल करने और पासवर्ड रीसेट करने में सक्षम होगा।</string>
   <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
   <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
+  <string name="closeStudent">खातें को बंद करें</string>
+  <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
+  <string name="closeDesc1">छात्र इस खाते का उपयोग फिर कभी नहीं कर पायेगा। बंद करना स्थायी है। सुनिश्चित करें कि छात्र समझता है और सहमत है।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
@@ -84,7 +86,6 @@
   <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
   <string name="winrate">जीत दर</string>
   <string name="na">N/A</string>
-  <string name="news">कक्षा समाचार</string>
   <string name="editNews">समाचार संपादित करें</string>
   <string name="notifyAllStudents">सभी छात्रों को सूचित करें</string>
   <string name="nothingHere">अभी तक यहाँ कुछ भी नहीं है</string>

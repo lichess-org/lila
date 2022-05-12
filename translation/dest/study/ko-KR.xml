@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">당신은 이제 관전자입니다</string>
   <string name="pgnTags">PGN 태그</string>
   <string name="like">좋아요</string>
+  <string name="unlike">좋아요 취소</string>
   <string name="newTag">새 태그</string>
   <string name="commentThisPosition">이 포지션에 댓글 달기</string>
   <string name="commentThisMove">이 수에 댓글 달기</string>
@@ -77,6 +78,7 @@
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
+  <string name="clearVariations">파생 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>
@@ -151,4 +153,12 @@
   <string name="nextChapter">다음 챕터</string>
   <string name="prevChapter">이전 챕터</string>
   <string name="studyActions">연구 옵션</string>
+  <string name="topics">주제</string>
+  <string name="myTopics">내 주제</string>
+  <string name="popularTopics">인기 주제</string>
+  <string name="manageTopics">주제 관리</string>
+  <string name="back">뒤로</string>
+  <string name="playAgain">다시 플레이</string>
+  <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
+  <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
 </resources>

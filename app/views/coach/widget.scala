@@ -43,7 +43,7 @@ object widget {
                 },
                 profile.countryInfo.map { c =>
                   frag(
-                    span(cls := "country")(
+                    span(cls  := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
@@ -63,7 +63,7 @@ object widget {
                   frag("FIDE: ", r)
                 },
                 a(href := routes.User.show(c.user.username))(
-                  c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map {
+                  c.user.best6Perfs.filter(c.user.hasEstablishedRating).map {
                     showPerfRating(c.user, _)
                   }
                 )

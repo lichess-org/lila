@@ -32,4 +32,13 @@
   <string name="evaluation">Hodnocení počítače</string>
   <string name="maxNumber">Maximální počet</string>
   <string name="include">Zahrnout</string>
+  <string name="descending">Sestupně</string>
+  <string name="ascending">Vzestupně</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Nalezena %s hra</item>
+    <item quantity="few">Nalezeny %s hry</item>
+    <item quantity="many">Nalezeno %s her</item>
+    <item quantity="other">Nalezeno %s her</item>
+  </plurals>
+  <string name="ratingExplanation">Průměrné hodnocení obou hráčů</string>
 </resources>

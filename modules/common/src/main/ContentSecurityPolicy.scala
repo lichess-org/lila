@@ -27,6 +27,13 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.stripe.com" :: frameSrc
     )
 
+  def withPayPal =
+    copy(
+      connectSrc = "https://*.paypal.com" :: connectSrc,
+      scriptSrc = "https://*.paypal.com" :: scriptSrc,
+      frameSrc = "https://*.paypal.com" :: frameSrc
+    )
+
   def finalizeWithTwitch =
     copy(
       defaultSrc = Nil,
@@ -72,6 +79,8 @@ case class ContentSecurityPolicy(
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
+
+  def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
 
   override def toString: String =
     List(

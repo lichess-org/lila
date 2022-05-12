@@ -33,10 +33,10 @@ case class Pref(
     challenge: Int,
     message: Int,
     studyInvite: Int,
-    coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
     mention: Boolean,
+    corresEmailNotif: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
@@ -45,6 +45,7 @@ case class Pref(
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
+    agreement: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -61,8 +62,7 @@ case class Pref(
 
   def realSoundSet = SoundSet(soundSet)
 
-  def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
-  def coordsClass    = Coords classOf coords
+  def coordsClass = Coords classOf coords
 
   def hasDgt = tags contains Tag.dgt
 
@@ -122,6 +122,12 @@ case class Pref(
   val showRatings = ratings == Ratings.YES
 
   def is2d = !is3d
+
+  def agreementNeededSince: Option[DateTime] = agreement < Agreement.current option Agreement.changedAt
+
+  def agree = copy(agreement = Agreement.current)
+
+  def hasKeyboardMove = keyboardMove == KeyboardMove.YES
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -227,6 +233,8 @@ object Pref {
   }
 
   object Mention extends BooleanPref
+
+  object CorresEmailNotif extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -363,18 +371,20 @@ object Pref {
   }
 
   object Challenge {
-    val NEVER  = 1
-    val RATING = 2
-    val FRIEND = 3
-    val ALWAYS = 4
+    val NEVER      = 1
+    val RATING     = 2
+    val FRIEND     = 3
+    val REGISTERED = 4
+    val ALWAYS     = 5
 
     val ratingThreshold = 300
 
     val choices = Seq(
-      NEVER  -> "Never",
-      RATING -> s"If rating is ± $ratingThreshold",
-      FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      NEVER      -> "Never",
+      RATING     -> s"If rating is ± $ratingThreshold",
+      FRIEND     -> "Only friends",
+      REGISTERED -> "If registered",
+      ALWAYS     -> "Always"
     )
   }
 
@@ -414,6 +424,11 @@ object Pref {
     )
   }
 
+  object Agreement {
+    val current   = 2
+    val changedAt = new DateTime(2021, 12, 28, 8, 0)
+  }
+
   object Zen     extends BooleanPref {}
   object Ratings extends BooleanPref {}
 
@@ -423,7 +438,8 @@ object Pref {
 
   def create(user: User) = default.copy(
     _id = user.id,
-    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT
+    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT,
+    agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
   )
 
   lazy val default = Pref(
@@ -452,13 +468,13 @@ object Pref {
     coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.ALWAYS,
+    challenge = Challenge.REGISTERED,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
-    coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     mention = true,
+    corresEmailNotif = false,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
@@ -467,9 +483,10 @@ object Pref {
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
+    agreement = Agreement.current,
     tags = Map.empty
   )
 
-  import ornicar.scalalib.Zero
-  implicit def PrefZero: Zero[Pref] = Zero.instance(default)
+  import alleycats.Zero
+  implicit def PrefZero: Zero[Pref] = Zero(default)
 }

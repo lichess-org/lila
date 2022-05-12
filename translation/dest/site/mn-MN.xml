@@ -387,7 +387,6 @@
   <string name="profileCompletion">Таны бүртгэл: %s</string>
   <string name="xRating">%s чансаа</string>
   <string name="ifNoneLeaveEmpty">Байхгүй бол хоосон орхи</string>
-  <string name="gameCompletionRate">Тоглолт дуусгасан байдал: %s</string>
   <string name="profile">Гишүүний хуудас</string>
   <string name="editProfile">Танилцуулга хуудсаа засварлах</string>
   <string name="firstName">Өөрийн нэр</string>
@@ -683,6 +682,5 @@
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
   <string name="lifetimeScore">Амьдралын оноо</string>
-  <string name="agreementAccount">Олон хаяг нээхгүйгээ амлаж байна уу?</string>
   <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
 </resources>

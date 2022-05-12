@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">You are now a spectator</string>
   <string name="pgnTags">PGN tags</string>
   <string name="like">Like</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Unlike</string>
+  <string name="unlike">Unlike</string>
   <string name="newTag">New tag</string>
   <string name="commentThisPosition">Comment on this position</string>
   <string name="commentThisMove">Comment on this move</string>
@@ -156,4 +156,12 @@
   <string name="nextChapter">Next chapter</string>
   <string name="prevChapter">Previous chapter</string>
   <string name="studyActions">Study actions</string>
+  <string name="topics">Topics</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
+  <string name="manageTopics">Manage topics</string>
+  <string name="back">Back</string>
+  <string name="playAgain">Play again</string>
+  <string name="whatWouldYouPlay">What would you play in this position?</string>
+  <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
 </resources>

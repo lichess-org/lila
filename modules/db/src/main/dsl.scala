@@ -16,7 +16,7 @@
 
 package lila.db
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 import reactivemongo.api.bson._
 
@@ -26,7 +26,7 @@ trait dsl {
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
-  //**********************************************************************************************//
+  // **********************************************************************************************//
   // Helpers
   val $empty: Bdoc = document.asStrict
 
@@ -46,11 +46,11 @@ trait dsl {
   def $int(i: Int)         = BSONInteger(i)
 
   // End of Helpers
-  //**********************************************************************************************//
+  // **********************************************************************************************//
 
-  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero.instance($empty)
+  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero($empty)
 
-  //**********************************************************************************************//
+  // **********************************************************************************************//
   // Top Level Logical Operators
   def $or(expressions: Bdoc*): Bdoc = {
     $doc("$or" -> expressions)
@@ -68,9 +68,9 @@ trait dsl {
     $doc("$not" -> expression)
   }
   // End of Top Level Logical Operators
-  //**********************************************************************************************//
+  // **********************************************************************************************//
 
-  //**********************************************************************************************//
+  // **********************************************************************************************//
   // Top Level Evaluation Operators
   def $text(term: String): Bdoc = {
     $doc("$text" -> $doc("$search" -> term))
@@ -84,9 +84,9 @@ trait dsl {
     $doc("$where" -> expr)
   }
   // End of Top Level Evaluation Operators
-  //**********************************************************************************************//
+  // **********************************************************************************************//
 
-  //**********************************************************************************************//
+  // **********************************************************************************************//
   // Top Level Field Update Operators
   def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$inc" -> $doc((Seq(item) ++ items): _*))
@@ -174,9 +174,9 @@ trait dsl {
   }
 
   // End of Top Level Field Update Operators
-  //**********************************************************************************************//
+  // **********************************************************************************************//
 
-  //**********************************************************************************************//
+  // **********************************************************************************************//
   // Top Level Array Update Operators
 
   def $addToSet(item: ElementProducer, items: ElementProducer*): Bdoc =
@@ -207,10 +207,10 @@ trait dsl {
     $doc((if (add) "$addToSet" else "$pull") -> $doc(key -> value))
 
   // End ofTop Level Array Update Operators
-  //**********************************************************************************************//
+  // **********************************************************************************************//
 
-  /** Represents the initial state of the expression which has only the name of the field.
-    * It does not know the value of the expression.
+  /** Represents the initial state of the expression which has only the name of the field. It does not know
+    * the value of the expression.
     */
   trait ElementBuilder {
     def field: String
@@ -361,7 +361,7 @@ trait dsl {
           "pipeline" -> {
             $doc(
               "$match" -> $doc(
-                "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+                "$expr" -> $doc("$eq" -> $arr(s"$$$foreign", "$$local"))
               )
             ) :: pipe
           }

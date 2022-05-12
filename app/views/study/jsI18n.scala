@@ -9,7 +9,7 @@ object jsI18n {
 
   def apply()(implicit lang: Lang) =
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
-      i18nJsObject(i18nKeys)
+      i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
   val i18nKeys: List[lila.i18n.MessageKey] = {
     import trans.study._
@@ -36,6 +36,8 @@ object jsI18n {
       pgnTags,
       like,
       unlike,
+      topics,
+      manageTopics,
       newTag,
       commentThisPosition,
       commentThisMove,
@@ -51,6 +53,7 @@ object jsI18n {
       previous,
       next,
       last,
+      nextChapter,
       shareAndExport,
       cloneStudy,
       studyPgn,
@@ -75,6 +78,7 @@ object jsI18n {
       pinnedChapterComment,
       saveChapter,
       clearAnnotations,
+      clearVariations,
       deleteChapter,
       deleteThisChapter,
       clearAllCommentsInThisChapter,
@@ -124,6 +128,18 @@ object jsI18n {
       nbGames,
       nbMembers,
       pasteYourPgnTextHereUpToNbGames
+    ).map(_.key)
+  }
+
+  val gamebookPlayKeys: List[lila.i18n.MessageKey] = {
+    import trans.study._
+    List(
+      back,
+      playAgain,
+      nextChapter,
+      trans.retry,
+      whatWouldYouPlay,
+      youCompletedThisLesson
     ).map(_.key)
   }
 }

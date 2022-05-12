@@ -17,6 +17,8 @@
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
+  <string name="asWhite">الأبيض</string>
+  <string name="asBlack">الأسود</string>
   <string name="randomColor">لون عشوائي</string>
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
@@ -563,7 +565,6 @@
   <string name="profileCompletion">اكتمال الملف الشخصي: %s</string>
   <string name="xRating">تقييم %s</string>
   <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
-  <string name="gameCompletionRate">معدل إكمال المباراة: %s</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>
@@ -572,6 +573,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
+  <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
@@ -942,7 +944,6 @@
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
   <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
-  <string name="agreementAccount">أوافق على أني لن أنشئ حسابات متعددة.</string>
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
@@ -1039,4 +1040,8 @@
   <string name="abortTheGame">الغي المباراة</string>
   <string name="resignTheGame">انسحاب طوعي</string>
   <string name="youCantStartNewGame">لا يمكن أن تبدأ مباراة قبل الانتهاء من المباراة الحالية.</string>
+  <string name="since">منذ</string>
+  <string name="until">حتى</string>
+  <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
+  <string name="switchSides">تبديل جهة اللعب</string>
 </resources>

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hogyan lehetek moderátor?</string>
   <string name="youCannotApply">Nincs lehetőség külön moderátornak jelentkezni. Ha valakit alkalmasnak találunk a feladatra, őt személyesen megkeressük.</string>
   <string name="isCorrespondenceDifferent">Van-e különbség a levelezési és hagyományos sakk között?</string>
+  <string name="pleaseReadFairPlayPage">További információkért kérjük olvasd el a %s</string>
+  <string name="fairPlayPage">sportszerűség oldalt</string>
   <string name="youCanUseOpeningBookNoEngine">A Lichess-en a legnagyobb különbség levelezési sakk szabályaiban, hogy megengedett a megnyitások könyvének használata. Sakkprogramok igénybevétele továbbra is tilos, aminek megszegéséért a felhasználót ezért megjelölik. Hiába lehet az ICCF-en, a Lichess-en nem.</string>
   <string name="gameplay">Játékmenet</string>
   <string name="howBulletBlitzEtcDecided">Mi alapján történik a különböző játékidők (Bullet, Blitz, stb.) besorolása?</string>

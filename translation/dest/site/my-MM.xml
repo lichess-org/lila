@@ -16,6 +16,8 @@
   <string name="stalemate">Stalemate</string>
   <string name="white">အဖြူ</string>
   <string name="black">အမည်း</string>
+  <string name="asWhite">အဖြူ အနေဖြင့်</string>
+  <string name="asBlack">အနက် အနေဖြင့်</string>
   <string name="randomColor">အဆင်ပြေသည့်ဘက်</string>
   <string name="createAGame">ဂိမ်းဖန်တီးမည်</string>
   <string name="whiteIsVictorious">အဖြူရောင်အနိုင်ရသည်</string>
@@ -61,6 +63,9 @@
   <string name="moveTimes">အလှည့်ကြာချိန်</string>
   <string name="flipBoard">ကစားခုံလှန်ပါ</string>
   <string name="threefoldRepetition">အနေအထား  သုံးကြိမ် ထပ်သည်</string>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s မိနစ်</item>
+  </plurals>
   <string name="time">အချိန်</string>
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
@@ -69,6 +74,7 @@
   <string name="play">ကစားမည်</string>
   <string name="thisAccountViolatedTos">ဤအကောင့်က Lichess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
   <string name="mustBeInTeam">Must be in team %s</string>
+  <string name="orUploadPgnFile">သို့မဟုတ် PGN ဖိုင် တစ်ခုကို တင်ပို့</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Less than %s minute</item>
   </plurals>
@@ -84,7 +90,9 @@
   <string name="error.maxLength">အက္ခရာ အများဆုံး %s လုံး သာပါရှိနိုင်သည်</string>
   <string name="error.min">အက္ခရာ အနည်းဆုံး %s လုံး ပါရှိရမည်</string>
   <string name="error.max">အက္ခရာ အများဆုံး %s လုံးသာ ပါရှိနိုင်သည်</string>
+  <string name="ifRegistered">မှတ်ပုံတင်ထားလျှင်</string>
   <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">(%s တွင် ဖော်ပြထားသော အကြောင်းရင်းတို့ အတွက်မှ လွဲ၍) အသုံးပြုခွင့် အကောင့် တစ်ခုထက် ပို၍ မပြုလုပ်ရန် သဘောတူပါသည်။</string>
   <string name="important">အရေးကြီးပါသည်</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s တွင် အဖြေ ရှိပြီး ဖြစ်နိုင်ပါသည်။</string>
   <string name="inTheFAQ">အများသိလိုသော မေးခွန်းများတွင် ရှိပါသည်။</string>
@@ -124,4 +132,8 @@
   <string name="cantDoThisTwice">လူကြီးမင်း၏ အကောင့်အား ဒုတိယ အကြိမ် ပိတ်လိုက်လျှင် ပြန်လည် မရနိုင်တော့ပါ။</string>
   <string name="emailAssociatedToaccount">အကောင့်နှင့် ဆက်စပ်သော အီးမေးလ် လိပ်စာ</string>
   <string name="sentEmailWithLink">လင့်ခ် ပါဝင်သော အီးမေးလ် တစ်စောင် သင့်ထံ ပို့လိုက်ပါပြီ။</string>
+  <string name="since">မှ</string>
+  <string name="until">ထိ</string>
+  <string name="lichessDbExplanation">Lichess ရှိ ကစားသမား အားလုံးထံမှ ကျပန်း ရွေးချယ်ထားသည့် လက်ရည်တွက် ကစားပွဲများ</string>
+  <string name="switchSides">ဘက်ပြောင်း</string>
 </resources>

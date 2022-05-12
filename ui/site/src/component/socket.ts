@@ -3,6 +3,7 @@ import idleTimer from './idle-timer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import once from './once';
 
 type Sri = string;
 type Tpe = string;
@@ -165,7 +166,12 @@ export default class StrongSocket {
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
+      if (!stack.includes('round.nvui'))
+        setTimeout(() => {
+          if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
+            this.send('rep', { n: `soc: ${message} ${stack}` });
+          else lichess.socket.destroy();
+        }, 10000);
     }
     this.debug('send ' + message);
     try {

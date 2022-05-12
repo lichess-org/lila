@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Bidra som %s</string>
+  <string name="donateAsX">Bidra som %s</string>
   <string name="lichessPatron">Lichess-patron</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli Lichess-patron</string>
@@ -16,7 +16,7 @@
   <string name="thankYou">Takk for bidraget ditt!</string>
   <string name="youHaveLifetime">Du har patronkonto på livstid. Det er rett og slett storartet!</string>
   <string name="patronUntil">Du har patronkonto fram til %s.</string>
-  <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Uten fornyelse går kontoen din tilbake til en vanlig konto.</string>
   <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
   <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli patron!</string>
   <string name="lifetime">Livstid</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Annet</string>
   <string name="pleaseEnterAmountInX">Angi beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
   <string name="celebratedPatrons">De velaktede patronene som gjør Lichess mulig</string>
   <string name="whereMoneyGoes">Hva går pengene til?</string>
@@ -44,7 +43,6 @@ Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
-  <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
   <string name="patronFeatures">Er noen funksjoner forbeholdt patroner?</string>
   <string name="noPatronFeatures">Nei, Lichess er helt gratis, for alltid og for alle. Det er et løfte.
 Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
@@ -62,10 +60,11 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="giftPatronWings">Gi spiller patronvinger</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
-  <string name="cancelSupport">avbryt støtte</string>
+  <string name="cancelSupport">Avbryt støtten din</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
+  <string name="stopPaymentsPayPal">Avslutt PayPal-abonnement og stans betalinger:</string>
   <string name="noLongerSupport">Avbryt støtten til Lichess</string>
   <string name="viewOthers">Vis andre Lichess-patroner</string>
   <string name="date">Dato</string>

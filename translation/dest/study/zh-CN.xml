@@ -38,7 +38,7 @@
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
   <string name="pgnTags">PGN 标签</string>
   <string name="like">赞</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">取消赞</string>
+  <string name="unlike">取消赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
   <string name="commentThisMove">评论这步走法</string>
@@ -78,6 +78,7 @@
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
   <string name="clearAnnotations">清除注解</string>
+  <string name="clearVariations">清除棋路</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
@@ -107,7 +108,7 @@
   <string name="visibility">权限</string>
   <string name="public">公开</string>
   <string name="unlisted">未列出</string>
-  <string name="inviteOnly">仅邀请</string>
+  <string name="inviteOnly">仅限邀请</string>
   <string name="allowCloning">允许复制</string>
   <string name="nobody">没人</string>
   <string name="onlyMe">仅自己</string>
@@ -152,4 +153,12 @@
   <string name="nextChapter">下一章节</string>
   <string name="prevChapter">上一章节</string>
   <string name="studyActions">研讨操作</string>
+  <string name="topics">主题</string>
+  <string name="myTopics">我的主题</string>
+  <string name="popularTopics">热门主题</string>
+  <string name="manageTopics">管理主题</string>
+  <string name="back">回到起始</string>
+  <string name="playAgain">重玩</string>
+  <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
+  <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
 </resources>

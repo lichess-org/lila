@@ -2,7 +2,7 @@ package lila.app
 
 package ui
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
@@ -12,19 +12,20 @@ import lila.user.Title
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  val dataTag      = attr("data-tag")
-  val dataIcon     = attr("data-icon")
-  val dataHref     = attr("data-href")
-  val dataCount    = attr("data-count")
-  val dataColor    = attr("data-color")
-  val dataFen      = attr("data-fen")
-  val dataRel      = attr("data-rel")
-  val novalidate   = attr("novalidate").empty
-  val datetimeAttr = attr("datetime")
-  val dataBotAttr  = attr("data-bot").empty
-  val deferAttr    = attr("defer").empty
-  val downloadAttr = attr("download").empty
-  val viewBoxAttr  = attr("viewBox")
+  val dataTag                = attr("data-tag")
+  val dataIcon               = attr("data-icon")
+  val dataHref               = attr("data-href")
+  val dataCount              = attr("data-count")
+  val dataColor              = attr("data-color")
+  val dataFen                = attr("data-fen")
+  val dataRel                = attr("data-rel")
+  val novalidate             = attr("novalidate").empty
+  val datetimeAttr           = attr("datetime")
+  val dataBotAttr            = attr("data-bot").empty
+  val deferAttr              = attr("defer").empty
+  val downloadAttr           = attr("download").empty
+  val viewBoxAttr            = attr("viewBox")
+  def attrData(name: String) = attr(s"data-$name")
 
   object frame {
     val scrolling       = attr("scrolling")
@@ -99,15 +100,16 @@ trait ScalatagsPrefix {
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
-    extends Styles
-    with ScalatagsBundle
+    extends ScalatagsBundle
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
     with ScalatagsPrefix {
 
-  val trans = lila.i18n.I18nKeys
-  def main  = scalatags.Text.tags2.main
+  val trans     = lila.i18n.I18nKeys
+  def main      = scalatags.Text.tags2.main
+  def cssWidth  = scalatags.Text.styles.width
+  def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
@@ -145,7 +147,7 @@ trait ScalatagsExtensions {
   }
 
   val emptyFrag: Frag                   = new RawFrag("")
-  implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
+  implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted

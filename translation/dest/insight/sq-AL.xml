@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="crunchingData">Tani po përpunohen të dhëna vetëm për ju!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Ndoshta t’u kërkohet të ndryshojnë %s e tyre?</string>
+</resources>

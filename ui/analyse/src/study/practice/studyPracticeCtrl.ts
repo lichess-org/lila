@@ -12,7 +12,6 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     nbMoves = prop(0),
     // null = ongoing, true = win, false = fail
     success = prop<boolean | null>(null),
-    analysisUrl = prop(''),
     autoNext = storedProp('practice-auto-next', true);
 
   lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`, true);
@@ -27,7 +26,6 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     success(null);
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
-    analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
   }
   onLoad();
 
@@ -97,7 +95,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
       root.practice!.resume();
     },
     isWhite: root.bottomIsWhite,
-    analysisUrl,
+    analysisUrl: () => `/analysis/standard/${root.node.fen.replace(/ /g, '_')}?color=${root.bottomColor()}`,
     autoNext,
   };
 }

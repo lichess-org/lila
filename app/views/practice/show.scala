@@ -21,16 +21,16 @@ object show {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.practice=${safeJsonValue(
-          Json.obj(
-            "practice" -> data.practice,
-            "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> board.userAnalysisI18n(),
-            "explorer" -> views.html.board.bits.explorerConfig
-          )
-        )}""")
+            Json.obj(
+              "practice" -> data.practice,
+              "study"    -> data.study,
+              "data"     -> data.analysis,
+              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys)),
+              "explorer" -> views.html.board.bits.explorerConfig
+            )
+          )}""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = defaultCsp.withWebAssembly.withAnyWs.some,
       chessground = false,
       zoomable = true
     ) {

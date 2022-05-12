@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттардағыдай жекешелендіру сияқты қоқыстан еркін екендігін білдіреді.</string>
   <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
   <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Личестің тірегі – ақшалай жәрдем берушілер мен еріктілер тобы.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Личестің тірегі – демеу берушілер мен еріктілер тобы.</string>
   <string name="findMoreAndSeeHowHelp">%1$s туралы көбірек білуіңізге болады (%2$s қоса). Егер Лическе ерікті ретінде уақыт пен қабілетіңізбен көмек көрсетем десеңіз, %3$s бар.</string>
   <string name="beingAPatron">жәрдем беруші болу</string>
   <string name="breakdownOfOurCosts">біздің шығындар тізімі</string>
@@ -33,9 +33,9 @@
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">Личесте қандай шахмат түрлерін ойнасам болады?</string>
-  <string name="lichessSupportChessAnd">Личесте әдеттегі шахмат пен %1$s бар.</string>
-  <string name="eightVariants">8 шахмат түрлері</string>
+  <string name="whatVariantsCanIplay">Личесте шахматтың қай түрлерін ойнасам болады?</string>
+  <string name="lichessSupportChessAnd">Личесте классикалық әрі %1$s бар.</string>
+  <string name="eightVariants">шахматтың 8 түрі</string>
   <string name="whatIsACPL">Қателіктердің орташа мәні (ACPL – average centipawn loss) деген не?</string>
   <string name="acplExplanation">Қателіктердің орташа мәнінің бірлігі сентипоун (\"centi\" - жүзден бір бөлік, \"pawn\" - сарбаз). Бұл шама ойыншының жетістік дәрежесін көрсетеді. Ойын кезінде бұл шама соншалықты маңызды емес, бірақ компьютер үшін ойын күйін бағалауда орны зор.
 
@@ -115,7 +115,7 @@
   <string name="ratingLeaderboards">Мықтылар қатары</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">белгіленген рейтингте кем дегенде 30 бағаланатын ойын ойнау,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі аптада белгіленген рейтингте бағаланатын ойынға қатысу,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">рейтинг ауытқуы стандарт шахматта %1$s-тен кем, басқа түрлерінде %2$s-тен кем болу керек,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">рейтинг ауытқуы классикалық шахматта %1$s-тен кем, басқа түрлерінде %2$s-тен кем болу керек,</string>
   <string name="beInTopTen">белгіленген рейтингтің үздік 10 қатарында болу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Екінші талап – өз тіркелгілерін пайдаланбайтын ойыншылар Мықтылар қатарынан шығады.</string>
   <string name="whyAreRatingHigher">Рейтинг басқа FIDE, USCF пен ICC сияқты ұйымдармен салыстырғанда неге жоғарылау болып тұр?</string>
@@ -123,7 +123,7 @@
 
 Рейтингті салыстырмалы шама деп ойлаған дұрыс: ойыншылар арасында рейтинг айырмашылығына қарап, кім жеңетінін, тең ойнайтынын не жеңілетінін бағалауға болады. \"Менің рейтингім осынша\" дегеннің ешбір мәні жоқ, тек басқа ойыншымен салыстырғаннан пайдасы болар.</string>
   <string name="howToHideRatingWhilePlaying">Рейтингті ойын кезінде қалай жасырсам болады?</string>
-  <string name="enableZenMode">%1$s-ге кіріп Zen қалпын қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
+  <string name="enableZenMode">%1$s-ге кіріп Оқшау көріністі қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
   <string name="displayPreferences">баптауларды көрсету</string>
   <string name="connexionLostCanIGetMyRatingBack">Желінің ажырауы/кідірісі кесірінен ойын тоқталды. Рейтинг ұпайларын қайтара аласыз ба?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Өкінішке орай, бұл ажырау не кідіріс кімнің жағынан болғанына қарамастан, біз осы жайтта ұпайды қайтара алмаймыз. Біздің жағымыздан туындаған ажырау мен кідіріс – мүлдем сирек болатын жағдай. Онымен қатар, Личес жүйесінің қайта қосылуынан сіз уақыт жоғалтсаңыз, әділсіз шығын болмағандай біз ойынды үзіп тастаймыз.</string>

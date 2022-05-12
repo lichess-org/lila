@@ -16,7 +16,7 @@
   <string name="thankYou">Thank you for your donation!</string>
   <string name="youHaveLifetime">You have a Lifetime Patron account. That's pretty awesome!</string>
   <string name="patronUntil">You have a Patron account until %s.</string>
-  <string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">If not renewed, your account will then revert to a regular account.</string>
   <string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class chess platform.</string>
   <string name="weRelyOnSupport">We rely on support from people like you to make it possible. If you enjoy using Lichess, please consider supporting us by donating and becoming a Patron!</string>
   <string name="lifetime">Lifetime</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Other</string>
   <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
   <string name="celebratedPatrons">The celebrated Patrons who make Lichess possible</string>
   <string name="whereMoneyGoes">Where does the money go?</string>
@@ -45,7 +44,6 @@ Or you can %s.</string>
   <string name="contactSupport">contact Lichess support</string>
   <string name="otherMethods">Other methods of donation?</string>
   <string name="bankTransfers">We also accept bank transfers</string>
-  <string name="bitcoin">And here's our bitcoin address: %s</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That's a promise.
 However, Patrons get bragging rights with a cool new profile icon.</string>
@@ -63,10 +61,11 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
-  <string name="cancelSupport">cancel your support</string>
+  <string name="cancelSupport">Cancel your support</string>
   <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
+  <string name="stopPaymentsPayPal">Cancel PayPal subscription and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>

@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Világos</string>
   <string name="black">Sötét</string>
+  <string name="asWhite">világossal</string>
+  <string name="asBlack">sötéttel</string>
   <string name="randomColor">Véletlen szín</string>
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
@@ -87,6 +89,7 @@
     <item quantity="one">Matt %s féllépésben</item>
     <item quantity="other">Matt %s féllépésben</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
@@ -94,6 +97,9 @@
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
+  <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="lossOr50MovesByPriorMistake">Vereség, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="unknownDueToRounding">Győzelem/vereség csak akkor garantált, ha az adatbázis által ajánlott lépéssort követték az utolsó ütés vagy gyaloglépés óta, a Syzygy tábla DTZ értékeinek lehetséges kerekítései miatt.</string>
   <string name="allSet">Mehet!</string>
   <string name="importPgn">PGN importálás</string>
   <string name="delete">Töröl</string>
@@ -176,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s óra</item>
     <item quantity="other">%s óra</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s perc</item>
+    <item quantity="other">%s perc</item>
   </plurals>
   <string name="time">Játékidő</string>
   <string name="rating">Értékszám</string>
@@ -340,6 +350,7 @@
   <string name="leaderboard">Ranglista</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
+  <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="toStudy">Tanulmány</string>
@@ -365,6 +376,8 @@
   <string name="follow">Követés</string>
   <string name="following">Követve</string>
   <string name="unfollow">Követés vége</string>
+  <string name="followX">%s követése</string>
+  <string name="unfollowX">%s követésének kikapcsolása</string>
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
@@ -437,7 +450,6 @@
   <string name="profileCompletion">Profil teljessége: %s</string>
   <string name="xRating">%s értékszám</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
-  <string name="gameCompletionRate">Végigjátszott partik aránya: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
@@ -446,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ország vagy zászló</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
+  <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
   <string name="onlinePlayers">Online játékosok</string>
@@ -489,6 +502,7 @@
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és mondd el, mi a gond a játékos viselkedésével. Ne csak annyit írj, hogy \"csalt\", hanem próbáld elmondani, miből gondolod ezt. A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
   <string name="by">Létrehozta: %s</string>
+  <string name="importedByX">Importálva %s által</string>
   <string name="thisTopicIsNowClosed">Lezárt téma.</string>
   <string name="blog">Blog</string>
   <string name="notes">Jegyzetek</string>
@@ -559,6 +573,7 @@
   <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
   <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
+  <string name="ifRegistered">Csak regisztrált</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
   <string name="menu">Menü</string>
@@ -780,7 +795,7 @@
   <string name="currentMatchScore">Jelenlegi pontszám</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
-  <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Beleegyezem, hogy nem fogok egynél több felhasználói fiókot létrehozni (kivéve a %s között ismertetett okok miatt).</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
@@ -878,4 +893,9 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="abortTheGame">Játszma elvetése</string>
   <string name="resignTheGame">Játszma feladása</string>
   <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
+  <string name="since">Ettől</string>
+  <string name="until">Eddig</string>
+  <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
+  <string name="switchSides">Oldal megfordítása</string>
+  <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
 </resources>

@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
   <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
   <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачэ гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага сучаснага майстэрства.</string>
-  <string name="findTheBestMoveForWhite">Знайдзіце лепшы ход за белых.</string>
-  <string name="findTheBestMoveForBlack">Знайдзіце лепшы ход за чорных.</string>
+  <string name="findTheBestMoveForWhite">Знайдзіце найлепшы ход за белых.</string>
+  <string name="findTheBestMoveForBlack">Знайдзіце найлепшы ход за чорных.</string>
   <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
@@ -24,7 +24,7 @@
   <string name="bestMove">Лепшы ход!</string>
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
-  <string name="puzzleComplete">Задача рэшана!</string>
+  <string name="puzzleComplete">Задача вырашана!</string>
   <string name="notTheMove">Гэта не той ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
@@ -62,7 +62,7 @@
   <string name="improvementAreas">Напрамкі паляпшэння</string>
   <string name="strengths">Моцныя бакі</string>
   <string name="history">Гісторыя задач</string>
-  <string name="solved">рэшана</string>
+  <string name="solved">вырашана правільна</string>
   <string name="failed">памылка</string>
   <string name="streakDescription">Вырашайце патупова ўскладняючыеся задачы і стварыце пераможную серыю. Тут няма гадзінніку, таму не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за спробу.</string>
   <string name="yourStreakX">Ваша серыя: %s</string>

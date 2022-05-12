@@ -45,8 +45,8 @@ object categ {
 
     val newTopicButton = canWrite option
       a(
-        href := routes.ForumTopic.form(categ.slug),
-        cls := "button button-empty button-green text",
+        href     := routes.ForumTopic.form(categ.slug),
+        cls      := "button button-empty button-green text",
         dataIcon := ""
       )(
         trans.createANewTopic()
@@ -64,19 +64,16 @@ object categ {
                 momentFromNow(post.createdAt)
               ),
               br,
-              trans.by(authorLink(post))
+              trans.by(bits.authorLink(post))
             )
           }
         )
       )
-    val bar = div(cls := "bar")(
-      views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
-      newTopicButton
-    )
 
     views.html.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
+      moreJs = infiniteScrollTag,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"Forum: ${categ.name}",
@@ -86,15 +83,20 @@ object categ {
         .some
     ) {
       main(cls := "forum forum-categ box")(
-        h1(
-          a(
-            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := "",
-            cls := "text"
+        div(
+          cls := "box__top",
+          h1(
+            a(
+              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              dataIcon := "",
+              cls      := "text"
+            ),
+            categ.team.fold(frag(categ.name))(teamIdToName)
           ),
-          categ.team.fold(frag(categ.name))(teamIdToName)
+          div(cls := "box__top__actions")(
+            newTopicButton
+          )
         ),
-        bar,
         table(cls := "topics slist slist-pad")(
           thead(
             tr(
@@ -104,11 +106,12 @@ object categ {
             )
           ),
           tbody(
+            cls := "infinite-scroll",
             stickyPosts map showTopic(sticky = true),
-            topics.currentPageResults map showTopic(sticky = false)
+            topics.currentPageResults map showTopic(sticky = false),
+            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
           )
-        ),
-        bar
+        )
       )
     }
   }
@@ -139,7 +142,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by(authorLink(post))
+                  trans.by(bits.authorLink(post))
                 )
               }
             )

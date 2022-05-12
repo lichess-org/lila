@@ -39,14 +39,14 @@
     <item quantity="other">Згуляна %1$s хадоў</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">у %1$s гульні па перапісцы</item>
-    <item quantity="few">у %1$s гульнях па перапісцы</item>
-    <item quantity="many">у %1$s гульнях па перапісцы</item>
-    <item quantity="other">у %1$s гульнях па перапісцы</item>
+    <item quantity="one">у %1$s гульні па ліставанні</item>
+    <item quantity="few">у %1$s гульнях па ліставанні</item>
+    <item quantity="many">у %1$s гульнях па ліставанні</item>
+    <item quantity="other">у %1$s гульнях па ліставанні</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Згуляна %s гульня па ліставанні</item>
-    <item quantity="few">Згуляна %s гульняў па ліставанні</item>
+    <item quantity="few">Згуляна %s гульні па ліставанні</item>
     <item quantity="many">Згуляна %s гульняў па ліставанні</item>
     <item quantity="other">Згуляна %s гульняў па ліставанні</item>
   </plurals>

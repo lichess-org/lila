@@ -6,6 +6,7 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
+import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
@@ -19,6 +20,7 @@ final private class PushConfig(
     val firebase: FirebasePush.Config
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -46,7 +48,7 @@ final class Env(
     try {
       config.firebase.json.value.some.filter(_.nonEmpty).map { json =>
         ServiceAccountCredentials
-          .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
+          .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
           .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
       }
     } catch {
@@ -73,7 +75,8 @@ final class Env(
     "msgUnread",
     "challenge",
     "corresAlarm",
-    "offerEventCorres"
+    "offerEventCorres",
+    "tourSoon"
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       logUnit { pushApi finish game }
@@ -91,5 +94,7 @@ final class Env(
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi corresAlarm pov }
+    case t: lila.hub.actorApi.push.TourSoon =>
+      logUnit { pushApi tourSoon t }
   }
 }

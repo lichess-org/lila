@@ -8,7 +8,7 @@
   <string name="upcoming">आगामी</string>
   <string name="completed">पूर्ण</string>
   <string name="roundName">दौर का नाम</string>
-  <string name="roundNumber">राउंड नंबर</string>
+  <string name="roundNumber">दौर संख्या</string>
   <string name="tournamentName">प्रतियोगिता का नाम</string>
   <string name="tournamentDescription">संक्षिप्त प्रतियोगिता वर्णन</string>
   <string name="fullDescription">संक्षिप्त वर्णन</string>
@@ -17,4 +17,5 @@
   <string name="startDate">अपने स्वयं के समयक्षेत्र में प्रारंभ दिनांक</string>
   <string name="startDateHelp">वैकल्पिक, यदि आप जानना चाहते हो की प्रतिस्प्रधा कब शुरू होगी</string>
   <string name="credits">स्रोत को श्रेय दें</string>
+  <string name="broadcastUrl">प्रसारण की कड़ी</string>
 </resources>

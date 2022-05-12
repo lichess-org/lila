@@ -2,10 +2,12 @@ package lila.swiss
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 import scala.concurrent.duration._
 import scala.util.chaining._
 
@@ -121,11 +123,29 @@ final class SwissApi(
             s.copy(nextRoundAt = none)
           else s
         }
-      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
+      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >> {
+        (swiss.perfType != old.perfType) ?? recomputePlayerRatings(swiss)
+      } >>- {
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
       } inject swiss.some
     }
+
+  private def recomputePlayerRatings(swiss: Swiss): Funit = for {
+    ranking <- rankingApi(swiss)
+    perfs   <- userRepo.perfOf(ranking.keys, swiss.perfType)
+    update = colls.player.update(ordered = false)
+    elements <- perfs.map { case (userId, perf) =>
+      update.element(
+        q = $id(SwissPlayer.makeId(swiss.id, userId)),
+        u = $set(
+          SwissPlayer.Fields.rating      -> perf.intRating,
+          SwissPlayer.Fields.provisional -> perf.provisional.option(true)
+        )
+      )
+    }.sequenceFu
+    _ <- elements.nonEmpty ?? update.many(elements).void
+  } yield ()
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
     Sequencing(swiss.id)(notFinishedById) { old =>
@@ -148,18 +168,22 @@ final class SwissApi(
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>
-      if (swiss.settings.password.exists(_ != ~password) || !isInTeam(swiss.teamId)) fuFalse
-      else
+      if (
+        swiss.settings.password.forall(p =>
+          MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
+        ) && isInTeam(swiss.teamId)
+      )
         colls.player // try a rejoin first
           .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
           .flatMap { rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
-              swiss.isEnterable ?? {
+              verify(swiss, me).dmap(_.accepted && swiss.isEnterable) >>& {
                 colls.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
                   colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) inject true
               }
             }
           }
+      else fuFalse
     } flatMap { res =>
       recomputeAndUpdateAll(id) inject res
     }
@@ -529,20 +553,26 @@ final class SwissApi(
           Sequencing(id)(notFinishedById) { swiss =>
             if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
             else if (swiss.nbPlayers >= 2)
-              director.startRound(swiss).flatMap {
-                _.fold {
-                  systemChat(swiss.id, "All possible pairings were played.")
+              countPresentPlayers(swiss) flatMap { nbPresent =>
+                if (nbPresent < 2) {
+                  systemChat(swiss.id, "Not enough players left.")
                   doFinish(swiss)
-                } {
-                  case s if s.nextRoundAt.isEmpty =>
-                    systemChat(s.id, s"Round ${s.round.value} started.")
-                    funit
-                  case s =>
-                    systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
-                    colls.swiss.update
-                      .one($id(s.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
-                      .void
-                }
+                } else
+                  director.startRound(swiss).flatMap {
+                    _.fold {
+                      systemChat(swiss.id, "All possible pairings were played.")
+                      doFinish(swiss)
+                    } {
+                      case s if s.nextRoundAt.isEmpty =>
+                        systemChat(s.id, s"Round ${s.round.value} started.")
+                        funit
+                      case s =>
+                        systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
+                        colls.swiss.update
+                          .one($id(s.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
+                          .void
+                    }
+                  }
               }
             else {
               if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
@@ -557,6 +587,10 @@ final class SwissApi(
         }
       }
       .monSuccess(_.swiss.tick)
+
+  private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
+    colls.player.countSel($doc(f.swissId -> swiss.id, f.absent $ne true))
+  }
 
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing

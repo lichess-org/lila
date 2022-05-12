@@ -2,10 +2,6 @@ import AnalyseCtrl from './ctrl';
 
 import { path as treePath } from 'tree';
 
-export function canGoForward(ctrl: AnalyseCtrl): boolean {
-  return ctrl.node.children.length > 0;
-}
-
 export function next(ctrl: AnalyseCtrl): void {
   const child = ctrl.node.children[0];
   if (child) ctrl.userJumpIfCan(ctrl.path + child.id);

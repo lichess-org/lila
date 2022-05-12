@@ -9,7 +9,7 @@ import lila.memo.CacheApi._
 import lila.user.User
 
 final class PrefApi(
-    coll: Coll,
+    val coll: Coll,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -87,6 +87,10 @@ final class PrefApi(
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } orFail
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
+
+  def agree(user: User): Funit =
+    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
+      cache.invalidate(user.id)
 
   def setBot(user: User): Funit =
     setPref(

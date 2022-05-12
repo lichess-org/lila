@@ -280,6 +280,7 @@ object Countries {
     C("_lichess", "Lichess"),
     C("_pirate", "Pirate"),
     C("_rainbow", "Rainbow"),
+    C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
     C("_earth", "Earth")
   )

@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Du er nå tilskuer</string>
   <string name="pgnTags">PGN-merkelapper</string>
   <string name="like">Lik</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Slutt å like</string>
+  <string name="unlike">Slutt å like</string>
   <string name="newTag">Ny merkelapp</string>
   <string name="commentThisPosition">Kommenter denne stillingen</string>
   <string name="commentThisMove">Kommenter dette trekket</string>
@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Fastspikrede kapittelkommenter</string>
   <string name="saveChapter">Lagre kapittelet</string>
   <string name="clearAnnotations">Fjern notater</string>
+  <string name="clearVariations">Fjern varianter</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Du kan ikke angre!</string>
   <string name="clearAllCommentsInThisChapter">Fjern alle kommentarer og figurer i dette kapittelet?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Forrige kapittel</string>
   <string name="studyActions">Studiehandlinger</string>
+  <string name="topics">Emner</string>
+  <string name="myTopics">Mine emner</string>
+  <string name="popularTopics">Populære emner</string>
+  <string name="manageTopics">Administrer emner</string>
+  <string name="back">Tilbake</string>
+  <string name="playAgain">Spill igjen</string>
+  <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
+  <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
 </resources>

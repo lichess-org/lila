@@ -52,7 +52,7 @@ export function view(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
           },
-          ['Manage topics']
+          ctrl.trans.noarg('manageTopics')
         )
       : null,
   ]);
@@ -68,7 +68,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
       ctrl.redraw();
     },
     content: [
-      h('h2', 'Study topics'),
+      h('h2', ctrl.trans.noarg('topics')),
       h(
         'form',
         {
@@ -90,7 +90,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
             {
               type: 'submit',
             },
-            ctrl.trans.noarg('apply')
+            ctrl.trans.noarg('save')
           ),
         ]
       ),

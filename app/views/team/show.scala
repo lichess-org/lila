@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
+import lila.mod.Modlog
 
 object show {
 
@@ -21,7 +22,8 @@ object show {
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[lila.socket.Socket.SocketVersion],
-      requestedModView: Boolean = false
+      requestedModView: Boolean = false,
+      log: List[Modlog] = Nil
   )(implicit
       ctx: Context
   ) =
@@ -31,26 +33,26 @@ object show {
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = shorten(t.description, 152)
+          description = shorten(t.description.value, 152)
         )
         .some,
       moreJs = frag(
         jsModule("team"),
         embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
-          Json
-            .obj("id" -> t.id)
-            .add("socketVersion" -> socketVersion.map(_.value))
-            .add("chat" -> chatOption.map { chat =>
-              views.html.chat.json(
-                chat.chat,
-                name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
-                timeout = chat.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                localMod = ctx.userId exists t.leaders.contains
-              )
-            })
-        )})""")
+            Json
+              .obj("id" -> t.id)
+              .add("socketVersion" -> socketVersion.map(_.value))
+              .add("chat" -> chatOption.map { chat =>
+                views.html.chat.json(
+                  chat.chat,
+                  name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
+                  timeout = chat.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                  localMod = ctx.userId exists t.leaders.contains
+                )
+              })
+          )})""")
       )
     ) {
       val manageTeamEnabled = isGranted(_.ManageTeam) && requestedModView
@@ -80,8 +82,8 @@ object show {
               ),
               info.ledByMe option a(
                 dataIcon := "",
-                href := routes.Page.loneBookmark("team-etiquette"),
-                cls := "text"
+                href     := routes.Page.loneBookmark("team-etiquette"),
+                cls      := "text"
               )("Team Etiquette")
             ),
             (t.enabled && chatOption.isDefined) option frag(
@@ -106,7 +108,7 @@ object show {
               ),
               ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
                 postForm(
-                  cls := "team-show__subscribe form3",
+                  cls    := "team-show__subscribe form3",
                   action := routes.Team.subscribe(t.id)
                 )(
                   div(
@@ -121,8 +123,8 @@ object show {
                 ),
               t.enabled && info.ledByMe option frag(
                 a(
-                  href := routes.Tournament.teamBattleForm(t.id),
-                  cls := "button button-empty text",
+                  href     := routes.Tournament.teamBattleForm(t.id),
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -131,8 +133,8 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Tournament.form}?team=${t.id}",
-                  cls := "button button-empty text",
+                  href     := s"${routes.Tournament.form}?team=${t.id}",
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -141,8 +143,8 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Swiss.form(t.id)}",
-                  cls := "button button-empty text",
+                  href     := s"${routes.Swiss.form(t.id)}",
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -151,8 +153,8 @@ object show {
                   )
                 ),
                 a(
-                  href := routes.Team.pmAll(t.id),
-                  cls := "button button-empty text",
+                  href     := routes.Team.pmAll(t.id),
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -165,9 +167,9 @@ object show {
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 ),
-              ((isGranted(_.ManageTeam) || isGranted(_.ChatTimeout)) && !requestedModView) option a(
+              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
-                cls := "button button-red"
+                cls  := "button button-red"
               )(
                 "View team as Mod"
               )
@@ -188,8 +190,9 @@ object show {
           ),
           div(cls := "team-show__content__col2")(
             standardFlash(),
+            log.nonEmpty option renderLog(log),
             st.section(cls := "team-show__desc")(
-              markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
+              bits.markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
@@ -237,16 +240,6 @@ object show {
       )
     }
 
-  private object markdown {
-    import scala.concurrent.duration._
-    private val renderer = new lila.common.Markdown(list = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10 minutes)
-      .maximumSize(1024)
-      .build[String, String]()
-    def apply(team: Team, text: String): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
-  }
-
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
     t.id match {
@@ -260,4 +253,19 @@ object show {
 
   private def joinAt(url: String)(implicit ctx: Context) =
     a(cls := "button button-green", href := url)(joinTeam())
+
+  private def renderLog(entries: List[Modlog])(implicit ctx: Context) = div(cls := "team-show__log")(
+    h2("Mod log"),
+    ul(
+      entries.map { e =>
+        li(
+          userIdLink(e.mod.some),
+          " ",
+          e.showAction,
+          ": ",
+          Modlog.explain(e)
+        )
+      }
+    )
+  )
 }

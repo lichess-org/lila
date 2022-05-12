@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">סימן הכלי</string>
   <string name="pgnLetter">אות ( K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">מצב זן</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">הראה דירוג שחקנים</string>
+  <string name="showPlayerRatings">הראה דירוג שחקנים</string>
+  <string name="explainShowPlayerRatings">בבחירה זו הדירוג של השחקן היריב לא יופיע אך המשחק יהיה מדורג.</string>
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
   <string name="blindfoldChess">לשחק עם עיניים מכוסות: הכלים אינם נראים</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">החזרת המהלך האחרון: מותנה בהסכמת היריב</string>
   <string name="inCasualGamesOnly">במשחקים ללא דירוג בלבד</string>
   <string name="promoteToQueenAutomatically">הפוך למלכה באופן אוטומטי</string>
+  <string name="explainPromoteToQueenAutomatically">החזק את מקש &lt;ctrl&gt; בזמן הקידום כדי להשבית זמנית את הקידום האוטומטי</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר &lt; 30 שניות</string>

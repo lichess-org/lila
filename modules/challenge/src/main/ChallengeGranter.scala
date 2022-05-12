@@ -33,9 +33,9 @@ object ChallengeDenied {
       case Reason.RatingOutsideRange(perf) =>
         trans.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => trans.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly               => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-      case Reason.BotUltraBullet            => "Bots cannot play UltraBullet. Choose a slower time control."
-      case Reason.SelfChallenge             => "You cannot challenge yourself."
+      case Reason.FriendsOnly    => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.BotUltraBullet => "Bots cannot play UltraBullet. Choose a slower time control."
+      case Reason.SelfChallenge  => "You cannot challenge yourself."
     }
 }
 
@@ -48,11 +48,16 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit
+  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit
       ec: scala.concurrent.ExecutionContext
   ): Fu[Option[ChallengeDenied]] =
     fromOption
-      .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
+      .fold[Fu[Option[ChallengeDenied.Reason]]] {
+        prefApi.getPref(dest).map(_.challenge) map {
+          case Pref.Challenge.ALWAYS => none
+          case _                     => YouAreAnon.some
+        }
+      } { from =>
         relationApi.fetchRelation(dest, from) zip
           prefApi.getPref(dest).map(_.challenge) map {
             case (Some(Block), _)                                  => YouAreBlocked.some
@@ -69,9 +74,9 @@ final class ChallengeGranter(
                   (diff > ratingThreshold) option RatingOutsideRange(pt)
                 }
               }
-            case (_, Pref.Challenge.ALWAYS) => none
-            case _ if from == dest          => SelfChallenge.some
-            case _                          => none
+            case (_, Pref.Challenge.REGISTERED) => none
+            case _ if from == dest              => SelfChallenge.some
+            case _                              => none
           }
       }
       .map {

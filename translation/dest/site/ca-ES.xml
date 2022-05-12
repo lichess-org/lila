@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jugar amb un amic</string>
-  <string name="playWithTheMachine">Juga amb la màquina</string>
+  <string name="playWithAFriend">Juga amb un amic</string>
+  <string name="playWithTheMachine">Juga contra la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'adversari</string>
@@ -17,6 +17,8 @@
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
   <string name="black">Negres</string>
+  <string name="asWhite">amb blanques</string>
+  <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
@@ -28,7 +30,7 @@
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Cursa finalitzada</string>
-  <string name="variantEnding">Acabament de variant</string>
+  <string name="variantEnding">Final de variant</string>
   <string name="newOpponent">Nou adversari</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Unir-se a la partida</string>
@@ -41,7 +43,7 @@
   <string name="opponentLeftChoices">El teu contrincant ha abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Sigues amable en el xat!</string>
+  <string name="talkInChat">Sisplau, sigues amable al xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
@@ -62,12 +64,12 @@
   <string name="showThreat">Mostrar amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
-  <string name="promoteVariation">Promoure variant</string>
+  <string name="promoteVariation">Promocionar variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variació</string>
   <string name="move">Moviment</string>
-  <string name="variantLoss">Derrota de variant</string>
+  <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Moviment de peó</string>
@@ -75,7 +77,7 @@
   <string name="close">Tancar</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empatat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
@@ -85,7 +87,7 @@
   <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
-    <item quantity="other">Mat en %s mig-moviments</item>
+    <item quantity="other">Escac i mat en %s mig-moviments</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
@@ -163,7 +165,7 @@
   <string name="players">Jugadors</string>
   <string name="friends">Amics</string>
   <string name="discussions">Discussions</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Avui</string>
+  <string name="today">Avui</string>
   <string name="yesterday">Ahir</string>
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
@@ -181,6 +183,10 @@
     <item quantity="one">%s hora</item>
     <item quantity="other">%s hores</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minuts</item>
+  </plurals>
   <string name="time">Temps</string>
   <string name="rating">Puntuació</string>
   <string name="ratingStats">Estadístiques de classificació</string>
@@ -196,7 +202,7 @@
   <string name="passwordReset">Restablir la contrasenya</string>
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
-  <string name="rankX">Classificació: %s</string>
+  <string name="rankX">Posició: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">La classificació s\'actualitza cada minut</item>
     <item quantity="other">La classificació s\'actualitza cada %s minuts</item>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Llista de líders</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
+  <string name="orUploadPgnFile">O penjar un arxiu PGN</string>
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="toStudy">Estudi</string>
@@ -435,15 +442,14 @@
   <string name="popularOpenings">Obertures populars</string>
   <string name="endgamePositions">Posicions dels finals</string>
   <string name="chess960StartPosition">Posició inicial de Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Posició inicial</string>
+  <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Neteja el tauler</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Carrega la posició</string>
+  <string name="loadPosition">Carrega la posició</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Denuncia %s als moderadors</string>
   <string name="profileCompletion">Perfil completat: %s</string>
   <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
-  <string name="gameCompletionRate">Percentatge de finalització de partides: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
@@ -452,11 +458,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
+  <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activePlayers">Jugadors actius</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Compte, la partida és puntuada però no hi ha rellotge!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Compte, la partida és puntuada però no hi ha rellotge!</string>
   <string name="success">Èxit</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partides en joc</item>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
+  <string name="importedByX">Importat per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -525,7 +533,7 @@
   <string name="onSlowGames">En els jocs lents</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s competeix a %2$s</string>
+  <string name="xCompetesInY">%1$s competeix a %2$s</string>
   <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">Aquesta adreça de correu electrònic no és acceptable. Si us plau comprova-ho i intenta-ho de nou.</string>
   <string name="error.email_unique">Adreça de correu electrònic invàlida o ja en ús</string>
   <string name="error.email_different">Aquesta ja és la teva adreça de correu electrònic</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Com a mínim ha de tenir %s caràcters</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Com a màxim ha de tenir %s caràcters</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Ha de ser major o igual que %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Ha de ser menor o igual que %s</string>
+  <string name="error.minLength">Com a mínim ha de tenir %s caràcters</string>
+  <string name="error.maxLength">Com a màxim ha de tenir %s caràcters</string>
+  <string name="error.min">Ha de ser major o igual que %s</string>
+  <string name="error.max">Ha de ser menor o igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
+  <string name="ifRegistered">Només usuaris registrats</string>
   <string name="onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
   <string name="menu">Menú</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Valoració actual de partides</string>
   <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
-  <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estic d\'acord en no crear múltiples comptes (excepte per les raons detallades als %s).</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
@@ -812,7 +821,7 @@
   <string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
   <string name="subscribe">Subscriure’s</string>
   <string name="unsubscribe">Anul·la subscripció</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">t\'ha mencionat en \"%1$s\".</string>
+  <string name="mentionedYouInX">t\'ha mencionat en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s t\'ha mencionat en \"%2$s\".</string>
   <string name="invitedYouToX">t\'ha invitat a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
@@ -884,4 +893,9 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="abortTheGame">Avortar el joc</string>
   <string name="resignTheGame">Rendir-se</string>
   <string name="youCantStartNewGame">No pots començar un joc nou fins que aquest acabi.</string>
+  <string name="since">Des de</string>
+  <string name="until">Fins a</string>
+  <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
+  <string name="switchSides">Canviar de banda</string>
+  <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
 </resources>

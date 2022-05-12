@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Blogu i %s</string>
+  <string name="newPost">Postim i ri</string>
+  <string name="editYourBlogPost">Përpunoni postimin tuaj në blog</string>
+  <string name="saveDraft">Ruaje skicën</string>
+  <string name="postTitle">Titull postimi</string>
+  <string name="postIntro">Hyrje postimi</string>
+  <string name="postBody">Lëndë postimi</string>
+  <string name="drafts">Skica</string>
+  <string name="published">Të publikuar</string>
+  <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
+  <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Botoi një postim blogu</item>
+    <item quantity="other">Botoi %s postime blogu</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Një parje</item>
+    <item quantity="other">%s parje</item>
+  </plurals>
+  <string name="xPublishedY">%1$s botoi %2$s</string>
+  <string name="thisPostIsPublished">Ky postim u botua</string>
+  <string name="thisIsADraft">Kjo është një skicë</string>
+  <string name="moreBlogPostsBy">Më tepër postime blogu nga %s</string>
+  <string name="noPostsInThisBlogYet">Ende pa postime në këtë blog.</string>
+  <string name="noDrafts">S’ka skica për shfaqje.</string>
+  <string name="latestBlogPosts">Postimet më të reja në blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Shihni një postim</item>
+    <item quantity="other">Shihni krejt %s postimet</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Ngarkoni një figurë për postimin tuaj</string>
+  <string name="imageAlt">Tekst alternativ për figurën</string>
+</resources>

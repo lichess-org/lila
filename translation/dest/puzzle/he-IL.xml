@@ -41,9 +41,22 @@
   <string name="normal">רגיל</string>
   <string name="easier">קל יותר</string>
   <string name="easiest">הקל ביותר</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">נקודה %s מתחת לדירוג החידות שלך</item>
+    <item quantity="two">%s נקודות מתחת לדירוג החידות שלך</item>
+    <item quantity="many">%s נקודות מתחת לדירוג החידות שלך</item>
+    <item quantity="other">%s נקודות מתחת לדירוג החידות שלך</item>
+  </plurals>
   <string name="harder">קשה יותר</string>
   <string name="hardest">הקשה ביותר</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">נקודה %s מעל לדירוג החידות שלך</item>
+    <item quantity="two">נקודה 1 מתחת לדירוג הפזלים שלך</item>
+    <item quantity="many">%s נקודות מעל לדירוג החידות שלך</item>
+    <item quantity="other">%s נקודות מעל לדירוג החידות שלך</item>
+  </plurals>
   <string name="example">דוגמא</string>
+  <string name="addAnotherTheme">הוסף נושא חדש</string>
   <string name="jumpToNextPuzzleImmediately">המשך לחידה הבאה באופן מיידי</string>
   <string name="puzzleDashboard">לוח בקרה</string>
   <string name="improvementAreas">תחומים לשיפור</string>
@@ -56,5 +69,27 @@
   <string name="streakSkipExplanation">דלג על מהלך זה בכדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
   <string name="continueTheStreak">המשך את הרצף</string>
   <string name="newStreak">רצף חדש</string>
+  <string name="fromMyGames">מהמשחקים שלי</string>
+  <string name="lookupOfPlayer">פאזלים שנוצרו ממשחקים של שחקן ספציפי (כל פאזלים של עשויים ממשחקים הקיימים במסד הנתונים של האתר)</string>
+  <string name="fromXGames">חידות מתוך המשחקים של %s</string>
+  <string name="searchPuzzles">חיפוש פזלים</string>
+  <string name="fromMyGamesNone">כל החידות באתר Lichess מורכבות ממשחקים ששוחקו באתר במקרה שלך עדיין אין פאזלים ממשחקים שלך!</string>
+  <string name="fromXGamesFound">נמצאו %1$s חידות ב-%2$s משחקים</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s שוּחק</item>
+    <item quantity="two">%s שוחקו</item>
+    <item quantity="many">%s שוחקו</item>
+    <item quantity="other">%s שוחקו</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s לשחק מחדש</item>
+    <item quantity="two">%s לשחק מחדש</item>
+    <item quantity="many">%s לשחק מחדש</item>
+    <item quantity="other">%s לשחק מחדש</item>
+  </plurals>
+  <string name="percentSolved">%s נפתרו</string>
+  <string name="noPuzzlesToShow">אין מה להראות, לכו לפתור כמה חידות קודם!</string>
+  <string name="improvementAreasDescription">התואמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
+  <string name="strengthDescription">אתה מתפקד הכי טוב בנושאים הבאים</string>
 </resources>

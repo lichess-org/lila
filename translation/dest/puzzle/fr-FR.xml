@@ -79,7 +79,7 @@ Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vo
     <item quantity="one">%s problème à refaire</item>
     <item quantity="other">%s problèmes à refaire</item>
   </plurals>
-  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s des problèmes résolus</string>
+  <string name="percentSolved">%s des problèmes résolus</string>
   <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
   <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>
   <string name="strengthDescription">Vous avez le plus de succès dans ces thèmes.</string>

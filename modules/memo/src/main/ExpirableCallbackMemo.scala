@@ -7,7 +7,7 @@ import scala.concurrent.duration.FiniteDuration
 final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(implicit mode: play.api.Mode) {
 
   private val cache: Cache[String, Boolean] = lila.memo.CacheApi
-    .scaffeine(mode)
+    .scaffeine
     .expireAfterWrite(ttl)
     .removalListener((key: String, _: Boolean, _) => callback(key))
     .build[String, Boolean]()

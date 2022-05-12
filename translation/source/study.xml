@@ -81,9 +81,10 @@
   <string name="pinnedChapterComment">Pinned chapter comment</string>
   <string name="saveChapter">Save chapter</string>
   <string name="clearAnnotations">Clear annotations</string>
+  <string name="clearVariations">Clear variations</string>
   <string name="deleteChapter">Delete chapter</string>
-  <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
-  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>
+  <string name="deleteThisChapter">Delete this chapter. There is no going back!</string>
+  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter</string>
   <string name="rightUnderTheBoard">Right under the board</string>
   <string name="noPinnedComment">None</string>
   <string name="normalAnalysis">Normal analysis</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Next chapter</string>
   <string name="prevChapter">Previous chapter</string>
   <string name="studyActions">Study actions</string>
+  <string name="topics">Topics</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
+  <string name="manageTopics">Manage topics</string>
+  <string name="back">Back</string>
+  <string name="playAgain">Play again</string>
+  <string name="whatWouldYouPlay">What would you play in this position?</string>
+  <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
 </resources>

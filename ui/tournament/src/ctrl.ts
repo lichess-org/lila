@@ -28,6 +28,7 @@ export default class TournamentController {
   searching = false;
   joinWithTeamSelector = false;
   redraw: () => void;
+  nbWatchers = 0;
 
   private lastStorage = lichess.storage.make('last-redirect');
 
@@ -46,6 +47,9 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
+    lichess.pubsub.on('socket.in.crowd', data => {
+      this.nbWatchers = data.nb;
+    });
   }
 
   askReload = (): void => {
@@ -56,8 +60,7 @@ export default class TournamentController {
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) lichess.reload();
-    this.data = { ...this.data, ...data };
-    this.data.me = data.me; // to account for removal on withdraw
+    this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();

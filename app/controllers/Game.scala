@@ -71,7 +71,7 @@ final class Game(
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     env.user.repo named username flatMap {
-      _ ?? { user =>
+      _.filter(_.enabled || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
         WithVs(req) { vs =>
           val finished = getBoolOpt("finished", req) | true
@@ -79,14 +79,14 @@ final class Game(
             user = user,
             format = format,
             vs = vs,
-            since = getLong("since", req) map { new DateTime(_) },
-            until = getLong("until", req) map { new DateTime(_) },
+            since = getTimestamp("since", req),
+            until = getTimestamp("until", req),
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
-            flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            flags = requestPgnFlags(req, extended = false),
             sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m.id == "openingexplorer" => env.apiExplorerGamesPerSecond.get()
@@ -104,7 +104,7 @@ final class Game(
               .as(gameContentType(config))
               .fuccess
           else {
-            val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
+            val date = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
                 source =>

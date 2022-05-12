@@ -43,7 +43,7 @@ final class PlaybanApi(
       else !userRepo.containsEngine(game.userIds)
     }
 
-  private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
+  private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
@@ -128,8 +128,8 @@ final class PlaybanApi(
           game.clock
             .filter {
               _.remainingTime(loser.color) < Centis(1000) &&
-              game.turnOf(loser) &&
-              Status.Resign.is(status)
+                game.turnOf(loser) &&
+                Status.Resign.is(status)
             }
             .map { c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
@@ -170,17 +170,6 @@ final class PlaybanApi(
     }
 
   def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
-
-  def completionRate(userId: User.ID): Fu[Option[Double]] =
-    coll.primitiveOne[Vector[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
-      outcomes.collect {
-        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
-        case Outcome.Good                                                        => true
-      } match {
-        case c if c.sizeIs >= 5 => Some(c.count(identity).toDouble / c.size)
-        case _                  => none
-      }
-    }
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
     coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>

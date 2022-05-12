@@ -28,7 +28,7 @@ object CrudForm {
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
-      "description"    -> text(minLength = 10, maxLength = 400),
+      "description"    -> nonEmptyText,
       "conditions"     -> Condition.DataForm.all(Nil),
       "berserkable"    -> boolean,
       "streakable"     -> boolean,

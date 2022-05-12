@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doneer</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Doneren als %s</string>
+  <string name="donateAsX">Doneren als %s</string>
   <string name="lichessPatron">Lichess Patroon</string>
   <string name="freeAccount">Gratis account</string>
   <string name="becomePatron">Word een Lichess Patroon</string>
@@ -16,7 +16,7 @@
   <string name="thankYou">Hartelijk dank voor je donatie!</string>
   <string name="youHaveLifetime">Je hebt een levenslang Patroon-account. Dat is geweldig!</string>
   <string name="patronUntil">Je hebt een Patroon-account tot %s.</string>
-  <string name="ifNotRenewed">Indien niet vernieuwd, word je naar het standaard account teruggezet.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Indien niet vernieuwd, wordt je account omgezet naar een standaardaccount.</string>
   <string name="weAreNonProfit">Wij zijn een organisatie zonder winstoogmerk omdat wij van mening zijn dat iedereen toegang moet hebben tot een gratis schaakplatform van wereldklasse.</string>
   <string name="weRelyOnSupport">We rekenen op de steun van mensen zoals u om dit mogelijk te maken. Als het gebruik van Lichess u bevalt, overweeg dan alstublieft om ons te steunen door te doneren en een Patroon te worden!</string>
   <string name="lifetime">Levenslang</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Overige</string>
   <string name="pleaseEnterAmountInX">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
   <string name="celebratedPatrons">Enkele zeer gewaardeerde patronen die Lichess mogelijk maken</string>
   <string name="whereMoneyGoes">Waar wordt het geld aan uitgegeven?</string>
@@ -44,7 +43,6 @@ Of u kunt %s.</string>
   <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
-  <string name="bitcoin">En hier is ons bitcoinadres: %s</string>
   <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>
@@ -66,6 +64,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="xOrY">%1$s of %2$s</string>
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
+  <string name="stopPaymentsPayPal">Abonnement via PayPal annuleren en betalingen stoppen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>

@@ -21,7 +21,6 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
-    maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -30,19 +29,18 @@ final class ChallengeApi(
 
   import Challenge._
 
-  def allFor(userId: User.ID): Fu[AllChallenges] =
-    createdByDestId(userId) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
+  def allFor(userId: User.ID, max: Int = 50): Fu[AllChallenges] =
+    createdByDestId(userId, max) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
       case false =>
-        repo.like(c).flatMap { _ ?? repo.cancel } >>
-          repo.insert(c) >>- {
-            uncacheAndNotify(c)
-            Bus.publish(Event.Create(c), "challenge")
-          } inject true
+        repo.insertIfMissing(c) >>- {
+          uncacheAndNotify(c)
+          Bus.publish(Event.Create(c), "challenge")
+        } inject true
     }
 
   def byId = repo byId _
@@ -50,15 +48,15 @@ final class ChallengeApi(
   def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
   def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
 
-  val countInFor = cacheApi[User.ID, Int](65536, "challenge.countInFor") {
-    _.expireAfterAccess(20 minutes)
+  val countInFor = cacheApi[User.ID, Int](131072, "challenge.countInFor") {
+    _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.countCreatedByDestId)
   }
 
   def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId(userId: User.ID) = countInFor get userId flatMap { nb =>
-    if (nb > 5) repo.createdByPopularDestId()(userId)
+  def createdByDestId(userId: User.ID, max: Int = 50) = countInFor get userId flatMap { nb =>
+    if (nb > 5) repo.createdByPopularDestId(max)(userId)
     else repo.createdByDestId()(userId)
   }
 
@@ -94,6 +92,7 @@ final class ChallengeApi(
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
       if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
+      else if (c.declined) fuccess(Invalid("The challenge has been declined."))
       else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
@@ -110,8 +109,15 @@ final class ChallengeApi(
       }
     }
 
-  def sendRematchOf(game: Game, user: User): Fu[Boolean] =
-    challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
+  def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
+    challengeMaker.makeRematchOf(game, user) flatMap {
+      _ ?? { challenge =>
+        create(challenge) recover lila.db.recoverDuplicateKey { _ =>
+          logger.warn(s"${game.id} duplicate key ${challenge.id}")
+          false
+        }
+      }
+    }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u
@@ -134,7 +140,7 @@ final class ChallengeApi(
     else
       c.userIds
         .map { userId =>
-          gameCache.nbPlaying(userId) dmap (maxPlaying <=)
+          gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
         }
         .sequenceFu
         .dmap(_ exists identity)
@@ -174,6 +180,6 @@ final class ChallengeApi(
   }
 
   // work around circular dependency
-  private var socket: Option[ChallengeSocket] = None
+  private var socket: Option[ChallengeSocket]               = None
   private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }

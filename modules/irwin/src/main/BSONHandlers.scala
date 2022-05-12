@@ -40,4 +40,21 @@ object BSONHandlers {
   // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
   // private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   implicit val ReportBSONHandler = Macros.handler[IrwinReport]
+
+  import KaladinUser.{ Pred, Requester, Response }
+  implicit private val KaladinRequesterBSONHandler = quickHandler[Requester](
+    {
+      case BSONString("TournamentLeader") => Requester.TournamentLeader
+      case BSONString("TopOnline")        => Requester.TopOnline
+      case BSONString("Report")           => Requester.Report
+      case BSONString(modId)              => Requester.Mod(modId)
+    },
+    {
+      case Requester.Mod(modId) => BSONString(modId)
+      case other                => BSONString(other.name)
+    }
+  )
+  implicit val KaladinPredBSONHandler     = Macros.handler[Pred]
+  implicit val KaladinResponseBSONHandler = Macros.handler[Response]
+  implicit val KaladinUserBSONHandler     = Macros.handler[KaladinUser]
 }

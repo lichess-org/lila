@@ -1,6 +1,7 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>
   ctrl.redirecting()
@@ -32,8 +33,11 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 }
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
-  return (c: Challenge) =>
-    h(
+  return (c: Challenge) => {
+    const fromPosition = c.variant.key == 'fromPosition';
+    const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
+    const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
+    return h(
       `div.challenge.${dir}.c-${c.id}`,
       {
         class: {
@@ -45,7 +49,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('div.content__text', [
             h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
             h('span.desc', [
-              h('span.is.is2.color-icon.' + (c.color || 'random')),
+              h('span.is.is2.color-icon.' + myColor),
               ' • ',
               [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
             ]),
@@ -54,9 +58,20 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
             attrs: { 'data-icon': c.perf.icon },
           }),
         ]),
+        fromPosition
+          ? h('div.position.mini-board.cg-wrap.is2d', {
+              attrs: { 'data-state': `${c.initialFen},${myColor}` },
+              hook: {
+                insert(vnode) {
+                  lichess.miniBoard.init(vnode.elm as HTMLElement);
+                },
+              },
+            })
+          : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
     );
+  };
 }
 
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {

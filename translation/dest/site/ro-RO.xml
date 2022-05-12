@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
+  <string name="asWhite">cu albele</string>
+  <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -190,6 +192,11 @@
     <item quantity="one">%s oră</item>
     <item quantity="few">%s ore</item>
     <item quantity="other">%s ore</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s de minute</item>
   </plurals>
   <string name="time">Timp</string>
   <string name="rating">Clasament</string>
@@ -369,6 +376,7 @@
   <string name="leaderboard">Clasament</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
+  <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
@@ -473,7 +481,6 @@
   <string name="profileCompletion">Completarea profilului: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
-  <string name="gameCompletionRate">Procent jocuri încheiate: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Editează profilul</string>
   <string name="firstName">Prenume</string>
@@ -482,6 +489,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țară sau steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
+  <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
   <string name="onlinePlayers">Jucători conectați</string>
@@ -526,6 +534,7 @@
   <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
+  <string name="importedByX">Importat de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
   <string name="blog">Blog</string>
   <string name="notes">Note</string>
@@ -598,6 +607,7 @@
   <string name="error.min">Trebuie să fie mai mare sau egal cu %s</string>
   <string name="error.max">Trebuie să fie mai mic sau egal cu %s</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
+  <string name="ifRegistered">Dacă este înregistrat</string>
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>
@@ -825,7 +835,7 @@
   <string name="currentMatchScore">Scorul curent</string>
   <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul partidelor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
-  <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Sunt de acord să nu creez conturi multiple (cu excepția motivelor declarate în %s).</string>
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
@@ -923,4 +933,9 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="abortTheGame">Abandonează jocul</string>
   <string name="resignTheGame">Cedează jocul</string>
   <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
+  <string name="since">De la</string>
+  <string name="until">Până la</string>
+  <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
+  <string name="switchSides">Întoarce tabla</string>
+  <string name="closingAccountWithdrawAppeal">Închiderea contului dvs. vă va retrage apelul</string>
 </resources>

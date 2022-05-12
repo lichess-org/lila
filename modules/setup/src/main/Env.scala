@@ -20,8 +20,6 @@ final class Env(
     idGenerator: lila.game.IdGenerator
 ) {
 
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
-
   lazy val forms = SetupForm
 
   lazy val processor = wire[Processor]

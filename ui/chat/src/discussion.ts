@@ -1,11 +1,11 @@
 import * as enhance from 'common/richText';
+import userLink from 'common/userLink';
 import * as spam from './spam';
 import { Ctrl, Line } from './interfaces';
 import { flag } from './xhr';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction } from './moderation';
 import { presetView } from './preset';
-import { userLink } from './util';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -133,7 +133,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
   window.Mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
-  // See ornicar/chessground#109
+  // See lichess-org/chessground#109
 
   const mouchEvents = ['touchstart', 'mousedown'];
 

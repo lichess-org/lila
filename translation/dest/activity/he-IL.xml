@@ -75,10 +75,10 @@
     <item quantity="other">השתתף ב%s משחק ידידות</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">יצר %s ניתוח חדש</item>
-    <item quantity="two">יצר %s ניתוחים חדשים</item>
-    <item quantity="many">יצר %s ניתוחים חדשים</item>
-    <item quantity="other">יצר %s ניתוחים חדשים</item>
+    <item quantity="one">יצר לוח למידה %s חדש</item>
+    <item quantity="two">יצר %s לוחות למידה חדשים</item>
+    <item quantity="many">יצר %s לוחות למידה חדשים</item>
+    <item quantity="other">יצר %s לוחות למידה חדשים</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">התחרה בטורניר זירה %s</item>

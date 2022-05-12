@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -8,8 +9,10 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
+import lila.common.HTTPRequest
+import lila.swiss.Swiss.{ ChatFor, Id => SwissId }
 import lila.swiss.{ Swiss => SwissModel, SwissForm }
+import lila.user.{ User => UserModel }
 
 final class Swiss(
     env: Env,
@@ -36,7 +39,7 @@ final class Swiss(
             for {
               verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
               version  <- env.swiss.version(swiss.id)
-              isInTeam <- isCtxInTheTeam(swiss.teamId)
+              isInTeam <- ctx.me ?? isUserInTheTeam(swiss.teamId)
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
@@ -61,10 +64,11 @@ final class Swiss(
           api = _ =>
             swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
               for {
-                socketVersion <- getBool("socketVersion").??(env.swiss version swiss.id dmap some)
-                isInTeam      <- isCtxInTheTeam(swiss.teamId)
-                playerInfo    <- get("playerInfo").?? { env.swiss.api.playerInfo(swiss, _) }
+                isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
                 verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
+                socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
+                playerInfo    <- get("playerInfo", ctx.req).?? { env.swiss.api.playerInfo(swiss, _) }
+                page = getInt("page", ctx.req).filter(0.<)
                 json <- env.swiss.json(
                   swiss = swiss,
                   me = ctx.me,
@@ -74,14 +78,22 @@ final class Swiss(
                   playerInfo = playerInfo,
                   isInTeam = isInTeam
                 )
-              } yield Ok(json)
+              } yield JsonOk(json)
             }
         )
       }
     }
 
-  private def isCtxInTheTeam(teamId: lila.team.Team.ID)(implicit ctx: Context) =
-    ctx.userId.??(u => env.team.cached.teamIds(u).dmap(_ contains teamId))
+  def apiShow(id: String) =
+    Action.async { implicit req =>
+      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+        case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
+        case _           => notFoundJson()
+      }
+    }
+
+  private def isUserInTheTeam(teamId: lila.team.Team.ID)(user: UserModel) =
+    env.team.cached.teamIds(user.id).dmap(_ contains teamId)
 
   def round(id: String, round: Int) =
     Open { implicit ctx =>
@@ -141,9 +153,7 @@ final class Swiss(
                 jsonFormErrorDefaultLang,
                 data =>
                   tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited) {
-                    JsonOk {
-                      env.swiss.api.create(data, me, teamId) map env.swiss.json.api
-                    }
+                    env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
                   }
               )
         }
@@ -178,7 +188,7 @@ final class Swiss(
   private def bodyPassword(implicit req: Request[_]) =
     SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
 
-  private def doJoin(me: lila.user.User, id: SwissId, password: Option[String]) =
+  private def doJoin(me: UserModel, id: SwissId, password: Option[String]) =
     env.team.cached.teamIds(me.id) flatMap { teamIds =>
       env.swiss.api.join(id, me, teamIds.contains, password) flatMap { result =>
         fuccess {
@@ -232,9 +242,9 @@ final class Swiss(
           .fold(
             newJsonFormError,
             data => {
-              env.swiss.api.update(swiss.id, data) map {
+              env.swiss.api.update(swiss.id, data) flatMap {
                 _ ?? { swiss =>
-                  JsonOk(env.swiss.json.api(swiss))
+                  env.swiss.json.api(swiss) map JsonOk
                 }
               }
             }
@@ -274,7 +284,7 @@ final class Swiss(
   def pageOf(id: String, userId: String) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, lila.user.User normalize userId) flatMap {
+        env.swiss.api.pageOf(swiss, UserModel normalize userId) flatMap {
           _ ?? { page =>
             JsonOk {
               env.swiss.standingApi(swiss, page)
@@ -311,7 +321,7 @@ final class Swiss(
         env.swiss.api
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
-          .map(env.swiss.json.api)
+          .mapAsync(4)(env.swiss.json.api)
           .throttle(20, 1.second)
       }.fuccess
     }
@@ -321,7 +331,7 @@ final class Swiss(
 
   private def WithEditableSwiss(
       id: String,
-      me: lila.user.User,
+      me: UserModel,
       fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).fuccess
   )(
       f: SwissModel => Fu[Result]
@@ -336,7 +346,7 @@ final class Swiss(
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
-    ctx.noKid ?? {
+    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match {
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue
@@ -351,7 +361,7 @@ final class Swiss(
     else ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
 
   private val streamerCache =
-    env.memo.cacheApi[SwissModel.Id, List[lila.user.User.ID]](64, "swiss.streamers") {
+    env.memo.cacheApi[SwissModel.Id, List[UserModel.ID]](64, "swiss.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture { id =>

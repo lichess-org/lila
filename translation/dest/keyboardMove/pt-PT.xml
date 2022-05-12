@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">Comandos do teclado</string>
+  <string name="performAMove">Realizar um movimento</string>
+  <string name="movePieceFromE2ToE4">Mova a peça de e2 para e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Mova o cavalo para c3</string>
+  <string name="kingsideCastle">Roque pequeno</string>
+  <string name="queensideCastle">Roque grande</string>
+  <string name="promoteC8ToQueen">Promover c8 a rainha</string>
+  <string name="offerOrAcceptDraw">Oferecer ou aceitar empate</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Ler os relógios</string>
+  <string name="otherCommands">Outros comandos</string>
+  <string name="tips">Dicas</string>
+</resources>

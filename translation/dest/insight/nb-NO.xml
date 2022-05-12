@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Sjakkinnsikt for %s</string>
+  <string name="xHasNoChessInsights">Ingen sjakkinnsikt for %s ennå!</string>
+  <string name="insightsAreProtected">Sjakkinnsikt for %s er beskyttet</string>
+  <string name="cantSeeInsights">Beklager, men du får ikke se sjakkinnsikt for %s.</string>
+  <string name="generateInsights">Generer sjakkinnsikt for %s.</string>
+  <string name="crunchingData">Knuser data bare for deg!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Du kan kanskje be vedkommende endre sine %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">innstillinger for sjakkinnsikt</string>
+</resources>

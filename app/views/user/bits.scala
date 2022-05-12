@@ -15,7 +15,7 @@ object bits {
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(
-        cls := active.active("ratings"),
+        cls  := active.active("ratings"),
         href := routes.User.ratingDistribution("blitz")
       )(
         trans.ratingStats()
@@ -51,19 +51,19 @@ object bits {
     !u.lame ??
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
+          span(cls  := "trophy perf top1", title := s"${perf.trans} Champion!")(
             img(src := assetUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
+          span(cls  := "trophy perf top10", title := s"${perf.trans} Top 10!")(
             img(src := assetUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
+          span(cls  := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
             img(src := assetUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
+          span(cls  := "trophy perf", title := s"${perf.trans} Top 100 player!")(
             img(src := assetUrl("images/trophy/Gold-Cup.png"))
           )
       }

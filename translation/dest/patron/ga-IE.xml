@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Deonaigh</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Deonaigh mar %s</string>
+  <string name="donateAsX">Deonaigh mar %s</string>
   <string name="lichessPatron">Pátrún Lichess</string>
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
@@ -19,7 +19,6 @@
   <string name="thankYou">Go raibh maith agat as do bhronntanas!</string>
   <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
   <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
-  <string name="ifNotRenewed">Mura ndéantar athnuachan ar, déanfaimid tú a íosghrádú go cuntas saor in aisce.</string>
   <string name="weAreNonProfit">Is cumann neamhbhrabúis muid mar creidimid gur cheart go mbeadh rochtain ag gach duine ar ardán fichille den scoth agus saor in aisce.</string>
   <string name="weRelyOnSupport">Táimid ag brath ar thacaíocht ó dhaoine cosúil leatsa chun é a bheith indéanta. Má thaitníonn Lichess leat, smaoinigh ar thacaíocht a thabhairt dúinn trí bronntanas a bhronnadh agus a bheith i do Phátrún!</string>
   <string name="lifetime">Saol</string>
@@ -32,7 +31,6 @@
   <string name="otherAmount">Eile</string>
   <string name="pleaseEnterAmountInX">Iontráil méid i %s</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
@@ -47,7 +45,6 @@ Nó is féidir leat %s.</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
   <string name="otherMethods">Modhanna eile deonaithe?</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>
-  <string name="bitcoin">Agus seo ár seoladh bitcoin: %s</string>
   <string name="patronFeatures">An gcoinnítear roinnt gnéithe do Phátrúin?</string>
   <string name="noPatronFeatures">Ní ar chor ar bith, toisc go bhfuil Lichess saor in aisce, go deo, agus do gach duine. Is gealltanas é sin.
 Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fionnuar.</string>

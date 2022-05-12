@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">Blog hráče %s</string>
   <string name="newPost">Nový příspěvek</string>
   <string name="editYourBlogPost">Upravit svůj příspěvek na blogu</string>
   <string name="saveDraft">Uložit koncept</string>

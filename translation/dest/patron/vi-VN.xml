@@ -11,7 +11,6 @@
   <string name="thankYou">Cảm ơn sự đóng góp của bạn!</string>
   <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
-  <string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
   <string name="weAreNonProfit">Chúng tôi là một hiệp hội phi lợi nhuận bởi vì chúng tôi tin rằng tất cả mọi người đều có thể có truy cập tới một nền tảng cờ vua đẳng cấp thế giới và miễn phí.</string>
   <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
   <string name="lifetime">Vĩnh viễn</string>
@@ -23,7 +22,6 @@
   <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
   <string name="otherAmount">Khác</string>
   <string name="withCreditCard">Thẻ tín dụng</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
   <string name="celebratedPatrons">Những Patron nổi tiếng khiến cho Lichess thành hiện thực</string>
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
@@ -38,7 +36,6 @@ Hoặc bạn có thể %s.</string>
   <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
   <string name="otherMethods">Phương thức quyên góp khác?</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
-  <string name="bitcoin">Và đây là địa chỉ Bitcoin của chúng tôi: %s</string>
   <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
   <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
@@ -59,6 +56,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="xOrY">%1$s hoặc %2$s</string>
   <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
   <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
+  <string name="stopPaymentsPayPal">Huỷ đăng ký qua PayPal và dừng chuyển tiền:</string>
   <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
   <string name="viewOthers">Xem các Lichess Patron khác</string>
   <string name="date">Ngày</string>

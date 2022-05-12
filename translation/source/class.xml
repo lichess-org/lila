@@ -12,7 +12,7 @@
   <string name="teachersX">Teachers: %s</string>
   <string name="newClass">New class</string>
   <string name="closeClass">Close class</string>
-  <string name="closedByX">Closed by %s</string>
+  <string name="removedByX">Removed by %s</string>
   <string name="reopen">Reopen</string>
   <string name="removeStudent">Remove student</string>
   <string name="removedStudents">Removed</string>
@@ -89,7 +89,9 @@ Here is the link to access the class.</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
   <string name="winrate">Win rate</string>
   <string name="na">N/A</string>
-  <string name="news">Class news</string>
+  <string name="overview">Overview</string>
+  <string name="news">News</string>
+  <string name="classNews">Class news</string>
   <string name="editNews">Edit news</string>
   <string name="notifyAllStudents">Notify all students</string>
   <string name="nothingHere">Nothing here, yet.</string>
@@ -97,4 +99,19 @@ Here is the link to access the class.</string>
   <string name="newsEdit2">Add the recent news at the top. Don't delete previous news.</string>
   <string name="newsEdit3">Separate news with ---
 It will display a horizontal line.</string>
+  <string name="invite">Invite</string>
+  <string name="youHaveBeenInvitedByX">You have been invited by %s.</string>
+  <string name="youAcceptedThisInvitation">You accepted this invitation.</string>
+  <string name="youDeclinedThisInvitation">You declined this invitation.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">or</string>
+  <string name="createMultipleAccounts">Create multiple Lichess accounts at once</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">You can also %s to create multiple Lichess accounts from a list of student names.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">use this form</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Note that a class can have up to %1$s students. To manage more students, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">create more classes</string>
+  <string name="studentsRealNamesOnePerLine">Students' real names, one per line</string>
+  <string name="xisNowAStudentOfTheClass">%s is now a student of the class</string>
+  <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s already has a pending invitation</string>
+  <string name="xIsAKidAccountWarning">%1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s</string>
 </resources>

@@ -33,4 +33,13 @@
   <string name="maxNumber">Максимальне число</string>
   <string name="maxNumberExplanation">Максимальна кількість ігор для пошуку</string>
   <string name="include">Включаючи</string>
+  <string name="descending">За спаданням</string>
+  <string name="ascending">За зростанням</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s гра знайдена</item>
+    <item quantity="few">%s гри знайдено</item>
+    <item quantity="many">%s ігор знайдено</item>
+    <item quantity="other">%s гри знайдено</item>
+  </plurals>
+  <string name="ratingExplanation">Середній рейтинг обох гравців</string>
 </resources>

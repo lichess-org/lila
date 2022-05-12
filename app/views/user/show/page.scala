@@ -60,7 +60,7 @@ object page {
     views.html.base.layout(
       title =
         s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
-        else " - page " + games.currentPage}",
+          else " - page " + games.currentPage}",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
@@ -84,10 +84,10 @@ object page {
       jsModule("user"),
       info.ratingChart.map { ratingChart =>
         frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafeLoadThen(
-            s"lichess.ratingHistoryChart($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
-          )
+          jsModule("chart.ratingHistory"),
+          embedJsUnsafeLoadThen {
+            s"LichessChartRatingHistory($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
+          }
         )
       },
       withSearch option jsModule("gameSearch"),

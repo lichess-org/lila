@@ -47,7 +47,7 @@
   <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
   <string name="pgnTags">PGN žymos</string>
   <string name="like">Mėgti</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Nebemėgti</string>
+  <string name="unlike">Nebemėgti</string>
   <string name="newTag">Nauja žyma</string>
   <string name="commentThisPosition">Komentuoti šią poziciją</string>
   <string name="commentThisMove">Komentuoti šį ėjimą</string>
@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
   <string name="saveChapter">Išsaugoti skyrių</string>
   <string name="clearAnnotations">Pašalinti anotacijas</string>
+  <string name="clearVariations">Išvalyti variacijas</string>
   <string name="deleteChapter">Ištrinti skyrių</string>
   <string name="deleteThisChapter">Ištrinti šį skyrių? Nėra kelio atgal!</string>
   <string name="clearAllCommentsInThisChapter">Išvalyti visus komentarus, ženklus ir figūras šiame skyriuje?</string>
@@ -164,4 +165,12 @@
   <string name="nextChapter">Kitas skyrius</string>
   <string name="prevChapter">Ankstenis skyrius</string>
   <string name="studyActions">Studijos veiksmai</string>
+  <string name="topics">Temos</string>
+  <string name="myTopics">Mano temos</string>
+  <string name="popularTopics">Populiarios temos</string>
+  <string name="manageTopics">Valdyti temas</string>
+  <string name="back">Atgal</string>
+  <string name="playAgain">Žaisti dar kartą</string>
+  <string name="whatWouldYouPlay">Ar norėtumėte žaisti nuo šios pozicijos?</string>
+  <string name="youCompletedThisLesson">Sveikiname! Jūs pabaigėte šią pamoką.</string>
 </resources>

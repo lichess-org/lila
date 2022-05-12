@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Wäiss</string>
   <string name="black">Schwaarz</string>
+  <string name="asWhite">als wäiss</string>
+  <string name="asBlack">als schwaarz</string>
   <string name="randomColor">Zoufälleg Säit</string>
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
@@ -163,7 +165,7 @@
   <string name="players">Spiller</string>
   <string name="friends">Frënn</string>
   <string name="discussions">Konversatiounen</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Haut</string>
+  <string name="today">Haut</string>
   <string name="yesterday">Gëschter</string>
   <string name="minutesPerSide">Minutten pro Säit</string>
   <string name="variant">Variant</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s Stonn</item>
     <item quantity="other">%s Stonnen</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s Minutt</item>
+    <item quantity="other">%s Minutten</item>
   </plurals>
   <string name="time">Zäit</string>
   <string name="rating">Wäertung</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Ranglëscht</string>
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
+  <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
   <string name="fromPosition">Aus Positioun</string>
   <string name="continueFromHere">Vun hei weiderspillen</string>
   <string name="toStudy">Etüd</string>
@@ -435,15 +442,14 @@
   <string name="popularOpenings">Beléift Eröffnungen</string>
   <string name="endgamePositions">Endspill Positiounen</string>
   <string name="chess960StartPosition">Chess960 Start Positioun: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Start Positioun</string>
+  <string name="startPosition">Start Positioun</string>
   <string name="clearBoard">Briet opraumen</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Positioun lueden</string>
+  <string name="loadPosition">Positioun lueden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">%s den Moderatoren mellen</string>
   <string name="profileCompletion">Profil vollstänneg zu: %s</string>
   <string name="xRating">%s Wäertung</string>
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
-  <string name="gameCompletionRate">Undeel beendegt Partien: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
   <string name="firstName">Virnumm</string>
@@ -456,7 +462,7 @@
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
   <string name="activePlayers">Aktiv Spiller</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Pass op, d\'Partie ass gewäert mee huet keng Auer!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Pass op, d\'Partie ass gewäert mee huet keng Auer!</string>
   <string name="success">Succès</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s Partie amgaang</item>
@@ -495,6 +501,7 @@
   <string name="reportDescriptionHelp">Post den Link vun Partie(n) and erklär wat den Problem mat dësem Benotzer sengem Verhalen ass. So net just \"Hien fuddelt\", mee so eis wéi du zu dëser Konklusioun komm bass. Däin Rapport gëtt méi schnell veraarbecht wann en op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
   <string name="by">vum %s</string>
+  <string name="importedByX">Importéiert vun %s</string>
   <string name="thisTopicIsNowClosed">Dësen Thema ass elo zou.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notten</string>
@@ -525,7 +532,7 @@
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
   <string name="never">Nie</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s hëlt deel bei %2$s</string>
+  <string name="xCompetesInY">%1$s hëlt deel bei %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Defaite</string>
   <string name="victoryVsYInZ">%1$s vs %2$s an %3$s</string>
@@ -560,10 +567,10 @@
   <string name="error.email_acceptable">Dës Email Adress ass net akzeptabel. Iwwerpréif se wannechgelift an probéier nach eng Kéier.</string>
   <string name="error.email_unique">Email Adress ongëlteg oder schon benotzt</string>
   <string name="error.email_different">Dat ass schon deng Email Adress</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Mindestens %s Zeechen</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximal %s Zeechen</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Muss mindestens %s sinn</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Däerf maximal %s sinn</string>
+  <string name="error.minLength">Mindestens %s Zeechen</string>
+  <string name="error.maxLength">Maximal %s Zeechen</string>
+  <string name="error.min">Muss mindestens %s sinn</string>
+  <string name="error.max">Däerf maximal %s sinn</string>
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
   <string name="onlyFriends">Just Frënn</string>
@@ -786,7 +793,6 @@
   <string name="currentMatchScore">Aktuellen Match Score</string>
   <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
   <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
-  <string name="agreementAccount">Ech stëmmen zou dass ech net puer Konten kreéieren wäert.</string>
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
@@ -812,7 +818,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kanns nach net am Forum schreiwen. Spill puer Partien!</string>
   <string name="subscribe">Abonéieren</string>
   <string name="unsubscribe">Desabonéiren</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">huet dech an \"%1$s\" erwähnt.</string>
+  <string name="mentionedYouInX">huet dech an \"%1$s\" erwähnt.</string>
   <string name="xMentionedYouInY">%1$s huet dech an \"%2$s\" erwähnt.</string>
   <string name="invitedYouToX">huet dech zu \"%1$s\" invitéiert.</string>
   <string name="xInvitedYouToY">%1$s huet dech zu \"%2$s\" invitéiert.</string>
@@ -884,4 +890,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="abortTheGame">Partie ofbriechen</string>
   <string name="resignTheGame">Partie opginn</string>
   <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
+  <string name="since">Säit</string>
+  <string name="until">Bis</string>
+  <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
+  <string name="switchSides">Faarf wiesselen</string>
 </resources>

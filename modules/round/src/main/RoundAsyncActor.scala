@@ -3,14 +3,14 @@ package lila.round
 import actorApi._, round._
 import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.chaining._
 
 import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
+import lila.game.{ Event, Game, GameRepo, Player => GamePlayer, Pov, Progress }
 import lila.hub.actorApi.round.{
   Abort,
   BotPlay,
@@ -232,7 +232,7 @@ final private[round] class RoundAsyncActor(
         lap => {
           p.promise.foreach(_ success {})
           lila.mon.round.move.time.record(lap.nanos)
-          MoveLatMonitor record lap.micros
+          MoveLatMonitor recordMicros lap.micros
         }
       )
 
@@ -253,7 +253,7 @@ final private[round] class RoundAsyncActor(
 
     case Abort(playerId) =>
       handle(PlayerId(playerId)) { pov =>
-        pov.game.abortable ?? finisher.abort(pov)
+        pov.game.abortableByUser ?? finisher.abort(pov)
       }
 
     case Resign(playerId) =>
@@ -526,12 +526,12 @@ final private[round] class RoundAsyncActor(
     }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
-    case e: ClientError =>
-      logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client.increment().unit
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment().unit
+    case e: BenignError =>
+      logger.info(s"Round client error $name: ${e.getMessage}")
+      lila.mon.round.error.client.increment().unit
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
       lila.mon.round.error.other.increment().unit
@@ -561,7 +561,7 @@ object RoundAsyncActor {
   }
 
   implicit private[round] val takebackSituationZero: Zero[TakebackSituation] =
-    Zero.instance(TakebackSituation(0, none))
+    Zero(TakebackSituation(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

@@ -1,6 +1,7 @@
 package lila.insight
 
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import play.api.Configuration
 
 import lila.common.config._
@@ -19,10 +20,12 @@ final class Env(
     system: akka.actor.ActorSystem
 ) {
 
-  private lazy val db = mongo.asyncDb(
-    "insight",
-    appConfig.get[String]("insight.mongodb.uri")
-  )
+  lazy val db = mongo
+    .asyncDb(
+      "insight",
+      appConfig.get[String]("insight.mongodb.uri")
+    )
+    .taggedWith[InsightDb]
 
   lazy val share = wire[Share]
 
@@ -44,3 +47,5 @@ final class Env(
     api.updateGame(game).unit
   }
 }
+
+trait InsightDb

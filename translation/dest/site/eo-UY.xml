@@ -17,6 +17,8 @@
   <string name="stalemate">Pato</string>
   <string name="white">Blanka</string>
   <string name="black">Nigro</string>
+  <string name="asWhite">kiel blanko</string>
+  <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkas</string>
@@ -159,7 +161,7 @@
   <string name="players">Ŝakludantoj</string>
   <string name="friends">Amikoj</string>
   <string name="discussions">Konversacioj</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hodiaŭ</string>
+  <string name="today">Hodiaŭ</string>
   <string name="yesterday">Hieraŭ</string>
   <string name="minutesPerSide">Minutoj por ĉiu flanko</string>
   <string name="variant">Variaĵo</string>
@@ -176,6 +178,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s horo</item>
     <item quantity="other">%s horoj</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutoj</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rango</string>
@@ -431,15 +437,14 @@
   <string name="popularOpenings">Popularaj malfermoj</string>
   <string name="endgamePositions">Finaĵaj pozicioj</string>
   <string name="chess960StartPosition">Ŝako960 komenca pozicio: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Komenca aranĝo</string>
+  <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Ŝargi aranĝon</string>
+  <string name="loadPosition">Ŝargi aranĝon</string>
   <string name="isPrivate">Privata</string>
   <string name="reportXToModerators">Raporti %s al moderatoroj</string>
   <string name="profileCompletion">Profila kompletiĝo: %s</string>
   <string name="xRating">%s-rango</string>
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
-  <string name="gameCompletionRate">Kiomelcente kompletigas ludojn: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Redakti profilon</string>
   <string name="firstName">Persona nomo</string>
@@ -448,11 +453,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lando aŭ flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
+  <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
   <string name="success">Sukceso</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s aktivaj ludoj</item>
@@ -485,6 +491,7 @@
   <string name="cheat">Trompo</string>
   <string name="insult">Insulto</string>
   <string name="troll">Trolo</string>
+  <string name="ratingManipulation">Manipulado de rango</string>
   <string name="other">Io alia</string>
   <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
@@ -519,7 +526,7 @@
   <string name="onSlowGames">Ĉe malrapidaj ludoj</string>
   <string name="always">Ĉiam</string>
   <string name="never">Neniam</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s konkuras en %2$s</string>
+  <string name="xCompetesInY">%1$s konkuras en %2$s</string>
   <string name="victory">Venko!</string>
   <string name="defeat">Malvenko</string>
   <string name="victoryVsYInZ">%1$s kontraŭ %2$s en %3$s</string>
@@ -551,6 +558,7 @@
   <string name="increment">Pliiĝo</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
+  <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
   <string name="onlyFriends">Nur amikoj</string>
   <string name="menu">Menuo</string>
@@ -648,6 +656,7 @@
   <string name="enableKidMode">Aktivigi infanan reĝimon</string>
   <string name="disableKidMode">Malaktivigi infanan reĝimon</string>
   <string name="security">Sekureco</string>
+  <string name="sessions">Sesioj</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="asFreeAsLichess">Tiom libera kiom lichess</string>
@@ -769,7 +778,6 @@
   <string name="currentMatchScore">Aktuala matĉa poentaro</string>
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
-  <string name="agreementAccount">Mi konsentas, ke mi ne kreos plurajn kontojn.</string>
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
@@ -795,7 +803,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">menciis vin en \"%1$s\".</string>
+  <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
   <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
@@ -807,8 +815,18 @@
   <string name="resVsX">%1$s kontraŭ %2$s</string>
   <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
+  <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
+  <string name="noRestriction">Neniu limigo</string>
+  <string name="minimumRating">Minimuma rango</string>
+  <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
+  <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="simulDescription">Priskribo de la samtempludo</string>
+  <string name="tournChat">Babilejo de turnira</string>
+  <string name="noChat">Malaktivigi babilejon</string>
+  <string name="focusChat">Babilejo de fokuso</string>
 </resources>

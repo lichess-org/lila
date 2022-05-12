@@ -11,7 +11,6 @@
   <string name="thankYou">Takk fyri stuðulin!</string>
   <string name="youHaveLifetime">Tú hevur eina stuðulskontu fyri lívið. Tað er ikki so galið!</string>
   <string name="patronUntil">Tú hevur eina stuðulskontu til %s.</string>
-  <string name="ifNotRenewed">Um kontan ikki verður endurnýggjað, verður hon lækkað til eina ókeypis kontu.</string>
   <string name="weAreNonProfit">Vit eru ein felagsskapur, sum ikki miðar eftir vinningi, tí vit halda, at øll eiga at hava atgongd til ein ókeypis telvingarpall í heimsflokki.</string>
   <string name="weRelyOnSupport">Vit eru bundin at stuðli frá fólki sum tær, skal hetta vera møguligt. Dámar tær at nýta Lichess, umhugsa so vinaliga at stuðla okkum við eini peningagávu og við at gerast Lichess stuðul!</string>
   <string name="lifetime">Lívstíð</string>
@@ -23,7 +22,6 @@
   <string name="singleDonation">Einstøk gáva, ið gevur tær vælvildarveingir í ein mánaða.</string>
   <string name="otherAmount">Annað</string>
   <string name="withCreditCard">Keypskort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vit eru eitt lítið lið, so tín stuðul ger stóran mun!</string>
   <string name="celebratedPatrons">Virðismettu stuðlarnir, ið gera, at Lichess er møguligt</string>
   <string name="whereMoneyGoes">Hvagar fer peningurin?</string>
@@ -36,7 +34,6 @@
   <string name="contactSupport">seta teg í samband við Lichess stuðul</string>
   <string name="otherMethods">Eru aðrir hættir at stuðla?</string>
   <string name="bankTransfers">Vit taka eisini ímóti bankaflytingum</string>
-  <string name="bitcoin">Og her er bitcoin-bústaður okkara: %s</string>
   <string name="patronFeatures">Eru tænastur, ið serliga eru ætlaðar stuðlum?</string>
   <string name="noPatronFeatures">Nei, tí Lichess er fullkomiliga ókeypis og fyri øll. Tað er eitt lyfti. Hinvegin hava stuðlar rætt til at reypa sær við eini nýggjari, kulari ímynd á vangamynd teirra.</string>
   <string name="featuresComparison">Síggj nágreiniligar sammetingar av eginleikum</string>

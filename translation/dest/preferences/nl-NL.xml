@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Schaakstuksymbool</string>
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen modus</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Geef rating van spelers weer</string>
+  <string name="showPlayerRatings">Geef rating van spelers weer</string>
+  <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
   <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Terugnames (met goedkeuring van tegenstander)</string>
   <string name="inCasualGamesOnly">Alleen bij partijen zonder rating</string>
   <string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
+  <string name="explainPromoteToQueenAutomatically">Houd de &lt;Ctrl&gt; toets ingedrukt om auto-promotie tijdelijk uit te zetten</string>
   <string name="whenPremoving">Bij vooraf-zetten</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>

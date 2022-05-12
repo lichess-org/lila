@@ -65,6 +65,7 @@ final private class TvBroadcast(
               .add("user" -> user.map(LightUser.lightUserWrites.writes))
               .add("ai" -> p.aiLevel)
               .add("rating" -> p.rating)
+              .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))
           }
         ),
         fen = Forsyth exportBoard pov.game.chess.board

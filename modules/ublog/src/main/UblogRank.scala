@@ -16,8 +16,7 @@ import lila.user.User
 
 final class UblogRank(
     colls: UblogColls,
-    timeline: lila.hub.actors.Timeline,
-    factor: SettingStore[Float] @@ UblogRankFactor
+    timeline: lila.hub.actors.Timeline
 )(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
   import UblogBsonHandlers._
@@ -28,54 +27,59 @@ final class UblogRank(
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
   def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
-    colls.post
-      .aggregateOne() { framework =>
-        import framework._
-        Match($id(postId)) -> List(
-          PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
-          UnwindField("blog"),
-          Project(
-            $doc(
-              "tier"     -> "$blog.tier",
-              "likes"    -> $doc("$size" -> "$likers"),
-              "topics"   -> "$topics",
-              "at"       -> "$lived.at",
-              "language" -> true,
-              "title"    -> true
+    colls.post.update.one(
+      $id(postId),
+      if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
+    ) flatMap { res =>
+      colls.post
+        .aggregateOne() { framework =>
+          import framework._
+          Match($id(postId)) -> List(
+            PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
+            UnwindField("blog"),
+            Project(
+              $doc(
+                "tier"     -> "$blog.tier",
+                "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
+                "topics"   -> "$topics",
+                "at"       -> "$lived.at",
+                "language" -> true,
+                "title"    -> true
+              )
             )
           )
-        )
-      }
-      .map { docOption =>
-        for {
-          doc      <- docOption
-          id       <- doc.getAsOpt[UblogPost.Id]("_id")
-          likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
-          topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
-          liveAt   <- doc.getAsOpt[DateTime]("at")
-          tier     <- doc int "tier"
-          language <- doc.getAsOpt[Lang]("language")
-          title    <- doc string "title"
-        } yield (id, topics, likes, liveAt, tier, language, title)
-      }
-      .flatMap {
-        _.fold(fuccess(UblogPost.Likes(v ?? 1))) {
-          case (id, topics, prevLikes, liveAt, tier, language, title) =>
-            val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
+        }
+        .map { docOption =>
+          for {
+            doc      <- docOption
+            id       <- doc.getAsOpt[UblogPost.Id]("_id")
+            likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
+            topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
+            liveAt   <- doc.getAsOpt[DateTime]("at")
+            tier     <- doc int "tier"
+            language <- doc.getAsOpt[Lang]("language")
+            title    <- doc string "title"
+          } yield (id, topics, likes, liveAt, tier, language, title)
+        }
+        .flatMap {
+          case None                                                     => fuccess(UblogPost.Likes(0))
+          case Some((id, topics, likes, liveAt, tier, language, title)) =>
+            // Multiple updates may race to set denormalized likes and rank,
+            // but values should be approximately correct, match a real like
+            // count (though perhaps not the latest one), and any uncontended
+            // query will set the precisely correct value.
             colls.post.update.one(
               $id(postId),
               $set(
                 "likes" -> likes,
                 "rank"  -> computeRank(topics, likes, liveAt, language, tier)
-              ) ++ {
-                if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
-              }
+              )
             ) >>- {
-              if (v && tier >= UblogBlog.Tier.LOW)
+              if (res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW)
                 timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
             } inject likes
         }
-      }
+    }
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMap {
@@ -128,33 +132,26 @@ final class UblogRank(
       language: Lang,
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
-    if (tier < UblogBlog.Tier.LOW) liveAt minusMonths 1
+    import UblogBlog.Tier._
+    if (tier < LOW) liveAt minusMonths 3
     else
       liveAt plusHours {
 
-        val boostedLikes = likes.value.toFloat + ((tier - 2) * 15).atLeast(0) // initial boost
+        val tierBase = 24 * (tier match {
+          case LOW    => -30
+          case NORMAL => 0
+          case HIGH   => 10
+          case BEST   => 15
+          case _      => 0
+        })
 
-        val baseHours =
-          if (boostedLikes < 1) 0
-          else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
+        val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-          case 0 => 0.2
-          case 1 => 1
-          case _ => 1.2
-        }
+        val topicsBonus = if (topics.exists(t => UblogTopic.chessExists(t.value))) 0 else -24 * 5
 
-        val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
+        val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
 
-        val tierMultiplier = tier match {
-          case UblogBlog.Tier.LOW    => 0.2
-          case UblogBlog.Tier.NORMAL => 3
-          case UblogBlog.Tier.HIGH   => 6
-          case UblogBlog.Tier.BEST   => 8
-          case _                     => 0
-        }
-
-        (baseHours * topicsMultiplier * langMultiplier * tierMultiplier * factor.get()).toInt
+        (tierBase + likesBonus + topicsBonus + langBonus).toInt
       }
   }
 }

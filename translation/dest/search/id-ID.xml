@@ -27,4 +27,7 @@
   <string name="maxNumber">Jumlah maksimum</string>
   <string name="maxNumberExplanation">Jumlah maksimal permainan untuk kembali</string>
   <string name="include">Termasuk</string>
+  <plurals name="gamesFound">
+    <item quantity="other">%s permainan ditemukan</item>
+  </plurals>
 </resources>

@@ -18,7 +18,7 @@
   <string name="thankYou">Hvala za vašo donacijo!</string>
   <string name="youHaveLifetime">Imate vseživljenski pokroviteljski račun. To je super!</string>
   <string name="patronUntil">Imate pokroviteljski račun od %s.</string>
-  <string name="ifNotRenewed">Če ne obnovite, boste nato prešli na brezplačno.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Če ga ne obnovite, se bo vaš račun vrnil na običajni račun.</string>
   <string name="weAreNonProfit">Smo neprofitno združenje, saj verjamemo, da bi morali vsi imeti dostop do brezplačne šahovske platforme svetovnega razreda.</string>
   <string name="weRelyOnSupport">Zanašamo se na podporo takšnih, kot ste vi, da to omogočimo. Če uživate v uporabi Lichess, vas prosimo, da nas podprete z donacijami in postanete pokrovitelj!</string>
   <string name="lifetime">Doživljenjsko</string>
@@ -31,7 +31,6 @@
   <string name="otherAmount">Drugo</string>
   <string name="pleaseEnterAmountInX">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
   <string name="celebratedPatrons">Slavni pokrovitelji, ki so naredili Lichess možen</string>
   <string name="whereMoneyGoes">Kam gre denar?</string>
@@ -46,7 +45,6 @@ Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
   <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
-  <string name="bitcoin">In tukaj je naš bitcoin naslov: %s</string>
   <string name="patronFeatures">Ali je kaj značilnosti rezerviranih za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, ker je Lichess popolnoma zastonj, za vedno in za vsakogar. To je obljuba. Kakorkoli, pokrovitelji dobijo pravice hvalisanja s kul novo ikono profila.</string>
   <string name="featuresComparison">Poglejte podrobno primerjavo lastnosti</string>
@@ -69,6 +67,7 @@ Ali pa %s.</string>
   <string name="xOrY">%1$s ali %2$s</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
+  <string name="stopPaymentsPayPal">Prekličite naročnino na PayPal in ustavite plačila:</string>
   <string name="noLongerSupport">Ni več podpore Lichess</string>
   <string name="viewOthers">Ogled drugih Lichess pokroviteljev</string>
   <string name="date">Datum</string>

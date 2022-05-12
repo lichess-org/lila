@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Ақшалай жәрдем</string>
+  <string name="donate">Демеу жасау</string>
+  <string name="donateAsX">%s атынан демеу</string>
   <string name="lichessPatron">Личес Қамқоршысы</string>
   <string name="freeAccount">Тегін тіркелгі</string>
   <string name="becomePatron">Лическе Қамқоршы болу</string>
@@ -12,23 +13,21 @@
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршаға арналған тегін шахмат! Мәңгіге!</string>
   <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
-  <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
+  <string name="thankYou">Демеуіңіз үшін көп рахмет!</string>
   <string name="youHaveLifetime">Сіз Мәңгіге Қамқоршы тіркелгісіне иесіз. Бәрекелді!</string>
   <string name="patronUntil">Сіз Қамқоршы тіркелгісіне %s дейін иесіз.</string>
-  <string name="ifNotRenewed">Егер жаңартпасаңыз, тіркелгі тегін деңгейіне түседі.</string>
   <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматты тегін ойнауға құқылы деп сенеміз.</string>
-  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жүрген жұртқа үміт артамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
+  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жүрген жұртқа үміт артамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай демеу көрсетуді сұраймыз!</string>
   <string name="lifetime">Мәңгіге</string>
   <string name="payLifetimeOnce">%s бір мәрте төлеп, Лическе мәңгі Қамқоршы болыңыз!</string>
   <string name="lifetimePatron">Лическе Мәңгіге Қамқоршы</string>
   <string name="monthly">Ай сайын</string>
   <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
   <string name="onetime">Бір рет</string>
-  <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
+  <string name="singleDonation">Бір демеу көрсетсеңіз, Қамқоршы қанатына бір ай ие боласыз.</string>
   <string name="otherAmount">Басқа</string>
   <string name="pleaseEnterAmountInX">Мөлшерін %s-мен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Біз шағын ғана топпыз, сондықтан сіздің жәрдеміңіз зор пайда болады!</string>
   <string name="celebratedPatrons">Личесті жоқтан болдырған атақты Қамқоршыларымыз</string>
   <string name="whereMoneyGoes">Ақша қайда жұмсалады?</string>
@@ -41,9 +40,8 @@
   <string name="changeOrContact">Иә, кез-келген уақытта, осы бетте.
 Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
-  <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
+  <string name="otherMethods">Демеу берудің басқа жолдары бар ма?</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
-  <string name="bitcoin">Биткоин мекенжайымыз: %s</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
   <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз.
 Дегенмен, Қамқоршылар өз куәлігінде күшті таңбашаға ие болады.</string>
@@ -57,7 +55,7 @@
   <string name="currentStatus">Қазіргі мәртебе</string>
   <string name="nextPayment">Келесі төлем</string>
   <string name="youWillBeChargedXOnY">Сіз %2$s %1$s төлейтін боласыз.</string>
-  <string name="makeAdditionalDonation">Қосымша ақшалай жәрдем қазір жасаңыз</string>
+  <string name="makeAdditionalDonation">Қосымша демеу беру</string>
   <string name="giftPatronWings">Қамқоршы қанатын сыйға тарту</string>
   <string name="update">Жаңарту</string>
   <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
@@ -69,7 +67,7 @@
   <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
   <string name="date">Күні</string>
   <string name="amount">Мөлшері</string>
-  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, ақшалай жәрдем түбіртегі поштаңызға жіберілді.</string>
+  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, түбіртек поштаңызға жіберілді.</string>
   <string name="permanentPatron">Енді сіз тұрақты Қамқоршы тіркелгісіне иесіз.</string>
   <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
   <string name="nowLifetime">Енді сіз мәңгіге Личес Қамқоршысысыз!</string>

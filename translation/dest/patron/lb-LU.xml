@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Spenden</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Als %s spenden</string>
+  <string name="donateAsX">Als %s spenden</string>
   <string name="lichessPatron">Lichess Ënnerstëtzer</string>
   <string name="freeAccount">Gratis Account</string>
   <string name="becomePatron">Lichess Ënnerstëtzer ginn</string>
@@ -16,7 +16,6 @@
   <string name="thankYou">Merci fir deng Spend!</string>
   <string name="youHaveLifetime">Du bass en liewenslaangen Lichess Ënnerstëtzer. Dat ass super!</string>
   <string name="patronUntil">Du bass en Ënnerstëtzer bis %s.</string>
-  <string name="ifNotRenewed">Falls net erneiert, gëtt däin Konto dann gratis erofgestuft.</string>
   <string name="weAreNonProfit">Mir sinn eng Non-Profit-Organisatioun, well mir mengen, dass jiddereen Accès zu enger gratis, héichwäerteger Schachplattform soll hunn.</string>
   <string name="weRelyOnSupport">Mir sinn op d\'Ënnerstëtzung vun Leit wéi dir ugewisen fir dëst méiglech ze maachen. Wann dir Lichess gefällt, consideréier wannechgelift eis mat enger Spend ze ënnerstëtzen an Lichess Ënnerstëtzer ze ginn!</string>
   <string name="lifetime">Liewenslaang</string>
@@ -29,7 +28,6 @@
   <string name="otherAmount">Aner</string>
   <string name="pleaseEnterAmountInX">Montant an %s aginn</string>
   <string name="withCreditCard">Kreditkaart</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mir sinn eng kleng Ekipp, also mécht all Ënnerstëtzung en groussen Ënnerscheed!</string>
   <string name="celebratedPatrons">Eis gefeiert Ënnerstëtzer déi Lichess méiglech maachen</string>
   <string name="whereMoneyGoes">Wou ginn d\'Suen hinn?</string>
@@ -44,7 +42,6 @@ Oder du kanns %s.</string>
   <string name="contactSupport">de Lichess Support kontaktéieren</string>
   <string name="otherMethods">Aner Weeër ze spenden?</string>
   <string name="bankTransfers">Mir akzeptéieren och Bank-Transferten</string>
-  <string name="bitcoin">An hei ass eis Bitcoin Adress: %s</string>
   <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
   <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
 Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flilleken-Icon ze bretzen.</string>

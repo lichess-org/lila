@@ -1,4 +1,5 @@
 import * as winningChances from './winningChances';
+import stepwiseScroll from 'common/wheel';
 import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
@@ -78,14 +79,19 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const version = ctrl.engineName();
   return [
-    h(
-      'span',
-      { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 14+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
-    ),
-    ctrl.technology == 'nnue'
+    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
+    ctrl.technology == 'external'
+      ? h(
+          'span.technology.good',
+          {
+            attrs: {
+              title: 'Engine running outside of the browser',
+            },
+          },
+          'EXTERNAL'
+        )
+      : ctrl.technology == 'nnue'
       ? h(
           'span.technology.good',
           {
@@ -338,19 +344,21 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
               instance.setPvBoard({ fen, uci });
             }
           });
-          el.addEventListener('wheel', (e: WheelEvent) => {
-            e.preventDefault();
-            if (pvIndex != null && pvMoves != null) {
-              if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
-              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
-
-              const pvBoard = pvMoves[pvIndex];
-              if (pvBoard) {
-                const [fen, uci] = pvBoard.split('|');
-                ctrl.getCeval().setPvBoard({ fen, uci });
+          el.addEventListener(
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              e.preventDefault();
+              if (pvIndex != null && pvMoves != null) {
+                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+                const pvBoard = pvMoves[pvIndex];
+                if (pvBoard) {
+                  const [fen, uci] = pvBoard.split('|');
+                  ctrl.getCeval().setPvBoard({ fen, uci });
+                }
               }
-            }
-          });
+            })
+          );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {

@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Ақ</string>
   <string name="black">Қара</string>
+  <string name="asWhite">ақпен</string>
+  <string name="asBlack">қарамен</string>
   <string name="randomColor">Кез-келген түс</string>
   <string name="createAGame">Ойын бастау</string>
   <string name="whiteIsVictorious">Ақ жеңді</string>
@@ -138,7 +140,7 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
-  <string name="drawByMutualAgreement">Өзара мақұлданған тепе-теңдік</string>
+  <string name="drawByMutualAgreement">Келісімді тепе-теңдік</string>
   <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
   <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
@@ -162,7 +164,7 @@
   <string name="players">Ойыншылар</string>
   <string name="friends">Достарыңыз</string>
   <string name="discussions">Сұхбаттар</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Бүгін</string>
+  <string name="today">Бүгін</string>
   <string name="yesterday">Кеше</string>
   <string name="minutesPerSide">Әр түске берілген уақыт</string>
   <string name="variant">Түрі</string>
@@ -231,9 +233,9 @@
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
   <string name="mode">Түрі</string>
-  <string name="casual">Қалыпты</string>
+  <string name="casual">Жай</string>
   <string name="rated">Бағаланатын</string>
-  <string name="casualTournament">Қалыпты</string>
+  <string name="casualTournament">Кәдімгі</string>
   <string name="ratedTournament">Бағаланатын</string>
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
@@ -343,6 +345,7 @@
   <string name="leaderboard">Мықтылар қатары</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
+  <string name="orUploadPgnFile">Немесе PGN файл жүктеңіз</string>
   <string name="fromPosition">Күйден бастап</string>
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
@@ -368,6 +371,8 @@
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
+  <string name="followX">%s серік болу</string>
+  <string name="unfollowX">%s серік болмау</string>
   <string name="block">Бұғаттау</string>
   <string name="blocked">Бұғатталған</string>
   <string name="unblock">Бұғаттан шығару</string>
@@ -432,15 +437,14 @@
   <string name="popularOpenings">Танымал бастаулар</string>
   <string name="endgamePositions">Ойынсоңы күйлері</string>
   <string name="chess960StartPosition">Шахмат960 бастапқы күйі: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Бастапқы күй</string>
+  <string name="startPosition">Бастапқы күй</string>
   <string name="clearBoard">Тақтаны жинау</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Күйді жүктеп алу</string>
+  <string name="loadPosition">Күйді жүктеп алу</string>
   <string name="isPrivate">Жасырын</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
   <string name="profileCompletion">Куәлігіңіздің толуы: %s</string>
   <string name="xRating">%s рейтингі</string>
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
-  <string name="gameCompletionRate">Ойындарды аяқтау деңгейі: %s</string>
   <string name="profile">Куәлік</string>
   <string name="editProfile">Куәлікті өзгерту</string>
   <string name="firstName">Атыңыз</string>
@@ -453,7 +457,7 @@
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
   <string name="success">Бәрі дұрыс!</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
@@ -515,14 +519,14 @@
   <string name="sound">Дыбыстар</string>
   <string name="none">Жоқ</string>
   <string name="fast">Тез</string>
-  <string name="normal">Қалыпты</string>
+  <string name="normal">Орташа</string>
   <string name="slow">Баяу</string>
   <string name="insideTheBoard">Тақта бетінде</string>
   <string name="outsideTheBoard">Тақта сыртында</string>
   <string name="onSlowGames">Ұзақ ойындар кезінде</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s-та жарысты</string>
+  <string name="xCompetesInY">%1$s %2$s-та жарысты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
   <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
@@ -553,6 +557,14 @@
   <string name="tools">Құралдар</string>
   <string name="increment">Қосылғыш</string>
   <string name="error.required">Бұл жолды толтырыңыз</string>
+  <string name="error.email">Бұл пошта мекенжайы қате</string>
+  <string name="error.email_acceptable">Бұл пошта мекенжайы қабылданбайды. Оны тексеріп, қайта көріңіз.</string>
+  <string name="error.email_unique">Пошта мекенжайы қате немесе бос емес</string>
+  <string name="error.email_different">Бұл сіздің бұрыңғы поштаңыз</string>
+  <string name="error.minLength">Кемінде %s таңба болу керек</string>
+  <string name="error.maxLength">Ең көбі %s таңба болу керек</string>
+  <string name="error.min">Кемінде %s болу керек</string>
+  <string name="error.max">Ең көбі %s болу керек</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
@@ -591,10 +603,10 @@
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы болады, ол тақталарды аралап, бір-бір жүрістен жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
-  <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан өзіне лайық біреуін таңдайды.</string>
+  <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
@@ -700,12 +712,12 @@
   <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
-  <string name="custom">Қалыпты</string>
+  <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
-    <item quantity="other">Бірінші жүріске %s секунд бар</item>
+    <item quantity="other">Бірінші жүріске %s  секунд бар</item>
   </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="anotherWasX">Тағы %s</string>
@@ -740,7 +752,7 @@
   <string name="doItAgain">Қайта жасау</string>
   <string name="reviewWhiteMistakes">Ақтардың қателерін қарау</string>
   <string name="reviewBlackMistakes">Қаралардың қателерін қарау</string>
-  <string name="advantage">Артықшылық</string>
+  <string name="advantage">Басымдылық</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
     <item quantity="other">%s секунд</item>
@@ -775,17 +787,16 @@
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
-  <string name="agreementAccount">Мен бірнеше тіркелгі жасамаймын деп уәде беремін.</string>
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
-  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
+  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан аз</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
-  <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
+  <string name="classicalDesc">Классикалық ойындар: 25 минут әрі одан көп</string>
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
@@ -801,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">%1$s біреу сіз туралы жазды.</string>
+  <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
   <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
   <string name="invitedYouToX">сізді %1$s шақырды.</string>
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
@@ -820,7 +831,7 @@
   <string name="download">Жүктеп алу</string>
   <string name="welcome">Қол келдіңіз!</string>
   <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
-Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай қолдауынан өтеледі.</string>
+Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
   <string name="coachManager">Бапкер басқармасы</string>
   <string name="streamerManager">Стример басқармасы</string>
   <string name="cancelTournament">Жарысты болдырмау</string>
@@ -836,8 +847,8 @@
   <string name="onlyTitled">Тек атаққа ие ойыншылар</string>
   <string name="onlyTitledHelp">Жарысқа қосу үшін ресми атағын талап ету</string>
   <string name="positionInputHelp">Әр ойынды нақты бір күйден бастау үшін FEN еңгізіңіз.
-Бұл тек қалыпты ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
-Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында қойыңыз.
+Бұл тек классикалық ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
+Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
   <string name="cancelSimul">Көпшілікке қарсы ойынды болдырмау</string>
   <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>

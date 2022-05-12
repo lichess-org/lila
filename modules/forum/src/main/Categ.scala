@@ -14,7 +14,8 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String,
-    quiet: Boolean = false
+    quiet: Boolean = false,
+    hidden: Boolean = false
 ) {
 
   def id = _id
@@ -41,6 +42,8 @@ case class Categ(
 }
 
 object Categ {
+
+  val ublogSlug = "community-blog-discussions"
 
   def isTeamSlug(slug: String) = slug.startsWith("team-")
 

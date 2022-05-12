@@ -3,12 +3,14 @@ package controllers
 import scala.concurrent.duration._
 import views._
 
+import play.api.i18n.Lang
+
 import lila.app._
 import lila.common.IpAddress
 
 final class Search(env: Env) extends LilaController(env) {
 
-  def searchForm = env.gameSearch.forms.search
+  def searchForm(implicit lang: Lang) = env.gameSearch.forms.search
 
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,

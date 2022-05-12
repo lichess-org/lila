@@ -205,6 +205,7 @@ private object DisposableEmailDomain {
     "unitybox.de",
     "volki.at",
     /* others */
-    "skole.hr"
+    "skole.hr",
+    "freeshell.org"
   )
 }

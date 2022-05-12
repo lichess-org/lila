@@ -47,7 +47,7 @@ final class NotifyApi(
     }
 
   private val unreadCountCache = cacheApi[Notification.Notifies, Int](32768, "notify.unreadCountCache") {
-    _.expireAfterAccess(20 minutes)
+    _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.unreadNotificationsCount)
   }
 
@@ -88,14 +88,13 @@ final class NotifyApi(
       }
     }
 
-  /** Inserts notification into the repository.
-    * If the user already has an unread notification on the topic, discard it.
-    * If the user does not already have an unread notification on the topic, returns it unmodified.
+  /** Inserts notification into the repository. If the user already has an unread notification on the topic,
+    * discard it. If the user does not already have an unread notification on the topic, returns it
+    * unmodified.
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
-    shouldSkip(notification) flatMap {
-      case true  => fuccess(none)
-      case false => addNotificationWithoutSkipOrEvent(notification) inject notification.some
+    !shouldSkip(notification) flatMap {
+      _ ?? addNotificationWithoutSkipOrEvent(notification) inject notification.some
     }
 
   private def notifyUser(notifies: Notification.Notifies): Funit =

@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Нема одиграно доволно рангирани игри за воспоставување на рејтинг.</string>
   <string name="progressOverLastXGames">Напредок во последните %s партии:</string>
   <string name="ratingDeviation">Девијација на рејтингот: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Пониска вредност значи дека рејтингот е постабилен. Над %1$s, рејтингот се смета за привремен. За да биде вклучена во рангирањата, оваа вредност треба да биде под %2$s (класичен шах) или %3$s (варијации).</string>
   <string name="totalGames">Вкупно партии</string>
   <string name="ratedGames">Рангирани партии</string>
   <string name="tournamentGames">Турнирски партии</string>

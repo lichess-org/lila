@@ -125,7 +125,7 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
 
-    if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
+    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -137,7 +137,7 @@ export default class AnalyseCtrl {
 
     {
       const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1));
+        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
       if (hashPly) {
         // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
         window.history.replaceState(null, '', loc.pathname + loc.search);
@@ -266,8 +266,8 @@ export default class AnalyseCtrl {
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
-    return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
+    const start = uci[1] === '@' ? 2 : 0;
+    return [uci.slice(start, start + 2), uci.slice(2, 4)] as Key[];
   }
 
   private showGround(): void {
@@ -398,9 +398,7 @@ export default class AnalyseCtrl {
     } else this.jump(path);
   };
 
-  private canJumpTo(path: Tree.Path): boolean {
-    return !this.study || this.study.canJumpTo(path);
-  }
+  canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
   userJumpIfCan(path: Tree.Path): void {
     if (this.canJumpTo(path)) this.userJump(path);
@@ -725,14 +723,12 @@ export default class AnalyseCtrl {
   };
 
   cevalSetThreads = (v: number): void => {
-    if (!this.ceval.threads) return;
-    this.ceval.threads(v);
+    this.ceval.setThreads(v);
     this.cevalReset();
   };
 
   cevalSetHashSize = (v: number): void => {
-    if (!this.ceval.hashSize) return;
-    this.ceval.hashSize(v);
+    this.ceval.setHashSize(v);
     this.cevalReset();
   };
 
@@ -789,12 +785,13 @@ export default class AnalyseCtrl {
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };
 
-  mergeAnalysisData(data: ServerEvalData): void {
+  mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length);
+    if (data.analysis)
+      data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length && n.ply <= 300);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
@@ -802,7 +799,7 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci, uciQueue?: Uci[]): void {
+  playUci(uci: Uci, uciQueue?: Uci[]) {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
@@ -862,6 +859,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
+          this.ceval?.cachable &&
           this.data.evalPut &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves

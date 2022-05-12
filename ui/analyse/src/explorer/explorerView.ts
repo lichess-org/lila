@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
-import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
@@ -36,12 +35,15 @@ function resultBar(move: OpeningMoveStats): VNode {
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
+  const sumTotal = data.white + data.black + data.draws;
   const movesWithCurrent =
-    data.moves.length > 1 && [data.white, data.black, data.draws].every(defined)
+    data.moves.length > 1
       ? [
           ...data.moves,
           {
-            ...data,
+            white: data.white,
+            black: data.black,
+            draws: data.draws,
             uci: '',
             san: 'Σ',
           } as OpeningMoveStats,
@@ -53,37 +55,41 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     h(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
-      movesWithCurrent.map(move =>
-        h(
+      movesWithCurrent.map(move => {
+        const total = move.white + move.draws + move.black;
+        return h(
           `tr${move.uci ? '' : '.sum'}`,
           {
             key: move.uci,
             attrs: {
               'data-uci': move.uci,
-              title: moveTooltip(ctrl, move),
             },
           },
           [
             h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-            h('td', numberFormat(move.white + move.draws + move.black)),
-            h('td', resultBar(move)),
+            h('td', { attrs: { title: ((total / sumTotal) * 100).toFixed(1) + '%' } }, numberFormat(total)),
+            h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
           ]
-        )
-      )
+        );
+      })
     ),
   ]);
 }
 
 function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
-  if (!ctrl.explorer.opts.showRatings) return '';
   if (move.game) {
     const g = move.game;
     const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
-    return `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`;
+    return ctrl.explorer.opts.showRatings
+      ? `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`
+      : `${g.white.name} ${result} ${g.black.name}`;
   }
-  if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
-  if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+  if (ctrl.explorer.opts.showRatings) {
+    if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
+    if (move.averageOpponentRating)
+      return `Performance rating: ${move.performance}, average opponent: ${move.averageOpponentRating}`;
+  }
   return '';
 }
 
@@ -245,7 +251,6 @@ function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
       ctrl.explorer.config.fullHouse()
         ? null
         : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
-      closeButton(ctrl),
     ]),
   ]);
 }
@@ -346,7 +351,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           explorer.reload
         ),
       },
-      'Player'
+      explorer.root.trans('player')
     );
   const active = (nodes: MaybeVNodes, title: string) =>
     h(
@@ -358,8 +363,8 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2020'),
-    lichessDbExplanation = 'Rated games sampled from all Lichess players';
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021-11'),
+    lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
@@ -374,13 +379,12 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         ? active(
             [
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ' as ',
-              explorer.config.data.color(),
+              ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
               explorer.isIndexing() && !explorer.config.data.open()
                 ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
                 : undefined,
             ],
-            'Switch sides'
+            explorer.root.trans('switchSides')
           )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),

@@ -46,7 +46,7 @@ object page {
       contentCls = "page",
       moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit);
+$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 12));
 $('#asset-version-message').text(lichess.info.message);"""
       )
     )(
@@ -64,7 +64,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 tr(
                   td("Server"),
                   td(date),
-                  td(a(href := s"https://github.com/ornicar/lila/commits/$commit")(pre(commit))),
+                  td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(12)))),
                   td(message)
                 )
             },
@@ -119,8 +119,8 @@ $('#asset-version-message').text(lichess.info.message);"""
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "tv-embed-src",
-                cls := "copyable autoselect",
+                id    := "tv-embed-src",
+                cls   := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "")
@@ -139,14 +139,14 @@ $('#asset-version-message').text(lichess.info.message);"""
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "puzzle-embed-src",
-                cls := "copyable autoselect",
+                id    := "puzzle-embed-src",
+                cls   := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
-                title := "Copy code",
-                cls := "copy button",
-                dataRel := "puzzle-embed-src",
+                title    := "Copy code",
+                cls      := "copy button",
+                dataRel  := "puzzle-embed-src",
                 dataIcon := ""
               )
             ),

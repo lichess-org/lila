@@ -9,7 +9,7 @@ import scala.math
 import lila.common.ApiVersion
 import lila.common.Json._
 import lila.game.JsonView._
-import lila.game.{ Pov, Game, Player => GamePlayer }
+import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -94,7 +94,7 @@ final class JsonView(
               .add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
-              .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
+              .add("keyboardMove" -> (!nvui && pref.hasKeyboardMove))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)

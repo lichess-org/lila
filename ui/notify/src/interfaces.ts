@@ -54,7 +54,7 @@ export interface Renderers {
   [key: string]: Renderer;
 }
 
-interface Renderer {
+export interface Renderer {
   html(n: Notification): VNode;
   text(n: Notification): string;
 }

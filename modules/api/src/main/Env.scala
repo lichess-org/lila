@@ -49,6 +49,11 @@ final class Env(
     socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
     videoEnv: lila.video.Env,
+    pushEnv: lila.push.Env,
+    reportEnv: lila.report.Env,
+    modEnv: lila.mod.Env,
+    appealApi: lila.appeal.AppealApi,
+    activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
@@ -57,7 +62,8 @@ final class Env(
     val mode: Mode
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: Scheduler
 ) {
 
   val config = ApiConfig loadFrom appConfig
@@ -85,6 +91,10 @@ final class Env(
   lazy val personalDataExport = wire[PersonalDataExport]
 
   lazy val referrerRedirect = wire[ReferrerRedirect]
+
+  lazy val accountClosure = wire[AccountClosure]
+
+  lazy val forumAccess = wire[ForumAccess]
 
   lazy val cli = wire[Cli]
 

@@ -43,4 +43,5 @@ Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat
   <string name="closeTeam">Naby span</string>
   <string name="closeTeamDescription">Sluit die span vir altyd.</string>
   <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
+  <string name="joinLichessVariantTeam">Sluit aan by die amptelike %s-span vir nuus en gebeure</string>
 </resources>

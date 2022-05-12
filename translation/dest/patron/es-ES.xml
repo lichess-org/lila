@@ -16,7 +16,7 @@
   <string name="thankYou">¡Gracias por tu donación!</string>
   <string name="youHaveLifetime">Tienes una cuenta de patrón de por vida. ¡Qué impresionante!</string>
   <string name="patronUntil">Tienes una cuenta de patrón hasta el %s.</string>
-  <string name="ifNotRenewed">Si no se renueva, se te degradará a la versión gratuita.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Si no se renueva, tu cuenta se revertirá a una cuenta normal.</string>
   <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
   <string name="lifetime">De por vida</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Otro</string>
   <string name="pleaseEnterAmountInX">Especifica un importe en %s</string>
   <string name="withCreditCard">Tarjeta de crédito</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo pequeño, ¡por eso tu apoyo marca una gran diferencia!</string>
   <string name="celebratedPatrons">Los célebres patrones que hacen posible Lichess</string>
   <string name="whereMoneyGoes">¿A dónde va el dinero?</string>
@@ -44,7 +43,6 @@ O puedes %s.</string>
   <string name="contactSupport">ponerte en contacto con el soporte de Lichess</string>
   <string name="otherMethods">¿Hay otras maneras de donar?</string>
   <string name="bankTransfers">También aceptamos transferencias bancarias</string>
-  <string name="bitcoin">Y aquí está nuestra dirección de bitcoin: %s</string>
   <string name="patronFeatures">¿Hay algunas características reservadas a los patrones?</string>
   <string name="noPatronFeatures">No, porque Lichess es completamente gratuito, para siempre y para todos. Prometido.
 Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfil.</string>
@@ -58,23 +56,24 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="currentStatus">Estado actual</string>
   <string name="nextPayment">Próximo pago</string>
   <string name="youWillBeChargedXOnY">Se te cobrará %1$s el %2$s.</string>
-  <string name="makeAdditionalDonation">Haz una donación adicional ahora</string>
+  <string name="makeAdditionalDonation">Haz una donación adicional</string>
   <string name="giftPatronWings">Regalar alas de patrón a otro jugador</string>
   <string name="update">Actualizar</string>
-  <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
-  <string name="cancelSupport">cancel your support</string>
-  <string name="xOrY">%1$s or %2$s</string>
+  <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>
+  <string name="cancelSupport">cancela tu apoyo</string>
+  <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decide cuanto vale Lichess para ti:</string>
   <string name="stopPayments">Retira tu tarjeta de crédito y detén los pagos:</string>
-  <string name="noLongerSupport">No longer support Lichess</string>
+  <string name="stopPaymentsPayPal">Cancelar suscripción de PayPal y detener los pagos:</string>
+  <string name="noLongerSupport">Ya no apoyas a Lichess</string>
   <string name="viewOthers">Ver otros Patrones de Lichess</string>
-  <string name="date">Date</string>
-  <string name="amount">Amount</string>
-  <string name="transactionCompleted">Your transaction has been completed, and a receipt for your donation has been emailed to you.</string>
+  <string name="date">Fecha</string>
+  <string name="amount">Cantidad</string>
+  <string name="transactionCompleted">La transacción ha sido completada y el recibo de la donación se te ha enviado por correo electrónico.</string>
   <string name="permanentPatron">Ahora tienes una cuenta de Patrón permanente.</string>
   <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
-  <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
+  <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess volverá a la versión normal.</string>
   <string name="changeCurrency">Cambiar moneda</string>
 </resources>

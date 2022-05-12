@@ -10,7 +10,6 @@ import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 import chess.format.FEN
 import chess.variant.Variant
-import io.lemonlabs.uri.AbsoluteUrl
 
 trait Handlers {
 
@@ -32,7 +31,7 @@ trait Handlers {
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     stringIsoHandler(Iso(from, to))
 
-  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A]         = BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A] = BSONIntegerHandler.as[A](iso.from, iso.to)
   def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(Iso(from, to))
 
   def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[A] =
@@ -129,6 +128,9 @@ trait Handlers {
 
   implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
+  implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
+    stringAnyValHandler(_.value, lila.common.Markdown.apply)
+
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
       case BSONString(v) => Variant orDefault v
@@ -149,10 +151,5 @@ trait Handlers {
         "limit"     -> c.limitSeconds,
         "increment" -> c.incrementSeconds
       )
-  )
-
-  implicit val absoluteUrlHandler = tryHandler[AbsoluteUrl](
-    { case str: BSONString => AbsoluteUrl parseTry str.value },
-    url => BSONString(url.toString)
   )
 }

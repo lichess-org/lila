@@ -165,5 +165,5 @@ final class Env(
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
-  def cli = wire[Cli]
+  lazy val cli = wire[Cli]
 }

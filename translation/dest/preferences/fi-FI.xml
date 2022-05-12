@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
   <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-moodi</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Näytä pelaajien vahvuusluvut</string>
+  <string name="showPlayerRatings">Näytä pelaajien vahvuusluvut</string>
+  <string name="explainShowPlayerRatings">Tämän avulla voit piilottaa sivustolta kaikki vahvuusluvut, jotta voit keskittyä paremmin shakinpeluuseen. Pelit kyllä pisteytetään normaalisti, tällä asetuksella on vaikutus vain sinun näkymääsi.</string>
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
   <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Siirtojen peruminen (vastustajan hyväksynnällä)</string>
   <string name="inCasualGamesOnly">Vain rennoissa peleissä</string>
   <string name="promoteToQueenAutomatically">Korota automaattisesti kuningattareksi</string>
+  <string name="explainPromoteToQueenAutomatically">Pidä &lt;ctrl&gt;-näppäintä painettuna korottaessasi sotilaan, jos haluat ottaa automaattisen korotuksen väliaikaisesti pois käytöstä</string>
   <string name="whenPremoving">Esisiirtäessä</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sano \"Good game, well played\" (suom. \"Hyvä peli, hyvin pelattu\") tasapelin tai tappion jälkeen</string>
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
   <string name="scrollOnTheBoardToReplayMoves">Vierittämällä laudan yllä voit katsoa siirtoja uudelleen</string>
+  <string name="correspondenceEmailNotification">Päivittäinen sähköposti-ilmoitus, jossa listataan kirjeshakkipelisi</string>
 </resources>

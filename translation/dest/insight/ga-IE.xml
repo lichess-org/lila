@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="crunchingData">Anois ag bailiú sonraí duitse!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">B\'fhéidir iarraidh orthu a %s a athrú?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">socruithe léargais</string>
+</resources>

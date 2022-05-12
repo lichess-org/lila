@@ -9,7 +9,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 import views._
 
-import lila.api.Context
+import lila.api.{ Context, ExternalEngine }
 import lila.app._
 import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
@@ -29,7 +29,7 @@ final class UserAnalysis(
       case Array(key, fen) =>
         Variant.byKey get key match {
           case Some(variant) if variant != Standard       => load(fen, variant)
-          case _ if FEN.clean(fen) == Standard.initialFen => load(arg, Standard)
+          case _ if FEN.clean(fen) == Standard.initialFen => load("", Standard)
           case Some(Standard)                             => load(fen, FromPosition)
           case _                                          => load(arg, FromPosition)
         }
@@ -164,6 +164,8 @@ final class UserAnalysis(
         )
     }
 
+  private def forecastReload = JsonOk(Json.obj("reload" -> true))
+
   def forecasts(fullId: String) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
@@ -178,8 +180,9 @@ final class UserAnalysis(
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
                     _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                  } recover { case Forecast.OutOfSync =>
-                    JsonOk(Json.obj("reload" -> true))
+                  } recover {
+                    case Forecast.OutOfSync        => forecastReload
+                    case _: lila.round.ClientError => forecastReload
                   }
             )
       }
@@ -197,16 +200,23 @@ final class UserAnalysis(
               err => BadRequest(err.toString).fuccess,
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-                env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
                   lila.common.Future.sleep(wait.millis) inject
-                  Ok(Json.obj("reload" -> true))
+                  forecastReload
               }
             )
       }
     }
 
+  def external = Open { implicit ctx =>
+    ExternalEngine.form
+      .bindFromRequest(ctx.req.queryString)
+      .fold(err => BadRequest(errorsAsJson(err)), prompt => Ok(html.analyse.external(prompt)))
+      .fuccess
+  }
+
   def help =
     Open { implicit ctx =>
-      Ok(html.analyse.help(getBool("study"))).fuccess
+      Ok(html.site.helpModal.analyse(getBool("study"))).fuccess
     }
 }

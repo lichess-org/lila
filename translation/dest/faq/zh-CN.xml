@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
+  <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的 %s</string>
+  <string name="fairPlayPage">公平对弈页面</string>
   <string name="youCanUseOpeningBookNoEngine">在 Lichess 平台，通讯棋的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通讯棋中使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>

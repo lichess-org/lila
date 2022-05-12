@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hvordan kan jeg blive moderator?</string>
   <string name="youCannotApply">Det er ikke muligt at ansøge om at blive moderator. Hvis vi ser nogen, som vi tror ville være en god moderator, vil du kontakte dem direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
+  <string name="pleaseReadFairPlayPage">For yderligere oplysninger kan du læse vores %s</string>
+  <string name="fairPlayPage">side om fair play</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på Lichess.</string>
   <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>

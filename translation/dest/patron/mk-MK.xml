@@ -11,7 +11,6 @@
   <string name="thankYou">Ви благодарам за донацијата!</string>
   <string name="youHaveLifetime">Имате доживотен донатор акаунт. Тоа е неверојатно!</string>
   <string name="patronUntil">Имате донаторски акаунт до %s.</string>
-  <string name="ifNotRenewed">Ако не е обновен, тогаш ќе бидете деградирани до бесплатен акаунт.</string>
   <string name="weAreNonProfit">Ние сме нон-профит организација бидејќи веруваме дека секој треба да има пристап до бесплатна, топ-класа шаховска платформа.</string>
   <string name="weRelyOnSupport">Ние се потпираме на подршка од луѓе како тебе за да овозможиме. Ако уживаш во користење на Lichess, ве моламиме да не подржите со донирање и постанување на донатор!</string>
   <string name="lifetime">Доживотен</string>
@@ -23,7 +22,6 @@
   <string name="singleDonation">Една донација која ти ги дава донаторските крилја за еден месец.</string>
   <string name="otherAmount">Друго</string>
   <string name="withCreditCard">Кредитна картичка</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме мала група, па со твојата подршка правиш голема промена!</string>
   <string name="celebratedPatrons">Донаторите кои овозможуват Lichess да постои</string>
   <string name="whereMoneyGoes">Каде одат парите?</string>
@@ -38,7 +36,6 @@
   <string name="contactSupport">контактирај Lichess подршка</string>
   <string name="otherMethods">Други методи на донација?</string>
   <string name="bankTransfers">Ние исто така прифаќаме донации преку банки</string>
-  <string name="bitcoin">Еве ја нашата биткоин адреса:%s</string>
   <string name="patronFeatures">Дали некои карактеристики се задржани за донаторите?</string>
   <string name="noPatronFeatures">Не, бидејќи Lichess е целосно бесплатен, засекогаш и за секој. Тоа е ветување. Сепак донаторите добиваат нова икона на профилот.</string>
   <string name="featuresComparison">Погледнете ги деталните споредби на карактеристики</string>

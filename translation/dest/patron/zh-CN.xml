@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐赠</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">以 %s 的名义捐赠</string>
+  <string name="donateAsX">以 %s 的名义捐赠</string>
   <string name="lichessPatron">赞助 Lichess</string>
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
@@ -15,7 +15,7 @@
   <string name="thankYou">感谢您的捐赠！</string>
   <string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
   <string name="patronUntil">您的赞助帐户直到 %s。</string>
-  <string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
+  <string name="ifNotRenewedThenAccountWillRevert">如果未续订，您的账户将会恢复为普通账户。</string>
   <string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的象棋平台。</string>
   <string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lichess，请考虑捐赠并成为赞助者来支持我们！</string>
   <string name="lifetime">终生</string>
@@ -28,7 +28,6 @@
   <string name="otherAmount">其他</string>
   <string name="pleaseEnterAmountInX">请输入金额（%s）</string>
   <string name="withCreditCard">信用卡</string>
-  <string name="withPaypal">贝宝（PayPal）</string>
   <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
   <string name="celebratedPatrons">著名的赞助者让 Lichess 成为可能。</string>
   <string name="whereMoneyGoes">捐助都会去哪儿？</string>
@@ -43,7 +42,6 @@
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他捐赠方法？</string>
   <string name="bankTransfers">我们还接受银行转帐</string>
-  <string name="bitcoin">还有我们的比特币地址：%s</string>
   <string name="patronFeatures">赞助者会有特殊功能吗？</string>
   <string name="noPatronFeatures">没有，Lichess 是完全免费的。这是我们的承诺。
 当然，赞助者都说他们有一个很酷的个人资料图标。</string>
@@ -64,6 +62,7 @@
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="decideHowMuch">决定什么 Lichess 对您来说是值得的：</string>
   <string name="stopPayments">撤销您的信用卡并停止支付：</string>
+  <string name="stopPaymentsPayPal">取消PayPal订阅并停止付款：</string>
   <string name="noLongerSupport">不再赞助 Lichess</string>
   <string name="viewOthers">查看其他Lichess赞助者</string>
   <string name="date">日期</string>

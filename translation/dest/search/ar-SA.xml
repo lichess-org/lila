@@ -37,4 +37,15 @@
   <string name="maxNumber">أقصى رقم</string>
   <string name="maxNumberExplanation">الحد الأقصى لعدد الألعاب المراد إرجاعها</string>
   <string name="include">تضمين</string>
+  <string name="descending">تنازلي</string>
+  <string name="ascending">تصاعدي</string>
+  <plurals name="gamesFound">
+    <item quantity="zero">لم يتم إيجاد أي لعبة</item>
+    <item quantity="one">تم إيجاد %s لعبة</item>
+    <item quantity="two">تم إيجاد %s لعبة</item>
+    <item quantity="few">تم إيجاد %s لعبة</item>
+    <item quantity="many">تم إيجاد %s لعبة</item>
+    <item quantity="other">تم إيجاد %s لعبة</item>
+  </plurals>
+  <string name="ratingExplanation">متوسط التقييم لكلا اللاعبين</string>
 </resources>

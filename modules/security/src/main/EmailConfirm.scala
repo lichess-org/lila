@@ -43,14 +43,15 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
-    tokener make user.id flatMap { token =>
-      lila.mon.email.send.confirmation.increment()
-      val url = s"$baseUrl/signup/confirm/$token"
-      lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
-      mailer send Mailer.Message(
-        to = email,
-        subject = trans.emailConfirm_subject.txt(user.username),
-        text = Mailer.txt.addServiceNote(s"""
+    !email.looksLikeFakeEmail ?? {
+      tokener make user.id flatMap { token =>
+        lila.mon.email.send.confirmation.increment()
+        val url = s"$baseUrl/signup/confirm/$token"
+        lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
+        mailer send Mailer.Message(
+          to = email,
+          subject = trans.emailConfirm_subject.txt(user.username),
+          text = Mailer.txt.addServiceNote(s"""
 ${trans.emailConfirm_click.txt()}
 
 $url
@@ -59,13 +60,14 @@ ${trans.common_orPaste.txt()}
 
 ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 """),
-        htmlBody = emailMessage(
-          pDesc(trans.emailConfirm_click()),
-          potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-          small(trans.emailConfirm_ignore()),
-          serviceNote
-        ).some
-      )
+          htmlBody = emailMessage(
+            pDesc(trans.emailConfirm_click()),
+            potentialAction(metaName("Activate account"), Mailer.html.url(url)),
+            small(trans.emailConfirm_ignore()),
+            serviceNote
+          ).some
+        )
+      }
     }
 
   import EmailConfirm.Result
@@ -120,7 +122,7 @@ object EmailConfirm {
 
   import scala.concurrent.duration._
   import play.api.mvc.RequestHeader
-  import ornicar.scalalib.Zero
+  import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 

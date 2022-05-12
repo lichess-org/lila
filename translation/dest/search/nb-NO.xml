@@ -29,4 +29,11 @@
   <string name="maxNumber">Maksimalt antall</string>
   <string name="maxNumberExplanation">Det maksimale antallet partier i retur</string>
   <string name="include">Inkluder</string>
+  <string name="descending">Synkende</string>
+  <string name="ascending">Stigende</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s parti funnet</item>
+    <item quantity="other">%s partier funnet</item>
+  </plurals>
+  <string name="ratingExplanation">Gjennomsnittet av begge spillernes rating</string>
 </resources>

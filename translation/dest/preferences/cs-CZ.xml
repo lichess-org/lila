@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Symbol šachových figur</string>
   <string name="pgnLetter">Anglickými písmeny (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Zobrazit hodnocení hráčů</string>
+  <string name="showPlayerRatings">Zobrazit hodnocení hráčů</string>
   <string name="displayBoardResizeHandle">Zobrazit tlačítko pro změnu velikosti šachovnice</string>
   <string name="onlyOnInitialPosition">Jen v základním postavení</string>
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
@@ -45,4 +45,5 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Přichytit šipky k platným tahům</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Řekněte \"Good game, well played\" (překlad: \"Dobrá hra, pěkně zahráno\") po porážce nebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
+  <string name="correspondenceEmailNotification">Denní e-mailové oznámení se seznamem vašich korespondenčních her</string>
 </resources>

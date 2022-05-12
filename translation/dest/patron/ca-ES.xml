@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donar</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donar com a %s</string>
+  <string name="donateAsX">Donar com a %s</string>
   <string name="lichessPatron">Patró de Lichess</string>
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
@@ -16,7 +16,7 @@
   <string name="thankYou">Gràcies pel teu donatiu!</string>
   <string name="youHaveLifetime">Tens un compte de patró de per vida. Impressionant!</string>
   <string name="patronUntil">Tens un compte de patró fins %s.</string>
-  <string name="ifNotRenewed">Si no es renova, se\'t degradarà a la versió gratuïta.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Si no es renova, el teu copte es revertirà a un regular.</string>
   <string name="weAreNonProfit">Som una organització sense ànim de lucre perquè creiem que tots deuríem tenir accés a una plataforma d\'escacs de primera i gratuïta.</string>
   <string name="weRelyOnSupport">Confiem en el suport de persones com tu per fer-ho possible. Si t\'agrada fer servir Lichess, si us plau, considera la teva ajuda donant i convertint-te en Patró!</string>
   <string name="lifetime">Per sempre</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Altre</string>
   <string name="pleaseEnterAmountInX">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
   <string name="celebratedPatrons">Patrons destacats que fan que Lichess sigui possible</string>
   <string name="whereMoneyGoes">Cap a on van els diners?</string>
@@ -44,7 +43,6 @@ O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>
-  <string name="bitcoin">I aquí està la nostra direcció de bitcoin: %s</string>
   <string name="patronFeatures">Es reserven algunes funcions per als Patrons?</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
@@ -66,6 +64,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
+  <string name="stopPaymentsPayPal">Cancel·lar subscripció de PayPal i aturar els pagaments:</string>
   <string name="noLongerSupport">Ja no dónes suport a Lichess</string>
   <string name="viewOthers">Veure altres Patrons de Lichess</string>
   <string name="date">Data</string>

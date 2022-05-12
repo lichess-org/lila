@@ -11,7 +11,6 @@
   <string name="thankYou">Dankie vir jou donasie!</string>
   <string name="youHaveLifetime">Jy het \'n lewenslange Beskermheer rekening. Dis wonderlik!</string>
   <string name="patronUntil">Jy het \'n Beskermheer rekening tot %s.</string>
-  <string name="ifNotRenewed">As jy dit nie hernu nie, sal jy weer een van die leke wees.</string>
   <string name="weAreNonProfit">Ons is \'n assosiasie sonder winsbejag, want ons glo almal moet toegang tot \'n gratis wêreld-gehalte skaak platform hê.</string>
   <string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om Lichess te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
   <string name="lifetime">Lewenslange</string>
@@ -23,7 +22,6 @@
   <string name="singleDonation">\'n Enkele donasie wat jou die Beskermheer vlerke fir \'n maand gee.</string>
   <string name="otherAmount">Ander</string>
   <string name="withCreditCard">Kredietkaart</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
   <string name="celebratedPatrons">Die gevierde Beskermhere wat Lichess moontlik maak</string>
   <string name="whereMoneyGoes">Waarheen gaan my geld?</string>
@@ -38,7 +36,6 @@ Of jy kan %s.</string>
   <string name="contactSupport">Lichess ondersteuning kontak</string>
   <string name="otherMethods">Ander donasie metodes?</string>
   <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
-  <string name="bitcoin">En hier is ons bitcoin adres: %s</string>
   <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
   <string name="noPatronFeatures">Nee, want Lichess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
 Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
@@ -59,6 +56,7 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="xOrY">%1$s of %2$s</string>
   <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
+  <string name="stopPaymentsPayPal">Kanselleer PayPal-subskripsie en stop betalings:</string>
   <string name="noLongerSupport">Ondersteun nie meer Lichess nie</string>
   <string name="viewOthers">Sien ander Lichess Beskermhere</string>
   <string name="date">Datum</string>

@@ -1,6 +1,6 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http._
@@ -17,7 +17,7 @@ import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.{ UserContext, User => UserModel, Holder }
+import lila.user.{ Holder, User => UserModel, UserContext }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -29,9 +29,9 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def executionContext = env.executionContext
   implicit def scheduler        = env.scheduler
 
-  implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
+  implicit protected val LilaResultZero = Zero[Result](Results.NotFound)
 
-  implicit final protected class LilaPimpedResult(result: Result) {
+  implicit final protected class LilaResult(result: Result) {
     def fuccess                           = scala.concurrent.Future successful result
     def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
     def flashSuccess: Result              = flashSuccess("")
@@ -65,10 +65,11 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
-  protected def EnableSharedArrayBuffer(res: Result): Result =
+  protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
     res.withHeaders(
-      "Cross-Origin-Opener-Policy"   -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> "require-corp"
+      "Cross-Origin-Opener-Policy" -> "same-origin",
+      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96OrMore req) "credentialless"
+                                         else "require-corp")
     )
 
   protected def NoCache(res: Result): Result =
@@ -266,23 +267,32 @@ abstract private[controllers] class LilaController(val env: Env)
       scoped: RequestHeader => Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) securedScopedAction(perm, req)(scoped)
+      if (HTTPRequest isOAuth req) SecureScoped(perm)(scoped)(req)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
     }
+
   protected def SecureOrScopedBody(perm: Permission.Selector)(
       secure: BodyContext[_] => Holder => Fu[Result],
-      scoped: RequestHeader => Holder => Fu[Result]
+      scoped: Request[_] => Holder => Fu[Result]
   ): Action[AnyContent] =
     Action.async(parse.anyContent) { req =>
-      if (HTTPRequest isOAuth req) securedScopedAction(perm, req.map(_ => ()))(scoped)
+      if (HTTPRequest isOAuth req) SecuredScopedBody(perm)(scoped)(req)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
     }
-  private def securedScopedAction(perm: Permission.Selector, req: Request[Unit])(
+
+  protected def SecureScoped(perm: Permission.Selector)(
       f: RequestHeader => Holder => Fu[Result]
   ) =
     Scoped() { req => me =>
       IfGranted(perm, req, me)(f(req)(Holder(me)))
-    }(req)
+    }
+
+  protected def SecuredScopedBody(perm: Permission.Selector)(
+      f: Request[_] => Holder => Fu[Result]
+  ) =
+    ScopedBody() { req => me =>
+      IfGranted(perm, req, me)(f(req)(Holder(me)))
+    }
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (isGranted(perm)) f else authorizationFailed

@@ -34,12 +34,12 @@
   <string name="yearlyClassical">Vuosittainen klassinen</string>
   <string name="yearlyXArena">Vuosittainen ­%s-areena</string>
   <string name="yearlyX">Vuosittainen %s</string>
-  <string name="rapidShieldArena">Nopea Kilpi-areena</string>
-  <string name="rapidShield">Nopea Kilpi</string>
-  <string name="classicalShieldArena">Klassinen Kilpi-areena</string>
+  <string name="rapidShieldArena">Nopea-kilpi-areena</string>
+  <string name="rapidShield">Nopea-kilpi</string>
+  <string name="classicalShieldArena">Klassinen-kilpi-areena</string>
   <string name="classicalShield">Klassinen Kilpi</string>
-  <string name="xShieldArena">%s Kilpi-areena</string>
-  <string name="xShield">%s Kilpi</string>
+  <string name="xShieldArena">%s-kilpi-areena</string>
+  <string name="xShield">%s-kilpi</string>
   <string name="xTeamBattle">%s -joukkuetaisto</string>
   <string name="eliteXArena">Valioiden ­%s-areena</string>
   <string name="eliteX">Valio-%s</string>

@@ -16,7 +16,7 @@ lichess.load.then(() => {
   $('form.autosubmit').each(function (this: HTMLFormElement) {
     const form = this,
       $form = $(form),
-      showSaved = () => $form.find('.saved').show();
+      showSaved = () => $form.find('.saved').removeClass('none');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {

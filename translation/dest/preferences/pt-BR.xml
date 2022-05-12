@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Símbolo da peça</string>
   <string name="pgnLetter">Letra (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Mostrar pontuação dos jogadores</string>
+  <string name="showPlayerRatings">Mostrar rating dos jogadores</string>
+  <string name="explainShowPlayerRatings">Permite ocultar todas as pontuações do site, para ajudar a se concentrar no jogo. As partidas continuam valendo pontos.</string>
   <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
+  <string name="explainPromoteToQueenAutomatically">Aperte a tecla &lt;ctrl&gt; durante uma promoção para desativar temporariamente a promoção automática</string>
   <string name="whenPremoving">Quando mover previamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Diga \"Bom jogo, bem jogado\" após a derrota ou empate</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Use o scroll do mouse no tabuleiro para ir passando as jogadas</string>
+  <string name="correspondenceEmailNotification">Email diário listando seus jogos por correspondência</string>
 </resources>

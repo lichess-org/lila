@@ -11,6 +11,7 @@ export interface StudyShareCtrl {
   chapter: () => StudyChapterMeta;
   isPrivate(): boolean;
   currentNode: () => Tree.Node;
+  onMainline: () => boolean;
   withPly: Prop<boolean>;
   relay: RelayCtrl | undefined;
   cloneable: boolean;
@@ -28,21 +29,23 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   );
   return h(
     'div.ply-wrap',
-    h('label.ply', [
-      h('input', {
-        attrs: { type: 'checkbox' },
-        hook: bind(
-          'change',
-          e => {
-            ctrl.withPly((e.target as HTMLInputElement).checked);
-          },
-          ctrl.redraw
-        ),
-      }),
-      ...(renderedMove
-        ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
-        : [ctrl.trans.noarg('startAtInitialPosition')]),
-    ])
+    ctrl.onMainline()
+      ? h('label.ply', [
+          h('input', {
+            attrs: { type: 'checkbox', checked: ctrl.withPly() },
+            hook: bind(
+              'change',
+              e => {
+                ctrl.withPly((e.target as HTMLInputElement).checked);
+              },
+              ctrl.redraw
+            ),
+          }),
+          ...(renderedMove
+            ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
+            : [ctrl.trans.noarg('startAtInitialPosition')]),
+        ])
+      : null
   );
 }
 
@@ -50,6 +53,7 @@ export function ctrl(
   data: StudyData,
   currentChapter: () => StudyChapterMeta,
   currentNode: () => Tree.Node,
+  onMainline: () => boolean,
   relay: RelayCtrl | undefined,
   redraw: () => void,
   trans: Trans
@@ -62,6 +66,7 @@ export function ctrl(
       return data.visibility === 'private';
     },
     currentNode,
+    onMainline,
     withPly,
     relay,
     cloneable: data.features.cloneable,
@@ -74,7 +79,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
   const isPrivate = ctrl.isPrivate();
-  const addPly = (path: string) => (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path);
+  const addPly = (path: string) =>
+    ctrl.onMainline() ? (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path) : `${path}#last`;
   const youCanPasteThis = () =>
     h('p.form-help.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'));
   return h('div.study__share', [
@@ -142,10 +148,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
         ? [
             ['broadcastUrl', ctrl.relay.tourPath()],
             ['currentRoundUrl', ctrl.relay.roundPath()],
-            ['currentGameUrl', `${ctrl.relay.roundPath()}/${chapter.id}`],
+            ['currentGameUrl', addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
           ]
         : [
-            ['studyUrl', addPly(`/study/${studyId}`), true],
+            ['studyUrl', `/study/${studyId}`],
             ['currentChapterUrl', addPly(`/study/${studyId}/${chapter.id}`), true],
           ]
       ).map(([i18n, path, pastable]: [string, string, boolean]) =>

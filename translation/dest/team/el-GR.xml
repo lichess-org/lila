@@ -53,4 +53,5 @@
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
   <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
+  <string name="joinLichessVariantTeam">Γίνε μέλος της επίσημης ομάδας %s για να ενημερώνεσαι και να συμμετέχεις σε διάφορες εκδηλώσεις</string>
 </resources>

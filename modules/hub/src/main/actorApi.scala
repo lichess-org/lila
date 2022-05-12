@@ -2,7 +2,7 @@ package lila.hub
 package actorApi
 
 import chess.format.Uci
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Period }
 import play.api.libs.json._
 import scala.concurrent.Promise
 
@@ -52,7 +52,7 @@ package clas {
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Shutup(userId: String, text: String)
+  case class Shutup(userId: String, text: String, critical: Boolean)
   case class AutoFlag(suspectId: String, resource: String, text: String)
   case class CheatReportCreated(userId: String)
 }
@@ -117,6 +117,11 @@ package captcha {
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)
+}
+
+package mailer {
+  case class CorrespondenceOpponent(opponentId: Option[String], remainingTime: Option[Period], gameId: String)
+  case class CorrespondenceOpponents(userId: String, opponents: List[CorrespondenceOpponent])
 }
 
 package irc {
@@ -210,7 +215,6 @@ package tv {
 }
 
 package notify {
-  case class Notified(userId: String)
   case class NotifiedBatch(userIds: Iterable[String])
 }
 
@@ -273,11 +277,12 @@ package round {
   case object FishnetStart
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
+  case class RematchCancel(gameId: String)
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class Mlat(micros: Int)
+  case class Mlat(millis: Int)
 }
 
 package evaluation {
@@ -307,4 +312,8 @@ package plan {
   case class PlanStart(userId: String)
   case class PlanGift(from: String, to: String, lifetime: Boolean)
   case class PlanExpire(userId: String)
+}
+
+package push {
+  case class TourSoon(tourId: String, tourName: String, userIds: Iterable[String], swiss: Boolean)
 }

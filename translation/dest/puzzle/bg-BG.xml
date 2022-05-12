@@ -13,6 +13,7 @@
   <string name="specialMoves">Специални ходове</string>
   <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
   <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
+  <string name="yourPuzzleRatingWillNotChange">Пъзел рейтингът Ви няма да се промени. Обърнете внимание, че пъзелите не са състезание. Вашият рейтинг помага за подбирането на най-подходящите пъзели спрямо настоящите Ви умения.</string>
   <string name="findTheBestMoveForWhite">Открийте най-добрия ход за белите.</string>
   <string name="findTheBestMoveForBlack">Открийте най-добрия ход за черните.</string>
   <string name="toGetPersonalizedPuzzles">За да получите персонализирани задачи:</string>
@@ -69,6 +70,7 @@
   <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но Lichess разчита на Вас.
 Играйте още ускорени и класически партии за да увеличите шансовете задачи от Ваши партии да бъдат добавени!</string>
   <string name="fromXGamesFound">%1$s задачи намерени в %2$s игри</string>
+  <string name="puzzleDashboardDescription">Тренирай, анализирай, усъвършенствай се</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s решена</item>
     <item quantity="other">%s решени</item>
@@ -78,4 +80,7 @@
     <item quantity="other">%s за повторение</item>
   </plurals>
   <string name="percentSolved">%s решени</string>
+  <string name="noPuzzlesToShow">Няма нищо за показване, първо порешавайте малко пъзели!</string>
+  <string name="improvementAreasDescription">Упражнявайте се върху тези, за да оптимизирате прогреса си!</string>
+  <string name="strengthDescription">Справяте се най-добре в тези теми</string>
 </resources>

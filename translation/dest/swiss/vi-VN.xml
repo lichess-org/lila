@@ -44,10 +44,30 @@ Cộng điểm số của tất cả người chơi mà người này thắng v�
   <string name="pairingsQ">Các cặp đấu được xác định như thế nào?</string>
   <string name="dutchSystem">Khai cuộc Hà Lan</string>
   <string name="FIDEHandbook">Sổ tay FIDE</string>
+  <string name="pairingsA">Bằng %1$s, được thi hành bởi %2$s, theo như %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Điều gì xảy ra khi giải đấu có số lượng vòng đấu lớn hơn số lượng người chơi?</string>
   <string name="moreRoundsThanPlayersA">Khi tất cả các cặp đấu có thể đã được chơi, giải đấu kết thúc và sẽ có một người thắng cuộc.</string>
   <string name="restrictedToTeamsQ">Tại sao lại chỉ có đội được dùng?</string>
+  <string name="restrictedToTeamsA">Các giải đấu hệ Thụy Sĩ không được thiết kế cho cờ vua online. Chúng đòi hỏi sự đúng giờ, sự tận tâm và sự kiên nhẫn từ người chơi.
+Chúng tôi nghĩ những điều kiện trên sẽ dễ được đáp ứng trong một đội hơn là một giải đấu mở rộng.</string>
+  <string name="numberOfByesQ">Người chơi sẽ được miễn đấu bao nhiêu lần?</string>
+  <string name="numberOfByesA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
+Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
+  <string name="whatIfOneDoesntPlayQ">Chuyện gì sẽ xảy ra nếu một người chơi không chơi ván đấu của họ?</string>
+  <string name="whatIfOneDoesntPlayA">Đồng hồ của họ vẫn sẽ đếm ngược, họ sẽ bị xử thua theo thời gian.
+Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
+Họ có thể tham gia lại bất cứ lúc nào.</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
+  <string name="lateJoinA">Có, trước khi quá nửa số ván đấu của giải đã bắt đầu; ví dụ trong 1 giải hệ Thụy Sĩ 11 ván, người chơi có thể tham gia trước khi ván 6 bắt đầu, còn trong giải hệ Thụy Sĩ 12 ván sẽ là trước khi ván 7 bắt đầu.
+Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\", kể cả nếu họ lỡ nhiều hơn 1 ván đấu.</string>
+  <string name="willSwissReplaceArenasQ">Liệu các giải đấu hệ Thụy Sĩ có thay thế các giải đấu đấu trường không?</string>
+  <string name="willSwissReplaceArenasA">Không. Chúng là tính năng phụ.</string>
+  <string name="roundRobinQ">Vậy còn các giải đấu vòng tròn?</string>
+  <string name="roundRobinA">Chúng tôi cũng rất muốn thêm chúng, nhưng đáng tiếc là giải đấu vòng tròn không thể thực hiện được khi chơi online.
+Lý do là chúng không có một cách công bằng nào có thể giải quyết trường hợp có người chơi rời khỏi giải trước khi giải đấu kết thúc. Không thể mong đợi tất cả mọi người đều có thể chơi hết các ván đấu của họ trong một giải đấu online. Điều đó không thể xảy ra, và vì thế, hầu hết các giải đấu vòng tròn sẽ không hoạt động một cách công bằng, điều đó mâu thuẫn với lý do nó tồn tại ngay từ đầu.
+Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
+  <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>
+  <string name="joinOrCreateTeam">Tham gia hoặc tạo một nhóm</string>
   <string name="nowPlaying">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>
   <string name="comparison">So sánh</string>

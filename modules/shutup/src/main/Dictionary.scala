@@ -1,9 +1,11 @@
 package lila.shutup
 
-/** - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
-  * - words do not partial match. "anal" will NOT match "analysis".
-  * - en, es and de words are automatically pluralized. "tit" will also match "tits", "cabron" will also match "cabrones" etc.
-  * - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you suck" will also match "you sucked" but "kill you" will NOT match "killed you"
+/**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+  *   - words do not partial match. "anal" will NOT match "analysis".
+  *   - en, es, de and fr words are automatically pluralized. "tit" will also match "tits", "cabron" will also
+  *     match "cabrones" etc.
+  *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
+  *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
 private object Dictionary {
 
@@ -20,6 +22,7 @@ anus
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
+autist(ic|)
 aus?c?hwitz
 bastard?
 be[ea]+ch
@@ -32,7 +35,6 @@ boob
 bugger
 buk?kake
 bull?shit
-cancer
 cheat(ing|er|)
 chess(|-|_)bot(.?com)?
 chicken
@@ -49,6 +51,7 @@ dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
 douche(bag|)
+dumb(ass?|)
 dyke
 engine
 fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
@@ -63,15 +66,12 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-(ho?pe ((yo)?[uy](r family)?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 horny
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and )?)+
-kys
 labia
 lamer?
 lesbo
@@ -79,6 +79,7 @@ lo+ser
 masturbat(e|ion|ing)
 milf
 molest(er|)
+monkey
 moron
 mother(fuc?k(er|)|)
 mthrfckr
@@ -153,7 +154,7 @@ weak
 wetback
 wog
 (you|u) suck
-""")
+""") ++ critical
 
   def ru = dict("""
 (|на|по)ху(й|ю|я|ям|йня|йло|йла|йлу)
@@ -199,6 +200,12 @@ p[ie]d[aoe]?r
 чмо(|шник)
 шмар(ам?|е|ы)
 шлюх(|ам?|е|и)
+г[оа]вн[оа]ед(|ам?|е|у|ом|ов|ами|ах|ы)
+г[оа]внюк(|ам?|е|у|ом|ов|ами|ах|и)
+г[оа]вн(а|е|у|ом?)
+сперм(а|у|ой|е)
+(|отъ?|вы|до|за|у|про)(е|ё)б(аш)?(у|и|ите)
+член[оа]сос(|а|у|ом|е|ы|ов|ами?|ах|ка|ке|ки|ку|кой)
 """)
 
   def es = dict("""
@@ -207,6 +214,7 @@ ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+idiota
 imbecil
 madre
 maric[oó]n
@@ -240,10 +248,12 @@ gaa?nd
 """)
 
   def fr = dict("""
+connard
 fdp
 pd
 pute
 triche(ur|)
+conn?ard?
 """)
 
   def de = dict("""
@@ -283,6 +293,13 @@ s[ii̇]kecem
 sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
+""")
+
+  def critical = dict("""
+cancer
+(ho?pe ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
+(kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
+kys
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

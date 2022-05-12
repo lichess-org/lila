@@ -12,7 +12,7 @@
   <string name="welcome_subject">Vitajte na lichess.org, %s</string>
   <string name="welcome_text">Úspešne ste si vytvorili účet na https://lichess.org.
 
-Tu nájdete stránku s Vašim profilom: %1$s. Prispôsobiť si ho môžete na %2$s.
+Stránku s Vašim profilom nájdete na: %1$s. Váš profil si môžete prispôsobiť na %2$s.
 
 Prajeme Vám veľa zábavy a nech si Vaše figúrky vždy nájdu cestu k súperovmu kráľovi!</string>
   <string name="logInToLichess">Prihláste sa do lichess.org, %s</string>

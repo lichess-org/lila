@@ -28,7 +28,7 @@ object mobile {
                 li(trans.builtForTheLoveOfChessNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+                li("Entirely ", a(href := "https://github.com/lichess-org/lichobile")("Open Source"))
               ),
               h2(trans.fullFeatured()),
               ul(cls := "block")(
@@ -47,18 +47,18 @@ object mobile {
             ),
             div(cls := "right-side")(
               img(
-                cls := "nexus5-playing",
-                width := "268",
-                height := "513",
-                src := assetUrl("images/mobile/nexus5-playing.png"),
-                alt := "Lichess mobile on nexus 5"
+                widthA  := "437",
+                heightA := "883",
+                cls     := "mobile-playing",
+                src     := assetUrl("images/mobile/lichesstv-mobile.png"),
+                alt     := "Lichess TV on mobile"
               ),
               img(
-                cls := "qrcode",
-                width := "200",
-                height := "200",
-                src := assetUrl("images/mobile/dynamic-qrcode.png"),
-                alt := "Download QR code"
+                cls     := "qrcode",
+                widthA  := "200",
+                heightA := "200",
+                src     := assetUrl("images/mobile/dynamic-qrcode.png"),
+                alt     := "Download QR code"
               )
             )
           )

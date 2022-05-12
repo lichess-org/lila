@@ -56,7 +56,7 @@
   <string name="tiebreaksCalculationQ">Як падлічваюцца тай-брэйкі?</string>
   <string name="sonnebornBergerScore">Каэфіцыенту Бергера</string>
   <string name="tiebreaksCalculationA">З дапамогай %s.
-Складваюцца балы кожнага суперніка, якога гулец перамог(ла), і палова балаў кожнага суперніка, з якім згуляў(ла) ўнічыю.</string>
+Складваюцца балы кожнага суперніка, якога гулец перамог(ла), і палова балаў кожнага суперніка, з якім згуляў(-ла) ўнічыю.</string>
   <string name="pairingsQ">Як абіраюцца пары?</string>
   <string name="dutchSystem">Галандскай сістэмы</string>
   <string name="FIDEHandbook">правіламі ФІДЭ</string>
@@ -101,8 +101,8 @@
   <string name="pairingSystemArena">Любы даступны супернік з падобным становішчам</string>
   <string name="pairingSystemSwiss">Найлепшая пара, базуючыся на набраных балах і тай-брэйках</string>
   <string name="pairingWaitTime">Час чакання апанентаў</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Хутка: не чакае ўсіх гульцоў</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Павольная: чакае ўсіх гульцоў</string>
+  <string name="pairingWaitTimeArena">Хутка: не чакае ўсіх гульцоў</string>
+  <string name="pairingWaitTimeSwiss">Павольная: чакае ўсіх гульцоў</string>
   <string name="identicalPairing">Паўторныя пары</string>
   <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>

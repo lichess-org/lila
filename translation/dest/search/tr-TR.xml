@@ -29,4 +29,11 @@
   <string name="maxNumber">En çok sayı</string>
   <string name="maxNumberExplanation">Getirilecek en çok oyun sayısı</string>
   <string name="include">Dahil et</string>
+  <string name="descending">Azalan</string>
+  <string name="ascending">Artan</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s maç bulundu</item>
+    <item quantity="other">%s maç bulundu</item>
+  </plurals>
+  <string name="ratingExplanation">Her iki oyuncunun ortalama puanı</string>
 </resources>

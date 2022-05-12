@@ -17,12 +17,14 @@
   <string name="stalemate">Pat</string>
   <string name="white">Blancs</string>
   <string name="black">Noirs</string>
+  <string name="asWhite">avec les blancs</string>
+  <string name="asBlack">avec les noirs</string>
   <string name="randomColor">Couleur aléatoire</string>
   <string name="createAGame">Créer une partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
   <string name="blackIsVictorious">Victoire des Noirs</string>
-  <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
-  <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
+  <string name="youPlayTheWhitePieces">Vous jouez avec les blancs</string>
+  <string name="youPlayTheBlackPieces">Vous jouez avec les noirs</string>
   <string name="itsYourTurn">C\'est votre tour !</string>
   <string name="cheatDetected">Tricherie détectée</string>
   <string name="kingInTheCenter">Roi au centre</string>
@@ -163,7 +165,7 @@
   <string name="players">Joueurs</string>
   <string name="friends">Amis</string>
   <string name="discussions">Discussions</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Aujourd\'hui</string>
+  <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
   <string name="minutesPerSide">Minutes par joueur</string>
   <string name="variant">Variante</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s heure</item>
     <item quantity="other">%s heures</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
   </plurals>
   <string name="time">Temps</string>
   <string name="rating">Classement</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Classements</string>
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
+  <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="toStudy">Étude</string>
@@ -435,15 +442,14 @@
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="endgamePositions">Positions de finale</string>
   <string name="chess960StartPosition">Position de départ – Chess960 : %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Position de départ</string>
+  <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Charger une position</string>
+  <string name="loadPosition">Charger une position</string>
   <string name="isPrivate">Privé</string>
   <string name="reportXToModerators">Signaler %s aux modérateurs</string>
   <string name="profileCompletion">Profil rempli à %s</string>
   <string name="xRating">Classement %s</string>
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
-  <string name="gameCompletionRate">Termine %s de ses parties</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>
@@ -452,11 +458,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou drapeau</string>
   <string name="thankYou">Merci !</string>
   <string name="socialMediaLinks">Liens des réseaux sociaux</string>
+  <string name="oneUrlPerLine">Une URL par ligne.</string>
   <string name="inlineNotation">Notation en ligne</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activePlayers">Joueurs actifs</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Attention, la partie est classée, mais sans limite de temps !</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
   <string name="success">Réussi</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partie en cours</item>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
+  <string name="importedByX">Importée par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
@@ -525,7 +533,7 @@
   <string name="onSlowGames">Durant les parties lentes</string>
   <string name="always">Toujours</string>
   <string name="never">Jamais</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s participe à %2$s</string>
+  <string name="xCompetesInY">%1$s participe à %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Défaite</string>
   <string name="victoryVsYInZ">%1$s contre %2$s en %3$s</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
   <string name="error.email_unique">Adresse courriel invalide ou déjà utilisée</string>
   <string name="error.email_different">Vous utilisez déjà cette adresse courriel</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">La longueur minimale est %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">La longueur maximale est %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Doit être supérieur(e) ou égal(e) à %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Doit être inférieur(e) ou égal(e) à %s</string>
+  <string name="error.minLength">La longueur minimale est %s</string>
+  <string name="error.maxLength">La longueur maximale est %s</string>
+  <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
+  <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
+  <string name="ifRegistered">Si inscrit</string>
   <string name="onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>
   <string name="menu">Menu</string>
@@ -729,7 +738,7 @@
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
-  <string name="whiteWinsGame">Les blancs gagnent</string>
+  <string name="whiteWinsGame">Les Blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
@@ -763,7 +772,7 @@
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
-  <string name="playX">Jouer %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Résultat actuel (match)</string>
   <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (ni d\'un programme d\'échecs, ni d\'un livre, ni d\'une base de données, ni d\'autrui).</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
-  <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">J\'accepte de ne pas créer de comptes multiples (sauf pour les raisons indiquées dans les %s).</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
@@ -812,7 +821,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vous ne pouvez pas encore poster dans les forums. Jouez quelques parties !</string>
   <string name="subscribe">Suivre</string>
   <string name="unsubscribe">Ne plus suivre</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">vous a mentionné dans « %1$s ».</string>
+  <string name="mentionedYouInX">vous a mentionné dans « %1$s ».</string>
   <string name="xMentionedYouInY">%1$s vous a mentionné dans « %2$s ».</string>
   <string name="invitedYouToX">vous a invité à « %1$s ».</string>
   <string name="xInvitedYouToY">%1$s vous a invité à « %2$s ».</string>
@@ -854,7 +863,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulHostcolor">Couleur des pièces jouées par l\'hôte pour chaque partie</string>
   <string name="estimatedStart">Heure de début estimée</string>
   <string name="simulFeatured">Simultanée diffusée sur %s</string>
-  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
@@ -884,4 +893,9 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Rejoindre la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
+  <string name="since">De</string>
+  <string name="until">À</string>
+  <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
+  <string name="switchSides">Changer de couleur</string>
+  <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
 </resources>

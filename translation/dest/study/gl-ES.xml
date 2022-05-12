@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Agora es un espectador</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Me gusta</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Xa non me gusta</string>
+  <string name="unlike">Xa non me gusta</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar nesta posición</string>
   <string name="commentThisMove">Comentar nesta posición</string>
@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Comentario do capítulo fixado</string>
   <string name="saveChapter">Gardar capítulo</string>
   <string name="clearAnnotations">Borrar anotacións</string>
+  <string name="clearVariations">Borrar variacións</string>
   <string name="deleteChapter">Borrar capítulo</string>
   <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
   <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Capítulo seguinte</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Accións de estudo</string>
+  <string name="topics">Temas</string>
+  <string name="myTopics">Os meus temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Manexar temas</string>
+  <string name="back">Voltar</string>
+  <string name="playAgain">Xogar de novo</string>
+  <string name="whatWouldYouPlay">Qué xogarías en esta posición?</string>
+  <string name="youCompletedThisLesson">Parabéns! Completaches esta leción.</string>
 </resources>

@@ -53,6 +53,7 @@
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
   <string name="pgnTags">وسم PGN</string>
   <string name="like">إعجاب</string>
+  <string name="unlike">إلغاء الإعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
   <string name="commentThisMove">التعليق على هذه النقلة</string>
@@ -171,4 +172,12 @@
   <string name="nextChapter">الفصل التالي</string>
   <string name="prevChapter">الفصل السابق</string>
   <string name="studyActions">خيارات الدراسة</string>
+  <string name="topics">المواضيع</string>
+  <string name="myTopics">المواضيع الخاصة بي</string>
+  <string name="popularTopics">المواضيع الشائعة</string>
+  <string name="manageTopics">إدارة المواضيع</string>
+  <string name="back">رجوع</string>
+  <string name="playAgain">اللعب مجددا</string>
+  <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
+  <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
 </resources>

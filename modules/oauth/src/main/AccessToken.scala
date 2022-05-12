@@ -19,6 +19,8 @@ case class AccessToken(
     expires: Option[DateTime]
 ) {
   def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
+
+  def expiresOrFarFuture = expires | DateTime.now.plusYears(1)
 }
 
 object AccessToken {

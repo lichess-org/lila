@@ -19,7 +19,7 @@ object editor {
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(bits.jsData(fen))};data.positions=$positionsJson;
+          s"""const data=${safeJsonValue(bits.editorJsData(fen))};data.positions=$positionsJson;
 data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
@@ -35,7 +35,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         .some
     )(
       main(id := "board-editor")(
-        div(cls := "board-editor")(
+        div(cls   := "board-editor")(
           div(cls := "spare"),
           div(cls := "main-board")(chessgroundBoard),
           div(cls := "spare")

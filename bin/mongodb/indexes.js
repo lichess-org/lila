@@ -11,3 +11,4 @@ db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
 db.oauth2_authorization.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
 
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });
+db.pref.createIndex({ corresEmailNotif: 1 }, { partialFilterExpression: { corresEmailNotif: true } });

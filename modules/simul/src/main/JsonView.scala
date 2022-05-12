@@ -10,7 +10,8 @@ import lila.user.User
 final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
+    isOnline: lila.socket.IsOnline
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val simulTeamWriter = Json.writes[SimulTeam]
@@ -80,6 +81,7 @@ final class JsonView(
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
+          .add("online" -> isOnline(host.id))
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,

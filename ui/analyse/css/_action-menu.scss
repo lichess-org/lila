@@ -69,8 +69,10 @@
   .autoplay {
     @extend %flex-wrap;
 
-    a {
-      color: $c-font-dim;
+    .button {
+      &-empty {
+        color: $c-font-dim;
+      }
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;

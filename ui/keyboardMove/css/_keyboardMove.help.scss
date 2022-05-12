@@ -1,0 +1,13 @@
+.keyboard-move-help {
+  @extend %help-modal;
+
+  td.tips li {
+    list-style: disc;
+    margin-left: 2em;
+    margin-right: 1em;
+  }
+
+  a {
+    margin-left: 0.25em;
+  }
+}

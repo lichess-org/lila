@@ -4,25 +4,17 @@ import lila.common.paginator._
 import lila.db.dsl._
 import lila.user.User
 
-final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CategApi(
+    postRepo: PostRepo,
+    topicRepo: TopicRepo,
+    categRepo: CategRepo,
+    paginator: ForumPaginator,
+    config: ForumConfig
+)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   import BSONHandlers._
-
-  def list(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
-    for {
-      categs <- env.categRepo withTeams teams
-      views <- (categs map { categ =>
-        env.postApi get (categ lastPostId forUser) map { topicPost =>
-          CategView(
-            categ,
-            topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage config.postMaxPerPage)
-            },
-            forUser
-          )
-        }
-      }).sequenceFu
-    } yield views
 
   def makeTeam(slug: String, name: String): Funit = {
     val categ = Categ(
@@ -49,8 +41,7 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
-      text =
-        "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+      text = "Welcome to the %s forum!" format name,
       number = 1,
       troll = false,
       hidden = topic.hidden,
@@ -58,29 +49,33 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
       categId = categ.id,
       modIcon = None
     )
-    env.categRepo.coll.insert.one(categ).void >>
-      env.postRepo.coll.insert.one(post).void >>
-      env.topicRepo.coll.insert.one(topic withPost post).void >>
-      env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
+    categRepo.coll.insert.one(categ).void >>
+      postRepo.coll.insert.one(post).void >>
+      topicRepo.coll.insert.one(topic withPost post).void >>
+      categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
   }
 
-  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
-    env.categRepo bySlug slug flatMap {
+  def show(
+      slug: String,
+      forUser: Option[User],
+      page: Int
+  ): Fu[Option[(Categ, Paginator[TopicView])]] =
+    categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        env.paginator.categTopics(categ, page, forUser) dmap { (categ, _).some }
+        paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }
     }
 
   def denormalize(categ: Categ): Funit =
     for {
-      nbTopics      <- env.topicRepo countByCateg categ
-      nbPosts       <- env.postRepo countByCateg categ
-      lastPost      <- env.postRepo lastByCateg categ
-      nbTopicsTroll <- env.topicRepo.unsafe countByCateg categ
-      nbPostsTroll  <- env.postRepo.unsafe countByCateg categ
-      lastPostTroll <- env.postRepo.unsafe lastByCateg categ
+      nbTopics      <- topicRepo countByCateg categ
+      nbPosts       <- postRepo countByCateg categ
+      lastPost      <- postRepo lastByCateg categ
+      nbTopicsTroll <- topicRepo.unsafe countByCateg categ
+      nbPostsTroll  <- postRepo.unsafe countByCateg categ
+      lastPostTroll <- postRepo.unsafe lastByCateg categ
       _ <-
-        env.categRepo.coll.update
+        categRepo.coll.update
           .one(
             $id(categ.id),
             categ.copy(

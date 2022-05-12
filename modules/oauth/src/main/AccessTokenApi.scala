@@ -7,6 +7,7 @@ import reactivemongo.api.bson._
 import lila.common.Bearer
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import reactivemongo.api.ReadPreference
 
 final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: UserRepo)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -177,8 +178,19 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
+  def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
+    coll.optionsByOrderedIds[AccessToken, AccessToken.Id](
+      bearers map AccessToken.Id.from,
+      readPreference = ReadPreference.secondaryPreferred
+    )(_.id) flatMap { tokens =>
+      userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>
+        val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
+        bearers.zip(openTokens).toMap
+      }
+    }
+
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](32, "oauth.access_token") {
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token") {
       _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(fetchAccessToken)
     }

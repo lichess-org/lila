@@ -22,7 +22,7 @@
   <string name="otherExperiences">ניסיון אחר</string>
   <string name="bestSkills">כישורים</string>
   <string name="teachingMethod">שיטת לימוד</string>
-  <string name="publicStudies">הלימודים הפומביים שלי</string>
+  <string name="publicStudies">לוחות הלמידה הפומביים שלי</string>
   <string name="youtubeVideos">סרטוני YouTube</string>
   <plurals name="studentReviews">
     <item quantity="one">ביקורות %s תלמידים</item>

@@ -9,6 +9,8 @@
   <string name="postBody">Post body</string>
   <string name="drafts">Drafts</string>
   <string name="published">Published</string>
+  <string name="createBlogDiscussion">Enable comments</string>
+  <string name="createBlogDiscussionHelp">A forum topic will be created for people to comment on your post</string>
   <string name="publishOnYourBlog">Publish on your blog</string>
   <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
   <plurals name="publishedNbBlogPosts">

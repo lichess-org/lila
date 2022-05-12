@@ -43,7 +43,7 @@
     <item quantity="other">%s միավոր ցածր՝ խնդիրների լուծման Ձեր վարկանիշից</item>
   </plurals>
   <string name="harder">Բարդ</string>
-  <string name="hardest">Բարդագույն</string>
+  <string name="hardest">Շատ բարդ</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Մեկ միավոր բարձր խնդիրների լուծման Ձեր վարկանիշից</item>
     <item quantity="other">%s միավոր բարձր խնդիրների լուծման Ձեր վարկանիշից</item>
@@ -68,4 +68,6 @@
   <string name="searchPuzzles">Փնտրել խնդիրներ</string>
   <string name="fromMyGamesNone">Տվյալների բազայում Ձեր պարտիաներից խնդիրներ չկան, բայց Lichess-ը Ձեզ հետ հույսեր է կապում։ Խաղացե՛ք ավելի շատ արագ կամ դասական ժամակարգով պարտիաներ, և խնդիրներ ունեցող խաղացողների ցանկում հայտնվելու Ձեր հնարավորությունները կմեծանան։</string>
   <string name="fromXGamesFound">Գտնվել է %1$s խնդիր %2$s պարտիաներում</string>
+  <string name="puzzleDashboardDescription">Մարզվե՛ք, վերլուծե՛ք, բարելավե՛ք</string>
+  <string name="noPuzzlesToShow">Ոչինչ չկա, սկսելու համար լուծե՛ք մի քանի խնդիր։</string>
 </resources>

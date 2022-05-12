@@ -54,4 +54,10 @@
   <string name="skipExplanation">Preskočite ovaj potez da biste zadržali niz! Jedan preskok po utrci.</string>
   <string name="failedPuzzles">Krivo riješeni zadaci</string>
   <string name="slowPuzzles">Presporo riješeni zadaci</string>
+  <string name="thisWeek">Ovaj tjedan</string>
+  <string name="thisMonth">Ovaj mjesec</string>
+  <string name="allTime">Cijelo vrijeme</string>
+  <string name="clickToReload">Kliknite za ponovno učitavanje</string>
+  <string name="thisRunHasExpired">Ovaj krug je istekao!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Ova krug je bio otvoren u drugoj kartici!</string>
 </resources>

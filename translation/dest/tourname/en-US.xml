@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Hourly  Rapid Arena</string>
-  <string name="hourlyRapid">Hourly Rapid Arena</string>
+  <string name="hourlyRapidArena">Hourly Rapid Arena</string>
+  <string name="hourlyRapid">Hourly Rapid</string>
   <string name="hourlyXArena">Hourly %s Arena</string>
   <string name="hourlyX">Hourly %s</string>
   <string name="dailyRapidArena">Daily Rapid Arena</string>
@@ -14,7 +14,7 @@
   <string name="easternRapid">Eastern Rapid</string>
   <string name="easternClassicalArena">Eastern Classical Arena</string>
   <string name="easternClassical">Eastern Classical</string>
-  <string name="easternXArena">Elite %s Arena</string>
+  <string name="easternXArena">Eastern %s Arena</string>
   <string name="easternX">Eastern %s</string>
   <string name="weeklyRapidArena">Weekly Rapid Arena</string>
   <string name="weeklyRapid">Weekly Rapid</string>

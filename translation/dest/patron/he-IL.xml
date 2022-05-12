@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">תרום</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">תרום כ%s</string>
+  <string name="donateAsX">תרום כ%s</string>
   <string name="lichessPatron">תומך ליצ\'ס</string>
   <string name="freeAccount">חשבון חינמי</string>
   <string name="becomePatron">הפוך לתומך של ליצ\'ס</string>
@@ -12,7 +12,7 @@
   <string name="thankYou">תודה על תרומתך!</string>
   <string name="youHaveLifetime">יש לך חשבון תומך לכל החיים. זה מדהים!</string>
   <string name="patronUntil">נהפכת לתומך עד %s.</string>
-  <string name="ifNotRenewed">אם לא יחודש, אז תשונמך בחינם.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">אם לא יחודש המנוי תורם, חשבונכם ישוב להיות חשבון רגיל.</string>
   <string name="weAreNonProfit">אנחנו ארגון נון-פרופיט בגלל שאנחנו מאמינים שלכולם צריכה להיות גישה לפלטפורמת שחמט חינמית ברמה עולמית.</string>
   <string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
   <string name="lifetime">לכל החיים</string>
@@ -25,7 +25,6 @@
   <string name="otherAmount">אחר</string>
   <string name="pleaseEnterAmountInX">בבקשה הכנס סכום ב%s</string>
   <string name="withCreditCard">כרטיס אשראי</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
   <string name="celebratedPatrons">התומכים המהוללים שגורמים לליצ\'ס להיות אפשרי</string>
   <string name="whereMoneyGoes">לאן הכסף הולך?</string>
@@ -40,7 +39,6 @@
   <string name="contactSupport">צור קשר עם תמיכה</string>
   <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
   <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
-  <string name="bitcoin">והנה כתובת הביטקוין שלנו: %s</string>
   <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>
   <string name="noPatronFeatures">לא, מכיוון שליצ\'ס חינם לחלוטין, לנצח, לכולם. אנחנו מבטיחים את זה.
 מה שכן, תומכים מקבלים פרופיל חדש ומגניב, ויכולות רברוב.</string>

@@ -19,11 +19,11 @@ object index {
       moreJs = frag(
         jsModule("learn"),
         embedJsUnsafeLoadThen(s"""LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "i18n" -> i18nJsObject(i18nKeys)
-          )
-        )})""")
+            Json.obj(
+              "data" -> data,
+              "i18n" -> i18nJsObject(i18nKeys)
+            )
+          )})""")
       ),
       moreCss = cssTag("learn"),
       openGraph = lila.app.ui
@@ -209,8 +209,9 @@ object index {
       nailedIt,
       rightOn,
       stageXComplete,
-      yourScore,
+      trans.yourScore,
       next,
+      nextX,
       backToMenu,
       puzzleFailed,
       retry

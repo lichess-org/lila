@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Forsyth
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ FEN, pgn => chessPgn }
+import chess.format.{ pgn => chessPgn, FEN }
 import chess.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -99,7 +99,7 @@ final class PgnDump(
             _.Event,
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           ).some,
-          Tag(_.Site, gameUrl(game.id)).some,
+          Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
           Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
           imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
           Tag(_.White, player(game.whitePlayer, wu)).some,

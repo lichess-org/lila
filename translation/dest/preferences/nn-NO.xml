@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Brikkesymbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Vis ratingen til spelarane</string>
+  <string name="showPlayerRatings">Vis ratingen til spelarane</string>
+  <string name="explainShowPlayerRatings">Dette gjer det mogleg å skjule alle rangeringar frå nettsida, for å hjelpa til med å halde fokuset på sjakken. Partia kan framleis rangerast, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="blindfoldChess">Blindsjakk</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motspelaren)</string>
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
+  <string name="explainPromoteToQueenAutomatically">Hald &lt;ctrl&gt;-tasten nede under bondeomvandlinga for å deaktivera auto-omvandlinga mellombels</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sei \"Bra parti, godt spela\" etter nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rull (\"scroll med musehjulet\") ned på brettet for å spela trekk omatt</string>
+  <string name="correspondenceEmailNotification">Dagleg e-postmelding med ei liste av fjernsjakkpartia dine</string>
 </resources>

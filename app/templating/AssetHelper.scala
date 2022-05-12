@@ -22,11 +22,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def assetVersion = AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-
-  def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
   def cssTag(name: String)(implicit ctx: Context): Frag =
     cssTagWithTheme(name, ctx.currentBg)
@@ -64,7 +63,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
   def cashTag             = jsAt("javascripts/vendor/cash.min.js")
   def fingerprintTag      = jsAt("javascripts/fipr.js")
-  def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
@@ -77,16 +75,18 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
+    val assets = assetDomain.value
     val sockets = socketDomains map { socketDomain =>
       val protocol = if (req.secure) "wss://" else "ws://"
       s"$protocol$socketDomain"
     }
+    val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
-      connectSrc = "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: Nil,
+      connectSrc =
+        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
+      frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),

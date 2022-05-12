@@ -48,3 +48,9 @@ RUNNING_PID
 
 # VSCode auto-generated files
 .vscode/
+
+# IntelliJ auto-generated files
+.idea
+
+# Docker-compose
+/docker-compose.yml

@@ -18,13 +18,15 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3$sを使ったオープンソースのサイトが生まれています。</string>
   <string name="fairPlay">フェアプレイについて</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
-  <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新の勝局 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
+  <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
   （たとえばその人との対局後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります。）また回復は 150 点が上限です。</string>
   <string name="preventLeavingGameWithoutResigning">投了せずに対局からいなくなる人にはどう対処していますか？</string>
   <string name="leavingGameWithoutResigningExplanation">何度も対局を中止／放置する人は対戦禁止 (play ban) になります。つまり対局が一時的にできなくなります。このことはプロフィールには表示されません。同じ行為がさらに続くと対戦禁止の期間は長くなっていき、最後にはアカウントが停止されることがあります。</string>
   <string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
   <string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
   <string name="isCorrespondenceDifferent">通信戦のルールはふつうのチェスと違うのですか？</string>
+  <string name="pleaseReadFairPlayPage">詳しくは %s をお読みください</string>
+  <string name="fairPlayPage">フェアプレイ規定のページ</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess では通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。エンジン（ソフト）の使用は禁止されており、使うとエンジン使用者の表示が付くことがあります。[通信戦の国際団体] ICCF はエンジンの使用を認めていますが、Lichess は認めません。</string>
   <string name="gameplay">対局について</string>
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>

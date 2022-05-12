@@ -17,7 +17,6 @@ final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
-    maxPlaying: Max,
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
@@ -76,7 +75,7 @@ final private class LobbySyncActor(
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some) {
         gameCache.nbPlaying(user.id) foreach { nbPlaying =>
-          if (maxPlaying > nbPlaying) {
+          if (lila.game.Game.maxPlaying > nbPlaying) {
             lila.mon.lobby.seek.join.increment()
             seekApi find seekId foreach {
               _ foreach { seek =>

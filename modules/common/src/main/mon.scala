@@ -146,6 +146,7 @@ object mon {
         val coefVar                   = histogram("round.move.lag.coef_var_1000").withoutTags()
         val compEstStdErr             = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
         val compEstOverErr            = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        val moveComp                  = timer("round.move.lag.comped").withoutTags()
       }
       val time = timer("round.move.time").withoutTags()
     }
@@ -156,10 +157,10 @@ object mon {
       val other   = counter("round.error").withTag("from", "other")
     }
     object titivate {
-      val time                  = future("round.titivate.time")
-      val game                  = histogram("round.titivate.game").withoutTags()           // how many games were processed
-      val total                 = histogram("round.titivate.total").withoutTags()          // how many games should have been processed
-      val old                   = histogram("round.titivate.old").withoutTags()            // how many old games remain
+      val time  = future("round.titivate.time")
+      val game  = histogram("round.titivate.game").withoutTags()  // how many games were processed
+      val total = histogram("round.titivate.total").withoutTags() // how many games should have been processed
+      val old   = histogram("round.titivate.old").withoutTags()   // how many old games remain
       def broken(error: String) = counter("round.titivate.broken").withTag("error", error) // broken game
     }
     object alarm {
@@ -169,6 +170,10 @@ object mon {
       val count = counter("round.expiration.count").withoutTags()
     }
     val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
+    object correspondenceEmail {
+      val emails = histogram("round.correspondenceEmail.emails").withoutTags()
+      val time   = future("round.correspondenceEmail.time")
+    }
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
@@ -201,7 +206,8 @@ object mon {
       )
   }
   object asyncActor {
-    def overflow(name: String) = counter("asyncActor.overflow").withTag("name", name)
+    def overflow(name: String)  = counter("asyncActor.overflow").withTag("name", name)
+    def queueSize(name: String) = histogram("asyncActor.queueSize").withTag("name", name)
   }
   object irc {
     object zulip {
@@ -243,9 +249,14 @@ object mon {
   }
   object mod {
     object report {
-      val highest                = gauge("mod.report.highest").withoutTags()
-      val close                  = counter("mod.report.close").withoutTags()
-      def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
+      val highest = gauge("mod.report.highest").withoutTags()
+      val close   = counter("mod.report.close").withoutTags()
+      def create(reason: String, score: Int) = counter("mod.report.create").withTags(
+        Map(
+          "reason" -> reason,
+          "score"  -> score.toString
+        )
+      )
     }
     object log {
       val create = counter("mod.log.create").withoutTags()
@@ -255,6 +266,15 @@ object mon {
       val mark                          = counter("mod.report.irwin.mark").withoutTags()
       def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
       def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
+    }
+    object kaladin {
+      def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
+      def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
+      def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
+      def error(errKind: String)        = counter("mod.kaladin.error").withTag("error", errKind)
+      val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
+      val report                        = counter("mod.report.kaladin.report").withoutTags()
+      val mark                          = counter("mod.report.kaladin.mark").withoutTags()
     }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
@@ -331,13 +351,6 @@ object mon {
       def twitch             = future("tv.streamer.twitch")
     }
   }
-  object crosstable {
-    val create                      = future("crosstable.create.time")
-    def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
-    val duplicate                   = counter("crosstable.create.duplicate").withoutTags()
-    val found                       = counter("crosstable.create.found").withoutTags()
-    val createNbGames               = histogram("crosstable.create.nbGames").withoutTags()
-  }
   object playTime {
     val create         = future("playTime.create.time")
     val createPlayTime = histogram("playTime.create.playTime").withoutTags()
@@ -359,8 +372,8 @@ object mon {
       def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
       def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
       object bloomFilter {
-        def count = gauge("clas.student.bloomFilter.count").withoutTags()
-        def fu    = future("clas.student.bloomFilter.future")
+        val count = gauge("clas.student.bloomFilter.count").withoutTags()
+        val fu    = future("clas.student.bloomFilter.future")
       }
     }
   }
@@ -377,9 +390,9 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
-    val created        = gauge("tournament.count").withTag("type", "created")
-    val started        = gauge("tournament.count").withTag("type", "started")
-    val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags()
+    val created                        = gauge("tournament.count").withTag("type", "created")
+    val started                        = gauge("tournament.count").withTag("type", "started")
+    def waitingPlayers(tourId: String) = histogram("tournament.waitingPlayers").withTag("tourId", tourId)
     object startedOrganizer {
       val tick         = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
@@ -387,7 +400,11 @@ object mon {
     object createdOrganizer {
       val tick = future("tournament.createdOrganizer.tick")
     }
-    def standingOverload = counter("tournament.standing.overload").withoutTags()
+    object lilaHttp {
+      val tick     = future("tournament.lilaHttp.tick")
+      val fullSize = histogram("tournament.lilaHttp.fullSize").withoutTags()
+      val nbTours  = gauge("tournament.lilaHttp.nbTours").withoutTags()
+    }
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(
         Map(
@@ -397,9 +414,14 @@ object mon {
         )
       )
     def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
+    def action(tourId: String, action: String) =
+      timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
+    object notifier {
+      def tournaments = counter("tournament.notify.tournaments").withoutTags()
+      def players     = counter("tournament.notify.players").withoutTags()
+    }
   }
   object swiss {
-    def standingOverload      = counter("swiss.standing.overload").withoutTags()
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags()
     val scoringGet            = future("swiss.scoring.get")
@@ -409,11 +431,19 @@ object mon {
     val json                  = future("swiss.json")
   }
   object plan {
-    val paypal  = histogram("plan.amount").withTag("service", "paypal")
+    object paypalLegacy {
+      val amount = histogram("plan.amount").withTag("service", "paypal")
+    }
+    object paypalCheckout {
+      val amount           = histogram("plan.amount").withTag("service", "paypalCheckout")
+      val fetchAccessToken = future("plan.paypal.accessToken")
+    }
     val stripe  = histogram("plan.amount").withTag("service", "stripe")
     val goal    = gauge("plan.goal").withoutTags()
     val current = gauge("plan.current").withoutTags()
     val percent = gauge("plan.percent").withoutTags()
+    def webhook(service: String, tpe: String) =
+      counter("plan.webhook").withTags(Map("service" -> service, "tpe" -> tpe))
     object charge {
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
@@ -494,20 +524,23 @@ object mon {
       def attempt(user: Boolean, theme: String, rated: Boolean) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme, "rated" -> rated))
     }
-    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
-      Map(
-        "up"  -> up,
-        "win" -> win
-      )
-    )
-    def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
-      counter("puzzle.vote.theme").withTags(
+    object vote {
+      def count(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
         Map(
-          "up"    -> up.fold("cancel")(_.toString),
-          "theme" -> key,
-          "win"   -> win
+          "up"  -> up,
+          "win" -> win
         )
       )
+      def theme(key: String, up: Option[Boolean], win: Boolean) =
+        counter("puzzle.vote.theme").withTags(
+          Map(
+            "up"    -> up.fold("cancel")(_.toString),
+            "theme" -> key,
+            "win"   -> win
+          )
+        )
+      val future = mon.future("puzzle.vote.future")
+    }
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
   object storm {
@@ -598,6 +631,7 @@ object mon {
       val corresAlarm = send("corresAlarm") _
       val finish      = send("finish") _
       val message     = send("message") _
+      val tourSoon    = send("tourSoon") _
       object challenge {
         val create = send("challengeCreate") _
         val accept = send("challengeAccept") _
@@ -678,7 +712,7 @@ object mon {
       }
     }
   }
-  object export {
+  object `export` {
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")

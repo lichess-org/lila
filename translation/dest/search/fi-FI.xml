@@ -29,4 +29,11 @@
   <string name="maxNumber">Maksimimäärä</string>
   <string name="maxNumberExplanation">Haettavien pelien maksimimäärä</string>
   <string name="include">Sisältää</string>
+  <string name="descending">Laskeva</string>
+  <string name="ascending">Nouseva</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Löytyi %s peli</item>
+    <item quantity="other">Löytyi %s peliä</item>
+  </plurals>
+  <string name="ratingExplanation">Molempien pelaajien vahvuuslukujen keskiarvo</string>
 </resources>

@@ -32,4 +32,6 @@
   <string name="evaluation">Hodnotenie ťahov</string>
   <string name="maxNumber">Maximálny počet</string>
   <string name="maxNumberExplanation">Maximálny počet partií, ktoré sa majú zobraziť</string>
+  <string name="descending">Zostupne</string>
+  <string name="ascending">Vzostupne</string>
 </resources>

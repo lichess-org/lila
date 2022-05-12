@@ -3,7 +3,7 @@ package lila.simul
 import chess.Color
 import chess.format.FEN
 import chess.variant.Variant
-import chess.{ Speed }
+import chess.Speed
 import org.joda.time.DateTime
 
 import lila.rating.PerfType
@@ -138,6 +138,8 @@ case class Simul(
   def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
+
+  def pairingOf(userId: User.ID) = pairings.find(_ is userId)
 }
 
 object Simul {

@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="pgnLetter">Literă (R, D, T, N, C)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modul Zen</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Arată evaluările jucătorului</string>
+  <string name="showPlayerRatings">Arată evaluările jucătorului</string>
+  <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Dă înapoi (cu aprobarea adversarului)</string>
   <string name="inCasualGamesOnly">În jocuri amicale</string>
   <string name="promoteToQueenAutomatically">Promovează automat in damă</string>
+  <string name="explainPromoteToQueenAutomatically">Țineți apăsată tasta &lt;ctrl&gt; în timp ce promovați un pion pentru a dezactiva temporar promovarea automată</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
   <string name="scrollOnTheBoardToReplayMoves">Derulează pe tablă pentru a rejuca mutările</string>
+  <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
 </resources>

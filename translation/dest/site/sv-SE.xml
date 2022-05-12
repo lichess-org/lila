@@ -163,7 +163,7 @@
   <string name="players">Spelare</string>
   <string name="friends">Vänner</string>
   <string name="discussions">Konversationer</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Idag</string>
+  <string name="today">Idag</string>
   <string name="yesterday">Igår</string>
   <string name="minutesPerSide">Minuter per spelare</string>
   <string name="variant">Variant</string>
@@ -435,15 +435,14 @@
   <string name="popularOpenings">Populära öppningar</string>
   <string name="endgamePositions">Slutspelspositioner</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Startposition</string>
+  <string name="startPosition">Startposition</string>
   <string name="clearBoard">Rensa brädet</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Ladda ställning</string>
+  <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
   <string name="profileCompletion">Profilfulländning: %s</string>
   <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
-  <string name="gameCompletionRate">Partislutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -456,7 +455,7 @@
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">OBS! Partiet är rankat men har ingen tidsgräns.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
   <string name="success">Rätt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelas</item>
@@ -525,7 +524,7 @@
   <string name="onSlowGames">I långsamma partier</string>
   <string name="always">Alltid</string>
   <string name="never">Aldrig</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s tävlar i %2$s</string>
+  <string name="xCompetesInY">%1$s tävlar i %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Förlust</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
@@ -560,10 +559,10 @@
   <string name="error.email_acceptable">Oacceptabel e-postadress. Var vänlig dubbelkolla den och försök igen.</string>
   <string name="error.email_unique">E-postadressen är ogiltig eller upptagen</string>
   <string name="error.email_different">Detta är redan din e-postadress</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Måste vara minst %s tecken långt</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Får vara högst %s tecken lång</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Måste vara minst %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Måste vara högst %s</string>
+  <string name="error.minLength">Måste vara minst %s tecken långt</string>
+  <string name="error.maxLength">Får vara högst %s tecken lång</string>
+  <string name="error.min">Måste vara minst %s</string>
+  <string name="error.max">Måste vara högst %s</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
   <string name="onlyExistingConversations">Endast befintliga konversationer</string>
   <string name="onlyFriends">Bara vänner</string>
@@ -786,7 +785,6 @@
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
   <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
   <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
-  <string name="agreementAccount">Jag instämmer med att jag inte kommer att skapa flera konton.</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
@@ -812,7 +810,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">nämnde dig i \"%1$s\".</string>
+  <string name="mentionedYouInX">nämnde dig i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nämnde dig i \"%2$s\".</string>
   <string name="invitedYouToX">bjöd in dig till \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>

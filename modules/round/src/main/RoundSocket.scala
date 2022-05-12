@@ -29,7 +29,6 @@ final class RoundSocket(
     roundDependencies: RoundAsyncActor.Dependencies,
     proxyDependencies: GameProxy.Dependencies,
     scheduleExpiration: ScheduleExpiration,
-    tournamentActor: lila.hub.actors.TournamentApi,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
@@ -131,7 +130,7 @@ final class RoundSocket(
       messenger.watcher(id, userId, msg).unit
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text).unit
-    case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
+    case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId.value, userId), "berserk")
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
         case (gameId, Some(on)) =>
@@ -340,9 +339,14 @@ object RoundSocket {
               } yield PlayerDo(FullId(fullId), tpe)
             }
           case "r/move" =>
-            raw.get(5) { case Array(fullId, uciS, blurS, lagS, mtS) =>
+            raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
               Uci(uciS) map { uci =>
-                PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
+                PlayerMove(
+                  FullId(fullId),
+                  uci,
+                  P.In.boolean(blurS),
+                  MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
+                )
               }
             }
           case "chat/say" =>

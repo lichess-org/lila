@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ Zen</string>
+  <string name="showPlayerRatings">Hiện xếp hạng của người chơi</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
   <string name="onlyOnInitialPosition">Chỉ ở vị trí khởi tạo</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>

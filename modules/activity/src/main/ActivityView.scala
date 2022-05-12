@@ -33,7 +33,27 @@ case class ActivityView(
     swisses: Option[List[(Swiss.IdName, Int)]] = None,
     stream: Boolean = false,
     signup: Boolean = false
-)
+) {
+  def isEmpty = !stream && List(
+    games,
+    puzzles,
+    storm,
+    racer,
+    streak,
+    practice,
+    simuls,
+    patron,
+    forumPosts,
+    ublogPosts,
+    corresMoves,
+    corresEnds,
+    follows,
+    studies,
+    teams,
+    tours,
+    swisses
+  ).forall(_.isEmpty)
+}
 
 object ActivityView {
 

@@ -53,4 +53,5 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>
   <string name="declinedRequests">Avviste førespurnader</string>
+  <string name="joinLichessVariantTeam">Meld deg på det offisielle %s-laget for hendingar og nyhende</string>
 </resources>

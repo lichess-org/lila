@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 import lila.api.Context
 import lila.event.Event
-import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
@@ -33,13 +32,13 @@ final class Preload(
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
     lastPostCache: lila.blog.LastPostCache,
-    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]]
+    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    msgApi: lila.msg.MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
 
   def apply(
-      posts: Fu[List[MiniForumPost]],
       tours: Fu[List[Tournament]],
       swiss: Option[Swiss],
       events: Fu[List[Event]],
@@ -47,7 +46,6 @@ final class Preload(
       streamerSpots: Int
   )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
-      posts.mon(_.lobby segment "posts") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
@@ -61,39 +59,41 @@ final class Preload(
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) zip
-      lastPostsCache.get {} flatMap {
+      lastPostsCache.get {} zip
+      ctx.userId
+        .ifTrue(ctx.nbNotifications > 0)
+        .filterNot(liveStreamApi.isStreaming)
+        .??(msgApi.hasUnreadLichessMessage) flatMap {
         // format: off
-        case ((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts) =>
+        case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
-          .mon(_.lobby segment "currentGame") zip
-          lightUserApi
-            .preloadMany {
-              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+          (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
+            .mon(_.lobby segment "currentGame") zip
+            lightUserApi
+              .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
+              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              Homepage(
+                data,
+                entries,
+                tours,
+                swiss,
+                events,
+                simuls,
+                feat,
+                lead,
+                tWinners,
+                puzzle,
+                streams.excludeUsers(events.flatMap(_.hostedBy)),
+                playban,
+                currentGame,
+                simulIsFeaturable,
+                blindGames,
+                lobbySocket.counters,
+                lastPostCache.apply,
+                ublogPosts,
+                hasUnreadLichessMessage = lichessMsg
+              )
             }
-            .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
-            Homepage(
-              data,
-              entries,
-              posts,
-              tours,
-              swiss,
-              events,
-              simuls,
-              feat,
-              lead,
-              tWinners,
-              puzzle,
-              streams.excludeUsers(events.flatMap(_.hostedBy)),
-              playban,
-              currentGame,
-              simulIsFeaturable,
-              blindGames,
-              lobbySocket.counters,
-              lastPostCache.apply,
-              ublogPosts
-            )
-          }
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
@@ -120,7 +120,6 @@ object Preload {
   case class Homepage(
       data: JsObject,
       userTimeline: Vector[Entry],
-      forumRecent: List[MiniForumPost],
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],
@@ -136,7 +135,8 @@ object Preload {
       blindGames: List[Pov],
       counters: lila.lobby.LobbyCounters,
       lastPost: Option[lila.blog.MiniPost],
-      ublogPosts: List[UblogPost.PreviewPost]
+      ublogPosts: List[UblogPost.PreviewPost],
+      hasUnreadLichessMessage: Boolean
   )
 
   case class CurrentGame(pov: Pov, opponent: String)

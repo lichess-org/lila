@@ -49,4 +49,16 @@
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
   <string name="failed">pini ike</string>
+  <string name="fromXGames">musi lili tan musi pi jan %s</string>
+  <string name="fromXGamesFound">musi lili %1$s tan musi %2$s</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">sina musi e musi lili %s</item>
+    <item quantity="other">sina musi e musi lili %s</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">o pini pona e musi %s</item>
+    <item quantity="other">o pini pona e musi %s</item>
+  </plurals>
+  <string name="percentSolved">%s li pini pona</string>
+  <string name="noPuzzlesToShow">mi ken ala toki e ijo. o musi e musi lili!</string>
 </resources>

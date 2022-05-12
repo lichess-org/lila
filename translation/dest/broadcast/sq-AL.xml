@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Transmetimet</string>
-  <string name="liveBroadcasts">Transmetime turnesh live</string>
-  <string name="newBroadcast">Transmetim live i ri</string>
-  <string name="ongoing">Ne vijim</string>
-  <string name="upcoming">Ne te ardhmen</string>
-  <string name="completed">E mbaruar</string>
-  <string name="roundNumber">Numri i raundit</string>
-  <string name="fullDescription">Pershkrim i plote i evenimentit</string>
-  <string name="fullDescriptionHelp">Pershkrim i gjate fakultativ (i padetyrueshem) i transmetimit. %1$s eshte e disponueshme. Nuk duhet te jete me e gjate se %2$s shkronja.</string>
-  <string name="sourceUrlHelp">Adresa e internetit qe Lichess do te kontrolloje per te marre SHENIMET e kohes se fundit. Duhet te jete e lejuar hyrja publike nga interneti.</string>
-  <string name="startDate">Koha kur fillon ne oren tuaj lokale</string>
-  <string name="startDateHelp">Fakultative, (e padetyrueshme) nese e dini kur fillon evenimenti</string>
+  <string name="broadcasts">Transmetime</string>
+  <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
+  <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
+  <string name="addRound">Shtoni një raund</string>
+  <string name="ongoing">Në zhvillim</string>
+  <string name="upcoming">I ardhshëm</string>
+  <string name="completed">I mbaruar</string>
+  <string name="roundName">Emër raundi</string>
+  <string name="roundNumber">Numër raundi</string>
+  <string name="tournamentName">Emër turneu</string>
+  <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
+  <string name="fullDescription">Përshkrim i plotë i turneut</string>
+  <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
+  <string name="sourceUrlOrGameIds">URL burimi, ose ID-ra loje</string>
+  <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
+  <string name="gameIdsHelp">Ndryshe, mund të jepni deri në 63 ID-ra lojërash Lichess, ndarë me presje.</string>
+  <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
+  <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
   <string name="credits">Atriboji merita burimit</string>
+  <string name="deleteRound">Fshije këtë raund</string>
+  <string name="broadcastUrl">URL Transmetimi</string>
+  <string name="currentRoundUrl">URL e raundit të tanishëm</string>
+  <string name="currentGameUrl">URL e lojës së tanishme</string>
+  <string name="downloadAllRounds">Shkarko krejt raundet</string>
 </resources>

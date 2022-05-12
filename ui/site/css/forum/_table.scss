@@ -40,10 +40,23 @@
   }
 
   &.topics {
+    table-layout: fixed;
     margin-bottom: 2rem;
 
     .subject {
       font-size: 1.2em;
+    }
+
+    th:nth-child(2) {
+      width: 7%;
+    }
+
+    th:nth-child(3) {
+      width: 26%;
+    }
+
+    td:nth-child(3) {
+      overflow-x: hidden;
     }
   }
 

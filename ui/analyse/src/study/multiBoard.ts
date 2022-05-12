@@ -1,7 +1,7 @@
 import * as domData from 'common/data';
 import debounce from 'common/debounce';
 import { bind, MaybeVNodes } from 'common/snabbdom';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite } from 'chessground/util';
@@ -95,7 +95,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
 function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.playing', [
     h('input', {
-      attrs: { type: 'checkbox' },
+      attrs: { type: 'checkbox', checked: ctrl.playing },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
       }),

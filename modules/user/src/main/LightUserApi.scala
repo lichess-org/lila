@@ -21,10 +21,14 @@ final class LightUserApi(
   )
   val sync = new LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
 
-  def syncFallback(id: User.ID)  = sync(id) | LightUser.fallback(id)
-  def asyncFallback(id: User.ID) = async(id) dmap (_ | LightUser.fallback(id))
+  def syncFallback(id: User.ID)       = sync(id) | LightUser.fallback(id)
+  def asyncFallback(id: User.ID)      = async(id) dmap (_ | LightUser.fallback(id))
+  def asyncFallbackName(name: String) = async(User normalize name) dmap (_ | LightUser.fallback(name))
 
   def asyncMany = cache.asyncMany _
+
+  def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
+    ids.map(asyncFallback).sequenceFu
 
   def invalidate = cache invalidate _
 

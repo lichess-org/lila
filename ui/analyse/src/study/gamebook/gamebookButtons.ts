@@ -21,7 +21,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
             },
             hook: bind('click', () => root.userJump(''), ctrl.redraw),
           },
-          'Back'
+          root.trans.noarg('back')
         )
       : null,
     myTurn
@@ -34,7 +34,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
             },
             hook: bind('click', ctrl.solution, ctrl.redraw),
           },
-          'View the solution'
+          root.trans.noarg('viewTheSolution')
         )
       : undefined,
     overrideButton(study),
@@ -80,7 +80,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               study.redraw
             ),
           },
-          'Analyse'
+          study.trans.noarg('analysis')
         );
     }
   }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Ghjustra svizzera</string>
+  <string name="swissTournaments">Ghjustra Svizzera</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vede a girandula</item>
     <item quantity="other">Vede tutte e %s girandule</item>
@@ -32,9 +32,8 @@
   <string name="numberOfRounds">Numeru di girandule</string>
   <string name="numberOfRoundsHelp">Un numeru imparu di girandule permette un equilibriu di culore ottimale.</string>
   <string name="roundInterval">Attesa trà e girandule</string>
-  <string name="forbiddenPairings">Appariera pruibita</string>
+  <string name="forbiddenPairings">Appaghjamentu pruibitu</string>
   <string name="forbiddenPairingsHelp">Cugnome di i ghjucatori chì ùn ponu ghjucà inseme ( I fratelli, per esempiu). Dui cugnomi in una linea, spiccati cù un spaziu.</string>
-  <string name="newSwiss">Ghjustra svizzera nova</string>
   <string name="swissVsArenaQ">Quandu aduprà una ghjustrà svizzera invece d\' una arena?</string>
   <string name="swissVsArenaA">Durante una ghjustra svizzera, tutti i participanti ghjocanu u stessu numeru di partite, è affruntanu un altru ghjucatore soltantu una volta. 
 Pò esse l\' uzzione bona per i turnei ufficiali.</string>
@@ -45,7 +44,8 @@ Quandu un ghjucatore ùn pò esse appariatu durante una girandule, riceve un pun
   <string name="sonnebornBergerScore">U contu Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Cù u %s.
 S\' aghjunghjenu u risultatu di tutti l\' aversarii scunfitti è a metà di i punti di i ghjucatori cun quale avete fattu una partita patta.</string>
-  <string name="pairingsQ">Cumu hè decisa l\' appariera?</string>
+  <string name="pairingsQ">Cumu hè decisa l\' appaghjamentu?</string>
   <string name="dutchSystem">Sistemu Ullandese</string>
   <string name="FIDEHandbook">Guida di a FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Cumu hè urganizatu u turenu quandu ci hè più partite chè ghjucatori?</string>
 </resources>

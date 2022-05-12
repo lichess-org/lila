@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Bílý</string>
   <string name="black">Černý</string>
+  <string name="asWhite">jako bílá</string>
+  <string name="asBlack">jako černá</string>
   <string name="randomColor">Náhodná barva</string>
   <string name="createAGame">Vytvořit hru</string>
   <string name="whiteIsVictorious">Vyhrál bílý</string>
@@ -179,7 +181,7 @@
   <string name="players">Hráči</string>
   <string name="friends">Přátelé</string>
   <string name="discussions">Konverzace</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Dnes</string>
+  <string name="today">Dnes</string>
   <string name="yesterday">Včera</string>
   <string name="minutesPerSide">Minut pro každého hráče</string>
   <string name="variant">Varianta</string>
@@ -200,6 +202,12 @@
     <item quantity="few">%s hodiny</item>
     <item quantity="many">%s hodin</item>
     <item quantity="other">%s hodin</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="few">%s minuty</item>
+    <item quantity="many">%s minut</item>
+    <item quantity="other">%s minut</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
@@ -324,7 +332,7 @@
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
-  <string name="takebackPropositionSent">Návrh na vrácení byl tahu odeslán</string>
+  <string name="takebackPropositionSent">Návrh na vrácení tahu byl odeslán</string>
   <string name="takebackPropositionDeclined">Návrh na vrácení tahu byl odmítnut</string>
   <string name="takebackPropositionAccepted">Návrh na vrácení tahu byl přijat</string>
   <string name="takebackPropositionCanceled">Návrh na vrácení tahu byl zrušen</string>
@@ -394,6 +402,7 @@
   <string name="leaderboard">Žebříček</string>
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
+  <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
   <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="toStudy">Do studie</string>
@@ -495,15 +504,14 @@
   <string name="popularOpenings">Populární zahájení</string>
   <string name="endgamePositions">Pozice koncovek</string>
   <string name="chess960StartPosition">Základní postavení Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Základní postavení</string>
+  <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Nahrát pozici</string>
+  <string name="loadPosition">Nahrát pozici</string>
   <string name="isPrivate">Soukromý</string>
   <string name="reportXToModerators">Nahlásit %s moderátorům</string>
   <string name="profileCompletion">Kompletace profilu: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Pokud nemáte, nechte pole volné</string>
-  <string name="gameCompletionRate">Dokončených her: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upravit profil</string>
   <string name="firstName">Jméno</string>
@@ -516,7 +524,7 @@
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
   <string name="activePlayers">Aktivní hráči</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Pozor, hra je o body i když je bez hodin!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
   <string name="success">Úspěch</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
@@ -587,7 +595,7 @@
   <string name="onSlowGames">Při pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s se účastní %2$s</string>
+  <string name="xCompetesInY">%1$s se účastní %2$s</string>
   <string name="victory">Vítězství</string>
   <string name="defeat">Porážka</string>
   <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
@@ -626,10 +634,10 @@
   <string name="error.email_acceptable">Tato emailová adresa je nepřijatelná. Prosím, zkontrolujte ji a zkuste to znovu.</string>
   <string name="error.email_unique">E-mailová adresa je neplatná nebo je již obsazena</string>
   <string name="error.email_different">Toto je již Vaše emailová adresa</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Minimální délka je %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximální délka je %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Musí být větší nebo rovno %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Musí být menší nebo rovno %s</string>
+  <string name="error.minLength">Minimální délka je %s</string>
+  <string name="error.maxLength">Maximální délka je %s</string>
+  <string name="error.min">Musí být větší nebo rovno %s</string>
+  <string name="error.max">Musí být menší nebo rovno %s</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
@@ -820,8 +828,8 @@
   <string name="waitingForAnalysis">Čekání na analýzu</string>
   <string name="noMistakesFoundForWhite">Žádné bílého chyby nenalezeny</string>
   <string name="noMistakesFoundForBlack">Žádné černého chyby nenalezeny</string>
-  <string name="doneReviewingWhiteMistakes">Procházení bílého chyb dokončeno</string>
-  <string name="doneReviewingBlackMistakes">Procházení černého chyb dokončeno</string>
+  <string name="doneReviewingWhiteMistakes">Procházení chyb bílého dokončeno</string>
+  <string name="doneReviewingBlackMistakes">Procházení chyb černého dokončeno</string>
   <string name="doItAgain">Udělat znovu</string>
   <string name="reviewWhiteMistakes">Projít chyby bílého</string>
   <string name="reviewBlackMistakes">Projít chyby černého</string>
@@ -864,7 +872,7 @@
   <string name="currentMatchScore">Současné výsledky zápasů</string>
   <string name="agreementAssistance">Přísahám, že nikdy nevyužiji jiné pomoci při mých hrách (počítače, knihy, databáze nebo jiné osoby).</string>
   <string name="agreementNice">Přísahám, že budu vždy respektovat ostatní hráče.</string>
-  <string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Souhlasím s tím, že nebudu vytvářet více účtů (s výjimkou důvodů uvedených v %s).</string>
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
@@ -890,7 +898,7 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">vás zmínil v \"%1$s\".</string>
+  <string name="mentionedYouInX">vás zmínil v \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
   <string name="invitedYouToX">vás pozval ke studii \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
@@ -952,4 +960,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>
   <string name="youCantStartNewGame">Nemůžete začít novou hru, dokud nebude tato dokončena.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>
+  <string name="switchSides">Prohodit strany</string>
 </resources>

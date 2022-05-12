@@ -148,7 +148,7 @@
   <string name="players">ผู้เล่น</string>
   <string name="friends">เพื่อน</string>
   <string name="discussions">การสนทนา</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">วันนี้</string>
+  <string name="today">วันนี้</string>
   <string name="yesterday">เมื่อวาน</string>
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
@@ -396,15 +396,14 @@
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
   <string name="setTheBoard">จัดค่ากระดาน</string>
   <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">ตำแหน่งเริ่มต้น</string>
+  <string name="startPosition">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">โหลดตำแหน่ง</string>
+  <string name="loadPosition">โหลดตำแหน่ง</string>
   <string name="isPrivate">ส่วนตัว</string>
   <string name="reportXToModerators">ร้องเรียน %s สู่ผู้ดูแล</string>
   <string name="profileCompletion">ความสมบูรณ์ของโปรไฟล์: %s</string>
   <string name="xRating">ระดับคะแนน %s</string>
   <string name="ifNoneLeaveEmpty">ถ้าไม่มี, จงเว้นว่าง</string>
-  <string name="gameCompletionRate">อัตราความสมบูรณ์ของเกม: %s</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
   <string name="firstName">ชื่อจริง</string>
@@ -417,7 +416,7 @@
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
   <string name="success">สำเร็จ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
@@ -483,7 +482,7 @@
   <string name="onSlowGames">ในเกมรูปแบบช้า</string>
   <string name="always">เสมอ</string>
   <string name="never">ไม่ต้อง</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s แข่งขันใน %2$s</string>
+  <string name="xCompetesInY">%1$s แข่งขันใน %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
   <string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
@@ -724,7 +723,6 @@
   <string name="currentMatchScore">สกอร์เกมปัจจุบัน</string>
   <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
-  <string name="agreementAccount">ฉันยอมรับว่า ฉันจะไม่สร้างหลายบัญชี</string>
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
@@ -740,7 +738,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
   <string name="subscribe">ติดตาม</string>
   <string name="unsubscribe">เลิกติดตาม</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">กล่าวถึงคุณใน \"%1$s\"</string>
+  <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
   <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>

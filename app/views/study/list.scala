@@ -147,7 +147,9 @@ object list {
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth option bits.authLinks(active, nonMineOrder),
-      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)("Topics"),
+      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)(
+        trans.study.topics()
+      ),
       topics.map { topic =>
         a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
           topic.value
@@ -161,9 +163,9 @@ object list {
   }
 
   private[study] def searchForm(placeholder: String, value: String) =
-    form(cls := "search", action := routes.Study.search(), method := "get")(
-      input(name := "q", st.placeholder := placeholder, st.value := value),
-      submitButton(cls := "button", dataIcon := "")
+    form(cls           := "search", action    := routes.Study.search(), method := "get")(
+      input(name       := "q", st.placeholder := placeholder, st.value         := value),
+      submitButton(cls := "button", dataIcon  := "")
     )
 
   private def layout(

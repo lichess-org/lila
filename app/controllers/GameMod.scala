@@ -17,7 +17,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   import GameMod._
 
   def index(username: String) =
-    SecureBody(_.Hunter) { implicit ctx => me =>
+    SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         implicit def req = ctx.body
         val form         = filterForm.bindFromRequest()
@@ -25,7 +25,11 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
         env.tournament.leaderboardApi.recentByUser(user, 1) zip
           env.activity.read.recentSwissRanks(user.id) zip
           fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
-            env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map { games =>
+            {
+              if (isGranted(_.UserEvaluate))
+                env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
+              else fuccess(Left(povs))
+            } map { games =>
               Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
             }
           }
@@ -50,7 +54,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   }
 
   def post(username: String) =
-    SecureBody(_.Hunter) { implicit ctx => me =>
+    SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         implicit val body = ctx.body
         actionForm
@@ -58,9 +62,10 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
           .fold(
             err => BadRequest(err.toString).fuccess,
             {
-              case (gameIds, Some("pgn"))            => downloadPgn(user, gameIds).fuccess
-              case (gameIds, Some("analyse") | None) => multipleAnalysis(me, gameIds)
-              case _                                 => notFound
+              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).fuccess
+              case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
+                multipleAnalysis(me, gameIds)
+              case _ => notFound
             }
           )
       }

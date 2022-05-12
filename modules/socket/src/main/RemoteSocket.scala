@@ -22,7 +22,6 @@ import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos 
 
 final class RemoteSocket(
     redisClient: RedisClient,
-    notification: lila.hub.actors.Notification,
     shutdown: CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -52,7 +51,8 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate(_ + userId).unit
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds).unit
-    case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
+    case In.NotifiedBatch(userIds) =>
+      Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
@@ -100,8 +100,8 @@ final class RemoteSocket(
       }
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
-    case Mlat(micros) =>
-      send(Out.mlat(micros))
+    case Mlat(millis) =>
+      send(Out.mlat(millis))
     case Socket.SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
@@ -300,8 +300,8 @@ object RemoteSocket {
         s"tell/sri $sri ${Json stringify payload}"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
         s"tell/sris ${commas(sris)} ${Json stringify payload}"
-      def mlat(micros: Int) =
-        s"mlat ${((micros / 100) / 10d)}"
+      def mlat(millis: Int) =
+        s"mlat ${millis}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
       def setTroll(userId: String, v: Boolean) =

@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Przypięty komentarz</string>
   <string name="saveChapter">Zapisz rozdział</string>
   <string name="clearAnnotations">Usuń adnotacje</string>
+  <string name="clearVariations">Wyczyść warianty</string>
   <string name="deleteChapter">Usuń rozdział</string>
   <string name="deleteThisChapter">Usunąć ten rozdział? Nie będzie można tego cofnąć!</string>
   <string name="clearAllCommentsInThisChapter">Usunąć wszystkie komentarze i oznaczenia w tym rozdziale?</string>
@@ -164,4 +165,12 @@
   <string name="nextChapter">Następny rozdział</string>
   <string name="prevChapter">Poprzedni rozdział</string>
   <string name="studyActions">Opcje opracowań</string>
+  <string name="topics">Tematy</string>
+  <string name="myTopics">Moje tematy</string>
+  <string name="popularTopics">Popularne tematy</string>
+  <string name="manageTopics">Zarządzaj tematami</string>
+  <string name="back">Powrót</string>
+  <string name="playAgain">Odtwórz ponownie</string>
+  <string name="whatWouldYouPlay">Co byś zagrał w tej pozycji?</string>
+  <string name="youCompletedThisLesson">Gratulacje! Ukończyłeś tę lekcję.</string>
 </resources>

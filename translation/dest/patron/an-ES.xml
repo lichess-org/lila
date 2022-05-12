@@ -11,7 +11,6 @@
   <string name="thankYou">Gracias per la tuya donación!</string>
   <string name="youHaveLifetime">Tiens una cuenta de patrón de per vida. Qué impresionant!</string>
   <string name="patronUntil">Tiens una cuenta de patrón dica lo %s.</string>
-  <string name="ifNotRenewed">Si no se renueva, se te degradará a la versión gratuita.</string>
   <string name="weAreNonProfit">Somos una organización sin ánimo de lucro perque creyemos que totz habríanos de tener acceso a una plataforma d\'escaques de de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo femos posible gracias a l\'emparo de chent como tu. Si te fa goyo Lichess, per favor considera emparar-nos donando y convertindo-te en patrón!</string>
   <string name="lifetime">De per vida</string>
@@ -23,7 +22,6 @@
   <string name="singleDonation">Una sola donación que t\'atorga las alas de patrón entre un mes.</string>
   <string name="otherAmount">Unatro</string>
   <string name="withCreditCard">Tarcheta de credito</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo chicot, per ixo lo tuyo emparo marca una gran diferencia!</string>
   <string name="celebratedPatrons">Los celebres patrones que fan que Lichess sía posible</string>
   <string name="whereMoneyGoes">A án va los diners?</string>
@@ -38,7 +36,6 @@ U puetz %s.</string>
   <string name="contactSupport">meter-te en contacto con o suporte de Lichess</string>
   <string name="otherMethods">I hai atras trazas de donar?</string>
   <string name="bankTransfers">Tamién acceptamos transferencias bancarias</string>
-  <string name="bitcoin">Y aquí ye la nuestra adreza de bitcoin: %s</string>
   <string name="patronFeatures">I hai qualques caracteristicas reservadas a los patrones?</string>
   <string name="noPatronFeatures">No, perque Lichess ye completament gratuito, pa siempre y pa totz. Ixo ye una promesa.
 Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perfil.</string>

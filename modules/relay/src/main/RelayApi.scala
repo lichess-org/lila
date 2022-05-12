@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json._
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
@@ -84,7 +84,7 @@ final class RelayApi(
     tourRepo.coll
       .aggregateList(20) { framework =>
         import framework._
-        Match(tourRepo.selectors.official ++ tourRepo.selectors.active) -> List(
+        Match(tourRepo.selectors.officialActive) -> List(
           Sort(Descending("tier")),
           PipelineOperator(
             $doc(
@@ -250,27 +250,38 @@ final class RelayApi(
         }
       }
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, _] =
-    tourRepo.coll
+  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, _] = {
+
+    val lookup = $lookup.pipeline(
+      from = roundRepo.coll,
+      as = "rounds",
+      local = "_id",
+      foreign = "tourId",
+      pipe = List($doc("$sort" -> roundRepo.sort.start))
+    )
+    val activeStream = tourRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
         import framework._
         List(
-          Match(tourRepo.selectors.official),
-          Sort(Descending("syncedAt")),
-          PipelineOperator(
-            $lookup.pipeline(
-              from = roundRepo.coll,
-              as = "rounds",
-              local = "_id",
-              foreign = "tourId",
-              pipe = List(
-                $doc("$sort" -> $doc("startedAt" -> 1, "startsAt" -> 1, "name" -> 1))
-              )
-            )
-          )
+          Match(tourRepo.selectors.officialActive),
+          Sort(Descending("tier")),
+          PipelineOperator(lookup)
         )
       }
       .documentSource(nb)
+
+    val inactiveStream = tourRepo.coll
+      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        List(
+          Match(tourRepo.selectors.officialInactive),
+          Sort(Descending("syncedAt")),
+          PipelineOperator(lookup)
+        )
+      }
+      .documentSource(nb)
+
+    (activeStream concat inactiveStream)
       .mapConcat { doc =>
         doc
           .asOpt[RelayTour]
@@ -280,6 +291,8 @@ final class RelayApi(
           .toList
       }
       .throttle(perSecond.value, 1 second)
+      .take(nb)
+  }
 
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](

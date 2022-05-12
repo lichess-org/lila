@@ -15,7 +15,7 @@ object faq {
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
-      cls := "question"
+      cls   := "question"
     )(
       h3(a(href := s"#$id")(title)),
       div(cls := "answer")(answer)
@@ -43,7 +43,7 @@ object faq {
           ),
           p(
             whyIsLilaCalledLila(
-              a(href := "https://github.com/ornicar/lila")("lila"),
+              a(href := "https://github.com/lichess-org/lila")("lila"),
               a(href := "https://www.scala-lang.org/")("Scala")
             )
           )
@@ -74,6 +74,7 @@ object faq {
             li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
             li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
             li(a(href := "https://lidraughts.org")("lidraughts.org")),
+            li(a(href := "https://playstrategy.org")("playstrategy.org")),
             li(a(href := "https://lishogi.org")("lishogi.org"))
           )
         ),
@@ -104,6 +105,9 @@ object faq {
           isCorrespondenceDifferent.txt(),
           p(
             youCanUseOpeningBookNoEngine()
+          ),
+          p(
+            pleaseReadFairPlayPage(a(href := routes.Page.loneBookmark("fair-play"))(fairPlayPage()))
           )
         ),
         h2(gameplay()),
@@ -190,7 +194,7 @@ object faq {
           titlesAvailableOnLichess.txt(),
           p(
             lichessRecognizeAllOTBtitles(
-              a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
+              a(href := "https://github.com/lichess-org/lila/wiki/Handling-title-verification-requests")(
                 asWellAsManyNMtitles()
               )
             )
@@ -223,7 +227,7 @@ object faq {
           whatUsernameCanIchoose.txt(),
           p(
             usernamesNotOffensive(
-              a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
+              a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(guidelines())
             )
           )
         ),

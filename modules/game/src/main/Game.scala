@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Game => ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -89,12 +89,13 @@ case class Game(
   def simulId      = metadata.simulId
   def swissId      = metadata.swissId
 
-  def isTournament = tournamentId.isDefined
-  def isSimul      = simulId.isDefined
-  def isSwiss      = swissId.isDefined
-  def isMandatory  = isTournament || isSimul || isSwiss
-  def isClassical  = perfType contains Classical
-  def nonMandatory = !isMandatory
+  def isTournament         = tournamentId.isDefined
+  def isSimul              = simulId.isDefined
+  def isSwiss              = swissId.isDefined
+  def isMandatory          = isTournament || isSimul || isSwiss
+  def nonMandatory         = !isMandatory
+  def canTakebackOrAddTime = !isMandatory
+  def isClassical          = perfType contains Classical
 
   def hasChat = !isTournament && !isSimul && nonAi
 
@@ -349,11 +350,12 @@ case class Game(
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
-    playable && nonMandatory && {
+    playable && canTakebackOrAddTime && {
       clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
     }
 
-  def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortableByUser = abortable && !fromApi
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
@@ -552,19 +554,15 @@ case class Game(
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
-  def abandoned =
-    (status <= Status.Started) && {
-      movedAt isBefore {
-        if (hasAi && !hasCorrespondenceClock) Game.aiAbandonedDate
-        else Game.abandonedDate
-      }
-    }
+  def abandoned = (status <= Status.Started) && (movedAt isBefore Game.abandonedDate)
 
   def forecastable = started && playable && isCorrespondence && !hasAi
 
   def hasBookmarks = bookmarks > 0
 
   def showBookmarks = hasBookmarks ?? bookmarks.toString
+
+  def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
   def userIds = playerMaps(_.userId)
 
@@ -621,10 +619,10 @@ case class Game(
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
   def drawReason = {
-    if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
+    else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
     else None
   }
 
@@ -648,7 +646,8 @@ object Game {
 
   val syntheticId = "synthetic"
 
-  val maxPlayingRealtime = 100 // plus 200 correspondence games
+  val maxPlaying         = 200 // including correspondence
+  val maxPlayingRealtime = 100
 
   val maxPlies = 600 // unlimited can cause StackOverflowError
 
@@ -711,9 +710,6 @@ object Game {
 
   val abandonedDays = 21
   def abandonedDate = DateTime.now minusDays abandonedDays
-
-  val aiAbandonedHours = 6
-  def aiAbandonedDate  = DateTime.now minusHours aiAbandonedHours
 
   def takeGameId(fullId: String)   = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize

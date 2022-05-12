@@ -29,4 +29,11 @@
   <string name="maxNumber">Μέγιστος αριθμός</string>
   <string name="maxNumberExplanation">Ο μέγιστος αριθμός παιχνιδιών που θα επιστραφούν</string>
   <string name="include">Να συμπεριλιφθούν</string>
+  <string name="descending">Φθίνουσα</string>
+  <string name="ascending">Αύξουσα</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s παρτίδα βρέθηκε</item>
+    <item quantity="other">%s παρτίδες βρέθηκαν</item>
+  </plurals>
+  <string name="ratingExplanation">Η μέση βαθμολογία και των δύο παικτών</string>
 </resources>

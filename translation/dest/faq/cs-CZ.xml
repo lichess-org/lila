@@ -25,7 +25,7 @@
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
-  <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
+  <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno použít knihu zahájení. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
   <string name="gameplay">Hraní hry</string>
   <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
   <string name="basedOnGameDuration">Časové kontroly Lichess jsou založeny na odhadu doby trvání partie = %1$s

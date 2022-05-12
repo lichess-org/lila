@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Kvit</string>
   <string name="black">Svart</string>
+  <string name="asWhite">som kvit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Vilkårleg farge</string>
   <string name="createAGame">Start eit parti</string>
   <string name="whiteIsVictorious">Kvit vann partiet</string>
@@ -82,7 +84,7 @@
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
-  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rata spelarar frå %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rangerte spelarar frå %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
@@ -181,6 +183,10 @@
     <item quantity="one">%s time</item>
     <item quantity="other">%s timar</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutt</item>
+    <item quantity="other">%s minutt</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistikk</string>
@@ -232,7 +238,7 @@
   <string name="standard">Standard</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
-  <string name="casual">Uformell</string>
+  <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="casualTournament">Uformell</string>
   <string name="ratedTournament">Rangert</string>
@@ -257,8 +263,8 @@
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rata</item>
-    <item quantity="other">%s rata</item>
+    <item quantity="one">%s rangert</item>
+    <item quantity="other">%s rangerte</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s siger</item>
@@ -307,27 +313,27 @@
   <string name="backToTournament">Attende til turneringa</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rata parti</item>
-    <item quantity="other">≥ %s rata parti</item>
+    <item quantity="one">≥ %s rangert parti</item>
+    <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rata parti</item>
-    <item quantity="other">≥ %1$s %2$s rata parti</item>
+    <item quantity="one">≥ %1$s %2$s rangert parti</item>
+    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spela %1$s fleire %2$s rata parti</item>
-    <item quantity="other">Du må spela %1$s fleire %2$s rata parti</item>
+    <item quantity="one">Du må spille endå %1$s rangert %2$s-parti</item>
+    <item quantity="other">Du må spela endå %1$s rangerte %2$s parti</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du må spela %s fleire rata parti</item>
-    <item quantity="other">Du må spela %s fleire rata parti</item>
+    <item quantity="one">Du må spela endå %s rangert parti</item>
+    <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den høgste vekentlege %1$s toppratinga di (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
-  <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
-  <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
+  <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
+  <string name="ratedLessThanInPerf">Rangert ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Du må vera medlem av lag %s</string>
   <string name="youAreNotInTeam">Du er ikkje med i lag %s</string>
   <string name="backToGame">Attende til partiet</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
+  <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
   <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
@@ -444,7 +451,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
-  <string name="gameCompletionRate">Prosent fullførde parti: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
@@ -453,11 +459,12 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
+  <string name="oneUrlPerLine">Ei nettadresse (URL) på kvar line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
   <string name="activePlayers">Aktive spelarar</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men er ikkje tidsavgrensa!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Legg merke til at partiet er rangert, men ikkje tidsavgrensa!</string>
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti pågår</item>
@@ -496,6 +503,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
+  <string name="importedByX">Importert av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notat</string>
@@ -566,6 +574,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="error.min">Må vera større eller lik %s</string>
   <string name="error.max">Må vera mindre eller lik %s</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
+  <string name="ifRegistered">Dersom registrert</string>
   <string name="onlyExistingConversations">Berre eksisterande samtalar</string>
   <string name="onlyFriends">Berre vener</string>
   <string name="menu">Meny</string>
@@ -787,7 +796,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="currentMatchScore">Gjeldande kampscore</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
-  <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg er innforstått med at eg ikkje kan oppretta fleire kontoar, så sant årsakene ikkje fell inn under %s.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
@@ -838,11 +847,11 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="cancelTournament">Avlys turneringa</string>
   <string name="tournDescription">Beskriving av turneringa</string>
   <string name="tournDescriptionHelp">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
-  <string name="ratedFormHelp">Partia er rata
-og påverkar ratinga til spelarane</string>
+  <string name="ratedFormHelp">Partia er rangert
+og påverkar rangeringa til spelarane</string>
   <string name="onlyMembersOfTeam">Berre medlemar av laget</string>
   <string name="noRestriction">Inga avgrensingar</string>
-  <string name="minimumRatedGames">Minste antal rata parti</string>
+  <string name="minimumRatedGames">Minste antal rangerte parti</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
   <string name="onlyTitled">Berre spelarar med sjakktittel</string>
@@ -885,4 +894,9 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gje opp partiet</string>
   <string name="youCantStartNewGame">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
+  <string name="since">Frå</string>
+  <string name="until">Til</string>
+  <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
+  <string name="switchSides">Byt side</string>
+  <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
 </resources>

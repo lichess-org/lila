@@ -87,8 +87,8 @@ O formato máis próximo a un torneo online de todos contra todos é un torneo s
   <string name="pairingSystemArena">Calquera opoñente dispoñible cunha puntuación similar</string>
   <string name="pairingSystemSwiss">Mellor emparellamento baseado en puntos e desempates</string>
   <string name="pairingWaitTime">Tempo de emparellamento</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rápido: non agarda por todos os xogadores e xogadoras</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lento: agarda por todos os xogadores e xogadoras</string>
+  <string name="pairingWaitTimeArena">Rápido: non agarda por todos os xogadores e xogadoras</string>
+  <string name="pairingWaitTimeSwiss">Lento: agarda por todos os xogadores e xogadoras</string>
   <string name="identicalPairing">Emparellamento coa mesma xogadora</string>
   <string name="possibleButNotConsecutive">Posible, pero non consecutivo</string>
   <string name="identicalForbidden">Prohibido</string>

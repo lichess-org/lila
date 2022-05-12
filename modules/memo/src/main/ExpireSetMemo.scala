@@ -1,7 +1,7 @@
 package lila.memo
 
 import com.github.blemale.scaffeine.Cache
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
 

@@ -908,10 +908,6 @@ object Quote {
     new Quote("A great chess player always has a very good memory.", "Leonid Shamkovich"),
     new Quote("A knight ending is really a pawn ending.", "Mikhail Botvinnik"),
     new Quote(
-      "A lot of these ideas are built under wrong presumptions which officials have that chess players are lazy bastards whose sole idea is to deceive (the) public and to make short draws and go home. It's not true. It's a lie. (On the Sofia Corsica rule)",
-      "Boris Gelfand"
-    ),
-    new Quote(
       "A male scorpion is stabbed to death after mating. In chess, the powerful queen often does the same to the king without giving him the satisfaction of a lover.",
       "Gregor Piatigorsky"
     ),

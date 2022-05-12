@@ -169,8 +169,10 @@ object Challenge {
 
   sealed trait TimeControl
   object TimeControl {
-    case object Unlimited                extends TimeControl
-    case class Correspondence(days: Int) extends TimeControl
+    def make(clock: Option[chess.Clock.Config], days: Option[Int]) =
+      clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
+    case object Unlimited                        extends TimeControl
+    case class Correspondence(days: Int)         extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit     = config.limit
@@ -226,7 +228,8 @@ object Challenge {
       challenger: Challenger,
       destUser: Option[User],
       rematchOf: Option[Game.ID],
-      name: Option[String] = None
+      name: Option[String] = None,
+      id: Option[String] = None
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
@@ -239,7 +242,7 @@ object Challenge {
     }
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
-      _id = randomId,
+      _id = id | randomId,
       status = Status.Created,
       variant = variant,
       initialFen =

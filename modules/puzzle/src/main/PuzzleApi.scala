@@ -61,10 +61,11 @@ final class PuzzleApi(
 
     private val sequencer =
       new lila.hub.AsyncActorSequencers(
-        maxSize = 16,
+        maxSize = 32,
         expiration = 1 minute,
         timeout = 3 seconds,
-        name = "puzzle.vote"
+        name = "puzzle.vote",
+        logging = false
       )
 
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
@@ -76,7 +77,7 @@ final class PuzzleApi(
               trustApi.vote(user, prevRound, vote) flatMap {
                 _ ?? { weight =>
                   val voteValue = (if (vote) 1 else -1) * weight
-                  lila.mon.puzzle.vote(vote, prevRound.win).increment()
+                  lila.mon.puzzle.vote.count(vote, prevRound.win).increment()
                   updatePuzzle(id, voteValue, prevRound.vote) zip
                     colls.round {
                       _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
@@ -85,7 +86,7 @@ final class PuzzleApi(
               }
             }
           }
-      }.logFailure(logger, _ => s"puzzle.vote $id").recoverDefault
+      }.monSuccess(_.puzzle.vote.future).recoverDefault
 
     private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle { coll =>
@@ -157,7 +158,7 @@ final class PuzzleApi(
                 }
             update flatMap {
               _ ?? { up =>
-                lila.mon.puzzle.voteTheme(theme.value, vote, round.win).increment()
+                lila.mon.puzzle.vote.theme(theme.value, vote, round.win).increment()
                 colls.round(_.update.one($id(round.id), up)) zip
                   colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
               }

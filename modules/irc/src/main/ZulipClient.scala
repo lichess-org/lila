@@ -77,14 +77,20 @@ private object ZulipClient {
 
   object stream {
     object mod {
-      val log                                 = "mod-log"
-      val adminLog                            = "mod-admin-log"
-      val adminGeneral                        = "mod-admin-general"
-      val commsPublic                         = "mod-comms-public"
-      val commsPrivate                        = "mod-comms-private"
-      val hunterCheat                         = "mod-hunter-cheat"
-      val adminAppeal                         = "mod-admin-appeal"
-      def adminMonitor(tpe: IrcApi.ModDomain) = s"mod-admin-monitor-${tpe.key}"
+      val log          = "mod-log"
+      val adminLog     = "mod-admin-log"
+      val adminGeneral = "mod-admin-general"
+      val commsPublic  = "mod-comms-public"
+      val commsPrivate = "mod-comms-private"
+      val hunterCheat  = "mod-hunter-cheat"
+      val hunterBoost  = "mod-hunter-boost"
+      val adminAppeal  = "mod-admin-appeal"
+      val usernames    = "mod-usernames"
+      def adminMonitor(tpe: IrcApi.ModDomain) = tpe match {
+        case IrcApi.ModDomain.Comm                           => "mod-admin-monitor-comm"
+        case IrcApi.ModDomain.Cheat | IrcApi.ModDomain.Boost => "mod-admin-monitor-hunt"
+        case _                                               => "mod-admin-monitor-other"
+      }
     }
     val general   = "general"
     val broadcast = "content-broadcast"

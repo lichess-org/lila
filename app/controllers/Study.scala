@@ -19,6 +19,7 @@ import views._
 
 final class Study(
     env: Env,
+    editorC: => Editor,
     userAnalysisC: => UserAnalysis,
     apiC: => Api,
     prismicC: Prismic
@@ -250,8 +251,8 @@ final class Study(
     }
 
   private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
-    !ctx.kid &&         // no public chats for kids
-    ctx.me.fold(true) { // anon can see public chats
+    ctx.noKid && ctx.noBot // no public chats for kids and bots
+    ctx.me.fold(true) {    // anon can see public chats
       env.chat.panic.allowed
     }
   } ?? env.chat.api.userChat
@@ -272,7 +273,7 @@ final class Study(
               contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-                else Ok(html.study.create(data, owner, contrib)).fuccess
+                else Ok(html.study.create(data, owner, contrib, editorC.editorUrl)).fuccess
             } yield res
         )
     }
@@ -328,7 +329,8 @@ final class Study(
               env.study.api.importPgns(
                 StudyModel.Id(id),
                 data.toChapterDatas,
-                sticky = data.sticky
+                sticky = data.sticky,
+                ctx.pref.showRatings
               )(Who(me.id, lila.socket.Socket.Sri(sri)))
           )
       }
@@ -424,7 +426,7 @@ final class Study(
     }
 
   private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
-    credits = 30,
+    credits = 31,
     duration = 1.minute,
     key = "export.study.pgn.ip"
   )
@@ -473,7 +475,7 @@ final class Study(
       }
     }
 
-  def export(username: String) =
+  def exportPgn(username: String) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)

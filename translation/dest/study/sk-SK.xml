@@ -86,6 +86,7 @@
   <string name="pinnedChapterComment">Pripnutý komentár ku kapitole</string>
   <string name="saveChapter">Uložiť kapitolu</string>
   <string name="clearAnnotations">Vymazať anotácie</string>
+  <string name="clearVariations">Vymazať varianty</string>
   <string name="deleteChapter">Vymazať kapitolu</string>
   <string name="deleteThisChapter">Chcete vymazať túto kapitolu? Táto akcia sa nedá vratit späť!</string>
   <string name="clearAllCommentsInThisChapter">Vymazať všetky komentáre, piktogramy a nakreslené tvary v tejto kapitole?</string>
@@ -135,7 +136,9 @@
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
+  <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>
+  <string name="brilliantMove">Veľmi dobrý ťah</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="interestingMove">Zaujímavý ťah</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Pochybný ťah</string>
@@ -160,4 +163,12 @@
   <string name="nextChapter">Ďalšia kapitola</string>
   <string name="prevChapter">Predchádzajúca kapitola</string>
   <string name="studyActions">Úkony pri štúdii</string>
+  <string name="topics">Témy</string>
+  <string name="myTopics">Moje témy</string>
+  <string name="popularTopics">Populárne témy</string>
+  <string name="manageTopics">Spravovať témy</string>
+  <string name="back">Späť</string>
+  <string name="playAgain">Hrať znova</string>
+  <string name="whatWouldYouPlay">Čo by ste hrali v tejto pozícii?</string>
+  <string name="youCompletedThisLesson">Gratulujeme! Túto lekciu ste ukončili.</string>
 </resources>

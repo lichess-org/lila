@@ -12,7 +12,6 @@
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinfi bağla</string>
-  <string name="closedByX">%s tərəfindən bağlanıb</string>
   <string name="reopen">Yenidən aç</string>
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
@@ -84,7 +83,6 @@ Sinfə daxil olmaq üçün link.</string>
   <string name="variantXOverLastY">Son %2$s gündə %1$s</string>
   <string name="winrate">Qazanma əmsalı</string>
   <string name="na">Məlumat Yoxdur</string>
-  <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
   <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>

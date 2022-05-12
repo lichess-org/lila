@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
+@Module
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,

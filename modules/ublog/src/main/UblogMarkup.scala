@@ -3,31 +3,29 @@ package lila.ublog
 import java.util.regex.Matcher
 import scala.concurrent.duration._
 
-import lila.common.Chronometer
+import lila.common.{ Chronometer, Markdown, MarkdownRender }
 import lila.common.config
 import lila.common.config.NetConfig
 
 final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseUrl) {
 
-  private val renderer =
-    new lila.common.Markdown(
-      autoLink = true,
-      list = true,
-      strikeThrough = true,
-      header = true,
-      blockQuote = true,
-      code = true,
-      table = true
-    )
+  private val renderer = new MarkdownRender(
+    autoLink = true,
+    list = true,
+    strikeThrough = true,
+    header = true,
+    blockQuote = true,
+    code = true,
+    table = true
+  )
 
-  type Text = String
   type Html = String
 
-  def apply(post: UblogPost): String = cache.get(post.markdown, process(post))
+  def apply(post: UblogPost): Html = cache.get(post.markdown, process(post))
 
-  private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Text, Html]()
+  private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Markdown, Html]()
 
-  private def process(post: UblogPost): Text => Html = replaceGameGifs.apply andThen
+  private def process(post: UblogPost): Markdown => Html = replaceGameGifs.apply andThen
     unescapeAtUsername.apply andThen
     renderer(s"ublog:${post.id}") andThen
     imageParagraph andThen
@@ -36,7 +34,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs {
     private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
-    val apply         = (markdown: Text) => regex.replaceAllIn(markdown, baseUrl.value + "/$2$1")
+    val apply         = (markdown: Markdown) => markdown(m => regex.replaceAllIn(m, baseUrl.value + "/$2$1"))
   }
 
   // put images into a container for styling
@@ -45,7 +43,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
 
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
-  // https://github.com/ornicar/lila/issues/9767
+  // https://github.com/lichess-org/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
   private[ublog] object unescapeUnderscoreInLinks {
     private val hrefRegex    = """href="([^"]+)"""".r
@@ -61,6 +59,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
     // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matchs the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
-    def apply(markdown: Text)          = atUsernameRegexEscaped.replaceAllIn(markdown, m => s"@${unescape(m group 1)}")
+    def apply(markdown: Markdown) =
+      markdown(m => atUsernameRegexEscaped.replaceAllIn(m, a => s"@${unescape(a group 1)}"))
   }
 }

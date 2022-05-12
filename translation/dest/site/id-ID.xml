@@ -17,6 +17,8 @@
   <string name="stalemate">Langkah buntu</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
+  <string name="asWhite">sebagai Putih</string>
+  <string name="asBlack">sebagai Hitam</string>
   <string name="randomColor">Warna acak</string>
   <string name="createAGame">Mulai permainan baru</string>
   <string name="whiteIsVictorious">Putih menang</string>
@@ -152,7 +154,7 @@
   <string name="players">Pemain</string>
   <string name="friends">Teman</string>
   <string name="discussions">Diskusi</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hari ini</string>
+  <string name="today">Hari ini</string>
   <string name="yesterday">Kemarin</string>
   <string name="minutesPerSide">Menit untuk tiap pihak</string>
   <string name="variant">Variasi permainan</string>
@@ -167,6 +169,9 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="other">%s jam</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s menit</item>
   </plurals>
   <string name="time">Waktu</string>
   <string name="rating">Rating</string>
@@ -316,6 +321,7 @@
   <string name="leaderboard">Peringkat Terbaik</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
+  <string name="orUploadPgnFile">Atau muat berkas PGN</string>
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="toStudy">Studi</string>
@@ -402,15 +408,14 @@
   <string name="popularOpenings">Pembuka populer</string>
   <string name="endgamePositions">Posisi akhir permainan</string>
   <string name="chess960StartPosition">Posisi awal Catur960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Posisi Awal</string>
+  <string name="startPosition">Posisi Awal</string>
   <string name="clearBoard">Bersihkan papan</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Panggil posisi</string>
+  <string name="loadPosition">Panggil posisi</string>
   <string name="isPrivate">Pribadi</string>
   <string name="reportXToModerators">Lapor %s ke moderator</string>
   <string name="profileCompletion">Kelengkapan profil %s</string>
   <string name="xRating">peringkat %s</string>
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
-  <string name="gameCompletionRate">Tingkat penyelesaian permainan: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>
@@ -419,11 +424,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
+  <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
   <string name="activePlayers">Pemain aktif</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
   <string name="success">Berhasil</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
@@ -461,6 +467,7 @@
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
+  <string name="importedByX">Diimpor oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini ditutup.</string>
   <string name="blog">Blog</string>
   <string name="notes">Catatan</string>
@@ -491,7 +498,7 @@
   <string name="onSlowGames">Pada catur klasik</string>
   <string name="always">Selalu</string>
   <string name="never">Tidak pernah</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s berkompetisi dalam %2$s</string>
+  <string name="xCompetesInY">%1$s berkompetisi dalam %2$s</string>
   <string name="victory">Berhasil</string>
   <string name="defeat">Kalah</string>
   <string name="victoryVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
@@ -524,10 +531,10 @@
   <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
   <string name="error.email_unique">Alamat e-mail tidak valid atau sudah dipakai</string>
   <string name="error.email_different">Ini sudah menjadi alamat e-mail Anda</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Panjang minimum adalah %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Panjang maksimum adalah %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Harus lebih besar atau sama dengan %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Harus kurang atau sama dengan %s</string>
+  <string name="error.minLength">Panjang minimum adalah %s</string>
+  <string name="error.maxLength">Panjang maksimum adalah %s</string>
+  <string name="error.min">Harus lebih besar atau sama dengan %s</string>
+  <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
@@ -744,7 +751,7 @@
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
   <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
-  <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Saya setuju untuk tidak membuat banyak akun (kecuali untuk alasan yang tertera di %s).</string>
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
@@ -770,7 +777,7 @@
   <string name="youCannotPostYetPlaySomeGames">Anda belum bisa mengirim pos di forum ini. Mainkan beberapa permainan!</string>
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">membahas anda di \"%1$s\".</string>
+  <string name="mentionedYouInX">membahas anda di \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s membahas anda di \"%2$s\".</string>
   <string name="invitedYouToX">mengundang anda ke \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
@@ -841,4 +848,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="abortTheGame">Batalkan permainan</string>
   <string name="resignTheGame">Menyerah dari permainan</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
+  <string name="since">Sejak</string>
+  <string name="until">Hingga</string>
+  <string name="switchSides">Tukar Sisi</string>
 </resources>

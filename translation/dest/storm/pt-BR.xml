@@ -52,8 +52,8 @@
   <string name="skipExplanation">Pule este lance para preservar o seu combo! Funciona apenas uma vez por corrida.</string>
   <string name="failedPuzzles">Quebra-cabeças falhados</string>
   <string name="slowPuzzles">Quebra-cabeças lentos</string>
-  <string name="thisWeek">Esta semana</string>
-  <string name="thisMonth">Este mês</string>
+  <string name="thisWeek">Essa semana</string>
+  <string name="thisMonth">Esse mês</string>
   <string name="allTime">Desde o início</string>
   <string name="clickToReload">Clique para recarregar</string>
   <string name="thisRunHasExpired">Esta corrida acabou!</string>

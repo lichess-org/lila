@@ -20,6 +20,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
+    userJson: lila.user.JsonView,
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,

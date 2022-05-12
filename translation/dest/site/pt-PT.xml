@@ -17,6 +17,8 @@
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
+  <string name="asWhite">como brancas</string>
+  <string name="asBlack">como pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">as brancas ganham</string>
@@ -181,6 +183,10 @@
     <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutos</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de pontuação</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Tabela de liderança</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
+  <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
   <string name="fromPosition">A partir de uma posição</string>
   <string name="continueFromHere">Continuar a partir daqui</string>
   <string name="toStudy">Estudo</string>
@@ -444,7 +451,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="profileCompletion">Perfil completo: %s</string>
   <string name="xRating">Pontuação %s</string>
   <string name="ifNoneLeaveEmpty">Se não existir, deixa em branco</string>
-  <string name="gameCompletionRate">Taxa de conclusão de partidas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar o perfil</string>
   <string name="firstName">Nome próprio</string>
@@ -453,6 +459,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
+  <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
   <string name="onlinePlayers">Jogadores online</string>
@@ -496,6 +503,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="reportDescriptionHelp">Inclui o link do(s) jogo(s) e explica o que há de errado com o comportamento deste utilizador. Não digas apenas \"ele faz batota\"; informa-nos como chegaste a essa conclusão. A tua denúncia será processada mais rapidamente se for escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
+  <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tópico foi fechado.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
@@ -561,11 +569,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>
   <string name="error.email_unique">Endereço de e-mail inválido ou já utilizado</string>
   <string name="error.email_different">Este já é o teu endereço de e-mail</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Deve conter pelo menos %s caracteres</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Deve conter no máximo %s caracteres</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Deve ser pelo menos %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Deve ser no máximo %s</string>
+  <string name="error.minLength">Deve conter pelo menos %s caracteres</string>
+  <string name="error.maxLength">Deve conter no máximo %s caracteres</string>
+  <string name="error.min">Deve ser pelo menos %s</string>
+  <string name="error.max">Deve ser no máximo %s</string>
   <string name="ifRatingIsPlusMinusX">Se a pontuação for ± %s</string>
+  <string name="ifRegistered">Se registado</string>
   <string name="onlyExistingConversations">Apenas conversas existentes</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
@@ -787,7 +796,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="currentMatchScore">Pontuação atual</string>
   <string name="agreementAssistance">Concordo que nunca recorrerei a assistência durante as minhas partidas (de um computador de xadrez, livro, base de dados ou outra pessoa).</string>
   <string name="agreementNice">Concordo que serei sempre repeitoso para os outros jogadores.</string>
-  <string name="agreementAccount">Concordo que não criarei várias contas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Concordo que não criarei várias contas (exceto pelas razões indicadas em %s).</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
@@ -885,4 +894,9 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="abortTheGame">Cancelar o jogo</string>
   <string name="resignTheGame">Abandonar o jogo</string>
   <string name="youCantStartNewGame">Não pode iniciar um novo jogo antes de este estar terminado.</string>
+  <string name="since">Desde</string>
+  <string name="until">Até</string>
+  <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
+  <string name="switchSides">Trocar de lado</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
 </resources>

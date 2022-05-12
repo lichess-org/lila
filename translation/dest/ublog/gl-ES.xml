@@ -9,6 +9,8 @@
   <string name="postBody">Corpo do artigo</string>
   <string name="drafts">Borradores</string>
   <string name="published">Publicado</string>
+  <string name="createBlogDiscussion">Activar comentarios</string>
+  <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
   <string name="publishHelp">Se está chequeado, o post será listado no teu blog. Se non, será privado, e estará nos teus borradores</string>
   <plurals name="publishedNbBlogPosts">
@@ -31,6 +33,6 @@
     <item quantity="other">Ver %s posts</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Sube unha imaxe para o teu artigo</string>
-  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Texto alternativo da imaxe</string>
-  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Créditos das imaxes</string>
+  <string name="imageAlt">Texto alternativo da imaxe</string>
+  <string name="imageCredit">Créditos das imaxes</string>
 </resources>

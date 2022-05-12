@@ -17,6 +17,8 @@
   <string name="stalemate">Պատ</string>
   <string name="white">Սպիտակներ</string>
   <string name="black">Սևեր</string>
+  <string name="asWhite">սպիտակների կողմից</string>
+  <string name="asBlack">սևերի կողմից</string>
   <string name="randomColor">Կամայական գույն</string>
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
@@ -89,10 +91,14 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
+  <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
+  <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
+  <string name="lossOr50MovesByPriorMistake">Պարտություն կամ 50 քայլ վերջին սխալից հետո</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -176,6 +182,10 @@
     <item quantity="one">%s ժամ</item>
     <item quantity="other">%s ժամ</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s րոպե</item>
+    <item quantity="other">%s րոպե</item>
+  </plurals>
   <string name="time">Ժամանակ</string>
   <string name="rating">Վարկանիշ</string>
   <string name="ratingStats">Վարկանիշների բաշխում</string>
@@ -256,12 +266,12 @@
     <item quantity="other">%s վարկանիշային</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s հաղթեց</item>
-    <item quantity="other">%s հաղթանակներ</item>
+    <item quantity="one">%s հաղթանակ</item>
+    <item quantity="other">%s հաղթանակ</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s պարտվեց</item>
-    <item quantity="other">%s պարտություններ</item>
+    <item quantity="one">%s պարտություն</item>
+    <item quantity="other">%s պարտություն</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s ոչ-ոքի</item>
@@ -318,6 +328,9 @@
     <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="yourPerfRatingIsTooHigh">Ձեր վարկանիշը %1$sում (%2$s) մասնակցելու համար չափազանց բարձր է</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ձեր ամենշաբաթյա վարկանիշը %1$sում (%2$s) չափազանց բարձր է</string>
+  <string name="yourPerfRatingIsTooLow">Ձեր վարկանիշը %1$sին (%2$s) մասնակցելու համար բավարար չէ</string>
   <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
   <string name="ratedLessThanInPerf">Վարկանիշը ≤ %1$s %2$s-ում</string>
   <string name="mustBeInTeam">Դուք պետք է լինեք %s ակումբի անդամ</string>
@@ -336,10 +349,12 @@
   <string name="leaderboard">Առաջատարներ</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
+  <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
   <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
+  <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
@@ -434,7 +449,6 @@
   <string name="profileCompletion">Մասնակցային էջը լրացված է %s-ով</string>
   <string name="xRating">%s վարկանիշ</string>
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
-  <string name="gameCompletionRate">Ավարտված պարտիաներ` %s</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
@@ -443,6 +457,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Երկիր կամ դրոշ</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
+  <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
@@ -455,11 +470,12 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
-  <string name="puzzles">խնդիրներ</string>
+  <string name="puzzles">Խնդիրներ</string>
   <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
+  <string name="descPrivateHelp">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
   <string name="no">Ոչ</string>
   <string name="yes">այո</string>
   <string name="help">Օգնություն.</string>
@@ -541,6 +557,7 @@
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
+  <string name="ifRegistered">Եթե գրանցված է</string>
   <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>
   <string name="onlyFriends">Միայն ընկերները</string>
   <string name="menu">Մենյու</string>
@@ -774,4 +791,8 @@
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
   <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
+  <string name="since">Սկսած</string>
+  <string name="until">Մինչև</string>
+  <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
+  <string name="switchSides">Փոխել կողմը</string>
 </resources>

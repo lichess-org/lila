@@ -3,18 +3,14 @@ import { VNode } from 'snabbdom';
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 
-export type Score = number | [number] | [number, number];
-
 export interface StandingPlayer extends SimplePlayer {
   id: string;
-  withdraw: boolean;
+  withdraw?: boolean;
   score: number;
-  fire: boolean;
   rank: number;
   sheet: {
     fire: boolean;
-    total: number;
-    scores: Score[];
+    scores: string; // in reverse chronological order
   };
   nb: Nb;
   team?: string;
@@ -54,9 +50,8 @@ export interface TournamentData {
   };
   me?: {
     rank: number;
-    username: string;
-    gameId: string;
-    withdraw: boolean;
+    gameId?: string;
+    withdraw?: boolean;
     pauseDelay?: number;
   };
   playerInfo?: PlayerInfo;
@@ -70,6 +65,7 @@ export interface TournamentData {
   nbPlayers: number;
   podium?: PodiumPlayer[];
   berserkable: boolean;
+  noStreak?: boolean;
   isStarted: boolean;
   isFinished: boolean;
   isRecentlyFinished: boolean;
@@ -102,6 +98,9 @@ export interface TournamentData {
   };
   duels: Duel[];
   duelTeams?: DuelTeams;
+  myUsername?: string;
+  reloadDelay?: number;
+  reloadEndpoint: string;
 }
 
 export interface FeaturedGame {
@@ -167,10 +166,9 @@ export interface Player extends SimplePlayer {
   id: string;
   rank: number;
   score: number;
-  fire: boolean;
   nb: Nb;
   performance?: number;
-  withdraw: boolean;
+  withdraw?: boolean;
   team?: string;
 }
 
@@ -184,7 +182,6 @@ export interface Pairing {
   };
   win: boolean;
   status: number;
-  score: number;
   berserk: boolean;
 }
 

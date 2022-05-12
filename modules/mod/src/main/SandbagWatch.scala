@@ -7,11 +7,13 @@ import scala.concurrent.duration._
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi
+import lila.mod.ModlogApi
 import lila.user.User
 
 final private class SandbagWatch(
     messenger: MsgApi,
-    reportApi: ReportApi
+    reportApi: ReportApi,
+    modLogApi: ModlogApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SandbagWatch._
@@ -40,15 +42,22 @@ final private class SandbagWatch(
       funit
     } else {
       records.put(userId, record)
-      val sandbagCount = record.countSandbagWithLatest
-      val boostCount   = record.samePlayerBoostCount
-      if (sandbagCount == 3) sendMessage(userId, MsgPreset.sandbagAuto)
-      else if (sandbagCount == 4) game.loserUserId ?? { loser =>
-        reportApi.autoSandbagReport(record.sandbagOpponents, loser)
+      modLogApi.countRecentRatingManipulationsWarnings(userId) flatMap { nbWarnings =>
+        {
+          val sandbagCount       = record.countSandbagWithLatest
+          val boostCount         = record.samePlayerBoostCount
+          val sandbagSeriousness = sandbagCount + nbWarnings
+          val boostSeriousness   = boostCount + nbWarnings
+          if (sandbagCount == 3) sendMessage(userId, MsgPreset.sandbagAuto)
+          else if (sandbagCount == 4) game.loserUserId ?? { loser =>
+            reportApi.autoSandbagReport(record.sandbagOpponents, loser, sandbagSeriousness)
+          }
+          else if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
+          else if (boostCount == 4)
+            withWinnerAndLoser(game)((u1, u2) => reportApi.autoBoostReport(u1, u2, boostSeriousness))
+          else funit
+        }
       }
-      else if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
-      else if (boostCount == 4) withWinnerAndLoser(game)(reportApi.autoBoostReport)
-      else funit
     }
 
   private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =

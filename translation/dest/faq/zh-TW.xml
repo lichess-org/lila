@@ -74,20 +74,53 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="accounts">帳戶</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess接受所有OTB (在棋盤上) 對局得到的國際象棋聯稱號，以及%1$s，以下列出：</string>
+  <string name="verificationForm">驗證表格</string>
+  <string name="canIbecomeLM">我可以獲得 Lichess Master (LM) 頭銜嗎？</string>
   <string name="noUpperCaseDot">不行</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">這個尊稱是非官方的，只存在於 Lichess 上。
+我們很少根據自己的判斷將其授予作為 Lichess 好公民的知名玩家。你不能自行得到 LM 頭銜，是 LM 頭銜會過來給你。如果您符合條件，您將會收到我們關於它以及接受或拒絕選擇的消息。
+
+請問要求取得 LM 頭銜。</string>
   <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
+  <string name="usernamesNotOffensive">一般來說，用戶名不應該是：冒犯性的、冒充他人的或含有廣告的。您可以閱讀有關 %1$s 的更多信息。</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
+  <string name="ownerUniqueTrophies">這個獎杯在 Lichess 的歷史上是獨一無二的，除了 %1$s 之外沒有人曾經擁有它。</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
+  <string name="goldenZeeExplanation">當時，ZugAddict己經直播了兩個小時，但他仍未能在1+0的棋局中擊敗第八級人工智能。Thibault吿訴他，如果他能在直播上成功擊敗人工智能，便會獲得一個獨特的奬盃。一個小時後，他粉碎了Stockfish， Thibault也兌現了承諾。</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
+  <string name="ratingSystemUsedByLichess">評分是使用 Mark Glickman 開發的 Glicko-2 評分方法計算的。這是一種非常流行的評分方法，並且被大量國際象棋組織使用(FIDE 是一個值得注意的反面例子，因為他們仍然使用過時的 Elo 評分系統)。
+從根本上說，Glicko 評分在計算和表示您的評分時使用“信心度區間”。當您第一次開始使用該網站時，您的評分將會從 1500 ± 1000 開始。1500 代表您的評分，1000 代表可信度區間。
+基本上，系統 95% 確定您的評分在 500 到 2500 之間。這是非常不確定的。正因為如此，當一個玩家剛開始時，他們的評分會發生很大的變化，一次可能會上升幾百個評分。但是在與老玩家進行一些棋局之後，信心度區間會變窄，每場比賽後獲得/失去的積分數量會減少。
+還有一點需要注意的是，隨著時間的推移，信心度區間會增加。這使您可以更快地獲得/失去積分，以匹配您現在的技能水平。</string>
+  <string name="whatIsProvisionalRating">為什麼評分旁邊有問號 (?) 在旁邊？</string>
+  <string name="provisionalRatingExplanation">那個問號表示評級是臨時的。原因包括：</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">該玩家尚未完成與評級類別中的 %1$s 的足夠多的評級遊戲。</string>
   <string name="similarOpponents">實力相近的對手</string>
+  <string name="notPlayedRecently">一個玩家最近玩的遊戲不夠多。根據您玩過的遊戲數量，您的評分可能需要大約一年不活動才能再次變為臨時評分。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具體而言，這意味著 Glicko-2 偏差大於 110。偏差是系統對評級的可信程度。偏差越小，評級越穩定。</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
+  <string name="inOrderToAppearsYouMust">要登上 %1$s，您必須：</string>
   <string name="ratingLeaderboards">評分排行表</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">至少玩過 30 場有評分的遊戲，</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">在上週內玩過一個有評分的遊戲，</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">在標準國際象棋中評級偏差低於 %1$s，在變體中低於 %2$s，</string>
   <string name="beInTopTen">在此模式下得到前10的積分</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二個要求是讓不再使用其帳戶的玩家停止佔據排行榜。</string>
+  <string name="whyAreRatingHigher">為什麼 FIDE、USCF 和 ICC 等其他網站和組織相比 Lichess 的評級更高？</string>
+  <string name="whyAreRatingHigherExplanation">最好不要將評級視為絕對的數字，或將其與其他組織進行比較。不同的組織有不同級別的玩家，不同的評級系統(Elo、Glicko、Glicko-2 或上述的修改版本)。這些因素會極大地影響絕對數字(評級)。
+ 最好將評級視為“相對”數字(而不是“絕對”數字)：在一群玩家中，他們在評級上的相對差異將幫助您估計誰會贏/平手/輸，以及多久。說“我有 X 等級”並沒有任何意義，除非有其他玩家可以比較這個等級。</string>
   <string name="howToHideRatingWhilePlaying">如何在奕棋時隱藏評分?</string>
+  <string name="enableZenMode">在 %1$s 中啟用 Zen 模式，或在遊戲期間按 %2$s。</string>
   <string name="displayPreferences">隱藏積分顯示</string>
   <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我們無法退還因延遲或斷開連接而丟失的遊戲評分，無論問題出在您方還是我們方。不過後者非常少見。另外請注意，當 Lichess 重新啟動並且您因此而導致棋局過時，我們會中止遊戲以防止不公平的損失。</string>
   <string name="howToThreeDots">如何...</string>
+  <string name="enableDisableNotificationPopUps">啟用或禁用通知彈出窗口？</string>
+  <string name="viewSiteInformationPopUp">查看網站的信息彈出窗口</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess 可以選擇發送彈出通知，例如當輪到您進行下一步或當您收到私人消息時。
+單擊瀏覽器 URL 欄中 lichess.org 網址旁邊的鎖定圖標。
+然後選擇是否允許還是阻止來自 Lichess 的通知。</string>
 </resources>

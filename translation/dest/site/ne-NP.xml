@@ -142,7 +142,7 @@
   <string name="players">खेलाडीहरू</string>
   <string name="friends">साथीहरू</string>
   <string name="discussions">वार्तालाप</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">आज</string>
+  <string name="today">आज</string>
   <string name="yesterday">हिजो</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
   <string name="variant">परिमार्जन</string>
@@ -408,15 +408,14 @@
   <string name="boardEditor">बोर्ड सम्पादक</string>
   <string name="setTheBoard">बोर्ड सेट गरौं</string>
   <string name="popularOpenings">लोकप्रिय सुरुवाती चालहरु</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">शुरुवाती अवस्था</string>
+  <string name="startPosition">शुरुवाती अवस्था</string>
   <string name="clearBoard">बोर्ड खालि गरौं</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">पोजिसन लोड गरौं</string>
+  <string name="loadPosition">पोजिसन लोड गरौं</string>
   <string name="isPrivate">नीजि</string>
   <string name="reportXToModerators">%s माथी उजुरी गरौं</string>
   <string name="profileCompletion">प्रोफाइल समापन: %s</string>
   <string name="xRating">%s रेटिङ</string>
   <string name="ifNoneLeaveEmpty">नभएको खण्डमा खाली छोडौं</string>
-  <string name="gameCompletionRate">खेल समापन दर: %s</string>
   <string name="profile">प्रोफाइल</string>
   <string name="editProfile">प्रोफाइल सम्पादन गर्नुहोस्</string>
   <string name="firstName">शुभनाम</string>
@@ -429,7 +428,7 @@
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
   <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
   <string name="success">सफलता</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल जारी</item>
@@ -493,7 +492,7 @@
   <string name="onSlowGames">ढिलो खेलहरुमा</string>
   <string name="always">सधैँ</string>
   <string name="never">नाइँ</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s मा भाग लिनुहुन्छ</string>
+  <string name="xCompetesInY">%1$s %2$s मा भाग लिनुहुन्छ</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
   <string name="victoryVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
@@ -741,7 +740,6 @@
   <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>
   <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु।</string>
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
-  <string name="agreementAccount">म धेरै खाताहरु नखोल्न सहमत छु।</string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>

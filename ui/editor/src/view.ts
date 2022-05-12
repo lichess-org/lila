@@ -3,11 +3,12 @@ import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
-import { parseFen, EMPTY_FEN } from 'chessops/fen';
+import { parseFen } from 'chessops/fen';
 import modal from 'common/modal';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { Selected, CastlingToggle, EditorState } from './interfaces';
+import { dataIcon } from 'common/snabbdom';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -89,19 +90,6 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const position2option = function (pos: Editor.OpeningPosition): VNode {
-    return h(
-      'option',
-      {
-        attrs: {
-          value: pos.epd || pos.fen,
-          'data-fen': pos.fen,
-        },
-      },
-      pos.eco ? `${pos.eco} ${pos.name}` : pos.name
-    );
-  };
-
   const endgamePosition2option = function (pos: Editor.EndgamePosition): VNode {
     return h(
       'option',
@@ -115,45 +103,26 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     );
   };
 
+  const buttonStart = (icon?: string) =>
+    h(
+      `a.button.button-empty${icon ? '.text' : ''}`,
+      {
+        on: { click: ctrl.startPosition },
+        attrs: icon ? dataIcon(icon) : {},
+      },
+      ctrl.trans.noarg('startPosition')
+    );
+  const buttonClear = (icon?: string) =>
+    h(
+      `a.button.button-empty${icon ? '.text' : ''}`,
+      {
+        on: { click: ctrl.clearBoard },
+        attrs: icon ? dataIcon(icon) : {},
+      },
+      ctrl.trans.noarg('clearBoard')
+    );
+
   return h('div.board-editor__tools', [
-    ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
-      ? []
-      : [
-          h('div', [
-            h(
-              'select.positions',
-              {
-                props: {
-                  value: state.fen.split(' ').slice(0, 4).join(' '),
-                },
-                on: {
-                  change(e) {
-                    const el = e.target as HTMLSelectElement;
-                    let value = el.selectedOptions[0].getAttribute('data-fen');
-                    if (value == 'prompt') value = (prompt('Paste FEN') || '').trim();
-                    if (!value || !ctrl.setFen(value)) el.value = '';
-                  },
-                },
-              },
-              [
-                optgroup(ctrl.trans.noarg('setTheBoard'), [
-                  h(
-                    'option',
-                    {
-                      attrs: {
-                        selected: true,
-                      },
-                    },
-                    `- ${ctrl.trans.noarg('boardEditor')}  -`
-                  ),
-                  ...ctrl.extraPositions.map(position2option),
-                ]),
-                optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option)),
-                optgroup(ctrl.trans.noarg('endgamePositions'), ctrl.cfg.endgamePositions.map(endgamePosition2option)),
-              ]
-            ),
-          ]),
-        ]),
     h('div.metadata', [
       h(
         'div.color',
@@ -195,33 +164,50 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]),
       ]),
     ]),
+    ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
+      ? []
+      : [
+          (() => {
+            const positionOption = (pos: Editor.OpeningPosition): VNode =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    value: pos.epd || pos.fen,
+                    'data-fen': pos.fen,
+                  },
+                },
+                pos.eco ? `${pos.eco} ${pos.name}` : pos.name
+              );
+            const epd = state.fen.split(' ').slice(0, 4).join(' ');
+            const value =
+              (ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) || ctrl.cfg.endgamePositions.find(p => p.epd == epd))
+                ?.epd || '';
+            return h(
+              'select.positions',
+              {
+                props: { value },
+                on: {
+                  insert(vnode) {
+                    (vnode.elm as HTMLSelectElement).value = state.fen.split(' ').slice(0, 4).join(' ');
+                  },
+                  change(e) {
+                    const el = e.target as HTMLSelectElement;
+                    const value = el.selectedOptions[0].getAttribute('data-fen');
+                    if (!value || !ctrl.setFen(value)) el.value = '';
+                  },
+                },
+              },
+              [
+                h('option', { attrs: { value: '' } }, ctrl.trans.noarg('setTheBoard')),
+                optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(positionOption)),
+                optgroup(ctrl.trans.noarg('endgamePositions'), ctrl.cfg.endgamePositions.map(endgamePosition2option)),
+              ]
+            );
+          })(),
+        ]),
     ...(ctrl.cfg.embed
-      ? [
-          h('div.actions', [
-            h(
-              'a.button.button-empty',
-              {
-                on: {
-                  click() {
-                    ctrl.startPosition();
-                  },
-                },
-              },
-              ctrl.trans.noarg('startPosition')
-            ),
-            h(
-              'a.button.button-empty',
-              {
-                on: {
-                  click() {
-                    ctrl.clearBoard();
-                  },
-                },
-              },
-              ctrl.trans.noarg('clearBoard')
-            ),
-          ]),
-        ]
+      ? [h('div.actions', [buttonStart(), buttonClear()])]
       : [
           h('div', [
             h(
@@ -238,18 +224,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             ),
           ]),
           h('div.actions', [
-            h(
-              'button.button.button-empty.text',
-              {
-                attrs: { 'data-icon': '' },
-                on: {
-                  click() {
-                    ctrl.setFen(EMPTY_FEN);
-                  },
-                },
-              },
-              ctrl.trans.noarg('clearBoard')
-            ),
+            buttonStart(''),
+            buttonClear(''),
             h(
               'button.button.button-empty.text',
               {
@@ -364,7 +340,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: ctrl.makeUrl(ctrl.cfg.baseUrl, fen),
+          value: ctrl.makeEditorUrl(fen),
         },
       }),
     ]),

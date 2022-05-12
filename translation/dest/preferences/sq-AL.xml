@@ -12,7 +12,9 @@
   <string name="chessPieceSymbol">Simboli i figures se shahut</string>
   <string name="pgnLetter">Shkronja (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modaliteti zen</string>
-  <string name="displayBoardResizeHandle">Shfaq opsionin për zmadhim të tabelës</string>
+  <string name="showPlayerRatings">Shfaq klasifikim lojtarësh</string>
+  <string name="explainShowPlayerRatings">Kjo lejon të bëhet fshehja e krejt klasifikimeve në sajt, për të ndihmuar përqendrimin në shah. Lojërat prapë mund të vlerësohen, kjo ka të bëjë vetëm me ato çka shihni.</string>
+  <string name="displayBoardResizeHandle">Shfaq mundësi ripërmasimi fushe</string>
   <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>
   <string name="chessClock">Ora e shahut</string>
@@ -21,7 +23,7 @@
   <string name="horizontalGreenProgressBars">Shufra e gjelbërt e progresit</string>
   <string name="soundWhenTimeGetsCritical">Tingull gjatë kohës kritike</string>
   <string name="giveMoreTime">Jep më shumë kohë</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Sjellja e lojës</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Sjellje loje</string>
   <string name="howDoYouMovePieces">Si i leviz figurat?</string>
   <string name="clickTwoSquares">Kliko dy kuadrate</string>
   <string name="dragPiece">Terhiqe figuren</string>
@@ -30,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Marrje mbrapsht (me miratimin e kundërshtarit)</string>
   <string name="inCasualGamesOnly">Vetëm në lojërat e rastësishme</string>
   <string name="promoteToQueenAutomatically">Dalja automatike në mbretëreshë</string>
+  <string name="explainPromoteToQueenAutomatically">Mbani të shtypur tastin &lt;Ctrl&gt; gjatë daljes, për të çaktivizuar përkohësisht daljet e automatizuara</string>
   <string name="whenPremoving">Kur paracaktohet lëvizja</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
@@ -41,6 +44,7 @@
   <string name="castleByMovingTwoSquares">Leviz mbretin dy kuadrate</string>
   <string name="castleByMovingOntoTheRook">Levize mbretin tek torra</string>
   <string name="inputMovesWithTheKeyboard">Vendos levizjet me tastiere</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Shkruaj \"Lojë e mirë\" pas barazimit ose humbjes</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Shkruaj “Lojë e mirë, bukur luajtët” pas barazimit ose humbjes</string>
   <string name="yourPreferencesHaveBeenSaved">Parapëlqimet tuaja janë ruajtur.</string>
+  <string name="correspondenceEmailNotification">Njoftim i përditshëm me email, që paraqet lojërat tuaja me korrespondencë</string>
 </resources>

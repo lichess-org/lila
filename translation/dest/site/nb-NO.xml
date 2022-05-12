@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Hvit</string>
   <string name="black">Sort</string>
+  <string name="asWhite">som hvit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Tilfeldig side</string>
   <string name="createAGame">Start et parti</string>
   <string name="whiteIsVictorious">Hvit har vunnet</string>
@@ -163,7 +165,7 @@
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
   <string name="discussions">Samtaler</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">I dag</string>
+  <string name="today">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s time</item>
     <item quantity="other">%s timer</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutt</item>
+    <item quantity="other">%s minutter</item>
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Ledertabell</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
+  <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
@@ -443,7 +450,6 @@
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
-  <string name="gameCompletionRate">Prosent fullførte partier: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
@@ -452,11 +458,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Linker til sosiale media</string>
+  <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Legg merke til at partiet er ratet, men ikke tidsbegrenset!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Legg merke til at partiet er ratet, men ikke tidsbegrenset!</string>
   <string name="success">Vellykket</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spilles</item>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel.</string>
   <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
+  <string name="importedByX">Importert av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er nå lukket.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notater</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">Denne e-postadressen godtas ikke. Dobbeltsjekk den og prøv på nytt.</string>
   <string name="error.email_unique">E-postadressen er ugyldig eller allerede registrert</string>
   <string name="error.email_different">Dette er allerede e-postadressen din</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Må være minst %s tegn</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Må være maks %s tegn</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Må være minst %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Må være maks %s</string>
+  <string name="error.minLength">Må være minst %s tegn</string>
+  <string name="error.maxLength">Må være maks %s tegn</string>
+  <string name="error.min">Må være minst %s</string>
+  <string name="error.max">Må være maks %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
+  <string name="ifRegistered">Hvis registrert</string>
   <string name="onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>
   <string name="menu">Meny</string>
@@ -654,7 +663,7 @@
   <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
   <string name="receiveForumNotifications">Bli varslet når nevnt i forumet</string>
-  <string name="shareYourInsightsData">Del den personlige spillerstatistikken din</string>
+  <string name="shareYourInsightsData">Del dataene dine for sjakkinnsikt</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Gjeldende kampscore</string>
   <string name="agreementAssistance">Jeg lover at jeg aldri vil motta hjelp under partiene mine, hverken fra maskiner, bøker, databaser eller andre personer.</string>
   <string name="agreementNice">Jeg lover å alltid være høflig mot andre spillere.</string>
-  <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jeg godtar å ikke opprette flere kontoer (med unntak for grunnene nevnt i våre %s).</string>
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
@@ -884,4 +893,9 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gi opp partiet</string>
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
+  <string name="since">Fra</string>
+  <string name="until">Til</string>
+  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
+  <string name="switchSides">Skift side</string>
+  <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
 </resources>

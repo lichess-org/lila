@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Lahjoita</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Lahjoita käyttäjänä %s</string>
+  <string name="donateAsX">Lahjoita käyttäjänä %s</string>
   <string name="lichessPatron">Lichessin tukija</string>
   <string name="freeAccount">Ilmainen tunnus</string>
   <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
@@ -16,7 +16,7 @@
   <string name="thankYou">Kiitos lahjoituksestasi!</string>
   <string name="youHaveLifetime">Sinulla on elinikäinen tukijatili. Se on aivan upeaa!</string>
   <string name="patronUntil">Sinulla on tukijatili %s asti.</string>
-  <string name="ifNotRenewed">Jollet uusi sitä, tilisi alennetaan ilmaistiliksi.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Jos et uusi sitä, tunnuksesi muuttuu tavalliseksi käyttäjätunnukseksi.</string>
   <string name="weAreNonProfit">Olemme yleishyödyllinen yhteisö, koska uskomme, että kaikkien pitäisi päästä pelaamaan ilmaisella maailmanluokan shakkisivustolla.</string>
   <string name="weRelyOnSupport">Sen mahdollistamiseksi turvaudumme sinun kaltaistesi ihmisten tukeen. Jos nautit Lichessin käytöstä, harkitse meidän tukemista lahjoituksella ja ryhtymällä tukijaksi!</string>
   <string name="lifetime">Elinikäinen</string>
@@ -29,7 +29,6 @@
   <string name="otherAmount">Muu</string>
   <string name="pleaseEnterAmountInX">Anna summa %s:issa</string>
   <string name="withCreditCard">Luottokortti</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
   <string name="celebratedPatrons">Maineikkaat tukijat, joiden ansiosta Lichess on olemassa</string>
   <string name="whereMoneyGoes">Mihin raha käytetään?</string>
@@ -44,7 +43,6 @@ Tai voit %s.</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>
-  <string name="bitcoin">Ja tässä on bitcoin-osoitteemme: %s</string>
   <string name="patronFeatures">Onko joitakin toimintoja rajattu vain tukijoille?</string>
   <string name="noPatronFeatures">Ei, koska Lichess on täysin ilmainen, aina ja kaikille. Sen lupaamme. Tukijat pääsevät kuitenkin ylpeilemään uudella hienolla profiilikuvakkeellaan.</string>
   <string name="featuresComparison">Katso toimintojen yksityiskohtainen vertailu</string>
@@ -65,6 +63,7 @@ Tai voit %s.</string>
   <string name="xOrY">%1$s tai %2$s</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
+  <string name="stopPaymentsPayPal">Peruuta PayPal-tilaus ja pysäytä maksut:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
   <string name="viewOthers">Katso muita Lichessin tukijoita</string>
   <string name="date">Pvm</string>

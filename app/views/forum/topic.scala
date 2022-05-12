@@ -92,16 +92,17 @@ object topic {
         )
         .some
     ) {
-      val teamOnly = categ.team.filterNot(myTeam)
+      val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
-
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href := routes.ForumCateg.show(categ.slug),
+            href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
+              routes.Ublog.redirect(id).url
+            },
             dataIcon := "",
-            cls := "text"
+            cls      := "text"
           ),
           topic.name
         ),
@@ -140,7 +141,7 @@ object topic {
           div(
             unsub.map { uns =>
               postForm(
-                cls := s"unsub ${if (uns) "on" else "off"}",
+                cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
@@ -157,24 +158,24 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg option frag(
+            canModCateg || ctx.me.exists(topic.isAuthor) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
                 )
               ),
+            canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               ),
-              deleteModal
-            )
+            canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
           )
         ),
         formWithCaptcha.map { case (form, captcha) =>
           postForm(
-            cls := "form3 reply",
+            cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
@@ -209,7 +210,7 @@ object topic {
       st.form(method := "post", cls := "form3")(
         st.select(
           name := "reason",
-          cls := "form-control"
+          cls  := "form-control"
         )(
           option(value := "")("no message"),
           lila.msg.MsgPreset.forumDeletion.presets.map { reason =>

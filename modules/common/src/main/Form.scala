@@ -1,8 +1,7 @@
 package lila.common
 
-import chess.format.FEN
-import chess.format.Forsyth
-import io.lemonlabs.uri._
+import chess.Color
+import chess.format.{ FEN, Forsyth }
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -124,56 +123,6 @@ object Form {
     }
   }
 
-  object markdownImage {
-    private val allowedDomains =
-      List(
-        "imgur.com",
-        "giphy.com",
-        "wikimedia.org",
-        "creativecommons.org",
-        "pexels.com",
-        "piqsels.com",
-        "freeimages.com",
-        "unsplash.com",
-        "pixabay.com",
-        "githubusercontent.com",
-        "googleusercontent.com",
-        "i.ibb.co",
-        "i.postimg.cc",
-        "xkcd.com",
-        "lichess1.org"
-      )
-    private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
-    sealed abstract private class Bad(val msg: String)
-    private case class BadUrl(url: String)       extends Bad(s"Invalid image URL: $url")
-    private case class BadDomain(domain: String) extends Bad(s"Disallowed image domain: $domain")
-    val constraint = V.Constraint((s: String) =>
-      Markdown
-        .imageUrls(s)
-        .map {
-          case imageDomainRegex(domain) =>
-            !allowedDomains.exists(d => domain == d || domain.endsWith(s".$d")) option BadDomain(
-              domain
-            )
-          case url => BadUrl(url).some
-        }
-        .flatten match {
-        case Nil => V.Valid
-        case bads =>
-          V.Invalid(
-            bads.map(_.msg).map(V.ValidationError(_)) ::: {
-              bads.exists {
-                case _: BadDomain => true
-                case _            => false
-              } ?? List(
-                V.ValidationError(s"Allowed domains: ${allowedDomains mkString ", "}")
-              )
-            }
-          )
-      }
-    )
-  }
-
   def stringIn(choices: Options[String]) =
     text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
@@ -187,16 +136,27 @@ object Form {
 
   def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
 
+  object color {
+    val mapping: Mapping[Color] = trim(text)
+      .verifying(Color.all.map(_.name).contains _)
+      .transform[Color](c => Color.fromWhite(c == "white"), _.name)
+  }
+
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
-
-  def absoluteUrl = of[AbsoluteUrl](formatter.absoluteUrlFormatter)
 
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
       new Formatter[A] {
         def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
         def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
+      }
+    def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
+      new Formatter[A] {
+        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { str =>
+          to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
+        }
+        def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
       }
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] =
       new Formatter[A] {
@@ -210,18 +170,6 @@ object Form {
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
-    }
-    val absoluteUrlFormatter: Formatter[AbsoluteUrl] = new Formatter[AbsoluteUrl] {
-      override val format = Some(("format.url", Nil))
-      def bind(key: String, data: Map[String, String]) =
-        data
-          .get(key)
-          .map(_.trim)
-          .toRight("error.required")
-          .flatMap(str => AbsoluteUrl.parseTry(str).toEither.left.map(_.getMessage))
-          .left
-          .map(err => (Seq(FormError(key, err.toString, Nil))))
-      def unbind(key: String, value: AbsoluteUrl) = Map(key -> value.toString)
     }
   }
 
@@ -250,6 +198,32 @@ object Form {
         else fen
       }
   }
+
+  object url {
+    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+    private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    implicit val urlFormat = new Formatter[URL] {
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { url =>
+        Try(URL.parse(parser, url)).fold(
+          err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
+          Right(_)
+        )
+      }
+      def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
+    }
+    val field = of[URL]
+  }
+
+  implicit val variantFormat =
+    formatter.stringOptionFormatter[chess.variant.Variant](_.key, chess.variant.Variant.apply)
+
+  object strings {
+    def separator(sep: String) = of[List[String]](
+      formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)
+    )
+  }
+
+  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(

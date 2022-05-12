@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
   <string name="clearAnnotations">Wis aantekeningen</string>
+  <string name="clearVariations">Verwijder variaties</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
   <string name="clearAllCommentsInThisChapter">Verwijder alle aantekeningen, tekens en getekende figuren in dit hoofdstuk?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Volgende hoofdstuk</string>
   <string name="prevChapter">Vorige hoofdstuk</string>
   <string name="studyActions">Studie sneltoetsen</string>
+  <string name="topics">Onderwerpen</string>
+  <string name="myTopics">Mijn onderwerpen</string>
+  <string name="popularTopics">Populaire onderwerpen</string>
+  <string name="manageTopics">Onderwerpen beheren</string>
+  <string name="back">Terug</string>
+  <string name="playAgain">Opnieuw spelen</string>
+  <string name="whatWouldYouPlay">Wat zou je in deze stelling spelen?</string>
+  <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
 </resources>

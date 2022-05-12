@@ -15,12 +15,12 @@ final class Insight(env: Env) extends LilaController(env) {
     OpenOrScoped()(
       open = implicit ctx =>
         Accessible(username) { user =>
-          env.insight.api indexAll user.id inject Ok
+          env.insight.api indexAll user inject Ok
         },
       scoped = req =>
         me =>
           AccessibleApi(username)(me.some) { user =>
-            env.insight.api indexAll user.id inject Ok
+            env.insight.api indexAll user inject Ok
           }
     )
 

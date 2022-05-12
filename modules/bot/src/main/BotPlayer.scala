@@ -6,7 +6,7 @@ import scala.concurrent.Promise
 
 import lila.common.Bus
 import lila.game.Game.PlayerId
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes, ResignForce, TakebackNo, TakebackYes }
@@ -15,7 +15,7 @@ import lila.user.User
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
-    isOfferingRematch: lila.round.IsOfferingRematch,
+    rematches: Rematches,
     spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -35,7 +35,7 @@ final class BotPlayer(
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
           tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
           promise.future recover {
-            case _: lila.round.GameIsFinishedError if ~offeringDraw && pov.game.drawn => ()
+            case _: lila.round.GameIsFinishedError if ~offeringDraw => ()
           }
         }
       }
@@ -58,11 +58,11 @@ final class BotPlayer(
 
   def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = false)
 
-  private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
-    gameRepo game id map {
-      _.flatMap(Pov(_, me)).filter(p => isOfferingRematch(!p)) ?? { pov =>
+  private def rematch(challengeId: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
+    rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
+      _.flatMap(Pov(_, me)) ?? { pov =>
         // delay so it feels more natural
-        lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
+        lila.common.Future.delay(if (accept) 100.millis else 1.second) {
           fuccess {
             tellRound(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
           }
@@ -100,7 +100,7 @@ final class BotPlayer(
     if (v) offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
-    if (pov.game.playable && !pov.game.isMandatory)
+    if (pov.game.playable && pov.game.canTakebackOrAddTime)
       tellRound(pov.gameId, (if (v) TakebackYes else TakebackNo)(PlayerId(pov.playerId)))
 
   def claimVictory(pov: Pov): Funit =

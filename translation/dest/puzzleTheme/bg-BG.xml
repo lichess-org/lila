@@ -5,11 +5,15 @@
   <string name="advantage">Предимство</string>
   <string name="advantageDescription">Възползване от шанс за решаващо предимство. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
+  <string name="anastasiaMateDescription">Кон и топ (или дама) се координират за да приклещят противниковия цар между края на дъската и друга фигура.</string>
   <string name="arabianMate">Арабски мат</string>
   <string name="arabianMateDescription">Кон и топ матират царя в ъгъла на полето.</string>
   <string name="attackingF2F7">Атака на f2 или f7</string>
+  <string name="attackingF2F7Description">Атака, фокусирана върху пешката на f2 или f7, подобно на прочутия Fried Liver дебют.</string>
   <string name="attraction">Завличане</string>
   <string name="attractionDescription">Размяна или жертване, окуражаващо или заставящо противникова фигура да се премести на поле, което дава възможност за тактическо развитие.</string>
+  <string name="backRankMate">Мат на задна линия</string>
+  <string name="backRankMateDescription">Мат на царя на неговия хоризонтал, когато е заклещен от собствените си фигури.</string>
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
   <string name="bodenMate">Мат на Боден</string>
@@ -27,6 +31,9 @@
   <string name="equality">Изравняване</string>
   <string name="equalityDescription">Обрат от губеща позиция и постигане на равенство или равностойна позиция. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на царския фланг</string>
+  <string name="kingsideAttackDescription">Атака над противниковия цар след къса рокада.</string>
+  <string name="clearance">Освобождаване на поле</string>
+  <string name="clearanceDescription">Ход, често с темпо, който освобождава поле, вертикал или диагонал за последваща тактическа идея.</string>
   <string name="defensiveMove">Защитен ход</string>
   <string name="defensiveMoveDescription">Точен ход или поредица от ходове, за да се избегне загуба на материал или друго предимство за опонента.</string>
   <string name="deflection">Отвличане</string>
@@ -37,12 +44,14 @@
   <string name="doubleCheckDescription">Шах с две фигури едновременно. Получава се, когато преместената фигура дава шах заедно с далекобойна, която досега е била блокирана.</string>
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
+  <string name="enPassantDescription">Тактика включваща вземане \"ан пасан\", където пешка може да вземе противникова пешка, която я е подминала правейки двоен ход.</string>
   <string name="exposedKing">Незащитен цар</string>
   <string name="exposedKingDescription">Противниковият цар е не добре защитен, което често води до шах и мат.</string>
   <string name="fork">Вилица</string>
   <string name="forkDescription">Ход, в който фигура атакува едновременно поне две противникови фигури.</string>
   <string name="hangingPiece">Висяща фигура</string>
   <string name="hangingPieceDescription">Тактика, при която фигура на противника не е защитена или е недостатъчно защитена и може да бъде взета.</string>
+  <string name="hookMate">Мат-кука</string>
   <string name="hookMateDescription">Шах и мат с топ, кон и пешка заедно с противникова пешка ограничаваща движението на противниковия цар.</string>
   <string name="interference">Вмешателство</string>
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>
@@ -91,14 +100,17 @@
   <string name="rookEndgame">Топовен ендшпил</string>
   <string name="rookEndgameDescription">Ендшпил само с топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
+  <string name="sacrificeDescription">Тактика, включваща краткосрочното жертване на материал, с цел получаване на предимство след последваща редица от форсирани ходове.</string>
   <string name="short">Кратка задача</string>
   <string name="shortDescription">Победа в два хода.</string>
   <string name="skewer">Линеен удар</string>
+  <string name="skewerDescription">Мотив, включващ атакуването на силна фигура, с цел тя да се отмести и да позволи по-слаба фигура зад нея да бъде взета или атакувана - обратното на свръзка.</string>
   <string name="smotheredMate">Задушаващ мат</string>
   <string name="smotheredMateDescription">Шах и мат от кон, при който царят не може да бъде местен, защото е обграден (задушен) от свои фигури.</string>
   <string name="superGM">Партии на Супер Гросмайстори</string>
   <string name="superGMDescription">Задачи от игри играни от най-добрите играчи в света.</string>
   <string name="trappedPiece">Фигура в капан</string>
+  <string name="trappedPieceDescription">Фигура, която не може да избегне вземане поради ограничени ходове.</string>
   <string name="underPromotion">Подпроизвеждане на пешка</string>
   <string name="underPromotionDescription">Произвеждане в кон, офицер или топ.</string>
   <string name="veryLong">Много дълги задачи</string>
@@ -109,4 +121,7 @@
   <string name="zugzwangDescription">Опонентът има малко възможни ходове и всеки един от тях води до влошаване на положението му.</string>
   <string name="healthyMix">От всичко по малко</string>
   <string name="healthyMixDescription">По малко от всичко. Не знаете какво да очаквате, така че бъдете готови за всичко! Точно като в истинските игри.</string>
+  <string name="playerGames">Партии на играча</string>
+  <string name="playerGamesDescription">Разгледайте пъзели генерирани от вашите игри, или игрите на други играчи.</string>
+  <string name="puzzleDownloadInformation">Тези пъзели са публични и могат да бъдат изтеглени от %s.</string>
 </resources>

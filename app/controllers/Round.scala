@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Pov, Game => GameModel, PgnDump }
+import lila.game.{ Game => GameModel, PgnDump, Pov }
 import lila.swiss.Swiss.{ Id => SwissId }
 import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
@@ -131,18 +131,14 @@ final class Round(
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
-          get("pov") match {
-            case Some(requestedPov) =>
-              (pov.player.userId, pov.opponent.userId) match {
-                case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-                case (Some(player), Some(_)) if player == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-                case _ =>
-                  Redirect(routes.Round.watcher(gameId, "white")).fuccess
-              }
-            case None =>
-              watch(pov)
+          get("pov").map(UserModel.normalize).fold(watch(pov)) { requestedPov =>
+            (pov.player.userId, pov.opponent.userId) match {
+              case (Some(_), Some(opponent)) if opponent == requestedPov =>
+                Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+              case (Some(player), Some(_)) if player == requestedPov =>
+                Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+              case _ => Redirect(routes.Round.watcher(gameId, "white")).fuccess
+            }
           }
         case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
       }
@@ -217,7 +213,9 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.fold(true)(env.chat.panic.allowed) && {
+    ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
+      HTTPRequest isHuman ctx.req
+    )(env.chat.panic.allowed) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {
@@ -367,5 +365,10 @@ final class Round(
             }
           }
         }
+    }
+
+  def help =
+    Open { implicit ctx =>
+      Ok(html.site.helpModal.round).fuccess
     }
 }

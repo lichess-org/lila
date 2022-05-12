@@ -17,7 +17,6 @@
   <string name="thankYou">Děkujeme za váš příspěvek!</string>
   <string name="youHaveLifetime">You have a Lifetime Patron account. That\'s pretty awesome!</string>
   <string name="patronUntil">Máte Patron účet do %s.</string>
-  <string name="ifNotRenewed">Pokud nedojde k obnoveni, budete sníženi na variantu zdarma.</string>
   <string name="weAreNonProfit">Jsme neziskovým sdružením, protože jsme přesvědčeni, že každý by měl mít přístup k bezplatné, prvotřídní šachové platformě.</string>
   <string name="weRelyOnSupport">Spoléháme na podporu lidí, jako jste Vy, aby nám to umožnili. Pokud se vám líbí používání Lichess, zvažte prosím podporu tím, že přispějete a stanete se Patronem!</string>
   <string name="lifetime">Doživotní</string>
@@ -30,7 +29,6 @@
   <string name="otherAmount">Ostatní</string>
   <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Platební karta</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
   <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování Lichess</string>
   <string name="whereMoneyGoes">Kam jdou ty peníze?</string>
@@ -45,7 +43,6 @@ Nebo můžete %s.</string>
   <string name="contactSupport">kontaktovat podporu Lichess</string>
   <string name="otherMethods">Jiné způsoby podpory?</string>
   <string name="bankTransfers">Přijímáme také bankovní převody</string>
-  <string name="bitcoin">A tady je naše bitcoinová adresa: %s</string>
   <string name="patronFeatures">Jsou některé funkce vyhrazeny pro Patrony?</string>
   <string name="noPatronFeatures">Ne, protože Lichess je zcela zdarma, navždy a pro všechny. To je slib.
 Patroni se však blýsknou novou cool ikonou profilu.</string>

@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Biely</string>
   <string name="black">Čierny</string>
+  <string name="asWhite">ako biely</string>
+  <string name="asBlack">ako čierny</string>
   <string name="randomColor">Náhodná farba figúr</string>
   <string name="createAGame">Vytvoriť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
@@ -91,6 +93,7 @@
     <item quantity="many">Mat v %s. polťahu</item>
     <item quantity="other">Mat v %s. polťahu</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
@@ -98,6 +101,9 @@
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Výhre zabránilo pravidlo 50-tich ťahov</string>
   <string name="lossSavedBy50MoveRule">Od prehry zachránilo pravidlo 50-tich ťahov</string>
+  <string name="winOr50MovesByPriorMistake">Výhra alebo 50 ťahov na základe predchádzajúcej chyby</string>
+  <string name="lossOr50MovesByPriorMistake">Prehra alebo 50 ťahov v dôsledku predchádzajúcej chyby</string>
+  <string name="unknownDueToRounding">Výhra/prehra je garantovaná iba ak bol od posledného brania alebo ťahu pešiakom dodržaný odporúčaný variant databázy, kvôli možnému zaokrúhleniu hodnoty DTZ v Syzygy databáze.</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Importovať PGN</string>
   <string name="delete">Vymazať</string>
@@ -147,6 +153,8 @@
     <item quantity="many">%s pripojených hráčov</item>
     <item quantity="other">%s pripojených hráčov</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remíza po vzájomnej dohode</string>
+  <string name="fiftyMovesWithoutProgress">Päťdesiat ťahov bez posunu vpred</string>
   <string name="currentGames">Práve prebiehajúce partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
@@ -173,7 +181,7 @@
   <string name="players">Hráči</string>
   <string name="friends">Priatelia</string>
   <string name="discussions">Konverzácie</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Dnes</string>
+  <string name="today">Dnes</string>
   <string name="yesterday">Včera</string>
   <string name="minutesPerSide">Minút na stranu</string>
   <string name="variant">Variant</string>
@@ -254,7 +262,7 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
-  <string name="casualTournament">Nehodnotený</string>
+  <string name="casualTournament">Priateľská</string>
   <string name="ratedTournament">Hodnotený</string>
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
@@ -388,6 +396,7 @@
   <string name="leaderboard">Rebríček</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
+  <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
   <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="toStudy">Štúdia</string>
@@ -489,15 +498,14 @@
   <string name="popularOpenings">Populárne otvorenia</string>
   <string name="endgamePositions">Pozície z koncoviek</string>
   <string name="chess960StartPosition">Počiatočná pozícia šachu Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Štartovacia pozícia</string>
+  <string name="startPosition">Štartovacia pozícia</string>
   <string name="clearBoard">Vyčistiť šachovnicu</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Načítať pozíciu</string>
+  <string name="loadPosition">Načítať pozíciu</string>
   <string name="isPrivate">Súkromný</string>
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s hodnotenie</string>
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
-  <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
@@ -506,11 +514,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Štát alebo vlajka</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
+  <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Pozor, hra je bodovaná, ale bez času!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
   <string name="success">Úspešne vyriešené</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozohraná partia</item>
@@ -551,6 +560,7 @@
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
   <string name="by">od %s</string>
+  <string name="importedByX">Importoval %s</string>
   <string name="thisTopicIsNowClosed">Táto téma je uzavretá.</string>
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
@@ -581,7 +591,7 @@
   <string name="onSlowGames">Pri pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s súťaží v %2$s</string>
+  <string name="xCompetesInY">%1$s súťaží v %2$s</string>
   <string name="victory">Výhra</string>
   <string name="defeat">Porážka</string>
   <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
@@ -620,11 +630,12 @@
   <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
   <string name="error.email_unique">Emailová adresa je neplatná alebo sa už používa</string>
   <string name="error.email_different">Túto emailovú adresu už používate</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Minimálna dĺžka je %s znakov</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximálna dĺžka je %s znakov</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Minimálna dĺžka je %s znakov</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Maximálna dĺžka je %s znakov</string>
+  <string name="error.minLength">Minimálna dĺžka je %s znakov</string>
+  <string name="error.maxLength">Maximálna dĺžka je %s znakov</string>
+  <string name="error.min">Minimálna dĺžka je %s znakov</string>
+  <string name="error.max">Maximálna dĺžka je %s znakov</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
+  <string name="ifRegistered">Ak sú registrovaní</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
@@ -714,6 +725,7 @@
   <string name="downloadImported">Stiahnuť importované</string>
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Prejdite kurzorom ponad počítačové varianty pre zobrazenie ich náhľadu.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom aby Vám napísali správu</string>
   <string name="receiveForumNotifications">Dostávať upozornenia keď ťa niekto spomenie na fóre</string>
@@ -857,7 +869,7 @@
   <string name="currentMatchScore">Skóre aktuálneho zápasu</string>
   <string name="agreementAssistance">Súhlasím, že v žiadnom prípade nebudem používať asistenciu (počítača, šachovej knihy, databázy alebo inej osoby).</string>
   <string name="agreementNice">Súhlasím, že budem vždy rešpektovať ostatných hráčov.</string>
-  <string name="agreementAccount">Súhlasím, že si nevytvorím viacero účtov.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Súhlasím, že nebudem vytvárať ďalšie účty (s výnimkou dôvodov uvedených v %s).</string>
   <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
@@ -883,29 +895,52 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
+  <string name="mentionedYouInX">Vás spomenul(a) v \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s ťa spomenul v \"%2$s\".</string>
+  <string name="invitedYouToX">Vás pozval(a) k \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s Vás pozval(a) k \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
+  <string name="youHaveJoinedTeamX">Pripojili ste sa k družstvu %1$s.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
   <string name="gameVsX">v partii proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Niekto napísal recenziu Vášho profilu trénera.</string>
+  <string name="newPendingReview">Nová čakajúca recenzia</string>
+  <string name="lostAgainstTOSViolator">Prehrali ste s niekým kto porušil pravidlá stránky Lichess</string>
+  <string name="refundXpointsTimeControlY">Náhrada: %1$s %2$s ratingových bodov.</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
   <string name="tournDescription">Popis turnaja</string>
+  <string name="tournDescriptionHelp">Je niečo čo by ste chceli povedať účastníkom turnaja? Snažte sa byť stručný! Môžete použiť markdown značky: [name](https://url)</string>
+  <string name="ratedFormHelp">Partie sú hodnotené
+a ovplyvnia rating hráčov</string>
   <string name="onlyMembersOfTeam">Iba členovia tímu</string>
   <string name="noRestriction">Bez obmedzenia</string>
   <string name="minimumRatedGames">Minimum hodnotených hier</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
+  <string name="positionInputHelp">Vložte platný FEN pre začatie každej partie z konkrétnej pozície!
+Funguje len pre štandardné partie, nie pre varianty.
+Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.
+Nechajte prázdne pre začatie partií zo základnej pozície!</string>
+  <string name="cancelSimul">Zrušiť simultánku</string>
+  <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
+  <string name="estimatedStart">Predpokladaný čas začiatku</string>
+  <string name="simulDescription">Popis simultánky</string>
+  <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
+  <string name="onlyTeamLeaders">Iba vedúci družstiev</string>
   <string name="onlyTeamMembers">Iba členovia tímu</string>
   <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
   <string name="mouseTricks">Finty s myšou</string>
@@ -927,4 +962,9 @@
   <string name="abortTheGame">Zrušiť partiu</string>
   <string name="resignTheGame">Vzdať partiu</string>
   <string name="youCantStartNewGame">Kým neukončíte túto partiu, nemôžete začať novú.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
+  <string name="switchSides">Vymeniť strany</string>
+  <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
 </resources>

@@ -47,6 +47,8 @@ abstract class Random {
 
 object ThreadLocalRandom extends Random {
   override def current = java.util.concurrent.ThreadLocalRandom.current
+
+  def nextLong(n: Long): Long = current.nextLong(n)
 }
 
 object SecureRandom extends Random {

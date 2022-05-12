@@ -350,6 +350,9 @@
       padding: #{$block-gap / 2} $block-gap;
       font-weight: bold;
       border-bottom: $border;
+      .utitle {
+        margin-right: 3px;
+      }
     }
 
     .content {

@@ -17,11 +17,13 @@
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
+  <string name="asWhite">به عنوان سفید</string>
+  <string name="asBlack">به عنوان سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
   <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
-  <string name="youPlayTheWhitePieces">شما با مهری سفید بازی میکنید</string>
+  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
@@ -160,7 +162,7 @@
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
   <string name="discussions">مکالمات</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">امروز</string>
+  <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
   <string name="minutesPerSide">زمان برای هر بازیکن(به دقیقه)</string>
   <string name="variant">واریانت</string>
@@ -341,6 +343,7 @@
   <string name="leaderboard">بهترین بازیکنان</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
+  <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
   <string name="fromPosition">شروع از پوزیشن</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
@@ -432,15 +435,14 @@
   <string name="popularOpenings">گشایش های معروف</string>
   <string name="endgamePositions">موقعیتهای پایان‌بخش بازی</string>
   <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">موقعیت شروع</string>
+  <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">بارگذاری موقعیت</string>
+  <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
   <string name="profileCompletion">میزان تکمیل حساب کاربری:%s</string>
   <string name="xRating">ریتینگ %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
-  <string name="gameCompletionRate">میزان به اتمام رساندن بازی ها:%s</string>
   <string name="profile">پروفایل</string>
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
@@ -449,11 +451,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا پرچم</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
+  <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activePlayers">بازیکنان فعال</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">پیروزی</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s بازی در حال انجام است</item>
@@ -492,6 +495,7 @@
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
+  <string name="importedByX">توسط %s وارد شد</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="blog">بلاگ</string>
   <string name="notes">یادداشت ها</string>
@@ -522,7 +526,7 @@
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s در تورنمت %2$s رقابت می کند</string>
+  <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -557,11 +561,12 @@
   <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
   <string name="error.email_different">این آدرس ایمیل همان آدرس ایمیل قبلی شما است</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">باید حداقل %s حرف داشته باشد</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">باید حداقل دارای %s حرف باشد</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">باید حداقل %s باشد</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">باید حداکثر %s باشد</string>
+  <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
+  <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
+  <string name="error.min">باید حداقل %s باشد</string>
+  <string name="error.max">باید حداکثر %s باشد</string>
   <string name="ifRatingIsPlusMinusX">اگر ریتینگ  %s± بود</string>
+  <string name="ifRegistered">در صورت ثبت نام</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">فهرست</string>
@@ -783,7 +788,6 @@
   <string name="currentMatchScore">امتیاز بازی فعلی</string>
   <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از انجین ، کتاب ، پایگاه داده یا شخصی دیگر)</string>
   <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
-  <string name="agreementAccount">من تضمین می کنم که هیچ  وقت مولتی اکانت ( حساب اضافه ) تشکیل ندهم .</string>
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
@@ -809,7 +813,7 @@
   <string name="youCannotPostYetPlaySomeGames">شما هنوز قادر به پست گذاشتن در انجمن نیستید. چند بازی انجام دهید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">از شما در %1$s نام برده شد.</string>
+  <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
   <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
   <string name="invitedYouToX">شما به \"%1$s\" دعوت شده اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
@@ -879,4 +883,9 @@
   <string name="abortTheGame">انصراف از بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
+  <string name="since">از وقتی که</string>
+  <string name="until">تا وقتی که</string>
+  <string name="lichessDbExplanation">تمام بازی های امتیازی بازیکنان لیچس نمونه برداری شده اند</string>
+  <string name="switchSides">تعویض سمت</string>
+  <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
 </resources>

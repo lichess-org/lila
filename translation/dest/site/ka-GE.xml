@@ -371,7 +371,6 @@
   <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">%s რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
-  <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>

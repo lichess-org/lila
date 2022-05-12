@@ -1,5 +1,5 @@
 // Rich Text helper functions
-// Refactored for https://github.com/ornicar/lila/issues/7342 request
+// Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import { VNode, Hooks } from 'snabbdom';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
@@ -46,6 +46,8 @@ export function linkReplace(href: string, body?: string, cls?: string) {
 export function userLinkReplace(_: string, prefix: string, user: string) {
   return prefix + linkReplace('/@/' + user, '@' + user);
 }
+
+export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {
   let html = autolink(lichess.escapeHtml(text), toLink);

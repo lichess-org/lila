@@ -14,7 +14,7 @@ object tourForm {
   import trans.broadcast._
 
   def create(form: Form[Data])(implicit ctx: Context) =
-    layout(newBroadcast.txt())(
+    layout(newBroadcast.txt(), menu = "new".some)(
       h1(newBroadcast()),
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form),
@@ -26,7 +26,7 @@ object tourForm {
     )
 
   def edit(t: RelayTour, form: Form[Data])(implicit ctx: Context) =
-    layout(t.name)(
+    layout(t.name, menu = none)(
       h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name)),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
         inner(form),
@@ -37,13 +37,18 @@ object tourForm {
       )
     )
 
-  private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(title: String, menu: Option[String])(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form")
-    )(
-      main(cls := "page-small box box-pad")(body)
-    )
+    )(menu match {
+      case Some(active) =>
+        main(cls := "page-small page-menu")(
+          tour.pageMenu(active),
+          div(cls := "page-menu__content box box-pad")(body)
+        )
+      case None => main(cls := "page-small box box-pad")(body)
+    })
 
   private def inner(form: Form[Data])(implicit ctx: Context) = frag(
     div(cls := "form-group")(bits.howToUse),
@@ -51,7 +56,7 @@ object tourForm {
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
     form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
     form3.group(
-      form("markup"),
+      form("markdown"),
       fullDescription(),
       help = fullDescriptionHelp(
         a(

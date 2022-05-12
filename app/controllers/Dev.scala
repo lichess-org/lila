@@ -11,22 +11,27 @@ final class Dev(env: Env) extends LilaController(env) {
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.mailer.mailerSecondaryPermilleSetting,
-    env.irwin.irwinThresholdsSetting,
+    env.irwin.irwinApi.thresholds,
+    env.irwin.kaladinApi.thresholds,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdsSetting,
     env.report.discordScoreThresholdSetting,
+    env.round.selfReportEndGame,
+    env.round.selfReportMarkUser,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.plan.paymentMethodsSetting,
-    env.ublog.rankFactorSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
-    env.prizeTournamentMakers
+    env.prizeTournamentMakers,
+    env.pieceImageExternal,
+    env.evalCache.enable,
+    env.tournament.reloadEndpointSetting
   )
 
   def settings =

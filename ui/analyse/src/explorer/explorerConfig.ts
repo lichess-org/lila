@@ -16,6 +16,7 @@ const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', '
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
+const minLichessYear = 2012;
 
 type Month = string;
 type ByDbSetting = {
@@ -46,15 +47,19 @@ export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
   allDbs: ExplorerDb[] = ['lichess', 'player'];
   myName?: string;
+  participants: (string | undefined)[];
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     this.myName = document.body.dataset['user'];
+    this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
+      name => name && name != this.myName
+    );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedProp('explorer.since-2.' + db, ''),
-        until: storedProp('explorer.until-2.' + db, ''),
+        since: storedProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
+        until: storedProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
     this.data = {
@@ -79,7 +84,7 @@ export class ExplorerConfigCtrl {
   selectPlayer = (name?: string) => {
     name = name == 'me' ? this.myName : name;
     if (!name) return;
-    if (name != this.myName) {
+    if (name != this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
       this.data.playerName.previous(previous.slice(0, 20));
@@ -138,7 +143,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      h('label', 'Player'),
+      h('label', ctrl.root.trans('player')),
       h('div', [
         h(
           'div.choices',
@@ -151,14 +156,13 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             name || selectText
           )
         ),
-        ' as ',
         h(
           'button.button-link.text.color',
           {
             attrs: dataIcon(''),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ctrl.data.color()
+          ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack')
         ),
       ]),
     ]),
@@ -171,8 +175,11 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', ['Since', yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-      h('label', ['Until', yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
+      h('label', [ctrl.root.trans.noarg('since'), yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', [
+        ctrl.root.trans.noarg('until'),
+        yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
+      ]),
     ]),
   ]);
 
@@ -185,7 +192,7 @@ const radioButton =
         attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : '' + v
+      render ? render(v) : ctrl.root.trans.noarg('' + v)
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -218,7 +225,9 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
     key: after() ? 'until-month' : 'since-month',
     attrs: {
       type: 'month',
+      title: `Insert year and month in YYYY-MM format starting from ${minYear}-01`,
       pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
+      placeholder: 'YYYY-MM',
       min: `${minYear}-01`,
       max,
       value: prop() > max ? max : prop(),
@@ -249,6 +258,8 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
     attrs: {
       key: after() ? 'until-year' : 'since-year',
       type: 'number',
+      title: `Insert year in YYYY format starting from ${minYear}`,
+      placeholder: 'YYYY',
       min: minYear,
       max: new Date().toISOString().slice(0, 4),
       value: prop().split('-')[0],
@@ -274,12 +285,15 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', ['Since', monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', ['Until', monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
+    h('label', [ctrl.root.trans.noarg('since'), monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', [
+      ctrl.root.trans.noarg('until'),
+      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
+    ]),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  const onSelect = (name: string) => {
+  const onSelect = (name: string | undefined) => {
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
@@ -308,7 +322,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(name =>
           h(
             `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {

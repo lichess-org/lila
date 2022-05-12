@@ -89,7 +89,7 @@
     <item quantity="many">%s повторити</item>
     <item quantity="other">%s повторити</item>
   </plurals>
-  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s вирішено</string>
+  <string name="percentSolved">%s вирішено</string>
   <string name="noPuzzlesToShow">Немає що показати, спочатку спробуйте вирішити пару задач!</string>
   <string name="improvementAreasDescription">Тренуйтеся, щоб покращити ваш прогрес!</string>
   <string name="strengthDescription">Ви показуєте найкращий результат в наступних темах</string>

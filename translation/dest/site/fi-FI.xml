@@ -17,6 +17,8 @@
   <string name="stalemate">Patti</string>
   <string name="white">Valkea</string>
   <string name="black">Musta</string>
+  <string name="asWhite">valkeilla</string>
+  <string name="asBlack">mustilla</string>
   <string name="randomColor">Satunnainen</string>
   <string name="createAGame">Luo uusi peli</string>
   <string name="whiteIsVictorious">Valkea voittaa</string>
@@ -163,7 +165,7 @@
   <string name="players">Pelaajat</string>
   <string name="friends">Kaverit</string>
   <string name="discussions">Keskustelut</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Tänään</string>
+  <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>
   <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s tunti</item>
     <item quantity="other">%s tuntia</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuutti</item>
+    <item quantity="other">%s minuuttia</item>
   </plurals>
   <string name="time">Aika</string>
   <string name="rating">Vahvuusluku</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Pistetaulukko</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
+  <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
   <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
@@ -435,15 +442,14 @@
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
   <string name="chess960StartPosition">Shakki960-alkuasema: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Alkuasema</string>
+  <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Lataa asema</string>
+  <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
   <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
   <string name="profileCompletion">Profiilia täytetty: %s</string>
   <string name="xRating">%s-vahvuusluku</string>
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
-  <string name="gameCompletionRate">Pelien loppuunvientiprosentti: %s</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
@@ -452,11 +458,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai lippu</string>
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
+  <string name="oneUrlPerLine">Yksi URL per rivi.</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
   <string name="success">Onnistuit</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s peliä meneillään</item>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Liitä linkki peliin/peleihin ja kerro, mikä on pielessä tämän käyttäjän käytöksessä. Älä vain sano että \"hän huijaa\", vaan kerro meille miksi ajattelet näin. Raporttisi käydään läpi nopeammin, jos se on kirjoitettu englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
+  <string name="importedByX">Käyttäjän %s tuoma</string>
   <string name="thisTopicIsNowClosed">Tämä aihe on nyt suljettu.</string>
   <string name="blog">Blogi</string>
   <string name="notes">Muistiinpanot</string>
@@ -525,7 +533,7 @@
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s kilpailee turnauksessa %2$s</string>
+  <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
   <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
   <string name="victoryVsYInZ">%1$s %3$s-pelissä %2$s vastaan</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">Sähköpostiosoite ei ole kelvollinen. Tarkista se, ja yritä uudelleen.</string>
   <string name="error.email_unique">Sähköpostiosoite on virheellinen tai jo käytössä</string>
   <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Vähimmäispituus on %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Enimmäispituus on %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Luvun on oltava vähintään %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Luvun on oltava enintään %s</string>
+  <string name="error.minLength">Vähimmäispituus on %s</string>
+  <string name="error.maxLength">Enimmäispituus on %s</string>
+  <string name="error.min">Luvun on oltava vähintään %s</string>
+  <string name="error.max">Luvun on oltava enintään %s</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
+  <string name="ifRegistered">Vain rekisteröityneet</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
@@ -673,7 +682,7 @@
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassinen</string>
+  <string name="bulletBlitzClassical">Luotishakki, pikashakki, klassinen</string>
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
-  <string name="agreementAccount">Vakuutan, etten luo useita käyttäjätunnuksia.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Hyväksyn, että en luo useampaa kuin yhtä käyttäjätiliä (paitsi kohdassa %s mainituista syistä).</string>
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
@@ -794,7 +803,7 @@
   <string name="classical">Klassinen</string>
   <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>
   <string name="bulletDesc">Hyvin nopeat pelit: alle 3 minuuttia</string>
-  <string name="blitzDesc">Pikapelit: 8-25 minuuttia</string>
+  <string name="blitzDesc">Pikapelit: 3-8 minuuttia</string>
   <string name="rapidDesc">Nopeat pelit: 8-25 minuuttia</string>
   <string name="classicalDesc">Klassiset pelit: 25 minuuttia tai enemmän</string>
   <string name="correspondenceDesc">Kirjeshakkipelit: yksi tai useampi päivä per siirto</string>
@@ -812,7 +821,7 @@
   <string name="youCannotPostYetPlaySomeGames">Et voi vielä lähettää viestejä foorumeihin. Pelaa ensin muutama peli!</string>
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">mainitsi sinut \"%1$s\":ssa.</string>
+  <string name="mentionedYouInX">mainitsi sinut \"%1$s\":ssa.</string>
   <string name="xMentionedYouInY">%1$s mainitsi sinut viestissä \"%2$s\".</string>
   <string name="invitedYouToX">kutsui sinut tutkielmaan \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
@@ -884,4 +893,9 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="abortTheGame">Keskeytä peli</string>
   <string name="resignTheGame">Luovuta peli</string>
   <string name="youCantStartNewGame">Et voi aloittaa uutta peliä ennen kuin tämä peli on päättynyt.</string>
+  <string name="since">Alkaen</string>
+  <string name="until">Saakka</string>
+  <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
+  <string name="switchSides">Vaihda puolta</string>
+  <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
 </resources>

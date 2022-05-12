@@ -17,6 +17,8 @@
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
+  <string name="asWhite">de brancas</string>
+  <string name="asBlack">de pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
@@ -144,7 +146,7 @@
   <string name="currentGames">Partidas atuais</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
-    <item quantity="other">%s Partidas</item>
+    <item quantity="other">%s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoritos</item>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s horas</item>
     <item quantity="other">%s horas</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutos</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Classificação</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
+  <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudo</string>
@@ -443,7 +450,6 @@
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
-  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -452,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links de mídia social</string>
+  <string name="oneUrlPerLine">Uma URL por linha.</string>
   <string name="inlineNotation">Notação em linha</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
   <string name="onlinePlayers">Jogadores online</string>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
+  <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
@@ -565,6 +573,7 @@
   <string name="error.min">Deve ser maior ou igual a %s</string>
   <string name="error.max">Deve ser menor ou igual a %s</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
+  <string name="ifRegistered">Se registrado</string>
   <string name="onlyExistingConversations">Apenas conversas iniciadas</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
@@ -763,7 +772,7 @@
   <string name="addCurrentVariation">Adicionar a variação atual</string>
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
   <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
-  <string name="playX">Jogar %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jogar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Pontuação da partida atual</string>
   <string name="agreementAssistance">Eu concordo que em momento algum receberei assistência durante os meus jogos (seja de um computador, livro, banco de dados ou outra pessoa).</string>
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
-  <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eu concordo que não criarei múltiplas contas (exceto pelas razões indicadas em %s).</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
@@ -853,7 +862,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulHostcolor">Cor do simultanista em cada jogo</string>
   <string name="estimatedStart">Tempo de início estimado</string>
   <string name="simulFeatured">Compartilhar em %s</string>
-  <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
   <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>
@@ -883,4 +892,9 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="abortTheGame">Cancelar a partida</string>
   <string name="resignTheGame">Abandonar a partida</string>
   <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
+  <string name="since">Desde</string>
+  <string name="until">Até</string>
+  <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
+  <string name="switchSides">Trocar de lado</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
 </resources>

@@ -1,5 +1,6 @@
 package lila.irwin
 
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
@@ -14,35 +15,44 @@ import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
-    reportColl: Coll,
+    reportColl: Coll @@ IrwinColl,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     analysisRepo: AnalysisRepo,
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    thresholds: lila.memo.SettingStore[IrwinThresholds]
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 
   import BSONHandlers._
 
-  def dashboard: Fu[IrwinDashboard] =
+  def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
       .find($empty)
       .sort($sort desc "date")
       .cursor[IrwinReport]()
-      .list(20) dmap IrwinDashboard.apply
+      .list(20) dmap IrwinReport.Dashboard.apply
 
   object reports {
 
-    def insert(report: IrwinReport) =
-      reportColl.update.one($id(report._id), report, upsert = true) >>
-        markOrReport(report) >>
-        notification(report) >>-
-        lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
+    def insert(data: IrwinReport) = for {
+      prev <- get(data.userId)
+      report = prev.fold(data)(_ add data)
+      _ <- reportColl.update.one($id(report._id), report, upsert = true)
+      _ <- markOrReport(report)
+    } yield {
+      notification(report)
+      lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
+    }
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.find($id(user.id)).one[IrwinReport]
+      get(user.id)
+
+    def get(userId: User.ID): Fu[Option[IrwinReport]] =
+      reportColl.byId[IrwinReport](userId)
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
       get(user) flatMap {
@@ -105,22 +115,11 @@ final class IrwinApi(
         "irwin"
       )
 
-    private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
-      lila.common.Future.applySequentially(leaders.toList) { case (tour, top) =>
-        userRepo byIds top.value.zipWithIndex
-          .filter(_._2 <= tour.nbPlayers * 2 / 100)
-          .map(_._1.userId)
-          .take(20) flatMap { users =>
-          lila.common.Future.applySequentially(users) { user =>
-            insert(Suspect(user), _.Tournament)
-          }
-        }
-      }
+    private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
+      lila.common.Future.applySequentially(suspects) { insert(_, _.Tournament) }
 
-    private[irwin] def fromLeaderboard(leaders: List[User]): Funit =
-      lila.common.Future.applySequentially(leaders) { user =>
-        insert(Suspect(user), _.Leaderboard)
-      }
+    private[irwin] def topOnline(leaders: List[Suspect]): Funit =
+      lila.common.Future.applySequentially(leaders) { insert(_, _.Leaderboard) }
 
     import lila.game.BSONHandlers._
 

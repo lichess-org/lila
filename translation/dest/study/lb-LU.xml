@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Du bass elo en Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Gefällt mer net méi</string>
+  <string name="unlike">Gefällt mer net méi</string>
   <string name="newTag">Néien Tag</string>
   <string name="commentThisPosition">Kommentéier des Positioun</string>
   <string name="commentThisMove">Kommentéier dësen Zuch</string>
@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>
   <string name="saveChapter">Kapitel späicheren</string>
   <string name="clearAnnotations">Annotatiounen läschen</string>
+  <string name="clearVariations">Variatiounen läschen</string>
   <string name="deleteChapter">Kapitel läschen</string>
   <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
   <string name="clearAllCommentsInThisChapter">All Kommentarer, Symboler an Zeechnungsformen an dësem Kapitel läschen?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Nächst Kapitel</string>
   <string name="prevChapter">Kapitel virdrun</string>
   <string name="studyActions">Etüden-Aktiounen</string>
+  <string name="topics">Themen</string>
+  <string name="myTopics">Meng Themen</string>
+  <string name="popularTopics">Beléift Themen</string>
+  <string name="manageTopics">Themen managen</string>
+  <string name="back">Zeréck</string>
+  <string name="playAgain">Nach eng Kéier spillen</string>
+  <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
+  <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
 </resources>

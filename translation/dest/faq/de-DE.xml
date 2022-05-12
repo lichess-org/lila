@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
   <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
   <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
+  <string name="pleaseReadFairPlayPage">Für weitere Informationen lies bitte unsere %s</string>
+  <string name="fairPlayPage">Seite über faires Spiel</string>
   <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
   <string name="gameplay">Spielerlebnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>

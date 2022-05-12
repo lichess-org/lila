@@ -13,7 +13,6 @@ import lila.mod.ModActivity.{ dateFormat, Period }
 import lila.report.Room
 
 final class ModQueueStats(
-    reportApi: lila.report.ReportApi,
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
 )(implicit
@@ -51,11 +50,10 @@ final class ModQueueStats(
           data    <- doc.getAsOpt[List[Bdoc]]("data")
         } yield date -> {
           for {
-            entry   <- data
-            nb      <- entry.int("nb")
-            roomStr <- entry.string("room")
-            room    <- Room.byKey get roomStr
-            score   <- entry.int("score")
+            entry <- data
+            nb    <- entry.int("nb")
+            room  <- entry.string("room")
+            score <- entry.int("score")
           } yield (room, score, nb)
         }
       }
@@ -66,20 +64,25 @@ final class ModQueueStats(
             "common" -> Json.obj(
               "xaxis" -> days.map(_._1.getMillis)
             ),
-            "rooms" -> Room.all.map { room =>
-              Json.obj(
-                "name" -> room.name,
-                "series" -> scores.collect {
-                  case score if score > 20 || room == Room.Boost =>
-                    Json.obj(
-                      "name" -> score,
-                      "data" -> days.map(~_._2.collectFirst {
-                        case (r, s, nb) if r == room && s == score => nb
-                      })
-                    )
-                }
-              )
-            }
+            "rooms" -> Room.all
+              .map { room =>
+                room.key -> room.name
+              }
+              .appended { ("appeal", "Appeal") }
+              .map { case (roomKey, roomName) =>
+                Json.obj(
+                  "name" -> roomName,
+                  "series" -> scores.collect {
+                    case score if score > 20 || roomKey == Room.Boost.key =>
+                      Json.obj(
+                        "name" -> score,
+                        "data" -> days.map(~_._2.collectFirst {
+                          case (r, s, nb) if r == roomKey && s == score => nb
+                        })
+                      )
+                  }
+                )
+              }
           )
         )
       }

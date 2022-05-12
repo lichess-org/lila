@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Het maakt het gemakkelijker om met je schaakvrienden te praten, aangezien jullie beide de \"taal van het schaken\" begrijpen.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyseren als je niet hoeft te zoeken naar de namen van de velden.</string>
   <string name="aSquareNameAppears">Zodra de naam van een veld verschijnt klik je op het juiste vakje. Je hebt 30 seconden om zoveel mogelijk velden te herkennen!</string>
+  <string name="aSquareIsHighlighted">Op het bord wordt een veld uitgelicht en je dient het coördinaat in te voeren (bijvoorbeeld \"e4\"). Je hebt 30 seconden om zo veel mogelijk velden te raden!</string>
   <string name="startTraining">Start de training</string>
+  <string name="findSquare">Velden zoeken</string>
+  <string name="nameSquare">Velden benoemen</string>
 </resources>

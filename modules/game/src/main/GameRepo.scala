@@ -18,7 +18,7 @@ import lila.user.User
 final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
-  import Game.{ ID, BSONFields => F }
+  import Game.{ BSONFields => F, ID }
   import Player.holdAlertBSONHandler
 
   val fixedColorLobbyCache = new lila.memo.ExpireSetMemo(2 hours)
@@ -86,7 +86,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def remove(id: ID) = coll.delete.one($id(id)).void
 
   def userPovsByGameIds(
-      gameIds: List[String],
+      gameIds: List[Game.ID],
       user: User,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Pov]] =
@@ -105,7 +105,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
 
-  def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
+  def gamesForAssessment(userId: User.ID, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished
@@ -119,7 +119,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] =
+  def extraGamesForIrwin(userId: User.ID, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished
@@ -200,7 +200,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlaying + 5) dmap {
       _ flatMap { Pov(_, user) }
     }
 
@@ -360,7 +360,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def finish(
       id: ID,
       winnerColor: Option[Color],
-      winnerId: Option[String],
+      winnerId: Option[User.ID],
       status: Status
   ) =
     coll.update.one(
@@ -403,9 +403,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
     val checkInHours =
       if (g2.isPgnImport) none
+      else if (g2.fromApi) some(24 * 7)
       else if (g2.hasClock) 1.some
-      else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
-      else (24 * 10).some
+      else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
@@ -416,24 +416,24 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     } void
   }
 
-  def removeRecentChallengesOf(userId: String) =
+  def removeRecentChallengesOf(userId: User.ID) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
         Query.createdSince(DateTime.now minusHours 1)
     )
 
   def setCheckAt(g: Game, at: DateTime) =
-    coll.update.one($id(g.id), $set(F.checkAt -> at))
+    coll.updateField($id(g.id), F.checkAt, at).void
 
   def unsetCheckAt(id: Game.ID): Funit =
-    coll.update.one($id(id), $unset(F.checkAt)).void
+    coll.unsetField($id(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids)).unit
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
-    coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
+    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
   def initialFen(gameId: ID): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
@@ -462,10 +462,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       initialFen(game) dmap { game -> _ }
     }.sequenceFu
 
-  def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
+  def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
+  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)
 
   private[game] def favoriteOpponents(
-      userId: String,
+      userId: User.ID,
       opponentLimit: Int,
       gameLimit: Int
   ): Fu[List[(User.ID, Int)]] = {
@@ -513,7 +514,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
 
-  def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
+  def lastGameBetween(u1: User.ID, u2: User.ID, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](
       $doc(
         F.playerUids $all List(u1, u2),

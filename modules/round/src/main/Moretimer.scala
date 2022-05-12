@@ -26,8 +26,7 @@ final class Moretimer(
     }
 
   def isAllowedIn(game: Game): Fu[Boolean] =
-    if (game.isMandatory || !game.playable) fuFalse
-    else isAllowedByPrefs(game)
+    (game.canTakebackOrAddTime && game.playable) ?? isAllowedByPrefs(game)
 
   private[round] def give(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
@@ -52,7 +51,7 @@ final class Moretimer(
 
   private def IfAllowed[A](game: Game)(f: => A): Fu[A] =
     if (!game.playable) fufail(ClientError("[moretimer] game is over " + game.id))
-    else if (game.isMandatory) fufail(ClientError("[moretimer] game disallows it " + game.id))
+    else if (!game.canTakebackOrAddTime) fufail(ClientError("[moretimer] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {
         case true => fuccess(f)

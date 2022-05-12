@@ -8,7 +8,7 @@
   <string name="youAreNowASpectator">Ikaw ay isa nang manonood</string>
   <string name="pgnTags">Mga PGN tag</string>
   <string name="like">Gustohin</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Huwag gustohin</string>
+  <string name="unlike">Huwag gustohin</string>
   <string name="newTag">Bagong tag</string>
   <string name="commentThisPosition">Magkomento sa posisyong ito</string>
   <string name="commentThisMove">Magkomento sa galaw na ito</string>

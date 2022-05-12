@@ -17,8 +17,8 @@ object queueStats {
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
-        jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity.queues(${safeJsonValue(p.json)})""")
+        jsModule("mod.activity"),
+        embedJsUnsafeLoadThen(s"""LichessModActivity.queues(${safeJsonValue(p.json)})""")
       )
     ) {
       main(cls := "page-menu")(
@@ -41,7 +41,7 @@ object queueStats {
         span(p.period.key),
         Period.all.map { per =>
           a(
-            cls := (p.period == per).option("current"),
+            cls  := (p.period == per).option("current"),
             href := routes.Mod.queues(per.key)
           )(per.toString)
         }

@@ -222,8 +222,8 @@ v dveh potezah!</string>
   <string name="nailedIt">Prav ste zadeli.</string>
   <string name="rightOn">Pravilno!</string>
   <string name="stageXComplete">Stopnja %s je končana</string>
-  <string name="yourScore">Vaš rezultat</string>
   <string name="next">Naslednje</string>
+  <string name="nextX">Naslednji: %s</string>
   <string name="backToMenu">Nazaj v meni</string>
   <string name="puzzleFailed">Nepravilna rešitev!</string>
   <string name="retry">Ponovno</string>

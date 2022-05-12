@@ -235,8 +235,8 @@ in two moves!</string>
   <string name="nailedIt">Nailed it.</string>
   <string name="rightOn">Right on!</string>
   <string name="stageXComplete">Stage %s complete</string>
-  <string name="yourScore">Your score</string>
   <string name="next">Next</string>
+  <string name="nextX">Next: %s</string>
   <string name="backToMenu">Back to menu</string>
   <string name="puzzleFailed">Puzzle failed!</string>
   <string name="retry">Retry</string>

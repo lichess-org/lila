@@ -1,6 +1,7 @@
 package lila.user
 
 import java.util.Base64
+import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits._
@@ -10,8 +11,7 @@ import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
   *
-  * CTS reveals input length, which is fine for
-  * this application.
+  * CTS reveals input length, which is fine for this application.
   */
 final private class Aes(secret: Secret) {
   private val sKey = {
@@ -66,7 +66,7 @@ final private class PasswordHasher(
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
     bytes.parse ?? { case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
-      BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+      MessageDigest.isEqual(hash, bHash(salt, p))
     }
 }
 
@@ -78,19 +78,19 @@ object PasswordHasher {
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
-    credits = 40 * 2, // double cost in case of hash check failure
-    duration = 8 minutes,
+    credits = 150 * 2, // double cost in case of hash check failure
+    duration = 10 minutes,
     key = "password.hashes.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
-    duration = 30 minutes,
+    duration = 10 minutes,
     key = "password.hashes.user"
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
-    credits = 6 * 10 * 60, // max out 6 cores for 60 seconds
+    credits = 12 * 10 * 60, // max out 12 cores for 60 seconds
     duration = 1 minute,
     key = "password.hashes.global"
   )

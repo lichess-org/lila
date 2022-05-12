@@ -8,25 +8,28 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType
+import lila.user.User
 
 import controllers.routes
 
 object ratingDistribution {
 
-  def apply(perfType: PerfType, data: List[Int])(implicit ctx: Context) =
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
       wrapClass = "full-screen-force",
       moreJs = frag(
-        jsTag("chart/ratingDistribution.js"),
-        embedJsUnsafeLoadThen(s"""lichess.ratingDistributionChart(${safeJsonValue(
-          Json.obj(
-            "freq"     -> data,
-            "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
-            "i18n"     -> i18nJsObject(i18nKeys)
-          )
-        )})""")
+        jsModule("chart.ratingDistribution"),
+        embedJsUnsafeLoadThen(s"""LichessChartRatingDistribution(${safeJsonValue(
+            Json.obj(
+              "freq"        -> data,
+              "myRating"    -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+              "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+              "otherPlayer" -> otherUser.map(_.username),
+              "i18n"        -> i18nJsObject(i18nKeys)
+            )
+          )})""")
       )
     ) {
       main(cls := "page-menu")(
@@ -40,8 +43,8 @@ object ratingDistribution {
                 PerfType.leaderboardable map { pt =>
                   a(
                     dataIcon := pt.iconChar,
-                    cls := (perfType == pt).option("current"),
-                    href := routes.User.ratingDistribution(pt.key)
+                    cls      := (perfType == pt).option("current"),
+                    href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
                   )(pt.trans)
                 }
               )

@@ -1,10 +1,11 @@
 import { h } from 'snabbdom';
+
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
-    'a.ulpt.user-link.online',
+    'a.ulpt.user-link.' + (p.online || ctrl.data.host.id != p.id ? 'online' : 'offline'),
     {
       attrs: { href: '/@/' + p.name },
       hook: {

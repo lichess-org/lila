@@ -33,4 +33,13 @@
   <string name="maxNumber">Največje število</string>
   <string name="maxNumberExplanation">Največje število iger za vrnitev</string>
   <string name="include">Vključuje</string>
+  <string name="descending">Padajoče</string>
+  <string name="ascending">Naraščajoče</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s parija najdena</item>
+    <item quantity="two">%s partiji najdeni</item>
+    <item quantity="few">%s partije najdene</item>
+    <item quantity="other">%s partij najdenih</item>
+  </plurals>
+  <string name="ratingExplanation">Povprečje ratingov obeh igralcev</string>
 </resources>

@@ -3,10 +3,14 @@
   <string name="broadcasts">Prijenosi</string>
   <string name="liveBroadcasts">Prijenosi turnira uživo</string>
   <string name="newBroadcast">Novi prijenos uživo</string>
+  <string name="addRound">Dodajte rundu</string>
   <string name="ongoing">U tijeku</string>
   <string name="upcoming">Nadolazi</string>
   <string name="completed">Završeno</string>
+  <string name="roundName">Ime runde</string>
   <string name="roundNumber">Broj runde</string>
+  <string name="tournamentName">Ime turnira</string>
+  <string name="tournamentDescription">Kratak opis turnira</string>
   <string name="fullDescription">Potpuni opis događaja</string>
   <string name="fullDescriptionHelp">Neobavezni dugi opis prijenosa. %1$s je dostupno. Duljina mora biti manja od %2$s znakova.</string>
   <string name="sourceUrlOrGameIds">URL izvora ili identifikacijski broj igre</string>
@@ -15,4 +19,10 @@
   <string name="startDate">Datum početka u vlastitoj vremenskoj zoni</string>
   <string name="startDateHelp">Neobavezno, ako znaš kada događaj počinje</string>
   <string name="credits">Naglasi izvor</string>
+  <string name="resetRound">Resetiraj ovu rundu</string>
+  <string name="deleteRound">Izbriši ovu rundu</string>
+  <string name="broadcastUrl">Emitiraj URL</string>
+  <string name="currentRoundUrl">URL trenutne runde</string>
+  <string name="currentGameUrl">URL trenutne igre</string>
+  <string name="downloadAllRounds">Preuzmite sve igre</string>
 </resources>

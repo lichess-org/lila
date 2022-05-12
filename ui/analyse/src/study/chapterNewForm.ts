@@ -8,7 +8,7 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
@@ -125,7 +125,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { title },
+        attrs: { role: 'tab', title },
         hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
       },
       name
@@ -201,7 +201,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               }),
             }),
           ]),
-          h('div.tabs-horiz', [
+          h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
@@ -287,7 +287,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               ])
             : null,
           activeTab === 'pgn'
-            ? h('div.form-groupabel', [
+            ? h('div.form-group', [
                 h('textarea#chapter-pgn.form-control', {
                   attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
@@ -326,7 +326,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   attrs: { disabled: gameOrPgn },
                 },
                 gameOrPgn
-                  ? [h('option', noarg('automatic'))]
+                  ? [
+                      h(
+                        'option',
+                        {
+                          attrs: { value: 'standard' },
+                        },
+                        noarg('automatic')
+                      ),
+                    ]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),
@@ -364,22 +372,18 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               modeChoices.map(c => option(c[0], mode, noarg(c[1])))
             ),
           ]),
-          modalButton(noarg('createChapter')),
+          h(
+            'div.form-actions.single',
+            h(
+              'button.button',
+              {
+                attrs: { type: 'submit' },
+              },
+              noarg('createChapter')
+            )
+          ),
         ]
       ),
     ],
   });
-}
-
-export function modalButton(name: string): VNode {
-  return h(
-    'div.form-actions.single',
-    h(
-      'button.button',
-      {
-        attrs: { type: 'submit' },
-      },
-      name
-    )
-  );
 }

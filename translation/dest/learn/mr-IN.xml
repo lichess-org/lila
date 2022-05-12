@@ -150,19 +150,61 @@
   <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
 जर राज्याच्या मार्गात हल्ला झाला आहे.
 आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
+  <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
+  <string name="findAWayToCastleQueenSide">वजिराच्या बाजूला किल्लेकोट!</string>
+  <string name="castlingComplete">अभिनंदन! आपण खेळामध्ये जवळजवळ नेहमीच किल्लेकोट करायला पाहिजे.</string>
   <string name="enPassant">इन पासंट</string>
   <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
+  <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तर तुम्ही ते एकच चाल चालले आहे याप्रमाणे ते तुम्ही मारू शकता.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!
+तुम्ही एन पसांट नियमाने ते मारा.</string>
+  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पसांट फक्त लगेचच्या चालीसाठी वैध असेल.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच एन पसांट नियम वापरता येतो.</string>
+  <string name="takeAllThePawnsEnPassant">एन पसांट नियमाने सर्व प्यादी मारा!</string>
+  <string name="enPassantComplete">अभिनंदन! आपण आता एन पसांट नियमाने मारू शकता.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
+  <string name="stalemateIntro">जेव्हा एखादा खेळाडू शह देऊ शकत नाही आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. या प्रसंगी खेळ अनिर्णित घोषित केला जातो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
+  <string name="stalemateGoal">काळ्याला अर्धवट मात देण्यासाठी:
+- काळा कुठलीही चाल करू शकत नाही
+- कुठलाही मात उपलब्ध नाही.</string>
+  <string name="stalemateComplete">अभिनंदन! शहमात मिळण्यापेक्षा अर्धवट मात चांगली आहे!</string>
   <string name="advanced">प्रगत</string>
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
+  <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तिचे मूल्यमापन करा</string>
+  <string name="pieceValueIntro">सोंगट्यांच्या हालचाली प्रमाणे त्यांना जास्त किंमत असते!
+वजीर = 9
+हत्ती = 5
+उंट = 3
+घोडा = 3
+प्यादे = 1
+राजा अनमोल आहे! राजा गमावला म्हणजे खेळ हरला.</string>
+  <string name="queenOverBishop">सर्वाधिक किंमतीप्रमाणे सोंगटी मारा!
+वजीर &gt; उंट</string>
+  <string name="pieceValueExchange">सोंगटी सर्वाधिक किंमतीने मारा!
+जास्त किंमतीच्या सोंगटी साठी कमी किंमतीच्या सोंगटीची देवाणघेवाण करू नका.</string>
+  <string name="pieceValueLegal">सोंगटी सर्वाधिक किंमतीने मारा!
+पण चाल वैध आहे याची खात्री करा!</string>
+  <string name="takeThePieceWithTheHighestValue">सोंगटी सर्वाधिक किंमतीने मारा!</string>
+  <string name="pieceValueComplete">अभिनंदन! आता तुम्हाला सोंगट्यांची किंमत समजली आहे!
+वजीर = 9
+हत्ती = 5
+उंट = 3
+घोडा = 3
+प्यादे = 1</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
+  <string name="checkInTwoIntro">2 चालींचे योग्य संयोजन शोधा जे विरोधकाच्या राजाला शह देऊ शकतील!</string>
   <string name="checkInTwoGoal">प्रतिस्पर्ध्याच्या राजाला दोन चालीमध्ये धमकवा!</string>
+  <string name="checkInTwoComplete">अभिनंदन! तुम्ही विरोधकाला शह दिला, त्यांना राजाचा बचाव करणे भाग पडले आहे!</string>
   <string name="whatNext">पुढे काय?</string>
+  <string name="youKnowHowToPlayChess">तुम्हाला बुद्धिबळ कसे खेळायचे ते समजले आहे, अभिनंदन! तुम्हाला अजून मजबूत खेळाडू व्ह्यायचे आहे का?</string>
   <string name="register">सदस्य खाते तयार करा</string>
+  <string name="getAFreeLichessAccount">फुकट lichess खाते घ्या</string>
   <string name="practice">सराव</string>
+  <string name="learnCommonChessPositions">बुद्धिबळाच्या सामान्य स्थिति शिका</string>
   <string name="puzzles">कोडी</string>
+  <string name="exerciseYourTacticalSkills">तुमच्या डावपेच कौशल्याचा सराव करा</string>
   <string name="videos">व्हिडिओ</string>
   <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
@@ -176,12 +218,12 @@
   <string name="greatJob">मस्तच!</string>
   <string name="perfect">अतिशय छान!</string>
   <string name="outstanding">एकदम छान!</string>
+  <string name="wayToGo">चांगले चालले आहे!</string>
   <string name="yesYesYes">बरोबर!</string>
   <string name="youreGoodAtThis">तुम्ही यात उत्तम आहात!</string>
   <string name="nailedIt">पूर्ण करा.</string>
   <string name="rightOn">आत्ताच!</string>
   <string name="stageXComplete">टप्पा %s पूर्ण</string>
-  <string name="yourScore">तुमचे गुण</string>
   <string name="next">पुढे</string>
   <string name="backToMenu">मेनूवर परत</string>
   <string name="puzzleFailed">कोड्याचे उत्तर चुकीचे आहे!</string>

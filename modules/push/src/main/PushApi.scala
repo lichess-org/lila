@@ -5,9 +5,11 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.challenge.Challenge
+import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.user.User
 
@@ -108,15 +110,16 @@ final private class PushApi(
                   pushToAll(
                     userId,
                     _.takeback,
-                    PushApi.Data(
-                      title = "Takeback offer",
-                      body = s"$opponent proposes a takeback",
-                      stacking = Stacking.GameTakebackOffer,
-                      payload = Json.obj(
-                        "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                    PushApi
+                      .Data(
+                        title = "Takeback offer",
+                        body = s"$opponent proposes a takeback",
+                        stacking = Stacking.GameTakebackOffer,
+                        payload = Json.obj(
+                          "userId"   -> userId,
+                          "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                        )
                       )
-                    )
                   )
                 }
               }
@@ -193,7 +196,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = t.lastMsg.text take 140,
+                body = shorten(t.lastMsg.text, 57 - 3, "..."),
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
@@ -255,6 +258,30 @@ final private class PushApi(
           )
         )
       }
+    }
+
+  def tourSoon(tour: TourSoon): Funit =
+    lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
+      pushToAll(
+        userId,
+        _.tourSoon,
+        PushApi
+          .Data(
+            title = tour.tourName,
+            body = "The tournament is about to start!",
+            stacking = Stacking.ChallengeAccept,
+            payload = Json
+              .obj(
+                "userId" -> userId,
+                "userData" -> Json.obj(
+                  "type"     -> "tourSoon",
+                  "tourId"   -> tour.tourId,
+                  "tourName" -> tour.tourName,
+                  "path"     -> s"/${if (tour.swiss) "swiss" else "tournament"}/${tour.tourId}"
+                )
+              )
+          )
+      )
     }
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)

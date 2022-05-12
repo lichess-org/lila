@@ -8,9 +8,10 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "target": "ES2017",
+    "target": "ES2018",
     "module": "esnext",
-    "lib": ["ES2017"],
+    "lib": ["ES2018"],
+    "esModuleInterop": true,
     "types": ["lichess", "web"]
   }
 }

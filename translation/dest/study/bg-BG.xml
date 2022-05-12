@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Вие сте зрител</string>
   <string name="pgnTags">PGN тагове</string>
   <string name="like">Харесай</string>
+  <string name="unlike">Не харесвам</string>
   <string name="newTag">Нов таг</string>
   <string name="commentThisPosition">Коментирай позицията</string>
   <string name="commentThisMove">Коментирай хода</string>
@@ -80,6 +81,7 @@
   <string name="pinnedChapterComment">Коментар на главата</string>
   <string name="saveChapter">Запази глава</string>
   <string name="clearAnnotations">Изтрий анотациите</string>
+  <string name="clearVariations">Изчисти вариациите</string>
   <string name="deleteChapter">Изтрий глава</string>
   <string name="deleteThisChapter">Изтриване на главата? Това е необратимо!</string>
   <string name="clearAllCommentsInThisChapter">Изтрий всички коментари, специални символи и нарисувани форми в главата?</string>
@@ -155,4 +157,12 @@
   <string name="nextChapter">Следваща глава</string>
   <string name="prevChapter">Предишна глава</string>
   <string name="studyActions">Опции за учене</string>
+  <string name="topics">Теми</string>
+  <string name="myTopics">Моите теми</string>
+  <string name="popularTopics">Популярни теми</string>
+  <string name="manageTopics">Управление на теми</string>
+  <string name="back">Обратно</string>
+  <string name="playAgain">Играйте отново</string>
+  <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>
+  <string name="youCompletedThisLesson">Поздравления! Вие завършихте този урок.</string>
 </resources>

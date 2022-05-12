@@ -30,5 +30,16 @@
   <string name="onlyAnalysed">רק משחקים בהם ניתוח המחשב זמין</string>
   <string name="color">צבע</string>
   <string name="evaluation">הערכה</string>
+  <string name="maxNumber">מספר מירבי</string>
+  <string name="maxNumberExplanation">מספר מקסימלי שלי משחקים במקביל</string>
   <string name="include">כלול</string>
+  <string name="descending">סדר יורד</string>
+  <string name="ascending">סדר עולה</string>
+  <plurals name="gamesFound">
+    <item quantity="one">נמצא משחק %s</item>
+    <item quantity="two">נמצאו %s משחקים</item>
+    <item quantity="many">נמצאו %s משחקים</item>
+    <item quantity="other">נמצאו %s משחקים</item>
+  </plurals>
+  <string name="ratingExplanation">הדירוג הממוצע של שני השחקנים</string>
 </resources>

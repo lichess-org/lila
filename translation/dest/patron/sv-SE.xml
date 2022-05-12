@@ -15,7 +15,6 @@
   <string name="thankYou">Tack för din gåva!</string>
   <string name="youHaveLifetime">Du har ett livstids Patron-konto. Det är ganska häftigt!</string>
   <string name="patronUntil">Du har ett Patron-konto till %s.</string>
-  <string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
   <string name="weAreNonProfit">Vi är en ideell förening eftersom vi anser att alla bör ha tillgång till en gratis schackplattform i världsklass.</string>
   <string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lichess, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
   <string name="lifetime">Livstid</string>
@@ -28,7 +27,6 @@
   <string name="otherAmount">Annat</string>
   <string name="pleaseEnterAmountInX">Vänligen ange ett belopp i %s</string>
   <string name="withCreditCard">Kreditkort</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi är ett litet team, så ditt stöd gör en enorm skillnad!</string>
   <string name="celebratedPatrons">De berömda Patronerna som gör Lichess möjligt</string>
   <string name="whereMoneyGoes">Vart går pengarna?</string>
@@ -43,7 +41,6 @@ Eller så kan du %s.</string>
   <string name="contactSupport">kontakta Lichess support</string>
   <string name="otherMethods">Andra metoder för donation?</string>
   <string name="bankTransfers">Vi godtar även banköverföringar</string>
-  <string name="bitcoin">Och här är vår bitcoin-adress: %s</string>
   <string name="patronFeatures">Är vissa funktioner reserverade för Beskyddare (Patroner)?</string>
   <string name="noPatronFeatures">Nej, eftersom Lichess är helt gratis, för alltid och för alla. Det är ett löfte.
 Men beskyddare får skryta med rätten till en cool ny profilikon.</string>

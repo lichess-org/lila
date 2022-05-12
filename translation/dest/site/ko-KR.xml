@@ -17,6 +17,8 @@
   <string name="stalemate">스테일메이트</string>
   <string name="white">백색</string>
   <string name="black">흑색</string>
+  <string name="asWhite">백일때</string>
+  <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
   <string name="whiteIsVictorious">백색 승리</string>
@@ -99,18 +101,18 @@
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
   <string name="byCPL">평가치변화</string>
-  <string name="openStudy">연구를 열기</string>
+  <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
-  <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
-  <string name="evaluationGauge">평가치를 표시</string>
-  <string name="multipleLines">해석 라인 수</string>
-  <string name="cpus">CPU 갯수</string>
+  <string name="bestMoveArrow">최선의 수 화살표</string>
+  <string name="evaluationGauge">평가치 게이지</string>
+  <string name="multipleLines">다중 분석 수</string>
+  <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
-  <string name="infiniteAnalysis">무한분석</string>
-  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
+  <string name="infiniteAnalysis">무한 분석</string>
+  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">심각한 실수</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">잘못된 판단</string>
+  <string name="inaccuracy">사소한 실수</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
@@ -166,6 +168,9 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="other">%s시간</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s분</item>
   </plurals>
   <string name="time">시간</string>
   <string name="rating">레이팅</string>
@@ -315,6 +320,7 @@
   <string name="leaderboard">리더보드</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
+  <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
@@ -338,6 +344,8 @@
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
   <string name="unfollow">팔로우 취소</string>
+  <string name="followX">%s 팔로우하기</string>
+  <string name="unfollowX">%s 팔로우 취소하기</string>
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>
@@ -407,7 +415,6 @@
   <string name="profileCompletion">프로필 완성도: %s</string>
   <string name="xRating">레이팅: %s</string>
   <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
-  <string name="gameCompletionRate">끝까지 플레이한 게임: %s</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
   <string name="firstName">이름</string>
@@ -416,6 +423,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가 또는 국기</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
+  <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
@@ -458,6 +466,7 @@
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
+  <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
@@ -517,7 +526,16 @@
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
   <string name="error.required">필수 기입 사항입니다.</string>
+  <string name="error.email">이메일 주소가 유효하지 않습니다</string>
+  <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
+  <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
+  <string name="error.email_different">이미 당신의 이메일 주소입니다.</string>
+  <string name="error.minLength">최소 %s자여야 합니다.</string>
+  <string name="error.maxLength">최대 %s자여야 합니다</string>
+  <string name="error.min">최소 %s자 이어야 합니다.</string>
+  <string name="error.max">최대 %s자 이어야 합니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
@@ -733,7 +751,7 @@
   <string name="currentMatchScore">현재 경기 점수</string>
   <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
-  <string name="agreementAccount">나는 다중 계정을 만들지 않겠습니다.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">나는 다중 계정을 생성하지 않을 것에 동의합니다. (%s에 명시된 경우 제외)</string>
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
@@ -805,6 +823,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
   <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
+  <string name="embedsAvailable">포함할 게임 URL 또는 스터디 챕터 URL을 붙여넣으세요.</string>
   <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
   <string name="tournChat">토너먼트 채팅</string>
   <string name="noChat">채팅 없음</string>
@@ -830,4 +849,9 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="abortTheGame">게임 중단</string>
   <string name="resignTheGame">게임 기권</string>
   <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>
+  <string name="since">부터</string>
+  <string name="until">까지</string>
+  <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
+  <string name="switchSides">색 바꾸기</string>
+  <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
 </resources>

@@ -19,4 +19,6 @@
   <string name="otherExperiences">Други опити</string>
   <string name="bestSkills">Най-добри способности</string>
   <string name="youtubeVideos">YouTube видеа</string>
+  <string name="reviewCoach">Оставете мнение за треньора</string>
+  <string name="describeExperienceWith">Опишете Вашия опит с преподаването на %s</string>
 </resources>

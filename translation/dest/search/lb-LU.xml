@@ -29,4 +29,10 @@
   <string name="maxNumber">Maximal Unzuel</string>
   <string name="maxNumberExplanation">Maximal Unzuehl un Partien déi zeréckginn wäerten</string>
   <string name="include">Abegraff</string>
+  <string name="descending">Ofsteigend</string>
+  <string name="ascending">Opsteigend</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s Partie fonnt</item>
+    <item quantity="other">%s Partien fonnt</item>
+  </plurals>
 </resources>

@@ -7,7 +7,7 @@ import lila.common.config.Max
 import lila.db.dsl._
 import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implicit
+final private class ChallengeRepo(colls: ChallengeColls)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -15,6 +15,8 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
   import Challenge._
 
   private val coll = colls.challenge
+
+  private val maxOutgoing = lila.game.Game.maxPlayingRealtime
 
   def byId(id: Challenge.ID) = coll.find($id(id)).one[Challenge]
 
@@ -28,8 +30,8 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId()(challenger.id).flatMap {
-        case challenges if challenges.sizeIs <= maxPerUser.value => funit
-        case challenges                                          => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
+        case challenges if challenges.sizeIs <= maxOutgoing => funit
+        case challenges => challenges.drop(maxOutgoing).map(_.id).map(remove).sequenceFu.void
       }
     }
 
@@ -67,7 +69,7 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
       x ::: y
     }
 
-  @nowarn("cat=unused") def like(c: Challenge) =
+  private def sameOrigAndDest(c: Challenge) =
     ~(for {
       challengerId <- c.challengerUserId
       destUserId   <- c.destUserId
@@ -78,6 +80,13 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
         "destUser.id"   -> destUserId
       )
     ))
+
+  private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+    case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
+    case Some(prev) if prev.id == c.id                        => funit
+    case Some(prev)                                           => cancel(prev) >> insert(c)
+    case None                                                 => insert(c)
+  }
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))

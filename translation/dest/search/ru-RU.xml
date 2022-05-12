@@ -33,4 +33,13 @@
   <string name="maxNumber">Максимальное число</string>
   <string name="maxNumberExplanation">Максимальное число партий для возврата</string>
   <string name="include">Включая</string>
+  <string name="descending">По убыванию</string>
+  <string name="ascending">По возрастанию</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Найдена %s партия</item>
+    <item quantity="few">Найдены %s партии</item>
+    <item quantity="many">Найдено %s партий</item>
+    <item quantity="other">Найдено %s партий</item>
+  </plurals>
+  <string name="ratingExplanation">Средний рейтинг обоих игроков</string>
 </resources>

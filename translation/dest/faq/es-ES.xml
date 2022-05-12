@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">¿Cómo puedo convertirme en moderador?</string>
   <string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
   <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para más información, lee nuestra %s</string>
+  <string name="fairPlayPage">página de juego limpio</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecánica de juego</string>
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
@@ -101,9 +103,9 @@ No solicites el título de LM.</string>
   <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Es un método de puntuación muy popular y que utilizan muchas organizaciones de ajedrez (la FIDE es un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
 
-En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el la página, tu puntuación es de 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza, que es una medida de la incertidumbre que el sistema tiene sobre tu puntuación real.
+En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el la página, tu puntuación es de 1500 ± 1000. El 1500 representa tu puntuación, y el 1000 representa el intervalo de confianza, que es una medida de la incertidumbre que el sistema tiene sobre tu puntuación real.
 
-Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es un intervalo muy amplio y poco preciso (hay mucha incertidumbre). Por eso, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy brusca, incluso puede que varios cientos de puntos cada vez. Pero después de algunas partidas contra jugadores más veteranos, el intervalo de confianza se irá reduciendo (el sistema tendrá cada vez más clara cuál es su puntuación exacta), y la cantidad de puntos ganados o perdidos después de cada partida disminuirá.
+Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 500 y 2500. Es un intervalo muy amplio y poco preciso (hay mucha incertidumbre). Por eso, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy brusca, incluso puede que varios cientos de puntos cada vez. Pero después de algunas partidas contra jugadores más veteranos, el intervalo de confianza se irá reduciendo (el sistema tendrá cada vez más clara cuál es su puntuación exacta), y la cantidad de puntos ganados o perdidos después de cada partida disminuirá.
 
 Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo de confianza volverá aumentar. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu fuerza de juego durante ese tiempo que has pasado sin jugar.</string>
   <string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>

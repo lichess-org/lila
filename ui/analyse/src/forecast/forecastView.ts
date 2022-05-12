@@ -3,7 +3,7 @@ import { bind, dataIcon } from 'common/snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import spinner from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {

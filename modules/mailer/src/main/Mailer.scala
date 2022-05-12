@@ -9,7 +9,7 @@ import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all.{ html => htmlTag, _ }
 import scalatags.Text.tags2.{ title => titleTag }
 
-import lila.common.String.html.{ nl2br }
+import lila.common.String.html.nl2br
 import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.i18n.I18nKeys.{ emails => trans }
 
@@ -113,14 +113,14 @@ $serviceNote"""
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
-    val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
       span(itemprop := "name")("lichess.org/contact")
     )
 
     private val noteLink = a(
       itemprop := "url",
-      href := "https://lichess.org/"
+      href     := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
     def serviceNote(implicit lang: Lang) =
@@ -144,11 +144,11 @@ $serviceNote"""
         serviceNote
       )
 
-    def url(u: String)(implicit lang: Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(implicit lang: Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        p(trans.common_orPaste(lang))
+        clickOrPaste option p(trans.common_orPaste(lang))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =
@@ -157,7 +157,7 @@ $serviceNote"""
         htmlTag(
           head(
             meta(httpEquiv := "Content-Type", content := "text/html; charset=utf-8"),
-            meta(name := "viewport", content := "width=device-width"),
+            meta(name      := "viewport", content     := "width=device-width"),
             titleTag(subject)
           ),
           body(htmlBody)

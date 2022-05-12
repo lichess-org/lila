@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -83,6 +83,8 @@ export default class RoundController {
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -101,7 +103,7 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
-    if (lichess.RoundNVUI) this.nvui = lichess.RoundNVUI(redraw) as NvuiPlugin;
+    if (window.LichessRoundNvui) this.nvui = window.LichessRoundNvui(redraw) as NvuiPlugin;
 
     if (d.clock)
       this.clock = new ClockController(d, {
@@ -160,7 +162,7 @@ export default class RoundController {
       }
     });
 
-    if (this.isPlaying()) ab.init(this);
+    if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
 
   private showExpiration = () => {
@@ -254,6 +256,8 @@ export default class RoundController {
     if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
     else this.redraw();
   };
+
+  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
@@ -419,7 +423,7 @@ export default class RoundController {
             role: o.role,
             color: playedColor,
           },
-          o.uci.substr(2, 2) as cg.Key
+          o.uci.slice(2, 4) as cg.Key
         );
       else {
         // This block needs to be idempotent, even for castling moves in
@@ -479,7 +483,7 @@ export default class RoundController {
     if (!this.replaying() && playedColor != d.player.color) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
-      // https://github.com/ornicar/lila/issues/343
+      // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
         if (!this.chessground.playPremove() && !this.playPredrop()) {
@@ -495,6 +499,8 @@ export default class RoundController {
     speech.step(step);
     return true; // prevents default socket pubsub
   };
+
+  crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -567,31 +573,30 @@ export default class RoundController {
     speech.status(this);
   };
 
-  challengeRematch = (): void => {
-    xhr.challengeRematch(this.data.game.id).then(() => {
-      lichess.pubsub.emit('challenge-app.open');
-      if (lichess.once('rematch-challenge'))
-        setTimeout(() => {
-          lichess.hopscotch(function () {
-            window.hopscotch
-              .configure({
-                i18n: { doneBtn: 'OK, got it' },
-              })
-              .startTour({
-                id: 'rematch-challenge',
-                showPrevButton: true,
-                steps: [
-                  {
-                    title: 'Challenged to a rematch',
-                    content: 'Your opponent is offline, but they can accept this challenge later!',
-                    target: '#challenge-app',
-                    placement: 'bottom',
-                  },
-                ],
-              });
-          });
-        }, 1000);
-    });
+  challengeRematch = async () => {
+    await xhr.challengeRematch(this.data.game.id);
+    lichess.pubsub.emit('challenge-app.open');
+    if (lichess.once('rematch-challenge'))
+      setTimeout(() => {
+        lichess.hopscotch(function () {
+          window.hopscotch
+            .configure({
+              i18n: { doneBtn: 'OK, got it' },
+            })
+            .startTour({
+              id: 'rematch-challenge',
+              showPrevButton: true,
+              steps: [
+                {
+                  title: 'Challenged to a rematch',
+                  content: 'Your opponent is offline, but they can accept this challenge later!',
+                  target: '#challenge-app',
+                  placement: 'bottom',
+                },
+              ],
+            });
+        });
+      }, 1000);
   };
 
   private makeCorrespondenceClock = (): void => {
@@ -713,14 +718,14 @@ export default class RoundController {
 
   canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
 
-  offerDraw = (v: boolean): void => {
+  offerDraw = (v: boolean, immediately?: boolean): void => {
     if (this.canOfferDraw()) {
       if (this.drawConfirm) {
         if (v) this.doOfferDraw();
         clearTimeout(this.drawConfirm);
         this.drawConfirm = undefined;
       } else if (v) {
-        if (this.data.pref.confirmResign)
+        if (this.data.pref.confirmResign && !immediately)
           this.drawConfirm = setTimeout(() => {
             this.offerDraw(false);
           }, 3000);
@@ -738,7 +743,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
   };
@@ -791,6 +796,15 @@ export default class RoundController {
       speech.setup(this);
 
       wakeLock.request();
+
+      setTimeout(() => {
+        if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
+          alert('Play enhancement extensions are no longer allowed!');
+          lichess.socket.destroy();
+          this.setRedirecting();
+          location.href = '/page/play-extensions';
+        }
+      }, 1000);
 
       this.onChange();
     }, 800);

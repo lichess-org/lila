@@ -203,8 +203,8 @@ to speed things up!</string>
   <string name="nailedIt">बिल्कुल सही किया</string>
   <string name="rightOn">सही पर</string>
   <string name="stageXComplete">स्टेज %s पूर्ण</string>
-  <string name="yourScore">आपका स्कोर</string>
   <string name="next">अगला</string>
+  <string name="nextX">अगला: %s</string>
   <string name="backToMenu">वापस मेन्यू पर</string>
   <string name="puzzleFailed">पहेली विफल हुई</string>
   <string name="retry">पुन: प्रयास करें</string>

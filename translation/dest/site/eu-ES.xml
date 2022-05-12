@@ -17,6 +17,8 @@
   <string name="stalemate">Itoa</string>
   <string name="white">Zuria</string>
   <string name="black">Beltza</string>
+  <string name="asWhite">zuriekin</string>
+  <string name="asBlack">beltzekin</string>
   <string name="randomColor">Ausazko kolorea</string>
   <string name="createAGame">Partida bat sortu</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
@@ -181,6 +183,10 @@
     <item quantity="one">%s ordu</item>
     <item quantity="other">%s ordu</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">Minutu %s</item>
+    <item quantity="other">%s minutu</item>
+  </plurals>
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
   <string name="ratingStats">Estatistikak</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
+  <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
   <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
@@ -443,7 +450,6 @@
   <string name="profileCompletion">Profilaren osaera: %s</string>
   <string name="xRating">%s sailkapena</string>
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
-  <string name="gameCompletionRate">Osorik jokatutako partida ratioa: %s</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
   <string name="firstName">Izena</string>
@@ -452,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Herrialdea edo bandera</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
+  <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
   <string name="onlinePlayers">Konektatutako jokalariak</string>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak. Zure mezua azkarrago begiratuko dugu ingelesez idazten baduzu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
+  <string name="importedByX">%s erabiltzaileak inportatuta</string>
   <string name="thisTopicIsNowClosed">Gai hau itxita dago.</string>
   <string name="blog">Bloga</string>
   <string name="notes">Oharrak</string>
@@ -565,6 +573,7 @@
   <string name="error.min">%s edo handiagoa izan behar da</string>
   <string name="error.max">%s edo txikiagoa izan behar da</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
+  <string name="ifRegistered">Izena emanda badago</string>
   <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Uneko partidetako emaitza</string>
   <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
   <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
-  <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Hitz ematen dut ez dudala kontu bat baino gehiago irekiko (%s adierazitako kasuetan izan ezik).</string>
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
@@ -883,4 +892,9 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="abortTheGame">Partida bertan behera utzi</string>
   <string name="resignTheGame">Partida utzi</string>
   <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
+  <string name="since">Noiztik</string>
+  <string name="until">Noiz arte</string>
+  <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
+  <string name="switchSides">Aldatu kolorea</string>
+  <string name="closingAccountWithdrawAppeal">Kontua ixten baduzu, zure kexa bertan behera geldituko da</string>
 </resources>

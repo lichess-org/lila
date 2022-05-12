@@ -9,6 +9,8 @@
   <string name="postBody">Treść wpisu</string>
   <string name="drafts">Wersje robocze</string>
   <string name="published">Opublikowane</string>
+  <string name="createBlogDiscussion">Włącz komentarze</string>
+  <string name="createBlogDiscussionHelp">Na forum zostanie utworzony temat, pod którym inni będą mogli komentować Twój wpis</string>
   <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
   <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
   <plurals name="publishedNbBlogPosts">
@@ -37,6 +39,6 @@
     <item quantity="other">Zobacz %s wpisów</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Prześlij obraz do swojego wpisu</string>
-  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Tekst alternatywny obrazu</string>
-  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Prawa autorskie</string>
+  <string name="imageAlt">Tekst alternatywny obrazu</string>
+  <string name="imageCredit">Prawa autorskie</string>
 </resources>

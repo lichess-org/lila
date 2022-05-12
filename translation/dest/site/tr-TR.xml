@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Beyaz</string>
   <string name="black">Siyah</string>
+  <string name="asWhite">beyazlarda</string>
+  <string name="asBlack">siyahlarda</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -67,7 +69,7 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
+  <string name="variantLoss">Varyant yenilgisi</string>
   <string name="variantWin">Kazanç devam yolu</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
@@ -87,6 +89,7 @@
     <item quantity="one">%s yarım hamle sonra mat</item>
     <item quantity="other">%s yarım hamle sonra mat</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
   <string name="openingExplorer">Açılış kâşifi</string>
@@ -94,6 +97,9 @@
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
+  <string name="winOr50MovesByPriorMistake">Kazanın ya da 50 hamle yapın</string>
+  <string name="lossOr50MovesByPriorMistake">Kaybedin ya da 50 hamle yapın</string>
+  <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son yakalama veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
@@ -176,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s saat</item>
     <item quantity="other">%s saat</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s dakika</item>
+    <item quantity="other">%s dakika</item>
   </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Puan</string>
@@ -340,6 +350,7 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
+  <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
@@ -439,7 +450,6 @@
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
-  <string name="gameCompletionRate">Oyun tamamlanma oranı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilini düzenle</string>
   <string name="firstName">Ad</string>
@@ -448,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya Bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
+  <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
@@ -491,6 +502,7 @@
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
   <string name="by">%s oluşturdu</string>
+  <string name="importedByX">%s tarafından yüklendi</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
@@ -561,6 +573,7 @@
   <string name="error.min">%s değerinden büyük veya eşit olmalıdır</string>
   <string name="error.max">%s değerinden küçük veya eşit olmalıdır</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
+  <string name="ifRegistered">Hesabı olanlar</string>
   <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="menu">Menü</string>
@@ -719,7 +732,7 @@
   <string name="bestWasX">En iyisi %s idi</string>
   <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
   <string name="resumePractice">Pratik yapmaya devam edin.</string>
-  <string name="theGameIsADraw">Bu maç berabere</string>
+  <string name="theGameIsADraw">Bu maç berabere.</string>
   <string name="computerThinking">Bilgisayar düşünüyor...</string>
   <string name="seeBestMove">En iyi hamleyi gör</string>
   <string name="hideBestMove">En iyi hamleyi gizle</string>
@@ -782,7 +795,7 @@
   <string name="currentMatchScore">Mevcut maç skoru</string>
   <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
   <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
-  <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Birden fazla hesap oluşturmayacağımı onaylıyorum (%s\'da sıralanmış durumlar hariç).</string>
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
@@ -878,4 +891,9 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="abortTheGame">Maçı iptal et</string>
   <string name="resignTheGame">Maçı terk et</string>
   <string name="youCantStartNewGame">Mevcut oyun bitene kadar yeni bir oyuna başlayamazsın.</string>
+  <string name="since">Seçili tarihten beri</string>
+  <string name="until">Seçili tarihe kadar</string>
+  <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
+  <string name="switchSides">Renk değiştir</string>
+  <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
 </resources>

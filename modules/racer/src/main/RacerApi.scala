@@ -100,7 +100,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
     }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
-    if (score >= 130) logger.warn(s"$id $player score: $score")
+    if (score > 160) logger.warn(s"$id $player score: $score")
     else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
   }
 
@@ -116,6 +116,6 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
   }
 
   // work around circular dependency
-  private var socket: Option[RacerSocket] = None
+  private var socket: Option[RacerSocket]           = None
   private[racer] def registerSocket(s: RacerSocket) = { socket = s.some }
 }

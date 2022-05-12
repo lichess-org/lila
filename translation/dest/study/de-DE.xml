@@ -81,9 +81,10 @@
   <string name="pinnedChapterComment">Angepinnte Kapitelkommentare</string>
   <string name="saveChapter">Kapitel speichern</string>
   <string name="clearAnnotations">Anmerkungen löschen</string>
+  <string name="clearVariations">Varianten löschen</string>
   <string name="deleteChapter">Kapitel löschen</string>
-  <string name="deleteThisChapter">Kapitel löschen? Dies kann nicht rückgängig gemacht werden!</string>
-  <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und Zeichnungsformen in diesem Kapitel löschen?</string>
+  <string name="deleteThisChapter">Kapitel löschen. Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und gezeichnete Formen in diesem Kapitel löschen</string>
   <string name="rightUnderTheBoard">Direkt unterhalb des Bretts</string>
   <string name="noPinnedComment">Keine</string>
   <string name="normalAnalysis">Normale Analyse</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Nächstes Kapitel</string>
   <string name="prevChapter">Vorheriges Kapitel</string>
   <string name="studyActions">Studien-Aktionen</string>
+  <string name="topics">Themen</string>
+  <string name="myTopics">Meine Themen</string>
+  <string name="popularTopics">Beliebte Themen</string>
+  <string name="manageTopics">Themen verwalten</string>
+  <string name="back">Zurück</string>
+  <string name="playAgain">Erneut spielen</string>
+  <string name="whatWouldYouPlay">Was würdest du in dieser Stellung spielen?</string>
+  <string name="youCompletedThisLesson">Gratulation! Du hast diese Lektion abgeschlossen.</string>
 </resources>

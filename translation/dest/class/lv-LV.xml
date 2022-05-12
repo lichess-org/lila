@@ -12,7 +12,7 @@
   <string name="teachersX">Skolotāji: %s</string>
   <string name="newClass">Jauna klase</string>
   <string name="closeClass">Slēgt klasi</string>
-  <string name="closedByX">Aizvēra %s</string>
+  <string name="removedByX">Noņēma lietotājs %s</string>
   <string name="reopen">Atkal atvērt</string>
   <string name="removeStudent">Noņemt skolēnu</string>
   <string name="removedStudents">Noņemts</string>
@@ -92,11 +92,28 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="variantXOverLastY">%1$s pagājušajās %2$s</string>
   <string name="winrate">Uzvaru proporcija</string>
   <string name="na">N/A</string>
-  <string name="news">Grupas jaunumi</string>
+  <string name="overview">Pārskats</string>
+  <string name="news">Jaunumi</string>
+  <string name="classNews">Klases jaunumi</string>
   <string name="editNews">Rediģēt jaunumus</string>
   <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
   <string name="nothingHere">Pagaidām šeit nekā nav.</string>
   <string name="newsEdit1">Visas grupas ziņas vienā laukā.</string>
   <string name="newsEdit2">Pievienojiet jaunākās ziņas augšpusē. Nedzēsiet iepriekšējās ziņas.</string>
   <string name="newsEdit3">Atdaliet ziņas ar \"---\", tas izveidos horizontālu līniju.</string>
+  <string name="invite">Uzaicināt</string>
+  <string name="youHaveBeenInvitedByX">Jūs uzaicināja %s.</string>
+  <string name="youAcceptedThisInvitation">Jūs pieņēmāt uzaicinājumu.</string>
+  <string name="youDeclinedThisInvitation">Jūs noraidījāt uzaicinājumu.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">vai</string>
+  <string name="createMultipleAccounts">Izveidot vairākus Lichess kontus vienlaicīgi</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Varat arī %s, lai izveidotu vairākus Lichess kontus no skolēnu vārdu saraksta.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">aizpildīt šo veidlapu</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ievērojiet, ka klasē var būt līdz pat %1$s skolēni. Lai apmācītu vairāk skolēnu, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">izveidojiet vairāk klašu</string>
+  <string name="studentsRealNamesOnePerLine">Skolēnu vārdi, katrs savā rindiņā</string>
+  <string name="xisNowAStudentOfTheClass">%s tagad ir šīs klases skolēns</string>
+  <string name="anInvitationHasBeenSentToX">Ielūgums nosūtīts skolēnam %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s jau ir ielūgts</string>
+  <string name="xIsAKidAccountWarning">%1$s ir bērna konts, kuram nevar nosūtīt jūsu ziņu. Jums jānodod ielūguma URL citā veidā: %2$s</string>
 </resources>

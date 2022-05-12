@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Graj ze znajomym</string>
+  <string name="playWithAFriend">Partia ze znajomym</string>
   <string name="playWithTheMachine">Graj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
+  <string name="asWhite">białymi</string>
+  <string name="asBlack">czarnymi</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
@@ -200,6 +202,12 @@
     <item quantity="few">%s godziny</item>
     <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="few">%s minuty</item>
+    <item quantity="many">%s minut</item>
+    <item quantity="other">%s minut</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Ranking</string>
@@ -394,6 +402,7 @@
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
+  <string name="orUploadPgnFile">lub wgraj plik PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
@@ -503,7 +512,6 @@
   <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
-  <string name="gameCompletionRate">Ukończonych partii: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
@@ -512,6 +520,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub flaga</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
+  <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
   <string name="onlinePlayers">Gracze online</string>
@@ -557,6 +566,7 @@
   <string name="reportDescriptionHelp">Wklej odnośnik do gry (gier) i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
   <string name="by">autor %s</string>
+  <string name="importedByX">Zaimportowane przez %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notatki</string>
@@ -631,6 +641,7 @@
   <string name="error.min">Musi być dłuższe lub równe %s</string>
   <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
+  <string name="ifRegistered">Jeśli jesteś zarejestrowany</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
@@ -864,7 +875,7 @@
   <string name="currentMatchScore">Wynik bieżącego meczu</string>
   <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów szachowych, książek, baz danych, czy innych osób).</string>
   <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
-  <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Zgadzam się, że nie będę tworzyć wielu kont (z wyjątkiem powodów podanych w %s).</string>
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
@@ -961,4 +972,9 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Przerwij partię</string>
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
+  <string name="switchSides">Zmień kolor</string>
+  <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
 </resources>

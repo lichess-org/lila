@@ -4,8 +4,8 @@ import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
-import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
+import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
 
@@ -13,7 +13,6 @@ export default class EditorCtrl {
   cfg: Editor.Config;
   options: Editor.Options;
   trans: Trans;
-  extraPositions: Editor.OpeningPosition[];
   chessground: CgApi | undefined;
   redraw: Redraw;
 
@@ -37,18 +36,6 @@ export default class EditorCtrl {
     this.trans = lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
-
-    this.extraPositions = [
-      {
-        fen: INITIAL_FEN,
-        epd: INITIAL_EPD,
-        name: this.trans('startPosition'),
-      },
-      {
-        fen: 'prompt',
-        name: this.trans('loadPosition'),
-      },
-    ];
 
     if (cfg.positions) {
       cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
@@ -76,11 +63,7 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      const params = new URLSearchParams();
-      if (fen !== INITIAL_FEN || this.rules !== 'chess') params.set('fen', fen);
-      if (this.rules !== 'chess') params.set('variant', lichessVariant(this.rules));
-      const paramsString = params.toString();
-      window.history.replaceState(null, '', '/editor' + (paramsString ? '?' + paramsString : ''));
+      window.history.replaceState(null, '', this.makeEditorUrl(fen));
     }
     this.options.onChange?.(fen);
     this.redraw();
@@ -113,14 +96,12 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
+    return makeFen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
-      pos => {
-        return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
-      },
+      pos => makeFen(pos.toSetup()),
       _ => undefined
     );
   }
@@ -142,11 +123,13 @@ export default class EditorCtrl {
 
   makeAnalysisUrl(legalFen: string): string {
     const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return this.makeUrl(`/analysis/${variant}`, legalFen);
+    return `/analysis/${variant}${urlFen(legalFen)}`;
   }
 
-  makeUrl(baseUrl: string, fen: string): string {
-    return baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  makeEditorUrl(fen: string): string {
+    if (fen === INITIAL_FEN && this.rules === 'chess') return this.cfg.baseUrl;
+    const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
+    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}`;
   }
 
   bottomColor(): Color {
@@ -164,13 +147,9 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition(): void {
-    this.setFen(INITIAL_FEN);
-  }
+  startPosition = () => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
-  clearBoard(): void {
-    this.setFen(EMPTY_FEN);
-  }
+  clearBoard = () => this.setFen(EMPTY_FEN);
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') {
@@ -219,4 +198,8 @@ export default class EditorCtrl {
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   }
+}
+
+function urlFen(fen: string): string {
+  return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }

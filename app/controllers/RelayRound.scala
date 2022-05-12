@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 
 // import lila.common.config.MaxPerSecond
-import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
+import lila.relay.{ RelayRound => RoundModel, RelayRoundForm, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
 import views._
 import lila.common.HTTPRequest
@@ -153,8 +153,8 @@ final class RelayRound(
         }
       },
       scoped = _ =>
-        me =>
-          env.relay.api.byIdAndContributor(id, me) flatMap {
+        _ =>
+          env.relay.api.byIdWithTour(id) flatMap {
             _ ?? { rt =>
               env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
                 JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))

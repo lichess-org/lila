@@ -2,7 +2,7 @@
 <resources>
   <string name="advancedPawn">Әккі сарбаз</string>
   <string name="advancedPawnDescription">Айналуға ұмтылған не айналу қаупін төндіретін сарбаз – тактиканың өзегі.</string>
-  <string name="advantage">Артықшылық</string>
+  <string name="advantage">Басымдылық</string>
   <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
   <string name="anastasiaMate">Анастасия маты</string>
   <string name="anastasiaMateDescription">Ат пен тура не уәзірдің бірлесіп, қарсылас патшасын тақта шеті мен өз тасының арасында ұстап алуы.</string>
@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Жүрісі шектелген тастардың әр жүрісі жалпы жағдайдың нашарлауына әкеп соқтыратын кез.</string>
   <string name="healthyMix">Пайдалы микс</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
+  <string name="playerGames">Ойыншылардан</string>
+  <string name="playerGamesDescription">Сіздің не басқаның ойындарынан құрылған жұмбақтарды табу.</string>
+  <string name="puzzleDownloadInformation">Осы жұмбақтар көпшілікке ашық доменде сақтаулы, оларды осы жерден жүктеп алуға болады: %s</string>
 </resources>

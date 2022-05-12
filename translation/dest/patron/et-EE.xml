@@ -11,7 +11,6 @@
   <string name="thankYou">Aitäh annetuse eest!</string>
   <string name="youHaveLifetime">Sinul on eluaegne toetuskonto. See on väga lahe!</string>
   <string name="patronUntil">Sul on toetuskonto kuni %s.</string>
-  <string name="ifNotRenewed">Kui ei uuendata, siis konto muutub tagasi tasuta kontoks.</string>
   <string name="weAreNonProfit">Me oleme mittetulundusühing, sest me usume, et igal ühel on õigus tasuta ja kvaliteetsele male platvormile.</string>
   <string name="weRelyOnSupport">Me vajame abi inimestelt nagu sina, et teha seda võimalikuks. Kui sa naudid Lichessi siis palun kaalu meie toetamist annetades ja saades toetajaks!</string>
   <string name="lifetime">Eluaegne</string>
@@ -22,7 +21,6 @@
   <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
   <string name="otherAmount">Muu</string>
   <string name="withCreditCard">Krediitkaart</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
   <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
   <string name="whereMoneyGoes">Kuhu raha läheb?</string>
@@ -37,7 +35,6 @@ Võimalik on ka %s.</string>
   <string name="contactSupport">võta ühendust Lichessi abiga</string>
   <string name="otherMethods">Teised annetusviisid?</string>
   <string name="bankTransfers">Me võtame vastu ka pangaülekandeid</string>
-  <string name="bitcoin">Ja siin on meie bitcoini aadress: %s</string>
   <string name="patronFeatures">Kas osa funktsioonidest on mõeldud ainult toetajatele?</string>
   <string name="noPatronFeatures">Ei, sest Lichess on täiesti tasuta, igavesti ja kõigile. See on lubadus. Ikkagi, toetajad saavad käia uhkelt ringi uue laheda profiilipildiga.</string>
   <string name="featuresComparison">Vaata üksikasjaline funktsioonide võrdlus</string>

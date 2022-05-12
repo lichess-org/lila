@@ -12,7 +12,6 @@
   <string name="teachersX">Ұстаздар: %s</string>
   <string name="newClass">Жаңа үйірме</string>
   <string name="closeClass">Үйірмені жабу</string>
-  <string name="closedByX">Жапқан – %s</string>
   <string name="reopen">Қайта ашу</string>
   <string name="removeStudent">Шәкіртті шығару</string>
   <string name="removedStudents">Шығарылды</string>
@@ -46,6 +45,7 @@
   <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол тіркелгіге осылай кіретін болды.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір тіркелгісі болуы керек.</string>
   <string name="createDesc4">Егер тіркелгісі бар болса, оның орнына шақыру формасын қолданыңыз.</string>
+  <string name="createStudentWarning">Тіркелгілерді тек шын шәкірттерге ғана жасаңыз. Өзіңізге бірнеше тіркелгі жасауға болмайды. Әйтпесе, шектеуге ұшырайсыз.</string>
   <string name="lichessUsername">Личес тіркелгі аты</string>
   <string name="generateANewUsername">Жаңа тіркелгі атын құру</string>
   <string name="welcomeToClass">%s үйірмесіне қош келдіңіз.
@@ -66,6 +66,10 @@
   <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін болмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
   <string name="releaseDesc2">Тіркелгі босатылған соң шәкірт үйірмеде қала береді.</string>
   <string name="realUniqueEmail">Шәкірттің шын электронды поштасы. Сонда тіркелгі босатуын растайтын хат жіберетін боламыз.</string>
+  <string name="closeStudent">Тіркелгіні жабу</string>
+  <string name="closeTheAccount">Шәкірттің тіркелгісін толығымен жабу.</string>
+  <string name="closeDesc1">Шәкірт тіркелгіні енді ешқашан пайдалана алмайды. Толығымен жабылады. Шәкірт бұны түсінетінін әрі келісетінін растаңыз.</string>
+  <string name="closeDesc2">Оның орнына, шәкіртке тіркелгі басқаруын бере аласыз. Осылайша ол әрі қарай пайдалануға қолын жеткізеді.</string>
   <string name="teachers">Ұстаздар</string>
   <plurals name="nbTeachers">
     <item quantity="one">Ұстаз</item>
@@ -84,7 +88,6 @@
   <string name="variantXOverLastY">%1$s, кейінгі %2$s-де</string>
   <string name="winrate">Жеңіс үлесі</string>
   <string name="na">МлмЖоқ</string>
-  <string name="news">Үйірме жаңалықтары</string>
   <string name="editNews">Жаңалықтарды өңдеу</string>
   <string name="notifyAllStudents">Барлық шәкірттерді ескерту</string>
   <string name="nothingHere">Әзір ештеңе жоқ.</string>

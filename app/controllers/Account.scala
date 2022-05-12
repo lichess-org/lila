@@ -11,7 +11,8 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret, Holder }
+import lila.user.{ Holder, TotpSecret, User => UserModel }
+import lila.i18n.I18nLangPicker
 
 final class Account(
     env: Env,
@@ -45,7 +46,8 @@ final class Account(
           }
           .?? { case (resource, text) =>
             env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-          } >> env.user.repo.setProfile(me.id, profile) inject Redirect(routes.Account.profile).flashSuccess
+          } >> env.user.repo.setProfile(me.id, profile) inject
+          Redirect(routes.User show me.username).flashSuccess
       }
     }
 
@@ -100,7 +102,12 @@ final class Account(
 
   def apiMe =
     Scoped() { req => me =>
-      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
+      env.api.userApi.extended(
+        me,
+        me.some,
+        withFollows = apiC.userWithFollows(req),
+        withTrophies = false
+      )(I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =
@@ -302,15 +309,17 @@ final class Account(
     AuthBody { implicit ctx => me =>
       NotManaged {
         implicit val req = ctx.body
-        env.security.forms closeAccount me flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.close(me, err, managed = false))
-          } { _ =>
-            env.closeAccount(me, Holder(me)) inject {
-              Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+        auth.HasherRateLimit(me.username, ctx.req) { _ =>
+          env.security.forms closeAccount me flatMap { form =>
+            FormFuResult(form) { err =>
+              fuccess(html.account.close(me, err, managed = false))
+            } { _ =>
+              env.api.accountClosure.close(me, Holder(me)) inject {
+                Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+              }
             }
           }
-        }
+        }(rateLimitedFu)
       }
     }
 

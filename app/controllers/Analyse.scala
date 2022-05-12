@@ -25,7 +25,7 @@ final class Analyse(
           lila.fishnet.Work.Sender(
             userId = me.id,
             ip = ctx.ip.some,
-            mod = isGranted(_.Hunter) || isGranted(_.Relay),
+            mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
             system = false
           )
         ) map { result =>

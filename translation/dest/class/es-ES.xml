@@ -12,7 +12,7 @@
   <string name="teachersX">Profesores: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Cerrar clase</string>
-  <string name="closedByX">Cerrada por %s</string>
+  <string name="removedByX">Eliminado por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Eliminar estudiante</string>
   <string name="removedStudents">Eliminado</string>
@@ -84,12 +84,14 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aún no hay estudiantes en la clase.</string>
   <string name="noRemovedStudents">No hay estudiantes eliminados.</string>
-  <string name="overDays">A lo largo de días</string>
+  <string name="overDays">A lo largo de los días</string>
   <string name="timePlaying">Tiempo jugado</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>
   <string name="na">No disponible</string>
-  <string name="news">Novedades de la clase</string>
+  <string name="overview">Vista general</string>
+  <string name="news">Noticias</string>
+  <string name="classNews">Novedades de la clase</string>
   <string name="editNews">Editar las novedades</string>
   <string name="notifyAllStudents">Notificar a todos los estudiantes</string>
   <string name="nothingHere">Aún no hay nada aquí.</string>
@@ -97,4 +99,19 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="newsEdit2">Añade las novedades más recientes en la parte superior. No elimines las novedades anteriores.</string>
   <string name="newsEdit3">Separa las novedades con ---
 Mostrará una línea separadora horizontal.</string>
+  <string name="invite">Invitar</string>
+  <string name="youHaveBeenInvitedByX">Has sido invitado por %s.</string>
+  <string name="youAcceptedThisInvitation">Has aceptado esta invitación.</string>
+  <string name="youDeclinedThisInvitation">Has rechazado esta invitación.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">o</string>
+  <string name="createMultipleAccounts">Crear varias cuentas de Lichess a la vez</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">También puedes %s para crear varias cuentas de Lichess a partir de una lista de nombres de estudiantes.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">usar este formulario</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ten en cuenta que una clase puede tener hasta %1$s estudiantes. Para administrar más estudiantes, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">crear más clases</string>
+  <string name="studentsRealNamesOnePerLine">Nombres reales de los estudiantes, uno por línea</string>
+  <string name="xisNowAStudentOfTheClass">%s es ahora un estudiante de la clase</string>
+  <string name="anInvitationHasBeenSentToX">Se ha enviado una invitación a %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ya tiene una invitación pendiente</string>
+  <string name="xIsAKidAccountWarning">%1$s es una cuenta infantil y no puede recibir tu mensaje. Debes proporcionarles el enlace de invitación manualmente: %2$s</string>
 </resources>

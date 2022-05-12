@@ -2,6 +2,8 @@ package lila.tournament
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
+import io.lettuce.core.{ RedisClient, RedisURI }
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
@@ -15,8 +17,7 @@ private class TournamentConfig(
     @ConfigName("collection.tournament") val tournamentColl: CollName,
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
-    @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
-    @ConfigName("api_actor.name") val apiActorName: String
+    @ConfigName("collection.leaderboard") val leaderboardColl: CollName
 )
 
 @Module
@@ -36,7 +37,8 @@ final class Env(
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -93,6 +95,12 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
+  lazy val reloadEndpointSetting = settingStore[String](
+    "tournamentReloadEndpoint",
+    default = "/tournament/{id}",
+    text = "lila-http endpoint. Set to /tournament/{id} to only use lila.".some
+  ).taggedWith[TournamentReloadEndpoint]
+
   lazy val jsonView: JsonView = wire[JsonView]
 
   lazy val apiJsonView = wire[ApiJsonView]
@@ -107,20 +115,22 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
-  system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
+  wire[TournamentBusHandler]
 
-  system.actorOf(Props(wire[CreatedOrganizer]))
+  wire[CreatedOrganizer]
 
-  system.actorOf(Props(wire[StartedOrganizer]))
+  wire[StartedOrganizer]
 
-  private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
-  scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
-    schedulerActor ! TournamentScheduler.ScheduleNow
-  }
+  wire[TournamentNotify]
+
+  wire[TournamentScheduler]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
   }
+
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
+  val lilaHttp            = wire[TournamentLilaHttp]
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)
@@ -133,12 +143,18 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = {
-        case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-          leaderboardIndexer.generateAll inject "Done!"
+        // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
           api.toggleFeaturing(id, true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
           api.toggleFeaturing(id, false) inject "Done!"
+        case "tournament" :: "recompute" :: id :: Nil =>
+          api.recomputeEntireTournament(id) inject "Done!"
       }
     }
 }
+
+trait TournamentReloadDelay
+trait TournamentReloadEndpoint
+trait LilaHttpTourId

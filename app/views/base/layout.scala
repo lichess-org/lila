@@ -15,8 +15,8 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset                      = raw("""<meta charset="utf-8">""")
+    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     )
@@ -33,24 +33,45 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
-        id := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
-        rel := "stylesheet"
+        id   := "piece-sprite",
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
+        rel  := "stylesheet"
       )
   }
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
-  private def fontPreload(implicit ctx: Context) =
-    raw {
-      s"""<link rel="preload" href="${assetUrl(
-        s"font/lichess.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
-        !ctx.pref.pieceNotationIsLetter ??
-        s"""<link rel="preload" href="${assetUrl(
-          s"font/lichess.chess.woff2"
-        )}" as="font" type="font/woff2" crossorigin>"""
+
+  private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
+        s"""type="$t" """
+      )}${crossorigin ?? "crossorigin"}>""")
+
+  private def fontPreload(implicit ctx: Context) = frag(
+    preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
+    preload(
+      assetUrl("font/noto-sans-v14-latin-regular.woff2"),
+      "font",
+      crossorigin = true,
+      "font/woff2".some
+    ),
+    !ctx.pref.pieceNotationIsLetter option
+      preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+  )
+  private def boardPreload(implicit ctx: Context) = frag(
+    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
+    ctx.pref.is3d option
+      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image", crossorigin = false)
+  )
+  private def piecesPreload(implicit ctx: Context) =
+    env.pieceImageExternal.get() option raw {
+      (for {
+        c <- List('w', 'b')
+        p <- List('K', 'Q', 'R', 'B', 'N', 'P')
+        href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
+      } yield s"""<link rel="preload" href="$href" as="image">""").mkString
     }
+
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
   )
@@ -61,28 +82,28 @@ object layout {
     List(512, 256, 192, 128, 64)
       .map { px =>
         s"""<link rel="icon" type="image/png" href="${assetUrl(
-          s"logo/lichess-favicon-$px.png"
-        )}" sizes="${px}x$px">"""
+            s"logo/lichess-favicon-$px.png"
+          )}" sizes="${px}x$px">"""
       }
       .mkString(
         "",
         "",
         s"""<link id="favicon" rel="icon" type="image/png" href="${assetUrl(
-          "logo/lichess-favicon-32.png"
-        )}" sizes="32x32">"""
+            "logo/lichess-favicon-32.png"
+          )}" sizes="32x32">"""
       )
   }
   private def blindModeForm(implicit ctx: Context) =
     raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
-      ctx.blind
-    )
-      0
-    else
-      1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
-      ctx.blind
-    )
-      "Disable"
-    else "Enable"} blind mode</button></form>""")
+        ctx.blind
+      )
+        0
+      else
+        1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
+        ctx.blind
+      )
+        "Disable"
+      else "Enable"} blind mode</button></form>""")
 
   private def zenToggle(implicit ctx: Context) =
     spaceless(s"""
@@ -100,14 +121,14 @@ object layout {
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenge.challenges
-      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
+        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <a id="notify-toggle" class="toggle link">
     <span title="${trans.notifications
-      .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
+        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
   </a>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
@@ -120,7 +141,7 @@ object layout {
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
 <a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
-      .txt()}</a>""")
+        .txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := ""))
 
@@ -128,10 +149,10 @@ object layout {
     div(id := "clinput")(
       clinputLink,
       input(
-        spellcheck := "false",
+        spellcheck   := "false",
         autocomplete := ctx.blind.toString,
-        aria.label := trans.search.search.txt(),
-        placeholder := trans.search.search.txt()
+        aria.label   := trans.search.search.txt(),
+        placeholder  := trans.search.search.txt()
       )
     )
 
@@ -141,24 +162,17 @@ object layout {
 
   private def botImage =
     img(
-      src := assetUrl("images/icons/bot.png"),
+      src   := assetUrl("images/icons/bot.png"),
       title := "Robot chess",
       style :=
         "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
-    )
-
-  def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
-    embedJsUnsafe(
-      s"""lichess={load:new Promise(r=>{document.addEventListener("DOMContentLoaded",r)}),quantity:${lila.i18n
-        .JsQuantity(lang)}};$timeagoLocaleScript""",
-      nonce
     )
 
   private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
     frag(
       chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
-      ctx.nonce map lichessJsObject,
+      ctx.nonce map inlineJs.apply,
       if (netConfig.minifiedAssets)
         jsModule("lichess")
       else
@@ -167,8 +181,18 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
+      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry")
     )
+
+  private def hrefLang(lang: String, path: String) =
+    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl/$path"/>"""
+
+  private def hrefLangs(path: String)(implicit ctx: Context) = raw {
+    hrefLang("x-default", path) + hrefLang("en", path) +
+      lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
+        hrefLang(lang, s"$lang$path")
+      }.mkString
+  }
 
   private val spinnerMask = raw(
     """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
@@ -180,15 +204,14 @@ object layout {
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
-  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
-  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl.value
+  val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
-  val dataDev                   = attr("data-dev") := (!netConfig.minifiedAssets).option("true")
+  val dataDev                   = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")
 
   def apply(
       title: String,
@@ -202,7 +225,8 @@ object layout {
       zoomable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
-      atomLinkTag: Option[Tag] = None
+      atomLinkTag: Option[Tag] = None,
+      withHrefLangs: Option[String] = None
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
@@ -227,15 +251,15 @@ object layout {
           pieceSprite,
           meta(
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
-            name := "description"
+            name    := "description"
           ),
-          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
           (atomLinkTag | link(
-            href := routes.Blog.atom,
+            href     := routes.Blog.atom,
             st.title := trans.blog.txt()
           ))(
             tpe := "application/atom+xml",
@@ -244,12 +268,15 @@ object layout {
           ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
-                .replace("&amp;", "&")}");}</style>"""
+                  .replace("&amp;", "&")}");}</style>"""
             )
           },
           fontPreload,
+          boardPreload,
+          piecesPreload,
           manifests,
-          jsLicense
+          jsLicense,
+          withHrefLangs.map(hrefLangs)
         ),
         st.body(
           cls := {
@@ -268,17 +295,17 @@ object layout {
             )
           },
           dataDev,
-          dataVapid := vapidPublicKey,
-          dataUser := ctx.userId,
+          dataVapid    := vapidPublicKey,
+          dataUser     := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
           dataAssetVersion := assetVersion.value,
-          dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
-          dataTheme := ctx.currentBg,
-          dataPieceSet := ctx.currentPieceSet.name,
-          dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style := zoomable option s"--zoom:${ctx.zoom}"
+          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataTheme        := ctx.currentBg,
+          dataPieceSet     := ctx.currentPieceSet.name,
+          dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
@@ -298,16 +325,27 @@ object layout {
               "is3d"    -> ctx.pref.is3d
             )
           )(body),
-          ctx.me.exists(_.enabled) option div(
-            id := "friend_box",
-            dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
-          )(
+          ctx.me.exists(_.enabled) option div(id := "friend_box")(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
-            div(cls := "content_wrap none")(
+            div(cls   := "content_wrap none")(
               div(cls := "content list")
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
+          ctx.pref.agreementNeededSince map { date =>
+            div(id := "agreement")(
+              div(
+                "Lichess has updated the ",
+                a(href := routes.Page.tos)("Terms of Service"),
+                " as of ",
+                showDate(date),
+                "."
+              ),
+              postForm(action := routes.Pref.set("agreement"))(
+                button(cls := "button")("OK")
+              )
+            )
+          },
           spinnerMask,
           loadScripts(moreJs, chessground)
         )
@@ -333,30 +371,30 @@ object layout {
                 "report-score--high"                       -> (score > high),
                 "report-score--low"                        -> (score <= mid)
               ),
-              title := "Moderation",
-              href := routes.Report.list,
+              title     := "Moderation",
+              href      := routes.Report.list,
               dataCount := score,
-              dataIcon := ""
+              dataIcon  := ""
             )
         }
       }.some
       else
         (isGranted(_.PublicChatView)) option
           a(
-            cls := "link",
-            title := "Moderation",
-            href := routes.Mod.publicChat,
+            cls      := "link",
+            title    := "Moderation",
+            href     := routes.Mod.publicChat,
             dataIcon := ""
           )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
         a(
-          cls := "link data-count link-center",
-          href := routes.Team.requests,
+          cls       := "link data-count link-center",
+          href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon := "",
-          title := trans.team.teams.txt()
+          dataIcon  := "",
+          title     := trans.team.teams.txt()
         )
 
     def apply(playing: Boolean)(implicit ctx: Context) =
@@ -390,5 +428,38 @@ object layout {
       )
   }
 
-  private val i18nKeys = List(trans.nbFriendsOnline.key)
+  object inlineJs {
+
+    private val i18nKeys = List(
+      trans.nbFriendsOnline.key,
+      trans.timeago.justNow.key,
+      trans.timeago.inNbSeconds.key,
+      trans.timeago.inNbMinutes.key,
+      trans.timeago.inNbHours.key,
+      trans.timeago.inNbDays.key,
+      trans.timeago.inNbWeeks.key,
+      trans.timeago.inNbMonths.key,
+      trans.timeago.inNbYears.key,
+      trans.timeago.rightNow.key,
+      trans.timeago.nbSecondsAgo.key,
+      trans.timeago.nbMinutesAgo.key,
+      trans.timeago.nbHoursAgo.key,
+      trans.timeago.nbDaysAgo.key,
+      trans.timeago.nbWeeksAgo.key,
+      trans.timeago.nbMonthsAgo.key,
+      trans.timeago.nbYearsAgo.key
+    )
+
+    private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
+
+    private def jsCode(implicit lang: Lang) =
+      cache.getOrElseUpdate(
+        lang,
+        s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
+            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
+      )
+
+    def apply(nonce: Nonce)(implicit lang: Lang) =
+      embedJsUnsafe(jsCode, nonce)
+  }
 }

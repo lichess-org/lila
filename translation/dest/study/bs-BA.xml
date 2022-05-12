@@ -83,6 +83,7 @@
   <string name="pinnedChapterComment">Stalni komentar poglavlja</string>
   <string name="saveChapter">Sačuvajte poglavlje</string>
   <string name="clearAnnotations">Izbrišite bilješke</string>
+  <string name="clearVariations">Ukloni varijante</string>
   <string name="deleteChapter">Izbrišite poglavlje</string>
   <string name="deleteThisChapter">Da li želite izbrisati ovo poglavlje? Nakon ove akcije, poglavlje se ne može vratiti!</string>
   <string name="clearAllCommentsInThisChapter">Da li želite izbrisati sve komentare, simbole i nacrtane oblike u ovom poglavlju?</string>
@@ -158,4 +159,12 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">S idejom</string>
   <string name="nextChapter">Sljedeće poglavlje</string>
   <string name="prevChapter">Prethodno poglavlje</string>
+  <string name="topics">Teme</string>
+  <string name="myTopics">Moje teme</string>
+  <string name="popularTopics">Popularne teme</string>
+  <string name="manageTopics">Upravljajte temama</string>
+  <string name="back">Nazad</string>
+  <string name="playAgain">Igrajte ponovo</string>
+  <string name="whatWouldYouPlay">Šta biste odigrali u ovoj poziciji?</string>
+  <string name="youCompletedThisLesson">Čestitamo! Kompletirali ste ovu lekciju.</string>
 </resources>

@@ -17,6 +17,8 @@
   <string name="stalemate">Rei afogau</string>
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
+  <string name="asWhite">con blancas</string>
+  <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatoria</string>
   <string name="createAGame">Chugar una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">Las negras han abandonau</string>
   <string name="whiteLeftTheGame">Las blancas han abandonau la partida</string>
   <string name="blackLeftTheGame">Las negras han abandonau la partida</string>
+  <string name="whiteDidntMove">Las blancas no han moviu</string>
+  <string name="blackDidntMove">Las negras no han moviu</string>
   <string name="requestAComputerAnalysis">Solicitar una analisi de l\'ordinador</string>
   <string name="computerAnalysis">Analisi de l\'ordinador</string>
   <string name="computerAnalysisAvailable">Analisi de l\'ordinador disponible</string>
@@ -85,6 +89,7 @@
     <item quantity="one">Mate en %s meyo movimiento</item>
     <item quantity="other">Mate en %s meyos movimientos</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" con redondeyo, basau en o numero de meyos movimientos dica la siguient captura u movimiento de peón</string>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
   <string name="openingExplorer">Explorador d\'obriduras</string>
@@ -92,6 +97,9 @@
   <string name="xOpeningExplorer">Explorador d\'a obridura %s</string>
   <string name="winPreventedBy50MoveRule">La regla d\'os 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla d\'os 50 movimientos priva la redota</string>
+  <string name="winOr50MovesByPriorMistake">Victora u taulas per 50 movimientos a causa d\'una error anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Redota u taulas per 50 movimientos a causa d\'una error anterior</string>
+  <string name="unknownDueToRounding">La victorua u redota nomás ye garantizada si la linia recomendada s\'ha seguiu dende la zaguera captura u movimiento de peón, a causa d\'o posible redondeyo.</string>
   <string name="allSet">Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -174,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minutos</item>
   </plurals>
   <string name="time">Tiempo</string>
   <string name="rating">Puntuación</string>
@@ -338,6 +350,7 @@
   <string name="leaderboard">Clasificación</string>
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
+  <string name="orUploadPgnFile">U penchar un fichero PGN</string>
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continar dende aquí</string>
   <string name="toStudy">Estudiar</string>
@@ -363,6 +376,8 @@
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Deixar de seguir</string>
+  <string name="followX">Seguir a %s</string>
+  <string name="unfollowX">Deixar de seguir a %s</string>
   <string name="block">Blocar</string>
   <string name="blocked">Blocau</string>
   <string name="unblock">Desblocar</string>
@@ -435,7 +450,6 @@
   <string name="profileCompletion">Perfil completau a lo %s</string>
   <string name="xRating">Puntuación %s</string>
   <string name="ifNoneLeaveEmpty">Si no aplica, deixa-lo en blanco</string>
-  <string name="gameCompletionRate">Percentache de partidas rematadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
@@ -444,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País u bandera</string>
   <string name="thankYou">Gracias!</string>
   <string name="socialMediaLinks">Vinclos a retz socials</string>
+  <string name="oneUrlPerLine">Una URL per linia.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="previouslyOnLichessTV">Anteriorment en Lichess TV</string>
   <string name="onlinePlayers">Chugadors connectaus</string>
@@ -487,6 +502,7 @@
   <string name="reportDescriptionHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión. Lo tuyo reporte será procesau mas rapido si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
+  <string name="importedByX">Importau per %s</string>
   <string name="thisTopicIsNowClosed">Este tema ye zarrau.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
@@ -548,7 +564,16 @@
   <string name="tools">Ferramientas</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo ye obligatorio</string>
+  <string name="error.email">Esta adreza de correu no ye valida</string>
+  <string name="error.email_acceptable">Esta adreza de correu no ye acceptable. Compreba-la y torna-lo a intentar.</string>
+  <string name="error.email_unique">Adreza de correu-e invalida u ya en uso</string>
+  <string name="error.email_different">Este ye lo correu que ya tiens agora</string>
+  <string name="error.minLength">Ha de tener a lo menos %s caracters de largo</string>
+  <string name="error.maxLength">Ha de tener como muito %s caracters de largo</string>
+  <string name="error.min">Ha de tener lo menos %s</string>
+  <string name="error.max">Ha de tener como muito %s</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación ye ± %s</string>
+  <string name="ifRegistered">Si ye rechistrau</string>
   <string name="onlyExistingConversations">Nomás las conversas existents</string>
   <string name="onlyFriends">Nomás amigos</string>
   <string name="menu">Menú</string>
@@ -770,7 +795,7 @@
   <string name="currentMatchScore">Puntuación actual</string>
   <string name="agreementAssistance">Me comprometo a no recibir aduya externa entre las mías partidas (d\'un ordinador, un libro, una base de datos u unatra persona).</string>
   <string name="agreementNice">Me comprometo a respectar siempre a atros chugadors.</string>
-  <string name="agreementAccount">Me comprometo a no crear multiples cuentas.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Soi d\'acuerdo en no crear cuentas multiples (fueras de por las razons indicadas en as %s).</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
@@ -838,6 +863,7 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
   <string name="markdownAvailable">Lo formato %s ye disponibles pa una sintaxi mas abanzada.</string>
+  <string name="embedsAvailable">Apega la URL d\'una partida u d\'un capitol d\'estudio pa incrustar-lo.</string>
   <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
   <string name="tournChat">Conversa d\'o torneyo</string>
   <string name="noChat">Sin conversa</string>
@@ -858,4 +884,14 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
   <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
   <string name="tournamentEntryCode">Codigo de participación en o torneyo</string>
+  <string name="hangOn">Aguar-te!</string>
+  <string name="gameInProgress">Yes chugando una partida con %s.</string>
+  <string name="abortTheGame">Cancelar la partida</string>
+  <string name="resignTheGame">Abandonar la partida</string>
+  <string name="youCantStartNewGame">No puetz encomenzar una nueva partida dica que no remates esta.</string>
+  <string name="since">Dende</string>
+  <string name="until">Dica</string>
+  <string name="lichessDbExplanation">Partidas per puntos de totz es chugadors de Lichess</string>
+  <string name="switchSides">Cambiar de color</string>
+  <string name="closingAccountWithdrawAppeal">Si zarras la tuya cuenta s\'eliminará la tuya apelación</string>
 </resources>

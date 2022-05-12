@@ -17,9 +17,10 @@ Thank you for your understanding."""
 
   lazy val boostAuto = MsgPreset(
     name = "Warning: possible boosting",
-    """In your game history, you have several games where the opponent clearly has intentionally lost against you. Attempts to artificially manipulate your own or someone else's rating are unacceptable.
+    """You have won a couple of games after a few moves. Please note that both players MUST try to win every game.
+Taking advantage of opponents losing rated games on purpose is called "boosting" and is not allowed on Lichess.
 
-If this behaviour continues to happen, your account will be restricted."""
+Thank you for your understanding."""
   )
 
   lazy val sittingAuto = MsgPreset(
@@ -56,9 +57,11 @@ Thank you for your understanding."""
 
     def byModerator = compose("A moderator") _
 
-    def byTeamLeader = compose("A team leader") _
+    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug") _
+
+    def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId") _
 
     private def compose(by: String)(reason: String) =
-      s"""$by deleted one of your posts for this reason: $reason. Please read our Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
+      s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
   }
 }

@@ -7,14 +7,15 @@ interface Lichess {
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   powertip: any;
-  widget: any;
+  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
-  loadCssPath(path: string): void;
+  loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   loadModule(name: string): Promise<void>;
+  loadIife(name: string, iife: keyof Window): Promise<any>;
   hopscotch: any;
   userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;
@@ -33,6 +34,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
+  siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
@@ -58,27 +60,16 @@ interface Lichess {
   };
 
   timeago(date: number | Date): string;
-  timeagoLocale(a: number, b: number, c: number): any;
   dateFormat: () => (date: Date) => string;
 
   // misc
   advantageChart?: {
-    update(data: any): void;
-    (data: any, trans: Trans, el: HTMLElement): void;
+    update(data: any, mainline: any[]): void;
+    (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
-  RoundNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
-  AnalyseNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
-  PuzzleNVUI?(redraw: () => void): {
-    render(ctrl: any): any;
-  };
   playMusic(): any;
   quietMode?: boolean;
-  keyboardMove?: any;
   analysis?: any; // expose the analysis ctrl
 }
 
@@ -229,6 +220,10 @@ declare namespace Editor {
   }
 }
 
+type Nvui = (redraw: () => void) => {
+  render(ctrl: any): any;
+};
+
 interface Window {
   lichess: Lichess;
 
@@ -251,16 +246,34 @@ interface Window {
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
+  readonly LichessRoundNvui?: Nvui;
+  readonly LichessAnalyseNvui?: Nvui;
+  readonly LichessPuzzleNvui?: Nvui;
+  readonly LichessChartGame: {
+    acpl: {
+      (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
+      update?(data: any, mainline: any[]): void;
+    };
+    movetime: {
+      (data: any, trans: Trans, hunter: boolean): Promise<void>;
+      render?(): void;
+    };
+  };
+  readonly LichessChartRatingHistory?: any;
+  readonly LichessKeyboardMove?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
+  readonly Highcharts: any;
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
   readonly Tagify: unknown;
+  readonly paypalOrder: unknown;
+  readonly paypalSubscription: unknown;
 }
 
 interface Study {
@@ -303,8 +316,10 @@ declare type VariantKey =
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'chess960'
@@ -475,7 +490,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  clock: any;
 }
 
 declare namespace PowerTip {

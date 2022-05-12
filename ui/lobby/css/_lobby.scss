@@ -5,7 +5,6 @@
 @import 'spotlight';
 @import 'timeline';
 @import 'box';
-@import 'forum';
 @import 'support';
 @import 'about';
 
@@ -49,6 +48,10 @@ body {
     height: 100%;
     align-items: center;
     padding-top: 2em;
+
+    &.lobby__app__content {
+      justify-content: center;
+    }
   }
 
   ul {

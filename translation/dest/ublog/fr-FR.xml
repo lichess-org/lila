@@ -9,6 +9,8 @@
   <string name="postBody">Contenu de l’article</string>
   <string name="drafts">Brouillons</string>
   <string name="published">Publié</string>
+  <string name="createBlogDiscussion">Activer les commentaires</string>
+  <string name="createBlogDiscussionHelp">Un sujet sera créé dans le forum pour permettre aux gens de commenter votre message.</string>
   <string name="publishOnYourBlog">Publier sur votre blogue</string>
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
   <plurals name="publishedNbBlogPosts">
@@ -31,6 +33,6 @@
     <item quantity="other">Voir les %s publications</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Téléverser une image pour votre publication</string>
-  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Description de l\'image</string>
-  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Source de l\'image</string>
+  <string name="imageAlt">Description de l\'image</string>
+  <string name="imageCredit">Source de l\'image</string>
 </resources>

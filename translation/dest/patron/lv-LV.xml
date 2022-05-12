@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ziedot</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Ziedojums no %s</string>
+  <string name="donateAsX">Ziedojums no %s</string>
   <string name="lichessPatron">Lichess Sponsors</string>
   <string name="freeAccount">Bezmaksas konts</string>
   <string name="becomePatron">Kļūstiet par Lichess Sponsoru</string>
@@ -17,7 +17,7 @@
   <string name="thankYou">Paldies par ziedojumu!</string>
   <string name="youHaveLifetime">Jums ir Mūžīgs Sponsora konts. Tas ir lieliski!</string>
   <string name="patronUntil">Jums ir Sponsora konts līdz %s.</string>
-  <string name="ifNotRenewed">Ja neatjaunosiet, tiksiet pazemināts uz bezmaksas kontu.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ja neturpināsiet sponsorēt, jūsu konts atkal kļūs par parastu kontu.</string>
   <string name="weAreNonProfit">Esam bezpeļņas asociācija, jo ticam, ka visiem pienākas piekļuve augstākā kalibra bezmaksas šaha platformai.</string>
   <string name="weRelyOnSupport">Mēs paļaujamies uz jums, lai to padarītu iespējamu. Ja jums patīk izmantot Lichess, lūdzu atbalstiet mūs ziedojot un kļūstot par Sponsoru!</string>
   <string name="lifetime">Mūžīgi</string>
@@ -30,7 +30,6 @@
   <string name="otherAmount">Cits</string>
   <string name="pleaseEnterAmountInX">Lūdzu, ievadiet summu (%s)</string>
   <string name="withCreditCard">Kredītkarte</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Esam maza komanda, tādēļ jūsu atbalsts rada milzīgu atšķirību!</string>
   <string name="celebratedPatrons">Cildinātie Sponsori, kas padara Lichess iespējamu</string>
   <string name="whereMoneyGoes">Kur nauda tiek ieguldīta?</string>
@@ -45,7 +44,6 @@ Varat arī %s.</string>
   <string name="contactSupport">sazināties ar Lichess atbalsta dienestu</string>
   <string name="otherMethods">Citi ziedojumu veidi?</string>
   <string name="bankTransfers">Mēs pieņemam arī bankas pārskaitījumus</string>
-  <string name="bitcoin">Un lūk mūsu bitcoin adrese: %s</string>
   <string name="patronFeatures">Vai dažas iespējas ir rezervētas Sponsoriem?</string>
   <string name="noPatronFeatures">Nē, jo Lichess ir pilnīgi bezmaksas visiem mūžīgi. Tas ir solījums.
 Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</string>
@@ -68,6 +66,7 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
   <string name="xOrY">%1$s vai %2$s</string>
   <string name="decideHowMuch">Izlemiet, cik jums Lichess ir vērts:</string>
   <string name="stopPayments">Noņemt kredītkarti un beigt maksājumus:</string>
+  <string name="stopPaymentsPayPal">Atcelt PayPal abonementu un pārtraukt maksājumus:</string>
   <string name="noLongerSupport">Vairāk neatbalstīt Lichess</string>
   <string name="viewOthers">Skatīt citus Lichess Sponsorus</string>
   <string name="date">Datums</string>

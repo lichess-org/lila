@@ -17,6 +17,8 @@
   <string name="stalemate">Hòa pat</string>
   <string name="white">Trắng</string>
   <string name="black">Đen</string>
+  <string name="asWhite">khi chơi trắng</string>
+  <string name="asBlack">khi chơi đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo ván cờ mới</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
@@ -46,6 +48,8 @@
   <string name="blackResigned">Đen chịu thua</string>
   <string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
   <string name="blackLeftTheGame">Đen đã thoát khỏi ván cờ</string>
+  <string name="whiteDidntMove">Bên trắng không đi quân</string>
+  <string name="blackDidntMove">Bên đen không đi quân</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
@@ -83,6 +87,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\"\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openingExplorer">Sách khai cuộc</string>
@@ -90,6 +95,19 @@
   <string name="xOpeningExplorer">Sách khai cuộc %s</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước
+
+Được hiển thị trong một số tình huống trong chế độ xem cơ sở bảng trò chơi cuối cùng. Nếu người dùng bỏ qua đề xuất cơ sở bảng, có thể kết thúc bằng tình huống mà cơ sở bảng Syzygy không thể biết liệu quy tắc 50 bước di chuyển có ngăn cản chiến thắng hay không.
+
+Ngoài ra, hãy xem chuỗi \"Chỉ được đảm bảo thắng / thua nếu dòng cơ sở bảng được đề xuất là ...\" để biết chú giải công cụ sẽ giải thích điều này.</string>
+  <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước
+
+Analogous to source string \"Win or 50 moves by prior mistake\" - please see context there.</string>
+  <string name="unknownDueToRounding">Không xác định do làm tròn
+
+Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm lẫn trước\" và \"Thua hoặc 50 nước đi do nhầm lẫn trước\" trong chế độ xem cơ sở trò chơi kết thúc.
+
+\"Làm tròn\" được dùng theo nghĩa toán học. Nó đề cập đến một sự khác biệt của cơ sở bảng Syzygy, nơi một số giá trị DTZ được lưu trữ làm tròn xuống.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -106,9 +124,9 @@
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
-  <string name="blunder">Sai lầm</string>
+  <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Lỗi</string>
-  <string name="inaccuracy">Thiếu chính xác</string>
+  <string name="inaccuracy">Lỗi</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
@@ -116,12 +134,12 @@
     <item quantity="other">%s nước đi sai</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s nước đi không chính xác</item>
+    <item quantity="other">%s nước đi lỗi</item>
   </plurals>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ</string>
-  <string name="claimADraw">Buộc hòa do lặp cờ</string>
+  <string name="claimADraw">Buộc hòa</string>
   <string name="offerDraw">Xin hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
@@ -129,7 +147,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
-  <string name="currentGames">Những ván cờ đang diễn ra</string>
+  <string name="currentGames">Những trận đang chơi</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -141,7 +159,7 @@
   <string name="signIn">Đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều này</string>
   <string name="signUp">Đăng kí</string>
-  <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và việc gian lận quá nhiều sẽ dẫn đến bị cấm.</string>
+  <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, kho dữ liệu, hoặc từ những người chơi khác khi chơi. Lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn sẽ bị cấm cửa nếu tạo quá nhiều tài khoản.</string>
   <string name="games">Các ván đấu</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
@@ -149,7 +167,7 @@
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hôm nay</string>
+  <string name="today">Hôm nay</string>
   <string name="yesterday">Hôm qua</string>
   <string name="minutesPerSide">Thời gian cho mỗi bên</string>
   <string name="variant">Biến thể</string>
@@ -165,8 +183,11 @@
   <plurals name="nbHours">
     <item quantity="other">%s giờ</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s phút</item>
+  </plurals>
   <string name="time">Thời gian</string>
-  <string name="rating">Hệ số Elo</string>
+  <string name="rating">Điểm Elo</string>
   <string name="ratingStats">Thống kê Elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
@@ -313,6 +334,7 @@
   <string name="leaderboard">Bảng dẫn đầu</string>
   <string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
+  <string name="orUploadPgnFile">Hoặc tải file PGN lên</string>
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="toStudy">Nghiên cứu</string>
@@ -399,15 +421,14 @@
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các vị trí trong tàn cuộc</string>
   <string name="chess960StartPosition">Thế cờ đầu cho Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Thế trận ban đầu</string>
+  <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Tải thế trận</string>
+  <string name="loadPosition">Tải thế trận</string>
   <string name="isPrivate">Riêng tư</string>
   <string name="reportXToModerators">Báo cáo %s tới quản trị viên</string>
   <string name="profileCompletion">Hoàn thành profile: %s</string>
   <string name="xRating">Rate %s</string>
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
-  <string name="gameCompletionRate">Tỉ lệ hoàn thành game: %s</string>
   <string name="profile">Hồ sơ</string>
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>
@@ -416,11 +437,14 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc quốc kỳ</string>
   <string name="thankYou">Cám ơn!</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
+  <string name="oneUrlPerLine">Một Url mỗi dòng
+
+Xuất hiện trong phần \'Liên kết phương tiện truyền thông xã hội\' khi bạn chỉnh sửa hồ sơ của mình, để hiển thị các URL được liên kết với bạn: https://lichess.org/account/profile</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="previouslyOnLichessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s trận đang chơi</item>
@@ -458,6 +482,11 @@
   <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Xin hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
+  <string name="importedByX">Được nhập bởi
+
+%s là tên người dùng của người chơi, có liên kết đến hồ sơ của họ
+
+Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập trò chơi: https://lichess.org/paste</string>
   <string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
   <string name="blog">Nhật ký (web)</string>
   <string name="notes">Chú thích</string>
@@ -488,7 +517,7 @@
   <string name="onSlowGames">Trên cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s hoàn thành trong %2$s</string>
+  <string name="xCompetesInY">%1$s hoàn thành trong %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
   <string name="victoryVsYInZ">%1$s với %2$s trong %3$s</string>
@@ -517,7 +546,12 @@
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>
   <string name="error.required">Mục bắt buộc</string>
+  <string name="error.email">Email này không hợp lệ</string>
+  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra và thử lại.</string>
+  <string name="error.email_unique">Email này không được chấp nhận hoặc đã được dùng</string>
+  <string name="error.email_different">Đây đã là email cua</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
+  <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
   <string name="menu">Trình đơn</string>
@@ -711,7 +745,7 @@
   <string name="addCurrentVariation">Thêm biến thể hiện tại</string>
   <string name="playVariationToCreateConditionalPremoves">Chơi một biến thể để tạo ra nước đi trước có điều kiện</string>
   <string name="noConditionalPremoves">Không có nước đi trước có điều kiện nào</string>
-  <string name="playX">Chơi %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Chơi %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">và lưu %s biến đi trước</item>
   </plurals>
@@ -733,7 +767,6 @@
   <string name="currentMatchScore">Tỷ số của lần đối đầu này</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu, hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
-  <string name="agreementAccount">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản.</string>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
@@ -745,7 +778,7 @@
   <string name="rapidDesc">Cờ nhanh: 8 tới 25 phút</string>
   <string name="classicalDesc">Cờ chậm: Nhiều hơn hoặc bằng 25 phút</string>
   <string name="correspondenceDesc">Đánh cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
-  <string name="puzzleDesc">Huấn luyện viên cờ thế</string>
+  <string name="puzzleDesc">Luyện cờ thế</string>
   <string name="important">Chú ý</string>
   <string name="yourQuestionMayHaveBeenAnswered">Vấn đề của bạn có thể được giải đáp %1$s</string>
   <string name="inTheFAQ">tại F.A.Q.</string>
@@ -759,7 +792,7 @@
   <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">đã đề cập đến bạn trong \"%1$s\".</string>
+  <string name="mentionedYouInX">đã đề cập đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã đề cập đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>
@@ -800,7 +833,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="simulHostcolor">Chọn màu cho ky thủ tổ chức đánh đồng loạt</string>
   <string name="estimatedStart">Thời gian dự kiến bắt đầu</string>
   <string name="simulFeatured">Hiển thị trên %s</string>
-  <string name="simulFeaturedHelp">Hiển thị cuộc đánh đồng loạt của bạn trên %s. Không áp dụng cho các cuộc đánh không công khai.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Hiển thị cuộc đánh đồng loạt của bạn trên %s. Không áp dụng cho các cuộc đánh không công khai.</string>
   <string name="simulDescription">Mô tả cuộc đánh đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có muốn thông báo gì thêm cho những người tham gia không?</string>
   <string name="markdownAvailable">%s dùng được ở đây, nếu cần soạn thảo phức tạp.</string>
@@ -821,9 +854,16 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
+  <string name="tournamentEntryCode">Mật khẩu tham dự cuộc thi</string>
   <string name="hangOn">Từ đã!</string>
   <string name="gameInProgress">Bạn đang có ván đấu với %s.</string>
   <string name="abortTheGame">Hủy ván đấu</string>
   <string name="resignTheGame">Bỏ cuộc</string>
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
+  <string name="until">Cho đến khi</string>
+  <string name="switchSides">Đổi bên
+
+Mô tả khi di chuột qua tùy chọn \'dưới dạng trắng/đen\' cho các trò chơi trước đây của riêng bạn, trong trình khám phá mở đầu: https://lichess.org/analysis#explorer
+
+Nhấp vào này sẽ chuyển lịch sử trò chơi giữa trắng và đen.</string>
 </resources>

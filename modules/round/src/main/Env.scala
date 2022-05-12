@@ -3,16 +3,19 @@ package lila.round
 import actorApi.{ GetSocketStatus, SocketStatus }
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, Uptime }
+import lila.common.{ Bus, Strings, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
+import lila.memo.SettingStore
+import lila.memo.SettingStore.Strings._
 import lila.user.User
 
 @Module
@@ -31,7 +34,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     timeline: actors.Timeline,
     bookmark: actors.Bookmark,
-    tournamentApi: actors.TournamentApi,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -50,6 +52,7 @@ final class Env(
     isBotSync: lila.common.LightUser.IsBotSync,
     lightUserSync: lila.common.LightUser.GetterSync,
     ircApi: lila.irc.IrcApi,
+    settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
@@ -58,7 +61,7 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val animationLoader = durationLoader(AnimationDuration.apply)
+  implicit private val animationLoader = durationLoader(AnimationDuration)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
@@ -125,6 +128,22 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
+  private lazy val correspondenceEmail = wire[CorrespondenceEmail]
+
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { correspondenceEmail.tick _ }
+
+  val selfReportEndGame = settingStore[Strings](
+    "selfReportEndGame",
+    default = Strings(Nil),
+    text = "Self reports that end the game".some
+  ).taggedWith[SelfReportEndGame]
+
+  val selfReportMarkUser = settingStore[Strings](
+    "selfReportMarkUser",
+    default = Strings(Nil),
+    text = "Self reports that mark the user".some
+  ).taggedWith[SelfReportMarkUser]
+
   lazy val selfReport = wire[SelfReport]
 
   lazy val recentTvGames = wire[RecentTvGames]
@@ -185,3 +204,6 @@ final class Env(
     if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))
     else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))
 }
+
+trait SelfReportEndGame
+trait SelfReportMarkUser

@@ -22,7 +22,7 @@ private object BSONHandlers {
   implicit val InvitedToStudyByHandler = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
   implicit val StudyNameHandler        = stringAnyValHandler[StudyName](_.value, StudyName.apply)
   implicit val StudyIdHandler          = stringAnyValHandler[StudyId](_.value, StudyId.apply)
-  implicit val ReadHandler             = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
+  implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   import PrivateMessage._
   implicit val PMSenderIdHandler     = stringAnyValHandler[Sender](_.value, Sender.apply)
@@ -47,6 +47,7 @@ private object BSONHandlers {
   implicit val RatingRefundHandler = Macros.handler[RatingRefund]
   implicit val CorresAlarmHandler  = Macros.handler[CorresAlarm]
   implicit val IrwinDoneHandler    = Macros.handler[IrwinDone]
+  implicit val KaladinDoneHandler  = Macros.handler[KaladinDone]
   implicit val GenericLinkHandler  = Macros.handler[GenericLink]
 
   implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.fromWhite, _.white)
@@ -76,6 +77,7 @@ private object BSONHandlers {
         case CoachReview                   => $empty
         case x: CorresAlarm                => CorresAlarmHandler.writeTry(x).get
         case x: IrwinDone                  => IrwinDoneHandler.writeTry(x).get
+        case x: KaladinDone                => KaladinDoneHandler.writeTry(x).get
         case x: GenericLink                => GenericLinkHandler.writeTry(x).get
       }
     } ++ $doc("type" -> notificationContent.key)
@@ -113,6 +115,7 @@ private object BSONHandlers {
         case "coachReview"    => CoachReview
         case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
         case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
+        case "kaladinDone"    => KaladinDoneHandler.readTry(reader.doc).get
         case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
       }
 

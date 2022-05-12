@@ -74,7 +74,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
-  <string name="embedInYourWebsite">Вставить на свой сайт или в блог</string>
+  <string name="embedInYourWebsite">Вставить в свой сайт или блог</string>
   <string name="readMoreAboutEmbedding">Подробнее о вставке на сайт</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Вставлять на сайт можно только публичные студии!</string>
   <string name="open">Открыть</string>
@@ -87,6 +87,7 @@
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
   <string name="saveChapter">Сохранить главу</string>
   <string name="clearAnnotations">Очистить аннотацию</string>
+  <string name="clearVariations">Очистить варианты</string>
   <string name="deleteChapter">Удалить главу</string>
   <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
   <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>
@@ -117,7 +118,7 @@
   <string name="createStudy">Создать студию</string>
   <string name="editStudy">Изменить студию</string>
   <string name="visibility">Доступно к просмотру</string>
-  <string name="public">Публичный</string>
+  <string name="public">Публичная</string>
   <string name="unlisted">Доступ по ссылке</string>
   <string name="inviteOnly">Только по приглашению</string>
   <string name="allowCloning">Разрешить копирование</string>
@@ -164,4 +165,12 @@
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
   <string name="studyActions">Действия в студии</string>
+  <string name="topics">Темы</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управление темами</string>
+  <string name="back">Назад</string>
+  <string name="playAgain">Сыграть снова</string>
+  <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
+  <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
 </resources>

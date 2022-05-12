@@ -26,6 +26,7 @@ object inquiry {
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(id).url
             case "swiss"      => routes.Swiss.show(id).url
+            case "forum"      => routes.ForumPost.redirect(id).url
             case _            => s"/$tpe/$id"
           }
           a(href := path)(path).some -> text
@@ -57,12 +58,6 @@ object inquiry {
         }
       )
 
-    def renderNote(r: lila.user.Note)(implicit ctx: Context) =
-      (!r.dox || isGranted(_.Admin)) option div(cls := "doc note")(
-        h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text, expandImg = false))
-      )
-
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
     def markButton(active: Boolean) =
@@ -73,7 +68,7 @@ object inquiry {
         )
       )
 
-    div(id := "inquiry")(
+    div(id    := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user, withBestRating = true, params = "?mod"),
@@ -108,31 +103,7 @@ object inquiry {
             )
           )
         ),
-        div(
-          cls := List(
-            "dropper counter notes" -> true,
-            "empty"                 -> in.notes.isEmpty
-          )
-        )(
-          span(
-            countTag(in.notes.size),
-            "Notes"
-          ),
-          div(
-            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
-              textarea(name := "text", placeholder := "Write a mod note"),
-              input(tpe := "hidden", name := "mod", value := "true"),
-              isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
-                div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
-                label(`for` := "dox-inquiry")("Doxing info")
-              ),
-              div(cls := "submission")(
-                submitButton(cls := "button thin")("SEND")
-              )
-            ),
-            in.notes.map(renderNote)
-          )
-        )
+        noteZone(in.user, in.notes)
       ),
       div(cls := "links")(
         isGranted(_.MarkBooster) option {
@@ -163,7 +134,7 @@ object inquiry {
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
-            postForm(action := url, cls := "main", title := "Mark as cheat")(
+            postForm(action                             := url, cls := "main", title := "Mark as cheat")(
               markButton(in.user.marks.engine)(dataIcon := ""),
               autoNextInput
             ),
@@ -185,8 +156,8 @@ object inquiry {
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
-              title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
-              cls := "main"
+              title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
+              cls    := "main"
             )(
               markButton(in.user.marks.troll)(dataIcon := ""),
               autoNextInput
@@ -239,22 +210,55 @@ object inquiry {
         ),
         postForm(
           action := routes.Report.process(in.report.id),
-          title := "Dismiss this report as processed. (Hotkey: d)",
-          cls := "process"
+          title  := "Dismiss this report as processed. (Hotkey: d)",
+          cls    := "process"
         )(
           submitButton(dataIcon := "", cls := "fbt"),
           autoNextInput
         ),
         postForm(
           action := routes.Report.inquiry(in.report.id),
-          title := "Cancel the inquiry, re-instore the report",
-          cls := "cancel"
+          title  := "Cancel the inquiry, re-instore the report",
+          cls    := "cancel"
         )(
-          submitButton(dataIcon := "", cls := "fbt")
+          submitButton(dataIcon := "", cls := "fbt")(in.alreadyMarked option disabled)
         )
       )
     )
   }
+
+  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
+    cls := List(
+      "dropper counter notes" -> true,
+      "empty"                 -> notes.isEmpty
+    )
+  )(
+    span(
+      countTag(notes.size),
+      "Notes"
+    ),
+    div(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
+        form3.textarea(lila.user.UserForm.note("text"))(
+          placeholder := "Write a mod note"
+        ),
+        input(tpe := "hidden", name := "mod", value := "true"),
+        isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
+          div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
+          label(`for` := "dox-inquiry")("Doxing info")
+        ),
+        div(cls := "submission")(
+          submitButton(cls := "button thin")("SEND")
+        )
+      ),
+      notes map { note =>
+        (!note.dox || isGranted(_.Admin)) option div(cls := "doc note")(
+          h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
+          p(richText(note.text, expandImg = false))
+        )
+      }
+    )
+  )
 
   private def snoozeUrl(report: Report, duration: String): String =
     if (report.isAppeal) routes.Appeal.snooze(report.user, duration).url

@@ -29,4 +29,11 @@
   <string name="maxNumber">Número màxim</string>
   <string name="maxNumberExplanation">Número màxim de partides per mostrar als resultats</string>
   <string name="include">Incloure</string>
+  <string name="descending">Descendent</string>
+  <string name="ascending">Ascendent</string>
+  <plurals name="gamesFound">
+    <item quantity="one">S\'ha trobat %s partida</item>
+    <item quantity="other">S\'han trobat %s partides</item>
+  </plurals>
+  <string name="ratingExplanation">La puntuació mitjana dels dos jugadors</string>
 </resources>

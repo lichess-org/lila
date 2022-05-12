@@ -1,5 +1,4 @@
 import * as xhr from 'common/xhr';
-import spinnerHtml from './spinner';
 import { requestIdleCallback } from './functions';
 
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
@@ -24,7 +23,7 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
     .removeClass('ulpt')
     .powerTip({
       preRender: onPowertipPreRender('powerTip', (url: string) => {
-        const u = url.substr(3);
+        const u = url.slice(3);
         const name = $(el).data('name') || $(el).html();
         $('#powerTip').html(
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
@@ -44,7 +43,7 @@ function gamePowertip(el: HTMLElement) {
   $(el)
     .removeClass('glpt')
     .powerTip({
-      preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
+      preRender: onPowertipPreRender('miniGame', () => lichess.spinnerHtml),
       placement: inCrosstable(el) ? 'n' : 'w',
       popupId: 'miniGame',
     });

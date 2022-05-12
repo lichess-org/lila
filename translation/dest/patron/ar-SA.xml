@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">تبرع</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">تبرع باسم%s</string>
+  <string name="donateAsX">تبرع باسم%s</string>
   <string name="lichessPatron">راعي Lichess</string>
   <string name="freeAccount">حساب مجاني</string>
   <string name="becomePatron">كنّ راعياً في Lichess</string>
@@ -20,7 +20,6 @@
   <string name="thankYou">شكرا لتبرعك!</string>
   <string name="youHaveLifetime">لديك حساب راعي مدى الحياة، هذا رائع جداً!</string>
   <string name="patronUntil">لديك حساب راعي حتى %s.</string>
-  <string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
   <string name="weAreNonProfit">نحن رابطة غير ربحية لأننا نؤمن ان الجميع يجب أن يكون لديه وصول مجاني لمنصة شطرنج من الطراز العالمي.</string>
   <string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lichess، يرجى النظر في دعمنا وأن تصبح راعي!</string>
   <string name="lifetime">مدى الحياة</string>
@@ -33,7 +32,6 @@
   <string name="otherAmount">أخرى</string>
   <string name="pleaseEnterAmountInX">يرجى كتابة المبلغ بالدولار الامريكي %s</string>
   <string name="withCreditCard">بطاقة ائتمان</string>
-  <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
   <string name="celebratedPatrons">الرعاة المتميزون والذين بفضلهم ما زالت Lichess قائمة</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
@@ -49,7 +47,6 @@
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
   <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>
-  <string name="bitcoin">وهنا عنوان البيتكوين الخاص بنا: %s</string>
   <string name="patronFeatures">هل هناك بعض الميزات المخصصة للداعمين؟</string>
   <string name="noPatronFeatures">لا، لأن ليشيس مجاني، وإلى الأبد، ولكل شخص. هذا وعد.
 ومع ذلك، يحصل الداعمون على أيقونة جديدة رائعة.</string>

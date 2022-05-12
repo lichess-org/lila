@@ -58,10 +58,10 @@
   <string name="skipExplanation">Scipeáil an beart seo chun do sraithbhuille a chaomhnú! Ní oibríonn sé ach uair amháin in aon rás amháin.</string>
   <string name="failedPuzzles">Fadhbanna theip</string>
   <string name="slowPuzzles">Fadhbanna mall</string>
-  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">An tseachtain seo</string>
-  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">An mhí seo</string>
-  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Riamh</string>
+  <string name="thisWeek">An tseachtain seo</string>
+  <string name="thisMonth">An mhí seo</string>
+  <string name="allTime">Riamh</string>
   <string name="clickToReload">Cliceáil chun athlódáil</string>
-  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Tá an rith seo imithe as feidhm!</string>
+  <string name="thisRunHasExpired">Tá an rith seo imithe as feidhm!</string>
   <string name="thisRunWasOpenedInAnotherTab">Osclaíodh an rith seo i dtáb eile!</string>
 </resources>

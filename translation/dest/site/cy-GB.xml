@@ -159,7 +159,7 @@
   <string name="players">Chwaraewyr gwyddbwyll</string>
   <string name="friends">Ffrindiau</string>
   <string name="discussions">Trafodaethau</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Heddiw</string>
+  <string name="today">Heddiw</string>
   <string name="yesterday">Ddoe</string>
   <string name="minutesPerSide">Munudau i bob ochr</string>
   <string name="variant">Amrywiad</string>
@@ -366,15 +366,14 @@
   <string name="popularOpenings">Agoriadau poblogaidd</string>
   <string name="endgamePositions">Safleoedd diwedd-gêm</string>
   <string name="chess960StartPosition">Safle cychwyn Gwyddbwyll960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Safle cychwyn</string>
+  <string name="startPosition">Safle cychwyn</string>
   <string name="clearBoard">Clirio\'r bwrdd</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Llwytho safle</string>
+  <string name="loadPosition">Llwytho safle</string>
   <string name="isPrivate">Preifat</string>
   <string name="reportXToModerators">Adrodd %s i\'r cymedrolwyr</string>
   <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
   <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
-  <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
   <string name="firstName">Enw cyntaf</string>
@@ -387,7 +386,7 @@
   <string name="previouslyOnLichessTV">Ar Lichess TV yn barod</string>
   <string name="onlinePlayers">Chwarewyr ar-lein</string>
   <string name="activePlayers">Chwaraewyr gweithredol</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Mae\'r gêm yn swyddogol ond nid oes cloc ganddi!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Mae\'r gêm yn swyddogol ond nid oes cloc ganddi!</string>
   <string name="success">Llwyddiant</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Mynd i\'r gêm nesaf ar ôl symud yn awtomatig</string>
   <string name="autoSwitch">Awto nesaf</string>
@@ -452,7 +451,7 @@
   <string name="onSlowGames">Wrth chwarae yn araf</string>
   <string name="always">Bob tro</string>
   <string name="never">Byth</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">Mae %1$s yn cystadlu yn %2$s</string>
+  <string name="xCompetesInY">Mae %1$s yn cystadlu yn %2$s</string>
   <string name="victory">Buddugoliaeth</string>
   <string name="defeat">Colled</string>
   <string name="victoryVsYInZ">%1$s vs %2$s mewn %3$s</string>
@@ -666,7 +665,6 @@
   <string name="lifetimeScore">Sgôr hyd oes</string>
   <string name="agreementAssistance">Rwy\'n cytuno byddai\'n byth cael unrhyw cymorth yn ystod chwarae gem (wrth gyfrifiadur gwyddbwyll, llyfr, cronfa ddata neu berson arall).</string>
   <string name="agreementNice">Rwy\'n cytuno byddai\'n wastad yn barchus i chwaraewyr eraill.</string>
-  <string name="agreementAccount">Rwy\'n cytuno byddai ddim creu cyfrifau lluosol.</string>
   <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi Lichess.</string>
   <string name="searchOrStartNewDiscussion">Edrych am neu ddechrau sgwrs newydd</string>
   <string name="edit">Addasu</string>

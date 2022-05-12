@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Šachmatų figūrų simboliai</string>
   <string name="pgnLetter">Raidės (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">„Zen“ režimas</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Rodyti žaidėjų reitingus</string>
+  <string name="showPlayerRatings">Rodyti žaidėjų reitingus</string>
+  <string name="explainShowPlayerRatings">Tai leidžia iš svetainės paslėpti visus reitingus ir padeda susifokusuoti ties šachmatais. Partijos vis dar gali būti reitinguojamos. Šis pasirinkimas skirtas tik nustatyti, ką galite matyti.</string>
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
   <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Ėjimų atšaukimas (su varžovo sutikimu)</string>
   <string name="inCasualGamesOnly">Tik nevertinamose partijose</string>
   <string name="promoteToQueenAutomatically">Automatiškai paaukštinti į valdovę</string>
+  <string name="explainPromoteToQueenAutomatically">Norėdami laikinai sulaikyti automatinį paaukšinimą paaušktindami laikykite &lt;ctrl&gt; klavišą</string>
   <string name="whenPremoving">Per išankstinį ėjimą</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatiškai įskaityti lygiąsias pozicijai pasikartojus tris kartus</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kai lieka mažiau nei 30 sekundžių</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
   <string name="scrollOnTheBoardToReplayMoves">Sukite ratuką ant lentos norėdami dar kartą pamatyti ėjimus</string>
+  <string name="correspondenceEmailNotification">Kasdieniame laiške pateikti korespondensinių žaidimų išrašus</string>
 </resources>

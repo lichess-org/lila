@@ -17,6 +17,8 @@
   <string name="stalemate">פט</string>
   <string name="white">לבן</string>
   <string name="black">שחור</string>
+  <string name="asWhite">בתור לבן</string>
+  <string name="asBlack">בתור שחור</string>
   <string name="randomColor">צבע אקראי</string>
   <string name="createAGame">צור משחק</string>
   <string name="whiteIsVictorious">הלבן ניצח</string>
@@ -45,8 +47,8 @@
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
-  <string name="whiteResigned">הלבן פרש</string>
-  <string name="blackResigned">השחור פרש</string>
+  <string name="whiteResigned">הלבן נכנע</string>
+  <string name="blackResigned">השחור נכנע</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
   <string name="whiteDidntMove">לבן לא ביצע מסע</string>
@@ -109,7 +111,7 @@
   <string name="replayMode">מצב הרצת המסעים</string>
   <string name="realtimeReplay">זמן אמת</string>
   <string name="byCPL">ע\"י CPL</string>
-  <string name="openStudy">פתח ניתוח</string>
+  <string name="openStudy">פתח לוח למידה</string>
   <string name="enable">אפשר</string>
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="evaluationGauge">מד הערכה</string>
@@ -179,7 +181,7 @@
   <string name="players">שחקנים</string>
   <string name="friends">חברים</string>
   <string name="discussions">דיונים</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">היום</string>
+  <string name="today">היום</string>
   <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
   <string name="variant">גרסא</string>
@@ -200,6 +202,12 @@
     <item quantity="two">%s שעות</item>
     <item quantity="many">%s שעות</item>
     <item quantity="other">%s שעות</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s דקות</item>
+    <item quantity="two">%s דקות</item>
+    <item quantity="many">%s דקות</item>
+    <item quantity="other">%s דקות</item>
   </plurals>
   <string name="time">זמן</string>
   <string name="rating">דירוג</string>
@@ -340,10 +348,10 @@
     <item quantity="other">%s נקודות טורניר</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s לימוד</item>
-    <item quantity="two">%s למידות</item>
-    <item quantity="many">%s למידות</item>
-    <item quantity="other">%s למידות</item>
+    <item quantity="one">לוח למידה %s</item>
+    <item quantity="two">%s לוחות למידה</item>
+    <item quantity="many">%s לוחות למידה</item>
+    <item quantity="other">%s לוחות למידה</item>
   </plurals>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
@@ -384,7 +392,7 @@
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר קבוצה %2$s</string>
-  <string name="xStartedStreaming">%s התחיל שידור חי</string>
+  <string name="xStartedStreaming">%s התחיל לשדר</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
   <string name="filterGames">סנן משחקים</string>
@@ -394,9 +402,10 @@
   <string name="leaderboard">טבלת השחקנים המובילים</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
+  <string name="orUploadPgnFile">או העלה קובץ PGN</string>
   <string name="fromPosition">מהעמדה</string>
   <string name="continueFromHere">המשך מכאן</string>
-  <string name="toStudy">לחקור</string>
+  <string name="toStudy">למד לוח</string>
   <string name="importGame">ייבא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
   <plurals name="nbImportedGames">
@@ -495,15 +504,14 @@
   <string name="popularOpenings">פתיחות פופולריות</string>
   <string name="endgamePositions">עמדות סיום</string>
   <string name="chess960StartPosition">Chess960 עמדת פתיחה: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">מצב התחלתי</string>
+  <string name="startPosition">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">טען מיקום</string>
+  <string name="loadPosition">טען מיקום</string>
   <string name="isPrivate">פרטי</string>
   <string name="reportXToModerators">%s דווח למנהלים על</string>
   <string name="profileCompletion">השלמת הפרופיל: %s</string>
   <string name="xRating">דירוג %s</string>
   <string name="ifNoneLeaveEmpty">אם אין, השאר ריק</string>
-  <string name="gameCompletionRate">אחוזי השלמת משחקים: %s</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">ערוך פרופיל</string>
   <string name="firstName">שם פרטי</string>
@@ -512,11 +520,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
+  <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">היזהר, המשחק מדורג אך אין שעון.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
   <string name="success">הצלחה</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s משחק בתהליך</item>
@@ -557,6 +566,7 @@
   <string name="reportDescriptionHelp">הדבק את הקישור למשחק(ים) והסבר מה לא בסדר בהתנהגות המשתמש</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
+  <string name="importedByX">מיובא ע\"י %s</string>
   <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
@@ -576,7 +586,7 @@
   <string name="privacyPolicy">מדיניות הפרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
-  <string name="letOtherPlayersInviteYouToStudy">תן לשחקנים אחרים להזמין אותך ללמידה</string>
+  <string name="letOtherPlayersInviteYouToStudy">אפשר לשחקנים אחרים להזמין אותך ללוחות למידה</string>
   <string name="sound">צלילים</string>
   <string name="none">ללא</string>
   <string name="fast">מהיר</string>
@@ -587,7 +597,7 @@
   <string name="onSlowGames">במשחקים איטיים</string>
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s משחק ב-%2$s</string>
+  <string name="xCompetesInY">%1$s משחק ב-%2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s
@@ -619,7 +629,7 @@
   <string name="clock">שעון</string>
   <string name="opponent">יריב</string>
   <string name="learnMenu">למד</string>
-  <string name="studyMenu">לימודים</string>
+  <string name="studyMenu">לוחות למידה</string>
   <string name="practice">תרגול</string>
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
@@ -629,11 +639,12 @@
   <string name="error.email_acceptable">כתובת דוא״ל זו אינה קבילה. אנא בדוק שנית ונסה שוב.</string>
   <string name="error.email_unique">כתובת דוא״ל לא חוקית או תפוסה כבר</string>
   <string name="error.email_different">זאת כתובת הדוא״ל שלך כבר</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">לפחות %s תווים</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">עד %s תווים</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">לפחות %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">%s או פחות</string>
+  <string name="error.minLength">לפחות %s תווים</string>
+  <string name="error.maxLength">עד %s תווים</string>
+  <string name="error.min">לפחות %s</string>
+  <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="ifRegistered">אם רשום</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>
@@ -867,7 +878,7 @@
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
-  <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם הם עבור סיבות כמצוין ב%s).</string>
   <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
@@ -893,7 +904,7 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">ציינו אותכם ב- %1$s.</string>
+  <string name="mentionedYouInX">ציינו אותכם ב- %1$s.</string>
   <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
@@ -914,7 +925,7 @@
   <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנים אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">אזור המאמן</string>
-  <string name="streamerManager">אזור יוצר התוכן</string>
+  <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
@@ -935,11 +946,11 @@
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
   <string name="simulFeatured">תכונה ב-%s</string>
-  <string name="simulFeaturedHelp">גרום למשחק להיות ציבורי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
+  <string name="simulFeaturedHelp">גרום למשחק להיות פומבי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
   <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
-  <string name="embedsAvailable">הדבק כתובת אתר של משחק או כתובת אתר של פרק לימוד כדי להטמיע אותו.</string>
+  <string name="embedsAvailable">הדבק כתובת משחק או כתובת של פרק לוח לימוד כדי להטמיע אותו.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
   <string name="tournChat">צ\'אט טורניר</string>
   <string name="noChat">בטל אפשרות צ\'ט</string>
@@ -965,4 +976,9 @@
   <string name="abortTheGame">בטל את המשחק</string>
   <string name="resignTheGame">הכנע</string>
   <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
+  <string name="since">מאז</string>
+  <string name="until">עד</string>
+  <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
+  <string name="switchSides">הפוך לוח</string>
+  <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
 </resources>

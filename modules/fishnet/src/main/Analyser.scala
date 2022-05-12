@@ -18,7 +18,7 @@ final class Analyser(
     system: akka.actor.ActorSystem
 ) {
 
-  val maxPlies = 200
+  val maxPlies = 300
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")

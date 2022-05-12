@@ -1,7 +1,6 @@
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { notNull } from 'common';
-import spinnerHtml from './component/spinner';
 import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
@@ -89,7 +88,7 @@ lichess.load.then(() => {
   });
 
   $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
-    $('.picture_wrap').html(spinnerHtml);
+    $('.picture_wrap').html(lichess.spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 

@@ -1,6 +1,6 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
@@ -15,7 +15,7 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
-import lila.user.{ User => UserModel, PasswordHasher }
+import lila.user.{ PasswordHasher, User => UserModel }
 
 final class Auth(
     env: Env,
@@ -35,8 +35,8 @@ final class Auth(
       }
     }
 
-  private def getReferrer(implicit ctx: Context) =
-    get("referrer").filter(env.api.referrerRedirect.valid) orElse
+  private def getReferrer(implicit ctx: Context): String =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
       ctxReq.session.get(api.AccessUri) getOrElse
       routes.Lobby.home.url
 
@@ -79,7 +79,7 @@ final class Auth(
 
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
+      val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
@@ -94,7 +94,7 @@ final class Auth(
         Firewall {
           def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           implicit val req            = ctx.body
-          val referrer                = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
+          val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
           api.usernameOrEmailForm
             .bindFromRequest()
             .fold(
@@ -114,7 +114,7 @@ final class Auth(
                             html = fuccess {
                               err.errors match {
                                 case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                                case _                                               => Unauthorized(html.auth.login(err, referrer))
+                                case _ => Unauthorized(html.auth.login(err, referrer))
                               }
                             },
                             api = _ =>
@@ -522,7 +522,7 @@ final class Auth(
       case Some(user) => f(user)
     }
 
-  implicit private val limitedDefault = Zero.instance[Result](rateLimited)
+  implicit private val limitedDefault = Zero[Result](rateLimited)
 
   private[controllers] def HasherRateLimit =
     PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit) _

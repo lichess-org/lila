@@ -132,7 +132,8 @@ final class StudyApi(
             addChapter(
               studyId = study.id,
               data = data.form.toChapterData,
-              sticky = study.settings.sticky
+              sticky = study.settings.sticky,
+              withRatings
             )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
           case _ => fuccess(none)
         } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings)
@@ -313,6 +314,14 @@ final class StudyApi(
         chapterRepo.update(chapter.updateRoot { root =>
           root.withChildren(_.updateAllWith(_.clearAnnotations).some)
         } | chapter) >>- sendTo(study.id)(_.updateChapter(chapter.id, who))
+      }
+    }
+
+  def clearVariations(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
+    sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
+      Contribute(who.u, study) {
+        chapterRepo.update(chapter.copy(root = chapter.root.clearVariations)) >>-
+          sendTo(study.id)(_.updateChapter(chapter.id, who))
       }
     }
 
@@ -587,11 +596,13 @@ final class StudyApi(
       }
     }
 
-  def addChapter(studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean)(who: Who): Funit =
+  def addChapter(studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
+      who: Who
+  ): Funit =
     data.manyGames match {
       case Some(datas) =>
         lila.common.Future.applySequentially(datas) { data =>
-          addChapter(studyId, data, sticky)(who)
+          addChapter(studyId, data, sticky, withRatings)(who)
         }
       case _ =>
         sequenceStudy(studyId) { study =>
@@ -605,7 +616,7 @@ final class StudyApi(
                   }
                 } >>
                   chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-                    chapterMaker(study, data, order, who.u) flatMap { chapter =>
+                    chapterMaker(study, data, order, who.u, withRatings) flatMap { chapter =>
                       doAddChapter(study, chapter, sticky, who)
                     } addFailureEffect {
                       case ChapterMaker.ValidationException(error) =>
@@ -624,9 +635,11 @@ final class StudyApi(
       studyRepo.updateSomeFields(study) >>- indexStudy(study)
     }
 
-  def importPgns(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean)(who: Who) =
+  def importPgns(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
+      who: Who
+  ) =
     lila.common.Future.applySequentially(datas) { data =>
-      addChapter(studyId, data, sticky)(who)
+      addChapter(studyId, data, sticky, withRatings)(who)
     }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who) =
@@ -670,7 +683,7 @@ final class StudyApi(
                 case _                => chapter.conceal
               },
               setup = chapter.setup.copy(
-                orientation = data.realOrientation match {
+                orientation = data.orientation match {
                   case ChapterMaker.Orientation.Fixed(color) => color
                   case _                                     => chapter.setup.orientation
                 }
@@ -731,7 +744,13 @@ final class StudyApi(
             chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
               // deleting the only chapter? Automatically create an empty one
               if (chaps.sizeIs < 2) {
-                chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, who.u) flatMap { c =>
+                chapterMaker(
+                  study,
+                  ChapterMaker.Data(Chapter.Name("Chapter 1")),
+                  1,
+                  who.u,
+                  withRatings = true
+                ) flatMap { c =>
                   doAddChapter(study, c, sticky = true, who) >> doSetChapter(study, c.id, who)
                 }
               } // deleting the current chapter? Automatically move to another one
@@ -769,7 +788,7 @@ final class StudyApi(
   def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) =
     sequenceStudy(studyId) { study =>
       Contribute(who.u, study) {
-        val topics    = StudyTopics.fromStrs(topicStrs)
+        val topics    = StudyTopics.fromStrs(topicStrs, StudyTopics.studyMax)
         val newStudy  = study.copy(topics = topics.some)
         val newTopics = study.topics.fold(topics)(topics.diff)
         (study != newStudy) ?? {
@@ -785,7 +804,7 @@ final class StudyApi(
 
   def addTopics(studyId: Study.Id, topics: List[String]) =
     sequenceStudy(studyId) { study =>
-      studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics))
+      studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics, StudyTopics.studyMax))
     }
 
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) =
@@ -877,12 +896,12 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: User.ID): Fu[Boolean] =
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
-  import ornicar.scalalib.Zero
+  import alleycats.Zero
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
   // work around circular dependency
-  private var socket: Option[StudySocket] = None
+  private var socket: Option[StudySocket]           = None
   private[study] def registerSocket(s: StudySocket) = { socket = s.some }
   private def sendTo(studyId: Study.Id)(f: StudySocket => Study.Id => Unit): Unit =
     socket foreach { s =>

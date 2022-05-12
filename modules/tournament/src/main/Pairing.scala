@@ -3,6 +3,7 @@ package lila.tournament
 import chess.Color
 import lila.game.Game
 import lila.user.User
+import lila.common.ThreadLocalRandom
 
 case class Pairing(
     id: Game.ID,
@@ -61,6 +62,8 @@ private[tournament] object Pairing {
 
   case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
 
+  case class WithPlayers(pairing: Pairing, player1: Player, player2: Player)
+
   private def make(
       gameId: Game.ID,
       tourId: Tournament.ID,
@@ -79,13 +82,16 @@ private[tournament] object Pairing {
       berserk2 = false
     )
 
-  case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID): Pairing =
-      make(gameId, tourId, user1, user2)
+  case class Prep(player1: Player, player2: Player) {
+    def toPairing(tourId: Tournament.ID, gameId: Game.ID): Pairing.WithPlayers =
+      WithPlayers(make(gameId, tourId, player1.userId, player2.userId), player1, player2)
   }
 
-  def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
-    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => lila.common.ThreadLocalRandom.nextBoolean()))
-      Prep(tour.id, p1.player.userId, p2.player.userId)
-    else Prep(tour.id, p2.player.userId, p1.player.userId)
+  def prepWithColor(p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
+    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => ThreadLocalRandom.nextBoolean()))
+      Prep(p1.player, p2.player)
+    else Prep(p2.player, p1.player)
+
+  def prepWithRandomColor(p1: Player, p2: Player) =
+    if (ThreadLocalRandom.nextBoolean()) Prep(p1, p2) else Prep(p2, p1)
 }

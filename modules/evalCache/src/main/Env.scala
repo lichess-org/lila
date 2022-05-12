@@ -16,6 +16,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder,
     scheduler: akka.actor.Scheduler
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -26,6 +27,12 @@ final class Env(
   private lazy val coll = yoloDb(appConfig.get[CollName]("evalCache.collection.evalCache")).failingSilently()
 
   private lazy val truster = wire[EvalCacheTruster]
+
+  lazy val enable = settingStore[Boolean](
+    "useCeval",
+    default = true,
+    text = "Enable cloud eval (disable in case of server trouble)".some
+  )
 
   private lazy val upgrade = wire[EvalCacheUpgrade]
 

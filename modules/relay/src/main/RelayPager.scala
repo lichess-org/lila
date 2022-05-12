@@ -22,7 +22,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
           tourRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
-              Match(tourRepo.selectors.official ++ tourRepo.selectors.inactive) -> List(
+              Match(tourRepo.selectors.officialInactive) -> List(
                 Sort(Descending("syncedAt")),
                 PipelineOperator(
                   $lookup.pipeline(
@@ -31,13 +31,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
                     local = "_id",
                     foreign = "tourId",
                     pipe = List(
-                      $doc(
-                        "$sort" -> $doc(
-                          "startedAt" -> -1,
-                          "startsAt"  -> -1,
-                          "name"      -> -1
-                        )
-                      ),
+                      $doc("$sort"      -> roundRepo.sort.start),
                       $doc("$limit"     -> 1),
                       $doc("$addFields" -> $doc("sync.log" -> $arr()))
                     )

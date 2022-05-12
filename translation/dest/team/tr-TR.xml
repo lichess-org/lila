@@ -53,4 +53,5 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="upcomingTourns">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>
   <string name="declinedRequests">Geri çevrilen istekler</string>
+  <string name="joinLichessVariantTeam">Haber ve etkinlikler için resmî %s takımına katılın</string>
 </resources>

@@ -18,7 +18,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
-  const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);
+  const captured = capturedPiece && (capturedPiece.promoted ? 'pawn' : capturedPiece.role);
   return h(
     'div.pocket.is2d.pocket-' + position,
     {

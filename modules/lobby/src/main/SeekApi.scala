@@ -16,9 +16,9 @@ final class SeekApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import config._
 
-  sealed private trait CacheKey
-  private object ForAnon extends CacheKey
-  private object ForUser extends CacheKey
+  private type CacheKey = Boolean
+  private val ForAnon = false
+  private val ForUser = true
 
   private def allCursor =
     coll
@@ -29,8 +29,8 @@ final class SeekApi(
   private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
     _.refreshAfterWrite(3 seconds)
       .buildAsyncFuture {
-        case ForAnon => allCursor.list(maxPerPage.value)
-        case ForUser => allCursor.list()
+        case false => allCursor.list(maxPerPage.value)
+        case true  => allCursor.list()
       }
   }
 

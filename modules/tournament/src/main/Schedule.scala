@@ -71,8 +71,8 @@ case class Schedule(
           }
         case (Some(_), _) if full   => eliteXArena.txt(speed.trans)
         case (Some(_), _)           => eliteX.txt(speed.trans)
-        case (_, Some(max)) if full => s"<${max.rating} ${xArena.txt(speed.trans)}"
-        case (_, Some(max))         => s"<${max.rating} ${speed.trans}"
+        case (_, Some(max)) if full => s"≤${max.rating} ${xArena.txt(speed.trans)}"
+        case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
       }
     else if (variant.standard) {
       val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
@@ -220,8 +220,8 @@ object Schedule {
     val all: List[Speed] =
       List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(key: String)       = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)            = all find (_.id == id)
+    def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
+    def byId(id: Int)      = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
         case (a, b) if a == b                                        => true
@@ -361,16 +361,18 @@ object Schedule {
     else {
       import Freq._, Speed._
 
-      val nbRatedGame = (s.freq, s.speed) match {
+      val nbRatedGame = (s.freq, s.variant, s.speed) match {
 
-        case (Hourly | Daily | Eastern, HyperBullet | Bullet)             => 20
-        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Hourly | Daily | Eastern, Rapid)                            => 10
+        case (Hourly, variant, _) if variant.exotic => 0
 
-        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)             => 30
-        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Weekend | Monthly | Shield, Rapid)                            => 15
-        case (Weekly | Weekend | Monthly | Shield, Classical)                        => 5
+        case (Hourly | Daily | Eastern, _, HyperBullet | Bullet)             => 20
+        case (Hourly | Daily | Eastern, _, HippoBullet | SuperBlitz | Blitz) => 15
+        case (Hourly | Daily | Eastern, _, Rapid)                            => 10
+
+        case (Weekly | Weekend | Monthly | Shield, _, HyperBullet | Bullet)             => 30
+        case (Weekly | Weekend | Monthly | Shield, _, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, _, Rapid)                            => 15
+        case (Weekly | Weekend | Monthly | Shield, _, Classical)                        => 5
 
         case _ => 0
       }

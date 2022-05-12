@@ -81,6 +81,7 @@
   <string name="pinnedChapterComment">Comentari del capítol fixat</string>
   <string name="saveChapter">Guarda el capítol</string>
   <string name="clearAnnotations">Netejar anotacions</string>
+  <string name="clearVariations">Netejar variacions</string>
   <string name="deleteChapter">Eliminar capítol</string>
   <string name="deleteThisChapter">Eliminar aquest capítol? No hi ha volta enrera!</string>
   <string name="clearAllCommentsInThisChapter">Esborrar tots els comentaris, signes i marques en aquest capítol?</string>
@@ -156,4 +157,12 @@
   <string name="nextChapter">Capítol següent</string>
   <string name="prevChapter">Capítol Anterior</string>
   <string name="studyActions">Acions de l\'estudi</string>
+  <string name="topics">Temes</string>
+  <string name="myTopics">Els meus temes</string>
+  <string name="popularTopics">Temes populars</string>
+  <string name="manageTopics">Gestiona els temes</string>
+  <string name="back">Enrere</string>
+  <string name="playAgain">Torna a jugar</string>
+  <string name="whatWouldYouPlay">Que jugaríeu en aquesta posició?</string>
+  <string name="youCompletedThisLesson">Enhorabona, heu completat aquesta lliçó.</string>
 </resources>

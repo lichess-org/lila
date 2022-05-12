@@ -20,7 +20,7 @@ object wall {
           trans.clas.notifyAllStudents()
         )
       ),
-      if (c.wall.isEmpty)
+      if (c.wall.value.isEmpty)
         div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
       else
         div(cls := "box__pad clas-wall")(html)
@@ -41,7 +41,7 @@ object wall {
           form3.globalError(form),
           form3.group(
             form("wall"),
-            trans.clas.news()
+            trans.clas.classNews()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),

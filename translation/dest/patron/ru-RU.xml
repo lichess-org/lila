@@ -18,7 +18,7 @@
   <string name="thankYou">Благодарим вас за пожертвование!</string>
   <string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
   <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
-  <string name="ifNotRenewed">Если не будет продлено, то вы будете переведены на бесплатный план.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то учётная запись опять станет обычной.</string>
   <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
   <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
   <string name="lifetime">Пожизненная</string>
@@ -31,7 +31,6 @@
   <string name="otherAmount">Другое</string>
   <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
   <string name="celebratedPatrons">Выдающиеся спонсоры, благодаря которым существует Lichess</string>
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
@@ -46,7 +45,6 @@
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
-  <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
   <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
 Однако, спонсор получает новую классную иконку профиля.</string>
@@ -70,6 +68,7 @@
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Решите, что для вас значит Lichess:</string>
   <string name="stopPayments">Отзовите кредитную карту и прекратите платежи:</string>
+  <string name="stopPaymentsPayPal">Отменить подписку PayPal и остановить платежи:</string>
   <string name="noLongerSupport">Больше не поддерживать Lichess</string>
   <string name="viewOthers">Посмотреть других покровителей Lichess</string>
   <string name="date">Дата</string>

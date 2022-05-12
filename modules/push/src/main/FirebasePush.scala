@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{ blocking, Future }
 
 import lila.common.Chronometer
+import lila.memo.FrequencyThreshold
 import lila.user.User
 
 final private class FirebasePush(
@@ -47,6 +48,9 @@ final private class FirebasePush(
       }
     }
 
+  private type StatusCode = Int
+  private val errorCounter = new FrequencyThreshold[StatusCode](50, 10 minutes)
+
   private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
     ws.url(config.url)
       .withHttpHeaders(
@@ -84,7 +88,7 @@ final private class FirebasePush(
         logger.info(s"Delete missing firebase device $device")
         deviceApi delete device
       } else {
-        logger.warn(s"[push] firebase: ${res.status}")
+        if (errorCounter(res.status)) logger.warn(s"[push] firebase: ${res.status}")
         funit
       }
     }

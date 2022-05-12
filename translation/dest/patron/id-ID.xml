@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donasi</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donasi sebagai %s</string>
+  <string name="donateAsX">Donasi sebagai %s</string>
   <string name="lichessPatron">Penyokong Lichess</string>
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
@@ -15,7 +15,6 @@
   <string name="thankYou">Terima kasih untuk donasi Anda!</string>
   <string name="youHaveLifetime">Anda memiliki akun Lifetime Patron. Itu luar biasa!</string>
   <string name="patronUntil">Anda memiliki akun Penyokong hingga %s.</string>
-  <string name="ifNotRenewed">Jika tidak diperpanjang, Anda akan diturunkan menjadi gratis.</string>
   <string name="weAreNonProfit">Kami adalah bukanlah asosiasi mencari keuntungan karena kami percaya setiap orang harus memiliki akses ke platform catur kelas dunia yang gratis.</string>
   <string name="weRelyOnSupport">Kami mengandalkan dukungan dari orang-orang seperti Anda jika memungkinkan. Jika Anda menikmati menggunakan Lichess, silakan pertimbangkan mendukung kami dengan menyumbang dan menjadi Penyokong!</string>
   <string name="lifetime">Sepanjang waktu</string>
@@ -28,7 +27,6 @@
   <string name="otherAmount">Lainnya</string>
   <string name="pleaseEnterAmountInX">Silakan masukkan sebuah jumlah dalam bentuk %s</string>
   <string name="withCreditCard">Kartu Kredit</string>
-  <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Kami adalah tim kecil, jadi dukungan Anda membuat perubahan besar!</string>
   <string name="celebratedPatrons">Sorakan Penyokong yang membuat Lichess menjadi ada</string>
   <string name="whereMoneyGoes">Kemana uang itu pergi?</string>
@@ -42,7 +40,6 @@ Lalu kami membayar pengembang dengan penuh-waktu: %s, pendiri Lichess.</string>
   <string name="contactSupport">kontak dukungan Lichess</string>
   <string name="otherMethods">Metode donasi lainnya?</string>
   <string name="bankTransfers">Kami juga menerima transfer bank</string>
-  <string name="bitcoin">Dan ini alamat bitcoin kami: %s</string>
   <string name="patronFeatures">Apakah beberapa fitur disediakan untuk para Penyokong?</string>
   <string name="noPatronFeatures">Tidak, karena Lichess sepenuhnya gratis, selamanya, dan untuk semua orang. Itu janji.
 Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>

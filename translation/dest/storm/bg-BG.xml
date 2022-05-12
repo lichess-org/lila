@@ -52,4 +52,10 @@
   <string name="skipExplanation">Пропуснете този ход за да запазите комбинацията си! Можете да го направите само веднъж на състезание.</string>
   <string name="failedPuzzles">Сгрешени задачи</string>
   <string name="slowPuzzles">Бавни задачи</string>
+  <string name="thisWeek">Тази седмица</string>
+  <string name="thisMonth">Този месец</string>
+  <string name="allTime">За всички времена</string>
+  <string name="clickToReload">Натиснете за да презаредите</string>
+  <string name="thisRunHasExpired">Времето за този опит изтече!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Този опит беше отворен в друг таб!</string>
 </resources>

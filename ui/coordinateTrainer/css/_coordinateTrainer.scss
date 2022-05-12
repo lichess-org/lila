@@ -1,0 +1,160 @@
+@import '../../puz/css/font';
+@import 'layout';
+@import 'zen';
+@import 'svgAnimation';
+
+.wrong {
+  $c-wrong: $c-bad;
+
+  .progress__bar {
+    background-color: $c-wrong;
+  }
+
+  .score {
+    color: $c-wrong !important;
+  }
+
+  .coord--current {
+    fill: $c-wrong !important;
+  }
+
+  .current-target {
+    stroke: $c-wrong;
+  }
+}
+
+.score,
+.timer {
+  font-family: 'storm';
+  font-size: 5em;
+  margin: $block-gap;
+}
+
+.hurry {
+  color: $c-brag !important;
+}
+
+.box {
+  padding: $block-gap;
+
+  &:not(:first-child) {
+    margin-top: $block-gap;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  &.current-status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+form.mode,
+form.color {
+  margin-top: $block-gap;
+
+  i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    padding: 0;
+  }
+}
+
+form.mode .mode_option {
+  width: 50%;
+}
+
+form.color {
+  .color_white i {
+    background-image: url(../piece/cburnett/wK.svg);
+  }
+
+  .color_random i {
+    background-image: url(../images/wbK.svg);
+  }
+
+  .color_black i {
+    background-image: url(../piece/cburnett/bK.svg);
+  }
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+.progress {
+  @extend %box-radius;
+  background-color: $c-bg-zebra;
+  &__bar {
+    @extend %box-radius;
+    width: 100%;
+    height: 10px;
+    background-color: $c-secondary;
+  }
+}
+
+.table {
+  @extend %flex-column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.explanation {
+  @extend %page-text-shadow !optional;
+
+  li {
+    list-style: outside disc;
+    margin: 0.5em 0 0.5em 1em;
+  }
+
+  strong {
+    display: block;
+    margin: 1em 0 0.5em 0;
+  }
+}
+
+.start {
+  width: fit-content;
+}
+
+.coordinate-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 1em;
+}
+
+.keyboard-container {
+  display: flex;
+  align-items: center;
+
+  input.keyboard {
+    width: 4em;
+    margin-right: 1em;
+  }
+  &.hidden {
+    display: none;
+  }
+}
+
+.files-ranks {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  button.file-rank {
+    height: 3em;
+    border-width: 3px;
+    font-weight: bold;
+  }
+}

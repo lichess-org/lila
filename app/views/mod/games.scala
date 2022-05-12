@@ -21,7 +21,7 @@ object games {
   def apply(
       user: User,
       filterForm: Form[GameMod.Filter],
-      games: List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])],
+      games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Int)]
   )(implicit
@@ -70,7 +70,11 @@ object games {
           )
         ),
         postForm(action := routes.GameMod.post(user.id), cls := "mod-games__analysis-form")(
-          submitButton(cls := "button button-empty button-thin", name := "action", value := "analyse")(
+          isGranted(_.UserEvaluate) option submitButton(
+            cls   := "button button-empty button-thin",
+            name  := "action",
+            value := "analyse"
+          )(
             "Analyse selected"
           ),
           submitButton(cls := "button button-empty button-thin", name := "action", value := "pgn")(
@@ -81,8 +85,8 @@ object games {
               tr(
                 sortNoneTh(
                   input(
-                    tpe := "checkbox",
-                    name := s"game[]",
+                    tpe      := "checkbox",
+                    name     := s"game[]",
                     st.value := "all"
                   )
                 ),
@@ -98,81 +102,86 @@ object games {
               )
             ),
             tbody(
-              games.map { case (pov, assessment) =>
-                tr(
-                  td(cls := pov.game.analysable.option("input"))(
-                    pov.game.analysable option input(
-                      tpe := "checkbox",
-                      name := s"game[]",
-                      st.value := pov.gameId
-                    )
-                  ),
-                  td(dataSort := ~pov.opponent.rating)(
-                    playerLink(pov.opponent, withDiff = false)
-                  ),
-                  td(
-                    dataSort := pov.game.clock.fold(
-                      pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
-                    )(_.config.estimateTotalSeconds)
-                  )(
-                    pov.game.perfType.map { pt =>
-                      iconTag(pt.iconChar)(cls := "text")
-                    },
-                    shortClockName(pov.game)
-                  ),
-                  td(dataSort := ~pov.game.tournamentId)(
-                    pov.game.tournamentId map { tourId =>
-                      a(
-                        dataIcon := "",
-                        href := routes.Tournament.show(tourId).url,
-                        title := tournamentIdToName(tourId)
+              games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
+                case (pov, assessment) =>
+                  tr(
+                    td(cls := pov.game.analysable.option("input"))(
+                      pov.game.analysable option input(
+                        tpe      := "checkbox",
+                        name     := s"game[]",
+                        st.value := pov.gameId
                       )
+                    ),
+                    td(dataSort := ~pov.opponent.rating)(
+                      playerLink(pov.opponent, withDiff = false)
+                    ),
+                    td(
+                      dataSort := pov.game.clock.fold(
+                        pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
+                      )(_.config.estimateTotalSeconds)
+                    )(
+                      pov.game.perfType.map { pt =>
+                        iconTag(pt.iconChar)(cls := "text")
+                      },
+                      shortClockName(pov.game)
+                    ),
+                    td(dataSort := ~pov.game.tournamentId)(
+                      pov.game.tournamentId map { tourId =>
+                        a(
+                          dataIcon := "",
+                          href     := routes.Tournament.show(tourId).url,
+                          title    := tournamentIdToName(tourId)
+                        )
+                      },
+                      pov.game.swissId map { swissId =>
+                        a(
+                          dataIcon := "",
+                          href     := routes.Swiss.show(swissId).url,
+                          title    := s"Swiss #${swissId}"
+                        )
+                      }
+                    ),
+                    td(dataSort := pov.moves)(pov.moves),
+                    td(dataSort := ~pov.player.ratingDiff)(
+                      pov.win match {
+                        case Some(true)  => goodTag(cls := "result")("1")
+                        case Some(false) => badTag(cls := "result")("0")
+                        case None        => span(cls := "result")("½")
+                      },
+                      pov.player.ratingDiff match {
+                        case Some(d) if d > 0 => goodTag(s"+$d")
+                        case Some(d) if d < 0 => badTag(d)
+                        case _                => span("-")
+                      }
+                    ),
+                    assessment match {
+                      case Some(Left(full)) => td(dataSort := full.analysis.avg)(full.analysis.toString)
+                      case _                => td
                     },
-                    pov.game.swissId map { swissId =>
-                      a(
-                        dataIcon := "",
-                        href := routes.Swiss.show(swissId).url,
-                        title := s"Swiss #${swissId}"
-                      )
-                    }
-                  ),
-                  td(dataSort := pov.moves)(pov.moves),
-                  td(dataSort := ~pov.player.ratingDiff)(
-                    pov.win match {
-                      case Some(true)  => goodTag(cls := "result")("1")
-                      case Some(false) => badTag(cls := "result")("0")
-                      case None        => span(cls := "result")("½")
-                    },
-                    pov.player.ratingDiff match {
-                      case Some(d) if d > 0 => goodTag(s"+$d")
-                      case Some(d) if d < 0 => badTag(d)
-                      case _                => span("-")
-                    }
-                  ),
-                  assessment match {
-                    case Left(full) => td(dataSort := full.analysis.avg)(full.analysis.toString)
-                    case _          => td
-                  },
-                  assessment.fold(_.basics, identity) pipe { basics =>
-                    frag(
-                      td(dataSort := basics.moveTimes.avg)(
-                        s"${basics.moveTimes / 10}",
-                        basics.mtStreak ?? frag(br, "streak")
-                      ),
-                      td(dataSort := basics.blurs)(
-                        s"${basics.blurs}%",
-                        basics.blurStreak.filter(8 <=) map { s =>
-                          frag(br, s"streak $s/12")
+                    assessment match {
+                      case Some(ass) =>
+                        ass.fold(_.basics, identity) pipe { basics =>
+                          frag(
+                            td(dataSort := basics.moveTimes.sd)(
+                              s"${basics.moveTimes / 10}",
+                              basics.mtStreak ?? frag(br, "streak")
+                            ),
+                            td(dataSort := basics.blurs)(
+                              s"${basics.blurs}%",
+                              basics.blurStreak.filter(8 <=) map { s =>
+                                frag(br, s"streak $s/12")
+                              }
+                            )
+                          )
                         }
+                      case _ => frag(td, td)
+                    },
+                    td(dataSort := pov.game.movedAt.getSeconds.toString)(
+                      a(href := routes.Round.watcher(pov.gameId, pov.color.name), cls := "glpt")(
+                        momentFromNowServerText(pov.game.movedAt)
                       )
-                    )
-                  },
-                  td(dataSort := pov.game.movedAt.getSeconds.toString)(
-                    a(href := routes.Round.watcher(pov.gameId, pov.color.name), cls := "glpt")(
-                      momentFromNowServerText(pov.game.movedAt)
                     )
                   )
-                )
               }
             )
           )

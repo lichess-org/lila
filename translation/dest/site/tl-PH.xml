@@ -431,7 +431,6 @@
   <string name="profileCompletion">Pagkakompleto ng profile: %s</string>
   <string name="xRating">%s marka</string>
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
-  <string name="gameCompletionRate">Katayuan ng pagkakompleto ng laro: %s</string>
   <string name="profile">Profile</string>
   <string name="editProfile">I-edit ang profile</string>
   <string name="firstName">Pangalan</string>
@@ -548,10 +547,10 @@
   <string name="error.email_acceptable">Hindi katanggap-tanggap ang email address na ito. Mangyaring i-double check ito, at subukang muli.</string>
   <string name="error.email_unique">Ito na ang iyong email address</string>
   <string name="error.email_different">Ito na ang iyong email address</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Dapat na hindi bababa sa %s mga character ang haba</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Dapat na hindi hihigit sa %s mga character ang haba</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Dapat ay hindi bababa sa %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Dapat nasa mos %s</string>
+  <string name="error.minLength">Dapat na hindi bababa sa %s mga character ang haba</string>
+  <string name="error.maxLength">Dapat na hindi hihigit sa %s mga character ang haba</string>
+  <string name="error.min">Dapat ay hindi bababa sa %s</string>
+  <string name="error.max">Dapat nasa mos %s</string>
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
   <string name="onlyExistingConversations">Mga nabubuhay na pagsasalitaan lamang</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
@@ -774,7 +773,6 @@
   <string name="currentMatchScore">Kasalukuyang iskor ng labanan</string>
   <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
   <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
-  <string name="agreementAccount">Sumasang-ayon ako na hindi ako lilikha ng maraming mga account.</string>
   <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>

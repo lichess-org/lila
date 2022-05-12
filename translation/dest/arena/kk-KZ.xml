@@ -41,4 +41,16 @@
   <string name="shareUrl">Адамдар қосылсын десеңіз, осы URL-мен бөлісіңіз: %s</string>
   <string name="drawStreak">Тепе-теңдік тізбегі: Ойыншының Алаңда қатарынан тепе-теңдіктері болса, алғашқы тепе-теңдік немесе %s жүрістен кейін орын алған тепе-теңдіктер ұпай береді. Тепе-теңдік тізбегін жеңіліс пен тепе-теңдікпен емес, тек жеңіспен ғана тоқтатуға болады.</string>
   <string name="history">Алаң журналы</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Топты қарау</item>
+    <item quantity="other">Барлық %s топты қарау</item>
+  </plurals>
+  <string name="newTeamBattle">Жаңа Топтық Күрес</string>
+  <string name="customStartDate">Басталудың ерекше күні</string>
+  <string name="customStartDateHelp">Сіздің жергілікті уақыт белдеуіңіз. Бұл \"Жарысқа дейінгі уақыт\" баптауына әсер етеді</string>
+  <string name="allowBerserk">Берсерк-ті рұқсат ету</string>
+  <string name="allowBerserkHelp">Қосымша ұпай жинау үшін ойыншыларға уақытты жартылай қыстартуды рұқсат ету</string>
+  <string name="allowChatHelp">Ойыншыларға чат бөлмесінде сөйлесуді рұқсат ету</string>
+  <string name="arenaStreaks">Алаң тізбектері</string>
+  <string name="arenaStreaksHelp">Қатарынан болған 2 жеңіс 2 ұпайдың орнына 4 ұпай тұрады.</string>
 </resources>

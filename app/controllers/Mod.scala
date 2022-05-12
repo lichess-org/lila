@@ -1,8 +1,9 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json.Json
 import play.api.mvc._
 import scala.annotation.nowarn
 import views._
@@ -12,9 +13,9 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
-import lila.report.{ Suspect, Mod => AsMod }
+import lila.report.{ Mod => AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ User => UserModel, Title, Holder }
+import lila.user.{ Holder, Title, User => UserModel }
 
 final class Mod(
     env: Env,
@@ -23,7 +24,6 @@ final class Mod(
 ) extends LilaController(env) {
 
   private def modApi    = env.mod.api
-  private def modLogApi = env.mod.logApi
   private def assessApi = env.mod.assessApi
 
   implicit private def asMod(holder: Holder) = AsMod(holder.user)
@@ -34,7 +34,8 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user, me)
+          _       <- (v && sus.user.enabled) ?? env.api.accountClosure.close(sus.user, me)
+          _       <- (!v && sus.user.disabled) ?? modApi.reopenAccount(me.id, sus.user.id)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -64,12 +65,16 @@ final class Mod(
       }
     }
 
-  def publicChatTimeout =
-    SecureBody(_.ChatTimeout) { implicit ctx => me =>
+  def publicChatTimeout = {
+    def doTimeout(implicit req: Request[_], me: Holder) =
       FormResult(lila.chat.ChatTimeout.form) { data =>
         env.chat.api.userChat.publicTimeout(data, me)
-      }(ctx.body)
-    }
+      }
+    SecureOrScopedBody(_.ChatTimeout)(
+      secure = ctx => me => doTimeout(ctx.body, me),
+      scoped = req => me => doTimeout(req, me)
+    )
+  }
 
   def booster(username: String, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
@@ -140,7 +145,7 @@ final class Mod(
     OAuthMod(_.CloseAccount) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          env.closeAccount(user, me) map some
+          env.api.accountClosure.close(user, me) map some
         }
       }
     }(actionResult(username))
@@ -224,13 +229,15 @@ final class Mod(
                 user = user,
                 mod = me,
                 domain = report.room match {
-                  case Room.Cheat | Room.Boost => ModDomain.Hunt
-                  case Room.Comm               => ModDomain.Comm
+                  case Room.Cheat => ModDomain.Cheat
+                  case Room.Boost => ModDomain.Boost
+                  case Room.Comm  => ModDomain.Comm
                   // spontaneous inquiry
-                  case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
-                  case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
-                  case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
-                  case _                                => ModDomain.Admin
+                  case _ if Granter(_.Admin)(me.user)       => ModDomain.Admin
+                  case _ if Granter(_.CheatHunter)(me.user) => ModDomain.Cheat // heuristic
+                  case _ if Granter(_.Shusher)(me.user)     => ModDomain.Comm
+                  case _ if Granter(_.BoostHunter)(me.user) => ModDomain.Boost
+                  case _                                    => ModDomain.Admin
 
                 },
                 room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
@@ -325,7 +332,8 @@ final class Mod(
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         assessApi.refreshAssessOf(user) >>
-          env.irwin.api.requests.fromMod(Suspect(user), me) >>
+          env.irwin.irwinApi.requests.fromMod(Suspect(user), me) >>
+          env.irwin.kaladinApi.modRequest(Suspect(user), me) >>
           userC.renderModZoneActions(username)
       }
     }
@@ -394,6 +402,15 @@ final class Mod(
           err => BadRequest(html.mod.search(me, err, Nil)).fuccess,
           query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
         )
+    }
+
+  def gdprErase(username: String) =
+    Secure(_.CloseAccount) { _ => me =>
+      val res = Redirect(routes.User.show(username))
+      env.api.accountClosure.closeThenErase(username, me) map {
+        case Right(msg) => res flashSuccess msg
+        case Left(err)  => res flashFailure err
+      }
     }
 
   protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
@@ -550,10 +567,31 @@ final class Mod(
       }
     }
 
-  private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
-    env.report.api getSuspect username flatMap {
-      _ ?? f
+  def apiUserLog(username: String) =
+    SecureScoped(_.ModLog) { implicit req => me =>
+      import lila.common.Json._
+      env.user.repo named username flatMap {
+        _ ?? { user =>
+          for {
+            logs      <- env.mod.logApi.userHistory(user.id)
+            notes     <- env.socialInfo.fetchNotes(user, me.user)
+            notesJson <- lila.user.JsonView.notes(notes)(env.user.lightUserApi)
+          } yield JsonOk(
+            Json.obj(
+              "logs" -> Json.arr(logs.map { log =>
+                Json
+                  .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
+                  .add("details", log.details)
+              }),
+              "notes" -> notesJson
+            )
+          )
+        }
+      }
     }
+
+  private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
+    env.report.api getSuspect username flatMap { _ ?? f }
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
       secure: Context => Holder => A => Fu[Result]

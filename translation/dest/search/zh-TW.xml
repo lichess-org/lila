@@ -27,4 +27,10 @@
   <string name="maxNumber">最大值</string>
   <string name="maxNumberExplanation">回傳的最大場數</string>
   <string name="include">包含</string>
+  <string name="descending">降序</string>
+  <string name="ascending">升序</string>
+  <plurals name="gamesFound">
+    <item quantity="other">找到 %s 個對局</item>
+  </plurals>
+  <string name="ratingExplanation">兩位玩家的平均評分</string>
 </resources>

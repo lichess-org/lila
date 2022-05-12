@@ -1,17 +1,20 @@
 package lila.team
 
 import org.joda.time.DateTime
+import java.security.MessageDigest
+import java.nio.charset.StandardCharsets.UTF_8
 import scala.util.chaining._
 
 import lila.user.User
 import org.joda.time.Days
+import lila.common.Markdown
 
 case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     password: Option[String],
-    description: String,
-    descPrivate: Option[String],
+    description: Markdown,
+    descPrivate: Option[Markdown],
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
@@ -38,16 +41,20 @@ case class Team(
   def publicMembers: Boolean = !hideMembers.has(true)
 
   def passwordMatches(pw: String) =
-    password.forall(teamPw =>
-      teamPw.size == pw.size && teamPw.zip(pw).foldLeft(0) { case (acc, (a, b)) =>
-        acc | (a ^ b) // constant time
-      } == 0
-    )
+    password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 }
 
 object Team {
 
+  type ID = String
+
   case class Mini(id: Team.ID, name: String)
+
+  val variants: Map[chess.variant.Variant, Mini] = chess.variant.Variant.all.view collect {
+    case v if v.exotic =>
+      val name = s"Lichess ${v.name}"
+      v -> Mini(nameToId(name), name)
+  } toMap
 
   val maxJoinCeiling = 50
 
@@ -57,14 +64,14 @@ object Team {
       15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
     } atMost maxJoinCeiling
 
-  type ID = String
-
   type Access = Int
   object Access {
-    val NONE    = 0
-    val LEADERS = 10
-    val MEMBERS = 20
-    val all     = List(NONE, LEADERS, MEMBERS)
+    val NONE      = 0
+    val LEADERS   = 10
+    val MEMBERS   = 20
+    val EVERYONE  = 30
+    val allInTeam = List(NONE, LEADERS, MEMBERS)
+    val all       = EVERYONE :: allInTeam
   }
 
   case class IdsStr(value: String) extends AnyVal {
@@ -79,6 +86,7 @@ object Team {
 
     def toArray: Array[String] = value split IdsStr.separator
     def toList                 = value.nonEmpty ?? toArray.toList
+    def toSet                  = value.nonEmpty ?? toArray.toSet
   }
 
   object IdsStr {
@@ -94,8 +102,8 @@ object Team {
       id: String,
       name: String,
       password: Option[String],
-      description: String,
-      descPrivate: Option[String],
+      description: Markdown,
+      descPrivate: Option[Markdown],
       open: Boolean,
       createdBy: User
   ): Team =
@@ -119,7 +127,7 @@ object Team {
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.lengthIs / 2)) slug else randomId()
+      if (slug.lengthIs > (name.length / 2)) slug else randomId()
     }
 
   private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8

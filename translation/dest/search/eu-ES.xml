@@ -29,4 +29,11 @@
   <string name="maxNumber">Zenbaki maximoa</string>
   <string name="maxNumberExplanation">Itzuli beharreko gehienezko partida kopurua</string>
   <string name="include">Sartu</string>
+  <string name="descending">Beherantz</string>
+  <string name="ascending">Gorantz</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Partida %s aurkitu da</item>
+    <item quantity="other">%s partida aurkitu dira</item>
+  </plurals>
+  <string name="ratingExplanation">Bi jokalarien batez besteko puntuazioa</string>
 </resources>

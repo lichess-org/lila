@@ -124,7 +124,7 @@ final private class StudySocket(
         case "addChapter" =>
           reading[ChapterMaker.Data](o) { data =>
             val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-            who foreach api.addChapter(studyId, data, sticky = sticky)
+            who foreach api.addChapter(studyId, data, sticky = sticky, withRatings = true)
           }
         case "setChapter" =>
           o.get[Chapter.Id]("d") foreach { chapterId =>
@@ -149,6 +149,10 @@ final private class StudySocket(
         case "clearAnnotations" =>
           o.get[Chapter.Id]("d") foreach { id =>
             who foreach api.clearAnnotations(studyId, id)
+          }
+        case "clearVariations" =>
+          o.get[Chapter.Id]("d") foreach { id =>
+            who foreach api.clearVariations(studyId, id)
           }
         case "sortChapters" =>
           o.get[List[Chapter.Id]]("d") foreach { ids =>
@@ -304,7 +308,8 @@ final private class StudySocket(
         "w"          -> who
       )
     )
-  def setLiking(liking: Study.Liking, who: Who) = notify("liking", Json.obj("l" -> liking, "w" -> who))
+  def setLiking(liking: Study.Liking, who: Who) =
+    notifySri(who.sri, "liking", Json.obj("l" -> liking, "w" -> who))
   def setShapes(pos: Position.Ref, shapes: Shapes, who: Who) =
     version(
       "shapes",
@@ -364,7 +369,7 @@ final private class StudySocket(
     )
   private[study] def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
   def reloadAll                                                       = version("reload", JsNull)
-  def changeChapter(pos: Position.Ref, who: Who)                      = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
+  def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: Chapter.Id, who: Who) =
     version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
   def descChapter(chapterId: Chapter.Id, desc: Option[String], who: Who) =
@@ -444,8 +449,13 @@ object StudySocket {
             (__ \ "ch").read[Chapter.Id]
         )(AtPosition.apply _)
         case class SetRole(userId: String, role: String)
-        implicit val SetRoleReader: Reads[SetRole]                       = Json.reads[SetRole]
-        implicit val ChapterDataReader: Reads[ChapterMaker.Data]         = Json.reads[ChapterMaker.Data]
+        implicit val SetRoleReader: Reads[SetRole]               = Json.reads[SetRole]
+        implicit val ChapterModeReader: Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
+        implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] = stringRead(
+          ChapterMaker.Orientation.apply
+        )
+        implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
+        implicit val ChapterDataReader: Reads[ChapterMaker.Data] = Json.reads[ChapterMaker.Data]
         implicit val ChapterEditDataReader: Reads[ChapterMaker.EditData] = Json.reads[ChapterMaker.EditData]
         implicit val ChapterDescDataReader: Reads[ChapterMaker.DescData] = Json.reads[ChapterMaker.DescData]
         implicit val StudyDataReader: Reads[Study.Data]                  = Json.reads[Study.Data]

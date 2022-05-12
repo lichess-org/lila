@@ -7,6 +7,7 @@
     <item quantity="other">%s членове</item>
   </plurals>
   <string name="allTeams">Всички отбори</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Подчинени отбори</string>
   <string name="newTeam">Нов отбор</string>
   <string name="myTeams">Моите отбори</string>
   <string name="noTeamFound">Не са намерени отбори</string>
@@ -52,4 +53,5 @@
   <string name="upcomingTourns">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
   <string name="declinedRequests">Отказани заявки за присъединяване</string>
+  <string name="joinLichessVariantTeam">Присъединете се към официалния %s отбор за следите новините и събитията</string>
 </resources>

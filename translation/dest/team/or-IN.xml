@@ -3,7 +3,7 @@
   <string name="team">Team</string>
   <string name="teams">ଦଳଗୁଡ଼ିକ</string>
   <string name="allTeams">ସମସ୍ତ ଦଳ</string>
-  <string name="newTeam">ନୂତନ ଦଳ</string>
+  <string name="newTeam">ନୂଆ ଦଳ</string>
   <string name="myTeams">ମୋର ଦଳଗୁଡିକ</string>
   <string name="noTeamFound">କୋଣସି ଦଳ ମିଳିଲା ନାହିଁ</string>
   <string name="joinTeam">ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
@@ -23,4 +23,5 @@
   <string name="teamTournament">ଦଳ ଟୁର୍ନାମେଣ୍ଟ</string>
   <string name="usersWhoCanManageThisTeam">ଉପଭୋକ୍ତା ଯେଉଁମାନେ ଏହି ଦଳ ପରିଚାଳନା କରିପାରିବେ</string>
   <string name="leadersChat">ନେତାଙ୍କ ଚାଟ୍</string>
+  <string name="joinLichessVariantTeam">ସମ୍ବାଦ ଓ ଇଭେଣ୍ଟଗୁଡ଼ିକ ପାଇଁ ଅଫିସିଆଲ୍ %s ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
 </resources>

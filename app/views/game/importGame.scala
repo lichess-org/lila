@@ -45,7 +45,7 @@ object importGame {
                 _ => none
               )
           },
-          form3.group(form("pgnFile"), raw("Or upload a PGN file"), klass = "upload") { f =>
+          form3.group(form("pgnFile"), trans.orUploadPgnFile(), klass = "upload") { f =>
             form3.file.pgn(f.name)
           },
           form3.checkbox(

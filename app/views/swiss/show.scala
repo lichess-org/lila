@@ -33,25 +33,25 @@ object show {
         jsModule("swiss"),
         hasScheduleInput option jsModule("flatpickr"),
         embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> bits.jsI18n,
-              "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                  localMod = isLocalMod
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings
-            )
-            .add("schedule" -> hasScheduleInput)
-        )})""")
+            Json
+              .obj(
+                "data"   -> data,
+                "i18n"   -> bits.jsI18n,
+                "userId" -> ctx.userId,
+                "chat" -> chatOption.map { c =>
+                  chat.json(
+                    c.chat,
+                    name = trans.chatRoom.txt(),
+                    timeout = c.timeout,
+                    public = true,
+                    resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                    localMod = isLocalMod
+                  )
+                },
+                "showRatings" -> ctx.pref.showRatings
+              )
+              .add("schedule" -> hasScheduleInput)
+          )})""")
       ),
       moreCss = frag(
         cssTag("swiss.show"),
@@ -83,8 +83,7 @@ object show {
   def round(s: Swiss, r: SwissRound.Number, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
-      moreCss = cssTag("swiss.show"),
-      moreJs = infiniteScrollTag
+      moreCss = cssTag("swiss.show")
     ) {
       val pager = views.html.base.bits
         .pagination(p => routes.Swiss.round(s.id.value, p).url, r.value, s.round.value, showPost = true)
@@ -95,18 +94,15 @@ object show {
         ),
         pager(cls := "pagination--top"),
         table(cls := "slist slist-pad")(
-          tbody(cls := "infinite-scroll")(
-            pairings.currentPageResults map { p =>
-              tr(cls := "paginated")(
-                td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
-                td(userIdLink(p.white.some)),
-                td(p strResultOf chess.White),
-                td(p strResultOf chess.Black),
-                td(userIdLink(p.black.some))
-              )
-            },
-            pagerNextTable(pairings, p => routes.Swiss.round(s.id.value, r.value).url)
-          )
+          pairings.currentPageResults map { p =>
+            tr(cls := "paginated")(
+              td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
+              td(userIdLink(p.white.some)),
+              td(p strResultOf chess.White),
+              td(p strResultOf chess.Black),
+              td(userIdLink(p.black.some))
+            )
+          }
         ),
         pager(cls := "pagination--bottom")
       )

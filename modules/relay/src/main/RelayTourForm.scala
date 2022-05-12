@@ -1,16 +1,16 @@
 package lila.relay
 
-import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
+import lila.common.Markdown
 
 final class RelayTourForm {
 
@@ -20,7 +20,7 @@ final class RelayTourForm {
     mapping(
       "name"        -> cleanText(minLength = 3, maxLength = 80),
       "description" -> cleanText(minLength = 3, maxLength = 400),
-      "markup"      -> optional(cleanText(maxLength = 20_000)),
+      "markdown"    -> optional(toMarkdown(cleanText(maxLength = 20_000))),
       "tier"        -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST))
     )(Data.apply)(Data.unapply)
   )
@@ -35,7 +35,7 @@ object RelayTourForm {
   case class Data(
       name: String,
       description: String,
-      markup: Option[String],
+      markup: Option[Markdown],
       tier: Option[RelayTour.Tier]
   ) {
 

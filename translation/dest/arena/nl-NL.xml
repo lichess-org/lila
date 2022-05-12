@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena toernooien</string>
+  <string name="arenaTournaments">Arena-toernooien</string>
   <string name="isItRated">Is dit met rating?</string>
   <string name="willBeNotified">Je krijgt een melding wanneer dit toernooi start, dus het is veilig om in een ander tabblad te spelen terwijl je wacht.</string>
   <string name="isRated">Dit toernooi is met rating en zal je rating beïnvloeden.</string>
@@ -20,7 +20,7 @@ Berserk gaan in partijen met een klok met extra seconden per zet, zorgt ervoor d
 
 Berserk is niet beschikbaar voor partijen met nul begintijd (0+1, 0+2).
 
-Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de partij.</string>
+Berserk geeft je enkel een extra punt als beide spelers minstens 7 zetten spelen in de partij.</string>
   <string name="howIsTheWinnerDecided">Hoe wordt de winnaar bepaald?</string>
   <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).</string>
   <string name="howDoesPairingWork">Hoe werkt de indeling?</string>

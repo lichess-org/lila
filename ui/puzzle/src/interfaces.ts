@@ -10,6 +10,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
+import { KeyboardMove } from 'keyboardMove';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -27,6 +28,7 @@ export interface KeyboardController {
   playBestMove(): void;
   flip(): void;
   flipped(): boolean;
+  nextPuzzle(): void;
 }
 
 export type ThemeKey = string;
@@ -55,6 +57,7 @@ export interface Controller extends KeyboardController {
   getData(): PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
+  setChessground(cg: CgApi): void;
   makeCgOpts(): CgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
@@ -71,6 +74,7 @@ export interface Controller extends KeyboardController {
   session: PuzzleSession;
   allThemes?: AllThemes;
   showRatings: boolean;
+  keyboardMove?: KeyboardMove;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -131,6 +135,7 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
+  keyboardMove: boolean;
 }
 
 export interface Theme {
@@ -147,6 +152,7 @@ export interface PuzzleData {
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
   streak?: string;
+  player: { color: Color };
 }
 
 export interface PuzzleReplay {

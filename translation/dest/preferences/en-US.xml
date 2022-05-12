@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Chess piece symbol</string>
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Show player ratings</string>
+  <string name="showPlayerRatings">Show player ratings</string>
+  <string name="explainShowPlayerRatings">This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see.</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="inCasualGamesOnly">In casual games only</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
+  <string name="explainPromoteToQueenAutomatically">Hold the &lt;ctrl&gt; key while promoting to temporarily disable auto-promotion</string>
   <string name="whenPremoving">When premoving</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>

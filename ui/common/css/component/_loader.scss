@@ -78,6 +78,12 @@ $total_len: $len1 + $len2 + $len3;
     animation-name: mask3;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    path {
+      animation: none !important;
+    }
+  }
+
   g {
     animation: spinner-color 11s steps(1) infinite;
     stroke-dasharray: $total_len $total_len;

@@ -19,13 +19,13 @@ object atom {
       updated: Option[DateTime]
   )(elem: A => Frag) =
     frag(
-      raw("""<?xml version="1.0" encoding="UTF-8"?>"""),
+      raw("""<?xml version="1.0" encoding="utf-8"?>"""),
       raw(
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(s"$netBaseUrl$htmlCall"),
-      link(rel := "alternate", tpe := "text/html", href := s"${netBaseUrl}$htmlCall"),
-      link(rel := "self", tpe := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
+      link(rel := "alternate", tpe := "text/html", href            := s"${netBaseUrl}$htmlCall"),
+      link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
       tag("updated")(updated map atomDate),
       elems.map { el =>
@@ -36,4 +36,15 @@ object atom {
 
   private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date
+
+  private val termAttr   = attr("term")
+  private val labelAttr  = attr("label")
+  private val schemeAttr = attr("scheme")
+
+  def category(term: String, label: String, scheme: Option[String] = None) =
+    tag("category")(
+      termAttr   := term,
+      labelAttr  := label,
+      schemeAttr := scheme
+    )
 }

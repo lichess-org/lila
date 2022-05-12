@@ -29,4 +29,11 @@
   <string name="maxNumber">Maximumaantal</string>
   <string name="maxNumberExplanation">Het maximum aantal partijen dat getoond moet worden</string>
   <string name="include">Voeg toe</string>
+  <string name="descending">Aflopend</string>
+  <string name="ascending">Oplopend</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partij gevonden</item>
+    <item quantity="other">%s partijen gevonden</item>
+  </plurals>
+  <string name="ratingExplanation">De gemiddelde rating van beide spelers</string>
 </resources>

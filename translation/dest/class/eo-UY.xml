@@ -12,7 +12,6 @@
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
   <string name="closeClass">Fermi klason</string>
-  <string name="closedByX">Fermita de %s</string>
   <string name="reopen">Remalfermu</string>
   <string name="removeStudent">Forigi lernanto</string>
   <string name="removedStudents">Forigita</string>
@@ -84,7 +83,6 @@ Jen la ligo por aliri la klason.</string>
   <string name="variantXOverLastY">%1$s sur la lastaj %2$s</string>
   <string name="winrate">Venka procento</string>
   <string name="na">Ne havebla</string>
-  <string name="news">Novaĵoj de la lecionoj</string>
   <string name="editNews">Redakti novaĵojn</string>
   <string name="notifyAllStudents">Sciigi ĉiujn lernantojn</string>
   <string name="nothingHere">Ankoraŭ nenio ĉi tie.</string>

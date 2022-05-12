@@ -5,7 +5,7 @@
   "description": "lichess.org: the forever free, adless and open source chess server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ornicar/lila.git"
+    "url": "https://github.com/lichess-org/lila.git"
   },
   "keywords": [
     "chess",
@@ -14,24 +14,24 @@
   "author": "Thibault Duplessis and the gang",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
+    "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=10 <=16",
+    "node": ">=10 <=18",
     "yarn": "^1"
   },
   "dependencies": {
-    "prettier": "2.3.2",
+    "prettier": "2.6.2",
     "xml2js": "0.4.23"
   },
   "devDependencies": {
-    "@types/web": "=0.0.32",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.1.0",
-    "typescript": "^4.4.3"
+    "@types/web": "^0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "typescript": "^4"
   },
   "scripts": {
     "format": "prettier --write .",
@@ -47,11 +47,14 @@
     "ui/chess",
     "ui/cli",
     "ui/common",
+    "ui/chart",
+    "ui/coordinateTrainer",
     "ui/dasher",
     "ui/editor",
     "ui/game",
+    "ui/keyboardMove",
     "ui/nvui",
-    "ui/speech",
+    "ui/mod",
     "ui/palantir",
     "ui/insight",
     "ui/learn",

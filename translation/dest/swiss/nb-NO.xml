@@ -89,8 +89,8 @@ Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sv
   <string name="pairingSystemArena">Enhver tilgjengelig motstander med tilsvarende rating</string>
   <string name="pairingSystemSwiss">Beste par basert på poeng og kvalitet</string>
   <string name="pairingWaitTime">Parventetid</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Hurtig: venter ikke på alle spillerne</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Treg: venter på alle spillerne</string>
+  <string name="pairingWaitTimeArena">Hurtig: venter ikke på alle spillerne</string>
+  <string name="pairingWaitTimeSwiss">Treg: venter på alle spillerne</string>
   <string name="identicalPairing">Samme par</string>
   <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
   <string name="identicalForbidden">Forbudt</string>

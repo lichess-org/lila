@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Wit</string>
   <string name="black">Zwart</string>
+  <string name="asWhite">met wit</string>
+  <string name="asBlack">met zwart</string>
   <string name="randomColor">Willekeurige kleur</string>
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
@@ -181,6 +183,10 @@
     <item quantity="one">%s uur</item>
     <item quantity="other">%s uren</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuut</item>
+    <item quantity="other">%s minuten</item>
+  </plurals>
   <string name="time">Tijd</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingsstatistieken</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Ranglijst</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
+  <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
@@ -422,7 +429,7 @@
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
-  <string name="performance">Prestatie</string>
+  <string name="performance">Prestatierating</string>
   <string name="tournamentComplete">Toernooi voltooid</string>
   <string name="movesPlayed">Gespeelde zetten</string>
   <string name="whiteWins">Overwinningen met wit</string>
@@ -443,7 +450,6 @@
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
-  <string name="gameCompletionRate">Voltooide partijen: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
@@ -452,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Bedankt!</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
+  <string name="oneUrlPerLine">Eén URL per regel.</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
   <string name="by">door %s</string>
+  <string name="importedByX">Geïmporteerd door %s</string>
   <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
@@ -565,6 +573,7 @@
   <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
   <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="ifRegistered">Indien geregistreerd</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Huidige wedstrijd score</string>
   <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
-  <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken (behalve om de redenen die in de %s zijn vermeld).</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
@@ -884,4 +893,9 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="abortTheGame">Partij afbreken</string>
   <string name="resignTheGame">Partij opgeven</string>
   <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
+  <string name="since">Vanaf</string>
+  <string name="until">Tot</string>
+  <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
+  <string name="switchSides">Van kleur wisselen</string>
+  <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
 </resources>

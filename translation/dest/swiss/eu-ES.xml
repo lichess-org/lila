@@ -86,6 +86,8 @@ Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitza
   <string name="pairingSystemArena">Antzerako puntuazio duen edozein aurkari</string>
   <string name="pairingSystemSwiss">Puntu eta desberdinketa sistemetan oinarrituta parekatze onena</string>
   <string name="pairingWaitTime">Parekatzeko itxaron-denbora</string>
+  <string name="pairingWaitTimeArena">Azkarra: ez du jokalari guztiek amaitu arte itxaroten</string>
+  <string name="pairingWaitTimeSwiss">Geldoa: jokalari guztiek amaitu arte itxaroten du</string>
   <string name="identicalPairing">Parekatze berdina</string>
   <string name="possibleButNotConsecutive">Posible da, baina ez jarraian</string>
   <string name="identicalForbidden">Debekatuta</string>

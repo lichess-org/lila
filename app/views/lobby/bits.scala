@@ -20,8 +20,8 @@ object bits {
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(implicit ctx: Context) =
-    ctx.pref.showRatings option frag(
-      div(cls := "lobby__leaderboard lobby__box")(
+    frag(
+      ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
@@ -42,7 +42,7 @@ object bits {
           )
         )
       ),
-      div(cls := "lobby__winners lobby__box")(
+      div(cls := s"lobby__box ${if (ctx.pref.showRatings) "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
@@ -91,9 +91,9 @@ object bits {
       lichess map { post =>
         a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
           img(
-            src := post.image,
-            cls := "ublog-post-card__image",
-            widthA := UblogPost.thumbnail.Small.width,
+            src     := post.image,
+            cls     := "ublog-post-card__image",
+            widthA  := UblogPost.thumbnail.Small.width,
             heightA := UblogPost.thumbnail.Small.height
           ),
           span(cls := "ublog-post-card__content")(
@@ -103,6 +103,17 @@ object bits {
         )
       },
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
+    )
+
+  def showUnreadLichessMessage(implicit ctx: Context) =
+    nopeInfo(
+      cls := "unread-lichess-message",
+      p("You have received a private message from Lichess."),
+      p(
+        a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId))(
+          "Click here to read it"
+        )
+      )
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
@@ -149,7 +160,7 @@ object bits {
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := "")(
-          if (current.pov.game.abortable) trans.abortTheGame() else trans.resignTheGame()
+          if (current.pov.game.abortableByUser) trans.abortTheGame() else trans.resignTheGame()
         )
       ),
       br,

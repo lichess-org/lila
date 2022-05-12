@@ -127,5 +127,14 @@
     .color-icon::before {
       vertical-align: text-top;
     }
+
+    .position {
+      display: none;
+    }
+
+    &:hover .position,
+    .blind-mode & .position {
+      @extend %flex-between-nowrap;
+    }
   }
 }

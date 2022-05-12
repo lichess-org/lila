@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
   <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Játékosok értékszámának megjelenítése</string>
+  <string name="showPlayerRatings">Játékosok Élő pontszámának megjelenítése</string>
+  <string name="explainShowPlayerRatings">Lehetővé teszi az értékszámok elrejtését az oldalon és segít a sakkra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Visszalépés (az ellenfél beleegyezésével)</string>
   <string name="inCasualGamesOnly">Csak rangosorolás nélküli játékok esetén</string>
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
+  <string name="explainPromoteToQueenAutomatically">Tartsd lenyomva a &lt;ctrl&gt; billentyűt gyalog átváltozásakor az automatikus átváltoztatás letiltásához</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
@@ -45,5 +47,6 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Nyilak illesztése a szabályos lépésekhez</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">\"Good game, well played\" üzenet küldése döntetlen vagy vereség esetén</string>
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a visszajátszáshoz</string>
+  <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a lépések visszajátszásához</string>
+  <string name="correspondenceEmailNotification">Napi email értesítések a folyamatban lévő levelező játszmákról</string>
 </resources>

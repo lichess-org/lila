@@ -12,7 +12,7 @@
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
   <string name="closeClass">סגור כיתה</string>
-  <string name="closedByX">נסגר ע\"י %s</string>
+  <string name="removedByX">הוסרת על ידי %s</string>
   <string name="reopen">נפתח מחדש</string>
   <string name="removeStudent">הסר תלמידים</string>
   <string name="removedStudents">הוסרו</string>
@@ -71,6 +71,8 @@
   <string name="realUniqueEmail">כתובת דוא\"ל אמיתית וייחודית של התלמיד. אנו נשלח אליו דוא\"ל לאישור, עם קישור לשחרור החשבון.</string>
   <string name="closeStudent">סגור את החשבון</string>
   <string name="closeTheAccount">סגור את חשבון התלמיד לצמיתות.</string>
+  <string name="closeDesc1">התלמיד לעולם לא יוכל עוד להשתמש בחשבון זה. סגירת החשבון היא סופית. אנא וודא שהתלמיד מבין ומסכים.</string>
+  <string name="closeDesc2">אולי תרצה במקום לתת לתלמיד שליטה על החשבון, כך שיוכל להמשיך להשתמש בו.</string>
   <string name="teachers">מורים</string>
   <plurals name="nbTeachers">
     <item quantity="one">מורה</item>
@@ -93,7 +95,9 @@
   <string name="variantXOverLastY">%1$s לאורך ה%2$s האחרונה</string>
   <string name="winrate">מדד ניצחון</string>
   <string name="na">N/A</string>
-  <string name="news">חדשות הכיתה</string>
+  <string name="overview">סקירה</string>
+  <string name="news">חדשות</string>
+  <string name="classNews">חדשות הכיתה</string>
   <string name="editNews">ערוך חדשות</string>
   <string name="notifyAllStudents">הודע לכל התלמידים</string>
   <string name="nothingHere">אין פה כלום בינתיים.</string>
@@ -101,4 +105,19 @@
   <string name="newsEdit2">הוסף את החדשות החדשות למעלה. אל תמחוק את החדשות הקודמות.</string>
   <string name="newsEdit3">חדשות נפרדות עם ---
 זה יציג קו אופקי.</string>
+  <string name="invite">הזמן</string>
+  <string name="youHaveBeenInvitedByX">הוזמנת על ידי %s.</string>
+  <string name="youAcceptedThisInvitation">קיבלת את ההזמנה הזו.</string>
+  <string name="youDeclinedThisInvitation">סירבת להזמנה הזו.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">או</string>
+  <string name="createMultipleAccounts">צור חשבונות Lichess מרובים בו-זמנית</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">אתה יכול גם %s כדי ליצור חשבונות Lichess מרובים מרשימה של שמות תלמידים.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">להשתמש בפעולה זו</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">שים לב שבכיתה יכולים להיות עד %1$s תלמידים. כדי לטפל ביותר תלמידים, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">צור עוד כיתות</string>
+  <string name="studentsRealNamesOnePerLine">שמות התלמידים האמיתיים, אחד בכל שורה</string>
+  <string name="xisNowAStudentOfTheClass">%s הוא עכשיו תלמיד בכיתה</string>
+  <string name="anInvitationHasBeenSentToX">נשלחה הזמנה ל-%s</string>
+  <string name="xAlreadyHasAPendingInvitation">ל-%s כבר יש הזמנה בהמתנה לתשובה</string>
+  <string name="xIsAKidAccountWarning">%1$s הוא חשבון של ילד ולא יכול לקבל את ההודעה שלך. עליך לתת להם את קישור ההזמנה באופן ידני: %2$s</string>
 </resources>

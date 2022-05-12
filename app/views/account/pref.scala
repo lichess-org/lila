@@ -26,9 +26,9 @@ object pref {
           input(
             st.id := s"$prefix$id",
             checked option st.checked,
-            tpe := "radio",
+            tpe   := "radio",
             value := v._1.toString,
-            name := field.name
+            name  := field.name
           ),
           label(`for` := s"$prefix$id")(v._2)
         )
@@ -124,7 +124,7 @@ object pref {
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
                 div(cls := "help text shy", dataIcon := "")(
-                  "Hold the <ctrl> key while promoting to temporarily disable auto-promotion"
+                  explainPromoteToQueenAutomatically()
                 )
               )
             ),
@@ -143,6 +143,12 @@ object pref {
             setting(
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
+            ),
+            div(id := "correspondence-email-notif")(
+              setting(
+                correspondenceEmailNotification(),
+                radios(form("behavior.corresEmailNotif"), booleanChoices)
+              )
             ),
             setting(
               inputMovesWithTheKeyboard(),
@@ -191,7 +197,7 @@ object pref {
               frag(
                 radios(form("ratings"), booleanChoices),
                 div(cls := "help text shy", dataIcon := "")(
-                  "This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see."
+                  explainShowPlayerRatings()
                 )
               )
             )

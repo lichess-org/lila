@@ -436,7 +436,6 @@
   <string name="profileCompletion">Profil tamamlama: %s</string>
   <string name="xRating">%s reytinqi</string>
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
-  <string name="gameCompletionRate">Oyun tamamlama əmsalı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili redaktə et</string>
   <string name="firstName">Ad</string>
@@ -769,7 +768,6 @@
   <string name="currentMatchScore">Cari matç hesabı</string>
   <string name="agreementAssistance">Razıyam ki, heç vaxt oyunlarım zamanı (şahmat kompüterindən, kitabdan, məlumat bazasından və ya başqa bir şəxsdən) kömək almayacağam.</string>
   <string name="agreementNice">Həmişə digər oyunçulara hörmətlə yanaşacağımla razıyam.</string>
-  <string name="agreementAccount">Çox hesab yaratmayacağımla razıyam.</string>
   <string name="agreementPolicy">Bütün Lichess qaydalarına riayət edəcəyimlə razıyam.</string>
   <string name="searchOrStartNewDiscussion">Axtarış edin və ya yeni söhbətə başlayın</string>
   <string name="edit">Redaktə et</string>

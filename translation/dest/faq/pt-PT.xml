@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para mais informações, leia as nossas %s</string>
+  <string name="fairPlayPage">página de fair-play</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>

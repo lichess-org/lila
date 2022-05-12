@@ -14,7 +14,7 @@ import lila.report.Suspect
 final class Ublog(env: Env) extends LilaController(env) {
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
-  import views.html.ublog.blog.{ urlOfBlog }
+  import views.html.ublog.blog.urlOfBlog
   import lila.common.paginator.Paginator.zero
 
   def index(username: String, page: Int) = Open { implicit ctx =>
@@ -59,6 +59,29 @@ final class Ublog(env: Env) extends LilaController(env) {
             }
           }
         }
+      }
+    }
+  }
+
+  def discuss(id: String) = Open { implicit ctx =>
+    NotForKids {
+      import lila.forum.Categ.ublogSlug
+      val topicSlug = s"ublog-${id}"
+      val redirect  = Redirect(routes.ForumTopic.show(ublogSlug, topicSlug))
+      env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
+        case true => fuccess(redirect)
+        case _ =>
+          env.ublog.api.getPost(UblogPost.Id(id)) flatMap {
+            _ ?? { post =>
+              env.forum.topicApi.makeUblogDiscuss(
+                slug = topicSlug,
+                name = post.title,
+                url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                ublogId = id,
+                authorId = post.created.by
+              )
+            } inject redirect
+          }
       }
     }
   }
@@ -245,6 +268,13 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def communityAtom(code: String) = Action.async { implicit req =>
+    val lang = Lang.get(code).filter(LangList.popularNoRegion.contains)
+    env.ublog.paginator.liveByCommunity(lang, page = 1) map { posts =>
+      Ok(html.ublog.atom.community(code, posts.currentPageResults)) as XML
+    }
+  }
+
   def liked(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       Reasonable(page, 15) {
@@ -284,7 +314,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         implicit val lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-            Ok(html.ublog.atom(user, blog, posts.currentPageResults)) as XML
+            Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML
           }
         }
     }

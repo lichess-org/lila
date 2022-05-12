@@ -35,6 +35,7 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
   private[relay] object sort {
     val chrono        = $doc("createdAt" -> 1)
     val reverseChrono = $doc("createdAt" -> -1)
+    val start         = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
   }
 
   private[relay] object selectors {

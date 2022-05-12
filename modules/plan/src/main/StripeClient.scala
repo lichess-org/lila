@@ -8,6 +8,7 @@ import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config.Secret
+import lila.common.WebService
 import lila.user.User
 
 final private class StripeClient(
@@ -18,13 +19,14 @@ final private class StripeClient(
 
   import StripeClient._
   import JsonHandlers._
+  import JsonHandlers.stripe._
+  import WebService._
 
   private val STRIPE_VERSION = "2020-08-27"
-  // private val STRIPE_VERSION = "2016-07-06"
 
   def sessionArgs(
       mode: String,
-      customerId: CustomerId,
+      customerId: StripeCustomerId,
       currency: Currency,
       urls: NextUrls
   ): List[(String, Any)] =
@@ -45,7 +47,7 @@ final private class StripeClient(
         else config.products.onetime
       },
       "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
-      "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.smallestCurrencyUnit,
+      "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).smallestCurrencyUnit,
       "line_items[0][quantity]"                -> 1
     ) ::: data.isLifetime.?? {
       List(
@@ -65,7 +67,7 @@ final private class StripeClient(
   private def recurringPriceArgs(name: String, money: Money) = List(
     s"$name[0][price_data][product]"                   -> config.products.monthly,
     s"$name[0][price_data][currency]"                  -> money.currencyCode,
-    s"$name[0][price_data][unit_amount]"               -> money.toStripeAmount.smallestCurrencyUnit,
+    s"$name[0][price_data][unit_amount]"               -> StripeAmount(money).smallestCurrencyUnit,
     s"$name[0][price_data][recurring][interval]"       -> "month",
     s"$name[0][price_data][recurring][interval_count]" -> 1,
     s"$name[0][quantity]"                              -> 1
@@ -77,7 +79,7 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
+  def createCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
@@ -85,7 +87,7 @@ final private class StripeClient(
       "expand[]"    -> "subscriptions"
     )
 
-  def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
+  def getCustomer(id: StripeCustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}", "expand[]" -> "subscriptions")
 
   def updateSubscription(sub: StripeSubscription, money: Money): Fu[StripeSubscription] = {
@@ -108,7 +110,7 @@ final private class StripeClient(
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
 
-  def getNextInvoice(customerId: CustomerId): Fu[Option[StripeInvoice]] =
+  def getNextInvoice(customerId: StripeCustomerId): Fu[Option[StripeInvoice]] =
     getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
   def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
@@ -126,7 +128,7 @@ final private class StripeClient(
   def getSession(id: String): Fu[Option[StripeSessionWithIntent]] =
     getOne[StripeSessionWithIntent](s"checkout/sessions/$id", "expand[]" -> "setup_intent")
 
-  def setCustomerPaymentMethod(customerId: CustomerId, paymentMethod: String): Funit =
+  def setCustomerPaymentMethod(customerId: StripeCustomerId, paymentMethod: String): Funit =
     postOne[JsObject](
       s"customers/${customerId.value}",
       "invoice_settings[default_payment_method]" -> paymentMethod
@@ -135,11 +137,13 @@ final private class StripeClient(
   def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
     postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
 
+  private val logger = lila.plan.logger branch "stripe"
+
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap some recover {
       case _: NotFoundException => None
       case e: DeletedException =>
-        play.api.Logger("stripe").warn(e.getMessage)
+        logger.warn(e.getMessage)
         None
     }
 
@@ -199,17 +203,7 @@ final private class StripeClient(
       (o \ "deleted").asOpt[Boolean]
     } contains true
 
-  private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] =
-    in flatMap {
-      case (name, Some(x)) => Some(name -> x.toString)
-      case (_, None)       => None
-      case (name, x)       => Some(name -> x.toString)
-    }
-
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
-
-  private def debugInput(data: Seq[(String, Any)]) =
-    fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 }
 
 object StripeClient {
@@ -225,8 +219,8 @@ object StripeClient {
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.secret") secretKey: Secret,
-      products: StripeProducts
+      products: ProductIds
   )
-  implicit private[plan] val productsLoader     = AutoConfig.loader[StripeProducts]
+  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
   implicit private[plan] val stripeConfigLoader = AutoConfig.loader[Config]
 }

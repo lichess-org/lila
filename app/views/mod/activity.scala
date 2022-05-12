@@ -16,8 +16,10 @@ object activity {
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
-        jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})""")
+        jsModule("mod.activity"),
+        embedJsUnsafeLoadThen(
+          s"""LichessModActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})"""
+        )
       )
     ) {
       main(cls := "page-menu")(
@@ -42,11 +44,11 @@ object activity {
         span(if (p.who == Who.Team) "Team" else "My"),
         List(
           a(
-            cls := (p.who == Who.Team).option("current"),
+            cls  := (p.who == Who.Team).option("current"),
             href := routes.Mod.activityOf("team", p.period.key)
           )("Team"),
           a(
-            cls := (p.who != Who.Team).option("current"),
+            cls  := (p.who != Who.Team).option("current"),
             href := routes.Mod.activityOf("me", p.period.key)
           )("My")
         )
@@ -59,7 +61,7 @@ object activity {
         span(p.period.key),
         Period.all.map { per =>
           a(
-            cls := (p.period == per).option("current"),
+            cls  := (p.period == per).option("current"),
             href := routes.Mod.activityOf(p.who.key, per.key)
           )(per.toString)
         }

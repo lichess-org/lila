@@ -29,4 +29,11 @@
   <string name="maxNumber">Maximale Anzahl</string>
   <string name="maxNumberExplanation">Die maximale Anzahl der anzuzeigenden Partien</string>
   <string name="include">Einschließen</string>
+  <string name="descending">Absteigend</string>
+  <string name="ascending">Aufsteigend</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s Partie gefunden</item>
+    <item quantity="other">%s Partien gefunden</item>
+  </plurals>
+  <string name="ratingExplanation">Die durchschnittliche Wertungszahl beider Spieler</string>
 </resources>

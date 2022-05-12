@@ -54,7 +54,7 @@ final class TeamApi(
         name = setup.name,
         password = setup.password,
         description = setup.description,
-        descPrivate = setup.descPrivate.filter(_.nonEmpty),
+        descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
         open = setup.isOpen,
         createdBy = me
       )
@@ -83,8 +83,10 @@ final class TeamApi(
       teamRepo.coll.update.one($id(team.id), team).void >>
         !team.leaders(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)
-        } >>-
-        (indexer ! InsertTeam(team))
+        } >>- {
+          cached.forumAccess.invalidate(team.id)
+          indexer ! InsertTeam(team)
+        }
     }
 
   def mine(me: User): Fu[List[Team]] =
@@ -107,19 +109,22 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     for {
-      requests <- requestRepo findActiveByTeam team.id
-      users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map { case (request, user) =>
-      RequestWithUser(request, user)
-    }
+      requests  <- requestRepo.findActiveByTeam(team.id, 50)
+      withUsers <- requestsWithUsers(requests)
+    } yield withUsers
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
-      teamIds  <- teamRepo enabledTeamIdsByLeader user.id
-      requests <- requestRepo findActiveByTeams teamIds
-      users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map { case (request, user) =>
-      RequestWithUser(request, user)
+      teamIds   <- teamRepo enabledTeamIdsByLeader user.id
+      requests  <- requestRepo findActiveByTeams teamIds
+      withUsers <- requestsWithUsers(requests)
+    } yield withUsers
+
+  private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
+    userRepo optionsByIds requests.map(_.user) map { users =>
+      requests zip users collect {
+        case (request, Some(user)) if user.enabled => RequestWithUser(request, user)
+      }
     }
 
   def join(team: Team, me: User, request: Option[String], password: Option[String]): Fu[Requesting] =
@@ -148,7 +153,11 @@ final class TeamApi(
   def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMap {
       _ ?? {
-        val request = Request.make(team = team.id, user = user.id, message = msg)
+        val request = Request.make(
+          team = team.id,
+          user = user.id,
+          message = if (user.marks.troll) Request.defaultMessage else msg
+        )
         requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }
@@ -250,7 +259,6 @@ final class TeamApi(
         case JsSuccess(users, _) =>
           users
             .map(_.value.toLowerCase.trim)
-            .filter(User.lichessId !=)
             .toSet
         case _ => Set.empty[User.ID]
       }
@@ -261,8 +269,12 @@ final class TeamApi(
     val leaders: Set[User.ID] = parseTagifyInput(json) take 30
     for {
       allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
-      ids                  <- userRepo.filterNotKid(allIds.toSeq)
+      idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
+      ids =
+        (if (idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId))
+           idsNoKids - User.lichessId
+         else idsNoKids)
       _ <- ids.nonEmpty ?? {
         if (
           ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
@@ -283,12 +295,12 @@ final class TeamApi(
       teamIds.nonEmpty ?? teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
     }
 
-  def toggleEnabled(team: Team, by: User): Funit =
+  def toggleEnabled(team: Team, by: User, explain: String): Funit =
     if (
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
       (team.leaders(by.id) && !team.leaders(team.createdBy))
     ) {
-      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}")
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}: $explain")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
@@ -300,10 +312,12 @@ final class TeamApi(
       teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums
-  def delete(team: Team): Funit =
+  def delete(team: Team, by: User, explain: String): Funit =
     teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByteam(team.id) >>-
-      (indexer ! RemoveTeam(team.id))
+      memberRepo.removeByTeam(team.id) >>- {
+        logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+        (indexer ! RemoveTeam(team.id))
+      }
 
   def syncBelongsTo(teamId: Team.ID, userId: User.ID): Boolean =
     cached.syncTeamIds(userId) contains teamId

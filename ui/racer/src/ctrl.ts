@@ -11,13 +11,13 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Run } from 'puz/interfaces';
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 
-export default class StormCtrl {
+export default class RacerCtrl {
   private data: RacerData;
   private redraw: () => void;
   private sign = Math.random().toString(36);
@@ -46,7 +46,7 @@ export default class StormCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config, opts.data.startsIn ? Math.max(0, -opts.data.startsIn) : undefined),
+      clock: new Clock(config, defined(opts.data.startsIn) ? Math.max(0, -opts.data.startsIn) : undefined),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -54,7 +54,9 @@ export default class StormCtrl {
       },
     };
     this.vm = {
-      alreadyStarted: !!opts.data.startsIn && opts.data.startsIn <= 0,
+      alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
+      filterFailed: false,
+      filterSlow: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -85,14 +87,14 @@ export default class StormCtrl {
     $('#zentog').on('click', this.toggleZen);
     setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
-    // this.simulate();
   }
 
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn) {
+    if (data.startsIn && this.status() == 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
+      this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
       else this.run.clock.start();
     }
@@ -180,7 +182,7 @@ export default class StormCtrl {
         }
         this.socketSend('racerScore', this.localScore);
         if (puzzle.isOver()) {
-          if (!this.incPuzzle()) this.end();
+          if (!this.incPuzzle(true)) this.end();
         } else {
           puzzle.moveIndex++;
           captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
@@ -191,7 +193,7 @@ export default class StormCtrl {
         this.run.errors++;
         this.run.combo.reset();
         if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle()) this.end();
+        else if (!this.incPuzzle(false)) this.end();
       }
       this.redraw();
       this.redrawQuick();
@@ -217,8 +219,9 @@ export default class StormCtrl {
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
-  private incPuzzle = (): boolean => {
+  private incPuzzle = (win: boolean): boolean => {
     const index = this.run.current.index;
+    this.run.history.push({ puzzle: this.data.puzzles[index], win, millis: getNow() - this.run.current.startAt });
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
       return true;
@@ -234,6 +237,16 @@ export default class StormCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.withGround(g => g.toggleOrientation());
+    this.redraw();
+  };
+
+  toggleFilterSlow = () => {
+    this.vm.filterSlow = !this.vm.filterSlow;
+    this.redraw();
+  };
+
+  toggleFilterFailed = () => {
+    this.vm.filterFailed = !this.vm.filterFailed;
     this.redraw();
   };
 

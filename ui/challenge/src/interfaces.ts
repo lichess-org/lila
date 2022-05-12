@@ -51,6 +51,7 @@ export interface Challenge {
   rated: boolean;
   timeControl: TimeControl;
   color: Color | 'random';
+  finalColor: Color;
   perf: {
     icon: string;
     name: string;

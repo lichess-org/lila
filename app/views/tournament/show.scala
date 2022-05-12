@@ -27,23 +27,23 @@ object show {
       moreJs = frag(
         jsModule("tournament"),
         embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> bits.jsI18n,
-            "userId" -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                localMod = ctx.userId has tour.createdBy
-              )
-            },
-            "showRatings" -> ctx.pref.showRatings
-          )
-        )})""")
+            Json.obj(
+              "data"   -> data,
+              "i18n"   -> bits.jsI18n,
+              "userId" -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+                  localMod = ctx.userId has tour.createdBy
+                )
+              },
+              "showRatings" -> ctx.pref.showRatings
+            )
+          )})""")
       ),
       moreCss = cssTag {
         if (tour.isTeamBattle) "tournament.show.team-battle"
@@ -61,12 +61,13 @@ object show {
                 s"${titleNameOrId(winnerId)} takes the prize home!"
               }
         )
-        .some
+        .some,
+      csp = defaultCsp.withLilaHttp.some
     )(
       main(cls := s"tour${tour.schedule
-        .?? { sched =>
-          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }}")(
+          .?? { sched =>
+            s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+          }}")(
         st.aside(cls := "tour__side")(
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
         ),

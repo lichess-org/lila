@@ -83,8 +83,8 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="pairingSystemArena">Turnuva puanı yakın olan müsait bir rakip seçilir</string>
   <string name="pairingSystemSwiss">Turnuva ve eşitlik bozma puanlarına göre en uygun eşleştirme yapılır</string>
   <string name="pairingWaitTime">Eşleştirme bekleme süresi</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Hızlı: diğer oyuncular beklenmez</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Yavaş: bütün maçların bitmesi beklenir</string>
+  <string name="pairingWaitTimeArena">Hızlı: diğer oyuncular beklenmez</string>
+  <string name="pairingWaitTimeSwiss">Yavaş: bütün maçların bitmesi beklenir</string>
   <string name="identicalPairing">Aynı kişiyle eşleşme</string>
   <string name="possibleButNotConsecutive">Mümkün ancak üst üste olmaz</string>
   <string name="identicalForbidden">Mümkün değil</string>

@@ -24,4 +24,7 @@
   <string name="sortBy">Sorteer volgens</string>
   <string name="analysis">Analise</string>
   <string name="onlyAnalysed">Slegs wedstryde waarvan daar rekenaar analise beskikbaar is</string>
+  <string name="descending">Dalende</string>
+  <string name="ascending">Stygende</string>
+  <string name="ratingExplanation">Die gemiddelde gradering van albei spelers</string>
 </resources>

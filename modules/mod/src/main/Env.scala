@@ -85,18 +85,17 @@ final class Env(
         }
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { userId =>
-            logApi.cheatDetected(userId, game.id) >>
-              logApi.countRecentCheatDetected(userId) flatMap { count =>
-                (count >= 3) ?? {
-                  if (game.hasClock)
-                    api.autoMark(
-                      lila.report.SuspectId(userId),
-                      lila.report.ModId.lichess,
-                      s"Cheat detected during game, ${count} times"
-                    )
-                  else reportApi.autoCheatDetectedReport(userId, count)
-                }
+            logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
+              (count >= 3) ?? {
+                if (game.hasClock)
+                  api.autoMark(
+                    lila.report.SuspectId(userId),
+                    lila.report.ModId.lichess,
+                    s"Cheat detected during game, ${count} times"
+                  )
+                else reportApi.autoCheatDetectedReport(userId, count)
               }
+            }
           }
     },
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>

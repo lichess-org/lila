@@ -72,7 +72,7 @@ final class Msg(
 
   def compatCreate =
     AuthBody { implicit ctx => me =>
-      ctx.noKid ?? {
+      ctx.noKid ?? ctx.noBot ?? {
         env.msg.compat
           .create(me)(ctx.body, formBinding)
           .fold(
@@ -99,7 +99,7 @@ final class Msg(
       // new API: create/reply
       scoped = implicit req =>
         me =>
-          (!me.kid && userId != me.id) ?? {
+          (!me.kid && !me.is(userId)) ?? {
             import play.api.data._
             import play.api.data.Forms._
             Form(single("text" -> nonEmptyText))
@@ -110,7 +110,7 @@ final class Msg(
                   env.msg.api.post(me.id, userId, text) map {
                     case lila.msg.MsgApi.PostResult.Success => jsonOkResult
                     case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
-                    case _                                  => BadRequest(jsonError("The message was rejected"))
+                    case _ => BadRequest(jsonError("The message was rejected"))
                   }
               )
           }
@@ -120,7 +120,7 @@ final class Msg(
   private def inboxJson(me: lila.user.User) =
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
       Json.obj(
-        "me"       -> lightUserWrites.writes(me.light).add("kid" -> me.kid),
+        "me"       -> lightUserWrites.writes(me.light).add("bot" -> me.isBot),
         "contacts" -> threads
       )
     }

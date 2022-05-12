@@ -73,8 +73,8 @@ final class Simul(env: Env) extends LilaController(env) {
     }
 
   private[controllers] def canHaveChat(simul: Sim)(implicit ctx: Context): Boolean =
-    !ctx.kid &&           // no public chats for kids
-      ctx.me.fold(true) { // anon can see public chats
+    ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
+      ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
       } && simul.team.fold(true) { teamId =>
         ctx.userId exists {
@@ -168,9 +168,11 @@ final class Simul(env: Env) extends LilaController(env) {
   def join(id: String, variant: String) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
-        env.simul.api.addApplicant(id, me, variant) inject {
-          if (HTTPRequest isXhr ctx.req) jsonOkResult
-          else Redirect(routes.Simul.show(id))
+        env.team.cached.teamIds(me.id) flatMap { teamIds =>
+          env.simul.api.addApplicant(id, me, teamIds.contains, variant) inject {
+            if (HTTPRequest isXhr ctx.req) jsonOkResult
+            else Redirect(routes.Simul.show(id))
+          }
         }
       }
     }

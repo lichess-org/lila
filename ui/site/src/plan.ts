@@ -1,6 +1,17 @@
 import * as xhr from 'common/xhr';
 
-export default function (publicKey: string) {
+const showError = (error: string) => alert(error);
+
+const changeForm = () => {
+  const $change = $('.plan table.all .change');
+  $change.find('a').on('click', function (this: HTMLLinkElement) {
+    const f = $(this).data('form');
+    $change.find('form:not(.' + f + ')').hide();
+    $change.find('form.' + f).toggle();
+  });
+};
+
+export function stripeStart(publicKey: string) {
   $('.update-payment-method').on('click', () => {
     const stripe = window.Stripe(publicKey);
     xhr.json('/patron/stripe/update-payment', { method: 'post' }).then(data => {
@@ -16,12 +27,9 @@ export default function (publicKey: string) {
     }, showError);
   });
 
-  const $change = $('.plan table.all .change');
-  $change.find('a').on('click', function (this: HTMLLinkElement) {
-    const f = $(this).data('form');
-    $change.find('form:not(.' + f + ')').hide();
-    $change.find('form.' + f).toggle();
-  });
+  changeForm();
 }
 
-const showError = (error: string) => alert(error);
+export function payPalStart() {
+  changeForm();
+}

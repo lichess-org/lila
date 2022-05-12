@@ -31,4 +31,12 @@
   <string name="maxNumber">Număr maxim</string>
   <string name="maxNumberExplanation">Numărul maxim de jocuri returnate</string>
   <string name="include">Include</string>
+  <string name="descending">Descrescător</string>
+  <string name="ascending">Crescător</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partidă găsită</item>
+    <item quantity="few">%s partide găsite</item>
+    <item quantity="other">%s de partide găsite</item>
+  </plurals>
+  <string name="ratingExplanation">Evaluarea medie a ambilor jucători</string>
 </resources>

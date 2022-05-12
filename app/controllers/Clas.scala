@@ -36,6 +36,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
       }
     }
 
+  def teacher(username: String) = Secure(_.Admin) { implicit ctx => _ =>
+    env.user.repo named username flatMap {
+      _ ?? { teacher =>
+        env.clas.api.clas.of(teacher) map { classes =>
+          Ok(html.mod.search.teacher(teacher.id, classes))
+        }
+      }
+    }
+  }
+
   private def renderHome(implicit ctx: Context) =
     fuccess {
       pageHit
@@ -416,14 +426,17 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
               env.user.repo enabledNamed data.username flatMap {
                 _ ?? { user =>
                   import lila.clas.ClasInvite.{ Feedback => F }
+                  import lila.i18n.{ I18nKeys => trans }
                   env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
                     Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
                       feedback match {
-                        case F.Already => "success" -> s"${user.username} is now a student of the class"
-                        case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
-                        case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                        case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
+                        case F.Invited =>
+                          "success" -> trans.clas.anInvitationHasBeenSentToX.txt(user.username)
+                        case F.Found =>
+                          "warning" -> trans.clas.xAlreadyHasAPendingInvitation.txt(user.username)
                         case F.CantMsgKid(url) =>
-                          "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
+                          "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
                       }
                     }
                   }
@@ -552,7 +565,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         WithStudent(clas, username) { s =>
           if (s.student.managed)
             env.clas.api.student.closeAccount(s) >>
-              env.closeAccount(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
+              env.api.accountClosure.close(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
           else Redirect(routes.Clas.show(clas.id.value)).fuccess
         }
       }

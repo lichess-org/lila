@@ -6,8 +6,8 @@ import views._
 import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.HTTPRequest
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
-import lila.user.{ User => UserModel, Holder }
+import lila.report.{ Mod => AsMod, Report => ReportModel, Reporter, Room, Suspect }
+import lila.user.{ Holder, User => UserModel }
 
 import play.api.data._
 
@@ -141,7 +141,7 @@ final class Report(
     }
 
   def currentCheatInquiry(username: String) =
-    Secure(_.Hunter) { implicit ctx => me =>
+    Secure(_.CheatHunter) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>

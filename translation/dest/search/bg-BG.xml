@@ -29,4 +29,11 @@
   <string name="maxNumber">Максимален брой</string>
   <string name="maxNumberExplanation">Максимален брой партии</string>
   <string name="include">Включи</string>
+  <string name="descending">Низходящ ред</string>
+  <string name="ascending">Възходящ ред</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Открита е %s игра</item>
+    <item quantity="other">Открити са %s игри</item>
+  </plurals>
+  <string name="ratingExplanation">Среден рейтинг на двамата играча</string>
 </resources>

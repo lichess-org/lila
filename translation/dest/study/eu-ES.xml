@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Ikuslea zara orain</string>
   <string name="pgnTags">PGN etiketak</string>
   <string name="like">Datsegit</string>
+  <string name="unlike">Ez dut atsegin</string>
   <string name="newTag">Etiketa berria</string>
   <string name="commentThisPosition">Posizio hau komentatu</string>
   <string name="commentThisMove">Jokaldi hau komentatu</string>
@@ -80,6 +81,7 @@
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>
   <string name="saveChapter">Kapitulua gorde</string>
   <string name="clearAnnotations">Iruzkinak garbitu</string>
+  <string name="clearVariations">Garbitu aldaerak</string>
   <string name="deleteChapter">Kapitulua ezabatu</string>
   <string name="deleteThisChapter">Kapitulu hau ezabatu egin nahi duzu? Ez dago atzera egiterik!</string>
   <string name="clearAllCommentsInThisChapter">Kapitulu honetako iruzkin guztiak ezabatu?</string>
@@ -155,4 +157,12 @@
   <string name="nextChapter">Hurrengo kapitulua</string>
   <string name="prevChapter">Aurreko kapitulua</string>
   <string name="studyActions">Azterlanen akzioak</string>
+  <string name="topics">Gaiak</string>
+  <string name="myTopics">Nire gaiak</string>
+  <string name="popularTopics">Gai arrakastatsuak</string>
+  <string name="manageTopics">Kudeatu gaiak</string>
+  <string name="back">Atzera joan</string>
+  <string name="playAgain">Jokatu berriz</string>
+  <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
+  <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
 </resources>

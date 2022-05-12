@@ -1,10 +1,10 @@
 # Copying Lila
 
 Any file in this project that does not state otherwise and is not listed as an
-exception below is part of lila and copyright (c) 2012-2021 the lila authors.
+exception below is part of lila and copyright (c) 2012-2022 the lila authors.
 
 For a list of the authors see the commit log or
-https://github.com/ornicar/lila/graphs/contributors.
+https://github.com/lichess-org/lila/graphs/contributors.
 
 Lila is free software; you can redistribute and/or modify it under the terms
 of the GNU Affero General Public License as published by the Free Software
@@ -63,6 +63,7 @@ public/piece/tatiana | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org
 public/piece/staunty | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/dubrovny | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/libra | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/anarcandy | [caderek](https://github.com/caderek) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+

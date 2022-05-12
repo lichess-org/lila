@@ -17,11 +17,12 @@ object LangList {
     Lang("br", "FR")  -> "brezhoneg",
     Lang("bs", "BA")  -> "bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("co", "FR")  -> "corsu",
     Lang("cs", "CZ")  -> "čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
-    Lang("de", "CH")  -> "Schwiizerdüütsch",
+    Lang("de", "CH")  -> "Schwizerdütsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
@@ -128,10 +129,8 @@ object LangList {
     case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
-  // lazy val popularNoRegionByLanguage: Map[String, Lang] =
-  //   popularNoRegion.view.map { l =>
-  //     l.language -> l
-  //   }.toMap
+  lazy val popularAlternateLanguageCodes: List[String] =
+    popularNoRegion.drop(1).take(20).map(fixJavaLanguageCode)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)

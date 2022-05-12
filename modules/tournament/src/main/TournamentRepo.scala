@@ -29,53 +29,31 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
+  private def nbPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
+  private val nonEmptySelect           = nbPlayersSelect(1)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
-  def byIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.list[Tournament]($inIds(ids))
-
-  def byOrderedIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.byOrderedIds[Tournament, Tournament.ID](ids, readPreference = ReadPreference.secondaryPreferred)(
-      _.id
-    )
-
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
 
-  def byIdAndPlayerId(id: Tournament.ID, userId: User.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ $doc("players.id" -> userId))
-
-  def createdById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ createdSelect)
-
-  def enterableById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ enterableSelect)
-
-  def startedById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ startedSelect)
-
   def finishedById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ finishedSelect)
-
-  def startedOrFinishedById(id: Tournament.ID): Fu[Option[Tournament]] =
-    byId(id) map { _ filterNot (_.isCreated) }
-
-  def createdByIdAndCreator(id: Tournament.ID, userId: User.ID): Fu[Option[Tournament]] =
-    createdById(id) map (_ filter (_.createdBy == userId))
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
   def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(id), "createdBy")
 
-  private[tournament] def startedCursor =
-    coll.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
+  private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
+    coll
+      .find(startedSelect ++ nbPlayers.??(nbPlayersSelect))
+      .batchSize(1)
+      .cursor[Tournament]()
 
-  def startedIds: Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
+  private[tournament] def idsCursor(ids: Iterable[Tournament.ID]) =
+    coll.find($inIds(ids)).cursor[Tournament]()
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
@@ -149,9 +127,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
-
-  def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
-    coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
   def byTeamCursor(teamId: TeamID) =
     coll
@@ -248,6 +223,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
       .batchSize(1)
       .cursor[Tournament]()
+
+  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
+    coll
+      .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
+      .cursor[Tournament]()
+      .list(5)
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
@@ -372,8 +353,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.insert(ordered = false).many(tours).void
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
-
-  def exists(id: Tournament.ID) = coll exists $id(id)
 
   def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
     coll

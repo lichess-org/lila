@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">기부</string>
+  <string name="donateAsX">%s로 기부</string>
   <string name="lichessPatron">Lichess 후원자</string>
   <string name="freeAccount">무료 계정</string>
   <string name="becomePatron">Lichess 후원자가 되세요</string>
@@ -14,7 +15,7 @@
   <string name="thankYou">기부해 주셔서 감사합니다!</string>
   <string name="youHaveLifetime">당신은 평생 후원 계정입니다. 엄청나네요!</string>
   <string name="patronUntil">당신은 %s까지 후원 계정입니다.</string>
-  <string name="ifNotRenewed">갱신하지 않는다면 무료 계정으로 다운그레이드 됩니다.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">갱신하지 않는다면 당신의 계정은 일반 계정으로 전환될 것입니다.</string>
   <string name="weAreNonProfit">우리는 비영리 단체입니다. 모두가 세계적 수준의 무료 체스 플랫폼을 이용할 수 있어야 한다고 믿기 때문입니다.</string>
   <string name="weRelyOnSupport">우리는 이를 가능하게 하기 위해 여러분과 같은 사람들의 지원에 의존합니다. Lichess를 즐긴다면 기부하고 후원자가 되어 지원해주세요!</string>
   <string name="lifetime">평생</string>
@@ -27,7 +28,6 @@
   <string name="otherAmount">기타</string>
   <string name="pleaseEnterAmountInX">금액을 %s로 입력해주세요</string>
   <string name="withCreditCard">신용카드</string>
-  <string name="withPaypal">페이팔</string>
   <string name="weAreSmallTeam">우리는 작은 팀이기 때문에 당신의 지원이 큰 차이를 만듭니다!</string>
   <string name="celebratedPatrons">Lichess를 가능하게 만든 유명한 후원자들</string>
   <string name="whereMoneyGoes">돈은 어디에 쓰이나요?</string>
@@ -42,7 +42,6 @@
   <string name="contactSupport">Lichess 지원팀에 문의</string>
   <string name="otherMethods">다른 기부 방법이 있나요?</string>
   <string name="bankTransfers">계좌 이체도 가능합니다</string>
-  <string name="bitcoin">그리고 여기 비트코인 주소입니다: %s</string>
   <string name="patronFeatures">후원자 전용 기능도 있나요?</string>
   <string name="noPatronFeatures">아니오. 약속드립니다. Lichess는 완전히, 영원히, 모두에게 무료입니다.
 하지만 후원자들은 새롭고 멋진 프로필 아이콘을 자랑할 수 있습니다.</string>
@@ -63,6 +62,7 @@
   <string name="xOrY">%1$s 또는 %2$s</string>
   <string name="decideHowMuch">Lichess의 가치를 결정해주세요:</string>
   <string name="stopPayments">신용카드를 취소하고 지불을 중지:</string>
+  <string name="stopPaymentsPayPal">PayPal 구독을 중지하고 결제를 멈추세요:</string>
   <string name="noLongerSupport">더 이상 Lichess를 지원하지 않습니다</string>
   <string name="viewOthers">다른 Lichess 후원자 보기</string>
   <string name="date">날짜</string>

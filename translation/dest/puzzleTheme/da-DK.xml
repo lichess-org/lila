@@ -31,7 +31,7 @@
   <string name="equality">Udligning</string>
   <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
-  <string name="kingsideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på kongesiden.</string>
+  <string name="kingsideAttackDescription">Et angreb på modstanderens konge efter der er rokeret kort.</string>
   <string name="clearance">Rydning</string>
   <string name="clearanceDescription">Et træk, ofte med tempo, som rydder et felt, en linje eller diagonal til en opfølgende taktisk idé.</string>
   <string name="defensiveMove">Defensivt træk</string>
@@ -94,7 +94,7 @@
   <string name="queenRookEndgame">Dronning og tårn-slutspil</string>
   <string name="queenRookEndgameDescription">Et slutspil med kun dronninger, tårne og bønder.</string>
   <string name="queensideAttack">Angreb på dronningesiden</string>
-  <string name="queensideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på dronningesiden.</string>
+  <string name="queensideAttackDescription">Et angreb på modstanderens konge efter der er rokeret langt.</string>
   <string name="quietMove">Stille træk</string>
   <string name="quietMoveDescription">Et træk som ikke sætter skak eller tager en brik, men som forbereder en uundgåelig trussel ved et senere træk.</string>
   <string name="rookEndgame">Tårnslutspil</string>
@@ -117,7 +117,7 @@
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
   <string name="xRayAttackDescription">En brik angriber eller forsvarer et felt gennem en af modstanderens brikker.</string>
-  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwang">Træktvang</string>
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>

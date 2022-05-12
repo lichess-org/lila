@@ -50,8 +50,8 @@
   <string name="sonnebornBergerScore">Zonnenborna—Bergera koeficientu</string>
   <string name="tiebreaksCalculationA">Ar %s.
 Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu pretinieku punktu summu.</string>
-  <string name="pairingsQ">Kā sapāro spēlētājus?</string>
-  <string name="dutchSystem">Nīderlandes sistēmu</string>
+  <string name="pairingsQ">Kā tiek noteikti pāri?</string>
+  <string name="dutchSystem">Holandiešu sistēmu</string>
   <string name="FIDEHandbook">FIDE rokasgrāmatu</string>
   <string name="pairingsA">Ar %1$s, īstenotu ar \"%2$s\", saskaņā ar %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>
@@ -93,8 +93,8 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="pairingSystemArena">Jebkurš pretinieks ar līdzīgu vietu</string>
   <string name="pairingSystemSwiss">Vislabākie pāri balstoties uz punktiem un vienādu punktu izšķiršanu</string>
   <string name="pairingWaitTime">Pārošanas gaidīšanas laiks</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Īss: negaida visus spēlētājus</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Ilgs: jāsagaida visi spēlētāji</string>
+  <string name="pairingWaitTimeArena">Īss: negaida visus spēlētājus</string>
+  <string name="pairingWaitTimeSwiss">Ilgs: jāsagaida visi spēlētāji</string>
   <string name="identicalPairing">Atkārtoti pretinieki</string>
   <string name="possibleButNotConsecutive">Iespējams, bet ne secīgās spēlēs</string>
   <string name="identicalForbidden">Nav atļauts</string>

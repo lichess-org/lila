@@ -132,6 +132,9 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
       .map(~_.flatMap(_.int("nb")))
 
+  def forumAccess(id: Team.ID): Fu[Option[Team.Access]] =
+    coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
+
   private[team] val enabledSelect = $doc("enabled" -> true)
 
   private[team] val sortPopular = $sort desc "nbMembers"

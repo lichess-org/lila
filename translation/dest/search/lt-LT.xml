@@ -33,4 +33,13 @@
   <string name="maxNumber">Didžiausias skaičius</string>
   <string name="maxNumberExplanation">Kiek daugiausia žaidimų grąžinti</string>
   <string name="include">Įtraukti</string>
+  <string name="descending">Mažėjimo tvarka</string>
+  <string name="ascending">Didėjimo tvarka</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Rasta %s partija</item>
+    <item quantity="few">Rastos %s partijos</item>
+    <item quantity="many">Rasta %s partijos</item>
+    <item quantity="other">Rasta %s partijų</item>
+  </plurals>
+  <string name="ratingExplanation">Vidutinis abiejų žaidėjų reitingas</string>
 </resources>

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Kako lahko postanem moderator?</string>
   <string name="youCannotApply">Če želite postati moderator, se ni mogoče prijaviti. Če vidimo nekoga, za katerega mislimo, da bi bil dober kot moderator, ga bomo kontaktirali neposredno.</string>
   <string name="isCorrespondenceDifferent">Ali se dopisni šah razlikuje od običajnega šaha?</string>
+  <string name="pleaseReadFairPlayPage">Za več informacij preberite naš %s</string>
+  <string name="fairPlayPage">stran za pošteno igro</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih Lichess ne.</string>
   <string name="gameplay">Igranje</string>
   <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>

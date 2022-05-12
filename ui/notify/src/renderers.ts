@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 
-import { Notification, Renderers } from './interfaces';
+import { Notification, Renderer, Renderers } from './interfaces';
 
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export default function makeRenderers(trans: Trans): Renderers {
@@ -31,7 +31,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     privateMessage: {
       html: n =>
-        generic(n, '/inbox/' + n.content.user.name, '', [
+        generic(n, '/inbox/' + n.content.user!.name, '', [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -128,16 +128,19 @@ export default function makeRenderers(trans: Trans): Renderers {
         ]),
       text: _ => trans.noarg('timeAlmostUp'),
     },
-    irwinDone: {
-      html: n =>
-        generic(n, '/@/' + n.content.user.name + '?mod', '', [
-          h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
-          h('span', 'Irwin job complete!'),
-        ]),
-      text: n => n.content.user.name + ': Irwin job complete!',
-    },
+    irwinDone: jobDone('Irwin'),
+    kaladinDone: jobDone('Kaladin'),
   };
 }
+
+const jobDone = (name: string): Renderer => ({
+  html: n =>
+    generic(n, '/@/' + n.content.user!.name + '?mod', '', [
+      h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
+      h('span', `${name} job complete!`),
+    ]),
+  text: n => `${n.content.user!.name}: ${name} job complete!`,
+});
 
 function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
   return h(

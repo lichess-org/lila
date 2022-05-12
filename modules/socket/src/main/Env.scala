@@ -6,18 +6,11 @@ import io.lettuce.core._
 import play.api.Configuration
 
 @Module
-final class Env(
-    appConfig: Configuration,
-    shutdown: CoordinatedShutdown,
-    notification: lila.hub.actors.Notification
-)(implicit
+final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(implicit
     ec: scala.concurrent.ExecutionContext,
     akka: ActorSystem
 ) {
-
-  private val RedisUri = appConfig.get[String]("socket.redis.uri")
-
-  private val redisClient = RedisClient create RedisURI.create(RedisUri)
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]
 

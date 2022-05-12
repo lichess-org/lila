@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Hvid</string>
   <string name="black">Sort</string>
+  <string name="asWhite">som hvid</string>
+  <string name="asBlack">som sort</string>
   <string name="randomColor">Tilfældig farve</string>
   <string name="createAGame">Opret et parti</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
@@ -163,7 +165,7 @@
   <string name="players">Skakspillere</string>
   <string name="friends">Venner</string>
   <string name="discussions">Samtaler</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">I dag</string>
+  <string name="today">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s time</item>
     <item quantity="other">%s timer</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minutter</item>
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Førertavle</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
+  <string name="orUploadPgnFile">Eller upload en PGN-fil</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="toStudy">Studér</string>
@@ -435,15 +442,14 @@
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Startopstilling</string>
+  <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Indlæs stilling</string>
+  <string name="loadPosition">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
   <string name="xRating">%s rating</string>
-  <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
-  <string name="gameCompletionRate">Gennemførelsesprocent af spil: %s</string>
+  <string name="ifNoneLeaveEmpty">Hvis ingen, lad den være tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
@@ -452,11 +458,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
+  <string name="oneUrlPerLine">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
   <string name="success">Fuldført</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti i gang</item>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
+  <string name="importedByX">Importeret af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
@@ -525,7 +533,7 @@
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s konkurrerer i %2$s</string>
+  <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
   <string name="victory">Sejr</string>
   <string name="defeat">Nederlag</string>
   <string name="victoryVsYInZ">%1$s mod %2$s i %3$s</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">Denne e-mailadresse kan ikke accepteres. Dobbelttjek den, og prøv igen.</string>
   <string name="error.email_unique">E-mailadresse ugyldig eller allerede brugt</string>
   <string name="error.email_different">Dette er allerede din e-mailadresse</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Minimumslængde er %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maksimumslængde er %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Skal være større eller lig med %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Skal være mindre end eller lig med %s</string>
+  <string name="error.minLength">Minimumslængde er %s</string>
+  <string name="error.maxLength">Maksimumslængde er %s</string>
+  <string name="error.min">Skal være større eller lig med %s</string>
+  <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
+  <string name="ifRegistered">Hvis registreret</string>
   <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>
   <string name="menu">Menu</string>
@@ -586,7 +595,7 @@
   <string name="about">Om</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), uafhængig, reklamefri, open source skak-server.</string>
-  <string name="really">virkelig</string>
+  <string name="really">det er sandt</string>
   <string name="contribute">Bidrag</string>
   <string name="termsOfService">Servicevilkår</string>
   <string name="sourceCode">Kildekode</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">Nuværende kampscore</string>
   <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
   <string name="agreementNice">Jeg lover, at jeg altid vil være respektfuld mod andre spillere.</string>
-  <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jeg er indforstået med, at jeg ikke opretter flere konti (undtagen af de grunde, der er angivet i %s).</string>
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
@@ -812,7 +821,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">nævnte dig i \"%1$s\".</string>
+  <string name="mentionedYouInX">nævnte dig i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nævnte dig i \"%2$s\".</string>
   <string name="invitedYouToX">inviterede dig til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
@@ -884,4 +893,9 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="abortTheGame">Afbryd partiet</string>
   <string name="resignTheGame">Giv op i partiet</string>
   <string name="youCantStartNewGame">Du kan ikke starte et nyt parti, før dette er afsluttet.</string>
+  <string name="since">Siden</string>
+  <string name="until">Indtil</string>
+  <string name="lichessDbExplanation">Ratede partier indsamlet fra alle Lichess-spillere</string>
+  <string name="switchSides">Skift side</string>
+  <string name="closingAccountWithdrawAppeal">Hvis du lukker din konto, vil din appel blive trukket tilbage</string>
 </resources>

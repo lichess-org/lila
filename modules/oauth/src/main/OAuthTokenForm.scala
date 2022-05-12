@@ -1,13 +1,12 @@
 package lila.oauth
 
-import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import reactivemongo.api.bson.BSONObjectID
 
 import lila.common.Bearer
-import lila.common.Form.{ absoluteUrl, cleanText }
+import lila.common.Form.cleanText
 import lila.user.User
 
 object OAuthTokenForm {

@@ -12,12 +12,14 @@ sealed trait UserContext {
   val impersonatedBy: Option[User]
 
   def lang: Lang
+  def withLang(newLang: Lang): UserContext
 
   def isAuth = me.isDefined
 
   def isAnon = !isAuth
 
-  def is(user: User): Boolean = me contains user
+  def is(user: User): Boolean                  = me contains user
+  def is(user: lila.common.LightUser): Boolean = userId contains user.id
 
   def isUserId(id: User.ID): Boolean = userId contains id
 
@@ -42,6 +44,8 @@ sealed abstract class BaseUserContext(
     val lang: Lang
 ) extends UserContext {
 
+  def withLang(newLang: Lang): BaseUserContext
+
   override def toString =
     "%s %s %s".format(
       me.fold("Anonymous")(_.username),
@@ -50,11 +54,17 @@ sealed abstract class BaseUserContext(
     )
 }
 
-final class BodyUserContext[A](val body: Request[A], m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(body, m, i, l)
+final case class BodyUserContext[A](body: Request[A], m: Option[User], i: Option[User], l: Lang)
+    extends BaseUserContext(body, m, i, l) {
 
-final class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(r, m, i, l)
+  def withLang(newLang: Lang) = copy(l = newLang)
+}
+
+final case class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
+    extends BaseUserContext(r, m, i, l) {
+
+  def withLang(newLang: Lang) = copy(l = newLang)
+}
 
 trait UserContextWrapper extends UserContext {
   val userContext: UserContext

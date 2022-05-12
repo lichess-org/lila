@@ -14,6 +14,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
     lightUser: lila.common.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,
@@ -30,8 +31,6 @@ final class Env(
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
-
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
   private val colls = wire[ChallengeColls]
 

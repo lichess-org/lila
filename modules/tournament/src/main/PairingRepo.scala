@@ -60,7 +60,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .toMat(Sink.lastOption)(Keep.right)
         .run()
         .dmap(~_)
-    } dmap Pairing.LastOpponents.apply
+    } dmap Pairing.LastOpponents
 
   def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] =
     coll
@@ -152,7 +152,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private[tournament] def finishedByPlayerChronological(
       tourId: Tournament.ID,
       userId: User.ID
-  ): Fu[Pairings] =
+  ): Fu[List[Pairing]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectFinished
@@ -161,24 +161,25 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       .cursor[Pairing]()
       .list()
 
-  def insert(pairing: Pairing) =
-    coll.insert.one {
-      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+  def insert(pairings: List[Pairing]) =
+    coll.insert.many {
+      pairings.map { p =>
+        pairingHandler.write(p) ++ $doc("d" -> DateTime.now)
+      }
     }.void
 
-  def finish(g: lila.game.Game) =
-    if (g.aborted) coll.delete.one($id(g.id)).void
+  def finishAndGet(g: Game): Fu[Option[Pairing]] =
+    if (g.aborted) coll.delete.one($id(g.id)) inject none
     else
-      coll.update
-        .one(
-          $id(g.id),
-          $set(
-            "s" -> g.status.id,
-            "w" -> g.winnerColor.map(_.white),
-            "t" -> g.turns
-          )
-        )
-        .void
+      coll.ext.findAndUpdate[Pairing](
+        selector = $id(g.id),
+        update = $set(
+          "s" -> g.status.id,
+          "w" -> g.winnerColor.map(_.white),
+          "t" -> g.turns
+        ),
+        fetchNewObject = true
+      )
 
   def setBerserk(pairing: Pairing, userId: User.ID) = {
     if (pairing.user1 == userId) "b1".some

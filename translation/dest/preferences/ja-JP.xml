@@ -12,7 +12,8 @@
   <string name="chessPieceSymbol">チェス駒シンボル</string>
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">レーティングを表示</string>
+  <string name="showPlayerRatings">レーティングを表示</string>
+  <string name="explainShowPlayerRatings">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">待ったあり（相手が同意すれば）</string>
   <string name="inCasualGamesOnly">非レート戦のみ</string>
   <string name="promoteToQueenAutomatically">自動的にクイーンに昇格する</string>
+  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; キーを押しながら昇格させると、Q への自動昇格を一時的に無効にできます</string>
   <string name="whenPremoving">プリムーブをした場合</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
@@ -46,4 +48,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">負けかドローの際に「Good game, well played」と言う</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
   <string name="scrollOnTheBoardToReplayMoves">ボード上スクロールで手を再現</string>
+  <string name="correspondenceEmailNotification">通信戦の対局をリストにした毎日のメール通知</string>
 </resources>

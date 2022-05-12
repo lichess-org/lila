@@ -34,7 +34,7 @@ object bots {
                 div(cls := "box__top")(
                   h1("Community bots"),
                   a(
-                    cls := "bots__about",
+                    cls  := "bots__about",
                     href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                   )(
                     "About Lichess Bots"
@@ -60,19 +60,19 @@ object bots {
             .map { bio =>
               td(shorten(bio, 400))
             } | td,
-          ctx.pref.showRatings option td(cls := "rating")(u.best3Perfs.map {
+          ctx.pref.showRatings option td(cls := "rating")(u.bestAny3Perfs.map {
             showPerfRating(u, _)
           }),
           u.playTime.fold(td) { playTime =>
             td(
               p(
-                cls := "text",
+                cls      := "text",
                 dataIcon := "",
                 st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
               )(showPeriod(playTime.totalPeriod)),
               playTime.nonEmptyTvPeriod.map { tvPeriod =>
                 p(
-                  cls := "text",
+                  cls      := "text",
                   dataIcon := "",
                   st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
                 )(showPeriod(tvPeriod))
@@ -84,9 +84,9 @@ object bots {
             td(
               a(
                 dataIcon := "",
-                cls := List("button button-empty text" -> true),
+                cls      := List("button button-empty text" -> true),
                 st.title := trans.challenge.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home}?user=${u.username}#friend"
+                href     := s"${routes.Lobby.home}?user=${u.username}#friend"
               )(trans.play())
             )
           }

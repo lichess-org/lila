@@ -54,7 +54,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,
@@ -80,12 +80,12 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         } map Forsyth.>>
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("normal") | None                   => Status.Resign
+          case Some("normal")                          => Status.Resign
           case Some("abandoned")                       => Status.Aborted
           case Some("time forfeit")                    => Status.Outoftime
           case Some("rules infraction")                => Status.Cheat
           case Some(txt) if txt contains "won on time" => Status.Outoftime
-          case Some(_)                                 => Status.UnknownFinish
+          case _                                       => Status.UnknownFinish
         }
 
         val date = parsed.tags.anyDate
@@ -110,24 +110,25 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           .sloppy
           .start pipe { dbGame =>
           // apply the result from the board or the tags
-          game.situation.status match {
-            case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
-            case None =>
-              parsed.tags.resultColor
-                .map {
-                  case Some(color)                        => TagResult(status, color.some)
-                  case None if status == Status.Outoftime => TagResult(status, none)
-                  case None                               => TagResult(Status.Draw, none)
-                }
-                .filter(_.status > Status.Started)
-                .fold(dbGame) { res =>
-                  dbGame.finish(res.status, res.winner).game
-                }
-          }
+
+          val tagStatus: Option[TagResult] = parsed.tags.resultColor
+            .map {
+              case Some(color)                        => TagResult(status, color.some)
+              case None if status == Status.Outoftime => TagResult(status, none)
+              case None                               => TagResult(Status.Draw, none)
+            }
+            .filter(_.status > Status.Started)
+
+          tagStatus
+            .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
+            .fold(dbGame) { res =>
+              dbGame.finish(res.status, res.winner).game
+            }
+
         }
 
         Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
     }
-  }
+  )
 }

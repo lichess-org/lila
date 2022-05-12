@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಗೆಳಯ(ತಿ) ಯೊಡನೆ ಆಡಿ</string>
+  <string name="playWithAFriend">ಸ್ನೇಹಿತರೊಡನೆ ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
@@ -17,6 +17,8 @@
   <string name="stalemate">ಬಿಕ್ಕಟ್ಟು</string>
   <string name="white">ಬಿಳಿ ದಳ</string>
   <string name="black">ಕಪ್ಪು ದಳ</string>
+  <string name="asWhite">ಬಿಳಿ ದಳವಾಗಿ</string>
+  <string name="asBlack">ಕಪ್ಪು ದಳವಾಗಿ</string>
   <string name="randomColor">ಯಾವುದಾದರೊಂದು ಬಣ್ಣ</string>
   <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ದಳ ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
@@ -58,7 +60,7 @@
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
   <string name="cloudAnalysis">ಕ್ಲೌಡ್ ವಿಶ್ಲೇಷಣೆ</string>
-  <string name="goDeeper">ಆಳಕ್ಕೆ ಇಳಿ</string>
+  <string name="goDeeper">ಆಳ ಹೆಚ್ಚಿಸಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
   <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
   <string name="toggleLocalEvaluation">ಸ್ಥಳೀಯ ಮೌಲ್ಯಮಾಪನ ಅದಲುಬದಲಿಸಿ</string>
@@ -180,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ಘಂಟೆ</item>
     <item quantity="other">%s ಘಂಟೆಗಳು</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s ನಿಮಿಷ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳು</item>
   </plurals>
   <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="orUploadPgnFile">ಅಥವಾ PGN ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
   <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
@@ -443,7 +450,6 @@
   <string name="profileCompletion">ಪ್ರೊಫೈಲ್ ಪೂರ್ಣತೆ: %s</string>
   <string name="xRating">%s ಧಾರಣೆ</string>
   <string name="ifNoneLeaveEmpty">ಧಾರಣೆ ಇಲ್ಲವಾದರೆ, ಈ ಜಾಗ ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ</string>
-  <string name="gameCompletionRate">ಆಟವನ್ನು ಪೂರ್ತಿಗೊಳಿಸುವ ದರ: %s</string>
   <string name="profile">ಪ್ರೊಫೈಲು</string>
   <string name="editProfile">ಪ್ರೊಫೈಲ್ ಪರಿಷ್ಕರಿಸಿ</string>
   <string name="firstName">ಹೆಸರು</string>
@@ -452,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ದೇಶ ಅಥವಾ ಬಾವುಟ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
+  <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
@@ -495,6 +502,7 @@
   <string name="reportDescriptionHelp">ಮೋಸ ನಡೆದಿದೆ ಎಂಬ ಸಂಶಯವಿರುವ ಆಟದ (ಆಟಗಳ) ಕೊಂಡಿ ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ. ಹಾಗೂ, ಈ ವ್ಯಕ್ತಿಯ ಅಥವಾ ಖಾತೆಯ ವರ್ತನೆಯಲ್ಲಿ ಏನು ಸಮಸ್ಯೆ ಇದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿ. ಕೇವಲ \"ಅವರು ಮೋಸ ಮಾಡಿದ್ದಾರೆ\" ಎಂದಷ್ಟೇ ಬರೆದು ಬಿಡಬೇಡಿ. ಬದಲಾಗಿ, ಹೇಗೆ ಈ ನಿರ್ಧಾರಕ್ಕೆ ಬಂದಿರಿ ಎಂಬುದನ್ನು ವಿವರಿಸಿ. ನಿಮ್ಮ ದೂರು ಇಂಗ್ಲಿಷ್ ಭಾಷೆಯಲ್ಲಿದ್ದರೆ ಬೇಗನೆಯೇ ಪರಿಹಾರ ಸಿಗುವ ಸಾಧ್ಯತೆ ಇದೆ.</string>
   <string name="error.provideOneCheatedGameLink">ದಯವಿಟ್ಟು ಮೋಸಕ್ಕೊಳಗಾದ ಒಂದಾದರೂ ಆಟದ ಕೊಂಡಿಯನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ.</string>
   <string name="by">%s ಅವರಿಂದ</string>
+  <string name="importedByX">%s import ಮಾಡಿದ್ದಾರೆ</string>
   <string name="thisTopicIsNowClosed">ಈ ವಿಷಯವನ್ನು ಈಗ ಮುಚ್ಚಲಾಗಿದೆ.</string>
   <string name="blog">ಬ್ಲಾಗ್</string>
   <string name="notes">ಟಿಪ್ಪಣಿಗಳು</string>
@@ -560,11 +568,12 @@
   <string name="error.email_acceptable">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸ್ವೀಕಾರಾರ್ಹವಲ್ಲ. ದಯವಿಟ್ಟು ಮರುಪರಿಶೀಲಿಸಿ ನೋಡಿ, ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="error.email_unique">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸರಿ ಇಲ್ಲ ಅಥವಾ ಬೇರೆ ಯಾರೋ ಈಗಾಗಲೇ ಉಪಯೋಗಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="error.email_different">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಅದಾಗಲೇ ನಿಮ್ಮದಾಗಿದೆ</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">ಕನಿಷ್ಠ %s ಅಕ್ಷರಗಳಾದರೂ ಖಡ್ಡಾಯವಾಗಿ ಬೇಕು</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">ಗರಿಷ್ಟ %s ಅಕ್ಷರಗಳು ಇರಬಹುದಷ್ಟೇ</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">ಕನಿಷ್ಠ %s ಸಂಖ್ಯೆಗಳು ಆದರೂ ಇರಬೇಕು</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">ಗರಿಷ್ಟ %s ಅಂಕೆಗಳು ಮಾತ್ರ ಇರಬಹುದಷ್ಟೇ</string>
+  <string name="error.minLength">ಕನಿಷ್ಠ %s ಅಕ್ಷರಗಳಾದರೂ ಖಡ್ಡಾಯವಾಗಿ ಬೇಕು</string>
+  <string name="error.maxLength">ಗರಿಷ್ಟ %s ಅಕ್ಷರಗಳು ಇರಬಹುದಷ್ಟೇ</string>
+  <string name="error.min">ಕನಿಷ್ಠ %s ಸಂಖ್ಯೆಗಳು ಆದರೂ ಇರಬೇಕು</string>
+  <string name="error.max">ಗರಿಷ್ಟ %s ಅಂಕೆಗಳು ಮಾತ್ರ ಇರಬಹುದಷ್ಟೇ</string>
   <string name="ifRatingIsPlusMinusX">ಧಾರಣೆ ± %s ಇದ್ದರೆ ಮಾತ್ರ</string>
+  <string name="ifRegistered">ನೊಂದಾಯಿಸಿದ್ದರೆ</string>
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="menu">ಮೆನು</string>
@@ -786,7 +795,7 @@
   <string name="currentMatchScore">ಪ್ರಸ್ತುತ ಪಂದ್ಯದ ಅಂಕಗಳು</string>
   <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
-  <string name="agreementAccount">ಹಲವಾರು ಲೀಚೆಸ್ ಖಾತೆಗಳನ್ನು ನಾನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ನಾನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೇನೆ (%s ಇಲ್ಲಿ ಹೇಳಿರುವ ಕಾರಣಗಳಿಗೆ ಹೊರತಾಗಿ).</string>
   <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
   <string name="edit">ತಿದ್ದಿ</string>
@@ -812,7 +821,7 @@
   <string name="youCannotPostYetPlaySomeGames">ಈ ವೇದಿಕೆಯಲ್ಲಿ ನೀವು ಸಧ್ಯಕ್ಕೆ ಬರೆಯುವಂತಿಲ್ಲ. ಇನ್ನೂ ಕೆಲವು ಚೆಸ್ ಆಟಗಳನ್ನು ಆಡಿ!</string>
   <string name="subscribe">ಚಂದಾದಾರರಾಗಿ</string>
   <string name="unsubscribe">ಚಂದಾದಾರಿಕೆ ನಿಲ್ಲಿಸಿ</string>
-  <string name="mentionedYouInX">ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ \"%1$s\".</string>
+  <string name="mentionedYouInX">\"%1$s\" ರಲ್ಲಿ ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="xMentionedYouInY">%1$s ಅವರು ನಿಮ್ಮನ್ನು %2$s ನಲ್ಲಿ ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
@@ -883,4 +892,9 @@
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
   <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
+  <string name="since">ರಿಂದ</string>
+  <string name="until">ವರೆಗೆ</string>
+  <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
+  <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
 </resources>

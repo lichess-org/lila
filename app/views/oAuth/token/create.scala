@@ -38,7 +38,7 @@ object create {
               }
               val hidden =
                 scope == lila.oauth.OAuthScope.Web.Mod && !(
-                  isGranted(_.Shusher) || isGranted(_.Hunter)
+                  isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
                 )
               val id = s"oauth-scope-${scope.key.replace(":", "_")}"
               !hidden option div(

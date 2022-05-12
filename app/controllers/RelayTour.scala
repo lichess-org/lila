@@ -14,7 +14,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
 
-final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
+final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env) {
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -23,6 +23,17 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
           active <- (page == 1).??(env.relay.api.officialActive)
           pager  <- env.relay.pager.inactive(page)
         } yield Ok(html.relay.tour.index(active, pager))
+      }
+    }
+
+  def calendar = page("broadcast-calendar", "calendar")
+  def help     = page("broadcasts", "help")
+
+  private def page(bookmark: String, menu: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC getBookmark bookmark) { case (doc, resolver) =>
+        html.relay.tour.page(doc, resolver, menu)
       }
     }
 

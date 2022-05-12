@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Beli</string>
   <string name="black">Črni</string>
+  <string name="asWhite">kot beli</string>
+  <string name="asBlack">kot črni</string>
   <string name="randomColor">Naključna stran</string>
   <string name="createAGame">Nova igra</string>
   <string name="whiteIsVictorious">Beli je zmagal</string>
@@ -200,6 +202,12 @@
     <item quantity="two">%s uri</item>
     <item quantity="few">%s ure</item>
     <item quantity="other">%s ur</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="two">%s minuti</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s minut</item>
   </plurals>
   <string name="time">Čas</string>
   <string name="rating">Ocena</string>
@@ -394,6 +402,7 @@
   <string name="leaderboard">Lestvica</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
+  <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
   <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
   <string name="toStudy">Študiraj</string>
@@ -438,7 +447,7 @@
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sledi</item>
-    <item quantity="two">%s sledi</item>
+    <item quantity="two">%s sledita</item>
     <item quantity="few">%s sledijo</item>
     <item quantity="other">%s sledijo</item>
   </plurals>
@@ -503,7 +512,6 @@
   <string name="profileCompletion">Profil zaključen: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Če ni, pustite prazno</string>
-  <string name="gameCompletionRate">Delež zaključenih iger: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
@@ -512,6 +520,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
+  <string name="oneUrlPerLine">En URL na vrstico.</string>
   <string name="inlineNotation">Dodatna notacija</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
   <string name="onlinePlayers">Prijavljeni igralci</string>
@@ -622,6 +631,14 @@
   <string name="tools">Orodja</string>
   <string name="increment">Dodatek</string>
   <string name="error.required">To polje je obvezno</string>
+  <string name="error.email">E-poštni naslov ni veljaven</string>
+  <string name="error.email_acceptable">Elektronski naslov ni sprejemljiv. Prosim, preverite ga in poskusite ponovno.</string>
+  <string name="error.email_unique">E-poštni naslov je že zaseden</string>
+  <string name="error.email_different">To je že vaš e-poštni naslov</string>
+  <string name="error.minLength">Mora imeti vsaj %s znakov</string>
+  <string name="error.maxLength">Mora imeti vsaj %s znakov</string>
+  <string name="error.min">Biti mora vsaj %s</string>
+  <string name="error.max">Mora biti največ %s</string>
   <string name="ifRatingIsPlusMinusX">Če je rating ± %s</string>
   <string name="onlyExistingConversations">Samo obstoječi pogovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
@@ -856,7 +873,7 @@
   <string name="currentMatchScore">Rezultat trenutne tekme</string>
   <string name="agreementAssistance">Strinjam se, da ne bom nikoli uporabljal pomoči med partijo (od računalnika, knjige, podatkovne baze ali od druge osebe).</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
-  <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Strinjam se, da ne bom ustvaril več računov (razen iz razlogov, navedenih v %s).</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
@@ -954,4 +971,8 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="abortTheGame">Prekinite igro</string>
   <string name="resignTheGame">Predaj igro</string>
   <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
+  <string name="switchSides">Zamenjaj strani</string>
 </resources>
