@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">agora mesmo</string>
-  <plurals name="inNbSeconds">
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
     <item quantity="one">em %s segundos</item>
     <item quantity="other">em %s segundos</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">dentro de %s minutos</item>
     <item quantity="other">em %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">em %s horas</item>
+    <item quantity="other">em %s horas</item>
   </plurals>
   <string name="rightNow">agora mesmo</string>
   <plurals name="nbSecondsAgo">
