@@ -30,6 +30,7 @@ import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
 import scala.util.Try
+import com.vladsch.flexmark.ast.AutoLink
 
 final case class Markdown(value: String) extends AnyVal with StringValue {
   def apply(f: String => String) = Markdown(f(value))
@@ -191,7 +192,7 @@ object MarkdownRender {
   }
   private object NofollowAttributeProvider extends AttributeProvider {
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
-      if (node.isInstanceOf[Link] && part == AttributablePart.LINK)
+      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
     }
   }
