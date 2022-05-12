@@ -215,7 +215,7 @@ object Form {
   }
 
   implicit val variantFormat =
-    formatter.stringOptionFormatter[chess.variant.Variant](_.key, chess.variant.Variant.apply)
+    formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
 
   object strings {
     def separator(sep: String) = of[List[String]](
