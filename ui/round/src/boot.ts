@@ -6,8 +6,7 @@ import { TourPlayer } from 'game';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 
 export default function (opts: RoundOpts): void {
-  const element = document.querySelector('.round__app') as HTMLElement,
-    data: RoundData = opts.data;
+  const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   lichess.socket = new lichess.StrongSocket(data.url.socket, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
@@ -56,7 +55,7 @@ export default function (opts: RoundOpts): void {
     else if (d.game.status.id >= 30) return 'end';
     return;
   }
-  opts.element = element;
+  opts.element = document.querySelector('.round__app') as HTMLElement;
   opts.socketSend = lichess.socket.send;
 
   const round: RoundApi = (window.LichessRound as RoundMain).app(opts);
