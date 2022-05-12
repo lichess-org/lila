@@ -2,13 +2,14 @@ package lila.app
 
 import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
+import lila.poll.Poll
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
-import router.Routes
+
 import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {

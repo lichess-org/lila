@@ -10,17 +10,13 @@ import lila.common.config._
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
-    getLightUser: lila.common.LightUser.Getter,
-    getLightUserSync: lila.common.LightUser.GetterSync,
-    cacheApi: lila.memo.CacheApi
+    notifyApi: lila.notify.NotifyApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  private lazy val repo = new PollRepo(coll = db(CollName("poll")))
+  implicit private lazy val coll = db(CollName("poll"))
 
   lazy val api = wire[PollApi]
 

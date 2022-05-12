@@ -26,7 +26,7 @@ case class Post(
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
     reactions: Option[Post.Reactions] = None,
-    poll: Option[Poll.ID] = None
+    pollId: Option[Poll.ID] = None
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -90,8 +90,8 @@ case class Post(
 
 object Post {
 
-  type ID         = String
-  type Reactions  = Map[String, Set[User.ID]]
+  type ID        = String
+  type Reactions = Map[String, Set[User.ID]]
 
   val idSize = 8
 
@@ -129,6 +129,7 @@ object Post {
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,
+      categId = categId,
       author = author,
       userId = userId,
       text = text,
@@ -136,10 +137,9 @@ object Post {
       lang = lang,
       troll = troll,
       hidden = hidden,
-      createdAt = DateTime.now,
-      categId = categId,
       modIcon = modIcon,
-      pollId = pollId
+      pollId = pollId,
+      createdAt = DateTime.now
     )
   }
 }
