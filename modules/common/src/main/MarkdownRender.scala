@@ -53,9 +53,7 @@ final class MarkdownRender(
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
-  extensions.add(MarkdownRender.NofollowExtension)
-  extensions.add(MarkdownRender.NoTrackingExtension)
-  extensions.add(MarkdownRender.WhitelistedImageExtension)
+  extensions.add(MarkdownRender.LilaLinkExtension)
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -181,35 +179,22 @@ object MarkdownRender {
       }.unit
   }
 
-  private object NofollowExtension extends HtmlRenderer.HtmlRendererExtension {
+  private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
         .attributeProviderFactory(new IndependentAttributeProviderFactory {
-          override def apply(context: LinkResolverContext): AttributeProvider = NofollowAttributeProvider
+          override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
         })
         .unit
-  }
-  private object NofollowAttributeProvider extends AttributeProvider {
-    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
-      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
-        attributes.replaceValue("rel", rel).unit
-    }
   }
 
-  private object NoTrackingExtension extends HtmlRenderer.HtmlRendererExtension {
-    override def rendererOptions(options: MutableDataHolder) = ()
-    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-      htmlRendererBuilder
-        .attributeProviderFactory(new IndependentAttributeProviderFactory {
-          override def apply(context: LinkResolverContext): AttributeProvider = NoTrackingAttributeProvider
-        })
-        .unit
-  }
-  private object NoTrackingAttributeProvider extends AttributeProvider {
+  private val lilaLinkAttributeProvider = new AttributeProvider {
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
-      if (node.isInstanceOf[Link] && part == AttributablePart.LINK)
+      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK) {
+        attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
+      }
     }
   }
 }
