@@ -114,7 +114,7 @@
   <string name="urlOfTheGame">URL-адреса гри</string>
   <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
   <string name="createChapter">Створити розділ</string>
-  <string name="configureLiveBroadcast">Налаштувати живу передачу</string>
+  <string name="configureLiveBroadcast">Налаштування трансляції</string>
   <string name="createStudy">Створити дослідження</string>
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>
