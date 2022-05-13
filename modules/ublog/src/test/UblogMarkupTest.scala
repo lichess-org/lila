@@ -4,7 +4,7 @@ import org.specs2.execute.Result
 import org.specs2.mutable.Specification
 import scalatags.Text.all._
 
-import lila.common.config
+import lila.common.{ config, Markdown }
 
 class UblogMarkupTest extends Specification {
 
@@ -32,21 +32,21 @@ class UblogMarkupTest extends Specification {
   }
   "fix AtUsername" in {
     m.unescapeAtUsername(
-      """@test\_1234"""
+      Markdown("""@test\_1234""")
     ) must_==
-      """@test_1234"""
+      Markdown("""@test_1234""")
   }
 
   "not break fine AtUsername" in {
     m.unescapeAtUsername(
-      """@foo_bar"""
+      Markdown("""@foo_bar""")
     ) must_==
-      """@foo_bar"""
+      Markdown("""@foo_bar""")
   }
 
   "fix mention in quote (which adds backslash escaping)" in {
-    m.unescapeAtUsername("""> \(By @neio\)""") must_== """> \(By @neio\)"""
-    m.unescapeAtUsername("""> \(By @neio_1\)""") must_== """> \(By @neio_1\)"""
-    m.unescapeAtUsername("""> \(By @neio\_1\)""") must_== """> \(By @neio_1\)"""
+    m.unescapeAtUsername(Markdown("""> \(By @neio\)""")) must_== Markdown("""> \(By @neio\)""")
+    m.unescapeAtUsername(Markdown("""> \(By @neio_1\)""")) must_== Markdown("""> \(By @neio_1\)""")
+    m.unescapeAtUsername(Markdown("""> \(By @neio\_1\)""")) must_== Markdown("""> \(By @neio_1\)""")
   }
 }
