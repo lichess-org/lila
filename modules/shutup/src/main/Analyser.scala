@@ -39,7 +39,7 @@ object Analyser {
         word + (if (word endsWith "e") "" else "e?+") + "s?+"
       } ++
       Dictionary.hi ++
-       Dictionary.fr.map { word =>
+      Dictionary.fr.map { word =>
         word + "[sx]?+"
       } ++
       Dictionary.de.map { word =>
