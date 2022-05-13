@@ -19,7 +19,7 @@ export default function LichessLobby(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.blindMode = $('body').hasClass('blind-mode');
+  opts.blindMode = document.body.classList.contains('blind-mode');
   opts.trans = lichess.trans(opts.i18n);
 
   lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
