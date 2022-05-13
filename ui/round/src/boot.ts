@@ -84,4 +84,9 @@ export default function (opts: RoundOpts): void {
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
   lichess.storage.make('reload-round-tabs').listen(lichess.reload);
+
+  if (!data.player.spectator && location.hostname != (document as any)['l' + 'ocation'].hostname) {
+    alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
+    lichess.socket.destroy();
+  }
 }
