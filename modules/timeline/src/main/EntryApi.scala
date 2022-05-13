@@ -57,7 +57,7 @@ final class EntryApi(
         "chan"  -> channel,
         "date" $gt DateTime.now.minusDays(7)
       )
-    ) map (0 !=)
+    ) map 0 !=
 
   def insert(e: Entry.ForUsers) =
     coll.insert.one(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void

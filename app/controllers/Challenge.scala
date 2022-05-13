@@ -78,7 +78,7 @@ final class Challenge(
             }
           }
           else
-            (c.challengerUserId ?? env.user.repo.named) map { user =>
+            c.challengerUserId ?? env.user.repo.named map { user =>
               Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.fromName))
             },
         api = _ => Ok(json).fuccess
@@ -244,7 +244,7 @@ final class Challenge(
       } ?? {
         _ flatMap {
           case Left(e) => handleScopedFail(scopes, e)
-          case Right((u1, u2)) =>
+          case Right(u1, u2) =>
             env.game.gameRepo game id flatMap {
               _ ?? { g =>
                 env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
@@ -427,7 +427,7 @@ final class Challenge(
                   rematchOf = none,
                   name = config.name
                 )
-              (env.challenge.api create challenge) map {
+              env.challenge.api create challenge map {
                 case true =>
                   JsonOk(
                     env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(

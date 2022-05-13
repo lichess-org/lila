@@ -234,7 +234,7 @@ object User {
     import org.joda.time.Period
     def totalPeriod      = new Period(total * 1000L)
     def tvPeriod         = new Period(tv * 1000L)
-    def nonEmptyTvPeriod = (tv > 0) option tvPeriod
+    def nonEmptyTvPeriod = tv > 0 option tvPeriod
   }
   implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
 

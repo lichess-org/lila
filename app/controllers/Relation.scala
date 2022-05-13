@@ -21,9 +21,9 @@ final class Relation(
 
   private def renderActions(username: String, mini: Boolean)(implicit ctx: Context) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
-      (ctx.userId ?? { api.fetchRelation(_, user.id) }) zip
-        (ctx.isAuth ?? { env.pref.api followable user.id }) zip
-        (ctx.userId ?? { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
+      ctx.userId ?? { api.fetchRelation(_, user.id) } zip
+        ctx.isAuth ?? { env.pref.api followable user.id } zip
+        ctx.userId ?? { api.fetchBlocks(user.id, _) } flatMap { case ((relation, followable), blocked) =>
           negotiate(
             html = fuccess(Ok {
               if (mini)
@@ -190,7 +190,7 @@ final class Relation(
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
     env.user.repo usersFromSecondary userIds.map(UserModel.normalize) flatMap { users =>
-      (ctx.isAuth ?? { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
+      ctx.isAuth ?? { env.pref.api.followableIds(users map (_.id)) } flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)

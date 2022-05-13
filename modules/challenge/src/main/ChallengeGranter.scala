@@ -71,7 +71,7 @@ final class ChallengeGranter(
                   RatingIsProvisional(pt).some
                 else {
                   val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
-                  (diff > ratingThreshold) option RatingOutsideRange(pt)
+                  diff > ratingThreshold option RatingOutsideRange(pt)
                 }
               }
             case (_, Pref.Challenge.REGISTERED) => none

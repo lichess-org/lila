@@ -26,7 +26,7 @@ final class PgnDump(
       realPlayers: Option[RealPlayers] = None
   ): Fu[Pgn] =
     dumper(game, initialFen, flags, teams) flatMap { pgn =>
-      if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
+      if (flags.tags) game.simulId ?? simulApi.idToName map { simulName =>
         simulName
           .orElse(game.tournamentId flatMap getTournamentName.get)
           .orElse(game.swissId map lila.swiss.Swiss.Id flatMap getSwissName.apply)

@@ -53,10 +53,10 @@ final class SelfReport(
             if (!known) doLog()
             if (
               endGameSetting.get().value.has(name) ||
-              (name.startsWith("soc") && (
+              name.startsWith("soc") && (
                 name.contains("stockfish") || name.contains("userscript") ||
                   name.contains("__puppeteer_evaluation_script__")
-              ))
+              )
             ) fuccess {
               if (userId.isDefined) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
               user.ifTrue(markUserSetting.get().value.has(name)) foreach { u =>

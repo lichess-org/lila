@@ -55,7 +55,7 @@ final class UblogApi(
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
       val blog = UblogBlog make user
-      (insertMissing ?? colls.blog.insert.one(blog).void) inject blog
+      insertMissing ?? colls.blog.insert.one(blog).void inject blog
     }
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
@@ -155,6 +155,6 @@ final class UblogApi(
 
   def canBlog(u: User) =
     !u.isBot && {
-      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
+      u.count.game > 0 && u.createdSinceDays(2) || u.hasTitle || u.isVerified || u.isPatron
     }
 }

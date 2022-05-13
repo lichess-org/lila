@@ -19,7 +19,7 @@ final private class BotFarming(
    */
   def apply(g: Game): Fu[Boolean] =
     g.twoUserIds match {
-      case Some((u1, u2)) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
+      case Some(u1, u2) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
         crosstableApi(u1, u2) flatMap { ct =>
           gameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
             _ exists { prev =>

@@ -16,10 +16,10 @@ case class PlayerAggregateAssessment(
   def action: AccountAction = {
 
     def scoreCheatingGames(x: Double) =
-      weightedCheatingSum / assessmentsCount >= (x / 100)
+      weightedCheatingSum / assessmentsCount >= x / 100
 
     def scoreLikelyCheatingGames(x: Double) =
-      (weightedCheatingSum + weightedLikelyCheatingSum) / assessmentsCount >= (x / 100)
+      (weightedCheatingSum + weightedLikelyCheatingSum) / assessmentsCount >= x / 100
 
     val markable: Boolean = !user.hasTitle && !isGreatUser && isWorthLookingAt &&
       (weightedCheatingSum >= 3 || weightedCheatingSum + weightedLikelyCheatingSum >= 6) &&

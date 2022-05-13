@@ -44,8 +44,8 @@ final private class PuzzlePathApi(
           val rating     = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
           val ratingFlex = (100 + math.abs(1500 - rating) / 4) * compromise.atMost(4)
           Match(
-            select(theme, actualTier, (rating - ratingFlex) to (rating + ratingFlex)) ++
-              ((compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths))
+            select(theme, actualTier, rating - ratingFlex to rating + ratingFlex) ++
+              (compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths)
           ) -> List(
             Sample(1),
             Project($id(true))

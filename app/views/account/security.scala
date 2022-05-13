@@ -113,7 +113,7 @@ object security {
           )
         )
       },
-      (personalAccessTokens > 0) option tr(
+      personalAccessTokens > 0 option tr(
         td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
         td(cls := "info")(
           strong("Personal access tokens"),

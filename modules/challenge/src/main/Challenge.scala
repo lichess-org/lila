@@ -206,7 +206,7 @@ object Challenge {
         }
       )
       .orElse {
-        (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
+        variant == FromPosition option perfTypeOf(chess.variant.Standard, timeControl)
       }
       .|(PerfType.Correspondence)
 

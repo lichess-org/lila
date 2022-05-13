@@ -42,7 +42,7 @@ object post {
   )(implicit ctx: Context) = {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
-        (!post.erased || canModCateg) option div(
+        !post.erased || canModCateg option div(
           bits.authorLink(
             post = post,
             cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
@@ -59,7 +59,7 @@ object post {
                 momentFromNow(post.createdAt)
               }
           ),
-          (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
+          !post.erased && ctx.me.exists(post.shouldShowEditForm) option
             button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
           ctx.me flatMap { me =>
             if (!post.erased && post.canBeEditedBy(me))
@@ -94,7 +94,7 @@ object post {
                   }
               ).some
           },
-          (canReply && !post.erased) option button(
+          canReply && !post.erased option button(
             cls      := "mod quote button button-empty text",
             tpe      := "button",
             dataIcon := "❝"

@@ -64,7 +64,7 @@ final class BotPlayer(
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 1.second) {
           fuccess {
-            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
+            tellRound(pov.gameId, if (accept) RematchYes else RematchNo(pov.playerId))
           }
         }
         true
@@ -101,7 +101,7 @@ final class BotPlayer(
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if (pov.game.playable && pov.game.canTakebackOrAddTime)
-      tellRound(pov.gameId, (if (v) TakebackYes else TakebackNo)(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, if (v) TakebackYes else TakebackNo(PlayerId(pov.playerId)))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin ?? {

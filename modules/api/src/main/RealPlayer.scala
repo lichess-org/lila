@@ -47,7 +47,7 @@ final class RealPlayerApi(
 
   private def make(id: String, name: Option[String], rating: Option[String]) = {
     val (n, r) = name.filter(_.nonEmpty) -> rating.flatMap(_.toIntOption)
-    (n.isDefined || r.isDefined) option {
+    n.isDefined || r.isDefined option {
       User.normalize(id) -> RealPlayer(name = n, rating = r)
     }
   }

@@ -62,7 +62,7 @@ object Puzzle {
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
-      (str.size == idSize) option Id(str)
+      str.size == idSize option Id(str)
     }
 
     private def charToInt(c: Char) = {

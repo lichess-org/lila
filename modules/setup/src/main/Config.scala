@@ -50,7 +50,7 @@ private[setup] trait Config {
   protected def justMakeClock =
     Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
 
-  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
+  def makeDaysPerTurn: Option[Int] = timeMode == TimeMode.Correspondence option days
 }
 
 trait Positional { self: Config =>
@@ -68,7 +68,7 @@ trait Positional { self: Config =>
   }
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] = {
-    val baseState = fen ifTrue (variant.fromPosition) flatMap {
+    val baseState = fen ifTrue variant.fromPosition flatMap {
       Forsyth.<<<@(FromPosition, _)
     }
     val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {

@@ -345,7 +345,7 @@ final class Auth(
               err => BadRequest(renderPasswordReset(err.some, fail = true)).fuccess,
               data =>
                 env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
-                  case Some((user, storedEmail)) =>
+                  case Some(user, storedEmail) =>
                     lila.mon.user.auth.passwordResetRequest("success").increment()
                     env.security.passwordReset.send(user, storedEmail) inject Redirect(
                       routes.Auth.passwordResetSent(storedEmail.conceal)
@@ -430,7 +430,7 @@ final class Auth(
                 data =>
                   env.user.repo.enabledWithEmail(data.realEmail.normalize)
                     flatMap {
-                      case Some((user, storedEmail)) =>
+                      case Some(user, storedEmail) =>
                         MagicLinkRateLimit(user, storedEmail, ctx.req) {
                           lila.mon.user.auth.magicLinkRequest("success").increment()
                           env.security.magicLink.send(user, storedEmail) inject Redirect(

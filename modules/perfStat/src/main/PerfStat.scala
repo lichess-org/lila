@@ -172,7 +172,7 @@ object Count {
 case class Avg(avg: Double, pop: Int) {
   def agg(v: Int) =
     copy(
-      avg = ((avg * pop) + v) / (pop + 1),
+      avg = (avg * pop + v) / (pop + 1),
       pop = pop + 1
     )
 }

@@ -229,10 +229,10 @@ final class LobbySocket(
   private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
       userOpt ?? userRepo.enabledById flatMap { user =>
-        (user ?? { u =>
+        user ?? { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
-        }) map { blocks =>
+        } map { blocks =>
           val member = Member(sri, user map { LobbyUser.make(_, blocks) })
           actor ! Join(member)
           member

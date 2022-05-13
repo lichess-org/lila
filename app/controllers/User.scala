@@ -133,7 +133,7 @@ final class User(
                     _      <- env.team.cached.nameCache preloadMany info.teamIds
                     social <- env.socialInfo(u, ctx)
                     searchForm =
-                      (filters.current == GameFilter.Search) option
+                      filters.current == GameFilter.Search option
                         GameFilterMenu
                           .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
                   } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
@@ -360,9 +360,9 @@ final class User(
       ctx: Context
   ): Fu[UserLogins.TableData] = {
     val familyUserIds = user.id :: userLogins.otherUserIds
-    (isGranted(_.ModNote) ?? env.user.noteApi
+    isGranted(_.ModNote) ?? env.user.noteApi
       .byUsersForMod(familyUserIds)
-      .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
+      .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds) zip
       env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
       lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
         case ((notes, bans), othersWithEmail) =>

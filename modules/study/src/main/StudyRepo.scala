@@ -75,7 +75,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
   def sourceByOwner(ownerId: User.ID, isMe: Boolean): Source[Study, _] =
     Source futureSource {
       coll map {
-        _.find(selectOwnerId(ownerId) ++ (!isMe ?? selectPublic))
+        _.find(selectOwnerId(ownerId) ++ !isMe ?? selectPublic)
           .sort($sort desc "updatedAt")
           .cursor[Study](readPreference = readPref)
           .documentSource()
@@ -204,8 +204,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
     coll { c =>
       c.update.one($id(studyId), if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
         countLikes(studyId).flatMap {
-          case None                     => fuccess(Study.Likes(0))
-          case Some((likes, createdAt)) =>
+          case None                   => fuccess(Study.Likes(0))
+          case Some(likes, createdAt) =>
             // Multiple updates may race to set denormalized likes and rank,
             // but values should be approximately correct, match a real like
             // count (though perhaps not the latest one), and any uncontended

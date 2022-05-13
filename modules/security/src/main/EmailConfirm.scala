@@ -78,7 +78,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
     } flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
         userRepo.mustConfirmEmail(user.id) flatMap {
-          case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+          case true  => userRepo setEmailConfirmed user.id inject Result.JustConfirmed(user)
           case false => fuccess(Result.AlreadyConfirmed(user))
         }
       }

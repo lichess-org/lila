@@ -94,6 +94,6 @@ final class Env(
   )
 }
 
-final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean) {
+final class SimulIsFeaturable(f: Simul => Boolean) extends Simul => Boolean {
   def apply(simul: Simul) = f(simul)
 }

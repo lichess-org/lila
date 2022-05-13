@@ -61,7 +61,7 @@ private object StudyFlatTree {
         val path = parentPath + node.id
         node.children.nodes.flatMap {
           traverse(_, path)
-        } appended (Path.encodeDbKey(path) -> writeNode(node))
+        } appended Path.encodeDbKey(path) -> writeNode(node)
       }
   }
 }

@@ -41,7 +41,7 @@ final class Report(
   private def renderList(me: Holder, room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(asMod(me), 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
-        (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
+        env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds) inject
           Ok(
             html.report
               .list(

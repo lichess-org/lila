@@ -79,9 +79,9 @@ final class Team(
       implicit ctx: Context
   ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
-      (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
-      (team.isChatFor(_.MEMBERS) && info.mine) ||
-      (isGranted(_.Shusher) && requestModView)
+      team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders) ||
+      team.isChatFor(_.MEMBERS) && info.mine ||
+      isGranted(_.Shusher) && requestModView
     }
 
   private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(implicit
@@ -89,9 +89,9 @@ final class Team(
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
       team.isForumFor(_.EVERYONE) ||
-      (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
-      (team.isForumFor(_.MEMBERS) && isMember) ||
-      (isGranted(_.ModerateForum) && requestModView)
+      team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders) ||
+      team.isForumFor(_.MEMBERS) && isMember ||
+      isGranted(_.ModerateForum) && requestModView
     }
 
   def users(teamId: String) =
@@ -614,8 +614,8 @@ You received this because you are subscribed to messages of the team $url."""
     api.countCreatedRecently(me) flatMap { count =>
       val allow =
         isGranted(_.ManageTeam) ||
-          (isGranted(_.Verified) && count < 100) ||
-          (isGranted(_.Teacher) && count < 10) ||
+          isGranted(_.Verified) && count < 100 ||
+          isGranted(_.Teacher) && count < 10 ||
           count < 3
       if (allow) a
       else Forbidden(views.html.site.message.teamCreateLimit).fuccess

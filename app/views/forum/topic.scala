@@ -191,7 +191,7 @@ object topic {
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-              (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
+              isGranted(_.PublicMod) || isGranted(_.SeeReport) option
                 form3.submit(
                   frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
                   nameValue = (form("modIcon").name, "true").some,

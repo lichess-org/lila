@@ -106,7 +106,7 @@ final class PuzzleApi(
                 $set(
                   F.voteUp   -> up,
                   F.voteDown -> down,
-                  F.vote     -> ((up - down).toFloat / (up + down))
+                  F.vote     -> (up - down).toFloat / (up + down)
                 ) ++ {
                   (newVote <= -100 && doc
                     .getAsOpt[DateTime](F.day)

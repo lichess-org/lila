@@ -13,7 +13,7 @@ case class Filter(tags: List[String]) {
 
   def toggle(tag: String) =
     copy(
-      tags = if (tags contains tag) tags filter (tag !=) else tags :+ tag
+      tags = if (tags contains tag) tags filter tag != else tags :+ tag
     )
 }
 

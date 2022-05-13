@@ -117,7 +117,7 @@ final class MsgApi(
                       else
                         $pull(
                           // unset "deleted by receiver" unless the message is muted
-                          "del" $in (orig :: (!send.mute).option(dest).toList)
+                          "del" $in (orig :: !send.mute.option(dest).toList)
                         )
                     }
                   )

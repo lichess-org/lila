@@ -6,11 +6,11 @@ object Levenshtein {
     def f(a: String, b: String): Boolean = {
       /* dd : destination diagonal */
       val dd = b.length - a.length
-      val t  = (threshold - 1) >> 1
+      val t  = threshold - 1 >> 1
       def rowRange(j: Int) = {
         // j - i == dd
         val i = j - dd
-        ((i - (threshold - 1)) max 0) until (1 + ((i + t) min a.length))
+        i - (threshold - 1) max 0 until 1 + (i + t min a.length)
       }
       @scala.annotation.tailrec
       def loop(j: Int, prev: Array[Int], prevr: Range, next: Array[Int]): Int = {

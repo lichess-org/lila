@@ -68,9 +68,9 @@ object Query {
         List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30),
         i => trans.nbMinutes.pluralSameTxt(i / 60)
       ).toList) :+
-      (60 * 60 * 1 -> trans.nbHours.pluralSameTxt(1)) :+
-      (60 * 60 * 2 -> trans.nbHours.pluralSameTxt(2)) :+
-      (60 * 60 * 3 -> trans.nbHours.pluralSameTxt(3))
+      60 * 60 * 1 -> trans.nbHours.pluralSameTxt(1) :+
+      60 * 60 * 2 -> trans.nbHours.pluralSameTxt(2) :+
+      60 * 60 * 3 -> trans.nbHours.pluralSameTxt(3)
 
   def clockInits(implicit lang: Lang) = List(
     (30, trans.nbSeconds.pluralSameTxt(30)),
@@ -120,7 +120,7 @@ object Query {
 
   def hasAis(implicit lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
-  val aiLevels = (1 to 8) map { l =>
+  val aiLevels = 1 to 8 map { l =>
     l -> s"level $l"
   }
 

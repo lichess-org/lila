@@ -70,11 +70,11 @@ object header {
           )(
             splitNumber(s"${info.ublog.??(_.nbPosts)} blog posts")
           ),
-          (ctx.isAuth && !ctx.is(u)) option
+          ctx.isAuth && !ctx.is(u) option
             a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))
         ),
         div(cls := "user-actions btn-rack")(
-          (ctx is u) option frag(
+          ctx is u option frag(
             a(
               cls  := "btn-rack__btn",
               href := routes.Account.profile,
@@ -119,7 +119,7 @@ object header {
             titleOrText(trans.exportGames.txt()),
             dataIcon := ""
           ),
-          (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
+          ctx.isAuth && ctx.noKid && !ctx.is(u) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
             href     := s"${routes.Report.form}?username=${u.username}",
@@ -139,7 +139,7 @@ object header {
             if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)))
               div(cls := "rating-history")(spinner)
             else
-              (ctx.is(u) && u.count.game < 10) option newPlayer(u),
+              ctx.is(u) && u.count.game < 10 option newPlayer(u),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
@@ -280,7 +280,7 @@ object header {
           br,
           note.dox option "dox ",
           momentFromNow(note.date),
-          (ctx.me.exists(note.isFrom) && !note.mod) option frag(
+          ctx.me.exists(note.isFrom) && !note.mod option frag(
             br,
             postForm(action := routes.User.deleteNote(note._id))(
               submitButton(

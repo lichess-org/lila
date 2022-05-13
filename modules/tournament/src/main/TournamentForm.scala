@@ -180,7 +180,7 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ) {
 
-  def validClock = (clockTime + clockIncrement) > 0
+  def validClock = clockTime + clockIncrement > 0
 
   def realMode =
     if (realPosition.isDefined) Mode.Casual
@@ -260,7 +260,7 @@ private[tournament] case class TournamentSetup(
       )
   }
 
-  private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
+  private def estimateNumberOfGamesOneCanPlay: Double = minutes * 60 / estimatedGameSeconds
 
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay

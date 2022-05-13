@@ -82,7 +82,7 @@ object widgets {
           if (g.turns > 0) {
             val pgnMoves = g.pgnMoves take 20
             div(cls := "opening")(
-              (!g.fromPosition ?? g.opening) map { opening =>
+              !g.fromPosition ?? g.opening map { opening =>
                 strong(opening.opening.ecoName)
               },
               div(cls := "pgn")(

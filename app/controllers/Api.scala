@@ -88,7 +88,7 @@ final class Api(
             .add("playing" -> env.round.playing(u.id))
             .add("streaming" -> streamingIds(u.id))
         if (getBool("withGameIds", req)) users.map { u =>
-          (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
+          env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id) map { gameId =>
             toJson(u).add("playingId", gameId)
           }
         }.sequenceFu map toApiResult
@@ -138,8 +138,8 @@ final class Api(
   // for mobile app
   def userGames(name: String) =
     MobileApiRequest { req =>
-      val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-      val nb   = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
+      val page = getInt("page", req) | 1 atLeast 1 atMost 200
+      val nb   = MaxPerPage(getInt("nb", req) | 10 atLeast 1 atMost 100)
       val cost = page * nb.value + 10
       UserGamesRateLimit(cost, req) {
         lila.mon.api.userGames.increment(cost.toLong)
@@ -207,7 +207,7 @@ final class Api(
     ApiRequest { implicit req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
-          val page = (getInt("page", req) | 1) atLeast 1 atMost 200
+          val page = getInt("page", req) | 1 atLeast 1 atMost 200
           env.tournament.jsonView(
             tour = tour,
             page = page.some,

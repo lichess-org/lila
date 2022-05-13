@@ -151,7 +151,7 @@ object BSONHandlers {
           else Left(Eval.Cp(v))
         },
       _.value.fold(
-        cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
+        cp => cp.value atLeast -mateFactor + 1 atMost mateFactor - 1,
         mate => mate.value * mateFactor
       )
     )
@@ -209,7 +209,7 @@ object BSONHandlers {
       crazy          -> n.crazyData,
       forceVariation -> w.boolO(n.forceVariation),
       order -> {
-        (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
+        n.children.nodes.sizeIs > 1 option n.children.nodes.map(_.id)
       }
     )
   }

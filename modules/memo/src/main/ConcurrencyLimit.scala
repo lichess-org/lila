@@ -63,8 +63,8 @@ object ConcurrencyLimit {
     private val concurrentMap = storage.underlying.asMap
 
     def get(k: K) = ~storage.getIfPresent(toString(k))
-    def inc(k: K) = concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1) atMost maxConcurrency)
-    def dec(k: K) = concurrentMap.computeIfPresent(toString(k), (_, c) => (c - 1) atLeast 0)
+    def inc(k: K) = concurrentMap.compute(toString(k), (_, c) => ~Option(c) + 1 atMost maxConcurrency)
+    def dec(k: K) = concurrentMap.computeIfPresent(toString(k), (_, c) => c - 1 atLeast 0)
   }
 
   def limitedDefault(max: Int) =

@@ -77,7 +77,7 @@ final private[round] class Titivate(
 
   private val gameFlow: Flow[GameOrFail, Unit, _] = Flow[GameOrFail].mapAsyncUnordered(8) {
 
-    case Left((id, err)) =>
+    case Left(id, err) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
       logBranch.warn(s"Can't read game $id", err)
       gameRepo unsetCheckAt id

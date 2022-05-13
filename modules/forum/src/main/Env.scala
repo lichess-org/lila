@@ -72,7 +72,6 @@ final class Env(
   }
 }
 
-final class RecentTeamPosts(f: String => Fu[List[MiniForumPost]])
-    extends (String => Fu[List[MiniForumPost]]) {
+final class RecentTeamPosts(f: String => Fu[List[MiniForumPost]]) extends String => Fu[List[MiniForumPost]] {
   def apply(teamId: String) = f(teamId)
 }

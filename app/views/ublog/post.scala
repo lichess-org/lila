@@ -67,7 +67,7 @@ object post {
               titleTag(user.title),
               user.username,
               !ctx.is(user) && isGranted(_.ModerateBlog) option
-                (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
+                if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag(
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
@@ -84,7 +84,7 @@ object post {
             ),
             if (ctx is user)
               div(cls := "ublog-post__meta__owner")(
-                (if (post.live) goodTag else badTag)(
+                if (post.live) goodTag else badTag(
                   if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
                 " ",
@@ -115,7 +115,7 @@ object post {
               )(
                 "Discuss this blog post in the forum"
               ),
-            (ctx.isAuth && !ctx.is(user)) option
+            ctx.isAuth && !ctx.is(user) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
                 followButton(user, post, followed)

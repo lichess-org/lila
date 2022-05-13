@@ -120,7 +120,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
-              Query.createdBetween(config.since, config.until) ++ (!config.ongoing ?? Query.finished),
+              Query.createdBetween(config.since, config.until) ++ !config.ongoing ?? Query.finished,
             config.sort.bson,
             batchSize = config.perSecond.value
           )
@@ -241,7 +241,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? analysisRepo.byGame(game)) dmap {
+      flags.evals ?? analysisRepo.byGame(game) dmap {
         (game, initialFen, _)
       }
     }
@@ -329,7 +329,7 @@ final class GameApiV2(
       })
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
+    game.whitePlayer.userId ?? getLightUser zip game.blackPlayer.userId ?? getLightUser
 }
 
 object GameApiV2 {

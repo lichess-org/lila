@@ -13,5 +13,5 @@ object Uptime {
     startedSinceSeconds(minutes * 60)
 
   def startedSinceSeconds(seconds: Int) =
-    startedAtMillis < (nowMillis - (seconds * 1000))
+    startedAtMillis < nowMillis - seconds * 1000
 }

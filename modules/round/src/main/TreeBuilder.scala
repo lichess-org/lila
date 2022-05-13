@@ -51,7 +51,7 @@ object TreeBuilder {
         )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
           val fen    = Forsyth >> g
-          val info   = infos lift (index - 1)
+          val info   = infos lift index - 1
           val advice = advices get g.turns
           val branch = Branch(
             id = UciCharPair(m.uci),
@@ -60,7 +60,7 @@ object TreeBuilder {
             fen = fen,
             check = g.situation.check,
             opening = openingOf(fen),
-            clock = withClocks flatMap (_ lift (g.turns - init.turns - 1)),
+            clock = withClocks flatMap (_ lift g.turns - init.turns - 1),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
@@ -82,7 +82,7 @@ object TreeBuilder {
         }
         games.zipWithIndex.reverse match {
           case Nil => root
-          case ((g, m), i) :: rest =>
+          case (g, m), i :: rest =>
             root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
               makeBranch(i + 1, g, m) prependChild node
             }
@@ -122,7 +122,7 @@ object TreeBuilder {
         error foreach logChessError(id)
         games.reverse match {
           case Nil => root
-          case (g, m) :: rest =>
+          case g, m :: rest =>
             root addChild rest
               .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
                 makeBranch(g, m) addChild node

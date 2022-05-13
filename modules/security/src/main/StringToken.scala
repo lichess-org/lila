@@ -41,7 +41,7 @@ final class StringToken[A](
           ) ?? {
             val payload = serializer read payloadStr
             (valueChecker match {
-              case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
+              case ValueChecker.Same      => hashCurrentValue(payload) map hashed ==
               case ValueChecker.Custom(f) => f(hashed)
             }) map { _ option payload }
           }

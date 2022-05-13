@@ -71,7 +71,7 @@ final private[tv] class TvSyncActor(
       }.lastOption | game.player(game.naturalOrientation)
       val user = player.userId flatMap lightUserSync
       (user, player.rating) mapN { (u, r) =>
-        channelChampions += (channel -> Tv.Champion(u, r, game.id))
+        channelChampions += channel -> Tv.Champion(u, r, game.id)
       }
       recentTvGames.put(game)
       val data = Json.obj(

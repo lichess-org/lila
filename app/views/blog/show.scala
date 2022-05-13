@@ -43,11 +43,11 @@ object show {
           ctx.noKid option
             div(cls := "footer")(
               if (prismic.maybeRef.isEmpty) {
-                (doc
+                doc
                   .getDate("blog.date")
                   .exists(
                     _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
-                  )) option
+                  ) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"
                   )

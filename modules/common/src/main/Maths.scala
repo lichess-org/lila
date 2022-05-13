@@ -7,7 +7,7 @@ import scala.util.Sorting
 object Maths {
 
   def mean[T](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
-    a.nonEmpty option (n.toDouble(a.sum) / a.size)
+    a.nonEmpty option n.toDouble(a.sum) / a.size
 
   def median[T: ClassTag](a: Iterable[T])(implicit n: Numeric[T]) =
     a.nonEmpty option {
@@ -28,7 +28,7 @@ object Maths {
   }
 
   def closestMultipleOf(mult: Int, v: Int): Int =
-    ((2 * v + mult) / (2 * mult)) * mult
+    (2 * v + mult) / (2 * mult) * mult
 
   /* Moderates distribution with a factor,
    * and retries when value is outside the mean+deviation box.

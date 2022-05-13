@@ -175,7 +175,7 @@ final class Mod(
         env.mod.impersonate.stop(me)
         Redirect(routes.User.show(me.username))
       }
-      else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.toLowerCase == "lichess"))
+      else if (isGranted(_.Impersonate) || isGranted(_.Admin) && username.toLowerCase == "lichess")
         OptionFuRedirect(env.user.repo named username) { user =>
           env.mod.impersonate.start(me, user)
           fuccess(routes.User.show(user.username))
@@ -302,7 +302,7 @@ final class Mod(
                   html.mod.communication(
                     me,
                     user,
-                    (povs zip chats) collect {
+                    povs zip chats collect {
                       case (p, Some(c)) if c.nonEmpty => p -> c
                     } take 15,
                     convos,
@@ -341,7 +341,7 @@ final class Mod(
   def spontaneousInquiry(username: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        (isGranted(_.Appeals) ?? env.appeal.api.exists(user)) flatMap { isAppeal =>
+        isGranted(_.Appeals) ?? env.appeal.api.exists(user) flatMap { isAppeal =>
           isAppeal.??(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
             case Some(ongoing) if ongoing.mod != me.id =>
               env.user.lightUserApi.asyncFallback(ongoing.mod) map { mod =>

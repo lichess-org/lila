@@ -33,8 +33,8 @@ final private class FishnetOpeningBook(
           "fen"         -> Forsyth.>>(game.chess).value,
           "topGames"    -> "0",
           "recentGames" -> "0",
-          "ratings"     -> (~levelRatings.get(level)).mkString(","),
-          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
+          "ratings"     -> ~levelRatings.get(level).mkString(","),
+          "speeds"      -> ~openingSpeeds.get(game.speed).map(_.key).mkString(",")
         )
         .get()
         .map {

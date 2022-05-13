@@ -38,7 +38,7 @@ case class Glicko(
       deviation > 0 &&
       deviation < 1000 &&
       volatility > 0 &&
-      volatility < (Glicko.maxVolatility * 2)
+      volatility < Glicko.maxVolatility * 2
 
   def cap =
     copy(

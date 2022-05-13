@@ -68,7 +68,7 @@ private[study] object CommentParser {
     parseCircles(comment) match {
       case (circles, comment) =>
         parseArrows(comment) match {
-          case (arrows, comment) => (circles ++ arrows) -> comment
+          case (arrows, comment) => circles ++ arrows -> comment
         }
     }
 

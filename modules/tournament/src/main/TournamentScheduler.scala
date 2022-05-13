@@ -503,7 +503,7 @@ Thank you all, you rock!"""
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
       ts exists { t2 =>
-        t.variant == t2.variant && (t2.schedule ?? {
+        t.variant == t2.variant && t2.schedule ?? {
           // prevent daily && weekly on the same day
           case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
           case s2 =>
@@ -512,7 +512,7 @@ Thank you all, you rock!"""
                 s.hasMaxRating ||  // overlapping same rating limit
                 s.similarSpeed(s2) // overlapping similar
             ) && s.similarConditions(s2) && t.overlaps(t2)
-        })
+        }
       }
     }
 

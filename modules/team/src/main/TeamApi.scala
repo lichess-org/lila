@@ -242,7 +242,7 @@ final class TeamApi(
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
-      (!team.leaders(me.id)).?? {
+      !team.leaders(me.id).?? {
         modLog.teamKick(me.id, userId, team.name)
       } >>-
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
@@ -298,7 +298,7 @@ final class TeamApi(
   def toggleEnabled(team: Team, by: User, explain: String): Funit =
     if (
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
-      (team.leaders(by.id) && !team.leaders(team.createdBy))
+      team.leaders(by.id) && !team.leaders(team.createdBy)
     ) {
       logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}: $explain")
       if (team.enabled)

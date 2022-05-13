@@ -69,7 +69,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
 
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
     get(id).flatMap(_ join player) map { r =>
-      val race = (r.isLobby ?? doStart(r)) | r
+      val race = r.isLobby ?? doStart(r) | r
       saveAndPublish(race)
       race
     }

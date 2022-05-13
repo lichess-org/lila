@@ -123,7 +123,7 @@ object BSONHandlers {
         "featured"    -> o.featuredId,
         "spotlight"   -> o.spotlight,
         "description" -> o.description,
-        "chat"        -> (!o.hasChat).option(false)
+        "chat"        -> !o.hasChat.option(false)
       )
   }
 

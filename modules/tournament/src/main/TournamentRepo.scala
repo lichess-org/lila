@@ -373,7 +373,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Tournament] =
     coll
-      .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty ?? $doc("status" $in status)))
+      .find($doc("createdBy" -> owner.id) ++ status.nonEmpty ?? $doc("status" $in status))
       .sort($sort desc "startsAt")
       .batchSize(batchSize)
       .cursor[Tournament](readPreference)

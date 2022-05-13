@@ -95,8 +95,8 @@ final class GifExport(
       case Some(median) =>
         val scale = targetMedianTime.centis.toDouble / median.centis.atLeast(1).toDouble
         moveTimes.map { t =>
-          if (t * 2 < median) t atMost (targetMedianTime *~ 0.5)
-          else t *~ scale atLeast (targetMedianTime *~ 0.5) atMost targetMaxTime
+          if (t * 2 < median) t atMost targetMedianTime *~ 0.5
+          else t *~ scale atLeast targetMedianTime *~ 0.5 atMost targetMaxTime
         }
       case None => moveTimes.map(_ atMost targetMaxTime)
     }
@@ -124,7 +124,7 @@ final class GifExport(
     games match {
       case Nil =>
         arr
-      case ((game, uci), scaledMoveTime) :: tail =>
+      case (game, uci), scaledMoveTime :: tail =>
         // longer delay for last frame
         val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
         framesRec(tail, arr :+ frame(game.situation, uci, delay))

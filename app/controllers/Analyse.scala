@@ -42,11 +42,11 @@ final class Analyse(
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
         gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
-          (env.analyse.analyser get pov.game) zip
-            (!pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId)) zip
-            (pov.game.simulId ?? env.simul.repo.find) zip
+          env.analyse.analyser get pov.game zip
+            !pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId) zip
+            pov.game.simulId ?? env.simul.repo.find zip
             roundC.getWatcherChat(pov.game) zip
-            (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
+            ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game) zip
             env.bookmark.api.exists(pov.game, ctx.me) zip
             env.api.pgnDump(
               pov.game,
@@ -96,7 +96,7 @@ final class Analyse(
   def embed(gameId: String, color: String) =
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some((game, initialFen)) =>
+        case Some(game, initialFen) =>
           val pov = Pov(game, chess.Color.fromName(color) | White)
           env.api.roundApi.embed(
             pov,

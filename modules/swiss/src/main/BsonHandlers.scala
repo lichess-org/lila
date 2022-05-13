@@ -111,7 +111,7 @@ object BsonHandlers {
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
         "n"  -> s.nbRounds,
-        "r"  -> (!s.rated).option(false),
+        "r"  -> !s.rated.option(false),
         "d"  -> s.description,
         "f"  -> s.position,
         "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),

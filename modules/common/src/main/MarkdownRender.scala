@@ -49,13 +49,13 @@ final class MarkdownRender(
   private type Key  = String
   private type Html = String
 
-  private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
+  private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
   extensions.add(MarkdownRender.LilaLinkExtension)
 
-  private val options = new MutableDataSet()
+  private val options = new MutableDataSet
     .set(Parser.EXTENSIONS, extensions)
     .set(HtmlRenderer.ESCAPE_HTML, Boolean box true)
     .set(HtmlRenderer.SOFT_BREAK, "<br>")
@@ -156,7 +156,7 @@ object MarkdownRender {
       else {
         val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
         val url          = resolvedLink.getUrl()
-        val altText      = new TextCollectingVisitor().collectAndGetText(node)
+        val altText      = new TextCollectingVisitor.collectAndGetText(node)
         whitelistedSrc(url) match {
           case Some(src) =>
             html

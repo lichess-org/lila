@@ -55,7 +55,7 @@ final class PgnDump(
   private def gameUrl(id: String) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
+    game.whitePlayer.userId ?? lightUserApi.async zip game.blackPlayer.userId ?? lightUserApi.async
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
@@ -163,16 +163,16 @@ final class PgnDump(
       val clockOffset = startColor.fold(0, 1)
       chessPgn.Turn(
         number = index + from,
-        white = moves.headOption filter (".." !=) map { san =>
+        white = moves.headOption filter ".." != map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+            secondsLeft = clocks lift index * 2 - clockOffset map (_.roundSeconds)
           )
         },
         black = moves lift 1 map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+            secondsLeft = clocks lift index * 2 + 1 - clockOffset map (_.roundSeconds)
           )
         }
       )
@@ -197,7 +197,7 @@ object PgnDump {
   ) {
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if (!delayMoves) moves
-      else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
+      else moves.take(moves.size - delayMovesBy atLeast delayKeepsFirstMoves)
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
   }

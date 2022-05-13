@@ -52,5 +52,5 @@ object ThreadLocalRandom extends Random {
 }
 
 object SecureRandom extends Random {
-  override val current = new java.security.SecureRandom()
+  override val current = new java.security.SecureRandom
 }

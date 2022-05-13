@@ -10,7 +10,7 @@ object PgnTags {
     tags pipe filterRelevant pipe removeContradictingTermination pipe sort
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
-    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
+    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter c !=
 
   private def filterRelevant(tags: Tags) =
     Tags(tags.value.filter { t =>

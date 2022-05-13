@@ -44,13 +44,13 @@ object Accuracy {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos
   }.zipWithIndex.collect {
-    case (e, i) if (i % 2) == 0 => e
+    case (e, i) if i % 2 == 0 => e
   }
 
   def mean(pov: PovLike, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)
     val nb    = diffs.size
-    (nb != 0) option (diffs.sum / nb)
+    nb != 0 option diffs.sum / nb
   }
   def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(povToPovLike(pov), analysis)
 }

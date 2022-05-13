@@ -77,7 +77,7 @@ object form {
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.delete())
               ),
-            (t.disabled && isGranted(_.ManageTeam)) option
+            t.disabled && isGranted(_.ManageTeam) option
               postForm(cls := "inline", action := routes.Team.disable(t.id))(
                 explainInput,
                 submitButton(

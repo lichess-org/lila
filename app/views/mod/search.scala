@@ -222,7 +222,7 @@ object search {
             if (Granter.canViewAltUsername(mod, u))
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                isGranted(_.Admin) && isGranted(_.SetEmail) option
                   email(emails.list.map(_.value).mkString(", "))
               )
             else td,

@@ -19,12 +19,12 @@ case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory]
 
   def firstGetsWhite(that: ColorHistory)(fallback: () => Boolean) = {
     val c = compare(that)
-    c < 0 || (c == 0 && fallback())
+    c < 0 || c == 0 && fallback()
   }
 
   def inc(color: Color): ColorHistory =
     ColorHistory(
-      strike = color.fold((strike + 1) atLeast 1, (strike - 1) atMost -1),
+      strike = color.fold(strike + 1 atLeast 1, strike - 1 atMost -1),
       balance = balance + color.fold(1, -1)
     )
 

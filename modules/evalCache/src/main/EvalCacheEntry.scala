@@ -72,7 +72,7 @@ object EvalCacheEntry {
         pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
       )
 
-    def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
+    def depthAboveMin = depth - MIN_DEPTH atLeast 0
   }
 
   case class Knodes(value: Int) extends AnyVal {

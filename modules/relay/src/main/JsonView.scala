@@ -58,7 +58,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
   ) =
     JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync))),
+        .add("sync" -> canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync)),
       study = studyData.study,
       analysis = studyData.analysis
     )

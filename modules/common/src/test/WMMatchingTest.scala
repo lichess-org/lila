@@ -23,7 +23,7 @@ object WMMatchingTest {
   //  check(Array((0,1,1)), false, List (1, 0))
   def check(n: Int, a: Array[Int], res: (Int, Int)): Boolean = {
     val v           = Array.range(0, n)
-    def f(x: Int)   = (x * (x + 1)) / 2
+    def f(x: Int)   = x * (x + 1) / 2
     def off(i: Int) = f(n - 1) - f(n - 1 - i)
     def pairScore(i: Int, j: Int): Option[Int] = {
       if (i > j) pairScore(j, i)

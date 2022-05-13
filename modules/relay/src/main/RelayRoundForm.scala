@@ -47,7 +47,7 @@ object RelayRoundForm {
 
   private def toGameIds(ids: String): Option[GameIds] = {
     val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(Game.validId).toList
-    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
+    list.sizeIs > 0 && list.sizeIs <= Study.maxChapters option GameIds(list)
   }
 
   private def validSource(source: String): Boolean =

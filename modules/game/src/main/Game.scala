@@ -51,7 +51,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.lengthIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
+    fullId.lengthIs == Game.fullIdSize && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -81,7 +81,7 @@ case class Game(
   def flagged = (status == Status.Outoftime).option(turnColor)
 
   def fullIdOf(player: Player): Option[String] =
-    (players contains player) option s"$id${player.id}"
+    players contains player option s"$id${player.id}"
 
   def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
@@ -132,7 +132,7 @@ case class Game(
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
+      val noLastInc = finished && history.size <= playedTurns == (color != turnColor)
 
       pairs map { case (first, second) =>
         {
@@ -159,7 +159,7 @@ case class Game(
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
     pgnMoves.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
+      case (e, i) if i % 2 == pivot => e
     }
   }
 
@@ -203,7 +203,7 @@ case class Game(
     val state = Event.State(
       color = game.situation.color,
       turns = game.turns,
-      status = (status != updated.status) option updated.status,
+      status = status != updated.status option updated.status,
       winner = game.situation.winner,
       whiteOffersDraw = whitePlayer.isOfferingDraw,
       blackOffersDraw = blackPlayer.isOfferingDraw
@@ -419,7 +419,7 @@ case class Game(
 
   def accountable = playedTurns >= 2 || isTournament
 
-  def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
+  def replayable = isPgnImport || finished || aborted && bothPlayersHaveMoved
 
   def analysable =
     replayable && playedTurns > 4 &&
@@ -543,7 +543,7 @@ case class Game(
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
   def playerBlurPercent(color: Color): Int =
-    if (playedTurns > 5) (player(color).blurs.nb * 100) / playerMoves(color)
+    if (playedTurns > 5) player(color).blurs.nb * 100 / playerMoves(color)
     else 0
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
@@ -554,7 +554,7 @@ case class Game(
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
-  def abandoned = (status <= Status.Started) && (movedAt isBefore Game.abandonedDate)
+  def abandoned = status <= Status.Started && (movedAt isBefore Game.abandonedDate)
 
   def forecastable = started && playable && isCorrespondence && !hasAi
 

@@ -57,7 +57,7 @@ final private[tournament] class PairingSystem(
         else if (nbIdles <= maxGroupSize) bestPairings(data, idles)
         else {
           // make sure groupSize is even with / 4 * 2
-          val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
+          val groupSize = nbIdles / 4 * 2 atMost maxGroupSize
           // make 2 best pairing groups
           bestPairings(data, idles take groupSize) :::
             bestPairings(data, idles.slice(groupSize, groupSize * 2)) :::

@@ -78,7 +78,7 @@ final class NotifyApi(
   def exists = repo.exists _
 
   private def shouldSkip(notification: Notification) =
-    (!notification.isMsg ?? userRepo.isKid(notification.notifies.value)) >>| {
+    !notification.isMsg ?? userRepo.isKid(notification.notifies.value) >>| {
       notification.content match {
         case MentionedInThread(_, _, topicId, _, _) =>
           repo.hasRecentNotificationsInThread(notification.notifies, topicId)

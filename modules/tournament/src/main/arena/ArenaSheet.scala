@@ -100,9 +100,9 @@ object Sheet {
     @inline
     def flag = Flag(encoded & 0x3) // value is public
     @inline
-    def berserk = Berserk(encoded & (0x3 << 2))
+    def berserk = Berserk(encoded & 0x3 << 2)
     @inline
-    def res = Result(encoded & (0x3 << 4))
+    def res = Result(encoded & 0x3 << 4)
 
     def isBerserk = berserk != Berserk.No
 

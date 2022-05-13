@@ -119,7 +119,7 @@ final class PerfsUpdater(
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
     }
-    val results = new RatingPeriodResults()
+    val results = new RatingPeriodResults
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
       case Glicko.Result.Win  => results.addResult(white, black)

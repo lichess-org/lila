@@ -117,7 +117,7 @@ final class Account(
 
   private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
     env.round.proxyRepo.urgentGames(me) map { povs =>
-      val nb = (getInt("nb", req) | 9) atMost 50
+      val nb = getInt("nb", req) | 9 atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
     }
 
@@ -219,7 +219,7 @@ final class Account(
     Open { implicit ctx =>
       env.security.emailChange.confirm(token) flatMap {
         _ ?? { case (user, prevEmail) =>
-          (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+          prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user) >>
             auth.authenticateUser(
               user,
               result =
@@ -423,7 +423,7 @@ final class Account(
               data =>
                 env.security.reopen
                   .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
-                  case Left((code, msg)) =>
+                  case Left(code, msg) =>
                     lila.mon.user.auth.reopenRequest(code).increment()
                     BadRequest(renderReopen(none, msg.some)).fuccess
                   case Right(user) =>

@@ -305,7 +305,7 @@ final class SwissApi(
     }
 
   def gameView(pov: Pov): Fu[Option[GameView]] =
-    (pov.game.swissId.map(Swiss.Id.apply) ?? byId) flatMap {
+    pov.game.swissId.map(Swiss.Id.apply) ?? byId flatMap {
       _ ?? { swiss =>
         getGameRanks(swiss, pov.game) dmap {
           GameView(swiss, _).some

@@ -13,7 +13,7 @@ final private class StudyMaker(
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) =>
+      case Some(game, initialFen) =>
         createFromPov(
           data,
           Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),

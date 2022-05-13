@@ -378,7 +378,7 @@ final class TournamentApi(
         for {
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
-            if (isPause) cached.ranking(tour).map { _.ranking get userId exists (7 >) }
+            if (isPause) cached.ranking(tour).map { _.ranking get userId exists 7 > }
             else
               fuccess(isStalling)
         } yield {
@@ -578,7 +578,7 @@ final class TournamentApi(
   object gameView {
 
     def player(pov: Pov): Fu[Option[GameView]] =
-      (pov.game.tournamentId ?? get) flatMap {
+      pov.game.tournamentId ?? get flatMap {
         _ ?? { tour =>
           getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { case (teamVs, ranks) =>
             teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
@@ -593,7 +593,7 @@ final class TournamentApi(
       }
 
     def watcher(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
+      game.tournamentId ?? get flatMap {
         _ ?? { tour =>
           getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { case (teamVs, ranks) =>
             GameView(tour, teamVs, ranks, none).some
@@ -602,7 +602,7 @@ final class TournamentApi(
       }
 
     def mobile(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
+      game.tournamentId ?? get flatMap {
         _ ?? { tour =>
           getGameRanks(tour, game) dmap { ranks =>
             GameView(tour, none, ranks, none).some
@@ -611,14 +611,14 @@ final class TournamentApi(
       }
 
     def analysis(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
+      game.tournamentId ?? get flatMap {
         _ ?? { tour =>
           getTeamVs(tour, game) dmap { GameView(tour, _, none, none).some }
         }
       }
 
     def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
-      (game.tournamentId ?? get) flatMap {
+      game.tournamentId ?? get flatMap {
         _ ?? { tour =>
           getTeamVs(tour, game) dmap { TourAndTeamVs(tour, _).some }
         }

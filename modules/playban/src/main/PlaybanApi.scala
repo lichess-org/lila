@@ -74,7 +74,7 @@ final class PlaybanApi(
 
     def unreasonableTime =
       game.clock map { c =>
-        (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
+        c.estimateTotalSeconds / 10 atLeast 30 atMost 3 * 60
       }
 
     // flagged after waiting a long time
@@ -132,7 +132,7 @@ final class PlaybanApi(
                 Status.Resign.is(status)
             }
             .map { c =>
-              (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
+              c.estimateTotalSeconds / 10 atLeast 30 atMost 3 * 60
             }
             .exists(_ < nowSeconds - game.movedAt.getSeconds)
             .option {

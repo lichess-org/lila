@@ -40,13 +40,12 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   }
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] =
-    (
-      req.host != net.domain.value &&
-        HTTPRequest.isRedirectable(req) &&
-        !HTTPRequest.isProgrammatic(req) &&
-        // asset request going through the CDN, don't redirect
-        !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
-    ) option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}")
+    req.host != net.domain.value &&
+      HTTPRequest.isRedirectable(req) &&
+      !HTTPRequest.isProgrammatic(req) &&
+      // asset request going through the CDN, don't redirect
+      !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
+      option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}")
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
     if (HTTPRequest.isApiOrApp(req))

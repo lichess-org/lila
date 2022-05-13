@@ -98,8 +98,8 @@ object WMMatching {
     val w = Array.newBuilder[Int]
     w.sizeHint(m >> 1)
     for {
-      i <- 0 until (nvertex - 1)
-      j <- (i + 1) until nvertex
+      i <- 0 until nvertex - 1
+      j <- i + 1 until nvertex
       p <- pairScore(i, j)
     } {
       e += i

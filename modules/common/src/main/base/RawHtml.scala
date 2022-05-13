@@ -96,7 +96,7 @@ final object RawHtml {
 
           val isTldInternal = DOMAIN == domain
 
-          val csb = new jStringBuilder()
+          val csb = new jStringBuilder
           if (!isTldInternal) csb.append(domain)
           if (pathS >= 0) {
             if (sArr(pathS) != '/') csb.append('/')
@@ -116,7 +116,7 @@ final object RawHtml {
             val url    = (if (isHttp) "http://" else "https://") + allButScheme
             val text   = if (isHttp) url else allButScheme
             val imgHtml = {
-              if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
+              if (end < sArr.length && sArr(end) == '"' || !expandImg) None
               else imgUrl(url)
             }
             sb.append(

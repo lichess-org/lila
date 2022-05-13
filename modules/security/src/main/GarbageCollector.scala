@@ -92,7 +92,7 @@ final class GarbageCollector(
       .sortBy(-_.createdAt.getSeconds)
       .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 10))
       .take(4)
-    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
+    others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled) option others
   }
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt

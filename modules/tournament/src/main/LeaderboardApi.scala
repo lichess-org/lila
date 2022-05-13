@@ -76,7 +76,7 @@ final class LeaderboardApi(
         "d" $gt since
       )
     ) flatMap { entries =>
-      (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+      entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void inject entries.map(_.tourId)
     }
 
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =

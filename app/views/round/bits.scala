@@ -91,7 +91,7 @@ object bits {
       ),
       div(cls := "now-playing")(
         playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
-          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+          myTurn ++ otherTurn.take(6 - myTurn.size) take 9 map { pov =>
             a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
               span(
                 cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",

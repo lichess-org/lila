@@ -35,11 +35,11 @@ private object UciToPgn {
         ucis <- variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
         moves <-
           ucis.foldLeft[Validated[String, (Situation, List[Either[Move, Drop]])]](valid(situation -> Nil)) {
-            case (Validated.Valid((sit, moves)), uci: Uci.Move) =>
+            case (Validated.Valid(sit, moves), uci: Uci.Move) =>
               sit.move(uci.orig, uci.dest, uci.promotion).leftMap(e => s"ply $ply $e") map { move =>
                 move.situationAfter -> (Left(move) :: moves)
               }
-            case (Validated.Valid((sit, moves)), uci: Uci.Drop) =>
+            case (Validated.Valid(sit, moves), uci: Uci.Drop) =>
               sit.drop(uci.role, uci.pos).leftMap(e => s"ply $ply $e") map { drop =>
                 drop.situationAfter -> (Right(drop) :: moves)
               }

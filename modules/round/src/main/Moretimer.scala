@@ -45,7 +45,7 @@ final class Moretimer(
       prefApi.getPref(_, (p: Pref) => p.moretime)
     }.sequenceFu dmap {
       _.forall { p =>
-        p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
+        p == Pref.Takeback.ALWAYS || p == Pref.Takeback.CASUAL && game.casual
       }
     }
 

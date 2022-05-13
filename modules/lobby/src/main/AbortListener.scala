@@ -10,7 +10,7 @@ final private class AbortListener(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(pov: Pov): Funit =
-    (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
+    pov.game.isCorrespondence ?? recreateSeek(pov) >>-
       cancelColorIncrement(pov) >>-
       lobbyActor.registerAbortedGame(pov.game)
 

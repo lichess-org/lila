@@ -82,6 +82,6 @@ final class AccountClosure(
   def closeThenErase(username: String, by: Holder): Fu[Either[String, String]] =
     userRepo named username flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled ?? close(u, by)) >> eraseClosed(u.username)
+      case Some(u) => u.enabled ?? close(u, by) >> eraseClosed(u.username)
     }
 }

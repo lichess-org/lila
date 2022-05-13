@@ -211,7 +211,7 @@ object index {
                     div(cls := "buttons")(
                       if (ctx.isAuth)
                         frag(
-                          (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
+                          pricing.currency.getCurrencyCode != "CNY" || !methods("alipay") option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
                           div(cls := "paypal paypal--order"),

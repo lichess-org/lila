@@ -115,7 +115,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
       lila.common.Maths.mean(rest.map(_.glicko.intRating)) foreach { r =>
         lila.mon.streak.selector.rating.record(r.toInt).unit
       }
-      (0 to poolSize by 10) foreach { i =>
+      0 to poolSize by 10 foreach { i =>
         val slice = rest drop i take 10
         lila.common.Maths.mean(slice.map(_.glicko.intRating)) foreach { r =>
           lila.mon.streak.selector.ratingSlice(i).record(r.toInt)

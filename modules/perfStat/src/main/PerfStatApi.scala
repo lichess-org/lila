@@ -31,7 +31,7 @@ final class PerfStatApi(
     PerfType(perfKey) ?? { perfType =>
       userRepo named name flatMap {
         _.filter { u =>
-          (u.enabled && (!u.lame || by.exists(u.is))) || by.??(Granter(_.UserModView))
+          u.enabled && (!u.lame || by.exists(u.is)) || by.??(Granter(_.UserModView))
         } ?? { u =>
           for {
             oldPerfStat <- get(u, perfType)

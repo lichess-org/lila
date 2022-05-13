@@ -99,16 +99,16 @@ final class PostApi(
 
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {
-      (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
+      quickHideCategs(topic.categId) && topic.nbPosts == 1 || {
         topic.nbPosts == config.postMaxPerPage.value ||
-        (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
+        !topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5)
       }
     }
 
   def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
-      case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-      case Some((topic, post)) =>
+      case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
+      case Some(topic, post) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
@@ -217,7 +217,7 @@ final class PostApi(
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number" $gt (newPostNumber - 10),
+          "number" $gt newPostNumber - 10,
           "createdAt" $gt DateTime.now.minusDays(5)
         ),
         ReadPreference.secondaryPreferred

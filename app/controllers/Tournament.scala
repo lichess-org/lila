@@ -629,7 +629,7 @@ final class Tournament(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     cachedTour(id) flatMap {
-      case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
+      case Some(t) if t.createdBy == me.id && !t.isFinished || isGranted(_.ManageTournament) =>
         f(t)
       case Some(t) => Redirect(routes.Tournament.show(t.id)).fuccess
       case _       => notFound

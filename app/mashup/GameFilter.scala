@@ -46,15 +46,15 @@ object GameFilterMenu {
     val filters: NonEmptyList[GameFilter] = NonEmptyList(
       All,
       List(
-        (~nbs.withMe > 0) option Me,
-        (user.count.rated > 0) option Rated,
-        (user.count.win > 0) option Win,
-        (user.count.loss > 0) option Loss,
-        (user.count.draw > 0) option Draw,
-        (nbs.playing > 0) option Playing,
-        (nbs.bookmark > 0) option Bookmark,
-        (nbs.imported > 0) option Imported,
-        (isAuth && user.count.game > 0) option Search
+        ~nbs.withMe > 0 option Me,
+        user.count.rated > 0 option Rated,
+        user.count.win > 0 option Win,
+        user.count.loss > 0 option Loss,
+        user.count.draw > 0 option Draw,
+        nbs.playing > 0 option Playing,
+        nbs.bookmark > 0 option Bookmark,
+        nbs.imported > 0 option Imported,
+        isAuth && user.count.game > 0 option Search
       ).flatten
     )
 

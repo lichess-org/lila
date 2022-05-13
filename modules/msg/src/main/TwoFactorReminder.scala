@@ -18,7 +18,7 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
         .buildAsyncFuture {
           loader { userId =>
             userRepo hasTwoFactor userId flatMap { has =>
-              (!has ?? api.postPreset(userId, MsgPreset.enableTwoFactor).void) inject has
+              !has ?? api.postPreset(userId, MsgPreset.enableTwoFactor).void inject has
             }
           }
         }

@@ -2,8 +2,7 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-/** Throttler that allows X operations per Y unit of time
-  * Not thread safe
+/** Throttler that allows X operations per Y unit of time Not thread safe
   */
 final class RateLimit[K](
     credits: Int,
@@ -35,10 +34,10 @@ final class RateLimit[K](
         case None =>
           storage.put(k, cost -> makeClearAt)
           op
-        case Some((a, clearAt)) if a < credits =>
-          storage.put(k, (a + cost) -> clearAt)
+        case Some(a, clearAt) if a < credits =>
+          storage.put(k, a + cost -> clearAt)
           op
-        case Some((_, clearAt)) if nowMillis > clearAt =>
+        case Some(_, clearAt) if nowMillis > clearAt =>
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce =>

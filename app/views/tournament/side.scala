@@ -39,8 +39,8 @@ object side {
             tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
             separator,
             "Arena",
-            (isGranted(_.ManageTournament) || (ctx.userId
-              .has(tour.createdBy) && !tour.isFinished)) option frag(
+            isGranted(_.ManageTournament) || ctx.userId
+              .has(tour.createdBy) && !tour.isFinished option frag(
               " ",
               a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(""))
             )
@@ -100,7 +100,7 @@ object side {
         tour.noBerserk option div(cls := "text", dataIcon := "")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
-        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
+        !tour.isStarted || tour.isScheduled && tour.position.isDefined option absClientDateTime(
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
@@ -127,7 +127,7 @@ object side {
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := "")(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
-        (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
+        ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))
       )
     )

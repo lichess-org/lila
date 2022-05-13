@@ -270,7 +270,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
               val both   = u.asInstanceOf[BSONString].value
               val userId = both.drop(8)
               playerIndex(r) = both.take(8)
-              ranking += (userId -> r)
+              ranking += userId -> r
               r = r + 1
             }
             FullRanking(ranking.result(), playerIndex)

@@ -87,7 +87,7 @@ final class AppealApi(
       ) { framework =>
         import framework._
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply _ else Descending.apply _)("firstUnrepliedAt")),
+          Sort(if (ascending) Ascending.apply _ else Descending.apply _("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(

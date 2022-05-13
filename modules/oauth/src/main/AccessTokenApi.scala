@@ -19,7 +19,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
   private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
 
   def create(setup: OAuthTokenForm.Data, me: User, isStudent: Boolean): Fu[AccessToken] =
-    (fuccess(isStudent) >>| userRepo.isManaged(me.id)) flatMap { noBot =>
+    fuccess(isStudent) >>| userRepo.isManaged(me.id) flatMap { noBot =>
       val plain = Bearer.randomPersonal()
       create(
         AccessToken(

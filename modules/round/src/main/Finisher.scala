@@ -159,8 +159,8 @@ final private class Finisher(
       (finish.white, finish.black).mapN((_, _)) ?? { case (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
-        (finish.white ?? incNbGames(finish.game)) zip
-        (finish.black ?? incNbGames(finish.game)) dmap (_._1._1)
+        finish.white ?? incNbGames(finish.game) zip
+        finish.black ?? incNbGames(finish.game) dmap (_._1._1)
     }
 
   private def incNbGames(game: Game)(user: User): Funit =

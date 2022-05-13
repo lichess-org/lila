@@ -107,9 +107,9 @@ final class ReportApi(
     }
 
   private def isAlreadySlain(candidate: Candidate) =
-    (candidate.isCheat && candidate.suspect.user.marks.engine) ||
-      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
-      (candidate.isComm && candidate.suspect.user.marks.troll)
+    candidate.isCheat && candidate.suspect.user.marks.engine ||
+      candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll ||
+      candidate.isComm && candidate.suspect.user.marks.troll
 
   def getMod(username: String): Fu[Option[Mod]] =
     userRepo named username dmap2 Mod.apply
@@ -248,7 +248,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID, seriousness: Int): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
-        case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
+        case ((isSame, Some(winner, loser)), reporter) if !winner.lame && !loser.lame =>
           val loginsText =
             if (isSame) "Found matching IP/print"
             else "No IP/print match found"

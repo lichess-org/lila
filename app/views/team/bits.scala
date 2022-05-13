@@ -22,7 +22,7 @@ object bits {
   def menu(currentTab: Option[String])(implicit ctx: Context) =
     ~currentTab pipe { tab =>
       st.nav(cls := "page-menu__menu subnav")(
-        (ctx.teamNbRequests > 0) option
+        ctx.teamNbRequests > 0 option
           a(cls := tab.active("requests"), href := routes.Team.requests)(
             xJoinRequests.pluralSame(ctx.teamNbRequests)
           ),

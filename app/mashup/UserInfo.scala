@@ -72,7 +72,7 @@ object UserInfo {
     def fetchNotes(u: User, me: User) =
       noteApi.get(u, me, Granter(_.ModNote)(me)) dmap {
         _.filter { n =>
-          (!n.dox || Granter(_.Admin)(me))
+          !n.dox || Granter(_.Admin)(me)
         }
       }
   }

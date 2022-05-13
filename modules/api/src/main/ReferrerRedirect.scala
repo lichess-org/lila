@@ -20,7 +20,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl) {
       URL.parse(URL.parse(baseUrl.value), referrer)
     }.toOption
       .filter { url =>
-        (url.scheme == parsedBaseUrl.scheme) && s".${url.host}".endsWith(s".${parsedBaseUrl.host}")
+        url.scheme == parsedBaseUrl.scheme && s".${url.host}".endsWith(s".${parsedBaseUrl.host}")
       }
       .map(_.toString)
 }

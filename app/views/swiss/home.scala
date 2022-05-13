@@ -66,7 +66,7 @@ object home {
                 " • ",
                 if (s.variant.exotic) s.variant.name else s.perfType.trans,
                 " • ",
-                (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
+                if (s.settings.rated) trans.ratedTournament else trans.casualTournament()
               )
             ),
             td(

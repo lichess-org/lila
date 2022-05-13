@@ -211,7 +211,7 @@ object layout {
   val dataPieceSet              = attr("data-piece-set")
   val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
-  val dataDev                   = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")
+  val dataDev                   = attr("data-dev")            := !netConfig.minifiedAssets.option("true")
 
   def apply(
       title: String,
@@ -258,10 +258,10 @@ object layout {
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
-          (atomLinkTag | link(
+          atomLinkTag | link(
             href     := routes.Blog.atom,
             st.title := trans.blog.txt()
-          ))(
+          ) (
             tpe := "application/atom+xml",
             rel := "alternate"
           ),
@@ -379,7 +379,7 @@ object layout {
         }
       }.some
       else
-        (isGranted(_.PublicChatView)) option
+        isGranted(_.PublicChatView) option
           a(
             cls      := "link",
             title    := "Moderation",

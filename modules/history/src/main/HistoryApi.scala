@@ -111,7 +111,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
             val currentRating = user.perfs(perf).intRating
             val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
-            val days          = firstDay to (firstDay + 6) toList
+            val days          = firstDay to firstDay + 6 toList
             val project = BSONDocument {
               ("_id" -> BSONBoolean(false)) :: days.map { d =>
                 s"${perf.key}.$d" -> BSONBoolean(true)

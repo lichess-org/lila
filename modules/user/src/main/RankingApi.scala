@@ -143,9 +143,9 @@ final class RankingApi(
         .cursor[Bdoc]()
         .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
           doc.string("_id").fold(state) { id =>
-            val user = id takeWhile (':' !=)
-            b += (user -> rank)
-            (rank + 1) -> b
+            val user = id takeWhile ':' !=
+            b += user -> rank
+            rank + 1  -> b
           }
         }
         .map(_._2.result())

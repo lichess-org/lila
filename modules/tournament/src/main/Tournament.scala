@@ -85,11 +85,11 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.getSeconds)
+  def finishedSinceSeconds: Option[Long] = isFinished option nowSeconds - finishesAt.getSeconds
 
   def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
-  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
+  def isRecentlyStarted = isStarted && nowSeconds - startsAt.getSeconds < 15
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
 
@@ -135,7 +135,7 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
+  def nonLichessCreatedBy = createdBy != User.lichessId option createdBy
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 

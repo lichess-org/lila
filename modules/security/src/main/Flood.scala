@@ -56,6 +56,6 @@ private object Flood {
     }
 
   private def similar(s1: String, s2: String): Boolean = {
-    isLevenshteinDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
+    isLevenshteinDistanceLessThan(s1, s2, s1.length.min(s2.length) >> 3 atLeast 2)
   }
 }

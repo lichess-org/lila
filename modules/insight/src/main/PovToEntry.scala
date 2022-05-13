@@ -43,7 +43,7 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
+          game.metadata.analysed ?? analysisRepo.byId(game.id) map { case (fen, an) =>
             for {
               boards <-
                 chess.Replay
@@ -96,7 +96,7 @@ final private class PovToEntry(
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.boards.toList.zipWithIndex.collect {
-        case (e, i) if (i % 2) == pivot => e
+        case (e, i) if i % 2 == pivot => e
       }
     }
     val blurs = {

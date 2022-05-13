@@ -35,7 +35,7 @@ final class ShutupApi(
     gameRepo.getSourceAndUserIds(chatId) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
-        record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
+        record(userId, text, TextType.PrivateChat, none, userIds find userId !=)
     }
 
   def privateMessage(userId: User.ID, toUserId: User.ID, text: String) =
@@ -85,7 +85,7 @@ final class ShutupApi(
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
     (analysed.critical || userRecord.reports.exists(_.unacceptable)) ?? {
-      val text = (analysed.critical ?? "Critical comm alert\n") ++ reportText(userRecord)
+      val text = analysed.critical ?? "Critical comm alert\n" ++ reportText(userRecord)
       reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
       coll.update
         .one(

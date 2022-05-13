@@ -12,7 +12,7 @@ class BinaryClockTest extends Specification {
   val since                = org.joda.time.DateTime.now.minusHours(1)
   def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
   def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
-    (BinaryFormat.clock(since).read(bytes, berserk, false))(White)
+    BinaryFormat.clock(since).read(bytes, berserk, false)(White)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
 
   def write(c: Clock): List[String] = writeBytes(c).showBytes.split(',').toList

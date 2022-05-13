@@ -23,7 +23,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
               Ok(views.html.clas.clas.teacherIndex(classes))
             }
           case Some(me) =>
-            (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
+            fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher flatMap {
               case true =>
                 env.clas.api.student.clasIdsOfUser(me.id) flatMap
                   env.clas.api.clas.byIds map {
@@ -576,7 +576,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
       couldBeTeacher flatMap {
         case true =>
           val perm = lila.security.Permission.Teacher.dbKey
-          (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+          !me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void inject
             Redirect(routes.Clas.index)
         case _ => notFound
       }

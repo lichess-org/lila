@@ -15,7 +15,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
   override def toString = "TotpSecret(****)"
 
-  def base32: String = new Base32().encodeAsString(secret)
+  def base32: String = new Base32.encodeAsString(secret)
 
   def currentTotp = totp(System.currentTimeMillis / 30000)
 
@@ -46,7 +46,7 @@ object TotpSecret {
     "0" * (6 - s.length) + s
   }
 
-  def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
+  def apply(base32: String) = new TotpSecret(new Base32.decode(base32))
 
   def random = TotpSecret(SecureRandom.nextBytes(20))
 

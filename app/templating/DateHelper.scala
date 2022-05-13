@@ -64,7 +64,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Tag = {
-    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
+    if (!alwaysRelative && date.getMillis - nowMillis > oneDayMillis) absClientDateTime(date)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))(nbsp)
   }
 

@@ -124,7 +124,7 @@ object student {
         trans.clas.addStudent(),
         s" ($nbStudents/${lila.clas.Clas.maxStudents})"
       ),
-      nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
+      nbStudents > lila.clas.Clas.maxStudents / 2 option maxStudentsWarning(clas),
       created map { case Student.WithPassword(student, password) =>
         flashMessage(cls := "student-add__created")(
           strong(
@@ -140,7 +140,7 @@ object student {
         )
       },
       standardFlash(),
-      (nbStudents < lila.clas.Clas.maxStudents) option frag(
+      nbStudents < lila.clas.Clas.maxStudents option frag(
         div(cls := "student-add__choice")(
           div(cls := "info")(
             h2(trans.clas.inviteALichessAccount()),
@@ -239,7 +239,7 @@ object student {
         ),
         br
       ),
-      (nbStudents < lila.clas.Clas.maxStudents) option frag(
+      nbStudents < lila.clas.Clas.maxStudents option frag(
         p(badTag(strong(trans.clas.createStudentWarning()))),
         postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
           form3.globalError(form),

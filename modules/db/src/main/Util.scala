@@ -10,7 +10,7 @@ object Util {
       .sort($sort desc "_id")
       .one[Bdoc] dmap {
       _ flatMap { doc =>
-        doc.getAsOpt[Int]("_id") map (1 +)
+        doc.getAsOpt[Int]("_id") map 1 +
       } getOrElse 1
     }
 }

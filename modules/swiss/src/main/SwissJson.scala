@@ -53,8 +53,8 @@ final class SwissJson(
       .obj(
         "canJoin" -> {
           {
-            (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-            (myInfo.isEmpty && swiss.isEnterable)
+            swiss.isNotFinished && myInfo.exists(_.player.absent) ||
+            myInfo.isEmpty && swiss.isEnterable
           } && verdicts.accepted && isInTeam
         },
         "standing" -> standing,
@@ -62,7 +62,7 @@ final class SwissJson(
       )
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("me" -> myInfo.map(myInfoJson))
-      .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
+      .add("joinTeam" -> !isInTeam.option(swiss.teamId))
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
@@ -237,7 +237,7 @@ object SwissJson {
         "points"   -> p.points,
         "tieBreak" -> p.tieBreak
       )
-      .add("performance" -> (performance ?? p.performance))
+      .add("performance" -> performance ?? p.performance)
       .add("provisional" -> p.provisional)
       .add("absent" -> p.absent)
 

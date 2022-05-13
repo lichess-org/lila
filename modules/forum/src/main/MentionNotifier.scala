@@ -65,6 +65,6 @@ final class MentionNotifier(
   private def extractMentionedUsers(post: Post): Set[User.ID] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
+      post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet { _ - _ }
     }
 }

@@ -252,7 +252,7 @@ object inquiry {
         )
       ),
       notes map { note =>
-        (!note.dox || isGranted(_.Admin)) option div(cls := "doc note")(
+        !note.dox || isGranted(_.Admin) option div(cls := "doc note")(
           h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
           p(richText(note.text, expandImg = false))
         )

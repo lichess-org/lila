@@ -27,11 +27,11 @@ object MessageCompiler {
     val scalaFile = compileTo / s"$locale.scala"
     val xmlFiles =
       if (locale == "en-GB") dbs.map { db =>
-        db -> (sourceDir / s"$db.xml")
+        db -> sourceDir / s"$db.xml"
       }
       else
         dbs.map { db =>
-          db -> (destDir / db / s"$locale.xml")
+          db -> destDir / db / s"$locale.xml"
         }
 
     val isNew = xmlFiles.exists { case (_, file) =>

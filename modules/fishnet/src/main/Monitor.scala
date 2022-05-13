@@ -49,7 +49,7 @@ final private class Monitor(
           (sum + v, nb + 1)
         }
       }
-      (nb > 0) option (sum / nb)
+      nb > 0 option sum / nb
     }
     avgOf(_.time) foreach { monBy.movetime(userId).record(_) }
     if (result.stockfish.isNnue) {

@@ -27,7 +27,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
         var moves  = 0
         Source(List(gameJsonView(game, initialFen))) concat
           Source
-            .queue[JsObject]((game.turns + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject](game.turns + 3 atLeast 16, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
               moves += 1
               if (game.finished || moves <= delayKeepsFirstMoves) List(js)
@@ -49,8 +49,8 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 _.zipWithIndex foreach { case (s, index) =>
                   val clk = for {
                     (clkWhite, clkBlack) <- clocks
-                    white                <- clkWhite.lift((index + 1 - clockOffset) >> 1)
-                    black                <- clkBlack.lift((index + clockOffset) >> 1)
+                    white                <- clkWhite.lift(index + 1 - clockOffset >> 1)
+                    black                <- clkBlack.lift(index + clockOffset >> 1)
                   } yield (white, black)
                   queue offer toJson(
                     Forsyth exportBoard s.board,
@@ -70,7 +70,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>
                     queue offer gameJsonView(g, initialFen)
-                    (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
+                    1 to buffer.size foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
                 queue.watchCompletion() dforeach { _ =>

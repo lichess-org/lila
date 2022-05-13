@@ -47,7 +47,7 @@ private object I18nQuantity {
       val rem10  = c % 10
       if (rem10 == 1 && rem100 != 11) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
-      else if (rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14)) Many
+      else if (rem10 == 0 || rem10 >= 5 && rem10 <= 9 || rem100 >= 11 && rem100 <= 14) Many
       else Other
     }
 
@@ -75,7 +75,7 @@ private object I18nQuantity {
     def romanian(c: Count) = {
       val rem100 = c % 100
       if (c == 1) One
-      else if (c == 0 || (rem100 >= 1 && rem100 <= 19)) Few
+      else if (c == 0 || rem100 >= 1 && rem100 <= 19) Few
       else Other
     }
 
@@ -111,7 +111,7 @@ private object I18nQuantity {
     def maltese(c: Count) = {
       val rem100 = c % 100
       if (c == 1) One
-      else if (c == 0 || (rem100 >= 2 && rem100 <= 10)) Few
+      else if (c == 0 || rem100 >= 2 && rem100 <= 10) Few
       else if (rem100 >= 11 && rem100 <= 19) Many
       else Other
     }

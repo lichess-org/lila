@@ -21,7 +21,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     NotForKids {
       OptionFuResult(env.user.repo named username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
-          (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
+          canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page) map { posts =>
             Ok(html.ublog.blog(user, blog, posts))
           }
         }
@@ -313,7 +313,7 @@ final class Ublog(env: Env) extends LilaController(env) {
       case Some(user) =>
         implicit val lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
-          (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+          isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1) map { posts =>
             Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML
           }
         }

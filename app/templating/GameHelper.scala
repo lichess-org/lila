@@ -123,7 +123,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       mod: Boolean = false,
       link: Boolean = true
   )(implicit ctx: Context): Frag = {
-    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
+    val statusIcon = withBerserk && player.berserk option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
@@ -138,13 +138,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         )
       case Some(user) =>
         frag(
-          (if (link) a else span)(
+          if (link) a else span(
             cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
             playerUsername(player, withRating && ctx.pref.showRatings),
-            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
+            player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings) map { d =>
               frag(" ", showRatingDiff(d))
             },
             engine option span(

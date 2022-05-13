@@ -19,7 +19,7 @@ final class UnsubApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   }
 
   def get(channel: String, userId: User.ID): Fu[Boolean] =
-    coll.countSel(select(channel, userId)) dmap (0 !=)
+    coll.countSel(select(channel, userId)) dmap 0 !=
 
   private def canUnsub(channel: String) = channel startsWith "forum:"
 
@@ -28,6 +28,6 @@ final class UnsubApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
       "_id",
       $inIds(userIds.map { makeId(channel, _) })
     ) dmap { unsubs =>
-      userIds diff unsubs.map(_ takeWhile ('@' !=))
+      userIds diff unsubs.map(_ takeWhile '@' !=)
     }
 }

@@ -82,7 +82,7 @@ final private[round] class RoundAsyncActor(
     }.toLong
 
     def isLongGone: Fu[Boolean] = {
-      !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
+      !botConnected && offlineSince.exists(_ < nowMillis - timeoutMillis)
     } ?? !isHostingSimul
 
     def showMillisToGone: Fu[Option[Long]] =
@@ -90,10 +90,10 @@ final private[round] class RoundAsyncActor(
       else {
         val now = nowMillis
         offlineSince.filter { since =>
-          bye || (now - since) > 5000
+          bye || now - since > 5000
         } ?? { since =>
           isHostingSimul map {
-            !_ option (timeoutMillis + since - now)
+            !_ option timeoutMillis + since - now
           }
         }
       }
@@ -163,8 +163,8 @@ final private[round] class RoundAsyncActor(
     case HasUserId(userId, promise) =>
       fuccess {
         promise success {
-          (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
-          (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
+          whitePlayer.userId.has(userId) && whitePlayer.isOnline ||
+          blackPlayer.userId.has(userId) && blackPlayer.isOnline
         }
       }
 

@@ -284,7 +284,7 @@ final private class PushApi(
       )
     }
 
-  private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
+  private type MonitorType = lila.mon.push.send.type => (String, Boolean) => Unit
 
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId, data).addEffects { res =>

@@ -67,7 +67,7 @@ object Statistics {
   private val fastMove = Centis(50)
   def noFastMoves(pov: lila.game.Pov): Boolean = {
     val moveTimes = ~pov.game.moveTimes(pov.color)
-    moveTimes.count(fastMove >) <= (moveTimes.size / 20) + 2
+    moveTimes.count(fastMove >) <= moveTimes.size / 20 + 2
   }
 
   def listAverage[T: Numeric](x: List[T]) = ~Maths.mean(x)

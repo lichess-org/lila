@@ -46,7 +46,7 @@ final class ChatApi(
 
       private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
         cache get chatId flatMap { chat =>
-          (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          !chat.isEmpty ?? chatTimeout.isActive(chatId, me.id) dmap {
             UserChat.Mine(chat forUser me.some, _)
           }
         }
@@ -73,7 +73,7 @@ final class ChatApi(
 
     private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
       find(chatId) flatMap { chat =>
-        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+        !chat.isEmpty ?? chatTimeout.isActive(chatId, me.id) dmap {
           UserChat.Mine(chat forUser me.some, _)
         }
       }
@@ -93,7 +93,7 @@ final class ChatApi(
               logger.info(s"Link check rejected $line in $publicSource")
               funit
             case true =>
-              (persist ?? persistLine(chatId, line)) >>- {
+              persist ?? persistLine(chatId, line) >>- {
                 if (persist) {
                   if (publicSource.isDefined) cached invalidate chatId
                   shutup ! {
@@ -135,7 +135,7 @@ final class ChatApi(
     }
 
     def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if (isVolatile) volatile _ else system _)(chatId, text, busChan).unit
+      if (isVolatile) volatile _ else system _(chatId, text, busChan).unit
 
     def timeout(
         chatId: Chat.Id,

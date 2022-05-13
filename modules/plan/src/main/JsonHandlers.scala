@@ -19,14 +19,13 @@ private[plan] object JsonHandlers {
     implicit val PriceReads          = Json.reads[StripePrice]
     implicit val ItemReads           = Json.reads[StripeItem]
     // require that the items array is not empty.
-    implicit val SubscriptionReads: Reads[StripeSubscription] = (
+    implicit val SubscriptionReads: Reads[StripeSubscription] =
       (__ \ "id").read[String] and
         (__ \ "items" \ "data" \ 0).read[StripeItem] and
         (__ \ "customer").read[StripeCustomerId] and
         (__ \ "cancel_at_period_end").read[Boolean] and
         (__ \ "status").read[String] and
-        (__ \ "default_payment_method").readNullable[String]
-    )(StripeSubscription.apply _)
+        (__ \ "default_payment_method").readNullable[String] (StripeSubscription.apply _)
     implicit val SubscriptionsReads     = Json.reads[StripeSubscriptions]
     implicit val CustomerReads          = Json.reads[StripeCustomer]
     implicit val AddressReads           = Json.reads[StripeCharge.Address]

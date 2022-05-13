@@ -47,7 +47,7 @@ final private class EvalCacheTruster(
   private def seniorityBonus(user: User) =
     math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30) - 1
 
-  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 20
+  private def patronBonus(user: User) = ~user.planMonths * 5 atMost 20
 
   private def titleBonus(user: User) = user.hasTitle ?? 20
 

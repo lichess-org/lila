@@ -175,7 +175,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
     (parentPath.depth < Node.MAX_PLIES) ??
       children.nodes.flatMap { node =>
         val path = parentPath + node
-        childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeNode(node))
+        childrenTreeToBsonElements(path, node.children) appended path.toDbField -> writeNode(node)
       }
 
   private def setNodeValue[A: BSONWriter](

@@ -26,7 +26,7 @@ object widget {
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
       picture.thumbnail(c, if (link) 300 else 350),
       div(cls := "overview")(
-        (if (link) h2 else h1)(cls := "coach-name")(titleName(c)),
+        if (link) h2 else h1(cls := "coach-name")(titleName(c)),
         c.coach.profile.headline
           .map { h =>
             p(

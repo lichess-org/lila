@@ -33,19 +33,19 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
         unregisterEval(wm.setupId, sri)
       }
       val setupId = makeSetupId(variant, fen, multiPv)
-      members += (sri.value -> WatchingMember(push, setupId, path))
-      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
+      members += sri.value -> WatchingMember(push, setupId, path)
+      evals += setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri)
       expirableSris put sri.value
     }
 
   def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = if (setting.get()) {
-    (1 to input.eval.multiPv) flatMap { multiPv =>
+    1 to input.eval.multiPv flatMap { multiPv =>
       val setupId = makeSetupId(input.id.variant, input.fen, multiPv)
       evals get setupId map (setupId -> _)
     } filter {
       _._2.depth < input.eval.depth
     } foreach { case (setupId, eval) =>
-      evals += (setupId -> eval.copy(depth = input.eval.depth))
+      evals += setupId -> eval.copy(depth = input.eval.depth)
       val wms = eval.sris.withFilter(sri.value !=) flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
@@ -68,7 +68,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
     evals get setupId foreach { eval =>
       val newSris = eval.sris - sri.value
       if (newSris.isEmpty) evals -= setupId
-      else evals += (setupId -> eval.copy(sris = newSris))
+      else evals += setupId -> eval.copy(sris = newSris)
     }
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>

@@ -179,7 +179,7 @@ final private[puzzle] class PuzzleFinisher(
       val provisionalPuzzle = puzzle.provisional ?? {
         if (result.win) -0.2f else -0.7f
       }
-      glicko._1.average(glicko._2, (weightOf(theme, result) + provisionalPuzzle) atLeast 0.1f)
+      glicko._1.average(glicko._2, weightOf(theme, result) + provisionalPuzzle atLeast 0.1f)
     }
 
     def puzzle(theme: PuzzleTheme.Key, result: Result, glicko: (Glicko, Glicko), player: Glicko) =
@@ -195,7 +195,7 @@ final private[puzzle] class PuzzleFinisher(
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
-    val results = new RatingPeriodResults()
+    val results = new RatingPeriodResults
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)
       case Glicko.Result.Win  => results.addResult(u1, u2)

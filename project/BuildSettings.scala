@@ -14,7 +14,7 @@ object BuildSettings {
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
-      version := lilaVersion,
+      version      := lilaVersion,
       organization := "org.lichess",
       resolvers += lilaMaven,
       scalaVersion := globalScalaVersion,
@@ -22,7 +22,7 @@ object BuildSettings {
       // No bloop project for tests
       Test / bloopGenerate := None,
       // disable publishing doc and sources
-      Compile / doc / sources := Seq.empty,
+      Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
       javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
@@ -103,7 +103,7 @@ object BuildSettings {
 
   val srcMain = Seq(
     Compile / scalaSource := (Compile / sourceDirectory).value,
-    Test / scalaSource := (Test / sourceDirectory).value
+    Test / scalaSource    := (Test / sourceDirectory).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

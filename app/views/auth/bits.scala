@@ -80,11 +80,11 @@ object bits {
       )
     ) {
       main(cls := "page-small box box-pad")(
-        (ok match {
+        ok match {
           case Some(true)  => h1(cls := "is-green text", dataIcon := "")
           case Some(false) => h1(cls := "is-red text", dataIcon := "")
           case _           => h1
-        })(
+        }(
           userLink(u, withOnline = false),
           " - ",
           trans.changePassword()

@@ -164,7 +164,7 @@ final class ActivityWriteApi(
 
   private def truncateAfterInserting(coll: Coll, id: Activity.Id): Funit = {
     // no need to do it every day
-    (id.userId.hashCode % 3) == (id.day.value % 3)
+    id.userId.hashCode % 3 == id.day.value % 3
   } ?? coll
     .find(regexId(id.userId), $id(true).some)
     .sort($sort desc "_id")

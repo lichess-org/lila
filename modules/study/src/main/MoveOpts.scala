@@ -33,10 +33,9 @@ object MoveOpts {
     case x => JsError(JsonValidationError(s"Cannot read clock from $x"))
   }
 
-  implicit private val moveOptsReader: Reads[MoveOpts] = (
+  implicit private val moveOptsReader: Reads[MoveOpts] =
     (__ \ "write").readNullable[Boolean].map(_ | default.write) and
       (__ \ "sticky").readNullable[Boolean].map(_ | default.sticky) and
       (__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline) and
-      (__ \ "clock").readNullable[Centis]
-  )(MoveOpts.apply _)
+      (__ \ "clock").readNullable[Centis] (MoveOpts.apply _)
 }

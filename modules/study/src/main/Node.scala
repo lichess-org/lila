@@ -136,8 +136,8 @@ object Node {
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
       path.split match {
-        case None               => addNode(node).some
-        case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+        case None             => addNode(node).some
+        case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
       }
 
     def addNode(node: Node): Children =
@@ -155,7 +155,7 @@ object Node {
     def promoteToMainlineAt(path: Path): Option[Children] =
       path.split match {
         case None => this.some
-        case Some((head, tail)) =>
+        case Some(head, tail) =>
           get(head).flatMap { node =>
             node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
               Children(promoted +: nodes.filterNot(node ==))
@@ -166,7 +166,7 @@ object Node {
     def promoteUpAt(path: Path): Option[(Children, Boolean)] =
       path.split match {
         case None => Some(this -> false)
-        case Some((head, tail)) =>
+        case Some(head, tail) =>
           for {
             node                  <- get(head)
             mainlineNode          <- nodes.headOption

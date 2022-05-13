@@ -80,9 +80,8 @@ final private class GameProxy(
   private var scheduledFlush: Cancellable     = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
-    p.statusChanged || p.game.isSimul || (
+    p.statusChanged || p.game.isSimul ||
       p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
-    )
 
   private def scheduleFlushProgress(): Unit = {
     scheduledFlush.cancel()

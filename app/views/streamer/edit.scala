@@ -52,7 +52,7 @@ object edit {
           div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(
-              (ctx.is(s.user) && s.streamer.listed.value) option div(
+              ctx.is(s.user) && s.streamer.listed.value option div(
                 cls      := s"status is${granted ?? "-green"}",
                 dataIcon := (if (granted) "" else "")
               )(
@@ -76,7 +76,7 @@ object edit {
                         if (s.streamer.completeEnough)
                           whenReady(
                             postForm(action := routes.Streamer.approvalRequest)(
-                              button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
+                              button(tpe := "submit", cls := "button", !ctx.is(s.user) option disabled)(
                                 requestReview()
                               )
                             )
@@ -118,7 +118,7 @@ object edit {
                   ),
                   notes.nonEmpty option ul(
                     notes.map { note =>
-                      (isGranted(_.Admin) || !note.dox) option
+                      isGranted(_.Admin) || !note.dox option
                         li(
                           p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
                           p(cls := "text")(richText(note.text))

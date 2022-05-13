@@ -98,7 +98,7 @@ object RelayRound {
     def seconds: Option[Int] =
       until map { u =>
         (u.getSeconds - nowSeconds).toInt
-      } filter (0 <)
+      } filter 0 <
 
     def playing = nextAt.isDefined
     def paused  = !playing

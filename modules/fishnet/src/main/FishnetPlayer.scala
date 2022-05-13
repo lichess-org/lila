@@ -47,8 +47,8 @@ final class FishnetPlayer(
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
         delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
-        accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
-        sleep = (delay * accel) atMost 500
+        accel = 1 - (g.turns - 20 atLeast 0 atMost 100) / 150f
+        sleep = delay * accel atMost 500
         if sleep > 25
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)

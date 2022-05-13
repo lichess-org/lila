@@ -107,7 +107,7 @@ final class Setup(
                       destUser = destUser,
                       rematchOf = none
                     )
-                    (env.challenge.api create challenge) flatMap {
+                    env.challenge.api create challenge flatMap {
                       case true =>
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
@@ -150,7 +150,7 @@ final class Setup(
               userConfig =>
                 PostRateLimit(ctx.ip) {
                   AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
-                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                    ctx.userId ?? env.relation.api.fetchBlocking flatMap { blocking =>
                       processor.hook(
                         userConfig withinLimits ctx.me,
                         Sri(sri),

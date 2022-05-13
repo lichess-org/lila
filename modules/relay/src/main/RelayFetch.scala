@@ -306,7 +306,7 @@ private object RelayFetch {
     def apply(multiPgn: MultiPgn): Fu[Vector[RelayGame]] =
       multiPgn.value
         .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
-          case (Success((acc, index)), pgn) =>
+          case (Success(acc, index), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
               if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))

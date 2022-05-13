@@ -91,11 +91,11 @@ object timeline {
           for {
             opponentId <- opponent
             perf       <- lila.rating.PerfType(perfKey)
-          } yield (win match {
+          } yield win match {
             case Some(true)  => trans.victoryVsYInZ
             case Some(false) => trans.defeatVsYInZ
             case None        => trans.drawVsYInZ
-          })(
+          }(
             a(
               href     := routes.Round.player(playerId),
               dataIcon := perf.iconChar,

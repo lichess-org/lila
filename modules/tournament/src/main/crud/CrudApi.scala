@@ -110,7 +110,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       position = data.realPosition,
       noBerserk = !data.berserkable,
       noStreak = !data.streakable,
-      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
+      teamBattle = data.teamBattle option tour.teamBattle | TeamBattle(Set.empty, 10),
       hasChat = data.hasChat
     ) pipe { tour =>
       tour.copy(conditions =

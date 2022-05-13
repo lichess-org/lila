@@ -66,7 +66,7 @@ object ServerEval {
       analysis.studyId.map(Study.Id.apply) ?? { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
-            (complete ?? chapterRepo.completeServerEval(chapter)) >> {
+            complete ?? chapterRepo.completeServerEval(chapter) >> {
               lila.common.Future
                 .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
@@ -79,7 +79,7 @@ object ServerEval {
                     } >> {
                       import BSONHandlers._
                       import Node.{ BsonFields => F }
-                      ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
+                      (info.eval.score.isDefined && node.score.isEmpty || advOpt.isDefined && !node.comments.hasLichessComment) ??
                         chapterRepo
                           .setNodeValues(
                             chapter,
@@ -141,7 +141,7 @@ object ServerEval {
           error foreach { logger.info(_) }
           games.reverse match {
             case Nil => none
-            case (g, m) :: rest =>
+            case g, m :: rest =>
               rest
                 .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
                   makeBranch(g, m) addChild node

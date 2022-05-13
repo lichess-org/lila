@@ -10,7 +10,7 @@ final class ChatPanic {
 
   def allowed(u: User): Boolean =
     !enabled || {
-      (u.count.gameH > 10 && u.createdSinceDays(1)) || u.isVerified
+      u.count.gameH > 10 && u.createdSinceDays(1) || u.isVerified
     }
 
   def allowed(id: User.ID, fetch: User.ID => Fu[Option[User]]): Fu[Boolean] =

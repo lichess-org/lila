@@ -19,12 +19,12 @@ final class Paginator[A] private[paginator] (
 
   /** Returns the previous page.
     */
-  def previousPage: Option[Int] = (currentPage > 1) option (currentPage - 1)
+  def previousPage: Option[Int] = currentPage > 1 option currentPage - 1
 
   /** Returns the next page.
     */
   def nextPage: Option[Int] =
-    (currentPage < nbPages && currentPageResults.nonEmpty) option (currentPage + 1)
+    currentPage < nbPages && currentPageResults.nonEmpty option currentPage + 1
 
   /** Returns the number of pages.
     */

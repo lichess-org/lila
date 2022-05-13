@@ -33,7 +33,7 @@ object player {
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
           palantir = ctx.me.exists(_.canPalantir)
         )
-      case Right((c, res)) =>
+      case Right(c, res) =>
         chat.json(
           c.chat,
           name = trans.chatRoom.txt(),
@@ -72,7 +72,7 @@ object player {
         bits.roundAppPreload(pov, controls = true),
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
-          (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+          playing.nonEmpty || simul.exists(_ isHost ctx.me) option
             div(
               cls := List(
                 "round__now-playing" -> true,

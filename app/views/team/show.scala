@@ -86,12 +86,12 @@ object show {
                 cls      := "text"
               )("Team Etiquette")
             ),
-            (t.enabled && chatOption.isDefined) option frag(
+            t.enabled && chatOption.isDefined option frag(
               views.html.chat.frag,
               views.html.chat.spectatorsFrag
             ),
             div(cls := "team-show__actions")(
-              (t.enabled && !info.mine) option frag(
+              t.enabled && !info.mine option frag(
                 if (info.myRequest.exists(_.declined))
                   frag(
                     strong(requestDeclined()),
@@ -117,7 +117,7 @@ object show {
                   )
                 )
               },
-              (info.mine && !info.ledByMe) option
+              info.mine && !info.ledByMe option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
@@ -163,11 +163,11 @@ object show {
                   )
                 )
               ),
-              ((t.enabled && info.ledByMe) || manageTeamEnabled) option
+              t.enabled && info.ledByMe || manageTeamEnabled option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 ),
-              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
+              (isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView option a(
                 href := routes.Team.show(t.id, 1, mod = true),
                 cls  := "button button-red"
               )(

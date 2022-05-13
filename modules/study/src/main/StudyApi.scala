@@ -258,8 +258,8 @@ final class StudyApi(
             parent.children.get(singleNode.id) ?? { node =>
               val newPosition = position.ref + node
               chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
-                (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+                relay ?? { chapterRepo.setRelay(chapter.id, _) } >>
+                opts.sticky ?? studyRepo.setPosition(study.id, newPosition) >>
                 updateConceal(study, chapter, newPosition) >>-
                 sendTo(study.id)(
                   _.addNode(
@@ -271,7 +271,7 @@ final class StudyApi(
                     who
                   )
                 ) inject {
-                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) option { () =>
+                  opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path) option { () =>
                     promote(study.id, position.ref + node, toMainline = true)(who)
                   }
                 }
@@ -406,7 +406,7 @@ final class StudyApi(
     sequenceStudy(studyId) { study =>
       studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
         val allowed = study.isMember(userId) && {
-          (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+          isAdmin && !study.isOwner(userId) || study.isOwner(who.u) ^ who.u == userId
         }
         allowed ?? {
           studyRepo.removeMember(study, userId) >>-
@@ -580,7 +580,7 @@ final class StudyApi(
             case None =>
               fufail(s"Invalid explorerGame insert $studyId $data") >>-
                 reloadSriBecauseOf(study, who.sri, chapter.id)
-            case Some((chapter, path)) =>
+            case Some(chapter, path) =>
               studyRepo.updateNow(study)
               chapter.root.nodeAt(path) ?? { parent =>
                 chapterRepo.setChildren(parent.children)(chapter, path) >>-
@@ -645,7 +645,7 @@ final class StudyApi(
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who) =
     chapterRepo.insert(chapter) >> {
       val newStudy = study withChapter chapter
-      (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
+      sticky ?? studyRepo.updateSomeFields(newStudy) >>-
         sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
     } >>
       studyRepo.updateNow(study) >>-
@@ -704,10 +704,10 @@ final class StudyApi(
                 } else
                   fuccess {
                     val shouldReload =
-                      (newChapter.setup.orientation != chapter.setup.orientation) ||
-                        (newChapter.practice != chapter.practice) ||
-                        (newChapter.gamebook != chapter.gamebook) ||
-                        (newChapter.description != chapter.description)
+                      newChapter.setup.orientation != chapter.setup.orientation ||
+                        newChapter.practice != chapter.practice ||
+                        newChapter.gamebook != chapter.gamebook ||
+                        newChapter.description != chapter.description
                     if (shouldReload) sendTo(study.id)(_.updateChapter(chapter.id, who))
                     else reloadChapters(study)
                   }

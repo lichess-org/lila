@@ -83,7 +83,7 @@ object roundForm {
       form3
         .group(form("syncUrlRound"), roundNumber(), help = frag("Only for livechesscloud source URLs").some)(
           form3.input(_, typ = "number")
-        )(ctx)(cls := (!isLcc).option("none")),
+        )(ctx)(cls := !isLcc.option("none")),
       form3.split(
         form3.group(
           form("startsAt"),

@@ -450,7 +450,7 @@ final class JsonView(
 
   def teamInfo(tour: Tournament, teamId: TeamID): Fu[Option[JsObject]] =
     tour.isTeamBattle ?? {
-      teamInfoCache get (tour.id -> teamId)
+      teamInfoCache get tour.id -> teamId
     }
 
   private[tournament] def commonTournamentJson(

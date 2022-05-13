@@ -19,7 +19,7 @@ final private class RoundNotifier(
           TLGameEnd(
             playerId = game fullIdOf color,
             opponent = game.player(!color).userId,
-            win = game.winnerColor map (color ==),
+            win = game.winnerColor map color ==,
             perf = perfType.key
           )
         ) toUser userId)

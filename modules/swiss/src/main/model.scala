@@ -12,7 +12,7 @@ case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User, player: SwissP
   def page = (rank + 9) / 10
 }
 
-final class GetSwissName(f: Swiss.Id => Option[String]) extends (Swiss.Id => Option[String]) {
+final class GetSwissName(f: Swiss.Id => Option[String]) extends Swiss.Id => Option[String] {
   def apply(id: Swiss.Id) = f(id)
 }
 

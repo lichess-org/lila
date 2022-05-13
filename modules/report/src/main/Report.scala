@@ -80,7 +80,7 @@ case class Report(
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
 
   def isAlreadySlain(sus: User) =
-    (isCheat && sus.marks.engine) || (isBoost && sus.marks.boost) || (isComm && sus.marks.troll)
+    isCheat && sus.marks.engine || isBoost && sus.marks.boost || isComm && sus.marks.troll
 }
 
 object Report {
@@ -121,8 +121,8 @@ object Report {
 
     def urgency: Int =
       report.score.value.toInt +
-        (isOnline ?? 1000) +
-        (report.closed ?? -999999)
+        isOnline ?? 1000 +
+        report.closed ?? -999999
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report]) {

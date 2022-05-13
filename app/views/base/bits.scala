@@ -75,7 +75,7 @@ z-index: 99;
     sliding(pager.currentPage, pager.nbPages, length, showPost)
 
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] = {
-    val fromPage = 1 max (page - length)
+    val fromPage = 1 max page - length
     val toPage   = nbPages.min(page + length)
     val pre = fromPage match {
       case 1 => Nil

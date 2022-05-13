@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 
 class MarkdownTest extends Specification {
 
-  val render = new MarkdownRender()("test") _
+  val render = new MarkdownRender("test") _
 
   "autolinks" should {
     "add rel" in {

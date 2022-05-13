@@ -36,11 +36,11 @@ final class Round(
             pov.game.playableByAi ?? env.fishnet.player(pov.game)
             env.tournament.api.gameView.player(pov) flatMap { tour =>
               gameC.preloadUsers(pov.game) zip
-                (pov.game.simulId ?? env.simul.repo.find) zip
+                pov.game.simulId ?? env.simul.repo.find zip
                 getPlayerChat(pov.game, tour.map(_.tour)) zip
-                (ctx.noBlind ?? env.game.crosstableApi
-                  .withMatchup(pov.game)) zip
-                (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+                ctx.noBlind ?? env.game.crosstableApi
+                  .withMatchup(pov.game) zip
+                pov.game.isSwitchable ?? otherPovs(pov.game) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
                 env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
                   case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
@@ -163,9 +163,9 @@ final class Round(
             if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
             else if (HTTPRequest.isHuman(ctx.req))
               env.tournament.api.gameView.watcher(pov.game) zip
-                (pov.game.simulId ?? env.simul.repo.find) zip
+                pov.game.simulId ?? env.simul.repo.find zip
                 getWatcherChat(pov.game) zip
-                (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
+                ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game) zip
                 env.bookmark.api.exists(pov.game, ctx.me) flatMap {
                   case ((((tour, simul), chat), crosstable), bookmarked) =>
                     env.api.roundApi.watcher(
@@ -280,7 +280,7 @@ final class Round(
     Open { implicit ctx =>
       OptionFuResult(proxyPov(gameId, color)) { pov =>
         env.tournament.api.gameView.withTeamVs(pov.game) zip
-          (pov.game.simulId ?? env.simul.repo.find) zip
+          pov.game.simulId ?? env.simul.repo.find zip
           env.game.gameRepo.initialFen(pov.game) zip
           env.game.crosstableApi.withMatchup(pov.game) zip
           env.bookmark.api.exists(pov.game, ctx.me) map {

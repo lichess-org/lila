@@ -36,7 +36,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs"    -> (withRating ?? perfs(u, onlyPerf))
+        "perfs"    -> withRating ?? perfs(u, onlyPerf)
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)

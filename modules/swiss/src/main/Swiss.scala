@@ -34,7 +34,7 @@ case class Swiss(
   def isFinished         = finishedAt.isDefined
   def isNotFinished      = !isFinished
   def isNowOrSoon        = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
-  def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
+  def isRecentlyFinished = finishedAt.exists(f => nowSeconds - f.getSeconds < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
@@ -108,7 +108,7 @@ object Swiss {
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
-    def dailyInterval = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
+    def dailyInterval = !manualRounds && intervalSeconds >= 24 * 3600 option intervalSeconds / 3600 / 24
   }
 
   type ChatFor = Int

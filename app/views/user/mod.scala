@@ -102,7 +102,7 @@ object mod {
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
           )
         },
-        (u.marks.troll && isGranted(_.Shadowban)) option {
+        u.marks.troll && isGranted(_.Shadowban) option {
           postForm(
             action := routes.Mod.deletePmsAndChats(u.username),
             title  := "Delete all PMs and public chat messages",
@@ -169,7 +169,7 @@ object mod {
           )
       ),
       div(cls := "btn-rack")(
-        (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {
+        u.totpSecret.isDefined && isGranted(_.DisableTwoFactor) option {
           postForm(
             action := routes.Mod.disableTwoFactor(u.username),
             title  := "Disables two-factor authentication for this account.",
@@ -178,7 +178,7 @@ object mod {
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == "lichess")) option {
+        isGranted(_.Impersonate) || isGranted(_.Admin) && u.id == "lichess" option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
@@ -221,7 +221,7 @@ object mod {
   def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
-        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+        if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span(
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
           if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )
@@ -379,7 +379,7 @@ object mod {
                   shorten(atom.text, 200)
                 )
               },
-              (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
+              r.atoms.size > 3 option s"(and ${r.atoms.size - 3} more)"
             )
           )
         }
@@ -558,7 +558,7 @@ object mod {
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 || othersWithEmail.others.sizeIs >= max) option frag(
+              max < 1000 || othersWithEmail.others.sizeIs >= max option frag(
                 nbsp,
                 a(cls := "more-others")("Load more")
               )
@@ -587,7 +587,7 @@ object mod {
             val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
-              cls      := (o == u) option "same"
+              cls      := o == u option "same"
             )(
               if (o == u || Granter.canViewAltUsername(mod, o))
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
@@ -595,7 +595,7 @@ object mod {
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
                 // show prints and ips separately
-                dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
+                dataSort := other.score + other.ips.nonEmpty ?? 1000000 + other.fps.nonEmpty ?? 3000000
               )(
                 List(other.ips.size -> "IP", other.fps.size -> "Print")
                   .collect {
@@ -741,7 +741,7 @@ object mod {
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
-                canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
+                canIpBan option td(dataSort := 9999 - ip.alts.cleans)(
                   button(
                     cls := List(
                       "button button-empty" -> true,
@@ -773,7 +773,7 @@ object mod {
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                 td(fp.client.toString),
                 td(dataSort := fp.fp.date.getMillis)(momentFromNowServer(fp.fp.date)),
-                canFpBan option td(dataSort := (9999 - fp.alts.cleans))(
+                canFpBan option td(dataSort := 9999 - fp.alts.cleans)(
                   button(
                     cls := List(
                       "button button-empty" -> true,

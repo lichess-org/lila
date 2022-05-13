@@ -39,10 +39,10 @@ class MySpec()
       )
       val threads = 20
       val keys    = 50
-      (1 to threads) foreach { _ =>
+      1 to threads foreach { _ =>
         Future {
-          (1 to 5) foreach { _ =>
-            (1 to keys) foreach { i =>
+          1 to 5 foreach { _ =>
+            1 to keys foreach { i =>
               cache.sync(i)
             }
           }

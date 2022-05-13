@@ -175,7 +175,7 @@ final class Puzzle(
                                     next <- env.puzzle.replay(me, replayDays.some, theme.key)
                                     json <- next match {
                                       case None => fuccess(Json.obj("replayComplete" -> true))
-                                      case Some((puzzle, replay)) =>
+                                      case Some(puzzle, replay) =>
                                         renderJson(puzzle, theme, replay.some) map { nextJson =>
                                           Json.obj(
                                             "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
@@ -365,8 +365,8 @@ final class Puzzle(
       val theme         = PuzzleTheme.findOrAny(themeKey)
       val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
-        case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
-        case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
+        case None                 => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
+        case Some(puzzle, replay) => renderShow(puzzle, theme, replay.some)
       }
     }
 
@@ -464,7 +464,7 @@ final class Puzzle(
                     env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win), chess.Mode.Rated)
                   } map {
                   case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
-                  case Some((round, perf)) =>
+                  case Some(round, perf) =>
                     env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
                 }

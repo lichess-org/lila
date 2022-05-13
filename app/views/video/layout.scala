@@ -31,10 +31,10 @@ object layout {
                   "full"    -> (checked || t.nb > 0),
                   "empty"   -> !(checked || t.nb > 0)
                 ),
-                href := (checked || t.nb > 0) option s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}"
+                href := checked || t.nb > 0 option s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}"
               )(
                 span(t.tag.capitalize),
-                (!checked && t.nb > 0) option em(t.nb)
+                !checked && t.nb > 0 option em(t.nb)
               )
             }
           ),

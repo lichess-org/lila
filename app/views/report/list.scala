@@ -120,7 +120,7 @@ object list {
                   )
                 }
               },
-              (appeals > 0 && isGranted(_.Appeals)) option a(
+              appeals > 0 && isGranted(_.Appeals) option a(
                 href := routes.Appeal.queue,
                 cls := List(
                   "new"    -> true,
@@ -130,7 +130,7 @@ object list {
                 countTag(appeals),
                 "Appeals"
               ),
-              (isGranted(_.Streamers) && streamers > 0) option
+              isGranted(_.Streamers) && streamers > 0 option
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
                   "Streamers"

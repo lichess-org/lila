@@ -82,10 +82,10 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match {
-            case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+            case Some(newFc, uciMove) if newFc.steps.nonEmpty =>
               coll.update.one($id(fc._id), newFc) inject uciMove.some
-            case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
-            case _                  => clearPov(Pov player g) inject none
+            case Some(_, uciMove) => clearPov(Pov player g) inject uciMove.some
+            case _                => clearPov(Pov player g) inject none
           }
       }
     }

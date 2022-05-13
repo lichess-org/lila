@@ -79,9 +79,9 @@ object CrudForm {
 
     def realPosition = position ifTrue realVariant.standard
 
-    def validClock = (clockTime + clockIncrement) > 0
+    def validClock = clockTime + clockIncrement > 0
 
-    def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+    def validTiming = minutes * 60 >= 3 * estimatedGameDuration
 
     private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
   }

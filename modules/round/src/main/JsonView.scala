@@ -28,7 +28,7 @@ final class JsonView(
   import JsonView._
 
   private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
+    game.variant == chess.variant.ThreeCheck option game.history.checkCount(color)
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
@@ -42,7 +42,7 @@ final class JsonView(
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
+      .add("blurs" -> withFlags.blurs ?? blurs(g, p))
 
   def playerJson(
       pov: Pov,
@@ -54,7 +54,7 @@ final class JsonView(
       nvui: Boolean
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      (pov.opponent.userId ?? userRepo.byId) zip
+      pov.opponent.userId ?? userRepo.byId zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov._
@@ -140,7 +140,7 @@ final class JsonView(
       .add("provisional" -> (p.provisional && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
+      .add("blurs" -> withFlags.blurs ?? blurs(g, p))
 
   def watcherJson(
       pov: Pov,
@@ -157,7 +157,7 @@ final class JsonView(
         Json
           .obj(
             "game" -> gameJsonView(game, initialFen)
-              .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
+              .add("moveCentis" -> withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis)))
               .add("division" -> withFlags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
               .add("importedBy" -> game.pgnImport.flatMap(_.user)),
@@ -266,7 +266,7 @@ final class JsonView(
     clockWriter.writes(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
-    (pov.game playableBy pov.player) option
+    pov.game playableBy pov.player option
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
@@ -279,7 +279,7 @@ final class JsonView(
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {
       if (pov.game.finished) 1
-      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+      else math.max(0, math.min(1.2, (pov.game.estimateTotalTime - 60) / 60 * 0.2))
     }
 }
 

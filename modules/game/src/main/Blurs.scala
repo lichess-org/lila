@@ -9,9 +9,9 @@ case class Blurs(bits: Long) extends AnyVal {
 
   def add(moveIndex: Int) =
     if (moveIndex < 0 || moveIndex > 63) this
-    else Blurs(bits | (1L << moveIndex))
+    else Blurs(bits | 1L << moveIndex)
 
-  def asInt = ((bits >>> 32) == 0) option bits.toInt
+  def asInt = bits >>> 32 == 0 option bits.toInt
 
   def binaryString = java.lang.Long.toBinaryString(bits).reverse
 

@@ -42,7 +42,7 @@ case class LiveStreams(streams: List[Stream]) {
       streams.view
         .map(_.streamer.userId)
         .flatMap { userId =>
-          lightUser.sync(userId).flatMap(_.title) map (userId ->)
+          lightUser.sync(userId).flatMap(_.title) map userId ->
         }
         .toMap
     )

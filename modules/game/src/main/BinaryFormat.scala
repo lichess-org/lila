@@ -182,7 +182,7 @@ object BinaryFormat {
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
         case (acc, (false, _)) => acc
-        case (acc, (true, p))  => acc + (1 << (3 - p))
+        case (acc, (true, p))  => acc + (1 << 3 - p)
       }
 
       def posInt(pos: Pos): Int = (pos.file.index << 3) + pos.rank.index
@@ -277,14 +277,14 @@ object BinaryFormat {
         var white = 0
         var black = 0
         o.pos.foreach { pos =>
-          if (pos.rank == Rank.First) white = white | (1 << (7 - pos.file.index))
-          else black = black | (1 << (7 - pos.file.index))
+          if (pos.rank == Rank.First) white = white | 1 << 7 - pos.file.index
+          else black = black | 1 << 7 - pos.file.index
         }
         Array(white.toByte, black.toByte)
       }
     }
 
-    private def bitAt(n: Int, k: Int) = (n >> k) & 1
+    private def bitAt(n: Int, k: Int) = n >> k & 1
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 7
@@ -321,7 +321,7 @@ object BinaryFormat {
     writeInt24(i)
   }
 
-  def readInt24(b1: Int, b2: Int, b3: Int) = (b1 << 16) | (b2 << 8) | b3
+  def readInt24(b1: Int, b2: Int, b3: Int) = b1 << 16 | b2 << 8 | b3
 
   def readSignedInt24(b1: Int, b2: Int, b3: Int) = {
     val i = readInt24(b1, b2, b3)
@@ -337,6 +337,6 @@ object BinaryFormat {
     )
 
   def readInt(b1: Int, b2: Int, b3: Int, b4: Int) = {
-    (b1 << 24) | (b2 << 16) | (b3 << 8) | b4
+    b1 << 24 | b2 << 16 | b3 << 8 | b4
   }
 }

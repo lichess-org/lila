@@ -37,7 +37,7 @@ final class JsonView(rematches: Rematches) {
       .add("lastMove" -> game.lastMoveKeys)
       .add("check" -> game.situation.checkSquare.map(_.key))
       .add("rematch" -> rematches.getAcceptedId(game.id))
-      .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
+      .add("drawOffers" -> !game.drawOffers.isEmpty.option(game.drawOffers.normalizedPlies))
 
   def ownerPreview(pov: Pov)(lightUserSync: LightUser.GetterSync) =
     Json

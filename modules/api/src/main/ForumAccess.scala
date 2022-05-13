@@ -45,7 +45,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
 
   private def canWriteInAnyForum(u: User) =
     !u.isBot && {
-      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
+      u.count.game > 0 && u.createdSinceDays(2) || u.hasTitle || u.isVerified || u.isPatron
     }
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =

@@ -220,7 +220,7 @@ final class PlanApi(
             usd = usd
           )
           addCharge(charge, ipn.country) >>
-            (ipn.userId ?? userRepo.named) flatMap {
+            ipn.userId ?? userRepo.named flatMap {
               _ ?? { user =>
                 giftTo match {
                   case Some(to) => gift(user, to, money)
@@ -299,7 +299,7 @@ final class PlanApi(
             usd = usd
           )
           addCharge(charge, order.country) >>
-            (order.userId ?? userRepo.named) flatMap {
+            order.userId ?? userRepo.named flatMap {
               _ ?? { user =>
                 giftTo match {
                   case Some(to) => gift(user, to, money)

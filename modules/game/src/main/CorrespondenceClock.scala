@@ -17,7 +17,7 @@ case class CorrespondenceClock(
 
   def outoftime(c: Color) = remainingTime(c) == 0
 
-  def moretimeable(c: Color) = remainingTime(c) < (increment - hourSeconds)
+  def moretimeable(c: Color) = remainingTime(c) < increment - hourSeconds
 
   def giveTime(c: Color) =
     c.fold(

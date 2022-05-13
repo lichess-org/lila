@@ -39,7 +39,7 @@ object bits {
           a(cls := active.active("show"), href := routes.Streamer.show(st.streamer.id.value))(
             st.streamer.name
           ),
-          (ctx.is(st.user) || isGranted(_.Streamers)) option
+          ctx.is(st.user) || isGranted(_.Streamers) option
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
               editPage()
             )
