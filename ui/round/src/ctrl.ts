@@ -486,7 +486,8 @@ export default class RoundController {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.chessground.playPremove() && !this.playPredrop()) {
+        if (this.nvui) this.nvui.playPremove(this);
+        else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
         }
