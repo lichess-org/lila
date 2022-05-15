@@ -303,10 +303,9 @@ export default function (redraw: Redraw): NvuiPlugin {
 function createSubmitHandler(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return (submitStoredPremove = false) => {
     const nvui = ctrl.nvui!;
-    if (submitStoredPremove && nvui.premoveInput === '') return false;
 
-    let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
-    if (!submitStoredPremove && input === '') {
+    if (submitStoredPremove && nvui.premoveInput === '') return false;
+    if (!submitStoredPremove && $input.val() === '') {
       if (nvui.premoveInput !== '') {
         // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
         nvui.premoveInput = '';
@@ -314,6 +313,8 @@ function createSubmitHandler(ctrl: RoundController, notify: (txt: string) => voi
       } else notify('Invalid move');
       return false;
     }
+
+    let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
 
     // commands may be submitted with or without a leading /
     if (isShortCommand(input)) input = '/' + input;
