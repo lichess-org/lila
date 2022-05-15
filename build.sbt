@@ -11,8 +11,8 @@ lazy val root = Project("lila", file("."))
   .settings(buildSettings)
 
 // shorter prod classpath
-scriptClasspath := Seq("*")
-maintainer := "contact@lichess.org"
+scriptClasspath             := Seq("*")
+maintainer                  := "contact@lichess.org"
 Compile / resourceDirectory := baseDirectory.value / "conf"
 
 // format: off
@@ -31,15 +31,14 @@ lazy val modules = Seq(
   common, db, rating, user, security, hub, socket, msg,
   notifyModule, i18n, game, bookmark, search, gameSearch,
   timeline, poll, forum, forumSearch, team, teamSearch,
-  analyse, mod, round, pool, lobby, setup,
-  importer, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, blog,
-  history, video, shutup, push, appeal, mailer,
-  playban, insight, perfStat, irc, quote, challenge,
-  study, studySearch, fishnet, explorer, learn, plan,
-  event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog
+  analyse, mod, round, pool, lobby, setup, importer, 
+  tournament, simul, relation, report, pref, evaluation, 
+  chat, puzzle, tv, coordinate, blog, history, video, 
+  shutup, push, appeal, mailer, playban, insight, perfStat, 
+  irc, quote, challenge, study, studySearch, fishnet, 
+  explorer, learn, plan, event, coach, practice, evalCache, 
+  irwin, activity, relay, streamer, bot, clas, swiss, storm, 
+  racer, ublog
 )
 
 lazy val moduleRefs = modules map projectToRef

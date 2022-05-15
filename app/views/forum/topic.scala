@@ -2,12 +2,11 @@ package views.html
 package forum
 
 import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-
+import lila.poll.Poll
 import controllers.routes
 
 object topic {
@@ -72,6 +71,7 @@ object topic {
       categ: lila.forum.Categ,
       topic: lila.forum.Topic,
       posts: Paginator[lila.forum.Post],
+      renders: Seq[Seq[Poll.RenderElement]],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
@@ -80,10 +80,14 @@ object topic {
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
+        pollTag,
         formWithCaptcha.isDefined option captchaTag,
         jsModule("expandText")
       ),
-      moreCss = cssTag("forum"),
+      moreCss = frag(
+        cssTag("forum"),
+        cssTag("poll")
+      ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = topic.name,
@@ -108,11 +112,12 @@ object topic {
         ),
         pager,
         div(cls := "forum-topic__posts expand-text")(
-          posts.currentPageResults.map { p =>
+          posts.currentPageResults zip renders map { case (p, r) =>
             post.show(
               categ,
               topic,
               p,
+              r,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,

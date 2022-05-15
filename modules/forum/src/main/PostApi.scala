@@ -4,12 +4,13 @@ import actorApi._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
-import scala.util.chaining._
 
+import scala.util.chaining._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
+import lila.poll.PollApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 
@@ -20,6 +21,7 @@ final class PostApi(
     mentionNotifier: MentionNotifier,
     indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,
+    pollApi: PollApi,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -35,8 +37,10 @@ final class PostApi(
       topic: Topic,
       data: ForumForm.PostData,
       me: User
-  ): Fu[Post] =
-    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
+  ): Fu[Post] = {
+    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) zip pollApi.prepare(
+      spam.replace(data.text)
+    ) flatMap { case ((lang, topicUserIds), updated) =>
       val publicMod = MasterGranter(_.PublicMod)(me)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
       val anonMod   = modIcon && !publicMod
@@ -44,14 +48,14 @@ final class PostApi(
         topicId = topic.id,
         author = none,
         userId = !anonMod option me.id,
-        text = spam.replace(data.text),
+        text = updated.text,
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
         hidden = topic.hidden,
         categId = categ.id,
         modIcon = modIcon option true,
-        pollId = None
+        pollCookie = updated.cookie
       )
       postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -78,6 +82,7 @@ final class PostApi(
             } inject post
       }
     }
+  }
 
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
@@ -87,12 +92,14 @@ final class PostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(DateTime.now, spam replace newText)
-          (newPost.text != post.text).?? {
-            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
-              logAnonPost(user.id, newPost, edit = true)
-            } >>- promotion.save(user, newPost.text)
-          } inject newPost
+          pollApi.prepare(spam replace newText, post.pollCookie) flatMap { updated =>
+            val newPost = post.editPost(DateTime.now, updated.text, updated.cookie)
+            (newPost.text != post.text).?? {
+              postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+                logAnonPost(user.id, newPost, edit = true)
+              } >>- promotion.save(user, newPost.text)
+            } inject newPost
+          }
       }
     }
 

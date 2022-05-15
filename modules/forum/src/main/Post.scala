@@ -26,7 +26,7 @@ case class Post(
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
     reactions: Option[Post.Reactions] = None,
-    pollId: Option[Poll.ID] = None
+    pollCookie: Option[Poll.Cookie] = None
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -60,7 +60,7 @@ case class Post(
     canBeEditedBy(editingUser) &&
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
-  def editPost(updated: DateTime, newText: String): Post = {
+  def editPost(updated: DateTime, newText: String, newCookie: Option[Poll.Cookie]): Post = {
     val oldVersion = OldVersion(text, updatedOrCreatedAt)
 
     // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
@@ -70,11 +70,12 @@ case class Post(
       editHistory = history.some,
       text = newText,
       updatedAt = updated.some,
-      reactions = reactions.map(_.view.filterKeys(k => !Post.Reaction.positive(k)).toMap)
+      reactions = reactions.map(_.view.filterKeys(k => !Post.Reaction.positive(k)).toMap),
+      pollCookie = newCookie
     )
   }
 
-  def erase = editPost(DateTime.now, "").copy(erasedAt = DateTime.now.some)
+  def erase = editPost(DateTime.now, "", None).copy(erasedAt = DateTime.now.some)
 
   def hasEdits = editHistory.isDefined
 
@@ -124,7 +125,7 @@ object Post {
       troll: Boolean,
       hidden: Boolean,
       modIcon: Option[Boolean] = None,
-      pollId: Option[Poll.ID] = None
+      pollCookie: Option[Poll.Cookie] = None
   ): Post = {
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
@@ -138,7 +139,7 @@ object Post {
       troll = troll,
       hidden = hidden,
       modIcon = modIcon,
-      pollId = pollId,
+      pollCookie = pollCookie,
       createdAt = DateTime.now
     )
   }

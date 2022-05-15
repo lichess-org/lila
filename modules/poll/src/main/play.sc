@@ -1,3 +1,16 @@
+sealed trait BS
+
+case class Blah(blah: Int) extends BS
+case class Booh(text: String) extends BS {
+  override def toString() = text
+}
+val bs: BS = Blah(7)
+bs match {
+  case Blah(b)    => println(b)
+  case Booh(text) => println(text)
+}
+
+/*
 case class Poll(
     _id: Poll.ID,
     question: String,
@@ -127,7 +140,7 @@ val pollText = """
 ?* heres another
 bunch of crap
 yada yada yada
-crazy doodles  
+crazy doodles
 ?? here's some shit ?* on the same line
 ?= booga booga
 ?* here yago ?* there it went
@@ -138,7 +151,7 @@ crazy doodles
 nope that wasnt good
 lets try another
 
-  
+
 ?? question""" + "\n\n" + """?* answer1
 ?* answer2
 hahah
@@ -154,8 +167,22 @@ now a malformed one
 ?* the
 ?* spaces after?"""
 
+def v1Magic(text: String): Option[String] =
+  "^v1:(.*)$".r.findFirstMatchIn(text) match {
+    case Some(m) => Some(m.group(1))
+  }
+
+def extractIdsMagic(text: String): List[Poll.ID] =
+  v1Magic(text) match {
+    case Some(m) =>
+      m.split(" ").toList
+    case None => Nil
+
+  }
+
+extractIdsMagic("v1:blah1 blah2 blah3")
 val res = Poll.extractAll(pollText)
-/*
+
 var insertionPoint = 0
 res match {
   case (s, ls) =>

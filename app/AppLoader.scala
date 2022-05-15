@@ -2,14 +2,13 @@ package lila.app
 
 import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
-import lila.poll.Poll
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
-
+import router.Routes
 import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {
@@ -128,6 +127,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val options: Options               = wire[Options]
   lazy val page: Page                     = wire[Page]
   lazy val plan: Plan                     = wire[Plan]
+  lazy val poll: Poll                     = wire[Poll]
   lazy val practice: Practice             = wire[Practice]
   lazy val pref: Pref                     = wire[Pref]
   lazy val prismic: Prismic               = wire[Prismic]

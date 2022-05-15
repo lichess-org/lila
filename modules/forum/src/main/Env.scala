@@ -5,14 +5,12 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import lila.common.config._
-import lila.forum.actorApi.RemovePost
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
-import lila.mon
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.relation.RelationApi
-import lila.user.User
+import lila.poll.PollApi
 
 @Module
 final private class ForumConfig(
@@ -32,6 +30,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
+    pollApi: PollApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
     userRepo: lila.user.UserRepo,
@@ -49,8 +48,6 @@ final class Env(
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
-
-  lazy val pollApi: PollApi = wire[PollApi]
 
   lazy val categApi: CategApi = wire[CategApi]
 

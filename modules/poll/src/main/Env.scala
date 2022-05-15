@@ -16,7 +16,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  implicit private lazy val coll = db(CollName("poll"))
+  implicit private lazy val coll = db(CollName("user_poll"))
 
   lazy val api = wire[PollApi]
 

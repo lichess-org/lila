@@ -54,7 +54,15 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                         canModCateg <- access.isGrantedMod(categ.slug)
                       } yield BadRequest(
                         html.forum.topic
-                          .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                          .show(
+                            categ,
+                            topic,
+                            posts,
+                            Nil,
+                            Some(err -> captcha),
+                            unsub,
+                            canModCateg = canModCateg
+                          )
                       )
                     },
                   data =>
@@ -101,6 +109,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     AuthBody { implicit ctx => me =>
       postApi getPost id flatMap {
         _ ?? { post =>
+          env.poll.api.deletePolls(post.pollCookie)
           if (me.id == ~post.userId && !post.erased)
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
@@ -133,13 +142,6 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             Ok(views.html.forum.post.reactions(post, canReact = true))
           }
         }
-      }
-    }
-
-  def vote(categSlug: String, id: String, vote: String) =
-    Auth { implicit ctx => me =>
-      CategGrantWrite(categSlug) {
-        postApi.vote(categSlug, id, me, vote)
       }
     }
 

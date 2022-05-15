@@ -1,19 +1,16 @@
 package views
 package html.forum
 
+import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
-
-import controllers.routes
+import lila.poll.Poll
+import lila.poll.Poll.ImportMe._
 
 object post {
-
-  val fakePoll: List[(String, String)] = List(("poll1","fisting"),
-  ("poll2","scat"),
-  ("poll3","other"))
 
   def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) =
     ol(
@@ -39,6 +36,7 @@ object post {
       categ: lila.forum.Categ,
       topic: lila.forum.Topic,
       post: lila.forum.Post,
+      render: Seq[Poll.RenderElement],
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
@@ -106,11 +104,14 @@ object post {
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),
-      p(cls := "forum-post__message")(
-        if (post.erased) "<Comment deleted by user>"
-        else richText(post.text)
+      div(cls := "forum-post__message")(
+        if (post.erased) p("<Comment deleted by user>")
+        else
+          render map {
+            case isText(text) => p(richText(text))
+            case isPoll(poll) => views.html.poll.render(poll, ctx.me ?? { post.userId contains _.id })
+          }
       ),
-      poll(fakePoll, post.id,"poll2"),
       !post.erased option {
         reactions(post, canReact)
       },
@@ -134,27 +135,6 @@ object post {
             submitButton(cls := "button")(trans.apply())
           )
         )
-    )
-  }
-
-  private def poll(options: Iterable[(String, String)], pid: String, myVote: String ) = {
-    div( /*cls := "forum-post__poll-header"*/)("VOTE:",
-      st.group(cls := "radio")(
-        options.zipWithIndex.map { case (v,i) =>
-          val id = s"${pid}_${v._1}"
-          div(
-            input(
-              href := s"${routes.ForumPost.vote}?pid=${pid}&choice=${urlencode(v._1)}",
-              st.id := id,
-              myVote == v._1 option st.checked,
-              tpe   := "radio",
-              value := i,
-              name  := pid,
-            ),
-            label(`for` := id)(v._2)
-          )
-        }.toList
-      )
     )
   }
 

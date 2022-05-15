@@ -2,12 +2,14 @@ package controllers
 
 import cats.implicits._
 import play.api.libs.json._
+
 import scala.concurrent.duration._
 import views._
-
 import lila.app._
 import lila.common.IpAddress
 import lila.user.Holder
+
+import scala.concurrent.Future
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
@@ -72,13 +74,17 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
             }
+            pollRenders <- Future.sequence(posts.currentPageResults.map(p => env.poll.api.render(p.text)))
             form <- ctx.me.ifTrue(
               canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
             _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
             res <-
               if (canRead)
-                Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)).fuccess
+                Ok(
+                  html.forum.topic
+                    .show(categ, topic, posts, pollRenders, form, unsub, canModCateg = canModCateg)
+                ).fuccess
               else notFound
           } yield res
         }

@@ -1,6 +1,7 @@
 package lila.poll
 
 import lila.user.User
+import org.joda.time.DateTime
 
 /*
 Example text from a message with valid poll markup:
@@ -8,23 +9,27 @@ Example text from a message with valid poll markup:
 Hey everyone, please let me know what works best for our weekly team bullet
 tournament.
 ?? When should it be?
+?= public tally
 ?* Mon 7:00pm GMT
 ?* Tue 6:30pm GMT
 ?* Wed 8:00pm GMT
 
-Poll markup must be contiguous lines.
-?? specifies the question.  it is required and client _should_ display it.
-?= is optional - it can be followed by public and/or tally.  These result
+Poll markup must be contiguous lines.  Due to the rendering implementation,
+it cannot be used within block level html tags - kinda like markdown.
+
+?? specifies the question.  it is required and client should display it.
+
+?= is optional - it can be followed by [public|tally|quiz].  These result
 in boolean flags that client code can interpret or ignore.  public
 means it's OK to show who voted for what.  tally means it's OK to show
 results before the poll is closed.  Both are false if ?= is omitted.
+
 ?* specifies a choice to vote on.  2 or more are required
 
-the ??, ?=, ?* directives must be the first non-whitespace characters on a
+the ??, ?=, ?* directives must be the first characters on a
 new line. empty lines or text between markup lines are not allowed.
-Multiline questions are not allowed
+Multiline questions are not allowed.
  */
-
 case class Poll(
     _id: Poll.ID,
     question: String,
@@ -32,46 +37,41 @@ case class Poll(
     isPublic: Boolean, // open ballot
     isTally: Boolean,  // results visible before closing
     isClosed: Boolean, // no more voting allowed if true
-    votes: Option[Poll.Votes],
-    offset: Int // offset of markup within unmarked text
+    createdAt: DateTime,
+    votes: Option[Poll.Votes]
 ) {
-  def isEquivalent(p: Poll): Boolean = // something important change?
+  def isEquivalent(p: Poll): Boolean =
     question == p.question &&
       choices.equals(p.choices) &&
       isPublic == p.isPublic &&
-      isTally == p.isTally // if true, keep the old one and save the votes
-
-  def copy(id: Option[Poll.ID] = None, offset: Option[Int] = None) =
-    Poll(
-      _id = id getOrElse _id,
-      question = question,
-      choices = choices,
-      isPublic = isPublic,
-      isTally = isTally,
-      votes = votes,
-      isClosed = isClosed,
-      offset = offset getOrElse this.offset
-    )
+      isTally == p.isTally
 }
 
 object Poll {
-  type ID      = String
-  type Magic   = String
-  type Votes   = Map[User.ID, Int] // value = index in Choices list
-  type Choices = List[String]
-  type Results = Map[String, Int]  // key = choice, value = vote count
   val idSize = 8
 
-  def make(question: String, choices: Choices, isPublic: Boolean, isTally: Boolean, offset: Int) =
+  type ID      = String
+  type Choices = Seq[String]
+  type Cookie  = String
+  type Votes   = Map[User.ID, Int] // value = index in Choices list
+  type Results = Map[String, Int]  // key = choice, value = vote count
+
+  type RenderElement = Either[Poll, String]
+  object ImportMe { // for cleaner view code import Poll.ImportMe._
+    val isPoll = Left
+    val isText = Right
+  }
+
+  def make(question: String, choices: Choices, isPublic: Boolean, isTally: Boolean, offset: Int = -1) =
     Poll(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       question = question,
       choices = choices,
       isPublic = isPublic,
       isTally = isTally,
-      votes = None,
       isClosed = false,
-      offset = offset
+      createdAt = DateTime.now(),
+      votes = None
     )
 
   case class Result(
