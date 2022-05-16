@@ -765,7 +765,7 @@ export default class RoundController {
 
         if (d.crazyhouse) crazyInit(this);
 
-        if (this.isPlaying() && !this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
           window.addEventListener('beforeunload', e => {
             if (lichess.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');
