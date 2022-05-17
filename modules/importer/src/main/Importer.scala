@@ -32,7 +32,7 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
 
   def inMemory(data: ImportData): Validated[String, (Game, Option[FEN])] =
     data.preprocess(user = none).flatMap { case Preprocessed(game, _, fen, _) =>
-      if (Encoder.encode(game.sloppy.pgnMoves.toArray) == null)
+      if (game.variant.standard && Encoder.encode(game.sloppy.pgnMoves.toArray) == null)
         Validated.invalid("The PGN contains illegal and/or ambiguous moves.")
       else
         Validated.valid((game withId "synthetic", fen))
