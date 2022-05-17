@@ -27,13 +27,13 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
       lang.code,
-      DateTimeFormat.forStyle(dateTimeStyle withLocale lang.toLocale).assertNotNull
+      DateTimeFormat.forStyle(dateTimeStyle).withLocale(lang.toLocale).assertNotNull
     )
 
   private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
       lang.code,
-      DateTimeFormat.forStyle(dateStyle withLocale lang.toLocale).assertNotNull
+      DateTimeFormat.forStyle(dateStyle).withLocale(lang.toLocale).assertNotNull
     )
 
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
