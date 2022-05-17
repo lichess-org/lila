@@ -11,14 +11,10 @@ trait NumberHelper { self: I18nHelper =>
   private val formatters = mutable.AnyRefMap.empty[String, NumberFormat]
 
   private def formatter(implicit lang: Lang): NumberFormat =
-    formatters.getOrElseUpdate(lang.language, makeNumberFormatAndThrowIfNull)
-
-  private def makeNumberFormatAndThrowIfNull(implicit lang: Lang): NumberFormat = {
-    val inst = NumberFormat getInstance new Locale(lang.language)
-    // happens sometimes during start
-    assert(inst != null, "NumberFormat.getInstance not null")
-    inst
-  }
+    formatters.getOrElseUpdate(
+      lang.language,
+      NumberFormat.getInstance(new Locale(lang.language)).assertNotNull
+    )
 
   def showMillis(millis: Int)(implicit lang: Lang) = formatter.format((millis / 100).toDouble / 10)
 
