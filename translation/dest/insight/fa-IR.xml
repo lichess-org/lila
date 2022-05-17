@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xHasNoChessInsights">%s تا الان درون شطرنج نداشته است!</string>
+  <string name="insightsAreProtected">درون شطرنج %s محافظت شده هستند</string>
+  <string name="cantSeeInsights">متاسفیم، شما نمی توانید درون شطرنج %s را ببینید.</string>
+</resources>
