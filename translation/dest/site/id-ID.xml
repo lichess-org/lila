@@ -851,6 +851,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
+  <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
 </resources>
