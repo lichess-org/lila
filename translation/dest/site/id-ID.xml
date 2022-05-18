@@ -430,7 +430,7 @@
   <string name="onlinePlayers">Pemain online</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="success">Berhasil</string>
+  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Berhasil</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
@@ -536,6 +536,7 @@
   <string name="error.min">Harus lebih besar atau sama dengan %s</string>
   <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="ifRegistered">Telah terdaftar</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
@@ -729,7 +730,7 @@
   <string name="addCurrentVariation">Tambahkan variasi</string>
   <string name="playVariationToCreateConditionalPremoves">Memainkan sebuah variasi untuk membuat syarat pra-langkah</string>
   <string name="noConditionalPremoves">Tidak ada syarat pra-langkah</string>
-  <string name="playX">Memainkan %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Memainkan %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
@@ -819,7 +820,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="simulHostcolor">Pilih warna untuk setiap permainan</string>
   <string name="estimatedStart">Waktu estimasi mulai</string>
   <string name="simulFeatured">Tersedia di %s</string>
-  <string name="simulFeaturedHelp">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
   <string name="simulDescription">Deskripsi simulasi</string>
   <string name="simulDescriptionHelp">Adakah sesuatu yang ingin Anda sampaikan pada peserta?</string>
   <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
@@ -851,4 +852,5 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
   <string name="switchSides">Tukar Sisi</string>
+  <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
 </resources>
