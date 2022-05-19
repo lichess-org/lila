@@ -156,11 +156,20 @@ class RawHtmlTest extends Specification {
   }
 
   "markdown links" should {
+
     "add http links" in {
       val md = "[Example](http://example.com)"
       justMarkdownLinks(
         md
       ) must_== """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+    }
+
+    "handle $ in link content" in {
+      val md =
+        "[$$$ test 9$ prize](https://lichess.org/tournament)"
+      justMarkdownLinks(
+        md
+      ) must_== """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
     }
 
     "only allow safe protocols" in {
