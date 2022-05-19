@@ -155,7 +155,7 @@ Wykonaj dowolny ruch, aby kontynuować.</string>
 	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
 	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
 	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
+	<string name="pushingThe3rdPawn">Posunięcie trzeciego pionka, by otworzyć przekątną gońcowi, jest najpopularniejszym pierwszym ruchem. Wykonaj ten ruch, by kontynuować.</string>
 	<string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać bierki na szachownicy.</string>
 	<string name="repetition">Powtórzenie</string>
 	<string name="fourfoldRepetitionIsADrawExcept">Czterokrotne powtórzenie oznacza remis, CHYBA ŻE...</string>
@@ -187,11 +187,11 @@ Zbij najbardziej wartościową bierkę.</string>
 	<string name="takeAllThePiecesStartingFromTheMost">Zbij wszystkie bierki w kolejności od najmniej wartościowej do najbardziej wartościowej!</string>
 	<string name="anExchangeIs">Wymiana polega na zbiciu jednej bierki i straceniu innej. Która wymiana jest lepsza? Srebrny generał za wieżę, czy złoty generał za skoczka?</string>
 	<string name="theOpponentJustGaveAway">Przeciwnik właśnie oddał swoją cenną wieżę za darmo! Czy ją zbijesz?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
+	<string name="yourKingsValueIsInfinite">Wartość króla jest nieskończenie wyższa niż wieży. Jaki jest najlepszy ruch w tej sytuacji?</string>
 	<string name="twoGeneralsAreBetter">Dwaj generałowie mogą być warci więcej, niż jedna ciężka figura. Skoczek i lanca mogą być lepsi, niż generał. Znajdź sposób na poświęcenie gońca w zamian za dwóch generałów.</string>
 	<string name="rememberWhichPieceIsTheMostValuable">Czy pamiętasz, która bierka jest najbardziej wartościowa?</string>
 	<string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">Król jest bardziej wartościowy niż wszystkie inne bierki razem. Czasami warto poświęcić bierki, by zaatakować króla przeciwnika. Tylko nie zapomnij też o ochronie własnego króla!</string>
 	<string name="checkInTwo">Szach w 2 ruchach</string>
 	<string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
 	<string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
