@@ -10,6 +10,15 @@
   <string name="aiNameLevelAiLevel">%1$s nivèl %2$s</string>
   <string name="level">Nivèl</string>
   <string name="strength">Fòrça</string>
+  <string name="chat">Conversacion</string>
+  <string name="resign">Se rendre</string>
+  <string name="checkmate">Escac e mat</string>
+  <string name="stalemate">Pat</string>
+  <string name="white">Blanc</string>
+  <string name="black">Negre</string>
+  <string name="asWhite">ambe las blancas</string>
+  <string name="asBlack">ambe las negras</string>
+  <string name="randomColor">Color aleatòria</string>
   <string name="delete">Suprimir</string>
   <string name="cancel">Anullar</string>
   <plurals name="availableInNbLanguages">
