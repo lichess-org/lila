@@ -2,4 +2,9 @@
 <resources>
   <string name="playWithAFriend">Jòga ambe un amic</string>
   <string name="playWithTheMachine">Jòga ambe l\'ordinator</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar qualqu\'un a jogar, dona aquel URL</string>
+  <string name="gameOver">S\'acabèt lo jòc</string>
+  <string name="waitingForOpponent">Esperant adversari</string>
+  <string name="waiting">Esperant</string>
+  <string name="yourTurn">Lo teu torn</string>
 </resources>
