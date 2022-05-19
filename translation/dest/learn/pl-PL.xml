@@ -33,7 +33,7 @@ Aby to zrobić, kliknij na zębatkę lub swoją nazwę użytkownika (w górnym p
 	<string name="theBishop">Goniec</string>
 	<string name="itMovesDiagonally">Porusza się po skosach</string>
 	<string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
-	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
+	<string name="ehThereIsNoPiece">Hę? Na szachownicy nie ma bierek. Ale spójrz poza szachownicę, tam jest goniec! W to miejsce trafiają bierki, które zbijesz. Możesz umieścić bierkę z powrotem na szachownicy. Jak zwykle, zbierz wszystkie gwiazdki.</string>
 	<string name="bishopPromotion">Promowanie gońca uczyni go silniejszym, zmieni się w bierkę zwaną koniem.</string>
 	<string name="bishopSummary">Goniec porusza się na ukos w dowolnym kierunku.</string>
 	<string name="horseSummary">Promowany goniec porusza się również na ukos, ale może też poruszać się o jedno pole pionowo lub poziomo.</string>
@@ -122,7 +122,7 @@ I nie strać swojej.</string>
 	<string name="outOfCheck">Obrona przed szachem</string>
 	<string name="defendYourKing">Chroń swojego króla</string>
 	<string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
-	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
+	<string name="ifYourKingIsAttacked">Gdy Twój król jest atakowany, musisz powstrzymać atak.</string>
 	<string name="escapeWithTheKing">Uciekaj królem!</string>
 	<string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
 	<string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
@@ -148,13 +148,13 @@ I nie strać swojej.</string>
 	<string name="thisIsTheInitialPosition">To jest początkowa pozycja
 każdej partii shogi!
 Wykonaj dowolny ruch, aby kontynuować.</string>
-	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
-	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
-	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
-	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
+	<string name="firstPlaceTheKing">Istnieją dwie tradycyjne metody ustawiania bierek przed partią. Zaprezentujemy styl Oohashi (大橋), najczęściej wybierany przez profesjonalistów. Król idzie pierwszy. Umieść króla na środkowym polu najbliższego rzędu.</string>
+	<string name="dropAGold">Umieść jednego złotego generała po lewej stronie króla, a potem drugiego po prawej.</string>
+	<string name="thenPlaceASilver">Potem umieść jednego srebrnego generała obok lewego złotego generała, a drugiego obok prawego złotego generała.</string>
+	<string name="dropTheKnights">Umieść skoczki w podobny sposób jak wcześniej srebrne generały. Twój przeciwnik ustawia bierki w stylu Itou (伊藤).</string>
+	<string name="dropTheLances">Umieść lance. Twój przeciwnik zacznie ustawiać pionki od lewej do prawej, zanim ustawi lance, zgodnie ze stylem Itou.</string>
+	<string name="placeTheBishopThenRook">Umieść gońca nad lewym skoczkiem, a potem wieżę nad prawym skoczniem. Oczywiście, w prawdziwej partii nie ma potrzeby ustawiać swoich bierek krok w krok za przeciwnikiem.</string>
+	<string name="placeThePawns">Na koniec, umieść w trzecim rzędzie pionki w ten sam sposób, jak wcześniej figury w pierwszym rzędzie. Kółko wskaże kolejność.</string>
 	<string name="pushingThe3rdPawn">Posunięcie trzeciego pionka, by otworzyć przekątną gońcowi, jest najpopularniejszym pierwszym ruchem. Wykonaj ten ruch, by kontynuować.</string>
 	<string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać bierki na szachownicy.</string>
 	<string name="repetition">Powtórzenie</string>
