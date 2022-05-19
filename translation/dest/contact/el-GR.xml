@@ -14,8 +14,8 @@
   <string name="accountSupport">Χρειάζομαι υποστήριξη για τον λογαριασμό μου</string>
   <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο προφίλ μου στο Lichess</string>
   <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ σας στο Lichess και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε τη σελίδα επιβεβαίωσης τίτλων</string>
-  <string name="wantCloseAccount">Θελω να κλεισω τον λογαριασμο μου</string>
-  <string name="closeYourAccount">Μπορείτε να κλείσετε τον λογαριασμό σας σε αυτή τη σελίδα</string>
+  <string name="wantCloseAccount">Επιθυμώ την απενεργοποίηση του λογαριασμού μου</string>
+  <string name="closeYourAccount">Απενεργοποιείστε τον λογαριασμό σας σε αυτή τη σελίδα</string>
   <string name="doNotAskByEmail">Μην μας ζητάτε με email να κλείσουμε τον λογαριασμό σας διότι δε θα το κάνουμε.</string>
   <string name="wantReopen">Θέλω να ξανανοίξω τον λογαριασμό μου</string>
   <string name="reopenOnThisPage">Μπορείτε να ξανανοίξετε τον λογαριασμό σας σε αυτή τη σελίδα. Αυτό μπορείτε να το κάνετε μόνο μία φορά.</string>
