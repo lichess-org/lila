@@ -7,4 +7,14 @@
   <string name="waitingForOpponent">Esperant adversari</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">Lo teu torn</string>
+  <string name="aiNameLevelAiLevel">%1$s nivèl %2$s</string>
+  <string name="level">Nivèl</string>
+  <string name="strength">Fòrça</string>
+  <string name="delete">Suprimir</string>
+  <string name="cancel">Anullar</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Disponible dins %s lenga !</item>
+    <item quantity="other">Disponible dins %s lengas !</item>
+  </plurals>
+  <string name="language">Lenga</string>
 </resources>
