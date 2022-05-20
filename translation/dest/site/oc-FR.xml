@@ -31,6 +31,11 @@
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Corsa acabada</string>
   <string name="variantEnding">Finala de varianta</string>
+  <string name="newOpponent">Nòu adversari</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Lo teu adversari vòl jogar una altra partida</string>
+  <string name="joinTheGame">Rejònher la partida</string>
+  <string name="whitePlays">Jogan los blancs</string>
+  <string name="blackPlays">Jogan los negres</string>
   <string name="delete">Suprimir</string>
   <string name="cancel">Anullar</string>
   <plurals name="availableInNbLanguages">
