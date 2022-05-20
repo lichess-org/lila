@@ -10,6 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivèl %2$s</string>
   <string name="level">Nivèl</string>
   <string name="strength">Fòrça</string>
+  <string name="toggleTheChat">Activar/desactivar la charrada</string>
   <string name="chat">Conversacion</string>
   <string name="resign">Se rendre</string>
   <string name="checkmate">Escac e mat</string>
@@ -21,11 +22,15 @@
   <string name="randomColor">Color aleatòria</string>
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Ganan los blancs</string>
+  <string name="blackIsVictorious">Ganan los blancs</string>
   <string name="youPlayTheWhitePieces">Jògas ambe los blancs</string>
   <string name="youPlayTheBlackPieces">Jògas ambe los negres</string>
   <string name="itsYourTurn">Es ton torn!</string>
   <string name="cheatDetected">Engana detectada</string>
   <string name="kingInTheCenter">Rei al mièg</string>
+  <string name="threeChecks">Tres escacs</string>
+  <string name="raceFinished">Corsa acabada</string>
+  <string name="variantEnding">Finala de varianta</string>
   <string name="delete">Suprimir</string>
   <string name="cancel">Anullar</string>
   <plurals name="availableInNbLanguages">
