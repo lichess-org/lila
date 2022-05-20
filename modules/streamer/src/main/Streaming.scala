@@ -100,9 +100,7 @@ final private class Streaming(
     (youtubeStreamers.nonEmpty && googleApiKey.value.nonEmpty) ?? {
       val now = DateTime.now
       val res =
-        if (prevYouTubeStreams.list.isEmpty && prevYouTubeStreams.at.isAfter(now minusMinutes 15))
-          fuccess(prevYouTubeStreams)
-        else if (prevYouTubeStreams.at.isAfter(now minusMinutes 1))
+        if (prevYouTubeStreams.at.isAfter(now minusMinutes 15))
           fuccess(prevYouTubeStreams)
         else {
           ws.url("https://www.googleapis.com/youtube/v3/search")
