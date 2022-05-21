@@ -234,6 +234,7 @@
   <string name="rightOn">Дәл өзі!</string>
   <string name="stageXComplete">%s деңгей аяқталды</string>
   <string name="next">Келесі</string>
+  <string name="nextX">Келесі: %s</string>
   <string name="backToMenu">Мәзірге оралу</string>
   <string name="puzzleFailed">Жауабыңыз қате!</string>
   <string name="retry">Қайта көру</string>
