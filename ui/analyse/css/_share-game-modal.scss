@@ -1,6 +1,15 @@
 .share-game-modal {
   .copy-game-url {
     margin-top: 2em;
+    display: flex;
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    a {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
   .copy-success {
     margin: 0 1em 1em 1em;
