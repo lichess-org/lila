@@ -11,6 +11,12 @@ export default function view(ctrl: AnalyseCtrl): MaybeVNode {
         class: 'share-game-modal',
         content: [
           h('h2', noarg('shareGame')),
+          h('img', {
+            attrs: {
+              width: 200,
+              src: `/game/export/gif/${ctrl.bottomColor()}/${ctrl.data.game.id}.gif`,
+            },
+          }),
           h('div.copy-game-url', [
             h('input#game-url', {
               attrs: {

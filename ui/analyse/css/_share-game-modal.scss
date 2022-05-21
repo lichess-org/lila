@@ -1,6 +1,9 @@
 .share-game-modal {
+  h2 {
+    margin-bottom: 0.5em;
+  }
   .copy-game-url {
-    margin-top: 2em;
+    margin-top: 1em;
     display: flex;
     input {
       border-top-right-radius: 0;
