@@ -420,7 +420,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     },
     [
       ctrl.keyboardHelp ? keyboardView(ctrl) : null,
-      ctrl.shareGame ? shareGameView(ctrl) : null,
+      ctrl.shareGame() ? shareGameView(ctrl) : null,
       study ? studyView.overboard(study) : null,
       tour ||
         h(

@@ -177,10 +177,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         : h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ => {
-                ctrl.shareGame = true;
-                ctrl.redraw();
-              }),
+              hook: bind('click', () => ctrl.shareGame(true)),
               attrs: dataIcon(''),
             },
             'Share'
@@ -381,7 +378,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrlBoolSetting(
       {
         name: noarg('flipBoard'),
-        title: 'F',
+        title: 'Hotkey: f',
         id: 'flip',
         checked: ctrl.flipped,
         change: ctrl.flip,
@@ -391,7 +388,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrlBoolSetting(
       {
         name: noarg('inlineNotation'),
-        title: 'Shift+I',
+        title: 'Hotkey: Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
         change(v) {

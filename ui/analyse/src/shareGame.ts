@@ -5,11 +5,7 @@ import { h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 
 export default function view(ctrl: AnalyseCtrl): MaybeVNode {
-  const onClose = () => {
-    ctrl.shareGame = false;
-    ctrl.redraw();
-  };
-  return ctrl.shareGame
+  return ctrl.shareGame()
     ? snabModal({
         class: 'share-game-modal',
         content: [
@@ -42,7 +38,7 @@ export default function view(ctrl: AnalyseCtrl): MaybeVNode {
                 }),
                 target: '_blank',
               },
-              hook: bind('click', onClose),
+              hook: bind('click', () => ctrl.shareGame(false)),
             },
             'Current position'
           ),
@@ -54,12 +50,12 @@ export default function view(ctrl: AnalyseCtrl): MaybeVNode {
                 href: `/game/export/gif/${ctrl.bottomColor()}/${ctrl.data.game.id}.gif`,
                 target: '_blank',
               },
-              hook: bind('click', onClose),
+              hook: bind('click', () => ctrl.shareGame(false)),
             },
             'Game as GIF'
           ),
         ],
-        onClose,
+        onClose: () => ctrl.shareGame(false),
       })
     : null;
 }

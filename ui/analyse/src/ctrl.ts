@@ -18,7 +18,7 @@ import { Config as ChessgroundConfig } from 'chessground/config';
 import { ActionMenuCtrl } from './actionMenu';
 import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, propWithEffect } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { ForecastCtrl } from './forecast/interfaces';
 import { lichessRules } from 'chessops/compat';
@@ -92,7 +92,7 @@ export default class AnalyseCtrl {
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
-  shareGame: boolean = location.hash === '#share';
+  shareGame: Prop<boolean>;
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
   cgVersion = {
@@ -122,6 +122,7 @@ export default class AnalyseCtrl {
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
+    this.shareGame = propWithEffect(location.hash === '#share', redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
