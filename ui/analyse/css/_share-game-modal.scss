@@ -1,0 +1,23 @@
+.share-game-modal {
+  .copy-game-url {
+    margin-top: 2em;
+  }
+  .copy-success {
+    margin: 0 1em 1em 1em;
+    color: $c-good;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.25s;
+    &.visible {
+      height: 1.5em;
+    }
+  }
+
+  #game-url {
+    min-width: 20em;
+  }
+
+  .button:not(:first-of-type) {
+    margin-left: 1em;
+  }
+}
