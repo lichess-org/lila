@@ -172,14 +172,19 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [
-      h(
-        'a.button.button-empty',
-        {
-          hook: bind('click', ctrl.flip),
-          attrs: dataIcon(''),
-        },
-        noarg('flipBoard')
-      ),
+      ctrl.study
+        ? null
+        : h(
+            'a.button.button-empty',
+            {
+              hook: bind('click', _ => {
+                ctrl.shareGame = true;
+                ctrl.redraw();
+              }),
+              attrs: dataIcon(''),
+            },
+            'Share'
+          ),
       ctrl.ongoing
         ? null
         : h(
@@ -372,7 +377,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
           )
       : [];
 
-  const notationConfig = [
+  const generalConfig = [
+    ctrlBoolSetting(
+      {
+        name: noarg('flipBoard'),
+        title: 'F',
+        id: 'flip',
+        checked: ctrl.flipped,
+        change: ctrl.flip,
+      },
+      ctrl
+    ),
     ctrlBoolSetting(
       {
         name: noarg('inlineNotation'),
@@ -391,7 +406,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.action-menu',
     tools
-      .concat(notationConfig)
+      .concat(generalConfig)
       .concat(cevalConfig)
       .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
       .concat([
