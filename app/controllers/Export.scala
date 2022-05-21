@@ -3,6 +3,7 @@ package controllers
 import akka.stream.scaladsl._
 import akka.util.ByteString
 import chess.Color
+import chess.format.{ FEN, Forsyth, Uci }
 import play.api.mvc.Result
 import scala.concurrent.duration._
 
@@ -64,6 +65,24 @@ final class Export(env: Env) extends LilaController(env) {
           ) map stream("image/gif") map { res =>
             res.withHeaders(CACHE_CONTROL -> "max-age=1209600")
           }
+        }
+      }(rateLimitedFu)
+    }
+
+  def fenThumbnail(fen: String, color: String, lastMove: Option[String]) =
+    Open { implicit ctx =>
+      ExportImageRateLimitGlobal("-", msg = ctx.ip.value) {
+        val cleanFen = FEN.clean(fen)
+        Forsyth << cleanFen match {
+          case None => BadRequest.fuccess
+          case Some(_) =>
+            env.game.gifExport.thumbnail(
+              fen = cleanFen,
+              lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
+              orientation = Color.fromName(color) | Color.White
+            ) map stream("image/gif") map { res =>
+              res.withHeaders(CACHE_CONTROL -> "max-age=1209600")
+            }
         }
       }(rateLimitedFu)
     }
