@@ -113,4 +113,5 @@
   <string name="xisNowAStudentOfTheClass">%s енді үйірменің шәкірті</string>
   <string name="anInvitationHasBeenSentToX">%s - ға шақыру жіберілген</string>
   <string name="xAlreadyHasAPendingInvitation">%s-тың шақыруы бар, әлі жауапсыз</string>
+  <string name="xIsAKidAccountWarning">%1$s бұл балалық тіркелгі болғандықтан сіздің хабарыңызды ала алмайды. Шақыру URL-дің өзін жіберуіңіз керек: %2$s</string>
 </resources>
