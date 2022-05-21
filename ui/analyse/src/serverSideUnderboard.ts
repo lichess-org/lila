@@ -1,7 +1,6 @@
 import type Highcharts from 'highcharts';
 
 import AnalyseCtrl from './ctrl';
-import { baseUrl } from './util';
 import modal from 'common/modal';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
@@ -142,7 +141,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.addRange(range);
   });
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
-    const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
+    const url = `${location.origin}/embed/${data.game.id}${location.hash}`;
     const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     modal({
       content: $(

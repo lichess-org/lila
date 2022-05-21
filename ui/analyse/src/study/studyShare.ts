@@ -2,7 +2,6 @@ import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../moveView';
-import { baseUrl } from '../util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
@@ -171,7 +170,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           h('input.form-control.autoselect', {
             attrs: {
               readonly: true,
-              value: `${baseUrl()}${path}`,
+              value: `${location.origin}${path}`,
             },
           }),
           ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
@@ -186,7 +185,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               readonly: true,
               disabled: isPrivate,
               value: !isPrivate
-                ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
+                ? `<iframe width=600 height=371 src="${location.origin}${addPly(
                     `/study/embed/${studyId}/${chapter.id}`
                   )}" frameborder=0></iframe>`
                 : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),

@@ -63,10 +63,6 @@ export function titleNameToId(titleName: string): string {
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
 }
 
-export function baseUrl() {
-  return `${window.location.protocol}//${window.location.host}`;
-}
-
 export function option(value: string, current: string | undefined, name: string) {
   return h(
     'option',
