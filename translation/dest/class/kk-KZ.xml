@@ -105,4 +105,12 @@
   <string name="youDeclinedThisInvitation">Сіз шақыруды қабылдамадыңыз.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">не</string>
   <string name="createMultipleAccounts">Бірден бірнеше тіркелгі жасау</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Онымен қатар, шәкірттердің тізіміне негізделген бірнеше тіркелгі жасау үшін %s.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">осы кестені толтырыңыз</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ескертпе! Үйірмеде шәкірт саны %1$s-ен аспау керек. Одан көп шәкіртті басқару үшін %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">тағы үйірмелер жасаңыз</string>
+  <string name="studentsRealNamesOnePerLine">Шәкірттің шын аты, әр жолға бір-бірден</string>
+  <string name="xisNowAStudentOfTheClass">%s енді үйірменің шәкірті</string>
+  <string name="anInvitationHasBeenSentToX">%s - ға шақыру жіберілген</string>
+  <string name="xAlreadyHasAPendingInvitation">%s-тың шақыруы бар, әлі жауапсыз</string>
 </resources>
