@@ -142,6 +142,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
         },
         'GIF'
       ),
+      h(
+        'a.button.text',
+        {
+          attrs: {
+            'data-icon': '',
+            href: `/export/gif/${ctrl.currentNode().fen.split(' ')[0]}`,
+            download: true,
+          },
+        },
+        'BOARD'
+      ),
     ]),
     h('form.form3', [
       ...(ctrl.relay
