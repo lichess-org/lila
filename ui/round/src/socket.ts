@@ -33,12 +33,12 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 
-    function exec() {
+    const exec = () => {
       timer = undefined;
       lastExec = performance.now();
       delay *= factor;
       callback.apply(self, args);
-    }
+    };
 
     if (timer) clearTimeout(timer);
 
@@ -50,7 +50,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   lichess.socket.sign(ctrl.sign);
 
-  function reload(o?: Incoming, isRetry?: boolean) {
+  const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
@@ -64,7 +64,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
           else reload(o, true);
         } else ctrl.reload(data);
       }, lichess.reload);
-  }
+  };
 
   const handlers: SocketHandlers = {
     takebackOffers(o: { white?: boolean; black?: boolean }) {
@@ -151,8 +151,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       lichess.loadCssPath('modal');
       modal({
         content: $(
-          '<div><p>Simul complete!</p><br /><br />' +
-            `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`
+          `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`
         ),
       });
     },

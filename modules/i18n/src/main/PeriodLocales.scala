@@ -21,7 +21,7 @@ object PeriodLocales {
       lang.code, {
         Locale setDefault Locale.ENGLISH
         PeriodFormat wordBased lang.toLocale
-      }
+      }.assertNotNull
     )
 
   def showPeriod(period: Period)(implicit lang: Lang): String =
