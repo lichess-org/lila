@@ -92,6 +92,7 @@ export default class AnalyseCtrl {
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
+  shareGame: boolean = location.hash === '#share';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
   cgVersion = {

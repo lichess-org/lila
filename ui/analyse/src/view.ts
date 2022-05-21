@@ -46,6 +46,7 @@ import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
+import shareGameView from './shareGame';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -419,6 +420,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     },
     [
       ctrl.keyboardHelp ? keyboardView(ctrl) : null,
+      ctrl.shareGame ? shareGameView(ctrl) : null,
       study ? studyView.overboard(study) : null,
       tour ||
         h(
