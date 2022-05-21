@@ -183,6 +183,10 @@
     <item quantity="one">%s сағат</item>
     <item quantity="other">%s сағат</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минут</item>
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Уақыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
@@ -233,7 +237,7 @@
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
-  <string name="mode">Түрі</string>
+  <string name="mode">Бағалау</string>
   <string name="casual">Жай</string>
   <string name="rated">Бағаланатын</string>
   <string name="casualTournament">Кәдімгі</string>
@@ -889,5 +893,9 @@
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
   <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
-  <string name="since">Басталуы</string>
+  <string name="since">Бастап</string>
+  <string name="until">Дейін</string>
+  <string name="lichessDbExplanation">Личес-тегі бағаланатын ойындарда</string>
+  <string name="switchSides">Түсті ауыстыру</string>
+  <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
 </resources>
