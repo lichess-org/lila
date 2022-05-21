@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">жаңа ғана</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">%s секундта</item>
+    <item quantity="other">%s секундта</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s минутта</item>
+    <item quantity="other">%s минутта</item>
+  </plurals>
+</resources>
