@@ -1,6 +1,6 @@
 
-// HEY!  What are YOU doing here? Exposure to the contents of this file can have serious side effects.  
-// Nobody should see be looking at this.  Nobody.  Get out.  OUT!
+// HEY!  What are YOU doing here?  Prolonged exposure to the contents of this file can have serious side effects!  
+// Nobody should see be looking at this.
 
 @function btn-choice($hue, $sat, $lum, $alpha: 1) {
   @if $theme-light {
@@ -34,9 +34,9 @@
   $hue-pick: hue($c-primary);
   $hue-correct: hue($c-secondary);
 
-  h3 {
-    font-size: 1.6em;
-  }
+  font-size: 1.1em;
+  line-height: normal;
+
   .ask-action {
     @media (hover: hover) {
       visibility: hidden;
@@ -49,8 +49,12 @@
 
   div.ask-header {
     @extend %flex-between;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 0.6em;
+
+    p.ask-question {
+      font-size: 1.6em;
+    }
 
     div.ask-actions {
       display: flex;
@@ -78,15 +82,11 @@
   }
 
   div.ask-reveal {
-    &.hidden {
-      display: none;
-    }
   }
 
   div.ask-choices {
     @extend %flex-wrap; 
     overflow: hidden;
-    margin-top: 0.4em;
     margin-bottom: 0.5em;
 
     div {
@@ -104,14 +104,14 @@
       justify-content: center;
       padding: 0.6em;
       height: 100%;
-      cursor: pointer;
       border-right: $border;
       user-select: none;
       text-shadow: #888 0px 0px 0px;
       color: if($theme-light, #444, #ddd);
       background: btn-choice(0deg, 0%, 96%, 0.2);
+      cursor: pointer;
+      
       &:hover {
-        //left: 0px;
         background: btn-hover(0deg, 0%, 95%, 0.3);
       }
     }
@@ -119,6 +119,7 @@
     div:last-child label {
       border-right: 0;
     }
+
     label.ask-pick {
       background: btn-selected($hue-pick, 50%, 80%, 0.6);
       &:hover {
@@ -135,6 +136,7 @@
     label.ask-wrong-pick:hover {
       background: none;
       color: $c-font;
+
       &:before,
       &:after {
         position: absolute;
@@ -142,11 +144,10 @@
         background: hsla(0, 100%, 60%, 0.5);
         width: 6em;
         height: 4px;
-        //-webkit-transform: rotate(-20deg);
         transform: rotate(-20deg);
       }
+      
       &:after {
-        //-webkit-transform: rotate(20deg);
         transform: rotate(20deg);
       }
     }

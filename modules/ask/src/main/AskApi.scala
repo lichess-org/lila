@@ -59,15 +59,13 @@ final class AskApi(
     */
   def conclude(ask: Ask): Fu[Option[Ask]] = conclude(ask._id)
   def conclude(id: Ask.ID): Fu[Option[Ask]] =
-    get(id) flatMap {
+    coll.ext.findAndUpdate[Ask]($id(id), $set("isConcluded" -> true), fetchNewObject = true).map {
       case Some(ask) =>
-        coll.update.one($id(id), $set("isConcluded" -> true))
         timeline ! Propagate(AskConcluded(ask.creator, ask.question, ~ask.url))
           .toUsers(ask.participants.toList)
           .exceptUser(ask.creator)
-        fuccess(ask.some)
-      case None =>
-        fufail(s"AskApi.finish:  Ask id $id not found")
+        ask.some
+      case None => None
     }
 
   /** Resets the picks on an ask
@@ -79,11 +77,7 @@ final class AskApi(
 
   def reset(ask: Ask): Fu[Option[Ask]] = reset(ask._id)
   def reset(id: Ask.ID): Fu[Option[Ask]] =
-    coll.ext.findAndUpdate[Ask](
-      selector = $id(id),
-      update = $unset("picks"),
-      fetchNewObject = true
-    )
+    coll.ext.findAndUpdate[Ask]($id(id), $unset("picks"), fetchNewObject = true)
 
   /** returns a summary of user selections for all asks in a given cookie useful for quizzes and
     * questionnaires (?)
@@ -144,10 +138,8 @@ final class AskApi(
       cookie: Option[Ask.Cookie] = None,
       url: Option[String] = None
   ): Fu[Updated] = {
-    formText.pp
     val annotated     = new StringBuilder
     val markupOffsets = getMarkupOffsets(formText)
-    // val star          = if (isMarkdown(formText)) "\\*" else "*"
     val (idList, opList) = getIntervalClosure(markupOffsets, formText.length).map { interval =>
       val txt = formText.slice(interval._1, interval._2)
       if (!markupOffsets.contains(interval)) {
@@ -166,15 +158,14 @@ final class AskApi(
           reveal = extractReveal(txt),
           url = url
         )
-        ask.pp(" in the blely")
-        annotated ++= askToText(ask).pp
+        annotated ++= askToText(ask)
         (ask._id, update(ask))
       }
     }.unzip
     extractIds(cookie).filterNot(idList contains) map delete
 
     Future.sequence(opList) inject
-      Updated(annotated.toString.pp, makeV1Cookie(idList filter (_.nonEmpty)))
+      Updated(annotated.toString, makeV1Cookie(idList filter (_.nonEmpty)))
   }
 
   /** Generates a sequence of ask objects and unmarked text segments for view construction. RenderElement is
@@ -190,25 +181,26 @@ final class AskApi(
     * @return
     *   future sequence of RenderElement (either ask or text)
     */
-  def render(text: String, url: Option[String]): Fu[Seq[Ask.RenderElement]] = {
+  def render(
+      text: String,
+      url: Option[String],
+      formatter: (String) => String = x => x
+  ): Fu[Seq[Ask.RenderElement]] = {
     val markupOffsets = getMarkupOffsets(text)
-    "here we are in render".pp
     val opList = getIntervalClosure(markupOffsets, text.length) map { interval =>
       val txt = text.slice(interval._1, interval._2)
       if (!markupOffsets.contains(interval))
-        fuccess(isText(txt))
+        fuccess(isText(formatter(txt)))
       else {
-        "shoiuld have one".pp
         extractId(txt) match {
-          case None =>
-            throw new IllegalArgumentException(s"askApi.render called with bad markup.")
+          case None => // this would be programmer error
+            fufail[Ask.RenderElement](new RuntimeException(s"askApi.render called with bad markup."))
           case Some(id) =>
             get(id) flatMap {
               case None =>
-                throw new RuntimeException(s"askApi.render id $id not found")
+                fufail[Ask.RenderElement](s"AskApi.render ask $id not found.")
               case Some(ask) =>
                 url.map(setUrl(ask, _))
-                ask.toString.pp("storing")
                 fuccess(isAsk(ask))
             }
         }
@@ -225,15 +217,8 @@ final class AskApi(
     *   timeline entries generated for participants will link to this url on ask conclusion when appropriate
     */
   def setUrl(cookie: Option[Ask.Cookie], url: String): Funit =
-    coll.update
-      .one(
-        $inIds(extractIds(cookie)),
-        $set("url" -> url),
-        multi = true
-      )
-      .void
+    coll.update.one($inIds(extractIds(cookie)), $set("url" -> url), multi = true).void
 
-  // should probably do the below with db selectors
   private def update(ask: Ask): Funit =
     coll.byId[Ask](ask._id) flatMap {
       case Some(oldAsk) =>
@@ -247,15 +232,12 @@ final class AskApi(
             )
             .void
         else funit
-      case None =>
-        insert(ask)
+      case None => insert(ask)
     }
 
-  private def insert(ask: Ask): Funit =
-    coll.insert.one(ask).void
+  private def insert(ask: Ask): Funit = coll.insert.one(ask).void
 
-  private def delete(id: Ask.ID): Funit =
-    coll.delete.one($id(id)).void
+  private def delete(id: Ask.ID): Funit = coll.delete.one($id(id)).void
 
   private def setUrl(ask: Ask, url: String): Funit =
     if (!ask.url.contains(url))
@@ -268,6 +250,7 @@ final class AskApi(
         .void
     else funit
 }
+
 object AskApi {
 
   /** Updated aggregates return values from askApi.prepare
@@ -279,22 +262,18 @@ object AskApi {
     */
   case class Updated(text: String, cookie: Option[Ask.Cookie])
 
-  // markdown fuckery
-  private val star         = ","                         // raw"(?:\*|\\\*)"
-  private val isMarkdownRe = raw"(?m)^\?\\\*.*\R?{2,}".r // enough to tell
-
   // markup
   private val matchAskRe = (
-    raw"(?m)^\?\?\h*\S.*\R"               // match "?? <question>"
-      + raw"(\?=.*\R)?"                   // match optional "?= <params>"
-      + raw"(\?$star{1,2}\h*\S.*\R?){2,}" // match 2 or more "/* <choice>"
-      + raw"(\?!.*\R?)?"                  // match optional "?! <reveal>"
+    raw"(?m)^\?\?\h*\S.*\R"           // match "?? <question>"
+      + raw"(\?=.*\R)?"               // match optional "?= <params>"
+      + raw"(\?#{1,2}\h*\S.*\R?){2,}" // match 2 or more "/* <choice>"
+      + raw"(\?!.*\R?)?"              // match optional "?! <reveal>"
   ).r
   private val matchIdRe       = raw"(?m)^\?=.*id:(\S{8})".r
   private val matchQuestionRe = raw"(?m)^\?\?(.*)".r
   private val matchParamsRe   = raw"(?m)^\?=(.*)".r
-  private val matchChoicesRe  = raw"(?m)^\?$star$star?(.*)".r
-  private val matchAnswerRe   = raw"(?m)^\?$star$star(.*)".r
+  private val matchChoicesRe  = raw"(?m)^\?##?(.*)".r
+  private val matchAnswerRe   = raw"(?m)^\?##(.*)".r
   private val matchRevealRe   = raw"(?m)^\?\!(.*)".r
 
   // cookie
@@ -309,7 +288,7 @@ object AskApi {
       + s"${ask.isTally ?? " tally"} "
       + s"${ask.isConcluded ?? " concluded"}"
       + s"id:${ask._id}\n"
-      + ask.choices.map(c => s"?$star${ask.answer.contains(c) ?? star} $c\n").mkString
+      + ask.choices.map(c => s"?#${if (ask.answer.contains(c)) "#" else ""} $c\n").mkString
       + s"${ask.reveal.fold("")(e => s"?! $e\n")}"
   )
 
@@ -322,9 +301,6 @@ object AskApi {
   // returns the (begin, end) offsets of ask markups in text.
   private def getMarkupOffsets(text: String): Seq[(Int, Int)] =
     matchAskRe.findAllMatchIn(text).map(m => (m.start, m.end)).toList
-
-  // markdown escapes our asterisks, so we emit the same
-  private def isMarkdown(text: String): Boolean = isMarkdownRe.matches(text)
 
   private def makeV1Cookie(idList: Seq[Ask.ID]): Option[String] =
     idList match {

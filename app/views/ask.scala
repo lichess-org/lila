@@ -13,7 +13,7 @@ object ask {
     div(cls := "ask-container")(
       div(cls := "ask", id := ask._id)(
         div(cls := "ask-header")(
-          h3(ask.question),
+          p(cls := "ask-question")(ask.question),
           if (!ask.isConcluded && ctx.me.exists(_.id == ask.creator))
             div(cls := "ask-actions")(
               if (ask.answer.isEmpty)

@@ -27,9 +27,13 @@ object post {
 
     // scalatags.Text.all.raw(rndr.text)
     views.html.base.layout(
-      moreCss = cssTag("ublog"),
+      moreCss = frag(
+        cssTag("ublog"),
+        cssTag("ask")
+      ),
       moreJs = frag(
         jsModule("expandText"),
+        jsModule("ask"),
         ctx.isAuth option jsModule("ublog")
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",

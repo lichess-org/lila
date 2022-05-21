@@ -21,15 +21,17 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
 
   type Html = String
 
-  def apply(post: UblogPost): Html = cache.get(post.markdown, process(post))
+  def formatter(logkey: String)    = (text: String) => cache.get(Markdown(text), process(logkey))
+  def apply(post: UblogPost): Html = cache.get(post.markdown, process(s"ublog:${post.id}"))
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Markdown, Html]()
 
-  private def process(post: UblogPost): Markdown => Html = replaceGameGifs.apply andThen
-    unescapeAtUsername.apply andThen
-    renderer(s"ublog:${post.id}") andThen
-    imageParagraph andThen
-    unescapeUnderscoreInLinks.apply
+  private def process(logkey: String): Markdown => Html =
+    replaceGameGifs.apply andThen
+      unescapeAtUsername.apply andThen
+      renderer(logkey) andThen
+      imageParagraph andThen
+      unescapeUnderscoreInLinks.apply
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs {

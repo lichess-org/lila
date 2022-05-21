@@ -24,12 +24,9 @@ final class Ask(env: Env) extends LilaController(env) {
           if (ask.creator != me.id) fuccess(Unauthorized)
           else
             action(ask) flatMap {
-              case Some(ask) => fuccess(Ok(views.html.ask.render(ask)))
-              case None      => fufail(new RuntimeException("Something is so very wrong."))
+              case Some(newAsk) => fuccess(Ok(views.html.ask.render(newAsk)))
+              case None         => fufail(new RuntimeException("Something is so very wrong."))
             }
       }
     }
-
-//  private def redirect(ask: lila.ask.Ask)(implicit req: RequestHeader) =
-//    ask.url.fold[Result](Redirect(~req.headers.get("referer")))(Found)
 }

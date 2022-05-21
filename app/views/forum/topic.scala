@@ -80,7 +80,7 @@ object topic {
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
-        askTag,
+        jsModule("ask"),
         formWithCaptcha.isDefined option captchaTag,
         jsModule("expandText")
       ),
