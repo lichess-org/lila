@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.poll.Poll
+import lila.ask.Ask
 import controllers.routes
 
 object topic {
@@ -71,7 +71,7 @@ object topic {
       categ: lila.forum.Categ,
       topic: lila.forum.Topic,
       posts: Paginator[lila.forum.Post],
-      renders: Seq[Seq[Poll.RenderElement]],
+      renders: Seq[Seq[Ask.RenderElement]],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
@@ -80,13 +80,13 @@ object topic {
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
-        pollTag,
+        askTag,
         formWithCaptcha.isDefined option captchaTag,
         jsModule("expandText")
       ),
       moreCss = frag(
         cssTag("forum"),
-        cssTag("poll")
+        cssTag("ask")
       ),
       openGraph = lila.app.ui
         .OpenGraph(

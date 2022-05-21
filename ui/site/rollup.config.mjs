@@ -121,9 +121,9 @@ export default rollupProject({
     output: 'team',
     name: 'teamStart',
   },
-  poll: {
-    input: 'src/poll.ts',
-    output: 'poll',
+  ask: {
+    input: 'src/ask.ts',
+    output: 'ask',
   },
   forum: {
     input: 'src/forum.ts',

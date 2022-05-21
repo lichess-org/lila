@@ -537,9 +537,10 @@ GET   /api/stream/irwin                controllers.Irwin.eventStream
 # Kaladin
 GET   /kaladin                         controllers.Irwin.kaladin
 
-# Poll
-POST  /poll/vote/:pid                  controllers.Poll.vote(pid: String)
-POST  /poll/close/:pid                 controllers.Poll.close(pid: String)
+# Ask
+POST  /ask/pick/:id/:choice           controllers.Ask.pick(id: String, choice: Int)
+POST  /ask/conclude/:id               controllers.Ask.conclude(id: String)
+POST  /ask/reset/:id                  controllers.Ask.reset(id: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

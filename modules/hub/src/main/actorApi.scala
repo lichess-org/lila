@@ -151,6 +151,10 @@ package timeline {
       extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
   }
+  case class AskConcluded(userId: String, question: String, askUrl: String)
+      extends Atom(s"askConcluded:${question}", false) {
+    def userIds = List(userId)
+  }
   case class UblogPost(userId: String, id: String, slug: String, title: String)
       extends Atom(s"ublog:$id", false) {
     def userIds = List(userId)

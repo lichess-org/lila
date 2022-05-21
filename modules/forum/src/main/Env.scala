@@ -10,7 +10,7 @@ import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.relation.RelationApi
-import lila.poll.PollApi
+import lila.ask.AskApi
 
 @Module
 final private class ForumConfig(
@@ -30,7 +30,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
-    pollApi: PollApi,
+    askApi: AskApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
     userRepo: lila.user.UserRepo,

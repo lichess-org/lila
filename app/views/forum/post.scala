@@ -7,8 +7,8 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
-import lila.poll.Poll
-import lila.poll.Poll.ImportMe._
+import lila.ask.Ask
+import lila.ask.Ask.imports._
 
 object post {
 
@@ -36,7 +36,7 @@ object post {
       categ: lila.forum.Categ,
       topic: lila.forum.Topic,
       post: lila.forum.Post,
-      render: Seq[Poll.RenderElement],
+      render: Seq[Ask.RenderElement],
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
@@ -109,7 +109,7 @@ object post {
         else
           render map {
             case isText(text) => p(richText(text))
-            case isPoll(poll) => views.html.poll.render(poll, ctx.me ?? { post.userId contains _.id })
+            case isAsk(ask)   => views.html.ask.render(ask)
           }
       ),
       !post.erased option {

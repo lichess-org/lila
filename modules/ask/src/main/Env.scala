@@ -1,24 +1,19 @@
-package lila.poll
+package lila.ask
 
-import akka.actor._
 import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
-
-import lila.common.Bus
 import lila.common.config._
 
 @Module
 final class Env(
     db: lila.db.Db,
-    notifyApi: lila.notify.NotifyApi
+    timeline: lila.hub.actors.Timeline
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  implicit private lazy val coll = db(CollName("user_poll"))
+  implicit private lazy val coll = db(CollName("ask"))
 
-  lazy val api = wire[PollApi]
+  lazy val api = wire[AskApi]
 
   /*Bus.subscribeFun("notify") {
     case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>

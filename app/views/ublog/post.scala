@@ -2,10 +2,11 @@ package views.html.ublog
 
 import controllers.routes
 import play.api.mvc.Call
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.ask.Ask.RenderElement
+import lila.ask.Ask.imports._
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
@@ -16,13 +17,15 @@ object post {
       user: User,
       blog: UblogBlog,
       post: UblogPost,
-      markup: Frag,
+      segments: Seq[RenderElement],
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followed: Boolean
   )(implicit
       ctx: Context
-  ) =
+  ) = {
+
+    // scalatags.Text.all.raw(rndr.text)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
@@ -105,7 +108,14 @@ object post {
             }
           ),
           strong(cls := "ublog-post__intro")(post.intro),
-          div(cls := "ublog-post__markup expand-text")(markup),
+          div(cls := "ublog-post__markup expand-text")(
+            segments map {
+              case isText(t) => scalatags.Text.all.raw(t)
+              case isAsk(a) =>
+                a.pp("got one")
+                views.html.ask.render(a)
+            }
+          ),
           div(cls := "ublog-post__footer")(
             if (post.live && ~post.discuss)
               a(
@@ -126,6 +136,7 @@ object post {
         )
       )
     }
+  }
 
   private def editButton(post: UblogPost)(implicit ctx: Context) = a(
     href     := editUrlOfPost(post),

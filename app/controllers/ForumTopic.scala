@@ -74,7 +74,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
             }
-            pollRenders <- Future.sequence(posts.currentPageResults.map(p => env.poll.api.render(p.text)))
+            askRenders <- renderAsks(posts.currentPageResults, page)
             form <- ctx.me.ifTrue(
               canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
@@ -83,7 +83,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               if (canRead)
                 Ok(
                   html.forum.topic
-                    .show(categ, topic, posts, pollRenders, form, unsub, canModCateg = canModCateg)
+                    .show(categ, topic, posts, askRenders, form, unsub, canModCateg = canModCateg)
                 ).fuccess
               else notFound
           } yield res
@@ -121,11 +121,18 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   /** Returns a list of the usernames of people participating in a forum topic conversation
     */
-  def participants(topicId: String) =
+  def participants(topicId: String) = {
     Auth { _ => _ =>
       for {
         userIds   <- postApi allUserIds topicId
         usernames <- env.user.repo usernamesByIds userIds
       } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
     }
+  }
+
+  private def renderAsks(posts: Seq[lila.forum.Post], page: Int) =
+    Future.sequence(
+      posts map (p => env.ask.api.render(p.text, Some(s"${routes.ForumPost.redirect(p._id)}")))
+    )
+
 }

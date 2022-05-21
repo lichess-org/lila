@@ -109,7 +109,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     AuthBody { implicit ctx => me =>
       postApi getPost id flatMap {
         _ ?? { post =>
-          env.poll.api.deletePolls(post.pollCookie)
+          env.ask.api.deleteAsks(post.askCookie)
           if (me.id == ~post.userId && !post.erased)
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else

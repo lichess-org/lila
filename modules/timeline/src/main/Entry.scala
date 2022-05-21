@@ -41,6 +41,7 @@ object Entry {
       case d: TeamJoin      => "team-join"       -> toBson(d)
       case d: TeamCreate    => "team-create"     -> toBson(d)
       case d: ForumPost     => "forum-post"      -> toBson(d)
+      case d: AskConcluded  => "ask-concluded"   -> toBson(d)
       case d: UblogPost     => "ublog-post"      -> toBson(d)
       case d: TourJoin      => "tour-join"       -> toBson(d)
       case d: GameEnd       => "game-end"        -> toBson(d)
@@ -63,6 +64,7 @@ object Entry {
     implicit val teamJoinHandler      = Macros.handler[TeamJoin]
     implicit val teamCreateHandler    = Macros.handler[TeamCreate]
     implicit val forumPostHandler     = Macros.handler[ForumPost]
+    implicit val askConcludedHandler  = Macros.handler[AskConcluded]
     implicit val ublogPostHandler     = Macros.handler[UblogPost]
     implicit val tourJoinHandler      = Macros.handler[TourJoin]
     implicit val gameEndHandler       = Macros.handler[GameEnd]
@@ -99,6 +101,7 @@ object Entry {
     val teamJoinWrite      = Json.writes[TeamJoin]
     val teamCreateWrite    = Json.writes[TeamCreate]
     val forumPostWrite     = Json.writes[ForumPost]
+    val askConcludedWrite  = Json.writes[AskConcluded]
     val ublogPostWrite     = Json.writes[UblogPost]
     val tourJoinWrite      = Json.writes[TourJoin]
     val gameEndWrite       = Json.writes[GameEnd]
@@ -115,6 +118,7 @@ object Entry {
       case d: TeamJoin      => teamJoinWrite writes d
       case d: TeamCreate    => teamCreateWrite writes d
       case d: ForumPost     => forumPostWrite writes d
+      case d: AskConcluded  => askConcludedWrite writes d
       case d: UblogPost     => ublogPostWrite writes d
       case d: TourJoin      => tourJoinWrite writes d
       case d: GameEnd       => gameEndWrite writes d

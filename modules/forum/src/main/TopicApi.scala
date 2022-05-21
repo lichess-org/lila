@@ -9,7 +9,7 @@ import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.memo.CacheApi
-import lila.poll.PollApi
+import lila.ask.AskApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ Holder, User }
 
@@ -17,7 +17,7 @@ final private[forum] class TopicApi(
     postRepo: PostRepo,
     topicRepo: TopicRepo,
     categRepo: CategRepo,
-    pollApi: PollApi,
+    askApi: AskApi,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
     indexer: lila.hub.actors.ForumSearch,
@@ -71,8 +71,9 @@ final private[forum] class TopicApi(
       data: ForumForm.TopicData,
       me: User
   ): Fu[Topic] =
-    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) zip pollApi.prepare(
-      spam.replace(data.post.text)
+    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) zip askApi.prepare(
+      spam.replace(data.post.text),
+      me.id
     ) flatMap { case ((slug, lang), updated) =>
       val topic = Topic.make(
         categId = categ.slug,
@@ -93,7 +94,7 @@ final private[forum] class TopicApi(
         number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true),
-        pollCookie = updated.cookie
+        askCookie = updated.cookie
       )
       findDuplicate(topic) flatMap {
         case Some(dup) => fuccess(dup)

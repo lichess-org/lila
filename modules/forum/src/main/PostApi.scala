@@ -10,7 +10,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
-import lila.poll.PollApi
+import lila.ask.AskApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 
@@ -21,7 +21,7 @@ final class PostApi(
     mentionNotifier: MentionNotifier,
     indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,
-    pollApi: PollApi,
+    askApi: AskApi,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -38,8 +38,9 @@ final class PostApi(
       data: ForumForm.PostData,
       me: User
   ): Fu[Post] = {
-    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) zip pollApi.prepare(
-      spam.replace(data.text)
+    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) zip askApi.prepare(
+      spam.replace(data.text),
+      me.id
     ) flatMap { case ((lang, topicUserIds), updated) =>
       val publicMod = MasterGranter(_.PublicMod)(me)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
@@ -55,7 +56,7 @@ final class PostApi(
         hidden = topic.hidden,
         categId = categ.id,
         modIcon = modIcon option true,
-        pollCookie = updated.cookie
+        askCookie = updated.cookie
       )
       postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -92,7 +93,7 @@ final class PostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          pollApi.prepare(spam replace newText, post.pollCookie) flatMap { updated =>
+          askApi.prepare(spam replace newText, user.id, post.askCookie) flatMap { updated =>
             val newPost = post.editPost(DateTime.now, updated.text, updated.cookie)
             (newPost.text != post.text).?? {
               postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {

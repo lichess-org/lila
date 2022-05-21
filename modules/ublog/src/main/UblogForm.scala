@@ -3,12 +3,13 @@ package lila.ublog
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-
 import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
 import lila.common.Markdown
+import lila.ask.AskApi.Updated
+import lila.ask.Ask
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -75,13 +76,14 @@ object UblogForm {
 
     def realLanguage = language flatMap Lang.get
 
-    def create(user: User) =
+    def create(user: User, updated: Updated) = {
+
       UblogPost(
         _id = UblogPost.Id(lila.common.ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = Markdown(updated.text),
         language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
         topics = topics ?? UblogTopic.fromStrList,
         image = none,
@@ -91,14 +93,16 @@ object UblogForm {
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0)
+        views = UblogPost.Views(0),
+        askCookie = updated.cookie
       )
+    }
 
-    def update(user: User, prev: UblogPost) =
+    def update(user: User, prev: UblogPost, updated: Updated) =
       prev.copy(
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = Markdown(updated.text),
         image = prev.image.map { i =>
           i.copy(alt = imageAlt, credit = imageCredit)
         },
@@ -107,7 +111,8 @@ object UblogForm {
         live = live,
         discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now)),
+        askCookie = updated.cookie
       )
   }
 

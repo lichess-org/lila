@@ -18,6 +18,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
+    askApi: lila.ask.AskApi,
     settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(implicit

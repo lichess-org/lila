@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 import lila.user.User
 import lila.security.Granter
-import lila.poll.Poll
+import lila.ask.Ask
 
 case class OldVersion(text: String, createdAt: DateTime)
 
@@ -26,7 +26,7 @@ case class Post(
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
     reactions: Option[Post.Reactions] = None,
-    pollCookie: Option[Poll.Cookie] = None
+    askCookie: Option[Ask.Cookie] = None
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -60,7 +60,7 @@ case class Post(
     canBeEditedBy(editingUser) &&
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
-  def editPost(updated: DateTime, newText: String, newCookie: Option[Poll.Cookie]): Post = {
+  def editPost(updated: DateTime, newText: String, newCookie: Option[Ask.Cookie]): Post = {
     val oldVersion = OldVersion(text, updatedOrCreatedAt)
 
     // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
@@ -71,7 +71,7 @@ case class Post(
       text = newText,
       updatedAt = updated.some,
       reactions = reactions.map(_.view.filterKeys(k => !Post.Reaction.positive(k)).toMap),
-      pollCookie = newCookie
+      askCookie = newCookie
     )
   }
 
@@ -125,7 +125,7 @@ object Post {
       troll: Boolean,
       hidden: Boolean,
       modIcon: Option[Boolean] = None,
-      pollCookie: Option[Poll.Cookie] = None
+      askCookie: Option[Ask.Cookie] = None
   ): Post = {
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
@@ -139,7 +139,7 @@ object Post {
       troll = troll,
       hidden = hidden,
       modIcon = modIcon,
-      pollCookie = pollCookie,
+      askCookie = askCookie,
       createdAt = DateTime.now
     )
   }

@@ -1,0 +1,191 @@
+
+// HEY!  What are YOU doing here? Exposure to the contents of this file can have serious side effects.  
+// Nobody should see be looking at this.  Nobody.  Get out.  OUT!
+
+@function btn-choice($hue, $sat, $lum, $alpha: 1) {
+  @if $theme-light {
+    @return linear-gradient(hsl($hue, $sat, $lum) 0%, hsl($hue, $sat, $lum - 6) 100%);
+  } @else if $theme == 'dark' {
+    @return linear-gradient(hsl($hue, $sat * 1.6, $lum * 0.27) 0%, hsl($hue, $sat * 1.6, $lum * 0.22) 100%);
+  } @else {
+    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
+  }
+}
+@function btn-selected($hue, $sat, $lum, $alpha: 1) {
+  @if $theme-light {
+    @return linear-gradient(hsl($hue, $sat, $lum) 0%, hsl($hue, $sat, $lum - 6) 100%);
+  } @else if $theme == 'dark' {
+    @return linear-gradient(hsl($hue, $sat * 1.6, $lum * 0.45) 0%, hsl($hue, $sat * 1.6, $lum * 0.4) 100%);
+  } @else {
+    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
+  }
+}
+@function btn-hover($hue, $sat, $lum, $alpha: 1, $dark-selected-hack: 0.3) {
+  @if $theme-light {
+    @return hsl($hue, $sat, $lum);
+  } @else if $theme == 'dark' {
+    @return hsl($hue, $sat * 1.6, $lum * $dark-selected-hack);
+  } @else {
+    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
+  }
+}
+ 
+.ask {
+  $hue-pick: hue($c-primary);
+  $hue-correct: hue($c-secondary);
+
+  h3 {
+    font-size: 1.6em;
+  }
+  .ask-action {
+    @media (hover: hover) {
+      visibility: hidden;
+    }
+  }
+
+  &:hover .ask-action {
+    visibility: visible;
+  }
+
+  div.ask-header {
+    @extend %flex-between;
+    justify-content: space-between;
+    align-items: center;
+
+    div.ask-actions {
+      display: flex;
+      flex-flow: row-reverse nowrap;
+
+      button.ask-action {
+        @extend %button-none;
+        color: $c-primary;
+        background: none;
+        box-shadow: none;
+        font-size: 0.9em;
+        padding-top: 0.6em;
+        padding-bottom: 0.6em;
+        padding-left: 0.8em;
+        padding-right: 0.8em;
+        margin-top: 0em;
+        margin-bottom: 0.3em;
+
+        &:hover {
+          box-shadow: inherit;
+          background: mix($c-primary, $c-bg-box, if($theme-light, 10%, 20%));
+        }
+      }
+    } 
+  }
+
+  div.ask-reveal {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  div.ask-choices {
+    @extend %flex-wrap; 
+    overflow: hidden;
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+
+    div {
+      flex: 1 1 auto;
+      position: relative;
+    }
+
+    button {
+      position: absolute;
+      left: -99999px;
+    }
+
+    label {
+      @extend %metal, %flex-center;
+      justify-content: center;
+      padding: 0.6em;
+      height: 100%;
+      cursor: pointer;
+      border-right: $border;
+      user-select: none;
+      text-shadow: #888 0px 0px 0px;
+      color: if($theme-light, #444, #ddd);
+      background: btn-choice(0deg, 0%, 96%, 0.2);
+      &:hover {
+        //left: 0px;
+        background: btn-hover(0deg, 0%, 95%, 0.3);
+      }
+    }
+
+    div:last-child label {
+      border-right: 0;
+    }
+    label.ask-pick {
+      background: btn-selected($hue-pick, 50%, 80%, 0.6);
+      &:hover {
+        background: btn-hover($hue-pick, 35%, 80%, 0.7, 0.45);
+      }
+    }
+
+    label.ask-correct,
+    label.ask-correct:hover {
+      background: btn-selected($hue-correct, 50%, 80%, 0.6);
+    }
+
+    label.ask-wrong-pick,
+    label.ask-wrong-pick:hover {
+      background: none;
+      color: $c-font;
+      &:before,
+      &:after {
+        position: absolute;
+        content: '';
+        background: hsla(0, 100%, 60%, 0.5);
+        width: 6em;
+        height: 4px;
+        //-webkit-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+      }
+      &:after {
+        //-webkit-transform: rotate(20deg);
+        transform: rotate(20deg);
+      }
+    }
+
+    label.ask-wrong,
+    label.ask-wrong:hover {
+      background: none;
+      $color: $c-font;
+    }
+  }
+
+  div.ask-bar-graph {
+    * {
+      box-sizing: border-box;
+    }
+
+    table {
+      border-collapse: collapse;
+
+      .pick-bar {
+        min-width: 3px;
+        background: $c-primary;
+      }
+
+      td {
+        padding-top: 0.4em;
+        white-space: nowrap;
+      }
+
+      td:first-child {
+        width: 0px;
+        padding-left: 0.6em;
+        padding-right: 2em;
+      }
+
+      td:last-child {
+        width: 100%;
+        padding-right: 0.6em;
+      }
+    }
+  }
+}
