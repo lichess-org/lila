@@ -180,7 +180,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               hook: bind('click', () => ctrl.shareGame(true)),
               attrs: dataIcon(''),
             },
-            'Share'
+            noarg('shareGame')
           ),
       ctrl.ongoing
         ? null

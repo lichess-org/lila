@@ -150,7 +150,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             download: true,
           },
         },
-        'BOARD'
+        'Board'
       ),
     ]),
     h('form.form3', [

@@ -53,6 +53,9 @@ object jsI18n {
         trans.youNeedAnAccountToDoThat,
         // action menu
         trans.menu,
+        trans.shareGame,
+        trans.currentPosition,
+        trans.gameAsGIF,
         trans.toStudy,
         trans.inlineNotation,
         trans.computerAnalysis,
