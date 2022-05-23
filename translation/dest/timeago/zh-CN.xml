@@ -23,9 +23,6 @@
     <item quantity="other">在%s 年内</item>
   </plurals>
   <string name="rightNow">马上</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%几秒钟前</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s分钟前</item>
   </plurals>
