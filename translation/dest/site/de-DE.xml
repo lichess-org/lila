@@ -464,7 +464,7 @@
   <string name="onlinePlayers">Spieler online</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="success">Korrekt</string>
+  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Gespeichert</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
     <item quantity="other">%s laufende Partien</item>
