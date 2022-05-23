@@ -64,6 +64,7 @@ final class AskApi(
     *   provide a uri for notifications (where results can be viewed)
     */
   def conclude(ask: Ask): Fu[Option[Ask]] = conclude(ask._id)
+
   def conclude(id: Ask.ID): Fu[Option[Ask]] =
     coll.ext.findAndUpdate[Ask]($id(id), $set("isConcluded" -> true), fetchNewObject = true).map {
       case Some(ask) =>
@@ -82,32 +83,9 @@ final class AskApi(
     */
 
   def reset(ask: Ask): Fu[Option[Ask]] = reset(ask._id)
+
   def reset(id: Ask.ID): Fu[Option[Ask]] =
     coll.ext.findAndUpdate[Ask]($id(id), $unset("picks"), fetchNewObject = true)
-
-  /** returns a summary of user selections for all asks in a given cookie useful for quizzes and
-    * questionnaires (?)
-    * @param cookie
-    *   to summarize
-    * @param uid
-    *   to summarize
-    * @return
-    *   a future sequence of question/answer strings
-    */
-  def getUserSummary(cookie: Option[Ask.Cookie], uid: User.ID): Fu[Seq[String]] =
-    coll
-      .find($inIds(extractIds(cookie)))
-      .cursor[Ask]()
-      .list()
-      .map(askList =>
-        askList map { ask =>
-          ask.getPick(uid).fold("") { i =>
-            val choice = ask.choices(i)
-            s"${ask.question}:  $choice" +
-              ask.answer.fold("")(a => (a != choice) ?? s" ($a)")
-          }
-        }
-      )
 
   /** Deletes all asks associated with a cookie
     *
@@ -139,6 +117,7 @@ final class AskApi(
       cookie: Option[Ask.Cookie] = None,
       isMarkdown: Boolean = false
   ): Fu[Updated] = {
+
     val stripFunc: String => String =
       if (isMarkdown) stripMarkdownEscapes else { x => x }
 
@@ -219,6 +198,30 @@ final class AskApi(
     */
   def setUrl(cookie: Option[Ask.Cookie], url: String): Funit =
     coll.update.one($inIds(extractIds(cookie)), $set("url" -> url), multi = true).void
+
+  /** returns a summary of user selections for all asks in a given cookie useful for quizzes and
+    * questionnaires (?)
+    * @param cookie
+    *   to summarize
+    * @param uid
+    *   to summarize
+    * @return
+    *   a future sequence of question/answer strings
+    */
+  def getUserSummary(cookie: Option[Ask.Cookie], uid: User.ID): Fu[Seq[String]] =
+    coll
+      .find($inIds(extractIds(cookie)))
+      .cursor[Ask]()
+      .list()
+      .map(askList =>
+        askList map { ask =>
+          ask.getPick(uid).fold("") { i =>
+            val choice = ask.choices(i)
+            s"${ask.question}:  $choice" +
+              ask.answer.fold("")(a => (a != choice) ?? s" ($a)")
+          }
+        }
+      )
 
   private def update(ask: Ask): Funit =
     coll.byId[Ask](ask._id) flatMap {
@@ -305,18 +308,9 @@ object AskApi {
     sb ++= s"${ask.isPublic ?? " public"}"
     sb ++= s"${ask.isTally ?? " tally"}"
     sb ++= s"${ask.isConcluded ?? " concluded"}\n"
-    sb ++= ask.choices.map(c => s"?#${ask.answer.contains(c) ?? "#"} $c\n").mkString
+    sb ++= ask.choices.map(c => s"?#${if (ask.answer.contains(c)) "@" else "#"} $c\n").mkString
     (sb ++= s"${ask.reveal.fold("")(a => s"?! $a\n")}").toString
   }
-
-  // just our version right before render so user can make future edits and markdown won't break
-  /*def sanitize(ask: Ask): Ask =
-    ask.copy(
-      question = stripMarkdownEscapes(ask.question),
-      choices = ask.choices map stripMarkdownEscapes,
-      answer = ask.answer map stripMarkdownEscapes,
-      reveal = ask.reveal map stripMarkdownEscapes
-    )*/
 
   // assumes inputs are non-overlapping and sorted
   private def getIntervalClosure(subs: Seq[(Int, Int)], upper: Int): Seq[(Int, Int)] = {
