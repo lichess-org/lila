@@ -6,29 +6,46 @@ import org.joda.time.DateTime
 /*
 Example text from a message with valid ask markup:
 
-Hey everyone, please let me know what works best for our weekly team bullet
-tournament.
-?? When should it be?
+?? When should we schedule next week's team tournament?
 ?= public tally
-?* Mon 7:00pm GMT
-?* Tue 6:30pm GMT
-?* Wed 8:00pm GMT
+?# Mon 7:00pm GMT
+?# Tue 6:30pm GMT
+?# Wed 8:00pm GMT
+?! Thanks for your input!
 
-Ask markup must be contiguous lines.  Due to the rendering implementation,
-it cannot be used within block level html tags - kinda like markdown.
+All markup for a given ask must occur on contiguous lines.  There are 2
+types of ask, quizzes and polls.  A quiz has a special choice denoted by
+?@ that indicates the correct answer (which is, of course, also a choice).
+A quiz gives immediate feedback to the user when they make a selection.
+Polls typically don't reveal results until they are concluded by their
+creator, at which time all participants receive notification in their
+timeline and a bar graph is shown at the poll location with the vote tallies.
 
 ?? specifies the question.  it is required and client should display it.
 
-?= is optional - it can be followed by [public|tally|ask].  These result
+?= is optional and customizes the ask's behavior - ?= can be followed by
+the keywords "public" and/or "tally".  These result
 in boolean flags that client code can interpret or ignore.  public
 means it's OK to show who voted for what.  tally means it's OK to show
 results before the ask is closed.  Both are false if ?= is omitted.
 
-?* specifies a choice to vote on.  2 or more are required
+?# specifies a choice
 
-the ??, ?=, ?* directives must be the first characters on a
-new line. empty lines or text between markup lines are not allowed.
-Multiline questions are not allowed.
+?@ specifies the correct answer.  the answer is also a choice
+
+?! is the reveal text.  This is hidden from the user until they make a
+selection.  It is intended for explanations of the answer in quiz asks but
+it can be used for polls as well.
+
+the ??, ?=, ?#/?@, ?! directives must be the first characters on their own
+lines and they must be specified in order (aside from ?# with respect to ?@).
+Empty lines or text between markup lines are not allowed.  Multiline
+questions and reveals are not allowed, but there's no real limit on the
+amount of text you can provide.
+
+In the code, care is taken to only use "choice" when talking about the set
+of valid selections whereas the term "pick" is always used when talking
+about a user/choice pairing.
  */
 case class Ask(
     _id: Ask.ID,
@@ -45,9 +62,9 @@ case class Ask(
     url: Option[String]
 ) {
 
-  /** returns true if fields specified by markup are different that should invalide previous picks
+  /** Returns true if markup fields have been modified that invalide previous picks
     *
-    * only tally, concluded, and ?! reveal can be changed
+    * Only tally, concluded, and ?! reveal text can be changed
     *
     * @param p
     * @return
@@ -57,18 +74,17 @@ case class Ask(
   def invalidatedBy(p: Ask): Boolean =
     question != p.question || choices != p.choices || isPublic != p.isPublic || answer != p.answer
 
-  /** gets a list of user ids who submitted picks
+  /** Gets a list of user ids who submitted picks
     * @return
-    *   list of user ids who participated in this ask
+    *   list of user ids
     */
-
   def participants: Seq[User.ID] =
     picks match {
       case Some(p) => p.keys.toSeq
       case None    => Nil
     }
 
-  /** does uid have a pick for this ask
+  /** Does user have a pick for this ask?
     * @param uid,
     *   user id
     * @return
@@ -76,7 +92,7 @@ case class Ask(
     */
   def hasPick(uid: User.ID): Boolean = picks.exists(_.contains(uid))
 
-  /** gets pick for uid as an Option[Int]
+  /** Gets user pick as an Option[Int]
     * @param uid,
     *   user id
     * @return
@@ -107,6 +123,10 @@ case class Ask(
         p.collect { case (text, i) if choice == i => text }.toSeq
       case None => Nil
     }
+
+  def isPoll: Boolean = answer.isEmpty
+
+  def isQuiz: Boolean = answer.nonEmpty
 }
 
 object Ask {
@@ -116,7 +136,6 @@ object Ask {
   type Cookie        = String
   type Choices       = IndexedSeq[String]
   type Picks         = Map[User.ID, Int] // _2 is index in Choices list
-  type Results       = Map[String, Int]  // _1 is choiceText, _2 is pick count
   type RenderElement = Either[Ask, String]
 
   object imports { // for slightly cleaner view code, import lila.ask.Ask.imports._
@@ -130,10 +149,10 @@ object Ask {
       choices: Choices,
       isPublic: Boolean,
       isTally: Boolean,
+      isConcluded: Boolean,
       creator: User.ID,
       answer: Option[String],
-      reveal: Option[String],
-      url: Option[String]
+      reveal: Option[String]
   ) =
     Ask(
       _id = _id.getOrElse(lila.common.ThreadLocalRandom nextString idSize),
@@ -141,12 +160,12 @@ object Ask {
       choices = choices,
       isPublic = isPublic,
       isTally = isTally,
-      isConcluded = false,
+      isConcluded = isConcluded,
       createdAt = DateTime.now(),
       creator = creator,
       answer = answer,
       reveal = reveal,
       picks = None,
-      url = url
+      url = None
     )
 }

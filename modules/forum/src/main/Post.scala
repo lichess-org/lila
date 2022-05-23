@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import lila.user.User
 import lila.security.Granter
 import lila.ask.Ask
+import lila.ask.AskApi
 
 case class OldVersion(text: String, createdAt: DateTime)
 
@@ -87,6 +88,8 @@ case class Post(
   def erased = erasedAt.isDefined
 
   def isBy(u: User) = userId.exists(_ == u.id)
+
+  def cleanTake(n: Int): String = AskApi.stripAsks(text, n)
 }
 
 object Post {

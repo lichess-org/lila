@@ -46,7 +46,7 @@ case class PostView(
     categ: Categ
 ) {
 
-  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.cleanTake(80)
 }
 
 object PostView {

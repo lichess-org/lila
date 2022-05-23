@@ -538,9 +538,9 @@ GET   /api/stream/irwin                controllers.Irwin.eventStream
 GET   /kaladin                         controllers.Irwin.kaladin
 
 # Ask
-POST  /ask/pick/:id/:choice           controllers.Ask.pick(id: String, choice: Int)
-POST  /ask/conclude/:id               controllers.Ask.conclude(id: String)
-POST  /ask/reset/:id                  controllers.Ask.reset(id: String)
+POST  /ask/pick/:id/:pick              controllers.Ask.pick(id: String, pick: Int)
+POST  /ask/conclude/:id                controllers.Ask.conclude(id: String)
+POST  /ask/reset/:id                   controllers.Ask.reset(id: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

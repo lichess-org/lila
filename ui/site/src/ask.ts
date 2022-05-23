@@ -18,30 +18,3 @@ lichess.load.then(() => {
     return false;
   }
 });
-/* {
-    const askContainer = this.parent;
-
-    const id = this.getAttribute('id');
-    id;
-    $(this)
-      .find('.ask-xhr')
-      .on('click', function (e) {
-        const el = e.target as HTMLInputElement;
-        var postUrl = el.formAction;
-        xhr.text(postUrl, { method: 'post', body: new FormData() }).then((frag: string) => {
-          askContainer.innerHTML = frag;
-          $(askContainer);
-        });
-      });
-  });
-  /*$('form.auto-submit').each(function (this: HTMLFormElement) {
-    const form = this;
-    const inputElements: Array<HTMLInputElement> = [...this.getElementsByTagName('input')];
-    $(form)
-      .find('ask-radio')
-      .on('input', function (e: InputEvent) {
-        inputElements.forEach(function (choiceBtn: HTMLInputElement) {
-          if (choiceBtn != e.target) choiceBtn.checked = false;
-        });
-      });
-  });*/

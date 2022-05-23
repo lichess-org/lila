@@ -187,7 +187,7 @@ final class PostApi(
             postId = post.id,
             topicName = topic.name,
             userId = post.userId,
-            text = post.text take 200,
+            text = post.cleanTake(200),
             createdAt = post.createdAt
           )
         }

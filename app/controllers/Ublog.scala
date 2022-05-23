@@ -51,7 +51,7 @@ final class Ublog(env: Env) extends LilaController(env) {
                 env.ask.api.render(
                   post.markdown.value,
                   Some(urlAction.url),
-                  env.ublog.markup.formatter(s"ublog:{$post.id}")
+                  Some(env.ublog.markup.formatter(s"ublog:{$post.id}"))
                 ) flatMap { renderElements =>
                   env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                     ctx.me.??(env.ublog.rank.liked(post)) zip

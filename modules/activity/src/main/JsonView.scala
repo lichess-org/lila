@@ -140,7 +140,7 @@ final class JsonView(
             "posts" -> posts.map { p =>
               Json.obj(
                 "url"  -> s"/forum/redirect/post/${p.id}",
-                "text" -> p.text.take(500)
+                "text" -> p.cleanTake(500)
               )
             }
           )

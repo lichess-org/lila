@@ -4,10 +4,10 @@ import lila.app._
 
 final class Ask(env: Env) extends LilaController(env) {
 
-  def pick(id: String, choice: Int) =
+  def pick(id: String, pick: Int) =
     AuthBody { implicit ctx => me =>
-      env.ask.api.pick(id, me.id, choice) map {
-        case Some(ask) => Ok(views.html.ask.render(ask)) // redirect(ask)
+      env.ask.api.pick(id, me.id, if (pick < 0) None else Some(pick)) map {
+        case Some(ask) => Ok(views.html.ask.renderInner(ask))
         case None      => NotFound(s"Ask id ${id} not found")
       }
     }
@@ -24,7 +24,7 @@ final class Ask(env: Env) extends LilaController(env) {
           if (ask.creator != me.id) fuccess(Unauthorized)
           else
             action(ask) flatMap {
-              case Some(newAsk) => fuccess(Ok(views.html.ask.render(newAsk)))
+              case Some(newAsk) => fuccess(Ok(views.html.ask.renderInner(newAsk)))
               case None         => fufail(new RuntimeException("Something is so very wrong."))
             }
       }

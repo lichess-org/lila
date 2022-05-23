@@ -1,40 +1,9 @@
-
-// HEY!  What are YOU doing here?  Prolonged exposure to the contents of this file can have serious side effects!  
-// Nobody should see be looking at this.
-
-@function btn-choice($hue, $sat, $lum, $alpha: 1) {
-  @if $theme-light {
-    @return linear-gradient(hsl($hue, $sat, $lum) 0%, hsl($hue, $sat, $lum - 6) 100%);
-  } @else if $theme == 'dark' {
-    @return linear-gradient(hsl($hue, $sat * 1.6, $lum * 0.27) 0%, hsl($hue, $sat * 1.6, $lum * 0.22) 100%);
-  } @else {
-    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
-  }
-}
-@function btn-selected($hue, $sat, $lum, $alpha: 1) {
-  @if $theme-light {
-    @return linear-gradient(hsl($hue, $sat, $lum) 0%, hsl($hue, $sat, $lum - 6) 100%);
-  } @else if $theme == 'dark' {
-    @return linear-gradient(hsl($hue, $sat * 1.6, $lum * 0.45) 0%, hsl($hue, $sat * 1.6, $lum * 0.4) 100%);
-  } @else {
-    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
-  }
-}
-@function btn-hover($hue, $sat, $lum, $alpha: 1, $dark-selected-hack: 0.3) {
-  @if $theme-light {
-    @return hsl($hue, $sat, $lum);
-  } @else if $theme == 'dark' {
-    @return hsl($hue, $sat * 1.6, $lum * $dark-selected-hack);
-  } @else {
-    @return hsla($hue, $sat * 100, $lum * 0.5, $alpha);
-  }
-}
- 
 .ask {
   $hue-pick: hue($c-primary);
   $hue-correct: hue($c-secondary);
+  $c-contrast-font: if($theme-light, #444, #ddd);
 
-  font-size: 1.1em;
+  font-size: 14px;
   line-height: normal;
 
   .ask-action {
@@ -50,10 +19,11 @@
   div.ask-header {
     @extend %flex-between;
     flex-wrap: nowrap;
-    margin-bottom: 0.6em;
+    margin: 0 0 0.6em 0;
 
     p.ask-question {
-      font-size: 1.6em;
+      font-size: 1.2em;
+      margin: 0 0 0.2em 0;
     }
 
     div.ask-actions {
@@ -66,32 +36,36 @@
         background: none;
         box-shadow: none;
         font-size: 0.9em;
-        padding-top: 0.6em;
-        padding-bottom: 0.6em;
-        padding-left: 0.8em;
-        padding-right: 0.8em;
-        margin-top: 0em;
-        margin-bottom: 0.3em;
+        padding: 0.6em 0.8em 0.6em 0.8em;
+        margin: 0 0 0.3em 0;
 
         &:hover {
           box-shadow: inherit;
+          color: mix($c-primary, $c-contrast-font, 50%);
           background: mix($c-primary, $c-bg-box, if($theme-light, 10%, 20%));
         }
       }
-    } 
+    }
   }
 
-  div.ask-reveal {
+  div.ask-reveal p {
+    margin: 1em 0 0 0;
   }
 
   div.ask-choices {
-    @extend %flex-wrap; 
+    @extend %flex-wrap;
     overflow: hidden;
-    margin-bottom: 0.5em;
+    margin: 0 0 0.5em 0;
 
     div {
       flex: 1 1 auto;
       position: relative;
+      border: none;
+      margin: 0 3px 3px 0;
+    }
+
+    div:last-child {
+      margin-right: 0;
     }
 
     button {
@@ -101,43 +75,49 @@
 
     label {
       @extend %metal, %flex-center;
+      cursor: default;
+      user-select: none;
+      color: $c-font;
+      background: none;
       justify-content: center;
       padding: 0.6em;
+      margin: 0;
       height: 100%;
-      border-right: $border;
-      user-select: none;
-      text-shadow: #888 0px 0px 0px;
-      color: if($theme-light, #444, #ddd);
-      background: btn-choice(0deg, 0%, 96%, 0.2);
+      text-shadow: #888 0 0 0;
+    }
+
+    %lighten-hover {
       cursor: pointer;
-      
+      color: $c-contrast-font;
       &:hover {
-        background: btn-hover(0deg, 0%, 95%, 0.3);
+        box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
       }
     }
 
-    div:last-child label {
-      border-right: 0;
-    }
-
-    label.ask-pick {
-      background: btn-selected($hue-pick, 50%, 80%, 0.6);
-      &:hover {
-        background: btn-hover($hue-pick, 35%, 80%, 0.7, 0.45);
+    label.ask-enabled {
+      @extend %lighten-hover;
+      @if $theme-light {
+        background: linear-gradient(hsl(0deg, 0%, 96%) 0%, hsl(0deg, 0%, 90%) 100%);
+      } @else if $theme == 'dark' {
+        background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
+      } @else {
+        background: hsla(0deg, 0%, 50%, 0.3);
       }
     }
 
-    label.ask-correct,
-    label.ask-correct:hover {
-      background: btn-selected($hue-correct, 50%, 80%, 0.6);
+    label.ask-vote {
+      @extend %lighten-hover;
+      color: white;
+      background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
     }
 
-    label.ask-wrong-pick,
-    label.ask-wrong-pick:hover {
-      background: none;
-      color: $c-font;
+    label.ask-correct {
+      color: white;
+      background: linear-gradient(hsl(88deg, 62%, 44%) 0%, hsl(88deg, 62%, 38%) 100%);
+    }
 
-      &:before,
+    label.ask-wrong {
+      &:before, // transforms for the red x on wrong answers
       &:after {
         position: absolute;
         content: '';
@@ -146,16 +126,10 @@
         height: 4px;
         transform: rotate(-20deg);
       }
-      
+
       &:after {
         transform: rotate(20deg);
       }
-    }
-
-    label.ask-wrong,
-    label.ask-wrong:hover {
-      background: none;
-      $color: $c-font;
     }
   }
 
@@ -167,18 +141,18 @@
     table {
       border-collapse: collapse;
 
-      .pick-bar {
-        min-width: 3px;
+      .ask-votes-bar {
+        min-width: 0.2em;
         background: $c-primary;
       }
 
       td {
-        padding-top: 0.4em;
+        padding: 0 0 0.4em 0;
         white-space: nowrap;
       }
 
       td:first-child {
-        width: 0px;
+        width: 0;
         padding-left: 0.6em;
         padding-right: 2em;
       }

@@ -21,7 +21,8 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
 
   type Html = String
 
-  def formatter(logkey: String)    = (text: String) => cache.get(Markdown(text), process(logkey))
+  def formatter(logkey: String) = (text: String) => cache.get(Markdown(text), process(logkey))
+
   def apply(post: UblogPost): Html = cache.get(post.markdown, process(s"ublog:${post.id}"))
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Markdown, Html]()

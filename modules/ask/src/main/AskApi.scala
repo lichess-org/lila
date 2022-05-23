@@ -6,6 +6,7 @@ import lila.db.dsl._
 import lila.hub.actors.Timeline
 import lila.user.User
 import lila.ask.Ask.imports._
+import lila.common.Markdown
 import lila.hub.actorApi.timeline.{ AskConcluded, Propagate }
 
 final class AskApi(
@@ -35,18 +36,23 @@ final class AskApi(
     *   id of the ask object
     * @param uid
     *   id of the user
-    * @param choice
-    *   integer index into Ask.choices list, or -1 to remove user pick
+    * @param pick
+    *   integer index into Ask.choices list, or None to remove user pick
     */
 
-  def pick(id: Ask.ID, uid: User.ID, choice: Int): Fu[Option[Ask]] =
+  def pick(id: Ask.ID, uid: User.ID, pick: Option[Int]): Fu[Option[Ask]] =
     coll.ext.findAndUpdate[Ask](
-      selector = $id(id),
+      selector = $and($id(id), $doc("isConcluded" -> false)),
       update = {
-        if (choice < 0) $unset(s"picks.$uid") else $set(s"picks.$uid" -> choice)
+        pick.fold($unset(s"picks.$uid"))(p => $set(s"picks.$uid" -> p))
       },
       fetchNewObject = true
-    )
+    ) flatMap {
+      case None =>
+        get(id) // was concluded prior to the pick. look up the ask.
+      case ask =>
+        fuccess(ask)
+    }
 
   /** Concludes an ask and notifies participants that results available for viewing via timeline
     *
@@ -95,16 +101,11 @@ final class AskApi(
       .list()
       .map(askList =>
         askList map { ask =>
-          val sb = new StringBuilder("")
-          ask.getPick(uid) map { i =>
+          ask.getPick(uid).fold("") { i =>
             val choice = ask.choices(i)
-            sb ++= s"${ask.question}:  $choice"
-            ask.answer match {
-              case Some(ans) if ans != choice => sb ++= s" ($ans)"
-              case _                          => None
-            }
+            s"${ask.question}:  $choice" +
+              ask.answer.fold("")(a => (a != choice) ?? s" ($a)")
           }
-          sb.toString
         }
       )
 
@@ -117,8 +118,9 @@ final class AskApi(
     coll.delete.one($inIds(extractIds(cookie))).void
 
   /** Updates markup in input text, updates cookie, and reconciles any ask markup with db. Call this before
-    * creating your database object whenever a form is submitted. Caller must ensure this future completes
-    * before calling render
+    * creating your database object whenever a form is submitted. make sure this completes before calling
+    * render. Also, at some point the client should provide a URL for each ask, this can be done in render or
+    * at some other time via setUrl.
     *
     * @return
     *   future Updated(annotatedText, Some(cookie)) or (formText, None) if no ask markup
@@ -128,16 +130,18 @@ final class AskApi(
     *   the user id who posted this formText
     * @param cookie
     *   existing ask cookie or None
-    * @param url
-    *   None or Some(url) where ask can be viewed. If not known when prepare is called, url can be set later
-    *   in render or at another time via setUrl(cookie)
+    * @param isMarkdown
+    *   if markdown has gotten its filthy hands on this text, pass true here.
     */
   def prepare(
       formText: String,
       creator: User.ID,
       cookie: Option[Ask.Cookie] = None,
-      url: Option[String] = None
+      isMarkdown: Boolean = false
   ): Fu[Updated] = {
+    val stripFunc: String => String =
+      if (isMarkdown) stripMarkdownEscapes else { x => x }
+
     val annotated     = new StringBuilder
     val markupOffsets = getMarkupOffsets(formText)
     val (idList, opList) = getIntervalClosure(markupOffsets, formText.length).map { interval =>
@@ -149,14 +153,14 @@ final class AskApi(
         val params = extractParams(txt)
         val ask = Ask.make(
           _id = extractId(txt),
-          question = extractQuestion(txt),
-          choices = extractChoices(txt),
-          isPublic = params.fold(false)(_.contains("public")),
-          isTally = params.fold(false)(_.contains("tally")),
+          question = stripFunc(extractQuestion(txt)),
+          choices = extractChoices(txt) map stripFunc,
+          isPublic = params.fold(false)(_ contains "public"),
+          isTally = params.fold(false)(_ contains "tally"),
+          isConcluded = params.contains("concluded"),
           creator = creator,
-          answer = extractAnswer(txt),
-          reveal = extractReveal(txt),
-          url = url
+          answer = extractAnswer(txt) map stripFunc,
+          reveal = extractReveal(txt) map stripFunc
         )
         annotated ++= askToText(ask)
         (ask._id, update(ask))
@@ -169,9 +173,9 @@ final class AskApi(
   }
 
   /** Generates a sequence of ask objects and unmarked text segments for view construction. RenderElement is
-    * alias for Either[Ask, String], and isAsk/isText alias Left/Right for clearer match expressions
+    * an alias for Either[Ask, String], and isAsk/isText alias Left/Right for clearer match expressions
     *
-    * { case isAsk(e) => ... case isText(e) => }
+    * renderSeq map { case isAsk(ask) => ... case isText(txt) => }
     *
     * @param text
     *   annotated text provided by askApi.update
@@ -184,25 +188,22 @@ final class AskApi(
   def render(
       text: String,
       url: Option[String],
-      formatter: (String) => String = x => x
+      formatter: Option[String => String] = None
   ): Fu[Seq[Ask.RenderElement]] = {
+
     val markupOffsets = getMarkupOffsets(text)
     val opList = getIntervalClosure(markupOffsets, text.length) map { interval =>
       val txt = text.slice(interval._1, interval._2)
+
       if (!markupOffsets.contains(interval))
-        fuccess(isText(formatter(txt)))
+        fuccess(isText(formatter.fold(txt)(_(txt))))
       else {
-        extractId(txt) match {
-          case None => // this would be programmer error
-            fufail[Ask.RenderElement](new RuntimeException(s"askApi.render called with bad markup."))
-          case Some(id) =>
-            get(id) flatMap {
-              case None =>
-                fufail[Ask.RenderElement](s"AskApi.render ask $id not found.")
-              case Some(ask) =>
-                url.map(setUrl(ask, _))
-                fuccess(isAsk(ask))
-            }
+        get(extractId(txt).get) flatMap { // if gets fail, somebody didn't call prepare so NPE
+          case None =>
+            fuccess(isText("[deleted]"))
+          case Some(ask) =>
+            url.map(setUrl(ask, _))
+            fuccess(isAsk(ask))
         }
       }
     }
@@ -253,7 +254,7 @@ final class AskApi(
 
 object AskApi {
 
-  /** Updated aggregates return values from askApi.prepare
+  /** class Updated aggregates return values from askApi.prepare
     *
     * @param text
     *   annotated form text - markup will contain ask ids for render() stage
@@ -262,35 +263,60 @@ object AskApi {
     */
   case class Updated(text: String, cookie: Option[Ask.Cookie])
 
+  /** return provided text with any ask markup stripped
+    * @param text
+    *   to strip
+    * @param n
+    *   provide this to take(n)
+    * @return
+    *   n characters of stripped text
+    */
+
+  def stripAsks(text: String, n: Int = -1): String =
+    matchAskRe.replaceAllIn(text, "").take(if (n == -1) text.length else n)
+
+  // markdown fuckery - strip the backslashes when markdown escapes one of the characters below
+  val stripMarkdownRe = raw"\\([*_`~.!{})(\[\]\-+|<>])".r // that might be overkill
+
   // markup
   private val matchAskRe = (
-    raw"(?m)^\?\?\h*\S.*\R"           // match "?? <question>"
-      + raw"(\?=.*\R)?"               // match optional "?= <params>"
-      + raw"(\?#{1,2}\h*\S.*\R?){2,}" // match 2 or more "/* <choice>"
-      + raw"(\?!.*\R?)?"              // match optional "?! <reveal>"
+    raw"(?m)^\?\?\h*\S.*\R"         // match "?? <question>"
+      + raw"(\?=.*\R)?"             // match optional "?= <params>"
+      + raw"(\?[#@]\h*\S.*\R?){2,}" // match 2 or more "?# <choice>"
+      + raw"(\?!.*\R?)?"            // match optional "?! <reveal>"
   ).r
-  private val matchIdRe       = raw"(?m)^\?=.*id:(\S{8})".r
+  private val matchIdRe       = raw"(?m)^\?=.*askid:(\S{8})".r
   private val matchQuestionRe = raw"(?m)^\?\?(.*)".r
   private val matchParamsRe   = raw"(?m)^\?=(.*)".r
-  private val matchChoicesRe  = raw"(?m)^\?##?(.*)".r
-  private val matchAnswerRe   = raw"(?m)^\?##(.*)".r
-  private val matchRevealRe   = raw"(?m)^\?\!(.*)".r
+  private val matchChoicesRe  = raw"(?m)^\?[#@](.*)".r
+  private val matchAnswerRe   = raw"(?m)^\?@(.*)".r
+  private val matchRevealRe   = raw"(?m)^\?!(.*)".r
 
   // cookie
   private val v1Prefix     = "v1:"
-  private val v1MatchIdsRe = raw"v1:\[([^\]]+)\]".r
+  private val v1MatchIdsRe = raw"v1:\[([^]]+)]".r
   private val v1IdSep      = ","
 
   // renders ask as markup text
-  private def askToText(ask: Ask): String = (
-    s"?? ${ask.question}\n"
-      + s"?=${ask.isPublic ?? " public"}"
-      + s"${ask.isTally ?? " tally"} "
-      + s"${ask.isConcluded ?? " concluded"}"
-      + s"id:${ask._id}\n"
-      + ask.choices.map(c => s"?#${if (ask.answer.contains(c)) "#" else ""} $c\n").mkString
-      + s"${ask.reveal.fold("")(e => s"?! $e\n")}"
-  )
+  private def askToText(ask: Ask): String = {
+    val sb = new StringBuilder("")
+    sb ++= s"?? ${ask.question}\n"
+    sb ++= s"?= askid:${ask._id}"
+    sb ++= s"${ask.isPublic ?? " public"}"
+    sb ++= s"${ask.isTally ?? " tally"}"
+    sb ++= s"${ask.isConcluded ?? " concluded"}\n"
+    sb ++= ask.choices.map(c => s"?#${ask.answer.contains(c) ?? "#"} $c\n").mkString
+    (sb ++= s"${ask.reveal.fold("")(a => s"?! $a\n")}").toString
+  }
+
+  // just our version right before render so user can make future edits and markdown won't break
+  /*def sanitize(ask: Ask): Ask =
+    ask.copy(
+      question = stripMarkdownEscapes(ask.question),
+      choices = ask.choices map stripMarkdownEscapes,
+      answer = ask.answer map stripMarkdownEscapes,
+      reveal = ask.reveal map stripMarkdownEscapes
+    )*/
 
   // assumes inputs are non-overlapping and sorted
   private def getIntervalClosure(subs: Seq[(Int, Int)], upper: Int): Seq[(Int, Int)] = {
@@ -317,22 +343,25 @@ object AskApi {
       case None    => Nil
     }
 
-  private def extractQuestion(pt: String): String =
-    matchQuestionRe.findFirstMatchIn(pt).get.group(1).trim
+  private def extractQuestion(t: String): String =
+    matchQuestionRe.findFirstMatchIn(t).get.group(1).trim
 
-  private def extractParams(pt: String): Option[String] =
-    matchParamsRe.findFirstMatchIn(pt).map(_.group(1).trim.toLowerCase)
+  private def extractParams(t: String): Option[String] =
+    matchParamsRe.findFirstMatchIn(t).map(_.group(1).trim.toLowerCase)
 
-  private def extractChoices(pt: String): Ask.Choices =
-    matchChoicesRe.findAllMatchIn(pt).map(_.group(1).trim).distinct.toVector
+  private def extractChoices(t: String): Ask.Choices =
+    matchChoicesRe.findAllMatchIn(t).map(_.group(1).trim).distinct.toVector
 
-  private def extractId(pt: String): Option[Ask.ID] =
-    matchIdRe.findFirstMatchIn(pt).map(_.group(1))
+  private def extractId(t: String): Option[Ask.ID] =
+    matchIdRe.findFirstMatchIn(t).map(_.group(1))
 
-  private def extractAnswer(pt: String): Option[String] =
-    matchAnswerRe.findFirstMatchIn(pt).map(_.group(1).trim)
+  private def extractAnswer(t: String): Option[String] =
+    matchAnswerRe.findFirstMatchIn(t).map(_.group(1).trim)
 
-  private def extractReveal(pt: String): Option[String] =
-    matchRevealRe.findFirstMatchIn(pt).map(_.group(1).trim)
+  private def extractReveal(t: String): Option[String] =
+    matchRevealRe.findFirstMatchIn(t).map(_.group(1).trim)
 
+  private def stripMarkdownEscapes(t: String): String = {
+    stripMarkdownRe.replaceAllIn(t, "$1")
+  }
 }

@@ -115,9 +115,7 @@ object post {
           div(cls := "ublog-post__markup expand-text")(
             segments map {
               case isText(t) => scalatags.Text.all.raw(t)
-              case isAsk(a) =>
-                a.pp("got one")
-                views.html.ask.render(a)
+              case isAsk(a)  => views.html.ask.render(a)
             }
           ),
           div(cls := "ublog-post__footer")(

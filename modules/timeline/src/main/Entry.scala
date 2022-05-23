@@ -82,6 +82,7 @@ object Entry {
       "team-join"       -> teamJoinHandler,
       "team-create"     -> teamCreateHandler,
       "forum-post"      -> forumPostHandler,
+      "ask-concluded"   -> askConcludedHandler,
       "ublog-post"      -> ublogPostHandler,
       "tour-join"       -> tourJoinHandler,
       "game-end"        -> gameEndHandler,
