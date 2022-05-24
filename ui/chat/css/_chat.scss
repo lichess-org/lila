@@ -26,6 +26,10 @@
       line-height: 1.7em;
       outline: none;
       resize: none;
+      &:focus {
+        border: $border;
+        border-color: $c-primary;
+      }
     }
   }
 
