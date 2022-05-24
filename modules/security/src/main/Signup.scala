@@ -42,7 +42,7 @@ final class Signup(
         req: RequestHeader
     ): Fu[MustConfirmEmail] = {
       val ip = HTTPRequest ipAddress req
-      store.recentByIpExists(ip) flatMap { ipExists =>
+      store.recentByIpExists(ip, 7.days) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
         else if (HTTPRequest weirdUA req) fuccess(YesBecauseUA)
         else
@@ -65,43 +65,45 @@ final class Signup(
   def website(
       blind: Boolean
   )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
-    hcaptcha.verify().flatMap {
-      case Hcaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
-      case Hcaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
-      case hcaptchaResult =>
-        forms.signup.website.form
-          .bindFromRequest()
-          .fold[Fu[Signup.Result]](
-            err =>
-              fuccess {
-                disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
-                Signup.Bad(err tap signupErrLog)
-              },
-            data =>
-              signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
-                val email = emailAddressValidator
-                  .validate(data.realEmail) err s"Invalid email ${data.email}"
-                MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
-                  lila.mon.user.register.count(none)
-                  lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                  val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-                  userRepo
-                    .create(
-                      data.username,
-                      passwordHash,
-                      email.acceptable,
-                      blind,
-                      none,
-                      mustConfirmEmail = mustConfirm.value
-                    )
-                    .orFail(s"No user could be created for ${data.username}")
-                    .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
-                    .flatMap {
-                      confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
-                    }
+    forms.signup.website flatMap {
+      _.form
+        .bindFromRequest()
+        .fold[Fu[Signup.Result]](
+          err =>
+            fuccess {
+              disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
+              Signup.Bad(err tap signupErrLog)
+            },
+          data =>
+            hcaptcha.verify().flatMap {
+              case Hcaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
+              case Hcaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
+              case hcaptchaResult =>
+                signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
+                  val email = emailAddressValidator
+                    .validate(data.realEmail) err s"Invalid email ${data.email}"
+                  MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
+                    lila.mon.user.register.count(none)
+                    lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                    val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+                    userRepo
+                      .create(
+                        data.username,
+                        passwordHash,
+                        email.acceptable,
+                        blind,
+                        none,
+                        mustConfirmEmail = mustConfirm.value
+                      )
+                      .orFail(s"No user could be created for ${data.username}")
+                      .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
+                      .flatMap {
+                        confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
+                      }
+                  }
                 }
-              }
-          )
+            }
+        )
     }
 
   private def confirmOrAllSet(
