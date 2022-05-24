@@ -136,7 +136,7 @@ final class AskApi(
           choices = extractChoices(txt) map stripFunc,
           isPublic = params.fold(false)(_ contains "public"),
           isTally = params.fold(false)(_ contains "tally"),
-          isConcluded = params.contains("concluded"),
+          isConcluded = params.fold(false)(_ contains "concluded"),
           creator = creator,
           answer = extractAnswer(txt) map stripFunc,
           reveal = extractReveal(txt) map stripFunc
