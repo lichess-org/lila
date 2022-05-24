@@ -68,25 +68,6 @@ object home {
             a(cls := "button button-metal", trans.createAGame()),
             a(cls := "button button-metal", trans.playWithAFriend()),
             a(cls := "button button-metal", trans.playWithTheMachine())
-          ),
-          div(cls := "lobby__counters")(
-            ctx.blind option h2("Counters"),
-            a(
-              id   := "nb_connected_players",
-              href := ctx.noBlind.option(routes.User.list.url)
-            )(
-              trans.nbPlayers(
-                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
-              )
-            ),
-            a(
-              id   := "nb_games_in_play",
-              href := ctx.noBlind.option(routes.Tv.games.url)
-            )(
-              trans.nbGamesInPlay(
-                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
-              )
-            )
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
