@@ -308,7 +308,7 @@ object AskApi {
     sb ++= s"${ask.isPublic ?? " public"}"
     sb ++= s"${ask.isTally ?? " tally"}"
     sb ++= s"${ask.isConcluded ?? " concluded"}\n"
-    sb ++= ask.choices.map(c => s"?#${if (ask.answer.contains(c)) "@" else "#"} $c\n").mkString
+    sb ++= ask.choices.map(c => s"?${if (ask.answer.contains(c)) "@" else "#"} $c\n").mkString
     (sb ++= s"${ask.reveal.fold("")(a => s"?! $a\n")}").toString
   }
 
