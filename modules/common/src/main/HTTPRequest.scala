@@ -74,11 +74,6 @@ object HTTPRequest {
 
   def isHuman(req: RequestHeader) = !isCrawler(req) && !isFishnet(req)
 
-  def isFacebookOrTwitterBot(req: RequestHeader) =
-    userAgent(req) ?? { ua =>
-      ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
-    }
-
   private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)

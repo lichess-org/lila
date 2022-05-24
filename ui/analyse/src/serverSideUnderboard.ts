@@ -25,6 +25,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
+    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement,
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastFen: string;
 
@@ -40,6 +41,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const $chart = $('#acpl-chart');
       if (fen && fen !== lastFen) {
         inputFen.value = fen;
+        positionGifLink.href = `/export/gif/${fen.replace(/ /g, '_')}?color=${ctrl.bottomColor()}&lastMove=${
+          ctrl.node.uci || ''
+        }`;
         lastFen = fen;
       }
       if ($chart.length) {
