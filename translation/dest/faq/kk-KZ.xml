@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Мен қалай модератор болсам екен?</string>
   <string name="youCannotApply">Модератор болуға өтініш беру мүмкін емес. Біреуді модертор болуға лайық деп көрсек, біз тікелей онымен хабарласамыз.</string>
   <string name="isCorrespondenceDifferent">Хат алмасып ойнау мен жай шахмат арасында айырмашылық бар ма?</string>
+  <string name="pleaseReadFairPlayPage">Көбірек ақпарат %s бар</string>
+  <string name="fairPlayPage">адал ойын парақшасында</string>
   <string name="youCanUseOpeningBookNoEngine">Личестегі хат алмасып ойнаудың басты ерекшелігі – бастаулар кітабын пайдалануы рұқсат. Компьютердің көмегін қолдану бұрынғыдай тыйым бола тұра, шектеу белгісіне шалдықтырады. ICCF хат алмасып ойнауда компьютердің көмегін рұқсат еткенімен, Личесте өзгеше.</string>
   <string name="gameplay">Ойын</string>
   <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>

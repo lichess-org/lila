@@ -41,20 +41,20 @@ export default function (opts: RoundOpts): void {
     },
   });
 
-  function startTournamentClock() {
+  const startTournamentClock = () => {
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
         lichess.clockWidget(this, {
           time: parseFloat($(this).data('time')),
         });
       });
-  }
-  function getPresetGroup(d: RoundData) {
+  };
+  const getPresetGroup = (d: RoundData) => {
     if (d.player.spectator) return;
     if (d.steps.length < 4) return 'start';
     else if (d.game.status.id >= 30) return 'end';
     return;
-  }
+  };
   opts.element = document.querySelector('.round__app') as HTMLElement;
   opts.socketSend = lichess.socket.send;
 

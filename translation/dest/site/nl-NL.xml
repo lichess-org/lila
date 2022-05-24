@@ -9,7 +9,7 @@
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
-  <string name="strength">Sterkte</string>
+  <string name="strength">Speelsterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="chat">Chat</string>
   <string name="resign">Geef op</string>
@@ -464,7 +464,7 @@
   <string name="onlinePlayers">Online spelers</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
-  <string name="success">Succes</string>
+  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Succes</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partij bezig</item>
     <item quantity="other">%s partijen bezig</item>
@@ -772,7 +772,7 @@
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
   <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke zetten vooruit te maken</string>
   <string name="noConditionalPremoves">Geen voorwaardelijke zetten vooruit</string>
-  <string name="playX">Speel %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Speel %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
@@ -863,7 +863,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulHostcolor">Kleur van de simultaangever voor elk spel</string>
   <string name="estimatedStart">Geschatte starttijd</string>
   <string name="simulFeatured">Simultaan tonen op %s</string>
-  <string name="simulFeaturedHelp">De simultaan voor iedereen weergeven op %s. Schakel dit uit voor privésimultaans.</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">De simultaan voor iedereen weergeven op %s. Schakel dit uit voor privésimultaans.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>

@@ -324,10 +324,9 @@ function createSubmitHandler(ctrl: RoundController, notify: (txt: string) => voi
       return false;
     }
 
-    const { data } = ctrl;
-    const uci = inputToLegalUci(input, plyStep(data, ctrl.ply).fen, ctrl.chessground);
+    const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
     if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
-    else if (data.player.color !== data.game.player) {
+    else if (ctrl.data.player.color !== ctrl.data.game.player) {
       // if it is not the user's turn, store this input as a premove
       nvui.premoveInput = input;
       notify(`Will attempt to premove: ${input}. Enter to cancel`);
