@@ -88,7 +88,6 @@ final class Preload(
                 currentGame,
                 simulIsFeaturable,
                 blindGames,
-                lobbySocket.counters,
                 lastPostCache.apply,
                 ublogPosts,
                 hasUnreadLichessMessage = lichessMsg
@@ -133,7 +132,6 @@ object Preload {
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      counters: lila.lobby.LobbyCounters,
       lastPost: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
       hasUnreadLichessMessage: Boolean

@@ -70,8 +70,8 @@ function normalView(ctrl: Ctrl) {
   ];
 }
 
-function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
-  return h(
+const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
+  h(
     'div.mchat__tab.' + tab,
     {
       attrs: { role: 'tab' },
@@ -80,7 +80,6 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
     },
     tabName(ctrl, tab)
   );
-}
 
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion')

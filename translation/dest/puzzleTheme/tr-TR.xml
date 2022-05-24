@@ -32,7 +32,7 @@
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
-  <string name="clearance">Ön hazırlık</string>
+  <string name="clearance">Boşaltma</string>
   <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran hamleler.</string>
   <string name="defensiveMove">Savunma hamlesi</string>
   <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
@@ -49,7 +49,7 @@
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
-  <string name="hangingPiece">Taş düşürme</string>
+  <string name="hangingPiece">Askıda taş</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="hookMate">Kanca matı</string>
   <string name="hookMateDescription">Kale, at, piyon ve rakip şahın kaçışını engelleyen rakip piyonla yapılan mattır.</string>

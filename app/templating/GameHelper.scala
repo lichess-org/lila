@@ -238,24 +238,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(implicit lang: Lang) = {
+  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: Context) = {
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
-      s"${titleNameOrId(reg.id)} (${reg.rating.show})"
+      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings ?? s" (${reg.rating.show})"}"
     }
     val players =
       if (c.isOpen) "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${titleNameOrId(dest.id)} (${dest.rating.show})"
+          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings ?? s" (${dest.rating.show})"}"
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit lang: Lang) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

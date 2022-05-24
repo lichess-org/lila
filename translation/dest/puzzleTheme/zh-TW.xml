@@ -28,20 +28,20 @@
   <string name="endgame">殘局</string>
   <string name="endgameDescription">棋局中最後階段的戰術</string>
   <string name="fork">捉雙</string>
-  <string name="knightEndgame">士殘局</string>
-  <string name="knightEndgameDescription">只剩士和兵的殘局</string>
+  <string name="knightEndgame">馬殘局</string>
+  <string name="knightEndgameDescription">只剩馬和兵的殘局</string>
   <string name="long">長謎題</string>
   <string name="longDescription">三步獲勝</string>
   <string name="master">大師棋局</string>
   <string name="masterVsMaster">大師對局</string>
   <string name="mate">將軍</string>
-  <string name="mateIn1">一步將軍</string>
+  <string name="mateIn1">一步殺棋</string>
   <string name="mateIn1Description">一步將軍</string>
-  <string name="mateIn2">兩步將軍</string>
+  <string name="mateIn2">兩步殺棋</string>
   <string name="mateIn2Description">走兩步以達到將軍</string>
-  <string name="mateIn3">三步將軍</string>
+  <string name="mateIn3">三步殺棋</string>
   <string name="mateIn3Description">走三步以達到將軍</string>
-  <string name="mateIn4">四步將軍</string>
+  <string name="mateIn4">四步殺棋</string>
   <string name="mateIn4Description">走四步以達到將軍</string>
   <string name="mateIn5">五步或更高 將軍</string>
   <string name="middlegame">中局</string>
@@ -75,6 +75,7 @@
   <string name="veryLong">非常長的謎題</string>
   <string name="veryLongDescription">四步或以上獲勝</string>
   <string name="xRayAttack">穿透攻擊</string>
+  <string name="zugzwang">等著</string>
   <string name="healthyMix">綜合</string>
-  <string name="healthyMixDescription">所有類型都有!你不知道會遇到什麼題型，所以請做好準備，就像在對局裡一樣</string>
+  <string name="healthyMixDescription">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
 </resources>
