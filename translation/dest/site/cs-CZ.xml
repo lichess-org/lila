@@ -520,12 +520,13 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
+  <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
   <string name="activePlayers">Aktivní hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
-  <string name="success">Úspěch</string>
+  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Úspěch</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
     <item quantity="few">%s rozehrané hry</item>
@@ -565,6 +566,7 @@
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
+  <string name="importedByX">Importováno uživatelem %s</string>
   <string name="thisTopicIsNowClosed">Toto téma je již uzavřeno.</string>
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
@@ -639,6 +641,7 @@
   <string name="error.min">Musí být větší nebo rovno %s</string>
   <string name="error.max">Musí být menší nebo rovno %s</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
+  <string name="ifRegistered">Pokud je registrován</string>
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
   <string name="menu">Menu</string>
@@ -847,7 +850,7 @@
   <string name="addCurrentVariation">Přidat současnou variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>
   <string name="noConditionalPremoves">Žádné podmíněné předtahy</string>
-  <string name="playX">Hrajte %s</string>
+  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Hrajte %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">a uložit %s předtaženou variantu</item>
     <item quantity="few">a uložit %s předtažené varianty</item>
@@ -918,6 +921,8 @@
   <string name="welcome">Vítej!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
+  <string name="coachManager">Nastavení trenéra</string>
+  <string name="streamerManager">Nastavení streamera</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
   <string name="tournDescriptionHelp">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
