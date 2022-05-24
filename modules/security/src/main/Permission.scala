@@ -101,7 +101,6 @@ object Permission {
           GamifyView,
           SeeReport,
           ModLog,
-          RemoveRanking,
           ModMessage,
           ModNote,
           ViewPrintNoIP,
@@ -159,6 +158,7 @@ object Permission {
       extends Permission(
         "ADMIN",
         List(
+          RemoveRanking,
           BoostHunter,
           CheatHunter,
           Shusher,
