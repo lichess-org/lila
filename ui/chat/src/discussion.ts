@@ -94,7 +94,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
     chatEl.value = previousText;
     chatEl.focus();
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
-  }
+  } else if (performance.now() > 1000) chatEl.focus();
 
   chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Enter') return;

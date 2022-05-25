@@ -27,7 +27,7 @@ object signup {
           id := "signup-form",
           cls := List(
             "form3"             -> true,
-            "h-captcha-enabled" -> form.config.enabled
+            "h-captcha-enabled" -> form.enabled
           ),
           action := routes.Auth.signupPost
         )(
