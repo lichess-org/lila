@@ -897,4 +897,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
   <string name="switchSides">Смени страната</string>
+  <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
 </resources>
