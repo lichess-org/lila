@@ -105,6 +105,10 @@
     border-radius: 0;
     padding: 3px 20px 3px 4px;
 
+    &:focus {
+      outline: 1px solid $c-primary;
+    }
+
     &.whisper {
       color: $c-good;
       font-weight: bold;
