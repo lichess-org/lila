@@ -40,9 +40,6 @@ final class Env(
 
   private def hcaptchaPublicConfig = config.hcaptcha.public
 
-  def hcaptcha[A](form: play.api.data.Form[A]) =
-    HcaptchaForm(form, config.hcaptcha.public)
-
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
     scheduler = scheduler
@@ -52,7 +49,7 @@ final class Env(
 
   lazy val hcaptcha: Hcaptcha =
     if (config.hcaptcha.enabled) wire[HcaptchaReal]
-    else HcaptchaSkip
+    else wire[HcaptchaSkip]
 
   lazy val forms = wire[SecurityForm]
 

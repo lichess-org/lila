@@ -11,10 +11,9 @@ $col2-panel-height: 240px;
 
     justify-content: center;
     align-items: flex-start;
-    border-top: 2px solid $c-border;
 
     > span {
-      @extend %roboto, %box-radius-bottom;
+      @extend %roboto, %box-radius-top, %page-text;
 
       flex: 1 1 0;
       text-align: center;
@@ -23,29 +22,13 @@ $col2-panel-height: 240px;
       cursor: pointer;
       position: relative;
 
-      @include transition(color, 0.25s);
-
-      &::after {
-        content: '';
-        background: fade-out($c-accent, 0.4);
-        height: 2px;
-        position: absolute;
-        width: 96%;
-        left: 2%;
-        top: -2px;
-
-        @include transition(all, 0.25s);
-
-        transform: scale(0);
+      &:hover {
+        background: mix($c-bg-page, #888, 88%);
       }
 
-      &.active,
-      &:hover::after {
-        transform: scale(1);
-      }
-
+      border-bottom: 1px solid $c-border;
       &.active {
-        color: $c-accent;
+        border-color: $c-accent;
       }
     }
 
@@ -80,25 +63,28 @@ $col2-panel-height: 240px;
     }
   }
 
-  .computer-analysis,
   .ctable {
     align-items: center;
     justify-content: center;
-    position: relative;
 
     &.active {
       display: flex;
     }
   }
 
+  .computer-analysis {
+    position: relative;
+  }
   .future-game-analysis {
     text-align: center;
+    margin-top: 2em;
   }
 
   .fen-pgn {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
+    padding-top: 0.5em;
 
     > div {
       @extend %flex-center-nowrap;
@@ -111,25 +97,18 @@ $col2-panel-height: 240px;
       font-family: monospace;
     }
 
-    strong {
+    strong,
+    a {
       display: inline-block;
       margin-right: 1em;
-    }
-
-    .pgn-options {
-      div {
-        @extend %flex-wrap;
-      }
-
-      a {
-        flex: 0 0 50%;
-        line-height: 1.6em;
-      }
     }
   }
 
   &__fen {
     width: 100%;
+  }
+
+  input.like-text {
     border: 0;
     background: none;
     padding: 0.3em;

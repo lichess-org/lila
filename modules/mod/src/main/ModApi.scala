@@ -92,12 +92,12 @@ final class ModApi(
         noteApi.lichessWrite(sus.user, note)
     }
 
-  def garbageCollect(sus: Suspect): Funit =
-    reportApi.getLichessMod flatMap { mod =>
-      setAlt(mod, sus, v = true) >>
-        setTroll(mod, sus, value = false) >>
-        logApi.garbageCollect(mod, sus)
-    }
+  def garbageCollect(userId: User.ID): Funit = for {
+    sus <- reportApi getSuspect userId orFail s"No such suspect $userId"
+    mod <- reportApi.getLichessMod
+    _   <- setAlt(mod, sus, v = true)
+    _   <- logApi.garbageCollect(mod, sus)
+  } yield ()
 
   def disableTwoFactor(mod: String, username: String): Funit =
     withUser(username) { user =>

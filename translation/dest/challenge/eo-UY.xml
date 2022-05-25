@@ -10,6 +10,8 @@
   <string name="yourXRatingIsTooFarFromY">Via rango por %1$s estas tro for de la rango de %2$s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
   <string name="declineGeneric">Mi ne akceptas defiojn en tiu ĉi momento.</string>
+  <string name="declineTooFast">Ĉi tempokontrolo estas tro rapida por mi, bonvolu defii denove per pli malrapida ludo.</string>
+  <string name="declineTooSlow">Ĉi tempokontrolo estas tro malrapida por mi, bonvolu defii denove per pli rapida ludo.</string>
   <string name="declineNoBot">Mi ne akceptas defiojn de robotoj.</string>
   <string name="declineOnlyBot">Mi nur akceptas defiojn de robotoj.</string>
 </resources>

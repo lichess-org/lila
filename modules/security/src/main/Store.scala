@@ -206,9 +206,9 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
 
-  private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
+  private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondaryPreferred.exists(
-      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7))
+      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusMinutes since.toMinutes.toInt))
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =

@@ -176,7 +176,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
         'a.button.button-empty',
         {
           hook: bind('click', ctrl.flip),
-          attrs: dataIcon(''),
+          attrs: {
+            'data-icon': '',
+            title: 'Hotkey: f',
+          },
         },
         noarg('flipBoard')
       ),
@@ -188,7 +191,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               attrs: {
                 href: d.userAnalysis
                   ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key })
-                  : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+                  : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
                 'data-icon': '',
                 ...(ctrl.embed
                   ? {

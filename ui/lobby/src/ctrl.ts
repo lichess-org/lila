@@ -80,7 +80,7 @@ export default class LobbyController {
       } else if (urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
-      } else if (urlParams.get('user')) {
+      } else {
         friendUser = urlParams.get('user')!;
       }
 
@@ -276,7 +276,7 @@ export default class LobbyController {
 
   // after click on round "new opponent" button
   // also handles onboardink link for anon users
-  private joinPoolFromLocationHash() {
+  private joinPoolFromLocationHash = () => {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
@@ -290,5 +290,5 @@ export default class LobbyController {
         history.replaceState(null, '', '/');
       }
     }
-  }
+  };
 }

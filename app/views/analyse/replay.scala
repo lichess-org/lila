@@ -1,6 +1,7 @@
 package views.html.analyse
 
 import bits.dataPanel
+import chess.format.Forsyth
 import chess.variant.Crazyhouse
 import controllers.routes
 import play.api.i18n.Lang
@@ -45,7 +46,37 @@ object replay {
         palantir = ctx.me.exists(_.canPalantir)
       )
     }
-    val pgnLinks = div(
+    val imageLinks = frag(
+      a(
+        targetBlank,
+        href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
+      )(trans.gameAsGIF()),
+      a(
+        cls := "position-gif",
+        targetBlank,
+        href := cdnUrl(
+          routes.Export
+            .fenThumbnail(
+              Forsyth.>>(pov.game.situation).value.replace(" ", "_"),
+              pov.color.name,
+              None
+            )
+            .url
+        )
+      )(trans.screenshotCurrentPosition())
+    )
+    val shareLinks = frag(
+      a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
+      label(dataIcon := "", cls := "text")(
+        input(
+          readonly,
+          spellcheck := false,
+          cls        := "copyable autoselect like-text analyse__underboard__url",
+          value      := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+        )
+      )
+    )
+    val pgnLinks = frag(
       a(
         dataIcon := "",
         cls      := "text",
@@ -67,18 +98,7 @@ object replay {
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?imported=1",
         downloadAttr
-      )(trans.downloadImported()),
-      ctx.noBlind option frag(
-        a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
-        a(
-          dataIcon := "",
-          cls      := "text",
-          targetBlank,
-          href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
-        )(
-          "Share as a GIF"
-        )
-      )
+      )(trans.downloadImported())
     )
 
     bits.layout(
@@ -124,6 +144,17 @@ object replay {
           div(cls := "analyse__controls"),
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(
+              div(role := "tablist", cls := "analyse__underboard__menu")(
+                game.analysable option
+                  span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                    trans.computerAnalysis()
+                  ),
+                !game.isPgnImport option frag(
+                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
+                  cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
+                ),
+                span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
+              ),
               div(cls := "analyse__underboard__panels")(
                 game.analysable option div(cls := "computer-analysis")(
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
@@ -146,10 +177,18 @@ object replay {
                     input(
                       readonly,
                       spellcheck := false,
-                      cls        := "copyable autoselect analyse__underboard__fen"
+                      cls        := "copyable autoselect like-text analyse__underboard__fen"
                     )
                   ),
-                  div(cls := "pgn-options")(
+                  ctx.noBlind option div(
+                    strong("Image"),
+                    imageLinks
+                  ),
+                  div(
+                    strong("Share"),
+                    shareLinks
+                  ),
+                  div(
                     strong("PGN"),
                     pgnLinks
                   ),
@@ -160,17 +199,6 @@ object replay {
                     views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                   )
                 }
-              ),
-              div(role := "tablist", cls := "analyse__underboard__menu")(
-                game.analysable option
-                  span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                    trans.computerAnalysis()
-                  ),
-                !game.isPgnImport option frag(
-                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
-                  cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
-                ),
-                span(role := "tab", dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
               )
             )
           )

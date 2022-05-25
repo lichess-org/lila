@@ -486,7 +486,8 @@ export default class RoundController {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.chessground.playPremove() && !this.playPredrop()) {
+        if (this.nvui) this.nvui.playPremove(this);
+        else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
         }
@@ -765,22 +766,14 @@ export default class RoundController {
 
         if (d.crazyhouse) crazyInit(this);
 
-        window.addEventListener('beforeunload', e => {
-          const d = this.data;
-          if (
-            lichess.unload.expected ||
-            this.nvui ||
-            !game.playable(d) ||
-            !d.clock ||
-            d.opponent.ai ||
-            this.isSimulHost()
-          )
-            return;
-          this.socket.send('bye2');
-          const msg = 'There is a game in progress!';
-          (e || window.event).returnValue = msg;
-          return msg;
-        });
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+          window.addEventListener('beforeunload', e => {
+            if (lichess.unload.expected || !this.isPlaying()) return;
+            this.socket.send('bye2');
+            const msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          });
 
         if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {

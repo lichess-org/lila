@@ -9,6 +9,8 @@
   <string name="postBody">文章内容</string>
   <string name="drafts">草稿箱</string>
   <string name="published">已发布</string>
+  <string name="createBlogDiscussion">启用评论</string>
+  <string name="createBlogDiscussionHelp">将创建一个论坛主题，供人们对您的帖子发表评论</string>
   <string name="publishOnYourBlog">在博客上发布</string>
   <string name="publishHelp">如果选中，文章将列于您的博客上。如果未选择，它将是私密的，在您的草稿箱中</string>
   <plurals name="publishedNbBlogPosts">
