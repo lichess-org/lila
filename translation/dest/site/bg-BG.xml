@@ -773,7 +773,7 @@
   <string name="addCurrentVariation">Добавяне на настоящата вариация</string>
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
   <string name="noConditionalPremoves">Без предварителни ходове под условие</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Играй %s</string>
+  <string name="playX">Играй %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
@@ -861,7 +861,7 @@
   <string name="simulHostcolor">Цвят на домакина във всяка игра</string>
   <string name="estimatedStart">Очаквано време на започване</string>
   <string name="simulFeatured">Показва се на %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
+  <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
   <string name="markdownAvailable">%s е достъпен за разширено форматиране.</string>
