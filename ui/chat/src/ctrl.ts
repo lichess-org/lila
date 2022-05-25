@@ -133,12 +133,15 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   ];
   subs.forEach(([eventName, callback]) => lichess.pubsub.on(eventName, callback));
 
-  const destroy = () => {
-    subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
-  };
+  const destroy = () => subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
 
   const emitEnabled = () => lichess.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
+
+  const tabInputFocus = {
+    discussion: '.mchat__say',
+    note: '.mchat__note',
+  };
 
   return {
     data,
@@ -148,15 +151,13 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     setTab(t: Tab) {
       vm.tab = t;
       tabStorage.set(t);
-      // It's a lame way to do it. Give me a break.
-      if (t === 'discussion')
-        lichess.requestIdleCallback(
-          () =>
-            $('.mchat__say').each(function (this: HTMLElement) {
-              this.focus();
-            }),
-          500
-        );
+      lichess.requestIdleCallback(
+        () =>
+          $(tabInputFocus[t as keyof typeof tabInputFocus]).each(function (this: HTMLElement) {
+            this.focus();
+          }),
+        500
+      );
       redraw();
     },
     moderation: () => moderation,

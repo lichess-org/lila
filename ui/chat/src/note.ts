@@ -33,14 +33,15 @@ export function noteView(ctrl: NoteCtrl): VNode {
         insert: ctrl.fetch,
       },
     });
-  return h('textarea', {
+  return h('textarea.mchat__note', {
     attrs: {
       placeholder: ctrl.trans('typePrivateNotesHere'),
     },
     hook: {
       insert(vnode) {
-        const $el = $(vnode.elm as HTMLElement);
-        $el.val(text).on('change keyup paste', () => ctrl.post($el.val() as string));
+        const el = vnode.elm as HTMLTextAreaElement;
+        el.value = text;
+        $(el).on('change keyup paste', () => ctrl.post(el.value));
       },
     },
   });
