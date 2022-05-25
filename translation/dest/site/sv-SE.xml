@@ -764,7 +764,7 @@
   <string name="addCurrentVariation">Lägg till aktuell variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spela en variant för att skapa villkorade förhandsdrag</string>
   <string name="noConditionalPremoves">Inga villkorade förhandsdrag</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Spela %s</string>
+  <string name="playX">Spela %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
@@ -854,7 +854,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="simulHostcolor">Värdfärg för varje parti</string>
   <string name="estimatedStart">Beräknad starttid</string>
   <string name="simulFeatured">Visa på %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
+  <string name="simulFeaturedHelp">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
   <string name="simulDescription">Simultan-beskrivning</string>
   <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
   <string name="markdownAvailable">%s är tillgängligt för mer avancerad syntax.</string>
