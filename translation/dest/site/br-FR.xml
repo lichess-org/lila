@@ -393,6 +393,7 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Taolenn ar re varrekañ</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Krogad e stumm GIF</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
   <string name="fromPosition">Kregiñ gant ul lec\'hiadur ispisial</string>
@@ -426,6 +427,8 @@
   <string name="follow">Heuliañ</string>
   <string name="following">O heuliañ</string>
   <string name="unfollow">Paouez da heuliañ</string>
+  <string name="followX">Heuliañ %s</string>
+  <string name="unfollowX">Paouez da heuliañ %s</string>
   <string name="block">Stankañ</string>
   <string name="blocked">Stanket</string>
   <string name="unblock">Distankañ</string>
@@ -623,6 +626,8 @@
   <string name="tools">Ostilhoù</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
+  <string name="error.email">Diwiriek eo ar chomlec\'h postel-mañ</string>
+  <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ. Gwiriit anezhañ mar plij, ha klaskit en-dro.</string>
   <string name="error.email_unique">Chomlec\'h postel fazius pe implijet dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
   <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
@@ -886,6 +891,8 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
+  <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="welcome">Degemer mat!</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
