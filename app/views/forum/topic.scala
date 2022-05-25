@@ -158,7 +158,7 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg || topic.isUblog && ctx.me.exists(topic.isAuthor) option
+            canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor)) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
