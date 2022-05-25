@@ -66,7 +66,15 @@ object replay {
       )(trans.screenshotCurrentPosition())
     )
     val shareLinks = frag(
-      a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite())
+      a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
+      label(dataIcon := "", cls := "text")(
+        input(
+          readonly,
+          spellcheck := false,
+          cls        := "copyable autoselect like-text analyse__underboard__url",
+          value      := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+        )
+      )
     )
     val pgnLinks = frag(
       a(
@@ -169,7 +177,7 @@ object replay {
                     input(
                       readonly,
                       spellcheck := false,
-                      cls        := "copyable autoselect analyse__underboard__fen"
+                      cls        := "copyable autoselect like-text analyse__underboard__fen"
                     )
                   ),
                   ctx.noBlind option div(
