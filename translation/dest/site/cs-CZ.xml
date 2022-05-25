@@ -400,6 +400,8 @@
   <string name="apply">Použít</string>
   <string name="save">Uložit</string>
   <string name="leaderboard">Žebříček</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Screenshot pozice</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Uložit jako GIF</string>
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
   <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
