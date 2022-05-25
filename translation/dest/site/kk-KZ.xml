@@ -464,7 +464,7 @@
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
-  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Бәрі дұрыс!</string>
+  <string name="success">Бәрі дұрыс!</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
     <item quantity="other">%s ойын өтуде</item>
@@ -772,7 +772,7 @@
   <string name="addCurrentVariation">Қазіргі тармақты қосу</string>
   <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір тармақты ойнаңыз</string>
   <string name="noConditionalPremoves">Шартты алдын-ала жүрістер жоқ</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">%s жүріңіз</string>
+  <string name="playX">%s жүріңіз</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">алдын-ала жүрістердің %s қатарын сақтау</item>
     <item quantity="other">алдын-ала жүрістердің %s қатарын сақтау</item>
@@ -863,7 +863,7 @@
   <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
   <string name="estimatedStart">Болжаулы басталу уақыты</string>
   <string name="simulFeatured">%s осында көрсету</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Көпшілікке қарсы ойынды баршаға %s көрсету. Оңаша ойындарда өшірулі.</string>
+  <string name="simulFeaturedHelp">Көпшілікке қарсы ойынды баршаға %s көрсету. Оңаша ойындарда өшірулі.</string>
   <string name="simulDescription">Көпшілікке қарсы ойын сипаттамасы</string>
   <string name="simulDescriptionHelp">Қатысушыларға тағы айтар сөзіңіз бар ма?</string>
   <string name="markdownAvailable">Кеңейтілген синтаксис үшін %s.</string>
