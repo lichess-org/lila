@@ -501,6 +501,7 @@
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù brudet</string>
   <string name="endgamePositions">Plegennoù an dibenn-partienn</string>
+  <string name="chess960StartPosition">Lec’hiadur e deroù ar c’hrogad Chess960: %s</string>
   <string name="startPosition">Plegenn orin</string>
   <string name="clearBoard">Tennañ pep tra</string>
   <string name="loadPosition">Kargañ ul lec\'hiadur</string>
@@ -536,6 +537,8 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
+  <string name="descPrivate">Deskrivadur prevez</string>
+  <string name="descPrivateHelp">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
   <string name="no">Nann</string>
   <string name="yes">Ya</string>
   <string name="help">Sikour:</string>
@@ -556,10 +559,12 @@
   <string name="cheat">Trucherezh</string>
   <string name="insult">Kunujenn</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Itrikañ renkadur</string>
   <string name="other">All</string>
   <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="error.provideOneCheatedGameLink">Roit d\'an nebeutañ ul liamm hag a gas d\'ur c\'hrogad trucherezh ennañ.</string>
   <string name="by">gant %s</string>
+  <string name="importedByX">Enportzhiet gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notennoù</string>
