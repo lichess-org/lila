@@ -348,8 +348,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Salvar</string>
   <string name="leaderboard">Classificação</string>
-  <string name="screenshotCurrentPosition">Salvar captura de tela da posição atual</string>
-  <string name="gameAsGIF">Salvar a partida como GIF</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Captura de tela da posição atual</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Partida como GIF</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
