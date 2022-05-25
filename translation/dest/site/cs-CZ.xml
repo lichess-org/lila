@@ -526,7 +526,7 @@
   <string name="onlinePlayers">Hráči online</string>
   <string name="activePlayers">Aktivní hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
-  <string name="success" comment="success&#10;&#10;Appears after a successful operation (such as saving your profile)">Úspěch</string>
+  <string name="success">Úspěch</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
     <item quantity="few">%s rozehrané hry</item>
@@ -850,7 +850,7 @@
   <string name="addCurrentVariation">Přidat současnou variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>
   <string name="noConditionalPremoves">Žádné podmíněné předtahy</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Hrajte %s</string>
+  <string name="playX">Hrajte %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">a uložit %s předtaženou variantu</item>
     <item quantity="few">a uložit %s předtažené varianty</item>
