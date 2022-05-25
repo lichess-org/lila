@@ -623,11 +623,6 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (HTTPRequest isCrawler ctx.req) notFound else result
 
-  protected def OnlyHumansAndFacebookOrTwitter(result: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isFacebookOrTwitterBot ctx.req) result
-    else if (HTTPRequest isCrawler ctx.req) fuccess(NotFound)
-    else result
-
   protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
     ctx.me.??(env.clas.api.student.isManaged) flatMap {
       case true => notFound

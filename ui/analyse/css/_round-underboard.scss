@@ -84,6 +84,7 @@ $col2-panel-height: 240px;
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
+    padding-top: 0.5em;
 
     > div {
       @extend %flex-center-nowrap;
@@ -96,25 +97,18 @@ $col2-panel-height: 240px;
       font-family: monospace;
     }
 
-    strong {
+    strong,
+    a {
       display: inline-block;
       margin-right: 1em;
-    }
-
-    .pgn-options {
-      div {
-        @extend %flex-wrap;
-      }
-
-      a {
-        flex: 0 0 50%;
-        line-height: 1.6em;
-      }
     }
   }
 
   &__fen {
     width: 100%;
+  }
+
+  input.like-text {
     border: 0;
     background: none;
     padding: 0.3em;

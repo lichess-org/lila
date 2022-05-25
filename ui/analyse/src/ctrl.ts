@@ -232,6 +232,7 @@ export default class AnalyseCtrl {
     }
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
+    this.onChange();
     this.redraw();
   };
 
