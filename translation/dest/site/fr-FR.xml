@@ -348,6 +348,8 @@
   <string name="apply">Appliquer</string>
   <string name="save">Enregistrer</string>
   <string name="leaderboard">Classements</string>
+  <string name="screenshotCurrentPosition">Capture d\'écran de la position actuelle</string>
+  <string name="gameAsGIF">Enregistrer la partie en GIF</string>
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
@@ -772,7 +774,7 @@
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jouer %s</string>
+  <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
@@ -863,7 +865,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulHostcolor">Couleur des pièces jouées par l\'hôte pour chaque partie</string>
   <string name="estimatedStart">Heure de début estimée</string>
   <string name="simulFeatured">Simultanée diffusée sur %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
+  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
