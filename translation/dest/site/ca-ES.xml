@@ -348,6 +348,8 @@
   <string name="apply">Envia</string>
   <string name="save">Desa</string>
   <string name="leaderboard">Llista de líders</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Fes una captura de pantalla de la posició actual</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Partida com a GIF</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
   <string name="orUploadPgnFile">O penjar un arxiu PGN</string>
