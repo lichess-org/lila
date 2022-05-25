@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Les blanques han guanyat</string>
+  <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
