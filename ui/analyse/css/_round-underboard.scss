@@ -102,6 +102,10 @@ $col2-panel-height: 240px;
       display: inline-block;
       margin-right: 1em;
     }
+
+    label {
+      color: $c-link;
+    }
   }
 
   &__fen {
