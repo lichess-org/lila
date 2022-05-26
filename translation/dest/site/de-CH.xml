@@ -349,6 +349,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="apply">Aawändä</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
+  <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
+  <string name="gameAsGIF">Schpiel als GIF</string>
   <string name="pasteTheFenStringHere">Füeg de FEN-Tegscht da ii</string>
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da ii</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>

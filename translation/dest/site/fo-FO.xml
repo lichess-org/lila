@@ -759,7 +759,7 @@
   <string name="addCurrentVariation">Skoyt núverandi brigdi upp í</string>
   <string name="playVariationToCreateConditionalPremoves">Telva eitt brigdi til tess at skapa treytaðar undanleikir</string>
   <string name="noConditionalPremoves">Eingir treytaðir undanleikir</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Telva %s</string>
+  <string name="playX">Telva %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og goym %s undanleik</item>
     <item quantity="other">og goym %s undanleikir</item>

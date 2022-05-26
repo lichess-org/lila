@@ -745,7 +745,7 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="addCurrentVariation">Thêm biến thể hiện tại</string>
   <string name="playVariationToCreateConditionalPremoves">Chơi một biến thể để tạo ra nước đi trước có điều kiện</string>
   <string name="noConditionalPremoves">Không có nước đi trước có điều kiện nào</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Chơi %s</string>
+  <string name="playX">Chơi %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">và lưu %s biến đi trước</item>
   </plurals>
@@ -833,7 +833,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="simulHostcolor">Chọn màu cho ky thủ tổ chức đánh đồng loạt</string>
   <string name="estimatedStart">Thời gian dự kiến bắt đầu</string>
   <string name="simulFeatured">Hiển thị trên %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Hiển thị cuộc đánh đồng loạt của bạn trên %s. Không áp dụng cho các cuộc đánh không công khai.</string>
+  <string name="simulFeaturedHelp">Hiển thị cuộc đánh đồng loạt của bạn trên %s. Không áp dụng cho các cuộc đánh không công khai.</string>
   <string name="simulDescription">Mô tả cuộc đánh đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có muốn thông báo gì thêm cho những người tham gia không?</string>
   <string name="markdownAvailable">%s dùng được ở đây, nếu cần soạn thảo phức tạp.</string>

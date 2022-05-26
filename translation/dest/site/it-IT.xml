@@ -348,6 +348,8 @@
   <string name="apply">Applica</string>
   <string name="save">Salva</string>
   <string name="leaderboard">Classifica</string>
+  <string name="screenshotCurrentPosition">Salva la schermata corrente</string>
+  <string name="gameAsGIF">Salva la partita come GIF</string>
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
   <string name="orUploadPgnFile">O carica un file PGN</string>

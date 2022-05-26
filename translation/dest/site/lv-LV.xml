@@ -374,6 +374,8 @@
   <string name="apply">Apstiprināt</string>
   <string name="save">Saglabāt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
+  <string name="screenshotCurrentPosition">Uzņemt pašreizējās pozīcijas attēlu</string>
+  <string name="gameAsGIF">Spēle GIF formātā</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
   <string name="orUploadPgnFile">Augšuplādēt PGN datni</string>

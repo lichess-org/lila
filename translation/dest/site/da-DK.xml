@@ -348,6 +348,8 @@
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
   <string name="leaderboard">Førertavle</string>
+  <string name="screenshotCurrentPosition">Tag et skræmbillede af den aktuelle stilling</string>
+  <string name="gameAsGIF">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller upload en PGN-fil</string>

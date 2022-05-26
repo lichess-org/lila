@@ -400,6 +400,8 @@
   <string name="apply">Zastosuj</string>
   <string name="save">Zapisz</string>
   <string name="leaderboard">Najlepsi gracze</string>
+  <string name="screenshotCurrentPosition">Zrzut ekranu aktualnej pozycji</string>
+  <string name="gameAsGIF">Zapisz jako GIF</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>

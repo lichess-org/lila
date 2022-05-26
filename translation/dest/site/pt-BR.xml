@@ -348,6 +348,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Salvar</string>
   <string name="leaderboard">Classificação</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Captura de tela da posição atual</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Partida como GIF</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
@@ -772,7 +774,7 @@
   <string name="addCurrentVariation">Adicionar a variação atual</string>
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
   <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Jogar %s</string>
+  <string name="playX">Jogar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
@@ -862,7 +864,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulHostcolor">Cor do simultanista em cada jogo</string>
   <string name="estimatedStart">Tempo de início estimado</string>
   <string name="simulFeatured">Compartilhar em %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
+  <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
   <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>

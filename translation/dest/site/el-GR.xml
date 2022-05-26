@@ -348,6 +348,8 @@
   <string name="apply">Εφαρμογή</string>
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
+  <string name="screenshotCurrentPosition">Τραβήξτε στιγμιότυπο της τρέχουσας θέσης</string>
+  <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
@@ -773,7 +775,7 @@
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
   <string name="noConditionalPremoves">Καμία υποθετική προκίνηση</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Παίξτε %s</string>
+  <string name="playX">Παίξτε %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
@@ -864,7 +866,7 @@
   <string name="simulHostcolor">Χρώμα διοργανωτή σε κάθε παιχνίδι</string>
   <string name="estimatedStart">Εκτιμώμενη ώρα έναρξης</string>
   <string name="simulFeatured">Προβεβλημένο στο %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
+  <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
   <string name="markdownAvailable">Η μορφή %s είναι διαθέσιμη για μια πιο προχωρημένη σύνταξη.</string>
