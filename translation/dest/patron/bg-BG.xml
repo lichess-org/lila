@@ -16,6 +16,7 @@
   <string name="thankYou">Благодарим Ви за дарението!</string>
   <string name="youHaveLifetime">Имате доживотен дарителски акаунт. Това е просто невероятно!</string>
   <string name="patronUntil">Имате дарителски акаунт до %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ако не бъде подновена, Вашата регистрация ще стане пак обикновена.</string>
   <string name="weAreNonProfit">Ние сме асоциация с нестопанска цел, защото вярваме че всеки трябва да има достъп до безплатна шахматна платформа на световно ниво.</string>
   <string name="weRelyOnSupport">Ние разчитаме на подкрепа от хора като вас за да направим това реалност. Ако се наслаждавате на Lichess, можете да ни подкрепите като станете Дарител!</string>
   <string name="lifetime">До живот</string>
