@@ -348,6 +348,7 @@
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Geçerli konumun ekran görüntüsünü al</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
