@@ -25,7 +25,7 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
   };
 }
 
-export function noteView(ctrl: NoteCtrl): VNode {
+export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
   if (text == undefined)
     return h('div.loading', {
@@ -41,7 +41,7 @@ export function noteView(ctrl: NoteCtrl): VNode {
       insert(vnode) {
         const el = vnode.elm as HTMLTextAreaElement;
         el.value = text;
-        if (performance.now() > 1000) el.focus();
+        if (autofocus) el.focus();
         $(el).on('change keyup paste', () => ctrl.post(el.value));
       },
     },
