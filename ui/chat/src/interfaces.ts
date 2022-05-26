@@ -91,6 +91,7 @@ export interface ViewModel {
   enabled: boolean;
   placeholderKey: string;
   loading: boolean;
+  autofocus: boolean;
   timeout: boolean;
   writeable: boolean;
 }
