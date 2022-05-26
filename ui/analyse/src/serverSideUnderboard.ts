@@ -24,6 +24,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
+    $copyLink = $('.analyse__underboard__url'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
     positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement,
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
@@ -163,4 +164,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       ),
     });
   });
+
+  $copyLink.on('click', () => document.execCommand('copy'));
 }
