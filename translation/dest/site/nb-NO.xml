@@ -348,6 +348,7 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
