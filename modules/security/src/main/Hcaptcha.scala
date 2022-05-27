@@ -88,7 +88,10 @@ final class HcaptchaReal(
   }
 
   def form[A](form: Form[A])(implicit req: RequestHeader): Fu[HcaptchaForm[A]] =
-    skip.getFu map { HcaptchaForm(form, config.public, _) }
+    skip.getFu map { skip =>
+      lila.mon.security.hCaptcha.form(HTTPRequest clientName req, if (skip) "skip" else "show").increment()
+      HcaptchaForm(form, config.public, skip)
+    }
 
   def verify(response: String)(implicit req: RequestHeader): Fu[Result] = {
     val client = HTTPRequest clientName req
