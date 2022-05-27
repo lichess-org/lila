@@ -95,6 +95,8 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
+  lazy val crudForm = wire[crud.CrudForm]
+
   lazy val reloadEndpointSetting = settingStore[String](
     "tournamentReloadEndpoint",
     default = "/tournament/{id}",

@@ -9,15 +9,15 @@ import chess.variant.Variant
 import lila.common.Form._
 import chess.format.FEN
 
-object CrudForm {
+final class CrudForm(repo: TournamentRepo) {
 
+  import CrudForm._
   import TournamentForm._
   import lila.common.Form.UTCDate._
 
-  val maxHomepageHours = 24
-
-  lazy val apply = Form(
+  def apply(tour: Option[Tournament]) = Form(
     mapping(
+      "id"             -> id(8, tour.map(_.id))(repo.exists),
       "name"           -> text(minLength = 3, maxLength = 40),
       "homepageHours"  -> number(min = 0, max = maxHomepageHours),
       "clockTime"      -> numberInDouble(clockTimeChoices),
@@ -34,10 +34,11 @@ object CrudForm {
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,
       "hasChat"        -> boolean
-    )(CrudForm.Data.apply)(CrudForm.Data.unapply)
+    )(Data.apply)(Data.unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
-  ) fill CrudForm.Data(
+  ) fill Data(
+    id = Tournament.makeId,
     name = "",
     homepageHours = 0,
     clockTime = clockTimeDefault,
@@ -55,8 +56,14 @@ object CrudForm {
     teamBattle = false,
     hasChat = true
   )
+}
+
+object CrudForm {
+
+  val maxHomepageHours = 24
 
   case class Data(
+      id: String,
       name: String,
       homepageHours: Int,
       clockTime: Double,

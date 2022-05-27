@@ -342,6 +342,8 @@ object mon {
     object hCaptcha {
       def hit(client: String, result: String) =
         counter("hcaptcha.hit").withTags(Map("client" -> client, "result" -> result))
+      def form(client: String, result: String) =
+        counter("hcaptcha.form").withTags(Map("client" -> client, "result" -> result))
     }
   }
   object tv {
