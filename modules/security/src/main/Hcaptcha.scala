@@ -79,7 +79,7 @@ final class HcaptchaReal(
   implicit private val badReader = Json.reads[BadResponse]
 
   private object skip {
-    private val memo = new lila.memo.HashCodeExpireSetMemo[IpAddress](3 hours)
+    private val memo = new lila.memo.HashCodeExpireSetMemo[IpAddress](24 hours)
 
     def get(implicit req: RequestHeader): Boolean       = !memo.get(HTTPRequest ipAddress req)
     def getFu(implicit req: RequestHeader): Fu[Boolean] = fuccess { get }
