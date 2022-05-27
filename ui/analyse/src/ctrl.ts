@@ -353,7 +353,7 @@ export default class AnalyseCtrl {
 
   playedLastMoveMyself = () => !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
-  jump(path: Tree.Path, autoscroll: boolean = true): void {
+  jump(path: Tree.Path, autoscroll = true): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
@@ -388,7 +388,7 @@ export default class AnalyseCtrl {
     this.showGround();
   }
 
-  userJump = (path: Tree.Path, autoscroll: boolean = true): void => {
+  userJump = (path: Tree.Path, autoscroll = true): void => {
     this.autoplay.stop();
     if (!this.gamebookPlay()) this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
