@@ -138,7 +138,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       el.addEventListener('mousedown', (e: MouseEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
-        if (path) ctrl.userJump(path);
+        if (path) ctrl.userJump(path, false);
         ctrl.redraw();
       });
     },

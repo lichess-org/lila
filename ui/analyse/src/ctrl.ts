@@ -353,7 +353,7 @@ export default class AnalyseCtrl {
 
   playedLastMoveMyself = () => !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
-  jump(path: Tree.Path): void {
+  jump(path: Tree.Path, autoscroll: boolean = true): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
@@ -376,7 +376,7 @@ export default class AnalyseCtrl {
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
     this.updateHref();
-    this.autoScroll();
+    if (autoscroll) this.autoScroll();
     this.promotion.cancel();
     if (pathChanged) {
       if (this.retro) this.retro.onJump();
@@ -388,15 +388,15 @@ export default class AnalyseCtrl {
     this.showGround();
   }
 
-  userJump = (path: Tree.Path): void => {
+  userJump = (path: Tree.Path, autoscroll: boolean = true): void => {
     this.autoplay.stop();
     if (!this.gamebookPlay()) this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
-      this.jump(path);
+      this.jump(path, autoscroll);
       this.practice.postUserJump(prev, this.path);
-    } else this.jump(path);
+    } else this.jump(path, autoscroll);
   };
 
   canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
