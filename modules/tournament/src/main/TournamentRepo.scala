@@ -34,6 +34,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
+  def exists(id: Tournament.ID): Fu[Boolean]          = coll.exists($id(id))
 
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
