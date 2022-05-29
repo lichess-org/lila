@@ -5,15 +5,15 @@ import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { StoredBooleanProp } from 'common/storage';
 
-export function complete(
+export const complete = (
   puzzleId: string,
   theme: ThemeKey,
   win: boolean,
   rated: StoredBooleanProp,
   replay?: PuzzleReplay,
   streak?: PuzzleStreak
-): Promise<PuzzleResult> {
-  return xhr.json(`/training/complete/${theme}/${puzzleId}`, {
+): Promise<PuzzleResult> =>
+  xhr.json(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
     body: xhr.form({
       win,
@@ -22,21 +22,18 @@ export function complete(
       rated: rated(),
     }),
   });
-}
 
-export function vote(puzzleId: string, vote: boolean): Promise<void> {
-  return xhr.json(`/training/${puzzleId}/vote`, {
+export const vote = (puzzleId: string, vote: boolean): Promise<void> =>
+  xhr.json(`/training/${puzzleId}/vote`, {
     method: 'POST',
     body: xhr.form({ vote }),
   });
-}
 
-export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> {
-  return xhr.json(`/training/${puzzleId}/vote/${theme}`, {
+export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> =>
+  xhr.json(`/training/${puzzleId}/vote/${theme}`, {
     method: 'POST',
     body: defined(vote) ? xhr.form({ vote }) : undefined,
   });
-}
 
 export const setZen = throttle(1000, zen =>
   xhr.text('/pref/zen', {
