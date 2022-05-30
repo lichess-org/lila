@@ -82,6 +82,7 @@
   <string name="studyNotFound">Studija nerasta</string>
   <string name="editChapter">Redaguoti skyrių</string>
   <string name="newChapter">Naujas skyrius</string>
+  <string name="importFromChapterX">Importuoti iš %s</string>
   <string name="orientation">Kryptis</string>
   <string name="analysisMode">Analizės režimas</string>
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
