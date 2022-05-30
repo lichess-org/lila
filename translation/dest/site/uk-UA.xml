@@ -370,7 +370,7 @@
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
-    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових гри в %2$s</item>
+    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових ігри в %2$s</item>
     <item quantity="many">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
     <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
   </plurals>
@@ -400,6 +400,15 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Скріншот поточної позиції
+ 
+скріншот CurrentPosition
+
+Скріншот тут використовується як дієслово.
+Завантажити/поділитися зображенням поточної позиції.
+Файл</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Завантажте анімований GIF, що показує всю гру.
+Файл: Веб-сайт і додаток - найважливіші рядки</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="orUploadPgnFile">Або завантажте PGN файл</string>
