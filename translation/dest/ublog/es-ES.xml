@@ -30,7 +30,7 @@
   <string name="latestBlogPosts">Últimas entradas de blog</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Ver una entrada</item>
-    <item quantity="other">Ver las %s entradas</item>
+    <item quantity="other">Ver las nuevas entradas</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Subir una imagen para tu entrada</string>
   <string name="imageAlt">Texto alternativo de la imagen</string>
