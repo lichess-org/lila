@@ -52,6 +52,7 @@
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>
   <string name="newChapter">ନୂଆ ଅଧ୍ୟାୟ</string>
+  <string name="importFromChapterX">%s ରୁ ଆମଦାନୀ କରନ୍ତୁ</string>
   <string name="orientation">ଦିଗ</string>
   <string name="pinnedChapterComment">ପିନ୍ ହୋଇଥିବା ଅଧ୍ୟୟନ ମନ୍ତବ୍ୟ</string>
   <string name="saveChapter">ଅଧ୍ୟାୟ ସଞ୍ଚୟ କରନ୍ତୁ</string>
