@@ -118,7 +118,8 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterNewFormCtrl): VNode {
-  const trans = ctrl.root.trans;
+  const trans = ctrl.root.trans,
+    study = ctrl.root.study!;
   const activeTab = ctrl.vm.tab();
   const makeTab = function (key: string, name: string, title: string) {
     return h(
@@ -132,7 +133,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     );
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapter = ctrl.root.study!.data.chapter;
+  const currentChapter = study.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -291,6 +292,17 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 h('textarea#chapter-pgn.form-control', {
                   attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
+                h(
+                  'a.button.button-empty',
+                  {
+                    hook: bind('click', () => {
+                      xhr
+                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                        .then(pgnData => $('#chapter-pgn').val(pgnData));
+                    }),
+                  },
+                  trans('importFromChapterX', study.currentChapter().name)
+                ),
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
                       attrs: {
