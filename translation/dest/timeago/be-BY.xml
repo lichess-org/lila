@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="rightNow">прама зараз</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s секунду таму</item>
+    <item quantity="few">%s секунды таму</item>
+    <item quantity="many">%s секунд таму</item>
+    <item quantity="other">%s секунд таму</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s хвіліну таму</item>
+    <item quantity="few">%s хвіліны таму</item>
+    <item quantity="many">%s хвілін таму</item>
+    <item quantity="other">%s хвілін таму</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s гадзіну таму</item>
+    <item quantity="few">%s гадзіны таму</item>
+    <item quantity="many">%s гадзін таму</item>
+    <item quantity="other">%s гадзін таму</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s дзень таму</item>
+    <item quantity="few">%s дні таму</item>
+    <item quantity="many">%s дзён таму</item>
+    <item quantity="other">%s дзён таму</item>
+  </plurals>
   <plurals name="nbWeeksAgo">
     <item quantity="one">%s тыдзень таму</item>
     <item quantity="few">%s тыдні таму</item>
@@ -11,5 +36,11 @@
     <item quantity="few">%s месяцы таму</item>
     <item quantity="many">%s месяцаў таму</item>
     <item quantity="other">%s месяцаў таму</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s год таму</item>
+    <item quantity="few">%s гады таму</item>
+    <item quantity="many">%s гадоў таму</item>
+    <item quantity="other">%s гадоў таму</item>
   </plurals>
 </resources>
