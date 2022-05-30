@@ -76,6 +76,7 @@
   <string name="studyNotFound">Schtudie nöd gfunde</string>
   <string name="editChapter">Kapitel bearbeite</string>
   <string name="newChapter">Neus Kapitel</string>
+  <string name="importFromChapterX">Importiers us %s</string>
   <string name="orientation">Orientierig</string>
   <string name="analysisMode">Analyse Modus</string>
   <string name="pinnedChapterComment">Aaghänkte Kapitel Kommentar</string>
