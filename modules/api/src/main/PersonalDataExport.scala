@@ -12,7 +12,9 @@ import scala.concurrent.ExecutionContext
 import lila.chat.Chat
 import lila.db.dsl._
 import lila.game.Game
+import lila.streamer.Streamer
 import lila.user.User
+import lila.coach.Coach
 
 final class PersonalDataExport(
     securityEnv: lila.security.Env,
@@ -24,6 +26,8 @@ final class PersonalDataExport(
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
     ublogApi: lila.ublog.UblogApi,
+    streamerApi: lila.streamer.StreamerApi,
+    coachApi: lila.coach.CoachApi,
     picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
 )(implicit ec: ExecutionContext, mat: Materializer) {
@@ -60,6 +64,54 @@ final class PersonalDataExport(
       Source.futureSource {
         relationEnv.api.fetchFollowing(user.id) map { userIds =>
           Source(List(textTitle("Followed players")) ++ userIds)
+        }
+      }
+
+    val streamer = Source.futureSource {
+      streamerApi.find(user) map {
+        _.map(_.streamer).?? { s =>
+          List(textTitle("Streamer profile")) :::
+            List(
+              "name"     -> s.name,
+              "image"    -> s.picture.??(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+              "headline" -> s.headline.??(_.value),
+              "description" -> s.description.??(_.value),
+              "twitch"      -> s.twitch.??(_.fullUrl),
+              "youTube"     -> s.youTube.??(_.fullUrl),
+              "createdAt"   -> textDate(s.createdAt),
+              "updatedAt"   -> textDate(s.updatedAt),
+              "seenAt"      -> textDate(s.seenAt),
+              "liveAt"      -> s.liveAt.??(textDate)
+            ).map { case (k, v) =>
+              s"$k: $v"
+            }
+        }
+      } map Source.apply
+    }
+
+    val coach = Source.futureSource {
+      coachApi.find(user) map {
+        _.map(_.coach).?? { c =>
+          List(textTitle("Coach profile")) :::
+            c.profile.textLines :::
+            List(
+              "image"     -> c.picture.??(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+              "languages" -> c.languages.mkString(", "),
+              "createdAt" -> textDate(c.createdAt),
+              "updatedAt" -> textDate(c.updatedAt)
+            ).map { case (k, v) =>
+              s"$k: $v"
+            }
+        }
+      } map Source.apply
+    }
+
+    val coachReviews =
+      Source.futureSource {
+        coachApi.reviews.allByPoster(user) map { reviews =>
+          Source(List(textTitle("Coach reviews")) ::: reviews.list.map { r =>
+            s"${r.coachId}: ${r.text}\n"
+          })
         }
       }
 
@@ -175,6 +227,9 @@ final class PersonalDataExport(
       intro,
       connections,
       followedUsers,
+      streamer,
+      coach,
+      coachReviews,
       ublogPosts,
       forumPosts,
       privateMessages,

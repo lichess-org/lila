@@ -38,7 +38,7 @@ final class Coach(env: Env) extends LilaController(env) {
             studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             reviews  <- api.reviews.approvedByCoach(c.coach)
-            myReview <- ctx.me.?? { api.reviews.mine(_, c.coach) }
+            myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
           } yield {
             lila.mon.coach.pageView.profile(c.coach.id.value).increment()
             Ok(html.coach.show(c, reviews, studies, posts, myReview))

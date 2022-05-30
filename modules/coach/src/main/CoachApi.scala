@@ -136,9 +136,6 @@ final class CoachApi(
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
 
-    def mine(user: User, coach: Coach): Fu[Option[CoachReview]] =
-      reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
-
     def approve(r: CoachReview, v: Boolean) = {
       if (v)
         reviewColl.update
@@ -175,6 +172,9 @@ final class CoachApi(
 
     def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
       findRecent($doc("coachId" -> c.id.value))
+
+    def allByPoster(user: User): Fu[CoachReview.Reviews] =
+      findRecent($doc("userId" -> user.id))
 
     def deleteAllBy(userId: User.ID): Funit =
       for {
