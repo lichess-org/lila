@@ -400,6 +400,8 @@
   <string name="apply">Pritaikyti</string>
   <string name="save">Įrašyti</string>
   <string name="leaderboard">Lyderiai</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Nufotografuoti esamą poziciją</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Žaidimas kaip GIF animacija</string>
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
   <string name="orUploadPgnFile">Arba įkelkite PGN failą</string>
