@@ -74,6 +74,7 @@
   <string name="studyNotFound">Studie kon nie gevind word nie</string>
   <string name="editChapter">Verander die hoofstuk</string>
   <string name="newChapter">Nuwe hoofstuk</string>
+  <string name="importFromChapterX">Voer in vanaf %s</string>
   <string name="orientation">Oriëntasie</string>
   <string name="analysisMode">Analiseer mode</string>
   <string name="pinnedChapterComment">Vasgepende hoofstuk kommentaar</string>
