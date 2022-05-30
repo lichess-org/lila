@@ -16,7 +16,6 @@ object CoachProfileForm {
         "languages" -> nonEmptyText,
         "profile" -> mapping(
           "headline"           -> optional(text(minLength = 5, maxLength = 170)),
-          "languages"          -> optional(text(minLength = 3, maxLength = 140)),
           "hourlyRate"         -> optional(text(minLength = 3, maxLength = 140)),
           "description"        -> optional(richText),
           "playingExperience"  -> optional(richText),
