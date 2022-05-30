@@ -76,6 +76,7 @@
   <string name="studyNotFound">Η μελέτη δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
   <string name="newChapter">Νέο κεφάλαιο</string>
+  <string name="importFromChapterX">Εισαγωγή από</string>
   <string name="orientation">Προσανατολισμός</string>
   <string name="analysisMode">Τύπος ανάλυσης</string>
   <string name="pinnedChapterComment">Καρφιτσωμένο σχόλιο κεφαλαίου</string>
