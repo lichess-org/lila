@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s тыдзень таму</item>
+    <item quantity="few">%s тыдні таму</item>
+    <item quantity="many">%s тыдняў таму</item>
+    <item quantity="other">%s тыдняў таму</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s месяц таму</item>
+    <item quantity="few">%s месяцы таму</item>
+    <item quantity="many">%s месяцаў таму</item>
+    <item quantity="other">%s месяцаў таму</item>
+  </plurals>
+</resources>
