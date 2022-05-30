@@ -291,6 +291,21 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 h('textarea#chapter-pgn.form-control', {
                   attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
+                ctrl.root.study && ctrl.root.study.currentChapter() ?
+                  h(
+                    'a.button.button-empty',
+                    {
+                      hook: onInsert((el: HTMLLinkElement) => {
+                        el.addEventListener('click', () => {
+                          xhr.text('/study/' + ctrl.root.study!.data.id + '/' + ctrl.root.study!.currentChapter().id + '.pgn').then((pgnData: string) => {
+                            (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value = pgnData;
+                          });
+                        });
+                      })
+                    },
+                    trans('importFromChapterX', ctrl.root.study!.currentChapter().name)
+                  )
+                  : null,
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
                       attrs: {
