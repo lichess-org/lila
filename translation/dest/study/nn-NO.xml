@@ -76,6 +76,7 @@
   <string name="studyNotFound">Fann ikkje studien</string>
   <string name="editChapter">Rediger kapittel</string>
   <string name="newChapter">Nytt kapittel</string>
+  <string name="importFromChapterX">Importer frå %s</string>
   <string name="orientation">Retning</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Fastspikra kapittelkommentar</string>
