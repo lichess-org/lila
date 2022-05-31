@@ -39,7 +39,5 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   return nodes;
 }
 
-export function renderIndexAndMove(ctx: Ctx, node: Tree.Node): VNode[] | undefined {
-  if (!node.san) return; // initial position
-  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)];
-}
+export const renderIndexAndMove = (ctx: Ctx, node: Tree.Node): VNode[] | undefined =>
+  node.san ? [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)] : undefined;
