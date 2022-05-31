@@ -76,6 +76,7 @@
   <string name="studyNotFound">Казусът не бе открит</string>
   <string name="editChapter">Промени глава</string>
   <string name="newChapter">Нова глава</string>
+  <string name="importFromChapterX">Импортиране от %s</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим на анализ</string>
   <string name="pinnedChapterComment">Коментар на главата</string>
