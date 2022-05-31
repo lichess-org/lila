@@ -317,7 +317,9 @@ final class Auth(
   def setFingerPrint(fp: String, ms: Int) =
     Auth { ctx => me =>
       lila.mon.http.fingerPrint.record(ms)
-      api.setFingerPrint(ctx.req, FingerPrint(fp)) flatMap {
+      api
+        .setFingerPrint(ctx.req, FingerPrint(fp))
+        .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMap {
         _ ?? { hash =>
           !me.lame ?? (for {
             otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
