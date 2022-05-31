@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A prima persona chì ghjunghje issu URL hà da  voi.</string>
   <string name="whiteResigned">I bianchi tralascianu</string>
   <string name="blackResigned">I neri tralascianu</string>
-  <string name="whiteLeftTheGame">I bianchi lascianu a partita</string>
-  <string name="blackLeftTheGame">I neri lascianu a partita</string>
+  <string name="whiteLeftTheGame">I bianchi abbanduneghjanu a partita</string>
+  <string name="blackLeftTheGame">I neri abbanduneghjanu a partita</string>
   <string name="whiteDidntMove">I bianchi ùn anu ghjucatu</string>
   <string name="blackDidntMove">I neri ùn anu ghjucatu</string>
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
@@ -162,7 +162,7 @@
   <string name="forum">Foru</string>
   <string name="xPostedInForumY">%1$s pustatu in u sughjettu %2$s</string>
   <string name="latestForumPosts">Ultimi missaghji di u foru</string>
-  <string name="players">Ghjucatori</string>
+  <string name="players">Ghjucadori</string>
   <string name="friends">Amichi</string>
   <string name="discussions">Discursate</string>
   <string name="today">Oghje</string>
@@ -462,7 +462,7 @@
   <string name="inlineNotation">Nutazione in linea</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
-  <string name="activePlayers">Ghjucatori attivi</string>
+  <string name="activePlayers">Ghjucadori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenti, a partita hè classificata ma ùn ci hè riloghju!</string>
   <string name="success">Successu</string>
   <plurals name="nbGamesInPlay">
@@ -717,7 +717,7 @@
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
-  <string name="coaches">Intrenatori</string>
+  <string name="coaches">Allenatori</string>
   <string name="invalidPgn">PGN invalidu</string>
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
@@ -840,7 +840,7 @@
   <string name="download">Telecaricà</string>
   <string name="welcome">Benvenutu!</string>
   <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
-  <string name="coachManager">Responsevule di l\' intrenatori</string>
+  <string name="coachManager">Responsevule di l\' allenatori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
   <string name="tournDescription">Descrizzione di u turneu</string>
@@ -893,7 +893,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
   <string name="since">Da</string>
   <string name="until">Sin\' à</string>
-  <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucatori di Lichess</string>
+  <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucadori di Lichess</string>
   <string name="switchSides">Invertì a scacchera</string>
   <string name="closingAccountWithdrawAppeal">Chjude u vostru contu cancellerà a vostra chjama</string>
 </resources>
