@@ -7,7 +7,7 @@
   <string name="challengeCanceled">Sfida annullata.</string>
   <string name="registerToSendChallenges">Ci vole à esse arrigestratu pè prupone una sfida.</string>
   <string name="youCannotChallengeX">Ùn pudete sfidà %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ùn accetta sfide.</string>
+  <string name="xDoesNotAcceptChallenges">%s ùn accettà sfide.</string>
   <string name="yourXRatingIsTooFarFromY">A vostra %1$s classifica hè troppu luntana di %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ùn pudete micca mandà una sfida pè u mumentu chì a vostra %s classifica hè pruvisoria.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta sotantu e sfide di i so amichi.</string>
@@ -19,7 +19,7 @@
   <string name="declineRated">Pè piace, manda mi piuttostu una sfida classificata.</string>
   <string name="declineCasual">Pè piace, manda mi piuttostu una sfida senza classifica.</string>
   <string name="declineStandard">Ùn accettu e sfide cù e variante per u mumentu.</string>
-  <string name="declineVariant">Ùn vogliu micca ghjucà cù sta variante per u mumentu.</string>
+  <string name="declineVariant">Ùn vogliu micca  sta variante per u mumentu.</string>
   <string name="declineNoBot">Ùn accettu micca e sfide chì venenu di l\' urdinatori.</string>
   <string name="declineOnlyBot">Ùn accettu chì e sfide chì venenu di l\' autumati.</string>
 </resources>
