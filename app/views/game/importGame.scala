@@ -54,6 +54,7 @@ object importGame {
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
+          p(cls := "form-help")(trans.importGameImportantNote()),
           form3.action(form3.submit(trans.importGame(), "".some))
         )
       )

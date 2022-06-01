@@ -359,6 +359,7 @@
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
+  <string name="importGameImportantNote">Important note: This data will be publicly available and cannot be deleted. Please only share content you are legally allowed to share and that you are comfortable sharing with others.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
