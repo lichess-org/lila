@@ -15,4 +15,6 @@
   <string name="includingAXToIndicateACapture">Басып алуды \"x\" деп белгілеуге болады</string>
   <string name="bothTheLetterOAndTheDigitZero">Бекінуді \"o\" әрпімен де, \"0\" санымен де жазуға рұқсат</string>
   <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Егер бекіну екі жаққа да ашық болса, патша жағына enter-мен бекінесіз</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Әріптердің үлкендігі тек кей жағдайда ғана орынды, мысалы, піл (B) мен b тақта жолындағы сарбазды ажыратуда</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Алдын-ала жүру үшін, кезегіңіз келмегенше, жүрісті кәдімгідей енгізіңіз</string>
 </resources>
