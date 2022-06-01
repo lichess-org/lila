@@ -87,7 +87,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
-  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\"</string>
+  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
+  <string name="winOr50MovesByPriorMistake">승리 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="lossOr50MovesByPriorMistake">패배 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="unknownDueToRounding">DTZ 수치의 반올림 때문에 추천된 테이블베이스 라인을 따라야만 승리 및 패배가 보장됩니다.</string>
   <string name="allSet">모든 설정 완료!</string>
   <string name="importPgn">PGN 가져오기</string>
   <string name="delete">삭제</string>
