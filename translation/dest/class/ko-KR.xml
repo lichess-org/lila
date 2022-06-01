@@ -86,6 +86,7 @@
   <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
   <string name="winrate">승률</string>
   <string name="na">해당없음</string>
+  <string name="overview">개요</string>
   <string name="news">소식</string>
   <string name="classNews">학급 소식</string>
   <string name="editNews">뉴스 편집</string>
@@ -102,6 +103,7 @@
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">또는</string>
   <string name="createMultipleAccounts">여러 리체스 계정을 한번에 만들기</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s 를 통해 학생 이름 목록으로부터 중복 리체스 계정을 만들 수 있습니다.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">이 양식을 작성해주세요.</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">수업은 최대 %1$s 명의 학생을 받을 수 있습니다. 더 많은 학생을 받으려면, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">수업을 더 만들기</string>
   <string name="studentsRealNamesOnePerLine">학생의 실명, 한 줄에 하나씩</string>
