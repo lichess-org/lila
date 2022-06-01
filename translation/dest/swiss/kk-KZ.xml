@@ -69,5 +69,32 @@
 Бірақ Швейцарлық жарысты барынша Round Robin жарысына ұқсатуға болады. Ол үшін айналым саны өте көп болуы керек. Сонда барлық мүмкін жұптасудан кейін жарыс аяқталады.</string>
   <string name="otherSystemsQ">Басқа да жарыс тәртіптері туралы не дейсіз?</string>
   <string name="otherSystemsA">Әзірге басқа жарыс тәртіптерін Лическе қосу ойымызда жоқ.</string>
-  <string name="swissDescription">Швейцарлық жарыста %1$s әр қатысушы қалғандардың барлығымен ойнап шығатынына кепіл жоқ. Әр ойында қатысушылар жекпе-жек ойнайды, оларды жұптастыру үшін ережелер жинағы жасалды. Ережеге сәйкес ойыншылардың дәрежелері шамалас, әрі алдында жұпталмаған болуы керек, Жеңімпаз болып бүкіл ойындарда қорытынды ұпайы көп ойыншы аталады. Егер ойыншылар саны тақ болмаса, барлық қатысушылар саны бірдей ойын ойнайды.</string>
+  <string name="swissDescription">Швейцарлық жарыста %1$s әр қатысушы қалғандардың барлығымен ойнап шығатынына кепіл жоқ. Әр ойында қатысушылар жекпе-жек ойнайды, оларды жұптау үшін ережелер жинағы жасалды. Ережеге сәйкес ойыншылардың дәрежелері шамалас, әрі алдында жұпталмаған болуы керек, Жеңімпаз болып бүкіл ойындарда қорытынды ұпайы көп ойыншы аталады. Егер ойыншылар саны тақ болмаса, барлық қатысушылар саны бірдей ойын ойнайды.</string>
+  <string name="teamOnly">Швейцарлық жарысты жасай алатын – тек топ жетекшісі, жарысқа қатыса алатындар – тек  топ мүшелері.           Швейцарлық жарыста ойнау үшін %1$s.</string>
+  <string name="joinOrCreateTeam">Топты жасау не қосылу</string>
+  <string name="nowPlaying">Қазір ойында</string>
+  <string name="startingSoon">Басталуға әзір</string>
+  <string name="comparison">Салыстырма</string>
+  <string name="tournDuration">Жарыс ұзақтығы</string>
+  <string name="predefinedDuration">Белгіленген ұзақтығы, минутпен</string>
+  <string name="durationUnknown">Айналымдардың белгіленген саны, бірақ ұзақтығы беймәлім</string>
+  <string name="numberOfGames">Ойын саны</string>
+  <string name="numberOfGamesAsManyAsPossible">Ұзақтығымен шектелген барынша көп</string>
+  <string name="numberOfGamesPreDefined">Алдын-ала келісіп белгіленген, барлық ойыншыларда бірдей</string>
+  <string name="pairingSystem">Жұптау жүйесі</string>
+  <string name="pairingSystemArena">Дәрежесі шамалас кез-келген қарсылас</string>
+  <string name="pairingSystemSwiss">Ұпай мен шешуші ойынға негізделген ең тиімді жұптау</string>
+  <string name="pairingWaitTime">Жұптау уақыты</string>
+  <string name="pairingWaitTimeArena">Тез: барлық ойыншыны күтпейді</string>
+  <string name="pairingWaitTimeSwiss">Баяу: барлық ойыншыны күтеді</string>
+  <string name="identicalPairing">Бірдеу жұптау</string>
+  <string name="possibleButNotConsecutive">Рұқсат, бірақ қатарынан емес</string>
+  <string name="identicalForbidden">Рұқсат емес</string>
+  <string name="lateJoin">Кешіге қосылу</string>
+  <string name="lateJoinUntil">Рұқсат, бірақ айналымдардың жартысы өтпегенше</string>
+  <string name="pause">Үзіліс</string>
+  <string name="pauseSwiss">Рұқсат, бірақ айналым саны азаяды</string>
+  <string name="streaksAndBerserk">Тізбектер мен Берсерк</string>
+  <string name="similarToOTB">Шынайы жарыстарға ұқсас</string>
+  <string name="unlimitedAndFree">Шектеусіз әрі тегін</string>
 </resources>
