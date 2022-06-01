@@ -70,12 +70,19 @@ object replay {
     )
     val shareLinks = frag(
       a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
-      label(dataIcon := "", cls := "text")(
+      div(
         input(
+          id         := "game-url",
+          cls        := "copyable autoselect",
+          spellcheck := "false",
           readonly,
-          spellcheck := false,
-          cls        := "copyable autoselect like-text analyse__underboard__url",
-          value      := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+          value := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+        ),
+        button(
+          title    := "Copy URL",
+          cls      := "copy button",
+          dataRel  := "game-url",
+          dataIcon := ""
         )
       )
     )
