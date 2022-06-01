@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">키보드 명령어</string>
+  <string name="performAMove">수 두기</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">기물을 e2에서 e4칸으로 옮기기</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">나이트를 c3칸으로 옮기기</string>
+  <string name="kingsideCastle">킹사이드 캐슬</string>
+  <string name="queensideCastle">퀸사이드 캐슬</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">c8칸을 퀸으로 승급하기</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">룩을 b4칸에 낙하하기 (크레이지하우스에서만 가능)</string>
+  <string name="offerOrAcceptDraw">무승부를 제안 혹은 승낙하기</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">남은 시간 소리내어 읽기</string>
+  <string name="otherCommands">기타 명령어</string>
+  <string name="tips">도움말</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">위 표기법이 어렵다면 여기서 더 알아볼 수 있어요:</string>
+</resources>
