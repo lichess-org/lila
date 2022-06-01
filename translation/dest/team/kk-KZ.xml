@@ -7,6 +7,7 @@
     <item quantity="other">%s мүше</item>
   </plurals>
   <string name="allTeams">Барлық топтар</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Қол асты топтарыңыз</string>
   <string name="newTeam">Жаңа топ</string>
   <string name="myTeams">Менің топтарым</string>
   <string name="noTeamFound">Ешбір топ табылмады</string>
