@@ -207,10 +207,6 @@
     <item quantity="one">A classifica hè attualizata ogni minuta</item>
     <item quantity="other">A classifica hè attualizata ogni %s minuti</item>
   </plurals>
-  <plurals name="nbPuzzles">
-    <item quantity="one">%s </item>
-    <item quantity="other">%s prublemi</item>
-  </plurals>
   <string name="gamesPlayed">Partite ghjucate</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partita cù voi</item>
