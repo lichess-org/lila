@@ -910,9 +910,9 @@
     to-fast-properties "^2.0.0"
 
 "@badrap/result@^0.2":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@badrap/result/-/result-0.2.8.tgz#76b835c17c4c2d12575a4b205a7df3d14e3ad39c"
-  integrity sha512-zC6LgWe8QWSTwxfQVoRyieFaTbCJ2WYvpJdZ0fONoUJT1ln/oWNb3zBPlPP5J9ehLAaFIZJ7aB8oISzYFs6grQ==
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@badrap/result/-/result-0.2.12.tgz#ab5690ae04ee474ef6c912210b4126c56e7a0a9d"
+  integrity sha512-tSFeaiqM9p/2AtB0XNiTaZ0l+8icGxNTmF+v6sYBeV+JrFgoxhGn4BaM/SfP54Hc0eM3d8TwY0Q2k5AdSRaHIw==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
