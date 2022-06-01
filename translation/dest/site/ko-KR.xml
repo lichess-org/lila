@@ -9,7 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
+  <string name="strength">난이도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
