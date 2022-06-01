@@ -28,10 +28,13 @@
   </plurals>
   <string name="willBeReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарайды.</string>
   <string name="beingReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарап жатыр.</string>
+  <string name="requestDeclined">Топ жетекшісі сіздің қосылуыңызға қарсы.</string>
+  <string name="subToTeamMessages">Топ хабарларына жазылу</string>
   <string name="teamBattle">Топтар Күресі</string>
   <string name="teamBattleOverview">Бірнеше топтың күресі, әр ойыншы өз тобына ұпай жинайды</string>
   <string name="teamTournament">Топтық жарыс</string>
   <string name="teamTournamentOverview">Алаң жарысы, тек сіздің тобыңыздың мүшелері қосыла алады</string>
+  <string name="swissTournamentOverview">Тек тобыңыздың мүшелері ғана қатысатын Швейцарлық жарыс</string>
   <string name="messageAllMembers">Барлық топ мүшелеріне хабарлау</string>
   <string name="messageAllMembersOverview">Әр топ мүшесіне жеке хабар жіберу</string>
   <string name="messageAllMembersLongDescription">Барлық топ мүшелеріне жеке хабар жіберу.
@@ -43,5 +46,12 @@
   <string name="leadersChat">Жетекшілер чаты</string>
   <string name="closeTeam">Топты жабу</string>
   <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
+  <string name="entryCode">Топқа кіру коды</string>
+  <string name="entryCodeDescriptionForLeader">(Міндетті емес) Топқа қосылу үшін жаңа топ мүшесі кодты білу міндетті.</string>
+  <string name="incorrectEntryCode">Қате код.</string>
   <string name="teamAlreadyExists">Осындай топ бұрыннан бар.</string>
+  <string name="upcomingTourns">Жуырдағы жарыстар</string>
+  <string name="completedTourns">Аяқталған жарыстар</string>
+  <string name="declinedRequests">Қабылданбаған сұранымдар</string>
+  <string name="joinLichessVariantTeam">Жаңалық пен хабар үшін %s ресми тобына қосылыңыз</string>
 </resources>
