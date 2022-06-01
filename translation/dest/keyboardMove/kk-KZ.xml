@@ -6,4 +6,13 @@
   <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Атты c3-ке қою</string>
   <string name="queensideCastle">Уәзіржақты бекіну</string>
   <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">c8-де уәзірге айналдыру</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Тураны b4-ке тастау (Crazyhouse шахматында ғана)</string>
+  <string name="offerOrAcceptDraw">Тепе-теңдікті сұрау не қабылдау</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Сағатты дауыстап айту</string>
+  <string name="otherCommands">Басқа пәрмендер</string>
+  <string name="tips">Түсіндірме</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Көрсетілген жүріс тәртібі бейтаныс болса, осы жерден біліп алыңыз:</string>
+  <string name="includingAXToIndicateACapture">Басып алуды \"x\" деп белгілеуге болады</string>
+  <string name="bothTheLetterOAndTheDigitZero">Бекінуді \"o\" әрпімен де, \"0\" санымен де жазуға рұқсат</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Егер бекіну екі жаққа да ашық болса, патша жағына enter-мен бекінесіз</string>
 </resources>
