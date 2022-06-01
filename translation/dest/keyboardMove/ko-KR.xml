@@ -13,4 +13,9 @@
   <string name="otherCommands">기타 명령어</string>
   <string name="tips">도움말</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">위 표기법이 어렵다면 여기서 더 알아볼 수 있어요:</string>
+  <string name="includingAXToIndicateACapture">포획할때 쓰는 \"x\"는 필수가 아닙니다.</string>
+  <string name="bothTheLetterOAndTheDigitZero">캐슬시 알파벳 \"o\"와 번호 \"0\" 둘다 사용할 수 있습니다</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">캐슬이 두 방향 모두 가능하다면 Enter 키로 킹사이드 캐슬이 가능합니다.</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">대소문자 구별은 비숍과 b폰의 구별 외 필수가 아닙니다.</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">미리두기를 하려면 자기 턴 전에 명령어를 입력하세요.</string>
 </resources>
