@@ -3,18 +3,22 @@
 ## I want to contribute code to Lichess
 
 - [Set up your development environment](https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding).
-- [Pick a GitHub issue to work on](https://github.com/lichess-org/lila/issues). The [good first issue](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [no scala](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
+- [Pick a GitHub issue to work on](https://github.com/lichess-org/lila/issues). The [`good first issue`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [`no scala`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
 - Communicate with other devs on [Discord](https://discord.gg/lichess).
+
+## I want to contribute artwork or documentation
+
+Some issues that need artwork and documentation to be resolved are tagged [`non technical`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22non+technical%22).
 
 ## I want to report a bug or a problem about Lichess
 
-[**Make an issue**](https://github.com/lichess-org/lila/issues/new). However, note that issues that provide little value compared to the required effort may be closed. Before creating an issue, make sure that:
+[**Make an issue**](https://github.com/lichess-org/lila/issues/new). Before creating an issue, make sure that:
 
 1. You list the steps to reproduce the problem to show that other users may experience it as well, if the issue is not self-descriptive.
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
-3. It is not a trivial problem or demand unrealistic dev time to fix.
+3. It is not a trivial problem or demand unrealistic dev time to fix. Such issues may be closed.
 
-Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/lichobile/).
+Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/lichobile).
 
 ## I want to suggest a feature for Lichess
 
@@ -28,3 +32,7 @@ Issue tickets on features that lack potential or effectiveness are not useful an
 ## I want to help translating Lichess
 
 Check out [Lichess on crowdin.com](https://crowdin.com/project/lichess).
+
+## Other ways to contribute
+
+Also see https://lichess.org/help/contribute.
