@@ -87,6 +87,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
+  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\"</string>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
@@ -318,6 +319,8 @@
   <string name="apply">적용</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">스크린샷 찍기</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">GIF로 저장하기</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
