@@ -427,6 +427,8 @@
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
   <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Դադար</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Շարունակել</string>
   <string name="youArePlaying">Դուք խաղում եք։</string>
   <string name="winRate">Հաղթանակի տոկոս</string>
   <string name="berserkRate">Բերսերկի տոկոս</string>
