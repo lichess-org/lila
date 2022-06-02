@@ -491,7 +491,7 @@
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pauza</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Powrót do turnieju</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Współczynnik zwycięstw</string>
   <string name="berserkRate">Berserków</string>
