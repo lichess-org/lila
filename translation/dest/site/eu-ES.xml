@@ -428,6 +428,8 @@
   <string name="tournamentIsStarting">Txapelketa hasiko da</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Gelditu</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Berrekin</string>
   <string name="youArePlaying">Jokatzen ari zara!</string>
   <string name="winRate">Irabazien ratioa</string>
   <string name="berserkRate">Berserk ratioa</string>
