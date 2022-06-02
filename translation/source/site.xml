@@ -429,6 +429,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Resume</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
   <string name="berserkRate">Berserk rate</string>
