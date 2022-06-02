@@ -24,4 +24,7 @@
   <string name="sortBy">या क्रमानुसार लावा</string>
   <string name="analysis">विश्लेषण</string>
   <string name="onlyAnalysed">खेळात कॉम्प्युटर विश्लेषण उपलब्ध आहे</string>
+  <string name="color">रंग</string>
+  <string name="evaluation">मूल्यमापन</string>
+  <string name="maxNumber">सर्वाधिक आकडा</string>
 </resources>
