@@ -85,7 +85,7 @@
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
-  <string name="topGames">Найкращі ігри</string>
+  <string name="topGames">Кращі ігри</string>
   <string name="masterDbExplanation">Два мільйони ігор за дошкою %1$s+ гравців FIDE з рейтингом від %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s напівхід</item>
@@ -97,7 +97,7 @@
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
-  <string name="openingEndgameExplorer">Перегляд дебюту/ендпшілю</string>
+  <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
@@ -154,7 +154,7 @@
     <item quantity="other">%s гравців</item>
   </plurals>
   <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
-  <string name="fiftyMovesWithoutProgress">П\'ятдесят кроків без прогресу</string>
+  <string name="fiftyMovesWithoutProgress">П\'ятдесят ходів без прогресу</string>
   <string name="currentGames">Поточні ігри</string>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
@@ -188,7 +188,7 @@
   <string name="variants">Варіанти</string>
   <string name="timeControl">Контроль часу</string>
   <string name="realTime">Наживо</string>
-  <string name="correspondence">Заочно</string>
+  <string name="correspondence">Заочні</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -245,8 +245,8 @@
     <item quantity="other">%s ігор з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
-  <string name="whiteTimeOut">Час білих збіг</string>
-  <string name="blackTimeOut">Час чорних збіг</string>
+  <string name="whiteTimeOut">Час білих вийшов</string>
+  <string name="blackTimeOut">Час чорних вийшов</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
   <string name="drawOfferCanceled">Пропозицію нічиєї скасовано</string>
@@ -591,10 +591,10 @@
   <string name="sound">Звук</string>
   <string name="none">Немає</string>
   <string name="fast">Швидко</string>
-  <string name="normal">Нормально</string>
+  <string name="normal">Помірно</string>
   <string name="slow">Повільно</string>
-  <string name="insideTheBoard">Всередині дошки</string>
-  <string name="outsideTheBoard">Поза дошкою</string>
+  <string name="insideTheBoard">Усередині шахівниці</string>
+  <string name="outsideTheBoard">Поза шахівницею</string>
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>
@@ -644,7 +644,7 @@
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="ifRegistered">Якщо зареєстровані</string>
   <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
-  <string name="onlyFriends">Тільки друзям</string>
+  <string name="onlyFriends">Лише друзям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокіровка</string>
   <string name="whiteCastlingKingside">Білі O-O</string>
@@ -653,7 +653,7 @@
     <item quantity="one">%s повідомлення на форумі</item>
     <item quantity="few">%s повідомлення на форумі</item>
     <item quantity="many">%s повідомлень на форумі</item>
-    <item quantity="other">%s повідомлення на форумі</item>
+    <item quantity="other">%s повідомлень на форумі</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Дивитись ігри</string>
@@ -731,18 +731,18 @@
   <string name="downloadRaw">Завантажити без коментарів</string>
   <string name="downloadImported">Завантажити імпортоване</string>
   <string name="crosstable">Рахунок</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також Ви можете використовувати коліщатко миші над дошкою для зміни ходів у грі.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть колесом миші по комп\'ютерним варіаціям для їх попереднього перегляду.</string>
-  <string name="analysisShapesHowTo">Натисніть shift+лкм або пкм, щоб намалювати кола та стрілки на дошці.</string>
+  <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
   <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
-  <string name="shareYourInsightsData">Надавати доступ до Вашої шахової аналітики</string>
-  <string name="withNobody">Ні з ким</string>
-  <string name="withFriends">З друзями</string>
-  <string name="withEverybody">З будь-ким</string>
+  <string name="shareYourInsightsData">Надавати доступ до вашої шахової аналітики</string>
+  <string name="withNobody">Нікому</string>
+  <string name="withFriends">Друзям</string>
+  <string name="withEverybody">Будь-кому</string>
   <string name="kidMode">Дитячий режим</string>
-  <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі все спілкування на сайті вимкнено. Увімкніть цю функцію для Ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб Ви знали, що Ваші діти в безпеці.</string>
+  <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі усе спілкування на сайті вимкнено. Увімкніть цю функцію для ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб ви знали, що ваші діти в безпеці.</string>
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
@@ -756,7 +756,7 @@
   <string name="fullFeatured">Повнофункціональний</string>
   <string name="phoneAndTablet">Для смартфонів та планшетів</string>
   <string name="bulletBlitzClassical">Куля, бліц, класичні шахи</string>
-  <string name="correspondenceChess">За листуванням</string>
+  <string name="correspondenceChess">Заочна</string>
   <string name="onlineAndOfflinePlay">Гра онлайн та оффлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
@@ -780,8 +780,8 @@
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
   <string name="backgroundImageUrl">URL фонового зображення:</string>
-  <string name="boardGeometry">Вигляд дошки</string>
-  <string name="boardTheme">Оформлення дошки</string>
+  <string name="boardGeometry">Вигляд шахівниці</string>
+  <string name="boardTheme">Оформлення шахівниці</string>
   <string name="boardSize">Розмір дошки</string>
   <string name="pieceSet">Набір фігур</string>
   <string name="embedInYourWebsite">Вставити на свій сайт</string>
@@ -887,7 +887,7 @@
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
   <string name="classicalDesc">Класичні ігри: 25 хвилин і більше</string>
-  <string name="correspondenceDesc">За листуванням: один чи декілька днів на хід</string>
+  <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
@@ -927,12 +927,12 @@
   <string name="tournDescription">Опис турніру</string>
   <string name="tournDescriptionHelp">Є щось особливе, що ви хочете сказати учасникам? Спробуйте написати це коротко. Для посилань доступна розмітка Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Ігри обраховуються за рейтинговою системою і впливатимуть на рейтинг гравців</string>
-  <string name="onlyMembersOfTeam">Тільки члени команди</string>
+  <string name="onlyMembersOfTeam">Лише члени команди</string>
   <string name="noRestriction">Без обмежень</string>
   <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
   <string name="minimumRating">Мінімальний рейтинг</string>
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
-  <string name="onlyTitled">Тільки титуловані гравці</string>
+  <string name="onlyTitled">Лише титуловані гравці</string>
   <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
   <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
 Він працює тільки з стандартними іграми, а не з варіантами.
@@ -951,7 +951,7 @@
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
-  <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="onlyTeamMembers">Лише члени команди</string>
   <string name="navigateMoveTree">Навігація по нотації</string>
   <string name="mouseTricks">Можливості миші</string>
   <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>

@@ -348,6 +348,8 @@
   <string name="apply">Ota käyttöön</string>
   <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
+  <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
+  <string name="gameAsGIF">Tallenna peli GIF:nä</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>

@@ -2,7 +2,7 @@ package lila.shutup
 
 /**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
   *   - words do not partial match. "anal" will NOT match "analysis".
-  *   - en, es and de words are automatically pluralized. "tit" will also match "tits", "cabron" will also
+  *   - en, es, de and fr words are automatically pluralized. "tit" will also match "tits", "cabron" will also
   *     match "cabrones" etc.
   *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
   *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
@@ -22,6 +22,7 @@ anus
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
+autist(ic|)
 aus?c?hwitz
 bastard?
 be[ea]+ch
@@ -50,6 +51,7 @@ dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
 douche(bag|)
+dumb(ass?|)
 dyke
 engine
 fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
@@ -77,6 +79,7 @@ lo+ser
 masturbat(e|ion|ing)
 milf
 molest(er|)
+monkey
 moron
 mother(fuc?k(er|)|)
 mthrfckr
@@ -102,7 +105,6 @@ prostitute
 punani
 puss(i|y|ie|)
 queer
-rape
 rapist
 rect(al|um)
 retard
@@ -211,6 +213,7 @@ ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+idiota
 imbecil
 madre
 maric[oó]n
@@ -244,10 +247,12 @@ gaa?nd
 """)
 
   def fr = dict("""
+connard
 fdp
 pd
 pute
 triche(ur|)
+conn?ard?
 """)
 
   def de = dict("""
@@ -291,9 +296,10 @@ yarra[gğ][iı] yediniz
 
   def critical = dict("""
 cancer
-(ho?pe ((yo)?[uy](r family)?( and )*)+ (die|burn)s?|((die|burn)s? irl))
-(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and )?)+
+((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
+(kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
 kys
+rape
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

@@ -9,6 +9,8 @@
   <string name="postBody">Biitrag Inhalt</string>
   <string name="drafts">Entwürf</string>
   <string name="published">Veröffentlicht</string>
+  <string name="createBlogDiscussion">Kommentär erlaube</string>
+  <string name="createBlogDiscussionHelp">Es Forum - Thema erschtelle, für Lüt wo din Bitrag wänd kommentiere</string>
   <string name="publishOnYourBlog">Veröffentlich i dim Blog</string>
   <string name="publishHelp">Isch er aktiviert, wird de Biitrag i dim Blog ufgelischtet. Wänn nöd, wird er i dine Entwürf privat bliibe</string>
   <plurals name="publishedNbBlogPosts">

@@ -10,7 +10,7 @@
   <string name="arabianMateDescription">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
-  <string name="attraction">Tehlikeli sular</string>
+  <string name="attraction">Cezbetme</string>
   <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
   <string name="backRankMate">Koridor matı</string>
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
@@ -32,7 +32,7 @@
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
-  <string name="clearance">Ön hazırlık</string>
+  <string name="clearance">Boşaltma</string>
   <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran hamleler.</string>
   <string name="defensiveMove">Savunma hamlesi</string>
   <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
@@ -49,7 +49,7 @@
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
-  <string name="hangingPiece">Taş düşürme</string>
+  <string name="hangingPiece">Askıda taş</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="hookMate">Kanca matı</string>
   <string name="hookMateDescription">Kale, at, piyon ve rakip şahın kaçışını engelleyen rakip piyonla yapılan mattır.</string>
@@ -95,7 +95,7 @@
   <string name="queenRookEndgameDescription">Sadece vezir, kale ve piyon içeren oyunsonu.</string>
   <string name="queensideAttack">Vezir tarafına saldırı</string>
   <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
-  <string name="quietMove">Fırtınadan önceki sessizlik</string>
+  <string name="quietMove">Sakin hamle</string>
   <string name="quietMoveDescription">Şah çekmenin veya taş yemenin olmadığı, ancak gelecekteki kaçınılmaz bir tehdidin temelini atan hamleler.</string>
   <string name="rookEndgame">Kale oyunsonu</string>
   <string name="rookEndgameDescription">Sadece kale ve piyon içeren oyunsonu.</string>

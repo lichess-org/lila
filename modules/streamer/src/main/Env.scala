@@ -65,19 +65,15 @@ final class Env(
 
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
-  private val streamingActor = system.actorOf(
-    Props(
-      new Streaming(
-        ws = ws,
-        api = api,
-        isOnline = isOnline,
-        timeline = timeline,
-        keyword = config.keyword,
-        alwaysFeatured = alwaysFeaturedSetting.get _,
-        googleApiKey = config.googleApiKey,
-        twitchApi = twitchApi
-      )
-    )
+  private val streaming = new Streaming(
+    ws = ws,
+    api = api,
+    isOnline = isOnline,
+    timeline = timeline,
+    keyword = config.keyword,
+    alwaysFeatured = alwaysFeaturedSetting.get _,
+    googleApiKey = config.googleApiKey,
+    twitchApi = twitchApi
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]

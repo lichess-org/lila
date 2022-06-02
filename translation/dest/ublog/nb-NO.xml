@@ -9,6 +9,8 @@
   <string name="postBody">Tekst</string>
   <string name="drafts">Utkast</string>
   <string name="published">Publisert</string>
+  <string name="createBlogDiscussion">Slå på kommentarer</string>
+  <string name="createBlogDiscussionHelp">Et forumemne blir opprettet, der man kan kommentere innlegget ditt</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
   <plurals name="publishedNbBlogPosts">

@@ -23,18 +23,19 @@ object home {
         jsModule("lobby"),
         embedJsUnsafeLoadThen(
           s"""LichessLobby(${safeJsonValue(
-              Json.obj(
-                "data" -> data,
-                "playban" -> playban.map { pb =>
-                  Json.obj(
-                    "minutes"          -> pb.mins,
-                    "remainingSeconds" -> (pb.remainingSeconds + 3)
-                  )
-                },
-                "showRatings"             -> ctx.pref.showRatings,
-                "hasUnreadLichessMessage" -> hasUnreadLichessMessage,
-                "i18n"                    -> i18nJsObject(i18nKeys)
-              )
+              Json
+                .obj(
+                  "data" -> data,
+                  "i18n" -> i18nJsObject(i18nKeys)
+                )
+                .add("hideRatings" -> !ctx.pref.showRatings)
+                .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+                .add(
+                  "playban",
+                  playban.map { pb =>
+                    Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
+                  }
+                )
             )})"""
         )
       ),
@@ -63,25 +64,10 @@ object home {
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
-          div(cls := "lobby__start")(),
-          div(cls := "lobby__counters")(
-            ctx.blind option h2("Counters"),
-            a(
-              id   := "nb_connected_players",
-              href := ctx.noBlind.option(routes.User.list.url)
-            )(
-              trans.nbPlayers(
-                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
-              )
-            ),
-            a(
-              id   := "nb_games_in_play",
-              href := ctx.noBlind.option(routes.Tv.games.url)
-            )(
-              trans.nbGamesInPlay(
-                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
-              )
-            )
+          div(cls := "lobby__start")(
+            a(cls := "button button-metal", trans.createAGame()),
+            a(cls := "button button-metal", trans.playWithAFriend()),
+            a(cls := "button button-metal", trans.playWithTheMachine())
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse

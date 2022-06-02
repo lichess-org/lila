@@ -20,7 +20,7 @@ object wall {
           trans.clas.notifyAllStudents()
         )
       ),
-      if (c.wall.isEmpty)
+      if (c.wall.value.isEmpty)
         div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
       else
         div(cls := "box__pad clas-wall")(html)

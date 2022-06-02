@@ -393,6 +393,7 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Taolenn ar re varrekañ</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Krogad e stumm GIF</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
   <string name="fromPosition">Kregiñ gant ul lec\'hiadur ispisial</string>
@@ -426,6 +427,8 @@
   <string name="follow">Heuliañ</string>
   <string name="following">O heuliañ</string>
   <string name="unfollow">Paouez da heuliañ</string>
+  <string name="followX">Heuliañ %s</string>
+  <string name="unfollowX">Paouez da heuliañ %s</string>
   <string name="block">Stankañ</string>
   <string name="blocked">Stanket</string>
   <string name="unblock">Distankañ</string>
@@ -498,6 +501,7 @@
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù brudet</string>
   <string name="endgamePositions">Plegennoù an dibenn-partienn</string>
+  <string name="chess960StartPosition">Lec’hiadur e deroù ar c’hrogad Chess960: %s</string>
   <string name="startPosition">Plegenn orin</string>
   <string name="clearBoard">Tennañ pep tra</string>
   <string name="loadPosition">Kargañ ul lec\'hiadur</string>
@@ -533,6 +537,8 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
+  <string name="descPrivate">Deskrivadur prevez</string>
+  <string name="descPrivateHelp">Testenn a vo gwelet gant izili ar skipailh nemetken. Mard eo roet, lakaet e lec’h an deskrivadur foran evit izili ar skipailh.</string>
   <string name="no">Nann</string>
   <string name="yes">Ya</string>
   <string name="help">Sikour:</string>
@@ -553,10 +559,12 @@
   <string name="cheat">Trucherezh</string>
   <string name="insult">Kunujenn</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Itrikañ renkadur</string>
   <string name="other">All</string>
   <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="error.provideOneCheatedGameLink">Roit d\'an nebeutañ ul liamm hag a gas d\'ur c\'hrogad trucherezh ennañ.</string>
   <string name="by">gant %s</string>
+  <string name="importedByX">Enportzhiet gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notennoù</string>
@@ -623,6 +631,8 @@
   <string name="tools">Ostilhoù</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
+  <string name="error.email">Diwiriek eo ar chomlec\'h postel-mañ</string>
+  <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ. Gwiriit anezhañ mar plij, ha klaskit en-dro.</string>
   <string name="error.email_unique">Chomlec\'h postel fazius pe implijet dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
   <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
@@ -886,6 +896,8 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
+  <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="welcome">Degemer mat!</string>
   <string name="cancelTournament">Nullañ an tournamant</string>

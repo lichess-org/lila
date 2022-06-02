@@ -9,6 +9,8 @@
   <string name="postBody">Varsinainen teksti</string>
   <string name="drafts">Luonnokset</string>
   <string name="published">Julkaistu</string>
+  <string name="createBlogDiscussion">Salli kommentointi</string>
+  <string name="createBlogDiscussionHelp">Muut voivat kommentoida kirjoitustasi foorumiin luotavassa viestiketjussa</string>
   <string name="publishOnYourBlog">Julkaise blogissasi</string>
   <string name="publishHelp">Jos valitset tämän, kirjoitus näytetään blogissasi. Jos et, kirjoituksesi on yksityinen ja tallentuu luonnoksiin</string>
   <plurals name="publishedNbBlogPosts">

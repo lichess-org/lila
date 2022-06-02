@@ -67,7 +67,7 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
-  <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s répétés, pas les coups. La répétition ne doit pas nécessairement se faire de manière consécutive.</string>
+  <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s et non les coups. La répétition ne doit donc pas nécessairement se faire de manière consécutive.</string>
   <string name="positions">positions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position à trois reprises. Pourquoi la partie n\'a-t-elle pas été déclarée nulle ?</string>
   <string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui s\'affiche, ou en proposant un match nul avant votre dernier coup de répétition. Peu importe si votre adversaire rejette la proposition de match nul, le triple coup de répétition sera quand même réclamé. Vous pouvez également utiliser %1$s Lichess pour réclamer automatiquement les répétitions pour vous. En outre, la répétition quintuple met toujours immédiatement fin à la partie.</string>

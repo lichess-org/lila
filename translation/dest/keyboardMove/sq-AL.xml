@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Komandat përmes tastaturës</string>
+  <string name="performAMove">Lëvizjet</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Lëvize figurën prej e2 te e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Lëvize kalin te c3</string>
+  <string name="kingsideCastle">Rrokada në anën e mbretit</string>
+  <string name="queensideCastle">Rrokada në anën e damës/mbretëreshës</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Grado ushtarin me mbretëreshë</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Lësho një torrë në b4 (vetëm varianti i Crazyhouse)</string>
+  <string name="offerOrAcceptDraw">Ofro ose pajtohu me remi</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Lexo me zë kohën</string>
+  <string name="otherCommands">Të tjerat</string>
+  <string name="tips">Këshilla</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Nëse shënimi i mësipërm i lëvizjes është i panjohur, mësoni më shumë këtu:</string>
+  <string name="includingAXToIndicateACapture">Përdorja e \"x\"-it për të treguar një kapje është opsionale</string>
+  <string name="bothTheLetterOAndTheDigitZero">Shkronja \"o\" ose shifra zero \"0\" mund të përdoren për rrokadën</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Në qoftë se ju lejohet rrokada në dy anët, shtype Enter për rrokadën në anën e mbretit</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Shkronjat e mdhaja kan rëndësi vetëm në situata të paqarta që përfshijnë lëvizjet e oficerit (B) dhe një ushtar ne fushat b</string>
+</resources>

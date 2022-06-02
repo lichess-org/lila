@@ -683,7 +683,7 @@ final class StudyApi(
                 case _                => chapter.conceal
               },
               setup = chapter.setup.copy(
-                orientation = data.realOrientation match {
+                orientation = data.orientation match {
                   case ChapterMaker.Orientation.Fixed(color) => color
                   case _                                     => chapter.setup.orientation
                 }

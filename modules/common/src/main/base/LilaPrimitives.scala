@@ -4,11 +4,16 @@ import java.lang.Math.{ max, min }
 
 import alleycats.Zero
 
-final class AugmentedAny(private val self: Any) extends AnyVal {
+final class AugmentedAny[A](private val self: A) extends AnyVal {
 
   // sugar for -Wvalue-discard
   @scala.annotation.nowarn
   def unit: Unit = ()
+
+  def assertNotNull: A = {
+    assert(self != null, "Value can't be null")
+    self
+  }
 }
 
 final class LilaBoolean(private val self: Boolean) extends AnyVal {

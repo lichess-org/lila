@@ -1,6 +1,6 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 import { Chessground } from 'chessground';
-import { LobbyOpts, Tab } from './interfaces';
+import { LobbyOpts } from './interfaces';
 
 import makeCtrl from './ctrl';
 import appView from './view/main';
@@ -21,19 +21,7 @@ export default function main(opts: LobbyOpts) {
     tableVNode = patch(tableVNode, tableView(ctrl));
   }
 
-  return {
-    socketReceive: ctrl.socket.receive,
-    setTab(tab: Tab) {
-      ctrl.setTab(tab);
-      ctrl.redraw();
-    },
-    gameActivity: ctrl.gameActivity,
-    setRedirecting: ctrl.setRedirecting,
-    enterPool: ctrl.enterPool,
-    leavePool: ctrl.leavePool,
-    setupCtrl: ctrl.setupCtrl,
-    redraw: ctrl.redraw,
-  };
+  return ctrl;
 }
 
 // that's for the rest of lichess to access chessground

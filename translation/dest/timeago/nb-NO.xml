@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">om litt</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">om %s sekund</item>
+    <item quantity="other">om %s sekunder</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">om %s minutt</item>
+    <item quantity="other">om %s minutter</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">om %s time</item>
+    <item quantity="other">om %s timer</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">om %s døgn</item>
+    <item quantity="other">om %s døgn</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">om %s uke</item>
+    <item quantity="other">om %s uker</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">om %s måned</item>
+    <item quantity="other">om %s måneder</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">om %s år</item>
+    <item quantity="other">om %s år</item>
+  </plurals>
+  <string name="rightNow">for litt siden</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">for %s sekund siden</item>
+    <item quantity="other">for %s sekunder siden</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">for %s minutt siden</item>
+    <item quantity="other">for %s minutter siden</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">for %s time siden</item>
+    <item quantity="other">for %s timer siden</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">for %s døgn siden</item>
+    <item quantity="other">for %s døgn siden</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">for %s uke siden</item>
+    <item quantity="other">for %s uker siden</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">for %s måned siden</item>
+    <item quantity="other">for %s måneder siden</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">for %s år siden</item>
+    <item quantity="other">for %s år siden</item>
+  </plurals>
+</resources>

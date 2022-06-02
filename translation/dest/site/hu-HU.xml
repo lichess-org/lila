@@ -348,6 +348,8 @@
   <string name="apply">Mentés</string>
   <string name="save">Mentés</string>
   <string name="leaderboard">Ranglista</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Képernyőkép készítése a jelenlegi állásról</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Játszma GIF-ként</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>

@@ -121,7 +121,7 @@ object Post {
       lang: Option[String],
       troll: Boolean,
       hidden: Boolean,
-      modIcon: Option[Boolean]
+      modIcon: Option[Boolean] = None
   ): Post = {
 
     Post(

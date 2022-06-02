@@ -75,7 +75,7 @@
   <string name="mateIn3Description">Поставьте мат в три хода.</string>
   <string name="mateIn4">Мат в 4 хода</string>
   <string name="mateIn4Description">Поставьте мат за четыре хода.</string>
-  <string name="mateIn5">Мат в 5 или более</string>
+  <string name="mateIn5">Мат в 5 или более ходов</string>
   <string name="mateIn5Description">Найдите последовательность ходов, ведущую к мату.</string>
   <string name="middlegame">Миттельшпиль</string>
   <string name="middlegameDescription">Тактика во второй стадии игры.</string>

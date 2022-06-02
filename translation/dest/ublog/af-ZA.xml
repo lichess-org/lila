@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="createBlogDiscussion">Aktiveer kommentaar</string>
+  <string name="createBlogDiscussionHelp">\'n Forumgespreksonderwerp sal geskep word sodat ander kommentaar kan lewer op jou plasing</string>
+</resources>

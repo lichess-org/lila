@@ -348,6 +348,8 @@
   <string name="apply">Приложи</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Водещи играчи</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Снимай тази позиция</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Запази като GIF</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
@@ -574,6 +576,7 @@
   <string name="error.min">Трябва да е минимум %s</string>
   <string name="error.max">Трябва да е максимум %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
+  <string name="ifRegistered">Ако са регистрирани</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
   <string name="menu">Меню</string>
@@ -894,4 +897,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
   <string name="switchSides">Смени страната</string>
+  <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
 </resources>

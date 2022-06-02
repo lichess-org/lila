@@ -348,6 +348,8 @@
   <string name="apply">Gorde</string>
   <string name="save">Gorde</string>
   <string name="leaderboard">Jokalaririk onenak</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Uneko posizioaren irudia</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Partida GIF gisa</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>

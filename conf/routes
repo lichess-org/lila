@@ -66,6 +66,7 @@ GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: String
 GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: String)
 POST  /ublog/new                       controllers.Ublog.create
+GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: String)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: String)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: String)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: String)
@@ -160,6 +161,7 @@ POST  /racer/lobby                      controllers.Racer.lobby
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
+GET   /analysis/external               controllers.UserAnalysis.external
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
@@ -412,6 +414,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
+GET   /export/gif/*fen                                        controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String])
 
 # Fishnet
 GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
@@ -647,7 +650,7 @@ POST  /appeal/:username/snooze/:dur    controllers.Appeal.snooze(username: Strin
 POST  /appeal/:username/send-to-zulip  controllers.Appeal.sendToZulip(username: String)
 
 # Stats
-GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String)
+GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String, username: Option[String] ?= None)
 
 # API
 GET   /api                             controllers.Api.index
@@ -812,7 +815,7 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Page.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.Page.menuBookmark(bookmark: String)
+GET   /$bookmark<privacy|thanks|about|ads|changelog|nft> controllers.Page.menuBookmark(bookmark: String)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source

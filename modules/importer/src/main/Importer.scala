@@ -1,9 +1,10 @@
 package lila.importer
 
+import cats.data.Validated
 import chess.format.FEN
+import org.lichess.compression.game.Encoder
 
 import lila.game.{ Game, GameRepo }
-import cats.data.Validated
 
 final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -30,7 +31,10 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
   }
 
   def inMemory(data: ImportData): Validated[String, (Game, Option[FEN])] =
-    data.preprocess(user = none).map { case Preprocessed(game, _, fen, _) =>
-      (game withId "synthetic", fen)
+    data.preprocess(user = none).flatMap { case Preprocessed(game, _, fen, _) =>
+      if (game.variant.standard && Encoder.encode(game.sloppy.pgnMoves.toArray) == null)
+        Validated.invalid("The PGN contains illegal and/or ambiguous moves.")
+      else
+        Validated.valid((game withId "synthetic", fen))
     }
 }

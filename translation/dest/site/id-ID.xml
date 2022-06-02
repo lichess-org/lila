@@ -536,6 +536,7 @@
   <string name="error.min">Harus lebih besar atau sama dengan %s</string>
   <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="ifRegistered">Telah terdaftar</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
@@ -850,5 +851,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
+  <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
+  <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
 </resources>

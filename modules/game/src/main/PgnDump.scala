@@ -99,7 +99,7 @@ final class PgnDump(
             _.Event,
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           ).some,
-          Tag(_.Site, gameUrl(game.id)).some,
+          Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
           Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
           imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
           Tag(_.White, player(game.whitePlayer, wu)).some,

@@ -860,6 +860,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="abortTheGame">Hủy ván đấu</string>
   <string name="resignTheGame">Bỏ cuộc</string>
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
+  <string name="until">Cho đến khi</string>
   <string name="switchSides">Đổi bên
 
 Mô tả khi di chuột qua tùy chọn \'dưới dạng trắng/đen\' cho các trò chơi trước đây của riêng bạn, trong trình khám phá mở đầu: https://lichess.org/analysis#explorer

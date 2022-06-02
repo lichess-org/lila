@@ -55,12 +55,6 @@ final class Env(
     text = "Stripe payment methods, separated by commas".some
   )
 
-  val payPalCheckoutSetting = settingStore[Boolean](
-    "payPalCheckout",
-    default = false,
-    text = "Use paypal checkout".some
-  )
-
   private lazy val patronColl = db(config.patronColl).taggedWith[PatronColl]
   private lazy val chargeColl = db(config.chargeColl).taggedWith[ChargeColl]
 

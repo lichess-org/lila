@@ -8,7 +8,7 @@ case class RelayTour(
     _id: RelayTour.Id,
     name: String,
     description: String,
-    markup: Option[String] = None,
+    markup: Option[lila.common.Markdown] = None,
     ownerId: User.ID,
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast

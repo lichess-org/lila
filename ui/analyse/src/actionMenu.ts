@@ -176,7 +176,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
         'a.button.button-empty',
         {
           hook: bind('click', ctrl.flip),
-          attrs: dataIcon(''),
+          attrs: {
+            'data-icon': '',
+            title: 'Hotkey: f',
+          },
         },
         noarg('flipBoard')
       ),
@@ -188,7 +191,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               attrs: {
                 href: d.userAnalysis
                   ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key })
-                  : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+                  : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
                 'data-icon': '',
                 ...(ctrl.embed
                   ? {
@@ -220,7 +223,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const notSupported = 'Browser does not support this option';
+  const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
   const cevalConfig: MaybeVNodes =
     ceval && ceval.possible && ceval.allowed()
@@ -280,19 +283,21 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
-                    {
-                      name: 'Use NNUE',
-                      title: ceval.supportsNnue
-                        ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                        : notSupported,
-                      id: 'enable-nnue',
-                      checked: ceval.supportsNnue && ceval.enableNnue(),
-                      change: ceval.enableNnue,
-                      disabled: !ceval.supportsNnue,
-                    },
-                    ctrl
-                  ),
+                  ceval.technology != 'external'
+                    ? ctrlBoolSetting(
+                        {
+                          name: 'Use NNUE',
+                          title: ceval.supportsNnue
+                            ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                            : notSupported,
+                          id: 'enable-nnue',
+                          checked: ceval.supportsNnue && ceval.enableNnue(),
+                          change: ceval.enableNnue,
+                          disabled: !ceval.supportsNnue,
+                        },
+                        ctrl
+                      )
+                    : null,
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -318,10 +323,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           min: 1,
                           max: ceval.maxThreads,
                           step: 1,
-                          disabled: !ceval.threads,
-                          ...(ceval.threads ? null : { title: notSupported }),
+                          disabled: ceval.maxThreads <= 1,
+                          ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
                         },
-                        hook: rangeConfig(() => (ceval.threads ? parseInt(ceval.threads()) : 1), ctrl.cevalSetThreads),
+                        hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                       }),
                       h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
                     ]);
@@ -335,16 +340,36 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           min: 4,
                           max: Math.floor(Math.log2(ceval.maxHashSize)),
                           step: 1,
-                          disabled: !ceval.hashSize,
-                          ...(ceval.hashSize ? null : { title: notSupported }),
+                          disabled: ceval.maxHashSize <= 16,
+                          ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
                         },
                         hook: rangeConfig(
-                          () => Math.floor(Math.log2(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                          () => Math.floor(Math.log2(ceval.hashSize())),
                           v => ctrl.cevalSetHashSize(Math.pow(2, v))
                         ),
                       }),
-                      h('div.range_value', formatHashSize(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                      h('div.range_value', formatHashSize(ceval.hashSize())),
                     ]))('analyse-memory'),
+                  ceval.technology == 'external'
+                    ? h('div.setting', [
+                        h('label', 'External engine'),
+                        h(
+                          'button.button.text.button-thin.button-red',
+                          {
+                            attrs: {
+                              'data-icon': '',
+                            },
+                            hook: bindNonPassive('click', () => {
+                              if (confirm('Disconnect external engine and reload?')) {
+                                ceval.disconnectExternalEngine();
+                                lichess.reload();
+                              }
+                            }),
+                          },
+                          'Disconnect'
+                        ),
+                      ])
+                    : null,
                 ]
               : []
           )

@@ -8,10 +8,6 @@ import play.api.Configuration
 import lila.common.Bus
 import lila.common.config._
 
-private class NotifyConfig(
-    @ConfigName("collection.notify") val notifyColl: CollName
-)
-
 @Module
 final class Env(
     appConfig: Configuration,
@@ -25,11 +21,9 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
-
   lazy val jsonHandlers = wire[JSONHandlers]
 
-  private lazy val repo = new NotificationRepo(coll = db(config.notifyColl))
+  private lazy val repo = new NotificationRepo(coll = db(CollName("notify")))
 
   private val maxPerPage = MaxPerPage(7)
 

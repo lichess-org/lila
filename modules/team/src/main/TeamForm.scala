@@ -4,7 +4,8 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn, toMarkdown }
+import lila.common.Markdown
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -25,9 +26,9 @@ final private[team] class TeamForm(
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
     val description =
-      "description" -> cleanText(minLength = 30, maxLength = 4000)
+      "description" -> toMarkdown(cleanText(minLength = 30, maxLength = 4000))
     val descPrivate =
-      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000))
+      "descPrivate" -> optional(toMarkdown(cleanNonEmptyText(maxLength = 4000)))
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
@@ -126,8 +127,8 @@ final private[team] class TeamForm(
 private[team] case class TeamSetup(
     name: String,
     password: Option[String],
-    description: String,
-    descPrivate: Option[String],
+    description: Markdown,
+    descPrivate: Option[Markdown],
     request: Boolean,
     gameId: String,
     move: String
@@ -137,8 +138,8 @@ private[team] case class TeamSetup(
 
 private[team] case class TeamEdit(
     password: Option[String],
-    description: String,
-    descPrivate: Option[String],
+    description: Markdown,
+    descPrivate: Option[Markdown],
     request: Boolean,
     chat: Team.Access,
     forum: Team.Access,
@@ -150,7 +151,7 @@ private[team] case class TeamEdit(
   def trim =
     copy(
       description = description,
-      descPrivate = descPrivate.filter(_.nonEmpty)
+      descPrivate = descPrivate.filter(_.value.nonEmpty)
     )
 }
 

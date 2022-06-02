@@ -22,6 +22,7 @@ object Analyser {
     text map {
       case 'е' => 'e'
       case 'а' => 'a'
+      case 'ı' => 'i'
       case 'у' => 'y'
       case 'х' => 'x'
       case 'к' => 'k'
@@ -38,7 +39,9 @@ object Analyser {
         word + (if (word endsWith "e") "" else "e?+") + "s?+"
       } ++
       Dictionary.hi ++
-      Dictionary.fr ++
+      Dictionary.fr.map { word =>
+        word + "[sx]?+"
+      } ++
       Dictionary.de.map { word =>
         word + (if (word endsWith "e") "" else "e?+") + "[nrs]?+"
       } ++

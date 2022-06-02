@@ -30,7 +30,7 @@ object show {
             )
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = defaultCsp.withWebAssembly.withAnyWs.some,
       chessground = false,
       zoomable = true
     ) {

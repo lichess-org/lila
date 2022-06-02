@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.{ Markdown, MarkdownRender }
 import lila.event.{ Event, EventForm }
 import lila.i18n.LangList
 
@@ -78,13 +79,13 @@ object event {
 
   private object markdown {
     import scala.concurrent.duration._
-    private val renderer = new lila.common.Markdown(table = true, list = true)
+    private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
       .build[Int, String]()
-    def apply(e: Event, text: String): Frag =
+    def apply(e: Event, text: Markdown): Frag =
       raw(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
   }
 

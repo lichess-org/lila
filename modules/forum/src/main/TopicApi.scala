@@ -113,7 +113,40 @@ final private[forum] class TopicApi(
       }
     }
 
-  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
+  def makeUblogDiscuss(
+      slug: String,
+      name: String,
+      url: String,
+      ublogId: String,
+      authorId: User.ID
+  ): Funit =
+    categRepo.bySlug(Categ.ublogSlug) flatMap {
+      _ ?? { categ =>
+        val topic = Topic.make(
+          categId = categ.slug,
+          slug = slug,
+          name = name,
+          troll = false,
+          userId = authorId,
+          hidden = false,
+          ublogId = ublogId.some
+        )
+        val post = Post.make(
+          topicId = topic.id,
+          author = none,
+          userId = authorId.some,
+          troll = false,
+          hidden = false,
+          text = s"Comments on $url",
+          lang = none,
+          number = 1,
+          categId = categ.id
+        )
+        makeNewTopic(categ, topic, post)
+      }
+    }
+
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String) = {
     val topic = Topic.make(
       categId = categ.slug,
       slug = slug,
@@ -134,6 +167,10 @@ final private[forum] class TopicApi(
       categId = categ.id,
       modIcon = true.some
     )
+    makeNewTopic(categ, topic, post)
+  }
+
+  private def makeNewTopic(categ: Categ, topic: Topic, post: Post) = {
     postRepo.coll.insert.one(post) >>
       topicRepo.coll.insert.one(topic withPost post) >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
@@ -152,8 +189,9 @@ final private[forum] class TopicApi(
 
   def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      MasterGranter.is(_.ModerateForum)(mod) ??
+      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) ?? {
         modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
+      }
     }
 
   def toggleHide(categ: Categ, topic: Topic, mod: Holder): Funit =

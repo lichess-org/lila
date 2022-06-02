@@ -25,7 +25,7 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
   };
 }
 
-export function noteView(ctrl: NoteCtrl): VNode {
+export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
   if (text == undefined)
     return h('div.loading', {
@@ -33,14 +33,16 @@ export function noteView(ctrl: NoteCtrl): VNode {
         insert: ctrl.fetch,
       },
     });
-  return h('textarea', {
+  return h('textarea.mchat__note', {
     attrs: {
       placeholder: ctrl.trans('typePrivateNotesHere'),
     },
     hook: {
       insert(vnode) {
-        const $el = $(vnode.elm as HTMLElement);
-        $el.val(text).on('change keyup paste', () => ctrl.post($el.val() as string));
+        const el = vnode.elm as HTMLTextAreaElement;
+        el.value = text;
+        if (autofocus) el.focus();
+        $(el).on('change keyup paste', () => ctrl.post(el.value));
       },
     },
   });

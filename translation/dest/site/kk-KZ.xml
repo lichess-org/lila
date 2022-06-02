@@ -89,7 +89,7 @@
     <item quantity="one">%s жарты жүрістік мат</item>
     <item quantity="other">%s жарты жүрістік мат</item>
   </plurals>
-  <string name="dtzWithRounding">Жуықталған DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жарты жүрістердің санына негізделген</string>
+  <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жарты жүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -99,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="winOr50MovesByPriorMistake">Жеңіңіз не қателіктен кейінгі 50 жүріс жасаңыз</string>
   <string name="lossOr50MovesByPriorMistake">Жеңіліңіз не қателіктен кейінгі 50 жүріс жасаңыз</string>
+  <string name="unknownDueToRounding">Жеңіс пен жеңілістің тіркелу шарты: басып алудан не сарбаз жүрісінен кейін, Сизигия дерекқорында DTZ шамасын дөңгелектеу нәтижесінде сізге дерекқордың бір жолы ұсынылады. Сол жолды таңдауыңыз керек.</string>
   <string name="allSet">Барлығы дайын!</string>
   <string name="importPgn">PGN импорты</string>
   <string name="delete">Жою</string>
@@ -182,6 +183,10 @@
     <item quantity="one">%s сағат</item>
     <item quantity="other">%s сағат</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минут</item>
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Уақыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
@@ -232,7 +237,7 @@
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
-  <string name="mode">Түрі</string>
+  <string name="mode">Бағалау</string>
   <string name="casual">Жай</string>
   <string name="rated">Бағаланатын</string>
   <string name="casualTournament">Кәдімгі</string>
@@ -453,6 +458,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ел немесе туы</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
+  <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Бір жолды хаттама</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
@@ -496,6 +502,7 @@
   <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
+  <string name="importedByX">Жүктеп салған – %s</string>
   <string name="thisTopicIsNowClosed">Бұл тақырып жабылды.</string>
   <string name="blog">Блог</string>
   <string name="notes">Жазбалар</string>
@@ -566,6 +573,7 @@
   <string name="error.min">Кемінде %s болу керек</string>
   <string name="error.max">Ең көбі %s болу керек</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
+  <string name="ifRegistered">Тіркелгендер</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
   <string name="menu">Мәзір</string>
@@ -787,6 +795,7 @@
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Бірден артық тіркелгі жасамауға уәде етемін (%s-нда көрсетілген).</string>
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
@@ -831,7 +840,7 @@
   <string name="download">Жүктеп алу</string>
   <string name="welcome">Қол келдіңіз!</string>
   <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
-Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай қолдауынан өтеледі.</string>
+Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
   <string name="coachManager">Бапкер басқармасы</string>
   <string name="streamerManager">Стример басқармасы</string>
   <string name="cancelTournament">Жарысты болдырмау</string>
@@ -884,4 +893,9 @@
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
   <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
+  <string name="since">Бастап</string>
+  <string name="until">Дейін</string>
+  <string name="lichessDbExplanation">Личес-тегі бағаланатын ойындарда</string>
+  <string name="switchSides">Түсті ауыстыру</string>
+  <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
 </resources>

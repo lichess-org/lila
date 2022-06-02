@@ -100,7 +100,7 @@
   <string name="delete">Strika</string>
   <string name="deleteThisImportedGame">Strika hetta innlisna talvið?</string>
   <string name="replayMode">Endurspælsháttur</string>
-  <string name="realtimeReplay">Vanlig tíð</string>
+  <string name="realtimeReplay">Verulig tíð</string>
   <string name="byCPL">Við CPL</string>
   <string name="openStudy">Lat rannsókn upp</string>
   <string name="enable">Loyv</string>
@@ -114,16 +114,30 @@
   <string name="blunder">Bukkur</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Óneyvleiki</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s bukkur</item>
+    <item quantity="other">%s bukkar</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s mistak</item>
+    <item quantity="other">%s mistøk</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s óneyvleiki</item>
+    <item quantity="other">%s óneyvleikar</item>
+  </plurals>
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
   <string name="claimADraw">Krev remis (javnleik)</string>
-  <string name="offerDraw">Eg bjóði remis</string>
+  <string name="offerDraw">Bjóða remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s telvari</item>
     <item quantity="other">%s telvarar</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis eftir semju</string>
+  <string name="fiftyMovesWithoutProgress">50 leikir uttan framsókn</string>
   <string name="currentGames">Talv, ið verða telvað nú</string>
   <plurals name="nbGames">
     <item quantity="one">%s talv</item>
@@ -152,7 +166,7 @@
   <string name="variant">Avbrigdi</string>
   <string name="variants">Avbrigdi</string>
   <string name="timeControl">Tíðaravmarking</string>
-  <string name="realTime">Uttan tíðaravmarking</string>
+  <string name="realTime">Verulig tíð</string>
   <string name="correspondence">Brævtalv</string>
   <string name="daysPerTurn">Dagar fyri hvønn leik</string>
   <string name="oneDay">Ein dag</string>
@@ -163,6 +177,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s tími</item>
     <item quantity="other">%s tímar</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuttur</item>
+    <item quantity="other">%s minuttir</item>
   </plurals>
   <string name="time">Tíð</string>
   <string name="rating">Styrkital</string>
@@ -352,6 +370,8 @@
   <string name="follow">Fylg</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Fylg ikki</string>
+  <string name="followX">Fylg %s</string>
+  <string name="unfollowX">Steðga at fylgja %s</string>
   <string name="block">Forða</string>
   <string name="blocked">Forðaður</string>
   <string name="unblock">Forða ikki</string>
@@ -414,6 +434,8 @@
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>
   <string name="popularOpenings">Væl dámd byrjanartalv</string>
+  <string name="endgamePositions">Endatalvstøður</string>
+  <string name="chess960StartPosition">Chess960-byrjanarstøða: %s</string>
   <string name="startPosition">Byrjanarstøðan</string>
   <string name="clearBoard">Rudda borðið</string>
   <string name="loadPosition">Les støðuna inn</string>
@@ -427,6 +449,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Eftirnavn</string>
   <string name="biography">Ævilýsing</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land ella flagg</string>
   <string name="thankYou">Takk fyri!</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
   <string name="oneUrlPerLine">Eitt URL fyri hvørja reglu.</string>
@@ -447,6 +470,7 @@
   <string name="name">Navn</string>
   <string name="description">Lýsing</string>
   <string name="descPrivate">Innanhýsis lýsing</string>
+  <string name="descPrivateHelp">Tekstur ið bert limir á liðnum fara síggja. Um hann er útfyltur, verður hann fyri limir brúktur í staðin fyri almennu lýsingina.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjálp:</string>
@@ -534,6 +558,11 @@
   <string name="tools">Amboð</string>
   <string name="increment">Hækking</string>
   <string name="error.required">Hesin teigur er kravdur</string>
+  <string name="error.email">Henda teldupostadressa er ógildig</string>
+  <string name="error.email_acceptable">Henda teldupostaddressa er ikki góðtikin. Kanna, um hon er rætt, og royn so aftur.</string>
+  <string name="error.email_unique">Teldupostaddressan er antin ógildug ella longu tikin</string>
+  <string name="error.email_different">Hetta er longu tín teldupostadressa</string>
+  <string name="error.minLength">Minsta longdin er %s tekn</string>
   <string name="ifRatingIsPlusMinusX">Um styrkitalið er ± %s</string>
   <string name="onlyExistingConversations">Einastu samrøður, ið eru til</string>
   <string name="onlyFriends">Bert vinir</string>
@@ -753,6 +782,7 @@
   <string name="currentMatchScore">Núverandi dystarstigatal</string>
   <string name="agreementAssistance">Eg lovi, at eg ongantíð taki ímóti hjálp, meðan eg telvi (frá telvingarteldum, bókum, dátugrunnum ella øðrum telvarum).</string>
   <string name="agreementNice">Eg lovi altíð at sýna virðing móti øðrum telvarum.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg játti at eg ikki fari at stovna fleiri kontur (uttan so at tað fellur undir grundirnar í %s).</string>
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
@@ -778,4 +808,26 @@
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
   <string name="subscribe">Melda til</string>
   <string name="unsubscribe">Melda teg úr</string>
+  <string name="mentionedYouInX">nevndi teg í \"%1$s\".</string>
+  <string name="invitedYouToX">bjóðaði tær til \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s bjóðaði tær til \"%2$s\".</string>
+  <string name="congratsYouWon">Til lukku, tú vanst!</string>
+  <string name="gameVsX">Talv móti %1$s</string>
+  <string name="resVsX">%1$s móti %2$s</string>
+  <string name="timeAlmostUp">Tíðin er skjótt úti!</string>
+  <string name="download">Tak niður</string>
+  <string name="welcome">Vælkomin!</string>
+  <string name="noChat">Einki kjatt</string>
+  <string name="onlyTeamLeaders">Bert liðleiðarar</string>
+  <string name="onlyTeamMembers">Bert limir av liðnum</string>
+  <string name="navigateMoveTree">Far runt í leiktrænum</string>
+  <string name="mouseTricks">Músasnildir</string>
+  <string name="playComputerMove">Telv besta telduleikin</string>
+  <string name="onlyWorksOnce">Hetta riggar bert eina ferð.</string>
+  <string name="hangOn">Bíða líka!</string>
+  <string name="abortTheGame">Enda talvið</string>
+  <string name="resignTheGame">Gev upp talvið</string>
+  <string name="youCantStartNewGame">Tú kanst ikki byrja eitt nýtt talv áðrenn hetta endar.</string>
+  <string name="since">Síðan</string>
+  <string name="until">Til</string>
 </resources>

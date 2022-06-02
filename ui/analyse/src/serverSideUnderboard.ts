@@ -25,8 +25,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
+    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement,
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
-  let lastFen: string;
+  let lastInputHash: string;
 
   if (!window.LichessAnalyseNvui) {
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
@@ -38,9 +39,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
     lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
       const $chart = $('#acpl-chart');
-      if (fen && fen !== lastFen) {
+      const nextInputHash = `${fen}${ctrl.bottomColor()}`;
+      if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        lastFen = fen;
+        positionGifLink.href = `/export/gif/${fen.replace(/ /g, '_')}?color=${ctrl.bottomColor()}&lastMove=${
+          ctrl.node.uci || ''
+        }`;
+        lastInputHash = nextInputHash;
       }
       if ($chart.length) {
         const chart = ($chart[0] as HighchartsHTMLElement).highcharts as PlyChart;

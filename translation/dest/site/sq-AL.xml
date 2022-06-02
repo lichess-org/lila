@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Luani me një shok</string>
-  <string name="playWithTheMachine">Luani me kompjuterin</string>
+  <string name="playWithTheMachine">Luaj me kompjuterin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë adresë</string>
-  <string name="gameOver">Loja Mbaroi</string>
+  <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
@@ -22,7 +22,7 @@
   <string name="randomColor">Ngjyrë e rastësishme</string>
   <string name="createAGame">Krijo një lojë</string>
   <string name="whiteIsVictorious">Fitoi i bardhi</string>
-  <string name="blackIsVictorious">Fitoi i ziu</string>
+  <string name="blackIsVictorious">I ziu është fitues</string>
   <string name="youPlayTheWhitePieces">Ju luani me të bardhët</string>
   <string name="youPlayTheBlackPieces">Ju luani me të zinjtë</string>
   <string name="itsYourTurn">Është radha juaj!</string>
@@ -45,7 +45,7 @@
   <string name="forceDraw">Shpalle barazim</string>
   <string name="talkInChat">Ju lutem jini të sjellshëm në bisedë!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Personi i parë që do hapë këtë adresë do të luajë me ju.</string>
-  <string name="whiteResigned">I bardhi u dorëzua</string>
+  <string name="whiteResigned">I bardhi dha dorëheqje</string>
   <string name="blackResigned">I ziu u dorëzua</string>
   <string name="whiteLeftTheGame">I bardhi e la lojën</string>
   <string name="blackLeftTheGame">I ziu e la lojën</string>
@@ -109,7 +109,7 @@
   <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="multipleLines">Disa shigjeta</string>
   <string name="cpus">Procesorë</string>
-  <string name="memory">Memorja</string>
+  <string name="memory">Kujtesë</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq kufirin e thellësisë dhe e mban të ngrohtë kompjuterin tuaj</string>
   <string name="blunder">Gafë</string>
@@ -281,7 +281,7 @@
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dhuro %s sekondë</item>
+    <item quantity="one">Dhuro %s sekonda</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>

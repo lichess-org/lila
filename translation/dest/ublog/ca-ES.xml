@@ -9,6 +9,8 @@
   <string name="postBody">Contingut de l\'entrada</string>
   <string name="drafts">Esborranys</string>
   <string name="published">Publicat</string>
+  <string name="createBlogDiscussion">Habilita els comentaris</string>
+  <string name="createBlogDiscussionHelp">Es crearà una nova entrada al fòrum on els usuaris puguin comentar la vostra publicació</string>
   <string name="publishOnYourBlog">Publica al teu blog</string>
   <string name="publishHelp">Si es marca l\'entrada es publicarà al teu blog. Sinó, serà privada i només es mostrarà en les publicacions en esborrany</string>
   <plurals name="publishedNbBlogPosts">

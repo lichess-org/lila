@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Vit</string>
   <string name="black">Svart</string>
+  <string name="asWhite">som vit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
@@ -342,6 +344,8 @@
   <string name="apply">Använd</string>
   <string name="save">Spara</string>
   <string name="leaderboard">Topplista</string>
+  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Ta en skärmdump på den aktuella positionen</string>
+  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Spara som GIF</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
   <string name="fromPosition">Från position</string>

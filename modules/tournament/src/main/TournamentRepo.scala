@@ -34,6 +34,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
+  def exists(id: Tournament.ID): Fu[Boolean]          = coll.exists($id(id))
 
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
@@ -226,7 +227,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
     coll
-      .find(createdSelect ++ $doc("startsAt" $gt from $lt to, "_id" $nin notIds))
+      .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
       .cursor[Tournament]()
       .list(5)
 

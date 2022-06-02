@@ -31,7 +31,7 @@ object embed {
           a(targetBlank, cls := "open", href := url)("Open")
         )
       },
-      views.html.base.layout.lichessJsObject(config.nonce)(config.lang),
+      views.html.base.layout.inlineJs(config.nonce)(config.lang),
       depsTag,
       jsModule("analysisBoard.embed"),
       analyseTag,

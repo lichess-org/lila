@@ -374,6 +374,8 @@
   <string name="apply">Aplicați</string>
   <string name="save">Salvează</string>
   <string name="leaderboard">Clasament</string>
+  <string name="screenshotCurrentPosition">Captură de ecran cu poziția curentă</string>
+  <string name="gameAsGIF">Salvați jocul ca fișier GIF</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>

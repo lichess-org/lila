@@ -14,7 +14,13 @@ final private class StudyMaker(
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
       case Some((game, initialFen)) =>
-        createFromPov(data, Pov(game, data.form.orientation), initialFen, user, withRatings)
+        createFromPov(
+          data,
+          Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),
+          initialFen,
+          user,
+          withRatings
+        )
       case None => createFromScratch(data, user)
     } map { sc =>
       // apply specified From if any
@@ -28,11 +34,11 @@ final private class StudyMaker(
       ChapterMaker.Data(
         game = none,
         name = Chapter.Name("Chapter 1"),
-        variant = data.form.variantStr,
+        variant = data.form.variant,
         fen = data.form.fen,
         pgn = data.form.pgnStr,
-        orientation = data.form.orientation.name,
-        mode = ChapterMaker.Mode.Normal.key,
+        orientation = data.form.orientation | ChapterMaker.Orientation.Auto,
+        mode = ChapterMaker.Mode.Normal,
         initial = true
       ),
       order = 1,

@@ -19,14 +19,15 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 }
 
 export default function (ctrl: LobbyController) {
-  const nbPlaying = ctrl.data.nbNowPlaying;
-  const myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length;
-  const active = ctrl.tab;
+  const nbPlaying = ctrl.data.nbNowPlaying,
+    myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length,
+    active = ctrl.tab,
+    isBot = ctrl.me?.isBot;
   return [
-    ctrl.me?.isBot ? undefined : tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
-    ctrl.me?.isBot ? undefined : tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
-    ctrl.me?.isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
-    active === 'now_playing' || nbPlaying || ctrl.me?.isBot
+    isBot ? undefined : tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
+    isBot ? undefined : tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
+    isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
+    active === 'now_playing' || nbPlaying || isBot
       ? tab(ctrl, 'now_playing', active, [
           ...ctrl.trans.vdomPlural('nbGamesInPlay', nbPlaying, nbPlaying >= 100 ? '100+' : nbPlaying.toString()),
           myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,

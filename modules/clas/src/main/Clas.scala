@@ -3,13 +3,14 @@ package lila.clas
 import cats.data.NonEmptyList
 import org.joda.time.DateTime
 
+import lila.common.Markdown
 import lila.user.User
 
 case class Clas(
     _id: Clas.Id,
     name: String,
     desc: String,
-    wall: String = "",
+    wall: Markdown = Markdown(""),
     teachers: NonEmptyList[User.ID], // first is owner
     created: Clas.Recorded,
     viewedAt: DateTime,

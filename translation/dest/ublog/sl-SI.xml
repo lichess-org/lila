@@ -9,6 +9,8 @@
   <string name="postBody">Telo objave</string>
   <string name="drafts">Osnutki</string>
   <string name="published">Objavljeno</string>
+  <string name="createBlogDiscussion">Omogoči komentarje</string>
+  <string name="createBlogDiscussionHelp">Ustvarjena bo tema foruma, da bodo ljudje komentirali vašo objavo</string>
   <string name="publishOnYourBlog">Objava na svojem blogu</string>
   <string name="publishHelp">Če je označeno, bo objava navedena na vašem spletnem dnevniku. Če ne, bo v vaših osnutkih objav zaseben</string>
   <plurals name="publishedNbBlogPosts">

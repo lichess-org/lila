@@ -120,9 +120,13 @@ export default class SetupController {
   };
 
   private enforcePropRules = () => {
+    // reassign with this.propWithApply in this function to avoid calling this.onPropChange
+
+    // replace underscores with spaces in FEN
+    if (this.variant() === 'fromPosition') this.fen = this.propWithApply(this.fen().replace(/_/g, ' '));
+
     if (this.gameMode() === 'rated' && this.ratedModeDisabled()) {
-      // reassign with propWithEffect here to avoid calling this.onPropChange
-      this.gameMode = propWithEffect('casual', this.onPropChange);
+      this.gameMode = this.propWithApply('casual');
     }
   };
 
@@ -201,7 +205,11 @@ export default class SetupController {
 
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
     const valid =
-      color == 'random' && this.variant() == 'standard' && this.gameMode() == 'rated' && this.timeMode() == 'realTime';
+      color == 'random' &&
+      this.gameType === 'hook' &&
+      this.variant() == 'standard' &&
+      this.gameMode() == 'rated' &&
+      this.timeMode() == 'realTime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {

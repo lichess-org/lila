@@ -18,7 +18,7 @@ final private class PuzzleCountApi(
 
   private val byThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(20 minutes)
+      _.refreshAfterWrite(1 day)
         .buildAsyncFuture { _ =>
           import Puzzle.BSONFields._
           colls.puzzle {

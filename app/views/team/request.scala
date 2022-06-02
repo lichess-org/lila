@@ -2,7 +2,6 @@ package views.html.team
 
 import controllers.routes
 import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -22,9 +21,9 @@ object request {
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("requests".some),
-        div(cls := "page-menu__content box box-pad")(
+        div(cls := "page-menu__content box box-pad team-show__desc")(
           h1(title),
-          p(style := "margin:2em 0")(richText(t.description)),
+          p(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
             !t.open ?? frag(
               form3.group(form("message"), trans.message())(form3.textarea(_)()),

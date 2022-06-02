@@ -56,7 +56,7 @@ object tourForm {
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
     form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
     form3.group(
-      form("markup"),
+      form("markdown"),
       fullDescription(),
       help = fullDescriptionHelp(
         a(

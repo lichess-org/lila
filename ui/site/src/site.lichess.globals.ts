@@ -22,7 +22,7 @@ import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
 import { unload, redirect, reload } from './component/reload';
 import announce from './component/announce';
-import trans from './component/trans';
+import { trans } from './component/trans';
 import sound from './component/sound';
 import * as miniBoard from 'common/mini-board';
 import * as miniGame from './component/mini-game';

@@ -63,6 +63,29 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def discuss(id: String) = Open { implicit ctx =>
+    NotForKids {
+      import lila.forum.Categ.ublogSlug
+      val topicSlug = s"ublog-${id}"
+      val redirect  = Redirect(routes.ForumTopic.show(ublogSlug, topicSlug))
+      env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
+        case true => fuccess(redirect)
+        case _ =>
+          env.ublog.api.getPost(UblogPost.Id(id)) flatMap {
+            _ ?? { post =>
+              env.forum.topicApi.makeUblogDiscuss(
+                slug = topicSlug,
+                name = post.title,
+                url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                ublogId = id,
+                authorId = post.created.by
+              )
+            } inject redirect
+          }
+      }
+    }
+  }
+
   def form(username: String) = Auth { implicit ctx => me =>
     NotForKids {
       if (env.ublog.api.canBlog(me)) {
