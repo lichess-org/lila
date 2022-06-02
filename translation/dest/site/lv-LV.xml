@@ -459,6 +459,8 @@
   <string name="tournamentIsStarting">Turnīrs sākas</string>
   <string name="tournamentPairingsAreNowClosed">Turnīra pārošana ir beigusies.</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pauzēt</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Atsākt</string>
   <string name="youArePlaying">Jūs spēlējat!</string>
   <string name="winRate">Uzvaru attiecība</string>
   <string name="berserkRate">Dullo spēļu biežums</string>
