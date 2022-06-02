@@ -27,4 +27,13 @@
   <string name="color">रंग</string>
   <string name="evaluation">मूल्यमापन</string>
   <string name="maxNumber">सर्वाधिक आकडा</string>
+  <string name="maxNumberExplanation">परत जाण्यासाठी खेळांची सर्वाधिक संख्या</string>
+  <string name="include">समाविष्ट करा</string>
+  <string name="descending">उतरता क्रम</string>
+  <string name="ascending">चढता क्रम</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s खेळ सापडला</item>
+    <item quantity="other">%s खेळ सापडले</item>
+  </plurals>
+  <string name="ratingExplanation">दोन्ही खेळाडूंचे सरासरी मानांकन</string>
 </resources>
