@@ -50,6 +50,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
+  vm.delayedStart = opts.pref.animation.duration > 0;
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
@@ -116,10 +117,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
     setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
-    setTimeout(() => {
-      jump(initialPath);
-      redraw();
-    }, 500);
+    setTimeout(
+      () => {
+        jump(initialPath);
+        redraw();
+      },
+      vm.delayedStart ? 500 : 0
+    );
 
     // just to delay button display
     vm.canViewSolution = false;

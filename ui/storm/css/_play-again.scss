@@ -59,13 +59,6 @@
       &:after {
         animation-delay: 0.1s;
       }
-
-      @media (prefers-reduced-motion: reduce) {
-        &::before,
-        &::after {
-          animation: none;
-        }
-      }
     }
   }
 }

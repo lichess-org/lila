@@ -106,6 +106,7 @@ export interface Vm {
   canViewSolution: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
+  delayedStart: boolean;
   voteDisabled?: boolean;
   cgConfig: CgConfig;
   showComputer(): boolean;

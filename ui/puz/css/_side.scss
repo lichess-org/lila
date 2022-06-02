@@ -99,7 +99,9 @@ $mq-col2: $mq-col2-uniboard;
     }
 
     .puz-mod-puzzle & {
-      text-shadow: 0 0 15px white;
+      @media (prefers-reduced-motion: no-preference) {
+        text-shadow: 0 0 15px white;
+      }
     }
   }
 }

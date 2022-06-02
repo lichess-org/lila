@@ -28,7 +28,9 @@
     transition: color 0.1s;
 
     .puz-mod-move & {
-      color: $c-brag;
+      @media (prefers-reduced-motion: no-preference) {
+        color: $c-brag;
+      }
     }
   }
 
