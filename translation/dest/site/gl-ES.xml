@@ -429,6 +429,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tournamentIsStarting">O torneo vai comezar</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados agora.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausa</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Continuar</string>
   <string name="youArePlaying">Estás xogando!</string>
   <string name="winRate">Porcentaxe de victorias</string>
   <string name="berserkRate">Porcentaxe de berserk</string>
