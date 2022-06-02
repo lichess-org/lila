@@ -429,6 +429,8 @@
   <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Пауза</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
   <string name="berserkRate">Берсерк коефициент</string>
