@@ -183,6 +183,10 @@
     <item quantity="one">%s तास</item>
     <item quantity="other">%s तास</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s मिनिट</item>
+    <item quantity="other">%s मिनीटे</item>
+  </plurals>
   <string name="time">वेळ</string>
   <string name="rating">गुणांकन</string>
   <string name="ratingStats">गुणांक आकडेवारी</string>
