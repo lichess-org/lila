@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Gioca contro un amico</string>
+  <string name="playWithAFriend">Gioca con un amico</string>
   <string name="playWithTheMachine">Gioca contro il computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
