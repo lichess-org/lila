@@ -429,6 +429,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
   <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausa</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Riprendi</string>
   <string name="youArePlaying">Stai giocando!</string>
   <string name="winRate">Percentuale di vittorie</string>
   <string name="berserkRate">Percentuale Berserk</string>
