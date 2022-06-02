@@ -428,6 +428,8 @@
   <string name="tournamentIsStarting">Het toernooi begint</string>
   <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
   <string name="standByX">Sta klaar %s, spelers worden gepaard, maak je gereed!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pauzeren</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Hervatten</string>
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
