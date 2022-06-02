@@ -322,8 +322,8 @@
   <string name="apply">적용</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">스크린샷 찍기</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">GIF로 저장하기</string>
+  <string name="screenshotCurrentPosition">스크린샷 찍기</string>
+  <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
