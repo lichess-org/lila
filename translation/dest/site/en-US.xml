@@ -429,6 +429,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pause</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Resume</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
   <string name="berserkRate">Berserk rate</string>
