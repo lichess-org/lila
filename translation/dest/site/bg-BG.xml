@@ -348,8 +348,8 @@
   <string name="apply">Приложи</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Водещи играчи</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Снимай тази позиция</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Запази като GIF</string>
+  <string name="screenshotCurrentPosition">Снимай тази позиция</string>
+  <string name="gameAsGIF">Запази като GIF</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
