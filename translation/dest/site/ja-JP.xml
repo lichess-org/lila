@@ -322,8 +322,8 @@
   <string name="apply">適用</string>
   <string name="save">保存</string>
   <string name="leaderboard">ランキング</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">現局面のスクリーンショット</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">GIF 形式の棋譜</string>
+  <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
+  <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
