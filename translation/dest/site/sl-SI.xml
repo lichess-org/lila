@@ -488,6 +488,8 @@
   <string name="tournamentIsStarting">Turnir se začenja</string>
   <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Premor</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Nadaljuj</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Delež zmag</string>
   <string name="berserkRate">Delež divjanja</string>
