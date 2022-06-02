@@ -348,8 +348,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
   <string name="leaderboard">Líder do cadro</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Pantallazo da posición actual</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Xogo como GIF</string>
+  <string name="screenshotCurrentPosition">Pantallazo da posición actual</string>
+  <string name="gameAsGIF">Xogo como GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
