@@ -344,8 +344,8 @@
   <string name="apply">Pas toe</string>
   <string name="save">Stoor</string>
   <string name="leaderboard">Leierbord</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Neem \'n skermfoto van die huidige posisie</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Spel as \'n GIF</string>
+  <string name="screenshotCurrentPosition">Neem \'n skermfoto van die huidige posisie</string>
+  <string name="gameAsGIF">Spel as \'n GIF</string>
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
   <string name="orUploadPgnFile">Of laai ‘n PGN-lêer op</string>
