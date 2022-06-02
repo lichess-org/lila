@@ -400,14 +400,14 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Скріншот поточної позиції
+  <string name="screenshotCurrentPosition">Скріншот поточної позиції
  
 скріншот CurrentPosition
 
 Скріншот тут використовується як дієслово.
 Завантажити/поділитися зображенням поточної позиції.
 Файл</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Завантажте анімований GIF, що показує всю гру.
+  <string name="gameAsGIF">Завантажте анімований GIF, що показує всю гру.
 Файл: Веб-сайт і додаток - найважливіші рядки</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
