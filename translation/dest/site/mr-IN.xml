@@ -348,6 +348,8 @@
   <string name="apply">लागू करा</string>
   <string name="save">जतन करा</string>
   <string name="leaderboard">आघाडीचे खेळाडू</string>
+  <string name="screenshotCurrentPosition">आत्ताच्या स्थितीचा स्क्रीनशॉट</string>
+  <string name="gameAsGIF">GIF म्हणून खेळ</string>
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
   <string name="orUploadPgnFile">किंवा PGN फाईल अपलोड करा</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">विराम</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">परत सुरू करा</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचे प्रमाण</string>
   <string name="berserkRate">Berserk रेट</string>
@@ -458,6 +462,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश किंवा झेंडा</string>
   <string name="thankYou">आभारी आहे</string>
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
+  <string name="oneUrlPerLine">एक ओळीत एक URL.</string>
   <string name="inlineNotation">इनलाइन संकेत</string>
   <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
@@ -501,6 +506,7 @@
   <string name="reportDescriptionHelp">खेळाचा दुवा पेस्ट करा आणि या वापरकर्त्याच्या वर्तनाबद्दल काय चुकीचे आहे ते सांगा. फक्त \"ते फसवतात\" असे म्हणू नका, परंतु आपण या निष्कर्षावर कसे आलात ते सांगा. इंग्रजीमध्ये लिहिले असल्यास आपल्या अहवालावर वेगवान प्रक्रिया केली जाईल.</string>
   <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
+  <string name="importedByX">%s ने आयात केलेले</string>
   <string name="thisTopicIsNowClosed">हा विषय आता संपला आहे.</string>
   <string name="blog">स्व: मत</string>
   <string name="notes">नोंदी</string>
@@ -571,6 +577,7 @@
   <string name="error.min">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
   <string name="error.max">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
+  <string name="ifRegistered">जर नोंदणी केली असेल तर</string>
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
@@ -792,6 +799,7 @@
   <string name="currentMatchScore">चालू डावाचे गुण</string>
   <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (संगणक, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मी हे मान्य करतो की मी एकाहून अधिक खाती चालू करणार नाही. (%s मध्ये दिलेली कारणे वगळून).</string>
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
@@ -894,4 +902,5 @@
   <string name="until">पर्यन्त</string>
   <string name="lichessDbExplanation">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
   <string name="switchSides">रंग बदला</string>
+  <string name="closingAccountWithdrawAppeal">खाते बंद केल्यास आवाहन मागे घेतले जाईल</string>
 </resources>
