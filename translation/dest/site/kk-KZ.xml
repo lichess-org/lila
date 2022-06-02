@@ -348,8 +348,8 @@
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Осы күйді сурет ету</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">GIF етіп сақтау</string>
+  <string name="screenshotCurrentPosition">Осы күйді сурет ету</string>
+  <string name="gameAsGIF">GIF етіп сақтау</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="orUploadPgnFile">Немесе PGN файл жүктеңіз</string>
