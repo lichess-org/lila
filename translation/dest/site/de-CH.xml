@@ -429,6 +429,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiil meh gschpillt.</string>
   <string name="standByX">Stand by %s, Paarige werded gmacht, mach dich bereit!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">underbräche</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">wieder ischtiige</string>
   <string name="youArePlaying">Dis Schpiil fangt aa!</string>
   <string name="winRate">Gwünn Rate</string>
   <string name="berserkRate">Bärsärkratä</string>
