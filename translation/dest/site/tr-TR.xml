@@ -348,8 +348,8 @@
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Geçerli pozisyonun ekran görüntüsünü al</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">GIF Olarak Oyun</string>
+  <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
+  <string name="gameAsGIF">GIF Olarak Oyun</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
