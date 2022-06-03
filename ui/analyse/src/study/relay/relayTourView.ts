@@ -47,8 +47,8 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return undefined;
 }
 
-function roundsTable(relay: RelayCtrl): VNode {
-  return h('div.relay-tour__text__schedule', [
+const roundsTable = (relay: RelayCtrl): VNode =>
+  h('div.relay-tour__text__schedule', [
     h('h2', 'Schedule'),
     h(
       'table.slist.slist-invert',
@@ -73,7 +73,6 @@ function roundsTable(relay: RelayCtrl): VNode {
       )
     ),
   ]);
-}
 
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
