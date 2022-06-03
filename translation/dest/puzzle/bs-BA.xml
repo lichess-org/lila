@@ -21,7 +21,7 @@
   <string name="goodMove">Dobar potez</string>
   <string name="bestMove">Najbolji potez!</string>
   <string name="keepGoing">Nastavite…</string>
-  <string name="puzzleSuccess">Uspješno!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Uspješno!</string>
   <string name="puzzleComplete">Problem završen!</string>
   <string name="notTheMove">To nije traženi potez!</string>
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
