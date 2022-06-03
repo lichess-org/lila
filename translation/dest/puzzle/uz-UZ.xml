@@ -22,7 +22,7 @@
   <string name="goodMove">Yaxshi yurish</string>
   <string name="bestMove">Zo\'r yurish!</string>
   <string name="keepGoing">Harakatni davom eting…</string>
-  <string name="puzzleSuccess">Muvaffaqiyat!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Muvaffaqiyat!</string>
   <string name="puzzleComplete">Boshqotirma tugallandi!</string>
   <string name="notTheMove">Bu yurish emas!</string>
   <string name="trySomethingElse">Yana urinib koʻring.</string>
