@@ -22,6 +22,7 @@
   <string name="score">Punkteschtand</string>
   <string name="moves">Züg</string>
   <string name="accuracy">Gnauigkeit</string>
+  <string name="combo">Combo</string>
   <string name="time">Ziit</string>
   <string name="timePerMove">Ziit pro Zug</string>
   <string name="highestSolved">Schwirigschti Lösig</string>
