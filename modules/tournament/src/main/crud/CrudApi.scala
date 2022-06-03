@@ -11,14 +11,15 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
 
-final class CrudApi(tournamentRepo: TournamentRepo) {
+final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
 
   def list = tournamentRepo uniques 50
 
   def one(id: String) = tournamentRepo uniqueById id
 
   def editForm(tour: Tournament) =
-    CrudForm.apply fill CrudForm.Data(
+    crudForm(tour.some) fill CrudForm.Data(
+      id = tour.id,
       name = tour.name,
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
       clockTime = tour.clock.limitInMinutes,
@@ -40,10 +41,10 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
   def update(old: Tournament, data: CrudForm.Data) =
     tournamentRepo update updateTour(old, data) void
 
-  def createForm = CrudForm.apply
+  def createForm = crudForm(none)
 
   def create(data: CrudForm.Data, owner: User): Fu[Tournament] = {
-    val tour = updateTour(empty, data).copy(createdBy = owner.id)
+    val tour = updateTour(empty, data).copy(id = data.id, createdBy = owner.id)
     tournamentRepo insert tour inject tour
   }
 
