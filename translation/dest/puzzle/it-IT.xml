@@ -23,7 +23,7 @@
   <string name="goodMove">Buona mossa</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua…</string>
-  <string name="puzzleSuccess">Risolto!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Risolto!</string>
   <string name="puzzleComplete">Tattica risolta!</string>
   <string name="notTheMove">La mossa non è questa!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
