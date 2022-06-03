@@ -2,6 +2,8 @@
 <resources>
   <string name="lichessStreamers">Lichess Streamer/-in</string>
   <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt grad: %s</string>
   <string name="lastStream">Letschtä Stream %s</string>
   <string name="becomeStreamer">Wird än Lichess Streamer / ä Lichess Streamerin</string>
