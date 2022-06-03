@@ -23,7 +23,7 @@
   <string name="goodMove">Jokaldi ona</string>
   <string name="bestMove">Jokaldi onena!</string>
   <string name="keepGoing">Jarraitu…</string>
-  <string name="puzzleSuccess">Zorionak!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Zorionak!</string>
   <string name="puzzleComplete">Ariketa osatuta!</string>
   <string name="notTheMove">Hori ez zen jokaldia!</string>
   <string name="trySomethingElse">Saiatu beste batekin.</string>
