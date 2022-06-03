@@ -23,7 +23,7 @@
   <string name="goodMove">Καλή κίνηση</string>
   <string name="bestMove">Παίξατε την καλύτερη κίνηση!</string>
   <string name="keepGoing">Συνεχίστε…</string>
-  <string name="puzzleSuccess">Επιτυχία!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Επιτυχία!</string>
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
