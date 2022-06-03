@@ -82,7 +82,7 @@
   <string name="studyNotFound">Studija nerasta</string>
   <string name="editChapter">Redaguoti skyrių</string>
   <string name="newChapter">Naujas skyrius</string>
-  <string name="importFromChapterX">Importuoti iš %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Importuoti iš %s</string>
   <string name="orientation">Kryptis</string>
   <string name="analysisMode">Analizės režimas</string>
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
