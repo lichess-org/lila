@@ -76,7 +76,7 @@
   <string name="studyNotFound">Tutkielmaa ei löydy</string>
   <string name="editChapter">Muokkaa lukua</string>
   <string name="newChapter">Uusi luku</string>
-  <string name="importFromChapterX">Tuo luvusta %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Tuo luvusta %s</string>
   <string name="orientation">Suunta</string>
   <string name="analysisMode">Analyysitila</string>
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>
