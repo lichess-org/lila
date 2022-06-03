@@ -398,6 +398,8 @@
   <string name="tournamentIsStarting">トーナメント開始</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">休む</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">再開する</string>
   <string name="youArePlaying">参加中！</string>
   <string name="winRate">勝率</string>
   <string name="berserkRate">バーサーク率</string>
