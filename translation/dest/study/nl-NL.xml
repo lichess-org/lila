@@ -76,7 +76,7 @@
   <string name="studyNotFound">Studie niet gevonden</string>
   <string name="editChapter">Hoofdstuk bewerken</string>
   <string name="newChapter">Nieuw hoofdstuk</string>
-  <string name="importFromChapterX">Importeren van %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Importeren van %s</string>
   <string name="orientation">Oriëntatie</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
