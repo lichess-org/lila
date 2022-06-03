@@ -76,6 +76,7 @@
   <string name="studyNotFound">Schtudie nöd gfunde</string>
   <string name="editChapter">Kapitel bearbeite</string>
   <string name="newChapter">Neus Kapitel</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Importiers us %s</string>
   <string name="orientation">Orientierig</string>
   <string name="analysisMode">Analyse Modus</string>
   <string name="pinnedChapterComment">Aaghänkte Kapitel Kommentar</string>
@@ -137,6 +138,7 @@
   <string name="interestingMove">Intressantä Zug</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Frogwürdigä Zug</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzigä Zug</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Uusglichäni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
   <string name="whiteIsSlightlyBetter">Wiis schtoht liächt besser</string>
