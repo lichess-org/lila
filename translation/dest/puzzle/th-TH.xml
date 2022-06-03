@@ -20,7 +20,7 @@
   <string name="goodMove">เดินได้ดี</string>
   <string name="bestMove">เดินได้ดีที่สุด!</string>
   <string name="keepGoing">เดินต่อไป...</string>
-  <string name="puzzleSuccess">แก้ไขปริศนาสำเร็จ!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">แก้ไขปริศนาสำเร็จ!</string>
   <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>
   <string name="notTheMove">ไม่ใช่การเดินที่ถูกต้อง!</string>
   <string name="trySomethingElse">ลองเดินอย่างอื่น</string>
