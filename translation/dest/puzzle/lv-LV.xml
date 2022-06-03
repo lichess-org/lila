@@ -23,7 +23,7 @@
   <string name="goodMove">Labs gājiens</string>
   <string name="bestMove">Vislabākais gājiens!</string>
   <string name="keepGoing">Turpiniet…</string>
-  <string name="puzzleSuccess">Izdevās!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Izdevās!</string>
   <string name="puzzleComplete">Puzle atrisināta!</string>
   <string name="notTheMove">Tas nav īstais gājiens!</string>
   <string name="trySomethingElse">Izmēģiniet ko citu.</string>
