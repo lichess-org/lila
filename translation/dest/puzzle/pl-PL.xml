@@ -23,7 +23,7 @@
   <string name="goodMove">Dobry ruch</string>
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
-  <string name="puzzleSuccess">Sukces!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Sukces!</string>
   <string name="puzzleComplete">Zadanie zakończone!</string>
   <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
