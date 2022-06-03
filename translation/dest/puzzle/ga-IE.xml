@@ -23,7 +23,7 @@
   <string name="goodMove">Beart maith</string>
   <string name="bestMove">Beart is fearr!</string>
   <string name="keepGoing">Lean ar aghaidh…</string>
-  <string name="puzzleSuccess">D\'éirigh leat!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">D\'éirigh leat!</string>
   <string name="puzzleComplete">Fadhb críochnaithe!</string>
   <string name="notTheMove">Ní hé sin an beart!</string>
   <string name="trySomethingElse">Triail beart eile.</string>
