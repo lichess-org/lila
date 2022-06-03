@@ -22,7 +22,7 @@
   <string name="goodMove">Langkah bagus</string>
   <string name="bestMove">Langkah Baik!</string>
   <string name="keepGoing">Lanjutkan…</string>
-  <string name="puzzleSuccess">Berhasil!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Berhasil!</string>
   <string name="puzzleComplete">Teka-teki terselesaikan!</string>
   <string name="notTheMove">Itu bukan langkahnya!</string>
   <string name="trySomethingElse">Coba lagi lainnya.</string>
