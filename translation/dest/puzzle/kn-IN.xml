@@ -23,7 +23,7 @@
   <string name="goodMove">ಒಳ್ಳೆಯ ನಡೆ</string>
   <string name="bestMove">ಅತ್ಯುತ್ತಮ ನಡೆ!</string>
   <string name="keepGoing">ಮುಂದುವರೆಸಿ…</string>
-  <string name="puzzleSuccess">ಸರಿಯಾದ ನಡೆ!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">ಸರಿಯಾದ ನಡೆ!</string>
   <string name="puzzleComplete">ಒಗಟು ಪರಿಹಾರವಾಗಿದೆ!</string>
   <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
   <string name="trySomethingElse">ಬೇರೆ ಏನಾದರೂ ಪ್ರಯತ್ನಿಸಿ.</string>
