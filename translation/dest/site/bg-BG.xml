@@ -348,8 +348,8 @@
   <string name="apply">Приложи</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Водещи играчи</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Снимай тази позиция</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Запази като GIF</string>
+  <string name="screenshotCurrentPosition">Снимай тази позиция</string>
+  <string name="gameAsGIF">Запази като GIF</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
@@ -429,6 +429,8 @@
   <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Пауза</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
   <string name="berserkRate">Берсерк коефициент</string>

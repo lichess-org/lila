@@ -23,7 +23,7 @@
   <string name="goodMove">İyi hamle</string>
   <string name="bestMove">En iyi hamle!</string>
   <string name="keepGoing">Devam et...</string>
-  <string name="puzzleSuccess">Başarılı!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Başarılı!</string>
   <string name="puzzleComplete">Bulmaca tamamlandı!</string>
   <string name="notTheMove">Olmadı!</string>
   <string name="trySomethingElse">Başka bir şey dene.</string>

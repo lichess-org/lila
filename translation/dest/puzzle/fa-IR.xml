@@ -27,7 +27,7 @@
   <string name="goodMove">حرکتی خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
-  <string name="puzzleSuccess">موفقیت!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">موفقیت!</string>
   <string name="puzzleComplete">پازل تمام شد!</string>
   <string name="notTheMove">ابن حرکت صحیح نیست</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>

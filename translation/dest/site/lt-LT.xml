@@ -400,6 +400,8 @@
   <string name="apply">Pritaikyti</string>
   <string name="save">Įrašyti</string>
   <string name="leaderboard">Lyderiai</string>
+  <string name="screenshotCurrentPosition">Nufotografuoti esamą poziciją</string>
+  <string name="gameAsGIF">Žaidimas kaip GIF animacija</string>
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
   <string name="orUploadPgnFile">Arba įkelkite PGN failą</string>
@@ -489,6 +491,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentIsStarting">Turnyras prasideda</string>
   <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
   <string name="standByX">%s, būkite pasiruošę, suporuojami žaidėjai!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pristabdyti</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Tęsti</string>
   <string name="youArePlaying">Jūs žaidžiate!</string>
   <string name="winRate">Pergalių proc.</string>
   <string name="berserkRate">Įsiūčio proc.</string>

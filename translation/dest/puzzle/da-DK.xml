@@ -23,7 +23,7 @@
   <string name="goodMove">Godt træk</string>
   <string name="bestMove">Bedste træk!</string>
   <string name="keepGoing">Bliv ved…</string>
-  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Succes!</string>
   <string name="puzzleComplete">Opgave løst!</string>
   <string name="notTheMove">Ikke det rigtige træk!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>

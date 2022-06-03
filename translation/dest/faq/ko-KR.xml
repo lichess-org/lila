@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">중재자가 되려면 어떻게 하나요?</string>
   <string name="youCannotApply">중재자 신청은 받지 않습니다. 저희가 보기에 중재자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것입니다.</string>
   <string name="isCorrespondenceDifferent">긴 대국은 일반 체스와 다른점이 있나요?</string>
+  <string name="pleaseReadFairPlayPage">더 자세한 정보는 %s를 읽어주세요.</string>
+  <string name="fairPlayPage">공정한 경기 페이지</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 긴 대국(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 긴 대국에서 엔진 사용을 허용하지만 Lichess는 아닙니다.</string>
   <string name="gameplay">게임 플레이</string>
   <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>

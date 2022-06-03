@@ -23,7 +23,7 @@
   <string name="goodMove">Bra drag</string>
   <string name="bestMove">Bästa draget!</string>
   <string name="keepGoing">Fortsätt…</string>
-  <string name="puzzleSuccess">Rätt!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Rätt!</string>
   <string name="puzzleComplete">Problemet klart!</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>

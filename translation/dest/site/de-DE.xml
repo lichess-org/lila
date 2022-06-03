@@ -428,6 +428,8 @@
   <string name="tournamentIsStarting">Das Turnier beginnt</string>
   <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausieren</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Fortsetzen</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="berserkRate">Berserkrate</string>

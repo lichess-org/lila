@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">Блог %s</string>
-  <string name="newPost">Новая заметка</string>
+  <string name="newPost">Новое сообщение в блоге</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Название записи</string>

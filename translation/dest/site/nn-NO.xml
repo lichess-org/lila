@@ -348,8 +348,8 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Rangliste</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Ta eit skjermbilete av gjeldande stilling</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Parti som GIF</string>
+  <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
+  <string name="gameAsGIF">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
@@ -429,6 +429,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentIsStarting">Turneringa startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pause</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Hald fram</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>

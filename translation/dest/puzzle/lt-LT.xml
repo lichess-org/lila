@@ -23,7 +23,7 @@
   <string name="goodMove">Geras ėjimas</string>
   <string name="bestMove">Geriausias ėjimas!</string>
   <string name="keepGoing">Toliau…</string>
-  <string name="puzzleSuccess">Pavyko!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Pavyko!</string>
   <string name="puzzleComplete">Užduotis išspręsta!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>

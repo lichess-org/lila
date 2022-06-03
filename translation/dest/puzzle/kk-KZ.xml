@@ -23,7 +23,7 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="bestMove">Үздік жүріс!</string>
   <string name="keepGoing">Ары қарай…</string>
-  <string name="puzzleSuccess">Бәрі дұрыс!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Бәрі дұрыс!</string>
   <string name="puzzleComplete">Жұмбақ шешілді!</string>
   <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>

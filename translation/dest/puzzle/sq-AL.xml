@@ -23,7 +23,7 @@
   <string name="goodMove">Lëvizje e mirë</string>
   <string name="bestMove">Lëvizja më e mirë!</string>
   <string name="keepGoing">Vazhdoni…</string>
-  <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Sukses!</string>
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>

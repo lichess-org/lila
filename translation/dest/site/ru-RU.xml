@@ -400,8 +400,8 @@
   <string name="apply">Сохранить</string>
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Сделать снимок этой позиции</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Партия в формате GIF</string>
+  <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
+  <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
@@ -490,6 +490,8 @@
   <string name="tournamentIsStarting">Турнир начинается</string>
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Приостановить</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Возобновить</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>

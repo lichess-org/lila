@@ -73,6 +73,7 @@
   <string name="studyNotFound">연구를 찾을 수 없습니다</string>
   <string name="editChapter">챕터 편집하기</string>
   <string name="newChapter">새 챕터</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">%s에서 가져오기</string>
   <string name="orientation">방향</string>
   <string name="analysisMode">분석 모드</string>
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>

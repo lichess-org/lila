@@ -23,7 +23,7 @@
   <string name="goodMove">نقلة جيدة</string>
   <string name="bestMove">أفضل نقلة!</string>
   <string name="keepGoing">استمر…</string>
-  <string name="puzzleSuccess">تم بنجاح!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">تم بنجاح!</string>
   <string name="puzzleComplete">تم حل اللغز!</string>
   <string name="notTheMove">هذه ليست الحركة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>
