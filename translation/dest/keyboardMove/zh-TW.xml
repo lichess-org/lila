@@ -4,7 +4,7 @@
   <string name="kingsideCastle">王翼易位</string>
   <string name="queensideCastle">后翼易位</string>
   <string name="offerOrAcceptDraw">提出或接受和棋</string>
-  <string name="readOutClocks">讀出時鐘</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">讀出時鐘</string>
   <string name="otherCommands">其他命令</string>
   <string name="tips">提示</string>
 </resources>
