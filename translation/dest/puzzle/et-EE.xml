@@ -22,7 +22,7 @@
   <string name="goodMove">Hea käik</string>
   <string name="bestMove">Parim käik!</string>
   <string name="keepGoing">Jätka samas vaimus…</string>
-  <string name="puzzleSuccess">Edukas!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Edukas!</string>
   <string name="puzzleComplete">Pusle lahendatud!</string>
   <string name="notTheMove">See ei ole õige käik!</string>
   <string name="trySomethingElse">Proovi midagi muud.</string>
