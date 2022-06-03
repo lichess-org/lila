@@ -23,7 +23,7 @@
   <string name="goodMove">好手</string>
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける…</string>
-  <string name="puzzleSuccess">成功！</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">成功！</string>
   <string name="puzzleComplete">問題終了！</string>
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
