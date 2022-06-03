@@ -19,7 +19,11 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
             value: setupCtrl.ratingMin(),
           },
           on: {
-            input: (e: Event) => setupCtrl.ratingMin(parseInt((e.target as HTMLInputElement).value)),
+            input: (e: Event) => {
+              const newVal = parseInt((e.target as HTMLInputElement).value);
+              if (newVal === 0 && setupCtrl.ratingMax() === 0) setupCtrl.ratingMax(50);
+              setupCtrl.ratingMin(newVal);
+            },
           },
         }),
         h('span.rating-min', '-' + Math.abs(setupCtrl.ratingMin())),
@@ -34,7 +38,11 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
             value: setupCtrl.ratingMax(),
           },
           on: {
-            input: (e: Event) => setupCtrl.ratingMax(parseInt((e.target as HTMLInputElement).value)),
+            input: (e: Event) => {
+              const newVal = parseInt((e.target as HTMLInputElement).value);
+              if (newVal === 0 && setupCtrl.ratingMin() === 0) setupCtrl.ratingMin(-50);
+              setupCtrl.ratingMax(newVal);
+            },
           },
         }),
       ]),

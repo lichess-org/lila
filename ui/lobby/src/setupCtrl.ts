@@ -128,6 +128,10 @@ export default class SetupController {
     if (this.gameMode() === 'rated' && this.ratedModeDisabled()) {
       this.gameMode = this.propWithApply('casual');
     }
+
+    if (this.ratingMin() === 0 && this.ratingMax() === 0) {
+      this.ratingMax = this.propWithApply(50);
+    }
   };
 
   private savePropsToStore = () =>
