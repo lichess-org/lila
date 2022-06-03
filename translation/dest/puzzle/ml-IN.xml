@@ -20,7 +20,7 @@
   <string name="goodMove">നല്ല നീക്കം</string>
   <string name="bestMove">ഏറ്റവും മികച്ച നീക്കം!</string>
   <string name="keepGoing">തുടരുക…</string>
-  <string name="puzzleSuccess">ജയിച്ചു!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">ജയിച്ചു!</string>
   <string name="puzzleComplete">പസ്സില്‍ പൂര്‍ത്തിയായി!</string>
   <string name="notTheMove">ശരിയായ നീക്കം അതല്ല!</string>
   <string name="trySomethingElse">മറ്റെന്തെങ്കിലും ശ്രമിച്ചുനോക്കുക.</string>
