@@ -2,12 +2,12 @@
 <resources>
   <string name="keyboardInputCommands">Lệnh từ bàn phím</string>
   <string name="performAMove">Thực hiện nước đi</string>
-  <string name="movePieceFromE2ToE4">Đưa quân từ e2 đến e4</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Đưa Mã đến c3</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Đưa quân từ e2 đến e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Đưa Mã đến c3</string>
   <string name="kingsideCastle">Nhập thành cánh vua</string>
   <string name="queensideCastle">Nhập thành cánh hậu</string>
-  <string name="promoteC8ToQueen">Phong c8 lên hậu</string>
-  <string name="dropARookAtB4">Đặt xe ở b4 (chỉ Crazyhouse)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Phong c8 lên hậu</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Đặt xe ở b4 (chỉ Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Cầu hoà hoặc nhận hoà</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Thông báo thời gian</string>
   <string name="otherCommands">Lệnh khác</string>
@@ -15,7 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Nếu bạn không nhận ra nước đi trên, tìm hiểu tại đây:</string>
   <string name="includingAXToIndicateACapture">Bạn có thể không đặt chữ \"x\" cho các nước ăn quân</string>
   <string name="bothTheLetterOAndTheDigitZero">Bạn có thể sử dụng \"o\" hoặc \"0\" khi nhập thành</string>
-  <string name="ifItIsLegalToCastleBothWays">Khi được chọn phía nhập thành, nhấn enter để nhập thành cánh vua</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Khi được chọn phía nhập thành, nhấn enter để nhập thành cánh vua</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Chỉ cần cân nhắc in hoa trong trường hợp của tượng và tốt cột b</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Bạn chỉ cần nhập nước khi chưa đến lượt mình để đi trước</string>
 </resources>
