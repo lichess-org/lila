@@ -76,7 +76,7 @@
   <string name="studyNotFound">Estudi no trobat</string>
   <string name="editChapter">Editar capítol</string>
   <string name="newChapter">Nou capítol</string>
-  <string name="importFromChapterX">Importar de %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Importar de %s</string>
   <string name="orientation">Orientaciò</string>
   <string name="analysisMode">Mode d\'anàlisi</string>
   <string name="pinnedChapterComment">Comentari del capítol fixat</string>
