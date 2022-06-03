@@ -2,12 +2,12 @@
 <resources>
   <string name="keyboardInputCommands">Klavye komutları</string>
   <string name="performAMove">Bir hamle yap</string>
-  <string name="movePieceFromE2ToE4">Taşı e2\'den e4\'e oyna</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Atı c3\'e oyna</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Taşı e2\'den e4\'e oyna</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Atı c3\'e oyna</string>
   <string name="kingsideCastle">Kısa rok</string>
   <string name="queensideCastle">Uzun rok</string>
-  <string name="promoteC8ToQueen">C8 karesinden vezire terfi et</string>
-  <string name="dropARookAtB4">B4 karesine bir kale koy (Sadece crazyhouse varyantı için)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">C8 karesinden vezire terfi et</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">B4 karesine bir kale koy (Sadece crazyhouse varyantı için)</string>
   <string name="offerOrAcceptDraw">Beraberlik teklif et veya teklifi kabul et</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Süreyi sesli oku</string>
   <string name="otherCommands">Diğer komutlar</string>
@@ -15,7 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Yukarıdaki hamle notasyonuna aşina değilseniz buradan bilgi edinin:</string>
   <string name="includingAXToIndicateACapture">Taş yemeyi \"x\" ile belirtmek tercihe bağlıdır</string>
   <string name="bothTheLetterOAndTheDigitZero">Rok atarken \"o\" veya \"0\" tuşlarının ikisi de kullanılabilir</string>
-  <string name="ifItIsLegalToCastleBothWays">İki yöne de rok atabildiğiniz bir pozisyonda kısa rok atmak için enter\'a basın</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">İki yöne de rok atabildiğiniz bir pozisyonda kısa rok atmak için enter\'a basın</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Notasyonun büyük harfle yazılması yalnızca belirsizliğin olduğu durumlarda fark yaratır. Örneğin, fil (bishop) ile b düzlemindeki piyonun ayırt edilmesi gibi</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Ön hamle yapmak için hamleyi sıra size gelmeden önce yazın</string>
 </resources>
