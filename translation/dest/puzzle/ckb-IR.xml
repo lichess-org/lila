@@ -22,7 +22,7 @@
   <string name="goodMove">جوڵەیەکی جوانە</string>
   <string name="bestMove">باشترین جوڵە!</string>
   <string name="keepGoing">بەردەوامبە…</string>
-  <string name="puzzleSuccess">سەرکەوتوو بوویت!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">سەرکەوتوو بوویت!</string>
   <string name="puzzleComplete">مەتەڵەکە تەواو بوو!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
