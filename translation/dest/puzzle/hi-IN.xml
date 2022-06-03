@@ -23,7 +23,7 @@
   <string name="goodMove">अच्छी चाल!</string>
   <string name="bestMove">सर्वश्रेष्ठ चाल!</string>
   <string name="keepGoing">लगे रहें…</string>
-  <string name="puzzleSuccess">सफलता!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">सफलता!</string>
   <string name="puzzleComplete">पहेली पूरी!</string>
   <string name="notTheMove">यह कदम नहीं है!</string>
   <string name="trySomethingElse">कुछ और कोशिश करो।</string>
