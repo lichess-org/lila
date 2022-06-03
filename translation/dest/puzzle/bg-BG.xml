@@ -23,7 +23,7 @@
   <string name="goodMove">Добър ход</string>
   <string name="bestMove">Най-добър ход!</string>
   <string name="keepGoing">Продължи…</string>
-  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Успех!</string>
   <string name="puzzleComplete">Задачата е решена!</string>
   <string name="notTheMove">Това не е верният ход!</string>
   <string name="trySomethingElse">Опитайте нещо друго.</string>
