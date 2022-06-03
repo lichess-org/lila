@@ -73,7 +73,8 @@ final class GifExport(
       "fen"         -> fen.value,
       "orientation" -> orientation.name
     ) ::: List(
-      lastMove.map { "lastMove" -> _ }
+      lastMove.map { "lastMove" -> _ },
+      Forsyth.<<(fen).flatMap(_.checkSquare.map { "check" -> _.key })
     ).flatten
 
     ws.url(s"$url/image.gif")
