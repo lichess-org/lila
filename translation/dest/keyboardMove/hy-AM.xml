@@ -2,14 +2,14 @@
 <resources>
   <string name="keyboardInputCommands">Ստեղնաշարով մուտքագրելու հրահանգներ</string>
   <string name="performAMove">Կատարել քայլ</string>
-  <string name="movePieceFromE2ToE4">Խաղաքարը e2-ից տեղափոխել e4</string>
-  <string name="moveKnightToC3">Ձիով քայլել c3</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Խաղաքարը e2-ից տեղափոխել e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Ձիով քայլել c3</string>
   <string name="kingsideCastle">Կարճ փոխատեղում</string>
   <string name="queensideCastle">Երկար փոխատեղում</string>
-  <string name="promoteC8ToQueen">Վերածել թագուհու c8-ում</string>
-  <string name="dropARookAtB4">Նավակը տեղափոխել b4 (Crazyhouse տարբերակում)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Վերածել թագուհու c8-ում</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Նավակը տեղափոխել b4 (Crazyhouse տարբերակում)</string>
   <string name="offerOrAcceptDraw">Առաջարկել կամ ընդունել ոչ-ոքի</string>
-  <string name="readOutClocks">Իմանալ ժամացույցի ժամանակը</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Իմանալ ժամացույցի ժամանակը</string>
   <string name="otherCommands">Այլ հրահանգներ</string>
   <string name="tips">Խորհուրդներ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Եթե վերը թվարկված քայլերն անհասկանալի են, դրանք ուսումնասիրեք այստեղ.</string>
