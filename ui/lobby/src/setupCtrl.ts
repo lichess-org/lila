@@ -273,7 +273,7 @@ export default class SetupController {
         errs
           ? Object.keys(errs)
               .filter(k => k !== 'error')
-              .map(k => `${k}: ${errs[k] === 'error.unknown' ? 'Invalid' : errs[k]}`)
+              .map(k => `${k}: ${errs[k]}`)
               .join('\n')
           : 'Invalid setup'
       );
