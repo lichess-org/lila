@@ -268,11 +268,12 @@ export default class SetupController {
 
     const { ok, redirected, url } = response;
     if (!ok) {
-      const errs: { [key: string]: [string] } = await response.json();
+      const errs: { [key: string]: string } = await response.json();
       alert(
         errs
           ? Object.keys(errs)
-              .map(k => `${k}: ${errs[k]}`)
+              .filter(k => k !== 'error')
+              .map(k => `${k}: ${errs[k] === 'error.unknown' ? 'Invalid' : errs[k]}`)
               .join('\n')
           : 'Invalid setup'
       );
