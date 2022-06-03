@@ -23,7 +23,7 @@
   <string name="goodMove">Gudden Zuch</string>
   <string name="bestMove">Beschten Zuch!</string>
   <string name="keepGoing">Maach weider…</string>
-  <string name="puzzleSuccess">Korrekt!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Korrekt!</string>
   <string name="puzzleComplete">Aufgab ofgeschloss!</string>
   <string name="notTheMove">Dat ass net den Zuch!</string>
   <string name="trySomethingElse">Probéier eppes aneres.</string>
