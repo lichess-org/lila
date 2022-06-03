@@ -23,7 +23,7 @@
   <string name="goodMove">Godt trekk</string>
   <string name="bestMove">Beste trekk!</string>
   <string name="keepGoing">Hald fram…</string>
-  <string name="puzzleSuccess">Korrekt!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Korrekt!</string>
   <string name="puzzleComplete">Oppgåva er fullført!</string>
   <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
