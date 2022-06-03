@@ -23,7 +23,7 @@
   <string name="goodMove">Bon coup</string>
   <string name="bestMove">Meilleur coup  !</string>
   <string name="keepGoing">Continuez…</string>
-  <string name="puzzleSuccess">Succès !</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Succès !</string>
   <string name="puzzleComplete">Problème terminé !</string>
   <string name="notTheMove">Ce n\'est pas le coup !</string>
   <string name="trySomethingElse">Essayez autre chose.</string>
