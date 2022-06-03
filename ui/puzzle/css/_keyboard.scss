@@ -1,9 +1,3 @@
 .keyboard-help {
   @extend %help-modal;
-  padding: 1em;
-
-  td.mouse li {
-    list-style: disc inside;
-    margin-left: 1em;
-  }
 }
