@@ -79,7 +79,7 @@
   <string name="studyNotFound">Izpēte nav atrasta</string>
   <string name="editChapter">Rediģēt nodaļu</string>
   <string name="newChapter">Jauna nodaļa</string>
-  <string name="importFromChapterX">Importēt no %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Importēt no %s</string>
   <string name="orientation">Orientācija</string>
   <string name="analysisMode">Analīzes režīms</string>
   <string name="pinnedChapterComment">Piesprausts nodaļas komentārs</string>
