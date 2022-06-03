@@ -11,7 +11,7 @@
     <item quantity="other">Hà risoltu %1$s pusizioni in %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Hà risoltu %s prublemu di tattica</item>
+    <item quantity="one">Hà risoltu %s  di tattica</item>
     <item quantity="other">Hà risoltu %s prublemi di tattica</item>
   </plurals>
   <plurals name="playedNbGames">
@@ -35,8 +35,8 @@
     <item quantity="other">Hà finitu %s partite per via di a currispundenza</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Segue %s ghjucatore</item>
-    <item quantity="other">Segue %s ghjucatori</item>
+    <item quantity="one">Segue %s ghjucadore</item>
+    <item quantity="other">Segue %s ghjucadori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Guadagna %s seguitore novu</item>
