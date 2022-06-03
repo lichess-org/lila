@@ -23,7 +23,7 @@
   <string name="goodMove">Добар потег</string>
   <string name="bestMove">Најдобар потег!</string>
   <string name="keepGoing">Продолжи…</string>
-  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Успех!</string>
   <string name="puzzleComplete">Загатката е решена!</string>
   <string name="notTheMove">Неточен потег!</string>
   <string name="trySomethingElse">Пробајте нешто друго.</string>
