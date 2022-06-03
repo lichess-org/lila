@@ -21,6 +21,7 @@ object helpModal {
           row(frag(kbd("h"), or, kbd("l")), trans.keyMoveBackwardOrForward()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("k"), or, kbd("j")), trans.keyGoToStartOrEnd()),
+          header(trans.other()),
           row(kbd("f"), trans.flipBoard()),
           row(kbd("z"), trans.preferences.zenMode()),
           row(kbd("?"), trans.showHelpDialog())
@@ -34,10 +35,15 @@ object helpModal {
         tbody(
           header(trans.navigateMoveTree()),
           row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-          row(frag(kbd("j"), or, kbd("k")), trans.keyMoveBackwardOrForward()),
-          row(kbd("l"), trans.toggleLocalAnalysis()),
+          row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
-          row(frag(kbd("k"), or, kbd("j")), trans.keyGoToStartOrEnd()),
+          row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
+          header(trans.analysisOptions()),
+          row(kbd("l"), trans.toggleLocalAnalysis()),
+          row(kbd("x"), trans.showThreat()),
+          row(kbd("space"), trans.playComputerMove()),
+          row(kbd("n"), trans.puzzle.nextPuzzle()),
+          header(trans.other()),
           row(kbd("f"), trans.flipBoard()),
           row(kbd("z"), trans.preferences.zenMode()),
           row(kbd("?"), trans.showHelpDialog())
@@ -51,7 +57,7 @@ object helpModal {
         tbody(
           header(trans.navigateMoveTree()),
           row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-          row(frag(kbd("j"), or, kbd("k")), trans.keyMoveBackwardOrForward()),
+          row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
           row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
           row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("→")), trans.keyEnterOrExitVariation()),
