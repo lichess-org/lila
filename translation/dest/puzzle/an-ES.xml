@@ -23,7 +23,7 @@
   <string name="goodMove">Buen movimiento</string>
   <string name="bestMove">Lo millor movimiento!</string>
   <string name="keepGoing">Contina…</string>
-  <string name="puzzleSuccess">Bien feito!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Bien feito!</string>
   <string name="puzzleComplete">Problema completau!</string>
   <string name="notTheMove">Ixe no ye lo movimiento!</string>
   <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
