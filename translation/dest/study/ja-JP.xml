@@ -73,7 +73,7 @@
   <string name="studyNotFound">研究が見つかりません</string>
   <string name="editChapter">章を編集</string>
   <string name="newChapter">新しい章</string>
-  <string name="importFromChapterX">%s からインポート</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">%s からインポート</string>
   <string name="orientation">盤の上下</string>
   <string name="analysisMode">解析モード</string>
   <string name="pinnedChapterComment">章の優先表示コメント</string>
