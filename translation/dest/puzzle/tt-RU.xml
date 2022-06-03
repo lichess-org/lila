@@ -22,7 +22,7 @@
   <string name="goodMove">Якшы хәрәкәт</string>
   <string name="bestMove">Иң яхшы хәрәкәт!</string>
   <string name="keepGoing">Юлга дәвам…</string>
-  <string name="puzzleSuccess">Уңышлы!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Уңышлы!</string>
   <string name="puzzleComplete">Башваткыч чишелгән!</string>
   <string name="notTheMove">Бу хәрәкәт түгел!</string>
   <string name="trySomethingElse">Башка нәрсәне сынап карагыз.</string>
