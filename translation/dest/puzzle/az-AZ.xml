@@ -22,7 +22,7 @@
   <string name="goodMove">Yaxşı gediş</string>
   <string name="bestMove">Ən yaxşı gediş!</string>
   <string name="keepGoing">Davam edin…</string>
-  <string name="puzzleSuccess">Uğurlu!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Uğurlu!</string>
   <string name="puzzleComplete">Tapmaca tamamlandı!</string>
   <string name="notTheMove">Düzgün gediş deyil!</string>
   <string name="trySomethingElse">Başqa bir şey yoxlayın.</string>
