@@ -23,7 +23,7 @@
   <string name="goodMove">Nước tốt</string>
   <string name="bestMove">Nước tối ưu!</string>
   <string name="keepGoing">Tiếp tục…</string>
-  <string name="puzzleSuccess">Thành công!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Thành công!</string>
   <string name="puzzleComplete">Hoàn thành câu đố!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
