@@ -82,7 +82,7 @@
   <string name="studyNotFound">לוח הלמידה לא נמצא</string>
   <string name="editChapter">ערוך פרק</string>
   <string name="newChapter">פרק חדש</string>
-  <string name="importFromChapterX">ייבא מתוך %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">ייבא מתוך %s</string>
   <string name="orientation">כיוון הלוח</string>
   <string name="analysisMode">מצב ניתוח</string>
   <string name="pinnedChapterComment">תגובה על הפרק המוצמד</string>
