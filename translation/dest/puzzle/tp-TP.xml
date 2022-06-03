@@ -22,7 +22,7 @@
   <string name="goodMove">tawa pona</string>
   <string name="bestMove">tawa pi pona #1!</string>
   <string name="keepGoing">o pali e tawa sin…</string>
-  <string name="puzzleSuccess">pona a!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">pona a!</string>
   <string name="puzzleComplete">musi lili li pini pona!</string>
   <string name="notTheMove">ni li tawa pona ala!</string>
   <string name="trySomethingElse">o pali e tawa ante.</string>
