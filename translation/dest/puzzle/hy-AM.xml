@@ -22,7 +22,7 @@
   <string name="goodMove">Լավ քայլ է</string>
   <string name="bestMove">Լավագո՛ւյն քայլը</string>
   <string name="keepGoing">Շարունակեք…</string>
-  <string name="puzzleSuccess">Խնդիրը լուծված է</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Խնդիրը լուծված է</string>
   <string name="puzzleComplete">Խնդիրը լուծված է</string>
   <string name="notTheMove">Վատ քայլ է</string>
   <string name="trySomethingElse">Փորձեք այլ կերպ։</string>
