@@ -82,7 +82,7 @@
   <string name="studyNotFound">Nie znaleziono opracowania</string>
   <string name="editChapter">Edytuj rozdział</string>
   <string name="newChapter">Nowy rozdział</string>
-  <string name="importFromChapterX">Zaimportuj z %s</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Zaimportuj z %s</string>
   <string name="orientation">Orientacja</string>
   <string name="analysisMode">Rodzaj analizy</string>
   <string name="pinnedChapterComment">Przypięty komentarz</string>
