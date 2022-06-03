@@ -23,7 +23,7 @@
   <string name="goodMove">Hyvä siirto</string>
   <string name="bestMove">Paras siirto!</string>
   <string name="keepGoing">Jatka…</string>
-  <string name="puzzleSuccess">Onnistui!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Onnistui!</string>
   <string name="puzzleComplete">Tehtävä ratkaistu!</string>
   <string name="notTheMove">Tuo siirto se ei ole!</string>
   <string name="trySomethingElse">Kokeile jotain muuta.</string>
