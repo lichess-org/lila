@@ -23,7 +23,7 @@
   <string name="goodMove">Dobrý ťah</string>
   <string name="bestMove">Najlepší ťah!</string>
   <string name="keepGoing">Pokračujte…</string>
-  <string name="puzzleSuccess">Úspech!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Úspech!</string>
   <string name="puzzleComplete">Úloha splnená!</string>
   <string name="notTheMove">To nie je ten správny ťah!</string>
   <string name="trySomethingElse">Skúste niečo iné.</string>
