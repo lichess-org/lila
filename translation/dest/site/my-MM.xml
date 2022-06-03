@@ -80,6 +80,7 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Less than %s minute</item>
   </plurals>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">ခေတ္တ နားမည်</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="help">အကူအညီ</string>
   <string name="newPasswordsDontMatch">စကားဝှက် အသစ်တို့ အချင်းချင်း မကိုက်ညီပါ</string>
