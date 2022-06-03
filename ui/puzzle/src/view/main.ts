@@ -135,7 +135,7 @@ export default function (ctrl: Controller): VNode {
       controls(ctrl),
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
-      ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
+      ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
     ]
   );
 }

@@ -29,7 +29,7 @@ export interface KeyboardController {
   flip(): void;
   flipped(): boolean;
   nextPuzzle(): void;
-  keyboardHelp: boolean = location.hash === '#keyboard';
+  keyboardHelp: Prop<boolean>;
 }
 
 export type ThemeKey = string;
