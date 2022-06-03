@@ -23,7 +23,7 @@
   <string name="goodMove">Bellu colpu</string>
   <string name="bestMove">U colpu u più forte!</string>
   <string name="keepGoing">Cuntinuate…</string>
-  <string name="puzzleSuccess">Successu!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Successu!</string>
   <string name="puzzleComplete">Prublemu finitu!</string>
   <string name="notTheMove">Ùn hè u colpu bonu!</string>
   <string name="trySomethingElse">Prova un altru colpu.</string>
