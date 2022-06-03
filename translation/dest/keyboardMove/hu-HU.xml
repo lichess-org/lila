@@ -2,12 +2,12 @@
 <resources>
   <string name="keyboardInputCommands">Billentyűbeviteli parancsok</string>
   <string name="performAMove">Lépés megtétele</string>
-  <string name="movePieceFromE2ToE4">Lépj egy bábuval e2-ről e4-re</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Lépj huszárral c3-ra</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Lépj egy bábuval e2-ről e4-re</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Lépj huszárral c3-ra</string>
   <string name="kingsideCastle">Sáncolás királyszárnyra</string>
   <string name="queensideCastle">Sáncolás vezérszárnyra</string>
-  <string name="promoteC8ToQueen">Változtasd a c8-at vezérré</string>
-  <string name="dropARookAtB4">Ejts egy bástyát a b4-re (csak Crazyhouse variánsban)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Változtasd a c8-at vezérré</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Ejts egy bástyát a b4-re (csak Crazyhouse variánsban)</string>
   <string name="offerOrAcceptDraw">Döntetlen ajánlása vagy elfogadása</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Órák felolvasása</string>
   <string name="otherCommands">Egyéb parancsok</string>
@@ -15,7 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Ha a fentebbi lépésjelölést nem ismered, tudj meg többet itt:</string>
   <string name="includingAXToIndicateACapture">Ütés jelölésére az \"x\" hozzáadása nem kötelező</string>
   <string name="bothTheLetterOAndTheDigitZero">Az \"o\" betű és a nulla számjegy \"0\" bármelyike használható sáncoláshoz</string>
-  <string name="ifItIsLegalToCastleBothWays">Ha mindkét oldalra szabályos sáncolni, enterrel sáncoljon királyszárnya</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Ha mindkét oldalra szabályos sáncolni, enterrel sáncoljon királyszárnya</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Kis- és nagybetű csak félreérthető helyzetekben számít amikor a futó és a b-gyalog is érintett</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Előre megadott lépéshez csak írd be a kívánt lépést mielőtt sorrakerülsz</string>
 </resources>
