@@ -126,6 +126,7 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="findAWayToCastleKingSide">Find en Wäg für die churz Rochade!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De schpezielli Puurezug</string>
   <string name="enPassantIntro">Isch en Puur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Puur 2 Fälder vor gschobe!
@@ -177,6 +178,7 @@ Puur = 1</string>
   <string name="learnCommonChessPositions">Lern mit gängige Schtellige</string>
   <string name="puzzles">Ufgabe löse</string>
   <string name="exerciseYourTacticalSkills">Trainier dini taktische Fähigkeite</string>
+  <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Lueg lehrriichi Schach-Videos</string>
   <string name="playPeople">Schpill online mit Lüt</string>
   <string name="opponentsFromAroundTheWorld">Gägner us de ganze Wält</string>
