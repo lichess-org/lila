@@ -36,6 +36,7 @@
   <string name="fromGameLink">Us de Partie %s</string>
   <string name="continueTraining">Wiiter trainiere</string>
   <string name="difficultyLevel">Schwierigi Stufe</string>
+  <string name="normal">Normal</string>
   <string name="easier">Eifacher</string>
   <string name="easiest">Am eifachschte</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
