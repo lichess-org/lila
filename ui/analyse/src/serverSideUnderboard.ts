@@ -3,7 +3,7 @@ import type Highcharts from 'highcharts';
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 import modal from 'common/modal';
-import { textRaw as xhrTextRaw } from 'common/xhr';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 interface HighchartsHTMLElement extends HTMLElement {
@@ -42,9 +42,11 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        positionGifLink.href = `/export/gif/${fen.replace(/ /g, '_')}?color=${ctrl.bottomColor()}&lastMove=${
-          ctrl.node.uci || ''
-        }`;
+        positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
+          color: ctrl.bottomColor(),
+          lastMove: ctrl.node.uci,
+          variant: ctrl.data.game.variant.key,
+        });
         lastInputHash = nextInputHash;
       }
       if ($chart.length) {
