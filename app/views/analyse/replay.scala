@@ -62,7 +62,8 @@ object replay {
             .fenThumbnail(
               Forsyth.>>(pov.game.situation).value.replace(" ", "_"),
               pov.color.name,
-              None
+              None,
+              pov.game.variant.key.some
             )
             .url
         )

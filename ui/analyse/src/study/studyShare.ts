@@ -1,5 +1,6 @@
 import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
+import { url as xhrUrl } from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../moveView';
 import { baseUrl } from '../util';
@@ -8,7 +9,9 @@ import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyShareCtrl {
   studyId: string;
+  variantKey: VariantKey;
   chapter: () => StudyChapterMeta;
+  bottomColor: () => Color;
   isPrivate(): boolean;
   currentNode: () => Tree.Node;
   onMainline: () => boolean;
@@ -54,6 +57,7 @@ export function ctrl(
   currentChapter: () => StudyChapterMeta,
   currentNode: () => Tree.Node,
   onMainline: () => boolean,
+  bottomColor: () => Color,
   relay: RelayCtrl | undefined,
   redraw: () => void,
   trans: Trans
@@ -61,7 +65,9 @@ export function ctrl(
   const withPly = prop(false);
   return {
     studyId: data.id,
+    variantKey: data.chapter.setup.variant.key as VariantKey,
     chapter: currentChapter,
+    bottomColor,
     isPrivate() {
       return data.visibility === 'private';
     },
@@ -130,6 +136,21 @@ export function view(ctrl: StudyShareCtrl): VNode {
           },
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
+      ),
+      h(
+        'a.button.text',
+        {
+          attrs: {
+            'data-icon': '',
+            href: xhrUrl(`/export/gif/${ctrl.currentNode().fen.replace(/ /g, '_')}`, {
+              color: ctrl.bottomColor(),
+              lastMove: ctrl.currentNode().uci,
+              variant: ctrl.variantKey,
+            }),
+            download: true,
+          },
+        },
+        'Board'
       ),
       h(
         'a.button.text',
