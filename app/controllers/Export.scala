@@ -4,6 +4,7 @@ import akka.stream.scaladsl._
 import akka.util.ByteString
 import chess.Color
 import chess.format.{ FEN, Forsyth, Uci }
+import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
@@ -59,16 +60,18 @@ final class Export(env: Env) extends LilaController(env) {
       env.game.gifExport.thumbnail(
         fen = puzzle.fenAfterInitialMove,
         lastMove = puzzle.line.head.uci.some,
-        orientation = puzzle.color
+        orientation = puzzle.color,
+        variant = Standard
       ) map stream()
     }
 
-  def fenThumbnail(fen: String, color: String, lastMove: Option[String]) =
+  def fenThumbnail(fen: String, color: String, lastMove: Option[String], variant: Option[String]) =
     exportImageOf(fuccess(Forsyth << FEN.clean(fen))) { _ =>
       env.game.gifExport.thumbnail(
         fen = FEN clean fen,
         lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
-        orientation = Color.fromName(color) | Color.White
+        orientation = Color.fromName(color) | Color.White,
+        variant = Variant(variant.getOrElse("standard")) | Standard
       ) map stream()
     }
 

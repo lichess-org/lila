@@ -4,6 +4,7 @@ import akka.stream.scaladsl._
 import akka.util.ByteString
 import chess.format.{ FEN, Forsyth, Uci }
 import chess.{ Centis, Color, Game => ChessGame, Replay, Situation }
+import chess.variant.Variant
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.StandaloneWSClient
@@ -68,13 +69,18 @@ final class GifExport(
     }
   }
 
-  def thumbnail(fen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
+  def thumbnail(
+      fen: FEN,
+      lastMove: Option[String],
+      orientation: Color,
+      variant: Variant
+  ): Fu[Source[ByteString, _]] = {
     val query = List(
       "fen"         -> fen.value,
       "orientation" -> orientation.name
     ) ::: List(
       lastMove.map { "lastMove" -> _ },
-      Forsyth.<<(fen).flatMap(_.checkSquare.map { "check" -> _.key })
+      Forsyth.<<@(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key })
     ).flatten
 
     ws.url(s"$url/image.gif")
