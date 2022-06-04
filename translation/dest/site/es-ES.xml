@@ -349,7 +349,7 @@
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
-  <string name="gameAsGIF">Descargar partida como GIF</string>
+  <string name="gameAsGIF">Partida como GIF</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
