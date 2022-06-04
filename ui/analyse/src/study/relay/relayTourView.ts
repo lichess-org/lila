@@ -86,7 +86,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
   const relay = ctrl.relay!;
   return h(
     'div.study__relay__rounds',
-    relay!.data.rounds
+    relay.data.rounds
       .map(round =>
         h(
           'div',
