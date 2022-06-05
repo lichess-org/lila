@@ -429,8 +429,8 @@
   <string name="tournamentIsStarting">Το πρωτάθλημα αρχίζει</string>
   <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του πρωταθλήματος έχουν κλείσει.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Παύση</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Συνέχεια</string>
+  <string name="pause">Παύση</string>
+  <string name="resume">Συνέχεια</string>
   <string name="youArePlaying">Παίζετε τώρα!</string>
   <string name="winRate">Ποσοστό νικών</string>
   <string name="berserkRate">Ποσοστό berserk</string>
@@ -568,6 +568,7 @@
   <string name="community">Κοινότητα</string>
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
+  <string name="error.unknown">Άκυρη τιμή</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
   <string name="error.email">Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη</string>
   <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
