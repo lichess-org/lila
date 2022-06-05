@@ -121,6 +121,7 @@ POST  /training/coordinate/score       controllers.Coordinate.score
 GET   /training                        controllers.Puzzle.home
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/help                   controllers.Puzzle.help
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
