@@ -629,6 +629,7 @@
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Neplatná hodnota</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Táto emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
