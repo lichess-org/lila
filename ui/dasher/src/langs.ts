@@ -3,11 +3,9 @@ import { h, VNode } from 'snabbdom';
 import { Close, header } from './util';
 
 type Code = string;
+type Name = string;
 
-export interface Lang {
-  0: Code;
-  1: string;
-}
+export type Lang = [Code, Name];
 
 export interface LangsData {
   current: Code;
@@ -59,18 +57,18 @@ export function view(ctrl: LangsCtrl): VNode {
   ]);
 }
 
-function langView(current: Code, accepted: Set<Code>) {
-  return (l: Lang) =>
+const langView =
+  (current: Code, accepted: Set<Code>) =>
+  ([code, name]: Lang) =>
     h(
-      'button' + (current === l[0] ? '.current' : '') + (accepted.has(l[0]) ? '.accepted' : ''),
+      'button' + (current === code ? '.current' : '') + (accepted.has(code) ? '.accepted' : ''),
       {
         attrs: {
           type: 'submit',
           name: 'lang',
-          value: l[0],
-          title: l[0],
+          value: code,
+          title: code,
         },
       },
-      l[1]
+      name
     );
-}
