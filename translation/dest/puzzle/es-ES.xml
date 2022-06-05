@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
+  <string name="nextPuzzle">Siguiente puzzle</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente ejercicio inmediatamente</string>
   <string name="puzzleDashboard">Panel de ejercicios</string>
   <string name="improvementAreas">Áreas de mejora</string>
