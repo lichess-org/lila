@@ -1,7 +1,7 @@
 import * as control from './control';
+import * as xhr from 'common/xhr';
 import { Controller, KeyboardController } from './interfaces';
 import { h, VNode } from 'snabbdom';
-import * as xhr from 'common/xhr';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
@@ -37,8 +37,8 @@ export default (ctrl: KeyboardController) =>
       if (ctrl.vm.mode === 'view') ctrl.nextPuzzle();
     });
 
-export function view(ctrl: Controller): VNode {
-  return snabModal({
+export const view = (ctrl: Controller): VNode =>
+  snabModal({
     class: 'keyboard-help',
     onInsert: async ($wrap: Cash) => {
       const [, html] = await Promise.all([
@@ -50,4 +50,3 @@ export function view(ctrl: Controller): VNode {
     onClose: () => ctrl.keyboardHelp(false),
     content: [h('div.scrollable', spinner())],
   });
-}
