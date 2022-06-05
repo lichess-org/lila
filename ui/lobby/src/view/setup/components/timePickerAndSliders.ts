@@ -1,4 +1,5 @@
 import { Prop } from 'common';
+import { MaybeVNodes } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 import { InputValue, TimeMode } from '../../../interfaces';
@@ -101,37 +102,40 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>) =>
     },
   });
 
-export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
+export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false): MaybeVNodes => {
   const { trans, setupCtrl } = ctrl;
-  return h(
-    'div.time_mode_config.optional_config',
-    ctrl.opts.blindMode
-      ? renderBlindModeTimePickers(ctrl, allowAnonymous)
-      : [
-          renderTimeModePicker(ctrl, allowAnonymous),
-          setupCtrl.timeMode() === 'realTime'
-            ? h('div.time_choice.range', [
-                `${trans('minutesPerSide')}: `,
-                h('span', showTime(setupCtrl.time())),
-                inputRange(0, 38, setupCtrl.timeV),
-              ])
-            : null,
-          setupCtrl.timeMode() === 'realTime'
-            ? h('div.increment_choice.range', [
-                `${trans('incrementInSeconds')}: `,
-                h('span', setupCtrl.increment()),
-                inputRange(0, 30, setupCtrl.incrementV),
-              ])
-            : setupCtrl.timeMode() === 'correspondence'
-            ? h(
-                'div.correspondence',
-                h('div.days_choice.range', [
-                  `${trans('daysPerTurn')}: `,
-                  h('span', setupCtrl.days()),
-                  inputRange(1, 7, setupCtrl.daysV),
+  return [
+    h(
+      'div.time_mode_config.optional_config',
+      ctrl.opts.blindMode
+        ? renderBlindModeTimePickers(ctrl, allowAnonymous)
+        : [
+            renderTimeModePicker(ctrl, allowAnonymous),
+            setupCtrl.timeMode() === 'realTime'
+              ? h('div.time_choice.range', [
+                  `${trans('minutesPerSide')}: `,
+                  h('span', showTime(setupCtrl.time())),
+                  inputRange(0, 38, setupCtrl.timeV),
                 ])
-              )
-            : null,
-        ]
-  );
+              : null,
+            setupCtrl.timeMode() === 'realTime'
+              ? h('div.increment_choice.range', [
+                  `${trans('incrementInSeconds')}: `,
+                  h('span', setupCtrl.increment()),
+                  inputRange(0, 30, setupCtrl.incrementV),
+                ])
+              : setupCtrl.timeMode() === 'correspondence'
+              ? h(
+                  'div.correspondence',
+                  h('div.days_choice.range', [
+                    `${trans('daysPerTurn')}: `,
+                    h('span', setupCtrl.days()),
+                    inputRange(1, 7, setupCtrl.daysV),
+                  ])
+                )
+              : null,
+          ]
+    ),
+    !setupCtrl.validTime() || !setupCtrl.validAiTime() ? h('div.error_message', 'Please increase the game time') : null,
+  ];
 };

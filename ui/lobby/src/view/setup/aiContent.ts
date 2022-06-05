@@ -15,7 +15,7 @@ export default function aiContent(ctrl: LobbyController): MaybeVNodes {
     h('div.setup-content', [
       variantPicker(ctrl),
       fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
+      ...timePickerAndSliders(ctrl, true),
       ...levelButtons(ctrl),
       colorButtons(ctrl),
     ]),

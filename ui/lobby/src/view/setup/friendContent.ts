@@ -17,7 +17,7 @@ export default function friendContent(ctrl: LobbyController): MaybeVNodes {
       ctrl.setupCtrl.friendUser ? userLink(ctrl.setupCtrl.friendUser) : null,
       variantPicker(ctrl),
       fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
+      ...timePickerAndSliders(ctrl, true),
       gameModeButtons(ctrl),
       colorButtons(ctrl),
     ]),
