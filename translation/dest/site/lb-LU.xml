@@ -562,6 +562,7 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Tools</string>
   <string name="increment">Inkrement</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Ongültegen Wäert</string>
   <string name="error.required">Dëst Feld ass obligatoresch</string>
   <string name="error.email">Dës Email ass ongëlteg</string>
   <string name="error.email_acceptable">Dës Email Adress ass net akzeptabel. Iwwerpréif se wannechgelift an probéier nach eng Kéier.</string>
