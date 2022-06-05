@@ -568,6 +568,7 @@
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Невалидна стойност</string>
   <string name="error.required">Това поле е задължително</string>
   <string name="error.email">Този имейл адрес е невалиден</string>
   <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
