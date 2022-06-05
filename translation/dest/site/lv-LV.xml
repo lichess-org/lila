@@ -220,9 +220,9 @@
     <item quantity="other">Rangs tiek atjaunots ik pēc %s minūtēm</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="zero">%s puzles</item>
-    <item quantity="one">%s puzle</item>
-    <item quantity="other">%s puzles</item>
+    <item quantity="zero">%s uzdevumi</item>
+    <item quantity="one">%s uzdevums</item>
+    <item quantity="other">%s uzdevumi</item>
   </plurals>
   <string name="gamesPlayed">Izspēlētās spēles</string>
   <plurals name="nbGamesWithYou">
@@ -601,6 +601,7 @@
   <string name="community">Kopiena</string>
   <string name="tools">Rīki</string>
   <string name="increment">Pieaugums</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Nederīga vērtība</string>
   <string name="error.required">Šis lauks ir obligāts</string>
   <string name="error.email">Šī e-pasta adrese nav derīga</string>
   <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama. Lūdzu pārbaudiet to un mēģiniet vēlreiz.</string>
