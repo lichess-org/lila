@@ -48,6 +48,7 @@
   </plurals>
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
+  <string name="nextPuzzle">下一个谜题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">数据统计</string>
   <string name="improvementAreas">待提升</string>
