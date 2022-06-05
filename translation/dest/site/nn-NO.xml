@@ -568,6 +568,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er obligatorisk</string>
   <string name="error.email">E-postadressa er ikkje gyldig</string>
   <string name="error.email_acceptable">E-postadressa er ikkje akseptabel. Ver god og dobbeltsjekk den og prøv på nytt.</string>
