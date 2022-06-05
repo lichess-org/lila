@@ -23,7 +23,7 @@
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法!</string>
   <string name="keepGoing">加油!</string>
-  <string name="puzzleSuccess">成功！</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">成功！</string>
   <string name="puzzleComplete">解題完成!</string>
   <string name="notTheMove">不是這步!</string>
   <string name="trySomethingElse">試試其他的移動</string>

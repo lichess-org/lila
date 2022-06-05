@@ -23,7 +23,7 @@
   <string name="goodMove">Jó lépés</string>
   <string name="bestMove">A legjobb lépés!</string>
   <string name="keepGoing">Folytasd…</string>
-  <string name="puzzleSuccess">Siker!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Siker!</string>
   <string name="puzzleComplete">Kész a feladvány!</string>
   <string name="notTheMove">Nem a legjobb lépés!</string>
   <string name="trySomethingElse">Próbálkozz mással.</string>

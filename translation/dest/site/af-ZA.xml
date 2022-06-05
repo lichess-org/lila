@@ -344,8 +344,8 @@
   <string name="apply">Pas toe</string>
   <string name="save">Stoor</string>
   <string name="leaderboard">Leierbord</string>
-  <string name="screenshotCurrentPosition" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Neem \'n skermfoto van die huidige posisie</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Spel as \'n GIF</string>
+  <string name="screenshotCurrentPosition">Neem \'n skermfoto van die huidige posisie</string>
+  <string name="gameAsGIF">Spel as \'n GIF</string>
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
   <string name="orUploadPgnFile">Of laai ‘n PGN-lêer op</string>
@@ -425,6 +425,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Onderbreek</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Hervat</string>
   <string name="youArePlaying">Jy speel nou!</string>
   <string name="winRate">Wen koers</string>
   <string name="berserkRate">Beserk koers</string>

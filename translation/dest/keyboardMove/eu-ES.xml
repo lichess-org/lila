@@ -2,12 +2,12 @@
 <resources>
   <string name="keyboardInputCommands">Teklatuko sarrera aginduak</string>
   <string name="performAMove">Egin ezazu jokaldi bat</string>
-  <string name="movePieceFromE2ToE4">Mugitu pieza e2-tik e4-ra</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Mugitu zaldia c3-ra</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Mugitu pieza e2-tik e4-ra</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Mugitu zaldia c3-ra</string>
   <string name="kingsideCastle">Endrokea erregearen aldera</string>
   <string name="queensideCastle">Endrokea erreginaren aldera</string>
-  <string name="promoteC8ToQueen">c8 erregina bilakatu</string>
-  <string name="dropARookAtB4">Utzi gaztelua b4 laukian (Crazyhouse aldaeran bakarrik)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">c8 erregina bilakatu</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Utzi gaztelua b4 laukian (Crazyhouse aldaeran bakarrik)</string>
   <string name="offerOrAcceptDraw">Berdinketa eskeini edo onartu</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Ozen esan erlojuak</string>
   <string name="otherCommands">Beste aginduak</string>
@@ -15,7 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Goiko mugimenduen notazioa ez bada ezaguna, gehiago ikasi hemen:</string>
   <string name="includingAXToIndicateACapture">Harrapaketa adierazteko \"x\" idaztea hautazkoa da</string>
   <string name="bothTheLetterOAndTheDigitZero">Bai \"o\" hizkia, bai zero \"0\" digitua erabil daitezke endrokatzean</string>
-  <string name="ifItIsLegalToCastleBothWays">Bi aldeetako endrokea egitea legezkoa bada erabili enter endroke laburra egiteko</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Bi aldeetako endrokea egitea legezkoa bada erabili enter endroke laburra egiteko</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Letra larriak alfila eta b-ko peoia bereizte erabiltzen dira (piezen izenak ingelesez daude Alfila = Bishop ingelesez)</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Aurre-mugimendua egiteko, idatzi nahi duzun mugimendua zure txanda izan aurretik</string>
 </resources>

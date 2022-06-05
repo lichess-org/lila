@@ -2,20 +2,20 @@
 <resources>
   <string name="keyboardInputCommands">Ukazi za vnos s tipkovnice</string>
   <string name="performAMove">Izvedite potezo</string>
-  <string name="movePieceFromE2ToE4">Premaknite figuro iz e2 na e4</string>
-  <string name="moveKnightToC3">Premaknite skakača na c3</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Premaknite figuro iz e2 na e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Premaknite skakača na c3</string>
   <string name="kingsideCastle">Mala rokada</string>
   <string name="queensideCastle">Velika rokada</string>
-  <string name="promoteC8ToQueen">Promovirajte kmeta na c8 v damo</string>
-  <string name="dropARookAtB4">Spustite trdnjavo na b4 (samo varianta Crazyhouse)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Promovirajte kmeta na c8 v damo</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Spustite trdnjavo na b4 (samo varianta Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ponudite ali sprejmite remi</string>
-  <string name="readOutClocks">Odčitajte ure</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Odčitajte ure</string>
   <string name="otherCommands">Drugi ukazi</string>
   <string name="tips">Nasveti</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Če zgornji zapis poteze ne poznate, preberite več tukaj:</string>
   <string name="includingAXToIndicateACapture">Vključitev \"x\", ki označuje zajem, ni obvezna</string>
   <string name="bothTheLetterOAndTheDigitZero">Pri igranju lahko uporabite tako črko \"o\" kot številko nič \"0\"</string>
-  <string name="ifItIsLegalToCastleBothWays">Če je rokiranje v obe smeri dovoljeno, uporabite enter za malo rokado</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">Uporaba velikih začetnic je pomembna le v dvoumnih situacijah, ki vključujejo lovca in b-kmeta</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Če je rokiranje v obe smeri dovoljeno, uporabite enter za malo rokado</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Uporaba velikih začetnic je pomembna le v dvoumnih situacijah, ki vključujejo lovca in b-kmeta</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Za predvideno potezo preprosto vnesite želeno predvideno potezo, preden ste na vrsti</string>
 </resources>

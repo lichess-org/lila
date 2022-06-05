@@ -393,7 +393,7 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Taolenn ar re varrekañ</string>
-  <string name="gameAsGIF" comment="gameAsGIF&#10;&#10;Download an animated GIF showing the entire game.">Krogad e stumm GIF</string>
+  <string name="gameAsGIF">Krogad e stumm GIF</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
   <string name="fromPosition">Kregiñ gant ul lec\'hiadur ispisial</string>

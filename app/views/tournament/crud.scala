@@ -99,7 +99,7 @@ object crud {
           help =
             raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
           half = true
-        )(f => form3.input(f)(tour.isDefined.option(disabled := true)))
+        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
       ),
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)

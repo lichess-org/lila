@@ -22,7 +22,7 @@
   <string name="goodMove">ভালো মানের মুভ</string>
   <string name="bestMove">সেরা মানের মুভ!</string>
   <string name="keepGoing">চালিয়ে যান…</string>
-  <string name="puzzleSuccess">সফল হয়েছে!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">সফল হয়েছে!</string>
   <string name="puzzleComplete">পাজল সম্পন্ন!</string>
   <string name="notTheMove">এটা সঠিক চাল না!</string>
   <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>

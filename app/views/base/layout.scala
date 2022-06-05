@@ -431,6 +431,8 @@ object layout {
   object inlineJs {
 
     private val i18nKeys = List(
+      trans.pause.key,
+      trans.resume.key,
       trans.nbFriendsOnline.key,
       trans.timeago.justNow.key,
       trans.timeago.inNbSeconds.key,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">gerade eben</string>
-  <plurals name="inNbSeconds">
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
     <item quantity="one">in %s Sekunde</item>
     <item quantity="other">in %s Sekunden</item>
   </plurals>
