@@ -292,8 +292,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
-  def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
-
   object holdAlert {
     private val holdAlertSelector = $or(
       holdAlertField(chess.White) $exists true,

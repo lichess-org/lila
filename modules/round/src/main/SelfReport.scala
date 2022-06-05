@@ -27,7 +27,7 @@ final class SelfReport(
       fullId: Game.FullId,
       name: String
   ): Funit =
-    userId ?? userRepo.named flatMap { user =>
+    userId ?? userRepo.named map { user =>
       val known = user.exists(_.marks.engine)
       lila.mon.cheat.cssBot.increment()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
@@ -47,24 +47,22 @@ final class SelfReport(
             )
           }
         }
-      if (fullId.value == "____________") fuccess(doLog())
+      if (fullId.value == "____________") doLog()
       else
-        proxyRepo.pov(fullId.value) flatMap {
+        proxyRepo.pov(fullId.value) foreach {
           _ ?? { pov =>
             if (!known) doLog()
-            if (
-              endGameSetting.get().matches(name) ||
-              (name.startsWith("soc") && (
-                name.contains("stockfish") || name.contains("userscript") ||
-                  name.contains("__puppeteer_evaluation_script__")
-              ))
-            ) fuccess {
-              if (userId.isDefined) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
-              user.ifTrue(markUserSetting.get().matches(name)) foreach { u =>
+            user foreach { u =>
+              if (
+                endGameSetting.get().matches(name) ||
+                (name.startsWith("soc") && (
+                  name.contains("stockfish") || name.contains("userscript") ||
+                    name.contains("__puppeteer_evaluation_script__")
+                ))
+              ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+              if (markUserSetting.get().matches(name))
                 lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
-              }
             }
-            else gameRepo.setBorderAlert(pov).void
           }
         }
     }
