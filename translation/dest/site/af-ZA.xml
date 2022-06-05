@@ -564,6 +564,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="community">Gemeenskap</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Inkrement</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Ongeldige waarde</string>
   <string name="error.required">Dié veld word vereis</string>
   <string name="error.email">Hierdie epos adres is ongeldig</string>
   <string name="error.email_acceptable">Hierdie e-pos adres is nie aanvaarbaar nie. Maak seker dis reg en probeer weer.</string>
