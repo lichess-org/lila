@@ -635,6 +635,7 @@
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Nieprawidłowa wartość</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
   <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>
