@@ -632,6 +632,7 @@
   <string name="community">Skupnost</string>
   <string name="tools">Orodja</string>
   <string name="increment">Dodatek</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Neveljavna vrednost</string>
   <string name="error.required">To polje je obvezno</string>
   <string name="error.email">E-poštni naslov ni veljaven</string>
   <string name="error.email_acceptable">Elektronski naslov ni sprejemljiv. Prosim, preverite ga in poskusite ponovno.</string>
