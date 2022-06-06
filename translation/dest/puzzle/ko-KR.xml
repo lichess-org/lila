@@ -48,6 +48,7 @@
   </plurals>
   <string name="example">예시</string>
   <string name="addAnotherTheme">새 테마 추가</string>
+  <string name="nextPuzzle">다음 퍼즐</string>
   <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
   <string name="puzzleDashboard">퍼즐 대시보드</string>
   <string name="improvementAreas">개선이 필요한 부분</string>
