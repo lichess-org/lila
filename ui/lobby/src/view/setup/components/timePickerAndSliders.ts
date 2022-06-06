@@ -136,6 +136,8 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
               : null,
           ]
     ),
-    !setupCtrl.validTime() || !setupCtrl.validAiTime() ? h('div.error_message', 'Please increase the game time') : null,
+    !setupCtrl.validTime() || !setupCtrl.validAiTime()
+      ? h('div.error-message', trans('pleaseIncreaseTheGameTime'))
+      : null,
   ];
 };
