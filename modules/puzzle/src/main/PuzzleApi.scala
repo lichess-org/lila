@@ -14,7 +14,7 @@ final class PuzzleApi(
     colls: PuzzleColls,
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Puzzle.{ BSONFields => F }
   import BsonHandlers._

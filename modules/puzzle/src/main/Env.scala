@@ -76,6 +76,10 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
+  private lazy val opening = wire[PuzzleOpening]
+
+  opening.addAllMissing
+
   if (mode == play.api.Mode.Prod)
     system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
       pathApi.isStale foreach { stale =>
