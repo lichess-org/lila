@@ -86,6 +86,7 @@
   <string name="newPasswordsDontMatch">စကားဝှက် အသစ်တို့ အချင်းချင်း မကိုက်ညီပါ</string>
   <string name="newPasswordStrength">စကားဝှက် အားကောင်းမှု</string>
   <string name="privacyPolicy">ပုဂ္ဂိုလ်ဆိုင်ရာ အချက်အလက် လုံခြုံရေး မူဝါဒ</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">တရားမဝင် တန်ဖိုး</string>
   <string name="error.email">ဤအီးမေးလ် လိပ်စာ ချွတ်ယွင်းနေပါသည်</string>
   <string name="error.email_acceptable">ဤအီးမေလ်း လိပ်စာကို လက်ခံ၍ မရပါ။ နောက်တစ်ခါ စစ်ဆေးပြီး ထပ်မံ ကြိုးစားပါ။</string>
   <string name="error.email_unique">အီးမေးလ် လိပ်စာ ချွတ်ယွင်းနေပါသည် သို့မဟုတ် သူတပါးက အသုံးပြုပြီး ဖြစ်ပါသည်</string>
