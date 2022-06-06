@@ -10,6 +10,11 @@ html {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 body {
