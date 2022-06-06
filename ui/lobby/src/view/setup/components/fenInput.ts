@@ -4,8 +4,8 @@ import LobbyController from '../../../ctrl';
 export const fenInput = (ctrl: LobbyController) => {
   const { trans, setupCtrl } = ctrl;
   if (setupCtrl.variant() !== 'fromPosition') return null;
-  return h('div.fen_position.optional_config', [
-    h('div.fen_form', [
+  return h('div.fen.optional-config', [
+    h('div.fen__form', [
       h('input#fen-input', {
         attrs: { placeholder: trans('pasteTheFenStringHere'), value: setupCtrl.fen() },
         on: {
@@ -26,7 +26,7 @@ export const fenInput = (ctrl: LobbyController) => {
       }),
     ]),
     h(
-      'a.board_editor',
+      'a.fen__board',
       { attrs: { href: '/editor' } },
       setupCtrl.fenError || !setupCtrl.lastValidFen
         ? null

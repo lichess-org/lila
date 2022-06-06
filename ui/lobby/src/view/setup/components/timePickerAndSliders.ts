@@ -106,7 +106,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
   const { trans, setupCtrl } = ctrl;
   return [
     h(
-      'div.time_mode_config.optional_config',
+      'div.time_mode_config.optional-config',
       ctrl.opts.blindMode
         ? renderBlindModeTimePickers(ctrl, allowAnonymous)
         : [

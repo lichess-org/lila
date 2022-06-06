@@ -33,18 +33,18 @@ $c-slider: $c-setup;
     }
   }
 
-  .optional_config {
+  .optional-config {
     border-bottom: $border;
   }
 
-  .mode_choice {
-    margin-top: 1em;
-  }
-
-  .optional_config,
+  .optional-config,
   .ratings {
     background: $c-bg-zebra;
     border-top: $border;
+  }
+
+  .mode-choice {
+    margin-top: 1em;
   }
 
   .label_select {
@@ -66,25 +66,23 @@ $c-slider: $c-setup;
     }
   }
 
-  .fen_position {
-    .board_editor {
-      display: block;
-      width: 50%;
-      margin: 0.5em auto 0 auto;
-    }
-
-    .fen_form {
-      @extend %flex-center-nowrap;
-    }
-
-    .fen_form input {
-      flex: 1 1 100%;
-    }
+  .fen__form {
+    @extend %flex-center-nowrap;
   }
 
-  #fen-input.failure {
-    background: mix($c-bg-box, $c-bad, 80%);
-    box-shadow: 0 0 13px $c-bad;
+  .fen__board {
+    display: block;
+    width: 50%;
+    margin: 0.5em auto 0 auto;
+  }
+
+  #fen-input {
+    flex: 1 1 100%;
+
+    &.failure {
+      background: mix($c-bg-box, $c-bad, 80%);
+      box-shadow: 0 0 13px $c-bad;
+    }
   }
 
   .error-message {
