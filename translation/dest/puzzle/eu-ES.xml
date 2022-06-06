@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Adibidea</string>
   <string name="addAnotherTheme">Beste gai bat gehitu</string>
+  <string name="nextPuzzle">Hurrengo ariketa</string>
   <string name="jumpToNextPuzzleImmediately">Salto egin hurrengo ariketara berehala</string>
   <string name="puzzleDashboard">Ariketen kontrol-panela</string>
   <string name="improvementAreas">Hobetzekoak</string>
