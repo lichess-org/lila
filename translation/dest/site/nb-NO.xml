@@ -567,6 +567,7 @@
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er påkrevet</string>
   <string name="error.email">Denne e-postadressen er ugyldig</string>
   <string name="error.email_acceptable">Denne e-postadressen godtas ikke. Dobbeltsjekk den og prøv på nytt.</string>
