@@ -400,6 +400,8 @@
   <string name="apply">Použít</string>
   <string name="save">Uložit</string>
   <string name="leaderboard">Žebříček</string>
+  <string name="screenshotCurrentPosition">Screenshot pozice</string>
+  <string name="gameAsGIF">Uložit jako GIF</string>
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
   <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
@@ -520,6 +522,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
+  <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
@@ -565,6 +568,7 @@
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
+  <string name="importedByX">Importováno uživatelem %s</string>
   <string name="thisTopicIsNowClosed">Toto téma je již uzavřeno.</string>
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
@@ -639,6 +643,7 @@
   <string name="error.min">Musí být větší nebo rovno %s</string>
   <string name="error.max">Musí být menší nebo rovno %s</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
+  <string name="ifRegistered">Pokud je registrován</string>
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
   <string name="menu">Menu</string>
@@ -918,6 +923,8 @@
   <string name="welcome">Vítej!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
+  <string name="coachManager">Nastavení trenéra</string>
+  <string name="streamerManager">Nastavení streamera</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
   <string name="tournDescriptionHelp">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
@@ -956,6 +963,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
   <string name="tournamentEntryCode">Kód pro vstup do turnaje</string>
+  <string name="hangOn">Počkejte!</string>
   <string name="gameInProgress">Již probíhá hra s %s.</string>
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>

@@ -348,6 +348,8 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
+  <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
+  <string name="gameAsGIF">Parti som gif</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pause</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Fortsett</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Seierprosent</string>
   <string name="berserkRate">Berserkprosent</string>

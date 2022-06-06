@@ -370,7 +370,7 @@
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
-    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових гри в %2$s</item>
+    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових ігри в %2$s</item>
     <item quantity="many">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
     <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
   </plurals>
@@ -400,6 +400,15 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
+  <string name="screenshotCurrentPosition">Скріншот поточної позиції
+ 
+скріншот CurrentPosition
+
+Скріншот тут використовується як дієслово.
+Завантажити/поділитися зображенням поточної позиції.
+Файл</string>
+  <string name="gameAsGIF">Завантажте анімований GIF, що показує всю гру.
+Файл: Веб-сайт і додаток - найважливіші рядки</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="orUploadPgnFile">Або завантажте PGN файл</string>
@@ -851,7 +860,7 @@
   <string name="addCurrentVariation">Додати поточний варіант</string>
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, щоб встановити умовні ходи на випередження</string>
   <string name="noConditionalPremoves">Безумовні ходи на випередження</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Зіграти %s</string>
+  <string name="playX">Зіграти %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і зберегти %s послідовність</item>
     <item quantity="few">і зберегти %s послідовності</item>
@@ -942,7 +951,7 @@
   <string name="simulHostcolor">Колір сеансера для кожної гри</string>
   <string name="estimatedStart">Приблизний час початку</string>
   <string name="simulFeatured">Показувати на %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
+  <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
   <string name="markdownAvailable">%s доступний для більш детального форматування.</string>

@@ -347,6 +347,8 @@
   <string name="apply">Կիրառել</string>
   <string name="save">Պահպանել</string>
   <string name="leaderboard">Առաջատարներ</string>
+  <string name="screenshotCurrentPosition">Ստանալ այս դիրքի սքրինշոթը</string>
+  <string name="gameAsGIF">Պարտիան GIF ձևաչափով</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
@@ -425,6 +427,8 @@
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
   <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Դադար</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Շարունակել</string>
   <string name="youArePlaying">Դուք խաղում եք։</string>
   <string name="winRate">Հաղթանակի տոկոս</string>
   <string name="berserkRate">Բերսերկի տոկոս</string>

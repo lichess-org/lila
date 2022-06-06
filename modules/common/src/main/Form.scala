@@ -62,6 +62,20 @@ object Form {
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
+  def id(size: Int, fixed: Option[String])(exists: String => Fu[Boolean]) = {
+    val field = text(minLength = size, maxLength = size)
+      .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+    fixed match {
+      case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
+      case None =>
+        import scala.concurrent.duration._
+        field.verifying(
+          "This ID is already in use",
+          id => !exists(id).await(1 second, "tour crud unique ID")
+        )
+    }
+  }
+
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation

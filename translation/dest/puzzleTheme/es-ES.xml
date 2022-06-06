@@ -48,7 +48,7 @@
   <string name="exposedKing">Rey expuesto</string>
   <string name="exposedKingDescription">Una táctica que involucra a un rey con poca defensa a su alrededor, a menudo conduce a jaque mate.</string>
   <string name="fork">Ataque doble</string>
-  <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
+  <string name="forkDescription">Un movimiento donde la pieza movida ataca dos piezas del oponente a la vez.</string>
   <string name="hangingPiece">Pieza colgada</string>
   <string name="hangingPieceDescription">Una táctica que implica que una pieza del adversario no esté defendida o insuficientemente defendida y quede para ser capturada.</string>
   <string name="hookMate">Mate del gancho</string>

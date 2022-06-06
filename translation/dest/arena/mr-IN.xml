@@ -38,4 +38,17 @@
   <string name="thisIsPrivate">ही खासगी स्पर्धा आहे</string>
   <string name="shareUrl">हे URL लोकांना पाठवा म्हणजे त्यांना भाग घेता येईल: %s</string>
   <string name="drawStreak">ड्रॉ स्ट्रिक: जेव्हा एखाद्या खेळाडूने प्रतियॊगितॆत सलग ड्रॉ कॆल्या तेव्हा फक्त पहिल्या ड्रॉचा क्रमांक मिळतिल किंवा %s चालींपेक्षा जास्त डाव टिकेल. अनिर्णित रेषा केवळ विजयाने तोडता येऊ शकतो, तोटा किंवा ड्रॉ नसून.</string>
+  <string name="history">रिंगणाचा इतिहास</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">संघ पहा</item>
+    <item quantity="other">सर्व %s संघ पहा</item>
+  </plurals>
+  <string name="newTeamBattle">नवीन संघ लढाई</string>
+  <string name="customStartDate">सानुकूल सुरुवातीची तारीख</string>
+  <string name="customStartDateHelp">तुमच्या स्वतःच्या स्थानिक वेळेत. ह्यामुळे \"स्पर्धा सुरू होण्यापूर्वीची वेळ\" या वेळेचे सेटिंग अधिलिखित होईल</string>
+  <string name="allowBerserk">बेडर होण्यास परवानगी द्या</string>
+  <string name="allowBerserkHelp">खेळाडूंना एक अधिक गुण मिळण्यासाठी त्यांची घड्याळाची वेळ अर्धी करू द्या</string>
+  <string name="allowChatHelp">खेळाडूंना संवाद खोलीमध्ये चर्चा करू द्या</string>
+  <string name="arenaStreaks">रिंगण सिलसिला</string>
+  <string name="arenaStreaksHelp">2 विजयांनंतर, सलग विजय 2 ऐवजी 4 गुण देतात.</string>
 </resources>

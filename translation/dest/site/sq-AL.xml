@@ -769,7 +769,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="addCurrentVariation">Shto variantin e tanishëm</string>
   <string name="playVariationToCreateConditionalPremoves">Që të krijohen lëvizje paraprake të kushtëzuara, luani një variant</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Luani %s</string>
+  <string name="playX">Luani %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">edhe ruaj %s linja premove</item>
     <item quantity="other">edhe ruaj %s linja premove</item>
@@ -857,7 +857,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="simulHostcolor">Ngjyrë organizatori për çdo lojë</string>
   <string name="estimatedStart">Kohë fillimi përafërsisht</string>
   <string name="simulFeatured">Shfaqe në %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;%s is the word Lichess.&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
+  <string name="simulFeaturedHelp">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
   <string name="simulDescription">Përshkrim simultaneje</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
   <string name="markdownAvailable">Për sintaksë më të thelluar mund të përdoret %s-i.</string>

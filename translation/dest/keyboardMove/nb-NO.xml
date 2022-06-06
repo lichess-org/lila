@@ -2,12 +2,12 @@
 <resources>
   <string name="keyboardInputCommands">Tastaturkommandoer</string>
   <string name="performAMove">Utfør et trekk</string>
-  <string name="movePieceFromE2ToE4">Flytt brikke fra e2 til e4</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Flytt springer til c3</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Flytt brikke fra e2 til e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Flytt springer til c3</string>
   <string name="kingsideCastle">Kort rokade</string>
   <string name="queensideCastle">Lang rokade</string>
-  <string name="promoteC8ToQueen">Forvandle c8 til dronning</string>
-  <string name="dropARookAtB4">Dropp et tårn på b4 (kun varianten Crazyhouse)</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Forvandle c8 til dronning</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Dropp et tårn på b4 (kun varianten Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Tilby eller godta remis</string>
   <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Les klokkene høyt</string>
   <string name="otherCommands">Andre kommandoer</string>
@@ -15,7 +15,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">For dem som ikke kjenner til notasjonen ovenfor, finnes mer informasjon her:</string>
   <string name="includingAXToIndicateACapture">Det er valgfritt å bruke «x» for å markere et slag</string>
   <string name="bothTheLetterOAndTheDigitZero">Både bokstaven «o» og sifferet null «0» kan brukes ved rokade</string>
-  <string name="ifItIsLegalToCastleBothWays">Bruk linjeskifttasten for kort rokade hvis det er lov å rokere til begge sider</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">Bruk linjeskifttasten for kort rokade hvis det er lov å rokere til begge sider</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Stor eller liten bokstav har bare betydning for å skille mellom en løper («B») og b-bonden</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Forhåndstrekk tastes inn før det er din tur</string>
 </resources>

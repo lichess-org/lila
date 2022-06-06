@@ -76,6 +76,7 @@
   <string name="studyNotFound">Зерттеу табылмады</string>
   <string name="editChapter">Бөлімді өңдеу</string>
   <string name="newChapter">Жаңа бөлім</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">%s-нан жүктеп алу</string>
   <string name="orientation">Бағыты</string>
   <string name="analysisMode">Талдау нұсқасы</string>
   <string name="pinnedChapterComment">Қадаулы бөлім пікірі</string>

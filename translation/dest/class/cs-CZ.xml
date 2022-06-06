@@ -94,6 +94,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="variantXOverLastY">%1$s za posledních %2$s</string>
   <string name="winrate">Podíl výher</string>
   <string name="na">N/A</string>
+  <string name="news">Novinky</string>
   <string name="editNews">Upravit novinky</string>
   <string name="notifyAllStudents">Upozornit všechny studenty</string>
   <string name="nothingHere">Zatím zde nic není.</string>
@@ -101,4 +102,5 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="newsEdit2">Přidejte poslední novinky nahoru. Neodstraňujte předchozí novinky.</string>
   <string name="newsEdit3">Oddělte zprávy ---
 Zobrazí se vodorovná čára.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nebo</string>
 </resources>

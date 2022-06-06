@@ -15,7 +15,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -527,6 +527,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (uci) playUci(uci);
   }
 
+  const keyboardHelp = propWithEffect(location.hash === '#keyboard', redraw);
   keyboard({
     vm,
     userJump,
@@ -538,6 +539,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     nextPuzzle,
+    keyboardHelp,
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -567,6 +569,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     ground,
     makeCgOpts,
     keyboardMove,
+    keyboardHelp,
     userJump,
     viewSolution,
     nextPuzzle,

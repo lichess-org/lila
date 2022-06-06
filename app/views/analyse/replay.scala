@@ -48,18 +48,22 @@ object replay {
     }
     val imageLinks = frag(
       a(
+        dataIcon := "",
+        cls      := "text",
         targetBlank,
         href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
       )(trans.gameAsGIF()),
       a(
-        cls := "position-gif",
+        dataIcon := "",
+        cls      := "text position-gif",
         targetBlank,
         href := cdnUrl(
           routes.Export
             .fenThumbnail(
               Forsyth.>>(pov.game.situation).value.replace(" ", "_"),
               pov.color.name,
-              None
+              None,
+              pov.game.variant.key.some
             )
             .url
         )
@@ -67,12 +71,19 @@ object replay {
     )
     val shareLinks = frag(
       a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
-      label(dataIcon := "", cls := "text")(
+      div(
         input(
+          id         := "game-url",
+          cls        := "copyable autoselect",
+          spellcheck := "false",
           readonly,
-          spellcheck := false,
-          cls        := "copyable autoselect like-text analyse__underboard__url",
-          value      := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+          value := s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}"
+        ),
+        button(
+          title    := "Copy URL",
+          cls      := "copy button",
+          dataRel  := "game-url",
+          dataIcon := ""
         )
       )
     )

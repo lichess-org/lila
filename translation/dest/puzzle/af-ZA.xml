@@ -22,7 +22,7 @@
   <string name="goodMove">Goeie skuif</string>
   <string name="bestMove">Beste skuif!</string>
   <string name="keepGoing">Hou aan…</string>
-  <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Sukses!</string>
   <string name="puzzleComplete">Legkaart voltooi!</string>
   <string name="notTheMove">Dit is nie die skuif nie!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>

@@ -23,7 +23,7 @@
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
   <string name="keepGoing">המשך…</string>
-  <string name="puzzleSuccess">הצלחה!</string>
+  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">הצלחה!</string>
   <string name="puzzleComplete">פאזל הושלם!</string>
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסה משהו אחר.</string>

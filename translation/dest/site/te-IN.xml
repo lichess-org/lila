@@ -493,6 +493,11 @@ Translation results
   <string name="privacyPolicy">గోప్యతా విధానం</string>
   <string name="letOtherPlayersFollowYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
   <string name="letOtherPlayersChallengeYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
+  <string name="sound">ధ్వని</string>
+  <string name="none">ఏది లేదు</string>
+  <string name="fast">వేగముగా</string>
+  <string name="normal">మాములుగా</string>
+  <string name="slow">నెమ్మదిగా</string>
   <string name="tools">పరికరాలు</string>
   <string name="error.required">ఈ సమాచారం అవసరం</string>
   <string name="castling">కాస్లింగ్</string>

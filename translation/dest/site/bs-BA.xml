@@ -812,7 +812,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijaciju</string>
   <string name="playVariationToCreateConditionalPremoves">Odigrajte varijaciju da stvorite uslovni potez unaprijed</string>
   <string name="noConditionalPremoves">Nema uslovnih poteza unaprijed</string>
-  <string name="playX" comment="playX&#10;%s is the specific move. Appears when using the conditional premoves feature.&#10;&#10;Example: Play Nf6&#10;">Igraj %s</string>
+  <string name="playX">Igraj %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">i snimi %s potez unaprijed</item>
     <item quantity="few">i snimi %s poteza unaprijed</item>

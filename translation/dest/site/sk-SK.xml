@@ -394,6 +394,8 @@
   <string name="apply">Odoslať</string>
   <string name="save">Uložiť</string>
   <string name="leaderboard">Rebríček</string>
+  <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
+  <string name="gameAsGIF">Uložiť ako GIF</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -482,6 +484,8 @@
   <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pozastaviť</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Pokračovať</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Miera besnenia</string>

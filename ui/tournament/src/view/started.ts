@@ -6,7 +6,6 @@ import tourTable from './table';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import * as pagination from '../pagination';
-import * as tour from '../tournament';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
@@ -21,7 +20,7 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
 }
 
 function notice(ctrl: TournamentController): VNode {
-  return tour.willBePaired(ctrl)
+  return ctrl.willBePaired()
     ? h('div.tour__notice.bar-glider', ctrl.trans('standByX', ctrl.data.myUsername!))
     : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
@@ -33,7 +32,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     pag = pagination.players(ctrl);
   return [
     header(ctrl),
-    gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
+    gameId ? joinTheGame(ctrl, gameId) : ctrl.isIn() ? notice(ctrl) : null,
     teamStanding(ctrl, 'started'),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),

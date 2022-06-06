@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Les blanques han guanyat</string>
+  <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
@@ -348,6 +348,8 @@
   <string name="apply">Envia</string>
   <string name="save">Desa</string>
   <string name="leaderboard">Llista de líders</string>
+  <string name="screenshotCurrentPosition">Fes una captura de pantalla de la posició actual</string>
+  <string name="gameAsGIF">Partida com a GIF</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
   <string name="orUploadPgnFile">O penjar un arxiu PGN</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">El torneig està començant</string>
   <string name="tournamentPairingsAreNowClosed">L\'emparellament al torneig s\'ha finalitzat.</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausa</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Resum</string>
   <string name="youArePlaying">¡Estàs jugant!</string>
   <string name="winRate">Percentatge de victòries</string>
   <string name="berserkRate">Taxa de Berserk</string>

@@ -491,4 +491,9 @@ final class Puzzle(
         }
       )
     }
+
+  def help =
+    Open { implicit ctx =>
+      Ok(html.site.helpModal.puzzle).fuccess
+    }
 }

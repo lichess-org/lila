@@ -62,7 +62,7 @@ function normalView(ctrl: Ctrl) {
     h(
       'div.mchat__content.' + active,
       active === 'note' && ctrl.note
-        ? [noteView(ctrl.note)]
+        ? [noteView(ctrl.note, ctrl.vm.autofocus)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
         ? [ctrl.plugin.view()]
         : discussionView(ctrl)

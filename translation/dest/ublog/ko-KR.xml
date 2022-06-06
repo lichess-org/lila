@@ -5,12 +5,22 @@
   <string name="editYourBlogPost">블로그 게시글 편집</string>
   <string name="saveDraft">임시 저장</string>
   <string name="postTitle">제목</string>
+  <string name="postIntro">게시물 서론</string>
   <string name="postBody">본문</string>
   <string name="drafts">임시 보관 글</string>
   <string name="published">게시된 글</string>
+  <string name="createBlogDiscussion">댓글 허용하기</string>
+  <string name="createBlogDiscussionHelp">다른 사람들이 댓글을 남길 수 있는 게시물이 생성됩니다.</string>
+  <string name="publishOnYourBlog">블로그에 게시하기</string>
+  <string name="publishHelp">선택시 게시물이 블로그에 게시됩니다. 미선택시 비공개로 초안에 보관됩니다.</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">님이 %s개의 블로그 게시물을 올렸습니다.</item>
+  </plurals>
   <plurals name="nbViews">
     <item quantity="other">조회수 %s</item>
   </plurals>
+  <string name="xPublishedY">%1$s님이 %2$s를 게시했습니다.</string>
+  <string name="thisPostIsPublished">게시물이 게시되었습니다.</string>
   <string name="thisIsADraft">임시저장입니다</string>
   <string name="moreBlogPostsBy">더 많은 %s의 글</string>
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>

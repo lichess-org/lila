@@ -44,7 +44,7 @@ final class Team(
   def show(id: String, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuOk(api team id) { renderTeam(_, page, mod && isGranted(_.ManageTeam)) }
+        OptionFuOk(api team id) { renderTeam(_, page, mod) }
       }
     }
 
@@ -63,7 +63,7 @@ final class Team(
     for {
       info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
-      log     <- requestModView.??(env.mod.logApi.teamLog(team.id))
+      log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached

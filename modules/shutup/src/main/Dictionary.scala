@@ -105,7 +105,6 @@ prostitute
 punani
 puss(i|y|ie|)
 queer
-rape
 rapist
 rect(al|um)
 retard
@@ -297,9 +296,10 @@ yarra[gğ][iı] yediniz
 
   def critical = dict("""
 cancer
-(ho?pe ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
+((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 (kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
 kys
+rape
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

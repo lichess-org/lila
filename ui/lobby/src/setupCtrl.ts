@@ -128,6 +128,10 @@ export default class SetupController {
     if (this.gameMode() === 'rated' && this.ratedModeDisabled()) {
       this.gameMode = this.propWithApply('casual');
     }
+
+    if (this.ratingMin() === 0 && this.ratingMax() === 0) {
+      this.ratingMax = this.propWithApply(50);
+    }
   };
 
   private savePropsToStore = () =>
@@ -268,10 +272,11 @@ export default class SetupController {
 
     const { ok, redirected, url } = response;
     if (!ok) {
-      const errs: { [key: string]: [string] } = await response.json();
+      const errs: { [key: string]: string } = await response.json();
       alert(
         errs
           ? Object.keys(errs)
+              .filter(k => k !== 'error')
               .map(k => `${k}: ${errs[k]}`)
               .join('\n')
           : 'Invalid setup'

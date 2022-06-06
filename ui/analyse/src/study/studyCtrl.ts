@@ -44,6 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
 import { storedProp } from 'common/storage';
+import { opposite } from 'chessops/util';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -320,8 +321,9 @@ export default function (
 
   const currentNode = () => ctrl.node;
   const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
+  const bottomColor = () => (ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation);
 
-  const share = shareCtrl(data, currentChapter, currentNode, onMainline, relay, redraw, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, onMainline, bottomColor, relay, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 

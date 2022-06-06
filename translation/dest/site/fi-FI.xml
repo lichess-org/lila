@@ -348,6 +348,8 @@
   <string name="apply">Ota käyttöön</string>
   <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
+  <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
+  <string name="gameAsGIF">Tallenna peli GIF:nä</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">Turnaus alkaa</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pidä tauko</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Jatka</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="berserkRate">Berserkkiprosentti</string>

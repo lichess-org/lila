@@ -86,11 +86,21 @@ object crud {
         )(form3.input(_, typ = "number")),
         form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
       ),
-      form3.group(
-        form("headline"),
-        raw("Homepage headline"),
-        help = raw("Keep it VERY short, so it fits on homepage").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("headline"),
+          raw("Homepage headline"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("id"),
+          raw("Tournament ID (in the URL)"),
+          help =
+            raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
+          half = true
+        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
+      ),
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)
       ),
