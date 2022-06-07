@@ -15,7 +15,7 @@ export default function hookContent(ctrl: LobbyController): MaybeVNodes {
     h('h2', trans('createAGame')),
     h('div.setup-content', [
       variantPicker(ctrl),
-      ...timePickerAndSliders(ctrl),
+      timePickerAndSliders(ctrl),
       gameModeButtons(ctrl),
       ratingDifferenceSliders(ctrl),
       colorButtons(ctrl),

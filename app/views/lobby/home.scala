@@ -165,7 +165,6 @@ object home {
     trans.incrementInSeconds,
     trans.minutesPerSide,
     trans.daysPerTurn,
-    trans.pleaseIncreaseTheGameTime,
     trans.ratingRange,
     trans.nbPlayers,
     trans.nbGamesInPlay,
