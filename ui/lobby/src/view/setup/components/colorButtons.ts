@@ -25,21 +25,15 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
 
 export const colorButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
-  const validTime = setupCtrl.timeMode() !== 'realTime' || setupCtrl.time() > 0 || setupCtrl.increment() > 0;
-  const validAi =
-    setupCtrl.gameType !== 'ai' ||
-    setupCtrl.timeMode() !== 'realTime' ||
-    setupCtrl.variant() !== 'fromPosition' ||
-    setupCtrl.time() >= 1;
-  const validFen = setupCtrl.variant() !== 'fromPosition' || !setupCtrl.fenError;
-  const randomColorOnly =
-    setupCtrl.gameType !== 'ai' &&
-    setupCtrl.gameMode() === 'rated' &&
-    variantsWhereWhiteIsBetter.includes(setupCtrl.variant());
 
   const enabledColors: (Color | 'random')[] = [];
-  if (validTime && validAi && validFen) {
+  if (setupCtrl.valid()) {
     enabledColors.push('random');
+
+    const randomColorOnly =
+      setupCtrl.gameType !== 'ai' &&
+      setupCtrl.gameMode() === 'rated' &&
+      variantsWhereWhiteIsBetter.includes(setupCtrl.variant());
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 

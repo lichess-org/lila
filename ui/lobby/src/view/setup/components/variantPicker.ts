@@ -7,7 +7,7 @@ import { option } from './option';
 export const variantPicker = (ctrl: LobbyController) => {
   const { trans, setupCtrl, opts } = ctrl;
   const baseVariants = opts.blindMode ? variantsBlindMode : variants;
-  return h('div.variant.label_select', [
+  return h('div.variant.label-select', [
     h('label', { attrs: { for: 'sf_variant' } }, trans('variant')),
     h(
       'select#sf_variant',

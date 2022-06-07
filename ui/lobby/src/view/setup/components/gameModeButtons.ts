@@ -9,7 +9,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
 
   const { trans, setupCtrl } = ctrl;
   return h(
-    'div.mode_choice.buttons',
+    'div.mode-choice.buttons',
     h(
       'group.radio',
       gameModes(trans).map(({ key, name }) => {
