@@ -20,7 +20,13 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo)(implicit
 
   def addAllMissing: Funit =
     colls.puzzle {
-      _.find($doc(Puzzle.BSONFields.opening $exists false))
+      _.find(
+        $doc(
+          Puzzle.BSONFields.opening $exists false,
+          Puzzle.BSONFields.themes $nin List(PuzzleTheme.equality.key, PuzzleTheme.endgame.key),
+          Puzzle.BSONFields.fen $endsWith """\s[|1]\d""" // up to move 19!
+        )
+      )
         .cursor[Puzzle]()
         .documentSource()
         .mapAsyncUnordered(8)(addMissing)
