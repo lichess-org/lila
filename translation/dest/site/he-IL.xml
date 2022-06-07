@@ -638,6 +638,7 @@
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">ערך לא תקין</string>
   <string name="error.required">שדה חובה</string>
   <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
   <string name="error.email_acceptable">כתובת דוא״ל זו אינה קבילה. אנא בדוק שנית ונסה שוב.</string>
