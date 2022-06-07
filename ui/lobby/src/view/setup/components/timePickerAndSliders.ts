@@ -1,5 +1,4 @@
 import { Prop } from 'common';
-import { MaybeVNodes } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 import { InputValue, TimeMode } from '../../../interfaces';
