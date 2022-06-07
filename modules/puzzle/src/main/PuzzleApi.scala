@@ -47,11 +47,11 @@ final class PuzzleApi(
     private[PuzzleApi] def exists(user: User, puzzleId: Puzzle.Id): Fu[Boolean] =
       colls.round(_.exists($id(PuzzleRound.Id(user.id, puzzleId).toString)))
 
-    def upsert(r: PuzzleRound, theme: PuzzleTheme.Key): Funit = {
+    def upsert(r: PuzzleRound, angle: PuzzleAngle): Funit = {
       val roundDoc = RoundHandler.write(r) ++
         $doc(
           PuzzleRound.BSONFields.user  -> r.id.userId,
-          PuzzleRound.BSONFields.theme -> theme.some.filter(_ != PuzzleTheme.mix.key)
+          PuzzleRound.BSONFields.theme -> angle.some.filter(_ != PuzzleAngle.mix)
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
     }
@@ -120,9 +120,14 @@ final class PuzzleApi(
       }
   }
 
+  def angles: Fu[PuzzleAngle.All] = for {
+    themes   <- theme.categorizedWithCount
+    openings <- countApi.countsByOpening
+  } yield PuzzleAngle.All(themes, openings)
+
   object theme {
 
-    def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
+    private[PuzzleApi] def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
       countApi.countsByTheme map { counts =>
         PuzzleTheme.categorized.map { case (cat, puzzles) =>
           cat -> puzzles.map { pt =>

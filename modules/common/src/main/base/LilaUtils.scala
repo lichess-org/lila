@@ -1,12 +1,13 @@
 package lila.base
 
+import alleycats.Zero
 import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import org.joda.time.{ DateTime, Duration }
-import alleycats.Zero
 import scala.concurrent.duration._
 import scala.concurrent.Future
+import scala.util.matching.Regex
 import scala.util.Try
 
 import LilaTypes._
@@ -37,6 +38,8 @@ final class LilaString(private val s: String) extends AnyVal {
 
   def replaceIf(t: CharSequence, r: CharSequence): String =
     if (s.contains(t)) s.replace(t, r) else s
+
+  def replaceAllIn(regex: Regex, replacement: String) = regex.replaceAllIn(s, replacement)
 }
 
 final class LilaConfig(private val config: Config) extends AnyVal {

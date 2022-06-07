@@ -76,7 +76,7 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
-  private lazy val opening = wire[PuzzleOpening]
+  private lazy val opening = wire[PuzzleOpeningApi]
 
   opening.addAllMissing
 

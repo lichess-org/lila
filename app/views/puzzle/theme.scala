@@ -6,11 +6,11 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.puzzle.PuzzleTheme
+import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleTheme }
 
 object theme {
 
-  def list(themes: List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])])(implicit ctx: Context) =
+  def list(all: PuzzleAngle.All)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Puzzle themes",
       moreCss = cssTag("puzzle.page")
@@ -20,15 +20,21 @@ object theme {
         div(cls := "page-menu__content box")(
           h1(trans.puzzle.puzzleThemes()),
           div(cls := "puzzle-themes")(
-            themes map { case (cat, themes) =>
-              frag(
-                h2(cat()),
-                div(
-                  cls := List(
-                    "puzzle-themes__list"     -> true,
-                    cat.key.replace(":", "-") -> true
+            h2(id := "openings")("By game opening"),
+            div(cls := "puzzle-themes__list")(all.openings map { case (opening, count) =>
+              a(cls := "puzzle-themes__link", href := routes.Puzzle.show(opening.key.value))(
+                span(
+                  h3(
+                    opening.name,
+                    em(count.localize)
                   )
-                )(
+                )
+              )
+            }),
+            all.themes map { case (cat, themes) =>
+              frag(
+                h2(id := cat.key)(cat()),
+                div(cls := s"puzzle-themes__list ${cat.key.replace(":", "-")}")(
                   themes.map { pt =>
                     val url =
                       if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home

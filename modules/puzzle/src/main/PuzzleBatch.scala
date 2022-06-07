@@ -22,7 +22,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
             else PuzzleTier.Top
           pathApi.nextFor(
             user,
-            PuzzleTheme.mix.key,
+            PuzzleAngle.mix,
             tier,
             PuzzleDifficulty.Normal,
             Set.empty
