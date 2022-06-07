@@ -94,8 +94,9 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
     : null;
 };
 
-const inputRange = (min: number, max: number, prop: Prop<InputValue>) =>
+const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: Record<string, boolean>) =>
   h('input.range', {
+    class: classes,
     attrs: { type: 'range', min, max, value: prop() },
     on: {
       input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)),
@@ -104,6 +105,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>) =>
 
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false): MaybeVNodes => {
   const { trans, setupCtrl } = ctrl;
+  const realTimeRangeClass = { failure: !setupCtrl.validTime() || !setupCtrl.validAiTime() };
   return [
     h(
       'div.time-mode-config.optional-config',
@@ -115,14 +117,14 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
               ? h('div.time-choice.range', [
                   `${trans('minutesPerSide')}: `,
                   h('span', showTime(setupCtrl.time())),
-                  inputRange(0, 38, setupCtrl.timeV),
+                  inputRange(0, 38, setupCtrl.timeV, realTimeRangeClass),
                 ])
               : null,
             setupCtrl.timeMode() === 'realTime'
               ? h('div.increment-choice.range', [
                   `${trans('incrementInSeconds')}: `,
                   h('span', setupCtrl.increment()),
-                  inputRange(0, 30, setupCtrl.incrementV),
+                  inputRange(0, 30, setupCtrl.incrementV, realTimeRangeClass),
                 ])
               : setupCtrl.timeMode() === 'correspondence'
               ? h(
