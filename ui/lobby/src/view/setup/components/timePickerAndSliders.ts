@@ -105,7 +105,6 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
 
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
   const { trans, setupCtrl } = ctrl;
-  const realTimeRangeClass = { failure: !setupCtrl.validTime() || !setupCtrl.validAiTime() };
   return h(
     'div.time-mode-config.optional-config',
     ctrl.opts.blindMode
@@ -116,14 +115,14 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
             ? h('div.time-choice.range', [
                 `${trans('minutesPerSide')}: `,
                 h('span', showTime(setupCtrl.time())),
-                inputRange(0, 38, setupCtrl.timeV, realTimeRangeClass),
+                inputRange(0, 38, setupCtrl.timeV, { failure: !setupCtrl.validTime() || !setupCtrl.validAiTime() }),
               ])
             : null,
           setupCtrl.timeMode() === 'realTime'
             ? h('div.increment-choice.range', [
                 `${trans('incrementInSeconds')}: `,
                 h('span', setupCtrl.increment()),
-                inputRange(0, 30, setupCtrl.incrementV, realTimeRangeClass),
+                inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
             : setupCtrl.timeMode() === 'correspondence'
             ? h(
