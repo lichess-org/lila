@@ -23,7 +23,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo)(implicit
       _.find($doc(Puzzle.BSONFields.opening $exists false))
         .cursor[Puzzle]()
         .documentSource()
-        .mapAsyncUnordered(12)(addMissing)
+        .mapAsyncUnordered(8)(addMissing)
         .runWith(LilaStream.sinkCount)
         .chronometer
         .log(logger)(count => s"Done adding $count puzzle openings")
