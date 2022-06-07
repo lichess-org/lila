@@ -62,6 +62,7 @@
   <string name="xOrY">%1$s או %2$s</string>
   <string name="decideHowMuch">החלט מה ליצ\'ס שווה בשבילך:</string>
   <string name="stopPayments">תיסוג מכרטיס באשראי שלך ועצור את התשלומים:</string>
+  <string name="stopPaymentsPayPal">בטל את מינוי הPayPal ועצור את התשלומים:</string>
   <string name="noLongerSupport">לא תומך יותר בליצ\'ס</string>
   <string name="viewOthers">צפה בפטרוני ליצ\'ס אחרים</string>
   <string name="date">תאריך</string>
