@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 
-// TODO allow zero zero, but change on backend to -25 to +25 ?
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || ctrl.opts.blindMode) return null;
 
