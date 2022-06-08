@@ -64,7 +64,8 @@ final private class PuzzleCountApi(
           colls.puzzle {
             _.aggregateList(PuzzleOpening.maxOpenings) { framework =>
               import framework._
-              PipelineOperator($doc("$sortByCount" -> s"$$$opening")) -> List(
+              Match(opening $exists true) -> List(
+                PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
                 Limit(PuzzleOpening.maxOpenings)
               )
             }.map {
