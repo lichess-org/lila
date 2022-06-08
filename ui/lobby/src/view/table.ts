@@ -6,7 +6,7 @@ import renderSetupModal from './setup/modal';
 
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
-  const hasOngoingRealTimeGame = !!data.nowPlaying.find(nowPlaying => nowPlaying.speed !== 'correspondence');
+  const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame();
   const hookDisabled = opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
   return h('div.lobby__table', [
