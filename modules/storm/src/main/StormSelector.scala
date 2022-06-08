@@ -108,7 +108,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Sort(Ascending("rating"))
+                Sort(Ascending("rating")),
+                Limit(poolSize)
               )
             }.map {
               _.flatMap(StormPuzzleBSONReader.readOpt)

@@ -62,9 +62,11 @@ final private class PuzzleCountApi(
         .buildAsyncFuture { _ =>
           import Puzzle.BSONFields._
           colls.puzzle {
-            _.aggregateList(64) { framework =>
+            _.aggregateList(PuzzleOpening.maxOpenings) { framework =>
               import framework._
-              PipelineOperator($doc("$sortByCount" -> s"$$$opening")) -> Nil
+              PipelineOperator($doc("$sortByCount" -> s"$$$opening")) -> List(
+                Limit(PuzzleOpening.maxOpenings)
+              )
             }.map {
               _.flatMap { obj =>
                 for {

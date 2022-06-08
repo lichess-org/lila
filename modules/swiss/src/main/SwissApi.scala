@@ -368,6 +368,7 @@ final class SwissApi(
               )
             ),
             Match("player" $ne $arr()),
+            Limit(100),
             Project($id(true))
           )
         }
@@ -599,7 +600,8 @@ final class SwissApi(
           .aggregateList(100) { framework =>
             import framework._
             Match($doc(f.status -> SwissPairing.ongoing)) -> List(
-              GroupField(f.swissId)("ids" -> PushField(f.id))
+              GroupField(f.swissId)("ids" -> PushField(f.id)),
+              Limit(100)
             )
           }
       }

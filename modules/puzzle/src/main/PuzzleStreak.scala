@@ -89,7 +89,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                 Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Sort(Ascending("glicko.r"))
+                Sort(Ascending("glicko.r")),
+                Limit(poolSize)
               )
             }.map {
               _.flatMap(PuzzleBSONReader.readOpt)

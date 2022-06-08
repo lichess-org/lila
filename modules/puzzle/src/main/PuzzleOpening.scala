@@ -62,6 +62,8 @@ object PuzzleOpening {
 
   case class Key(value: String) extends AnyVal with StringValue
 
+  val maxOpenings = 64
+
   import java.text.Normalizer
 
   type Name = String
