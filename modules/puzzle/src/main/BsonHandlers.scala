@@ -87,4 +87,12 @@ object BsonHandlers {
   implicit private[puzzle] val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(
     PuzzleTheme.keyIso
   )
+
+  implicit private[puzzle] val OpeningKeyBSONHandler: BSONHandler[PuzzleOpening.Key] = stringIsoHandler(
+    PuzzleOpening.keyIso
+  )
+
+  implicit private[puzzle] val AngleKeyBSONHandler: BSONHandler[PuzzleAngle] = stringIsoHandler(
+    PuzzleAngle.angleIso
+  )
 }

@@ -204,7 +204,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       }
 
     def aggregateList(
-        maxDocs: Int,
+        maxDocs: Int, // can actually return more documents (?)
         readPreference: ReadPreference = ReadPreference.primary,
         allowDiskUse: Boolean = false
     )(

@@ -46,11 +46,9 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   def nbByPerf(userId: String): Fu[Map[PerfType, Int]] =
     coll {
-      _.aggregateList(
-        maxDocs = 50
-      ) { framework =>
+      _.aggregateList(PerfType.nonPuzzle.size) { framework =>
         import framework._
-        Match(BSONDocument(F.userId -> userId)) -> List(
+        Match($doc(F.userId -> userId)) -> List(
           GroupField(F.perf)("nb" -> SumAll)
         )
       }.map {

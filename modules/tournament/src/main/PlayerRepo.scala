@@ -77,6 +77,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
               )
             )
           ),
+          Limit(TeamBattle.maxTeams),
           Project(
             $doc(
               "p" -> $doc(

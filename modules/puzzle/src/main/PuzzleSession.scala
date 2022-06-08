@@ -44,28 +44,28 @@ final class PuzzleSessionApi(
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
   }
 
-  def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, retries: Int = 0): Fu[Puzzle] =
-    continueOrCreateSessionFor(user, theme)
+  def nextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int = 0): Fu[Puzzle] =
+    continueOrCreateSessionFor(user, angle)
       .flatMap { session =>
         import NextPuzzleResult._
 
         def switchPath(tier: PuzzleTier) =
-          pathApi.nextFor(user, theme, tier, session.difficulty, session.previousPaths) orFail
-            s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
+          pathApi.nextFor(user, angle, tier, session.difficulty, session.previousPaths) orFail
+            s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessions.put(user.id, fuccess(newSession))
-              nextPuzzleFor(user, theme, retries = retries + 1)
+              nextPuzzleFor(user, angle, retries = retries + 1)
             }
 
         def serveAndMonitor(puzzle: Puzzle) = {
           val mon = lila.mon.puzzle.selector.user
-          mon.retries(theme.value).record(retries)
-          mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
+          mon.retries(angle.key).record(retries)
+          mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
           mon
-            .ratingDiff(theme.value, session.difficulty.key)
+            .ratingDiff(angle.key, session.difficulty.key)
             .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
-          mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation)
-          mon.tier(session.path.tier.key, theme.value, session.difficulty.key).increment().unit
+          mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
+          mon.tier(session.path.tier.key, angle.key, session.difficulty.key).increment().unit
           puzzle
         }
 
@@ -76,16 +76,16 @@ final class PuzzleSessionApi(
             case PuzzleMissing(id) =>
               logger.warn(s"Puzzle missing: $id")
               sessions.put(user.id, fuccess(session.next))
-              nextPuzzleFor(user, theme, retries)
+              nextPuzzleFor(user, angle, retries)
             case PuzzleAlreadyPlayed(_) if retries < 3 =>
               sessions.put(user.id, fuccess(session.next))
-              nextPuzzleFor(user, theme, retries = retries + 1)
+              nextPuzzleFor(user, angle, retries = retries + 1)
             case PuzzleAlreadyPlayed(puzzle) =>
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
             case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
-      .mon(_.puzzle.selector.user.time(theme.value))
+      .mon(_.puzzle.selector.user.time(angle.key))
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls
@@ -142,18 +142,18 @@ final class PuzzleSessionApi(
       }
       .monValue { result =>
         _.puzzle.selector.nextPuzzleResult(
-          theme = session.path.theme.value,
+          theme = session.path.angle.key,
           difficulty = session.difficulty.key,
           result = result.name
         )
       }
 
-  def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Funit =
+  def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
     sessions.getIfPresent(round.userId) ?? {
       _ map { session =>
         // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
-        if (session.path.theme == theme)
+        if (session.path.angle == angle)
           sessions.put(round.userId, fuccess(session.next))
       }
     }
@@ -164,7 +164,9 @@ final class PuzzleSessionApi(
       .fold[Fu[PuzzleDifficulty]](fuccess(PuzzleDifficulty.default))(_.dmap(_.difficulty))
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
-    sessions.getIfPresent(user.id).fold(fuccess(PuzzleTheme.mix.key))(_.dmap(_.path.theme)) flatMap { theme =>
+    sessions
+      .getIfPresent(user.id)
+      .fold(fuccess(PuzzleAngle.mix))(_.dmap(_.path.angle)) flatMap { theme =>
       createSessionFor(user, theme, difficulty).tap { sessions.put(user.id, _) }.void
     }
 
@@ -174,11 +176,11 @@ final class PuzzleSessionApi(
 
   private[puzzle] def continueOrCreateSessionFor(
       user: User,
-      theme: PuzzleTheme.Key
+      angle: PuzzleAngle
   ): Fu[PuzzleSession] =
-    sessions.getFuture(user.id, _ => createSessionFor(user, theme)) flatMap { current =>
-      if (current.path.theme == theme && !shouldChangeSession(user, current)) fuccess(current)
-      else createSessionFor(user, theme, current.difficulty) tap { sessions.put(user.id, _) }
+    sessions.getFuture(user.id, _ => createSessionFor(user, angle)) flatMap { current =>
+      if (current.path.angle == angle && !shouldChangeSession(user, current)) fuccess(current)
+      else createSessionFor(user, angle, current.difficulty) tap { sessions.put(user.id, _) }
     }
 
   private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
@@ -188,11 +190,11 @@ final class PuzzleSessionApi(
 
   private def createSessionFor(
       user: User,
-      theme: PuzzleTheme.Key,
+      angle: PuzzleAngle,
       difficulty: PuzzleDifficulty = PuzzleDifficulty.default
   ): Fu[PuzzleSession] =
     pathApi
-      .nextFor(user, theme, PuzzleTier.Top, difficulty, Set.empty)
-      .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
+      .nextFor(user, angle, PuzzleTier.Top, difficulty, Set.empty)
+      .orFail(s"No puzzle path found for ${user.id}, angle: $angle")
       .dmap(pathId => PuzzleSession(difficulty, pathId, 0))
 }

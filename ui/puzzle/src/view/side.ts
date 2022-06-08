@@ -9,8 +9,8 @@ export function puzzleBox(ctrl: Controller): VNode {
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
 }
 
-function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
-  return h(
+const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
+  h(
     'div.infos.puzzle',
     {
       attrs: dataIcon(''),
@@ -50,7 +50,6 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
       ]),
     ]
   );
-}
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;

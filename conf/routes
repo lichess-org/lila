@@ -124,6 +124,7 @@ GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/help                   controllers.Puzzle.help
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
+GET   /training/openings               controllers.Puzzle.openings
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
 GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
@@ -135,8 +136,8 @@ POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
 GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
-GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
-GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
+GET   /training/:angleOrId             controllers.Puzzle.show(angleOrId: String)
+GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle: String, id: String)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
