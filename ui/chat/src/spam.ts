@@ -1,7 +1,6 @@
 import * as xhr from "common/xhr";
 
-export const skip = (txt: string) =>
-  (suspLink(txt) || suspWords(txt) || followMe(txt)) && !isKnownSpammer();
+export const skip = (txt: string) => (suspLink(txt) || suspWords(txt) || followMe(txt)) && !isKnownSpammer();
 
 export const selfReport = (txt: string) => {
   if (isKnownSpammer()) return;
@@ -11,8 +10,7 @@ export const selfReport = (txt: string) => {
     xhr.text(`/jslog/${window.location.href.substr(-12)}?n=spam`, {
       method: "post",
     });
-  if (hasSuspLink || followMe(txt) || hasSusWords)
-    lichess.storage.set("chat-spam", "1");
+  if (hasSuspLink || followMe(txt) || hasSusWords) lichess.storage.set("chat-spam", "1");
 };
 
 const isKnownSpammer = () => lichess.storage.get("chat-spam") == "1";
@@ -46,7 +44,7 @@ const spamRegex = new RegExp(
     "tiny.cc/",
     "trasderk.blogspot.com",
   ]
-    .map((url) => url.replace(/\./g, "\\.").replace(/\//g, "\\/"))
+    .map(url => url.replace(/\./g, "\\.").replace(/\//g, "\\/"))
     .join("|")
 );
 
