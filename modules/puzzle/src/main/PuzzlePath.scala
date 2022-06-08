@@ -8,9 +8,11 @@ import org.joda.time.DateTime
 
 private object PuzzlePath {
 
+  val sep = '|'
+
   case class Id(value: String) {
 
-    val parts = value split '_'
+    val parts = value split sep
 
     private[puzzle] def tier = PuzzleTier.from(~parts.lift(1))
 
@@ -20,20 +22,19 @@ private object PuzzlePath {
   implicit val pathIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
 }
 
-final private class PuzzlePathApi(
-    colls: PuzzleColls
-)(implicit ec: ExecutionContext) {
+final private class PuzzlePathApi(colls: PuzzleColls)(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
+  import PuzzlePath._
 
   def nextFor(
       user: User,
       angle: PuzzleAngle,
       tier: PuzzleTier,
       difficulty: PuzzleDifficulty,
-      previousPaths: Set[PuzzlePath.Id],
+      previousPaths: Set[Id],
       compromise: Int = 0
-  ): Fu[Option[PuzzlePath.Id]] = {
+  ): Fu[Option[Id]] = {
     val actualTier =
       if (tier == PuzzleTier.Top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.Good
       else tier
@@ -50,7 +51,7 @@ final private class PuzzlePathApi(
             Sample(1),
             Project($id(true))
           )
-        }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
+        }.dmap(_.flatMap(_.getAsOpt[Id]("_id")))
       }
       .flatMap {
         case Some(path) => fuccess(path.some)
@@ -65,8 +66,8 @@ final private class PuzzlePathApi(
   }.mon(_.puzzle.path.nextFor(angle.key, tier.key, difficulty.key, previousPaths.size, compromise))
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = $doc(
-    "min" $lte f"${angle.key}_${tier}_${rating.max}%04d",
-    "max" $gte f"${angle.key}_${tier}_${rating.min}%04d"
+    "min" $lte f"${angle.key}${sep}${tier}${sep}${rating.max}%04d",
+    "max" $gte f"${angle.key}${sep}${tier}${sep}${rating.min}%04d"
   )
 
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
