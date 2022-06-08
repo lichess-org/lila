@@ -49,7 +49,9 @@ const susWordsRegex = new RegExp(
   [
     'penis',
     'fuck you',
-  ]);
+  ]
+  .join('|')
+  );
 
 const suspLink = (txt: string) => !!txt.match(spamRegex);
 
