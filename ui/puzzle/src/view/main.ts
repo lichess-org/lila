@@ -152,7 +152,7 @@ function session(ctrl: Controller) {
             : round.ratingDiff
           : null;
       return h(
-        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+        `a.result-${round.ratingDiff == null ? round.result : round.ratingDiff > 0}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
           class: {
