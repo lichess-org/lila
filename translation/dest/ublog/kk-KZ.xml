@@ -3,4 +3,10 @@
   <string name="xBlog">%s блогі</string>
   <string name="newPost">Жаңа жазба</string>
   <string name="editYourBlogPost">Жазбаңызды өзгерту</string>
+  <string name="saveDraft">Уақытша сақтау</string>
+  <string name="postTitle">Жазбаның тақырыбы</string>
+  <string name="postIntro">Алғысөз</string>
+  <string name="postBody">Мәтін</string>
+  <string name="drafts">Уақытша жазбалар</string>
+  <string name="published">Жарияланды</string>
 </resources>
