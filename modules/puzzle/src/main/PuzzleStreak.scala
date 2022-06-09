@@ -11,6 +11,7 @@ case class PuzzleStreak(ids: String, first: Puzzle)
 final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
+  import lila.puzzle.PuzzlePath.sep
 
   def apply: Fu[Option[PuzzleStreak]] = current.get {}
 
@@ -50,8 +51,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                   rating.toString -> List(
                     Match(
                       $doc(
-                        "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${rating}%04d"
+                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
                       )
                     ),
                     Sample(samples),
