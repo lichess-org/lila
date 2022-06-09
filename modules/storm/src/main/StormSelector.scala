@@ -14,6 +14,7 @@ import lila.puzzle.PuzzleColls
 final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
 
   import StormBsonHandlers._
+  import lila.puzzle.PuzzlePath.sep
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
@@ -61,8 +62,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                   rating.toString -> List(
                     Match(
                       $doc(
-                        "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${rating}%04d"
+                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
                       )
                     ),
                     Sample(1),

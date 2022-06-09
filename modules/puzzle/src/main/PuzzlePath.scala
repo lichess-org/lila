@@ -6,7 +6,7 @@ import lila.db.dsl._
 import lila.user.User
 import org.joda.time.DateTime
 
-private object PuzzlePath {
+object PuzzlePath {
 
   val sep = '|'
 
