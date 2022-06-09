@@ -78,7 +78,9 @@
 אימות כשחקן בעל התואר בליצ\'ס נותן גישה לשחק בטורנירי זירה לשחקנים מוכתרים.
 
 לבסוף יש תואר כבוד %2$s.</string>
+  <string name="asWellAsManyNMtitles">תארי אמן של מדינות רבות</string>
   <string name="verificationForm">טופס אימות</string>
+  <string name="canIbecomeLM">האם אני יכול לקבל את דרגת ״אמן ליצ׳ס״ (LM)?</string>
   <string name="noUpperCaseDot">לא.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">הדרגה הלא רשמית הזו היא לשם כבוד וקיימת ב-Lichess בלבד. 
 
@@ -91,11 +93,17 @@
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
   <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
+  <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של ליצ׳ס, אף אחד מלבד %1$s לא יזכה בו.</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="ratingSystemUsedByLichess">הדירוג מחושב באמצעות שיטת Glicko-2 שפותחה על ידי מארק גליקמן. זו שיטת דירוג מאוד פופולארית שגופי שחמט רבים עושים בה שימוש (FIDE היא יוצאת מן הכלל ומשתמשת בשיטת Elo).
+
+שיטות גליקו מסתמכות על מקדמי וודאות. כששחקן נרשם לליצ׳ס, דירוגו יכול לנוע בין 500 ל־2500 ברמת וודאות של 95 אחוזים, כאשר הדירוג ההתחלתי הוא 1500. בתחילה מקדם הוודאות הוא נמוך, ולכן משחק בודד יכול לשנות את הדירוג אף במאות נקודות. אולם ככל שנצברים משחקים הוודאות עולה והשינוי ממשחק למשחק קטן.
+
+נקודה נוספת הדורשת הבהרה היא שככל שעובר זמן מבלי שהשחקן היה פעיל רמת הוודאות קטנה ולכן שוב יגדל השינוי בדירוג ממשחק למשחק. זאת, כדי שהדירוג יהיה מותאם לשינוי ביכולתו של השחקן לאורך זמן.</string>
   <string name="whatIsProvisionalRating">מדוע מופיע סימן שאלה (?) ליד הדירוג שלי?</string>
   <string name="provisionalRatingExplanation">משמעות סימן השאלה היא שהדירוג זמני. הסיבות לכך כוללות:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>

@@ -23,7 +23,7 @@
   <string name="goodMove">좋은 수 입니다.</string>
   <string name="bestMove">가장 좋은 수입니다!</string>
   <string name="keepGoing">계속하세요...</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">성공!</string>
+  <string name="puzzleSuccess">성공!</string>
   <string name="puzzleComplete">퍼즐 완료!</string>
   <string name="notTheMove">답이 아닙니다!</string>
   <string name="trySomethingElse">다른 것 시도하기</string>
@@ -48,6 +48,7 @@
   </plurals>
   <string name="example">예시</string>
   <string name="addAnotherTheme">새 테마 추가</string>
+  <string name="nextPuzzle">다음 퍼즐</string>
   <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
   <string name="puzzleDashboard">퍼즐 대시보드</string>
   <string name="improvementAreas">개선이 필요한 부분</string>

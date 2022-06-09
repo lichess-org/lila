@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausar</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Procurar jogadores</string>
+  <string name="pause">Pausar</string>
+  <string name="resume">Procurar jogadores</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
@@ -567,6 +567,7 @@
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Inválido</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
   <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>

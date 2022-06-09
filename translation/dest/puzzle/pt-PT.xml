@@ -23,7 +23,7 @@
   <string name="goodMove">Boa jogada</string>
   <string name="bestMove">Melhor jogada!</string>
   <string name="keepGoing">Continua…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Sucesso!</string>
+  <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Problema completo!</string>
   <string name="notTheMove">Não é esse movimento!</string>
   <string name="trySomethingElse">Tenta outra coisa.</string>
@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar outro tema</string>
+  <string name="nextPuzzle">Próximo desafio</string>
   <string name="jumpToNextPuzzleImmediately">Saltar imediatamente para o próximo problema</string>
   <string name="puzzleDashboard">Painel de controlo dos problemas</string>
   <string name="improvementAreas">Áreas a melhorar</string>

@@ -17,6 +17,8 @@
   <string name="stalemate">Wekhevî</string>
   <string name="white">Spî</string>
   <string name="black">Reş</string>
+  <string name="asWhite">wek spî</string>
+  <string name="asBlack">wekî reş</string>
   <string name="randomColor">Aliyeke ketober</string>
   <string name="createAGame">Lîstikek çêke</string>
   <string name="whiteIsVictorious">Spî bi ser ket</string>
@@ -24,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Tu yê bi kevirên spî bileyzî</string>
   <string name="youPlayTheBlackPieces">Tu yê bi kevirên reş bileyzî</string>
   <string name="itsYourTurn">Dora te ye!</string>
+  <string name="cheatDetected">Hîle hate tesbîtkirin</string>
   <string name="kingInTheCenter">Şah li navendê ye</string>
   <string name="threeChecks">Sê kiş</string>
   <string name="raceFinished">Pêşbazî qedîya</string>
@@ -46,9 +49,12 @@
   <string name="blackResigned">Reş vekişiya</string>
   <string name="whiteLeftTheGame">Spî dev ji lîstikê berda</string>
   <string name="blackLeftTheGame">Reş dev ji lîstikê berda</string>
+  <string name="whiteDidntMove">Yê spî hereket nekir</string>
+  <string name="blackDidntMove">Yê reş hereket nekir</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîzên kompîtûrê</string>
   <string name="computerAnalysisAvailable">Analîzên kombersê hazir in</string>
+  <string name="computerAnalysisDisabled">Analîza kombersê girtî ye</string>
   <string name="analysis">Texteya analîzan</string>
   <string name="depthX">Kûrahî %s</string>
   <string name="usingServerAnalysis">Bikaranîna analîza rajekarê</string>
@@ -533,6 +539,8 @@
   <string name="increment">Zêdebûn</string>
   <string name="error.required">Ev der pêwîst e</string>
   <string name="ifRatingIsPlusMinusX">Ger reytîng ± %s be</string>
+  <string name="ifRegistered">Yên qeydbûyî</string>
+  <string name="onlyExistingConversations">Tenê sohbetên mewcûd</string>
   <string name="onlyFriends">Tenê hevalan</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokkirin</string>
@@ -765,6 +773,7 @@
   <string name="important">Girîng</string>
   <string name="yourQuestionMayHaveBeenAnswered">Dibe ku pirsa te berê hatibe bersivandin %1$s</string>
   <string name="inTheFAQ">li P.B.P.</string>
+  <string name="useTheReportForm">forma gilîkirinê bi kar bîne</string>
   <string name="subscribe">Bibe abone</string>
   <string name="unsubscribe">Ji abonetîyê derkeve</string>
   <string name="mentionedYouInX">qala te kir li %1$s.</string>
@@ -777,5 +786,16 @@
   <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
   <string name="gameVsX">Lîstika hemberî %1$s</string>
   <string name="resVsX">%1$s hmb %2$s</string>
+  <string name="newPendingReview">Nirxandineke nû yê li bendê</string>
+  <string name="lostAgainstTOSViolator">Te ji yekî ku Şertûmercên Bikaranîna Lichessê îxlal dike re mexlûb bû</string>
+  <string name="refundXpointsTimeControlY">Pûana te ya %1$s %2$s hate îadekirin.</string>
   <string name="timeAlmostUp">Dem heme hema qedîya!</string>
+  <string name="clickToRevealEmailAddress">[Ji bo nîşandana adresa epeyamê bitikîne]</string>
+  <string name="download">Daxîne</string>
+  <string name="welcome">Bi xêr hatî!</string>
+  <string name="onlyWorksOnce">Ev wê tenê carekê bixebite.</string>
+  <string name="cantDoThisTwice">Ger tu hesabê xwe cara duyem bigirî, wê ti rêyeke xilaskirinê nîn be.</string>
+  <string name="emailAssociatedToaccount">Adresa epeyamê yê girêdayî hesabê</string>
+  <string name="sentEmailWithLink">Me ji te re epeyamekê şand tevî lînkê.</string>
+  <string name="tournamentEntryCode">Koda têketinê yê turnuvayê</string>
 </resources>

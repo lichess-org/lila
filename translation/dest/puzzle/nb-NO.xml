@@ -23,7 +23,7 @@
   <string name="goodMove">Bra trekk</string>
   <string name="bestMove">Beste trekk!</string>
   <string name="keepGoing">Fortsett…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Korrekt!</string>
+  <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Ferdigknekt nøtt!</string>
   <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Legg til tema</string>
+  <string name="nextPuzzle">Neste sjakknøtt</string>
   <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
   <string name="puzzleDashboard">Panel for sjakknøtter</string>
   <string name="improvementAreas">Forbedringsområder</string>
