@@ -44,7 +44,7 @@ trait FormHelper { self: I18nHelper =>
     private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
     private val helper                   = small(cls := "form-help")
 
-    private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs map error
+    private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs.distinct map error
     private def errors(field: Field)(implicit ctx: Context): Frag         = errors(field.errors)
     private def error(err: FormError)(implicit ctx: Context): Frag =
       p(cls := "error")(transKey(err.message, err.args))
