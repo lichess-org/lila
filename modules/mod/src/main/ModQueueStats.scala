@@ -15,9 +15,7 @@ import lila.report.Room
 final class ModQueueStats(
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(implicit
-    ec: ExecutionContext
-) {
+)(implicit ec: ExecutionContext) {
 
   import ModQueueStats._
 
@@ -68,7 +66,12 @@ final class ModQueueStats(
               .map { room =>
                 room.key -> room.name
               }
-              .appended { ("appeal", "Appeal") }
+              .appendedAll {
+                List(
+                  "appeal"   -> "Appeal",
+                  "streamer" -> "Streamer"
+                )
+              }
               .map { case (roomKey, roomName) =>
                 Json.obj(
                   "name" -> roomName,

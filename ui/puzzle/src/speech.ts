@@ -18,4 +18,4 @@ export function success(): void {
 
 const withSpeech = (f: (speech: LichessSpeech) => void): void => {
   if (window.LichessSpeech) f(window.LichessSpeech);
-}
+};
