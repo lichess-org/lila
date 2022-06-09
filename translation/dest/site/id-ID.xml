@@ -319,6 +319,8 @@
   <string name="apply">Terapkan</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Peringkat Terbaik</string>
+  <string name="screenshotCurrentPosition">Foto posisi saat ini</string>
+  <string name="gameAsGIF">Simpan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat berkas PGN</string>
@@ -392,6 +394,8 @@
   <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
   <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
+  <string name="pause">Jeda</string>
+  <string name="resume">Lanjutkan</string>
   <string name="youArePlaying">Anda bermain!</string>
   <string name="winRate">Rating kemenangan</string>
   <string name="berserkRate">Rating berserk</string>
@@ -526,6 +530,7 @@
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Nilai tidak valid</string>
   <string name="error.required">Isian di sini diperlukan</string>
   <string name="error.email">Alamat e-mail ini tidak valid</string>
   <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
