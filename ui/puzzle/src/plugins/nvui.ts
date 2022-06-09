@@ -35,7 +35,6 @@ import throttle from 'common/throttle';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
@@ -156,7 +155,7 @@ export default function (redraw: Redraw) {
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(

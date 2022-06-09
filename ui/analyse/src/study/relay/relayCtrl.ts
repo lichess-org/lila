@@ -81,7 +81,10 @@ export default class RelayCtrl {
         this.redraw();
       }, 4500);
       this.redraw();
-      if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
+      if (event.error) {
+        lichess.sound.play('wrapAround');
+        console.warn(`relay synchronisation error: ${event.error}`);
+      }
     },
   };
 
