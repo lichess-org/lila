@@ -38,7 +38,7 @@ object LangList {
     Lang("ga", "IE")  -> "Gaeilge",
     Lang("gd", "GB")  -> "Gàidhlig",
     Lang("gl", "ES")  -> "Galego",
-    Lang("gsw", "CH")  -> "Schwizerdütsch",
+    Lang("gsw", "CH") -> "Schwizerdütsch",
     Lang("gu", "IN")  -> "ગુજરાતી",
     Lang("he", "IL")  -> "עִבְרִית",
     Lang("hi", "IN")  -> "हिन्दी, हिंदी",
