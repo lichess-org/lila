@@ -6,17 +6,15 @@ import { opposite } from 'chessground/util';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
 import AnalyseCtrl from './ctrl';
 
-function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
-  return {
-    orig: key,
-    piece: {
-      color,
-      role,
-      scale: 0.8,
-    },
-    brush: 'green',
-  };
-}
+const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
+  orig: key,
+  piece: {
+    color,
+    role,
+    scale: 0.8,
+  },
+  brush: 'green',
+});
 
 export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: DrawModifiers): DrawShape[] {
   if (uci === 'Current Position') return [];

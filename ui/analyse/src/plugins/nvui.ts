@@ -39,7 +39,6 @@ import explorerView from '../explorer/explorerView';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
@@ -164,7 +163,7 @@ export default function (redraw: Redraw) {
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
                   $buttons.on('keypress', positionJumpHandler());
-                  $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                  $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
                 },
               },
             },

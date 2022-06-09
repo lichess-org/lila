@@ -23,7 +23,7 @@
   <string name="goodMove">Dobra poteza</string>
   <string name="bestMove">Najboljša poteza!</string>
   <string name="keepGoing">Nadaljuj…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Prenos uspešen!</string>
+  <string name="puzzleSuccess">Prenos uspešen!</string>
   <string name="puzzleComplete">Uganka rešena!</string>
   <string name="notTheMove">To ni pravilna poteza!</string>
   <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
@@ -57,6 +57,7 @@
   </plurals>
   <string name="example">Primer</string>
   <string name="addAnotherTheme">Dodaj novo temo</string>
+  <string name="nextPuzzle">Naslednja uganka</string>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča za uganke</string>
   <string name="improvementAreas">Področja izboljšav</string>

@@ -33,21 +33,21 @@ $c-slider: $c-setup;
     }
   }
 
-  .optional_config {
+  .optional-config {
     border-bottom: $border;
   }
 
-  .mode_choice {
-    margin-top: 1em;
-  }
-
-  .optional_config,
+  .optional-config,
   .ratings {
     background: $c-bg-zebra;
     border-top: $border;
   }
 
-  .label_select {
+  .mode-choice {
+    margin-top: 1em;
+  }
+
+  .label-select {
     @extend %flex-center;
 
     &.variant {
@@ -66,25 +66,24 @@ $c-slider: $c-setup;
     }
   }
 
-  .fen_position {
-    .board_editor {
-      display: block;
-      width: 50%;
-      margin: 0.5em auto 0 auto;
-    }
-
-    .fen_form {
-      @extend %flex-center-nowrap;
-    }
-
-    .fen_form input {
-      flex: 1 1 100%;
-    }
+  .fen__form {
+    @extend %flex-center-nowrap;
   }
 
-  #fen-input.failure {
+  .fen__board {
+    display: block;
+    width: 50%;
+    margin: 0.5em auto 0 auto;
+  }
+
+  #fen-input {
+    flex: 1 1 100%;
+  }
+
+  .failure {
     background: mix($c-bg-box, $c-bad, 80%);
-    box-shadow: 0 0 13px $c-bad;
+    box-shadow: 0 0 13px 6px mix($c-bg-box, $c-bad, 80%);
+    border-radius: 0.5em;
   }
 
   .range {
@@ -96,8 +95,9 @@ $c-slider: $c-setup;
 
     input {
       font-size: 1.5em;
-      padding: 0.5em 0.5em 0 0.5em;
-      width: 100%;
+      margin-top: 0.5em;
+      padding: 0;
+      width: 90%;
     }
   }
 

@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">Le tournoi commence</string>
   <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pause</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Reprendre</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Reprendre</string>
   <string name="youArePlaying">Vous êtes en train de jouer !</string>
   <string name="winRate">Taux de victoires</string>
   <string name="berserkRate">Taux de berserk</string>
@@ -567,6 +567,7 @@
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Valeur invalide</string>
   <string name="error.required">Ce champ est requis</string>
   <string name="error.email">Cette adresse courriel est invalide</string>
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>

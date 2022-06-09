@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">Turnaus alkaa</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pidä tauko</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Jatka</string>
+  <string name="pause">Pidä tauko</string>
+  <string name="resume">Jatka</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="berserkRate">Berserkkiprosentti</string>
@@ -567,6 +567,7 @@
   <string name="community">Yhteisö</string>
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Virheellinen arvo</string>
   <string name="error.required">Tämä kenttä vaaditaan</string>
   <string name="error.email">Sähköpostiosoite on virheellinen</string>
   <string name="error.email_acceptable">Sähköpostiosoite ei ole kelvollinen. Tarkista se, ja yritä uudelleen.</string>

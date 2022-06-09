@@ -127,7 +127,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           F.usedAt -> MaxField(F.usedAt),
           F.scopes -> AddFieldToSet(F.scopes)
         ),
-        Sort(Descending(F.usedAt))
+        Sort(Descending(F.usedAt)),
+        Limit(limit)
       )
     } map { docs =>
       for {

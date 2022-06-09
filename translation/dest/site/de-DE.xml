@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">Das Turnier beginnt</string>
   <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pausieren</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Fortsetzen</string>
+  <string name="pause">Pausieren</string>
+  <string name="resume">Fortsetzen</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="berserkRate">Berserkrate</string>
@@ -567,6 +567,7 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
+  <string name="error.unknown">Ungültiger Wert</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
   <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
   <string name="error.email_acceptable">Diese E-Mail-Adresse wird nicht akzeptiert. Bitte überprüfe sie und versuche es erneut.</string>

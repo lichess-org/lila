@@ -23,7 +23,7 @@
   <string name="goodMove">Good move</string>
   <string name="bestMove">Best move!</string>
   <string name="keepGoing">Keep going…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Success!</string>
+  <string name="puzzleSuccess">Success!</string>
   <string name="puzzleComplete">Puzzle complete!</string>
   <string name="notTheMove">That\'s not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Example</string>
   <string name="addAnotherTheme">Add another theme</string>
+  <string name="nextPuzzle">Next puzzle</string>
   <string name="jumpToNextPuzzleImmediately">Jump to next puzzle immediately</string>
   <string name="puzzleDashboard">Puzzle Dashboard</string>
   <string name="improvementAreas">Improvement areas</string>

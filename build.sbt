@@ -11,8 +11,8 @@ lazy val root = Project("lila", file("."))
   .settings(buildSettings)
 
 // shorter prod classpath
-scriptClasspath := Seq("*")
-maintainer := "contact@lichess.org"
+scriptClasspath             := Seq("*")
+maintainer                  := "contact@lichess.org"
 Compile / resourceDirectory := baseDirectory.value / "conf"
 
 // format: off
@@ -69,7 +69,7 @@ lazy val i18n = smallModule("i18n",
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
-  reactivemongo.bundle
+  reactivemongo.bundle ++ specs2Bundle
 )
 
 lazy val storm = module("storm",

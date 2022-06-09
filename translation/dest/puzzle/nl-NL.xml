@@ -23,7 +23,7 @@
   <string name="goodMove">Goede zet</string>
   <string name="bestMove">Beste zet!</string>
   <string name="keepGoing">Ga zo door…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Succes!</string>
+  <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Puzzel voltooid!</string>
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
+  <string name="nextPuzzle">Volgende puzzel</string>
   <string name="jumpToNextPuzzleImmediately">Ga direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzeldashboard</string>
   <string name="improvementAreas">Verbeterpunten</string>

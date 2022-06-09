@@ -490,8 +490,8 @@
   <string name="tournamentIsStarting">Rozpoczęcie turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pauza</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Wznów</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Współczynnik zwycięstw</string>
   <string name="berserkRate">Berserków</string>
@@ -635,6 +635,7 @@
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Nieprawidłowa wartość</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
   <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>

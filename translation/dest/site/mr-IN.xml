@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">विराम</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">परत सुरू करा</string>
+  <string name="pause">विराम</string>
+  <string name="resume">परत सुरू करा</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचे प्रमाण</string>
   <string name="berserkRate">Berserk रेट</string>

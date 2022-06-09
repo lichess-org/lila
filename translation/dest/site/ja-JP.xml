@@ -398,8 +398,8 @@
   <string name="tournamentIsStarting">トーナメント開始</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">休む</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">再開する</string>
+  <string name="pause">休む</string>
+  <string name="resume">再開する</string>
   <string name="youArePlaying">参加中！</string>
   <string name="winRate">勝率</string>
   <string name="berserkRate">バーサーク率</string>
@@ -534,6 +534,7 @@
   <string name="community">コミュニティ</string>
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">無効な値</string>
   <string name="error.required">この欄は入力必須です</string>
   <string name="error.email">このメールアドレスは無効です</string>
   <string name="error.email_acceptable">このメールアドレスは使用できません。確認してもう一度どうぞ。</string>

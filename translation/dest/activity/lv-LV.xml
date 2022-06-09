@@ -13,9 +13,9 @@
     <item quantity="other">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="zero">Atrisināja %s taktikas puzles</item>
-    <item quantity="one">Atrisināja %s taktikas puzli</item>
-    <item quantity="other">Atrisināja %s taktikas puzles</item>
+    <item quantity="zero">Atrisināja %s taktikas uzdevumus</item>
+    <item quantity="one">Atrisināja %s taktikas uzdevumu</item>
+    <item quantity="other">Atrisināja %s taktikas uzdevumus</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="zero">Izspēlēja %1$s %2$s spēles</item>

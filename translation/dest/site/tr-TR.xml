@@ -428,8 +428,8 @@
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Duraklatıldı</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Devam et</string>
+  <string name="pause">Duraklatıldı</string>
+  <string name="resume">Devam et</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
   <string name="berserkRate">Divane oranı</string>
@@ -567,6 +567,7 @@
   <string name="community">Topluluk</string>
   <string name="tools">Araçlar</string>
   <string name="increment">Artış</string>
+  <string name="error.unknown">Geçersiz değer</string>
   <string name="error.required">Bu alan gerekli</string>
   <string name="error.email">Bu e-posta adresi geçersiz</string>
   <string name="error.email_acceptable">Bu e-posta adresi kabul edilemez. Lütfen tekrar kontrol edin ve tekrar deneyin.</string>

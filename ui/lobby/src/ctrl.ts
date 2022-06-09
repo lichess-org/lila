@@ -236,6 +236,9 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
+  hasOngoingRealTimeGame = () =>
+    !!this.data.nowPlaying.find(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.find(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {

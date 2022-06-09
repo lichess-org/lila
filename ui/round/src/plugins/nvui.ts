@@ -37,7 +37,6 @@ import { commands } from 'nvui/command';
 import { throttled } from '../sound';
 
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
@@ -210,7 +209,7 @@ export default function (redraw: Redraw): NvuiPlugin {
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(

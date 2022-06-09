@@ -116,10 +116,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
     setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
-    setTimeout(() => {
-      jump(initialPath);
-      redraw();
-    }, 500);
+    setTimeout(
+      () => {
+        jump(initialPath);
+        redraw();
+      },
+      opts.pref.animation.duration > 0 ? 500 : 0
+    );
 
     // just to delay button display
     vm.canViewSolution = false;

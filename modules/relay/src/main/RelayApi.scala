@@ -110,7 +110,8 @@ final class RelayApi(
               )
             )
           ),
-          UnwindField("round")
+          UnwindField("round"),
+          Limit(20)
         )
       }
       .map { docs =>
@@ -138,7 +139,8 @@ final class RelayApi(
         import framework._
         Match(query) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
-          UnwindField("tour")
+          UnwindField("tour"),
+          Limit(maxDocs)
         )
       }
       .map(_ flatMap readRoundWithTour)

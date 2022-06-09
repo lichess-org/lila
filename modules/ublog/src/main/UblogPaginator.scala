@@ -157,6 +157,7 @@ final class UblogPaginator(
                 ),
                 Project($doc("ids" -> false, "_id" -> false)),
                 UnwindField("post"),
+                Limit(length),
                 ReplaceRootField("post")
               )
             }

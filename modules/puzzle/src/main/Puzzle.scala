@@ -97,6 +97,7 @@ object Puzzle {
     val voteDown = "vd"
     val plays    = "plays"
     val themes   = "themes"
+    val opening  = "opening"
     val day      = "day"
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized

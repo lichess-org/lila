@@ -23,7 +23,7 @@
   <string name="goodMove">Mutare bună</string>
   <string name="bestMove">Cea mai bună mutare!</string>
   <string name="keepGoing">Continuați cu următoarea mutare…</string>
-  <string name="puzzleSuccess" comment="puzzleSuccess&#10;&#10;Appears when you successfully complete a puzzle.">Succes!</string>
+  <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Puzzle complet!</string>
   <string name="notTheMove">Nu este asta mișcarea!</string>
   <string name="trySomethingElse">Încercă altceva.</string>
@@ -54,6 +54,7 @@
   </plurals>
   <string name="example">Exemplu</string>
   <string name="addAnotherTheme">Adăugați o altă temă</string>
+  <string name="nextPuzzle">Puzzle-ul următor</string>
   <string name="jumpToNextPuzzleImmediately">Sari imediat la problema următoare</string>
   <string name="puzzleDashboard">Panoul de control pentru probleme de șah</string>
   <string name="improvementAreas">Zone de îmbunătățit</string>

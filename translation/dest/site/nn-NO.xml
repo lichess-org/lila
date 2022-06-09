@@ -429,8 +429,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentIsStarting">Turneringa startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
-  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">Pause</string>
-  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">Hald fram</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Hald fram</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>
@@ -568,6 +568,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er obligatorisk</string>
   <string name="error.email">E-postadressa er ikkje gyldig</string>
   <string name="error.email_acceptable">E-postadressa er ikkje akseptabel. Ver god og dobbeltsjekk den og prøv på nytt.</string>
