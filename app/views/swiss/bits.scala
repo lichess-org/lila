@@ -20,7 +20,7 @@ object bits {
       href     := routes.Swiss.show(swissId.value).url
     )(name)
 
-  def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
+  def idToName(id: Swiss.Id): String = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
   def notFound()(implicit ctx: Context) =

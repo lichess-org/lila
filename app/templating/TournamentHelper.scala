@@ -42,7 +42,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: String)(implicit lang: Lang) =
-    env.tournament.getTourName get id getOrElse "Tournament"
+    env.tournament.getTourName sync id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""

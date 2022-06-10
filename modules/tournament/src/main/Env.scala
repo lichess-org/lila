@@ -115,7 +115,7 @@ final class Env(
 
   private lazy val autoPairing = wire[AutoPairing]
 
-  lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
+  lazy val getTourName = new GetTourName(cached.nameCache)
 
   wire[TournamentBusHandler]
 
