@@ -14,6 +14,8 @@ final class AugmentedAny[A](private val self: A) extends AnyVal {
     assert(self != null, "Value can't be null")
     self
   }
+
+  def ap[B](f: A => B): B = f(self)
 }
 
 final class LilaBoolean(private val self: Boolean) extends AnyVal {
