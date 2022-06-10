@@ -54,7 +54,7 @@ final private class InsightIndexer(
       Query.notFromPosition ++
       Query.notHordeOrSincePawnsAreWhite
 
-  private val maxGames = 10 * 1000
+  private val maxGames = 10_1000
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
@@ -88,7 +88,7 @@ final private class InsightIndexer(
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
-        .grouped(100)
+        .grouped(100 atMost maxGames)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
         .run()

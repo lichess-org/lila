@@ -214,9 +214,10 @@ final private class PovToEntry(
   private def findOpening(from: RichPov): Option[FullOpening] =
     from.pov.game.variant.standard ??
       from.situations.tail.view
-        .takeWhile(_.actors.size > 16)
+        .takeWhile(_.board.actors.size > 16)
         .foldRight(none[FullOpening]) {
-          case (sit, None) => FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
-          case (_, found)  => found
+          case (sit, None) =>
+            FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
+          case (_, found) => found
         }
 }
