@@ -224,7 +224,7 @@ final class Api(
     }
 
   def tournamentGames(id: String) =
-    Action.async { req =>
+    AnonOrScoped() { req => me =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
           val onlyUserId = get("player", req) map lila.user.User.normalize
@@ -232,7 +232,7 @@ final class Api(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20)
+            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportByTournament(config, onlyUserId)
@@ -295,14 +295,14 @@ final class Api(
     }
 
   def swissGames(id: String) =
-    Action.async { req =>
+    AnonOrScoped() { req => me =>
       env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
         _ ?? { swiss =>
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20)
+            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
