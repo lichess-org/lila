@@ -436,7 +436,7 @@ final class Api(
     result match {
       case Limited          => rateLimitedJson
       case ClientError(msg) => BadRequest(jsonError(msg))
-      case NoData           => NotFound
+      case NoData           => notFoundJsonSync()
       case Custom(result)   => result
       case Done             => jsonOkResult
       case Data(json)       => JsonOk(json)
