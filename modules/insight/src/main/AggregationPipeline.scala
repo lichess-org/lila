@@ -20,7 +20,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import InsightEntry.{ BSONFields => F }
         import Storage._
 
-        val sampleGames    = Sample(10_000)
+        val limitGames     = Limit(10_000)
+        val sortDate       = Sort(Descending(F.date))
         val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
@@ -194,8 +195,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
-        ) -> /* sortDate :: */ {
-          sampleGames :: (metric.ap {
+        ) -> {
+          sortDate :: limitGames :: (metric.ap {
             case M.MeanCpl =>
               List(
                 projectForMove,
