@@ -17,13 +17,13 @@ object TutorOpeningBuild {
     import richPov._
 
     val opening = pov.game.variant.standard ??
-      replay
-        .map(s => FEN(Forsyth exportStandardPositionTurnCastlingEp s))
-        .zipWithIndex
+      replay.view.zipWithIndex
         .drop(1)
+        .takeWhile(_._1.board.actors.size > 16)
         .foldRight(none[FullOpening.AtPly]) {
-          case ((fen, ply), None) => FullOpeningDB.findByFen(fen).map(_ atPly ply)
-          case (_, found)         => found
+          case ((sit, ply), None) =>
+            FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit)).map(_ atPly ply)
+          case (_, found) => found
         }
 
     opening.fold(openings) { op =>
