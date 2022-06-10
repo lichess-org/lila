@@ -101,7 +101,9 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
     firstPly = round.firstPly(ctrl.data),
     lastPly = round.lastPly(ctrl.data),
+    indexOffset = Math.trunc(firstPly / 2) + 1,
     drawPlies = new Set(ctrl.data.game.drawOffers || []);
+
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
@@ -115,7 +117,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const els: MaybeVNodes = [],
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(h(indexTag, i + 1 + ''));
+    els.push(h(indexTag, firstPly + indexOffset + ''));
     els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
     els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
   }
