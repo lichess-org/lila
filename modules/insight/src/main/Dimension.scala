@@ -1,12 +1,13 @@
 package lila.insight
 
+import chess.format.FEN
+import chess.opening.{ FullOpeningDB, OpeningFamily }
+import chess.{ Color, Role }
 import play.api.i18n.Lang
 import play.api.libs.json._
 import reactivemongo.api.bson._
 import scalatags.Text.all._
 
-import chess.opening.EcopeningDB
-import chess.{ Color, Role }
 import lila.db.dsl._
 import lila.rating.PerfType
 
@@ -95,12 +96,12 @@ object Dimension {
       )
 
   case object Opening
-      extends Dimension[chess.opening.Ecopening](
+      extends Dimension[OpeningFamily](
         "opening",
         "Opening",
-        F.eco,
+        F.opening,
         Game,
-        "ECO identification of the initial moves, like \"A58 Benko Gambit\"."
+        "Opening name, like \"Benko Gambit\"."
       )
 
   case object OpponentStrength
@@ -217,7 +218,7 @@ object Dimension {
       case Result                  => lila.insight.Result.all
       case Termination             => lila.insight.Termination.all
       case Color                   => chess.Color.all
-      case Opening                 => EcopeningDB.all
+      case Opening                 => FullOpeningDB.families.toList
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
@@ -239,7 +240,7 @@ object Dimension {
       case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
       case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
       case Color                   => chess.Color.fromName(key)
-      case Opening                 => EcopeningDB.allByEco get key
+      case Opening                 => OpeningFamily(key).some
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
@@ -268,7 +269,7 @@ object Dimension {
       case Result                  => v.id
       case Termination             => v.id
       case Color                   => v.name
-      case Opening                 => v.eco
+      case Opening                 => v.name
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
@@ -290,7 +291,7 @@ object Dimension {
       case Result                  => JsString(v.name)
       case Termination             => JsString(v.name)
       case Color                   => JsString(v.toString)
-      case Opening                 => JsString(v.ecoName)
+      case Opening                 => JsString(v.name)
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)

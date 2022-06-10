@@ -1,5 +1,6 @@
 package lila.insight
 
+import chess.opening.OpeningFamily
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -11,19 +12,14 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String], asMod: Boolean)(implicit lang: Lang) = {
+  def ui(openings: List[OpeningFamily], asMod: Boolean)(implicit lang: Lang) = {
 
     val openingJson = Json.obj(
       "key"         -> D.Opening.key,
       "name"        -> D.Opening.name,
       "position"    -> D.Opening.position,
       "description" -> D.Opening.description,
-      "values" -> Dimension
-        .valuesOf(D.Opening)
-        .filter { o =>
-          ecos contains o.eco
-        }
-        .map(Dimension.valueToJson(D.Opening))
+      "values"      -> openings.map(Dimension.valueToJson(D.Opening))
     )
 
     val dimensionCategs = List(

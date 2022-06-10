@@ -2,7 +2,7 @@ package lila.insight
 
 import cats.data.NonEmptyList
 import chess.format.{ FEN, Forsyth }
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ FullOpeningDB, OpeningFamily }
 import chess.{ Centis, Role, Situation, Stats }
 import scala.util.chaining._
 
@@ -188,9 +188,6 @@ final private class PovToEntry(
       userId = myId,
       color = pov.color,
       perf = perfType,
-      eco =
-        if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else chess.opening.Ecopening fromGame game.pgnMoves.toList,
       opening = findOpening(from),
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       opponentRating = opRating,
@@ -211,13 +208,13 @@ final private class PovToEntry(
     )
   }
 
-  private def findOpening(from: RichPov): Option[FullOpening] =
+  private def findOpening(from: RichPov): Option[OpeningFamily] =
     from.pov.game.variant.standard ??
       from.situations.tail.view
         .takeWhile(_.board.actors.size > 16)
-        .foldRight(none[FullOpening]) {
+        .foldRight(none[OpeningFamily]) {
           case (sit, None) =>
-            FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
+            FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit)).map(_.family)
           case (_, found) => found
         }
 }

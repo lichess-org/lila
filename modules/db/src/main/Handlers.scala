@@ -1,6 +1,9 @@
 package lila.db
 
 import cats.data.NonEmptyList
+import chess.format.FEN
+import chess.opening.OpeningFamily
+import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
@@ -8,8 +11,6 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
-import chess.format.FEN
-import chess.variant.Variant
 
 trait Handlers {
 
@@ -129,6 +130,8 @@ trait Handlers {
     { case BSONString(fen) => chess.opening.FullOpeningDB findByFen FEN(fen) toTry s"No such opening: $fen" },
     o => BSONString(o.fen)
   )
+  implicit val OpeningFamilyHandler: BSONHandler[OpeningFamily] =
+    stringAnyValHandler[OpeningFamily](_.name, OpeningFamily.apply)
 
   implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 

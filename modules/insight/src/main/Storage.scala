@@ -6,6 +6,9 @@ import lila.db.dsl._
 import lila.db.AsyncColl
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
+import lila.user.User
+import chess.opening.OpeningFamily
+import chess.format.FEN
 
 final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -13,13 +16,13 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
   import BSONHandlers._
   import InsightEntry.{ BSONFields => F }
 
-  def fetchFirst(userId: String): Fu[Option[InsightEntry]] =
+  def fetchFirst(userId: User.ID): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortChronological).one[InsightEntry])
 
-  def fetchLast(userId: String): Fu[Option[InsightEntry]] =
+  def fetchLast(userId: User.ID): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[InsightEntry])
 
-  def count(userId: String): Fu[Int] =
+  def count(userId: User.ID): Fu[Int] =
     coll(_.countSel(selectUserId(userId)))
 
   def insert(p: InsightEntry) = coll(_.insert.one(p).void)
@@ -35,16 +38,26 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   def remove(p: InsightEntry) = coll(_.delete.one(selectId(p.id)).void)
 
-  def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
+  def removeAll(userId: User.ID) = coll(_.delete.one(selectUserId(userId)).void)
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
-  def ecos(userId: String): Fu[Set[String]] =
+  def openings(userId: User.ID): Fu[List[OpeningFamily]] =
     coll {
-      _.distinctEasy[String, Set](F.eco, selectUserId(userId))
+      _.aggregateList(64) { framework =>
+        import framework._
+        Match(selectUserId(userId) ++ $doc(F.opening $exists true)) -> List(
+          PipelineOperator($doc("$sortByCount" -> s"$$${F.opening}")),
+          Limit(64)
+        )
+      }.map {
+        _.flatMap {
+          _.getAsOpt[OpeningFamily]("_id")
+        }
+      }
     }
 
-  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] =
+  def nbByPerf(userId: User.ID): Fu[Map[PerfType, Int]] =
     coll {
       _.aggregateList(PerfType.nonPuzzle.size) { framework =>
         import framework._
@@ -66,10 +79,10 @@ private object Storage {
 
   import InsightEntry.{ BSONFields => F }
 
-  def selectId(id: String)     = BSONDocument(F.id -> id)
-  def selectUserId(id: String) = BSONDocument(F.userId -> id)
-  val sortChronological        = BSONDocument(F.date -> 1)
-  val sortAntiChronological    = BSONDocument(F.date -> -1)
+  def selectId(id: String)      = BSONDocument(F.id -> id)
+  def selectUserId(id: User.ID) = BSONDocument(F.userId -> id)
+  val sortChronological         = BSONDocument(F.date -> 1)
+  val sortAntiChronological     = BSONDocument(F.date -> -1)
 
   def combineDocs(docs: List[BSONDocument]) =
     docs.foldLeft(BSONDocument()) { case (acc, doc) =>

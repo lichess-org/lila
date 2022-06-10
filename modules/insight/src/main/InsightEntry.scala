@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.opening.{ Ecopening, FullOpening }
+import chess.opening.{ Ecopening, OpeningFamily }
 import chess.{ Color, Role }
 import org.joda.time.DateTime
 
@@ -14,8 +14,7 @@ case class InsightEntry(
     userId: User.ID,
     color: Color,
     perf: PerfType,
-    eco: Option[Ecopening],
-    opening: Option[FullOpening],
+    opening: Option[OpeningFamily],
     myCastling: Castling,
     opponentRating: Int,
     opponentStrength: RelativeStrength,
@@ -43,7 +42,6 @@ case object InsightEntry {
     val userId                   = "u"
     val color                    = "c"
     val perf                     = "p"
-    val eco                      = "e"
     val opening                  = "op"
     val myCastling               = "mc"
     val opponentRating           = "or"

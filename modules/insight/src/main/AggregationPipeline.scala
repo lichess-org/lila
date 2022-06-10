@@ -188,7 +188,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
-            (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
+            (dimension == Dimension.Opening).??($doc(F.opening $exists true)) ++
             (Metric.requiresAnalysis(metric) || Dimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
