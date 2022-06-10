@@ -16,6 +16,7 @@ case class InsightEntry(
     perf: PerfType,
     opening: Option[OpeningFamily],
     myCastling: Castling,
+    ratingCateg: Option[Int],
     opponentRating: Int,
     opponentStrength: RelativeStrength,
     opponentCastling: Castling,
@@ -44,6 +45,7 @@ case object InsightEntry {
     val perf                     = "p"
     val opening                  = "op"
     val myCastling               = "mc"
+    val ratingCateg              = "rc"
     val opponentRating           = "or"
     val opponentStrength         = "os"
     val opponentCastling         = "oc"

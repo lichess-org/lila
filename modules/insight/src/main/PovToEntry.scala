@@ -190,6 +190,7 @@ final private class PovToEntry(
       perf = perfType,
       opening = findOpening(from),
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
+      ratingCateg = (!provisional).option(((myRating + 50) / 100) * 100),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
       opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
