@@ -23,6 +23,7 @@ final class UserGameApi(
     for {
       bookmarkedIds <- bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me)
       _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+      _             <- getTournamentName.preload(pag.currentPageResults.flatMap(_.tournamentId))(ctx.lang)
     } yield {
       implicit val gameWriter = Writes[Game] { g =>
         write(g, bookmarkedIds(g.id), ctx.me)(ctx.lang)
@@ -69,6 +70,6 @@ final class UserGameApi(
         Json.obj("daysPerTurn" -> d)
       })
       .add("tournament" -> g.tournamentId.map { tid =>
-        Json.obj("id" -> tid, "name" -> getTournamentName.get(tid))
+        Json.obj("id" -> tid, "name" -> getTournamentName.sync(tid))
       })
 }

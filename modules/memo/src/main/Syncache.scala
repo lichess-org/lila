@@ -8,12 +8,11 @@ import scala.util.Success
 
 import lila.common.Uptime
 
-/** A synchronous cache from asynchronous computations.
-  * It will attempt to serve cached responses synchronously.
-  * If none is available, it starts an async computation,
-  * and either waits for the result or serves a default value.
+/** A synchronous cache from asynchronous computations. It will attempt to serve cached responses
+  * synchronously. If none is available, it starts an async computation, and either waits for the result or
+  * serves a default value.
   */
-final private[memo] class Syncache[K, V](
+final class Syncache[K, V](
     name: String,
     initialCapacity: Int,
     compute: K => Fu[V],

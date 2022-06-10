@@ -48,7 +48,7 @@ final class JsonView(
         Json.obj(
           "tournament" -> Json.obj(
             "id"   -> e.tourId,
-            "name" -> ~getTourName.get(e.tourId)
+            "name" -> ~getTourName.sync(e.tourId)
           ),
           "nbGames"     -> e.nbGames,
           "score"       -> e.score,
