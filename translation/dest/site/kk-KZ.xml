@@ -108,7 +108,7 @@
   <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Зерттеуді ашу</string>
-  <string name="enable">Қол жетімді</string>
+  <string name="enable">Қосулы</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
@@ -463,7 +463,7 @@
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
-  <string name="inlineNotation">Бір жолды хаттама</string>
+  <string name="inlineNotation">Біржолды хаттама</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
