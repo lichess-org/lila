@@ -161,8 +161,7 @@ final class GameApiV2(
             batchSize = config.perSecond.value
           )
           .documentSource()
-          .grouped(config.perSecond.value)
-          .throttle(1, 1 second)
+          .grouped(20)
           .mapAsync(1) { pairings =>
             isTeamBattle.?? {
               playerRepo.teamsOfPlayers(config.tournamentId, pairings.flatMap(_.users).distinct).dmap(_.toMap)
@@ -185,6 +184,7 @@ final class GameApiV2(
             }
           }
           .mapConcat(identity)
+          .throttle(config.perSecond.value, 1 second)
           .mapAsync(4) { case (game, pairing, teams) =>
             enrich(config.flags)(game) dmap { (_, pairing, teams) }
           }
@@ -214,10 +214,10 @@ final class GameApiV2(
         swissId = config.swissId,
         batchSize = config.perSecond.value
       )
-      .grouped(config.perSecond.value)
-      .throttle(1, 1 second)
+      .grouped(20)
       .mapAsync(1)(gameRepo.gamesFromSecondary)
       .mapConcat(identity)
+      .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4) { case (game, fen, analysis) =>
         config.format match {
