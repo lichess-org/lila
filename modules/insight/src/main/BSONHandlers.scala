@@ -2,7 +2,7 @@ package lila.insight
 
 import reactivemongo.api.bson._
 
-import chess.opening.{ Ecopening, EcopeningDB }
+import chess.opening.{ Ecopening, EcopeningDB, FullOpening }
 import chess.{ Color, Role }
 import lila.db.BSON
 import lila.db.dsl._
@@ -118,6 +118,7 @@ private object BSONHandlers {
           color = r.get[Color](color),
           perf = r.get[PerfType](perf),
           eco = r.getO[Ecopening](eco),
+          opening = r.getO[FullOpening](opening),
           myCastling = r.get[Castling](myCastling),
           opponentRating = r.int(opponentRating),
           opponentStrength = r.get[RelativeStrength](opponentStrength),
@@ -139,6 +140,7 @@ private object BSONHandlers {
           color            -> e.color,
           perf             -> e.perf,
           eco              -> e.eco,
+          opening          -> e.opening,
           myCastling       -> e.myCastling,
           opponentRating   -> e.opponentRating,
           opponentStrength -> e.opponentStrength,

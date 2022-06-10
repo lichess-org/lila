@@ -13,15 +13,10 @@ import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
-  implicit val fenBSONHandler          = stringAnyValHandler[FEN](_.value, FEN.apply)
-  implicit val nbGamesBSONHandler      = intAnyValHandler[NbGames](_.value, NbGames)
-  implicit val nbMovesBSONHandler      = intAnyValHandler[NbMoves](_.value, NbMoves)
-  implicit val nbMovesRatioBSONHandler = Macros.handler[NbMovesRatio]
-  implicit val timeReportBSONHandler   = Macros.handler[TutorTimeReport]
-  implicit val openingBSONHandler = tryHandler[FullOpening](
-    { case BSONString(fen) => FullOpeningDB findByFen FEN(fen) toTry s"No such opening: $fen" },
-    o => BSONString(o.fen)
-  )
+  implicit val nbGamesBSONHandler       = intAnyValHandler[NbGames](_.value, NbGames)
+  implicit val nbMovesBSONHandler       = intAnyValHandler[NbMoves](_.value, NbMoves)
+  implicit val nbMovesRatioBSONHandler  = Macros.handler[NbMovesRatio]
+  implicit val timeReportBSONHandler    = Macros.handler[TutorTimeReport]
   implicit val openingReportBSONHandler = Macros.handler[TutorOpeningReport]
 
   implicit def colorMapBSONHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =

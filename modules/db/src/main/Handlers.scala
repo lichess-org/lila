@@ -125,6 +125,10 @@ trait Handlers {
   implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
 
   implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
+  implicit val OpeningHandler = tryHandler[chess.opening.FullOpening](
+    { case BSONString(fen) => chess.opening.FullOpeningDB findByFen FEN(fen) toTry s"No such opening: $fen" },
+    o => BSONString(o.fen)
+  )
 
   implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
