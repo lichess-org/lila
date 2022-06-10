@@ -110,7 +110,7 @@
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қол жетімді</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
-  <string name="evaluationGauge">Бағалау мөлшері</string>
+  <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
