@@ -130,10 +130,10 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 "nb"  -> SumAll,
                 "ids" -> AddFieldToSet("_id") // AddFieldToSet crashes mongodb 3.4.1 server
               )
-          }) map { Option(_) }
+          }) map some
 
         def groupMulti(d: Dimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
-          (dimensionGrouping(d) match {
+          dimensionGrouping(d) ap {
             case Grouping.Group =>
               List[PipelineOperator](
                 Group($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
@@ -162,7 +162,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 includeSomeGameIds,
                 Sort(Ascending("_id.min"))
               )
-          }) map { Option(_) }
+          } map some
 
         val gameMatcher = combineDocs(question.filters.collect {
           case f if f.dimension.isInGame => f.matcher
@@ -171,12 +171,12 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
-          } ::: (dimension match {
+          } ::: dimension.ap {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
             case D.CplRange     => List($doc(F.moves("c") $exists true))
             case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
-          })).some.filterNot(_.isEmpty) map Match.apply
+          }).some.filterNot(_.isEmpty) map Match.apply
 
         def projectForMove: Option[PipelineOperator] =
           Project(BSONDocument({
@@ -195,7 +195,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               $doc(F.provisional $ne true)
             }
         ) -> /* sortDate :: */ {
-          sampleGames :: ((metric match {
+          sampleGames :: (metric.ap {
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -317,10 +317,10 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                   )
                 ) :::
                 List(includeSomeGameIds.some)
-          }) ::: (dimension match {
+          } ::: dimension.ap {
             case D.Opening => List(sortNb, limit(12))
             case _         => Nil
-          })).flatten
+          }).flatten
         }
         pipeline
       }
