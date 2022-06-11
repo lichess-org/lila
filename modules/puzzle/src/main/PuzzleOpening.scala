@@ -26,7 +26,9 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) { prev =>
-      (~prev).incl(op).some
+      Some {
+        if (op.opening.variation.isDefined) (~prev).incl(op) else ~prev
+      }
     }
   }
   def treeList(order: Order) = order match {
