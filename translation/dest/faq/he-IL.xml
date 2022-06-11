@@ -109,9 +109,15 @@
   <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
   <string name="similarOpponents">יריבים ברמה דומה</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">באופן קונקרטי, הדירוג זמני אם הסטייה שלו גדולה מ-110. זוהי רמת הוודאות שלנו באשר לדירוגך. כלל שהסטייה יותר נמוכה, דירוגך יציב יותר.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="inOrderToAppearsYouMust">כדי להעפיל ל%1$s עליך:</string>
   <string name="ratingLeaderboards">טבלת הדירוג</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">לשחק לפחות 30 משחקים מדורגים בקטגוריית הדירוג</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">לשחק בקטגוריית דירוג זו לפחות משחק מדורג אחד בשבוע האחרון</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">להיות בעל סטייה בדירוג הנמוכה מ-%1$s בשח סטנדרטי ונמוכה מ-%2$s בגרסאות אחרות</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">הדרישה השנייה היא כדי שרק שחקנים פעילים יופיעו בטבלאות האלופים.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
