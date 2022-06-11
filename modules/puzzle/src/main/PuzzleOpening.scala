@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.GameRepo
+import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.memo.CacheApi
 
 case class PuzzleOpening(ref: FullOpening) {
@@ -28,12 +29,21 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
       (~prev).incl(op).some
     }
   }
-  val treeList: TreeList = treeMap.toList
+  def treeList(order: Order) = order match {
+    case Order.Popular      => treePopular
+    case Order.Alphabetical => treeAlphabetical
+  }
+  val treePopular: TreeList = treeMap.toList
     .map { case (family, ops) =>
       val count = ops.headOption.filter(_.opening.variation.isEmpty).fold(ops.map(_.count).sum)(_.count)
       (family, count) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1._2)
+  val treeAlphabetical: TreeList = treePopular
+    .map { case (fam, ops) =>
+      fam -> ops.sortBy(_.opening.name)
+    }
+    .sortBy(_._1._1.name)
 }
 
 final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: CacheApi)(implicit
@@ -152,5 +162,19 @@ object PuzzleOpening {
     case (acc, fullOp) =>
       val op = PuzzleOpening(fullOp)
       if (acc.contains(op.key)) acc else acc.updated(op.key, op)
+  }
+
+  sealed abstract class Order(val key: String, val name: I18nKey)
+
+  object Order {
+    case object Popular      extends Order("popular", trans.study.mostPopular)
+    case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
+
+    val default = Popular
+    val all     = List(Popular, Alphabetical)
+    private val byKey: Map[String, Order] = all.map { o =>
+      o.key -> o
+    }.toMap
+    def apply(key: String): Order = byKey.getOrElse(key, default)
   }
 }

@@ -24,8 +24,8 @@ object theme {
             all.themes take 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
             },
-            h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings)(trans.more(), " »")),
-            openingList(all.openings take 12),
+            h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings())(trans.more(), " »")),
+            opening.listOf(all.openings take 12),
             all.themes drop 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
             },
@@ -35,24 +35,7 @@ object theme {
       )
     )
 
-  def openings(openings: PuzzleOpeningCollection)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = "Puzzles by openings",
-      moreCss = cssTag("puzzle.page")
-    )(
-      main(cls := "page-menu")(
-        bits.pageMenu("openings"),
-        div(cls := "page-menu__content box")(
-          h1("Puzzles by openings"),
-          div(cls := "puzzle-themes")(
-            openingTree(openings),
-            info
-          )
-        )
-      )
-    )
-
-  private def info(implicit ctx: Context) =
+  private[puzzle] def info(implicit ctx: Context) =
     p(cls := "puzzle-themes__db text", dataIcon := "")(
       trans.puzzleTheme.puzzleDownloadInformation(
         a(href := "https://database.lichess.org/")("database.lichess.org")
@@ -86,35 +69,4 @@ object theme {
           )
       )
     )
-
-  private def openingList(openings: List[PuzzleOpening.WithCount])(implicit ctx: Context) =
-    div(cls := "puzzle-openings__list")(openings map { op =>
-      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(op.opening.key.value))(
-        h3(
-          op.opening.name,
-          em(op.count.localize)
-        )
-      )
-    })
-
-  private def openingTree(openings: PuzzleOpeningCollection)(implicit ctx: Context) =
-    div(cls := "puzzle-openings")(openings.treeList map { case ((family, count), openings) =>
-      div(cls := "puzzle-openings__tree__family")(
-        h2(
-          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(family.name).value))(family.name),
-          em(count.localize)
-        ),
-        div(cls := "puzzle-openings__list")(openings.map { op =>
-          a(
-            cls  := "puzzle-openings__link",
-            href := routes.Puzzle.show(op.opening.key.value)
-          )(
-            h3(
-              op.opening.variation.fold("All variations")(_.name),
-              em(op.count.localize)
-            )
-          )
-        })
-      )
-    })
 }
