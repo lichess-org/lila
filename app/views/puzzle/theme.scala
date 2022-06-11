@@ -100,11 +100,17 @@ object theme {
   private def openingTree(openings: PuzzleOpeningCollection)(implicit ctx: Context) =
     div(cls := "puzzle-openings")(openings.treeList map { case ((family, count), openings) =>
       div(cls := "puzzle-openings__tree__family")(
-        h2(family.name, em(count.localize)),
+        h2(
+          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(family.name).value))(family.name),
+          em(count.localize)
+        ),
         div(cls := "puzzle-openings__list")(openings.map { op =>
-          a(cls := "puzzle-openings__link", href := routes.Puzzle.show(op.opening.key.value))(
+          a(
+            cls  := "puzzle-openings__link",
+            href := routes.Puzzle.show(op.opening.key.value)
+          )(
             h3(
-              op.opening.name,
+              op.opening.variation.fold("All variations")(_.name),
               em(op.count.localize)
             )
           )
