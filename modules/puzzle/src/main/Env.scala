@@ -76,7 +76,7 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
-  private lazy val opening = wire[PuzzleOpeningApi]
+  lazy val opening = wire[PuzzleOpeningApi]
 
   system.scheduler.scheduleAtFixedRate(1 minute, 1 day) { () =>
     opening.addAllMissing.unit

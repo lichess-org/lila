@@ -283,8 +283,8 @@ final class Puzzle(
   }
 
   def openings = Open { implicit ctx =>
-    env.puzzle.api.angles map { all =>
-      Ok(views.html.puzzle.theme.openings(all.openings))
+    env.puzzle.opening.collection map { collection =>
+      Ok(views.html.puzzle.theme.openings(collection))
     }
   }
 

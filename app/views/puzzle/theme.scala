@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nKey
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleTheme }
+import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
 object theme {
 
@@ -35,7 +35,7 @@ object theme {
       )
     )
 
-  def openings(openings: List[(PuzzleOpening, Int)])(implicit ctx: Context) =
+  def openings(openings: PuzzleOpeningCollection)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Puzzles by openings",
       moreCss = cssTag("puzzle.page")
@@ -45,7 +45,7 @@ object theme {
         div(cls := "page-menu__content box")(
           h1("Puzzles by openings"),
           div(cls := "puzzle-themes")(
-            openingList(openings),
+            openingTree(openings),
             info
           )
         )
@@ -87,13 +87,28 @@ object theme {
       )
     )
 
-  private def openingList(openings: List[(PuzzleOpening, Int)])(implicit ctx: Context) =
-    div(cls := "puzzle-openings__list")(openings map { case (opening, count) =>
-      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(opening.key.value))(
+  private def openingList(openings: List[PuzzleOpening.WithCount])(implicit ctx: Context) =
+    div(cls := "puzzle-openings__list")(openings map { op =>
+      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(op.opening.key.value))(
         h3(
-          opening.name,
-          em(count.localize)
+          op.opening.name,
+          em(op.count.localize)
         )
+      )
+    })
+
+  private def openingTree(openings: PuzzleOpeningCollection)(implicit ctx: Context) =
+    div(cls := "puzzle-openings")(openings.treeList map { case ((family, count), openings) =>
+      div(cls := "puzzle-openings__tree__family")(
+        h2(family.name, em(count.localize)),
+        div(cls := "puzzle-openings__list")(openings.map { op =>
+          a(cls := "puzzle-openings__link", href := routes.Puzzle.show(op.opening.key.value))(
+            h3(
+              op.opening.name,
+              em(op.count.localize)
+            )
+          )
+        })
       )
     })
 }
