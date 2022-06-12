@@ -35,7 +35,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }
   val treePopular: TreeList = treeMap.toList
     .map { case (family, ops) =>
-      (family, ops.map(_.count).sum) -> ops.toList.sortBy(-_.count)
+      (family, ops.filter(_.opening.variation.isDefined).map(_.count).sum) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1._2)
   val treeAlphabetical: TreeList = treePopular
@@ -43,6 +43,11 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
       fam -> ops.sortBy(_.opening.name)
     }
     .sortBy(_._1._1.name)
+
+  List("Amazon Attack", "Amar Opening") map OpeningFamily foreach { fam =>
+    println(all.filter(_.opening.family == fam))
+    println(treeMap get fam)
+  }
 }
 
 final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: CacheApi)(implicit
@@ -70,6 +75,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
                 for {
                   key     <- obj string "_id" map PuzzleOpening.Key
                   opening <- PuzzleOpening(key)
+                  if opening.variation.fold(true)(_ != otherVariations)
                   count   <- obj int "count"
                 } yield PuzzleOpening.WithCount(opening, count)
               }
@@ -103,7 +109,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
         .void
     }
 
-  private def addMissing(puzzle: Puzzle): Funit = gameRepo game puzzle.gameId flatMap {
+  private def addMissing(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
     _ ?? { game =>
       FullOpeningDB.search(game.pgnMoves).map(_.opening) match {
         case None =>
@@ -125,7 +131,7 @@ object PuzzleOpening {
 
   case class Key(value: String) extends AnyVal with StringValue
 
-  val maxOpenings = 500
+  val maxOpenings = 1000
 
   type Count = Int
   type Name  = String
@@ -169,7 +175,7 @@ object PuzzleOpening {
         )
         acc2.updated(others.key, others)
       } else acc2
-    } pp
+    }
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 
