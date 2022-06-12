@@ -486,7 +486,8 @@ final class Study(
       me: Option[lila.user.User],
       req: RequestHeader
   ) = {
-    val userId = lila.user.User normalize username
+    val name   = if (username == "me") me.fold("me")(_.username) else username
+    val userId = lila.user.User normalize name
     val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_.id == userId)
     apiC
@@ -499,7 +500,7 @@ final class Study(
           )
       } { source =>
         Ok.chunked(source)
-          .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))
+          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
           .as(pgnContentType)
       }
       .fuccess
