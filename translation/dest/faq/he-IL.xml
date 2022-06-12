@@ -71,6 +71,7 @@
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
+  <string name="configure">קביעת תצורה</string>
   <string name="accounts">חשבונות</string>
   <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
@@ -119,10 +120,18 @@
   <string name="ratingDeviationLowerThanXinChessYinVariants">להיות בעל סטייה בדירוג הנמוכה מ-%1$s בשח סטנדרטי ונמוכה מ-%2$s בגרסאות אחרות</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">הדרישה השנייה היא כדי שרק שחקנים פעילים יופיעו בטבלאות האלופים.</string>
+  <string name="whyAreRatingHigher">מדוע הדירוגים באתר גבוהים בהשוואה לארגונים ואתרים אחרים כגון FIDE, USCF ו-ICC?</string>
+  <string name="whyAreRatingHigherExplanation">אין זה נכון לחשוב על דירוג כמספר מוחלט או להשוות אותו למקביליו בארגונים אחרים. לארגונים שונים שחקנים ברמות שונות ושיטות שונות לקביעת הדירוג (Elo, Glicko-2, Glicko או גרסאות שלהן). לגורמים האלה השפעה מכרעת על הדירוג.
+
+עדיף לחשוב על דירוג כמונח יחסי. לכל אוכלוסיית שחקנים בארגון או אתר מסוים, הדירוג ינבא מי ינצח, יפסיד או ישיג תיקו, ובאיזו תדירות. להגיד: ״הדירוג שלי הוא X״ זה חסר משמעות כל עוד אין שחקנים אחרים אליהם הדירוג מושווה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
+  <string name="enableZenMode">הפעל את מצב זן ב-%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא מצדך או מצדנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
+  <string name="enableDisableNotificationPopUps">הפעל או חסום התראות קופצות?</string>
+  <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
