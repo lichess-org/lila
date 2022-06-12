@@ -26,9 +26,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) { prev =>
-      Some {
-        if (op.opening.variation.isDefined) (~prev).incl(op) else ~prev
-      }
+      (~prev).incl(op).some
     }
   }
   def treeList(order: Order) = order match {
@@ -37,8 +35,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }
   val treePopular: TreeList = treeMap.toList
     .map { case (family, ops) =>
-      val count = ops.headOption.filter(_.opening.variation.isEmpty).fold(ops.map(_.count).sum)(_.count)
-      (family, count) -> ops.toList.sortBy(-_.count)
+      (family, ops.map(_.count).sum) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1._2)
   val treeAlphabetical: TreeList = treePopular
@@ -114,15 +111,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
             logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
           }
         case Some(o) =>
-          val keys =
-            nameToKey(o.family.name) :: o.variation.map(v => nameToKey(s"${o.family.name}: ${v.name}")).toList
-          val openings = keys flatMap PuzzleOpening.apply
+          val variation = o.variation | otherVariations
+          val keys      = List(nameToKey(o.family.name), nameToKey(s"${o.family.name}: ${variation.name}"))
           colls.puzzle {
-            _.updateField(
-              $id(puzzle.id),
-              Puzzle.BSONFields.opening,
-              openings.map(_.key)
-            ).void
+            _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
           }
       }
     }
@@ -135,8 +127,6 @@ object PuzzleOpening {
 
   val maxOpenings = 500
 
-  import java.text.Normalizer
-
   type Count = Int
   type Name  = String
 
@@ -146,11 +136,16 @@ object PuzzleOpening {
   // sorted by counts
   type TreeList = List[((OpeningFamily, Count), List[PuzzleOpening.WithCount])]
 
+  val otherVariations = OpeningVariation("Other variations")
+
   implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 
   def nameToKey(name: Name) = Key {
-    Normalizer
-      .normalize(name, Normalizer.Form.NFD)  // split an accented letter in the base letter and the accent
+    java.text.Normalizer
+      .normalize(
+        name,
+        java.text.Normalizer.Form.NFD
+      )                                      // split an accented letter in the base letter and the accent
       .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
       .replaceAllIn("""\s+""".r, "_")
       .replaceAllIn("""[^\w\-]+""".r, "")
@@ -160,11 +155,21 @@ object PuzzleOpening {
 
   def find(key: String): Option[PuzzleOpening] = apply(Key(key))
 
-  lazy val openings: Map[Key, PuzzleOpening] = FullOpeningDB.all.foldLeft(Map.empty[Key, PuzzleOpening]) {
-    case (acc, fullOp) =>
-      val op = PuzzleOpening(fullOp)
-      if (acc.contains(op.key)) acc else acc.updated(op.key, op)
-  }
+  lazy val openings: Map[Key, PuzzleOpening] = FullOpeningDB.all
+    .foldLeft(Map.empty[Key, PuzzleOpening]) { case (acc, fullOp) =>
+      val op   = PuzzleOpening(fullOp)
+      val acc2 = if (acc.contains(op.key)) acc else acc.updated(op.key, op)
+      if (fullOp.variation.isEmpty) {
+        val others = PuzzleOpening(
+          new FullOpening(
+            eco = fullOp.eco,
+            name = s"${fullOp.name}: ${otherVariations.name}",
+            fen = fullOp.fen
+          )
+        )
+        acc2.updated(others.key, others)
+      } else acc2
+    } pp
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 

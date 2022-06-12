@@ -44,28 +44,24 @@ object opening {
 
   private def treeOf(openings: PuzzleOpening.TreeList)(implicit ctx: Context) =
     div(cls := "puzzle-openings")(openings map { case ((family, count), openings) =>
-      val familyKey = PuzzleOpening.nameToKey(family.name)
       div(cls := "puzzle-openings__tree__family")(
         h2(
-          a(href := routes.Puzzle.show(familyKey.value))(family.name),
+          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(family.name).value))(family.name),
           em(count.localize)
         ),
-        div(cls := "puzzle-openings__list")(
-          openingLink(familyKey, "All variations", count),
-          openings.map { op =>
-            openingLink(op.opening.key, op.opening.variation.fold("Other variations")(_.name), op.count)
-          }
-        )
+        div(cls := "puzzle-openings__list")(openings.map { op =>
+          a(
+            cls  := "puzzle-openings__link",
+            href := routes.Puzzle.show(op.opening.key.value)
+          )(
+            h3(
+              op.opening.variation.fold("All variations")(_.name),
+              em(op.count.localize)
+            )
+          )
+        })
       )
     })
-
-  private def openingLink(key: PuzzleOpening.Key, name: PuzzleOpening.Name, count: PuzzleOpening.Count) =
-    a(
-      cls  := "puzzle-openings__link",
-      href := routes.Puzzle.show(key.value)
-    )(
-      h3(name, em(count))
-    )
 
   def orderSelect(order: Order)(implicit ctx: Context) = {
     views.html.base.bits.mselect(
