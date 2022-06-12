@@ -92,7 +92,8 @@ final class User(
       }
 
   def download(username: String) = OpenBody { implicit ctx =>
-    OptionOk(env.user.repo named username) { user =>
+    val userOption = if (username == "me") fuccess(ctx.me) else env.user.repo named username
+    OptionOk(userOption.dmap(_.filter(u => u.enabled || ctx.is(u) || isGranted(_.GamesModView)))) { user =>
       html.user.download(user)
     }
   }

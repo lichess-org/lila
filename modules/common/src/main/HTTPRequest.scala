@@ -111,11 +111,15 @@ object HTTPRequest {
     }
   }
 
-  private def isDataDump(req: RequestHeader)    = req.path == "/account/personal-data"
-  private def isAppeal(req: RequestHeader)      = req.path.startsWith("/appeal")
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[^/]{2,}/export.pgn$".r matches req.path
+  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
+  private def isGameExport(req: RequestHeader) =
+    "^/@/[\\w-]{2,30}/download$".r.matches(req.path) || "^/(api/games/user|games/export)/[\\w-]{2,30}$".r
+      .matches(req.path)
+  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
 
-  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req) || isStudyExport(req)
+  def isClosedLoginPath(req: RequestHeader) =
+    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers
