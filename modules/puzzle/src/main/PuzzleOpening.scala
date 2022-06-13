@@ -25,28 +25,25 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
     op.opening.key -> op
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
-    tree.updatedWith(op.opening.family) { prev =>
-      (~prev).incl(op).some
+    tree.updatedWith(op.opening.family) {
+      case None                  => (op.count, op.opening.variation.isDefined ?? Set(op)).some
+      case Some((famCount, ops)) => (famCount, if (op.opening.variation.isDefined) ops incl op else ops).some
     }
-  }
-  def treeList(order: Order) = order match {
-    case Order.Popular      => treePopular
-    case Order.Alphabetical => treeAlphabetical
   }
   val treePopular: TreeList = treeMap.toList
-    .map { case (family, ops) =>
-      (family, ops.filter(_.opening.variation.isDefined).map(_.count).sum) -> ops.toList.sortBy(-_.count)
+    .map { case (family, (famCount, ops)) =>
+      FamilyWithCount(family, famCount) -> ops.toList.sortBy(-_.count)
     }
-    .sortBy(-_._1._2)
+    .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
     .map { case (fam, ops) =>
       fam -> ops.sortBy(_.opening.name)
     }
-    .sortBy(_._1._1.name)
+    .sortBy(_._1.family.name)
 
-  List("Amazon Attack", "Amar Opening") map OpeningFamily foreach { fam =>
-    println(all.filter(_.opening.family == fam))
-    println(treeMap get fam)
+  def treeList(order: Order) = order match {
+    case Order.Popular      => treePopular
+    case Order.Alphabetical => treeAlphabetical
   }
 }
 
@@ -76,7 +73,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
                   key     <- obj string "_id" map PuzzleOpening.Key
                   opening <- PuzzleOpening(key)
                   if opening.variation.fold(true)(_ != otherVariations)
-                  count   <- obj int "count"
+                  count <- obj int "count"
                 } yield PuzzleOpening.WithCount(opening, count)
               }
             } map PuzzleOpeningCollection
@@ -136,13 +133,14 @@ object PuzzleOpening {
   type Count = Int
   type Name  = String
 
-  case class WithCount(opening: PuzzleOpening, count: Count)
-
-  type TreeMap = Map[OpeningFamily, Set[PuzzleOpening.WithCount]]
-  // sorted by counts
-  type TreeList = List[((OpeningFamily, Count), List[PuzzleOpening.WithCount])]
-
   val otherVariations = OpeningVariation("Other variations")
+
+  case class WithCount(opening: PuzzleOpening, count: Count)
+  case class FamilyWithCount(family: OpeningFamily, count: Count)
+
+  type TreeMap = Map[OpeningFamily, (Count, Set[PuzzleOpening.WithCount])]
+  // sorted by counts
+  type TreeList = List[(FamilyWithCount, List[PuzzleOpening.WithCount])]
 
   implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 
@@ -163,18 +161,8 @@ object PuzzleOpening {
 
   lazy val openings: Map[Key, PuzzleOpening] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, PuzzleOpening]) { case (acc, fullOp) =>
-      val op   = PuzzleOpening(fullOp)
-      val acc2 = if (acc.contains(op.key)) acc else acc.updated(op.key, op)
-      if (fullOp.variation.isEmpty) {
-        val others = PuzzleOpening(
-          new FullOpening(
-            eco = fullOp.eco,
-            name = s"${fullOp.name}: ${otherVariations.name}",
-            fen = fullOp.fen
-          )
-        )
-        acc2.updated(others.key, others)
-      } else acc2
+      val op = PuzzleOpening(fullOp)
+      if (acc.contains(op.key)) acc else acc.updated(op.key, op)
     }
 
   sealed abstract class Order(val key: String, val name: I18nKey)

@@ -78,7 +78,7 @@ final class Env(
 
   lazy val opening = wire[PuzzleOpeningApi]
 
-  system.scheduler.scheduleAtFixedRate(1 minute, 1 day) { () =>
+  system.scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
     opening.addAllMissing.unit
   }
 

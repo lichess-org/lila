@@ -43,19 +43,19 @@ object opening {
     })
 
   private def treeOf(openings: PuzzleOpening.TreeList)(implicit ctx: Context) =
-    div(cls := "puzzle-openings")(openings map { case ((family, count), openings) =>
+    div(cls := "puzzle-openings")(openings map { case (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
-          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(family.name).value))(family.name),
-          em(count.localize)
+          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(fam.family.name).value))(fam.family.name),
+          em(fam.count.localize)
         ),
-        div(cls := "puzzle-openings__list")(openings.map { op =>
+        openings.nonEmpty option div(cls := "puzzle-openings__list")(openings.map { op =>
           a(
             cls  := "puzzle-openings__link",
             href := routes.Puzzle.show(op.opening.key.value)
           )(
             h3(
-              op.opening.variation.fold("All variations")(_.name),
+              op.opening.variation.fold("Unknown")(_.name),
               em(op.count.localize)
             )
           )
