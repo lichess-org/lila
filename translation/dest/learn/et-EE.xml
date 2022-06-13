@@ -28,7 +28,7 @@ Vajad mõlemat!</string>
   <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
-  <string name="queenIntro">Kõige tugevam malend astub mängu. Tema majesteet kuninganna!</string>
+  <string name="queenIntro">Kõige tugevam malend astub mängu. Lehvitage vastu lipule!</string>
   <string name="queenComplete">Õnnitlused! Kuningannal pole sulle saladusi.</string>
   <string name="theKing">Kuningas</string>
   <string name="theMostImportantPiece">Kõige tähtsam malend</string>
@@ -38,7 +38,7 @@ Vajad mõlemat!</string>
   <string name="kingComplete">Sa oskad nüüd juhatajat juhtida!</string>
   <string name="theKnight">Ratsu</string>
   <string name="itMovesInAnLShape">Ta liigub L-kujuliselt</string>
-  <string name="knightIntro">Siin on sulle väljakutse. Ratsu on väga... kaval malend.</string>
+  <string name="knightIntro">Siin on teile väljakutse. Ratsu on... viguriga vigur.</string>
   <string name="knightsHaveAFancyWay">Ratsudel on huvitav komme
 ringi hüpata!</string>
   <string name="knightsCanJumpOverObstacles">Ratsud suudavad malenditest üle hüpata!
@@ -67,7 +67,7 @@ Muundada pole tarvus.</string>
   <string name="fundamentals">Põhialused</string>
   <string name="capture">Löömine</string>
   <string name="takeTheEnemyPieces">Löö vastase malendid</string>
-  <string name="captureIntro">Tuvasta vastase kaitseta malendid, ning löö nad!</string>
+  <string name="captureIntro">Tuvasta vastase kaitseta malendid ning löö nad!</string>
   <string name="takeTheBlackPieces">Löö vastase malendid!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Löö vastase malendid!
 Ära kaota enda omi.</string>
@@ -85,7 +85,7 @@ kuid sul on võimalik kaitsta!</string>
   <string name="combat">Võitlus</string>
   <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
   <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
-  <string name="combatComplete">Õnnitlused! Tead kuidas võidelda malenditega!</string>
+  <string name="combatComplete">Õnnitlused! Oskate võidelda malenditega!</string>
   <string name="checkInOne">Tuli ühe käiguga</string>
   <string name="attackTheOpponentsKing">Ründa vastase kuningat</string>
   <string name="checkInOneIntro">Et anda tuld vastasele, ründa nende kuningat. Nad peavad seda kaitsma!</string>
@@ -140,10 +140,10 @@ et vangerdada kuninga poolele!</string>
 et vangerdada lipu poolele!</string>
   <string name="theKnightIsInTheWay">Rüütel on tulekul! 
 Liiguta seda lossi kuninga poolele.</string>
-  <string name="castleKingSideMovePiecesFirst">Lossi kuninga poolel! 
-Sa pead kõigepealt tükid eest ära koristama.</string>
-  <string name="castleQueenSideMovePiecesFirst">Lossi kuninganna poolel! 
-Sa pead kõigepealt tükid eest ära koristama.</string>
+  <string name="castleKingSideMovePiecesFirst">Vangerda kuninga poolel!
+Sa pead kõigepealt malendid eest ära koristama.</string>
+  <string name="castleQueenSideMovePiecesFirst">Vangerda lipu poolel!
+Sa pead kõigepealt malendid eest ära koristama.</string>
   <string name="youCannotCastleIfMoved">Sa ei saa enne lossi kui kuningas on juba liikunud või ratsanikud on juva liikunud.</string>
   <string name="youCannotCastleIfAttacked">Sa ei saa lossi kui 
 kuningat rünnatakse teepeal. 
@@ -173,20 +173,20 @@ kui sinu ettur on 5. real.</string>
 - Must ei ole tules.</string>
   <string name="stalemateComplete">Õnnitlused! Parem on olla patis kui matis!</string>
   <string name="advanced">Edasijõudnud</string>
-  <string name="pieceValue">Viguri väärtus</string>
-  <string name="evaluatePieceStrength">Hinda viguri tugevust</string>
-  <string name="pieceValueIntro">Vigurid suurema liikuvusega on väärtuslikumad!
+  <string name="pieceValue">Malendi väärtus</string>
+  <string name="evaluatePieceStrength">Hinda malendi tugevust</string>
+  <string name="pieceValueIntro">Malendid suurema liikuvusega on väärtuslikumad!
 Lipp = 9
 Vanker = 5
 Oda = 3
 Ratsu = 3
 Ettur = 1
 Kuningas on hindamatu! Sellest ilma jäämine on võrdne kaotusega.</string>
-  <string name="queenOverBishop">Löö vigur
-kõrgeima väärtusega!
+  <string name="queenOverBishop">Löö kõrgeima
+väärtusega malend!
 Lipp &gt; Oda</string>
-  <string name="takeThePieceWithTheHighestValue">Löö vigur
-kõrgeima väärtusega!</string>
+  <string name="takeThePieceWithTheHighestValue">Löö kõrgeima
+väärtusega malend!</string>
   <string name="pieceValueComplete">Õnnitlused! Sa tead vigurite väärtust!
 Lipp = 9
 Vanker = 5
