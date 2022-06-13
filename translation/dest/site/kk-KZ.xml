@@ -297,7 +297,7 @@
   <string name="takebackPropositionAccepted">Жүрісті қайтаруға келісті</string>
   <string name="takebackPropositionCanceled">Жүрісті қайтарудан бас тартты</string>
   <string name="yourOpponentProposesATakeback">Қарсылас жүріс қайтаруды сұрап тұр</string>
-  <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
+  <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтау</string>
   <string name="tournament">Жарыс</string>
   <string name="tournaments">Жарыстар</string>
   <string name="tournamentPoints">Жарыс ұпайы</string>
@@ -428,7 +428,7 @@
   <string name="tournamentIsStarting">Жарыс басталуда</string>
   <string name="tournamentPairingsAreNowClosed">Жарысқа жұпталу аяқталды.</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
-  <string name="pause">Үзіліс жасау</string>
+  <string name="pause">Кідіру</string>
   <string name="resume">Жалғастыру</string>
   <string name="youArePlaying">Сіз ойындасыз!</string>
   <string name="winRate">Жеңіс үлесі</string>
