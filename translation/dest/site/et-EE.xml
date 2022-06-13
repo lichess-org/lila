@@ -809,4 +809,5 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
+  <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda põimida.</string>
 </resources>
