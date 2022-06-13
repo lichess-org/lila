@@ -167,6 +167,10 @@
     <item quantity="one">%s tund</item>
     <item quantity="other">%s tundi</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minutit</item>
+  </plurals>
   <string name="time">Aeg</string>
   <string name="rating">Reiting</string>
   <string name="ratingStats">Reitingu statistika</string>
@@ -328,6 +332,8 @@
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
+  <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest positsioonist</string>
+  <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
   <string name="fromPosition">Positsioonilt</string>
@@ -356,6 +362,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="follow">Jälgi</string>
   <string name="following">Jälgitakse</string>
   <string name="unfollow">Lõpeta jälgimine</string>
+  <string name="followX">Jälgi %s</string>
+  <string name="unfollowX">Lõpeta %s jälgimine</string>
   <string name="block">Blokeeri</string>
   <string name="blocked">Blokeeritud</string>
   <string name="unblock">Tühista blokeering</string>
@@ -420,6 +428,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardEditor">Muudetav laud</string>
   <string name="setTheBoard">Seadista lauda</string>
   <string name="popularOpenings">Populaarsed avangud</string>
+  <string name="endgamePositions">Lõppmängu positsioonid</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="loadPosition">Lae seis</string>
