@@ -46,13 +46,16 @@ object opening {
     div(cls := "puzzle-openings")(openings map { case (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
-          a(href := routes.Puzzle.show(PuzzleOpening.nameToKey(fam.family.name).value))(fam.family.name),
+          cls     := "blpt",
+          dataFen := fam.family.ref.fen,
+          a(href := routes.Puzzle.show(fam.family.key.value))(fam.family.family.name),
           em(fam.count.localize)
         ),
         openings.nonEmpty option div(cls := "puzzle-openings__list")(openings.map { op =>
           a(
-            cls  := "puzzle-openings__link",
-            href := routes.Puzzle.show(op.opening.key.value)
+            dataFen := op.opening.ref.fen,
+            cls     := "blpt puzzle-openings__link",
+            href    := routes.Puzzle.show(op.opening.key.value)
           )(
             h3(
               op.opening.variation.fold("Unknown")(_.name),

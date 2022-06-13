@@ -1,3 +1,4 @@
+import { initWith as initMiniBoard } from 'common/mini-board';
 import * as xhr from 'common/xhr';
 import { requestIdleCallback } from './functions';
 
@@ -17,8 +18,7 @@ function onPowertipPreRender(id: string, preload?: (url: string) => void) {
 
 const uptA = (url: string, icon: string) => `<a class="btn-rack__btn" href="${url}" data-icon="${icon}"></a>`;
 
-const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
-  pos = pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's');
+const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
   $(el)
     .removeClass('ulpt')
     .powerTip({
@@ -35,11 +35,10 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
             '<a class="btn-rack__btn relation-button" disabled></a></div>'
         );
       }),
-      placement: pos,
+      placement: pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's'),
     });
-};
 
-function gamePowertip(el: HTMLElement) {
+const gamePowertip = (el: HTMLElement) =>
   $(el)
     .removeClass('glpt')
     .powerTip({
@@ -47,7 +46,18 @@ function gamePowertip(el: HTMLElement) {
       placement: inCrosstable(el) ? 'n' : 'w',
       popupId: 'miniGame',
     });
-}
+
+const boardPowertip = (el: HTMLElement) =>
+  $(el)
+    .removeClass('blpt')
+    .powerTip({
+      popupId: 'miniBoard',
+      preRender(el) {
+        const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
+        tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"><cg-container><cg-board/></cg-container></div>`;
+        initMiniBoard(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
+      },
+    });
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
   if (!('ontouchstart' in window)) {
@@ -70,6 +80,7 @@ const powertip = {
         cl = t.classList;
       if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+      else if (cl.contains('blpt')) powerTipWith(t, e, boardPowertip);
     });
   },
   manualGameIn(parent: HTMLElement) {

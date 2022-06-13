@@ -26,20 +26,21 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) {
-      case None                  => (op.count, op.opening.variation.isDefined ?? Set(op)).some
-      case Some((famCount, ops)) => (famCount, if (op.opening.variation.isDefined) ops incl op else ops).some
+      case None => (op.count, op.opening.ref, op.opening.variation.isDefined ?? Set(op)).some
+      case Some((famCount, famRef, ops)) =>
+        (famCount, famRef, if (op.opening.variation.isDefined) ops incl op else ops).some
     }
   }
   val treePopular: TreeList = treeMap.toList
-    .map { case (family, (famCount, ops)) =>
-      FamilyWithCount(family, famCount) -> ops.toList.sortBy(-_.count)
+    .map { case (family, (famCount, famRef, ops)) =>
+      FamilyWithCount(PuzzleOpeningFamily(family, famRef), famCount) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
     .map { case (fam, ops) =>
       fam -> ops.sortBy(_.opening.name)
     }
-    .sortBy(_._1.family.name)
+    .sortBy(_._1.family.family.name)
 
   def treeList(order: Order) = order match {
     case Order.Popular      => treePopular
@@ -124,6 +125,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   }
 }
 
+case class PuzzleOpeningFamily(family: OpeningFamily, ref: FullOpening) {
+  lazy val key = PuzzleOpening.nameToKey(family.name)
+}
+
 object PuzzleOpening {
 
   case class Key(value: String) extends AnyVal with StringValue
@@ -136,15 +141,14 @@ object PuzzleOpening {
   val otherVariations = OpeningVariation("Other variations")
 
   case class WithCount(opening: PuzzleOpening, count: Count)
-  case class FamilyWithCount(family: OpeningFamily, count: Count)
+  case class FamilyWithCount(family: PuzzleOpeningFamily, count: Count)
 
-  type TreeMap = Map[OpeningFamily, (Count, Set[PuzzleOpening.WithCount])]
-  // sorted by counts
+  type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[PuzzleOpening.WithCount])]
   type TreeList = List[(FamilyWithCount, List[PuzzleOpening.WithCount])]
 
   implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 
-  def nameToKey(name: Name) = Key {
+  private[puzzle] def nameToKey(name: Name) = Key {
     java.text.Normalizer
       .normalize(
         name,
