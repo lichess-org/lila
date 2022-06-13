@@ -25,8 +25,8 @@
   <string name="blackIsVictorious">Võitis must</string>
   <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
   <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
-  <string name="itsYourTurn">Sinu käik!</string>
-  <string name="cheatDetected">Sohk Tuvastatud</string>
+  <string name="itsYourTurn">Teie käik!</string>
+  <string name="cheatDetected">Sohk tuvastatud</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
