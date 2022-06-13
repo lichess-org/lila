@@ -13,7 +13,8 @@ import lila.user.User
 final class PuzzleApi(
     colls: PuzzleColls,
     trustApi: PuzzleTrustApi,
-    countApi: PuzzleCountApi
+    countApi: PuzzleCountApi,
+    openingApi: PuzzleOpeningApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Puzzle.{ BSONFields => F }
@@ -122,7 +123,7 @@ final class PuzzleApi(
 
   def angles: Fu[PuzzleAngle.All] = for {
     themes   <- theme.categorizedWithCount
-    openings <- countApi.countsByOpening
+    openings <- openingApi.collection.map(_.all)
   } yield PuzzleAngle.All(themes, openings)
 
   object theme {

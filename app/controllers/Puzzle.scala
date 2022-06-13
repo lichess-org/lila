@@ -282,9 +282,9 @@ final class Puzzle(
     }
   }
 
-  def openings = Open { implicit ctx =>
-    env.puzzle.api.angles map { all =>
-      Ok(views.html.puzzle.theme.openings(all.openings))
+  def openings(order: String) = Open { implicit ctx =>
+    env.puzzle.opening.collection map { collection =>
+      Ok(views.html.puzzle.opening.all(collection, PuzzleOpening.Order(order)))
     }
   }
 

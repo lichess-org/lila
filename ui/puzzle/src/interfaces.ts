@@ -144,6 +144,7 @@ export interface Theme {
   name: string;
   desc: string;
   chapter?: string;
+  isOpening?: boolean;
 }
 
 export interface PuzzleData {
