@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Valge</string>
   <string name="black">Must</string>
+  <string name="asWhite">valgena</string>
+  <string name="asBlack">mustana</string>
   <string name="randomColor">Juhuslik värv</string>
   <string name="createAGame">Loo mäng</string>
   <string name="whiteIsVictorious">Võitis valge</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">Must alistus</string>
   <string name="whiteLeftTheGame">Valge lahkus mängust</string>
   <string name="blackLeftTheGame">Must lahkus mängust</string>
+  <string name="whiteDidntMove">Valge ei liikunud</string>
+  <string name="blackDidntMove">Must ei liikunud</string>
   <string name="requestAComputerAnalysis">Nõua arvuti analüüsi</string>
   <string name="computerAnalysis">Arvuti analüüs</string>
   <string name="computerAnalysisAvailable">Arvuti analüüs saadaval</string>
@@ -400,6 +404,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentIsStarting">Turniir algab</string>
   <string name="tournamentPairingsAreNowClosed">Turniiri paaride loomine on nüüd lõppenud.</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
+  <string name="pause">Peata</string>
+  <string name="resume">Jätka</string>
   <string name="youArePlaying">Te mängite!</string>
   <string name="winRate">Võidumäär</string>
   <string name="berserkRate">Berserk määr</string>
