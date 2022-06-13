@@ -5,10 +5,12 @@
   <string name="editYourBlogPost">ערוך את הפוסט שלך</string>
   <string name="saveDraft">שמור טיוטה</string>
   <string name="postTitle">כותרת הפוסט</string>
-  <string name="postIntro">מבוא הפוסט</string>
+  <string name="postIntro">מבוא לפוסט</string>
   <string name="postBody">גוף הפוסט</string>
   <string name="drafts">טיוטות</string>
   <string name="published">פורסם</string>
+  <string name="createBlogDiscussion">אפשר תגובות</string>
+  <string name="createBlogDiscussionHelp">יווצר נושא בפורום כדי שאנשים יוכלו להגיב על הפוסט שלך</string>
   <string name="publishOnYourBlog">פרסם לבלוג שלך</string>
   <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך.</string>
   <plurals name="publishedNbBlogPosts">
