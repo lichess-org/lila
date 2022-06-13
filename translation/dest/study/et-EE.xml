@@ -10,4 +10,11 @@
   <string name="allStudies">Kõik uuringud</string>
   <string name="studiesCreatedByX">%s loodud uuringud</string>
   <string name="noneYet">Veel mitte ühtegi.</string>
+  <string name="chapterPgn">PGN Peatükk</string>
+  <string name="loadAGameFromPgn">Lae mänge PGN-ist</string>
+  <string name="automatic">Automaatne</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Aseta oma PGN tekst siia, kuni %s mäng</item>
+    <item quantity="other">Aseta oma PGN tekst siia, kuni %s mängu</item>
+  </plurals>
 </resources>
