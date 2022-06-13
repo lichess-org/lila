@@ -49,8 +49,8 @@
   <string name="blackResigned">Must alistus</string>
   <string name="whiteLeftTheGame">Valge lahkus mängust</string>
   <string name="blackLeftTheGame">Must lahkus mängust</string>
-  <string name="whiteDidntMove">Valge ei liikunud</string>
-  <string name="blackDidntMove">Must ei liikunud</string>
+  <string name="whiteDidntMove">Valge ei sooritanud käiku</string>
+  <string name="blackDidntMove">Must ei sooritanud käiku</string>
   <string name="requestAComputerAnalysis">Nõua arvuti analüüsi</string>
   <string name="computerAnalysis">Arvuti analüüs</string>
   <string name="computerAnalysisAvailable">Arvuti analüüs saadaval</string>
@@ -605,7 +605,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
   <string name="newTournament">Uus turniir</string>
-  <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja mängutüüpidega</string>
+  <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
   <string name="tournamentNotFound">Turniiri ei leitud</string>
   <string name="tournamentDoesNotExist">Seda turniiri pole olemas.</string>
@@ -809,5 +809,5 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
-  <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda põimida.</string>
+  <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
 </resources>
