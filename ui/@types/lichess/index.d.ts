@@ -82,7 +82,6 @@ type UserComplete = (opts: UserCompleteOpts) => void;
 
 interface LichessPowertip {
   watchMouse(): void;
-  watchMouseIn(el: HTMLElement, cls: string, handler: (el: HTMLElement) => void): void;
   manualGameIn(parent: HTMLElement): void;
   manualGame(el: HTMLElement): void;
   manualUser(el: HTMLElement): void;

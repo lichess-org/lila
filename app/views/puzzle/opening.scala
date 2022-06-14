@@ -15,7 +15,8 @@ object opening {
   def all(openings: PuzzleOpeningCollection, order: Order)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Puzzles by openings",
-      moreCss = cssTag("puzzle.page")
+      moreCss = cssTag("puzzle.page"),
+      moreJs = jsModule("puzzle.opening")
     )(
       main(cls := "page-menu")(
         bits.pageMenu("openings"),
@@ -46,9 +47,10 @@ object opening {
     div(cls := "puzzle-openings")(openings map { case (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
-          cls     := "blpt",
-          dataFen := fam.family.ref.fen,
-          a(href := routes.Puzzle.show(fam.family.key.value))(fam.family.family.name),
+          a(
+            cls     := "blpt",
+            dataFen := fam.family.ref.fen
+          )(href := routes.Puzzle.show(fam.family.key.value))(fam.family.family.name),
           em(fam.count.localize)
         ),
         openings.nonEmpty option div(cls := "puzzle-openings__list")(openings.map { op =>
