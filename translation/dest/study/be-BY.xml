@@ -82,6 +82,7 @@
   <string name="studyNotFound">Навучанне не знойдзена</string>
   <string name="editChapter">Рэдагаваць раздзел</string>
   <string name="newChapter">Новы раздзел</string>
+  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Імпартаваць з %s</string>
   <string name="orientation">Арыентацыя дошкі</string>
   <string name="analysisMode">Рэжым аналізу</string>
   <string name="pinnedChapterComment">Замацаваны каментар раздзелу</string>
