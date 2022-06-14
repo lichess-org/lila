@@ -13,8 +13,21 @@ import lila.common.base.StringUtils.escapeHtmlRaw
 object layout {
 
   object bits {
-    val doctype                      = raw("<!DOCTYPE html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
+    val doctype = raw("<!DOCTYPE html>")
+    def htmlTag(implicit lang: Lang) = {
+      val direction =
+        if (
+          lang.locale
+            .getDisplayName(lang.locale)
+            .charAt(0)
+            .getDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT || lang.locale
+            .getDisplayName(lang.locale)
+            .charAt(0)
+            .getDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+        ) "rtl"
+        else "ltr"
+      html(st.lang := lang.code, dir := direction)
+    }
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
