@@ -37,6 +37,7 @@ final class JsonView(
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   def apply(
       tour: Tournament,
@@ -121,14 +122,21 @@ final class JsonView(
           .add("teamBattle" -> tour.teamBattle.map { battle =>
             Json
               .obj(
-                "teams" -> JsObject(battle.sortedTeamIds.map { id =>
-                  id -> JsString(getTeamName(id).getOrElse(id))
-                })
+                "teams" -> JsObject(
+                  battle.sortedTeamIds.map { id =>
+                    id -> JsString(getTeamName(id).getOrElse(id))
+                  },
+                  "nbLeaders" -> battle.nbLeaders
+                )
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
           .add("description" -> tour.description)
           .add("myUsername" -> me.map(_.username))
+          .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
+          .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
+          .add("minRatedGames", tour.conditions.nbRatedGames)
+          .add("onlyTitled", tour.conditions.titled.isDefined)
       }
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
