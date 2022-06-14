@@ -54,7 +54,7 @@ const boardPowertip = (el: HTMLElement) =>
       popupId: 'miniBoard',
       preRender(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
-        tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"><cg-container><cg-board/></cg-container></div>`;
+        tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
         initMiniBoard(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
       },
     });
