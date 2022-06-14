@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">अभी-अभी</string>
-  <plurals name="inNbHours">
-    <item quantity="one">ghante mein</item>
-    <item quantity="other">घंटों में</item>
-  </plurals>
-  <plurals name="inNbDays">
-    <item quantity="one">दिन में</item>
-    <item quantity="other">दिनों में</item>
-  </plurals>
-  <plurals name="inNbWeeks">
-    <item quantity="one">हफ्ते में</item>
-    <item quantity="other">हफ़्तों में</item>
-  </plurals>
-  <plurals name="inNbMonths">
-    <item quantity="one">महीने में</item>
-    <item quantity="other">महीनों में</item>
-  </plurals>
-  <plurals name="inNbYears">
-    <item quantity="one">साल में</item>
-    <item quantity="other">सालों में</item>
-  </plurals>
   <string name="rightNow">अभी अभि</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%@ सेकंड पहले</item>
-    <item quantity="other">%@ सेकंड पहले</item>
-  </plurals>
 </resources>
