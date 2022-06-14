@@ -43,4 +43,5 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
     <item quantity="one">Vaata võistkonda</item>
     <item quantity="other">Vaata kõiki %s võistkonda</item>
   </plurals>
+  <string name="customStartDateHelp">Kohalikus ajavööndis. See tühistab \"Aega turniiri alguseni\" sätte</string>
 </resources>
