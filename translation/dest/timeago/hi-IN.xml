@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">अभी-अभी</string>
-  <plurals name="inNbDays">
-    <item quantity="one">दिन में</item>
-    <item quantity="other">दिनों में</item>
-  </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">हफ्ते में</item>
     <item quantity="other">हफ़्तों में</item>
