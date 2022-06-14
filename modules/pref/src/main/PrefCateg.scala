@@ -4,12 +4,12 @@ sealed abstract class PrefCateg(val slug: String)
 
 object PrefCateg {
 
-  case object GameDisplay  extends PrefCateg("game-display")
+  case object Display      extends PrefCateg("display")
   case object ChessClock   extends PrefCateg("chess-clock")
   case object GameBehavior extends PrefCateg("game-behavior")
-  case object Site         extends PrefCateg("site")
+  case object Privacy      extends PrefCateg("privacy")
 
-  val all: List[PrefCateg] = List(GameDisplay, ChessClock, GameBehavior, Site)
+  val all: List[PrefCateg] = List(Display, ChessClock, GameBehavior, Privacy)
 
   def apply(slug: String) = all.find(_.slug == slug)
 }
