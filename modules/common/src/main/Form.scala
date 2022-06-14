@@ -129,7 +129,7 @@ object Form {
   }
 
   object mustNotContainLichess {
-    private val regex = "(?iu)l[iıi̇][cс]h[eе]s";
+    private val regex = "(?iu)l[iıi̇][cс]h[eе]s".r;
     def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
       if (regex.find(t) && !verifiedUser)
         V.Invalid(V.ValidationError("Must not contain \"lichess\""))
