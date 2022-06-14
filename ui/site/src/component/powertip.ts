@@ -54,7 +54,7 @@ const boardPowertip = (el: HTMLElement) =>
       popupId: 'miniBoard',
       preRender(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
-        tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"><cg-container><cg-board/></cg-container></div>`;
+        tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
         initMiniBoard(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
       },
     });
@@ -76,11 +76,15 @@ function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => voi
 const powertip = {
   watchMouse() {
     document.body.addEventListener('mouseover', e => {
-      const t = e.target as HTMLElement,
-        cl = t.classList;
-      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
-      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
-      else if (cl.contains('blpt')) powerTipWith(t, e, boardPowertip);
+      const t = e.target as HTMLElement;
+      if (t.classList.contains('ulpt')) powerTipWith(t, e, userPowertip);
+      else if (t.classList.contains('glpt')) powerTipWith(t, e, gamePowertip);
+    });
+  },
+  watchMouseIn(el: HTMLElement, cls: string, handler: (el: HTMLElement) => void) {
+    el.addEventListener('mouseover', e => {
+      const t = e.target as HTMLElement;
+      if (t.classList.contains(cls)) powerTipWith(t, e, handler);
     });
   },
   manualGameIn(parent: HTMLElement) {
