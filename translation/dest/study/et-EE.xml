@@ -11,6 +11,10 @@
   <string name="studiesCreatedByX">%s loodud uuringud</string>
   <string name="noneYet">Veel mitte ühtegi.</string>
   <string name="hot">Kuum</string>
+  <string name="dateAddedNewest">Lisamisaeg (uusimad)</string>
+  <string name="dateAddedOldest">Lisamisaeg (vanimad)</string>
+  <string name="recentlyUpdated">Hiljuti uuendatud</string>
+  <string name="mostPopular">Kõige populaarsemad</string>
   <plurals name="nbChapters">
     <item quantity="one">%s peatükk</item>
     <item quantity="other">%s peatükki</item>
@@ -25,8 +29,8 @@
   <string name="onlyContributorsCanRequestAnalysis">Ainult selle uuringu panustajad saavad taotleda arvuti analüüsi.</string>
   <string name="getAFullComputerAnalysis">Taotle täielikku serveripoolset arvuti analüüsi põhiliinist.</string>
   <string name="cloneStudy">Klooni</string>
-  <string name="studyPgn">PGN Uuring</string>
-  <string name="chapterPgn">PGN Peatükk</string>
+  <string name="studyPgn">Uuringu PGN</string>
+  <string name="chapterPgn">Peatüki PGN</string>
   <string name="studyUrl">Uuringu URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Te saate selle asetada foorumisse või oma Lichessi blogisse sängitamiseks</string>
   <string name="startAtInitialPosition">Alusta algpositsioonis</string>
