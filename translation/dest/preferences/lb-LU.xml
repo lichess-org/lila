@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Astellungen</string>
-  <string name="gameDisplay">Spillduerstellung</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
   <string name="boardHighlights">Briet Highlights (leschten Zuch an Schach)</string>
