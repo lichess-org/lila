@@ -629,7 +629,7 @@
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Neplatná hodnota</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Neplatná hodnota</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Táto emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
@@ -940,6 +940,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
   <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
+  <string name="simulFeatured">Zobraziť na %s</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
