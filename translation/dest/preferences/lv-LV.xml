@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Uzstādījumi</string>
+  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">Izskats</string>
+  <string name="privacy" comment="privacy&#10;&#10;This is a category in the preferences. It allows for configuring privacy-related settings – for example, whether to allow other players to follow you.">Privātums</string>
   <string name="pieceAnimation">Figūru animācija</string>
   <string name="materialDifference">Materiāla starpība</string>
   <string name="boardHighlights">Lauciņu izcelšana (pēdējais gājiens vai piesakot šahu)</string>
