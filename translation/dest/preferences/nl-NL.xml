@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Voorkeuren</string>
+  <string name="display">Weergave</string>
   <string name="pieceAnimation">Stukanimatie</string>
   <string name="materialDifference">Materiaalverschil</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
