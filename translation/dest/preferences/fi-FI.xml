@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Asetukset</string>
-  <string name="gameDisplay">Ulkoasu</string>
   <string name="pieceAnimation">Nappuloiden animaatio</string>
   <string name="materialDifference">Materiaaliero</string>
   <string name="boardHighlights">Laudan korostukset (viimeisin siirto ja shakki)</string>
