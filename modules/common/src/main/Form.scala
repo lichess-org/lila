@@ -129,9 +129,9 @@ object Form {
   }
 
   object mustNotContainLichess {
-    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
-    def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
-      if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+    private val regex = "(?iu)l[iıi̇][cс]h[eе]s".r
+    def apply(verifiedUser: Boolean) = Constraint[String] { t =>
+      if (regex.find(t) && !verifiedUser)
         V.Invalid(V.ValidationError("Must not contain \"lichess\""))
       else V.Valid
     }
