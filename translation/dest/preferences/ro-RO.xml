@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferințe</string>
-  <string name="gameDisplay">Opțiuni de afișare în joc</string>
   <string name="pieceAnimation">Animația piesei</string>
   <string name="materialDifference">Diferență de piese capturate</string>
   <string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
