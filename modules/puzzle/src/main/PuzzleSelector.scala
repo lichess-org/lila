@@ -33,7 +33,8 @@ final class PuzzleSelector(
         import NextPuzzleResult._
 
         def switchPath(tier: PuzzleTier) =
-          pathApi.nextFor(user, angle, tier, session.settings.difficulty, session.previousPaths) orFail
+          pathApi
+            .nextFor(user, angle, tier, session.settings.difficulty, session.previousPaths) orFail
             s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(user, newSession)
@@ -54,18 +55,20 @@ final class PuzzleSelector(
 
         nextPuzzleResult(user, session)
           .flatMap {
-            case PathMissing | PathEnded | WrongColor =>
-              if (retries < 10) switchPath(session.path.tier)
-              else fufail(s"Puzzle path missing or ended for ${user.id}")
+            case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
+            case PathMissing | PathEnded => fufail(s"Puzzle path missing or ended for ${user.id}")
             case PuzzleMissing(id) =>
               logger.warn(s"Puzzle missing: $id")
               sessionApi.set(user, session.next)
               nextPuzzleFor(user, angle, retries)
-            case PuzzleAlreadyPlayed(_) if retries < 3 =>
+            case PuzzleAlreadyPlayed(_) if retries < 4 =>
               sessionApi.set(user, session.next)
               nextPuzzleFor(user, angle, retries = retries + 1)
             case PuzzleAlreadyPlayed(puzzle) =>
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
+            case WrongColor =>
+              sessionApi.set(user, session.next)
+              nextPuzzleFor(user, angle, retries = retries + 0)
             case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
