@@ -31,6 +31,12 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
   );
 }
 
+const colors: [ColorChoice, string][] = [
+  ['random', 'randomColor'],
+  ['white', 'asWhite'],
+  ['black', 'asBlack'],
+];
+
 function side(ctrl: CoordinateTrainerCtrl): VNode {
   const { trans } = ctrl;
 
@@ -77,15 +83,15 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
       h('form.color.buttons', [
         h(
           'group.radio',
-          ['black', 'random', 'white'].map((color: ColorChoice) =>
+          colors.map(([key, i18n]) =>
             h('div', [
               h('input', {
                 attrs: {
                   type: 'radio',
-                  id: `coord_color_${color}`,
+                  id: `coord_color_${key}`,
                   name: 'color',
-                  value: color,
-                  checked: color === ctrl.colorChoice,
+                  value: key,
+                  checked: key === ctrl.colorChoice,
                 },
                 on: {
                   change: e => {
@@ -96,10 +102,11 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
                 },
               }),
               h(
-                `label.color_${color}`,
+                `label.color_${key}`,
                 {
                   attrs: {
-                    for: `coord_color_${color}`,
+                    for: `coord_color_${key}`,
+                    title: ctrl.trans.noarg(i18n),
                   },
                 },
                 h('i')
