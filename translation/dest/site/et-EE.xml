@@ -510,7 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
-  <string name="none">Mitte üldsegi</string>
+  <string name="none">Väljas</string>
   <string name="fast">Kiire</string>
   <string name="normal">Tavaline</string>
   <string name="slow">Aeglane</string>
