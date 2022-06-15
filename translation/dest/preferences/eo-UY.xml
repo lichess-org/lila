@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferoj</string>
-  <string name="gameDisplay">Aspekto de ludoj</string>
   <string name="pieceAnimation">Animacio de ŝakpecoj</string>
   <string name="materialDifference">Materiala diferenco</string>
   <string name="boardHighlights">Emfazaj aperoj sur tabulo (lasta movo kaj ŝakoj)</string>
