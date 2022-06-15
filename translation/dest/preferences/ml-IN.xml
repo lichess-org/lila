@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">പരിഗണനകൾ</string>
-  <string name="gameDisplay">കളി പ്രദർശനം</string>
   <string name="pieceAnimation">കരു ആനിമേഷൻ</string>
   <string name="materialDifference">രൂപ വ്യത്യാസം</string>
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
