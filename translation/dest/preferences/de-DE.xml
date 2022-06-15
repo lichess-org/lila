@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Einstellungen</string>
-  <string name="gameDisplay">Spieldarstellung</string>
+  <string name="display">Anzeige</string>
+  <string name="privacy">Privatsphäre</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
