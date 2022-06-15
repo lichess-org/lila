@@ -580,7 +580,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     voteTheme,
     getCeval,
     pref: opts.pref,
-    difficulty: opts.difficulty,
+    settings: opts.settings,
     trans: lichess.trans(opts.i18n),
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),

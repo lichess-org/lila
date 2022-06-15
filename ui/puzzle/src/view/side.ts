@@ -169,6 +169,11 @@ const difficulties: [PuzzleDifficulty, number][] = [
   ['harder', 300],
   ['hardest', 600],
 ];
+const colors = [
+  ['random', 'randomColor'],
+  ['white', 'asWhite'],
+  ['black', 'asBlack'],
+];
 
 export function replay(ctrl: Controller): MaybeVNode {
   const replay = ctrl.getData().replay;
@@ -219,7 +224,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
-    !data.replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
+    ...(data.replay || ctrl.streak ? [] : [renderDifficultyForm(ctrl), renderColorForm(ctrl)]),
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
@@ -246,8 +251,8 @@ export function config(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-export function renderDifficultyForm(ctrl: Controller): VNode {
-  return h(
+export const renderDifficultyForm = (ctrl: Controller): VNode =>
+  h(
     'form.puzzle__side__config__difficulty',
     {
       attrs: {
@@ -275,7 +280,7 @@ export function renderDifficultyForm(ctrl: Controller): VNode {
             {
               attrs: {
                 value: key,
-                selected: key == ctrl.difficulty,
+                selected: key == ctrl.settings.difficulty,
                 title:
                   !!delta &&
                   ctrl.trans.plural(
@@ -290,4 +295,42 @@ export function renderDifficultyForm(ctrl: Controller): VNode {
       ),
     ]
   );
-}
+
+export const renderColorForm = (ctrl: Controller): VNode =>
+  h(
+    'form.puzzle__side__config__color',
+    {
+      attrs: {
+        action: `/training/color/${ctrl.getData().theme.key}`,
+        method: 'post',
+      },
+    },
+    [
+      h(
+        'label',
+        {
+          attrs: { for: 'puzzle-color' },
+        },
+        ctrl.trans.noarg('color')
+      ),
+      h(
+        'select#puzzle-color.puzzle__color__selector',
+        {
+          attrs: { name: 'color' },
+          hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())),
+        },
+        colors.map(([key, i18n]) =>
+          h(
+            'option',
+            {
+              attrs: {
+                value: key,
+                selected: key == (ctrl.settings.color || 'random'),
+              },
+            },
+            ctrl.trans.noarg(i18n)
+          )
+        )
+      ),
+    ]
+  );

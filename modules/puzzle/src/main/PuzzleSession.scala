@@ -1,17 +1,16 @@
 package lila.puzzle
 
+import chess.Color
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
-import chess.Color
 
 import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 private case class PuzzleSession(
-    difficulty: PuzzleDifficulty,
-    color: Option[Color],
+    settings: PuzzleSettings,
     path: PuzzlePath.Id,
     positionInPath: Int,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
@@ -28,11 +27,18 @@ private case class PuzzleSession(
   override def toString = s"$path:$positionInPath"
 }
 
+case class PuzzleSettings(
+    difficulty: PuzzleDifficulty,
+    color: Option[Color]
+)
+object PuzzleSettings {
+  val default = PuzzleSettings(PuzzleDifficulty.default, none)
+}
+
 final class PuzzleSessionApi(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    cacheApi: CacheApi,
-    userRepo: UserRepo
+    cacheApi: CacheApi
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
@@ -47,31 +53,26 @@ final class PuzzleSessionApi(
       }
     }
 
-  def getDifficulty(user: User): Fu[PuzzleDifficulty] =
+  def getSettings(user: User): Fu[PuzzleSettings] =
     sessions
       .getIfPresent(user.id)
-      .fold[Fu[PuzzleDifficulty]](fuccess(PuzzleDifficulty.default))(_.dmap(_.difficulty))
+      .fold[Fu[PuzzleSettings]](fuccess(PuzzleSettings.default))(_.dmap(_.settings))
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
     updateSession(user) { prev =>
       createSessionFor(
         user,
         prev.map(_.path.angle) | PuzzleAngle.mix,
-        difficulty,
-        prev.flatMap(_.color)
+        PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
       )
     }
-
-  def getColor(user: User): Fu[Option[Color]] =
-    sessions.getIfPresent(user.id).??(_.dmap(_.color))
 
   def setColor(user: User, color: Option[Color]): Funit =
     updateSession(user) { prev =>
       createSessionFor(
         user,
         prev.map(_.path.angle) | PuzzleAngle.mix,
-        prev.fold(PuzzleDifficulty.default)(_.difficulty),
-        color
+        PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
       )
     }
 
@@ -93,9 +94,10 @@ final class PuzzleSessionApi(
       user: User,
       angle: PuzzleAngle
   ): Fu[PuzzleSession] =
-    sessions.getFuture(user.id, _ => createSessionFor(user, angle)) flatMap { current =>
-      if (current.path.angle == angle && !shouldChangeSession(user, current)) fuccess(current)
-      else createSessionFor(user, angle, current.difficulty, current.color) tap { sessions.put(user.id, _) }
+    sessions.getFuture(user.id, _ => createSessionFor(user, angle, PuzzleSettings.default)) flatMap {
+      current =>
+        if (current.path.angle == angle && !shouldChangeSession(user, current)) fuccess(current)
+        else createSessionFor(user, angle, current.settings) tap { sessions.put(user.id, _) }
     }
 
   private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
@@ -103,14 +105,9 @@ final class PuzzleSessionApi(
     perf.clueless || (perf.provisional && perf.nb % 5 == 0)
   }
 
-  private def createSessionFor(
-      user: User,
-      angle: PuzzleAngle,
-      difficulty: PuzzleDifficulty = PuzzleDifficulty.default,
-      color: Option[Color] = None
-  ): Fu[PuzzleSession] =
+  private def createSessionFor(user: User, angle: PuzzleAngle, settings: PuzzleSettings): Fu[PuzzleSession] =
     pathApi
-      .nextFor(user, angle, PuzzleTier.Top, difficulty, Set.empty)
+      .nextFor(user, angle, PuzzleTier.Top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, angle: $angle")
-      .dmap(pathId => PuzzleSession(difficulty, color, pathId, 0))
+      .dmap(pathId => PuzzleSession(settings, pathId, 0))
 }

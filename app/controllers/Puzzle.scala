@@ -18,6 +18,7 @@ import lila.puzzle.{
   PuzzleDifficulty,
   PuzzleOpening,
   PuzzleReplay,
+  PuzzleSettings,
   PuzzleStreak,
   PuzzleTheme,
   Result
@@ -48,11 +49,11 @@ final class Puzzle(
       replay: Option[PuzzleReplay] = None
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
-      ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
+      ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
         EnableSharedArrayBuffer(
           Ok(
             views.html.puzzle
-              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty)
+              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), settings | PuzzleSettings.default)
           )
         )
       }
@@ -223,7 +224,7 @@ final class Puzzle(
                 NoCache {
                   Ok {
                     views.html.puzzle
-                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), none)
+                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), PuzzleSettings.default)
                   }
                 }
               }
@@ -273,6 +274,15 @@ final class Puzzle(
               PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
                 Redirect(routes.Puzzle.show(theme))
           )
+      }
+    }
+
+  def setColor(theme: String) =
+    AuthBody { implicit ctx => me =>
+      NoBot {
+        implicit val req = ctx.body
+        val color        = env.puzzle.forms.color.bindFromRequest().value
+        env.puzzle.session.setColor(me, color) inject Redirect(routes.Puzzle.show(theme))
       }
     }
 
