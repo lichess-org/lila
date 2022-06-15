@@ -25,6 +25,10 @@ object opening {
             h1("Puzzles by openings"),
             orderSelect(order)
           ),
+          p(cls := "help help-keyboard")(iconTag("", "Use Ctrl+f to find your favourite opening!")),
+          p(cls := "help help-touchscreen")(
+            iconTag("", "Use \"Find in page\" in the browser menu to find your favourite opening!")
+          ),
           div(cls := "puzzle-themes")(
             treeOf(openings treeList order),
             theme.info
