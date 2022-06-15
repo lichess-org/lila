@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Lehentasunak</string>
-  <string name="gameDisplay">Partiden itxura</string>
   <string name="pieceAnimation">Piezen animazioa</string>
   <string name="materialDifference">Material desoreka</string>
   <string name="boardHighlights">Taulan markak erakutsi (azken jokaldia eta xakea)</string>
