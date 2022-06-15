@@ -31,6 +31,7 @@
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="inCasualGamesOnly">Hanya pada permainan santai (tanpa di-rating)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
+  <string name="explainPromoteToQueenAutomatically">Tahan tombol &lt;ctrl&gt; saat promosi untuk sementara membatalkan promosi otomatis</string>
   <string name="whenPremoving">Ketika pra-langkah</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>

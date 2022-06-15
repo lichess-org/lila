@@ -9,3 +9,25 @@ h2#openings {
     font-size: 1rem;
   }
 }
+
+.help {
+  @extend %box-padding-horiz, %box-radius;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background: $c-bg-zebra;
+
+  &-touchscreen {
+    display: none;
+  }
+  &-keyboard {
+    display: block;
+  }
+}
+@media (hover: none) {
+  &-touchscreen {
+    display: block;
+  }
+  &-keyboard {
+    display: none;
+  }
+}

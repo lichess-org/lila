@@ -85,11 +85,17 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="variantXOverLastY">%1$s sampai %2$s</string>
   <string name="winrate">Rata-rata kemenangan</string>
   <string name="na">Tidak ada</string>
+  <string name="news">Berita</string>
+  <string name="classNews">Berita kelas</string>
   <string name="editNews">Ubah berita</string>
   <string name="notifyAllStudents">Beritahu semua siswa</string>
   <string name="nothingHere">Tidak ada disini.</string>
   <string name="newsEdit1">Semua berita kelas dalam satu tempat.</string>
   <string name="newsEdit2">Tambahkan berita terbaru di atas. Jangan hapus berita sebelumnya.</string>
   <string name="newsEdit3">Pisahkan berita dengan --- itu akan menampilkan garis horizontal.</string>
+  <string name="invite">Undang</string>
+  <string name="youHaveBeenInvitedByX">Anda sudah diundang oleh %s.</string>
+  <string name="youAcceptedThisInvitation">Anda telah menerima undangan ini.</string>
+  <string name="youDeclinedThisInvitation">Anda telah menolak undangan ini.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">atau</string>
 </resources>

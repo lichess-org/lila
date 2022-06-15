@@ -18,6 +18,8 @@
   <string name="rule1">Sertakan kata kunci \"lichess.org\" dalam judul stream Anda saat Anda streaming di Lichess.</string>
   <string name="rule2">Hapus kata kunci saat Anda streaming hal-hal yang bukan Lichess.</string>
   <string name="rule3">Lichess akan mendeteksi stream Anda secara otomatis dan mengaktifkan fasilitas berikut:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Baca %s untuk menjaga sportivitas untuk semua orang saat anda streaming.</string>
+  <string name="streamingFairplayFAQ">pertanyaan umum streaming fairplay</string>
   <string name="perks">Manfaat streaming dengan kata kunci</string>
   <string name="perk1">Dapatkan ikon api streamer di profil Lichess Anda.</string>
   <string name="perk2">Masuk ke dalam list top streamer.</string>
