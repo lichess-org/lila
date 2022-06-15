@@ -426,6 +426,7 @@
   <string name="tournamentIsStarting">Lo torneyo va a empecipiar</string>
   <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
+  <string name="pause">Pausa</string>
   <string name="youArePlaying">Te toca chugar!</string>
   <string name="winRate">Taxa de victorias</string>
   <string name="berserkRate">Taxa de berserk</string>
