@@ -206,6 +206,8 @@ private object DisposableEmailDomain {
     "volki.at",
     /* others */
     "skole.hr",
-    "freeshell.org"
+    "freeshell.org",
+    "hotmail.nl",
+    "live.nl"
   )
 }

@@ -11,6 +11,11 @@ export default rollupProject({
     input: 'src/dashboard.ts',
     output: 'puzzle.dashboard',
   },
+  opening: {
+    name: 'LichessPuzzleOpening',
+    input: 'src/opening.ts',
+    output: 'puzzle.opening',
+  },
   nvui: {
     name: 'LichessPuzzleNvui',
     input: 'src/plugins/nvui.ts',

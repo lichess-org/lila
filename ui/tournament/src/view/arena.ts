@@ -114,10 +114,6 @@ export function podium(ctrl: TournamentController) {
   ]);
 }
 
-function preloadUserTips(el: HTMLElement) {
-  lichess.powertip.manualUserIn(el);
-}
-
 export function controls(ctrl: TournamentController, pag: Pagination): VNode {
   return h('div.tour__controls', [h('div.pager', pagination.renderPager(ctrl, pag)), button.joinWithdraw(ctrl)]);
 }
@@ -135,9 +131,9 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
         'tbody',
         {
           hook: {
-            insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
+            insert: vnode => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
             update(_, vnode) {
-              preloadUserTips(vnode.elm as HTMLElement);
+              lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
             },
           },
         },
