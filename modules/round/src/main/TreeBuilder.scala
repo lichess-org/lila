@@ -46,7 +46,7 @@ object TreeBuilder {
           check = init.situation.check,
           opening = openingOf(fen),
           clock = withFlags.clocks ?? (game.clock ?? { c =>
-              Centis.ofSeconds(c.limitSeconds).some
+            Centis.ofSeconds(c.limitSeconds).some
           }),
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
