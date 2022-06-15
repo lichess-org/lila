@@ -131,11 +131,14 @@ final class JsonView(
           })
           .add("description" -> tour.description)
           .add("myUsername" -> me.map(_.username))
-          .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
-          .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
-          .add("minRatedGames", tour.conditions.nbRatedGames)
-          .add("onlyTitled", tour.conditions.titled.isDefined)
-      }
+      } ++
+      tour.conditions.relevant ?? Json
+        .obj()
+        .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
+        .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
+        .add("nbRatedGame", tour.conditions.nbRatedGame)
+        .add("titled", tour.conditions.titled.isDefined)
+        .add("teamMember", tour.conditions.teamMember.map(_.teamId))
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
