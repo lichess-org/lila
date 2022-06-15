@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Voorkeuren</string>
-  <string name="display">Weergave</string>
-  <string name="privacy">Privacy</string>
+  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">Weergave</string>
+  <string name="privacy" comment="privacy&#10;&#10;This is a category in the preferences. It allows for configuring privacy-related settings – for example, whether to allow other players to follow you.">Privacy</string>
   <string name="pieceAnimation">Stukanimatie</string>
   <string name="materialDifference">Materiaalverschil</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
@@ -12,11 +12,11 @@
   <string name="pgnPieceNotation">Stuknotatie in PGN</string>
   <string name="chessPieceSymbol">Schaakstuksymbool</string>
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen modus</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zenmodus</string>
   <string name="showPlayerRatings">Toon de rating van de spelers</string>
   <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
-  <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
+  <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
