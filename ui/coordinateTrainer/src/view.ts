@@ -32,9 +32,9 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
 }
 
 const colors: [ColorChoice, string][] = [
+  ['black', 'asBlack'],
   ['random', 'randomColor'],
   ['white', 'asWhite'],
-  ['black', 'asBlack'],
 ];
 
 function side(ctrl: CoordinateTrainerCtrl): VNode {

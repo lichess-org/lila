@@ -1,6 +1,7 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import { renderColorForm } from './side';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -28,7 +29,11 @@ export default function theme(ctrl: Controller): MaybeVNode {
               [' ', ctrl.trans.noarg('example')]
             ),
         ]),
-        showEditor ? h('div.puzzle__themes', editor(ctrl)) : null,
+        showEditor
+          ? h('div.puzzle__themes', editor(ctrl))
+          : !data.replay && !ctrl.streak
+          ? renderColorForm(ctrl)
+          : null,
       ]);
 }
 

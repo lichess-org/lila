@@ -170,9 +170,9 @@ const difficulties: [PuzzleDifficulty, number][] = [
   ['hardest', 600],
 ];
 const colors = [
+  ['black', 'asBlack'],
   ['random', 'randomColor'],
   ['white', 'asWhite'],
-  ['black', 'asBlack'],
 ];
 
 export function replay(ctrl: Controller): MaybeVNode {
@@ -224,7 +224,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
-    ...(data.replay || ctrl.streak ? [] : [renderDifficultyForm(ctrl), renderColorForm(ctrl)]),
+    data.replay || ctrl.streak ? renderDifficultyForm(ctrl) : null,
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
@@ -305,32 +305,33 @@ export const renderColorForm = (ctrl: Controller): VNode =>
         method: 'post',
       },
     },
-    [
-      h(
-        'label',
-        {
-          attrs: { for: 'puzzle-color' },
-        },
-        ctrl.trans.noarg('color')
-      ),
-      h(
-        'select#puzzle-color.puzzle__color__selector',
-        {
-          attrs: { name: 'color' },
-          hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())),
-        },
-        colors.map(([key, i18n]) =>
+    h(
+      'group.radio',
+      colors.map(([key, i18n]) =>
+        h('div', [
+          h('input', {
+            attrs: {
+              type: 'radio',
+              id: `coord_color_${key}`,
+              name: 'color',
+              value: key,
+              checked: key === (ctrl.settings.color || 'random'),
+            },
+            hook: onInsert(elm =>
+              elm.addEventListener('change', () => ($('.puzzle__side__config__color')[0] as HTMLFormElement).submit())
+            ),
+          }),
           h(
-            'option',
+            `label.color-${key}`,
             {
               attrs: {
-                value: key,
-                selected: key == (ctrl.settings.color || 'random'),
+                for: `coord_color_${key}`,
+                title: ctrl.trans.noarg(i18n),
               },
             },
-            ctrl.trans.noarg(i18n)
-          )
-        )
-      ),
-    ]
+            h('i')
+          ),
+        ])
+      )
+    )
   );
