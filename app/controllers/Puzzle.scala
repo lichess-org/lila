@@ -90,7 +90,7 @@ final class Puzzle(
 
   private def nextPuzzleForMe(angle: PuzzleAngle)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
-      case Some(me) => env.puzzle.session.nextPuzzleFor(me, angle)
+      case Some(me) => env.puzzle.selector.nextPuzzleFor(me, angle)
       case None     => env.puzzle.anon.getOneFor(angle) orFail "Couldn't find a puzzle for anon!"
     }
 

@@ -56,6 +56,8 @@ final class Env(
 
   lazy val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
+  lazy val selector: PuzzleSelector = wire[PuzzleSelector]
+
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
   lazy val batch: PuzzleBatch = wire[PuzzleBatch]

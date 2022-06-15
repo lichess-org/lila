@@ -14,8 +14,8 @@ object PuzzleDifficulty {
   case object Harder  extends PuzzleDifficulty(300, trans.puzzle.harder)
   case object Hardest extends PuzzleDifficulty(600, trans.puzzle.hardest)
 
-  val all     = List(Easiest, Easier, Normal, Harder, Hardest)
-  val default = Normal
+  val all                       = List(Easiest, Easier, Normal, Harder, Hardest)
+  val default: PuzzleDifficulty = Normal
 
   def isExtreme(d: PuzzleDifficulty) = d == Easiest || d == Hardest
 
