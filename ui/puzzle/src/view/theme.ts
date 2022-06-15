@@ -13,7 +13,11 @@ export default function theme(ctrl: Controller): MaybeVNode {
   return ctrl.streak
     ? null
     : h('div.puzzle__side__theme', [
-        h('a', { attrs: { href: `/training/${t.isOpening ? 'openings' : 'themes'}` } }, h('h2', ['« ', t.name])),
+        h('a', { attrs: { href: `/training/${t.isOpening ? 'openings' : 'themes'}` } }, h('h2', {
+          class: {
+            long: t.name.length > 20
+          }
+        }, ['« ', t.name])),
         h('p', [
           t.desc,
           t.chapter &&

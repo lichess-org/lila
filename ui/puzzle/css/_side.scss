@@ -134,6 +134,7 @@
     }
 
     &__color {
+      margin-top: 1.5vh;
       i {
         display: block;
         width: 24px;
@@ -218,6 +219,10 @@
       font-size: 1.5em;
       margin-bottom: 0.6rem;
       text-transform: uppercase;
+      &.long {
+        font-size: 1.3em;
+        letter-spacing: 0px;
+      }
     }
   }
 }
