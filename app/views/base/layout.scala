@@ -7,7 +7,7 @@ import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.common.{ ContentSecurityPolicy, Nonce }
+import lila.common.{ ContentSecurityPolicy, LangUtils, Nonce }
 import lila.common.base.StringUtils.escapeHtmlRaw
 
 object layout {
@@ -15,19 +15,10 @@ object layout {
   object bits {
     val doctype = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = {
-      val direction =
-        if (
-          lang.locale
-            .getDisplayName(lang.locale)
-            .charAt(0)
-            .getDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT || lang.locale
-            .getDisplayName(lang.locale)
-            .charAt(0)
-            .getDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
-        ) "rtl"
-        else "ltr"
+      val direction = if (LangUtils.isRTL) "rtl" else "ltr"
       html(st.lang := lang.code, dir := direction)
     }
+
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
