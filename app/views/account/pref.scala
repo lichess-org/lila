@@ -46,7 +46,7 @@ object pref {
       div(cls := "account box box-pad")(
         h1(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
-          categFieldset(PrefCateg.GameDisplay, categ)(
+          categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),
               radios(form("display.animation"), translatedAnimationChoices)
@@ -86,6 +86,15 @@ object pref {
             setting(
               blindfoldChess(),
               radios(form("display.blindfold"), translatedBlindfoldChoices)
+            ),
+            setting(
+              showPlayerRatings(),
+              frag(
+                radios(form("ratings"), booleanChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainShowPlayerRatings()
+                )
+              )
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
@@ -167,7 +176,7 @@ object pref {
               radios(form("behavior.scrollMoves"), booleanChoices)
             )
           ),
-          categFieldset(PrefCateg.Site, categ)(
+          categFieldset(PrefCateg.Privacy, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
               radios(form("follow"), booleanChoices)
@@ -191,15 +200,6 @@ object pref {
             setting(
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices)
-            ),
-            setting(
-              showPlayerRatings(),
-              frag(
-                radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := "")(
-                  explainShowPlayerRatings()
-                )
-              )
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
