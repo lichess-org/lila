@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Předvolby</string>
-  <string name="gameDisplay">Zobrazení hry</string>
   <string name="pieceAnimation">Animace figur</string>
   <string name="materialDifference">Materiální rozdíl</string>
   <string name="boardHighlights">Zvýraznění na šachovnici (poslední tah a šach)</string>
