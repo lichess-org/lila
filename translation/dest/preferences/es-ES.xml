@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferencias</string>
-  <string name="gameDisplay">Configuración visual del juego</string>
+  <string name="display">Mostrar</string>
+  <string name="privacy">Privacidad</string>
   <string name="pieceAnimation">Animación de las piezas</string>
   <string name="materialDifference">Diferencia material</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
