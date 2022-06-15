@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Iischtellige</string>
-  <string name="gameDisplay">Schpiil Darschtellig</string>
   <string name="pieceAnimation">Figure Animation</string>
   <string name="materialDifference">Materialunderschiid</string>
   <string name="boardHighlights">Markierige ufem Brätt (letschte Zug und Schach)</string>
