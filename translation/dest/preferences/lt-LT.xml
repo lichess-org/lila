@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Nuostatos</string>
-  <string name="gameDisplay">Žaidimo vaizdas</string>
   <string name="pieceAnimation">Figūrų animacija</string>
   <string name="materialDifference">Figūrų vertės skirtumas</string>
   <string name="boardHighlights">Lentos paryškinimai (paskutinis ėjimas ir šachas)</string>
