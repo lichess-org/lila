@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferências</string>
+  <string name="display">Mostrar</string>
+  <string name="privacy">Privacidade</string>
   <string name="pieceAnimation">Animação das peças</string>
   <string name="materialDifference">Diferença material</string>
   <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
