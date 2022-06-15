@@ -30,7 +30,7 @@ final class Pref(env: Env) extends LilaController(env) {
 
   def form(categSlug: String) =
     redirects get categSlug match {
-      case Some(redir) => Action.async(Redirect(routes.Pref.form(redir)).fuccess)
+      case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
       case None =>
         Auth { implicit ctx => me =>
           lila.pref.PrefCateg(categSlug) match {
