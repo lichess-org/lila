@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">설정</string>
-  <string name="gameDisplay">게임 화면</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
   <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
