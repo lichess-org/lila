@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Hoffterau</string>
-  <string name="gameDisplay">Dangos y gêm</string>
   <string name="pieceAnimation">Animeiddiad darnau</string>
   <string name="materialDifference">Gwahaniaeth materol</string>
   <string name="boardHighlights">Goleubwynt bwrdd (symudiad diwethaf a siach)</string>
