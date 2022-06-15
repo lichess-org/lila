@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Postavke</string>
-  <string name="gameDisplay">Prikaz igre</string>
   <string name="pieceAnimation">Animacija figura</string>
   <string name="materialDifference">Razlika materijala</string>
   <string name="boardHighlights">Označi na ploči zadnji potez i šah</string>
