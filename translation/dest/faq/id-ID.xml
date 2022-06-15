@@ -24,6 +24,8 @@
   <string name="howCanIBecomeModerator">Bagaimana saya bisa menjadi moderator?</string>
   <string name="youCannotApply">Kami tidak menerima aplikasi untuk menjadi moderator. Apabila kami menemukan seseorang yang kami rasa baik untuk menjadi moderator, maka orang tersebut akan dihubungi secara langsung.</string>
   <string name="isCorrespondenceDifferent">Apakah catur korespondensi berbeda dengan catur standar ?</string>
+  <string name="pleaseReadFairPlayPage">Untuk informasi lebih lanjut, baca %s</string>
+  <string name="fairPlayPage">halaman fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Di Lichess, perbedaan utama dalam aturan catur korespondensi adalah bahwa buku pembukaan diperbolehkan. Penggunaan mesin masih dilarang dan akan mengakibatkan plat merah untuk bantuan mesin. Meskipun ICCF mengizinkan penggunaan mesin dalam catur korespondensi, Lichess tidak</string>
   <string name="gameplay">Aspek permainan</string>
   <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>

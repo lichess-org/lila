@@ -10,9 +10,7 @@ import { view as boardView } from './board';
 import { view as themeView } from './theme';
 import { view as pieceView } from './piece';
 
-export function loading(): VNode {
-  return h('div#dasher_app.dropdown', h('div.initiating', spinner()));
-}
+export const loading = () => h('div#dasher_app.dropdown', h('div.initiating', spinner()));
 
 export function loaded(ctrl: DasherCtrl): VNode {
   let content: VNode | undefined;

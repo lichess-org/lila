@@ -40,6 +40,9 @@ object PuzzleForm {
   val difficulty = Form(
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
+  val color = Form(
+    single("color" -> lila.common.Form.color.mapping)
+  )
 
   object bc {
 

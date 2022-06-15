@@ -10,4 +10,39 @@
   <string name="allStudies">Kõik uuringud</string>
   <string name="studiesCreatedByX">%s loodud uuringud</string>
   <string name="noneYet">Veel mitte ühtegi.</string>
+  <string name="hot">Kuum</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s peatükk</item>
+    <item quantity="other">%s peatükki</item>
+  </plurals>
+  <string name="inviteToTheStudy">Kutsu uuringule</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Palun kutsuge ainult inimesi keda te teate ning kes soovivad aktiivselt selle uuringuga liituda.</string>
+  <string name="leaveTheStudy">Lahku uuringust</string>
+  <string name="pgnTags">PGN sildid</string>
+  <string name="like">Meeldib</string>
+  <string name="unlike">Eemalda meeldimine</string>
+  <string name="annotateWithGlyphs">Annoteerige glüüfidega</string>
+  <string name="onlyContributorsCanRequestAnalysis">Ainult selle uuringu panustajad saavad taotleda arvuti analüüsi.</string>
+  <string name="getAFullComputerAnalysis">Taotle täielikku serveripoolset arvuti analüüsi põhiliinist.</string>
+  <string name="cloneStudy">Klooni</string>
+  <string name="studyPgn">PGN Uuring</string>
+  <string name="chapterPgn">PGN Peatükk</string>
+  <string name="studyUrl">Uuringu URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Te saate selle asetada foorumisse või oma Lichessi blogisse sängitamiseks</string>
+  <string name="startAtInitialPosition">Alusta algpositsioonis</string>
+  <string name="studyNotFound">Uuringut ei leitud</string>
+  <string name="loadAGameFromPgn">Lae mänge PGN-ist</string>
+  <string name="automatic">Automaatne</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Aseta oma PGN tekst siia, kuni %s mäng</item>
+    <item quantity="other">Aseta oma PGN tekst siia, kuni %s mängu</item>
+  </plurals>
+  <string name="createStudy">Koosta uuring</string>
+  <string name="editStudy">Muuda uuringut</string>
+  <string name="pinnedStudyComment">Kinnitatud uuringu kommentaar</string>
+  <string name="deleteTheStudyChatHistory">Kas soovite kustutada uuringu vestluse ajaloo? Seda otsust ei saa tagasi võtta!</string>
+  <string name="deleteStudy">Kustuta uuring</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Kas soovite kustutada terve uuringu? Seda otsust ei saa tagasi võtta! Kirjutage uuringu nimi otsuse kinnitamiseks: %s</string>
+  <string name="whereDoYouWantToStudyThat">Kus te seda lauda soovite uurida?</string>
+  <string name="studyActions">Uuringu toimingud</string>
 </resources>

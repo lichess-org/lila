@@ -108,9 +108,9 @@
   <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Зерттеуді ашу</string>
-  <string name="enable">Қол жетімді</string>
+  <string name="enable">Қосулы</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
-  <string name="evaluationGauge">Бағалау мөлшері</string>
+  <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
@@ -297,7 +297,7 @@
   <string name="takebackPropositionAccepted">Жүрісті қайтаруға келісті</string>
   <string name="takebackPropositionCanceled">Жүрісті қайтарудан бас тартты</string>
   <string name="yourOpponentProposesATakeback">Қарсылас жүріс қайтаруды сұрап тұр</string>
-  <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
+  <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтау</string>
   <string name="tournament">Жарыс</string>
   <string name="tournaments">Жарыстар</string>
   <string name="tournamentPoints">Жарыс ұпайы</string>
@@ -428,7 +428,7 @@
   <string name="tournamentIsStarting">Жарыс басталуда</string>
   <string name="tournamentPairingsAreNowClosed">Жарысқа жұпталу аяқталды.</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
-  <string name="pause">Үзіліс жасау</string>
+  <string name="pause">Кідіру</string>
   <string name="resume">Жалғастыру</string>
   <string name="youArePlaying">Сіз ойындасыз!</string>
   <string name="winRate">Жеңіс үлесі</string>
@@ -463,7 +463,7 @@
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
-  <string name="inlineNotation">Бір жолды хаттама</string>
+  <string name="inlineNotation">Біржолды хаттама</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>

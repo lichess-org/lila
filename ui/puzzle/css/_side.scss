@@ -132,6 +132,32 @@
       @extend %flex-between;
       margin-top: 2vmin;
     }
+
+    &__color {
+      margin-top: 1.5vh;
+      i {
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+        padding: 0;
+      }
+      .color-white i {
+        background-image: url(../piece/cburnett/wK.svg);
+      }
+
+      .color-random i {
+        background-image: url(../images/wbK.svg);
+      }
+
+      .color-black i {
+        background-image: url(../piece/cburnett/bK.svg);
+      }
+      group.radio input:checked + label {
+        background: mix($c-bg-box, $c-primary, 50%);
+      }
+    }
   }
 
   &__replay {
@@ -193,6 +219,10 @@
       font-size: 1.5em;
       margin-bottom: 0.6rem;
       text-transform: uppercase;
+      &.long {
+        font-size: 1.3em;
+        letter-spacing: 0px;
+      }
     }
   }
 }
