@@ -107,7 +107,7 @@
   <string name="replayMode">Widergabemodus</string>
   <string name="realtimeReplay">Ächtziit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Studiä eröffnä</string>
+  <string name="openStudy">Schtudie eröffne</string>
   <string name="enable">Iischaltä</string>
   <string name="bestMoveArrow">Pfiil für de bescht Zug</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
@@ -253,7 +253,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="viewRematch">Revanche aaluege</string>
   <string name="confirmMove">Zug beschtätige</string>
   <string name="play">Schpille</string>
-  <string name="inbox">Poschtiigang</string>
+  <string name="inbox">Poschtigang</string>
   <string name="chatRoom">Chatruum</string>
   <string name="loginToChat">Zum chatte aamälde</string>
   <string name="youHaveBeenTimedOut">Du häsch es verordnets timeout.</string>
@@ -307,8 +307,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Turnierpünkt</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s Studiä</item>
-    <item quantity="other">%s Studiä</item>
+    <item quantity="one">%s Schtudie</item>
+    <item quantity="other">%s Schtudie</item>
   </plurals>
   <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turnier</string>
@@ -341,7 +341,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="siteDescription">Gratis Online Schach Server. Schpill Schach uf ere suubere Benutzeroberflächi! Kei Regrischtrierig, kei Werbig, kei Plugins. Schpill Schach gäge Computer, mit Fründe oder gäge zuefällig gwählte Gägner.</string>
   <string name="xJoinedTeamY">%1$s isch jetzt im Team %2$s</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
-  <string name="xStartedStreaming">%s hät aagfange Streame</string>
+  <string name="xStartedStreaming">%s hät agfange Streame</string>
   <string name="averageElo">Durchschnittswertig</string>
   <string name="location">Ortschaft/Land</string>
   <string name="filterGames">Partie filtere</string>
@@ -364,7 +364,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s importierti Partie</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach Captcha.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewise das du en Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug, 
+zum Bewise das du en Mänsch bisch.</string>
   <string name="captcha.fail">Bitte lös die Schach Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
@@ -395,7 +396,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s folgänd</item>
   </plurals>
   <string name="more">Meh</string>
-  <string name="memberSince">Mitgliid sit</string>
+  <string name="memberSince">Mitglid sit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
   <string name="player">Schpiller</string>
   <string name="list">Lischtä</string>
@@ -412,13 +413,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="createANewTournament">Erschtell es neus Turnier</string>
   <string name="tournamentCalendar">Turnier Kaländer</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
-  <string name="advancedSettings">Erwiterti Iischtellige</string>
+  <string name="advancedSettings">Erwiterti Ischtellige</string>
   <string name="safeTournamentName">Wähl en möglichscht sichere Name fürs Turnier.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
-  <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
+  <string name="showAdvancedSettings">Zeig die erwiterete Ischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Mach mit</string>
   <string name="withdraw">Usstiige</string>
@@ -457,7 +458,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
-  <string name="firstName">Vornamä</string>
+  <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Biografii</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
@@ -478,17 +479,17 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
   <string name="tournamentWinners">Turnier Sieger</string>
-  <string name="name">Namä</string>
-  <string name="description">Beschriibig</string>
-  <string name="descPrivate">Privati Beschriibig</string>
+  <string name="name">Name</string>
+  <string name="description">Beschribig</string>
+  <string name="descPrivate">Privati Beschribig</string>
   <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie öffentlich Tegscht.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
   <string name="createANewTopic">Erschtell es neus Thema</string>
-  <string name="topics">Themä</string>
+  <string name="topics">Theme</string>
   <string name="posts">Biiträg</string>
-  <string name="lastPost">Letschte Biitrag</string>
+  <string name="lastPost">Letschte Bitrag</string>
   <string name="views">Bsüech</string>
   <string name="replies">Antwortä</string>
   <string name="replyToThisTopic">Uf das Thema antwortä</string>
@@ -575,7 +576,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="error.email_unique">Die E-Mail-Adrässe isch ungültig oder bereits benutzt worde</string>
   <string name="error.email_different">Das isch bereits dini E-Mail-Adrässe</string>
   <string name="error.minLength">Muess mindeschtens %s Zeiche lang sii</string>
-  <string name="error.maxLength">Dörf höchschtens %s Zeiche lang sii</string>
+  <string name="error.maxLength">Dörf höchschtens %s Zeiche lang si</string>
   <string name="error.min">Muess mindeschtens %s sii</string>
   <string name="error.max">Dörf höchschtens %s sii</string>
   <string name="ifRatingIsPlusMinusX">Wänn d\'Wertig ± %s isch</string>
@@ -590,7 +591,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">%s Forum-Biitrag</item>
     <item quantity="other">%s Forum-Biiträg</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Gsamti-Spiilziit: %s</string>
+  <string name="tpTimeSpentPlaying">Gsamti-Spillzit: %s</string>
   <string name="watchGames">Partie zueluege</string>
   <string name="tpTimeSpentOnTV">Gsamtziit uf Lichess TV: %s</string>
   <string name="watch">Zueluege</string>
@@ -838,7 +839,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="xMentionedYouInY">%1$s hät dich in \"%2$s\" erwähnt.</string>
   <string name="invitedYouToX">hät dich zu \"%1$s\" iiglade.</string>
   <string name="xInvitedYouToY">%1$s hät dich zu \"%2$s\" iiglade.</string>
-  <string name="youAreNowPartOfTeam">Du bisch jetzt es Mitgliid vu dem Team.</string>
+  <string name="youAreNowPartOfTeam">Du bisch jetzt es Mitglid vu dem Team.</string>
   <string name="youHaveJoinedTeamX">Du bisch \"%1$s\" biiträte.</string>
   <string name="someoneYouReportedWasBanned">Öpper wo du gmäldet häsch, isch bannt worde</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
@@ -857,11 +858,11 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
-  <string name="tournDescription">Turnier Beschriibig</string>
+  <string name="tournDescription">Turnier Beschribig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Partie sind gwertet
 und beiiflussed dini Wertig</string>
-  <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
+  <string name="onlyMembersOfTeam">Nur Mitglider vum Team</string>
   <string name="noRestriction">Kei Iischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
@@ -901,7 +902,7 @@ Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="cantDoThisTwice">Wänn du dis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
   <string name="emailAssociatedToaccount">Mit dim Konto verbundeni E-Mail-Adrässe</string>
   <string name="sentEmailWithLink">Mir hän dir e E-Mail mit eme Link gschickt.</string>
-  <string name="tournamentEntryCode">Turnier-Biitrittscode</string>
+  <string name="tournamentEntryCode">Turnier-Bitrittscode</string>
   <string name="hangOn">En Momänt!</string>
   <string name="gameInProgress">Du häsch no e laufedi Partie mit %s.</string>
   <string name="abortTheGame">Partie abbräche</string>
