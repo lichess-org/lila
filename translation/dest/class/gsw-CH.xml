@@ -20,7 +20,7 @@
   <string name="sendAMessage">Schick e Nachricht a alli Schüeler.</string>
   <string name="aLinkToTheClassWillBeAdded">En Link a die ganz Klass wird automatisch - am Änd vu de Nachricht - zuegfüegt, drum muesch en du nöd sälber biifüege.</string>
   <string name="className">Klasse Name</string>
-  <string name="classDescription">Klasse Beschriibig</string>
+  <string name="classDescription">Klasse Beschribig</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüeler vu de Klass</string>
   <string name="teachersOfTheClass">Lehrer vu de Klass</string>
   <string name="addLichessUsernames">Füeg Lichess Benutzernäme zue, um sie als Lehrer iizlade. Aber nur 1 pro Ziile.</string>
