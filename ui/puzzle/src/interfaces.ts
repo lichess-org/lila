@@ -109,6 +109,7 @@ export interface Vm {
   cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
+  isDaily: boolean;
 }
 
 export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';

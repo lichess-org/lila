@@ -12,6 +12,8 @@ export default function theme(ctrl: Controller): MaybeVNode {
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak
     ? null
+    : ctrl.vm.isDaily
+    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', h('h2', 'Daily Puzzle'))
     : h('div.puzzle__side__theme', [
         h(
           'a',

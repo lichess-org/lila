@@ -224,6 +224,14 @@
         letter-spacing: 0px;
       }
     }
+
+    &--daily {
+      outline: 3px solid mix($c-bg-page, $c-good, 50%);
+      h2 {
+        margin: 0;
+        text-align: center;
+      }
+    }
   }
 }
 
