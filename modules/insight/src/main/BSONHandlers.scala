@@ -1,9 +1,10 @@
 package lila.insight
 
-import reactivemongo.api.bson._
-
 import chess.opening.OpeningFamily
 import chess.{ Color, Role }
+import reactivemongo.api.bson._
+
+import lila.common.LilaOpening
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
@@ -113,7 +114,7 @@ private object BSONHandlers {
           userId = r.str(userId),
           color = r.get[Color](color),
           perf = r.get[PerfType](perf),
-          opening = r.getO[OpeningFamily](opening),
+          opening = r.getO[LilaOpening](opening),
           myCastling = r.get[Castling](myCastling),
           ratingCateg = r.intO(ratingCateg),
           opponentRating = r.int(opponentRating),

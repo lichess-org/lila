@@ -4,6 +4,7 @@ import chess.opening.{ Ecopening, OpeningFamily }
 import chess.{ Color, Role }
 import org.joda.time.DateTime
 
+import lila.common.LilaOpening
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import lila.user.User
@@ -14,7 +15,7 @@ case class InsightEntry(
     userId: User.ID,
     color: Color,
     perf: PerfType,
-    opening: Option[OpeningFamily],
+    opening: Option[LilaOpening],
     myCastling: Castling,
     ratingCateg: Option[Int],
     opponentRating: Int,
