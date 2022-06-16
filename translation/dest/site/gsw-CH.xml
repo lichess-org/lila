@@ -15,13 +15,13 @@
   <string name="resign">Ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
-  <string name="white">Wiis</string>
+  <string name="white">Wiss</string>
   <string name="black">Schwarz</string>
   <string name="asWhite">als Wiss</string>
   <string name="asBlack">als Schwarz</string>
   <string name="randomColor">Farb zuefällig</string>
   <string name="createAGame">Erschtell e Partie</string>
-  <string name="whiteIsVictorious">Wiis gwünnt</string>
+  <string name="whiteIsVictorious">Wiss gwünnt</string>
   <string name="blackIsVictorious">Schwarz gwünnt</string>
   <string name="youPlayTheWhitePieces">Du schpillsch mit Wiss</string>
   <string name="youPlayTheBlackPieces">Du schpillsch mit Schwarz</string>
@@ -34,7 +34,7 @@
   <string name="newOpponent">En neue Gägner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpiil mit dir schpille</string>
   <string name="joinTheGame">Tritt dä Partii bi</string>
-  <string name="whitePlays">Wiis am Zug</string>
+  <string name="whitePlays">Wiss am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din Gägner hät d\'Partie verlah. Du chasch i %s Sekunde din Sieg beaschpruche.</item>
@@ -45,11 +45,11 @@
   <string name="forceDraw">Remis mälde</string>
   <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
-  <string name="whiteResigned">Wiis hät uufgää</string>
+  <string name="whiteResigned">Wiss git uf</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiss hät d\'Partie verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partie verlah</string>
-  <string name="whiteDidntMove">Wiis hät nöt zogä</string>
+  <string name="whiteDidntMove">Wiss hät nöd zoge</string>
   <string name="blackDidntMove">Schwarz hät nöd zoge</string>
   <string name="requestAComputerAnalysis">E Computeranalyse aafordere</string>
   <string name="computerAnalysis">Computer-Analyse</string>
@@ -82,14 +82,14 @@
   <string name="database">Datäbank</string>
   <string name="whiteDrawBlack">Wiss / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittlichi Wärtigszahl: %s</string>
-  <string name="recentGames">Chürzlichi Partiiä</string>
-  <string name="topGames">Schpitzä-Partiiä</string>
+  <string name="recentGames">Aktuelli Partie</string>
+  <string name="topGames">Beschti-Partie</string>
   <string name="masterDbExplanation">2 Millione OTB Schpiil vu %1$s+ FIDE-gwertete Schpiller vu %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt i %s Halbzug</item>
     <item quantity="other">Matt i %s Halbzüg</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Aazahl Halbzüg bis zum nächschte Schlag- oder Puure-Zug</string>
+  <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Azahl Halbzüg bis zum nächschte Schlag- oder Pure-Zug</string>
   <string name="noGameFound">Keis Schpiil gfunde</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiil vom Iischteligs Menü iibezoge werde?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
@@ -99,7 +99,7 @@
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züg dur en vorherige Fähler</string>
   <string name="lossOr50MovesByPriorMistake">Niderlaag oder 50 Züg dur en vorherige Fähler</string>
-  <string name="unknownDueToRounding">Sieg/Niderlaag nur garantiert, wänn die empfohle Datäbank-Zugfolg sit em letschte Schlag- oder Puure-Zug befolgt worde isch, da möglicherwiis DTZ-Wert ide Syzygy-Datäbank grundet sind.</string>
+  <string name="unknownDueToRounding">Sieg/Niderlag nur garantiert, wänn die empfohle Datäbank-Zugfolg sit em letschte Schlag- oder Puure-Zug befolgt worde isch, da möglicherwis DTZ-Wert i de Syzygy-Datäbank grundet sind.</string>
   <string name="allSet">Färtig!</string>
   <string name="importPgn">PGN importierä</string>
   <string name="delete">Lösche</string>
@@ -145,8 +145,8 @@
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
   <string name="currentGames">Laufendi Partie</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partii</item>
-    <item quantity="other">%s Partiiä</item>
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partie</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Läsezeichä</item>
@@ -214,8 +214,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="gamesPlayed">Gschpillti Partie</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s Partii mit dir</item>
-    <item quantity="other">%s Partiiä mit dir</item>
+    <item quantity="one">%s Partie mit dir</item>
+    <item quantity="other">%s Partie mit dir</item>
   </plurals>
   <string name="cancel">Abbräche</string>
   <string name="whiteTimeOut">Wiss hät d\'Ziit überschritte</string>
@@ -355,16 +355,16 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da ii</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>
   <string name="fromPosition">Ab Schtellig</string>
-  <string name="continueFromHere">Vu da us wiiter schpille</string>
+  <string name="continueFromHere">Vu da us witer schpille</string>
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Partie importiere</string>
   <string name="importGameExplanation">Füeg e Schpiil-PGN ii, für Zuegriff uf Schpiilwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s importierti Partii</item>
-    <item quantity="other">%s importierti Partiiä</item>
+    <item quantity="one">%s importierti Partie</item>
+    <item quantity="other">%s importierti Partie</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach Captcha.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewiis das du en Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewise das du en Mänsch bisch.</string>
   <string name="captcha.fail">Bitte lös die Schach Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
@@ -373,7 +373,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="reconnecting">Widerverbindä</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Fründ online</item>
-    <item quantity="other">%s Fründä online</item>
+    <item quantity="other">%s Fründe online</item>
   </plurals>
   <string name="favoriteOpponents">Hüfigschti Gägner</string>
   <string name="follow">Verfolge</string>
@@ -444,11 +444,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
   <string name="boardEditor">Schtellig ufbaue</string>
   <string name="setTheBoard">Brätt ufbaue</string>
-  <string name="popularOpenings">Beliäbti Eröffnigä</string>
+  <string name="popularOpenings">Beliebti Eröffnige</string>
   <string name="endgamePositions">Ändschpiil-Posizione</string>
   <string name="chess960StartPosition">Schach960 Afangsschtellig: %s</string>
   <string name="startPosition">Afangsposition</string>
-  <string name="clearBoard">Brätt löschä</string>
+  <string name="clearBoard">Brätt lösche</string>
   <string name="loadPosition">Schtellig lade</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Mäld %s dä Moderatorä</string>
@@ -471,8 +471,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwertet, aber ohni Ziitlimit!</string>
   <string name="success">Korräkt</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s laufändi Partii</item>
-    <item quantity="other">%s laufendi Partiiä</item>
+    <item quantity="one">%s laufendi Partie</item>
+    <item quantity="other">%s laufendi Partie</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
@@ -642,7 +642,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
   <string name="newTournament">Neus Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedene Ziitkontrolle und Variante</string>
-  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und wiiteri Variante sind vorhande - für ändlose Schach-Spass.</string>
+  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und witeri Variante sind vorhande - für ändlose Schach-Spass.</string>
   <string name="tournamentNotFound">Turnier nöd gfunde</string>
   <string name="tournamentDoesNotExist">Das Turnier exischtiert nöd.</string>
   <string name="tournamentMayHaveBeenCanceled">Das Turnier wird abgseit, wänn alli Schpiller vor em Beginn weg sind.</string>
@@ -661,7 +661,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="glicko2Rating">Glicko-2 Wertig</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt: Klick de Link i de Nachricht, zum dis Konto aktiviere.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech wiiteri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech witeri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
@@ -724,7 +724,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="pieceSet">Figureart</string>
   <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>
-  <string name="usernamePrefixInvalid">De Benutzername muess mit eme Buechschtabe aafange.</string>
+  <string name="usernamePrefixInvalid">De Benutzername muess mit eme Buechschtabe afange.</string>
   <string name="usernameSuffixInvalid">De Benutzername muess mit eme Buechschtabe oder ere Zahl ände.</string>
   <string name="usernameCharsInvalid">De Benutzername dörf nu Buechschtabe, Zahle, Understrich und Bindestrich ha. Nach enand folgendi Understrich oder Bindestrich sind nöd erlaubt.</string>
   <string name="usernameUnacceptable">De Benutzername wird nöd akzeptiert.</string>
@@ -760,7 +760,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="xWasPlayed">%s isch gschpillt worde</string>
   <string name="findBetterMoveForWhite">Find en bessere Zug für Wiss</string>
   <string name="findBetterMoveForBlack">Find en bessere Zug für Schwarz</string>
-  <string name="resumeLearning">Wiiter lerne</string>
+  <string name="resumeLearning">Witer lerne</string>
   <string name="youCanDoBetter">Das chasch du besser</string>
   <string name="tryAnotherMoveForWhite">Probier en andere Zug für Wiss</string>
   <string name="tryAnotherMoveForBlack">Probier en andere Zug für Schwarz</string>
