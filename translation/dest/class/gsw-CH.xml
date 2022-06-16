@@ -70,7 +70,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
   <string name="closeTheAccount">Schüeler Konto duurhaft schlüsse.</string>
   <string name="closeDesc1">De Schüeler chann das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de Schüeler das verstaht und akzeptiert.</string>
-  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass ers wiiter chann benutze.</string>
+  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass er das witer benutze chann.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>
