@@ -530,7 +530,7 @@
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Nilai tidak valid</string>
+  <string name="error.unknown">Nilai tidak valid</string>
   <string name="error.required">Isian di sini diperlukan</string>
   <string name="error.email">Alamat e-mail ini tidak valid</string>
   <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
