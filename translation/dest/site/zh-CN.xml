@@ -533,7 +533,7 @@
   <string name="community">社区</string>
   <string name="tools">工具</string>
   <string name="increment">每步加秒</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">无效值</string>
+  <string name="error.unknown">无效值</string>
   <string name="error.required">本项必填</string>
   <string name="error.email">该电子邮件地址无效</string>
   <string name="error.email_acceptable">该电子邮件地址是不可用。请重新检查后重试。</string>
