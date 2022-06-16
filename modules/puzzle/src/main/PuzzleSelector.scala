@@ -68,7 +68,7 @@ final class PuzzleSelector(
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
             case WrongColor =>
               sessionApi.set(user, session.next)
-              nextPuzzleFor(user, angle, retries = retries + 0)
+              nextPuzzleFor(user, angle, retries = retries + 1)
             case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
