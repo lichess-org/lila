@@ -17,7 +17,7 @@
   <string name="humanOrComputer">Ob de Gägner en Mänsch oder en Computer gsi isch</string>
   <string name="aiLevel">K.I. Stärchi</string>
   <string name="source">Quälle</string>
-  <string name="nbTurns">Aazahl Züg</string>
+  <string name="nbTurns">Azahl Züg</string>
   <string name="result">Ergäbnis</string>
   <string name="winnerColor">Sieger Farb</string>
   <string name="date">Datum</string>
@@ -26,8 +26,8 @@
   <string name="onlyAnalysed">Nur Partie mit verfüegbarer Computeranalyse</string>
   <string name="color">Farb</string>
   <string name="evaluation">Uswertig</string>
-  <string name="maxNumber">Maximali Aazahl</string>
-  <string name="maxNumberExplanation">Die maximal Aazahl Partie zum aazeige</string>
+  <string name="maxNumber">Maximali Azahl</string>
+  <string name="maxNumberExplanation">Die maximal Azahl Partie zum azeige</string>
   <string name="include">devo</string>
   <string name="descending">Abstiigend</string>
   <string name="ascending">Ufstiigend</string>
