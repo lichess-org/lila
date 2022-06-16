@@ -533,7 +533,7 @@
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">잘못된 값</string>
+  <string name="error.unknown">잘못된 값</string>
   <string name="error.required">필수 기입 사항입니다.</string>
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
