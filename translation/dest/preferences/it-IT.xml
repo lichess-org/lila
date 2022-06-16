@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferenze</string>
-  <string name="gameDisplay">Schermata di gioco</string>
+  <string name="display">Mostra</string>
+  <string name="privacy">Privacy</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
   <string name="materialDifference">Differenza di materiale</string>
   <string name="boardHighlights">Segnalazioni sulla scacchiera (ultima mossa e scacco)</string>

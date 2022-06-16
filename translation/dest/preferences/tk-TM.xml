@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ileri tutmalar</string>
-  <string name="gameDisplay">Oýun display</string>
   <string name="pieceAnimation">Çöp animasiýasy</string>
   <string name="materialDifference">Material tapawudy</string>
   <string name="boardHighlights">Tagta indikatorlary (soňky göçüm we şah)</string>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Préférences</string>
-  <string name="gameDisplay">Affichage de la partie</string>
+  <string name="display">Affichage</string>
+  <string name="privacy">Confidentialité</string>
   <string name="pieceAnimation">Animation des pièces</string>
   <string name="materialDifference">Différence de matériel</string>
   <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>

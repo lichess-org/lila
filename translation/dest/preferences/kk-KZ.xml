@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Баптаулар</string>
-  <string name="gameDisplay">Ойын көрінісі</string>
+  <string name="display">Көрініс</string>
+  <string name="privacy">Жеке мәліметтер</string>
   <string name="pieceAnimation">Тастар анимациясы</string>
   <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
   <string name="boardHighlights">Жүріс ізін көрсету (кейінгі жүріс пен шах)</string>

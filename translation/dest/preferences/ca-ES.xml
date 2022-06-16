@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferències</string>
-  <string name="gameDisplay">Presentació del tauler</string>
+  <string name="display">Visualització</string>
+  <string name="privacy">Privacitat</string>
   <string name="pieceAnimation">Animació de les peces</string>
   <string name="materialDifference">Diferència de material</string>
   <string name="boardHighlights">Marcar caselles (últim moviment i escac)</string>

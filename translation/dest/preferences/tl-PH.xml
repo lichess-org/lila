@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Mga Kagustuhan</string>
-  <string name="gameDisplay">Papakita ng Laro</string>
   <string name="pieceAnimation">Piraso ng animasyon</string>
   <string name="materialDifference">Pagkakaiba ng materyal</string>
   <string name="boardHighlights">Mga highlight ng board (huling galaw at suriin)</string>
