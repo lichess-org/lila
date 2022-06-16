@@ -2,6 +2,7 @@ package lila.puzzle
 
 import play.api.i18n.Lang
 
+import lila.common.LilaOpening
 import lila.i18n.I18nKey
 
 sealed abstract class PuzzleAngle(val key: String) {
@@ -16,8 +17,8 @@ object PuzzleAngle {
     val description = PuzzleTheme(theme).description
     def asTheme     = theme.some
   }
-  case class Opening(opening: PuzzleOpening.Key) extends PuzzleAngle(opening.value) {
-    def openingName = PuzzleOpening(opening).fold("Any")(_.name)
+  case class Opening(opening: LilaOpening.Key) extends PuzzleAngle(opening.value) {
+    def openingName = LilaOpening(opening).fold("Any")(_.name.value)
     val name        = new I18nKey(openingName)
     val description = new I18nKey(s"From games with the opening: $openingName")
     def asTheme     = none
@@ -25,11 +26,11 @@ object PuzzleAngle {
 
   // def apply(theme: PuzzleTheme.Key): PuzzleAngle = Theme(theme)
   def apply(theme: PuzzleTheme): PuzzleAngle = Theme(theme.key)
-  // def apply(opening: PuzzleOpening.Key): PuzzleAngle = Opening(opening)
-  def apply(opening: PuzzleOpening): PuzzleAngle = Opening(opening.key)
+  // def apply(opening: LilaOpening.Key): PuzzleAngle = Opening(opening)
+  def apply(opening: LilaOpening): PuzzleAngle = Opening(opening.key)
 
   def find(key: String): Option[PuzzleAngle] =
-    PuzzleTheme.find(key).map(apply).orElse(PuzzleOpening.find(key).map(apply))
+    PuzzleTheme.find(key).map(apply).orElse(LilaOpening.find(key).map(apply))
 
   val mix: PuzzleAngle = apply(PuzzleTheme.mix)
 

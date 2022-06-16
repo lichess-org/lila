@@ -6,22 +6,18 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.LilaStream
+import lila.common.{ LilaOpening, LilaStream }
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.memo.CacheApi
 
-case class PuzzleOpening(ref: FullOpening) {
-  val name: PuzzleOpening.Name = ref.variation.fold(ref.family.name)(v => s"${ref.family.name}: ${v.name}")
-  val key: PuzzleOpening.Key   = PuzzleOpening.nameToKey(name)
-  def family                   = ref.family
-  def variation                = ref.variation
-}
-
 case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
+
+  import LilaOpening._
   import PuzzleOpening._
-  val byKey: Map[PuzzleOpening.Key, PuzzleOpening.WithCount] = all.view.map { op =>
+
+  val byKey: Map[Key, WithCount] = all.view.map { op =>
     op.opening.key -> op
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
@@ -38,7 +34,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
     .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
     .map { case (fam, ops) =>
-      fam -> ops.sortBy(_.opening.name)
+      fam -> ops.sortBy(_.opening.name.value)
     }
     .sortBy(_._1.family.family.name)
 
@@ -54,6 +50,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
     mat: akka.stream.Materializer
 ) {
   import BsonHandlers._
+  import LilaOpening._
   import PuzzleOpening._
 
   private val collectionCache =
@@ -62,20 +59,20 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
         .buildAsyncFuture { _ =>
           import Puzzle.BSONFields._
           colls.puzzle {
-            _.aggregateList(PuzzleOpening.maxOpenings) { framework =>
+            _.aggregateList(maxOpenings) { framework =>
               import framework._
               UnwindField(opening) -> List(
                 PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
-                Limit(PuzzleOpening.maxOpenings)
+                Limit(maxOpenings)
               )
             }.map {
               _.flatMap { obj =>
                 for {
-                  key     <- obj string "_id" map PuzzleOpening.Key
-                  opening <- PuzzleOpening(key)
+                  key     <- obj string "_id" map LilaOpening.Key
+                  opening <- LilaOpening(key)
                   if opening.variation.fold(true)(_ != otherVariations)
                   count <- obj int "count"
-                } yield PuzzleOpening.WithCount(opening, count)
+                } yield WithCount(opening, count)
               }
             } map PuzzleOpeningCollection
           }
@@ -85,7 +82,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 
-  def count(key: PuzzleOpening.Key): Fu[Int] =
+  def count(key: LilaOpening.Key): Fu[Int] =
     collection dmap { _.byKey.get(key).??(_.count) }
 
   def addAllMissing: Funit =
@@ -116,7 +113,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
           }
         case Some(o) =>
           val variation = o.variation | otherVariations
-          val keys      = List(nameToKey(o.family.name), nameToKey(s"${o.family.name}: ${variation.name}"))
+          val keys = List(
+            LilaOpening.nameToKey(Name(o.family.name)),
+            LilaOpening.nameToKey(Name(s"${o.family.name}: ${variation.name}"))
+          )
           colls.puzzle {
             _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
           }
@@ -126,12 +126,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
 }
 
 case class PuzzleOpeningFamily(family: OpeningFamily, ref: FullOpening) {
-  lazy val key = PuzzleOpening.nameToKey(family.name)
+  lazy val key = LilaOpening.nameToKey(LilaOpening.Name(family.name))
 }
 
 object PuzzleOpening {
-
-  case class Key(value: String) extends AnyVal with StringValue
 
   val maxOpenings = 1000
 
@@ -140,34 +138,11 @@ object PuzzleOpening {
 
   val otherVariations = OpeningVariation("Other variations")
 
-  case class WithCount(opening: PuzzleOpening, count: Count)
+  case class WithCount(opening: LilaOpening, count: Count)
   case class FamilyWithCount(family: PuzzleOpeningFamily, count: Count)
 
-  type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[PuzzleOpening.WithCount])]
-  type TreeList = List[(FamilyWithCount, List[PuzzleOpening.WithCount])]
-
-  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
-
-  private[puzzle] def nameToKey(name: Name) = Key {
-    java.text.Normalizer
-      .normalize(
-        name,
-        java.text.Normalizer.Form.NFD
-      )                                      // split an accented letter in the base letter and the accent
-      .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
-      .replaceAllIn("""\s+""".r, "_")
-      .replaceAllIn("""[^\w\-]+""".r, "")
-  }
-
-  def apply(key: Key): Option[PuzzleOpening] = openings get key
-
-  def find(key: String): Option[PuzzleOpening] = apply(Key(key))
-
-  lazy val openings: Map[Key, PuzzleOpening] = FullOpeningDB.all
-    .foldLeft(Map.empty[Key, PuzzleOpening]) { case (acc, fullOp) =>
-      val op = PuzzleOpening(fullOp)
-      if (acc.contains(op.key)) acc else acc.updated(op.key, op)
-    }
+  type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[WithCount])]
+  type TreeList = List[(FamilyWithCount, List[WithCount])]
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 

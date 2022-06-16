@@ -138,6 +138,11 @@ trait Handlers {
   implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
     stringAnyValHandler(_.value, lila.common.Markdown.apply)
 
+  import lila.common.LilaOpening
+  implicit val OpeningKeyBSONHandler: BSONHandler[LilaOpening.Key] = stringIsoHandler(
+    LilaOpening.keyIso
+  )
+
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
       case BSONString(v) => Variant orDefault v
