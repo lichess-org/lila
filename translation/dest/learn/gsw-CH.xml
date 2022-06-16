@@ -96,7 +96,7 @@ Umwandle muesch nöd.</string>
   <string name="mateInOneComplete">Gratuliere, genau so günnsch du Schachschpiil!</string>
   <string name="intermediate">Mittlers Niveau</string>
   <string name="boardSetup">Ufschtellig</string>
-  <string name="howTheGameStarts">Wie das Schpiil aafangt</string>
+  <string name="howTheGameStarts">Wie das Schpiil afangt</string>
   <string name="boardSetupIntro">Die beide Armee stöhnd sich gägenüber, parat für d\'Schlacht.</string>
   <string name="thisIsTheInitialPosition">Das isch die korräkti Afangsschtellig vu jedem Schachschpiil. Mach irgend en Zug zum witer fahre.</string>
   <string name="firstPlaceTheRooks">Stell zerscht die beide Türm uf!
@@ -109,7 +109,7 @@ Grad nach de Schpringer.</string>
   <string name="placeTheKing">Und dänn no de König!
 Zu de Dame - näbe sini Königin.</string>
   <string name="pawnsFormTheFrontLine">Puure bilded die vorderscht Linie.
-Mach irgend en Zug zum wiiter fahre.</string>
+Mach irgend en Zug zum witer fahre.</string>
   <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">De schpezielli Königszug</string>
@@ -170,7 +170,7 @@ Puur = 1</string>
   <string name="checkInTwoIntro">Find di richtig Kombination, zum de König mit 2 Züg Schach setze!</string>
   <string name="checkInTwoGoal">Bedroh de König mit 2 Züg!</string>
   <string name="checkInTwoComplete">Gratuliere, du häsch din Gägner Schach gsetzt und ihn zur Verteidigung vu sim König zwunge!</string>
-  <string name="whatNext">Wie gahts wiiter?</string>
+  <string name="whatNext">Wie gahts witer?</string>
   <string name="youKnowHowToPlayChess">Gratuliere, du weisch jetzt wie me Schach schpillt! Wottsch en stärchere Schpiller werde?</string>
   <string name="register">Regischtriere</string>
   <string name="getAFreeLichessAccount">Mach es Gratis Konto bi lichess</string>
@@ -191,13 +191,13 @@ Puur = 1</string>
   <string name="greatJob">Gueti Arbet!</string>
   <string name="perfect">Perfäkt!</string>
   <string name="outstanding">Herusragend!</string>
-  <string name="wayToGo">Wiiter so!</string>
+  <string name="wayToGo">Witer so!</string>
   <string name="yesYesYes">Ja - ja - ja!</string>
   <string name="youreGoodAtThis">Du bisch guet i dem!</string>
   <string name="nailedIt">Ganz genau so.</string>
   <string name="rightOn">Uf de Punkt!</string>
   <string name="stageXComplete">Schtufe %s beändet</string>
-  <string name="next">Wiiter mit</string>
+  <string name="next">Witer mit</string>
   <string name="nextX">Nächschti: %s</string>
   <string name="backToMenu">Zrugg zum Menü</string>
   <string name="puzzleFailed">Ufgab nöd glöst!</string>
