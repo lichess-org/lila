@@ -18,6 +18,7 @@ import lila.puzzle.{
   PuzzleDifficulty,
   PuzzleOpening,
   PuzzleReplay,
+  PuzzleSettings,
   PuzzleStreak,
   PuzzleTheme,
   Result
@@ -48,11 +49,11 @@ final class Puzzle(
       replay: Option[PuzzleReplay] = None
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
-      ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
+      ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
         EnableSharedArrayBuffer(
           Ok(
             views.html.puzzle
-              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty)
+              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), settings | PuzzleSettings.default)
           )
         )
       }
@@ -90,7 +91,7 @@ final class Puzzle(
 
   private def nextPuzzleForMe(angle: PuzzleAngle)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
-      case Some(me) => env.puzzle.session.nextPuzzleFor(me, angle)
+      case Some(me) => env.puzzle.selector.nextPuzzleFor(me, angle)
       case None     => env.puzzle.anon.getOneFor(angle) orFail "Couldn't find a puzzle for anon!"
     }
 
@@ -223,7 +224,7 @@ final class Puzzle(
                 NoCache {
                   Ok {
                     views.html.puzzle
-                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), none)
+                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), PuzzleSettings.default)
                   }
                 }
               }
@@ -276,15 +277,24 @@ final class Puzzle(
       }
     }
 
+  def setColor(theme: String) =
+    AuthBody { implicit ctx => me =>
+      NoBot {
+        implicit val req = ctx.body
+        val color        = env.puzzle.forms.color.bindFromRequest().value
+        env.puzzle.session.setColor(me, color) inject Redirect(routes.Puzzle.show(theme))
+      }
+    }
+
   def themes = Open { implicit ctx =>
     env.puzzle.api.angles map { all =>
       Ok(views.html.puzzle.theme.list(all))
     }
   }
 
-  def openings = Open { implicit ctx =>
-    env.puzzle.api.angles map { all =>
-      Ok(views.html.puzzle.theme.openings(all.openings))
+  def openings(order: String) = Open { implicit ctx =>
+    env.puzzle.opening.collection map { collection =>
+      Ok(views.html.puzzle.opening.all(collection, PuzzleOpening.Order(order)))
     }
   }
 

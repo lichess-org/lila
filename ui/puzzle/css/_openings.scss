@@ -1,0 +1,54 @@
+.puzzle-openings {
+  &__list {
+    display: grid;
+    margin: 0 0 3em var(--box-padding);
+    grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
+
+    @include breakpoint($mq-not-xx-small) {
+      grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    }
+  }
+
+  &__link {
+    @extend %box-radius;
+
+    display: flex;
+    padding: 0.5em 0.7em 0.5em 1.5em;
+
+    &:hover {
+      background: mix($c-bg-box, $c-link, 90%);
+
+      &::before {
+        color: $c-primary;
+      }
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      &::before {
+        display: none;
+      }
+
+      padding-left: 1em;
+    }
+
+    h3 {
+      font-weight: normal;
+      font-size: 1.2em;
+      display: block;
+    }
+  }
+
+  h2 {
+    margin: 1em 0;
+  }
+
+  &__link em,
+  em {
+    @extend %roboto;
+
+    color: $c-font-dimmer;
+    font-size: 0.8em;
+    margin-left: 0.7ch;
+    letter-spacing: -1px;
+  }
+}

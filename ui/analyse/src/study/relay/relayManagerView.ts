@@ -112,9 +112,7 @@ function getDateFormatter(): (date: Date) => string {
             minute: 'numeric',
             second: 'numeric',
           }).format
-        : function (d) {
-            return d.toLocaleString();
-          };
+        : d => d.toLocaleString();
 
   return cachedDateFormatter;
 }

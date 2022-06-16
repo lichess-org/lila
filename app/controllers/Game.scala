@@ -71,7 +71,7 @@ final class Game(
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     env.user.repo named username flatMap {
-      _.filter(_.enabled || me.??(isGranted(_.GamesModView, _))) ?? { user =>
+      _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
         WithVs(req) { vs =>
           val finished = getBoolOpt("finished", req) | true

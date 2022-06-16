@@ -1,5 +1,6 @@
 #powerTip,
-#miniGame {
+#miniGame,
+#miniBoard {
   @extend %box-radius-force, %popup-shadow;
 
   width: 20rem;
@@ -126,7 +127,8 @@
   }
 }
 
-#miniGame {
+#miniGame,
+#miniBoard {
   min-height: 262px;
 
   .spinner {

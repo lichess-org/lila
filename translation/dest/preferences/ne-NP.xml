@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">प्राथमिकता</string>
-  <string name="gameDisplay">खेलको प्रदर्शन</string>
   <string name="pieceAnimation">गोटीहरुको एनिमेशन</string>
   <string name="materialDifference">गोटीहरुमा फरक</string>
   <string name="boardHighlights">बोर्डमा हाइलाइट (अन्तिम चाल र चेक)</string>

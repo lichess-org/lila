@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Testreszabás</string>
-  <string name="gameDisplay">Játék megjelenítése</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
   <string name="boardHighlights">Kiemelés a táblán (utolsó lépés és sakk)</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Stillingar</string>
-  <string name="gameDisplay">Stillingar leiks</string>
   <string name="pieceAnimation">Hreyfing taflmanna</string>
   <string name="materialDifference">Liðsmunur</string>
   <string name="boardHighlights">Upplýsa borð (á síðasta leik og skák)</string>

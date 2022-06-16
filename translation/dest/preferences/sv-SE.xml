@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Inställningar</string>
-  <string name="gameDisplay">Spelutseende</string>
   <string name="pieceAnimation">Pjäsanimation</string>
   <string name="materialDifference">Materialskillnad</string>
   <string name="boardHighlights">Brädmarkeringar (föregående drag och schack)</string>

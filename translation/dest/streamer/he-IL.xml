@@ -35,6 +35,7 @@
 כתבו את תוית השפה בכותרת המשדר בעמוד הטוויץ׳ או היוטיוב ולא בהגדרות משדר של ליצ׳ס.
 במידה והמשדר שלכם באנגלית, אין צורך לצרף תוית שפה.</string>
   <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
+  <string name="optionalOrEmpty">אופציונאלי. אם אין, השאר את השדה ריק</string>
   <string name="youtubeChannel">כתובת או מספר זיהוי ערוץ היוטיוב שלכם</string>
   <string name="streamerName">השם שדרן שלכם בליצ׳ס</string>
   <plurals name="keepItShort">

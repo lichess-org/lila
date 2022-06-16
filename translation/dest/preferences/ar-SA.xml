@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">تفضيلات</string>
-  <string name="gameDisplay">مظهر المباراة</string>
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>

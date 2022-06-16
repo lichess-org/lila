@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nKey
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleTheme }
+import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
 object theme {
 
@@ -24,8 +24,8 @@ object theme {
             all.themes take 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
             },
-            h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings)(trans.more(), " »")),
-            openingList(all.openings take 12),
+            h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings())(trans.more(), " »")),
+            opening.listOf(all.openings take 12),
             all.themes drop 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
             },
@@ -35,24 +35,7 @@ object theme {
       )
     )
 
-  def openings(openings: List[(PuzzleOpening, Int)])(implicit ctx: Context) =
-    views.html.base.layout(
-      title = "Puzzles by openings",
-      moreCss = cssTag("puzzle.page")
-    )(
-      main(cls := "page-menu")(
-        bits.pageMenu("openings"),
-        div(cls := "page-menu__content box")(
-          h1("Puzzles by openings"),
-          div(cls := "puzzle-themes")(
-            openingList(openings),
-            info
-          )
-        )
-      )
-    )
-
-  private def info(implicit ctx: Context) =
+  private[puzzle] def info(implicit ctx: Context) =
     p(cls := "puzzle-themes__db text", dataIcon := "")(
       trans.puzzleTheme.puzzleDownloadInformation(
         a(href := "https://database.lichess.org/")("database.lichess.org")
@@ -86,14 +69,4 @@ object theme {
           )
       )
     )
-
-  private def openingList(openings: List[(PuzzleOpening, Int)])(implicit ctx: Context) =
-    div(cls := "puzzle-openings__list")(openings map { case (opening, count) =>
-      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(opening.key.value))(
-        h3(
-          opening.name,
-          em(count.localize)
-        )
-      )
-    })
 }

@@ -17,14 +17,16 @@
   <string name="stalemate">Patt</string>
   <string name="white">Valge</string>
   <string name="black">Must</string>
+  <string name="asWhite">valgena</string>
+  <string name="asBlack">mustana</string>
   <string name="randomColor">Juhuslik värv</string>
   <string name="createAGame">Loo mäng</string>
   <string name="whiteIsVictorious">Võitis valge</string>
   <string name="blackIsVictorious">Võitis must</string>
   <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
   <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
-  <string name="itsYourTurn">Sinu käik!</string>
-  <string name="cheatDetected">Sohk Tuvastatud</string>
+  <string name="itsYourTurn">Teie käik!</string>
+  <string name="cheatDetected">Sohk tuvastatud</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">Must alistus</string>
   <string name="whiteLeftTheGame">Valge lahkus mängust</string>
   <string name="blackLeftTheGame">Must lahkus mängust</string>
+  <string name="whiteDidntMove">Valge ei sooritanud käiku</string>
+  <string name="blackDidntMove">Must ei sooritanud käiku</string>
   <string name="requestAComputerAnalysis">Nõua arvuti analüüsi</string>
   <string name="computerAnalysis">Arvuti analüüs</string>
   <string name="computerAnalysisAvailable">Arvuti analüüs saadaval</string>
@@ -162,6 +166,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s tund</item>
     <item quantity="other">%s tundi</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minutit</item>
   </plurals>
   <string name="time">Aeg</string>
   <string name="rating">Reiting</string>
@@ -324,8 +332,11 @@
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
+  <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest seisust</string>
+  <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
+  <string name="orUploadPgnFile">Või lae üles PGN fail</string>
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="toStudy">Uuri</string>
@@ -352,6 +363,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="follow">Jälgi</string>
   <string name="following">Jälgitakse</string>
   <string name="unfollow">Lõpeta jälgimine</string>
+  <string name="followX">Jälgi %s</string>
+  <string name="unfollowX">Lõpeta %s jälgimine</string>
   <string name="block">Blokeeri</string>
   <string name="blocked">Blokeeritud</string>
   <string name="unblock">Tühista blokeering</string>
@@ -400,6 +413,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentIsStarting">Turniir algab</string>
   <string name="tournamentPairingsAreNowClosed">Turniiri paaride loomine on nüüd lõppenud.</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
+  <string name="pause">Peata</string>
+  <string name="resume">Jätka</string>
   <string name="youArePlaying">Te mängite!</string>
   <string name="winRate">Võidumäär</string>
   <string name="berserkRate">Berserk määr</string>
@@ -414,6 +429,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardEditor">Muudetav laud</string>
   <string name="setTheBoard">Seadista lauda</string>
   <string name="popularOpenings">Populaarsed avangud</string>
+  <string name="endgamePositions">Lõppmängu seisud</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="loadPosition">Lae seis</string>
@@ -494,7 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
-  <string name="none">Mitte üldsegi</string>
+  <string name="none">Väljas</string>
   <string name="fast">Kiire</string>
   <string name="normal">Tavaline</string>
   <string name="slow">Aeglane</string>
@@ -589,7 +605,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
   <string name="newTournament">Uus turniir</string>
-  <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja mängutüüpidega</string>
+  <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
   <string name="tournamentNotFound">Turniiri ei leitud</string>
   <string name="tournamentDoesNotExist">Seda turniiri pole olemas.</string>
@@ -793,4 +809,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
+  <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
+  <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
+  <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
+  <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
 </resources>

@@ -23,13 +23,22 @@ final class Pref(env: Env) extends LilaController(env) {
       }
     }
 
+  private val redirects = Map(
+    "game-display" -> "display",
+    "site"         -> "privacy"
+  )
+
   def form(categSlug: String) =
-    Auth { implicit ctx => me =>
-      lila.pref.PrefCateg(categSlug) match {
-        case None => notFound
-        case Some(categ) =>
-          Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
-      }
+    redirects get categSlug match {
+      case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
+      case None =>
+        Auth { implicit ctx => me =>
+          lila.pref.PrefCateg(categSlug) match {
+            case None => notFound
+            case Some(categ) =>
+              Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
+          }
+        }
     }
 
   def formApply =

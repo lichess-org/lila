@@ -56,6 +56,8 @@ final class Env(
 
   lazy val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
+  lazy val selector: PuzzleSelector = wire[PuzzleSelector]
+
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
   lazy val batch: PuzzleBatch = wire[PuzzleBatch]
@@ -76,9 +78,9 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
-  private lazy val opening = wire[PuzzleOpeningApi]
+  lazy val opening = wire[PuzzleOpeningApi]
 
-  system.scheduler.scheduleAtFixedRate(1 minute, 1 day) { () =>
+  system.scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
     opening.addAllMissing.unit
   }
 
