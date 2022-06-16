@@ -1,17 +1,18 @@
 package lila.insight
 
 import chess.format.FEN
-import chess.opening.{ FullOpeningDB, OpeningFamily }
+import chess.opening.FullOpeningDB
 import chess.{ Color, Role }
 import play.api.i18n.Lang
 import play.api.libs.json._
 import reactivemongo.api.bson._
 import scalatags.Text.all._
 
+import lila.common.LilaOpening
 import lila.db.dsl._
 import lila.rating.PerfType
 
-sealed abstract class Dimension[A: BSONHandler](
+sealed abstract class InsightDimension[A: BSONHandler](
     val key: String,
     val name: String,
     val dbKey: String,
@@ -25,7 +26,7 @@ sealed abstract class Dimension[A: BSONHandler](
   def isInMove = position == Position.Move
 }
 
-object Dimension {
+object InsightDimension {
 
   import BSONHandlers._
   import Position._
@@ -33,7 +34,7 @@ object Dimension {
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
-      extends Dimension[Period](
+      extends InsightDimension[Period](
         "period",
         "Date",
         F.date,
@@ -42,7 +43,7 @@ object Dimension {
       )
 
   case object Date
-      extends Dimension[lila.insight.DateRange](
+      extends InsightDimension[lila.insight.DateRange](
         "date",
         "Date",
         F.date,
@@ -51,7 +52,7 @@ object Dimension {
       )
 
   case object Perf
-      extends Dimension[PerfType](
+      extends InsightDimension[PerfType](
         "variant",
         "Variant",
         F.perf,
@@ -60,7 +61,7 @@ object Dimension {
       )
 
   case object Phase
-      extends Dimension[Phase](
+      extends InsightDimension[Phase](
         "phase",
         "Game phase",
         F.moves("p"),
@@ -69,7 +70,7 @@ object Dimension {
       )
 
   case object Result
-      extends Dimension[Result](
+      extends InsightDimension[Result](
         "result",
         "Game result",
         F.result,
@@ -78,7 +79,7 @@ object Dimension {
       )
 
   case object Termination
-      extends Dimension[Termination](
+      extends InsightDimension[Termination](
         "termination",
         "Game termination",
         F.termination,
@@ -87,7 +88,7 @@ object Dimension {
       )
 
   case object Color
-      extends Dimension[Color](
+      extends InsightDimension[Color](
         "color",
         "Color",
         F.color,
@@ -96,7 +97,7 @@ object Dimension {
       )
 
   case object Opening
-      extends Dimension[OpeningFamily](
+      extends InsightDimension[LilaOpening](
         "opening",
         "Opening",
         F.opening,
@@ -105,7 +106,7 @@ object Dimension {
       )
 
   case object OpponentStrength
-      extends Dimension[RelativeStrength](
+      extends InsightDimension[RelativeStrength](
         "opponentStrength",
         "Opponent strength",
         F.opponentStrength,
@@ -114,7 +115,7 @@ object Dimension {
       )
 
   case object PieceRole
-      extends Dimension[Role](
+      extends InsightDimension[Role](
         "piece",
         "Piece moved",
         F.moves("r"),
@@ -123,7 +124,7 @@ object Dimension {
       )
 
   case object MovetimeRange
-      extends Dimension[MovetimeRange](
+      extends InsightDimension[MovetimeRange](
         "movetime",
         "Move time",
         F.moves("t"),
@@ -132,7 +133,7 @@ object Dimension {
       )
 
   case object MyCastling
-      extends Dimension[Castling](
+      extends InsightDimension[Castling](
         "myCastling",
         "My castling side",
         F.myCastling,
@@ -141,7 +142,7 @@ object Dimension {
       )
 
   case object OpCastling
-      extends Dimension[Castling](
+      extends InsightDimension[Castling](
         "opCastling",
         "Opponent castling side",
         F.opponentCastling,
@@ -150,7 +151,7 @@ object Dimension {
       )
 
   case object QueenTrade
-      extends Dimension[QueenTrade](
+      extends InsightDimension[QueenTrade](
         "queenTrade",
         "Queen trade",
         F.queenTrade,
@@ -159,7 +160,7 @@ object Dimension {
       )
 
   case object MaterialRange
-      extends Dimension[MaterialRange](
+      extends InsightDimension[MaterialRange](
         "material",
         "Material imbalance",
         F.moves("i"),
@@ -168,7 +169,7 @@ object Dimension {
       )
 
   case object Blur
-      extends Dimension[Blur](
+      extends InsightDimension[Blur](
         "blur",
         "Move blur",
         F.moves("b"),
@@ -177,7 +178,7 @@ object Dimension {
       )
 
   case object TimeVariance
-      extends Dimension[TimeVariance](
+      extends InsightDimension[TimeVariance](
         "timeVariance",
         "Time variance",
         F.moves("v"),
@@ -186,7 +187,7 @@ object Dimension {
       )
 
   case object CplRange
-      extends Dimension[CplRange](
+      extends InsightDimension[CplRange](
         "cpl",
         "Centipawn loss",
         F.moves("c"),
@@ -195,7 +196,7 @@ object Dimension {
       )
 
   case object EvalRange
-      extends Dimension[EvalRange](
+      extends InsightDimension[EvalRange](
         "eval",
         "Evaluation",
         F.moves("e"),
@@ -203,13 +204,13 @@ object Dimension {
         "Stockfish evaluation of the position, relative to the player, in centipawns."
       )
 
-  def requiresStableRating(d: Dimension[_]) =
+  def requiresStableRating(d: InsightDimension[_]) =
     d match {
       case OpponentStrength => true
       case _                => false
     }
 
-  def valuesOf[X](d: Dimension[X]): List[X] =
+  def valuesOf[X](d: InsightDimension[X]): List[X] =
     d match {
       case Period                  => lila.insight.Period.selector
       case Date                    => Nil // Period is used instead
@@ -218,7 +219,7 @@ object Dimension {
       case Result                  => lila.insight.Result.all
       case Termination             => lila.insight.Termination.all
       case Color                   => chess.Color.all
-      case Opening                 => FullOpeningDB.families.toList
+      case Opening                 => LilaOpening.openingList
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
@@ -231,7 +232,7 @@ object Dimension {
       case TimeVariance            => lila.insight.TimeVariance.all
     }
 
-  def valueByKey[X](d: Dimension[X], key: String): Option[X] =
+  def valueByKey[X](d: InsightDimension[X], key: String): Option[X] =
     d match {
       case Period                  => key.toIntOption map lila.insight.Period.apply
       case Date                    => None
@@ -239,8 +240,8 @@ object Dimension {
       case Phase                   => key.toIntOption flatMap lila.insight.Phase.byId.get
       case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
       case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
-      case Color                   => chess.Color.fromName(key)
-      case Opening                 => OpeningFamily(key).some
+      case Color                   => chess.Color fromName key
+      case Opening                 => LilaOpening find key
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
@@ -253,14 +254,14 @@ object Dimension {
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
 
-  def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
+  def valueToJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
     play.api.libs.json.Json.obj(
       "key"  -> valueKey(d)(v),
       "name" -> valueJson(d)(v)
     )
   }
 
-  def valueKey[X](d: Dimension[X])(v: X): String =
+  def valueKey[X](d: InsightDimension[X])(v: X): String =
     (d match {
       case Date                    => v.toString
       case Period                  => v.days.toString
@@ -269,7 +270,7 @@ object Dimension {
       case Result                  => v.id
       case Termination             => v.id
       case Color                   => v.name
-      case Opening                 => v.name
+      case Opening                 => v.key
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
@@ -282,7 +283,7 @@ object Dimension {
       case TimeVariance            => v.id
     }).toString
 
-  def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue =
+  def valueJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): JsValue =
     d match {
       case Date                    => JsNumber(v.min.getSeconds)
       case Period                  => JsString(v.toString)
@@ -291,7 +292,7 @@ object Dimension {
       case Result                  => JsString(v.name)
       case Termination             => JsString(v.name)
       case Color                   => JsString(v.toString)
-      case Opening                 => JsString(v.name)
+      case Opening                 => JsString(v.name.value)
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)
@@ -304,10 +305,10 @@ object Dimension {
       case TimeVariance            => JsString(v.name)
     }
 
-  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = {
+  def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc = {
     import cats.implicits._
     d match {
-      case Dimension.MovetimeRange =>
+      case InsightDimension.MovetimeRange =>
         selected match {
           case Nil => $empty
           case many =>
@@ -317,11 +318,11 @@ object Dimension {
               }
             )
         }
-      case Dimension.Period =>
+      case InsightDimension.Period =>
         selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
-      case Dimension.MaterialRange =>
+      case InsightDimension.MaterialRange =>
         selected match {
           case Nil => $empty
           case many =>
@@ -336,7 +337,7 @@ object Dimension {
               }
             )
         }
-      case Dimension.EvalRange =>
+      case InsightDimension.EvalRange =>
         selected match {
           case Nil => $empty
           case many =>
@@ -350,7 +351,7 @@ object Dimension {
               }
             )
         }
-      case Dimension.TimeVariance =>
+      case InsightDimension.TimeVariance =>
         selected match {
           case Nil => $empty
           case many =>
@@ -369,14 +370,14 @@ object Dimension {
     }
   }
 
-  def requiresAnalysis(d: Dimension[_]) =
+  def requiresAnalysis(d: InsightDimension[_]) =
     d match {
       case CplRange  => true
       case EvalRange => true
       case _         => false
     }
 
-  def dataTypeOf[X](d: Dimension[X]): String =
+  def dataTypeOf[X](d: InsightDimension[X]): String =
     d match {
       case Date => "date"
       case _    => "text"

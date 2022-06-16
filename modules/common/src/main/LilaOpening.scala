@@ -37,4 +37,6 @@ object LilaOpening {
       val op = LilaOpening(fullOp)
       if (acc.contains(op.key)) acc else acc.updated(op.key, op)
     }
+
+  lazy val openingList = openings.values.toList
 }

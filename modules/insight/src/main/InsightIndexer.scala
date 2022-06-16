@@ -16,7 +16,7 @@ final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    storage: Storage
+    storage: InsightStorage
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem

@@ -5,7 +5,7 @@ import lila.user.User
 import org.joda.time.DateTime
 
 final class InsightApi(
-    storage: Storage,
+    storage: InsightStorage,
     pipeline: AggregationPipeline,
     insightUserApi: InsightUserApi,
     gameRepo: GameRepo,

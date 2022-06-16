@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final private class AggregationPipeline(store: Storage)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class AggregationPipeline(store: InsightStorage)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] =
     store.coll {
@@ -16,9 +16,9 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import framework._
         import question.{ dimension, filters, metric }
 
-        import lila.insight.{ Dimension => D, Metric => M }
+        import lila.insight.{ InsightDimension => D, Metric => M }
         import InsightEntry.{ BSONFields => F }
-        import Storage._
+        import InsightStorage._
 
         val limitGames     = Limit(10_000)
         val sortDate       = Sort(Descending(F.date))
@@ -93,13 +93,13 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 )
               )
             }
-        def dimensionGroupId(dim: Dimension[_]): BSONValue =
+        def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {
-            case Dimension.MovetimeRange => movetimeIdDispatcher
-            case Dimension.CplRange      => cplIdDispatcher
-            case Dimension.MaterialRange => materialIdDispatcher
-            case Dimension.EvalRange     => evalIdDispatcher
-            case Dimension.TimeVariance  => timeVarianceIdDispatcher
+            case InsightDimension.MovetimeRange => movetimeIdDispatcher
+            case InsightDimension.CplRange      => cplIdDispatcher
+            case InsightDimension.MaterialRange => materialIdDispatcher
+            case InsightDimension.EvalRange     => evalIdDispatcher
+            case InsightDimension.TimeVariance  => timeVarianceIdDispatcher
             case d                       => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
@@ -107,7 +107,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           object Group                                                            extends Grouping
           case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
         }
-        def dimensionGrouping(dim: Dimension[_]): Grouping =
+        def dimensionGrouping(dim: InsightDimension[_]): Grouping =
           dim match {
             case D.Date => Grouping.BucketAuto(buckets = 12)
             case _      => Grouping.Group
@@ -117,7 +117,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val includeSomeGameIds = AddFields(gameIdsSlice)
         val toPercent          = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
 
-        def group(d: Dimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
+        def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match {
             case Grouping.Group =>
               Group(dimensionGroupId(d))(
@@ -133,7 +133,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               )
           }) map some
 
-        def groupMulti(d: Dimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
+        def groupMulti(d: InsightDimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
           dimensionGrouping(d) ap {
             case Grouping.Group =>
               List[PipelineOperator](
@@ -189,10 +189,10 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
-            (dimension == Dimension.Opening).??($doc(F.opening $exists true)) ++
-            (Metric.requiresAnalysis(metric) || Dimension.requiresAnalysis(dimension))
+            (dimension == InsightDimension.Opening).??($doc(F.opening $exists true)) ++
+            (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
-            (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
+            (Metric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
         ) -> {

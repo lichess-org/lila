@@ -1,18 +1,18 @@
 package lila.insight
 
+import chess.format.FEN
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.common.LilaOpening
 import lila.db.AsyncColl
+import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 import lila.user.User
-import chess.opening.OpeningFamily
-import chess.format.FEN
 
-final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Storage._
+  import InsightStorage._
   import BSONHandlers._
   import InsightEntry.{ BSONFields => F }
 
@@ -42,7 +42,7 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
-  def openings(userId: User.ID): Fu[List[OpeningFamily]] =
+  def openings(userId: User.ID): Fu[List[LilaOpening]] =
     coll {
       _.aggregateList(64) { framework =>
         import framework._
@@ -52,7 +52,7 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
         )
       }.map {
         _.flatMap {
-          _.getAsOpt[OpeningFamily]("_id")
+          _.getAsOpt[LilaOpening]("_id")
         }
       }
     }
@@ -75,7 +75,7 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
     }
 }
 
-private object Storage {
+private object InsightStorage {
 
   import InsightEntry.{ BSONFields => F }
 

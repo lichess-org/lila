@@ -1,9 +1,9 @@
 package lila.insight
 
-import chess.opening.OpeningFamily
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
+import lila.common.LilaOpening
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
@@ -11,7 +11,7 @@ import lila.user.User
 case class InsightUser(
     _id: User.ID, // user id
     count: Int,   // nb insight entries
-    openings: List[OpeningFamily],
+    openings: List[LilaOpening],
     lastSeen: DateTime
 ) {
 
@@ -20,7 +20,7 @@ case class InsightUser(
 
 object InsightUser {
 
-  def make(userId: User.ID, count: Int, openings: List[OpeningFamily]) =
+  def make(userId: User.ID, count: Int, openings: List[LilaOpening]) =
     InsightUser(userId, count, openings, DateTime.now)
 }
 

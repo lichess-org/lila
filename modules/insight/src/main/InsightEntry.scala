@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.opening.{ Ecopening, OpeningFamily }
+import chess.opening.Ecopening
 import chess.{ Color, Role }
 import org.joda.time.DateTime
 

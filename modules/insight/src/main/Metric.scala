@@ -49,7 +49,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        Dimension.CplRange.description
+        InsightDimension.CplRange.description
       )
 
   case object Movetime
@@ -60,11 +60,11 @@ object Metric {
         Move,
         Move,
         Seconds,
-        Dimension.MovetimeRange.description
+        InsightDimension.MovetimeRange.description
       )
 
   case object Result
-      extends Metric("result", "Game result", F.result, Game, Game, Percent, Dimension.Result.description)
+      extends Metric("result", "Game result", F.result, Game, Game, Percent, InsightDimension.Result.description)
 
   case object Termination
       extends Metric(
@@ -74,7 +74,7 @@ object Metric {
         Game,
         Game,
         Percent,
-        Dimension.Termination.description
+        InsightDimension.Termination.description
       )
 
   case object RatingDiff
@@ -118,7 +118,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        Dimension.PieceRole.description
+        InsightDimension.PieceRole.description
       )
 
   case object Opportunism
@@ -151,7 +151,7 @@ object Metric {
         Move,
         Move,
         Average,
-        Dimension.MaterialRange.description
+        InsightDimension.MaterialRange.description
       )
 
   case object Blurs

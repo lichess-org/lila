@@ -1,6 +1,5 @@
 package lila.insight
 
-import chess.opening.OpeningFamily
 import chess.{ Color, Role }
 import reactivemongo.api.bson._
 
