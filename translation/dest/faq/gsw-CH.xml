@@ -116,7 +116,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Ziit erhöh
   <string name="notPlayedRecently">De Schpiller hät nöd gnüegend aktuelli Partie gschpillt. Abhängig vu de Aazahl vu Partie, wo du gschpillt häsch, bruchts öppe es Jahr Inaktivität, bis d\'Wertig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d? Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
   <string name="howDoLeaderoardsWork">Wiä funktioniäräd Räng und Rangliischtä?</string>
-  <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muäsch du:</string>
+  <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
   <string name="ratingLeaderboards">Wertigs Ranglischte</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtäns 30 gwärtäti Partiiä inärä beschtimmtä Kategorie gschpillt ha,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">idä letschtä Wuchä ä gwärtäti Partii i därä Kategorie gschpillt ha,</string>
