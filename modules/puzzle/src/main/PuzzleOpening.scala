@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.{ LilaOpening, LilaStream }
+import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream }
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
@@ -21,7 +21,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
     op.opening.key -> op
   }.toMap
   val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
-    tree.updatedWith(op.opening.family) {
+    tree.updatedWith(op.opening.ref.family) {
       case None => (op.count, op.opening.ref, op.opening.variation.isDefined ?? Set(op)).some
       case Some((famCount, famRef, ops)) =>
         (famCount, famRef, if (op.opening.variation.isDefined) ops incl op else ops).some
@@ -29,7 +29,7 @@ case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
   }
   val treePopular: TreeList = treeMap.toList
     .map { case (family, (famCount, famRef, ops)) =>
-      FamilyWithCount(PuzzleOpeningFamily(family, famRef), famCount) -> ops.toList.sortBy(-_.count)
+      FamilyWithCount(LilaOpeningFamily(family, famRef), famCount) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
@@ -125,10 +125,6 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   }
 }
 
-case class PuzzleOpeningFamily(family: OpeningFamily, ref: FullOpening) {
-  lazy val key = LilaOpening.nameToKey(LilaOpening.Name(family.name))
-}
-
 object PuzzleOpening {
 
   val maxOpenings = 1000
@@ -139,7 +135,7 @@ object PuzzleOpening {
   val otherVariations = OpeningVariation("Other variations")
 
   case class WithCount(opening: LilaOpening, count: Count)
-  case class FamilyWithCount(family: PuzzleOpeningFamily, count: Count)
+  case class FamilyWithCount(family: LilaOpeningFamily, count: Count)
 
   type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]

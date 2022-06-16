@@ -9,7 +9,7 @@ import scala.util.chaining._
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 import lila.user.User
-import lila.common.LilaOpening
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 
 case class RichPov(
     pov: Pov,
@@ -183,13 +183,15 @@ final private class PovToEntry(
       myRating <- pov.player.rating
       opRating <- pov.opponent.rating
       perfType <- game.perfType
+      opening = findOpening(from)
     } yield InsightEntry(
       id = InsightEntry povToId pov,
       number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,
-      opening = findOpening(from),
+      opening = opening,
+      openingFamily = opening flatMap LilaOpeningFamily.apply,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       ratingCateg = (!provisional).option(((myRating + 50) / 100) * 100),
       opponentRating = opRating,

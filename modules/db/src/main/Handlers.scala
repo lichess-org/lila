@@ -133,12 +133,16 @@ trait Handlers {
   implicit val OpeningFamilyHandler: BSONHandler[OpeningFamily] =
     stringAnyValHandler[OpeningFamily](_.name, OpeningFamily.apply)
 
-  import lila.common.LilaOpening
+  import lila.common.{ LilaOpening, LilaOpeningFamily }
   implicit val OpeningKeyBSONHandler: BSONHandler[LilaOpening.Key] = stringIsoHandler(
     LilaOpening.keyIso
   )
   implicit val LilaOpeningHandler = tryHandler[LilaOpening](
     { case BSONString(key) => LilaOpening find key toTry s"No such opening: $key" },
+    o => BSONString(o.key.value)
+  )
+  implicit val LilaOpeningFamilyHandler = tryHandler[LilaOpeningFamily](
+    { case BSONString(key) => LilaOpeningFamily find key toTry s"No such opening family: $key" },
     o => BSONString(o.key.value)
   )
 
