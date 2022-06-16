@@ -2,13 +2,14 @@ package lila.insight
 
 import cats.data.NonEmptyList
 import chess.format.{ FEN, Forsyth }
-import chess.opening.{ FullOpeningDB, OpeningFamily }
+import chess.opening.FullOpeningDB
 import chess.{ Centis, Role, Situation, Stats }
 import scala.util.chaining._
 
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 import lila.user.User
+import lila.common.LilaOpening
 
 case class RichPov(
     pov: Pov,
@@ -209,13 +210,15 @@ final private class PovToEntry(
     )
   }
 
-  private def findOpening(from: RichPov): Option[OpeningFamily] =
+  private def findOpening(from: RichPov): Option[LilaOpening] =
     from.pov.game.variant.standard ??
       from.situations.tail.view
         .takeWhile(_.board.actors.size > 16)
-        .foldRight(none[OpeningFamily]) {
+        .foldRight(none[LilaOpening]) {
           case (sit, None) =>
-            FullOpeningDB.findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit)).map(_.family)
+            FullOpeningDB
+              .findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
+              .map(LilaOpening.apply)
           case (_, found) => found
         }
 }
