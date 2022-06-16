@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">प्राथमिकताएं</string>
+  <string name="display">डिस्प्ले</string>
   <string name="pieceAnimation">मोहरों का एनीमेशन</string>
   <string name="materialDifference">सामग्री का अंतर</string>
   <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और सह)</string>

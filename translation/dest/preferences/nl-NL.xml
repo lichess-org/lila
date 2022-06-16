@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Voorkeuren</string>
-  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">Weergave</string>
-  <string name="privacy" comment="privacy&#10;&#10;This is a category in the preferences. It allows for configuring privacy-related settings – for example, whether to allow other players to follow you.">Privacy</string>
+  <string name="display">Weergave</string>
+  <string name="privacy">Privacy</string>
   <string name="pieceAnimation">Stukanimatie</string>
   <string name="materialDifference">Materiaalverschil</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>

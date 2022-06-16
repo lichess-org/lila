@@ -567,7 +567,7 @@
   <string name="community">Komunitatea</string>
   <string name="tools">Tresnak</string>
   <string name="increment">Gehikuntza</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Balioa ez da zuzena</string>
+  <string name="error.unknown">Balioa ez da zuzena</string>
   <string name="error.required">Koadro hau betetzea nahitaezkoa da</string>
   <string name="error.email">Posta elektronikoa ez da zuzena</string>
   <string name="error.email_acceptable">Posta elektroniko hau ezin dugu onartu. Egiaztatu ezazu eta saiatu berriz.</string>

@@ -348,6 +348,8 @@
   <string name="apply">लागू करें</string>
   <string name="save">सहेजें</string>
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
+  <string name="screenshotCurrentPosition">वर्तमान स्थिति का स्क्रीनशॉट</string>
+  <string name="gameAsGIF">GIF के रूप में सेव करें</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">प्रतियोगित शुरू हो रही है</string>
   <string name="tournamentPairingsAreNowClosed">टूर्नामेंट जोड़ियां अब बंद हो गयी हैं।</string>
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
+  <string name="pause">ठहराव</string>
+  <string name="resume">फिर से शुरू करें</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
   <string name="berserkRate">निडर की दर</string>
@@ -566,6 +570,7 @@
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
+  <string name="error.unknown">अमान्य मूल्य</string>
   <string name="error.required">यह जानकारी जरुरी है</string>
   <string name="error.email">यह ई-मेल सही नहीं हैं</string>
   <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है। कृप्या इसे पुनः जांच करके प्रयास करें।</string>
@@ -576,6 +581,7 @@
   <string name="error.min">कम से कम %s</string>
   <string name="error.max">%s से ज़्यादा नही।</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
+  <string name="ifRegistered">अगर पंजीकृत है</string>
   <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
   <string name="menu">मेनू</string>
@@ -797,6 +803,7 @@
   <string name="currentMatchScore">वर्तमान मैच का स्कोर</string>
   <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मैं मानता हूं कि मैं एकाधिक खाते नहीं बना सकता (%s में बताए गए कारणों को छोड़कर)।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>
@@ -897,4 +904,5 @@
   <string name="until">दिनांक तक​</string>
   <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
   <string name="switchSides">पार्श्व बदलना</string>
+  <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
 </resources>

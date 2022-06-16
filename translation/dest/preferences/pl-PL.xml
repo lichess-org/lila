@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ustawienia</string>
-  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">Wyświetlanie</string>
+  <string name="display">Wyświetlanie</string>
   <string name="privacy">Ochrona danych</string>
   <string name="pieceAnimation">Animacja ruchu bierek</string>
   <string name="materialDifference">Przewaga materialna</string>

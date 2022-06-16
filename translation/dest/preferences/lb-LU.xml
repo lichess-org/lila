@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Astellungen</string>
-  <string name="privacy" comment="privacy&#10;&#10;This is a category in the preferences. It allows for configuring privacy-related settings – for example, whether to allow other players to follow you.">Privatsphär</string>
+  <string name="privacy">Privatsphär</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
   <string name="boardHighlights">Briet Highlights (leschten Zuch an Schach)</string>
