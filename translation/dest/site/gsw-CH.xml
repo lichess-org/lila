@@ -568,7 +568,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="community">Gmeinschaft</string>
   <string name="tools">Werchzüg</string>
   <string name="increment">Inkrement</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">ungültigi Aagab</string>
+  <string name="error.unknown">ungültigi Aagab</string>
   <string name="error.required">Das isch es Pflichtfäld</string>
   <string name="error.email">Die E-Mail-Adrässe isch ungültig</string>
   <string name="error.email_acceptable">Die E-Mail-Adrässe wird nöd akzeptiert. Bitte überprüef sie und probiers nomal.</string>
