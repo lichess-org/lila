@@ -20,12 +20,10 @@ case class PuzzleOpeningCollection(
   import LilaOpening._
   import PuzzleOpening._
 
-  val countByKey: Map[String, Int] = {
-    families.map(f => f.family.key.value -> f.count) :::
-      openings.map(v => v.opening.key.value -> v.count)
-  }.toMap
-
   val popularFamilies = families.sortBy(-_.count)
+
+  val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
+  val openingMap = openings.view.map { op => op.opening.key -> op }.toMap
 
   val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) {
@@ -102,8 +100,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 
-  def count(key: LilaOpening.Key): Fu[Int] =
-    collection dmap { ~_.countByKey.get(key.value) }
+  def count(key: Either[LilaOpeningFamily.Key, LilaOpening.Key]): Fu[Int] =
+    collection dmap { coll =>
+      key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
+    }
 
   def addAllMissing: Funit =
     colls.puzzle {

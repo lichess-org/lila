@@ -19,8 +19,8 @@ final private class PuzzleCountApi(
     countsByTheme dmap { _.getOrElse(theme, 0) }
 
   def byAngle(angle: PuzzleAngle): Fu[Int] = angle match {
-    case PuzzleAngle.Theme(theme)     => byTheme(theme)
-    case PuzzleAngle.Opening(opening) => openingApi.count(opening)
+    case PuzzleAngle.Theme(theme)    => byTheme(theme)
+    case PuzzleAngle.Opening(either) => openingApi.count(either)
   }
 
   private val byThemeCache =
