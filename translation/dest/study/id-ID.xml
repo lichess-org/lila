@@ -73,7 +73,7 @@
   <string name="studyNotFound">Studi tidak ditemukan</string>
   <string name="editChapter">Ubah bab</string>
   <string name="newChapter">Bab baru</string>
-  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Impor dari %s</string>
+  <string name="importFromChapterX">Impor dari %s</string>
   <string name="orientation">Orientasi</string>
   <string name="analysisMode">Mode analisa</string>
   <string name="pinnedChapterComment">Sematkan komentar bagian bab</string>

@@ -567,7 +567,7 @@
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
   <string name="increment">Қосылғыш</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Қате шама</string>
+  <string name="error.unknown">Қате шама</string>
   <string name="error.required">Бұл жолды толтырыңыз</string>
   <string name="error.email">Бұл пошта мекенжайы қате</string>
   <string name="error.email_acceptable">Бұл пошта мекенжайы қабылданбайды. Оны тексеріп, қайта көріңіз.</string>

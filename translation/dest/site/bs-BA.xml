@@ -602,7 +602,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Neispravne vrijednosti</string>
+  <string name="error.unknown">Neispravne vrijednosti</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="error.email">Ova email adresa je nevažeća</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite je, i pokušajte opet.</string>

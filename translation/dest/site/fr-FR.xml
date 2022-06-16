@@ -567,7 +567,7 @@
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
-  <string name="error.unknown" comment="error.unknown&#10;Generic error message. Appears in forms where the player has entered invalid information.">Valeur invalide</string>
+  <string name="error.unknown">Valeur invalide</string>
   <string name="error.required">Ce champ est requis</string>
   <string name="error.email">Cette adresse courriel est invalide</string>
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
