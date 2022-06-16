@@ -78,7 +78,7 @@
   <string name="studyNotFound">Studija nije pronađena</string>
   <string name="editChapter">Uredite poglavlje</string>
   <string name="newChapter">Novo poglavlje</string>
-  <string name="importFromChapterX" comment="importFromChapterX&#10;&#10;%s is a study chapter. This tool lets you import a game from a different Lichess study.">Uvezite iz %s</string>
+  <string name="importFromChapterX">Uvezite iz %s</string>
   <string name="orientation">Orijentacija</string>
   <string name="analysisMode">Tip analize</string>
   <string name="pinnedChapterComment">Stalni komentar poglavlja</string>
