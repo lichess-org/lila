@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ଅଗ୍ରାଧିକାରସମୂହ</string>
-  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">ପ୍ରଦର୍ଶନ</string>
+  <string name="display">ପ୍ରଦର୍ଶନ</string>
   <string name="privacy">ଗୋପନୀୟତା</string>
   <string name="boardCoordinates">ବୋର୍ଡ ସ୍ଥାନାଙ୍କ (A-H, 1-8)</string>
   <string name="showPlayerRatings">ଖେଳାଳିଙ୍କ ରେଟିଂ ଦେଖାଅ</string>
