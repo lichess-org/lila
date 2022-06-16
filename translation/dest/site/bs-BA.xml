@@ -460,6 +460,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Pričekajte %s, uparivanje igrača je u toku, pripremite se za igru!</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Nastavite</string>
   <string name="youArePlaying">Igrate!</string>
   <string name="winRate">Postotak pobjeda</string>
   <string name="berserkRate">Postotak berserka</string>
@@ -492,7 +494,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
-  <string name="oneUrlPerLine">Jedan link po liniji.</string>
+  <string name="oneUrlPerLine">Jedan link po redu.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
@@ -600,6 +602,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
+  <string name="error.unknown" comment="error.unknown&#10;Generic error message.&#10;&#10;This is shown when form validation fails without a more specific error message, e.g. currently when you try to create a game with rating range 0-0.">Neispravne vrijednosti</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="error.email">Ova email adresa je nevažeća</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite je, i pokušajte opet.</string>
