@@ -374,6 +374,8 @@
   <string name="apply">Primijeni</string>
   <string name="save">Sačuvaj</string>
   <string name="leaderboard">Tabela rezultata</string>
+  <string name="screenshotCurrentPosition">Snimite ekran s trenutnom pozicijom</string>
+  <string name="gameAsGIF">Sačuvati kao GIF</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="orUploadPgnFile">Ili postavite PGN datoteku</string>
