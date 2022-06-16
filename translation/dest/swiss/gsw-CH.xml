@@ -44,8 +44,8 @@ Hät en Schpiller mal kein Gägner, gits für die Rundi es Freilos ( \"bye\" ) u
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
-Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämmezellt 
-die sogenannti \"SB-Zahl\" (Sonneborn Zahl).  Bi Punktgliichheit entscheidet die höcheri SB-Zahl.</string>
+Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämme 
+die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktglichheit entscheidet die höcheri SB-Zahl.</string>
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
   <string name="dutchSystem">Niederländische System</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
@@ -88,13 +88,15 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
   <string name="comparison">Vergliich</string>
   <string name="tournDuration">Turnier Längi</string>
   <string name="predefinedDuration">Vordefinierti Längi in Minute</string>
-  <string name="durationUnknown">Vordefinierti maximali Rundezahl, aber unbekannti Längi</string>
+  <string name="durationUnknown">Vordefinierti, maximali Rundezahl, 
+aber unbekannti Turnierlängi</string>
   <string name="numberOfGames">Aazahl Partie</string>
   <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiiseni Längi zuelaht</string>
   <string name="numberOfGamesPreDefined">Vorher entschiede, für all Spieler gliich</string>
   <string name="pairingSystem">Paarigs System</string>
-  <string name="pairingSystemArena">Jede verfüegbari Gägner mit ähnlichem Rang</string>
-  <string name="pairingSystemSwiss">Beschti Paarig errächnet mit Punktezahl und Fiinwertig</string>
+  <string name="pairingSystemArena">Jede verfüegbari Gägner 
+mit ähnlichem Rang</string>
+  <string name="pairingSystemSwiss">Beschti Paarig gemäss Punktezahl und Fiinwertig</string>
   <string name="pairingWaitTime">Warteziit uf d\'Paarig</string>
   <string name="pairingWaitTimeArena">Churz - wartet nöd uf all Spiller</string>
   <string name="pairingWaitTimeSwiss">Lang - wartet uf all Spiller</string>
