@@ -101,8 +101,8 @@
   <string name="loadAGameFromPgn">Lad ä Partii mittäls PGN</string>
   <string name="automatic">Automaatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Füäg din PGN Tegscht do ii, bis zu %s Partii</item>
-    <item quantity="other">Füäg din PGN Tegscht do ii, bis zu %s Partiiä</item>
+    <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
+    <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
   </plurals>
   <string name="urlOfTheGame">URL vodä Partii</string>
   <string name="loadAGameFromXOrY">Partii vo %1$s oder %2$s ladä</string>
@@ -141,11 +141,11 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Uusglichäni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
-  <string name="whiteIsSlightlyBetter">Wiis schtoht liächt besser</string>
+  <string name="whiteIsSlightlyBetter">Wiss schtaht es bitzli besser</string>
   <string name="blackIsSlightlyBetter">Schwarz schtoht liächt besser</string>
-  <string name="whiteIsBetter">Wiis schtoht besser</string>
+  <string name="whiteIsBetter">Wiss schtaht besser</string>
   <string name="blackIsBetter">Schwarz schtoht besser</string>
-  <string name="whiteIsWinning">Wiis schtoht uf Gwünn</string>
+  <string name="whiteIsWinning">Wiss schtaht uf Gwünn</string>
   <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
