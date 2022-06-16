@@ -29,15 +29,15 @@
     <item quantity="other">Laufendi Partie</item>
   </plurals>
   <string name="tournStartDate">Turnier Schtartdatum</string>
-  <string name="numberOfRounds">Aazahl Runde</string>
-  <string name="numberOfRoundsHelp">E ungradi Aazahl Runde ermöglicht e optimali Farbeverteilig.</string>
+  <string name="numberOfRounds">Azahl Runde</string>
+  <string name="numberOfRoundsHelp">E ungradi Azahl Runde ermöglicht e optimali Farbeverteilig.</string>
   <string name="roundInterval">Ziitabschtand zwüschet de Runde</string>
   <string name="forbiddenPairings">Verboteni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nod gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Ziile, trännt dur e Leerschtell.</string>
   <string name="newSwiss">Neus Turnier nach \"Schweizer System\"</string>
   <string name="swissVsArenaQ">Wänn nach \"Schweizer System\" anstatt Arena Turnier?</string>
-  <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliichi Aazahl Schpiil und mer trifft, 
-im Turnier, nur eimal uf de gliich Gägner.  Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
+  <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die glich Azahl Schpiil und mer trifft, 
+im Turnier, nur eimal uf de glich Gägner. Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
   <string name="pointsCalculationA">Für en Sieg gits 1 Punkt und für es Remis en halbe Punkt. 
 Hät en Schpiller mal kein Gägner, gits für die Rundi es Freilos ( \"bye\" ) und 1 Gratispunkt.</string>
@@ -82,7 +82,11 @@ Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo
 vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
-  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwiis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zuegloost, zum sicher stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de gliichi Gägner trifft. De Sieger isch, am Schluss, de Schpiller mit de höchschte Aazahl Pünkt, wo us allne Runde addiert worde sind. Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Anzahl vu Schpiller</string>
+  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" (wiki) spillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. 
+Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zueglost, zum sicher 
+stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de glichi Gägner trifft. 
+De Sieger isch am Schluss de Schpiller, mit de höchschte Azahl Pünkt, wo us allne Runde addiert worde sind. 
+Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Azahl vu Schpiller.</string>
   <string name="teamOnly">Turnier nach \"Schweizer System\" chönd nur vu Teamleiter erschtellt werde.
 Und nur Teammitglieder chönd im Turnier mitschpille.
 %1$s zum a Turnier nach \"Schweizer System\" schpille.</string>
@@ -95,7 +99,7 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
   <string name="durationUnknown">Vordefinierti, maximali Rundezahl, 
 aber unbekannti Turnierlängi</string>
   <string name="numberOfGames">Aazahl Partie</string>
-  <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiiseni Längi zuelaht</string>
+  <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiseni Längi zuelaht</string>
   <string name="numberOfGamesPreDefined">Vorher entschiede, für all Spieler gliich</string>
   <string name="pairingSystem">Paarigs System</string>
   <string name="pairingSystemArena">Jede verfüegbari Gägner 
