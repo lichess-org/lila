@@ -90,16 +90,16 @@ Usserdem gits no en Ehretitel %2$s.</string>
 I sältene Fäll und nach eusem Ermässe, vergänd mir de Titel a bsunders bemerkenswerti Schpiller, wo gueti Mitglieder vu Lichess sind. Du chunnsch de \"LM-Titel\" nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunnsch du vu eus e Nachricht über und du häsch d\'Wahl de Titel aazneh oder abzlehne. 
 
 Also verlang de Titel nöd.</string>
-  <string name="whatUsernameCanIchoose">Wiä chan min Benutzernamä luutä?</string>
+  <string name="whatUsernameCanIchoose">Wie chann min Benutzername lute?</string>
   <string name="usernamesNotOffensive">Im Allgemeinä söttäd Nutzernämä nöd aaschtöössig, öpper anders imitiäränd oder Wärbig sii. Du chasch meh über d\'%1$s läsä.</string>
   <string name="guidelines">Richtliniä</string>
-  <string name="canIChangeMyUsername">Chan ich min Benutzernamä ändärä?</string>
-  <string name="usernamesCannotBeChanged">Leider nei, Benutzernamä chönd us technischä und praktischä Gründ nöd g\'ändärät wärdä. D\'Benutzernamä tauchäd a zu vilä Schtellä uf: Datäbankä, Export, Logs und im Gedächtnis vo andärnä Lüüt. Du chasch aber eimol d\'Gross-/Chliischriibig ändärä.</string>
+  <string name="canIChangeMyUsername">Chann ich min Benutzername ändere?</string>
+  <string name="usernamesCannotBeChanged">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
   <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
   <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
   <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">e schtündlichi Bullet Arena</string>
-  <string name="goldenZeeExplanation">De \"FM ZugAddict\" hät mal - ime stream - über 2 Schtund lang versuecht, de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn versproche, dass er e einzigartigi Trophäe überchunnt, wänn er das erfolgriich- und im Stream schaffe würd. E Schtund spöter hät er dänn de \"Stockfish\" besiegt und s\'Verspräche isch iighalte worde.</string>
+  <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
   <string name="lichessRatings">Lichess-Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
