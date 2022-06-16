@@ -22,9 +22,9 @@ final class InsightApi(
         } inject u
       case None =>
         for {
-          count    <- storage count user.id
-          openings <- storage openings user.id
-          c = InsightUser.make(user.id, count, openings)
+          count                <- storage count user.id
+          (families, openings) <- storage openings user.id
+          c = InsightUser.make(user.id, count, families, openings)
           _ <- insightUserApi save c
         } yield c
     }

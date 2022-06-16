@@ -5,7 +5,9 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final private class AggregationPipeline(store: InsightStorage)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class AggregationPipeline(store: InsightStorage)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] =
     store.coll {
@@ -100,7 +102,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit ec: scal
             case InsightDimension.MaterialRange => materialIdDispatcher
             case InsightDimension.EvalRange     => evalIdDispatcher
             case InsightDimension.TimeVariance  => timeVarianceIdDispatcher
-            case d                       => BSONString("$" + d.dbKey)
+            case d                              => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
         object Grouping {
@@ -189,7 +191,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit ec: scal
         val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
-            (dimension == InsightDimension.Opening).??($doc(F.opening $exists true)) ++
+            (dimension == InsightDimension.OpeningFamily).??($doc(F.openingFamily $exists true)) ++
+            (dimension == InsightDimension.OpeningVariation).??($doc(F.opening $exists true)) ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
@@ -319,8 +322,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit ec: scal
                 ) :::
                 List(includeSomeGameIds.some)
           } ::: dimension.ap {
-            case D.Opening => List(sortNb, limit(12))
-            case _         => Nil
+            case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
+            case _                                    => Nil
           }).flatten
         }
         pipeline

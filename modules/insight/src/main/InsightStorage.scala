@@ -3,7 +3,7 @@ package lila.insight
 import chess.format.FEN
 import reactivemongo.api.bson._
 
-import lila.common.LilaOpening
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
@@ -42,20 +42,27 @@ final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concu
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
-  def openings(userId: User.ID): Fu[List[LilaOpening]] =
+  private[insight] def openings(userId: User.ID): Fu[(List[LilaOpeningFamily], List[LilaOpening])] =
     coll {
-      _.aggregateList(64) { framework =>
+      _.aggregateOne() { framework =>
         import framework._
         Match(selectUserId(userId) ++ $doc(F.opening $exists true)) -> List(
-          PipelineOperator($doc("$sortByCount" -> s"$$${F.opening}")),
-          Limit(64)
+          Facet(
+            List(
+              "families" -> List(
+                PipelineOperator($doc("$sortByCount" -> s"$$${F.openingFamily}")),
+                Limit(24)
+              ),
+              "openings" -> List(PipelineOperator($doc("$sortByCount" -> s"$$${F.opening}")), Limit(64))
+            )
+          )
         )
-      }.map {
-        _.flatMap {
-          _.getAsOpt[LilaOpening]("_id")
-        }
+      }.map2 { doc =>
+        def readBest[A: BSONHandler](field: String): List[A] =
+          (~doc.getAsOpt[List[Bdoc]](field)).flatMap(_.getAsOpt[A]("_id"))
+        (readBest[LilaOpeningFamily]("families"), readBest[LilaOpening]("openings"))
       }
-    }
+    }.map(_ | (Nil -> Nil))
 
   def nbByPerf(userId: User.ID): Fu[Map[PerfType, Int]] =
     coll {

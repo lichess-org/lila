@@ -61,7 +61,7 @@ object Preset {
     Preset(
       "What is the Win-Rate of my favourite openings as white?",
       Question(
-        D.Opening,
+        D.OpeningVariation,
         M.Result,
         List(
           Filter(

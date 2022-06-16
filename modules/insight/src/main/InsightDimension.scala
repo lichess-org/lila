@@ -8,7 +8,7 @@ import play.api.libs.json._
 import reactivemongo.api.bson._
 import scalatags.Text.all._
 
-import lila.common.LilaOpening
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.dsl._
 import lila.rating.PerfType
 
@@ -96,13 +96,22 @@ object InsightDimension {
         "The side you are playing: White or Black."
       )
 
-  case object Opening
+  case object OpeningFamily
+      extends InsightDimension[LilaOpeningFamily](
+        "openingFamily",
+        "Opening Family",
+        F.openingFamily,
+        Game,
+        "General opening, like 'Sicilian Defense'."
+      )
+
+  case object OpeningVariation
       extends InsightDimension[LilaOpening](
-        "opening",
-        "Opening",
+        "openingVariation",
+        "Opening Variation",
         F.opening,
         Game,
-        "Opening name, like \"Benko Gambit\"."
+        "Precise opening, like 'Sicilian Defense: Najdorf Variation'."
       )
 
   case object OpponentStrength
@@ -219,7 +228,8 @@ object InsightDimension {
       case Result                  => lila.insight.Result.all
       case Termination             => lila.insight.Termination.all
       case Color                   => chess.Color.all
-      case Opening                 => LilaOpening.openingList
+      case OpeningFamily           => LilaOpeningFamily.familyList
+      case OpeningVariation        => LilaOpening.openingList
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
@@ -241,7 +251,8 @@ object InsightDimension {
       case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
       case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
       case Color                   => chess.Color fromName key
-      case Opening                 => LilaOpening find key
+      case OpeningFamily           => LilaOpeningFamily find key
+      case OpeningVariation        => LilaOpening find key
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
@@ -270,7 +281,8 @@ object InsightDimension {
       case Result                  => v.id
       case Termination             => v.id
       case Color                   => v.name
-      case Opening                 => v.key
+      case OpeningFamily           => v.key
+      case OpeningVariation        => v.key
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
@@ -292,7 +304,8 @@ object InsightDimension {
       case Result                  => JsString(v.name)
       case Termination             => JsString(v.name)
       case Color                   => JsString(v.toString)
-      case Opening                 => JsString(v.name.value)
+      case OpeningFamily           => JsString(v.name.value)
+      case OpeningVariation        => JsString(v.name.value)
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)

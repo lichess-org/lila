@@ -2,7 +2,7 @@ package lila.insight
 
 import play.api.i18n.Lang
 import play.api.libs.json._
-import lila.common.LilaOpening
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 
 final class JsonView {
 
@@ -12,14 +12,24 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(openings: List[LilaOpening], asMod: Boolean)(implicit lang: Lang) = {
+  def ui(families: List[LilaOpeningFamily], openings: List[LilaOpening], asMod: Boolean)(implicit
+      lang: Lang
+  ) = {
+
+    val openingFamilyJson = Json.obj(
+      "key"         -> D.OpeningFamily.key,
+      "name"        -> D.OpeningFamily.name,
+      "position"    -> D.OpeningFamily.position,
+      "description" -> D.OpeningFamily.description,
+      "values"      -> families.map(InsightDimension.valueToJson(D.OpeningFamily))
+    )
 
     val openingJson = Json.obj(
-      "key"         -> D.Opening.key,
-      "name"        -> D.Opening.name,
-      "position"    -> D.Opening.position,
-      "description" -> D.Opening.description,
-      "values"      -> openings.map(InsightDimension.valueToJson(D.Opening))
+      "key"         -> D.OpeningVariation.key,
+      "name"        -> D.OpeningVariation.name,
+      "position"    -> D.OpeningVariation.position,
+      "description" -> D.OpeningVariation.description,
+      "values"      -> openings.map(InsightDimension.valueToJson(D.OpeningVariation))
     )
 
     val dimensionCategs = List(
@@ -36,6 +46,7 @@ final class JsonView {
       Categ(
         "Game",
         List(
+          openingFamilyJson,
           openingJson,
           Json.toJson(D.MyCastling: InsightDimension[_]),
           Json.toJson(D.OpCastling: InsightDimension[_]),

@@ -3,7 +3,7 @@ package lila.insight
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import lila.common.LilaOpening
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
@@ -11,17 +11,20 @@ import lila.user.User
 case class InsightUser(
     _id: User.ID, // user id
     count: Int,   // nb insight entries
+    families: List[LilaOpeningFamily],
     openings: List[LilaOpening],
     lastSeen: DateTime
 ) {
+
+  def openingFamilies = openings
 
   def id = _id
 }
 
 object InsightUser {
 
-  def make(userId: User.ID, count: Int, openings: List[LilaOpening]) =
-    InsightUser(userId, count, openings, DateTime.now)
+  def make(userId: User.ID, count: Int, families: List[LilaOpeningFamily], openings: List[LilaOpening]) =
+    InsightUser(userId, count, families, openings, DateTime.now)
 }
 
 final private class InsightUserApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
