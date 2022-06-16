@@ -16,7 +16,7 @@ function renderContent(ctrl: Ctrl): VNode[] {
   return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
 }
 
-const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm);
+const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
 
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
   return h(

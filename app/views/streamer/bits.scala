@@ -74,7 +74,7 @@ object bits {
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
-        s.status
+        s.cleanStatus
       )
     }
 

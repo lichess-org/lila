@@ -497,7 +497,7 @@ object mon {
         def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
         def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
       }
-      def nextPuzzleResult(theme: String, difficulty: String, result: String) =
+      def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
         timer("puzzle.selector.user.puzzleResult").withTags(
           Map("theme" -> theme, "difficulty" -> difficulty, "result" -> result)
         )

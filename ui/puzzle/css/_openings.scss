@@ -41,15 +41,14 @@
   h2 {
     margin: 1em 0;
   }
-  h2,
-  h3 {
-    em {
-      @extend %roboto;
 
-      color: $c-font-dimmer;
-      font-size: 0.8em;
-      margin-left: 0.7ch;
-      letter-spacing: -1px;
-    }
+  &__link em,
+  em {
+    @extend %roboto;
+
+    color: $c-font-dimmer;
+    font-size: 0.8em;
+    margin-left: 0.7ch;
+    letter-spacing: -1px;
   }
 }

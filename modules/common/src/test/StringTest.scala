@@ -37,6 +37,9 @@ class StringTest extends Specification {
     val rms = String.removeMultibyteSymbols _
     "remove multibyte garbage" in {
       rms("""🕸Trampas en Aperturas🕸: INTRO👋""") must_== "Trampas en Aperturas: INTRO"
+      rms(
+        """🚌🚎🚐🚑🚒🚓🚕🚗🚙🚚🚛🚜🚲🛴🛵🛺🦼🦽 with new and better !pizzes on lichess.org"""
+      ) must_== " with new and better !pizzes on lichess.org"
     }
     "preserve languages" in {
       Result.foreach(i18nValidStrings) { txt =>

@@ -184,9 +184,7 @@ export default function (redraw: Redraw) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
-            ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
-            : []),
+          ...(!ctrl.getData().replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
