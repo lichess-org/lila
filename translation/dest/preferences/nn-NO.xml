@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferansar</string>
-  <string name="gameDisplay">Brettutsjånad</string>
+  <string name="display">Utsjånad</string>
+  <string name="privacy">Privatsfære</string>
   <string name="pieceAnimation">Farta på brikkerørslene</string>
   <string name="materialDifference">Materiellskilnad</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Innstillinger</string>
-  <string name="gameDisplay">Brettutseende</string>
   <string name="pieceAnimation">Brikke animasjon</string>
   <string name="materialDifference">Materiell forskjell</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>

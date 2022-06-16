@@ -332,7 +332,7 @@
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
-  <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest positsioonist</string>
+  <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest seisust</string>
   <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
@@ -429,7 +429,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardEditor">Muudetav laud</string>
   <string name="setTheBoard">Seadista lauda</string>
   <string name="popularOpenings">Populaarsed avangud</string>
-  <string name="endgamePositions">Lõppmängu positsioonid</string>
+  <string name="endgamePositions">Lõppmängu seisud</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="loadPosition">Lae seis</string>
@@ -510,7 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
-  <string name="none">Mitte üldsegi</string>
+  <string name="none">Väljas</string>
   <string name="fast">Kiire</string>
   <string name="normal">Tavaline</string>
   <string name="slow">Aeglane</string>
@@ -810,4 +810,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
+  <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
+  <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
+  <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
 </resources>

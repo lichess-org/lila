@@ -522,8 +522,8 @@
   <string name="newPasswordStrength">Құпиясөздің беріктігі</string>
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
-  <string name="privacy">Даралық</string>
-  <string name="privacyPolicy">Даралық саясаты</string>
+  <string name="privacy">Жеке мәліметтер</string>
+  <string name="privacyPolicy">Жеке мәлімет туралы саясат</string>
   <string name="letOtherPlayersFollowYou">Ойыншылар сізге серік бола ала ма?</string>
   <string name="letOtherPlayersChallengeYou">Ойыншылар сізді ойынға шақыра ала ма?</string>
   <string name="letOtherPlayersInviteYouToStudy">Ойыншылар сізді зерттеуге шақыра ала ма?</string>

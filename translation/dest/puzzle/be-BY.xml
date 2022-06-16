@@ -57,6 +57,7 @@
   </plurals>
   <string name="example">Прыклад</string>
   <string name="addAnotherTheme">Дадаць іншую тэму</string>
+  <string name="nextPuzzle">Наступная задача</string>
   <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнай задачы</string>
   <string name="puzzleDashboard">Панэль задач</string>
   <string name="improvementAreas">Напрамкі паляпшэння</string>

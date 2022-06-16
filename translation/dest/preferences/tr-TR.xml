@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Seçenekler</string>
-  <string name="gameDisplay">Oyun görünümü</string>
+  <string name="display" comment="display&#10;&#10;This is a category in the preferences. It allows for configuring various options on how things are displayed, for example, the ability to hide player ratings.">Görünüm</string>
+  <string name="privacy">Gizlilik</string>
   <string name="pieceAnimation">Hamle animasyonu</string>
   <string name="materialDifference">Taş farkı</string>
   <string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>

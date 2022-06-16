@@ -16,7 +16,7 @@ trait Stream {
   def twitch                       = serviceName == "twitch"
   def youTube                      = serviceName == "youTube"
 
-  lazy val cleanStatus = removeMultibyteSymbols(status)
+  lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
   lazy val lang: String = cleanStatus match {
     case Stream.LangRegex(code) => code.toLowerCase
