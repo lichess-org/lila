@@ -499,7 +499,7 @@ object mon {
       }
       def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
         timer("puzzle.selector.user.puzzleResult").withTags(
-          Map("theme" -> theme, "difficulty" -> difficulty, "result" -> result)
+          Map("theme" -> theme, "difficulty" -> difficulty, "color" -> color, "result" -> result)
         )
     }
     object path {
