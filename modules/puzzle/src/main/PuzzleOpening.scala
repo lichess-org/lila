@@ -13,14 +13,12 @@ import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.memo.CacheApi
 
 case class PuzzleOpeningCollection(
-    families: List[PuzzleOpening.FamilyWithCount],
-    openings: List[PuzzleOpening.WithCount]
+    families: List[PuzzleOpening.FamilyWithCount], // most popular first
+    openings: List[PuzzleOpening.WithCount]        // most popular first
 ) {
 
   import LilaOpening._
   import PuzzleOpening._
-
-  val popularFamilies = families.sortBy(-_.count)
 
   val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
   val openingMap = openings.view.map { op => op.opening.key -> op }.toMap

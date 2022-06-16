@@ -16,7 +16,6 @@ case class InsightEntry(
     color: Color,
     perf: PerfType,
     opening: Option[LilaOpening],
-    openingFamily: Option[LilaOpeningFamily],
     myCastling: Castling,
     ratingCateg: Option[Int],
     opponentRating: Int,
