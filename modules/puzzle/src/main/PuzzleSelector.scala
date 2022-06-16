@@ -20,7 +20,7 @@ final class PuzzleSelector(
   private object NextPuzzleResult {
     case object PathMissing                        extends NextPuzzleResult("pathMissing")
     case object PathEnded                          extends NextPuzzleResult("pathEnded")
-    case object WrongColor                         extends NextPuzzleResult("wrongColor")
+    case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
     case class PuzzleMissing(id: Puzzle.Id)        extends NextPuzzleResult("puzzleMissing")
     case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
@@ -66,9 +66,11 @@ final class PuzzleSelector(
               nextPuzzleFor(user, angle, retries = retries + 1)
             case PuzzleAlreadyPlayed(puzzle) =>
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
-            case WrongColor =>
+            case WrongColor(_) if retries < 10 =>
               sessionApi.set(user, session.next)
               nextPuzzleFor(user, angle, retries = retries + 1)
+            case WrongColor(puzzle) =>
+              session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
             case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
@@ -121,7 +123,7 @@ final class PuzzleSelector(
               .getAsOpt[List[Puzzle]]("puzzle")
               .flatMap(_.headOption)
               .fold[NextPuzzleResult](PuzzleMissing(puzzleId)) { puzzle =>
-                if (session.settings.color.exists(puzzle.color !=)) WrongColor
+                if (session.settings.color.exists(puzzle.color !=)) WrongColor(puzzle)
                 else if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
                 else PuzzleFound(puzzle)
               }
