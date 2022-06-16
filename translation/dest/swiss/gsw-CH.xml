@@ -73,9 +73,13 @@ Jedem \"Schpaatiistiiger\" wird en halbe Punkt guet-gschribe, obwohl er mehreri 
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - sie sind nur e zusätzlichi Spillmöglichkeit.</string>
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
-  <string name="roundRobinA">Mir würdet das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
-De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorziitig verlöhnd. Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event beändet und alli siini Partie schpillt. Das wird eifach nie passiere und darum wäred die meischte vu dene Turnier fählerhaft und unfair, was dänn de eigentlichi Sinn vu \"Round Robin\" verunmöglicht.
-Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Aazahl vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
+  <string name="roundRobinA">Mir würded das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
+De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorzitig verlöhnd. 
+Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event beändet und alli sini Partie schpillt. 
+Das wird eifach nie passiere und drum wäred die meischte vu dene Turnier fählerhaft und unfair, 
+was dänn de eigentlichi Sinn vu \"Round Robin\" verunmöglicht.
+Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Azahl 
+vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
   <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwiis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zuegloost, zum sicher stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de gliichi Gägner trifft. De Sieger isch, am Schluss, de Schpiller mit de höchschte Aazahl Pünkt, wo us allne Runde addiert worde sind. Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Anzahl vu Schpiller</string>
