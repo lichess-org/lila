@@ -45,7 +45,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
         ]),
         showEditor
           ? h('div.puzzle__themes', editor(ctrl))
-          : !data.replay && !ctrl.streak
+          : !data.replay && !ctrl.streak && t.isOpening
           ? renderColorForm(ctrl)
           : null,
       ]);
