@@ -18,8 +18,8 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja - Lichess hät tatsächlich anderi quälle-offeni Site inschpiriert, wo euse %1$s, %2$s oder eusi %3$s verwänded.</string>
   <string name="fairPlay">Fairs Schpille</string>
   <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
-  <string name="ratingRefundExplanation">1 Minute, nachedm en Schpiller markiert worde isch, werded sini 40 jüngschte Partie, vu de letschte 3 Tag aaglueget. Wänn du i dene Partie under de Gägner gsii bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsii isch, chunnsch du e Wertigsrückerstattig über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und dini Wertigsfortschritt nach dere Partie.
-(Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwiis kei Rückerschtattig oder nur e Teil-Rückerschtattig.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
+  <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Partie, vu de letschte 3 Tag aglueget. Wänn du i dene Partie under de Gägner gsi bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsi isch, chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dere Partie.
+(Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
   <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo eifach abhaued anstatt e Partie ufzgeh?</string>
   <string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
   <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
@@ -27,12 +27,12 @@
   <string name="isCorrespondenceDifferent">Underscheidet sich Fernschach vo normalem Schach?</string>
   <string name="pleaseReadFairPlayPage">Meh Infos chasch uf eusere %s läse</string>
   <string name="fairPlayPage">\"Fairplay-Siite\"</string>
-  <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtoht dä Hauptunderschiid idä Reglä für Fürnschach dodrin, dass äs Eröffnigsbuäch erlaubt isch. D\'Verwändig vo Schachkompis isch aber immer no verbotä und füährt zunärä Markiärig vom Konto wäg unerlaubter Underschtützig dur Schachkompis. Obwohl d\'ICCF d\'Verwändig vo Schachkompis in Färnschachpartiiä erlaubt, isch das uf Lichess nöd gschtattät.</string>
+  <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtaht de Hauptunderschid i de Regle für Fernschach darin, dass es Schachbuech erlaubt isch. D\'Verwändig vu Schachcoputer isch aber immer no verbote und füehrt zunere Markierig vom Konto wäge unerlaubter Computer-Underschtützig. Obwohl d\'ICCF d\'Verwändig vu Computer für Fernschachpartie erlaubt, isch es bi Lichess nöd gschtattet.</string>
   <string name="gameplay">Schpiilerläbnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Ziitkontrolle sind?</string>
   <string name="basedOnGameDuration">Lichess Ziitkontrolle basiered uf de erwartete Schpiilduur = %1$s
 Zum Bischpiil berächnet sich die erwartete Schpiilduur vonere 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunde.</string>
-  <string name="durationFormula">(Ziitguäthabä am Aafang) + 40 × (Zug-Inkremänt)</string>
+  <string name="durationFormula">(Zitguethabe am Afang) + 40 × (Zug-Inkrement)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Weli Variantä chan ich uf Lichess schpilä?</string>
@@ -58,8 +58,8 @@ Gib also acht druf, dass es möglich isch, nur mit Schpringer oder Läufer, es M
 
 \"En passant\" wird im Abschnitt 3.7 vu de %2$s beschribe.
 
-En Puur wo uf de 5. Reihe staht (Wiss Reihe 5. Schwarz Reihe 4) dörf en gägnerische Puur, wo mit 2 Züg, us sinere Aafangsschtellig, a ihm verbi zieht und sich links oder rächts näbe ihn stellt, so schlah, wie wänn de \"verbii Ziehendi\" nur 1 Fäld gfahre wär. De Sinn vu de Regle isch, dass sich en Puur, mit dere 2-Zug-Regle, nöd de Konfrontation entzieh chann.
-Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswiichversuech erlaubt isch. 
+En Puur wo uf de 5. Reihe staht (Wiss Reihe 5. Schwarz Reihe 4) dörf en gägnerische Puur, wo mit 2 Züg, us sinere Afangsschtellig, a ihm verbi zieht und sich links oder rächts näbe ihn stellt, so schlah, wie wänn de \"Verbiziehendi\" nur 1 Fäld gfahre wär. De Sinn vu de Regle isch, dass sich en Puur, mit dere 2-Zug-Regle, nöd de Konfrontation entzieh chann.
+Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswichversuech erlaubt isch. 
 
 Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="goodIntroduction">guete erschte Iidruck</string>
@@ -97,18 +97,18 @@ Also verlang de Titel nöd.</string>
   <string name="usernamesCannotBeChanged">Leider nei, Benutzernamä chönd us technischä und praktischä Gründ nöd g\'ändärät wärdä. D\'Benutzernamä tauchäd a zu vilä Schtellä uf: Datäbankä, Export, Logs und im Gedächtnis vo andärnä Lüüt. Du chasch aber eimol d\'Gross-/Chliischriibig ändärä.</string>
   <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
   <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
-  <string name="wayOfBerserkExplanation">Är hät si becho, wil är 100%% vodä Partiiä vönärä %s bärsärkt und gwunnä hät.</string>
+  <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">e schtündlichi Bullet Arena</string>
   <string name="goldenZeeExplanation">De \"FM ZugAddict\" hät mal - ime stream - über 2 Schtund lang versuecht, de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn versproche, dass er e einzigartigi Trophäe überchunnt, wänn er das erfolgriich- und im Stream schaffe würd. E Schtund spöter hät er dänn de \"Stockfish\" besiegt und s\'Verspräche isch iighalte worde.</string>
   <string name="lichessRatings">Lichess-Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode, entwicklet vum Mark Glickman, berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Aazahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebiischpiil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
+  <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
 
-Grundsätzlich verwändet d\'Glicko-Wertige \"Konfidänzintervall\" bide Berächnig vu Wertige. Wer zum erschte Mal uf dere Website schpillt, fangt sini Wertig bi 1500 ± 1000 Pünkt aa. Die 1500 schtelled e Grundwertig dar und die 1000 schtellt s\'Konfidänzintervall dar.
+Grundsätzlich verwändet d\'Glicko-Wertig \"Konfidänzintervall\" bi de Berächnig vu Wertige. Wer zum erschte Mal uf dere Website schpillt, fangt sini Wertig bi 1500 ± 1000 Pünkt a. Die 1500 schtelled e Grundwertig dar und die 1000 schtellt s\'Konfidänzintervall dar.
 
-Grundsätzlich isch sich das Syschtem aber zu 95% sicher, dass e Wertig irgendwo zwüschet 800 und 2200 Pünkt ligt. Aber das isch zimli ungnau. Us dem Grund wird sich d\'Wertig, wänn en Schpiller neu aafangt, drastisch ändere, möglicherwis um mehreri hundert Pünkt pro Schtund. Aber nach paar Schpiil gäge etablierti Schpiller wird sich s\'Konfidänzintervall verchlinere und d\'Anzahl vu gunnene/verlorene Pünkt nach jedem Schpiil werded weniger.
+Grundsätzlich isch sich bi dem Syschtem aber zu 95% sicher, dass e Wertig irgendwo zwüschet 800 und 2200 Pünkt ligt. Aber das isch zimli ungnau. Us dem Grund wird sich d\'Wertig, wänn en Schpiller neu afangt, drastisch ändere, möglicherwis um mehreri hundert Pünkt pro Schtund. Aber nach paar Schpiil gäge etablierti Schpiller wird sich s\'Konfidänzintervall verchlinere und d\'Azahl vu de gwunnene- oder verlorene Pünkt, nach jedem Schpiil werded weniger.
 
-En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Ziit erhöht. Das erlaubts, Pünkt schnäller z\'günne oder z\'verlüre, zum alli Änderige vu dine Fertigkeite während dem Ziitruum z\'berücksichtige.</string>
+En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht. Das erlaubt, Pünkt schnäller z\'günne oder z\'verlüre, um alli Änderige vu dine Fertigkeite während dem Zitrum z\'berücksichtige.</string>
   <string name="whatIsProvisionalRating">Wieso gits es Fragezeiche (?) näbe de Wertigszahl?</string>
   <string name="provisionalRatingExplanation">Das Fragezeiche zeigt, dass d\'Wertig no provisorisch isch. Us folgende Gründ:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg gwerteti Schpiil gäge %1$s i dere Wertigskategorie gschpillt.</string>
@@ -118,7 +118,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Ziit erhöh
   <string name="howDoLeaderoardsWork">Wiä funktioniäräd Räng und Rangliischtä?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
   <string name="ratingLeaderboards">Wertigs Ranglischte</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtäns 30 gwärtäti Partiiä inärä beschtimmtä Kategorie gschpillt ha,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtens 30 gwerteti Partie inere beschtimmte Kategorie gschpillt ha,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">idä letschtä Wuchä ä gwärtäti Partii i därä Kategorie gschpillt ha,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">e Wertigsabwichig chliner als %1$s im Standard Schach und tüfer als %2$s i Variante</string>
   <string name="beInTopTen">ide Top-Ten vu dere Wertigskategorie sii.</string>
