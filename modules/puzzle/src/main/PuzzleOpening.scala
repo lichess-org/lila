@@ -12,31 +12,42 @@ import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.memo.CacheApi
 
-case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
+case class PuzzleOpeningCollection(
+    families: List[PuzzleOpening.FamilyWithCount],
+    openings: List[PuzzleOpening.WithCount]
+) {
 
   import LilaOpening._
   import PuzzleOpening._
 
-  val byKey: Map[Key, WithCount] = all.view.map { op =>
-    op.opening.key -> op
+  val countByKey: Map[String, Int] = {
+    families.map(f => f.family.key.value -> f.count) :::
+      openings.map(v => v.opening.key.value -> v.count)
   }.toMap
-  val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
-    tree.updatedWith(op.opening.ref.family) {
-      case None => (op.count, op.opening.ref, op.opening.variation.isDefined ?? Set(op)).some
-      case Some((famCount, famRef, ops)) =>
-        (famCount, famRef, if (op.opening.variation.isDefined) ops incl op else ops).some
+
+  val popularFamilies = families.sortBy(-_.count)
+
+  val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
+    tree.updatedWith(op.opening.family) {
+      case None =>
+        (
+          families.find(_.family.key == op.opening.family.key).??(_.count),
+          op.opening.ref.variation.isDefined ?? Set(op)
+        ).some
+      case Some((famCount, ops)) =>
+        (famCount, if (op.opening.ref.variation.isDefined) ops incl op else ops).some
     }
   }
   val treePopular: TreeList = treeMap.toList
-    .map { case (family, (famCount, famRef, ops)) =>
-      FamilyWithCount(LilaOpeningFamily(family, famRef), famCount) -> ops.toList.sortBy(-_.count)
+    .map { case (family, (famCount, ops)) =>
+      FamilyWithCount(family, famCount) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
     .map { case (fam, ops) =>
       fam -> ops.sortBy(_.opening.name.value)
     }
-    .sortBy(_._1.family.family.name)
+    .sortBy(_._1.family.name.value)
 
   def treeList(order: Order) = order match {
     case Order.Popular      => treePopular
@@ -66,15 +77,24 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
                 Limit(maxOpenings)
               )
             }.map {
-              _.flatMap { obj =>
-                for {
-                  key     <- obj string "_id" map LilaOpening.Key
-                  opening <- LilaOpening(key)
-                  if opening.variation.fold(true)(_ != otherVariations)
-                  count <- obj int "count"
-                } yield WithCount(opening, count)
+              _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
+                val count = ~obj.int("count")
+                obj.string("_id").fold(acc) { keyStr =>
+                  LilaOpeningFamily.find(keyStr) match {
+                    case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
+                    case None =>
+                      LilaOpening
+                        .find(keyStr)
+                        .filter(_.ref.variation != LilaOpening.otherVariations)
+                        .fold(acc) { op =>
+                          acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+                        }
+                  }
+                }
               }
-            } map PuzzleOpeningCollection
+            } map { case PuzzleOpeningCollection(families, openings) =>
+              PuzzleOpeningCollection(families.reverse, openings.reverse)
+            }
           }
         }
     }
@@ -83,7 +103,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
     collectionCache get {}
 
   def count(key: LilaOpening.Key): Fu[Int] =
-    collection dmap { _.byKey.get(key).??(_.count) }
+    collection dmap { ~_.countByKey.get(key.value) }
 
   def addAllMissing: Funit =
     colls.puzzle {
@@ -106,17 +126,13 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
 
   private def addMissing(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
     _ ?? { game =>
-      FullOpeningDB.search(game.pgnMoves).map(_.opening) match {
+      FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
         case None =>
           fuccess {
             logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
           }
         case Some(o) =>
-          val variation = o.variation | otherVariations
-          val keys = List(
-            LilaOpening.nameToKey(Name(o.family.name)),
-            LilaOpening.nameToKey(Name(s"${o.family.name}: ${variation.name}"))
-          )
+          val keys = List(o.family.key, o.key).map(_.value)
           colls.puzzle {
             _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
           }
@@ -132,12 +148,10 @@ object PuzzleOpening {
   type Count = Int
   type Name  = String
 
-  val otherVariations = OpeningVariation("Other variations")
-
   case class WithCount(opening: LilaOpening, count: Count)
   case class FamilyWithCount(family: LilaOpeningFamily, count: Count)
 
-  type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[WithCount])]
+  type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]
 
   sealed abstract class Order(val key: String, val name: I18nKey)

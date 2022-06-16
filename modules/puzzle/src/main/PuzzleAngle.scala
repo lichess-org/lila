@@ -38,7 +38,7 @@ object PuzzleAngle {
 
   case class All(
       themes: List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])],
-      openings: List[PuzzleOpening.WithCount]
+      openings: PuzzleOpeningCollection
   )
 
   implicit val angleIso = lila.common.Iso.string[PuzzleAngle](findOrMix, _.key)

@@ -2,52 +2,17 @@ package lila.common
 
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
 
-case class LilaOpening(ref: FullOpening) {
-  import LilaOpening._
-  val name: Name = Name(ref.variation.fold(ref.family.name)(v => s"${ref.family.name}: ${v.name}"))
-  val key: Key   = nameToKey(name)
-  def variation  = ref.variation
+case class LilaOpeningFamily(ref: OpeningFamily, full: FullOpening) {
+  import LilaOpeningFamily._
+  val name = Name(ref.name)
+  val key  = Key(LilaOpening nameToKey name.value)
 }
 
-object LilaOpening {
+object LilaOpeningFamily {
 
   case class Key(value: String)  extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
 
-  implicit val keyIso = Iso.string[Key](Key.apply, _.value)
-
-  def nameToKey(name: Name) = Key {
-    java.text.Normalizer
-      .normalize(
-        name.value,
-        java.text.Normalizer.Form.NFD
-      )                                      // split an accented letter in the base letter and the accent
-      .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
-      .replaceAllIn("""\s+""".r, "_")
-      .replaceAllIn("""[^\w\-]+""".r, "")
-  }
-
-  def apply(key: Key): Option[LilaOpening]   = openings get key
-  def find(key: String): Option[LilaOpening] = apply(Key(key))
-
-  lazy val openings: Map[Key, LilaOpening] = FullOpeningDB.all
-    .foldLeft(Map.empty[Key, LilaOpening]) { case (acc, fullOp) =>
-      val op = LilaOpening(fullOp)
-      if (acc.contains(op.key)) acc else acc.updated(op.key, op)
-    }
-
-  lazy val openingList = openings.values.toList.sortBy(_.name.value)
-}
-
-case class LilaOpeningFamily(family: OpeningFamily, ref: FullOpening) {
-  lazy val key = LilaOpening.nameToKey(LilaOpening.Name(family.name))
-}
-
-object LilaOpeningFamily {
-  import LilaOpening.{ Key, Name }
-
-  def apply(op: LilaOpening): Option[LilaOpeningFamily] =
-    families get LilaOpening.nameToKey(Name(op.ref.family.name))
   def apply(key: Key): Option[LilaOpeningFamily]   = families get key
   def find(key: String): Option[LilaOpeningFamily] = apply(Key(key))
 
@@ -57,5 +22,50 @@ object LilaOpeningFamily {
       if (acc.contains(fam.key)) acc else acc.updated(fam.key, fam)
     }
 
-  lazy val familyList = families.values.toList.sortBy(_.family.name)
+  lazy val familyList = families.values.toList.sortBy(_.name.value)
+
+  implicit val keyIso = Iso.string[Key](Key.apply, _.value)
+}
+
+case class LilaOpening(ref: FullOpening, name: LilaOpening.Name, family: LilaOpeningFamily) {
+  import LilaOpening._
+  val key       = Key(nameToKey(name.value))
+  def variation = ref.variation | otherVariations
+}
+
+object LilaOpening {
+
+  case class Key(value: String)  extends AnyVal with StringValue
+  case class Name(value: String) extends AnyVal with StringValue
+
+  val otherVariations = OpeningVariation("Other variations")
+
+  def nameToKey(name: String) =
+    java.text.Normalizer
+      .normalize(
+        name,
+        java.text.Normalizer.Form.NFD
+      )                                      // split an accented letter in the base letter and the accent
+      .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
+      .replaceAllIn("""\s+""".r, "_")
+      .replaceAllIn("""[^\w\-]+""".r, "")
+
+  def apply(key: Key): Option[LilaOpening]         = openings get key
+  def apply(ref: FullOpening): Option[LilaOpening] = openings get Key(nameToKey(nameOf(ref).value))
+
+  def find(key: String): Option[LilaOpening] = apply(Key(key))
+
+  def nameOf(ref: FullOpening) = Name(s"${ref.family.name}: ${(ref.variation | otherVariations).name}")
+
+  lazy val openings: Map[Key, LilaOpening] = FullOpeningDB.all
+    .foldLeft(Map.empty[Key, LilaOpening]) { case (acc, ref) =>
+      LilaOpeningFamily.find(LilaOpening nameToKey ref.family.name).fold(acc) { fam =>
+        val op = LilaOpening(ref, nameOf(ref), fam)
+        if (acc.contains(op.key)) acc else acc.updated(op.key, op)
+      }
+    }
+
+  lazy val openingList = openings.values.toList.sortBy(_.name.value)
+
+  implicit val keyIso = Iso.string[Key](Key.apply, _.value)
 }

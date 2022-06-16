@@ -25,7 +25,7 @@ object theme {
               themeCategory(cat, themes)
             },
             h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings())(trans.more(), " »")),
-            opening.listOf(all.openings take 12),
+            opening.listOf(all.openings.families take 12),
             all.themes drop 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
             },

@@ -191,7 +191,7 @@ final private class PovToEntry(
       color = pov.color,
       perf = perfType,
       opening = opening,
-      openingFamily = opening flatMap LilaOpeningFamily.apply,
+      openingFamily = opening.map(_.family),
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       ratingCateg = (!provisional).option(((myRating + 50) / 100) * 100),
       opponentRating = opRating,
@@ -220,7 +220,7 @@ final private class PovToEntry(
           case (sit, None) =>
             FullOpeningDB
               .findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
-              .map(LilaOpening.apply)
+              .flatMap(LilaOpening.apply)
           case (_, found) => found
         }
 }

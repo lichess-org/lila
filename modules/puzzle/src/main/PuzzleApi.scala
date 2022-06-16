@@ -123,7 +123,7 @@ final class PuzzleApi(
 
   def angles: Fu[PuzzleAngle.All] = for {
     themes   <- theme.categorizedWithCount
-    openings <- openingApi.collection.map(_.all)
+    openings <- openingApi.collection
   } yield PuzzleAngle.All(themes, openings)
 
   object theme {
