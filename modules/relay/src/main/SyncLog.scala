@@ -6,7 +6,7 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal {
 
   def isOk = events.lastOption.exists(_.isOk)
 
-  def alwaysFails = events.sizeIs == SyncLog.historySize && events.forall(_.isKo)
+  def alwaysFails = events.sizeIs >= SyncLog.historySize && events.forall(_.isKo)
 
   def justTimedOut = events.lastOption.exists(_.isTimeout)
 
