@@ -11,7 +11,7 @@ import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.base.LilaException
+import lila.base.LilaInvalid
 import lila.common.{ AtMost, Every, ResilientScheduler }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
@@ -102,7 +102,7 @@ final private class RelayFetch(
   private def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.round.sync.upstream.fold(rt.round) { upstream =>
       val seconds =
-        if (rt.round.sync.log.alwaysFails && !upstream.local) {
+        if (rt.round.sync.log.alwaysFails) {
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
@@ -118,7 +118,9 @@ final private class RelayFetch(
       rt.round.withSync {
         _.copy(
           nextAt = DateTime.now plusSeconds {
-            seconds atLeast { if (rt.round.sync.log.justTimedOut) 10 else 2 }
+            seconds atLeast {
+              if (rt.round.sync.log.justTimedOut) 10 else 2
+            }
           } some
         )
       }
@@ -143,10 +145,15 @@ final private class RelayFetch(
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap
-          gameRepo.withInitialFens flatMap {
-            _.map { case (game, fen) =>
-              pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-            }.sequenceFu dmap MultiPgn.apply
+          gameRepo.withInitialFens flatMap { games =>
+            if (games.size == ids.size)
+              games.map { case (game, fen) =>
+                pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
+              }.sequenceFu dmap MultiPgn.apply
+            else
+              throw LilaInvalid(
+                s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
+              )
           } flatMap RelayFetch.multiPgnToGames.apply
       case url: UpstreamUrl =>
         cache.asMap
@@ -298,7 +305,7 @@ private object RelayFetch {
           case (Success((acc, index)), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
-              if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
+              if (game.isEmpty) Failure(LilaInvalid(s"Found an empty PGN at index $index"))
               else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc
@@ -315,7 +322,7 @@ private object RelayFetch {
       lila.study
         .PgnImport(pgn, Nil)
         .fold(
-          err => Failure(LilaException(err)),
+          err => Failure(LilaInvalid(err)),
           res =>
             Success(index =>
               RelayGame(
