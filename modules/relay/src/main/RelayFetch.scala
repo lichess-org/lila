@@ -9,13 +9,15 @@ import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.base.LilaException
+import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
-import lila.game.{ GameRepo, PgnDump }
-import lila.round.GameProxyRepo
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -26,51 +28,30 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-) extends Actor {
+)(implicit context: ExecutionContext, system: ActorSystem) {
 
-  implicit def system = context.system
-  implicit def ec     = context.dispatcher
-
-  override def preStart(): Unit = {
-    context setReceiveTimeout 20.seconds
-    context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext())
-    ()
-  }
-
-  case object Tick
-
-  def scheduleNext(): Unit =
-    context.system.scheduler.scheduleOnce(500 millis, self, Tick).unit
-
-  def receive = {
-
-    case ReceiveTimeout =>
-      val msg = "RelaySync timed out!"
-      logger.error(msg)
-      throw new RuntimeException(msg)
-
-    case Tick =>
-      api.toSync.flatMap { relays =>
-        List(true, false) foreach { official =>
-          lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+  ResilientScheduler(every = Every(500 millis), timeout = AtMost(20 seconds), initialDelay = 21 seconds) {
+    api.toSync.flatMap { relays =>
+      List(true, false) foreach { official =>
+        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+      }
+      relays.map { rt =>
+        if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
+          api.update(rt.round)(_ => newRelay)
         }
-        relays.map { rt =>
-          if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
-            api.update(rt.round)(_ => newRelay)
-          }
-          else if (rt.round.hasStarted) {
-            logger.info(s"Finish by lack of activity ${rt.round}")
-            api.update(rt.round)(_.finish)
-          } else if (rt.round.shouldGiveUp) {
-            logger.info(s"Finish for lack of start ${rt.round}")
-            api.update(rt.round)(_.finish)
-          } else fuccess(rt.round)
-        }.sequenceFu addEffectAnyway scheduleNext()
-      }.unit
+        else if (rt.round.hasStarted) {
+          logger.info(s"Finish by lack of activity ${rt.round}")
+          api.update(rt.round)(_.finish)
+        } else if (rt.round.shouldGiveUp) {
+          logger.info(s"Finish for lack of start ${rt.round}")
+          api.update(rt.round)(_.finish)
+        } else fuccess(rt.round)
+      }.sequenceFu
+    }.void
   }
 
   // no writing the relay; only reading!
-  def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
+  private def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
     if (!rt.round.sync.playing) fuccess(rt.round.withSync(_.play))
     else
       fetchGames(rt)
@@ -100,7 +81,7 @@ final private class RelayFetch(
           afterSync(result, newRelay withTour rt.tour)
         }
 
-  def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
+  private def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match {
       case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
       case result: SyncResult.Ok =>
@@ -110,7 +91,7 @@ final private class RelayFetch(
       case _ => continueRelay(rt)
     }
 
-  def continueRelay(rt: RelayRound.WithTour): RelayRound =
+  private def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.round.sync.upstream.fold(rt.round) { upstream =>
       val seconds =
         if (rt.round.sync.log.alwaysFails && !upstream.local) {
