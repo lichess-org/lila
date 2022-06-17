@@ -2,7 +2,7 @@ package lila.tutor
 package build
 
 import akka.stream.scaladsl._
-import chess.Replay
+import chess.Color
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
@@ -13,13 +13,17 @@ import lila.common.IpAddress
 import lila.db.dsl._
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
-import lila.user.User
+import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, Metric, Question, RatingCateg }
+import lila.rating.PerfType
+import lila.user.{ User, UserRepo }
+import lila.insight.Cluster
+import lila.common.LilaOpeningFamily
 
 final class TutorReportBuilder(
-    gameRepo: GameRepo,
-    analysisRepo: AnalysisRepo,
+    userRepo: UserRepo,
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
+    insightApi: InsightApi,
     reportColl: Coll @@ ReportColl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -28,7 +32,6 @@ final class TutorReportBuilder(
     mat: akka.stream.Materializer
 ) {
 
-  import TutorReportBuilder._
   import TutorBsonHandlers._
 
   private val maxGames                   = 1000
@@ -65,72 +68,68 @@ final class TutorReportBuilder(
       userId: User.ID,
       ip: IpAddress,
       previous: Option[TutorFullReport]
-  ): Fu[TutorFullReport] = ???
+  ): Fu[TutorFullReport] = for {
+    user          <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
+    whiteOpenings <- computeOpenings(user, Color.White)
+    blackOpenings <- computeOpenings(user, Color.Black)
+  } yield TutorFullReport(userId, DateTime.now, TutorOpenings(Color.Map(whiteOpenings, blackOpenings)))
 
-  // private def compute(
-  //     userId: User.ID,
-  //     ip: IpAddress,
-  //     previous: Option[TutorFullReport]
-  // ): Fu[TutorFullReport] =
-  //   gameRepo
-  //     .sortedCursor(
-  //       selector = gameSelector(userId) ++ previous.map(_.at).??(Query.createdSince),
-  //       sort = Query.sortAntiChronological
-  //     )
-  //     .documentSource(maxGames * 3)
-  //     .via(prePovFlow(userId))
-  //     .take(maxGames)
-  //     .zipWithIndex
-  //     .mapAsyncUnordered(4) { case (pre, index) =>
-  //       getAnalysis(userId, ip, pre.pov.game, index.toInt) map { analysis =>
-  //         RichPov(
-  //           pre.pov,
-  //           pre.perfType,
-  //           pre.replay.toVector,
-  //           analysis,
-  //           chess.Divider(pre.replay.view.map(_.board).toList)
-  //         )
-  //       }
-  //     }
-  //     .runWith {
-  //       Sink.fold[TutorFullBuild.PerfMap, RichPov](Map.empty) { case (build, pov) =>
-  //         TutorFullBuild.aggregate(build, pov)
-  //       }
-  //     }
-  //     .map { perfs =>
-  //       TutorFullReport(userId, DateTime.now, perfs.view.mapValues(_.toReport).toMap)
-  //     }
-
-  private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
-    analysisRepo.byGame(game) orElse {
-      (index < requireAnalysisOnLastGames) ?? requestAnalysis(
-        game,
-        lila.fishnet.Work.Sender(userId = userId, ip = ip.some, mod = false, system = false)
+  private def computeOpenings(user: User, color: Color): Fu[TutorColorOpenings] = {
+    val question = Question(
+      InsightDimension.OpeningFamily,
+      Metric.Performance,
+      List(
+        Filter(InsightDimension.Color, List(color)),
+        Filter(InsightDimension.Perf, perfTypes)
       )
-    }
-
-  private def requestAnalysis(game: Game, sender: lila.fishnet.Work.Sender): Fu[Option[Analysis]] = {
-    def fetch = analysisRepo byId game.id
-    fishnetAnalyser(game, sender, ignoreConcurrentCheck = true) flatMap {
-      case Analyser.Result.Ok              => fishnetAwaiter(game.id, timeToWaitForAnalysis) >> fetch
-      case Analyser.Result.AlreadyAnalysed => fetch
-      case _                               => fuccess(none)
-    }
+    )
+    for {
+      userAnswer <- insightApi.ask(question, user, withPovs = false)
+      peerAnswer <- insightApi.askPeers(
+        question.copy(
+          filters = Filter(InsightDimension.OpeningFamily, userAnswer.clusters.map(_.x)) :: question.filters
+        ),
+        ratingCategOf(user)
+      )
+      userTotalNbGames = userAnswer.clusters.foldLeft(0)(_ + _.size).toFloat
+      peerTotalNbGames = peerAnswer.clusters.foldLeft(0)(_ + _.size).toFloat
+      families = userAnswer.clusters.collect { case Cluster(family, Insight.Single(point), nbGames, _) =>
+        val peerData = peerAnswer.clusters collectFirst {
+          case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
+            (point.y.toInt, nbGames / peerTotalNbGames)
+        }
+        TutorOpeningFamily(
+          family,
+          games = TutorMetric(
+            TutorRatio(nbGames / userTotalNbGames),
+            TutorRatio(peerData.??(_._2))
+          ),
+          performance = TutorMetric(point.y.toInt, peerData.??(_._1)),
+          acpl = TutorMetric(0, 0)
+        )
+      }
+    } yield TutorColorOpenings(families)
   }
 
-  private def gameSelector(userId: User.ID) =
-    Query.user(userId) ++ Query.variantStandard ++ Query.noAi // ++ $id("OsPJmvwA")
-}
+  private def ratingCategOf(user: User) = RatingCateg of user.perfs.standard.intRating
 
-private object TutorReportBuilder {
+  private val perfTypes =
+    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
 
-  def prePovFlow(userId: User.ID) = Flow[Game].mapConcat(g => toPrePov(userId, g).toList)
+  // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
+  //   analysisRepo.byGame(game) orElse {
+  //     (index < requireAnalysisOnLastGames) ?? requestAnalysis(
+  //       game,
+  //       lila.fishnet.Work.Sender(userId = userId, ip = ip.some, mod = false, system = false)
+  //     )
+  //   }
 
-  private def toPrePov(userId: User.ID, game: Game): Option[PrePov] =
-    for {
-      perfType <- game.perfType.filter(TutorFullReport.perfTypeSet.contains)
-      pov      <- Pov.ofUserId(game, userId)
-      replay = ~Replay.situations(pov.game.pgnMoves, none, pov.game.variant).toOption
-      if replay.sizeIs >= 10
-    } yield PrePov(pov, perfType, replay)
+  // private def requestAnalysis(game: Game, sender: lila.fishnet.Work.Sender): Fu[Option[Analysis]] = {
+  //   def fetch = analysisRepo byId game.id
+  //   fishnetAnalyser(game, sender, ignoreConcurrentCheck = true) flatMap {
+  //     case Analyser.Result.Ok              => fishnetAwaiter(game.id, timeToWaitForAnalysis) >> fetch
+  //     case Analyser.Result.AlreadyAnalysed => fetch
+  //     case _                               => fuccess(none)
+  //   }
+  // }
 }

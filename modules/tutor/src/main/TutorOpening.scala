@@ -17,8 +17,8 @@ case class TutorColorOpenings(
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
-    games: TutorMetric[Float],
-    ratingGain: TutorMetric[Float],
+    games: TutorMetric[TutorRatio],
+    performance: TutorMetric[Int],
     acpl: TutorMetric[Float]
 )
 

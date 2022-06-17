@@ -29,17 +29,25 @@ final class InsightApi(
         } yield c
     }
 
-  def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
+  def ask[X](question: Question[X], user: User, withPovs: Boolean = true): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, user)
+      .aggregate(question, Left(user))
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
-        val gameIds  = lila.common.ThreadLocalRandom.shuffle(clusters.flatMap(_.gameIds)) take 4
-        gameRepo.userPovsByGameIds(gameIds, user) map { povs =>
-          Answer(question, clusters, povs)
-        }
+        withPovs ?? {
+          val gameIds = lila.common.ThreadLocalRandom.shuffle(clusters.flatMap(_.gameIds)) take 4
+          gameRepo.userPovsByGameIds(gameIds, user)
+        } map { Answer(question, clusters, _) }
       }
-      .monSuccess(_.insight.request)
+      .monSuccess(_.insight.user)
+
+  def askPeers[X](question: Question[X], ratingCateg: RatingCateg): Fu[Answer[X]] =
+    pipeline
+      .aggregate(question, Right(ratingCateg))
+      .map { aggDocs =>
+        Answer(question, AggregationClusters(question, aggDocs), Nil)
+      }
+      .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {

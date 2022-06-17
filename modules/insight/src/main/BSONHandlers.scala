@@ -67,9 +67,9 @@ private object BSONHandlers {
     e => BSONInteger(e.cpl)
   )
 
-  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
-
-  implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
+  implicit val DateRangeBSONHandler   = Macros.handler[lila.insight.DateRange]
+  implicit val PeriodBSONHandler      = intAnyValHandler[Period](_.days, Period.apply)
+  implicit val RatingCategBSONHandler = intAnyValHandler[RatingCateg](_.value, RatingCateg.apply)
 
   implicit def MoveBSONHandler =
     new BSON[InsightMove] {
@@ -115,7 +115,7 @@ private object BSONHandlers {
           perf = r.get[PerfType](perf),
           opening = r.getO[LilaOpening](opening),
           myCastling = r.get[Castling](myCastling),
-          ratingCateg = r.intO(ratingCateg),
+          ratingCateg = r.getO[RatingCateg](ratingCateg),
           opponentRating = r.int(opponentRating),
           opponentStrength = r.get[RelativeStrength](opponentStrength),
           opponentCastling = r.get[Castling](opponentCastling),

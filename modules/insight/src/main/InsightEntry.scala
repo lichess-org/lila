@@ -17,7 +17,7 @@ case class InsightEntry(
     perf: PerfType,
     opening: Option[LilaOpening],
     myCastling: Castling,
-    ratingCateg: Option[Int],
+    ratingCateg: Option[RatingCateg],
     opponentRating: Int,
     opponentStrength: RelativeStrength,
     opponentCastling: Castling,
@@ -139,6 +139,9 @@ object Phase {
         }
     }
 }
+
+case class RatingCateg(value: Int) extends AnyVal
+object RatingCateg { def of(r: Int) = RatingCateg(((r + 50) / 100) * 100) }
 
 sealed abstract class Castling(val id: Int, val name: String)
 object Castling {

@@ -192,8 +192,9 @@ object mon {
     val notification = counter("timeline.notification").withoutTags()
   }
   object insight {
-    val request = future("insight.request.time")
-    val index   = future("insight.index.time")
+    val user  = future("insight.request.time", Map("for" -> "user"))
+    val peers = future("insight.request.time", Map("for" -> "peers"))
+    val index = future("insight.index.time")
   }
   object search {
     def time(op: String, index: String, success: Boolean) =

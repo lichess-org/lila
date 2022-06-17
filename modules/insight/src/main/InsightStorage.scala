@@ -86,10 +86,10 @@ private object InsightStorage {
 
   import InsightEntry.{ BSONFields => F }
 
-  def selectId(id: String)      = BSONDocument(F.id -> id)
-  def selectUserId(id: User.ID) = BSONDocument(F.userId -> id)
-  val sortChronological         = BSONDocument(F.date -> 1)
-  val sortAntiChronological     = BSONDocument(F.date -> -1)
+  def selectId(id: String)      = $doc(F.id -> id)
+  def selectUserId(id: User.ID) = $doc(F.userId -> id)
+  val sortChronological         = $sort asc F.date
+  val sortAntiChronological     = $sort desc F.date
 
   def combineDocs(docs: List[BSONDocument]) =
     docs.foldLeft(BSONDocument()) { case (acc, doc) =>

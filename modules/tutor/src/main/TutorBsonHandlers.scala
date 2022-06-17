@@ -13,9 +13,7 @@ import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
-  implicit val nbGamesHandler      = intAnyValHandler[NbGames](_.value, NbGames)
-  implicit val nbMovesHandler      = intAnyValHandler[NbMoves](_.value, NbMoves)
-  implicit val nbMovesRatioHandler = Macros.handler[NbMovesRatio]
+  implicit val ratioHandler = floatAnyValHandler[TutorRatio](_.value, TutorRatio)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
     implicitly[BSONHandler[Map[String, A]]]

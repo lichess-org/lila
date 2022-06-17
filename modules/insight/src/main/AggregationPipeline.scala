@@ -9,7 +9,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] =
+  def aggregate[X](question: Question[X], target: Either[User, RatingCateg]): Fu[List[Bdoc]] =
     store.coll {
       _.aggregateList(
         maxDocs = Int.MaxValue,
@@ -189,7 +189,10 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
         val pipeline = Match(
-          selectUserId(user.id) ++
+          (target match {
+            case Left(user)         => selectUserId(user.id)
+            case Right(ratingCateg) => $doc(F.ratingCateg -> ratingCateg.value)
+          }) ++
             gameMatcher ++
             (dimension == InsightDimension.OpeningFamily).??($doc(F.openingFamily $exists true)) ++
             (dimension == InsightDimension.OpeningVariation).??($doc(F.opening $exists true)) ++

@@ -8,7 +8,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.tutor._
-import chess.Color
 
 object tutor {
 
@@ -20,28 +19,35 @@ object tutor {
       main(
         h1("Lichess Tutor"),
         div(cls := "tutor tutor__report")(
-          // report.perfs.toList
-          //   .filter(_._1 == lila.rating.PerfType.Blitz)
-          //   .sortBy(-_._2.games.value)
-          //   .map { case (pt, report) =>
-          //     st.section(cls := "tutor__report__perf")(
-          //       h2(pt.trans(ctx.lang)),
-          //       h3("Openings"),
-          //       Color.all.map { color =>
-          //         st.section(cls := "tutor__report__openings__color")(
-          //           h4(color.name),
-          //           report.openings(color).map { report =>
-          //             st.section(cls := "tutor__report__openings__opening")(
-          //               h5(report.opening.name),
-          //               p("Games: ", report.games.value),
-          //               p("Moves: ", report.moves.value)
-          //             )
-          //           }
-          //         )
-          //       }
-          //     )
-          //   }
+          chess.Color.all.map { color =>
+            st.section(cls := "tutor__report__opeing")(
+              h2(color.name),
+              report.openings.colors(color).families.map { fam =>
+                div(
+                  h3(fam.family.name.value),
+                  p("Performance: ", showMetric(fam.performance)),
+                  p("ACPL: ", showMetric(fam.acpl)),
+                  p("Games: ", showMetric(fam.games))
+                )
+              }
+            )
+          }
         )
       )
     }
+
+  private def showMetric[A](metric: TutorMetric[A]) =
+    div(cls := "metric")(
+      strong(metricValue(metric.mine)),
+      em(" (peers: ", metricValue(metric.field), ")")
+    )
+
+  private def metricValue[A](value: A) = value match {
+    case TutorRatio(v) => f"${v * 100}%1.1f%%"
+    case v: Float      => f"$v%1.1f"
+    case v             => v.toString
+  }
+
+  sealed trait MetricType
+  case object Percent extends MetricType
 }

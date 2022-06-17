@@ -11,10 +11,10 @@ import lila.fishnet.{ Analyser, FishnetAwaiter }
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
-    analysisRepo: lila.analyse.AnalysisRepo,
+    userRepo: lila.user.UserRepo,
     fishnetAnalyser: Analyser,
-    fishnetAwaiter: FishnetAwaiter
+    fishnetAwaiter: FishnetAwaiter,
+    insightApi: lila.insight.InsightApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
