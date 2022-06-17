@@ -30,25 +30,33 @@ final private class RelayFetch(
     ws: StandaloneWSClient
 )(implicit context: ExecutionContext, system: ActorSystem) {
 
-  ResilientScheduler(every = Every(500 millis), timeout = AtMost(20 seconds), initialDelay = 21 seconds) {
-    api.toSync.flatMap { relays =>
-      List(true, false) foreach { official =>
-        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
-      }
-      relays.map { rt =>
-        if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
-          api.update(rt.round)(_ => newRelay)
-        }
-        else if (rt.round.hasStarted) {
-          logger.info(s"Finish by lack of activity ${rt.round}")
-          api.update(rt.round)(_.finish)
-        } else if (rt.round.shouldGiveUp) {
-          logger.info(s"Finish for lack of start ${rt.round}")
-          api.update(rt.round)(_.finish)
-        } else fuccess(rt.round)
-      }.sequenceFu
-    }.void
+  ResilientScheduler(every = Every(500 millis), timeout = AtMost(15 seconds), initialDelay = 30 seconds) {
+    syncRelays(official = true)
   }
+
+  ResilientScheduler(every = Every(750 millis), timeout = AtMost(10 seconds), initialDelay = 1 minute) {
+    syncRelays(official = false)
+  }
+
+  private def syncRelays(official: Boolean) =
+    api
+      .toSync(official)
+      .flatMap { relays =>
+        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+        relays.map { rt =>
+          if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
+            api.update(rt.round)(_ => newRelay)
+          }
+          else if (rt.round.hasStarted) {
+            logger.info(s"Finish by lack of activity ${rt.round}")
+            api.update(rt.round)(_.finish)
+          } else if (rt.round.shouldGiveUp) {
+            logger.info(s"Finish for lack of start ${rt.round}")
+            api.update(rt.round)(_.finish)
+          } else fuccess(rt.round)
+        }.sequenceFu
+      }
+      .void
 
   // no writing the relay; only reading!
   private def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =

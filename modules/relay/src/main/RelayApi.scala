@@ -124,24 +124,16 @@ final class RelayApi(
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
-  private[relay] def toSync: Fu[List[RelayRound.WithTour]] =
-    fetchWithTours(
-      $doc(
-        "sync.until" $exists true,
-        "sync.nextAt" $lt DateTime.now
-      ),
-      20
-    )
-
-  private def fetchWithTours(
-      query: Bdoc,
-      maxDocs: Int,
-      readPreference: ReadPreference = ReadPreference.primary
-  ) =
+  private[relay] def toSync(official: Boolean, maxDocs: Int = 30) =
     roundRepo.coll
-      .aggregateList(maxDocs, readPreference) { framework =>
+      .aggregateList(maxDocs, ReadPreference.primary) { framework =>
         import framework._
-        Match(query) -> List(
+        Match(
+          $doc(
+            "sync.until" $exists true,
+            "sync.nextAt" $lt DateTime.now
+          )
+        ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour"),
           Sort(Descending("tour.tier")),
