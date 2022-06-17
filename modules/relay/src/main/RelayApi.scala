@@ -133,13 +133,18 @@ final class RelayApi(
       20
     )
 
-  def fetchWithTours(query: Bdoc, maxDocs: Int, readPreference: ReadPreference = ReadPreference.primary) =
+  private def fetchWithTours(
+      query: Bdoc,
+      maxDocs: Int,
+      readPreference: ReadPreference = ReadPreference.primary
+  ) =
     roundRepo.coll
       .aggregateList(maxDocs, readPreference) { framework =>
         import framework._
         Match(query) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour"),
+          Sort(Descending("tour.tier")),
           Limit(maxDocs)
         )
       }
