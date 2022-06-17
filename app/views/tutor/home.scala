@@ -20,27 +20,27 @@ object tutor {
       main(
         h1("Lichess Tutor"),
         div(cls := "tutor tutor__report")(
-          report.perfs.toList
-            .filter(_._1 == lila.rating.PerfType.Blitz)
-            .sortBy(-_._2.games.value)
-            .map { case (pt, report) =>
-              st.section(cls := "tutor__report__perf")(
-                h2(pt.trans(ctx.lang)),
-                h3("Openings"),
-                Color.all.map { color =>
-                  st.section(cls := "tutor__report__openings__color")(
-                    h4(color.name),
-                    report.openings(color).map { report =>
-                      st.section(cls := "tutor__report__openings__opening")(
-                        h5(report.opening.name),
-                        p("Games: ", report.games.value),
-                        p("Moves: ", report.moves.value)
-                      )
-                    }
-                  )
-                }
-              )
-            }
+          // report.perfs.toList
+          //   .filter(_._1 == lila.rating.PerfType.Blitz)
+          //   .sortBy(-_._2.games.value)
+          //   .map { case (pt, report) =>
+          //     st.section(cls := "tutor__report__perf")(
+          //       h2(pt.trans(ctx.lang)),
+          //       h3("Openings"),
+          //       Color.all.map { color =>
+          //         st.section(cls := "tutor__report__openings__color")(
+          //           h4(color.name),
+          //           report.openings(color).map { report =>
+          //             st.section(cls := "tutor__report__openings__opening")(
+          //               h5(report.opening.name),
+          //               p("Games: ", report.games.value),
+          //               p("Moves: ", report.moves.value)
+          //             )
+          //           }
+          //         )
+          //       }
+          //     )
+          //   }
         )
       )
     }

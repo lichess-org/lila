@@ -65,35 +65,41 @@ final class TutorReportBuilder(
       userId: User.ID,
       ip: IpAddress,
       previous: Option[TutorFullReport]
-  ): Fu[TutorFullReport] =
-    gameRepo
-      .sortedCursor(
-        selector = gameSelector(userId) ++ previous.map(_.at).??(Query.createdSince),
-        sort = Query.sortAntiChronological
-      )
-      .documentSource(maxGames * 3)
-      .via(prePovFlow(userId))
-      .take(maxGames)
-      .zipWithIndex
-      .mapAsyncUnordered(4) { case (pre, index) =>
-        getAnalysis(userId, ip, pre.pov.game, index.toInt) map { analysis =>
-          RichPov(
-            pre.pov,
-            pre.perfType,
-            pre.replay.toVector,
-            analysis,
-            chess.Divider(pre.replay.view.map(_.board).toList)
-          )
-        }
-      }
-      .runWith {
-        Sink.fold[TutorFullBuild.PerfMap, RichPov](Map.empty) { case (build, pov) =>
-          TutorFullBuild.aggregate(build, pov)
-        }
-      }
-      .map { perfs =>
-        TutorFullReport(userId, DateTime.now, perfs.view.mapValues(_.toReport).toMap)
-      }
+  ): Fu[TutorFullReport] = ???
+
+  // private def compute(
+  //     userId: User.ID,
+  //     ip: IpAddress,
+  //     previous: Option[TutorFullReport]
+  // ): Fu[TutorFullReport] =
+  //   gameRepo
+  //     .sortedCursor(
+  //       selector = gameSelector(userId) ++ previous.map(_.at).??(Query.createdSince),
+  //       sort = Query.sortAntiChronological
+  //     )
+  //     .documentSource(maxGames * 3)
+  //     .via(prePovFlow(userId))
+  //     .take(maxGames)
+  //     .zipWithIndex
+  //     .mapAsyncUnordered(4) { case (pre, index) =>
+  //       getAnalysis(userId, ip, pre.pov.game, index.toInt) map { analysis =>
+  //         RichPov(
+  //           pre.pov,
+  //           pre.perfType,
+  //           pre.replay.toVector,
+  //           analysis,
+  //           chess.Divider(pre.replay.view.map(_.board).toList)
+  //         )
+  //       }
+  //     }
+  //     .runWith {
+  //       Sink.fold[TutorFullBuild.PerfMap, RichPov](Map.empty) { case (build, pov) =>
+  //         TutorFullBuild.aggregate(build, pov)
+  //       }
+  //     }
+  //     .map { perfs =>
+  //       TutorFullReport(userId, DateTime.now, perfs.view.mapValues(_.toReport).toMap)
+  //     }
 
   private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
     analysisRepo.byGame(game) orElse {

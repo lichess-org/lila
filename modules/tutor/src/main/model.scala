@@ -6,6 +6,12 @@ import lila.analyse.Analysis
 import lila.game.Pov
 import lila.rating.PerfType
 
+// case class GameRatio(value: Float)  extends AnyVal
+// case class RatingGain(value: Float) extends AnyVal
+// case class Acpl(value: Int)         extends AnyVal with IntValue
+
+case class TutorMetric[A](mine: A, field: A)
+
 case class NbGames(value: Int) extends AnyVal with IntValue {
   def +(inc: Int)        = NbGames(value + inc)
   def inc(cond: Boolean) = if (cond) this + 1 else this
