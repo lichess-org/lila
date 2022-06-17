@@ -166,8 +166,8 @@ function makeChart(el: HTMLElement, data: Chart) {
       const isSize = i % 2 === 1;
       const c: Highcharts.AxisOptions = {
         opposite: isSize,
-        min: !isSize && isPercent ? 0 : undefined,
-        max: !isSize && isPercent ? 100 : undefined,
+        min: isSize ? undefined : Math.min(...data.series[0].data),
+        max: isSize ? undefined : Math.max(...data.series[0].data),
         labels: {
           format: yAxisTypeFormat(a.dataType),
           style: {
