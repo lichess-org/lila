@@ -113,6 +113,7 @@ final class JsonView {
         List(
           Json.toJson(M.Termination: Metric),
           Json.toJson(M.Result: Metric),
+          Json.toJson(M.Performance: Metric),
           Json.toJson(M.RatingDiff: Metric)
         )
       )

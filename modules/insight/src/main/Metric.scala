@@ -64,7 +64,15 @@ object Metric {
       )
 
   case object Result
-      extends Metric("result", "Game result", F.result, Game, Game, Percent, InsightDimension.Result.description)
+      extends Metric(
+        "result",
+        "Game result",
+        F.result,
+        Game,
+        Game,
+        Percent,
+        InsightDimension.Result.description
+      )
 
   case object Termination
       extends Metric(
@@ -75,6 +83,17 @@ object Metric {
         Game,
         Percent,
         InsightDimension.Termination.description
+      )
+
+  case object Performance
+      extends Metric(
+        "performance",
+        "Performance",
+        F.opponentRating,
+        Game,
+        Game,
+        Average,
+        "Estimated performance rating."
       )
 
   case object RatingDiff
@@ -182,6 +201,7 @@ object Metric {
     Movetime,
     Result,
     Termination,
+    Performance,
     RatingDiff,
     OpponentRating,
     NbMoves,
@@ -205,9 +225,8 @@ object Metric {
 
   def requiresStableRating(m: Metric) =
     m match {
-      case RatingDiff     => true
-      case OpponentRating => true
-      case _              => false
+      case Performance | RatingDiff | OpponentRating => true
+      case _                                         => false
     }
 
   def isStacked(m: Metric) =

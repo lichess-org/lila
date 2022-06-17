@@ -292,6 +292,20 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 List(includeSomeGameIds.some)
             case M.RatingDiff =>
               group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds.some)
+            case M.Performance =>
+              group(
+                dimension,
+                Avg(
+                  $doc(
+                    "$avg" -> $doc(
+                      "$add" -> $arr(
+                        "$or",
+                        $doc("$multiply" -> $arr(500, $doc("$subtract" -> $arr(2, "$r"))))
+                      )
+                    )
+                  )
+                )
+              ) ::: List(includeSomeGameIds.some)
             case M.OpponentRating =>
               group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds.some)
             case M.Result =>
