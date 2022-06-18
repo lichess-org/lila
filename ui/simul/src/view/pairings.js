@@ -32,7 +32,7 @@ function miniPairing(ctrl) {
               if (!isUpdate) lishogi.parseSfen($(el));
             },
           },
-          m('div.cg-wrap')
+          m('div.sg-wrap')
         ),
         m('span.vstext', [
           m('span.vstext__pl', [util.playerVariant(ctrl, player).name, m('br'), result]),
