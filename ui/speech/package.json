@@ -15,7 +15,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "shogi": "2.0.0"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",

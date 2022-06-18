@@ -9,23 +9,22 @@
     "play",
     "replay"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lishogi": "2.0.0",
     "rollup": "^2.56.2",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "shogi": "2.0.0",
-    "shogiground": "7.8.1",
-    "shogiops": "^0.5.0",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^0.7.4",
+    "shogiground": "^0.5.3",
+    "shogiops": "^0.8.0"
   },
   "scripts": {
     "dev": "rollup --config && rollup --config --config-plugin nvui && rollup --config --config-plugin keyboardMove",

@@ -11,30 +11,29 @@
     "analysis",
     "study"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.1",
+    "eslint": "^8.8.0",
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
     "rollup": "^2.56.2",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "shogi": "2.0.0",
-    "shogiground": "7.8.1",
-    "shogiops": "^0.6.0",
+    "shogiground": "^0.5.3",
+    "shogiops": "^0.8.0",
     "snabbdom": "^0.7.4",
-    "tree": "2.0.0",
-    "typescript": "^4.4.3"
+    "tree": "2.0.0"
   },
   "scripts": {
     "dev": "rollup --config",

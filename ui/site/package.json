@@ -28,7 +28,7 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
-    "shogiops": "^0.5.0",
+    "shogiops": "^0.8.0",
     "tablesort": "^5.1"
   },
   "scripts": {

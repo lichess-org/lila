@@ -11,7 +11,7 @@
     "play",
     "replay"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc --incremental",
@@ -21,11 +21,11 @@
   "devDependencies": {
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiops": "^0.5.0",
+    "shogiops": "^0.8.0",
     "snabbdom": "^0.7.4"
   }
 }
