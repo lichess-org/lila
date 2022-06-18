@@ -10,8 +10,9 @@ case class Question[X](
 
 object Question {
 
-  case class Peers(rating: Int) {
-    def ratingRange = Range(rating - 30, rating + 30) // TODO: expand at extremities
+  case class Peers(rating: MeanRating) {
+    def ratingRange = Range(rating.value - 30, rating.value + 30) // TODO: expand at extremities
+    // 0.0002647 x ^(2) - 0.80735 x +635.4411
   }
 }
 

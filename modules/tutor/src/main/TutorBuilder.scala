@@ -1,5 +1,4 @@
 package lila.tutor
-package build
 
 import akka.stream.scaladsl._
 import chess.Color
@@ -25,41 +24,41 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
+import scala.concurrent.ExecutionContext
 
-final class TutorReportBuilder(
+final class TutorBuilder(
+    insightApi: InsightApi,
     userRepo: UserRepo,
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
-    insightApi: InsightApi,
     reportColl: Coll @@ ReportColl
 )(implicit
-    ec: scala.concurrent.ExecutionContext,
+    ec: ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
 
   import TutorBsonHandlers._
-  import TutorReportBuilder._
-  // import TutorRatio.{ ordering, zero }
+  import TutorBuilder._
 
-  private val maxGames                   = 1000
-  private val requireAnalysisOnLastGames = 15
-  private val timeToWaitForAnalysis      = 1 second
+  implicit private val insightApiImplicit = insightApi
+  private val requireAnalysisOnLastGames  = 15
+  private val timeToWaitForAnalysis       = 1 second
   // private val timeToWaitForAnalysis      = 3 minutes
 
-  private val sequencer = new lila.hub.AskPipelines[(User.ID, IpAddress), TutorFullReport](
+  private val sequencer = new lila.hub.AskPipelines[(User.ID, IpAddress), TutorReport](
     compute = getOrCompute,
     expiration = 1 hour,
     timeout = 1 hour,
     name = "tutor.fullReport"
   )
 
-  def apply(user: User, ip: IpAddress): Fu[TutorFullReport] = sequencer(user.id -> ip)
+  def apply(user: User, ip: IpAddress): Fu[TutorReport] = sequencer(user.id -> ip)
 
-  private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorFullReport] = key match {
+  private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorReport] = key match {
     case (userId, ip) =>
       for {
         // previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorFullReport]
-        previous <- fuccess(none[TutorFullReport])
+        previous <- fuccess(none[TutorReport])
         report <- previous match {
           case Some(p) if p.isFresh => fuccess(p)
           case prev =>
@@ -71,50 +70,18 @@ final class TutorReportBuilder(
       } yield report
   }
 
-  private def compute(
-      userId: User.ID,
-      ip: IpAddress,
-      previous: Option[TutorFullReport]
-  ): Fu[TutorFullReport] = for {
-    user          <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
-    whiteOpenings <- computeOpenings(user, Color.White)
-    blackOpenings <- computeOpenings(user, Color.Black)
-  } yield TutorFullReport(userId, DateTime.now, TutorOpenings(Color.Map(whiteOpenings, blackOpenings)))
-
-  private def computeOpenings(user: User, color: Color): Fu[TutorColorOpenings] = {
-    for {
-      myPerfs   <- insightApi.ask(performanceQuestion(color), user, withPovs = false) map Answer.apply
-      peerPerfs <- insightApi.askPeers(myPerfs.alignedQuestion, myPerfs.average.toInt) map Answer.apply
-      performances = Answers(myPerfs, peerPerfs)
-      acplQuestion = myPerfs.alignedQuestion
-        .copy(metric = Metric.MeanCpl)
-        .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-      acpls <- answers(acplQuestion, user, myPerfs.average.toInt)
-    } yield TutorColorOpenings {
-      performances.mine.list.map { case (family, myValue, myCount) =>
-        TutorOpeningFamily(
-          family,
-          games = performances.countMetric(family, myCount),
-          performance = performances.valueMetric(family, myValue),
-          acpl = acpls valueMetric family
-        )
-      }
-    }
-  }
-
-  private def performanceQuestion(color: Color) = Question(
-    InsightDimension.OpeningFamily,
-    Metric.Performance,
-    List(
-      Filter(InsightDimension.Color, List(color)),
-      Filter(InsightDimension.Perf, PerfType.standard)
-    )
+  private def compute(userId: User.ID, ip: IpAddress, previous: Option[TutorReport]): Fu[TutorReport] = for {
+    u          <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
+    meanRating <- insightApi.meanRating(u, List(standardFilter)) orFailWith InsufficientGames
+    user = TutorUser(u, meanRating)
+    openings <- TutorOpening compute user
+    phases   <- TutorPhases compute user
+  } yield TutorReport(
+    userId,
+    DateTime.now,
+    openings,
+    phases
   )
-
-  private def answers[Dim](question: Question[Dim], user: User, rating: Int) = for {
-    mine <- insightApi.ask(question, user, withPovs = false) map Answer.apply
-    peer <- insightApi.askPeers(question, rating) map Answer.apply
-  } yield Answers(mine, peer)
 
   // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
   //   analysisRepo.byGame(game) orElse {
@@ -134,11 +101,19 @@ final class TutorReportBuilder(
   // }
 }
 
-private object TutorReportBuilder {
+private object TutorBuilder {
 
   type Value = Double
   type Count = Int
   type Pair  = (Value, Count)
+
+  def answers[Dim](question: Question[Dim], user: TutorUser)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = for {
+    mine <- insightApi.ask(question, user.user, withPovs = false) map Answer.apply
+    peer <- insightApi.askPeers(question, user.rating) map Answer.apply
+  } yield Answers(mine, peer)
 
   case class Answer[Dim](answer: InsightAnswer[Dim]) {
 
@@ -155,10 +130,10 @@ private object TutorReportBuilder {
 
     def dimensions = list.map(_._1)
 
-    lazy val average =
-      list.foldLeft((0d, 0)) { case ((sum, count), (_, y, nb)) =>
-        (sum + y * nb, count + nb)
-      } match { case (sum, count) => sum / count }
+    // lazy val average =
+    //   list.foldLeft((0d, 0)) { case ((sum, count), (_, y, nb)) =>
+    //     (sum + y * nb, count + nb)
+    //   } match { case (sum, count) => sum / count }
 
     lazy val totalCount = list.map(_._3).sum
 
@@ -177,5 +152,12 @@ private object TutorReportBuilder {
     def valueMetric(dim: Dim, myValue: Value) = TutorMetric(myValue, peer.get(dim).map(_._1))
 
     def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
+  }
+
+  val standardFilter            = Filter(InsightDimension.Perf, PerfType.standard)
+  def colorFilter(color: Color) = Filter(InsightDimension.Color, List(color))
+
+  case object InsufficientGames extends lila.base.LilaException {
+    val message = "Not enough games to analyse. Play some rated games!"
   }
 }

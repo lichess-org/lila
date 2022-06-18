@@ -8,6 +8,13 @@ import lila.user.User
 final private class AggregationPipeline(store: InsightStorage)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
+  import InsightStorage._
+
+  val maxGames = 10_000
+
+  def gameMatcher(filters: List[Filter[_]]) = combineDocs(filters.collect {
+    case f if f.dimension.isInGame => f.matcher
+  })
 
   def aggregate[X](
       question: Question[X],
@@ -23,9 +30,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         import question.{ dimension, filters, metric }
         import lila.insight.{ InsightDimension => D, Metric => M }
         import InsightEntry.{ BSONFields => F }
-        import InsightStorage._
 
-        val limitGames     = Limit(10_000)
+        val limitGames     = Limit(maxGames)
         val sortDate       = Sort(Descending(F.date))
         val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some
@@ -179,10 +185,6 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               ).flatten
           } map some
 
-        val gameMatcher = combineDocs(question.filters.collect {
-          case f if f.dimension.isInGame => f.matcher
-        })
-
         val fieldExistsMatcher: Bdoc = dimension.some
           .filter(InsightDimension.optionalDimensions.contains)
           .filter(dim => !question.filters.exists(_.dimension == dim))
@@ -207,7 +209,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
 
         val pipeline = Match(
           target.fold(u => selectUserId(u.id), peers => $doc(F.rating $inRange peers.ratingRange)) ++
-            gameMatcher ++
+            gameMatcher(question.filters) ++
             fieldExistsMatcher ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++

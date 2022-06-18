@@ -1,8 +1,12 @@
 package lila.insight
 
-import lila.game.{ Game, GameRepo, Pov }
-import lila.user.User
 import org.joda.time.DateTime
+import reactivemongo.api.bson.BSONNull
+
+import lila.db.dsl._
+import lila.game.{ Game, GameRepo, Pov }
+import lila.rating.PerfType
+import lila.user.User
 
 final class InsightApi(
     storage: InsightStorage,
@@ -41,13 +45,25 @@ final class InsightApi(
       }
       .monSuccess(_.insight.user)
 
-  def askPeers[X](question: Question[X], rating: Double): Fu[Answer[X]] =
+  def askPeers[X](question: Question[X], rating: MeanRating): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, Right(Question.Peers(rating.toInt)), withPovs = false)
+      .aggregate(question, Right(Question.Peers(rating)), withPovs = false)
       .map { aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       }
       .monSuccess(_.insight.peers)
+
+  def meanRating(user: User, filters: List[Filter[_]]): Fu[Option[MeanRating]] = storage.coll {
+    _.aggregateOne() { framework =>
+      import framework._
+      import InsightEntry.{ BSONFields => F }
+      Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
+        Sort(Descending(F.date)),
+        Limit(pipeline.maxGames),
+        Group(BSONNull)("r" -> AvgField("mr"))
+      )
+    }.map { _.flatMap(_.double("r")) map (_.toInt) map MeanRating.apply }
+  }
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {

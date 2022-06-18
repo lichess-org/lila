@@ -7,11 +7,11 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorRatio }
+import lila.tutor.{ TutorMetric, TutorMetricOption, TutorRatio, TutorReport }
 
 object tutor {
 
-  def home(report: TutorFullReport)(implicit ctx: Context) =
+  def home(report: TutorReport)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("tutor")),
       title = "Lichess Tutor"
@@ -24,7 +24,7 @@ object tutor {
             chess.Color.all.map { color =>
               st.section(cls := "tutor__openings__color")(
                 h2("Your most played ", color.name, " openings"),
-                report.openings.colors(color).families.map { fam =>
+                report.openings(color).families.map { fam =>
                   div(cls := "tutor__opening")(
                     h3(fam.family.name.value),
                     table(cls := "slist")(

@@ -24,7 +24,7 @@ final class Env(
 
   private val reportColl = db(config.CollName("tutor_report")).taggedWith[ReportColl]
 
-  lazy val builder = wire[build.TutorReportBuilder]
+  lazy val builder = wire[TutorBuilder]
 }
 
 trait ReportColl

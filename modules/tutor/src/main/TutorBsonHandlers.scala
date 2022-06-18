@@ -13,6 +13,8 @@ import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
+  import lila.insight.BSONHandlers._
+
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
@@ -57,7 +59,10 @@ private object TutorBsonHandlers {
   // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]
   implicit val openingFamilyHandler = Macros.handler[TutorOpeningFamily]
   implicit val colorOpeningsHandler = Macros.handler[TutorColorOpenings]
-  implicit val openingsHandler      = Macros.handler[TutorOpenings]
+  // implicit val openingsHandler      = Macros.handler[Color.Map[TutorColorOpenings]]
+
+  implicit val phaseHandler = Macros.handler[TutorPhase]
+  // implicit val phasesHandler = Macros.handler[TutorPhases]
 
   // implicit val perfReportHandler = Macros.handler[TutorPerfReport]
 
@@ -68,5 +73,5 @@ private object TutorBsonHandlers {
   //     },
   //     _.mapKeys(_.key)
   //   )
-  implicit val fullReportHandler = Macros.handler[TutorFullReport]
+  implicit val fullReportHandler = Macros.handler[TutorReport]
 }

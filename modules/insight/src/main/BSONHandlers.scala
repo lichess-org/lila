@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-private object BSONHandlers {
+object BSONHandlers {
 
   implicit val RelativeStrengthBSONHandler = tryHandler[RelativeStrength](
     { case BSONInteger(v) => RelativeStrength.byId get v toTry s"Invalid relative strength $v" },
@@ -67,8 +67,8 @@ private object BSONHandlers {
     e => BSONInteger(e.cpl)
   )
 
-  implicit val DateRangeBSONHandler   = Macros.handler[lila.insight.DateRange]
-  implicit val PeriodBSONHandler      = intAnyValHandler[Period](_.days, Period.apply)
+  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
+  implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
 
   implicit def MoveBSONHandler =
     new BSON[InsightMove] {

@@ -1,11 +1,13 @@
 package lila.tutor
 
-import chess.{ Division, Situation }
 import alleycats.Zero
+import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
+import lila.insight.MeanRating
 import lila.rating.PerfType
+import lila.user.User
 
 case class TutorMetric[A](mine: A, peer: Option[A])(implicit o: Ordering[A]) {
   def higher = peer.exists(p => o.compare(mine, p) >= 0)
@@ -23,3 +25,5 @@ object TutorRatio {
   implicit val zero     = Zero(TutorRatio(0))
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
 }
+
+case class TutorUser(user: User, rating: MeanRating)
