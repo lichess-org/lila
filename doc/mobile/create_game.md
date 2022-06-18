@@ -3,14 +3,16 @@
 ## With A.I.
 
 ```sh
-http --form POST l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lichess.v1+json'
+http --form POST l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lishogi.v1+json'
 ```
+
 - level: 1 to 8
-- color: white | black | random
-- variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH) | 5 (three-check)
-- fen: if variant is 3, any valid FEN string
+- color: sente | gote | random
+- variant: 1 (standard) | 2 (minishogi)
+- sfen: if variant is 3, any valid SFEN string
 
 Response: `201 CREATED`
+
 ```javascript
 {
   // see document format in the play.md doc file
@@ -25,7 +27,11 @@ First you need to connect to the lobby websocket, from which you'll receive the 
 var clientId = Math.random().toString(36).substring(2); // created and stored by the client
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
-var socketUrl = 'http://socket.l.org:9021/lobby/socket?mobile=1&sri=' + clientId + '&version=' + socketVersion;
+var socketUrl =
+  "http://socket.l.org:9021/lobby/socket?mobile=1&sri=" +
+  clientId +
+  "&version=" +
+  socketVersion;
 
 var socket = new WebSocket(socketUrl);
 ```
@@ -35,11 +41,13 @@ Once connected, you can send seeks over HTTP, using the same clientId
 ```sh
 http --form POST l.org/setup/hook/{clientId} variant=1 clock=false time=60 increment=60 mode=casual 'Accept:application/vnd.lichess.v1+json'
 ```
+
 - clientId: same random ID created by the client and used to connect to the lobby websocket
 - variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH)
 - mode: casual | rated
 
 Response: `200 OK`
+
 ```
 ok
 ```
@@ -59,11 +67,13 @@ Now you're waiting for someone to accept the seek. The response will come as a s
 ```sh
 http --form POST l.org/setup/friend?user=usernameOrId variant=1 clock=false time=60 increment=60 color=random 'Accept:application/vnd.lichess.v1+json'
 ```
+
 - color: white | black | random
 - variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH) | 5 (three-check)
-- fen: if variant is 3, any valid FEN string
+- sfen: if variant is 3, any valid SFEN string
 
 Response: `201 CREATED`
+
 ```javascript
 {
   // see document format in the play.md doc file
@@ -131,6 +141,7 @@ http GET l.org/39b12Ikl 'Accept:application/vnd.lichess.v1+json'
 ```
 
 Response: `200 OK`
+
 ```javascript
 {
   // see document format in the Play section

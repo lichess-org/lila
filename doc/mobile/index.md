@@ -18,6 +18,7 @@ The client is responsible for creating and storing its own unique `clientId`.
 It will be sent to the server when connecting to a websocket.
 
 Suggestion of implementation:
+
 ```javascript
 var clientId = Math.random().toString(36).substring(2);
 ```
