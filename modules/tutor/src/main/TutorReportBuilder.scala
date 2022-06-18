@@ -13,7 +13,7 @@ import lila.common.IpAddress
 import lila.db.dsl._
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
-import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, Metric, Question, RatingCateg }
+import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, Metric, Question }
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import lila.insight.Cluster
@@ -89,7 +89,7 @@ final class TutorReportBuilder(
         question.copy(
           filters = Filter(InsightDimension.OpeningFamily, userAnswer.clusters.map(_.x)) :: question.filters
         ),
-        ratingCategOf(user)
+        user
       )
       userTotalNbGames = userAnswer.clusters.foldLeft(0)(_ + _.size)
       peerTotalNbGames = peerAnswer.clusters.foldLeft(0)(_ + _.size)
@@ -110,8 +110,6 @@ final class TutorReportBuilder(
       }
     } yield TutorColorOpenings(families)
   }
-
-  private def ratingCategOf(user: User) = RatingCateg of user.perfs.standard.intRating
 
   private val perfTypes =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)

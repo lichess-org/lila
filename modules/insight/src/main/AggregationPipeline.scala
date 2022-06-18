@@ -9,7 +9,12 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  def aggregate[X](question: Question[X], target: Either[User, RatingCateg]): Fu[List[Bdoc]] =
+  def aggregate[X](
+      question: Question[X],
+      user: User,
+      withPovs: Boolean,
+      peers: Option[Question.Peers] = none
+  ): Fu[List[Bdoc]] =
     store.coll {
       _.aggregateList(
         maxDocs = Int.MaxValue,
@@ -26,7 +31,6 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
-        val withGameIds    = target.isLeft
         def limit(nb: Int) = Limit(nb).some
 
         def groupOptions(identifiers: pack.Value)(ops: (String, Option[GroupFunction])*) =
@@ -39,7 +43,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
 
         val regroupStacked = groupFieldOptions("_id.dimension")(
           "nb"    -> SumField("v").some,
-          "ids"   -> withGameIds.option(FirstField("ids")),
+          "ids"   -> withPovs.option(FirstField("ids")),
           "stack" -> Push($doc("metric" -> "$_id.metric", "v" -> "$v")).some
         )
 
@@ -123,9 +127,9 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case _      => Grouping.Group
           }
 
-        val gameIdsSlice       = withGameIds option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
+        val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
         val includeSomeGameIds = gameIdsSlice map AddFields.apply
-        val addGameIdToSet     = withGameIds option AddFieldToSet("_id")
+        val addGameIdToSet     = withPovs option AddFieldToSet("_id")
         val toPercent          = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
 
         def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
@@ -203,10 +207,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
         val pipeline = Match(
-          (target match {
-            case Left(user)         => selectUserId(user.id)
-            case Right(ratingCateg) => $doc(F.ratingCateg -> ratingCateg.value)
-          }) ++
+          peers.fold(selectUserId(user.id)) { p => $doc(F.rating $inRange p.ratingRange) } ++
             gameMatcher ++
             fieldExistsMatcher ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
@@ -282,7 +283,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                   Project(
                     $doc(
                       "v"   -> true,
-                      "ids" -> withGameIds,
+                      "ids" -> withPovs,
                       "nb"  -> $doc("$size" -> "$ids")
                     )
                   ).some,

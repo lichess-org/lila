@@ -6,6 +6,13 @@ case class Question[X](
     filters: List[Filter[_]]
 )
 
+object Question {
+
+  case class Peers(rating: Int) {
+    def ratingRange = Range(rating - 30, rating + 30) // TODO: expand at extremities
+  }
+}
+
 case class Filter[A](
     dimension: InsightDimension[A],
     selected: List[A]
