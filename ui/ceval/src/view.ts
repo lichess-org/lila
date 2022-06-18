@@ -1,13 +1,11 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { renderEval, cubicRegressionEval } from './util';
 import * as winningChances from './winningChances';
-import { defined, pretendItsUsi } from 'common';
+import { defined } from 'common/common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { lishogiVariantRules } from 'shogiops/compat';
 import { opposite, parseUsi } from 'shogiops/util';
 import { parseSfen } from 'shogiops/sfen';
-import { setupPosition } from 'shogiops/variant';
 import { makeNotationLineWithPosition, Notation } from 'common/notation';
 
 let gaugeLast = 0;
@@ -257,7 +255,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
-    setup = parseSfen(node.sfen).unwrap();
+    position = parseSfen(instance.variant.key, node.sfen, false).unwrap();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {
@@ -266,12 +264,11 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
   if (threat) {
-    setup.turn = opposite(setup.turn);
-    setup.fullmoves += 1;
+    position.turn = opposite(position.turn);
+    position.fullmoves += 1;
   }
-  const position = setupPosition(lishogiVariantRules(instance.variant.key), setup, false);
-  const turn = setup.fullmoves;
-  const notation = ctrl.data.pref.pieceNotation ?? 0;
+  const turn = position.fullmoves;
+  const notation = ctrl.data.pref.notation ?? 0;
   return h(
     'div.pv_box',
     {
@@ -307,16 +304,12 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
           h(
             'span',
-            position.unwrap(
-              pos =>
-                makeNotationLineWithPosition(
-                  notation as Notation,
-                  pos,
-                  pvs[i].moves.slice(0, 10).map(m => parseUsi(pretendItsUsi(m))!),
-                  node.usi ? parseUsi(node.usi) : undefined
-                ).map((m, i) => `${turn + i}. ${m} `),
-              _ => '--'
-            )
+            makeNotationLineWithPosition(
+              notation as Notation,
+              position,
+              pvs[i].moves.slice(0, 10).map(m => parseUsi(m)!),
+              node.usi ? parseUsi(node.usi) : undefined
+            ).map((m, i) => `${turn + i}. ${m} `)
           ),
         ]
       );

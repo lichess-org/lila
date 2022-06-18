@@ -1,5 +1,4 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
-
 import { Pool } from './pool';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
@@ -117,7 +116,7 @@ export default function (opts: CevalOpts): CevalCtrl {
         ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' &&
         Math.abs(ev.cp) < 500 &&
-        ev.sfen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
+        ev.sfen.split(/\s/)[0].split(/[lnsgkbrkp]/i).length - 1 >= 10
       );
     };
     return function (ev: Tree.ClientEval) {

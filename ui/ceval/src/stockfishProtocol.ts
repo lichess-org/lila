@@ -1,7 +1,5 @@
 import { WorkerOpts, Work } from './types';
-import { lishogiVariantRules } from 'shogiops/compat';
 import { Deferred, defer } from 'common/defer';
-import { pretendItsUsi } from 'common';
 
 const EVAL_REGEX = new RegExp(
   '' +
@@ -136,11 +134,11 @@ export default class Protocol {
     this.stopped = null;
     this.expectedPvs = 1;
 
-    const usiMoves = this.work.moves.map(m => pretendItsUsi(m));
+    const usiMoves = this.work.moves;
     console.log('sending this sfen: ', this.work.initialSfen, 'and these moves', usiMoves);
     console.log('for this variant: ', this.opts.variant);
 
-    this.setOption('UCI_Variant', lishogiVariantRules(this.opts.variant));
+    if (this.opts.variant !== 'standard') this.setOption('UCI_Variant', this.opts.variant);
     this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
     this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
     this.setOption('MultiPV', this.work.multiPv);
