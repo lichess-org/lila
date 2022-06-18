@@ -25,16 +25,16 @@ case class AnaUsi(
 ) extends AnaAny {
 
   def branch: Validated[String, Branch] = {
-    sfen.toSituationPlus(variant) toValid "Can't parse SFEN" map { parsed =>
-      val movable = parsed.situation.playable(strict = false, withImpasse = false)
-      val sfen    = parsed.toSfen
+    shogi.Game(variant.some, sfen.some)(usi) map { game =>
+      val movable = game.situation.playable(strict = false, withImpasse = false)
+      val sfen    = game.toSfen
       Branch(
         id = UsiCharPair(usi, variant),
-        ply = parsed.plies,
+        ply = game.plies,
         usi = usi,
         sfen = sfen,
-        check = parsed.situation.check,
-        opening = (parsed.plies <= 30 && Variant.openingSensibleVariants(variant)) ?? {
+        check = game.situation.check,
+        opening = (game.plies <= 30 && Variant.openingSensibleVariants(variant)) ?? {
           FullOpeningDB findBySfen sfen
         }
       )
