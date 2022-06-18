@@ -1,3 +1,5 @@
+import { Config } from 'shogiground/config';
+import { usiToSquareNames } from 'shogiops/compat';
 import * as domData from './data';
 
 export const init = (node: HTMLElement): void => {
@@ -8,24 +10,24 @@ export const init = (node: HTMLElement): void => {
 export const initWith = (node: HTMLElement, sfen: string, orientation: Color, lm?: string): void => {
   if (!window.Shogiground) setTimeout(() => init(node), 500);
   else {
-    domData.set(
-      node,
-      'shogiground',
-      window.Shogiground(node, {
+    const splitSfen = sfen.split(' '),
+      config: Config = {
         orientation,
-        coordinates: false,
+        coordinates: {
+          enabled: false,
+        },
         viewOnly: !node.getAttribute('data-playable'),
-        resizable: false,
-        sfen: sfen,
-        hasPockets: true,
-        pockets: sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '',
-        lastMove: lm ? (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined,
+        sfen: { board: splitSfen[0], hands: splitSfen[2] },
+        hands: {
+          inlined: true,
+        },
+        lastDests: lm ? (usiToSquareNames(lm) as Key[]) : undefined,
         drawable: {
           enabled: false,
           visible: false,
         },
-      })
-    );
+      };
+    domData.set(node, 'shogiground', window.Shogiground(config, node));
   }
 };
 

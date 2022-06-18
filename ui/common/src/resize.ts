@@ -1,14 +1,14 @@
-import * as cg from 'shogiground/types';
+import * as sg from 'shogiground/types';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
 type Visible = (ply: Ply) => boolean;
 
-export default function resizeHandle(els: cg.Elements, pref: number, ply: number, visible?: Visible) {
+export default function resizeHandle(els: sg.DomBoardElements, pref: number, ply: number, visible?: Visible) {
   if (!pref) return;
 
-  const el = document.createElement('cg-resize');
-  els.container.appendChild(el);
+  const el = document.createElement('sg-resize');
+  els.board.appendChild(el);
 
   const startResize = (start: MouchEvent) => {
     start.preventDefault();
