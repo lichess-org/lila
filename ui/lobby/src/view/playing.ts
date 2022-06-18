@@ -1,6 +1,8 @@
 import { h } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import LobbyController from '../ctrl';
+import { handRoles } from 'shogiops/variantUtil';
+import { usiToSquareNames } from 'shogiops/compat';
 
 function timer(pov) {
   const date = Date.now() + pov.secondsLeft * 1000;
@@ -28,21 +30,30 @@ export default function (ctrl: LobbyController) {
           attrs: { href: '/' + pov.fullId },
         },
         [
-          h('div.mini-board.cg-wrap', {
+          h('div.mini-board.sg-wrap', {
             hook: {
               insert(vnode) {
-                const lm = pov.lastMove;
-                Shogiground(vnode.elm as HTMLElement, {
-                  coordinates: false,
-                  drawable: { enabled: false, visible: false },
-                  resizable: false,
-                  viewOnly: true,
-                  orientation: pov.color,
-                  sfen: pov.sfen,
-                  hasPockets: true,
-                  pockets: pov.sfen && pov.sfen.split(' ').length > 2 ? pov.sfen.split(' ')[2] : '',
-                  lastMove: lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined,
-                });
+                const lm = pov.lastMove,
+                  splitSfen = pov.sfen.split(' ');
+                Shogiground(
+                  {
+                    coordinates: { enabled: false },
+                    drawable: { enabled: false, visible: false },
+                    viewOnly: true,
+                    orientation: pov.color,
+                    disableContextMenu: false,
+                    sfen: {
+                      board: splitSfen[0],
+                      hands: splitSfen[2],
+                    },
+                    hands: {
+                      inlined: true,
+                      roles: handRoles(pov.variant.key),
+                    },
+                    lastDests: lm ? (usiToSquareNames(lm) as Key[]) : undefined,
+                  },
+                  { board: vnode.elm as HTMLElement }
+                );
               },
             },
           }),
