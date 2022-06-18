@@ -179,9 +179,11 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         val gameMatcher = combineDocs(question.filters.collect {
           case f if f.dimension.isInGame => f.matcher
         })
-        def fieldExistsMatcher(dim: InsightDimension[_]) = {
-          dimension == dim && !question.filters.exists(_.dimension == dim)
-        } ?? $doc(F.opening $exists true)
+
+        val fieldExistsMatcher: Bdoc = dimension.some
+          .filter(InsightDimension.optionalDimensions.contains)
+          .filter(dim => !question.filters.exists(_.dimension == dim))
+          .?? { dim => $doc(dim.dbKey $exists true) }
 
         def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(extraMatcher :: question.filters.collect {
@@ -206,8 +208,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case Right(ratingCateg) => $doc(F.ratingCateg -> ratingCateg.value)
           }) ++
             gameMatcher ++
-            fieldExistsMatcher(InsightDimension.OpeningFamily) ++
-            fieldExistsMatcher(InsightDimension.OpeningVariation) ++
+            fieldExistsMatcher ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {

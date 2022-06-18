@@ -395,4 +395,7 @@ object InsightDimension {
       case Date => "date"
       case _    => "text"
     }
+
+  // these are not always present in an insight entry
+  val optionalDimensions = List[InsightDimension[_]](OpeningFamily, OpeningVariation, OpponentStrength)
 }
