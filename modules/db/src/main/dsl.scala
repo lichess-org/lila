@@ -278,7 +278,7 @@ trait dsl {
       CompositeExpression(field, append($doc("$lte" -> value)))
 
     def $inRange(range: Range) =
-      CompositeExpression(field, append($doc("$lte" -> range.min, "$gte" -> range.max)))
+      CompositeExpression(field, append($doc("$gte" -> range.min, "$lte" -> range.max)))
 
     /** Matches all values that are not equal to the value specified in the query. */
     def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
