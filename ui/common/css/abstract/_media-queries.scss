@@ -6,12 +6,14 @@ $mq-small: (min-width 800px);
 $mq-medium: (min-width 980px);
 $mq-large: (min-width 1120px);
 $mq-x-large: (min-width 1260px);
+$mq-xx-large: (min-width 2501px);
 
 $mq-not-xx-small: (max-width 499px);
 $mq-not-x-small: (max-width 649px);
 $mq-not-small: (max-width 799px);
 $mq-not-medium: (max-width 979px);
 $mq-not-x-large: (max-width 1259px);
+$mq-not-xx-large: (max-width 2501px);
 
 /* Heights */
 
