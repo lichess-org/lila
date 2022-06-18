@@ -1,22 +1,19 @@
 package lila.game
 
-import shogi._
-import shogi.Pos._
-import shogi.format.usi.Usi
 import org.specs2.mutable._
 
-import lila.db.ByteArray
+import shogi.format.usi.Usi
 import shogi.variant.{ Standard, Variant }
 
 // todo
-class BinaryPieceTest extends Specification {
+class PiecesTest extends Specification {
   val usis                                                     = Usi.readList(Fixtures.fromProd3).get.toVector
   def fromUsis(usis: Vector[Usi], variant: Variant = Standard) = BinaryFormat.pieces.read(usis, None, variant)
-
+  
   "Piece map reader" should {
 
     "Starting position" in {
-      true
+      fromUsis(Vector[Usi]()) must_== Standard.pieces
     }
 
     "single move" in {
@@ -41,6 +38,13 @@ class BinaryPieceTest extends Specification {
 
     "minishogi" in {
       true
+    }
+
+    "500 production" in {
+      Fixtures.fromProd500 forall { uStr =>
+        val u = Usi.readList(uStr).get
+        fromUsis(u.toVector) must_== shogi.Replay.situations(u, None, Standard).toOption.get.last.board.pieces
+      }
     }
 
   }
