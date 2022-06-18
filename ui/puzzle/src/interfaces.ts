@@ -1,8 +1,7 @@
 import PuzzleSession from './session';
-import { Api as CgApi } from 'shogiground/api';
+import { Api as SgApi } from 'shogiground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
-import { Config as CgConfig } from 'shogiground/config';
-import { Piece } from 'shogiground/types';
+import { Config as SgConfig } from 'shogiground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'shogiops/types';
 import { Prop } from 'common';
@@ -10,6 +9,7 @@ import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
 import { Shogi } from 'shogiops/shogi';
+import { Piece } from 'shogiops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -44,7 +44,6 @@ export interface Controller extends KeyboardController {
   ongoing: boolean;
   playUsi(usi: string): void;
   getOrientation(): Color;
-  getDropmodeActive(): boolean;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;
   position(): Shogi;
@@ -53,17 +52,16 @@ export interface Controller extends KeyboardController {
   getData(): PuzzleData;
   data: PuzzleOpts;
   getTree(): TreeWrapper;
-  ground: Prop<CgApi | undefined>;
-  makeCgOpts(): CgConfig;
+  shogiground: SgApi;
+  makeSgOpts(): SgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
   vote(v: boolean): void;
   voteTheme(theme: ThemeKey, v: boolean): void;
   pref: PuzzlePrefs;
   difficulty?: PuzzleDifficulty;
-  userMove(orig: Key, dest: Key): void;
-  userDrop(piece: Piece, dest: Key): void;
-  promotion: any;
+  userMove(orig: Key, dest: Key, prom: boolean): void;
+  userDrop(piece: Piece, dest: Key, prom: boolean): void;
   autoNext: StoredBooleanProp;
   autoNexting: () => boolean;
   session: PuzzleSession;
@@ -84,7 +82,6 @@ export interface Vm {
   next: Deferred<PuzzleData>;
   justPlayed?: Key;
   justDropped?: Piece;
-  dropmodeActive: boolean;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   initialPath: Tree.Path;
@@ -93,7 +90,7 @@ export interface Vm {
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
-  cgConfig: CgConfig;
+  sgConfig: SgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
 }
@@ -114,12 +111,13 @@ export interface PuzzlePrefs {
   destination: boolean;
   dropDestination: boolean;
   moveEvent: number;
-  highlight: boolean;
+  highlightLastDests: boolean;
+  highlightCheck: boolean;
   animation: {
     duration: number;
   };
   blindfold: boolean;
-  pieceNotation: number;
+  notation: number;
 }
 
 export interface Theme {
@@ -197,12 +195,6 @@ export interface PuzzleRound {
   win: boolean;
   ratingDiff: number;
   themes?: RoundThemes;
-}
-
-export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom?: Boolean) => void): boolean;
-  cancel(): void;
-  view(): MaybeVNode;
 }
 
 export interface MoveTest {

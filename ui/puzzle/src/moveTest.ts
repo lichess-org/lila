@@ -5,19 +5,17 @@ import { opposite } from 'shogiground/util';
 import { plyColor } from './util';
 import { backrank, secondBackrank } from 'shogiops/variantUtil';
 import { isDrop, Role } from 'shogiops/types';
-import { Shogi } from 'shogiops/shogi';
 import { parseUsi } from 'shogiops';
-import { pretendItsUsi } from 'common';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
 function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): boolean {
-  const m1 = parseUsi(pretendItsUsi(u1));
-  const m2 = parseUsi(pretendItsUsi(u2));
+  const m1 = parseUsi(u1);
+  const m2 = parseUsi(u2);
   if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
   return (
-    (role === 'knight' && secondBackrank('shogi')(turn).has(m1.to)) ||
-    ((role === 'pawn' || role === 'lance' || role === 'knight') && backrank('shogi')(turn).has(m1.to))
+    (role === 'knight' && secondBackrank('standard')(turn).has(m1.to)) ||
+    ((role === 'pawn' || role === 'lance' || role === 'knight') && backrank('standard')(turn).has(m1.to))
   );
 }
 
@@ -34,7 +32,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   }));
 
   for (const i in nodes) {
-    const shogi = parseSfen(nodes[i].sfen).chain(s => Shogi.fromSetup(s, false));
+    const shogi = parseSfen('standard', nodes[i].sfen, false);
     if (shogi.isOk && shogi.value.isCheckmate()) return (vm.node.puzzle = 'win');
     const usi = nodes[i].usi!,
       solUsi = puzzle.solution[i];
@@ -50,7 +48,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   vm.node.puzzle = 'good';
 
   return {
-    move: parseUsi(pretendItsUsi(nextUsi))!,
+    move: parseUsi(nextUsi)!,
     sfen: vm.node.sfen,
     path: vm.path,
   };

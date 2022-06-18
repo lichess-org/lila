@@ -1,8 +1,7 @@
 import * as control from '../control';
 import * as side from './side';
 import theme from './theme';
-import changeColorHandle from 'common/coordsColor';
-import shogiground from './shogiground';
+import * as shogiground from './shogiground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
 import { h } from 'snabbdom';
@@ -10,7 +9,6 @@ import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { VNode } from 'snabbdom/vnode';
-import handView from '../hands/handView';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -18,7 +16,7 @@ function renderAnalyse(ctrl: Controller): VNode {
 
 function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
   const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
+  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'SG-BOARD') return;
   e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
@@ -91,7 +89,6 @@ export default function (ctrl: Controller): VNode {
           if (old.data!.gaugeOn !== gaugeOn) {
             if (ctrl.pref.coords == 2) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-              changeColorHandle();
             }
             document.body.dispatchEvent(new Event('shogiground.resize'));
           }
@@ -112,9 +109,9 @@ export default function (ctrl: Controller): VNode {
         {
           hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
         },
-        [shogiground(ctrl), ctrl.promotion.view()]
+        shogiground.renderBoard(ctrl)
       ),
-      handView(ctrl, 'top'),
+      shogiground.renderHand(ctrl, 'top'),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
         // we need the wrapping div here
@@ -129,7 +126,7 @@ export default function (ctrl: Controller): VNode {
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
-      handView(ctrl, 'bottom'),
+      shogiground.renderHand(ctrl, 'bottom'),
       controls(ctrl),
       session(ctrl),
     ]

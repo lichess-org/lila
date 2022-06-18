@@ -1,18 +1,18 @@
-import { Shogi } from 'shogiops/shogi';
-import { INITIAL_SFEN, makeSfen, parseSfen } from 'shogiops/sfen';
-import { scalashogiCharPair } from 'shogiops/compat';
+import { Position, Shogi } from 'shogiops/shogi';
+import { makeSfen, parseSfen } from 'shogiops/sfen';
 import { Move } from 'shogiops/types';
 import { makeSquare, makeUsi, parseUsi } from 'shogiops/util';
 import { TreeWrapper } from 'tree';
-import { pretendItsUsi } from 'common';
 import { makeNotationWithPosition, Notation } from 'common/notation';
+import { scalashogiCharPair } from './util';
+import { initialSfen } from 'shogiops/sfen';
 
 export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
   const pos = Shogi.default();
   const root: Tree.Node = {
     ply: 0,
     id: '',
-    sfen: INITIAL_SFEN,
+    sfen: initialSfen('standard'),
     children: [],
   } as Tree.Node;
   let current = root;
@@ -47,12 +47,12 @@ export function mergeSolution(
   notation: Notation
 ): void {
   const initialNode = root.nodeAtPath(initialPath);
-  const pos = Shogi.fromSetup(parseSfen(initialNode.sfen).unwrap(), false).unwrap();
+  const pos = parseSfen('standard', initialNode.sfen, false).unwrap();
   const fromPly = initialNode.ply;
 
   let lastMove: Move | undefined = undefined;
   const nodes = solution.map((usi, i) => {
-    const move = parseUsi(pretendItsUsi(usi))!;
+    const move = parseUsi(usi)!;
     const notationMove = makeNotationWithPosition(notation, pos, move, lastMove);
     lastMove = move;
     pos.play(move);
@@ -63,12 +63,12 @@ export function mergeSolution(
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Shogi, move: Move, notation: MoveNotation, ply: number) => ({
+const makeNode = (pos: Position, move: Move, notation: MoveNotation, ply: number): Tree.Node => ({
   ply,
-  sfen: makeSfen(pos.toSetup()),
+  sfen: makeSfen(pos),
   id: scalashogiCharPair(move),
   usi: makeUsi(move),
   notation: notation,
-  check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
+  check: pos.isCheck() ? (makeSquare(pos.board.kingOf(pos.turn)!) as Key) : undefined,
   children: [],
 });
