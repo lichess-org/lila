@@ -11,8 +11,8 @@
   }
   .list span {
     display: block;
-    width: 64px;
-    height: 32px;
+    width: 69px;
+    height: 38px;
   }
   &.d3 .list span {
     width: 66px;
@@ -21,99 +21,53 @@
   }
   .list a:hover {
     filter: brightness(1.05);
-  }
-  .list a:hover span {
-    transform: scale(1.05);
-  }
-  .list a.active {
     background-color: $c-shade;
   }
+  .list a.active {
+    background-color: $c-dasher;
+  }
   & {
-    .solid-natural,
-    .t_solid-natural {
-      background-image: url(../images/board/thumbnails/solid-natural.png);
-    }
-
-    .solid-brown1 {
-      background-image: url(../images/board/svg/solid-brown1.svg);
-      background-size: 290px;
+    .solid-natural {
+      background-image: url(../images/boards/thumbnails/solid-natural.png);
     }
     .solid-orange {
-      background-image: url(../images/board/svg/solid-orange.svg);
-      background-size: 290px;
+      background-image: url(../images/boards/thumbnails/solid-orange.png);
     }
-
-    .wood1,
-    .t_wood1 {
-      background-image: url(../images/board/svg/wood1.svg);
-      background-size: 290px;
+    .space {
+      background-image: url(../images/boards/thumbnails/space.png);
     }
-
     .blue {
-      background-image: url(../images/board/svg/blue.svg);
-      background-size: 290px;
-    }
-
-    .dark-blue {
-      background-image: url(../images/board/svg/db.svg);
-      background-size: 290px;
-    }
-    .brown {
-      background-image: url(../images/board/svg/brown.svg);
-      background-size: 290px;
+      background-image: url(../images/boards/thumbnails/blue.png);
     }
     .gray {
-      background-image: url(../images/board/svg/gray.svg);
-      background-size: 290px;
+      background-image: url(../images/boards/thumbnails/gray.png);
     }
-
-    .space1 {
-      background-image: url(../images/board/thumbnails/space1.png);
+    .wood1 {
+      background-image: url(../images/boards/thumbnails/wood1.png);
     }
-    .space2 {
-      background-image: url(../images/board/thumbnails/space2.png);
-    }
-    .solid-wood1 {
-      background-image: url(../images/board/thumbnails/solid-wood-1.png);
-    }
-    .doubutsu,
-    .t_doubutsu {
-      background-image: url(../images/board/thumbnails/doubutsu.png);
+    .doubutsu {
+      background-image: url(../images/boards/thumbnails/doubutsu.png);
     }
     .kaya1 {
-      background-image: url(../images/board/thumbnails/kaya1.png);
+      background-image: url(../images/boards/thumbnails/kaya1.png);
     }
     .kaya2 {
-      background-image: url(../images/board/thumbnails/kaya2.png);
-    }
-    .kaya-light {
-      background-image: url(../images/board/thumbnails/kaya-light.png);
+      background-image: url(../images/boards/thumbnails/kaya2.png);
     }
     .oak {
-      background-image: url(../images/board/thumbnails/oak.png);
+      background-image: url(../images/boards/thumbnails/oak.png);
     }
     .Painting1 {
-      background-image: url(../images/board/thumbnails/Painting1.png);
+      background-image: url(../images/boards/thumbnails/Painting1.png);
     }
     .Painting2 {
-      background-image: url(../images/board/thumbnails/Painting2.png);
+      background-image: url(../images/boards/thumbnails/Painting2.png);
     }
     .Kinkaku {
-      background-image: url(../images/board/thumbnails/Kinkaku.png);
+      background-image: url(../images/boards/thumbnails/Kinkaku.png);
     }
-    .whiteBoard {
-      background-image: url(../images/board/thumbnails/white.png);
-    }
-    .darkBoard {
-      background-image: url(../images/board/thumbnails/dark.png);
-    }
-    .transparent,
-    .t_transparent {
-      background-image: url(../images/board/thumbnails/transparent.png);
-    }
-    .transparent-white,
-    .t_transparent-white {
-      background-image: url(../images/board/thumbnails/transparent-white.png);
+    .custom {
+      background-image: url(../images/boards/thumbnails/custom.png);
     }
   }
 }

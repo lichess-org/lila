@@ -23,7 +23,10 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.boardSize,
     trans.pieceSet,
     trans.preferences.zenMode,
-    trans.notationSystem
+    trans.notationSystem,
+    trans.preferences.westernNotation,
+    trans.preferences.japaneseNotation,
+    trans.preferences.kitaoKawasakiNotation
   ).map(_.key)
 
   private val translationsAnon = List(
@@ -73,18 +76,9 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "current" -> ctx.currentBg,
                   "image"   -> ctx.pref.bgImgOrDefault
                 ),
-                "board" -> Json.obj(
-                  "isTall" -> ctx.pref.isTall
-                ),
                 "theme" -> Json.obj(
-                  "square" -> Json.obj(
-                    "current" -> ctx.currentTheme.name,
-                    "list"    -> lila.pref.Theme.all.map(_.name)
-                  ),
-                  "tall" -> Json.obj(
-                    "current" -> ctx.currentThemeTall.name,
-                    "list"    -> lila.pref.ThemeTall.all.map(_.name)
-                  )
+                  "current" -> ctx.currentTheme.name,
+                  "list"    -> lila.pref.Theme.all.map(_.name)
                 ),
                 "piece" -> Json.obj(
                   "current" -> ctx.currentPieceSet.name,
@@ -94,11 +88,9 @@ final class Dasher(env: Env) extends LilaController(env) {
                 "coach"    -> isGranted(_.Coach),
                 "streamer" -> isStreamer,
                 "i18n"     -> translations,
-                "pieceNotation" -> Json.obj(
-                  "current" -> ctx.pref.pieceNotation,
-                  "list" -> lila.pref.Notations.list.map { n =>
-                    s"${n.key} ${n.name}"
-                  }
+                "notation" -> Json.obj(
+                  "current" -> ctx.pref.notation,
+                  "list" -> lila.pref.Notations.all.map(_.index)
                 )
               )
             }

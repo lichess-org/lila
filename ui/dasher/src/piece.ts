@@ -41,7 +41,11 @@ export function view(ctrl: PieceCtrl): VNode {
 }
 
 function pieceImage(t: Piece) {
-  return `piece/${t}/0KI.svg`;
+  return `piece/${t}/0KI.${isPngPiece(t) ? 'png' : 'svg'}`;
+}
+
+function isPngPiece(t: Piece): boolean {
+  return t === 'Portella' || t === 'Portella_2Kanji';
 }
 
 function pieceView(current: Piece, set: (t: Piece) => void) {
@@ -56,7 +60,9 @@ function pieceView(current: Piece, set: (t: Piece) => void) {
       [
         h('piece', {
           attrs: {
-            style: `background-image:url(${window.lishogi.assetUrl(pieceImage(t))})`,
+            style: `background-image:url(${window.lishogi.assetUrl(pieceImage(t))}); will-change: ${
+              isPngPiece(t) ? 'transform' : 'auto'
+            }`,
           },
         }),
       ]
