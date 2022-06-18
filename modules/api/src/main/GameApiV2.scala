@@ -6,7 +6,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import shogi.format.Tag
-import shogi.format.forsyth.Sfen
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
@@ -51,7 +50,7 @@ final class GameApiV2(
         for {
           realPlayers      <- config.playerFile.??(realPlayerApi.apply)
           (game, analysis) <- enrich(config.flags)(game)
-          export <- config.format match {
+          notationExport <- config.format match {
             case Format.JSON => toJson(game, analysis, config.flags) dmap Json.stringify
             case Format.NOTATION =>
               notationDump(
@@ -61,7 +60,7 @@ final class GameApiV2(
                 realPlayers = realPlayers
               ) dmap notationDump.toNotationString
           }
-        } yield export
+        } yield notationExport
     }
   }
 

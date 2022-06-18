@@ -614,12 +614,10 @@ object mon {
     val game      = counter("api.cost").withTag("endpoint", "game")
     val activity  = counter("api.cost").withTag("endpoint", "activity")
   }
-  object export {
-    object notation {
-      val game         = counter("export.notation").withTag("type", "game")
-      val study        = counter("export.notation").withTag("type", "study")
-      val studyChapter = counter("export.notation").withTag("type", "studyChapter")
-    }
+  object notation {
+    val game         = counter("notation.export").withTag("type", "game")
+    val study        = counter("notation.export").withTag("type", "study")
+    val studyChapter = counter("notation.export").withTag("type", "studyChapter")
   }
   object bus {
     val classifiers       = gauge("bus.classifiers").withoutTags()
