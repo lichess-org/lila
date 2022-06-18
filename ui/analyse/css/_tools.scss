@@ -1,6 +1,6 @@
 .analyse {
   &__tools {
-    @extend %box-neat-force, %flex-column;
+    @extend %box-shadow, %flex-column;
     max-height: 100vh; /* magically fixes fit-content on safari 10 */
     background: $c-bg-box;
     .ceval {

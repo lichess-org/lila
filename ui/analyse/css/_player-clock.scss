@@ -4,7 +4,7 @@ $clock-height: 20px;
   @extend %metal, %box-shadow;
 
   position: absolute;
-  right: 1px;
+  right: 0;
   padding: 0 0.5em;
 
   height: $clock-height;
