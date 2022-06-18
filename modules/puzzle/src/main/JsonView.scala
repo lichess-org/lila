@@ -84,12 +84,13 @@ final class JsonView(
     Json.obj(
       "blindfold"       -> p.blindfold,
       "coords"          -> p.coords,
-      "animation"       -> Json.obj("duration" -> p.animationFactor * 250),
+      "animation"       -> Json.obj("duration" -> p.animationMillis),
       "destination"     -> p.destination,
       "dropDestination" -> p.dropDestination,
       "moveEvent"       -> p.moveEvent,
-      "highlight"       -> p.highlight,
-      "pieceNotation"   -> p.pieceNotation
+      "highlightLastDests" -> p.highlightLastDests,
+      "highlightCheck"    -> p.highlightCheck,
+      "notation"   -> p.notation
     )
 
   def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(
