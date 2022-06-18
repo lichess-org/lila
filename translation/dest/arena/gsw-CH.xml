@@ -2,8 +2,8 @@
 <resources>
   <string name="arenaTournaments">Arena Turnier</string>
   <string name="isItRated">Isch es gwertet?</string>
-  <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. 
-Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
+  <string name="willBeNotified">Du wirsch benachrichtiget, wänn\'s Turnier afangt. 
+Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
   <string name="isRated">Das Turnier isch gwertet und wird dini Wertig beiiflusse.</string>
   <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiiflusse.</string>
   <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiiflusse.</string>
@@ -25,7 +25,7 @@ meh als 6 Züg gschpillt worde sind.</string>
   <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
 Wänn 2 oder meh Schpiller gliich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
   <string name="howDoesPairingWork">Wie werded d\'Paarige gmacht?</string>
-  <string name="howDoesPairingWorkAnswer">Am Aafang werded Paarige gemäss Wertigszahl gmacht. 
+  <string name="howDoesPairingWorkAnswer">Am Afang werded Paarige gemäss Wertigszahl gmacht. 
 Sobald es Schpiil beändet isch, gahts zrugg id Turnierübersicht. Dänn werded Schpiller 
 mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt. 
 Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpiil und cha meh Pünkt mache.</string>

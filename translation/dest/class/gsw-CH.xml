@@ -20,7 +20,7 @@
   <string name="sendAMessage">Schick e Nachricht a alli Schüeler.</string>
   <string name="aLinkToTheClassWillBeAdded">En Link a die ganz Klass wird automatisch - am Änd vu de Nachricht - zuegfüegt, drum muesch en du nöd sälber biifüege.</string>
   <string name="className">Klasse Name</string>
-  <string name="classDescription">Klasse Beschriibig</string>
+  <string name="classDescription">Klasse Beschribig</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüeler vu de Klass</string>
   <string name="teachersOfTheClass">Lehrer vu de Klass</string>
   <string name="addLichessUsernames">Füeg Lichess Benutzernäme zue, um sie als Lehrer iizlade. Aber nur 1 pro Ziile.</string>
@@ -70,7 +70,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
   <string name="closeTheAccount">Schüeler Konto duurhaft schlüsse.</string>
   <string name="closeDesc1">De Schüeler chann das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de Schüeler das verstaht und akzeptiert.</string>
-  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass ers wiiter chann benutze.</string>
+  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass er das witer benutze chann.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>

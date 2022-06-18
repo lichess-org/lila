@@ -14,6 +14,7 @@
   <string name="fullDescription">संक्षिप्त वर्णन</string>
   <string name="fullDescriptionHelp">प्रसारण का वैकल्पिक लंबा विवरण. %1$s उपलब्ध है. लंबाई %2$s से कम होना चाहिए</string>
   <string name="sourceUrlHelp">URL जो Lichess PGN अपडेट प्राप्त करने के लिए जाँच करेगा। यह सार्वजनिक रूप से इंटरनेट पर सुलभ होना चाहिए।</string>
+  <string name="gameIdsHelp">वैकल्पिक रूप से, आप रिक्त स्थान द्वारा अलग किए गए 64 Lichess गेम आईडी तक दर्ज कर सकते हैं।</string>
   <string name="startDate">अपने स्वयं के समयक्षेत्र में प्रारंभ दिनांक</string>
   <string name="startDateHelp">वैकल्पिक, यदि आप जानना चाहते हो की प्रतिस्प्रधा कब शुरू होगी</string>
   <string name="credits">स्रोत को श्रेय दें</string>
