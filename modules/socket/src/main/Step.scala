@@ -2,7 +2,6 @@ package lila.socket
 
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{ Hand, Hands, Pos }
 
 import play.api.libs.json._
 

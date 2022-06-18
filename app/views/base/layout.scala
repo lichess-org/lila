@@ -190,7 +190,6 @@ object layout {
             else s"[dev] ${fullTitle | s"$title • lishogi.dev"}"
           },
           cssTag("site"),
-          ctx.pref.isTall option cssTag("board-tall"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
           ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
           ctx.blind option cssTagNoTheme("blind"),
@@ -223,12 +222,12 @@ object layout {
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentThemeTall.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.pieceNotation}" -> true,
-            "zen"                                                                                                                                               -> ctx.pref.isZen,
-            "blind-mode"                                                                                                                                        -> ctx.blind,
-            "kid"                                                                                                                                               -> ctx.kid,
-            "mobile"                                                                                                                                            -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                                                                                                              -> playing
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
+            "zen"                                                                                                         -> ctx.pref.isZen,
+            "blind-mode"                                                                                                  -> ctx.blind,
+            "kid"                                                                                                         -> ctx.kid,
+            "mobile"                                                                                                      -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                                                                        -> playing
           ),
           dataDev := (!isProd).option("true"),
           dataVapid := vapidPublicKey,
@@ -254,8 +253,6 @@ object layout {
             id := "main-wrap",
             cls := List(
               wrapClass  -> wrapClass.nonEmpty,
-              "isSquare" -> ctx.pref.isSquare,
-              "isTall"   -> ctx.pref.isTall
             )
           )(body),
           ctx.isAuth option div(

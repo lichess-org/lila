@@ -4,7 +4,6 @@ import cats.data.Validated
 import shogi.format.kif.KifParser
 import shogi.format.csa.CsaParser
 import shogi.format.{ ParsedNotation, Reader, Tag, TagType }
-import shogi.format.forsyth.Sfen
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._

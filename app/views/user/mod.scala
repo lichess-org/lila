@@ -189,17 +189,7 @@ object mod {
       mzSection("preferences")(
         strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
         ul(
-          (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
-          pref.botCompatible option li(
-            strong(
-              a(
-                cls := "text",
-                dataIcon := "j",
-                href := lila.common.String.base64
-                  .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-              )("BOT-COMPATIBLE SETTINGS")
-            )
-          )
+          (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves")
         )
       )
     )

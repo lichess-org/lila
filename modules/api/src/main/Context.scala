@@ -57,8 +57,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentTheme = lila.pref.Theme(pref.theme)
 
-  def currentThemeTall = lila.pref.ThemeTall(pref.themeTall)
-
   def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
 
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
