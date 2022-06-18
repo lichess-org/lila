@@ -193,7 +193,6 @@ final private class PovToEntry(
       opening = opening,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       rating = myRating,
-      ratingCateg = myRating map RatingCateg.of,
       opponentRating = opRating,
       opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(o - m),
       opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),

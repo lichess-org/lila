@@ -69,7 +69,6 @@ private object BSONHandlers {
 
   implicit val DateRangeBSONHandler   = Macros.handler[lila.insight.DateRange]
   implicit val PeriodBSONHandler      = intAnyValHandler[Period](_.days, Period.apply)
-  implicit val RatingCategBSONHandler = intAnyValHandler[RatingCateg](_.value, RatingCateg.apply)
 
   implicit def MoveBSONHandler =
     new BSON[InsightMove] {
@@ -116,7 +115,6 @@ private object BSONHandlers {
           opening = r.getO[LilaOpening](opening),
           myCastling = r.get[Castling](myCastling),
           rating = r.intO(rating),
-          ratingCateg = r.getO[RatingCateg](ratingCateg),
           opponentRating = r.intO(opponentRating),
           opponentStrength = r.getO[RelativeStrength](opponentStrength),
           opponentCastling = r.get[Castling](opponentCastling),
@@ -140,7 +138,6 @@ private object BSONHandlers {
           openingFamily    -> e.opening.map(_.family),
           myCastling       -> e.myCastling,
           rating           -> e.rating,
-          ratingCateg      -> e.ratingCateg,
           opponentRating   -> e.opponentRating,
           opponentStrength -> e.opponentStrength,
           opponentCastling -> e.opponentCastling,
