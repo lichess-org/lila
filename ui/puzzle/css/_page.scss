@@ -117,7 +117,7 @@
 
   &__pager {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
     align-content: start;
   }
 
@@ -135,9 +135,6 @@
       @extend %flex-between;
       font-size: 0.9em;
       padding: 0 0.3em;
-    }
-
-    &__rating {
     }
 
     &__id {
