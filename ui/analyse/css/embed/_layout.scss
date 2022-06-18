@@ -1,14 +1,12 @@
-.pocket {
-  &-top {
-    grid-area: pocket-top;
+.sg-hand-wrap {
+  &.hand-top {
+    grid-area: hand-top;
   }
-  &-bottom {
-    grid-area: pocket-bot;
+  &.hand-bottom {
+    grid-area: hand-bot;
   }
   width: 100%;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
-  background: #888;
-  border-radius: 0;
 }
 
 .analyse {
@@ -25,9 +23,9 @@
 
   display: grid;
   grid-template-areas:
-    'pocket-top'
+    'hand-top'
     'board'
-    'pocket-bot'
+    'hand-bot'
     'tools'
     'controls';
   grid-template-columns: auto;
@@ -37,9 +35,9 @@
     grid-template-columns: minmax(100px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
     grid-template-rows: max-content 1fr 2.5rem max-content;
     grid-template-areas:
-      'board pocket-top'
+      'board hand-top'
       'board tools'
       'board controls'
-      'board pocket-bot';
+      'board hand-bot';
   }
 }

@@ -13,10 +13,10 @@ coords {
   @include fluid-size('font-size', 8px, 12px);
   user-select: none;
   color: #fff;
-  text-shadow: 0 1px 2px #000;
   font-weight: bold;
 
   &.ranks {
+    text-transform: uppercase;
     flex-flow: column-reverse;
     top: 1px;
     right: 0; // a negative value creates empty space on the right side in mobile browsers
@@ -25,11 +25,11 @@ coords {
     &.gote {
       flex-flow: column;
     }
-    z-index: 1;
+    z-index: 0;
   }
 
   &.files {
-    top: 0px;
+    top: 0;
     left: 0;
     text-align: left;
     flex-flow: row;
@@ -41,47 +41,75 @@ coords {
     coord {
       padding-left: 4px;
     }
-    z-index: 1;
+    z-index: 0;
   }
 
   coord {
     flex: 1 1 auto;
   }
-
-  /* negate inner coords colors */
-  .is3d .cg-wrap coords coord {
-    color: #fff !important;
-    text-shadow: 0 1px 2px #000 !important;
-  }
-  .is3d .cg-wrap coords.files {
-    bottom: calc(1px - 2.5%);
-    coord {
-      padding-left: 3px;
-    }
-  }
 }
 
 @include coords-colors;
 
-/* handle outer coords */
+/* handle outer/edge coords */
 @include breakpoint($mq-col2-uniboard) {
-  .coords-out coords {
+  .coords-out coords, .coords-edge coords {
     text-shadow: none;
+    text-align: center;
     &.ranks {
-      right: -15px;
       top: 0;
-      width: 12px;
       coord {
         transform: translateY(42%);
       }
     }
+  }
+  .coords-out coords { 
+    &.ranks {
+      will-change: transform; // for some reason - helps with blurry pieces
+      right: -15px;
+      width: 12px;
+    }
     &.files {
       top: -15px;
-      left: 0;
-      text-align: center;
-    }
+    }   
     coord {
       color: $c-font-page !important;
+    }
+  }
+  .coords-edge {
+    $edge-size: calc(1.7vh * var(--board-scale, 1));
+    .main-board sg-board {
+      border: $edge-size solid transparent;
+      background-origin: border-box;
+    }
+    sg-promotion {
+      outline: $edge-size solid #0000003f;
+    }
+    coords {
+      font-size: $edge-size;
+      &.ranks {
+        left: 100%;
+        width: $edge-size;
+        coord {
+          transform: translateY(42%);
+        }
+      }
+      &.files {
+        top: unset;
+        bottom: 100%;
+        &.gote {
+          bottom: unset;
+          top: 100%;
+        }
+        height: $edge-size;
+        line-height: $edge-size;
+      } 
+    }
+    &.notation-2 {
+      coords.ranks {
+        // full width characters
+        font-size: calc(1.4vh * var(--board-scale, 1));
+      }
     }
   }
 }

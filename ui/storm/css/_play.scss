@@ -1,12 +1,9 @@
-.pocket {
+.hand {
   &-top {
-    grid-area: pocket-top;
+    grid-area: hand-top;
   }
   &-bottom {
-    grid-area: pocket-bot;
-  }
-  &-c1 {
-    max-width: $square-max;
+    grid-area: hand-bot;
   }
 }
 
@@ -16,15 +13,15 @@
 
     grid-row-gap: $block-gap;
     grid-column-gap: $block-gap;
-    grid-template-areas: 'pocket-top' 'board' 'pocket-bot' 'side';
+    grid-template-areas: 'hand-top' 'board' 'hand-bot' 'side';
 
     @include breakpoint($mq-col2) {
       grid-template-columns: $col2-uniboard-width $col3-uniboard-table;
       grid-template-rows: min-content 1fr min-content;
       grid-template-areas:
-        'board   pocket-top'
+        'board   hand-top'
         'board   side'
-        'board   pocket-bot';
+        'board   hand-bot';
     }
   }
 }

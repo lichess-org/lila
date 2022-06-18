@@ -1,66 +1,78 @@
-@import 'board-square';
+@import 'board-theme';
+@import 'hands';
+@import 'shapes';
 
-cg-board {
-  @extend %box-shadow, %abs-100;
+sg-board {
+  @extend %abs-100;
+  display: block;
+  background-size: cover;
+  top: 0;
+}
+
+sg-squares,
+sg-pieces,
+sg-promotion {
+  @extend %abs-100;
   top: 0;
   left: 0;
-  user-select: none;
+  display: block;
   line-height: 0;
-  background-size: cover;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+sg-pieces {
   .manipulable & {
     cursor: pointer;
   }
 }
-square {
-  position: absolute;
-  width: calc(100% / 9);
-  height: calc(100% / 9);
+sg-squares {
+  display: grid;
+  grid-template: repeat(9, 1fr) / repeat(9, 1fr);
+  .d-5x5 & {
+    grid-template: repeat(5, 1fr) / repeat(5, 1fr);
+  }
   pointer-events: none;
-  &.move-dest {
-    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
-    pointer-events: auto;
-  }
-  &.premove-dest {
-    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
-    pointer-events: auto;
-  }
-  &.oc.move-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
-  }
-  &.oc.premove-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
-  }
-  body.green &.last-move,
-  body.green-plastic &.last-move,
-  body.marble &.last-move {
-    background-color: rgba(0, 155, 199, 0.41);
-  }
-  &.last-move {
-    background-color: rgba(155, 199, 0, 0.41);
-  }
-  &.check {
-    background: radial-gradient(
-      ellipse at center,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(231, 0, 0, 1) 25%,
-      rgba(169, 0, 0, 0) 89%,
-      rgba(158, 0, 0, 0) 100%
-    );
-  }
-  &.selected {
-    background-color: rgba(20, 85, 30, 0.5);
-  }
-  &.current-premove {
-    background-color: rgba(20, 30, 85, 0.5) !important;
-  }
-  &.move-dest:hover {
-    background: rgba(20, 85, 30, 0.3);
-  }
-  &.premove-dest:hover {
-    background: rgba(20, 30, 85, 0.2);
-  }
-  &.bh1 piece {
-    opacity: 0.98;
+  sq {
+    &.dest {
+      background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    }
+    &.pre-dest {
+      background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    }
+    &.oc.dest {
+      background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+    }
+    &.oc.pre-dest {
+      background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+    }
+    &.last-dest {
+      background-color: rgba(155, 199, 0, 0.41);
+    }
+    &.check {
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(231, 0, 0, 1) 25%,
+        rgba(169, 0, 0, 0) 89%,
+        rgba(158, 0, 0, 0) 100%
+      );
+    }
+    &.selected {
+      background-color: rgba(20, 85, 30, 0.5);
+    }
+    &.preselected,
+    &.current-pre {
+      background-color: rgba(20, 30, 85, 0.5);
+    }
+    &.dest.hover {
+      background: rgba(20, 85, 30, 0.3);
+    }
+    &.pre-dest.hover {
+      background: rgba(20, 30, 85, 0.2);
+    }
   }
 }
 piece {
@@ -69,79 +81,115 @@ piece {
   left: 0;
   width: calc(200% / 9);
   height: calc(200% / 9);
-  margin: calc(-50% / 9);
+  margin: calc(-50% / 11 * 12 / 9) calc(-50% / 9);
+  .d-5x5 & {
+    width: calc(200% / 5);
+    height: calc(200% / 5);
+    margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
+  }
   transform: scale(0.5);
   background-size: cover;
-  z-index: z('cg__piece');
+  background-position: center;
+  background-repeat: no-repeat;
   pointer-events: none;
-  &.dragging {
-    cursor: move;
-    z-index: z('cg__piece.dragging') !important;
-  }
+  z-index: z('sg__piece');
   &.anim {
-    z-index: z('cg__piece.anim');
+    z-index: z('sg__piece.anim');
   }
   &.fading {
-    z-index: z('cg__piece.fading');
+    z-index: z('sg__piece.fading');
     opacity: 0.5;
   }
   &.ghost {
     opacity: 0.3;
   }
+  &.dragging {
+    cursor: move;
+    z-index: z('sg__piece.dragging') !important;
+    &.touch {
+      top: -50px;
+    }
+  }
 }
 
-cg-container {
+sg-square-over {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  display: block;
+  box-sizing: content-box;
   top: 0;
-}
-
-cg-container .cg-shapes,
-cg-container .cg-custom-svgs {
-  overflow: hidden;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-cg-container .cg-shapes {
-  opacity: 0.6;
-  z-index: z('cg__svg.cg-shapes');
-  image {
-    opacity: 0.5;
-  }
-}
-
-piece.fix-blur {
-  will-change: auto;
-}
-
-.variant-minishogi {
-  piece {
-    width: calc(200% / 5);
-    height: calc(200% / 5);
-    margin: calc(-50% / 5);
-  }
-  square {
+  left: 0;
+  width: calc(100% / 9);
+  height: calc(100% / 9);
+  .d-5x5 & {
     width: calc(100% / 5);
     height: calc(100% / 5);
   }
-  .pocket-c1 {
-    flex: 0 0 20%;
-    max-width: 15vmin;
+  background: #00000050;
+  border-radius: 50%;
+  padding: 6%;
+  margin: -6%;
+  will-change: transform;
+  pointer-events: none;
+  z-index: z('sg__overlay');
+}
+
+sg-promotion {
+  z-index: z('sg__promotion');
+  background-color: #0000003f;
+  &.active {
+    display: block;
+    pointer-events: auto;
+  }
+  sg-promotion-square {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+    .d-5x5 & {
+      width: calc(100% / 5);
+      height: calc(100% / 5);
+    }
+    sg-promotion-choices {
+      display: flex;
+      flex-direction: column;
+      background-color: $c-bg-high;
+      box-shadow: 3px 3px 7px #000000aa;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      height: 200%;
+      piece {
+        display: block;
+        position: relative;
+        transform: scale(0.5);
+        width: 200% !important;
+        height: 100% !important;
+        margin: calc(-50%) !important;
+        pointer-events: auto;
+      }
+      &.reversed {
+        margin: calc(-100% / 11 * 12) 0;
+        flex-direction: column-reverse;
+      }
+    }
   }
 }
 
-cg-container .cg-custom-svgs {
-  z-index: z('cg__svg.cg-custom-svgs');
+svg.sg-shapes,
+svg.sg-custom-svgs {
+  @extend %abs-100;
   overflow: visible;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
 }
-
-cg-container .cg-custom-svgs svg {
-  overflow: visible;
+.sg-custom-svgs {
+  z-index: z('sg__svg.sg-custom-svgs');
+  svg {
+    overflow: visible;
+  }
+}
+sg-free-pieces piece {
+  z-index: z('sg__svg.sg-free-pieces');
+  opacity: 0.7;
 }

@@ -1,119 +1,84 @@
 .main-board {
   @extend %square;
-  &__preload {
-    position: absolute;
-  }
-  .cg-wrap {
+  .sg-wrap {
     @extend %abs-100;
+    box-sizing: border-box;
   }
-}
-
-.mini-board.no-pockets {
-  @extend %square;
-  cg-container {
-    top: 0;
-  }
+  padding-bottom: calc(100% / 11 * 12);
+  align-self: center;
 }
 
 .mini-board {
   @extend %square;
-  padding-bottom: calc(100% * 11 / 9);
-  cg-container {
+  padding-bottom: calc(100% * 12 / 9); // 100% * 11 / 9 * 12 / 11
+  sg-board {
     top: calc(100% / 11);
-    height: auto;
-    padding-bottom: 100%;
-    cg-pocket {
-      .pocket {
-        margin: 0;
-        &-top {
-          border-radius: 3px 3px 0px 0px;
-          position: absolute;
-          top: calc(-100% / 9);
-          height: calc(100% / 9);
-        }
-        &-bottom {
-          border-radius: 0px 0px 3px 3px;
-          position: absolute;
-          height: calc(100% / 9);
-          bottom: calc(-100% / 9);
-        }
-        @extend %box-radius;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
-        @if $theme-light {
-          background: #b3b3b3;
-        } @else {
-          background: #6b6b6b;
-        }
-        &-c1 {
-          display: flex;
-          align-items: center;
-          flex: 0 0 calc(100% / 9);
-          max-width: 10vmin;
-        }
-        &-c2 {
-          @extend %square;
-        }
+    height: calc(100% / 11 * 9);
+    sg-squares sq::after {
+      width: 3px;
+      height: 3px;
+      margin: -2px;
+    }
+  }
+  sg-hand-wrap {
+    position: absolute;
+    width: 100%;
+    height: calc(100% / 11);
+    padding: 0;
+    left: 0;
+    &.hand-top {
+      top: 0;
+      @extend %box-radius-top;
+      sg-hand {
+        justify-content: start;
+      }
+    }
+    &.hand-bottom {
+      top: calc(100% / 11 * 10);
+      sg-hand {
+        justify-content: end;
+      }
+    }
+    sg-hand {
+      @extend %abs-100;
+      background: transparent;
+      border: none;
+      display: flex;
+      sg-hp-wrap {
+        position: relative;
+        flex: none;
+        width: calc(100% / 9);
+        height: 100%;
         piece {
-          display: block;
-          width: 200% !important;
-          height: 200% !important;
-          margin: -50%;
-          @include transition();
-          &::after {
-            @extend %active, %box-radius;
-            content: attr(data-nb);
-            bottom: 0;
-            right: 0;
-            position: absolute;
-            line-height: 0.9em;
-            padding: 3px 0.3em;
-            font-weight: bold;
-            font-size: 1.5em;
-          }
-          &[data-nb='0'] {
-            cursor: auto;
-            opacity: 0.1;
-            &::after {
-              content: none;
-            }
-          }
+          width: 200%;
+          height: 200%;
+          margin: calc(-50% / 11 * 12) -50%;
         }
-        .blindfold &:not(.usable) {
-          opacity: 0;
+        &::after {
+          bottom: 0;
+          right: 0;
+          font-size: 1em;
+          padding: 2px;
         }
       }
     }
   }
-}
-
-.mini-board:not(.variant-minishogi) piece {
-  width: calc(200% / 9);
-  height: calc(200% / 9);
-  margin: calc(-50% / 9);
-}
-
-.mini-board.variant-minishogi {
-  padding-bottom: calc(100% * 7 / 5);
-  margin: auto;
-  cg-container {
-    top: calc(100% / 7);
-    cg-pocket {
-      .pocket {
-        &-top {
-          top: calc(-100% / 5);
-          height: calc(100% / 5);
-        }
-        &-bottom {
-          height: calc(100% / 5);
-          bottom: calc(-100% / 5);
-        }
-        &-c1 {
-          flex: 0 0 calc(100% / 5);
+  &.d-5x5 {
+    padding-bottom: calc(100% * 7 / 5 * 12 / 11);
+    sg-board {
+      top: calc(100% / 7);
+      height: calc(100% / 7 * 5);
+    }
+    sg-hand-wrap {
+      height: calc(100% / 7);
+      &.hand-bottom {
+        top: calc(100% / 7 * 6);
+      }
+      sg-hand {
+        sg-hp-wrap {
+          width: calc(100% / 5);
         }
       }
-    }
+  }
   }
 }

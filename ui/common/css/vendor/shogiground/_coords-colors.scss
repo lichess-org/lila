@@ -1,16 +1,27 @@
 @mixin coords-colors {
-  :root {
-    --cg-coord-color: #fff;
-    --cg-coord-shadow: 0 1px 2px #000;
-  }
+  $coords-color: (
+    'solid-orange': black,
+    'solid-natural': black,
+    'wood1': black,
+    'kaya1': black,
+    'kaya2': black,
+    'oak': black,
+    'space': #eee,
+    'Painting1': black,
+    'Painting2': black,
+    'Kinkaku': black,
+    'doubutsu': #c36e5f,
+    'gray': #eee,
+    'blue': #eee,
+    'custom': var(--c-b-grid, #{$c-font})
+  );
 
-  coords {
-    text-shadow: var(--cg-coord-shadow);
-  }
-  .orientation-sente .files,
-  .orientation-sente .ranks,
-  .orientation-gote .files,
-  .orientation-gote .ranks {
-    color: var(--cg-coord-color);
+  @each $theme, $color in $coords-color {
+    .#{$theme} {
+      .files,
+      .ranks {
+        color: $color;
+      }
+    }
   }
 }

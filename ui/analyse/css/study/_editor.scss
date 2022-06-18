@@ -1,6 +1,6 @@
 @import '../../../editor/css/spare';
 @import '../../../editor/css/tools';
-@import '../../../editor/css/pocket';
+@import '../../../editor/css/hands';
 
 .board-editor-wrap {
   min-height: 280px;
@@ -15,24 +15,25 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
     'spare-top'
-    'e-pocket-top'
+    'e-hand-top'
     'e-board'
-    'e-pocket-bot'
+    'e-hand-bot'
     'spare-bottom'
     'e-tools';
   user-select: none;
   .main-board {
     grid-area: e-board;
   }
-  .e-pocket {
-    &-top {
-      grid-area: e-pocket-top;
+  .editor-hand {
+    align-self: center;
+    &.pos-top {
+      grid-area: e-hand-top;
     }
-    &-bottom {
-      grid-area: e-pocket-bot;
+    &.pos-bottom {
+      grid-area: e-hand-bot;
     }
   }
-  cg-board {
+  sg-board {
     cursor: inherit;
   }
   &__tools {
@@ -58,8 +59,8 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
     grid-template-columns: 320px 2vmin 240px;
     grid-template-rows: min-content auto min-content;
     grid-template-areas:
-      'spare-top    . e-pocket-top'
+      'spare-top    . e-hand-top'
       'e-board      . e-tools'
-      'spare-bottom . e-pocket-bot';
+      'spare-bottom . e-hand-bot';
   }
 }

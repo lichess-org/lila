@@ -1,12 +1,6 @@
 .rcontrols {
   grid-area: controls;
 }
-.material-top {
-  grid-area: mat-top;
-}
-.material-bottom {
-  grid-area: mat-bot;
-}
 .expiration-top {
   grid-area: expi-top;
 }
@@ -47,12 +41,12 @@
 
     grid-template-areas:
       'moves'
-      'mat-top'
+      'hand-top'
       'user-top'
       'board'
       'expi-bot'
       'user-bot'
-      'mat-bot'
+      'hand-bot'
       'kb-move'
       'controls';
 
@@ -68,7 +62,7 @@
       grid-area: 6 / 1 / 6 / 2;
     }
 
-    cg-board {
+    sg-board {
       box-shadow: none;
     }
     .expiration-top {
@@ -82,12 +76,12 @@
       // replace move list with move confirmation
       grid-template-areas:
         'controls'
-        'mat-top'
+        'hand-top'
         'user-top'
         'board'
         'expi-bot'
         'user-bot'
-        'mat-bot'
+        'hand-bot'
         'kb-move';
       .rmoves {
         display: none;
@@ -99,8 +93,8 @@
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
 
     grid-template-areas:
+      'board hand-top'
       'board .'
-      'board mat-top'
       'board clock-top'
       'board expi-top'
       'board user-top'
@@ -109,8 +103,8 @@
       'board user-bot'
       'board expi-bot'
       'board clock-bot'
-      'board mat-bot'
       'board .'
+      'board hand-bot'
       'kb-move .';
     grid-column-gap: $block-gap;
     &__table {

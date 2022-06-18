@@ -1,12 +1,10 @@
 .analyse {
-  $pocket-col1-height: auto;
-
-  .pocket {
+  .hand {
     &-top {
-      grid-area: pocket-top;
+      grid-area: hand-top;
     }
     &-bottom {
-      grid-area: pocket-bot;
+      grid-area: hand-bot;
     }
   }
 
@@ -21,9 +19,9 @@
 
   grid-template-rows: auto;
   grid-template-areas:
-    'pocket-top'
+    'hand-top'
     'board'
-    'pocket-bot'
+    'hand-bot'
     'controls'
     'under'
     'tools'
@@ -32,18 +30,18 @@
   @include breakpoint($mq-col2) {
     grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
-      'board gauge pocket-top'
+      'board gauge hand-top'
       'board gauge tools'
-      'board gauge pocket-bot'
+      'board gauge hand-bot'
       'under .     controls'
       'side  .     .';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-      'side    . board gauge pocket-top'
+      'side    . board gauge hand-top'
       'side    . board gauge tools'
-      'side    . board gauge pocket-bot'
+      'side    . board gauge hand-bot'
       '.       . under .     controls';
     .practice__side {
       margin-top: 0;

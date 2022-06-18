@@ -4,13 +4,16 @@
 /// @prop {String} key - Layer’s name
 /// @prop {Number} value - Z value mapped to the key
 $z-indexes: (
-  'cg__promotion': 205,
-  'cg__piece.dragging': 204,
-  'cg__piece.anim': 3,
-  'cg__svg.cg-shapes': 2,
-  'cg__svg.cg-custom-svgs': 4,
-  'cg__piece': 2,
-  'cg__piece.fading': 1,
+  'sg__piece.dragging': 102, // needs to be lower than nag-circle, or we get blurry pieces...
+  'sg__piece.anim': 3,
+  'sg__svg.sg-shapes': 2,
+  'sg__svg.sg-free-pieces': 2,
+  'sg__svg.sg-custom-svgs': 4,
+  'sg__piece': 2,
+  'sg__hand-piece': 1,
+  'sg__piece.fading': 1,
+  'sg__promotion': 5,
+  'sg__overlay': 3,
   'powertip': 120,
   'inquiry': 111,
   'zen-toggle': 110,

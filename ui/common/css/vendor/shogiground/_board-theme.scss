@@ -1,0 +1,264 @@
+$board-files: (
+  'wood1': 'wood1.png',
+  'kaya1': 'kaya1.jpg',
+  'kaya2': 'kaya2.jpg',
+  'oak': 'oak.png',
+  'Painting1': 'Painting1.jpg',
+  'Painting2': 'Painting2.jpg',
+  'Kinkaku': 'Kinkaku.jpg',
+  'space': 'space.png',
+  'doubutsu': 'doubutsu.png',
+);
+
+@each $board, $file in $board-files {
+  .#{$board} {
+    sg-board, #dasher_app .piece .list {
+      background-image: url(../images/boards/#{$file});
+    }
+    @include breakpoint($mq-col2-uniboard) {
+      sg-hand {
+        background-image: url(../images/boards/#{$file});
+      }
+    }
+  }
+}
+
+%grid-dot {
+  content: '';
+  position: absolute;
+  background-color: black;
+  border-radius: 50%;
+  margin: -4px;
+  width: 7px;
+  height: 7px;
+  top: 0;
+  left: 0
+}
+
+sg-squares {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  sq {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+  }
+}
+
+.sg-wrap {
+  &.d-9x9 sg-squares sq {
+    &:nth-child(31),
+    &:nth-child(34),
+    &:nth-child(58),
+    &:nth-child(61) {
+      position: relative;
+      &::after {
+        @extend %grid-dot;
+      }
+    }
+  }
+  &.d-5x5 sg-squares sq {
+    &:nth-child(7),
+    &:nth-child(10),
+    &:nth-child(22),
+    &:nth-child(25) {
+      position: relative;
+      &::after {
+        @extend %grid-dot;
+      }
+    }
+  }
+}
+
+@include breakpoint($mq-col2-uniboard) {
+  sg-hand {
+    border: 1px solid black;
+  }
+  .coords-edge .main-board .sg-wrap {
+    border: 1px solid black;
+  }
+}
+
+.gray {
+  sg-board {
+    background-color: #878787; // dark squares
+    sq:nth-child(even) {
+      background-color: #d1d1d1; // light squares
+      &.oc.dest, &.oc.pre-dest {
+        background-color: #d1d1d1; // light squares
+      }
+      &.selected {
+        background-color: #729377;
+      }
+      &.preselected,
+      &.current-pre {
+        background-color: #727793;
+      }
+      &.dest.hover {
+        background-color: #98ac9b;
+      }
+      &.pre-dest.hover {
+        background-color: #abadb8;
+      }
+      &.last-dest {
+        background-color: #bbcd7b;
+      }
+    }
+    sq:nth-child(-2n + 26),
+    sq:nth-child(2n + 56) {
+      filter: brightness(90%);
+    }
+  }
+  #dasher_app .piece .list {
+    background: #878787;
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand {
+      background-color: #bcbcbc;
+    }
+  }
+}
+
+.blue {
+  sg-board {
+    background-color: #617a8e; // dark squares
+    sq:nth-child(even) {
+      background-color: #99aec2; // light squares
+      &.oc.dest, &.oc.pre-dest {
+        background-color: #99aec2; // light squares
+      }
+      &.selected {
+        background-color: #568270;
+      }
+      &.preselected,
+      &.current-pre, &.oc.pre-dest {
+        background-color: #56668c;
+      }
+      &.dest.hover {
+        background-color: #719390;
+      }
+      &.pre-dest.hover {
+        background-color: #7e91ac;
+      }
+      &.last-dest {
+        background-color: #afd47e;
+      }
+    }
+    sq:nth-child(-2n + 26),
+    sq:nth-child(2n + 56) {
+      filter: brightness(90%);
+    }
+  }
+  #dasher_app .piece .list {
+    background: #617a8e;
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand {
+      background-color: #8a9daf;
+    }
+  }
+}
+
+.blue, .gray {
+  sg-squares  {
+    border: none;
+    sq {
+      border: none;
+      &::after {
+        content: unset !important;
+      }
+    }
+  }
+  sg-hand {
+    border: none;
+  }
+  &.coords-edge .main-board .sg-wrap {
+    border: none;
+  }
+}
+
+.solid-natural {
+  sg-board, dasher_app .piece .list {
+    background-color: #ffd890;
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand {
+      background-color: #ffd890;
+    }
+  }
+}
+
+.solid-orange {
+  sg-board, dasher_app .piece .list {
+    background-color: #f4bf57;
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand {
+      background-color: #f4bf57;
+    }
+  }
+}
+
+.space {
+  sg-squares, sg-squares sq, &.coords-edge .main-board .sg-wrap, sg-hand {
+    border-color: #eee;
+  }
+  sg-squares sq::after {
+    background-color: #eee !important;
+  }
+}
+
+.doubutsu {
+  sg-squares {
+    border-top: 2px dashed #bb645c;
+    border-left: 2px dashed #bb645c;
+    sq {
+      border-right: 2px dashed #bb645c;
+      border-bottom: 2px dashed #bb645c;
+      &::after {
+        content: unset !important;
+      }
+    }
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand, &.coords-edge .main-board .sg-wrap {
+      border: 2px dashed #bb645c;
+    }
+  }
+}
+
+.custom {
+  sg-squares {
+    background-color: var(--c-b-color-bg, transparent);
+    background-image: var(--c-b-url-bg, transparent);
+    border-top: 1px solid var(--c-b-grid, $c-font);
+    border-left: 1px solid var(--c-b-grid, $c-font);
+    sq {
+      border-bottom: 1px solid var(--c-b-grid, $c-font);
+      border-right: 1px solid var(--c-b-grid, $c-font);
+      &::after {
+        background-color: var(--c-b-grid, $c-font) !important;
+      }
+    }
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    sg-hand {
+      background-color: var(--c-h-color-bg, transparent);
+      background-image: var(--c-h-url-bg, transparent);
+      border: 1px solid var(--c-b-grid, $c-font);
+    }
+    &.coords-edge .main-board .sg-wrap {
+      border: 1px solid var(--c-b-grid, $c-font);
+    }
+  }
+}
+
+@include breakpoint($mq-xx-large) {
+  sg-squares, sg-squares sq, sg-hand, .coords-edge .main-board .sg-wrap {
+    border-width: 2px;
+  }
+  sg-squares sq::after {
+    margin: -7px !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
+}

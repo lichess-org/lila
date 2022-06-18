@@ -6,14 +6,14 @@
   }
 }
 
-$pocket-col1-height: auto;
+$hand-col1-height: auto;
 
-.pocket {
+.hand {
   &-top {
-    grid-area: pocket-top;
+    grid-area: hand-top;
   }
   &-bottom {
-    grid-area: pocket-bot;
+    grid-area: hand-bot;
   }
 }
 
@@ -50,9 +50,9 @@ $pocket-col1-height: auto;
   }
 
   grid-template-areas:
-    'pocket-top'
+    'hand-top'
     'board'
-    'pocket-bot'
+    'hand-bot'
     'controls'
     'tools'
     'session'
@@ -64,11 +64,11 @@ $pocket-col1-height: auto;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
-    grid-template-rows: $square-max-taller fit-content(0) $square-max-taller;
+    grid-template-rows: min-content 0fr min-content;
     grid-template-areas:
-      'board   gauge pocket-top'
+      'board   gauge hand-top'
       'board   gauge tools'
-      'board   gauge pocket-bot'
+      'board   gauge hand-bot'
       'session .     controls'
       'side    side  side';
 
@@ -79,9 +79,9 @@ $pocket-col1-height: auto;
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-      'side    . board   gauge pocket-top'
+      'side    . board   gauge hand-top'
       'side    . board   gauge tools'
-      'side    . board   gauge pocket-bot'
+      'side    . board   gauge hand-bot'
       'side    . session .     controls'
       'side    . .       .     .';
     grid-template-columns:
@@ -144,7 +144,7 @@ $pocket-col1-height: auto;
 }
 
 @include breakpoint($mq-col1-uniboard) {
-  .pocket {
+  .hand {
     &-top {
       margin-bottom: #{$block-gap};
     }

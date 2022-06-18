@@ -1,23 +1,21 @@
 @import 'variables';
 
-$pocket-col1-height: auto;
-
-.pocket {
-  &-top {
-    grid-area: pocket-top;
+.sg-hand-wrap {
+  &.hand-top {
+    grid-area: hand-top;
   }
-  &-bottom {
-    grid-area: pocket-bot;
+  &.hand-bottom {
+    grid-area: hand-bot;
   }
 }
 
 .analyse.variant-standard,
 .analyse.variant-minishogi {
-  grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto 50vh;
+  grid-template-rows: auto auto auto auto 50vh;
   grid-template-areas:
-    'pocket-top'
+    'hand-top'
     'board'
-    'pocket-bot'
+    'hand-bot'
     'controls'
     'tools'
     'side'
@@ -28,9 +26,9 @@ $pocket-col1-height: auto;
   @include breakpoint($mq-col2) {
     grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
-      'board      gauge pocket-top'
+      'board      gauge hand-top'
       'board      gauge tools'
-      'board      gauge pocket-bot'
+      'board      gauge hand-bot'
       'under      .     controls'
       'under      .     acpl'
       'under      .     side'
@@ -40,17 +38,17 @@ $pocket-col1-height: auto;
   @include breakpoint($mq-col3) {
     grid-template-rows: min-content $meta-height 1fr min-content;
     grid-template-areas:
-      'side    . board gauge pocket-top'
+      'side    . board gauge hand-top'
       'side    . board gauge tools'
       'chat    . board gauge tools'
-      'chat    . board gauge pocket-bot'
+      'chat    . board gauge hand-bot'
       'uchat   . under .     controls'
       'uchat   . under .     acpl';
   }
 }
 
 @include breakpoint($mq-col1) {
-  .pocket {
+  .hand {
     &-top {
       margin-bottom: #{$block-gap};
     }

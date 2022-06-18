@@ -1,11 +1,9 @@
-.pocket {
+.hand {
   &-top {
-    grid-area: mat-top;
-    margin-bottom: -0.5em;
+    grid-area: hand-top;
   }
   &-bottom {
-    grid-area: mat-bot;
-    margin-top: -0.5em;
+    grid-area: hand-bot;
   }
   @include breakpoint($mq-col2-uniboard) {
     &-top {

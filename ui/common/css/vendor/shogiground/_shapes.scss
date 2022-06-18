@@ -1,0 +1,50 @@
+$shape-themes: (
+  'primary': #15781b,
+  'alternative0': #882020,
+  'alternative1': #003088,
+  'alternative2': #e68f00,
+  'paleGreen': #15781c,
+  'paleRed': #882020,
+  'paleBlue': #003088,
+  'red': #882020,
+  'green': #15781b,
+);
+
+.sg-shapes {
+  z-index: z('sg__svg.sg-shapes');
+  line,
+  ellipse {
+    opacity: 0.8;
+  }
+  ellipse {
+    fill: none;
+  }
+  line.current {
+    opacity: 0.7;
+  }
+  line.outside {
+    opacity: 0.4;
+  }
+
+  @each $theme, $color in $shape-themes {
+    ellipse.#{$theme} {
+      stroke: #{$color};
+    }
+    line.#{$theme} {
+      stroke: #{$color};
+    }
+    marker#arrowhead-#{$theme} path {
+      fill: #{$color};
+    }
+  }
+
+  $pales: 'paleGreen', 'paleRed', 'paleBlue';
+  @each $pale in $pales {
+    line.#{$pale} {
+      opacity: 0.55;
+    }
+    ellipse.#{$pale} {
+      opacity: 0.55;
+    }
+  }
+}
