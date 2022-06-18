@@ -59,7 +59,7 @@ object Info {
 
   val LineMaxPlies = 16
 
-  private val separator     = "@"
+  private val separator     = ","
   private val listSeparator = ";"
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
@@ -67,6 +67,7 @@ object Info {
   private def strCp(s: String)   = s.toIntOption map Cp.apply
   private def strMate(s: String) = s.toIntOption map Mate.apply
 
+  // 103,,Pg6 Ph4,Ph4
   private def decode(ply: Int, str: String): Option[Info] =
     str.split(separator) match {
       case Array()           => Info(ply, Eval.empty).some
