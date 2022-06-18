@@ -60,7 +60,7 @@ object tutor {
   private def showMetric[A](metric: TutorMetric[A], higherIsBetter: Option[Boolean]) =
     frag(
       td(cls := qualityCls(higherIsBetter, metric.higher))(metricValue(metric.mine)),
-      td(metricValue(metric.peer))
+      td(metric.peer.fold("?")(metricValue))
     )
 
   private def showMetric[A](metric: TutorMetricOption[A], higherIsBetter: Option[Boolean]) =

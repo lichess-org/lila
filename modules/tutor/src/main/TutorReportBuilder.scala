@@ -82,42 +82,39 @@ final class TutorReportBuilder(
   } yield TutorFullReport(userId, DateTime.now, TutorOpenings(Color.Map(whiteOpenings, blackOpenings)))
 
   private def computeOpenings(user: User, color: Color): Fu[TutorColorOpenings] = {
-    val performanceQuestion = Question(
-      InsightDimension.OpeningFamily,
-      Metric.Performance,
-      List(
-        Filter(InsightDimension.Color, List(color)),
-        Filter(InsightDimension.Perf, PerfType.standard)
-      )
-    )
     for {
-      myPerformances <- insightApi.ask(performanceQuestion, user, withPovs = false) map Answer.apply
-      familyFilter     = Filter(InsightDimension.OpeningFamily, myPerformances.dimensions)
-      filteredQuestion = performanceQuestion.add(familyFilter)
-      acplQuestion = filteredQuestion
+      myPerfs   <- insightApi.ask(performanceQuestion(color), user, withPovs = false) map Answer.apply
+      peerPerfs <- insightApi.askPeers(myPerfs.alignedQuestion, myPerfs.average.toInt) map Answer.apply
+      performances = Answers(myPerfs, peerPerfs)
+      acplQuestion = myPerfs.alignedQuestion
         .copy(metric = Metric.MeanCpl)
         .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-      myAcpls <- insightApi.ask(acplQuestion, user, withPovs = false) map Answer.apply
-      peerPerformances <- insightApi.askPeers(
-        filteredQuestion,
-        myPerformances.average.toInt
-      ) map Answer.apply
-      performances = Answers(myPerformances, peerPerformances)
-      peerAcpls <- insightApi.askPeers(acplQuestion, myPerformances.average.toInt) map Answer.apply
-      acpls = Answers(myAcpls, peerAcpls)
-      families = performances.list.map { case (family, (myValue, myCount), peer) =>
+      acpls <- answers(acplQuestion, user, myPerfs.average.toInt)
+    } yield TutorColorOpenings {
+      performances.mine.list.map { case (family, myValue, myCount) =>
         TutorOpeningFamily(
           family,
-          games = TutorMetric(
-            myPerformances countRatio myCount,
-            peer.map(_._2).map(peerPerformances.countRatio)
-          ),
-          performance = TutorMetric(myValue, peer.map(_._1)),
-          acpl = acpls metric family
+          games = performances.countMetric(family, myCount),
+          performance = performances.valueMetric(family, myValue),
+          acpl = acpls valueMetric family
         )
       }
-    } yield TutorColorOpenings(families)
+    }
   }
+
+  private def performanceQuestion(color: Color) = Question(
+    InsightDimension.OpeningFamily,
+    Metric.Performance,
+    List(
+      Filter(InsightDimension.Color, List(color)),
+      Filter(InsightDimension.Perf, PerfType.standard)
+    )
+  )
+
+  private def answers[Dim](question: Question[Dim], user: User, rating: Int) = for {
+    mine <- insightApi.ask(question, user, withPovs = false) map Answer.apply
+    peer <- insightApi.askPeers(question, rating) map Answer.apply
+  } yield Answers(mine, peer)
 
   // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
   //   analysisRepo.byGame(game) orElse {
@@ -150,7 +147,7 @@ private object TutorReportBuilder {
         (dimension, point.y, nbGames)
       }.toList
 
-    val map: Map[Dim, Pair] = list.view.map { case (dim, value, count) =>
+    lazy val map: Map[Dim, Pair] = list.view.map { case (dim, value, count) =>
       dim -> (value, count)
     }.toMap
 
@@ -166,14 +163,19 @@ private object TutorReportBuilder {
     lazy val totalCount = list.map(_._3).sum
 
     def countRatio(count: Count) = TutorRatio(count, totalCount)
+
+    def alignedQuestion = answer.question add Filter(answer.question.dimension, dimensions)
   }
 
   case class Answers[Dim](mine: Answer[Dim], peer: Answer[Dim]) {
 
-    def list: List[(Dim, Pair, Option[Pair])] = mine.list.map { case (dim, value, count) =>
-      (dim, (value, count), peer.map.get(dim))
-    }
+    def countMetric(dim: Dim, myCount: Count) = TutorMetric(
+      mine countRatio myCount,
+      peer.get(dim).map(_._2).map(peer.countRatio)
+    )
 
-    def metric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
+    def valueMetric(dim: Dim, myValue: Value) = TutorMetric(myValue, peer.get(dim).map(_._1))
+
+    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
   }
 }
