@@ -1,163 +1,43 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { MouchEvent } from 'shogiground/types';
+import { MouchEvent, Piece } from 'shogiground/types';
 import { dragNewPiece } from 'shogiground/drag';
-import { eventPosition, opposite } from 'shogiground/util';
+import { eventPosition, opposite, samePiece } from 'shogiground/util';
 
 import EditorCtrl from './ctrl';
-import shogiground from './shogiground';
+import * as ground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';
-import { handRoles } from 'shogiops/variantUtil';
-import { defined } from 'common';
-
-type Position = 'top' | 'bottom';
-
-function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
-  return h(
-    `div.e-pocket.e-pocket-${p}.${c}`,
-    {},
-    handRoles('shogi')
-      .reverse()
-      .map(r => {
-        const nb = ctrl.hands[c][r];
-        const delta = 10;
-
-        // Distinguishing between click with small movement and drag
-        // mousedown/touchstart hasn't turned into drag
-        let isActive: boolean = false;
-        // Click starting position, leaving this by delat turns it into drag
-        let startX: number;
-        let startY: number;
-
-        return h(
-          'div.no-square',
-          {
-            on: {
-              mousedown: e => {
-                startX = e.pageX;
-                startY = e.pageY;
-                isActive = true;
-
-                e.preventDefault();
-              },
-              touchstart: e => {
-                ctrl.lastTouchMovePos = eventPosition(e as any);
-                startX = e.touches[0].pageX;
-                startY = e.touches[0].pageY;
-                isActive = true;
-
-                e.preventDefault();
-              },
-              mouseleave: e => {
-                if (!isActive) return;
-                isActive = false;
-                dragFromPocket(ctrl, [c, r], nb)(e as MouchEvent);
-              },
-              mousemove: e => {
-                if (!isActive) return;
-                const diffX = Math.abs(e.pageX - startX);
-                const diffY = Math.abs(e.pageY - startY);
-                if (diffX >= delta || diffY >= delta) {
-                  dragFromPocket(ctrl, [c, r], nb)(e as MouchEvent);
-                  isActive = false;
-                }
-              },
-              touchmove: e => {
-                if (!ctrl.lastTouchMovePos || !isActive) return;
-                if (
-                  Math.abs(ctrl.lastTouchMovePos[0] - startX) >= delta ||
-                  Math.abs(ctrl.lastTouchMovePos[1] - startY) >= delta
-                ) {
-                  dragFromPocket(ctrl, [c, r], nb)(e as MouchEvent);
-                  isActive = false;
-                }
-              },
-              mouseup: e => {
-                const curDrag =
-                  ctrl.shogiground?.state.draggable.current || ctrl.shogiground?.state.draggable.lastDropOff;
-                if (isActive) {
-                  if (e.shiftKey || ctrl.selected() === 'trash') ctrl.removeFromPocket(c, r, true);
-                  else ctrl.addToPocket(c, r, true);
-                } else if (curDrag) {
-                  ctrl.addToPocket(c, curDrag.piece.role, true);
-                }
-                ctrl.shogiground!.state.draggable.lastDropOff = undefined;
-                isActive = false;
-
-                e.preventDefault();
-              },
-              touchend: e => {
-                if (isActive) {
-                  if (ctrl.selected() === 'trash') ctrl.removeFromPocket(c, r, true);
-                  else ctrl.addToPocket(c, r, true);
-                }
-                isActive = false;
-
-                e.preventDefault();
-              },
-              contextmenu: e => {
-                ctrl.removeFromPocket(c, r, true);
-
-                e.preventDefault();
-              },
-            },
-          },
-          [
-            h(
-              'div',
-              h(
-                'piece',
-                {
-                  attrs: {
-                    class: c + ' ' + r,
-                    'data-role': r,
-                    'data-color': c,
-                    'data-nb': nb,
-                  },
-                },
-                []
-              )
-            ),
-          ]
-        );
-      })
-  );
-}
-
-function dragFromPocket(ctrl: EditorCtrl, s: Selected, nb: number): (e: MouchEvent) => void {
-  return function (e: MouchEvent): void {
-    e.preventDefault();
-    if (s !== 'pointer' && s !== 'trash' && nb > 0) {
-      ctrl.removeFromPocket(s[0], s[1], true);
-      dragNewPiece(
-        ctrl.shogiground!.state,
-        {
-          color: s[0],
-          role: s[1],
-        },
-        e,
-        true
-      );
-    }
-  };
-}
+import { allRoles, handRoles } from 'shogiops/variantUtil';
+import { Role, Rules } from 'shogiops';
 
 function pieceCounter(ctrl: EditorCtrl): VNode {
   function singlePieceCounter(cur: number, total: number, name: string, suffix: string = ''): VNode {
     return h('span', [`${cur.toString()}/${total.toString()}`, h('strong', ` ${name}`), `${suffix}`]);
   }
   return h('div.piece-counter', {}, [
-    h('div.piece-count', [
-      singlePieceCounter(ctrl.countPieces('pawn'), 18, '歩(P)', ', '),
-      singlePieceCounter(ctrl.countPieces('lance'), 4, '香(L)', ', '),
-      singlePieceCounter(ctrl.countPieces('knight'), 4, '桂(N)', ', '),
-      singlePieceCounter(ctrl.countPieces('silver'), 4, '銀(S)', ', '),
-      singlePieceCounter(ctrl.countPieces('gold'), 4, '金(G)', ', '),
-      singlePieceCounter(ctrl.countPieces('bishop'), 2, '角(B)', ', '),
-      singlePieceCounter(ctrl.countPieces('rook'), 2, '飛(R)', ', '),
-      singlePieceCounter(ctrl.countPieces('king'), 2, '玉(K)'),
-    ]),
+    h(
+      'div.piece-count',
+      ctrl.rules === 'minishogi'
+        ? [
+            singlePieceCounter(ctrl.countPieces('pawn'), 2, '歩(P)', ', '),
+            singlePieceCounter(ctrl.countPieces('silver'), 2, '銀(S)', ', '),
+            singlePieceCounter(ctrl.countPieces('gold'), 2, '金(G)', ', '),
+            singlePieceCounter(ctrl.countPieces('bishop'), 2, '角(B)', ', '),
+            singlePieceCounter(ctrl.countPieces('rook'), 2, '飛(R)', ', '),
+            singlePieceCounter(ctrl.countPieces('king'), 2, '玉(K)'),
+          ]
+        : [
+            singlePieceCounter(ctrl.countPieces('pawn'), 18, '歩(P)', ', '),
+            singlePieceCounter(ctrl.countPieces('lance'), 4, '香(L)', ', '),
+            singlePieceCounter(ctrl.countPieces('knight'), 4, '桂(N)', ', '),
+            singlePieceCounter(ctrl.countPieces('silver'), 4, '銀(S)', ', '),
+            singlePieceCounter(ctrl.countPieces('gold'), 4, '金(G)', ', '),
+            singlePieceCounter(ctrl.countPieces('bishop'), 2, '角(B)', ', '),
+            singlePieceCounter(ctrl.countPieces('rook'), 2, '飛(R)', ', '),
+            singlePieceCounter(ctrl.countPieces('king'), 2, '玉(K)'),
+          ]
+    ),
   ]);
 }
 
@@ -209,13 +89,31 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   );
 }
 
+function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
+  return h(
+    'option',
+    {
+      attrs: {
+        value: key,
+        selected: key == ctrl.rules,
+      },
+    },
+    `${ctrl.trans.noarg('variant')} | ${name}`
+  );
+}
+
+const allVariants: Array<[Rules, string]> = [
+  ['standard', 'Standard'],
+  ['minishogi', 'Minishogi'],
+];
+
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   const position2option = function (pos: OpeningPosition): VNode {
     return h(
       'option',
       {
         attrs: {
-          value: pos.epd || pos.sfen,
+          value: pos.sfen,
           'data-sfen': pos.sfen,
         },
       },
@@ -223,7 +121,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     );
   };
   return h('div.board-editor__tools', [
-    ...(ctrl.cfg.embed || !ctrl.cfg.positions
+    ...(ctrl.data.embed || !ctrl.data.positions
       ? []
       : [
           h('div', [
@@ -237,8 +135,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   change(e) {
                     const el = e.target as HTMLSelectElement;
                     let value = el.selectedOptions[0].getAttribute('data-sfen');
-                    if (value == 'prompt') value = (prompt('Paste SFEN') || '').trim();
-                    if (!value || !ctrl.setSfen(value)) el.value = '';
+                    if (value === 'prompt') value = (prompt('Paste SFEN') || '').trim();
+                    if (value === 'start') ctrl.startPosition();
+                    else if (!value || !ctrl.setSfen(value)) el.value = '';
                   },
                 },
               },
@@ -255,7 +154,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   ),
                   ...ctrl.extraPositions.map(position2option),
                 ]),
-                optgroup('Handicaps', ctrl.cfg.positions.map(position2option)),
+                ctrl.rules === 'standard' ? optgroup('Handicaps', ctrl.data.positions.map(position2option)) : null,
               ]
             ),
           ]),
@@ -286,9 +185,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })
         )
       ),
-      ctrl.cfg.embed ? '' : pieceCounter(ctrl),
+      ctrl.data.embed ? '' : pieceCounter(ctrl),
     ]),
-    ...(ctrl.cfg.embed
+    ...(ctrl.data.embed
       ? [
           h('div.actions', [
             h(
@@ -330,6 +229,20 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
         ]
       : [
+          h('div', [
+            h(
+              'select',
+              {
+                attrs: { id: 'variants' },
+                on: {
+                  change(e) {
+                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+                  },
+                },
+              },
+              allVariants.map(x => variant2option(x[0], x[1], ctrl))
+            ),
+          ]),
           h('div.actions', [
             h(
               'a.button.button-empty.text',
@@ -364,7 +277,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { 'data-icon': 'B' },
                 on: {
                   click() {
-                    ctrl.setOrientation(opposite(ctrl.shogiground!.state.orientation));
+                    ctrl.setOrientation(opposite(ctrl.shogiground.state.orientation));
                   },
                 },
               },
@@ -432,7 +345,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 }
 
 function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
-  if (ctrl.cfg.embed) return;
+  if (ctrl.data.embed) return;
   return h('div.copyables', [
     h('p', [
       h('strong', 'SFEN'),
@@ -451,7 +364,7 @@ function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
           },
           input(e) {
             const el = e.target as HTMLInputElement;
-            const valid = parseSfen(el.value.trim()).isOk;
+            const valid = parseSfen(ctrl.rules, el.value.trim()).isOk;
             el.setCustomValidity(valid ? '' : 'Invalid SFEN');
           },
           blur(e) {
@@ -468,7 +381,7 @@ function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: ctrl.makeUrl(ctrl.cfg.baseUrl, sfen),
+          value: ctrl.makeEditorUrl(sfen),
         },
       }),
     ]),
@@ -483,22 +396,7 @@ function selectedToClass(s: Selected): string {
 function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
-  const pieces = [
-    'king',
-    'rook',
-    'bishop',
-    'gold',
-    'silver',
-    'knight',
-    'lance',
-    'pawn',
-    'dragon',
-    'horse',
-    'promotedsilver',
-    'promotedknight',
-    'promotedlance',
-    'tokin',
-  ].map(function (role) {
+  const pieces = allRoles(ctrl.rules).map(function (role) {
     return [color, role];
   });
 
@@ -520,11 +418,6 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
             }
           : {}),
       };
-      const selectedSquare =
-        selectedClass === className &&
-        (!ctrl.shogiground ||
-          !ctrl.shogiground.state.draggable.current ||
-          !ctrl.shogiground.state.draggable.current.newPiece);
       return h(
         'div',
         {
@@ -532,14 +425,13 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
             'no-square': true,
             pointer: s === 'pointer',
             trash: s === 'trash',
-            'selected-square': selectedSquare,
+            'selected-square': selectedClass === className,
           },
           on: {
-            mousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-            touchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-            touchmove: e => {
-              ctrl.lastTouchMovePos = eventPosition(e as any);
-            },
+            mousedown: selectSPStart(ctrl, s),
+            mouseup: selectSPEnd(ctrl, s),
+            touchstart: selectSPStart(ctrl, s),
+            touchend: selectSPEnd(ctrl, s),
           },
         },
         [h('div', [h('piece', { attrs })])]
@@ -548,56 +440,101 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
   );
 }
 
-function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
+function selectSPStart(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
   return function (e: MouchEvent): void {
     e.preventDefault();
-    if (s === 'pointer' || s === 'trash') {
-      ctrl.selected(s);
-      ctrl.redraw();
-    } else {
-      ctrl.selected('pointer');
-
-      dragNewPiece(
-        ctrl.shogiground!.state,
-        {
-          color: s[0],
-          role: s[1],
-        },
-        e,
-        true
-      );
+    ctrl.shogiground.selectPiece(null);
+    ctrl.initTouchMovePos = ctrl.lastTouchMovePos = undefined;
+    if (typeof s !== 'string') {
+      const piece = {
+        color: s[0],
+        role: s[1],
+      };
+      dragNewPiece(ctrl.shogiground.state, piece, e, true);
     }
-    document.addEventListener(
-      upEvent,
-      (e: MouchEvent) => {
-        const eventPos = eventPosition(e) || ctrl.lastTouchMovePos;
-        if (eventPos) {
-          const target = document.elementFromPoint(eventPos[0], eventPos[1]);
-          const droppedOnPiece = target?.getElementsByTagName('piece')[0];
-          // set selected only when upevent occurs above spare pieces
-          if (
-            droppedOnPiece &&
-            droppedOnPiece.getAttribute('data-nb') === null &&
-            defined(droppedOnPiece.getAttribute('data-color'))
-          )
-            ctrl.selected(s);
-        }
-        ctrl.redraw();
-      },
-      { once: true }
-    );
+    ctrl.redraw();
   };
+}
+
+function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
+  return function (e: MouchEvent): void {
+    e.preventDefault();
+    const cur = ctrl.selected(),
+      pos = eventPosition(e) || ctrl.lastTouchMovePos;
+    ctrl.shogiground.selectPiece(null);
+    // default to pointer if we click on selected
+    if (
+      cur === s ||
+      (typeof cur !== 'string' &&
+        typeof s !== 'string' &&
+        samePiece({ color: cur[0], role: cur[1] }, { color: s[0], role: s[1] }))
+    ) {
+      ctrl.selected('pointer');
+    } else if (
+      !pos ||
+      !ctrl.initTouchMovePos ||
+      (Math.abs(pos[0] - ctrl.initTouchMovePos[0]) < 20 && Math.abs(pos[1] - ctrl.initTouchMovePos[1]) < 20)
+    ) {
+      ctrl.selected(s);
+      ctrl.shogiground.state.selectable.deleteOnTouch = s === 'trash' ? true : false;
+    }
+    ctrl.redraw();
+  };
+}
+
+function createHandHelpers(ctrl: EditorCtrl, position: 'top' | 'bottom'): [VNode, VNode] {
+  function getPiece(e: Event): Piece | undefined {
+    const role: Role | undefined = ((e.target as HTMLElement).dataset.role as Role) || undefined;
+    if (role) {
+      const color: Color =
+        (e.target as HTMLElement).dataset.pos === 'bottom'
+          ? ctrl.shogiground.state.orientation
+          : opposite(ctrl.shogiground.state.orientation);
+      return { role, color };
+    }
+    return;
+  }
+
+  const removePiece = (e: Event) => {
+    const piece = getPiece(e);
+    if (piece) {
+      ctrl.removeFromHand(piece.color, piece.role, true);
+    }
+  };
+  const addPiece = (e: Event) => {
+    const piece = getPiece(e);
+    if (piece) {
+      ctrl.addToHand(piece.color, piece.role, true);
+    }
+  };
+  const pluses: VNode[] = [];
+  const minuses: VNode[] = [];
+
+  const reversedRoles = handRoles(ctrl.rules).reverse();
+  for (const r of reversedRoles) {
+    pluses.push(h('div.plus', { attrs: { 'data-role': r, 'data-pos': position } }));
+    minuses.push(h('div.minus', { attrs: { 'data-role': r, 'data-pos': position } }));
+  }
+  return [
+    h('div.pluses', { on: { click: addPiece } }, pluses),
+    h('div.minuses', { on: { click: removePiece } }, minuses),
+  ];
+}
+
+function createHandWrap(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
+  const helpers = createHandHelpers(ctrl, position);
+  return h(`div.editor-hand.pos-${position}`, [helpers[0], ground.renderHand(ctrl, position), helpers[1]]);
 }
 
 export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return h('div.board-editor', [
+  return h(`div.board-editor.variant-${ctrl.rules}`, [
     sparePieces(ctrl, opposite(color), color, 'top'),
-    pocket(ctrl, opposite(color), 'top'),
-    h('div.main-board', [shogiground(ctrl)]),
-    pocket(ctrl, color, 'bottom'),
+    createHandWrap(ctrl, 'top'),
+    h('div.main-board', [ground.renderBoard(ctrl)]),
+    createHandWrap(ctrl, 'bottom'),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, state),
     inputs(ctrl, state.sfen),

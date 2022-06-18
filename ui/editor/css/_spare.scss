@@ -15,20 +15,19 @@
   .no-square {
     flex: 0 0 calc(100% / 8);
     @include transition();
-    &:hover {
-      background: fade-out($c-primary, 0.8);
-    }
     &.selected-square {
-      background: fade-out($c-primary, 0.5);
+      background: $c-primary;
     }
     div {
       @extend %square;
     }
     &.pointer {
       @extend %box-radius-left;
-      &.selected-square,
       &:hover {
-        background: fade-out($c-good, 0.8);
+        background: fade-out($c-good, 0.3);
+      }
+      &.selected-square {
+        background-color: $c-good;
       }
       piece {
         background-image: img-url('icons/pointer.svg');
@@ -37,10 +36,10 @@
     &.trash {
       @extend %box-radius-right;
       &:hover {
-        background: fade-out($c-bad, 0.8);
+        background-color: fade-out($c-bad, 0.3);
       }
       &.selected-square {
-        background: fade-out($c-bad, 0.4);
+        background-color: $c-bad;
       }
       piece {
         background-image: img-url('icons/trash.svg');

@@ -1,4 +1,4 @@
-import { EditorConfig } from './interfaces';
+import { EditorData } from './interfaces';
 import EditorCtrl from './ctrl';
 import view from './view';
 
@@ -14,14 +14,14 @@ import { Shogiground } from 'shogiground';
 
 const patch = init([klass, attributes, props, eventlisteners]);
 
-export default function LishogiEditor(element: HTMLElement, config: EditorConfig) {
+export default function LishogiEditor(element: HTMLElement, data: EditorData) {
   let vnode: VNode, ctrl: EditorCtrl;
 
   const redraw = () => {
     vnode = patch(vnode, view(ctrl));
   };
 
-  ctrl = new EditorCtrl(config, redraw);
+  ctrl = new EditorCtrl(data, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');
   element.appendChild(inner);

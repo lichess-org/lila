@@ -4,29 +4,30 @@
 
 .board-editor {
   $board-width: calc((100vh - 5vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+  $side-width: calc(#{$board-width} / 9 * 7);
 
   display: grid;
 
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
     'spare-top'
-    'pocket-top'
+    'hand-top'
     'board'
-    'pocket-bot'
+    'hand-bot'
     'spare-bottom'
     'tools'
     'copyables';
 
   @include breakpoint($mq-x-small) {
-    grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, calc(#{$square-max} * 7));
+    grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, $side-width);
     grid-template-areas:
-      'spare-top    . pocket-top'
+      'spare-top    . hand-top'
       'spare-top    . tools'
       '.            . tools'
       'board        . tools'
       '.            . tools'
       'spare-bottom . tools'
-      'spare-bottom . pocket-bot'
+      'spare-bottom . hand-bot'
       '.            . .    '
       'copyables    . .    ';
   }

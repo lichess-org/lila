@@ -1,20 +1,17 @@
-import { Role } from 'shogiground/types';
+import { Role, Rules } from 'shogiops/types';
 
 export interface OpeningPosition {
   japanese?: string;
   english: string;
   sfen: string;
-  epd?: string;
 }
 
-export interface EditorConfig {
+export interface EditorData {
   baseUrl: string;
   sfen: string;
+  variant: Rules;
   options?: EditorOptions;
-  pieceNotation: number;
-  animation: {
-    duration: number;
-  };
+  pref: any;
   embed: boolean;
   positions?: OpeningPosition[];
   i18n: any;

@@ -1,7 +1,7 @@
 @import 'layout';
 @import 'spare';
 @import 'tools';
-@import 'pocket';
+@import 'hands';
 
 @include body-fixed-scroll;
 
@@ -10,9 +10,6 @@
 
   .main-board {
     grid-area: board;
-  }
-  cg-board {
-    cursor: inherit;
   }
 
   .copyables {
