@@ -25,7 +25,7 @@ object tutor {
               report.openings.colors(color).families.map { fam =>
                 div(
                   h3(fam.family.name.value),
-                  p("Performance: ", showMetric(fam.performance)),
+                  p("Rating gain: ", showMetric(fam.ratingGain)),
                   p("ACPL: ", showMetric(fam.acpl)),
                   p("Games: ", showMetric(fam.games))
                 )
@@ -39,13 +39,14 @@ object tutor {
   private def showMetric[A](metric: TutorMetric[A]) =
     div(cls := "metric")(
       strong(metricValue(metric.mine)),
-      em(" (peers: ", metricValue(metric.field), ")")
+      em(" (peers: ", metricValue(metric.peer), ")")
     )
 
   private def metricValue[A](value: A) = value match {
-    case TutorRatio(v) => f"${v * 100}%1.1f%%"
-    case v: Float      => f"$v%1.1f"
-    case v             => v.toString
+    case TutorRatio(v)         => f"${v * 100}%1.1f%%"
+    case v: Double if v >= 100 => f"$v%1.0f"
+    case v: Double             => f"$v%1.1f"
+    case v                     => v.toString
   }
 
   sealed trait MetricType

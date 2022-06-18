@@ -6,6 +6,10 @@ import lila.analyse.Analysis
 import lila.game.Pov
 import lila.rating.PerfType
 
-case class TutorMetric[A](mine: A, field: A)
+case class TutorMetric[A](mine: A, peer: A)
 
-case class TutorRatio(value: Float) extends AnyVal
+case class TutorRatio(value: Double) extends AnyVal
+
+object TutorRatio {
+  def apply(a: Int, b: Int): TutorRatio = TutorRatio(a.toDouble / b)
+}

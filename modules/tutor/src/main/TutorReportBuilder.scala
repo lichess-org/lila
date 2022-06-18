@@ -77,7 +77,7 @@ final class TutorReportBuilder(
   private def computeOpenings(user: User, color: Color): Fu[TutorColorOpenings] = {
     val question = Question(
       InsightDimension.OpeningFamily,
-      Metric.Performance,
+      Metric.RatingDiff,
       List(
         Filter(InsightDimension.Color, List(color)),
         Filter(InsightDimension.Perf, perfTypes)
@@ -91,20 +91,20 @@ final class TutorReportBuilder(
         ),
         ratingCategOf(user)
       )
-      userTotalNbGames = userAnswer.clusters.foldLeft(0)(_ + _.size).toFloat
-      peerTotalNbGames = peerAnswer.clusters.foldLeft(0)(_ + _.size).toFloat
+      userTotalNbGames = userAnswer.clusters.foldLeft(0)(_ + _.size)
+      peerTotalNbGames = peerAnswer.clusters.foldLeft(0)(_ + _.size)
       families = userAnswer.clusters.collect { case Cluster(family, Insight.Single(point), nbGames, _) =>
         val peerData = peerAnswer.clusters collectFirst {
           case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
-            (point.y.toInt, nbGames / peerTotalNbGames)
+            (point.y, nbGames / peerTotalNbGames)
         }
         TutorOpeningFamily(
           family,
           games = TutorMetric(
-            TutorRatio(nbGames / userTotalNbGames),
+            TutorRatio(nbGames, userTotalNbGames),
             TutorRatio(peerData.??(_._2))
           ),
-          performance = TutorMetric(point.y.toInt, peerData.??(_._1)),
+          ratingGain = TutorMetric(point.y, peerData.??(_._1)),
           acpl = TutorMetric(0, 0)
         )
       }

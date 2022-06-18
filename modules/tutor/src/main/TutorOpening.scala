@@ -1,11 +1,8 @@
 package lila.tutor
 
 import chess.Color
-import chess.format.{ FEN, Forsyth }
-import chess.opening.{ FullOpening, FullOpeningDB }
 
 import lila.common.LilaOpeningFamily
-import lila.game.Game
 
 case class TutorOpenings(
     colors: Color.Map[TutorColorOpenings]
@@ -18,12 +15,6 @@ case class TutorColorOpenings(
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
     games: TutorMetric[TutorRatio],
-    performance: TutorMetric[Int],
-    acpl: TutorMetric[Float]
+    ratingGain: TutorMetric[Double],
+    acpl: TutorMetric[Double]
 )
-
-object TutorOpeningReport {
-
-  // type OpeningMap    = Color.Map[ColorOpenings]
-  // type ColorOpenings = List[TutorOpeningReport]
-}

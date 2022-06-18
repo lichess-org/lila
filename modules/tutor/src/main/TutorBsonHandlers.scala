@@ -13,7 +13,7 @@ import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
-  implicit val ratioHandler = floatAnyValHandler[TutorRatio](_.value, TutorRatio)
+  implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
     implicitly[BSONHandler[Map[String, A]]]
@@ -26,7 +26,7 @@ private object TutorBsonHandlers {
     implicitly[BSONHandler[List[A]]]
       .as[TutorMetric[A]](
         list => TutorMetric(list(0), list(1)),
-        metric => List(metric.mine, metric.field)
+        metric => List(metric.mine, metric.peer)
       )
 
   // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]
