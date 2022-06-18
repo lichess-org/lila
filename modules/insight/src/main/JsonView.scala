@@ -104,7 +104,7 @@ final class JsonView {
         List(
           Json.toJson(M.MeanCpl: Metric),
           Json.toJson(M.CplBucket: Metric),
-          Json.toJson(M.Opportunism: Metric),
+          Json.toJson(M.Awareness: Metric),
           Json.toJson(M.Luck: Metric)
         )
       ),

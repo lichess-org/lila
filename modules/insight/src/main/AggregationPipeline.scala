@@ -245,7 +245,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               ) :::
                 group(dimension, AvgField(F.moves("i"))) :::
                 List(includeSomeGameIds)
-            case M.Opportunism =>
+            case M.Awareness =>
               List(
                 projectForMove,
                 unwindMoves,

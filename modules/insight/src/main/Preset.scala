@@ -74,7 +74,7 @@ object Preset {
     ),
     Preset(
       "How often do I punish blunders made by my opponent during each game phase?",
-      Question(D.Phase, M.Opportunism, Nil)
+      Question(D.Phase, M.Awareness, Nil)
     ),
     Preset(
       "Do I gain rating when I don't castle kingside?",

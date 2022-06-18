@@ -140,10 +140,10 @@ object Metric {
         InsightDimension.PieceRole.description
       )
 
-  case object Opportunism
+  case object Awareness
       extends Metric(
-        "opportunism",
-        "Opportunism",
+        "awareness",
+        "Tactical awareness",
         F moves "o",
         Move,
         Move,
@@ -206,7 +206,7 @@ object Metric {
     OpponentRating,
     NbMoves,
     PieceRole,
-    Opportunism,
+    Awareness,
     Luck,
     Material,
     Blurs,
