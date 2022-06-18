@@ -60,8 +60,12 @@ object pref {
               false
             ),
             setting(
-              boardHighlights(),
-              radios(form("display.highlight"), booleanChoices)
+              boardHighlightsLastDests(),
+              radios(form("display.highlightLastDests"), booleanChoices)
+            ),
+            setting(
+              boardHighlightsCheck(),
+              radios(form("display.highlightCheck"), booleanChoices)
             ),
             setting(
               pieceDestinations(),
@@ -78,11 +82,6 @@ object pref {
             setting(
               moveListWhilePlaying(),
               radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
-            ),
-            setting(
-              pgnPieceNotation(),
-              radios(form("display.pieceNotation"), translatedPieceNotationChoices),
-              false
             ),
             setting(
               zenMode(),

@@ -1,34 +1,27 @@
 package lila.pref
 
-sealed class Notation private[pref] (val key: String, val name: String) {
+sealed class Notation private[pref] (val index: Int) {
 
-  override def toString = key
+  override def toString = index.toString
 
-  def cssClass = key
 }
 
 object Notations {
 
-  val default = new Notation("0", "Western") // 11
+  val western = new Notation(0) // 11
+  val kawasaki = new Notation(1)
+  val japanese = new Notation(2)
+  val westernEngine = new Notation(3) // 1a
 
-  val list = List(
-    default,
-    new Notation("3", "Western2"), // 1a
-    new Notation("1", "Kawasaki"),
-    new Notation("2", "Japanese")
+  val all = List(
+    western,
+    westernEngine,
+    kawasaki,
+    japanese,
   )
 
-  lazy val allByKey = list map { c =>
-    c.key -> c
-  } toMap
-  lazy val allByName = list map { c =>
-    c.name -> c
+  lazy val allByIndex = all map { n =>
+    n.index -> n
   } toMap
 
-  def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
-
-  def contains(key: String) = allByKey contains key.toLowerCase
-
-  def name2key(name: String): String =
-    allByName.get(name).fold(name.toLowerCase)(_.key)
 }

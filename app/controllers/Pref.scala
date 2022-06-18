@@ -83,13 +83,11 @@ final class Pref(env: Env) extends LilaController(env) {
   private lazy val setters = Map(
     "theme"         -> (forms.theme         -> save("theme") _),
     "pieceSet"      -> (forms.pieceSet      -> save("pieceSet") _),
-    "themeTall"     -> (forms.themeTall     -> save("themeTall") _),
     "soundSet"      -> (forms.soundSet      -> save("soundSet") _),
     "bg"            -> (forms.bg            -> save("bg") _),
     "bgImg"         -> (forms.bgImg         -> save("bgImg") _),
-    "isTall"        -> (forms.isTall        -> save("isTall") _),
     "zen"           -> (forms.zen           -> save("zen") _),
-    "pieceNotation" -> (forms.pieceNotation -> save("pieceNotation") _)
+    "notation" -> (forms.notation -> save("notation") _)
   )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =

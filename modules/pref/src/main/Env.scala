@@ -10,5 +10,5 @@ final class Env(
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  lazy val api = new PrefApi(db(CollName("pref")), cacheApi)
+  val api = new PrefApi(db(CollName("pref")), cacheApi)
 }

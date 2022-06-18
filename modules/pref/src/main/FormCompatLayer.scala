@@ -38,12 +38,12 @@ object FormCompatLayer {
         List(
           "animation",
           "captured",
-          "highlight",
+          "highlightLastDests",
+          "highlightCheck",
           "destination",
           "dropDestination",
           "coords",
           "replay",
-          "pieceNotation",
           "blindfold"
         )
       )

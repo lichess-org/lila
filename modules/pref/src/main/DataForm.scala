@@ -19,12 +19,12 @@ object DataForm {
       "display" -> mapping(
         "animation"       -> number.verifying(Set(0, 1, 2, 3) contains _),
         "captured"        -> booleanNumber,
-        "highlight"       -> booleanNumber,
+        "highlightLastDests" -> booleanNumber,
+        "highlightCheck"    -> booleanNumber,
         "destination"     -> booleanNumber,
         "dropDestination" -> booleanNumber,
         "coords"          -> checkedNumber(Pref.Coords.choices),
         "replay"          -> checkedNumber(Pref.Replay.choices),
-        "pieceNotation"   -> optional(checkedNumber(Pref.PieceNotation.choices)),
         "zen"             -> optional(booleanNumber),
         "resizeHandle"    -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"       -> checkedNumber(Pref.Blindfold.choices)
@@ -55,12 +55,12 @@ object DataForm {
   case class DisplayData(
       animation: Int,
       captured: Int,
-      highlight: Int,
+      highlightLastDests: Int,
+      highlightCheck: Int,
       destination: Int,
       dropDestination: Int,
       coords: Int,
       replay: Int,
-      pieceNotation: Option[Int],
       zen: Option[Int],
       resizeHandle: Option[Int],
       blindfold: Int
@@ -103,7 +103,8 @@ object DataForm {
         clockBar = clock.bar == 1,
         clockSound = clock.sound == 1,
         follow = follow == 1,
-        highlight = display.highlight == 1,
+        highlightLastDests = display.highlightLastDests == 1,
+        highlightCheck = display.highlightCheck == 1,
         destination = display.destination == 1,
         dropDestination = display.dropDestination == 1,
         coords = display.coords,
@@ -121,7 +122,6 @@ object DataForm {
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
-        pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
   }
@@ -130,7 +130,8 @@ object DataForm {
     def apply(pref: Pref): PrefData =
       PrefData(
         display = DisplayData(
-          highlight = if (pref.highlight) 1 else 0,
+          highlightLastDests = if (pref.highlightLastDests) 1 else 0,
+          highlightCheck = if (pref.highlightCheck) 1 else 0,
           destination = if (pref.destination) 1 else 0,
           dropDestination = if (pref.dropDestination) 1 else 0,
           animation = pref.animation,
@@ -140,7 +141,6 @@ object DataForm {
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
-          pieceNotation = pref.pieceNotation.some
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
@@ -179,12 +179,6 @@ object DataForm {
     )
   )
 
-  val themeTall = Form(
-    single(
-      "theme" -> text.verifying(ThemeTall contains _)
-    )
-  )
-
   val soundSet = Form(
     single(
       "set" -> text.verifying(SoundSet contains _)
@@ -203,21 +197,15 @@ object DataForm {
     )
   )
 
-  val isTall = Form(
-    single(
-      "isTall" -> text.verifying(List("true", "false") contains _)
-    )
-  )
-
   val zen = Form(
     single(
       "zen" -> text.verifying(Set("0", "1") contains _)
     )
   )
 
-  val pieceNotation = Form(
+  val notation = Form(
     single(
-      "pieceNotation" -> text.verifying(Set("0", "1", "2", "3") contains _)
+      "notation" -> text.verifying(Set("0", "1", "2", "3") contains _)
     )
   )
 }
