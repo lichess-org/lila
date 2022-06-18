@@ -1,11 +1,9 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { renderTable } from './table';
-import * as promotion from '../promotion';
-import { render as renderGround } from '../ground';
+import * as shogiground from '../ground';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
-import handView from '../hands/handView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 
@@ -19,9 +17,7 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
 }
 
 export function main(ctrl: RoundController): VNode {
-  const d = ctrl.data,
-    topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
-    bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
+  const d = ctrl.data;
 
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
@@ -38,11 +34,11 @@ export function main(ctrl: RoundController): VNode {
                 ? undefined
                 : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
             },
-            [renderGround(ctrl), promotion.view(ctrl)]
+            shogiground.renderBoard(ctrl)
           ),
-          handView(ctrl, topColor, 'top'),
+          shogiground.renderHand(ctrl, 'top'),
           ...renderTable(ctrl),
-          handView(ctrl, bottomColor, 'bottom'),
+          shogiground.renderHand(ctrl, 'bottom'),
           ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
         ]
       );

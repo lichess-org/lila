@@ -113,6 +113,7 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
   }
 }
 
+// todo remove? - blur
 function showBar(ctrl: RoundController, color: Color) {
   const clock = ctrl.clock!;
   const update = (el: HTMLElement) => {

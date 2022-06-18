@@ -4,7 +4,8 @@ import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
 import { ChatPlugin } from 'chat';
-import * as cg from 'shogiground/types';
+import { Role } from 'shogiops/types';
+import { MoveMetadata as SgMoveMetadata } from 'shogiground/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -33,8 +34,6 @@ export interface SocketDrop {
   u: Usi;
   b?: 1;
 }
-
-export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
@@ -88,8 +87,9 @@ export interface Chat {
 export interface Step {
   ply: Ply;
   sfen: Sfen;
-  usi: Usi;
+  usi?: Usi;
   check?: boolean;
+  capture?: boolean;
 }
 
 export interface ApiMove extends Step {
@@ -105,7 +105,7 @@ export interface ApiMove extends Step {
   check: boolean;
   sDraw: boolean;
   gDraw: boolean;
-  role?: cg.Role;
+  role?: Role;
   drops?: string;
   promotion?: boolean;
   isMove?: true;
@@ -140,20 +140,17 @@ export interface Pref {
   destination: boolean;
   dropDestination: boolean;
   enablePremove: boolean;
-  highlight: boolean;
+  highlightLastDests: boolean;
+  highlightCheck: boolean;
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
   submitMove: boolean;
   resizeHandle: 0 | 1 | 2;
-  pieceNotation: number;
+  notation: number;
 }
 
-export interface MoveMetadata {
-  premove?: boolean;
-  justDropped?: cg.Role;
-  justCaptured?: cg.Piece;
-}
+export type MoveMetadata = Partial<SgMoveMetadata>;
 
 export type Position = 'top' | 'bottom';
 

@@ -6,7 +6,6 @@ const li = window.lishogi;
 let found = false;
 
 function truncateSfen(sfen: Sfen): string {
-  // todo
   return sfen.split(' ')[0];
 }
 

@@ -3,18 +3,19 @@ import { VNode } from 'snabbdom/vnode';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
-import { makeConfig as makeCgConfig } from '../ground';
+import { makeConfig as makeSgConfig } from '../ground';
 import { Shogiground } from 'shogiground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Dests, Position, Redraw } from '../interfaces';
+import { Step, Position, Redraw } from '../interfaces';
 import * as game from 'game';
 import { renderMove, renderPieces, renderBoard, styleSetting, supportedVariant, Style } from 'nvui/shogi';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
+import { Dests } from 'shogiground/types';
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -33,11 +34,11 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
         variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
       if (!ctrl.shogiground) {
         ctrl.setShogiground(
-          Shogiground(document.createElement('div'), {
-            ...makeCgConfig(ctrl),
+          Shogiground({
+            ...makeSgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },
-            coordinates: false,
+            coordinates: { enabled: false },
           })
         );
         if (variantNope) setTimeout(() => notify.set(variantNope), 3000);

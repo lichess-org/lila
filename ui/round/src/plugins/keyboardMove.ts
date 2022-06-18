@@ -1,5 +1,5 @@
 import sanWriter from './sanWriter';
-import { Dests } from '../interfaces';
+import { Dests } from 'shogiground/types';
 
 const keyRegex = /^[1-9][1-9]$/;
 const fileRegex = /^[1-9]$/;

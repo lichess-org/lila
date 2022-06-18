@@ -1,15 +1,7 @@
 .round__app {
   &__table {
-    @extend %box-radius-right, %box-shadow;
+    @extend %box-radius-right;
     background: $c-bg-box;
-  }
-  //.draw-yes::before,
-  //.draw-yes span::before {
-  //  transform: translateY(-1px) rotate(-90deg);
-  //  display: inline-block; /* somehow that's required */
-  //}
-  .draw-yes {
-    display: none;
   }
 }
 .expiration {

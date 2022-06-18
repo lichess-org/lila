@@ -11,7 +11,7 @@ import RoundController from '../ctrl';
 import { MaybeVNodes, RoundData } from '../interfaces';
 import { makeMoveNotationLine } from 'common/notation';
 import { toBlackWhite } from 'shogiops/util';
-import { INITIAL_SFEN } from 'shogiops/sfen';
+import { initialSfen } from 'shogiops/sfen';
 
 const scrollMax = 99999,
   moveTag = 'm2';
@@ -77,10 +77,10 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps;
   if (typeof round.lastPly(ctrl.data) === 'undefined') return [];
 
-  const usis = steps.slice(1).map(s => s.usi);
+  const usis = steps.slice(1).map(s => s.usi!);
   const movesNotation: MoveNotation[] = makeMoveNotationLine(
-    ctrl.data.pref.pieceNotation,
-    ctrl.data.game.initialSfen || INITIAL_SFEN, // todo initial sfen of variant
+    ctrl.data.pref.notation,
+    ctrl.data.game.initialSfen || initialSfen(ctrl.data.game.variant.key),
     ctrl.data.game.variant.key,
     usis
   );
@@ -93,7 +93,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     els.push(h('index', moveNumber));
     els.push(
       h(
-        moveTag,
+        moveTag + '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'sente' : 'gote'),
         {
           class: { active: moveNumber === curMove },
         },
