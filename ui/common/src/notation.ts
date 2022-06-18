@@ -1,11 +1,9 @@
 import { Move, parseUsi, Position } from 'shogiops';
-import { lishogiVariantRules } from 'shogiops/compat';
 import { parseSfen } from 'shogiops/sfen';
 import { makeJapaneseMove } from 'shogiops/notation/japanese';
 import { makeKitaoKawasakiMove } from 'shogiops/notation/kitaoKawasaki';
 import { makeWesternMove } from 'shogiops/notation/western';
 import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
-import { setupPosition } from 'shogiops/variant';
 
 export const enum Notation {
   Western,
@@ -24,9 +22,9 @@ export function makeNotationWithPosition(notation: Notation, pos: Position, move
     case Notation.Japanese:
       return makeJapaneseMove(pos, move, lastMove?.to)!;
     case Notation.WesternEngine:
-      return makeWesternMove(pos, move)!;
-    default:
       return makeWesternEngineMove(pos, move)!;
+    default:
+      return makeWesternMove(pos, move)!;
   }
 }
 
@@ -74,7 +72,5 @@ export function makeMoveNotationLine(
 }
 
 function createPosition(sfen: Sfen, variant: VariantKey): Position {
-  const rules = lishogiVariantRules(variant);
-  const setup = parseSfen(sfen).unwrap();
-  return setupPosition(rules, setup, false).unwrap();
+  return parseSfen(variant, sfen, false).unwrap();
 }
