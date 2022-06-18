@@ -4,7 +4,7 @@ import format.usi._
 
 class ReplayPerfTest extends ShogiTest {
 
-  //args(skipAll = true)
+  // args(skipAll = true)
 
   val nb         = 100
   val usis       = format.usi.Fixtures.prod500standard.take(nb).map(Usi.readList(_).get)

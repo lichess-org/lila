@@ -40,14 +40,13 @@ class HandTest extends ShogiTest {
     }
   }
   "Taking the piece away" should {
-    hands.store(Sente - Pawn).take(Sente - Pawn) match {
-      case Some(h) =>
-        "have no pieces" in {
-          h.size must_== 0
-          h.isEmpty must beTrue
-          hands.sente.isEmpty must beTrue
-          hands.gote.isEmpty must beTrue
-        }
+    "have no pieces" in {
+      hands.store(Sente - Pawn).take(Sente - Pawn) must beSome.like { h =>
+        h.size must_== 0
+        h.isEmpty must beTrue
+        hands.sente.isEmpty must beTrue
+        hands.gote.isEmpty must beTrue
+      }
     }
   }
   "Adding more sente pawns" should {
@@ -67,15 +66,12 @@ class HandTest extends ShogiTest {
     }
   }
   "Taking another pawn" should {
-    hands
-      .store(Sente - Pawn)
-      .store(Sente - Pawn)
-      .take(Sente - Pawn) match {
-      case Some(h) =>
-        "have 1 pieces" in {
+    "have 1 sente pawn" in {
+      hands
+        .store(Sente - Pawn)
+        .store(Sente - Pawn)
+        .take(Sente - Pawn) must beSome.like { h =>
           h.size must_== 1
-        }
-        "have 1 sente pawn" in {
           h.sente(Pawn) must_== 1
         }
     }

@@ -60,6 +60,8 @@ abstract class Variant private[variant] (
 
   def supportsDrops = true
 
+  def addCapturedPiecesToHand = true
+
   def isInsideBoard(pos: Pos): Boolean =
     pos.file.index < numberOfFiles && pos.rank.index < numberOfRanks
 
@@ -69,9 +71,9 @@ abstract class Variant private[variant] (
     board.pieces exists {
       case (from, piece) if piece.color == color && filter(piece) && piece.eyes(from, pos) =>
         piece.projectionDirs.isEmpty || piece.directDirs.exists(_(from).contains(pos)) ||
-          piece.role.dir(from, pos).exists {
-            longRangeThreatens(board, from, _, pos)
-          }
+        piece.role.dir(from, pos).exists {
+          longRangeThreatens(board, from, _, pos)
+        }
       case _ => false
     }
 
@@ -159,7 +161,9 @@ abstract class Variant private[variant] (
       )
       unpromotedCapture = sit.board(usi.dest).map(p => p.updateRole(unpromote) | p)
       hands =
-        unpromotedCapture.filter(handRoles contains _.role).fold(sit.hands)(sit.hands store _.switch)
+        unpromotedCapture
+          .filter(c => handRoles.contains(c.role) && addCapturedPiecesToHand)
+          .fold(sit.hands)(sit.hands store _.switch)
       board <-
         (if (usi.promotion)
            sit.board.promote(usi.orig, usi.dest, promote)

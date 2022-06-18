@@ -132,16 +132,16 @@ object Csa {
   ): Option[String] = {
     import Status._
     status match {
-      case Aborted | NoStart                                                         => "%CHUDAN".some
-      case Timeout | Outoftime                                                       => "%TIME_UP".some
-      case Resign if !winnerTurn                                                     => "%TORYO".some
-      case PerpetualCheck if winnerColor.contains(Sente)                             => "%-ILLEGAL_ACTION".some
-      case PerpetualCheck                                                            => "%+ILLEGAL_ACTION".some
-      case Mate if winnerTurn && winnerColor.contains(Sente)                         => "%-ILLEGAL_ACTION".some // pawn checkmate
-      case Mate if winnerTurn                                                        => "%+ILLEGAL_ACTION".some // pawn checkmate
-      case Mate | Stalemate                                                          => "%TSUMI".some
-      case Draw                                                                      => "%SENNICHITE".some
-      case Impasse27                                                                 => "%KACHI".some
+      case Aborted | NoStart                                 => "%CHUDAN".some
+      case Timeout | Outoftime                               => "%TIME_UP".some
+      case Resign if !winnerTurn                             => "%TORYO".some
+      case PerpetualCheck if winnerColor.contains(Sente)     => "%-ILLEGAL_ACTION".some
+      case PerpetualCheck                                    => "%+ILLEGAL_ACTION".some
+      case Mate if winnerTurn && winnerColor.contains(Sente) => "%-ILLEGAL_ACTION".some // pawn checkmate
+      case Mate if winnerTurn                                => "%+ILLEGAL_ACTION".some // pawn checkmate
+      case Mate | Stalemate                                  => "%TSUMI".some
+      case Draw                                              => "%SENNICHITE".some
+      case Impasse27                                         => "%KACHI".some
       case Created | Started | UnknownFinish | VariantEnd | TryRule | Cheat | Resign => None
       case _                                                                         => None
     }

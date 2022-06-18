@@ -4,15 +4,15 @@ organization := "org.lishogi"
 
 version := "1.0.0"
 
-scalaVersion := "2.13.6"
+scalaVersion := "2.13.8"
 
 libraryDependencies ++= List(
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
-  "org.specs2"             %% "specs2-core"              % "4.10.0" % Test,
-  "org.specs2"             %% "specs2-cats"              % "4.10.0" % Test,
+  "org.specs2"             %% "specs2-core"              % "4.13.2" % Test,
+  "org.specs2"             %% "specs2-cats"              % "4.13.2" % Test,
   "com.github.ornicar"     %% "scalalib"                 % "7.0.2",
-  "joda-time"              % "joda-time"                 % "2.10.12",
-  "org.typelevel"          %% "cats-core"                % "2.2.0"
+  "joda-time"              % "joda-time"                 % "2.10.13",
+  "org.typelevel"          %% "cats-core"                % "2.7.0"
 )
 
 resolvers ++= Seq(

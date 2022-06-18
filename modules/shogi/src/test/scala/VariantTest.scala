@@ -1,6 +1,5 @@
 package shogi
 
-import cats.syntax.option._
 import Pos._
 import variant._
 

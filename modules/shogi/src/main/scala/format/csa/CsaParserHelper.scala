@@ -166,9 +166,9 @@ object CsaParserHelper {
     termination.map(_.value.toUpperCase) match {
       case Some("TORYO") | Some("TIME_UP") | Some("ILLEGAL_MOVE") =>
         Tag(_.Result, color.fold("0-1", "1-0")).some
-      case Some("+ILLEGAL_ACTION")                                 => Tag(_.Result, "1-0").some
-      case Some("-ILLEGAL_ACTION")                                 => Tag(_.Result, "0-1").some
-      case Some("KACHI") | Some("TSUMI")                           => Tag(_.Result, color.fold("1-0", "0-1")).some
+      case Some("+ILLEGAL_ACTION")       => Tag(_.Result, "1-0").some
+      case Some("-ILLEGAL_ACTION")       => Tag(_.Result, "0-1").some
+      case Some("KACHI") | Some("TSUMI") => Tag(_.Result, color.fold("1-0", "0-1")).some
       case Some("JISHOGI") | Some("SENNICHITE") | Some("HIKIWAKE") => Tag(_.Result, "1/2-1/2").some
       case _                                                       => None
     }

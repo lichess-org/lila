@@ -17,7 +17,7 @@ class KifParserHelperTest extends ShogiTest {
     parseAndCompare("", Some("二枚落ち"), Sfen("lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -"))
   }
 
-  "BOARD" in {
+  "Board" in {
     parseAndCompare(
       """後手：
       手合割：平手

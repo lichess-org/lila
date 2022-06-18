@@ -37,9 +37,9 @@ class PerftTest extends ShogiTest {
     "4 depth" in {
       perft(game, 4) must be equalTo 719731
     }
-    //"5 depth" in {
+    // "5 depth" in {
     //  perft(game, 5) must be equalTo 19861490
-    //}
+    // }
   }
 
   "calculate minishogi perfts" should {
@@ -56,9 +56,9 @@ class PerftTest extends ShogiTest {
     "4 depth" in {
       perft(game, 4) must be equalTo 35401
     }
-    //"5 depth" in {
+    // "5 depth" in {
     //  perft(game, 5) must be equalTo 533203
-    //}
+    // }
   }
 
   val random: List[(String, String, String)] = List(

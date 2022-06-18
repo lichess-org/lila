@@ -20,24 +20,24 @@ class UsiCharPairTest extends ShogiTest {
     val allP = for {
       dest <- Pos.all
     } yield Move(SQ1A, dest)
-    //println(allP.map(conv2(_)))
+    // println(allP.map(conv2(_)))
 
-    //"regular moves" in {
+    // "regular moves" in {
     //  conv(Move(SQ1G, SQ1F)) must_== "<E"
     //  conv(Move(SQ7C, SQ7D)) must_== "ZQ"
     //  conv(Move(SQ7G, SQ7F)) must_== "6?"
-    //}
+    // }
     "unicity" in {
       allPairs.distinct.size must_== allMoves.size
     }
     "no void char" in {
       allPairs.count(_ contains UsiCharPair.voidChar) must_== 0
     }
-    //"promotions" in {
+    // "promotions" in {
     //  conv(Move(SQ8H, SQ2B, true)) must_== ",è"
     //  conv(Move(SQ8H, SQ2B, false)) must_== ",h"
-    //}
-    //"drops" in {
+    // }
+    // "drops" in {
     //  conv(Drop(Pawn, SQ1G)) must_== "<ö"
     //  conv(Drop(Lance, SQ1A)) must_== "rù"
     //  conv(Drop(Knight, SQ1I)) must_== "*õ"
@@ -45,8 +45,8 @@ class UsiCharPairTest extends ShogiTest {
     //  conv(Drop(Gold, SQ1I)) must_== "*÷"
     //  conv(Drop(Bishop, SQ5E)) must_== "Jô"
     //  conv(Drop(Rook, SQ5E)) must_== "Jó"
-    //}
-    //"random" in {
+    // }
+    // "random" in {
     //  convStr("8e9i") must_== """G""""
     //  convStr("8e9i+") must_== """G¢"""
     //  convStr("5h8i") must_== """/#"""
@@ -208,7 +208,7 @@ class UsiCharPairTest extends ShogiTest {
     //  convStr("7i2a") must_== """$q"""
     //  convStr("7i2a+") must_== """$ñ"""
     //  convStr("4f1a") must_== """Br"""
-    //}
+    // }
     //
   }
 }
