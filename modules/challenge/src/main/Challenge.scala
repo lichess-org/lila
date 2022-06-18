@@ -1,7 +1,7 @@
 package lila.challenge
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ Minishogi, Variant }
+import shogi.variant.Variant
 import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 

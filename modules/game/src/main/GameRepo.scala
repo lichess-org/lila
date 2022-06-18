@@ -2,7 +2,6 @@ package lila.game
 
 import lila.common.ThreadLocalRandom
 
-import shogi.format.forsyth.Sfen
 import shogi.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }

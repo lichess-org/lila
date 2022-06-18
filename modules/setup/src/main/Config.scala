@@ -1,10 +1,9 @@
 package lila.setup
 
-import shogi.{ Game => ShogiGame, Situation, Clock, Speed }
+import shogi.{ Game => ShogiGame, Clock, Speed }
 import shogi.variant.Variant
 import shogi.format.forsyth.Sfen
 
-import lila.game.Game
 import lila.lobby.Color
 
 private[setup] trait Config {
@@ -53,8 +52,6 @@ private[setup] trait Config {
 }
 
 trait Positional { self: Config =>
-
-  import shogi.format.forsyth.Sfen.SituationPlus
 
   def sfen: Option[Sfen]
 

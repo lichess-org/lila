@@ -1,10 +1,6 @@
 package lila.challenge
 
-import scala.util.chaining._
-
-import shogi.format.forsyth.Sfen
-import shogi.format.forsyth.Sfen.SituationPlus
-import shogi.{ Color, Mode, Situation }
+import shogi.{ Color, Mode }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 

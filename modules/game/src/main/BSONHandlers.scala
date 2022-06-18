@@ -5,7 +5,7 @@ import shogi.variant.Variant
 import shogi.{ Color, Clock, Hands, Sente, Gote, Status, Mode, History => ShogiHistory, Game => ShogiGame }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
+import scala.util.Try
 
 import lila.db.BSON
 import lila.db.dsl._

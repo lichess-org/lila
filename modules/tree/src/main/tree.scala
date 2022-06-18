@@ -8,7 +8,7 @@ import shogi.format.{ Glyph, Glyphs }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening.FullOpening
-import shogi.{ Hands, Hand, Pos, Piece => ShogiPiece }
+import shogi.{ Pos, Piece => ShogiPiece }
 
 import shogi.Centis
 

@@ -1,6 +1,5 @@
 package lila.study
 
-import shogi.format.forsyth.Sfen
 import lila.game.{ Namer, Pov }
 import lila.user.User
 

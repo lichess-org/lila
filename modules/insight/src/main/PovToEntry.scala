@@ -3,7 +3,6 @@ package lila.insight
 import scala.util.chaining._
 import cats.data.NonEmptyList
 
-import shogi.format.forsyth.Sfen
 import shogi.{ Centis, Situation, Stats }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }

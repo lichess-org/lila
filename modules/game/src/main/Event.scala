@@ -2,12 +2,11 @@ package lila.game
 
 import play.api.libs.json._
 
-import shogi.{ Centis, Pos, Color, Situation, Clock => ShogiClock, Status }
+import shogi.{ Centis, Color, Situation, Clock => ShogiClock, Status }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import JsonView._
 import lila.chat.{ PlayerLine, UserLine }
-import lila.common.ApiVersion
 import lila.common.Json._
 
 sealed trait Event {

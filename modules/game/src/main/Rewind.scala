@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import cats.data.Validated
 
 import shogi.format.{ Reader, Tag, Tags }
-import shogi.format.forsyth.Sfen
 
 object Rewind {
 

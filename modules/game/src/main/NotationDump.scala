@@ -1,7 +1,6 @@
 package lila.game
 
 import shogi.Replay
-import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
 import shogi.format.{ Notation, NotationMove, Tag, Tags }

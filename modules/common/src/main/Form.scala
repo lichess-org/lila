@@ -1,7 +1,6 @@
 package lila.common
 
 import org.joda.time.{ DateTime, DateTimeZone }
-import play.api.data.FieldMapping
 import play.api.data.validation.Constraints
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }

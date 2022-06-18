@@ -3,7 +3,6 @@ package lila.game
 import akka.actor._
 import akka.pattern.pipe
 import shogi.format.{ Reader, Tags }
-import shogi.format.forsyth.Sfen
 import shogi.{ Game => ShogiGame }
 import scala.util.Success
 import cats.data.NonEmptyList

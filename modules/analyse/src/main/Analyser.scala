@@ -42,7 +42,7 @@ final class Analyser(
     analysis.studyId match {
       case None =>
         gameRepo game analysis.id map {
-          _ ?? { case (game) =>
+          _ ?? { game =>
             Bus.publish(
               TellIfExists(
                 analysis.id,

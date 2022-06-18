@@ -1,6 +1,5 @@
 package lila.api
 
-import shogi.format.forsyth.Sfen
 import play.api.i18n.Lang
 import play.api.libs.json._
 

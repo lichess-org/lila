@@ -3,7 +3,6 @@ package lila.study
 import cats.data.Validated
 
 import shogi.format.{ Glyphs, ParsedMove, ParsedNotation, Tags }
-import shogi.format.forsyth.Sfen
 import shogi.format.usi.UsiCharPair
 
 import lila.common.LightUser

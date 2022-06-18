@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import shogi.format.forsyth.Sfen
 import scala.concurrent.duration._
 import scala.util.chaining._
 

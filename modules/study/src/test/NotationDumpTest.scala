@@ -1,10 +1,8 @@
 package lila.study
 
-import shogi.format.kif._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.variant
-import shogi.Hands
 import Node._
 import org.specs2.mutable._
 

@@ -1,8 +1,6 @@
 package lila.round
 
-import shogi.format.forsyth.Sfen
-import shogi.variant._
-import shogi.{ Game => ShogiGame, Board, Color => ShogiColor, Clock, Situation, Hands }
+import shogi.{ Game => ShogiGame, Color => ShogiColor, Clock }
 import ShogiColor.{ Gote, Sente }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi

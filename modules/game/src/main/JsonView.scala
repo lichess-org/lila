@@ -3,7 +3,7 @@ package lila.game
 import play.api.libs.json._
 
 import shogi.format.forsyth.Sfen
-import shogi.{ Clock, Color, Hand, Hands }
+import shogi.{ Clock, Color }
 import lila.common.Json.jodaWrites
 
 final class JsonView(rematches: Rematches) {

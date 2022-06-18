@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import shogi.Clock.{ Config => ClockConfig }
 import shogi.variant.Variant
-import shogi.{ Color, StartingPosition }
+import shogi.Color
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User

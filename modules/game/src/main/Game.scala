@@ -4,7 +4,7 @@ import shogi.Color.{ Gote, Sente }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.opening.{ FullOpening, FullOpeningDB }
-import shogi.variant.{ Standard, Variant }
+import shogi.variant.Variant
 import shogi.{ Centis, Clock, Color, Mode, Speed, Status, Game => ShogiGame, StartingPosition }
 import lila.common.Sequence
 import lila.db.ByteArray

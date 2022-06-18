@@ -1,7 +1,5 @@
 package lila.fishnet
 
-import shogi.format.forsyth.Sfen
-
 import JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(

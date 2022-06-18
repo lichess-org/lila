@@ -1,7 +1,6 @@
 package lila.api
 
 import shogi.format.Notation
-import shogi.format.forsyth.Sfen
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.NotationDump.WithFlags
