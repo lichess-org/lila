@@ -2,14 +2,12 @@ import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
-import { Shogiground } from 'shogiground';
 import { h } from 'snabbdom';
-import { makeCgOpts } from 'puz/run';
-import { makeConfig as makeCgConfig } from 'puz/view/shogiground';
+import { makeSgOpts } from 'puz/run';
+import { makeConfig as makeSgConfig } from 'puz/view/shogiground';
 import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { VNode } from 'snabbdom/vnode';
-import HandView from '../hands/handView';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -25,36 +23,44 @@ export default function (ctrl: StormCtrl): VNode {
   return h('main.storm.storm--end', renderEnd(ctrl));
 }
 
-const shogiground = (ctrl: StormCtrl): VNode =>
-  h('div.cg-wrap', {
+const shogigroundBoard = (ctrl: StormCtrl): VNode =>
+  h('div.sg-wrap', {
     hook: {
-      insert: vnode =>
-        ctrl.ground(
-          Shogiground(
-            vnode.elm as HTMLElement,
-            makeCgConfig(
-              makeCgOpts(ctrl.run, !ctrl.run.endAt),
-              ctrl.pref,
-              ctrl.userMove,
-              ctrl.userDrop,
-              ctrl.dropRedraw
-            )
-          )
-        ),
+      insert: vnode => {
+        ctrl.shogiground.attach({ board: vnode.elm as HTMLElement });
+        ctrl.shogiground.set(
+          makeSgConfig(makeSgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove, ctrl.userDrop)
+        );
+      },
     },
   });
+
+const shogigroundHand = (ctrl: StormCtrl, pos: 'top' | 'bottom'): VNode => {
+  return h(`div.sg-hand-wrap.hand-${pos}`, {
+    hook: {
+      insert: vnode => {
+        ctrl.shogiground.attach({
+          hands: {
+            top: pos === 'top' ? (vnode.elm as HTMLElement) : undefined,
+            bottom: pos === 'bottom' ? (vnode.elm as HTMLElement) : undefined,
+          },
+        });
+      },
+    },
+  });
+};
 
 const renderBonus = (bonus: number) => `${bonus}s`;
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
-  h('div.puz-board.main-board', [shogiground(ctrl), ctrl.promotion.view()]),
-  HandView(ctrl, 'top'),
+  h('div.puz-board.main-board', [shogigroundBoard(ctrl), ctrl.promotion.view()]),
+  shogigroundHand(ctrl, 'top'),
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl.run, ctrl.endNow, true),
     h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
   ]),
-  HandView(ctrl, 'bottom'),
+  shogigroundHand(ctrl, 'bottom'),
 ];
 
 const renderSolved = (ctrl: StormCtrl): VNode =>

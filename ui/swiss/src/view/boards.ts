@@ -36,6 +36,6 @@ function miniBoard(board: Board) {
         },
       },
     },
-    [h('div.cg-wrap')]
+    [h('div.sg-wrap')]
   );
 }
