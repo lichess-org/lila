@@ -40,7 +40,7 @@ final private[report] class DataForm(
         gameId = gameId,
         move = move
       )
-    })(_.export.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint)
+    })(_.setupExport.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint)
   )
 
   def createWithCaptcha = withCaptcha(create)
@@ -73,5 +73,5 @@ private[report] case class ReportSetup(
 
   def suspect = SuspectId(user.id)
 
-  def export = (user.name, reason, text, gameId, move)
+  def setupExport = (user.name, reason, text, gameId, move)
 }
