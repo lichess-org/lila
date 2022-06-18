@@ -34,7 +34,7 @@
     <item quantity="other">%s mal gschpillt</item>
   </plurals>
   <string name="fromGameLink">Us de Partie %s</string>
-  <string name="continueTraining">Wiiter trainiere</string>
+  <string name="continueTraining">Witer trainiere</string>
   <string name="difficultyLevel">Schwierigi Stufe</string>
   <string name="normal">Normal</string>
   <string name="easier">Eifacher</string>
@@ -50,7 +50,7 @@
     <item quantity="other">%s Pünkt über diinere Ufgabe Wertig</item>
   </plurals>
   <string name="example">Biischpiil</string>
-  <string name="addAnotherTheme">Es wiiters Motiv zuefüege</string>
+  <string name="addAnotherTheme">Es witers Motiv zuefüege</string>
   <string name="nextPuzzle">nächschti Ufgab</string>
   <string name="jumpToNextPuzzleImmediately">Diräkt zur nächschte Ufgab</string>
   <string name="puzzleDashboard">Ufgabe Übersicht</string>
@@ -62,7 +62,7 @@
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie z\'erreiche. Nimm dir Ziit, es lauft kei Uhr. Doch nur 1 falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Dini Erfolgsserie: %s</string>
   <string name="streakSkipExplanation">Überschpring de Zug, um dini Erfolgsserie z\'hebe! Aber du chasch das nur 1x pro Serie mache.</string>
-  <string name="continueTheStreak">Erfolgsserie wiiterspille</string>
+  <string name="continueTheStreak">Erfolgsserie witerspille</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us eigene Schpiil</string>
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
