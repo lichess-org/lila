@@ -174,7 +174,7 @@ final private class RelayFetch(
   // is only pulled from as many times as necessary, and not more.
   private val cache: Cache[UpstreamUrl, GamesSeenBy] = CacheApi.scaffeineNoScheduler
     .initialCapacity(4)
-    .maximumSize(16)
+    .maximumSize(32)
     .build[UpstreamUrl, GamesSeenBy]()
     .underlying
 
