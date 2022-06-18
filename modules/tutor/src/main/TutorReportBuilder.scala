@@ -32,6 +32,7 @@ final class TutorReportBuilder(
 ) {
 
   import TutorBsonHandlers._
+  // import TutorRatio.{ ordering, zero }
 
   private val maxGames                   = 1000
   private val requireAnalysisOnLastGames = 15
@@ -84,27 +85,32 @@ final class TutorReportBuilder(
     )
     for {
       performanceAnswer <- insightApi.ask(performanceQuestion, user, withPovs = false)
+      avgPerformance = performanceAnswer.clusters.foldLeft((0d, 0)) {
+        case ((sum, count), Cluster(_, Insight.Single(point), nbGames, _)) =>
+          (sum + point.y * nbGames, count + nbGames)
+        case (prev, _) => prev
+      } match { case (sum, count) => sum / count }
       familyFilter     = Filter(InsightDimension.OpeningFamily, performanceAnswer.clusters.map(_.x))
       filteredQuestion = performanceQuestion.add(familyFilter)
       acplQuestion = filteredQuestion
         .copy(metric = Metric.MeanCpl)
         .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
       acplAnswer            <- insightApi.ask(acplQuestion, user, withPovs = false)
-      performancePeerAnswer <- insightApi.askPeers(filteredQuestion, user)
-      acplPeerAnswer        <- insightApi.askPeers(acplQuestion, user)
+      performancePeerAnswer <- insightApi.askPeers(filteredQuestion, avgPerformance.toInt)
+      acplPeerAnswer        <- insightApi.askPeers(acplQuestion, avgPerformance.toInt)
       userTotalNbGames = performanceAnswer.clusters.foldLeft(0)(_ + _.size)
       peerTotalNbGames = performancePeerAnswer.clusters.foldLeft(0)(_ + _.size)
       families = performanceAnswer.clusters.collect {
         case Cluster(family, Insight.Single(point), nbGames, _) =>
           val peerData = performancePeerAnswer.clusters collectFirst {
             case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
-              (point.y, nbGames / peerTotalNbGames)
+              (point.y, TutorRatio(nbGames, peerTotalNbGames))
           }
           TutorOpeningFamily(
             family,
             games = TutorMetric(
               TutorRatio(nbGames, userTotalNbGames),
-              TutorRatio(peerData.??(_._2))
+              peerData.??(_._2)
             ),
             performance = TutorMetric(point.y, peerData.??(_._1)),
             acpl = TutorMetricOption(

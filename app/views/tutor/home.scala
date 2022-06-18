@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.tutor._
+import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorRatio }
 
 object tutor {
 
@@ -23,7 +23,7 @@ object tutor {
           div(cls := "tutor__openings")(
             chess.Color.all.map { color =>
               st.section(cls := "tutor__openings__color")(
-                h2("Your ", color.name, " openings"),
+                h2("Your favourite ", color.name, " openings"),
                 report.openings.colors(color).families.map { fam =>
                   div(cls := "tutor__opening")(
                     h3(fam.family.name.value),
@@ -32,15 +32,15 @@ object tutor {
                       tbody(
                         tr(
                           th("Frequency"),
-                          showMetric(fam.games)
+                          showMetric(fam.games, none)
                         ),
                         tr(
                           th("Performance"),
-                          showMetric(fam.performance)
+                          showMetric(fam.performance, true.some)
                         ),
                         tr(
                           th("Centipawn loss"),
-                          showMetric(fam.acpl)
+                          showMetric(fam.acpl, false.some)
                         )
                       )
                     )
@@ -53,15 +53,19 @@ object tutor {
       )
     }
 
-  private def showMetric[A](metric: TutorMetric[A]) =
+  private def qualityCls(higherIsBetter: Option[Boolean], higher: Boolean) = higherIsBetter map { hib =>
+    if (hib == higher) "good" else "bad"
+  }
+
+  private def showMetric[A](metric: TutorMetric[A], higherIsBetter: Option[Boolean]) =
     frag(
-      td(metricValue(metric.mine)),
+      td(cls := qualityCls(higherIsBetter, metric.higher))(metricValue(metric.mine)),
       td(metricValue(metric.peer))
     )
 
-  private def showMetric[A](metric: TutorMetricOption[A]) =
+  private def showMetric[A](metric: TutorMetricOption[A], higherIsBetter: Option[Boolean]) =
     frag(
-      td(metric.mine.fold("?")(metricValue)),
+      td(cls := qualityCls(higherIsBetter, metric.higher))(metric.mine.fold("?")(metricValue)),
       td(metric.peer.fold("?")(metricValue))
     )
 

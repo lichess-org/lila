@@ -11,9 +11,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
 
   def aggregate[X](
       question: Question[X],
-      user: User,
-      withPovs: Boolean,
-      peers: Option[Question.Peers] = none
+      target: Either[User, Question.Peers],
+      withPovs: Boolean
   ): Fu[List[Bdoc]] =
     store.coll {
       _.aggregateList(
@@ -207,7 +206,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
         val pipeline = Match(
-          peers.fold(selectUserId(user.id)) { p => $doc(F.rating $inRange p.ratingRange) } ++
+          target.fold(u => selectUserId(u.id), peers => $doc(F.rating $inRange peers.ratingRange)) ++
             gameMatcher ++
             fieldExistsMatcher ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))

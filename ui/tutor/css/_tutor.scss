@@ -4,7 +4,7 @@
     &__color {
       flex: 50% 0 0;
       h2 {
-        font-size: 3em;
+        font-size: 2em;
       }
     }
   }
@@ -15,6 +15,18 @@
     h3 {
       padding: 1em;
       font-size: 1.6em;
+    }
+    .slist tr td {
+      font-weight: bold;
+      &:last-child {
+        opacity: 0.8;
+      }
+      &.good {
+        background: mix($c-good, $c-bg-zebra, 20%);
+      }
+      &.bad {
+        background: mix($c-bad, $c-bg-zebra, 20%);
+      }
     }
   }
 }

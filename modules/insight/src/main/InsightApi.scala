@@ -31,7 +31,7 @@ final class InsightApi(
 
   def ask[X](question: Question[X], user: User, withPovs: Boolean = true): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, user, withPovs = withPovs)
+      .aggregate(question, Left(user), withPovs = withPovs)
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
         withPovs ?? {
@@ -41,9 +41,9 @@ final class InsightApi(
       }
       .monSuccess(_.insight.user)
 
-  def askPeers[X](question: Question[X], user: User): Fu[Answer[X]] =
+  def askPeers[X](question: Question[X], rating: Double): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, user, withPovs = false, Question.Peers(user.perfs.standard.intRating).some)
+      .aggregate(question, Right(Question.Peers(rating.toInt)), withPovs = false)
       .map { aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       }

@@ -22,7 +22,7 @@ private object TutorBsonHandlers {
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
-  implicit def metricHandler[A: BSONHandler]: BSONHandler[TutorMetric[A]] =
+  implicit def metricHandler[A: BSONHandler: Ordering]: BSONHandler[TutorMetric[A]] =
     implicitly[BSONHandler[List[A]]]
       .as[TutorMetric[A]](
         list => TutorMetric(list(0), list(1)),
@@ -39,7 +39,8 @@ private object TutorBsonHandlers {
 
   implicit def metricOptionHandler[A](implicit
       handler: BSONHandler[A],
-      unknown: CanBeUnknown[A]
+      unknown: CanBeUnknown[A],
+      ordering: Ordering[A]
   ): BSONHandler[TutorMetricOption[A]] =
     implicitly[BSONHandler[List[A]]].as[TutorMetricOption[A]](
       list => TutorMetricOption(list.lift(0).filterNot(unknown.is), list.lift(1).filterNot(unknown.is)),
