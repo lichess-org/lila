@@ -333,9 +333,10 @@
 	<string name="save">Save</string>
 	<string name="leaderboard">Leaderboard</string>
 	<string name="selectHandicap">Select handicap</string>
-	<string name="pasteTheFenStringHere">Paste the SFEN text here</string>
+	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">From position</string>
+	<string name="default">Default</string>
 	<string name="continueFromHere">Continue from here</string>
 	<string name="toStudy">Study</string>
 	<string name="importGame">Import game</string>
@@ -545,6 +546,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="slow">Slow</string>
 	<string name="insideTheBoard">Inside the board</string>
 	<string name="outsideTheBoard">Outside the board</string>
+	<string name="edgeOfTheBoard">Edge of the board</string>
 	<string name="onSlowGames">On slow games</string>
 	<string name="always">Always</string>
 	<string name="never">Never</string>
