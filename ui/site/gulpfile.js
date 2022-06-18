@@ -138,7 +138,7 @@ const standalonesJs = () =>
     .pipe(terser({ safari10: true }))
     .pipe(destination());
 
-function singlePackage(file, dest) {
+function singlePackageBabel(file, dest) {
   return () =>
     browserify(browserifyOpts(file, false))
       .transform(babelify, { presets: ['@babel/preset-env'], global: true })
@@ -149,9 +149,19 @@ function singlePackage(file, dest) {
       .pipe(destination());
 }
 
+function singlePackage(file, dest) {
+  return () =>
+    browserify(browserifyOpts(file, false))
+      .bundle()
+      .pipe(source(dest))
+      .pipe(buffer())
+      .pipe(terser({ safari10: false }))
+      .pipe(destination());
+}
+
 const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
 const clas = singlePackage('./src/clas.js', 'clas.js');
-const captcha = singlePackage('./src/standalones/captcha.js', 'captcha.js');
+const captcha = singlePackageBabel('./src/standalones/captcha.js', 'captcha.js');
 
 const deps = makeDependencies('lishogi.deps.js');
 
