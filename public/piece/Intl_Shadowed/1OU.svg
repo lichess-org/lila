@@ -1,1 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><filter id="a"><feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="2"/><feOffset result="offsetBlur" dx="2" dy="2"/><feBlend in="SourceGraphic" in2="offsetBlur"/></filter></defs><g transform="translate(-102.587 -25.906) scale(1.03094)" fill="#fecb00" filter="url(#a)"><path d="M128.456 78.635l13.41-4.26 6.836-44.558h-40.19l6.535 44.862 13.138 3.935c.09.017.18.032.271.021z" fill="#e4dfc0"/></g><g style="line-height:1.25;-inkscape-font-specification:PMingLiU"><path d="M64.7 43.292v8.086h6.079v2.478H64.7v9.13h10.902v2.869H51.3v-2.87h10.788v-9.129h-6.237v-2.478h6.237v-8.086h-7.972v-2.87h18.597v2.87z" style="-inkscape-font-specification:MingLiU_HKSCS-ExtB" font-family="MingLiU_HKSCS-ExtB" fill="#1a1a1a" stroke="#1a1a1a" stroke-width=".453" transform="matrix(-1.18906 0 0 -1.06974 105.447 84.889)" aria-label="王" font-weight="400" font-size="29.072" letter-spacing="0" word-spacing="0"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   version="1.1"
+   id="svg1717"
+   sodipodi:docname="1OU.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata1723">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1721">
+    <filter
+       id="drop-shadow-2-8">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur6807-2" />
+      <feOffset
+         result="offsetBlur"
+         dx="2"
+         dy="2"
+         id="feOffset6809-8" />
+      <feBlend
+         in="SourceGraphic"
+         in2="offsetBlur"
+         mode="normal"
+         id="feBlend6811-0" />
+    </filter>
+    <filter
+       id="drop-shadow-2-8-0">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur6807-2-8" />
+      <feOffset
+         result="offsetBlur"
+         dx="2"
+         dy="2"
+         id="feOffset6809-8-9" />
+      <feBlend
+         in="SourceGraphic"
+         in2="offsetBlur"
+         mode="normal"
+         id="feBlend6811-0-9" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3840"
+     inkscape:window-height="2050"
+     id="namedview1719"
+     showgrid="false"
+     inkscape:zoom="5.5625734"
+     inkscape:cx="-9.3872335"
+     inkscape:cy="37.218782"
+     inkscape:window-x="3828"
+     inkscape:window-y="-12"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g9304"
+     inkscape:document-rotation="0" />
+  <!--
+Created by Hari Seldon and modified by orangain, licensed under Creative Commons Attribution-Share Alike 3.0 Unported.
+See: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+
+Original file is available at: https://commons.wikimedia.org/wiki/File:Shogi_gyokusho(svg).svg
+-->
+  <filter
+     id="drop-shadow">
+    <feGaussianBlur
+       in="SourceAlpha"
+       result="blur"
+       stdDeviation="2"
+       id="feGaussianBlur1692" />
+    <feOffset
+       result="offsetBlur"
+       dx="2"
+       dy="2"
+       id="feOffset1694" />
+    <feBlend
+       in="SourceGraphic"
+       in2="offsetBlur"
+       mode="normal"
+       id="feBlend1696" />
+  </filter>
+  <g
+     style="display:inline"
+     id="g9304"
+     transform="matrix(1,0,0,-1,34.434925,93.267291)">
+    <g
+       style="display:inline;fill:#fecb00;fill-opacity:1;filter:url(#drop-shadow-2-8-0)"
+       transform="matrix(1.0309431,0,0,-1.0309431,-137.02177,119.17315)"
+       id="g9259-0">
+      <g
+         style="fill:#fecb00;fill-opacity:1"
+         transform="rotate(180,45.578499,23.8125)"
+         id="g9257-5">
+        <path
+           style="fill:#fdeb98;fill-opacity:1"
+           inkscape:connector-curvature="0"
+           d="m -37.299339,-31.009999 -13.408999,4.26 -6.837,44.557885 40.189999,1.15e-4 -6.535,-44.862 -13.138,-3.935 c -0.09,-0.017 -0.18,-0.032 -0.271,-0.021 z"
+           id="path9255-1"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+    </g>
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:1.25;font-family:MingLiU_HKSCS-ExtB;-inkscape-font-specification:MingLiU_HKSCS-ExtB;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.99;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.44911;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000"
+       d="m 6.34929,51.378288 a 0.76396898,0.6873114 0 0 1 0.733314,0.87896 l -0.965719,2.981986 a 0.76396898,0.6873114 0 0 1 -0.733312,0.495307 h -7.482065 v 7.029706 h 5.476173 a 0.76396898,0.6873114 0 0 1 0.72428,0.466894 l 0.96572,2.576 a 0.76396898,0.6873114 0 0 1 -0.724293,0.907373 h -6.44188 v 8.113693 H 8.634973 a 0.76396898,0.6873114 0 0 1 0.733313,0.495307 l 0.967975,2.982 a 0.76396898,0.6873114 0 0 1 -0.733315,0.87896 h -28.075772 a 0.76396898,0.6873114 0 0 1 -0.733307,-0.87896 l 0.96572,-2.982 a 0.76396898,0.6873114 0 0 1 0.733307,-0.495307 h 10.864333 v -8.113693 h -6.25912 a 0.76396898,0.6873114 0 0 1 -0.722026,-0.907373 l 0.96572,-2.576 a 0.76396898,0.6873114 0 0 1 0.72428,-0.466894 h 5.291146 v -7.029706 h -7.527186 a 0.76396898,0.6873114 0 0 1 -0.73332,-0.495307 l -0.96572,-2.981986 a 0.76396898,0.6873114 0 0 1 0.73332,-0.87896 z m -1.017614,1.374266 h -19.449742 l 0.521227,1.60772 h 7.71896 a 0.76396898,0.6873114 0 0 1 0.762654,0.68612 v 8.403973 a 0.76396898,0.6873114 0 0 1 -0.762654,0.68816 h -5.507747 l -0.451267,1.20172 h 5.959014 a 0.76396898,0.6873114 0 0 1 0.762654,0.68612 v 9.49 a 0.76396898,0.6873114 0 0 1 -0.762654,0.68612 h -11.05612 l -0.5212,1.60772 H 8.583077 L 8.06186,76.202487 H -2.861132 a 0.76396898,0.6873114 0 0 1 -0.764907,-0.68612 v -9.49 a 0.76396898,0.6873114 0 0 1 0.764907,-0.68612 h 6.141786 l -0.451266,-1.20172 h -5.69052 a 0.76396898,0.6873114 0 0 1 -0.764907,-0.68816 v -8.403973 a 0.76396898,0.6873114 0 0 1 0.764907,-0.68612 h 7.671586 z"
+       id="path4473" />
+  </g>
+</svg>

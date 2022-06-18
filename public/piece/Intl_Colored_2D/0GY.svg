@@ -1,1 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.157 52.157"><path d="M-11.524 7.362l-13.178 4.663-6.147 42.27h38.65l-6.147-42.27z" fill="#313131" fill-opacity=".992" stroke="#000" transform="matrix(1.0781 0 0 .99884 38.502 -4.7)" stroke-width=".988"/><g style="line-height:1.25;-inkscape-font-specification:PMingLiU"><path d="M41.364 42.419v8.086h6.079v2.478h-6.079v9.13h10.902v2.869H27.964v-2.87h10.788v-9.13h-6.237v-2.477h6.237v-8.086H30.78v-2.87h18.597v2.87z" style="-inkscape-font-specification:MingLiU_HKSCS-ExtB" font-family="MingLiU_HKSCS-ExtB" stroke-width=".453" transform="matrix(1.25562 0 0 1.12963 -24.29 -30.03)" aria-label="王" font-weight="400" font-size="29.072" letter-spacing="0" word-spacing="0" fill="#efbf00" stroke="#efbf00"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="52.157"
+   height="52.157"
+   version="1.1"
+   id="svg98222"
+   sodipodi:docname="0GY.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata98228">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs98226" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="3840"
+     inkscape:window-height="2050"
+     id="namedview98224"
+     showgrid="false"
+     inkscape:zoom="19.326264"
+     inkscape:cx="26.078501"
+     inkscape:cy="26.078501"
+     inkscape:window-x="-12"
+     inkscape:window-y="-12"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg98222" />
+  <g
+     id="g4312"
+     style="opacity:1"
+     transform="translate(2.8816508,-50.947568)">
+    <g
+       transform="matrix(0.6,0,0,0.6,-0.24566948,-1.6351379)"
+       id="g4070">
+      <g
+         style="opacity:1"
+         transform="matrix(1.05,0,0,1.05,-3.2268455,-10.469804)"
+         id="g1884">
+        <g
+           id="g1883"
+           transform="matrix(1.0514736,0,0,0.97416793,-0.45230815,4.4444287)"
+           style="stroke-width:0.988061">
+          <g
+             style="fill:#75581b;fill-opacity:1;stroke-width:0.988061"
+             id="g55026"
+             transform="matrix(1.55,0,0,1.55,57.578673,87.893089)" />
+          <g
+             id="g1874"
+             style="stroke-width:0.988061">
+            <g
+               id="g1867"
+               style="stroke-width:0.988061">
+              <g
+                 transform="matrix(1.55,0,0,1.55,56.603405,86.081862)"
+                 id="g5765-1"
+                 style="fill:#ffd5e5;fill-opacity:1;stroke-width:0.988061">
+                <path
+                   sodipodi:nodetypes="cccccc"
+                   d="M -11.5235,7.3620312 -24.701773,12.025434 -30.848998,54.295677 7.801598,54.295504 1.6543774,12.025293 Z"
+                   id="path5763-5"
+                   inkscape:connector-curvature="0"
+                   style="fill:#313131;fill-opacity:0.992157;stroke:#000000;stroke-width:0.988061" />
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+           aria-label="王"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:KaiTi;-inkscape-font-specification:KaiTi;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+           id="text5169-4"
+           transform="matrix(1.6059542,0,0,1.6059542,-2.6274921,77.218224)">
+          <g
+             id="g1888" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <path
+     sodipodi:nodetypes="ccccccccccccccccccccc"
+     inkscape:connector-curvature="0"
+     id="path1630"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.072px;line-height:1.25;font-family:MingLiU_HKSCS-ExtB;-inkscape-font-specification:MingLiU_HKSCS-ExtB;letter-spacing:0px;word-spacing:0px;display:inline;opacity:0.99;fill:#efbf00;fill-opacity:1;stroke:#efbf00;stroke-width:0.514;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 27.572309,18.264607 v 8.699315 h 6.268694 l 1.000199,2.665918 h -7.268893 v 9.821808 h 12.036695 l 1.000166,3.086853 H 11.547834 l 1.00017,-3.086853 h 11.90089 V 29.62984 h -7.45873 l 0.99984,-2.665918 h 6.45889 v -8.699315 h -8.53389 l -0.9995,-3.086853 h 22.238404 l -0.999904,3.086853 z" />
+</svg>
