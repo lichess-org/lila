@@ -22,13 +22,6 @@ private object TutorBsonHandlers {
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
-  implicit def metricHandler[A: BSONHandler: Ordering]: BSONHandler[TutorMetric[A]] =
-    implicitly[BSONHandler[List[A]]]
-      .as[TutorMetric[A]](
-        list => TutorMetric(list(0), list(1)),
-        metric => List(metric.mine, metric.peer)
-      )
-
   trait CanBeUnknown[T] {
     val value: T
     val is = (v: T) => v == value
@@ -36,6 +29,20 @@ private object TutorBsonHandlers {
   implicit val doubleCanBeUnknown = new CanBeUnknown[Double] {
     val value = Double.MinValue
   }
+  implicit val ratioCanBeUnknown = new CanBeUnknown[TutorRatio] {
+    val value = TutorRatio(doubleCanBeUnknown.value)
+  }
+
+  implicit def metricHandler[A](implicit
+      handler: BSONHandler[A],
+      unknown: CanBeUnknown[A],
+      ordering: Ordering[A]
+  ): BSONHandler[TutorMetric[A]] =
+    implicitly[BSONHandler[List[A]]]
+      .as[TutorMetric[A]](
+        list => TutorMetric(list(0), list.lift(1).filterNot(unknown.is)),
+        metric => List(metric.mine, metric.peer | unknown.value)
+      )
 
   implicit def metricOptionHandler[A](implicit
       handler: BSONHandler[A],

@@ -23,7 +23,7 @@ object tutor {
           div(cls := "tutor__openings")(
             chess.Color.all.map { color =>
               st.section(cls := "tutor__openings__color")(
-                h2("Your favourite ", color.name, " openings"),
+                h2("Your most played ", color.name, " openings"),
                 report.openings.colors(color).families.map { fam =>
                   div(cls := "tutor__opening")(
                     h3(fam.family.name.value),

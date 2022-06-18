@@ -7,18 +7,24 @@ import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.analyse.Analysis
-import lila.analyse.AnalysisRepo
-import lila.common.IpAddress
+import lila.analyse.{ Analysis, AnalysisRepo }
+import lila.common.{ IpAddress, LilaOpeningFamily }
 import lila.db.dsl._
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
-import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, Metric, Question }
+import lila.insight.{
+  Answer => InsightAnswer,
+  Cluster,
+  Filter,
+  Insight,
+  InsightApi,
+  InsightDimension,
+  Metric,
+  Phase,
+  Question
+}
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
-import lila.insight.Cluster
-import lila.common.LilaOpeningFamily
-import lila.insight.Phase
 
 final class TutorReportBuilder(
     userRepo: UserRepo,
@@ -32,6 +38,7 @@ final class TutorReportBuilder(
 ) {
 
   import TutorBsonHandlers._
+  import TutorReportBuilder._
   // import TutorRatio.{ ordering, zero }
 
   private val maxGames                   = 1000
@@ -84,44 +91,30 @@ final class TutorReportBuilder(
       )
     )
     for {
-      performanceAnswer <- insightApi.ask(performanceQuestion, user, withPovs = false)
-      avgPerformance = performanceAnswer.clusters.foldLeft((0d, 0)) {
-        case ((sum, count), Cluster(_, Insight.Single(point), nbGames, _)) =>
-          (sum + point.y * nbGames, count + nbGames)
-        case (prev, _) => prev
-      } match { case (sum, count) => sum / count }
-      familyFilter     = Filter(InsightDimension.OpeningFamily, performanceAnswer.clusters.map(_.x))
+      myPerformances <- insightApi.ask(performanceQuestion, user, withPovs = false) map Answer.apply
+      familyFilter     = Filter(InsightDimension.OpeningFamily, myPerformances.dimensions)
       filteredQuestion = performanceQuestion.add(familyFilter)
       acplQuestion = filteredQuestion
         .copy(metric = Metric.MeanCpl)
         .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-      acplAnswer            <- insightApi.ask(acplQuestion, user, withPovs = false)
-      performancePeerAnswer <- insightApi.askPeers(filteredQuestion, avgPerformance.toInt)
-      acplPeerAnswer        <- insightApi.askPeers(acplQuestion, avgPerformance.toInt)
-      userTotalNbGames = performanceAnswer.clusters.foldLeft(0)(_ + _.size)
-      peerTotalNbGames = performancePeerAnswer.clusters.foldLeft(0)(_ + _.size)
-      families = performanceAnswer.clusters.collect {
-        case Cluster(family, Insight.Single(point), nbGames, _) =>
-          val peerData = performancePeerAnswer.clusters collectFirst {
-            case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
-              (point.y, TutorRatio(nbGames, peerTotalNbGames))
-          }
-          TutorOpeningFamily(
-            family,
-            games = TutorMetric(
-              TutorRatio(nbGames, userTotalNbGames),
-              peerData.??(_._2)
-            ),
-            performance = TutorMetric(point.y, peerData.??(_._1)),
-            acpl = TutorMetricOption(
-              acplAnswer.clusters collectFirst {
-                case Cluster(fam, Insight.Single(point), _, _) if fam == family => point.y
-              },
-              acplPeerAnswer.clusters collectFirst {
-                case Cluster(fam, Insight.Single(point), _, _) if fam == family => point.y
-              }
-            )
-          )
+      myAcpls <- insightApi.ask(acplQuestion, user, withPovs = false) map Answer.apply
+      peerPerformances <- insightApi.askPeers(
+        filteredQuestion,
+        myPerformances.average.toInt
+      ) map Answer.apply
+      performances = Answers(myPerformances, peerPerformances)
+      peerAcpls <- insightApi.askPeers(acplQuestion, myPerformances.average.toInt) map Answer.apply
+      acpls = Answers(myAcpls, peerAcpls)
+      families = performances.list.map { case (family, (myValue, myCount), peer) =>
+        TutorOpeningFamily(
+          family,
+          games = TutorMetric(
+            myPerformances countRatio myCount,
+            peer.map(_._2).map(peerPerformances.countRatio)
+          ),
+          performance = TutorMetric(myValue, peer.map(_._1)),
+          acpl = acpls metric family
+        )
       }
     } yield TutorColorOpenings(families)
   }
@@ -142,4 +135,45 @@ final class TutorReportBuilder(
   //     case _                               => fuccess(none)
   //   }
   // }
+}
+
+private object TutorReportBuilder {
+
+  type Value = Double
+  type Count = Int
+  type Pair  = (Value, Count)
+
+  case class Answer[Dim](answer: InsightAnswer[Dim]) {
+
+    val list: List[(Dim, Value, Count)] =
+      answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
+        (dimension, point.y, nbGames)
+      }.toList
+
+    val map: Map[Dim, Pair] = list.view.map { case (dim, value, count) =>
+      dim -> (value, count)
+    }.toMap
+
+    def get = map.get _
+
+    def dimensions = list.map(_._1)
+
+    lazy val average =
+      list.foldLeft((0d, 0)) { case ((sum, count), (_, y, nb)) =>
+        (sum + y * nb, count + nb)
+      } match { case (sum, count) => sum / count }
+
+    lazy val totalCount = list.map(_._3).sum
+
+    def countRatio(count: Count) = TutorRatio(count, totalCount)
+  }
+
+  case class Answers[Dim](mine: Answer[Dim], peer: Answer[Dim]) {
+
+    def list: List[(Dim, Pair, Option[Pair])] = mine.list.map { case (dim, value, count) =>
+      (dim, (value, count), peer.map.get(dim))
+    }
+
+    def metric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
+  }
 }
