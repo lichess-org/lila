@@ -62,33 +62,33 @@ stanRoles = {
 def classes(color, role)
   if color == 'sente' # facing up
     if role == 'king'
-      ".cg-wrap.orientation-gote piece.king.gote,
+      ".sg-wrap.orientation-gote piece.king.gote,
       .spare-bottom piece.king.gote"
     elsif role == 'tama'
       "piece.king.sente,
-      .cg-wrap.orientation-sente piece.king.sente"
+      .sg-wrap.orientation-sente piece.king.sente"
     else
       "piece.#{role}.sente,
-      .cg-wrap.orientation-sente piece.#{role}.sente,
-      .cg-wrap.orientation-gote piece.#{role}.gote,
-      .pocket-bottom piece.#{role}.gote,
-      .e-pocket-bottom piece.#{role}.gote,
+      .sg-wrap.orientation-sente piece.#{role}.sente,
+      .sg-wrap.orientation-gote piece.#{role}.gote,
+      .hand-bottom piece.#{role}.gote,
+      .e-hand-bottom piece.#{role}.gote,
       #promotion-choice.top piece.#{role},
       .spare-bottom piece.#{role}.gote"
     end
   else # facing down
     if role == 'king'
       "piece.king.gote,
-      .cg-wrap.orientation-sente piece.king.gote"
+      .sg-wrap.orientation-sente piece.king.gote"
     elsif role == 'tama'
-      ".cg-wrap.orientation-gote piece.king.sente,
+      ".sg-wrap.orientation-gote piece.king.sente,
       .spare-top piece.king.sente"
     else
       "piece.#{role}.gote,
-      .cg-wrap.orientation-sente piece.#{role}.gote,
-      .cg-wrap.orientation-gote piece.#{role}.sente,
-      .pocket-top piece.#{role},
-      .e-pocket-top piece.#{role},
+      .sg-wrap.orientation-sente piece.#{role}.gote,
+      .sg-wrap.orientation-gote piece.#{role}.sente,
+      .hand-top piece.#{role},
+      .e-hand-top piece.#{role},
       #promotion-choice.bottom piece.#{role},
       .spare-top piece.#{role}.sente"
     end
@@ -112,7 +112,7 @@ themes.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; }")
+    classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
