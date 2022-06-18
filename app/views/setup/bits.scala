@@ -23,9 +23,16 @@ private object bits {
         shogi.StartingPosition.categories(0).positions.map { v =>
           (v.sfen.value, v.fullName, None)
         }
-    val url = form("sfen").value.fold(routes.Editor.index)(routes.Editor.load).url
+    val positionChoices: List[SelectChoice] =
+      List(
+        ("default", trans.default.txt(), None),
+        ("fromPosition", trans.fromPosition.txt(), None)
+      )
+    val variant = form("variant").value.flatMap(shogi.variant.Variant(_)) | shogi.variant.Standard
+    val url = form("sfen").value.fold(routes.Editor.index)(sfen => routes.Editor.parseArg(s"${variant.key}/$sfen")).url
     div(cls := "sfen_position optional_config")(
-      frag(
+      renderRadios(form("position"), positionChoices),
+      div(cls := "sfen_position_wrap")(
         div(cls := "handicap label_select")(
           renderLabel(form("handicap"), trans.handicap.txt()),
           renderSelect(form("handicap"), handicapChoices, (a, _) => a == "default"),
@@ -41,6 +48,7 @@ private object bits {
           cls := "sfen_form",
           dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
         )(
+          renderLabel(form("sfen"), "SFEN"),
           form3.input(form("sfen"))(st.placeholder := trans.pasteTheSfenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
         ),
@@ -48,11 +56,12 @@ private object bits {
           span(cls := "preview")(
             validSfen.map { vf =>
               div(
-                cls := "mini-board cg-wrap parse-sfen",
+                cls := "mini-board sg-wrap parse-sfen",
                 dataColor := vf.color.name,
                 dataSfen := vf.sfen.value,
+                dataVariant := vf.situation.variant.key,
                 dataResizable := "1"
-              )(cgWrapContent)
+              )(sgWrapContent)
             }
           )
         )
@@ -150,14 +159,12 @@ private object bits {
             span(form("byoyomi").value),
             renderInput(form("byoyomi"))
           ),
-          raw("""<a class="advanced_toggle"></a>"""),
-          div(cls := "advanced_setup hidden")(
-            frag(
-              div(cls := "periods buttons")(
-                trans.periods(),
-                div(id := "config_periods")(
-                  renderRadios(form("periods"), periodsChoices)
-                )
+          a(cls := "advanced_toggle"),
+          div(cls := "advanced_setup")(
+            div(cls := "periods buttons")(
+              trans.periods(),
+              div(id := "config_periods")(
+                renderRadios(form("periods"), periodsChoices)
               )
             ),
             div(cls := "increment_choice slider")(

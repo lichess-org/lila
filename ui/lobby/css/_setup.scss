@@ -19,10 +19,15 @@ $c-slider: $c-setup;
     width: 70%;
     .disabled {
       opacity: 0.4;
-      cursor: default;
+      cursor: not-allowed;
     }
     input:checked + label {
       background: $c-setup;
+    }
+  }
+  .mode_choice, .sfen_position {
+    group.radio div {
+      flex-basis: 50%;
     }
   }
   .optional_config {
@@ -37,9 +42,18 @@ $c-slider: $c-setup;
     border-top: $border;
   }
   .advanced_toggle {
-    font-size: 20px;
-    color: #629924;
-    padding: 1rem 0;
+    display: inline-block !important;
+    border: solid $c-setup;
+    border-width: 0 7px 7px 0;
+    padding: 5px;
+    transform: rotate(45deg);
+    &.active {
+      transform: rotate(-135deg);
+      margin: 7px 0 0 0;
+    }
+  }
+  .advanced_setup #config_periods {
+    margin-top: 6px;
   }
   .label_select {
     @extend %flex-center;
@@ -56,34 +70,37 @@ $c-slider: $c-setup;
       font-weight: bold;
     }
   }
-  .handicap.label_select {
+  .sfen_position {
     label {
       flex: 0 0 20%;
     }
-    #sf_handicap {
+    .handicap.label_select select {
       flex-grow: 1;
-    }
-  }
-  .sfen_position {
-    display: none;
-    .board_editor {
-      display: block;
-      width: 50%;
-      margin: 0.5em auto;
     }
     .sfen_form {
       margin-top: 0.5em;
       @extend %flex-center-nowrap;
+      input {
+        flex-grow: 1;
+        margin-left: 0.8em;
+        &.success {
+          border-color: $c-good;
+        }
+        &.failure {
+          background: mix($c-bg-box, $c-bad, 80%);
+          box-shadow: 0 0 13px $c-bad;
+        }
+      }
     }
-    .sfen_form input {
-      flex: 1 1 100%;
+    .board_editor {
+      display: block;
+      width: 55%;
+      min-height: 200px;
+      margin: 0.5em auto;
+      .spinner {
+        padding-top: 55px
+      }
     }
-  }
-  input#sfen.success {
-    border-color: $c-good;
-  }
-  input#sfen.failure {
-    border-color: $c-bad;
   }
   .ui-slider {
     margin: 0.5em 1em;
@@ -139,11 +156,9 @@ $c-slider: $c-setup;
           height: 65px;
         }
       }
-      &.nope {
-        visibility: hidden;
-      }
       &:disabled {
         opacity: 0.3;
+        cursor: not-allowed;
       }
     }
     .spinner {

@@ -249,12 +249,12 @@ final class Setup(
   def validateSfen =
     Open { implicit ctx =>
       (for {
-        sfen    <- get("sfen") map Sfen.clean
         variant <- get("variant").flatMap(_.toIntOption) flatMap shogi.variant.Variant.apply
+        sfen    <- get("sfen") map Sfen.clean orElse variant.initialSfen.some
         valid   <- ValidSfen.apply(getBool("strict"), variant)(sfen)
       } yield valid) match {
         case None    => BadRequest.fuccess
-        case Some(v) => Ok(html.game.bits.miniBoard(v.sfen)).fuccess
+        case Some(v) => Ok(html.game.bits.miniBoard(v.sfen, v.situation.color, v.situation.variant)).fuccess
       }
     }
 

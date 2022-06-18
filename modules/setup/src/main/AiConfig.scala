@@ -56,7 +56,7 @@ case class AiConfig(
             Player.make(shogi.Gote, user, perfPicker)
           ),
           mode = shogi.Mode.Casual,
-          source = if (sfen.isDefined) Source.Position else Source.Ai,
+          source = if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           notationImport = None
         )

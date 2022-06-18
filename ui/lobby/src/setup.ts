@@ -117,7 +117,7 @@ export default class Setup {
 
   private hookToPoolMember = (color, data) => {
     const hash: any = {};
-    for (var i in data) hash[data[i].name] = data[i].value;
+    for (const i in data) hash[data[i].name] = data[i].value;
     const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
       id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
     return valid && this.root.pools.find(p => p.id === id)
@@ -126,6 +126,21 @@ export default class Setup {
           range: hash.ratingRange,
         }
       : undefined;
+  };
+
+  private ratingKey = (variantId: string, realTime: boolean, timeSum: number): string => {
+    switch (variantId) {
+      case '2':
+        return 'minishogi';
+      default:
+        if (realTime) {
+          if (timeSum < 60) return 'ultraBullet';
+          else if (timeSum < 300) return 'bullet';
+          else if (timeSum < 599) return 'blitz';
+          else if (timeSum < 1500) return 'rapid';
+          else return 'classical';
+        } else return 'correspondence';
+    }
   };
 
   prepareForm = ($modal: JQuery) => {
@@ -137,79 +152,27 @@ export default class Setup {
       $casual = $modeChoices.eq(0),
       $rated = $modeChoices.eq(1),
       $variantSelect = $form.find('#sf_variant'),
-      $sfenPosition = $form.find('.sfen_position'),
-      $sfenInput = $sfenPosition.find('input'),
-      $handicapSelect = $sfenPosition.find('.handicap select'),
-      forceFromPosition = !!$sfenInput.val(),
+      $position = $form.find('.sfen_position'),
+      $positionInput = $position.find('.radio [name=position]'),
+      $default = $positionInput.eq(0),
+      $fromPosition = $positionInput.eq(1),
+      $positionWrap = $position.find('.sfen_position_wrap'),
+      $sfenInput = $positionWrap.find('input'),
+      $handicap = $positionWrap.find('.handicap'),
+      $handicapSelect = $handicap.find('select'),
+      $positionPreview = $positionWrap.find('.preview'),
       $timeInput = $form.find('.time_choice [name=time]'),
       $incrementInput = $form.find('.increment_choice [name=increment]'),
       $byoyomiInput = $form.find('.byoyomi_choice [name=byoyomi]'),
-      $periodsInput = $form.find('.periods [name=periods]'),
-      $advancedSetup = $form.find('.advanced_setup'),
-      $advancedToggle = $form.find('.advanced_toggle'),
+      $periods = $form.find('.periods'),
+      $periodsInput = $periods.find('.periods [name=periods]'),
+      $advancedTimeSetup = $form.find('.advanced_setup'),
+      $advancedTimeToggle = $form.find('.advanced_toggle'),
       $daysInput = $form.find('.days_choice [name=days]'),
       typ = $form.data('type'),
       $ratings = $modal.find('.ratings > div'),
-      $submits = $form.find('.color-submits__button'),
-      $submitsError = $form.find('.submit-error-message'),
-      toggleButtons = function () {
-        const variantId = $variantSelect.val(),
-          timeMode = $timeModeSelect.val(),
-          rated = $rated.prop('checked'),
-          limit = $timeInput.val(),
-          inc = $incrementInput.val(),
-          byo = $byoyomiInput.val(),
-          per = $periodsInput.filter(':checked').val(),
-          cantBeRated =
-            (typ === 'hook' && timeMode === '0') ||
-            (variantId != '1' && timeMode != '1') ||
-            (timeMode == '1' && (per > 1 || (inc > 0 && byo > 0)));
-        if (cantBeRated && rated) {
-          $casual.click();
-          return toggleButtons();
-        }
-        $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
-        const timeOk = timeMode != '1' || ((limit > 0 || inc > 0 || byo > 0) && (byo || per == 1)),
-          ratedOk = typ != 'hook' || !rated || timeMode != '0',
-          aiOk = typ != 'ai' || variantId == '1' || limit >= 1 || byo >= 10 || inc >= 5;
-        if (timeOk && ratedOk && aiOk) {
-          $submits.toggleClass('nope', false);
-          $submitsError.html('');
-          $submits.filter(':not(.random)').toggle(!rated);
-        } else {
-          $submits.toggleClass('nope', true);
-          $submitsError.html('Invalid time control!');
-        }
+      $submits = $form.find('.color-submits__button');
 
-        if (byo > 0) $('.periods').show();
-        else $('.periods').hide();
-      },
-      save = function () {
-        self.save($form[0] as HTMLFormElement);
-      },
-      displayAdvanced = function () {
-        if (($incrementInput.val() == 0 && $periodsInput.filter(':checked').val() == 1) || $timeModeSelect.val() != 1) {
-          $advancedToggle.attr('data-icon', 'R');
-          $advancedSetup.hide();
-          $advancedSetup.addClass('hidden');
-        } else {
-          $advancedToggle.attr('data-icon', 'S');
-          $advancedSetup.show();
-          $advancedSetup.removeClass('hidden');
-        }
-      },
-      // displays properly only for value < 20 or smth - slider increment
-      updateSlider = function (val) {
-        $incrementInput.val(val);
-        $('.increment_choice .ui-slider').slider('value', val);
-        $('.increment_choice input').siblings('span').text(val);
-      },
-      updatePeriods = function (val) {
-        $('.periods #sf_periods_' + val).click();
-      },
-      resetPeriods = function () {
-        if ($byoyomiInput.val() == 0) updatePeriods(1);
-      };
     const c = this.stores[typ].get();
     if (c) {
       Object.keys(c).forEach(k => {
@@ -222,34 +185,57 @@ export default class Setup {
       });
     }
 
-    const showRating = () => {
-      const timeMode = $timeModeSelect.val();
-      let key;
-      switch ($variantSelect.val()) {
-        case '1':
-        case '3':
-          if (timeMode == '1') {
-            const time =
-              $timeInput.val() * 60 +
-              $incrementInput.val() * 60 +
-              $byoyomiInput.val() * 25 * $periodsInput.filter(':checked').val();
-            if (time < 60) key = 'ultraBullet';
-            else if (time < 300) key = 'bullet';
-            else if (time < 599) key = 'blitz';
-            else if (time < 1500) key = 'rapid';
-            else key = 'classical';
-          } else key = 'correspondence';
-          break;
-        case '2':
-          key = 'minishogi';
-          break;
-      }
-      $ratings
-        .hide()
-        .filter('.' + key)
-        .show();
-      save();
+    const toggleButtons = (): void => {
+      const variantId = $variantSelect.val(),
+        timeMode = $timeModeSelect.val(),
+        limit = $timeInput.val(),
+        inc = $incrementInput.val(),
+        byo = $byoyomiInput.val(),
+        per = $periodsInput.filter(':checked').val(),
+        hasSfen = !!$sfenInput.val(),
+        cantBeRated =
+          hasSfen ||
+          (typ === 'hook' && timeMode === '0') ||
+          (variantId !== '1' && timeMode !== '1') ||
+          (timeMode === '1' && (per > 1 || (inc > 0 && byo > 0)));
+
+      if (variantId != '1') $handicap.hide();
+      else $handicap.css('display', 'flex');
+
+      $periods.toggle(byo > 0);
+
+      if (cantBeRated && $rated.prop('checked')) $casual.click();
+      $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
+
+      const timeOk = timeMode !== '1' || ((limit > 0 || inc > 0 || byo > 0) && (byo || per === 1)),
+        ratedOk = typ !== 'hook' || timeMode !== '0' || !$rated.prop('checked'),
+        aiOk = typ !== 'ai' || variantId === '1' || limit >= 1 || byo >= 10 || inc >= 5;
+
+      if (timeOk)
+        $ratings
+          .hide()
+          .filter('.' + this.ratingKey(variantId, timeMode === '1', limit * 60 + inc * 60 + byo * 25 * per))
+          .show();
+      else $ratings.hide;
+
+      if (timeOk && ratedOk && aiOk) $submits.prop('disabled', false);
+      else $submits.prop('disabled', true);
     };
+
+    const save = (): void => {
+      self.save($form[0] as HTMLFormElement);
+    };
+
+    const resetIncSlider = (): void => {
+      $incrementInput.val('0');
+      $('.increment_choice .ui-slider').slider('value', '0');
+      $('.increment_choice input').siblings('span').text('0');
+    };
+
+    const resetPeriods = (): void => {
+      $periodsInput.eq(0).click();
+    };
+
     if (typ == 'hook') {
       if ($form.data('anon')) {
         $timeModeSelect
@@ -288,17 +274,17 @@ export default class Setup {
       });
     $timeInput.add($periodsInput).on('change', function () {
       toggleButtons();
-      showRating();
+      save();
     });
     if (this.root.opts.blindMode) {
       $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function () {
         toggleButtons();
-        showRating();
+        save();
       });
       $timeInput.add($byoyomiInput).on('change', function () {
         toggleButtons();
-        showRating();
+        save();
       });
     } else
       li.slider().done(function () {
@@ -333,15 +319,15 @@ export default class Setup {
                   const time = valueToTime(ui.value);
                   show(time);
                   $input.val(time);
-                  showRating();
-                  resetPeriods();
+                  if ($byoyomiInput.val() === '0' && $periodsInput.filter(':checked').val() !== '1') resetPeriods();
                   toggleButtons();
+                  save();
                 },
               })
             );
           });
         $daysInput.each(function (this: HTMLElement) {
-          var $input = $(this),
+          const $input = $(this),
             $value = $input.siblings('span');
           $value.text($input.val());
           $input.after(
@@ -383,108 +369,113 @@ export default class Setup {
           });
         });
       });
+
+    const initAdvancedTimeSetup = (): void => {
+      if (
+        ($incrementInput.val() === '0' && $periodsInput.filter(':checked').val() === '1') ||
+        $timeModeSelect.val() !== '1'
+      ) {
+        $advancedTimeSetup.hide();
+        $advancedTimeToggle.hide();
+        $advancedTimeToggle.removeClass('active');
+      } else {
+        $advancedTimeSetup.show();
+        $advancedTimeToggle.show();
+        $advancedTimeToggle.addClass('active');
+      }
+    };
+
     $timeModeSelect
       .on('change', function (this: HTMLElement) {
-        var timeMode = $(this).val();
-        $form.find('.time_choice, .byoyomi_choice, .advanced_toggle').toggle(timeMode == '1');
-        $form.find('.days_choice').toggle(timeMode == '2');
-        if (timeMode == '1') displayAdvanced();
-        if (timeMode == '2') $advancedSetup.hide();
+        const timeMode = $(this).val();
+        $form.find('.time_choice, .byoyomi_choice, .advanced_toggle').toggle(timeMode === '1');
+        $form.find('.days_choice').toggle(timeMode === '2');
+        initAdvancedTimeSetup();
         toggleButtons();
-        showRating();
+        save();
       })
       .trigger('change');
 
-    var validateSfen = li.debounce(function () {
+    const validateSfen = li.debounce(function () {
       $sfenInput.removeClass('success failure');
+      $positionPreview.removeClass('failure');
       const sfen = $sfenInput.val();
       const variant = $variantSelect.val();
-      if (sfen) {
-        $.ajax({
-          url: $sfenInput.parent().data('validate-url'),
-          data: {
-            sfen: sfen,
-            variant: variant,
-          },
-          success: function (data) {
-            $sfenInput.addClass('success');
-            $sfenPosition.find('.preview').html(data);
-            $sfenPosition.find('a.board_editor').each(function (this: HTMLElement) {
-              $(this).attr(
-                'href',
-                $(this)
-                  .attr('href')
-                  .replace(/editor\/.+$/, 'editor/' + sfen)
-              );
-            });
-            $submits.removeClass('nope');
-            $submitsError.html('');
-            li.pubsub.emit('content_loaded');
-          },
-          error: function () {
-            $sfenInput.addClass('failure');
-            $sfenPosition.find('.preview').html('');
-            $submits.addClass('nope');
-            $submitsError.html('Invalid sfen!');
-          },
-        });
-      }
-    }, 200);
+      $.ajax({
+        url: $sfenInput.parent().data('validate-url'),
+        data: {
+          sfen: sfen,
+          variant: variant,
+        },
+        success: function (data) {
+          if (sfen) $sfenInput.addClass('success');
+          $positionPreview.html(data);
+          $position.find('.sfen_form a').attr('href', `editor/${variant}/${sfen}`);
+          toggleButtons();
+          li.pubsub.emit('content_loaded');
+        },
+        error: function () {
+          $sfenInput.addClass('failure');
+          $positionPreview.addClass('failure');
+          $positionPreview.html('');
+          $submits.prop('disabled', true);
+        },
+      });
+    }, 300);
+    $sfenInput.on('keyup', () => {
+      $handicapSelect.val('');
+      validateSfen();
+    });
 
-    var validateSfenWrapper = function (changeHandicapSelect) {
-      return function () {
-        if (changeHandicapSelect) $handicapSelect.val('');
+    $positionInput.on('change', function (this: HTMLElement) {
+      const position = $(this).val();
+      if (position === 'fromPosition') {
+        $positionWrap.show();
+        $positionPreview.html(li.spinnerHtml);
         validateSfen();
-      };
-    };
-    $sfenInput.on('keyup', validateSfenWrapper(true));
-
-    var setHandicap = function () {
-      const hcSfen = $handicapSelect.val();
-      if (hcSfen) {
-        $sfenInput.val($handicapSelect.val());
-        validateSfenWrapper(false)();
+      } else {
+        $handicapSelect.val('');
+        $sfenInput.val('');
+        $positionWrap.hide();
+        $positionPreview.html();
       }
-    };
-    $handicapSelect.on('change', setHandicap);
+      save();
+    });
 
-    if (forceFromPosition) $variantSelect.val(3);
-    $variantSelect
-      .on('change', function (this: HTMLElement) {
-        var isSfen = $(this).val() == '3';
-        $sfenPosition.toggle(isSfen);
-        $modeChoicesWrap.toggle(!isSfen);
-        if (isSfen) {
-          $casual.click();
-          requestAnimationFrame(() => li.dispatchEvent(document.body, 'shogiground.resize'));
-        }
-        showRating();
-        toggleButtons();
-      })
-      .trigger('change');
+    $handicapSelect.on('change', function (): void {
+      $sfenInput.val($handicapSelect.val());
+      validateSfen();
+      save();
+    });
+
+    $variantSelect.on('change', function () {
+      $positionPreview.html('');
+
+      $default.click();
+      $default.trigger('change');
+
+      toggleButtons();
+      save();
+    });
 
     $modeChoices.on('change', save);
 
-    // We hide the advanced menu only if the user isn't using it
-    displayAdvanced();
-
-    $advancedToggle.click(() => {
-      if ($advancedSetup.hasClass('hidden')) {
-        $advancedSetup.show();
-        $advancedSetup.removeClass('hidden');
-        $advancedToggle.attr('data-icon', 'S');
-      } else {
-        $advancedSetup.hide();
-        $advancedSetup.addClass('hidden');
-        $advancedToggle.attr('data-icon', 'R');
-        updateSlider('0');
-        updatePeriods('1');
+    $advancedTimeToggle.click(e => {
+      e.preventDefault();
+      if ($advancedTimeToggle.hasClass('active')) {
+        $advancedTimeToggle.removeClass('active');
+        $advancedTimeSetup.hide();
+        resetIncSlider();
+        resetPeriods();
         toggleButtons();
+      } else {
+        $advancedTimeToggle.addClass('active');
+        $advancedTimeSetup.show();
       }
     });
 
     $form.find('div.level').each(function (this: HTMLElement) {
-      var $infos = $(this).find('.ai_info > div');
+      const $infos = $(this).find('.ai_info > div');
       $(this)
         .find('label')
         .on('mouseenter', function (this: HTMLElement) {
@@ -496,7 +487,7 @@ export default class Setup {
       $(this)
         .find('#config_level')
         .on('mouseleave', function (this: HTMLElement) {
-          var level = $(this).find('input:checked').val();
+          const level = $(this).find('input:checked').val();
           $infos
             .hide()
             .filter('.sf_level_' + level)
@@ -505,5 +496,21 @@ export default class Setup {
         .trigger('mouseout');
       $(this).find('input').on('change', save);
     });
+
+    const initForm = (): void => {
+      const hasSfen = !!$sfenInput.val();
+      if (hasSfen) {
+        $fromPosition.click();
+        $positionPreview.html(li.spinnerHtml);
+        validateSfen();
+      } else {
+        $default.click();
+        $positionWrap.hide();
+      }
+      initAdvancedTimeSetup();
+      toggleButtons();
+    };
+
+    initForm();
   };
 }
