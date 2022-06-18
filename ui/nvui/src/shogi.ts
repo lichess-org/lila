@@ -1,8 +1,9 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { Pieces, files, ranks } from 'shogiground/types';
-import { invFiles, allKeys } from 'shogiground/util';
+import { allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';
+import { roleToString } from 'shogiops/util';
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna';
 
@@ -43,22 +44,6 @@ const roles: { [letter: string]: string } = {
   '+L': 'promoted lance',
   '+B': 'horse',
   '+R': 'dragon',
-};
-const letters = {
-  pawn: 'p',
-  rook: 'r',
-  knight: 'n',
-  bishop: 'b',
-  king: 'k',
-  gold: 'g',
-  silver: 's',
-  lance: 'l',
-  tokin: '+p',
-  promotedsilver: '+s',
-  promotedknight: '+n',
-  promotedlance: '+l',
-  horse: '+b',
-  dragon: '+r',
 };
 
 export function supportedVariant(key: string) {
@@ -153,14 +138,15 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
 }
 
 export function renderBoard(pieces: Pieces, pov: Color): string {
+  const reversedFiles = [...files].reverse();
   const board = [[' ', ...files, ' ']];
   for (let rank of ranks) {
     let line = [];
-    for (let file of invFiles) {
+    for (let file of reversedFiles) {
       let key = (file + rank) as Key;
       const piece = pieces.get(key);
       if (piece) {
-        const letter = letters[piece.role];
+        const letter = roleToString(piece.role);
         line.push(piece.color === 'sente' ? letter.toUpperCase() : letter);
       } else line.push((key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+');
     }
