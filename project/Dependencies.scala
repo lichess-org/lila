@@ -18,11 +18,11 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
-  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.1.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.3.0"
+  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.1.2" % "compile"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.4.0"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "3.6.0"
-  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.10.0"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.1.5.RELEASE"
+  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.11.1"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
@@ -38,13 +38,13 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.4.2"
+    val version = "2.5.3"
     val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
     val util   = "com.softwaremill.macwire" %% "util"   % version % "provided"
   }
 
   object reactivemongo {
-    val version = "1.0.8"
+    val version = "1.0.10"
 
     val driver     = "org.reactivemongo" %% "reactivemongo"               % version
     val stream     = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
