@@ -8,20 +8,18 @@ function parseSfen($elem) {
     var color = $this.data('color');
     var ground = $this.data('shogiground');
     var config = {
-      coordinates: false,
-      resizable: false,
+      coordinates: {enabled: false},
       drawable: { enabled: false, visible: false },
       viewOnly: true,
-      hasPockets: true,
-      pockets: hands,
-      sfen: sfen,
-      lastMove: dropOrMove,
+      sfen: { board: sfen, hands: hands },
+      hands: { inlined: true},
+      lastDests: dropOrMove,
     };
     if (color) config.orientation = color;
     if (ground) ground.set(config);
     else {
-      this.innerHTML = '<div class="cg-wrap mini-board"></div>';
-      $this.data('shogiground', Shogiground(this.firstChild, config));
+      this.innerHTML = '<div class="sg-wrap mini-board"></div>';
+      $this.data('shogiground', Shogiground(config, this.firstChild));
     }
   });
 }

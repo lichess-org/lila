@@ -8,16 +8,16 @@ $(function () {
       var $captcha = $(this);
       var $board = $captcha.find('.mini-board');
       var $input = $captcha.find('input').val('');
-      var cg = $board.data('shogiground');
+      var sg = $board.data('shogiground');
       var destsJson = JSON.parse(lishogi.readServerSfen($board.data('x')));
       var dests = new Map();
       for (var k in destsJson) dests.set(k, destsJson[k].match(/.{2}/g));
-      cg.set({
-        turnColor: cg.state.orientation,
+      sg.set({
+        turnColor: sg.state.orientation,
         movable: {
           free: false,
           dests: dests,
-          color: cg.state.orientation,
+          color: sg.state.orientation,
           events: {
             after: function (orig, dest) {
               $captcha.removeClass('success failure');
@@ -39,11 +39,11 @@ $(function () {
             $captcha.toggleClass('failure', data != 1);
             if (data == 1) {
               const key = solution.slice(3, 5);
-              const piece = cg.state.pieces.get(key);
-              const sfen = cg.getSfen() + (piece.color === 'sente' ? ' w' : ' b');
+              const piece = sg.state.pieces.get(key);
+              const sfen = sg.getSfen() + (piece.color === 'sente' ? ' w' : ' b');
               const pos = sfen.parseSfen(sfen).chain(s => shogi.Shogi.fromSetup(s, false));
               if (pos.isOk && !pos.value.isCheckmate()) {
-                cg.setPieces(
+                sg.setPieces(
                   new Map([
                     [
                       key,
@@ -61,7 +61,7 @@ $(function () {
               setTimeout(function () {
                 lishogi.parseSfen($board);
                 $board.data('shogiground').set({
-                  turnColor: cg.state.orientation,
+                  turnColor: sg.state.orientation,
                   movable: {
                     dests: dests,
                   },

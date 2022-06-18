@@ -246,21 +246,24 @@
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
+      var variant = $this.data('variant');
       var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
-      var pocketFromSfen = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
+      var splitSfen = sfen.split(' ');
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        sfen: sfen,
-        hasPockets: true,
-        pockets: pocketFromSfen,
+        sfen: { board: splitSfen[0], hands: splitSfen[2] },
+        hands: {
+          inlined: true,
+          roles: variant === 'minishogi' ? ['rook', 'bishop', 'gold', 'silver', 'pawn'] : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn']
+        },
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
-      else $this.data('shogiground', Shogiground(this, config));
+      else $this.data('shogiground', Shogiground(config, { board: this }));
     });
   };
 

@@ -4,19 +4,17 @@ board.target = '_blank';
 var lm = board.getAttribute('data-lastmove');
 var dropOrMove = lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined;
 var sfen = board.getAttribute('data-sfen');
-var hands = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
-board.innerHTML = '<div class="cg-wrap mini-board">';
-Shogiground(board.firstChild, {
-  coordinates: false,
-  resizable: false,
+var splitSfen = sfen.split(' '); 
+board.innerHTML = '<div class="sg-wrap mini-board">';
+Shogiground({
+  coordinates: {enabled: false},
   drawable: { enabled: false, visible: false },
   viewOnly: true,
-  sfen: sfen,
-  hasPockets: true,
-  pockets: hands,
-  lastMove: dropOrMove,
+  sfen: {board: splitSfen[0], hands: splitSfen[2]},
+  hands: {inlined: true},
+  lastDests: dropOrMove,
   orientation: board.getAttribute('data-color'),
-});
+}, {board: board.firstChild});
 
 function resize() {
   if (el.offsetHeight > window.innerHeight)

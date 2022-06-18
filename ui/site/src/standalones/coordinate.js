@@ -1,7 +1,7 @@
 $(function () {
   $('#trainer').each(function () {
     var $trainer = $(this);
-    var $board = $('.coord-trainer__board .cg-wrap');
+    var $board = $('.coord-trainer__board .sg-wrap');
     var ground;
     var $side = $('.coord-trainer__side');
     var $right = $('.coord-trainer__table');
@@ -24,15 +24,17 @@ $(function () {
     var showColor = function () {
       color = colorPref == 'random' ? ['sente', 'gote'][Math.round(Math.random())] : colorPref;
       if (!ground)
-        ground = Shogiground($board[0], {
-          coordinates: false,
+        ground = Shogiground({
+          activeColor: null,
+          coordinates: {enabled: false},
           blockTouchScroll: true,
           drawable: { enabled: false },
           movable: {
             free: false,
-            color: null,
           },
           orientation: color,
+        }, {
+          board: $board[0]
         });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('sente gote').addClass(color);
