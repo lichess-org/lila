@@ -62,8 +62,8 @@ lishogi.studyTourChapter = function (study) {
           'Paste a position in SFEN format<br>' +
           '<i>9/3k5/9/9/9/9/9/5K3/9 b</i><br>' +
           'to start the chapter from a position.',
-        attachTo: '.study__modal .tabs-horiz .fen top',
-        when: onTab('fen'),
+        attachTo: '.study__modal .tabs-horiz .sfen top',
+        when: onTab('sfen'),
       },
       {
         title: 'Studies support variants',

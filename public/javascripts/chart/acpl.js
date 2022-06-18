@@ -1,7 +1,7 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lishogi.advantageChart = function (data, trans, el, notation) {
+lishogi.advantageChart = function (data, trans, el) {
   lishogi.loadScript('javascripts/chart/common.js').done(function () {
     lishogi.loadScript('javascripts/chart/division.js').done(function () {
       lishogi.chartCommon('highchart').done(function () {
@@ -11,7 +11,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
         if (data.player.color === 'sente') blurs.reverse();
-        var plyOffset = ((data.game.startedAtTurn || 0) - ((data.game.moveNumber || 1) - 1)) % 2;
+        var plyOffset = ((data.game.startedAtPly || 0) - ((data.game.moveNumber || 1) - 1)) % 2;
 
         var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;
@@ -31,11 +31,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               };
 
             var point = {
-              name:
-                node.ply -
-                plyOffset +
-                '. ' +
-                notation({ san: node.san, usi: node.usi, fen: node.fen, variant: data.game.variant.key }),
+              name: node.ply - plyOffset + '. ' + node.notation,
               y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === '1') {
