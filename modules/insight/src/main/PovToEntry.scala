@@ -180,10 +180,10 @@ final private class PovToEntry(
     import pov.game
     for {
       myId     <- pov.player.userId
-      myRating <- pov.player.rating
-      opRating <- pov.opponent.rating
       perfType <- game.perfType
-      opening = findOpening(from)
+      myRating = pov.player.stableRating
+      opRating = pov.opponent.stableRating
+      opening  = findOpening(from)
     } yield InsightEntry(
       id = InsightEntry povToId pov,
       number = 0, // temporary :-/ the Indexer will set it
@@ -192,9 +192,10 @@ final private class PovToEntry(
       perf = perfType,
       opening = opening,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
-      ratingCateg = (!provisional).option(RatingCateg of myRating),
+      rating = myRating,
+      ratingCateg = myRating map RatingCateg.of,
       opponentRating = opRating,
-      opponentStrength = RelativeStrength(opRating - myRating),
+      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(o - m),
       opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
