@@ -34,7 +34,7 @@ export const init = (node: HTMLElement) => {
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
         clockWidget(this, {
           time: parseInt(this.getAttribute('data-time')!),
-          pause: color != turnColor,
+          pause: color != turnColor || this.getAttribute('is-running') !== 'true',
         });
       })
     );
@@ -60,10 +60,11 @@ export const update = (node: HTMLElement, data: UpdateData) => {
     });
   const turnColor = fenColor(data.fen);
   const renderClock = (time: number | undefined, color: string) => {
+    const clock = $el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement;
     if (!isNaN(time!))
-      clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
+      clockWidget(clock, {
         time: time!,
-        pause: color != turnColor,
+        pause: color != turnColor || clock.getAttribute('is-running') !== 'true',
       });
   };
   renderClock(data.wc, 'white');

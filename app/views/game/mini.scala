@@ -15,6 +15,7 @@ object mini {
   private val dataLive  = attr("data-live")
   private val dataState = attr("data-state")
   private val dataTime  = attr("data-time")
+  private val isRunning = attr("is-running")
   val cgWrap            = span(cls := "cg-wrap")(cgWrapContent)
 
   def apply(
@@ -76,8 +77,9 @@ object mini {
   private def renderClock(clock: chess.Clock, color: chess.Color) = {
     val s = clock.remainingTime(color).roundSeconds
     span(
-      cls      := s"mini-game__clock mini-game__clock--${color.name}",
-      dataTime := s
+      cls       := s"mini-game__clock mini-game__clock--${color.name}",
+      dataTime  := s,
+      isRunning := clock.isRunning
     )(
       f"${s / 60}:${s % 60}%02d"
     )
