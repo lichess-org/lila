@@ -26,7 +26,7 @@ export const usiToLastMove = (usi: string): [Key, Key] | [Key] => {
   return [usi.substr(0, 2) as Key, usi.substr(2, 2) as Key];
 };
 
-export const puzzlePov = (puzzle: Puzzle) => parseSfen(puzzle.sfen).unwrap().turn;
+export const puzzlePov = (puzzle: Puzzle) => parseSfen('standard', puzzle.sfen, false).unwrap().turn;
 
 const throttleSound = (delay: number, name: string) => throttle(delay, () => window.lishogi.sound[name]());
 

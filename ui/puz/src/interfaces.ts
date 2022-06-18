@@ -1,4 +1,4 @@
-import { Piece } from 'shogiground/types';
+import { Piece } from 'shogiops/types';
 import { VNode } from 'snabbdom/vnode';
 import { Clock } from './clock';
 import { Combo } from './combo';
@@ -15,11 +15,13 @@ export interface Promotion {
 }
 
 export interface PuzPrefs {
-  coords: 0 | 1 | 2;
+  coords: 0 | 1 | 2 | 3;
   destination: boolean;
   dropDestination: boolean;
   moveEvent: number;
-  highlight: boolean;
+  highlightLastDests: boolean;
+  highlightCheck: boolean;
+  notation: number;
 }
 
 export type UserMove = (orig: Key, dest: Key) => void;

@@ -1,24 +1,31 @@
 import { Run } from './interfaces';
-import { Config as CgConfig } from 'shogiground/config';
+import { Config as SgConfig } from 'shogiground/config';
 import { usiToLastMove } from './util';
 import { makeSfen } from 'shogiops/sfen';
 import { shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
+import { handRoles } from 'shogiops/variantUtil';
+import { Dests, DropDests } from 'shogiground/types';
 
-export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
-  const cur = run.current;
-  const pos = cur.position();
+export const makeSgOpts = (run: Run, canMove: boolean): SgConfig => {
+  const cur = run.current,
+    pos = cur.position(),
+    sfen = makeSfen(pos),
+    splitSfen = sfen.split(' ');
   return {
-    sfen: makeSfen(pos.toSetup()),
+    sfen: { board: splitSfen[0], hands: splitSfen[2] },
+    activeColor: run.pov,
     orientation: run.pov,
     turnColor: pos.turn,
     movable: {
-      color: run.pov,
-      dests: canMove ? shogigroundDests(pos) : undefined,
+      dests: canMove ? (shogigroundDests(pos) as Dests) : undefined,
     },
-    dropmode: {
-      dropDests: canMove ? shogigroundDropDests(pos) : undefined,
+    droppable: {
+      dests: canMove ? (shogigroundDropDests(pos) as DropDests) : undefined,
+    },
+    hands: {
+      roles: handRoles('standard'),
     },
     check: !!pos.isCheck(),
-    lastMove: cur.moveIndex > 0 ? usiToLastMove(cur.lastMove()) : undefined,
+    lastDests: cur.moveIndex > 0 ? usiToLastMove(cur.lastMove()) : undefined,
   };
 };
