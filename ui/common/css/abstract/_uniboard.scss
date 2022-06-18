@@ -11,14 +11,12 @@ $mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
 $col3-uniboard-side: minmax(220px, 20vw);
 $col3-uniboard-controls: 3rem;
 
-$col3-uniboard-min-width: calc(70vmin * var(--board-scale));
-$col3-uniboard-max-width: calc(96vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
+$col3-uniboard-min-width: calc(65vmin * var(--board-scale));
+$col3-uniboard-max-width: calc((100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11);
 $col3-uniboard-width: minmax($col3-uniboard-min-width, $col3-uniboard-max-width);
 
-$square-max: calc(#{$col3-uniboard-max-width} / 9);
-$square-max-taller: calc(#{$col3-uniboard-max-width} / 9 / 20 * 21);
-
-$col3-uniboard-table: minmax(245px, calc(#{$square-max} * 7));
+$col3-uniboard-table-max: calc((100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 7);
+$col3-uniboard-table: minmax(240px, $col3-uniboard-table-max);
 
 $col3-uniboard-default-scale: 0.9; // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
@@ -28,14 +26,14 @@ $col3-uniboard-default-max-width: calc(
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
 $col3-uniboard-default-table: minmax(240px, 400px);
 
-$col2-uniboard-table: minmax(240px, calc(#{$square-max} * 7));
+$col2-uniboard-table: $col3-uniboard-table;
 
 $col2-uniboard-controls: $col3-uniboard-controls;
 $col2-uniboard-width: $col3-uniboard-width;
 $col2-uniboard-default-width: $col3-uniboard-default-width;
 $col2-uniboard-default-table: $col3-uniboard-default-table;
 
-$col2-uniboard-squeeze-table: minmax(220px, calc(#{$square-max} * 7));
-$col2-uniboard-squeeze-width: minmax(calc(50vmin), calc(100vh - #{$site-header-outer-height} - #{$block-gap}));
+$col2-uniboard-squeeze-table: minmax(220px, $col3-uniboard-table-max);
+$col2-uniboard-squeeze-width: minmax(calc(50vmin), calc((100vh - #{$site-header-outer-height} - #{$block-gap}) / 12 * 11));
 
 $col1-uniboard-controls: $col2-uniboard-controls;
