@@ -6,6 +6,7 @@ import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './int
 import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { bind, spinner } from '../util';
+import { handRoles } from 'shogiops/variantUtil';
 
 export class MultiBoardCtrl {
   loading: boolean = false;
@@ -122,10 +123,10 @@ function makePreview(study: StudyCtrl) {
     const contents = preview.players
       ? [
           makePlayer(preview.players[opposite(preview.orientation)]),
-          makeCg(preview),
+          makeSg(preview),
           makePlayer(preview.players[preview.orientation]),
         ]
-      : [h('div.name', preview.name), makeCg(preview)];
+      : [h('div.name', preview.name), makeSg(preview)];
     return h(
       'a.' + preview.id,
       {
@@ -154,26 +155,33 @@ function usiToLastMove(lm?: string): Key[] | undefined {
   return lm ? ((lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) as Key[]) : undefined;
 }
 
-function makeCg(preview: ChapterPreview): VNode {
-  return h(`div.mini-board.cg-wrap.variant-${preview.variant.key}`, {
+function makeSg(preview: ChapterPreview): VNode {
+  return h(`div.mini-board.sg-wrap.variant-${preview.variant.key}`, {
     hook: {
       insert(vnode) {
-        const cg = Shogiground(vnode.elm as HTMLElement, {
-          coordinates: false,
-          drawable: { enabled: false, visible: false },
-          resizable: false,
-          viewOnly: true,
-          orientation: preview.orientation,
-          sfen: preview.sfen,
-          hasPockets: true,
-          pockets: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
-          lastMove: usiToLastMove(preview.lastMove),
-        });
-        vnode.data!.cp = { cg, sfen: preview.sfen };
+        const sg = Shogiground(
+          {
+            coordinates: { enabled: false },
+            drawable: { enabled: false, visible: false },
+            viewOnly: true,
+            orientation: preview.orientation,
+            sfen: {
+              board: preview.sfen,
+              hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
+            },
+            hands: {
+              inlined: true,
+              roles: handRoles(preview.variant.key),
+            },
+            lastDests: usiToLastMove(preview.lastMove),
+          },
+          { board: vnode.elm as HTMLElement }
+        );
+        vnode.data!.cp = { sg, sfen: preview.sfen };
       },
       postpatch(old, vnode) {
         if (old.data!.cp.sfen !== preview.sfen) {
-          old.data!.cp.cg.set({
+          old.data!.cp.sg.set({
             sfen: preview.sfen,
             lastMove: usiToLastMove(preview.lastMove),
           });

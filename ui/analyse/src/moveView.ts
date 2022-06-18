@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { renderTime } from './clocks';
+import { notationsWithColor } from 'common/notation';
 
 export interface Ctx {
   notation: number;
@@ -38,8 +39,10 @@ export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNod
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
-  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
-  return [h('move-notation.color-icon.' + (node.ply % 2 ? 'sente' : 'gote'), node.notation)]
+  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {},
+    colorIcon = notationsWithColor.includes(ctx.notation) ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : '';
+
+  return [h('move-notation' + colorIcon, node.notation)]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
     .concat(
       ctx.showEval

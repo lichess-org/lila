@@ -1,14 +1,5 @@
-import { initial as initialBoardSfen } from 'shogiground/sfen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
-
-type DestCache = {
-  [sfen: string]: DestCacheEntry;
-};
-type DestCacheEntry = {
-  path: string;
-  dests: string;
-};
 
 interface Handlers {
   [key: string]: any; // #TODO
@@ -22,29 +13,11 @@ export interface Socket {
   send: SocketSend;
   receive(type: string, data: any): boolean;
   sendAnaUsi(req: Req): void;
-  sendAnaDests(req: Req): void;
   sendForecasts(req: Req): void;
-  clearCache(): void;
 }
 
 export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   let anaUsiTimeout: number | undefined;
-  let anaDestsTimeout: number | undefined;
-
-  let anaDestsCache: DestCache = {};
-
-  function clearCache() {
-    anaDestsCache = {};
-    ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.sfen.split(' ', 1)[0] === initialBoardSfen
-      ? {
-          '': {
-            path: '',
-            dests: 'aj fonp uD gpo vE clm wF dmln sB qponmlr ir tC enmo yH zI AJ xG',
-          },
-        }
-      : {};
-  }
-  clearCache();
 
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
@@ -100,23 +73,6 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     if (obj.variant === 'standard') delete obj.variant;
   }
 
-  function sendAnaDests(req) {
-    clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path])
-      setTimeout(function () {
-        handlers.dests(anaDestsCache[req.path]);
-      }, 300);
-    else {
-      withoutStandardVariant(req);
-      addStudyData(req);
-      send('anaDests', req);
-      anaDestsTimeout = setTimeout(function () {
-        console.log(req, 'resendAnaDests');
-        sendAnaDests(req);
-      }, 3000);
-    }
-  }
-
   function sendAnaUsi(req) {
     clearTimeout(anaUsiTimeout);
     withoutStandardVariant(req);
@@ -132,11 +88,9 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       return !!ctrl.study && ctrl.study.socketHandler(type, data);
     },
     sendAnaUsi,
-    sendAnaDests,
     sendForecasts(req) {
       send('forecasts', req);
     },
-    clearCache,
     send,
   };
 }

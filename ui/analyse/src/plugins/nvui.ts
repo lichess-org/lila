@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { prop, Prop } from 'common';
 import AnalyseController from '../ctrl';
-import { makeConfig as makeCgConfig } from '../ground';
+import { makeConfig as makeSgConfig } from '../ground';
 import { Shogiground } from 'shogiground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
@@ -26,11 +26,13 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.shogiground)
-        ctrl.shogiground = Shogiground(document.createElement('div'), {
-          ...makeCgConfig(ctrl),
+        ctrl.shogiground = Shogiground({
+          ...makeSgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },
-          coordinates: false,
+          coordinates: {
+            enabled: false,
+          },
         });
       return h('main.analyse', [
         h('div.nvui', [

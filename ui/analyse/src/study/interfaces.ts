@@ -53,7 +53,7 @@ export interface StudyCtrl {
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
   nextChapter(): StudyChapterMeta | undefined;
-  mutateCgConfig(config: any): void;
+  mutateSgConfig(config: any): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;

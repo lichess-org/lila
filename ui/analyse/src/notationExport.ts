@@ -7,15 +7,12 @@ import { ops as treeOps } from 'tree';
 
 import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
 import { makeCsaHeader, makeCsaMove } from 'shogiops/notation/csa/csa';
-import { parseSfen, INITIAL_SFEN } from 'shogiops/sfen';
+import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { defined } from 'common';
 import { parseUsi } from 'shogiops/util';
-import { Square, Rules } from 'shogiops/types';
+import { Square } from 'shogiops/types';
 import { renderTime } from './clocks';
-import { Position } from 'shogiops';
-import { lishogiVariantRules } from 'shogiops/compat';
-import { PositionError, setupPosition } from 'shogiops/variant';
-import { Result } from '@badrap/result';
+import { Position } from 'shogiops/shogi';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
   return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
@@ -54,7 +51,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
   }
 
   for (const m of mainline.reverse()) {
-    const newPos = makePosition(m.sfen, pos.rules);
+    const newPos = parseSfen(pos.rules, m.sfen, false);
     if (newPos.isOk) {
       for (const m2 of m.children.slice(1)) {
         res.push('\n変化：' + m2.ply + '手');
@@ -68,10 +65,13 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
 
 export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
-  const setup = parseSfen(g.initialSfen ?? INITIAL_SFEN).unwrap();
   const offset = ctrl.plyOffset();
 
-  const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
+  const pos = parseSfen(
+    ctrl.data.game.variant.key,
+    g.initialSfen ?? initialSfen(ctrl.data.game.variant.key),
+    false
+  ).unwrap();
   const moves = makeKifNodes(ctrl.tree.root, pos, offset % 2).join('\n');
 
   const tags = ctrl.data.tags ?? [];
@@ -85,7 +85,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
 
   return [
     ...otherTags,
-    makeKifHeader(setup),
+    makeKifHeader(pos),
     sente.join('：'),
     gote.join('：'),
     '手数----指手---------消費時間--',
@@ -110,6 +110,7 @@ function makeCsaMainline(node: Tree.Node, pos: Position): string[] {
         const csaMove = makeCsaMove(pos, move);
         const csaTime = defined(m.clock) ? makeCsaTime(m.clock) : '';
         res.push(csaMove + csaTime);
+        pos.play(move);
       }
     }
     if (defined(m.comments)) {
@@ -157,30 +158,30 @@ function processCsaTags(tags: string[][]): string[] {
     .concat(asciiTags);
 }
 
-function makePosition(initialSfen: Sfen, rules: Rules): Result<Position, PositionError> {
-  return parseSfen(initialSfen).chain(s => setupPosition(rules, s));
-}
-
 export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const tags = processCsaTags(ctrl.data.tags ?? []);
-  const setup = parseSfen(g.initialSfen ?? INITIAL_SFEN).unwrap();
-  const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
+  const pos = parseSfen('standard', g.initialSfen ?? initialSfen('standard'), false).unwrap();
   const moves = makeCsaMainline(ctrl.tree.root, pos).join('\n');
-  return [...tags, makeCsaHeader(setup), moves].join('\n');
+  return [...tags, makeCsaHeader(pos), moves].join('\n');
 }
 
-export function renderNodesHtml(nodes: ForecastStep[], notation: number, variant: VariantKey): MaybeVNodes {
+export function renderNodesHtml(
+  nodes: ForecastStep[],
+  initialSfen: Sfen,
+  notation: number,
+  variant: VariantKey
+): MaybeVNodes {
   if (!nodes[0]) return [];
-  const initialSfen = nodes[0].sfen;
   if (!nodes[0].usi) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
   const usis = nodes.map(n => n.usi);
+
   const movesNotation = makeMoveNotationLine(notation, initialSfen, variant, usis);
-  movesNotation.forEach((notation, index) => {
+  movesNotation.forEach((moveNotation, index) => {
     tags.push(h('index', index + 1 + '.'));
-    tags.push(h('move-notation', notation));
+    tags.push(h('move-notation', moveNotation));
   });
   return tags;
 }

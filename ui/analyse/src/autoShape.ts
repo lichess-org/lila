@@ -1,16 +1,17 @@
-import { isDrop } from 'shogiops/types';
+import { isDrop, Role } from 'shogiops/types';
 import { winningChances } from 'ceval';
-import * as cg from 'shogiground/types';
+import * as sg from 'shogiground/types';
 import { opposite } from 'shogiground/util';
 import { DrawShape } from 'shogiground/draw';
 import AnalyseCtrl from './ctrl';
 import { promote } from 'shogiops/variantUtil';
-import { defined, pretendItsUsi } from 'common';
+import { defined } from 'common/common';
 import { makeSquare, parseUsi } from 'shogiops/util';
 
-function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
+function pieceDrop(key: sg.Key, role: Role, color: Color): DrawShape {
   return {
     orig: key,
+    dest: key,
     piece: {
       color,
       role,
@@ -20,29 +21,22 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   };
 }
 
-export function makeShapesFromUsi(
-  color: Color,
-  usi: Usi,
-  brush: string,
-  pieces?: cg.Pieces,
-  modifiers?: any
-): DrawShape[] {
-  const move = parseUsi(pretendItsUsi(usi))!;
-  const to = makeSquare(move.to);
-  if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
+export function makeShapesFromUsi(color: Color, usi: Usi, brush: string, pieces?: sg.Pieces): DrawShape[] {
+  const move = parseUsi(usi)!;
+  const to = makeSquare(move.to) as Key;
+  if (isDrop(move)) return [{ orig: to, dest: to, brush }, pieceDrop(to, move.role, color)];
 
   const shapes: DrawShape[] = [
     {
-      orig: makeSquare(move.from),
+      orig: makeSquare(move.from) as Key,
       dest: to,
       brush,
-      modifiers,
     },
   ];
-  const pieceToPromote = move.promotion ? pieces?.get(makeSquare(move.from)) : undefined;
+  const pieceToPromote = move.promotion ? pieces?.get(makeSquare(move.from) as Key) : undefined;
   if (defined(pieceToPromote)) {
     // todo variant
-    shapes.push(pieceDrop(to, promote('shogi')(pieceToPromote.role), color));
+    shapes.push(pieceDrop(to, promote('standard')(pieceToPromote.role) || pieceToPromote.role, color));
   }
   return shapes;
 }
@@ -59,10 +53,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     if (hint) {
       if (hint.mode === 'move') return makeShapesFromUsi(color, hint.usi, 'paleGreen', pieces);
       else {
-        const move = parseUsi(pretendItsUsi(hint.usi))!;
+        const move = parseUsi(hint.usi)!;
         return [
           {
-            orig: isDrop(move) ? makeSquare(move.to) : makeSquare(move.from),
+            orig: isDrop(move) ? { color, role: move.role } : (makeSquare(move.from) as Key),
+            dest: isDrop(move) ? { color, role: move.role } : (makeSquare(move.from) as Key),
             brush: 'paleGreen',
           },
         ];
@@ -76,9 +71,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
-    return makeShapesFromUsi(color, ctrl.retro.showBadNode().usi, 'paleRed', pieces, {
-      lineWidth: 8,
-    });
+    return makeShapesFromUsi(color, ctrl.retro.showBadNode().usi, 'paleRed', pieces);
   }
   if (hovering && hovering.sfen === nSfen)
     shapes = shapes.concat(makeShapesFromUsi(color, hovering.usi, 'paleGreen', pieces));
@@ -93,11 +86,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(
-              makeShapesFromUsi(color, pv.moves[0], 'paleGreen', pieces, {
-                lineWidth: Math.round(12 - shift * 50), // 12 to 2
-              })
-            );
+            shapes = shapes.concat(makeShapesFromUsi(color, pv.moves[0], 'paleGreen', pieces));
           }
         });
       }
@@ -111,11 +100,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     pv1s.forEach(function (pv) {
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
-        shapes = shapes.concat(
-          makeShapesFromUsi(rcolor, pv.moves[0], 'paleRed', pieces, {
-            lineWidth: Math.round(11 - shift * 45), // 11 to 2
-          })
-        );
+        shapes = shapes.concat(makeShapesFromUsi(rcolor, pv.moves[0], 'paleRed', pieces));
       }
     });
   }
@@ -124,10 +109,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     if (usi && glyphs && glyphs.length > 0) {
       const glyph = glyphs[0],
         svg = glyphToSvg[glyph.symbol],
-        move = parseUsi(pretendItsUsi(usi));
+        move = parseUsi(usi);
       if (svg && move) {
         shapes = shapes.concat({
-          orig: makeSquare(move.to),
+          orig: makeSquare(move.to) as Key,
+          dest: makeSquare(move.to) as Key,
           customSvg: svg,
           brush: '',
         });

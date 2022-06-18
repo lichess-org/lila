@@ -15,12 +15,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     return fc.length > 1;
   });
   const initialSfen = firstNode.sfen;
-  const moveNotation = makeNotation(
-    ctrl.data.pref.pieceNotation,
-    initialSfen,
-    ctrl.data.game.variant.key,
-    cNodes[0].usi
-  );
+  const moveNotation = makeNotation(ctrl.data.pref.notation, initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
   return h(
     'button.on-my-turn.button.text',
     {
@@ -36,6 +31,10 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
       ]),
     ]
   );
+}
+
+function initialSfen(ctrl: AnalyseCtrl): Sfen {
+  return ctrl.mainline[ctrl.mainline.length - 1].sfen;
 }
 
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
@@ -85,7 +84,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   },
                   'x'
                 ),
-                h('moves-notation', renderNodesHtml(nodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
+                h(
+                  'moves-notation',
+                  renderNodesHtml(nodes, initialSfen(ctrl), ctrl.data.pref.notation, ctrl.data.game.variant.key)
+                ),
               ]
             );
           })
@@ -103,7 +105,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   h('span', ctrl.trans.noarg('addCurrentVariation')),
                   h(
                     'moves-notation',
-                    renderNodesHtml(cNodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)
+                    renderNodesHtml(cNodes, initialSfen(ctrl), ctrl.data.pref.notation, ctrl.data.game.variant.key)
                   ),
                 ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),

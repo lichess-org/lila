@@ -99,7 +99,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart)
       try {
         li.loadScript('javascripts/chart/movetime.js').then(function () {
-          li.movetimeChart(data, ctrl.trans, data.pref.pieceNotation);
+          li.movetimeChart(data, ctrl.trans, data.pref.notation);
         });
       } catch (e) {}
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)

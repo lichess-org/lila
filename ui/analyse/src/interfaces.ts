@@ -1,6 +1,5 @@
 import { VNode } from 'snabbdom/vnode';
 import { Player, Status, Source, Clock } from 'game';
-import * as cg from 'shogiground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
@@ -9,8 +8,6 @@ import AnalyseController from './ctrl';
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
-
-export { Key, Piece } from 'shogiground/types';
 
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;
@@ -119,10 +116,6 @@ export interface AnalyseOpts {
   $underboard?: JQuery;
   i18n: any;
   chat: any;
-}
-
-export interface JustCaptured extends cg.Piece {
-  promoted?: boolean;
 }
 
 export type Conceal = boolean | 'conceal' | 'hide' | null;

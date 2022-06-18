@@ -4,7 +4,7 @@ import { detectFourfold } from '../nodeFinder';
 //import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { pretendItsUsi, prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -85,7 +85,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
   function nodeBestUsi(node: Tree.Node): Usi | undefined {
     const usi = (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
-    return usi && pretendItsUsi(usi);
+    return usi;
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
@@ -233,7 +233,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? pretendItsUsi(root.node.ceval.pvs[0].moves[0]) : null,
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
         prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else

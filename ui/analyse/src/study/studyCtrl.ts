@@ -276,7 +276,7 @@ export default function (
     currentNode,
     !!relay,
     redraw,
-    ctrl.data.pref.pieceNotation,
+    ctrl.data.pref.notation,
     ctrl.plyOffset(),
     ctrl.trans
   );
@@ -294,7 +294,7 @@ export default function (
   }
   instanciateGamebookPlay();
 
-  function mutateCgConfig(config) {
+  function mutateSgConfig(config) {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
@@ -462,7 +462,7 @@ export default function (
       if (wrongChapter(d)) return;
       if (who && who.s === li.sri) return;
       ctrl.tree.setShapes(d.s, ctrl.path);
-      if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
+      if (ctrl.path === position.path) ctrl.shogiground.setShapes(d.s);
       redraw();
     },
     validationError(d) {
@@ -658,7 +658,7 @@ export default function (
       ctrl.userJump(ctrl.path);
       if (!o) xhrReload();
     },
-    mutateCgConfig,
+    mutateSgConfig,
     explorerGame(gameId: string, insert: boolean) {
       makeChange('explorerGame', withPosition({ gameId, insert }));
     },

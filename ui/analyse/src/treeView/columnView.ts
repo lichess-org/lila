@@ -224,7 +224,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    notation: ctrl.data.pref.pieceNotation,
+    notation: ctrl.data.pref.notation,
     variant: ctrl.data.game.variant.key,
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

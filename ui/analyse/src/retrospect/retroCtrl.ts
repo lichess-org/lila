@@ -210,7 +210,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     noarg: root.trans.noarg,
     node: () => root.node,
     redraw,
-    notation: root.data.pref.pieceNotation,
+    notation: root.data.pref.notation,
     variant: root.data.game.variant.key,
     offset: root.plyOffset(),
   };
