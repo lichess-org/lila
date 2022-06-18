@@ -28,7 +28,7 @@ object bits {
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag { "round.zh" },
+        cssTag("round"),
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
