@@ -3,6 +3,7 @@ package views.html.learn
 import play.api.libs.json.Json
 
 import lila.api.Context
+import play.api.libs.json._
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
@@ -13,7 +14,7 @@ object index {
 
   import trans.learn.{ play => _, _ }
 
-  def apply(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context) =
+  def apply(data: Option[JsValue], pref: lila.pref.Pref)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${learnShogi.txt()} - ${byPlaying.txt()}",
       moreJs = frag(
@@ -22,6 +23,13 @@ object index {
 LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
           Json.obj(
             "data" -> data,
+            "pref" -> Json.obj(
+              "coords"          -> pref.coords,
+              "moveEvent"       -> pref.moveEvent,
+              "highlightLastDests" -> pref.highlightLastDests,
+              "highlightCheck" -> pref.highlightCheck,
+              "notation"   -> pref.notation
+            ),
             "i18n" -> i18nJsObject(i18nKeys)
           )
         )})})""")

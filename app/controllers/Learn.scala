@@ -19,7 +19,7 @@ final class Learn(env: Env) extends LilaController(env) {
           env.learn.api.get(me) map { Json.toJson(_) } map some
         }
         .map { progress =>
-          Ok(html.learn.index(progress))
+          Ok(html.learn.index(progress, ctx.pref))
         }
     }
 
