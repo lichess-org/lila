@@ -17,6 +17,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private val dataColor    = attr("data-color")
   private val dataSfen     = attr("data-sfen")
   private val dataLastmove = attr("data-lastmove")
+  private val dataVariant  = attr("data-variant")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -246,35 +247,38 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val game     = pov.game
     val isLive   = withLive && game.isBeingPlayed
     val cssClass = isLive ?? ("live mini-board-" + game.id)
-    val variant  = game.variant.key
+    val variant  = game.variant
     val tag      = if (withLink) a else span
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-wrap parse-sfen $cssClass variant-$variant",
+      cls := 
+        s"mini-board mini-board-${game.id} sg-wrap parse-sfen $cssClass d-${variant.numberOfFiles}x${variant.numberOfRanks}",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataSfen := game.situation.toSfen.value,
-      dataLastmove := ~game.lastMoveKeys
-    )(cgWrapContent)
+      dataLastmove := ~game.lastMoveKeys,
+      dataVariant := game.variant.key
+    )(sgWrapContent)
   }
 
   def gameSfenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
     val isLive  = pov.game.isBeingPlayed
-    val variant = pov.game.variant.key
+    val variant = pov.game.variant
     a(
       href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-sfen variant-$variant" -> true,
-        s"live mini-board-${pov.gameId}"                                           -> isLive
+        s"mini-board mini-board-${pov.gameId} sg-wrap parse-sfen d-${variant.numberOfFiles}x${variant.numberOfRanks}" -> true,
+        s"live mini-board-${pov.gameId}"                                                                              -> isLive
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,
       dataSfen := pov.game.situation.toSfen.value,
       dataLastmove := ~pov.game.lastMoveKeys,
+      dataVariant := pov.game.variant.key,
       target := blank.option("_blank")
-    )(cgWrapContent)
+    )(sgWrapContent)
   }
 
   def challengeTitle(c: lila.challenge.Challenge) = {

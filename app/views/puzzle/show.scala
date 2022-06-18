@@ -57,7 +57,8 @@ object show {
         st.aside(cls := "puzzle__side")(
           div(cls := "puzzle__side__metas")
         ),
-        div(cls := "puzzle__board main-board")(shogigroundBoard),
+        div(cls := "puzzle__board main-board")
+          (shogigroundBoard(shogi.variant.Standard, puzzle.color.some)),
         div(cls := "puzzle__tools"),
         div(cls := "puzzle__controls")
       )

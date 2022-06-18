@@ -13,8 +13,6 @@ import controllers.routes
 
 object bits {
 
-  private val dataLastmove = attr("data-lastmove")
-
   def featuredJs(pov: Pov): Frag =
     frag(
       gameSfenNoCtx(pov, tv = true),
@@ -33,20 +31,11 @@ object bits {
       variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
-      cls := s"mini-board parse-sfen cg-wrap variant-${variant.key}",
-      dataColor := color.name,
-      dataSfen := sfen.value
-    )(cgWrapContent)
-
-  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(
-      tag: Tag
-  ): Tag =
-    tag(
-      cls := "mini-board parse-sfen cg-wrap",
+      cls := s"mini-board parse-sfen sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}",
       dataColor := color.name,
       dataSfen := sfen.value,
-      dataLastmove := lastMove
-    )(cgWrapContent)
+      dataVariant := variant.key
+    )(sgWrapContent)
 
   def gameIcon(game: Game): Char =
     game.perfType match {

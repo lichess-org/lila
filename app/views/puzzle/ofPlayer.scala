@@ -52,7 +52,7 @@ object ofPlayer {
                     div(cls := "puzzle-of-player__pager infinite-scroll")(
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
-                          views.html.game.bits.miniTag(
+                          views.html.puzzle.bits.miniTag(
                             sfen = puzzle.sfenAfterInitialMove,
                             color = puzzle.color,
                             lastMove = puzzle.lastMove

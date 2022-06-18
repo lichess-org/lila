@@ -124,7 +124,6 @@ object replay {
       title = titleOf(pov),
       moreCss = frag(
         cssTag("analyse.round"),
-        cssTag("analyse.zh"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
@@ -147,7 +146,7 @@ object replay {
       openGraph = povOpenGraph(pov).some
     )(
       frag(
-        main(cls := "analyse")(
+        main(cls := s"analyse variant-${pov.game.variant}")(
           st.aside(cls := "analyse__side")(
             views.html.game
               .side(
@@ -159,7 +158,8 @@ object replay {
               )
           ),
           chatOption.map(_ => views.html.chat.frag),
-          div(cls := "analyse__board main-board")(shogigroundBoard),
+          div(cls := "analyse__board main-board")
+            (shogigroundBoard(pov.game.variant, pov.color.some)),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           !ctx.blind option frag(

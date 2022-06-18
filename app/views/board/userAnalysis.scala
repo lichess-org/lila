@@ -17,7 +17,6 @@ object userAnalysis {
       title = trans.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
-        cssTag("analyse.zh"), // pov.game.variant == Standard option cssTag("analyse.zh"),
         withForecast option cssTag("analyse.forecast"),
         ctx.blind option cssTag("round.nvui")
       ),
@@ -46,7 +45,7 @@ object userAnalysis {
         .some,
       zoomable = true
     ) {
-      main(cls := "analyse")(
+      main(cls := s"analyse variant-${pov.game.variant}")(
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
@@ -60,7 +59,8 @@ object userAnalysis {
             }
           )
         ),
-        div(cls := "analyse__board main-board")(shogigroundBoard),
+        div(cls := "analyse__board main-board")
+          (shogigroundBoard(pov.game.variant, pov.color.some)),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )
