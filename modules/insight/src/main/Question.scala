@@ -4,7 +4,9 @@ case class Question[X](
     dimension: InsightDimension[X],
     metric: Metric,
     filters: List[Filter[_]]
-)
+) {
+  def add(filter: Filter[_]) = copy(filters = filter :: filters)
+}
 
 object Question {
 

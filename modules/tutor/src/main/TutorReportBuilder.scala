@@ -18,6 +18,7 @@ import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import lila.insight.Cluster
 import lila.common.LilaOpeningFamily
+import lila.insight.Phase
 
 final class TutorReportBuilder(
     userRepo: UserRepo,
@@ -27,9 +28,7 @@ final class TutorReportBuilder(
     reportColl: Coll @@ ReportColl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode,
-    mat: akka.stream.Materializer
+    system: akka.actor.ActorSystem
 ) {
 
   import TutorBsonHandlers._
@@ -75,44 +74,51 @@ final class TutorReportBuilder(
   } yield TutorFullReport(userId, DateTime.now, TutorOpenings(Color.Map(whiteOpenings, blackOpenings)))
 
   private def computeOpenings(user: User, color: Color): Fu[TutorColorOpenings] = {
-    val question = Question(
+    val performanceQuestion = Question(
       InsightDimension.OpeningFamily,
-      Metric.RatingDiff,
+      Metric.Performance,
       List(
         Filter(InsightDimension.Color, List(color)),
-        Filter(InsightDimension.Perf, perfTypes)
+        Filter(InsightDimension.Perf, PerfType.standard)
       )
     )
     for {
-      userAnswer <- insightApi.ask(question, user, withPovs = false)
-      peerAnswer <- insightApi.askPeers(
-        question.copy(
-          filters = Filter(InsightDimension.OpeningFamily, userAnswer.clusters.map(_.x)) :: question.filters
-        ),
-        user
-      )
-      userTotalNbGames = userAnswer.clusters.foldLeft(0)(_ + _.size)
-      peerTotalNbGames = peerAnswer.clusters.foldLeft(0)(_ + _.size)
-      families = userAnswer.clusters.collect { case Cluster(family, Insight.Single(point), nbGames, _) =>
-        val peerData = peerAnswer.clusters collectFirst {
-          case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
-            (point.y, nbGames / peerTotalNbGames)
-        }
-        TutorOpeningFamily(
-          family,
-          games = TutorMetric(
-            TutorRatio(nbGames, userTotalNbGames),
-            TutorRatio(peerData.??(_._2))
-          ),
-          ratingGain = TutorMetric(point.y, peerData.??(_._1)),
-          acpl = TutorMetric(0, 0)
-        )
+      performanceAnswer <- insightApi.ask(performanceQuestion, user, withPovs = false)
+      familyFilter     = Filter(InsightDimension.OpeningFamily, performanceAnswer.clusters.map(_.x))
+      filteredQuestion = performanceQuestion.add(familyFilter)
+      acplQuestion = filteredQuestion
+        .copy(metric = Metric.MeanCpl)
+        .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
+      acplAnswer            <- insightApi.ask(acplQuestion, user, withPovs = false)
+      performancePeerAnswer <- insightApi.askPeers(filteredQuestion, user)
+      acplPeerAnswer        <- insightApi.askPeers(acplQuestion, user)
+      userTotalNbGames = performanceAnswer.clusters.foldLeft(0)(_ + _.size)
+      peerTotalNbGames = performancePeerAnswer.clusters.foldLeft(0)(_ + _.size)
+      families = performanceAnswer.clusters.collect {
+        case Cluster(family, Insight.Single(point), nbGames, _) =>
+          val peerData = performancePeerAnswer.clusters collectFirst {
+            case Cluster(fam, Insight.Single(point), nbGames, _) if fam == family =>
+              (point.y, nbGames / peerTotalNbGames)
+          }
+          TutorOpeningFamily(
+            family,
+            games = TutorMetric(
+              TutorRatio(nbGames, userTotalNbGames),
+              TutorRatio(peerData.??(_._2))
+            ),
+            performance = TutorMetric(point.y, peerData.??(_._1)),
+            acpl = TutorMetricOption(
+              acplAnswer.clusters collectFirst {
+                case Cluster(fam, Insight.Single(point), _, _) if fam == family => point.y
+              },
+              acplPeerAnswer.clusters collectFirst {
+                case Cluster(fam, Insight.Single(point), _, _) if fam == family => point.y
+              }
+            )
+          )
       }
     } yield TutorColorOpenings(families)
   }
-
-  private val perfTypes =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
 
   // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
   //   analysisRepo.byGame(game) orElse {

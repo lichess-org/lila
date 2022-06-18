@@ -16,30 +16,53 @@ object tutor {
       moreCss = frag(cssTag("tutor")),
       title = "Lichess Tutor"
     ) {
-      main(
-        h1("Lichess Tutor"),
-        div(cls := "tutor tutor__report")(
-          chess.Color.all.map { color =>
-            st.section(cls := "tutor__report__opeing")(
-              h2(color.name),
-              report.openings.colors(color).families.map { fam =>
-                div(
-                  h3(fam.family.name.value),
-                  p("Rating gain: ", showMetric(fam.ratingGain)),
-                  p("ACPL: ", showMetric(fam.acpl)),
-                  p("Games: ", showMetric(fam.games))
-                )
-              }
-            )
-          }
+      main(cls := "page-menu tutor")(
+        st.aside(cls := "page-menu__menu")(),
+        div(cls := "page-menu__content box box-pad")(
+          h1("Lichess Tutor"),
+          div(cls := "tutor__openings")(
+            chess.Color.all.map { color =>
+              st.section(cls := "tutor__openings__color")(
+                h2("Your ", color.name, " openings"),
+                report.openings.colors(color).families.map { fam =>
+                  div(cls := "tutor__opening")(
+                    h3(fam.family.name.value),
+                    table(cls := "slist")(
+                      thead(tr(th("Metric"), th("You"), th("Peers"))),
+                      tbody(
+                        tr(
+                          th("Frequency"),
+                          showMetric(fam.games)
+                        ),
+                        tr(
+                          th("Performance"),
+                          showMetric(fam.performance)
+                        ),
+                        tr(
+                          th("Centipawn loss"),
+                          showMetric(fam.acpl)
+                        )
+                      )
+                    )
+                  )
+                }
+              )
+            }
+          )
         )
       )
     }
 
   private def showMetric[A](metric: TutorMetric[A]) =
-    div(cls := "metric")(
-      strong(metricValue(metric.mine)),
-      em(" (peers: ", metricValue(metric.peer), ")")
+    frag(
+      td(metricValue(metric.mine)),
+      td(metricValue(metric.peer))
+    )
+
+  private def showMetric[A](metric: TutorMetricOption[A]) =
+    frag(
+      td(metric.mine.fold("?")(metricValue)),
+      td(metric.peer.fold("?")(metricValue))
     )
 
   private def metricValue[A](value: A) = value match {

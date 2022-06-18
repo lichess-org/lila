@@ -7,6 +7,7 @@ import lila.game.Pov
 import lila.rating.PerfType
 
 case class TutorMetric[A](mine: A, peer: A)
+case class TutorMetricOption[A](mine: Option[A], peer: Option[A])
 
 case class TutorRatio(value: Double) extends AnyVal
 

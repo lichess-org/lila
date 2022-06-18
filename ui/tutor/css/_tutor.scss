@@ -1,0 +1,20 @@
+.tutor {
+  &__openings {
+    @extend %flex-center;
+    &__color {
+      flex: 50% 0 0;
+      h2 {
+        font-size: 3em;
+      }
+    }
+  }
+  &__opening {
+    @extend %box-neat;
+    margin: 1em;
+    background: $c-bg-zebra;
+    h3 {
+      padding: 1em;
+      font-size: 1.6em;
+    }
+  }
+}

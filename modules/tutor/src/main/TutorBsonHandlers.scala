@@ -29,6 +29,23 @@ private object TutorBsonHandlers {
         metric => List(metric.mine, metric.peer)
       )
 
+  trait CanBeUnknown[T] {
+    val value: T
+    val is = (v: T) => v == value
+  }
+  implicit val doubleCanBeUnknown = new CanBeUnknown[Double] {
+    val value = Double.MinValue
+  }
+
+  implicit def metricOptionHandler[A](implicit
+      handler: BSONHandler[A],
+      unknown: CanBeUnknown[A]
+  ): BSONHandler[TutorMetricOption[A]] =
+    implicitly[BSONHandler[List[A]]].as[TutorMetricOption[A]](
+      list => TutorMetricOption(list.lift(0).filterNot(unknown.is), list.lift(1).filterNot(unknown.is)),
+      metric => List(metric.mine | unknown.value, metric.peer | unknown.value)
+    )
+
   // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]
   implicit val openingFamilyHandler = Macros.handler[TutorOpeningFamily]
   implicit val colorOpeningsHandler = Macros.handler[TutorColorOpenings]
