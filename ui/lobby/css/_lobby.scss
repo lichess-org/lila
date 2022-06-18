@@ -32,6 +32,11 @@ body {
   }
 }
 
+.lobby__tv, .lobby__puzzle {
+  @extend %box-neat;
+  background: $c-bg-box; 
+}
+
 .lobby__side {
   @extend %flex-column;
   overflow: hidden;

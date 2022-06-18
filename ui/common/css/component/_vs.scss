@@ -1,6 +1,5 @@
 .vstext {
-  @extend %flex-between-nowrap, %nowrap-hidden, %box-neat;
-  background: $c-bg-box;
+  @extend %flex-between-nowrap, %nowrap-hidden, %box-radius-bottom;
   border-radius: 0px 3px;
   padding: 0.3em 0.6em;
   color: $c-font;
