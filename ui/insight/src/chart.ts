@@ -165,10 +165,11 @@ function makeChart(el: HTMLElement, data: Chart) {
       const isPercent = data.valueYaxis.dataType === 'percent';
       const isSize = i % 2 === 1;
       const isStack = data.series[0].stack;
+      const isAuto = isSize || ['acpl', 'blurs'].includes(data.question.metric);
       const c: Highcharts.AxisOptions = {
         opposite: isSize,
-        min: isSize ? undefined : isStack ? 0 : Math.min(...data.series[0].data),
-        max: isSize ? undefined : isStack ? 100 : Math.max(...data.series[0].data),
+        min: isAuto ? undefined : isStack ? 0 : Math.min(...data.series[0].data),
+        max: isAuto ? undefined : isStack ? 100 : Math.max(...data.series[0].data),
         labels: {
           format: yAxisTypeFormat(a.dataType),
           style: {
