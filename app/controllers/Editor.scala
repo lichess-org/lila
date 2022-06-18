@@ -1,6 +1,7 @@
 package controllers
 
 import shogi.format.forsyth.Sfen
+import shogi.variant.{ Standard, Variant }
 import shogi.Situation
 import play.api.libs.json._
 
@@ -20,23 +21,31 @@ final class Editor(env: Env) extends LilaController(env) {
     })
   }
 
-  def index = load("")
+  def index = load("", Standard)
 
-  def load(urlSfen: String) =
+  def parseArg(arg: String) =
+    arg.split("/", 2) match {
+      case Array(key) => load("", Variant orDefault key)
+      case Array(key, sfen) => 
+        Variant.byKey get key match {
+          case Some(variant) => load(sfen, variant)
+          case _             => load(arg, Standard)
+        }
+      case _ => load("", Standard)
+    }
+
+  def load(urlSfen: String, variant: Variant) =
     Open { implicit ctx =>
-      val sfenStr = lila.common.String
+      val decodedSfen: Option[Sfen] = lila.common.String
         .decodeUriPath(urlSfen)
-        .map(_.replace('_', ' ').trim)
-        .filter(_.nonEmpty)
-        .orElse(get("sfen"))
+        .filter(_.trim.nonEmpty)
+        .orElse(get("sfen")) map Sfen.clean
       fuccess {
-        val situation = readSfen(sfenStr)
+        val situation = readSfen(decodedSfen, variant.some)
         Ok(
           html.board.editor(
-            sit = situation,
-            sfen = situation.toSfen,
-            positionsJson,
-            animationDuration = env.api.config.editorAnimationDuration
+            situation,
+            positionsJson
           )
         )
       }
@@ -45,28 +54,26 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val situation = readSfen(get("sfen"))
+        val sfen = get("sfen") map Sfen.clean
+        val variant = get("variant").flatMap(Variant.byKey get _)
+        val sit = readSfen(sfen, variant)
         Ok(
-          html.board.bits.jsData(
-            sit = situation,
-            sfen = situation.toSfen,
-            animationDuration = env.api.config.editorAnimationDuration
-          )
+          html.board.editor.jsData(sit)
         ) as JSON
       }
     }
 
-  private def readSfen(sfen: Option[String]): Situation =
-    sfen.map(Sfen.clean).filter(_.value.nonEmpty).flatMap(_.toSituation(shogi.variant.Standard)) | Situation(
-      shogi.variant.Standard
-    )
+  private def readSfen(sfenO: Option[Sfen], variantO: Option[Variant]): Situation = {
+    val variant = variantO | Standard
+    sfenO.filter(_.value.nonEmpty).flatMap(_.toSituation(variant)) | Situation(variant)
+  }
 
   def game(id: String) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "sente")
-          else routes.Editor.load(get("sfen") | (game.shogi.toSfen).value)
+          else routes.Editor.parseArg(s"${game.variant.key}/${get("sfen") | (game.shogi.toSfen).value}")
         }
       }
     }

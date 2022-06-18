@@ -1,6 +1,6 @@
 package views.html.board
 
-import shogi.format.forsyth.Sfen
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -13,16 +13,14 @@ object editor {
 
   def apply(
       sit: shogi.Situation,
-      sfen: Sfen,
-      positionsJson: String,
-      animationDuration: scala.concurrent.duration.Duration
+      positionsJson: String
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafe(
-          s"""var data=${safeJsonValue(bits.jsData(sit, sfen, animationDuration))};data.positions=$positionsJson;
+          s"""var data=${safeJsonValue(jsData(sit))};data.positions=$positionsJson;
 LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),
@@ -40,9 +38,50 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
       main(id := "board-editor")(
         div(cls := "board-editor")(
           div(cls := "spare"),
-          div(cls := "main-board")(shogigroundBoard),
+          div(cls := "main-board")(shogigroundBoard(sit.variant, shogi.Sente.some)),
           div(cls := "spare")
         )
       )
     )
+
+    def jsData(
+      sit: shogi.Situation
+  )(implicit ctx: Context) =
+    Json.obj(
+      "sfen"    -> sit.toSfen.truncate.value,
+      "variant" -> sit.variant.key,
+      "baseUrl" -> s"$netBaseUrl${routes.Editor.index}",
+      "pref" -> Json
+        .obj(
+          "animation"          -> ctx.pref.animationMillis,
+          "coords"             -> ctx.pref.coords,
+          "moveEvent"          -> ctx.pref.moveEvent,
+          "resizeHandle"       -> ctx.pref.resizeHandle,
+          "highlightLastDests" -> ctx.pref.highlightLastDests,
+          "notation"           -> ctx.pref.notation
+        ),
+      "i18n"          -> i18nJsObject(i18nKeyes)
+    )
+
+  private val i18nKeyes = List(
+    trans.setTheBoard,
+    trans.boardEditor,
+    trans.startPosition,
+    trans.clearBoard,
+    trans.fillGotesHand,
+    trans.flipBoard,
+    trans.loadPosition,
+    trans.popularOpenings,
+    trans.handicaps,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.uwatePlays,
+    trans.shitatePlays,
+    trans.variant,
+    trans.continueFromHere,
+    trans.playWithTheMachine,
+    trans.playWithAFriend,
+    trans.analysis,
+    trans.toStudy
+  ).map(_.key)
 }
