@@ -243,7 +243,7 @@ object layout {
             else if (netConfig.isProd) fullTitle | s"$title • lichess.org"
             else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
           },
-          cssTag("site"),
+          cssTag("site" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
           ctx.pref.is3d option cssTag("board-3d"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
           ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
