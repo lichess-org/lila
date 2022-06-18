@@ -6,6 +6,10 @@ case class Question[X](
     filters: List[Filter[_]]
 ) {
   def add(filter: Filter[_]) = copy(filters = filter :: filters)
+
+  def withMetric(m: Metric) = copy(metric = m)
+
+  def monKey = s"${dimension.key}_${metric.key}"
 }
 
 object Question {

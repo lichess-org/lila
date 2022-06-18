@@ -10,7 +10,7 @@ import lila.user.User
 case class TutorPhase(
     phase: Phase,
     acpl: TutorMetricOption[Double],
-    awareness: TutorMetricOption[Double],
+    awareness: TutorMetricOption[TutorRatio],
     material: TutorMetricOption[Double]
 )
 
@@ -35,7 +35,7 @@ private object TutorPhases {
       TutorPhase(
         phase,
         acpl = acpls valueMetric phase,
-        awareness = awareness valueMetric phase,
+        awareness = awareness valueMetric phase map TutorRatio.apply,
         material = materials valueMetric phase
       )
     }

@@ -57,8 +57,7 @@ final class TutorBuilder(
   private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorReport] = key match {
     case (userId, ip) =>
       for {
-        // previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorFullReport]
-        previous <- fuccess(none[TutorReport])
+        previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorReport]
         report <- previous match {
           case Some(p) if p.isFresh => fuccess(p)
           case prev =>
@@ -71,8 +70,10 @@ final class TutorBuilder(
   }
 
   private def compute(userId: User.ID, ip: IpAddress, previous: Option[TutorReport]): Fu[TutorReport] = for {
-    u          <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
-    meanRating <- insightApi.meanRating(u, List(standardFilter)) orFailWith InsufficientGames
+    u <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
+    meanRating <- insightApi
+      .meanRating(u, List(standardFilter))
+      .monSuccess(_.tutor.meanRating) orFailWith InsufficientGames
     user = TutorUser(u, meanRating)
     openings <- TutorOpening compute user
     phases   <- TutorPhases compute user
@@ -111,8 +112,12 @@ private object TutorBuilder {
       insightApi: InsightApi,
       ec: ExecutionContext
   ) = for {
-    mine <- insightApi.ask(question, user.user, withPovs = false) map Answer.apply
-    peer <- insightApi.askPeers(question, user.rating) map Answer.apply
+    mine <- insightApi
+      .ask(question, user.user, withPovs = false)
+      .monSuccess(_.tutor askMine question.monKey) map Answer.apply
+    peer <- insightApi
+      .askPeers(question, user.rating)
+      .monSuccess(_.tutor askPeer question.monKey) map Answer.apply
   } yield Answers(mine, peer)
 
   case class Answer[Dim](answer: InsightAnswer[Dim]) {

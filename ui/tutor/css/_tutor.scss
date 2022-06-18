@@ -9,7 +9,7 @@
     }
   }
   &__opening {
-    @extend %box-neat;
+    @extend %box-neat-force;
     margin: 1em;
     background: $c-bg-zebra;
     h3 {

@@ -39,6 +39,10 @@ object tutor {
                           showMetric(fam.performance, true.some)
                         ),
                         tr(
+                          th("Tactical awareness"),
+                          showMetric(fam.awareness, true.some)
+                        ),
+                        tr(
                           th("Centipawn loss"),
                           showMetric(fam.acpl, false.some)
                         )

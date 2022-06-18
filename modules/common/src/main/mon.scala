@@ -192,9 +192,14 @@ object mon {
     val notification = counter("timeline.notification").withoutTags()
   }
   object insight {
-    val user  = future("insight.request.time", Map("for" -> "user"))
-    val peers = future("insight.request.time", Map("for" -> "peers"))
+    val user  = future("insight.request.time", "user")
+    val peers = future("insight.request.time", "peer")
     val index = future("insight.index.time")
+  }
+  object tutor {
+    def meanRating            = future("tutor.insight.meanRating")
+    def askMine(name: String) = future("tutor.insight.ask", Map("name" -> name, "as" -> "mine"))
+    def askPeer(name: String) = future("tutor.insight.ask", Map("name" -> name, "as" -> "peer"))
   }
   object search {
     def time(op: String, index: String, success: Boolean) =
