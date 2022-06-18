@@ -204,9 +204,9 @@ declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'minis
 
 declare type Color = 'sente' | 'gote';
 
-declare type Files = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
-declare type Ranks = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i';
-declare type Key = '00' | `${Files}${Ranks}`;
+declare type Files = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+declare type Ranks = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l';
+declare type Key = `${Files}${Ranks}`;
 
 declare type MoveNotation = string;
 declare type Usi = string;
