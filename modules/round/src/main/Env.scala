@@ -20,7 +20,6 @@ private class RoundConfig(
     @ConfigName("collection.note") val noteColl: CollName,
     @ConfigName("collection.forecast") val forecastColl: CollName,
     @ConfigName("collection.alarm") val alarmColl: CollName,
-    @ConfigName("animation.duration") val animationDuration: AnimationDuration,
     @ConfigName("moretime") val moretimeDuration: MoretimeDuration
 )
 
