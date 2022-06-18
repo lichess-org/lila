@@ -1,25 +1,26 @@
 {
   "name": "learn",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
-  "description": "lishogi.org chess performance statistics",
-  "main": "src/main.js",
+  "description": "lishogi.org shogi basics",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "learn"
   ],
-  "author": "ornicar",
+  "author": "ornicar, WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0"
+    "@build/rollupProject": "2.0.0",
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "common": "2.0.0",
-    "merge": "^2.1.1",
-    "mithril": "github:ornicar/mithril.js#lila-1",
-    "shogiops": "^0.2.2",
-    "snabbdom": "0.7.4"
+    "shogiground": "^0.5.3",
+    "shogiops": "^0.8.0",
+    "snabbdom": "^0.7.4"
   },
   "scripts": {
     "dev": "rollup --config",

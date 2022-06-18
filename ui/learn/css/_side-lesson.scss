@@ -1,0 +1,84 @@
+.learn__side-map {
+  user-select: none;
+  .back,
+  .categ > h2 {
+    display: block;
+    font-size: 1.3em;
+    height: 50px;
+    line-height: 50px;
+    text-indent: 15px;
+    cursor: pointer;
+    opacity: 0.81;
+  }
+  .back {
+    display: flex;
+    color: $c-font;
+  }
+  .back .stage-img {
+    width: 50px;
+    height: 50px;
+    opacity: 0.9;
+    margin-right: 10px;
+    background-color: rgba(120, 120, 120, 1);
+    background-size: 70%;
+  }
+  .back:hover {
+    background-color: rgba(120, 120, 120, 0.2);
+  }
+  .categ > h2 {
+    border-top: $border;
+  }
+  .categ > h2:hover {
+    background-color: fade-out($c-primary, 0.8);
+  }
+  .categ.active {
+    border: $border;
+    border-width: 0 1px;
+  }
+  .categ.active:last-child {
+    border-bottom-width: 1px;
+  }
+  .categ.active > h2 {
+    cursor: default;
+    background-color: $c-primary;
+    color: $c-primary-over;
+  }
+  .categ:not(.active) .categ_stages {
+    display: none;
+  }
+  .stage {
+    @extend %roboto, %flex-center;
+    @include transition();
+    font-size: 1.1em;
+    opacity: 0.9;
+    color: $c-font;
+
+    .stage-img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      margin-left: 2px;
+      padding: 10px;
+      filter: if($theme-light, brightness(0.2), brightness(0.90));
+    }
+    &.active {
+      background-color: fade-out($c-primary, 0.8);
+      border-left: 2px solid  $c-primary;
+    }
+    &.done {
+      border-left: 2px solid $c-good;
+      &:hover {
+        background-color: fade-out($c-good, 0.8);
+      }
+    }
+    &.future {
+      border-left: 2px solid $c-primary;
+      &:hover {
+        background-color: fade-out($c-primary, 0.8);
+      }
+    }
+    &:hover {
+      color: $c-font-clearer;
+    }
+  }
+}
