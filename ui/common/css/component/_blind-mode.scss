@@ -1,8 +1,7 @@
 #blind-mode {
   @if variable-exists(is-rtl) {
     margin-right: -99999px;
-  }
-  @else {
+  } @else {
     margin-left: -99999px;
   }
   height: 0;
