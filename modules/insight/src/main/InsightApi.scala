@@ -7,6 +7,7 @@ import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.config
 
 final class InsightApi(
     storage: InsightStorage,
@@ -45,9 +46,9 @@ final class InsightApi(
       }
       .monSuccess(_.insight.user)
 
-  def askPeers[X](question: Question[X], rating: MeanRating): Fu[Answer[X]] =
+  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: config.Max): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, Right(Question.Peers(rating)), withPovs = false)
+      .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
       .map { aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       }
@@ -61,7 +62,7 @@ final class InsightApi(
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),
-          Limit(pipeline.maxGames),
+          Limit(pipeline.maxGames.value),
           GroupField(F.perf)("r" -> AvgField("mr"), "n" -> SumAll)
         )
       }.map { docs =>

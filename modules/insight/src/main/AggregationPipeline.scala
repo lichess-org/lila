@@ -4,13 +4,14 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User
+import lila.common.config
 
 final private class AggregationPipeline(store: InsightStorage)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
   import InsightStorage._
 
-  val maxGames = 10_000
+  val maxGames = config.Max(10_000)
 
   def gameMatcher(filters: List[Filter[_]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher
@@ -19,7 +20,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
   def aggregate[X](
       question: Question[X],
       target: Either[User, Question.Peers],
-      withPovs: Boolean
+      withPovs: Boolean,
+      nbGames: config.Max = maxGames
   ): Fu[List[Bdoc]] =
     store.coll {
       _.aggregateList(
@@ -31,7 +33,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         import lila.insight.{ InsightDimension => D, Metric => M }
         import InsightEntry.{ BSONFields => F }
 
-        val limitGames     = Limit(maxGames)
+        val limitGames     = Limit(maxGames.value)
         val sortDate       = Sort(Descending(F.date))
         val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some

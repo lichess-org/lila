@@ -25,6 +25,7 @@ import lila.insight.{
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import scala.concurrent.ExecutionContext
+import lila.common.config
 
 final class TutorBuilder(
     insightApi: InsightApi,
@@ -117,6 +118,8 @@ private object TutorBuilder {
   type Count = Int
   type Pair  = (Value, Count)
 
+  val peerNbGames = config.Max(5_000)
+
   def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
@@ -133,11 +136,11 @@ private object TutorBuilder {
     .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key)) map AnswerMine.apply
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser)(implicit
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
   ) = insightApi
-    .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating)
+    .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
 
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
