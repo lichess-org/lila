@@ -197,10 +197,12 @@ object mon {
     val index = future("insight.index.time")
   }
   object tutor {
-    def build                 = future("tutor.build")
-    def perfStats             = future("tutor.insight.perfStats")
-    def askMine(name: String) = future("tutor.insight.ask", Map("name" -> name, "as" -> "mine"))
-    def askPeer(name: String) = future("tutor.insight.ask", Map("name" -> name, "as" -> "peer"))
+    def build     = future("tutor.build")
+    def perfStats = future("tutor.insight.perfStats")
+    def askMine   = askAs("mine") _
+    def askPeer   = askAs("peer") _
+    private def askAs(as: String)(question: String, perf: String) =
+      future("tutor.insight.ask", Map("question" -> question, "perf" -> perf, "as" -> as))
   }
   object search {
     def time(op: String, index: String, success: Boolean) =

@@ -1,0 +1,16 @@
+.tutor {
+  &-card {
+    @extend %box-neat-force;
+    background: $c-bg-zebra;
+  }
+  &-overlaid {
+    position: relative;
+    &:hover {
+      outline: 3px solid mix($c-link, $c-bg-box, 20%);
+    }
+  }
+
+  &-overlay {
+    @extend %link-overlay;
+  }
+}

@@ -117,19 +117,30 @@ private object TutorBuilder {
   type Count = Int
   type Pair  = (Value, Count)
 
-  def answers[Dim](question: Question[Dim], user: TutorUser)(implicit
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) = for {
-    mine <- insightApi
-      .ask(question, user.user, withPovs = false)
-      .monSuccess(_.tutor askMine question.monKey) map Answer.apply
-    peer <- insightApi
-      .askPeers(question, user.perfStats.rating)
-      .monSuccess(_.tutor askPeer question.monKey) map Answer.apply
-  } yield Answers(mine, peer)
+  ) =
+    for {
+      mine <- answerMine(question, user)
+      peer <- answerPeer(question, user)
+    } yield Answers(mine, peer)
 
-  case class Answer[Dim](answer: InsightAnswer[Dim]) {
+  def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = insightApi
+    .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
+    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key)) map AnswerMine.apply
+
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = insightApi
+    .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating)
+    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
+
+  sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
 
     val list: List[(Dim, Value, Count)] =
       answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
@@ -153,10 +164,12 @@ private object TutorBuilder {
 
     def countRatio(count: Count) = TutorRatio(count, totalCount)
 
-    def alignedQuestion = answer.question add Filter(answer.question.dimension, dimensions)
+    def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
   }
+  case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
+  case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
 
-  case class Answers[Dim](mine: Answer[Dim], peer: Answer[Dim]) {
+  case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
 
     def countMetric(dim: Dim, myCount: Count) = TutorMetric(
       mine countRatio myCount,

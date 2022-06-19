@@ -2,18 +2,7 @@
   &__perfs {
   }
   &__perf {
-    @extend %box-neat-force;
-    position: relative;
     margin: 1em;
-    background: $c-bg-zebra;
-
-    &:hover {
-      outline: 3px solid mix($c-link, $c-bg-box, 20%);
-    }
-
-    &__overlay {
-      @extend %link-overlay;
-    }
     h3 {
       padding: 1em;
       font-size: 1.6em;

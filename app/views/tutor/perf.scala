@@ -2,6 +2,7 @@ package views.html.tutor
 
 import controllers.routes
 import play.api.libs.json._
+import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -32,10 +33,24 @@ object perf {
             report.perf.trans
           ),
           div(cls := "tutor__perf")(
-            p(a(href := routes.Tutor.openings(user.username, report.perf.key))("My openings")),
-            p(a(href := routes.Tutor.phases(user.username, report.perf.key))("My game phases"))
+            angleCard(routes.Tutor.openings(user.username, report.perf.key))(
+              h2("Openings")
+            ),
+            angleCard(routes.Tutor.phases(user.username, report.perf.key))(
+              h2("Game phases")
+            )
           )
         )
       )
     }
+
+  private def angleCard(url: Call)(content: Modifier*)(implicit ctx: Context) =
+    div(cls := "tutor__perf__angle tutor-card tutor-overlaid")(
+      a(
+        cls  := "tutor-overlay",
+        href := url
+      ),
+      content
+    )
+
 }

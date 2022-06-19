@@ -33,7 +33,7 @@ object openings {
               st.section(cls := "tutor__openings__color")(
                 h2("Your most played ", color.name, " openings"),
                 report.openings(color).families.map { fam =>
-                  div(cls := "tutor__opening")(
+                  div(cls := "tutor__opening tutor-card tutor-overlaid")(
                     h3(fam.family.name.value),
                     table(cls := "slist")(
                       thead(tr(th("Metric"), th("You"), th("Peers"))),

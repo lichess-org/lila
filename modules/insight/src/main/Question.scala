@@ -3,9 +3,9 @@ package lila.insight
 case class Question[X](
     dimension: InsightDimension[X],
     metric: Metric,
-    filters: List[Filter[_]]
+    filters: List[Filter[_]] = Nil
 ) {
-  def add(filter: Filter[_]) = copy(filters = filter :: filters)
+  def filter(f: Filter[_]) = copy(filters = f :: filters)
 
   def withMetric(m: Metric) = copy(metric = m)
 

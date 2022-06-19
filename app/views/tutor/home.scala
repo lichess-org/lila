@@ -22,9 +22,9 @@ object home {
           h1("Lichess Tutor"),
           div(cls := "tutor__perfs")(
             report.perfs.map { perfReport =>
-              st.article(cls := "tutor__perf")(
+              st.article(cls := "tutor__perf tutor-card tutor-overlaid")(
                 a(
-                  cls  := "tutor__perf__overlay",
+                  cls  := "tutor-overlay",
                   href := routes.Tutor.perf(user.username, perfReport.perf.key)
                 ),
                 h3("Your ", perfReport.perf.trans, " games"),

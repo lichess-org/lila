@@ -18,19 +18,15 @@ private object TutorPhases {
 
   import TutorBuilder._
 
-  private val acplQuestion = Question(
-    InsightDimension.Phase,
-    Metric.MeanCpl,
-    List(Filter(InsightDimension.Perf, PerfType.standard))
-  )
-  private val awarenessQuestion = acplQuestion.copy(metric = Metric.Awareness)
-  private val materialQuestion  = acplQuestion.copy(metric = Metric.Material)
+  private val acplQuestion      = Question(InsightDimension.Phase, Metric.MeanCpl)
+  private val awarenessQuestion = Question(InsightDimension.Phase, Metric.Awareness)
+  private val materialQuestion  = Question(InsightDimension.Phase, Metric.Material)
 
   def compute(user: TutorUser)(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPhase]] =
     for {
-      acpls     <- answers(acplQuestion, user)
-      awareness <- answers(awarenessQuestion, user)
-      materials <- answers(materialQuestion, user)
+      acpls     <- answerBoth(acplQuestion, user)
+      awareness <- answerBoth(awarenessQuestion, user)
+      materials <- answerBoth(materialQuestion, user)
     } yield InsightDimension.valuesOf(InsightDimension.Phase).map { phase =>
       TutorPhase(
         phase,

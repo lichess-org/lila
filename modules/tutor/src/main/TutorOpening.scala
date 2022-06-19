@@ -36,19 +36,15 @@ private case object TutorOpening {
       ec: ExecutionContext
   ): Fu[TutorColorOpenings] = {
     for {
-      myPerfs <- insightApi.ask(
-        perfQuestion(user.perfType, color),
-        user.user,
-        withPovs = false
-      ) map Answer.apply
-      peerPerfs <- insightApi.askPeers(myPerfs.alignedQuestion, user.perfStats.rating) map Answer.apply
+      myPerfs   <- answerMine(perfQuestion(color), user)
+      peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
       performances = Answers(myPerfs, peerPerfs)
       acplQuestion = myPerfs.alignedQuestion
         .withMetric(Metric.MeanCpl)
-        .add(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-      acpls <- answers(acplQuestion, user)
+        .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
+      acpls <- answerBoth(acplQuestion, user)
       awarenessQuestion = acplQuestion.withMetric(Metric.Awareness)
-      awareness <- answers(awarenessQuestion, user)
+      awareness <- answerBoth(awarenessQuestion, user)
     } yield TutorColorOpenings {
       performances.mine.list.map { case (family, myValue, myCount) =>
         TutorOpeningFamily(
@@ -62,9 +58,9 @@ private case object TutorOpening {
     }
   }
 
-  def perfQuestion(perfType: PerfType, color: Color) = Question(
+  def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,
     Metric.Performance,
-    List(perfFilter(perfType), colorFilter(color))
+    List(colorFilter(color))
   )
 }
