@@ -18,13 +18,13 @@
 	<string name="viewXProfile">Tingnan %s Lishogi profile</string>
 	<string name="sendPM">Magpadala ng pribadong mensahe</string>
 	<string name="aboutMe">Tungkol sa akin</string>
-	<string name="playingExperience">Playing experience</string>
+	<string name="playingExperience">Karanasan sa paglalaro</string>
 	<string name="teachingExperience">Karanasan sa pagtuturo</string>
 	<string name="otherExperiences">Iba pang mga karanasan</string>
-	<string name="bestSkills">Best skills</string>
+	<string name="bestSkills">Pinakamahusay na kakayahan</string>
 	<string name="teachingMethod">Paraan ng pagtuturo</string>
-	<string name="publicStudies">Public studies</string>
-	<string name="youtubeVideos">YouTube videos</string>
+	<string name="publicStudies">Mga pampublikong pag-aaral</string>
+	<string name="youtubeVideos">Mga bidyo sa YouTube</string>
 	<plurals name="studentReviews">
 		<item quantity="one">Isa
 Isang pagsusuri ng estudyante
