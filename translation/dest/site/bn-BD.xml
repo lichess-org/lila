@@ -852,4 +852,7 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
   <string name="onlyTitledHelp">এই টুর্নামেন্টে যুক্ত হতে অফিসিয়াল খেতাব প্রয়োজন</string>
   <string name="cancelSimul">একত্রে খেলা বাতিল করুন</string>
+  <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
+  <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>
+  <string name="simulFeatured">দেখানো হবে %s</string>
 </resources>
