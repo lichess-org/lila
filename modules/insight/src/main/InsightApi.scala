@@ -97,9 +97,7 @@ final class InsightApi(
       .map { pov =>
         pov.player.userId ?? { userId =>
           storage find InsightEntry.povToId(pov) flatMap {
-            _ ?? { old =>
-              indexer.update(g, userId, old)
-            }
+            _ ?? { indexer.update(g, userId, _) }
           }
         }
       }

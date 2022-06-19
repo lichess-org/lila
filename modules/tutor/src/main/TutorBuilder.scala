@@ -66,7 +66,7 @@ final class TutorBuilder(
     case (userId, ip) =>
       getRecent(userId) getOrElse {
         for {
-          newReport <- compute(userId, ip)
+          newReport <- compute(userId, ip).monSuccess(_.tutor.build)
           _         <- reportColl.insert.one(newReport)
         } yield newReport
       }
@@ -75,9 +75,12 @@ final class TutorBuilder(
   private def compute(userId: User.ID, ip: IpAddress): Fu[TutorReport] = for {
     user <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
     playedSince = DateTime.now minusMonths 1
-    perfTypes   = PerfType.standard.filter(pt => user.perfs(pt).latest.exists(_ isAfter playedSince))
-    perfStats <- insightApi.perfStats(user, perfTypes.pp).monSuccess(_.tutor.perfStats).thenPp
-    tutorUsers = perfStats collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
+    perfTypes   = PerfType.standardWithUltra.filter(pt => user.perfs(pt).latest.exists(_ isAfter playedSince))
+    perfStats <- insightApi.perfStats(user, perfTypes).monSuccess(_.tutor.perfStats)
+    tutorUsers = perfStats
+      .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
+      .toList
+      .sortBy(-_.perfStats.nbGames)
     perfs <- lila.common.Future.linear(tutorUsers)(computePerf)
   } yield TutorReport(
     userId,

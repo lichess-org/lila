@@ -771,6 +771,8 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 
 GET   /tutor/:username                 controllers.Tutor.user(username: String)
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, perf: String)
+GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: String, perf: String)
+GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: String, perf: String)
 
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize

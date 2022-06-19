@@ -11,7 +11,7 @@ import lila.tutor.{ TutorMetric, TutorMetricOption, TutorRatio, TutorReport }
 
 object home {
 
-  def apply(report: TutorReport)(implicit ctx: Context) =
+  def apply(report: TutorReport, user: lila.user.User)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("tutor")),
       title = "Lichess Tutor"
@@ -22,7 +22,11 @@ object home {
           h1("Lichess Tutor"),
           div(cls := "tutor__perfs")(
             report.perfs.map { perfReport =>
-              div(cls := "tutor__perf")(
+              st.article(cls := "tutor__perf")(
+                a(
+                  cls  := "tutor__perf__overlay",
+                  href := routes.Tutor.perf(user.username, perfReport.perf.key)
+                ),
                 h3("Your ", perfReport.perf.trans, " games"),
                 table(cls := "slist")(
                   tbody(
