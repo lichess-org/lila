@@ -865,5 +865,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="onlyTeamLeaders">শুধুমাত্র দলীয় প্রধানগণ</string>
   <string name="onlyTeamMembers">শুধুমাত্র দলের সদস্যরা</string>
   <string name="navigateMoveTree">Move/চালের তালিকা নির্দেশক</string>
+  <string name="mouseTricks">মাউসের নিয়ন্ত্রন</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
 </resources>
