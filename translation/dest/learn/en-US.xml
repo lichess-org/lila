@@ -22,7 +22,7 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="itMovesInStraightLines">It moves in straight lines</string>
 	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
 	<string name="rookGoal">Click on the rook to bring it to the star!</string>
-	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside the board.</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
