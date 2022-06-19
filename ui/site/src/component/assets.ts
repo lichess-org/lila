@@ -25,7 +25,7 @@ export const loadCss = (url: string): Promise<void> => {
 };
 
 export const loadCssPath = (key: string): Promise<void> => {
-  var name = key;
+  let name = key;
   if ($('body').data('direction') == 'rtl' && ['dasher'].includes(key)) {
     name = name + '.rtl';
   }

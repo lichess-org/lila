@@ -101,7 +101,7 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 });
 
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
-  var icon = ''; // >
+  let icon = ''; // >
   if ($('body').data('direction') == 'rtl') {
     icon = ''; // <
   }
