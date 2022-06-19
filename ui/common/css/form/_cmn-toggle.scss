@@ -1,7 +1,11 @@
 .cmn-toggle {
   @extend %double-tap;
   position: absolute;
-  margin-left: -99999px;
+  @if variable-exists(is-rtl) {
+    margin-right: -99999px;
+  } @else {
+    margin-left: -99999px;
+  }
 }
 
 .cmn-toggle + label {

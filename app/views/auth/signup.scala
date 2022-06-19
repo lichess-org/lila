@@ -18,7 +18,7 @@ object signup {
         views.html.base.hcaptcha.script(form),
         fingerprintTag
       ),
-      moreCss = cssTag("auth"),
+      moreCss = cssTag("auth" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
