@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Προτιμήσεις</string>
+  <string name="display">Εμφάνιση</string>
   <string name="privacy">Απόρρητο</string>
   <string name="pieceAnimation">Κίνηση πιονιών</string>
   <string name="materialDifference">Διαφορά υλικού</string>
