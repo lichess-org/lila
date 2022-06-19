@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challenges">চ্যালেঞ্জ</string>
-  <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ ছুঁড়ে দিন</string>
+  <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ করুন</string>
   <string name="challengeDeclined">চ্যালেঞ্জ প্রত্যাখ্যান করা হয়েছে</string>
   <string name="challengeAccepted">চ্যালেঞ্জ গৃহীত হয়েছে!</string>
   <string name="challengeCanceled">চ্যালেঞ্জ বাতিল হয়েছে.</string>
-  <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য একাউন্ট প্রয়োজন দয়া করে নিবন্ধন করুন.</string>
-  <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করে না.</string>
+  <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য একাউন্ট প্রয়োজন। দয়া করে নিবন্ধন করুন।.</string>
+  <string name="youCannotChallengeX">আপনি %s কে চ্যালেঞ্জ করতে পারবেন না.</string>
+  <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করেননি.</string>
   <string name="yourXRatingIsTooFarFromY">আপনার %1$s রেটিংস অনেক ব্যাবধান %2$s থেকে.</string>
   <string name="cannotChallengeDueToProvisionalXRating">আপনার রেটিংস %s এর জন্য চ্যালেঞ্জ হবে না.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন করেন.</string>
