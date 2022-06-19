@@ -209,6 +209,7 @@ object layout {
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
+  val dataDirection             = attr("data-direction")
   val dataPieceSet              = attr("data-piece-set")
   val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
@@ -304,6 +305,7 @@ object layout {
           dataAssetVersion := assetVersion.value,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
+          dataDirection    := lila.i18n.LangList.isRTL(ctx.lang).option("rtl").getOrElse("ltr"),
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style            := zoomable option s"--zoom:${ctx.zoom}"

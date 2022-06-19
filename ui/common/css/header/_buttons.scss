@@ -46,7 +46,11 @@
 
     display: none;
     position: absolute;
-    right: 0;
+    @if variable-exists(is-rtl) {
+      left: 0;
+    } @else {
+      right: 0;
+    }
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');

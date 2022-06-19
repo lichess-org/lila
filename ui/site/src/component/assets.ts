@@ -24,8 +24,13 @@ export const loadCss = (url: string): Promise<void> => {
   return loadedCss.get(url)!;
 };
 
-export const loadCssPath = (key: string): Promise<void> =>
-  loadCss(`css/${key}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
+export const loadCssPath = (key: string): Promise<void> => {
+  var name = key;
+  if ($('body').data('direction') == 'rtl' && ['dasher'].includes(key)) {
+    name = name + '.rtl';
+  }
+  return loadCss(`css/${name}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
+};
 
 export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 

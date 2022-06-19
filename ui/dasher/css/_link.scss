@@ -37,7 +37,11 @@
 
   .links button {
     width: 100%;
-    text-align: left;
+    @if variable-exists(is-rtl) {
+      text-align: right;
+    } @else {
+      text-align: left;
+    }
     border: 0;
     background: none;
   }
@@ -48,7 +52,11 @@
 
   .sub {
     &::before {
-      float: right;
+      @if variable-exists(is-rtl) {
+        float: left;
+      } @else {
+        float: right;
+      }
       font-size: 80%;
       margin-top: 0.25rem;
       color: $c-dasher;
