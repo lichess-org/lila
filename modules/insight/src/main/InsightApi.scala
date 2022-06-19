@@ -53,17 +53,27 @@ final class InsightApi(
       }
       .monSuccess(_.insight.peers)
 
-  def meanRating(user: User, filters: List[Filter[_]]): Fu[Option[MeanRating]] = storage.coll {
-    _.aggregateOne() { framework =>
-      import framework._
-      import InsightEntry.{ BSONFields => F }
-      Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
-        Sort(Descending(F.date)),
-        Limit(pipeline.maxGames),
-        Group(BSONNull)("r" -> AvgField("mr"))
-      )
-    }.map { _.flatMap(_.double("r")) map (_.toInt) map MeanRating.apply }
-  }
+  def perfStats(user: User, perfTypes: List[PerfType]): Fu[Map[PerfType, PerfStats]] =
+    storage.coll {
+      _.aggregateList(perfTypes.size) { framework =>
+        import framework._
+        import InsightEntry.{ BSONFields => F }
+        val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
+        Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
+          Sort(Descending(F.date)),
+          Limit(pipeline.maxGames),
+          GroupField(F.perf)("r" -> AvgField("mr"), "n" -> SumAll)
+        )
+      }.map { docs =>
+        for {
+          doc <- docs
+          id  <- doc int "_id"
+          pt  <- PerfType(id)
+          ra  <- doc double "r"
+          nb  <- doc int "n"
+        } yield pt -> PerfStats(MeanRating(ra.toInt), nb)
+      }.map(_.toMap)
+    }
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {

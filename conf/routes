@@ -769,7 +769,8 @@ POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: St
 GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
-GET   /tutor                           controllers.Tutor.index
+GET   /tutor/:username                 controllers.Tutor.user(username: String)
+GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, perf: String)
 
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize

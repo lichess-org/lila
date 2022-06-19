@@ -5,6 +5,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.LilaOpeningFamily
 import lila.insight.{ Filter, InsightApi, InsightDimension, Metric, Phase, Question }
+import lila.rating.PerfType
 
 case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
@@ -35,8 +36,12 @@ private case object TutorOpening {
       ec: ExecutionContext
   ): Fu[TutorColorOpenings] = {
     for {
-      myPerfs   <- insightApi.ask(perfQuestion(color), user.user, withPovs = false) map Answer.apply
-      peerPerfs <- insightApi.askPeers(myPerfs.alignedQuestion, user.rating) map Answer.apply
+      myPerfs <- insightApi.ask(
+        perfQuestion(user.perfType, color),
+        user.user,
+        withPovs = false
+      ) map Answer.apply
+      peerPerfs <- insightApi.askPeers(myPerfs.alignedQuestion, user.perfStats.rating) map Answer.apply
       performances = Answers(myPerfs, peerPerfs)
       acplQuestion = myPerfs.alignedQuestion
         .withMetric(Metric.MeanCpl)
@@ -57,9 +62,9 @@ private case object TutorOpening {
     }
   }
 
-  def perfQuestion(color: Color) = Question(
+  def perfQuestion(perfType: PerfType, color: Color) = Question(
     InsightDimension.OpeningFamily,
     Metric.Performance,
-    List(standardFilter, colorFilter(color))
+    List(perfFilter(perfType), colorFilter(color))
   )
 }

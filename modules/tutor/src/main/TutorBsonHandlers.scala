@@ -2,18 +2,20 @@ package lila.tutor
 
 import chess.Color
 import chess.format.FEN
+import chess.opening.FullOpening
 import chess.opening.FullOpeningDB
 import reactivemongo.api.bson._
 
 import lila.common.Iso
-import lila.db.dsl._
 import lila.db.BSON
+import lila.db.dsl._
+import lila.insight.{ MeanRating, PerfStats }
 import lila.rating.PerfType
-import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
   import lila.insight.BSONHandlers._
+  import lila.rating.BSONHandlers.perfTypeIdHandler
 
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
@@ -73,5 +75,8 @@ private object TutorBsonHandlers {
   //     },
   //     _.mapKeys(_.key)
   //   )
-  implicit val fullReportHandler = Macros.handler[TutorReport]
+  implicit val meanRatingHandler = intAnyValHandler[MeanRating](_.value, MeanRating.apply)
+  implicit val perfStatsHandler  = Macros.handler[PerfStats]
+  implicit val perfReportHandler = Macros.handler[TutorPerfReport]
+  implicit val reportHandler     = Macros.handler[TutorReport]
 }

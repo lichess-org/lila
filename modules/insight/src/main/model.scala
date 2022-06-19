@@ -4,6 +4,8 @@ import chess.{ Color, Role }
 
 case class MeanRating(value: Int) extends AnyVal
 
+case class PerfStats(rating: MeanRating, nbGames: Int)
+
 case class InsightMove(
     phase: Phase,
     tenths: Int,

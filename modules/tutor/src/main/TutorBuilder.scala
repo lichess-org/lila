@@ -52,37 +52,43 @@ final class TutorBuilder(
     name = "tutor.fullReport"
   )
 
-  def apply(user: User, ip: IpAddress): Fu[TutorReport] = sequencer(user.id -> ip)
+  def getOrMake(user: User, ip: IpAddress): Fu[TutorReport] = sequencer(user.id -> ip)
+
+  def get(user: User): Fu[Option[TutorReport]] = getRecent(user.id)
+
+  private def getRecent(userId: User.ID): Fu[Option[TutorReport]] =
+    reportColl
+      .find($doc("user" -> userId, "at" $gt DateTime.now.minusDays(1)))
+      .sort($sort desc "at")
+      .one[TutorReport]
 
   private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorReport] = key match {
     case (userId, ip) =>
-      for {
-        previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorReport]
-        report <- previous match {
-          case Some(p) if p.isFresh => fuccess(p)
-          case prev =>
-            for {
-              newReport <- compute(userId, ip, prev)
-              _         <- reportColl.insert.one(newReport)
-            } yield newReport
-        }
-      } yield report
+      getRecent(userId) getOrElse {
+        for {
+          newReport <- compute(userId, ip)
+          _         <- reportColl.insert.one(newReport)
+        } yield newReport
+      }
   }
 
-  private def compute(userId: User.ID, ip: IpAddress, previous: Option[TutorReport]): Fu[TutorReport] = for {
-    u <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
-    meanRating <- insightApi
-      .meanRating(u, List(standardFilter))
-      .monSuccess(_.tutor.meanRating) orFailWith InsufficientGames
-    user = TutorUser(u, meanRating)
-    openings <- TutorOpening compute user
-    phases   <- TutorPhases compute user
+  private def compute(userId: User.ID, ip: IpAddress): Fu[TutorReport] = for {
+    user <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
+    playedSince = DateTime.now minusMonths 1
+    perfTypes   = PerfType.standard.filter(pt => user.perfs(pt).latest.exists(_ isAfter playedSince))
+    perfStats <- insightApi.perfStats(user, perfTypes.pp).monSuccess(_.tutor.perfStats).thenPp
+    tutorUsers = perfStats collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
+    perfs <- lila.common.Future.linear(tutorUsers)(computePerf)
   } yield TutorReport(
     userId,
     DateTime.now,
-    openings,
-    phases
+    perfs.toList
   )
+
+  private def computePerf(user: TutorUser): Fu[TutorPerfReport] = for {
+    openings <- TutorOpening compute user
+    phases   <- TutorPhases compute user
+  } yield TutorPerfReport(user.perfType, user.perfStats, openings, phases)
 
   // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
   //   analysisRepo.byGame(game) orElse {
@@ -116,7 +122,7 @@ private object TutorBuilder {
       .ask(question, user.user, withPovs = false)
       .monSuccess(_.tutor askMine question.monKey) map Answer.apply
     peer <- insightApi
-      .askPeers(question, user.rating)
+      .askPeers(question, user.perfStats.rating)
       .monSuccess(_.tutor askPeer question.monKey) map Answer.apply
   } yield Answers(mine, peer)
 
@@ -159,10 +165,10 @@ private object TutorBuilder {
     def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
   }
 
-  val standardFilter            = Filter(InsightDimension.Perf, PerfType.standard)
-  def colorFilter(color: Color) = Filter(InsightDimension.Color, List(color))
+  def colorFilter(color: Color)      = Filter(InsightDimension.Color, List(color))
+  def perfFilter(perfType: PerfType) = Filter(InsightDimension.Perf, List(perfType))
 
-  case object InsufficientGames extends lila.base.LilaException {
-    val message = "Not enough games to analyse. Play some rated games!"
-  }
+  // case object InsufficientGames extends lila.base.LilaException {
+  //   val message = "Not enough games to analyse. Play some rated games!"
+  // }
 }
