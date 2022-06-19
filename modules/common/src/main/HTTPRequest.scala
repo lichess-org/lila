@@ -27,11 +27,11 @@ object HTTPRequest {
   private val appOrigins = Set(
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
-    "http://localhost",      // android
-    "http://localhost:8080"  // local dev
+    "http://localhost"       // android/dev/flutter
   )
 
-  def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
+  def appOrigin(req: RequestHeader): Option[String] =
+    origin(req) map { case o if appOrigins exists o.startsWith => o }
 
   def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
