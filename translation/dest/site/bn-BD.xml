@@ -9,7 +9,7 @@
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <string name="level">লেভেল</string>
-  <string name="strength">শক্তি</string>
+  <string name="strength">শক্তিমত্তা</string>
   <string name="toggleTheChat">আড্ডা চালু/বন্ধ</string>
   <string name="chat">আড্ডা</string>
   <string name="resign">হার স্বীকার করুন</string>
@@ -178,6 +178,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ঘন্টা</item>
     <item quantity="other">%s ঘন্টা</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s মিনিট</item>
+    <item quantity="other">%s মিনিট</item>
   </plurals>
   <string name="time">সময়</string>
   <string name="rating">অনুপাত</string>
@@ -855,4 +859,11 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
   <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>
   <string name="simulFeatured">দেখানো হবে %s</string>
+  <string name="inYourLocalTimezone">আপনার স্থানীয় সময়</string>
+  <string name="tournChat">টুর্নামেন্ট চ্যাট</string>
+  <string name="noChat">কোনো চ্যাট নয়</string>
+  <string name="onlyTeamLeaders">শুধুমাত্র দলীয় প্রধানগণ</string>
+  <string name="onlyTeamMembers">শুধুমাত্র দলের সদস্যরা</string>
+  <string name="navigateMoveTree">Move/চালের তালিকা নির্দেশক</string>
+  <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
 </resources>
