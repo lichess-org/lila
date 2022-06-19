@@ -1,14 +1,18 @@
 .tutor {
-  &__perfs {
+  &__home {
   }
-  &__perf {
-    margin: 1em;
-    h3 {
-      padding: 1em;
-      font-size: 1.6em;
-    }
-    .slist tr td {
-      font-weight: bold;
+  &__perfs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 2vmin;
+    &__perf {
+      h3 {
+        padding: 1vh 2vw;
+        font-size: 1.6em;
+      }
+      .slist tr td {
+        font-weight: bold;
+      }
     }
   }
 }

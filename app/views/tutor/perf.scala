@@ -7,7 +7,6 @@ import play.api.mvc.Call
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorReport }
 
 object perf {
@@ -27,12 +26,12 @@ object perf {
             )(p.perf.trans)
           }
         ),
-        div(cls := "page-menu__content box box-pad")(
+        div(cls := "page-menu__content tutor__perf box box-pad")(
           h1(
             a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
             report.perf.trans
           ),
-          div(cls := "tutor__perf")(
+          div(cls := "tutor__perf__angles")(
             angleCard(routes.Tutor.openings(user.username, report.perf.key))(
               h2("Openings")
             ),

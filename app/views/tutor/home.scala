@@ -6,7 +6,6 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.tutor.{ TutorMetric, TutorMetricOption, TutorRatio, TutorReport }
 
 object home {
@@ -18,11 +17,11 @@ object home {
     ) {
       main(cls := "page-menu tutor")(
         st.aside(cls := "page-menu__menu")(),
-        div(cls := "page-menu__content box box-pad")(
+        div(cls := "page-menu__content tutor__home box box-pad")(
           h1("Lichess Tutor"),
           div(cls := "tutor__perfs")(
             report.perfs.map { perfReport =>
-              st.article(cls := "tutor__perf tutor-card tutor-overlaid")(
+              st.article(cls := "tutor__perfs__perf tutor-card tutor-overlaid")(
                 a(
                   cls  := "tutor-overlay",
                   href := routes.Tutor.perf(user.username, perfReport.perf.key)

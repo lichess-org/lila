@@ -1,0 +1,38 @@
+.tutor {
+  &__openings {
+    &__colors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2vw;
+    }
+    &__color {
+      flex: 50% 0 0;
+      h2 {
+        font-size: 2em;
+        margin-bottom: 1em;
+      }
+      &__openings {
+        display: grid;
+        grid-gap: 2vmin;
+      }
+    }
+    &__opening {
+      h3 {
+        padding: 1em;
+        font-size: 1.6em;
+      }
+      .slist tr td {
+        font-weight: bold;
+        &:last-child {
+          opacity: 0.8;
+        }
+        &.good {
+          background: mix($c-good, $c-bg-zebra, 20%);
+        }
+        &.bad {
+          background: mix($c-bad, $c-bg-zebra, 20%);
+        }
+      }
+    }
+  }
+}

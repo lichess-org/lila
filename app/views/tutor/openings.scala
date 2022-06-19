@@ -6,7 +6,6 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorReport }
 
 object openings {
@@ -22,45 +21,48 @@ object openings {
           a(href := routes.Tutor.openings(user.username, report.perf.key), cls := "active")("Openings"),
           a(href := routes.Tutor.phases(user.username, report.perf.key))("Game phases")
         ),
-        div(cls := "page-menu__content box box-pad")(
+        div(cls := "page-menu__content tutor__openings box box-pad")(
           h1(
             a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
             report.perf.trans,
             " openings"
           ),
-          div(cls := "tutor__openings")(
-            chess.Color.all.map { color =>
-              st.section(cls := "tutor__openings__color")(
-                h2("Your most played ", color.name, " openings"),
-                report.openings(color).families.map { fam =>
-                  div(cls := "tutor__opening tutor-card tutor-overlaid")(
-                    h3(fam.family.name.value),
-                    table(cls := "slist")(
-                      thead(tr(th("Metric"), th("You"), th("Peers"))),
-                      tbody(
-                        tr(
-                          th("Frequency"),
-                          showMetric(fam.games, none)
-                        ),
-                        tr(
-                          th("Performance"),
-                          showMetric(fam.performance, true.some)
-                        ),
-                        tr(
-                          th("Tactical awareness"),
-                          showMetric(fam.awareness, true.some)
-                        ),
-                        tr(
-                          th("Centipawn loss"),
-                          showMetric(fam.acpl, false.some)
-                        )
+          div(cls := "tutor__openings__colors")(chess.Color.all.map { color =>
+            st.section(cls := "tutor__openings__color")(
+              h2("Your most played ", color.name, " openings"),
+              div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
+                div(cls := "tutor__openings__opening tutor-card tutor-overlaid")(
+                  a(
+                    href := routes.Tutor
+                      .opening(user.username, report.perf.key, color.name, fam.family.key.value),
+                    cls := "tutor-overlay"
+                  ),
+                  h3(fam.family.name.value),
+                  table(cls := "slist")(
+                    thead(tr(th("Metric"), th("You"), th("Peers"))),
+                    tbody(
+                      tr(
+                        th("Frequency"),
+                        showMetric(fam.games, none)
+                      ),
+                      tr(
+                        th("Performance"),
+                        showMetric(fam.performance, true.some)
+                      ),
+                      tr(
+                        th("Tactical awareness"),
+                        showMetric(fam.awareness, true.some)
+                      ),
+                      tr(
+                        th("Centipawn loss"),
+                        showMetric(fam.acpl, false.some)
                       )
                     )
                   )
-                }
-              )
-            }
-          )
+                )
+              })
+            )
+          })
         )
       )
     }

@@ -9,6 +9,7 @@ import lila.app._
 import lila.rating.PerfType
 import lila.user.{ User => UserModel }
 import lila.tutor.{ TutorPerfReport, TutorReport }
+import lila.common.LilaOpeningFamily
 
 final class Tutor(env: Env) extends LilaController(env) {
 
@@ -28,15 +29,30 @@ final class Tutor(env: Env) extends LilaController(env) {
       Ok(views.html.tutor.openings(report, perf, me)).fuccess
   }
 
+  def opening(username: String, perf: String, colName: String, opName: String) =
+    TutorPerfPage(username, perf) { implicit ctx => me => report => perf =>
+      chess.Color
+        .fromName(colName)
+        .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).fuccess) { color =>
+          LilaOpeningFamily
+            .find(opName)
+            .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).fuccess) { family =>
+              Ok(views.html.tutor.opening(report, perf, family as color, me)).fuccess
+            }
+        }
+    }
+
   def phases(username: String, perf: String) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.phases(report, perf, me)).fuccess
   }
 
   private def TutorPage(username: String)(f: Context => UserModel => Fu[Result]) =
-    Secure(_.Beta) { ctx => holder =>
-      if (!holder.user.is(username)) redirHome(holder.user)
-      else f(ctx)(holder.user)
+    Secure(_.Beta) { implicit ctx => holder =>
+      if (!holder.user.is(username)) {
+        if (isGranted(_.SeeInsight)) env.user.repo.named(username) flatMap { _ ?? f(ctx) }
+        else redirHome(holder.user)
+      } else f(ctx)(holder.user)
     }
 
   private def TutorPerfPage(username: String, perf: String)(
