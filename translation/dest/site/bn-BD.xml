@@ -658,6 +658,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">প্রিভিউ দেখার জন্য কম্পিউটার ভ্যারিয়েশনের উপর স্ক্রল করুন।</string>
   <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
   <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
+  <string name="receiveForumNotifications">নোটিফিকেশন পাবেন যখন ফোরামে আপনাকে কেউ উল্লেখ করে</string>
   <string name="shareYourInsightsData">আপনার দাবার অর্ন্তদৃষ্টি তথ্য শেয়ার করুন</string>
   <string name="withNobody">কারো সাথে না</string>
   <string name="withFriends">বন্ধুদের সাথে</string>
@@ -669,6 +670,7 @@
   <string name="enableKidMode">বাচ্চা ধরন সক্রিয় করুন</string>
   <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
   <string name="security">নিরাপত্তা</string>
+  <string name="sessions">সেশনসমূহ</string>
   <string name="revokeAllSessions">সকল সেশন বাতিল করুন</string>
   <string name="playChessEverywhere">দাবা খেলুন সব জায়গায়</string>
   <string name="asFreeAsLichess">যেমন লিচাস মুক্ত হিসাবে</string>
@@ -790,6 +792,7 @@
   <string name="currentMatchScore">বর্তমান ম্যাচের স্কোর</string>
   <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">আমি একমত পোষণ করছি যে আমি একাধিক একাউন্ট তৈরি করব না (%s এ উল্লেখিত কারণ ব্যতীত)।</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
@@ -835,4 +838,18 @@
   <string name="welcome">স্বাগতম!</string>
   <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
 সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
+  <string name="coachManager">প্রশিক্ষক ব্যবস্থাপনা</string>
+  <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
+  <string name="tournDescription">টুর্নামেন্টের বর্ণনা</string>
+  <string name="tournDescriptionHelp">অংশগ্রহণকারীদের কিছু বলতে চান? সংক্ষেপে লেখার চেষ্টা করুন।
+Markdown links ব্যবহারযোগ্য: [name](https://url)</string>
+  <string name="ratedFormHelp">খেলাগুলো রেটেড/পয়েন্ট ভিত্তিক এবং খেলোয়াড়দের রেটিং এ প্রভাব ফেলবে</string>
+  <string name="onlyMembersOfTeam">শুধুমাত্র দলের সদস্যরা</string>
+  <string name="noRestriction">কোনো বিধিনিষেধ নেই</string>
+  <string name="minimumRatedGames">সর্বনিম্ন রেটেড খেলার সংখ্যা</string>
+  <string name="minimumRating">সর্বনিম্ন রেটিং</string>
+  <string name="maximumWeeklyRating">সর্বোচ্চ সাপ্তাহিক রেটিং</string>
+  <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
+  <string name="onlyTitledHelp">এই টুর্নামেন্টে যুক্ত হতে অফিসিয়াল খেতাব প্রয়োজন</string>
+  <string name="cancelSimul">একত্রে খেলা বাতিল করুন</string>
 </resources>
