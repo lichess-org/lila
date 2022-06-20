@@ -16,13 +16,25 @@ case class Acpl(value: Double) extends AnyVal {
 object Acpl {
   implicit val ordering = Ordering.by[Acpl, Double](_.value)
 }
-
-case class TutorMetric[A](mine: A, peer: Option[A])(implicit o: Ordering[A]) {
-  def higher = peer.exists(p => o.compare(mine, p) >= 0)
+case class Rating(value: Double) extends AnyVal
+object Rating {
+  implicit val ordering = Ordering.by[Rating, Double](_.value)
 }
-case class TutorMetricOption[A](mine: Option[A], peer: Option[A])(implicit o: Ordering[A]) {
-  def higher                      = mine.exists(m => peer.exists(p => o.compare(m, p) >= 0))
-  def map[B: Ordering](f: A => B) = TutorMetricOption(mine map f, peer map f)
+
+case class ValueCount[V](value: V, count: Int) {
+  def map[B](f: V => B) = copy(value = f(value))
+}
+
+case class TutorMetric[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
+  def map[B: Ordering](f: A => B) = TutorMetric(mine map f, peer map (_ map f))
+  def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
+  def toOption                    = TutorMetricOption(mine.some, peer)
+}
+case class TutorMetricOption[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
+    o: Ordering[A]
+) {
+  def map[B: Ordering](f: A => B) = TutorMetricOption(mine map (_ map f), peer map (_ map f))
+  def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
 }
 
 case class TutorRatio(value: Double) extends AnyVal {

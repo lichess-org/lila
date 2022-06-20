@@ -11,9 +11,11 @@ case class TutorCompare[D, V: TutorCompare.Qualifiable](
   import TutorCompare._
 
   val dimComparisons = {
-    val myPoints = points.collect { case (dim, TutorMetricOption(Some(mine), _)) =>
-      dim -> mine
+    val myPoints: List[((D, ValueCount[V]), Int)] = points.collect {
+      case (dim, TutorMetricOption(Some(mine), _)) =>
+        dim -> mine
     }.zipWithIndex
+
     for {
       ((dim1, met1), i1) <- myPoints
       ((dim2, met2), i2) <- myPoints.filter(_._2 > i1)
@@ -37,19 +39,19 @@ object TutorCompare {
       dimensionType: InsightDimension[D],
       dimension: D,
       metricType: Metric,
-      value: V,
+      value: ValueCount[V],
       reference: Reference[D, V]
   ) {
-    val quality = implicitly[Qualifiable[V]].quality(value, reference.value)
+    val quality = valueCountIsQualifiable[V].quality(value, reference.value)
 
     override def toString = s"(${quality.value}) $dimension $metricType $value vs $reference"
   }
 
   private[tutor] val comparisonOrdering = Ordering.by[Comparison[_, _], Double](_.quality.abs)
 
-  sealed trait Reference[D, V] { val value: V }
-  case class Peers[D, V](value: V)                  extends Reference[D, V]
-  case class OtherDim[D, V](dimension: D, value: V) extends Reference[D, V]
+  sealed trait Reference[D, V] { val value: ValueCount[V] }
+  case class Peers[D, V](value: ValueCount[V])                  extends Reference[D, V]
+  case class OtherDim[D, V](dimension: D, value: ValueCount[V]) extends Reference[D, V]
 
   trait Qualifiable[V] {
     def quality(a: V, b: V): RelativeQuality
@@ -63,6 +65,12 @@ object TutorCompare {
   }
   implicit val acplIsQualifiable = new Qualifiable[Acpl] {
     def quality(a: Acpl, b: Acpl) = RelativeQuality(-a.value, -b.value)
+  }
+  implicit val ratingIsQualifiable = new Qualifiable[Rating] {
+    def quality(a: Rating, b: Rating) = RelativeQuality((a.value - b.value) / 300)
+  }
+  implicit def valueCountIsQualifiable[V](implicit by: Qualifiable[V]) = new Qualifiable[ValueCount[V]] {
+    def quality(a: ValueCount[V], b: ValueCount[V]) = by.quality(a.value, b.value)
   }
 
   def higherIsBetter[M](metric: Metric) = metric match {

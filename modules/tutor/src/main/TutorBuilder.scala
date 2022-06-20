@@ -117,7 +117,7 @@ private object TutorBuilder {
 
   type Value = Double
   type Count = Int
-  type Pair  = (Value, Count)
+  type Pair  = ValueCount[Value]
 
   val peerNbGames = config.Max(5_000)
 
@@ -146,22 +146,20 @@ private object TutorBuilder {
 
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
 
-    val list: List[(Dim, Value, Count)] =
+    val list: List[(Dim, Pair)] =
       answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
-        (dimension, point.y, nbGames)
+        (dimension, ValueCount(point.y, nbGames))
       }.toList
 
-    lazy val map: Map[Dim, Pair] = list.view.map { case (dim, value, count) =>
-      dim -> (value, count)
-    }.toMap
+    lazy val map: Map[Dim, Pair] = list.toMap
 
     def get = map.get _
 
     def dimensions = list.map(_._1)
 
-    lazy val totalCount = list.map(_._3).sum
+    // lazy val totalCount = list.map(_._2.count).sum
 
-    def countRatio(count: Count) = TutorRatio(count, totalCount)
+    // def countRatio(count: Count) = TutorRatio(count, totalCount)
 
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
   }
@@ -170,14 +168,9 @@ private object TutorBuilder {
 
   case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
 
-    def countMetric(dim: Dim, myCount: Count) = TutorMetric(
-      mine countRatio myCount,
-      peer.get(dim).map(_._2).map(peer.countRatio)
-    )
+    def valueMetric(dim: Dim, myValue: Pair) = TutorMetric(myValue, peer.get(dim))
 
-    def valueMetric(dim: Dim, myValue: Value) = TutorMetric(myValue, peer.get(dim).map(_._1))
-
-    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim).map(_._1), peer.get(dim).map(_._1))
+    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim), peer.get(dim))
   }
 
   def colorFilter(color: Color)      = Filter(InsightDimension.Color, List(color))

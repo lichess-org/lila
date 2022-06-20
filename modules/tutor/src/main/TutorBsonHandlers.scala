@@ -15,7 +15,8 @@ private object TutorBsonHandlers {
   import lila.insight.BSONHandlers._
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
-  implicit val acplHandler: BSONHandler[Acpl]               = doubleAnyValHandler[Acpl](_.value, Acpl.apply)
+  implicit val acplHandler: BSONHandler[Acpl]     = doubleAnyValHandler[Acpl](_.value, Acpl.apply)
+  implicit val ratingHandler: BSONHandler[Rating] = doubleAnyValHandler[Rating](_.value, Rating.apply)
   implicit val durationHandler: BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
@@ -26,39 +27,62 @@ private object TutorBsonHandlers {
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
-  trait CanBeUnknown[T] {
-    val value: T
-    val is = (v: T) => v == value
-  }
-  implicit val doubleCanBeUnknown = new CanBeUnknown[Double] {
-    val value = Double.MinValue
-  }
-  implicit val ratioCanBeUnknown = new CanBeUnknown[TutorRatio] {
-    val value = TutorRatio(doubleCanBeUnknown.value)
-  }
-  implicit val acplCanBeUnknown = new CanBeUnknown[Acpl] {
-    val value = Acpl(doubleCanBeUnknown.value)
-  }
+  // trait CanBeUnknown[T] {
+  //   val value: T
+  //   val is = (v: T) => v == value
+  // }
+  // implicit val doubleCanBeUnknown = new CanBeUnknown[Double] {
+  //   val value = Double.MinValue
+  // }
+  // implicit val ratioCanBeUnknown = new CanBeUnknown[TutorRatio] {
+  //   val value = TutorRatio(doubleCanBeUnknown.value)
+  // }
+  // implicit val acplCanBeUnknown = new CanBeUnknown[Acpl] {
+  //   val value = Acpl(doubleCanBeUnknown.value)
+  // }
+  // implicit val ratingCanBeUnknown = new CanBeUnknown[Rating] {
+  //   val value = Rating(doubleCanBeUnknown.value)
+  // }
+
+  // implicit def valueCountHandler[V](implicit
+  //     handler: BSONHandler[V]
+  // ): BSONHandler[ValueCount[V]] =
+  //   implicitly[BSONHandler[List[V]]]
+  //     .as[ValueCount[V]](
+  //       list => ValueCount(list(0), list(1)),
+  //       vc => List(vc.value, vc.count)
+  //     )
+
+  implicit private def valueCountHandler[V](implicit handler: BSONHandler[V]) =
+    quickHandler[Option[ValueCount[V]]](
+      {
+        case arr: BSONArray =>
+          for { v <- arr.getAsOpt[V](0); c <- arr.getAsOpt[Int](1) } yield ValueCount(v, c)
+        case _ => None
+      },
+      vcOpt =>
+        {
+          for { vc <- vcOpt; v <- handler.writeOpt(vc.value) } yield $arr(v, BSONInteger(vc.count))
+        } getOrElse BSONNull
+    )
 
   implicit def metricHandler[A](implicit
       handler: BSONHandler[A],
-      unknown: CanBeUnknown[A],
       ordering: Ordering[A]
   ): BSONHandler[TutorMetric[A]] =
-    implicitly[BSONHandler[List[A]]]
+    implicitly[BSONHandler[List[Option[ValueCount[A]]]]]
       .as[TutorMetric[A]](
-        list => TutorMetric(list(0), list.lift(1).filterNot(unknown.is)),
-        metric => List(metric.mine, metric.peer | unknown.value)
+        list => TutorMetric(list(0).get, list.lift(1).flatten),
+        metric => List(metric.mine.some, metric.peer)
       )
 
   implicit def metricOptionHandler[A](implicit
       handler: BSONHandler[A],
-      unknown: CanBeUnknown[A],
       ordering: Ordering[A]
   ): BSONHandler[TutorMetricOption[A]] =
-    implicitly[BSONHandler[List[A]]].as[TutorMetricOption[A]](
-      list => TutorMetricOption(list.lift(0).filterNot(unknown.is), list.lift(1).filterNot(unknown.is)),
-      metric => List(metric.mine | unknown.value, metric.peer | unknown.value)
+    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorMetricOption[A]](
+      list => TutorMetricOption(list.lift(0).flatten, list.lift(1).flatten),
+      metric => List(metric.mine, metric.peer)
     )
 
   // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]

@@ -3,10 +3,9 @@ package lila.tutor
 import chess.Color
 import scala.concurrent.duration._
 
-import lila.insight.Phase
+import lila.common.Heapsort
 import lila.insight.{ Insight, InsightDimension, InsightPerfStats, Metric, Phase }
 import lila.rating.PerfType
-import lila.common.Heapsort
 import lila.tutor.TutorCompare.comparisonOrdering
 
 case class TutorPerfReport(
@@ -29,16 +28,13 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
+  lazy val allCompares: List[TutorCompare[_, _]] =
+    acplCompare :: awarenessCompare :: openings.all.toList.flatMap { op =>
+      List(op.acplCompare, op.performanceCompare)
+    }
+
   def dimensionHighlights(nb: Int) =
-    Heapsort.topNToList(
-      acplCompare.dimComparisons ::: awarenessCompare.dimComparisons,
-      nb,
-      comparisonOrdering
-    )
+    Heapsort.topNToList(allCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
   def peerHighlights(nb: Int) =
-    Heapsort.topNToList(
-      acplCompare.peerComparisons.pp ::: awarenessCompare.peerComparisons.pp,
-      nb,
-      comparisonOrdering
-    )
+    Heapsort.topNToList(allCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
 }

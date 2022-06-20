@@ -1,12 +1,11 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ RelativeQuality, TutorCompare, TutorFullReport, TutorPerfReport }
+import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
 import lila.user.User
 
 object home {
@@ -62,28 +61,9 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        perfReport.dimensionHighlights(2) map showHighlight,
-        perfReport.peerHighlights(2) map showHighlight
+        perfReport.dimensionHighlights(2) map compare.show,
+        perfReport.peerHighlights(2) map compare.show,
+        a(cls := "tutor-card__more")("Click to see more...")
       )
     )
-
-  private def showHighlight(comp: TutorCompare.Comparison[_, _]) =
-    p(
-      "Your ",
-      comp.metricType.toString,
-      " in the ",
-      comp.dimension.toString,
-      " is ",
-      showQuality(comp.quality),
-      " than ",
-      comp.reference match {
-        case TutorCompare.OtherDim(dim, _) => frag("in the ", dim.toString)
-        case TutorCompare.Peers(_)         => frag("your peers'")
-      }
-    )
-
-  private def showQuality(quality: RelativeQuality) =
-    (if (quality.positive) goodTag else badTag)(quality.wording.value)
-
-  // p(comp.quality.wording.toString, " ", comp.toString)
 }

@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorFullReport }
+import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
 
 object openings {
 
@@ -43,7 +43,7 @@ object openings {
                 tbody(
                   tr(
                     th("Frequency"),
-                    showMetric(fam.games, none)
+                    showCount(fam.performance)
                   ),
                   tr(
                     th("Performance"),
@@ -68,6 +68,12 @@ object openings {
   private def qualityCls(higherIsBetter: Option[Boolean], higher: Boolean) = higherIsBetter map { hib =>
     if (hib == higher) "good" else "bad"
   }
+
+  private def showCount[A](metric: TutorMetric[A]) =
+    frag(
+      td(metric.mine.count),
+      td(metric.peer.fold("?")(_.count.toString))
+    )
 
   private def showMetric[A](metric: TutorMetric[A], higherIsBetter: Option[Boolean]) =
     frag(

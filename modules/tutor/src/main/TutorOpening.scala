@@ -3,19 +3,43 @@ package lila.tutor
 import chess.Color
 import scala.concurrent.ExecutionContext
 
-import lila.common.LilaOpeningFamily
+import lila.common.{ Heapsort, LilaOpeningFamily }
 import lila.insight.{ Filter, InsightApi, InsightDimension, Metric, Phase, Question }
 import lila.rating.PerfType
+import lila.tutor.TutorCompare.comparisonOrdering
 
 case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
-)
+) {
+  lazy val acplCompare = TutorCompare[LilaOpeningFamily, Acpl](
+    InsightDimension.OpeningFamily,
+    Metric.MeanCpl,
+    families.map { f => (f.family, f.acpl) }
+  )
+  lazy val performanceCompare = TutorCompare[LilaOpeningFamily, Rating](
+    InsightDimension.OpeningFamily,
+    Metric.Performance,
+    families.map { f => (f.family, f.performance.toOption) }
+  )
+
+  def dimensionHighlights(nb: Int) =
+    Heapsort.topNToList(
+      acplCompare.dimComparisons ::: performanceCompare.dimComparisons,
+      nb,
+      comparisonOrdering
+    )
+  def peerHighlights(nb: Int) =
+    Heapsort.topNToList(
+      acplCompare.dimComparisons ::: performanceCompare.dimComparisons,
+      nb,
+      comparisonOrdering
+    )
+}
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
-    games: TutorMetric[TutorRatio],
-    performance: TutorMetric[Double],
-    acpl: TutorMetricOption[Double],
+    performance: TutorMetric[Rating],
+    acpl: TutorMetricOption[Acpl],
     awareness: TutorMetricOption[TutorRatio]
 )
 
@@ -46,12 +70,11 @@ private case object TutorOpening {
       awarenessQuestion = acplQuestion.withMetric(Metric.Awareness)
       awareness <- answerBoth(awarenessQuestion, user)
     } yield TutorColorOpenings {
-      performances.mine.list.map { case (family, myValue, myCount) =>
+      performances.mine.list.map { case (family, myPerformance) =>
         TutorOpeningFamily(
           family,
-          games = performances.countMetric(family, myCount),
-          performance = performances.valueMetric(family, myValue),
-          acpl = acpls valueMetric family,
+          performance = performances.valueMetric(family, myPerformance) map Rating.apply,
+          acpl = acpls valueMetric family map Acpl.apply,
           awareness = awareness valueMetric family map TutorRatio.fromPercent
         )
       }

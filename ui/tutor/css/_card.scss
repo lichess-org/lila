@@ -30,6 +30,10 @@
     &__content {
       padding: 2rem;
     }
+    &__more {
+      display: block;
+      text-align: center;
+    }
   }
   &-overlaid {
     position: relative;
