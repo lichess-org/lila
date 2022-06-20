@@ -10,7 +10,11 @@ group.radio {
 
   input {
     position: absolute;
-    left: -99999px;
+    @if variable-exists(is-rtl) {
+      right: -99999px;
+    } @else {
+      left: -99999px;
+    }
   }
 
   label {
