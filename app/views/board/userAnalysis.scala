@@ -18,7 +18,7 @@ object userAnalysis {
     views.html.base.layout(
       title = trans.analysis.txt(),
       moreCss = frag(
-        cssTag("analyse.free"),
+        cssTag("analyse.free" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
         pov.game.variant == Crazyhouse option cssTag("analyse.zh"),
         withForecast option cssTag("analyse.forecast"),
         ctx.blind option cssTag("round.nvui")

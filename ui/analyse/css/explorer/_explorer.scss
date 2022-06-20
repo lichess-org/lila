@@ -102,7 +102,11 @@
 
   td {
     cursor: pointer;
-    padding-left: 7px;
+    @if variable-exists(is-rtl) {
+      padding-right: 7px;
+    } @else {
+      padding-left: 7px;
+    }
   }
 
   .moves {
@@ -111,13 +115,21 @@
       font-size: 0.8rem;
       line-height: 1.8em;
       background: mix($c-secondary, $c-bg-box, 40%);
-      padding-left: 7px;
+      @if variable-exists(is-rtl) {
+        padding-right: 7px;
+      } @else {
+        padding-left: 7px;
+      }
     }
     td:first-child {
       @extend %san;
 
       line-height: 30px;
-      padding-left: 7px;
+      @if variable-exists(is-rtl) {
+        padding-right: 7px;
+      } @else {
+        padding-left: 7px;
+      }
     }
 
     td:nth-child(2) {
@@ -278,7 +290,11 @@
   .toconf {
     position: absolute;
     top: 0;
-    right: 0;
+    @if variable-exists(is-rtl) {
+      left: 0;
+    } @else {
+      right: 0;
+    }
     cursor: pointer;
     display: block;
     font-size: 1.2em;
