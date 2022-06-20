@@ -14,13 +14,16 @@ case class TutorReport(
     perfs: List[TutorPerfReport]
 ) {
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  // def isFresh                   = at isAfter DateTime.now.minusDays(1)
+  def isFresh                   = at isAfter DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
 
-  lazy val nbGames                   = perfs.map(_.stats.nbGames).sum
-  lazy val totalTime: FiniteDuration = perfs.foldLeft(0.minutes)(_ + _.estimateTotalTime)
+  lazy val nbGames = perfs.toList.map(_.stats.nbGames).sum
+  lazy val totalTime: FiniteDuration =
+    perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
   def favouritePerfs: List[TutorPerfReport] =
-    perfs.takeWhile(_.estimateTotalTime > totalTime * 0.25)
+    perfs.head :: perfs.tail.takeWhile { perf =>
+      perf.estimateTotalTime.exists(_ > totalTime * 0.25) || perf.stats.nbGames >= 30
+    }
 }
 
 case class TutorPerfReport(
@@ -29,5 +32,22 @@ case class TutorPerfReport(
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
-  lazy val estimateTotalTime = (perf != PerfType.Correspondence) option stats.time * 2
+  lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
+}
+
+object TutorReport {
+
+  val freshness = 1 day
+
+  sealed abstract class Availability
+  case class Fresh(report: TutorReport)                            extends Availability
+  case class Stale(report: TutorReport, status: TutorQueue.Status) extends Availability
+  case class Empty(status: TutorQueue.Status)                      extends Availability
+  case object InsufficientGames                                    extends Availability
+
+  object F {
+    val user   = "user"
+    val at     = "at"
+    val millis = "millis"
+  }
 }

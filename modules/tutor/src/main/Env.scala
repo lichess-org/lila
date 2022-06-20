@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.common.config
 import lila.db.dsl.Coll
 import lila.fishnet.{ Analyser, FishnetAwaiter }
+import lila.memo.CacheApi
 
 @Module
 final class Env(
@@ -15,7 +16,8 @@ final class Env(
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
     insightApi: lila.insight.InsightApi,
-    perfStatsApi: lila.insight.InsightPerfStatsApi
+    perfStatsApi: lila.insight.InsightPerfStatsApi,
+    cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -24,8 +26,13 @@ final class Env(
 ) {
 
   private val reportColl = db(config.CollName("tutor_report")).taggedWith[ReportColl]
+  private val queueColl  = db(config.CollName("tutor_queue")).taggedWith[QueueColl]
 
-  lazy val builder = wire[TutorBuilder]
+  private lazy val builder = wire[TutorBuilder]
+  private lazy val queue   = wire[TutorQueue]
+
+  lazy val api = wire[TutorApi]
 }
 
 trait ReportColl
+trait QueueColl

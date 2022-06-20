@@ -7,10 +7,9 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.{ IpAddress, LilaOpeningFamily }
+import lila.common.IpAddress
 import lila.db.dsl._
 import lila.fishnet.{ Analyser, FishnetAwaiter }
-import lila.game.{ Divider, Game, GameRepo, Pov, Query }
 import lila.insight.{
   Answer => InsightAnswer,
   Cluster,
@@ -27,8 +26,9 @@ import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import scala.concurrent.ExecutionContext
 import lila.common.config
+import scala.concurrent.Future
 
-final class TutorBuilder(
+final private class TutorBuilder(
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
@@ -44,57 +44,44 @@ final class TutorBuilder(
   import TutorBuilder._
 
   implicit private val insightApiImplicit = insightApi
-  private val requireAnalysisOnLastGames  = 15
-  private val timeToWaitForAnalysis       = 1 second
+  // private val requireAnalysisOnLastGames  = 15
+  // private val timeToWaitForAnalysis       = 1 second
   // private val timeToWaitForAnalysis      = 3 minutes
 
-  private val sequencer = new lila.hub.AskPipelines[(User.ID, IpAddress), TutorReport](
-    compute = getOrCompute,
-    expiration = 1 hour,
-    timeout = 1 hour,
-    name = "tutor.fullReport"
-  )
+  def tutorablePerfTypesOf(user: User) =
+    PerfType.standardWithUltra.filter(pt =>
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
+    )
 
-  def getOrMake(user: User, ip: IpAddress): Fu[TutorReport] = sequencer(user.id -> ip)
-
-  def get(user: User): Fu[Option[TutorReport]] = getRecent(user.id)
-
-  private def getRecent(userId: User.ID): Fu[Option[TutorReport]] =
-    reportColl
-      .find($doc("user" -> userId, "at" $gt DateTime.now.minusDays(1)))
-      .sort($sort desc "at")
-      .one[TutorReport]
-
-  private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorReport] = key match {
-    case (userId, ip) =>
-      getRecent(userId) getOrElse {
-        for {
-          newReport <- compute(userId, ip).monSuccess(_.tutor.build)
-          _         <- reportColl.insert.one(newReport)
-        } yield newReport
-      }
+  def compute(user: User): Fu[TutorReport] = {
+    val chrono = lila.common.Chronometer.lapTry(produce(user))
+    chrono.mon { r => lila.mon.tutor.build(r.isSuccess) }
+    for {
+      lap    <- chrono.lap
+      report <- Future fromTry lap.result
+      doc = reportHandler.writeOpt(report).get ++ $doc(
+        "_id"    -> s"${report.user}:${dateFormatter print report.at}",
+        "millis" -> lap.millis
+      )
+      _ <- reportColl.insert.one(doc).void
+    } yield report
   }
 
-  private def compute(userId: User.ID, ip: IpAddress): Fu[TutorReport] = for {
-    user <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
-    playedSince = DateTime.now minusMonths 1
-    perfTypes   = PerfType.standardWithUltra.filter(pt => user.perfs(pt).latest.exists(_ isAfter playedSince))
-    perfStats <- perfStatsApi(user, perfTypes).monSuccess(_.tutor.perfStats)
+  private def produce(user: User): Fu[TutorReport] = for {
+    perfStats <- perfStatsApi(user, tutorablePerfTypesOf(user)).monSuccess(_.tutor.perfStats)
     tutorUsers = perfStats
       .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
       .toList
       .sortBy(-_.perfStats.nbGames)
-    perfs <- lila.common.Future.linear(tutorUsers)(computePerf)
-  } yield TutorReport(
-    userId,
-    DateTime.now,
-    perfs.toList
-  )
+    perfs <- tutorUsers.map(producePerf).sequenceFu
+  } yield TutorReport(user.id, DateTime.now, perfs)
 
-  private def computePerf(user: TutorUser): Fu[TutorPerfReport] = for {
+  private def producePerf(user: TutorUser): Fu[TutorPerfReport] = for {
     openings <- TutorOpening compute user
     phases   <- TutorPhases compute user
   } yield TutorPerfReport(user.perfType, user.perfStats, openings, phases)
+
+  private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
 
   // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
   //   analysisRepo.byGame(game) orElse {
@@ -160,11 +147,6 @@ private object TutorBuilder {
 
     def dimensions = list.map(_._1)
 
-    // lazy val average =
-    //   list.foldLeft((0d, 0)) { case ((sum, count), (_, y, nb)) =>
-    //     (sum + y * nb, count + nb)
-    //   } match { case (sum, count) => sum / count }
-
     lazy val totalCount = list.map(_._3).sum
 
     def countRatio(count: Count) = TutorRatio(count, totalCount)
@@ -188,8 +170,4 @@ private object TutorBuilder {
 
   def colorFilter(color: Color)      = Filter(InsightDimension.Color, List(color))
   def perfFilter(perfType: PerfType) = Filter(InsightDimension.Perf, List(perfType))
-
-  // case object InsufficientGames extends lila.base.LilaException {
-  //   val message = "Not enough games to analyse. Play some rated games!"
-  // }
 }
