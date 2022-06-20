@@ -10,26 +10,24 @@ import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio,
 
 object phases {
 
-  def apply(fullReport: TutorReport, report: TutorPerfReport, user: lila.user.User)(implicit ctx: Context) =
-    views.html.base.layout(
-      moreCss = frag(cssTag("tutor")),
-      title = "Lichess Tutor"
-    ) {
-      main(cls := "page-menu tutor")(
-        st.aside(cls := "page-menu__menu subnav")(
-          a(href := routes.Tutor.user(user.username))("Tutor"),
-          a(href := routes.Tutor.openings(user.username, report.perf.key))("Openings"),
-          a(href := routes.Tutor.phases(user.username, report.perf.key), cls := "active")("Game phases")
-        ),
-        div(cls := "page-menu__content box box-pad")(
-          h1(
-            a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-            report.perf.trans,
-            " phases"
-          ),
-          div(cls := "tutor__phases")(
-          )
-        )
+  def apply(full: TutorReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+      ctx: Context
+  ) =
+    bits.layout(
+      full,
+      menu = frag(
+        a(href := routes.Tutor.user(user.username))("Tutor"),
+        a(href := routes.Tutor.openings(user.username, report.perf.key))("Openings"),
+        a(href := routes.Tutor.phases(user.username, report.perf.key), cls := "active")("Game phases")
       )
-    }
+    )(
+      cls := "box box-pad",
+      h1(
+        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+        report.perf.trans,
+        " phases"
+      ),
+      div(cls := "tutor__phases")(
+      )
+    )
 }

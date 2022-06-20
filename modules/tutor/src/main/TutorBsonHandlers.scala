@@ -78,4 +78,5 @@ private object TutorBsonHandlers {
   implicit val perfStatsHandler  = Macros.handler[InsightPerfStats]
   implicit val perfReportHandler = Macros.handler[TutorPerfReport]
   implicit val reportHandler     = Macros.handler[TutorReport]
+
 }

@@ -1,4 +1,10 @@
 .tutor {
+  @include breakpoint($mq-subnav-side) {
+    .subnav {
+      width: 20ch;
+    }
+  }
+
   &-card {
     @extend %box-neat-force;
     background: $c-bg-zebra;

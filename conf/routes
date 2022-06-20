@@ -771,6 +771,7 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 
 GET   /tutor                           controllers.Tutor.home()
 GET   /tutor/:username                 controllers.Tutor.user(username: String)
+POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: String)
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, perf: String)
 GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: String, perf: String)
 GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: String, perf: String, color: String, opening: String)

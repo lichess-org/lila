@@ -53,19 +53,33 @@ final private class TutorBuilder(
       user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
     )
 
-  def compute(user: User): Fu[TutorReport] = {
-    val chrono = lila.common.Chronometer.lapTry(produce(user))
-    chrono.mon { r => lila.mon.tutor.build(r.isSuccess) }
-    for {
-      lap    <- chrono.lap
-      report <- Future fromTry lap.result
-      doc = reportHandler.writeOpt(report).get ++ $doc(
-        "_id"    -> s"${report.user}:${dateFormatter print report.at}",
-        "millis" -> lap.millis
+  def findLatest(user: User) = reportColl
+    .find($doc(TutorReport.F.user -> user.id))
+    .sort($sort desc TutorReport.F.at)
+    .one[TutorReport]
+
+  def compute(userId: User.ID): Funit = for {
+    user <- userRepo named userId orFail s"No such user $userId"
+    hasFresh <- reportColl.exists(
+      $doc(
+        TutorReport.F.user -> user.id,
+        TutorReport.F.at $gt DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
       )
-      _ <- reportColl.insert.one(doc).void
-    } yield report
-  }
+    )
+    _ <- !hasFresh ?? {
+      val chrono = lila.common.Chronometer.lapTry(produce(user))
+      chrono.mon { r => lila.mon.tutor.build(r.isSuccess) }
+      for {
+        lap    <- chrono.lap
+        report <- Future fromTry lap.result
+        doc = reportHandler.writeOpt(report).get ++ $doc(
+          "_id"    -> s"${report.user}:${dateFormatter print report.at}",
+          "millis" -> lap.millis
+        )
+        _ <- reportColl.insert.one(doc).void
+      } yield ()
+    }
+  } yield ()
 
   private def produce(user: User): Fu[TutorReport] = for {
     perfStats <- perfStatsApi(user, tutorablePerfTypesOf(user)).monSuccess(_.tutor.perfStats)
