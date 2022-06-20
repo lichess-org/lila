@@ -25,6 +25,7 @@
   <string name="crushing">গুড়িয়ে দেয়া</string>
   <string name="crushingDescription">অপনেন্টের ব্লানডারকে ধরে ফেলুন এবং প্রতিপক্ষকে গুড়িয়ে দিয়ে লাভ অর্জন করুন। (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">দুটি হাতির মাত</string>
+  <string name="doubleBishopMateDescription">পাশাপাশি দুটি আড়া-আড়ি রেখায় থাকা দুটি বিশপ/হাতি নিজের গুটি দ্বারা আটকা পড়া প্রতিপক্ষের রাজাকে কিস্তিমাত করবে।</string>
   <string name="dovetailMate">ডাভটেইল মাত</string>
   <string name="dovetailMateDescription">একটা মন্ত্রী রাজাকে বাজিমাত দেয়, যার কেবল দুটি মুক্তির ঘর নিজের গুটি দ্বারা দখলকৃত থাকে।</string>
   <string name="equality">সমতা</string>
@@ -49,4 +50,6 @@
   <string name="fork">কাঁটাচামচ</string>
   <string name="forkDescription">একটা চাল যেখানে একটা গুটি প্রতিপক্ষের দুটি গুটিকে আক্রমণ করে একইসাথে (যেভাবে একজন দুইহাতে দুটো কাঁটাচামচ দিয়ে দুটো জিনিসে আক্রমণ করে).</string>
   <string name="hangingPiece">ঝুলন্ত গুটি</string>
+  <string name="hangingPieceDescription">প্রতিপক্ষের গুটি অরক্ষিত বা অপর্যাপ্তভাবে রক্ষিত এবং ক্যাপচার/খাওয়ার জন্য উন্মুক্ত।</string>
+  <string name="hookMate">হুক মেট</string>
 </resources>
