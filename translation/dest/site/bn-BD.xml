@@ -859,6 +859,7 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
   <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>
   <string name="simulFeatured">দেখানো হবে %s</string>
+  <string name="simulDescriptionHelp">আপনি অংশগ্রহণকারীদের কিছু বলতে চান?</string>
   <string name="inYourLocalTimezone">আপনার স্থানীয় সময়</string>
   <string name="tournChat">টুর্নামেন্ট চ্যাট</string>
   <string name="noChat">কোনো চ্যাট নয়</string>
@@ -866,5 +867,7 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="onlyTeamMembers">শুধুমাত্র দলের সদস্যরা</string>
   <string name="navigateMoveTree">Move/চালের তালিকা নির্দেশক</string>
   <string name="mouseTricks">মাউসের নিয়ন্ত্রন</string>
+  <string name="since">Since/শুরু</string>
+  <string name="until">Until/পর্যন্ত</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
 </resources>
