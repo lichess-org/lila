@@ -19,7 +19,7 @@ final class Tutor(env: Env) extends LilaController(env) {
     }
 
   def user(username: String) = TutorPage(username) { implicit ctx => me =>
-    env.tutor.builder.getOrMake(me, ctx.ip) map { report =>
+    env.tutor.api.latest(me) map { report =>
       Ok(views.html.tutor.home(report, me))
     }
   }
