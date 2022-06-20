@@ -58,7 +58,7 @@ final class Tutor(env: Env) extends LilaController(env) {
       username: String
   )(f: Context => UserModel => TutorReport.Availability => Fu[Result]) =
     Secure(_.Beta) { implicit ctx => holder =>
-      def proceed(user: UserModel) = env.tutor.api.latest(user) flatMap f(ctx)(user)
+      def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(ctx)(user)
       if (!holder.user.is(username)) {
         if (isGranted(_.SeeInsight)) env.user.repo.named(username) flatMap { _ ?? proceed }
         else redirHome(holder.user)

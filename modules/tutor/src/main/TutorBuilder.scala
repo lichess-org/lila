@@ -68,7 +68,7 @@ final private class TutorBuilder(
     )
     _ <- !hasFresh ?? {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
-      chrono.mon { r => lila.mon.tutor.build(r.isSuccess) }
+      chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for {
         lap    <- chrono.lap
         report <- Future fromTry lap.result
@@ -82,12 +82,13 @@ final private class TutorBuilder(
   } yield ()
 
   private def produce(user: User): Fu[TutorReport] = for {
-    perfStats <- perfStatsApi(user, tutorablePerfTypesOf(user)).monSuccess(_.tutor.perfStats)
+    _         <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
+    perfStats <- perfStatsApi(user, tutorablePerfTypesOf(user)).monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
       .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
       .toList
       .sortBy(-_.perfStats.nbGames)
-    perfs <- tutorUsers.map(producePerf).sequenceFu
+    perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorReport(user.id, DateTime.now, perfs)
 
   private def producePerf(user: TutorUser): Fu[TutorPerfReport] = for {

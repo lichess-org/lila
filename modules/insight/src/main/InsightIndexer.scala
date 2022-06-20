@@ -28,8 +28,9 @@ final private class InsightIndexer(
   def all(user: User): Funit =
     workQueue {
       storage.fetchLast(user.id) flatMap {
-        case None    => fromScratch(user)
-        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+        _.fold(fromScratch(user)) { e =>
+          computeFrom(user, e.date plusSeconds 1, e.number + 1)
+        }
       }
     }
 

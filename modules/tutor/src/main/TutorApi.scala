@@ -15,7 +15,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
 
   import TutorBsonHandlers._
 
-  def latest(user: User): Fu[TutorReport.Availability] =
+  def availability(user: User): Fu[TutorReport.Availability] =
     builder findLatest user flatMap {
       case Some(report) if report.isFresh => fuccess(TutorReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorReport.Available(report, _) }
@@ -26,7 +26,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
         }
     }
 
-  def request(user: User): Fu[TutorReport.Availability] = latest(user) flatMap { request(user, _) }
+  def request(user: User): Fu[TutorReport.Availability] = availability(user) flatMap { request(user, _) }
   def request(user: User, availability: TutorReport.Availability): Fu[TutorReport.Availability] =
     availability match {
       case TutorReport.Empty(TutorQueue.NotInQueue) => queue.enqueue(user) map TutorReport.Empty
@@ -36,7 +36,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
     }
 
   ResilientScheduler(every = Every(1 second), timeout = AtMost(10 seconds), initialDelay = 3 seconds) {
-    queue.next.thenPp flatMap {
+    queue.next flatMap {
       _ ?? { next =>
         next.startedAt match {
           case None => queue.start(next.userId) >> computeThenRemoveFromQueue(next.userId)
