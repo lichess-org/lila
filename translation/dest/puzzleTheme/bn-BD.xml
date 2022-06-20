@@ -107,10 +107,19 @@
   <string name="smotheredMate">স্মদারড মেট</string>
   <string name="smotheredMateDescription">ঘোড়া যখন নিজের গুটি দ্বারা আটকে পড়া রাজাকে কিস্তিমাত করে।</string>
   <string name="superGM">সুপার গ্রান্ডমাস্টারদের খেলা।</string>
+  <string name="superGMDescription">বিশ্বসেরা দাবাড়ুদের খেলা থেকে নেয়া ধাঁধা।</string>
   <string name="trappedPiece">আটকে পড়া গুটি</string>
   <string name="trappedPieceDescription">সীমিত চাল থাকার জন্য গুটি যখন নিজেকে খাওয়া(capture) থেকে বাঁচাতে পারে না।</string>
   <string name="underPromotion">অর্ধ-পদোন্নতি(Underpromotion)</string>
   <string name="underPromotionDescription">ঘোড়া, হাতি অথবা নৌকায় উন্নীত করা।</string>
   <string name="veryLong">অতিদীর্ঘ ধাঁধা</string>
   <string name="veryLongDescription">চার বা ততোধিক চালে জিতুন</string>
+  <string name="xRayAttack">এক্স-রে আক্রমণ</string>
+  <string name="zugzwang">জুগজওয়াং(Zugzwang)</string>
+  <string name="zugzwangDescription">প্রতিপক্ষের সীমিত চাল আছে, এবং সব চাল তাদের অবস্থান আরো খারাপ করবে।</string>
+  <string name="healthyMix">পরিমিত মিশ্রণ</string>
+  <string name="healthyMixDescription">সবকিছু একটু করে। আপনি জানবেন না কি আসতে চলেছে। অনেকটা বাস্তব খেলার মতো।</string>
+  <string name="playerGames">খেলোয়ারদের খেলা হতে</string>
+  <string name="playerGamesDescription">খেলোয়ারদের খেলা থেকে বাছাই করে তৈরি করা ধাঁধা।</string>
+  <string name="puzzleDownloadInformation">এই ধাঁধা গুলো সবার জন্য উন্মুক্ত এবং %s থেকে নামিয়ে নেয়া যাবে।</string>
 </resources>
