@@ -441,6 +441,7 @@
   <string name="boardEditor">বোর্ড সম্পাদক</string>
   <string name="setTheBoard">বোর্ড সেট করুন</string>
   <string name="popularOpenings">জনপ্রিয় চমক</string>
+  <string name="endgamePositions">সমাপনী খেলার অবস্থান</string>
   <string name="chess960StartPosition">Chess960 এর শুরুর অবস্থান: %s</string>
   <string name="startPosition">শুরুর অবস্থান</string>
   <string name="clearBoard">বোর্ড খালি করুন</string>
@@ -867,6 +868,9 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="onlyTeamMembers">শুধুমাত্র দলের সদস্যরা</string>
   <string name="navigateMoveTree">Move/চালের তালিকা নির্দেশক</string>
   <string name="mouseTricks">মাউসের নিয়ন্ত্রন</string>
+  <string name="toggleLocalAnalysis">ব্যক্তিগত কম্পিউটার বিশ্লেষণ অন/অফ</string>
+  <string name="toggleAllAnalysis">সব কম্পিউটার বিশ্লেষণ অন/অফ</string>
+  <string name="playComputerMove">কম্পিউটারের সেরা চাল</string>
   <string name="since">Since/শুরু</string>
   <string name="until">Until/পর্যন্ত</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
