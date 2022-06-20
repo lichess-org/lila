@@ -12,10 +12,12 @@ case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
 ) {
   lazy val acplCompare = TutorCompare[LilaOpeningFamily, Acpl](
+    InsightDimension.OpeningFamily,
     Metric.MeanCpl,
     families.map { f => (f.family, f.acpl) }
   )
   lazy val performanceCompare = TutorCompare[LilaOpeningFamily, Rating](
+    InsightDimension.OpeningFamily,
     Metric.Performance,
     families.map { f => (f.family, f.performance.toOption) }
   )

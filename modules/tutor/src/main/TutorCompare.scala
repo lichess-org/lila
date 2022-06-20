@@ -3,30 +3,30 @@ package lila.tutor
 import lila.common.Heapsort
 import lila.insight.{ InsightDimension, Metric }
 
-case class TutorCompare[D, V: TutorCompare.Comparable](
+case class TutorCompare[D, V](
+    dimensionType: InsightDimension[D],
     metric: Metric,
     points: List[(D, TutorMetricOption[V])]
-) {
+)(implicit number: TutorNumber[V]) {
   import TutorCompare._
+  import TutorNumber._
 
   val totalCountMine = points.map(_._2.mine.??(_.count)).sum
 
   val dimComparisons = {
-    val myPoints: List[((D, ValueCount[V]), Int)] = points.collect {
-      case (dim, TutorMetricOption(Some(mine), _)) if mine.relevantTo(totalCountMine) =>
-        dim -> mine
-    }.zipWithIndex
+    val myPoints: List[(D, ValueCount[V])] =
+      points.collect { case (dim, TutorMetricOption(Some(mine), _)) => dim -> mine }
 
     for {
-      ((dim1, met1), i1) <- myPoints
-      ((dim2, met2), i2) <- myPoints.filter(_._2 > i1)
-    } yield Comparison(dim1, metric, met1, OtherDim(dim2, met2))
+      (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
+      avg = number.average(myPoints.filter(_._1 != dim1).map(_._2))
+    } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
   }
 
   val peerComparisons = points.collect {
     case (dim, TutorMetricOption(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
-      Comparison(dim, metric, mine, Peers[D, V](peer))
+      Comparison(dimensionType, dim, metric, mine, Peers(peer))
   }
 
   def comparisons: List[Comparison[D, V]] = dimComparisons ::: peerComparisons
@@ -38,45 +38,22 @@ case class TutorCompare[D, V: TutorCompare.Comparable](
 
 object TutorCompare {
 
-  case class Comparison[D, V: Comparable](
+  case class Comparison[D, V](
+      dimensionType: InsightDimension[D],
       dimension: D,
       metric: Metric,
       value: ValueCount[V],
-      reference: Reference[D, V]
-  ) {
-    val comparison = valueCountIsComparable[V].compare(value, reference.value)
+      reference: Reference[V]
+  )(implicit number: TutorNumber[V]) {
+
+    val comparison = number.compare(value.value, reference.value.value)
 
     override def toString = s"(${comparison.value}) $dimension $metric $value vs $reference"
   }
 
   private[tutor] val comparisonOrdering = Ordering.by[Comparison[_, _], Double](_.comparison.abs)
 
-  sealed trait Reference[D, V] { val value: ValueCount[V] }
-  case class Peers[D, V](value: ValueCount[V])                  extends Reference[D, V]
-  case class OtherDim[D, V](dimension: D, value: ValueCount[V]) extends Reference[D, V]
-
-  trait Comparable[V] {
-    def compare(a: V, b: V): ValueComparison
-  }
-
-  implicit val ratioIsComparable = new Comparable[TutorRatio] {
-    def compare(a: TutorRatio, b: TutorRatio) = ValueComparison(a.value, b.value)
-  }
-  implicit val doubleIsComparable = new Comparable[Double] {
-    def compare(a: Double, b: Double) = ValueComparison(a, b)
-  }
-  implicit val acplIsComparable = new Comparable[Acpl] {
-    def compare(a: Acpl, b: Acpl) = ValueComparison(-a.value, -b.value)
-  }
-  implicit val ratingIsComparable = new Comparable[Rating] {
-    def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
-  }
-  implicit def valueCountIsComparable[V](implicit by: Comparable[V]) = new Comparable[ValueCount[V]] {
-    def compare(a: ValueCount[V], b: ValueCount[V]) = by.compare(a.value, b.value)
-  }
-
-  def higherIsBetter[M](metric: Metric) = metric match {
-    case Metric.MeanCpl => false
-    case _              => true
-  }
+  sealed trait Reference[V] { val value: ValueCount[V] }
+  case class Peers[V](value: ValueCount[V])  extends Reference[V]
+  case class DimAvg[V](value: ValueCount[V]) extends Reference[V]
 }
