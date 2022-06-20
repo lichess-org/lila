@@ -1,20 +1,18 @@
 package lila.tutor
 
-import chess.Color
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 import lila.user.User
 
-case class TutorReport(
+case class TutorFullReport(
     user: User.ID,
     at: DateTime,
     perfs: List[TutorPerfReport]
 ) {
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  def isFresh                   = at isAfter DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
+  def isFresh = at isAfter DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
 
   lazy val nbGames = perfs.toList.map(_.stats.nbGames).sum
   lazy val totalTime: FiniteDuration =
@@ -25,24 +23,20 @@ case class TutorReport(
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
     }
 
+  def ratioTimeOf(perf: PerfType): Option[TutorRatio] =
+    apply(perf).flatMap(_.estimateTotalTime) map { time =>
+      TutorRatio(time.toSeconds.toInt, totalTime.toSeconds.toInt)
+    }
+
   override def toString = s"Report($user, $at, ${perfs.map(_.perf.key) mkString "+"})"
 }
 
-case class TutorPerfReport(
-    perf: PerfType,
-    stats: InsightPerfStats,
-    openings: Color.Map[TutorColorOpenings],
-    phases: List[TutorPhase]
-) {
-  lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
-}
-
-object TutorReport {
+object TutorFullReport {
 
   val freshness = 1 day
 
   sealed abstract class Availability
-  case class Available(report: TutorReport, fresher: Option[TutorQueue.Status]) extends Availability {
+  case class Available(report: TutorFullReport, fresher: Option[TutorQueue.Status]) extends Availability {
     def isFresh = fresher.isEmpty
   }
   case class Empty(status: TutorQueue.Status) extends Availability

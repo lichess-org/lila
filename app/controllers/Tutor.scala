@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.rating.PerfType
 import lila.user.{ User => UserModel }
-import lila.tutor.{ TutorPerfReport, TutorReport }
+import lila.tutor.{ TutorPerfReport, TutorFullReport }
 import lila.common.LilaOpeningFamily
 
 final class Tutor(env: Env) extends LilaController(env) {
@@ -56,7 +56,7 @@ final class Tutor(env: Env) extends LilaController(env) {
 
   private def TutorPageAvailability(
       username: String
-  )(f: Context => UserModel => TutorReport.Availability => Fu[Result]) =
+  )(f: Context => UserModel => TutorFullReport.Availability => Fu[Result]) =
     Secure(_.Beta) { implicit ctx => holder =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(ctx)(user)
       if (!holder.user.is(username)) {
@@ -65,23 +65,23 @@ final class Tutor(env: Env) extends LilaController(env) {
       } else proceed(holder.user)
     }
 
-  private def TutorPage(username: String)(f: Context => UserModel => TutorReport.Available => Fu[Result]) =
+  private def TutorPage(username: String)(f: Context => UserModel => TutorFullReport.Available => Fu[Result]) =
     TutorPageAvailability(username) { implicit ctx => user => availability =>
       availability match {
-        case TutorReport.InsufficientGames =>
+        case TutorFullReport.InsufficientGames =>
           BadRequest(views.html.tutor.pages.insufficientGames).fuccess
-        case empty: TutorReport.Empty         => BadRequest(views.html.tutor.pages.empty(empty, user)).fuccess
-        case available: TutorReport.Available => f(ctx)(user)(available)
+        case empty: TutorFullReport.Empty         => BadRequest(views.html.tutor.pages.empty(empty, user)).fuccess
+        case available: TutorFullReport.Available => f(ctx)(user)(available)
       }
     }
 
   private def TutorPerfPage(username: String, perf: String)(
-      f: Context => UserModel => TutorReport.Available => TutorPerfReport => Fu[Result]
+      f: Context => UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ) =
     TutorPage(username) { ctx => me => availability =>
       PerfType(perf).fold(redirHome(me)) { perf =>
         availability match {
-          case full @ TutorReport.Available(report, _) =>
+          case full @ TutorFullReport.Available(report, _) =>
             report(perf).fold(redirHome(me)) { perfReport =>
               f(ctx)(me)(full)(perfReport)
             }

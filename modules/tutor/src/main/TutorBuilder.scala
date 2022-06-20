@@ -66,7 +66,7 @@ final private class TutorBuilder(
     }
   } yield ()
 
-  private def produce(user: User): Fu[TutorReport] = for {
+  private def produce(user: User): Fu[TutorFullReport] = for {
     _         <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user)).monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
@@ -74,7 +74,7 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.nbGames)
     perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
-  } yield TutorReport(user.id, DateTime.now, perfs)
+  } yield TutorFullReport(user.id, DateTime.now, perfs)
 
   private def producePerf(user: TutorUser): Fu[TutorPerfReport] = for {
     openings <- TutorOpening compute user
@@ -88,8 +88,8 @@ final private class TutorBuilder(
 
   private def hasFreshReport(user: User) = reportColl.exists(
     $doc(
-      TutorReport.F.user -> user.id,
-      TutorReport.F.at $gt DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
+      TutorFullReport.F.user -> user.id,
+      TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
     )
   )
 

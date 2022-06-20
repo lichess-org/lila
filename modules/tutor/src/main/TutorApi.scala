@@ -15,22 +15,22 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
 
   import TutorBsonHandlers._
 
-  def availability(user: User): Fu[TutorReport.Availability] =
+  def availability(user: User): Fu[TutorFullReport.Availability] =
     findLatest(user) flatMap {
-      case Some(report) if report.isFresh => fuccess(TutorReport.Available(report, none))
-      case Some(report) => queue.status(user) dmap some map { TutorReport.Available(report, _) }
+      case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
+      case Some(report) => queue.status(user) dmap some map { TutorFullReport.Available(report, _) }
       case None =>
         builder.eligiblePerfTypesOf(user) match {
-          case Nil => fuccess(TutorReport.InsufficientGames)
-          case _   => queue.status(user) map TutorReport.Empty
+          case Nil => fuccess(TutorFullReport.InsufficientGames)
+          case _   => queue.status(user) map TutorFullReport.Empty
         }
     }
 
-  def request(user: User, availability: TutorReport.Availability): Fu[TutorReport.Availability] =
+  def request(user: User, availability: TutorFullReport.Availability): Fu[TutorFullReport.Availability] =
     availability match {
-      case TutorReport.Empty(TutorQueue.NotInQueue) => queue.enqueue(user) dmap TutorReport.Empty
-      case TutorReport.Available(report, Some(TutorQueue.NotInQueue)) =>
-        queue.enqueue(user) dmap some map { TutorReport.Available(report, _) }
+      case TutorFullReport.Empty(TutorQueue.NotInQueue) => queue.enqueue(user) dmap TutorFullReport.Empty
+      case TutorFullReport.Available(report, Some(TutorQueue.NotInQueue)) =>
+        queue.enqueue(user) dmap some map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)
     }
 
@@ -59,7 +59,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
     }
 
   private def findLatest(user: User) = reportColl
-    .find($doc(TutorReport.F.user -> user.id))
-    .sort($sort desc TutorReport.F.at)
-    .one[TutorReport]
+    .find($doc(TutorFullReport.F.user -> user.id))
+    .sort($sort desc TutorFullReport.F.at)
+    .one[TutorFullReport]
 }

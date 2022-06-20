@@ -15,6 +15,7 @@ private object TutorBsonHandlers {
   import lila.insight.BSONHandlers._
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
+  implicit val acplHandler: BSONHandler[Acpl]               = doubleAnyValHandler[Acpl](_.value, Acpl.apply)
   implicit val durationHandler: BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
@@ -34,6 +35,9 @@ private object TutorBsonHandlers {
   }
   implicit val ratioCanBeUnknown = new CanBeUnknown[TutorRatio] {
     val value = TutorRatio(doubleCanBeUnknown.value)
+  }
+  implicit val acplCanBeUnknown = new CanBeUnknown[Acpl] {
+    val value = Acpl(doubleCanBeUnknown.value)
   }
 
   implicit def metricHandler[A](implicit
@@ -77,6 +81,6 @@ private object TutorBsonHandlers {
   implicit val meanRatingHandler = intAnyValHandler[MeanRating](_.value, MeanRating.apply)
   implicit val perfStatsHandler  = Macros.handler[InsightPerfStats]
   implicit val perfReportHandler = Macros.handler[TutorPerfReport]
-  implicit val reportHandler     = Macros.handler[TutorReport]
+  implicit val reportHandler     = Macros.handler[TutorFullReport]
 
 }

@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorQueue, TutorReport }
+import lila.tutor.{ TutorQueue, TutorFullReport }
 import lila.user.User
 
 object bits {
@@ -23,7 +23,7 @@ object bits {
   )
 
   private[tutor] def layout(
-      availability: TutorReport.Availability,
+      availability: TutorFullReport.Availability,
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false

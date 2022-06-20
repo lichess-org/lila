@@ -6,11 +6,11 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorReport }
+import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorFullReport }
 
 object openings {
 
-  def apply(full: TutorReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
       ctx: Context
   ) =
     bits.layout(

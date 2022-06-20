@@ -29,13 +29,13 @@ final private class TutorQueue(
         reportColl
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
             import framework._
-            Sort(Descending(TutorReport.F.at)) -> List(
+            Sort(Descending(TutorFullReport.F.at)) -> List(
               Limit(100),
-              Group(BSONNull)(TutorReport.F.millis -> AvgField(TutorReport.F.millis))
+              Group(BSONNull)(TutorFullReport.F.millis -> AvgField(TutorFullReport.F.millis))
             )
           }
           .map {
-            ~_.flatMap(_.getAsOpt[Int](TutorReport.F.millis))
+            ~_.flatMap(_.getAsOpt[Int](TutorFullReport.F.millis))
           }
           .map(_.millis)
       }

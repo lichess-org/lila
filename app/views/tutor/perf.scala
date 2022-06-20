@@ -7,12 +7,12 @@ import play.api.mvc.Call
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorReport }
+import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
 import lila.user.User
 
 object perf {
 
-  def apply(full: TutorReport.Available, report: TutorPerfReport, user: User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(implicit
       ctx: Context
   ) =
     bits.layout(full, menu = menu(full, user, report.some))(
@@ -31,8 +31,8 @@ object perf {
       )
     )
 
-  private[tutor] def menu(full: TutorReport.Available, user: User, report: Option[TutorPerfReport])(implicit
-      ctx: Context
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
+      implicit ctx: Context
   ) = frag(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>

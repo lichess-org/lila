@@ -7,12 +7,12 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
-import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorReport }
+import lila.tutor.{ TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio, TutorFullReport }
 
 object opening {
 
   def apply(
-      full: TutorReport.Available,
+      full: TutorFullReport.Available,
       report: TutorPerfReport,
       opening: LilaOpeningFamily.AsColor,
       user: lila.user.User

@@ -9,7 +9,7 @@ import lila.user.User
 
 case class TutorPhase(
     phase: Phase,
-    acpl: TutorMetricOption[Double],
+    acpl: TutorMetricOption[Acpl],
     awareness: TutorMetricOption[TutorRatio],
     material: TutorMetricOption[Double]
 )
@@ -30,7 +30,7 @@ private object TutorPhases {
     } yield InsightDimension.valuesOf(InsightDimension.Phase).map { phase =>
       TutorPhase(
         phase,
-        acpl = acpls valueMetric phase,
+        acpl = acpls valueMetric phase map Acpl.apply,
         awareness = awareness valueMetric phase map TutorRatio.apply,
         material = materials valueMetric phase
       )

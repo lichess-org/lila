@@ -6,12 +6,12 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorQueue, TutorReport }
+import lila.tutor.{ TutorQueue, TutorFullReport }
 import lila.user.User
 
 object pages {
 
-  def empty(availability: TutorReport.Empty, user: User)(implicit ctx: Context) =
+  def empty(availability: TutorFullReport.Empty, user: User)(implicit ctx: Context) =
     bits.layout(availability, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       h1("Lichess Tutor"),
@@ -31,7 +31,7 @@ object pages {
     )
 
   def insufficientGames(implicit ctx: Context) =
-    bits.layout(TutorReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
+    bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       h1("Lichess Tutor"),
       bits.mascotSays("Not enough games to analyse! Go and play some more chess.")
