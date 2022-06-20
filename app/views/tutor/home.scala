@@ -78,7 +78,7 @@ object home {
       " than ",
       comp.reference match {
         case TutorCompare.OtherDim(dim, _) => frag("in the ", dim.toString)
-        case TutorCompare.Peers(_)         => frag("your peer's")
+        case TutorCompare.Peers(_)         => frag("your peers'")
       }
     )
 

@@ -49,11 +49,11 @@ case class RelativeQuality private (value: Double) extends AnyVal {
 
   def wording: Wording = value match {
     case v if v < -0.5  => Wording.MuchWorse
-    case v if v < -0.2  => Wording.QuiteWorse
+    case v if v < -0.2  => Wording.Worse
     case v if v < -0.05 => Wording.SlightlyWorse
     case v if v < 0.05  => Wording.Similar
     case v if v < 0.2   => Wording.SlightlyBetter
-    case v if v < 0.5   => Wording.QuiteBetter
+    case v if v < 0.5   => Wording.Better
     case _              => Wording.MuchBetter
   }
 }
@@ -65,11 +65,11 @@ object RelativeQuality {
   sealed abstract class Wording(val value: String)
   object Wording {
     case object MuchWorse      extends Wording("much worse")
-    case object QuiteWorse     extends Wording("quite worse")
+    case object Worse          extends Wording("worse")
     case object SlightlyWorse  extends Wording("slightly worse")
     case object Similar        extends Wording("similar")
     case object SlightlyBetter extends Wording("slightly better")
-    case object QuiteBetter    extends Wording("quite better")
+    case object Better         extends Wording("better")
     case object MuchBetter     extends Wording("much better")
   }
 }

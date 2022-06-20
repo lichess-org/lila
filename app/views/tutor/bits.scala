@@ -6,15 +6,14 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorQueue, TutorFullReport }
-import lila.user.User
+import lila.tutor.TutorFullReport
 
 object bits {
 
   val mascot =
     img(
       cls := "tutor__mascot",
-      src := assetUrl("images/mascot/octopus.svg")
+      src := assetUrl("images/mascot/octopus-shadow.svg")
     )
 
   def mascotSays(content: Modifier*) = div(cls := "tutor__mascot-says")(

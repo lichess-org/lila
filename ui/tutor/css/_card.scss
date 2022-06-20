@@ -36,7 +36,8 @@
     outline: 3px solid mix($c-link, $c-bg-box, 30%);
     &:hover {
       outline: 3px solid mix($c-link, $c-bg-box, 60%);
-      background: mix($c-link, $c-bg-zebra, 30%);
+      background: mix($c-link, $c-bg-zebra, 10%);
+      box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
     }
   }
 
