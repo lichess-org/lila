@@ -42,4 +42,20 @@
     <item quantity="one">%s ساعت پیش</item>
     <item quantity="other">%s ساعت پیش</item>
   </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s روز پیش</item>
+    <item quantity="other">%s روز پیش</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s هفته پیش</item>
+    <item quantity="other">%s هفته پیش</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s ماه پیش</item>
+    <item quantity="other">%s ماه پیش</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s سال پیش</item>
+    <item quantity="other">%s سال پیش</item>
+  </plurals>
 </resources>
