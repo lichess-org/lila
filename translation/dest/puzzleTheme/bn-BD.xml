@@ -34,19 +34,19 @@
   <string name="kingsideAttackDescription">প্রতিপক্ষের রাজার নিজের পাশে ক্যাসলিং করার পর, তাকে আক্রমণ করা।</string>
   <string name="clearance">পরিষ্কারকরণ</string>
   <string name="clearanceDescription">প্রায়শই একটি টেম্পোসহ, একটা চাল যা একটা ঘর, ফাইল অথবা আড়া-আড়ি লাইন পরিষ্কার করে পরে যার দ্বারা ট্যাকটিক প্রয়োগ করা যায়।</string>
-  <string name="defensiveMove">প্রতিরক্ষার চাল</string>
+  <string name="defensiveMove">রক্ষণাত্বক চাল</string>
   <string name="defensiveMoveDescription">একটা নিখুঁত চাল অথবা চালের ধারা যার দ্বারা ম্যাটেরিয়াল হারানো অথবা অন্য ধরণের ক্ষতির হাত থেকে বাঁচা যায়।</string>
   <string name="deflection">বিচ্যুতি</string>
-  <string name="deflectionDescription">একটা চাল যা প্রতিপক্ষের গুটিকে নিজের কাজ (যেমন একটা চাবি ঘর পাহাড়া দেয়া) থেকে সরায়। কখনো কখনো এটাকে ওভারলোডিং ও বলা হয়।</string>
+  <string name="deflectionDescription">একটা চাল যা প্রতিপক্ষের গুটিকে নিজের কাজ (যেমন একটা গুরুত্বপূর্ণ ঘর পাহারা দেয়া) থেকে বিরত রাখে। কখনো কখনো এটাকে ওভারলোডিং ও বলা হয়।</string>
   <string name="discoveredAttack">আবিষ্কৃত আক্রমণ</string>
   <string name="discoveredAttackDescription">একটা গুটি (যেমন ঘোড়া), যা পূর্বে কোন গুটির আক্রমণকে প্রতিরোধ করছিল, তাকে সেই গুটির রাস্তা থেকে সরিয়ে আক্রমণ করা। এতে যেগুটি সরানো হলো এবং যেগুটির পথ থেকে সরানো হলো উভয়ই আক্রমণ করবে।</string>
   <string name="doubleCheck">দ্বৈত চেক</string>
   <string name="doubleCheckDescription">দুটি গুটি দিয়ে একসাথে চেক করা, আবিষ্কৃত আক্রমণের ফলস্বরূপ যেখানে যে গুটি সরে এবং যে গুটির রাস্তা পরিষ্কার হয় উভয়ই প্রতিপক্ষের রাজাকে আক্রমণ করে।</string>
-  <string name="endgame">এন্ডগেম</string>
+  <string name="endgame">সমাপনী খেলা</string>
   <string name="endgameDescription">গেমের শেষ পর্যায়ের একটি ট্যাকটিক।</string>
   <string name="enPassantDescription">এন প্যাসান্ট রুলকে কেন্দ্র করে একটি ট্যাকটিক, যেখানে একটা সৈন্য একটা প্রতিপক্ষের সৈন্যকে খেতে পারে যা তাকে পাশ কাটিয়েছে নিজের দুই ঘর অতিক্রমের ক্ষমতা ব্যবহার করে।</string>
   <string name="exposedKing">বহি:প্রকাশিত রাজা</string>
-  <string name="exposedKingDescription">রাজার আশেপাশে অল্প রক্ষককে কেন্দ্র করে একটি ট্যাকটিক, প্রায়ই যা বাজিমাতে পরিণত হয়।</string>
+  <string name="exposedKingDescription">রাজার আশেপাশে অল্পসংখ্যক রক্ষককে কেন্দ্র করে একটি কৌশল, যা প্রায়ই কিস্তিমাতে পরিণত হয়।</string>
   <string name="fork">কাঁটাচামচ</string>
   <string name="forkDescription">একটা চাল যেখানে একটা গুটি প্রতিপক্ষের দুটি গুটিকে আক্রমণ করে একইসাথে (যেভাবে একজন দুইহাতে দুটো কাঁটাচামচ দিয়ে দুটো জিনিসে আক্রমণ করে).</string>
   <string name="hangingPiece">ঝুলন্ত গুটি</string>
@@ -105,4 +105,6 @@
   <string name="skewer">Skewer/শূল</string>
   <string name="skewerDescription">কোনো বড় গুটি আক্রমনের শিকার হলে, সেটি সরে গিয়ে পিছনের কোনো ছোট গুটিকে বিসর্জন/আক্রান্ত করা।</string>
   <string name="smotheredMate">স্মদারড মেট</string>
+  <string name="smotheredMateDescription">ঘোড়া যখন নিজের গুটি দ্বারা আটকে পড়া রাজাকে কিস্তিমাত করে।</string>
+  <string name="superGM">সুপার গ্রান্ডমাস্টারদের খেলা।</string>
 </resources>
