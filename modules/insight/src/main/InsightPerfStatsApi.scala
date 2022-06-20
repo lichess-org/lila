@@ -25,7 +25,7 @@ final class InsightPerfStatsApi(
           Limit(pipeline.maxGames.value),
           Project($doc(F.perf -> true, F.rating -> true, "t" -> $doc("$sum" -> s"$$${F.moves("t")}"))),
           GroupField(F.perf)("r" -> AvgField(F.rating), "n" -> SumAll, "t" -> SumField("t"))
-        ).pp
+        )
       }.map { docs =>
         for {
           doc <- docs
