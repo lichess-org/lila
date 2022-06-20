@@ -107,4 +107,10 @@
   <string name="smotheredMate">স্মদারড মেট</string>
   <string name="smotheredMateDescription">ঘোড়া যখন নিজের গুটি দ্বারা আটকে পড়া রাজাকে কিস্তিমাত করে।</string>
   <string name="superGM">সুপার গ্রান্ডমাস্টারদের খেলা।</string>
+  <string name="trappedPiece">আটকে পড়া গুটি</string>
+  <string name="trappedPieceDescription">সীমিত চাল থাকার জন্য গুটি যখন নিজেকে খাওয়া(capture) থেকে বাঁচাতে পারে না।</string>
+  <string name="underPromotion">অর্ধ-পদোন্নতি(Underpromotion)</string>
+  <string name="underPromotionDescription">ঘোড়া, হাতি অথবা নৌকায় উন্নীত করা।</string>
+  <string name="veryLong">অতিদীর্ঘ ধাঁধা</string>
+  <string name="veryLongDescription">চার বা ততোধিক চালে জিতুন</string>
 </resources>
