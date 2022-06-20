@@ -89,4 +89,20 @@
   <string name="promotion">Promotion/পদোন্নতি</string>
   <string name="promotionDescription">আপনার সৈন্যকে মন্ত্রী বা অন্য লঘু গুটিতে উন্নীত করুন।</string>
   <string name="queenEndgame">মন্ত্রীর সমাপনী খেলা</string>
+  <string name="queenEndgameDescription">শুধু মন্ত্রী এবং সৈন্যদের নিয়ে একটা সমাপনী খেলা।</string>
+  <string name="queenRookEndgame">মন্ত্রী এবং নৌকা</string>
+  <string name="queenRookEndgameDescription">শুধু মন্ত্রী, নৌকা এবং সৈন্যদের নিয়ে সমাপনী খেলা।</string>
+  <string name="queensideAttack">মন্ত্রী-দিকের আক্রমণ</string>
+  <string name="queensideAttackDescription">প্রতিপক্ষের রাজার মন্ত্রীর দিকে ক্যাসলিং করার পর আক্রমণ।</string>
+  <string name="quietMove">Quite/নীরব চাল</string>
+  <string name="quietMoveDescription">যে চাল তাৎক্ষণিক কোনো প্রতিক্রিয়া করে না, কিন্তু পরবর্তী চাল গুলোকে অনেক গুপ্ত, অনিবার্য আক্রমনের জন্য তৈরি করে।</string>
+  <string name="rookEndgame">নৌকার সমাপনী খেলা</string>
+  <string name="rookEndgameDescription">শুধু নৌকা এবং সৈন্যদের নিয়ে সমাপনী খেলা।</string>
+  <string name="sacrifice">Sacrifice/বিসর্জন</string>
+  <string name="sacrificeDescription">কৌশলগত সুবিধা অর্জনের জন্য গুটি বিসর্জন দেয়া।</string>
+  <string name="short">সংক্ষিপ্ত ধাঁধা</string>
+  <string name="shortDescription">দুই চালে জিতুন।</string>
+  <string name="skewer">Skewer/শূল</string>
+  <string name="skewerDescription">কোনো বড় গুটি আক্রমনের শিকার হলে, সেটি সরে গিয়ে পিছনের কোনো ছোট গুটিকে বিসর্জন/আক্রান্ত করা।</string>
+  <string name="smotheredMate">স্মদারড মেট</string>
 </resources>
