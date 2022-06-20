@@ -5,7 +5,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.PerfStats
+import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 import lila.user.User
 
@@ -28,4 +28,4 @@ object TutorRatio {
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
 }
 
-case class TutorUser(user: User, perfType: PerfType, perfStats: PerfStats)
+case class TutorUser(user: User, perfType: PerfType, perfStats: InsightPerfStats)

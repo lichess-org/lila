@@ -1,15 +1,13 @@
 package lila.tutor
 
 import chess.Color
-import chess.format.FEN
-import chess.opening.FullOpening
-import chess.opening.FullOpeningDB
 import reactivemongo.api.bson._
+import scala.concurrent.duration.FiniteDuration
 
 import lila.common.Iso
 import lila.db.BSON
 import lila.db.dsl._
-import lila.insight.{ MeanRating, PerfStats }
+import lila.insight.{ InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 
 private object TutorBsonHandlers {
@@ -17,6 +15,7 @@ private object TutorBsonHandlers {
   import lila.insight.BSONHandlers._
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
+  implicit val durationHandler: BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
@@ -76,7 +75,7 @@ private object TutorBsonHandlers {
   //     _.mapKeys(_.key)
   //   )
   implicit val meanRatingHandler = intAnyValHandler[MeanRating](_.value, MeanRating.apply)
-  implicit val perfStatsHandler  = Macros.handler[PerfStats]
+  implicit val perfStatsHandler  = Macros.handler[InsightPerfStats]
   implicit val perfReportHandler = Macros.handler[TutorPerfReport]
   implicit val reportHandler     = Macros.handler[TutorReport]
 }

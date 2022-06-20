@@ -7,6 +7,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
+import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
@@ -150,6 +151,8 @@ trait Handlers {
 
   implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
     stringAnyValHandler(_.value, lila.common.Markdown.apply)
+
+  val minutesHandler = BSONIntegerHandler.as[FiniteDuration](_.minutes, _.toMinutes.toInt)
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {

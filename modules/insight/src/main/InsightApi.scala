@@ -3,9 +3,7 @@ package lila.insight
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
-import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
-import lila.rating.PerfType
 import lila.user.User
 import lila.common.config
 
@@ -53,28 +51,6 @@ final class InsightApi(
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       }
       .monSuccess(_.insight.peers)
-
-  def perfStats(user: User, perfTypes: List[PerfType]): Fu[Map[PerfType, PerfStats]] =
-    storage.coll {
-      _.aggregateList(perfTypes.size) { framework =>
-        import framework._
-        import InsightEntry.{ BSONFields => F }
-        val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
-        Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
-          Sort(Descending(F.date)),
-          Limit(pipeline.maxGames.value),
-          GroupField(F.perf)("r" -> AvgField("mr"), "n" -> SumAll)
-        )
-      }.map { docs =>
-        for {
-          doc <- docs
-          id  <- doc int "_id"
-          pt  <- PerfType(id)
-          ra  <- doc double "r"
-          nb  <- doc int "n"
-        } yield pt -> PerfStats(MeanRating(ra.toInt), nb)
-      }.map(_.toMap)
-    }
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {

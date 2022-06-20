@@ -34,6 +34,10 @@ object home {
                       td(perfReport.stats.rating.value)
                     ),
                     tr(
+                      th("Total time playing"),
+                      td(showMinutes(perfReport.estimateTotalTime.toMinutes.toInt))
+                    ),
+                    tr(
                       th("Games played"),
                       td(perfReport.stats.nbGames)
                     )

@@ -41,6 +41,8 @@ final class Env(
 
   private lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user")))
 
+  lazy val perfStatsApi = wire[InsightPerfStatsApi]
+
   lazy val api = wire[InsightApi]
 
   lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>

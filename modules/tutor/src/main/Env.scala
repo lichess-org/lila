@@ -14,7 +14,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
-    insightApi: lila.insight.InsightApi
+    insightApi: lila.insight.InsightApi,
+    perfStatsApi: lila.insight.InsightPerfStatsApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

@@ -18,6 +18,7 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightPerfStatsApi,
   Metric,
   Phase,
   Question
@@ -29,6 +30,7 @@ import lila.common.config
 
 final class TutorBuilder(
     insightApi: InsightApi,
+    perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
@@ -77,7 +79,7 @@ final class TutorBuilder(
     user <- userRepo.byId(userId) orFail s"Missing tutor user $userId"
     playedSince = DateTime.now minusMonths 1
     perfTypes   = PerfType.standardWithUltra.filter(pt => user.perfs(pt).latest.exists(_ isAfter playedSince))
-    perfStats <- insightApi.perfStats(user, perfTypes).monSuccess(_.tutor.perfStats)
+    perfStats <- perfStatsApi(user, perfTypes).monSuccess(_.tutor.perfStats)
     tutorUsers = perfStats
       .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
       .toList
