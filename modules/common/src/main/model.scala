@@ -75,9 +75,6 @@ case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[String]) extends AnyVal
 case class Ints(value: List[Int])       extends AnyVal
 
-case class Every(value: FiniteDuration)  extends AnyVal
-case class AtMost(value: FiniteDuration) extends AnyVal
-
 case class Template(value: String) extends AnyVal
 
 case class Preload[A](value: Option[A]) extends AnyVal {

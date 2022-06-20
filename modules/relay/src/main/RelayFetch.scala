@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.base.LilaInvalid
-import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
@@ -30,11 +30,11 @@ final private class RelayFetch(
     ws: StandaloneWSClient
 )(implicit context: ExecutionContext, system: ActorSystem) {
 
-  ResilientScheduler(every = Every(500 millis), timeout = AtMost(15 seconds), initialDelay = 30 seconds) {
+  LilaScheduler(_.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)
   }
 
-  ResilientScheduler(every = Every(750 millis), timeout = AtMost(10 seconds), initialDelay = 1 minute) {
+  LilaScheduler(_.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)) {
     syncRelays(official = false)
   }
 

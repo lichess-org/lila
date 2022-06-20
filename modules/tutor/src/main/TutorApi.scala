@@ -4,7 +4,7 @@ import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.common.{ AtMost, Every, ResilientScheduler, Uptime }
+import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl._
 import lila.user.User
 
@@ -16,7 +16,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
   import TutorBsonHandlers._
 
   def availability(user: User): Fu[TutorReport.Availability] =
-    builder findLatest user flatMap {
+    findLatest(user) flatMap {
       case Some(report) if report.isFresh => fuccess(TutorReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorReport.Available(report, _) }
       case None =>
@@ -35,7 +35,9 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
       case availability => fuccess(availability)
     }
 
-  ResilientScheduler(every = Every(1 second), timeout = AtMost(10 seconds), initialDelay = 3 seconds) {
+  LilaScheduler(_.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
+
+  private def pollQueue =
     queue.next flatMap {
       _ ?? { next =>
         next.startedAt match {
@@ -46,8 +48,12 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
         }
       }
     }
-  }
+
+  private def findLatest(user: User) = reportColl
+    .find($doc(TutorReport.F.user -> user.id))
+    .sort($sort desc TutorReport.F.at)
+    .one[TutorReport]
 
   private def computeThenRemoveFromQueue(userId: User.ID) =
-    builder.compute(userId) >> queue.remove(userId)
+    builder.apply(userId) >> queue.remove(userId)
 }

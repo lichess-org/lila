@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.common.config.Max
-import lila.common.{ AtMost, Bus, Every }
+import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
@@ -210,11 +210,9 @@ private object LobbySyncActor {
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
-    lila.common.ResilientScheduler(
-      every = Every(broomPeriod),
-      timeout = AtMost(10 seconds),
-      initialDelay = 7 seconds
-    ) { trouper.ask[Unit](Tick) }
+    lila.common.LilaScheduler(_.Every(broomPeriod), _.AtMost(10 seconds), _.Delay(7 seconds)) {
+      trouper.ask[Unit](Tick)
+    }
     trouper
   }
 }

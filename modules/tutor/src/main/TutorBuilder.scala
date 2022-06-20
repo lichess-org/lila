@@ -53,12 +53,7 @@ final private class TutorBuilder(
       user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
     )
 
-  def findLatest(user: User) = reportColl
-    .find($doc(TutorReport.F.user -> user.id))
-    .sort($sort desc TutorReport.F.at)
-    .one[TutorReport]
-
-  def compute(userId: User.ID): Funit = for {
+  def apply(userId: User.ID): Funit = for {
     user <- userRepo named userId orFail s"No such user $userId"
     hasFresh <- reportColl.exists(
       $doc(
@@ -67,6 +62,7 @@ final private class TutorBuilder(
       )
     )
     _ <- !hasFresh ?? {
+      Thread sleep 10 * 60 * 1000
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for {

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
-import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: Cached)(implicit
@@ -16,7 +16,7 @@ final private class TournamentNotify(repo: TournamentRepo, cached: Cached)(impli
 
   private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
 
-  ResilientScheduler(every = Every(10 seconds), timeout = AtMost(10 seconds), initialDelay = 1 minute) {
+  LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
       .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
       .flatMap {

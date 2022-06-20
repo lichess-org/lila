@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
-import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import lila.common.{ LilaStream, LilaScheduler }
 
 final private class TournamentScheduler(
     api: TournamentApi,
@@ -20,7 +20,7 @@ final private class TournamentScheduler(
   import Schedule.Plan
   import chess.variant._
 
-  ResilientScheduler(every = Every(5 minutes), timeout = AtMost(1 minute), initialDelay = 1 minute) {
+  LilaScheduler(_.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try {
         val newTourns = allWithConflicts(DateTime.now).map(_.build)
