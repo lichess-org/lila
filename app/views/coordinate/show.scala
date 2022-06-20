@@ -16,7 +16,7 @@ object show {
   def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
-      moreCss = cssTag("coordinateTrainer"),
+      moreCss = cssTag("coordinateTrainer" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
       moreJs = frag(
         jsModule("coordinateTrainer"),
         embedJsUnsafeLoadThen(
