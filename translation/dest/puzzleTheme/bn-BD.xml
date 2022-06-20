@@ -55,4 +55,26 @@
   <string name="hookMateDescription">একটি নৌকা, ঘোড়া এবং সৈন্য দ্বারা প্রতিপক্ষের রাজাকে কিস্তিমাত করা যা নিজের সৈন্য দ্বারা আটকা পরেছে।</string>
   <string name="interference">প্রতিবন্ধকতা তৈরি</string>
   <string name="interferenceDescription">একটি গুটিকে প্রতিপক্ষের দুটি গুটির মধ্যবর্তী ঘরে চাল দেয়া, যাতে একটি বা উভয় গুটি অরক্ষিত হয়ে পড়ে। যেমনঃ দুটি নৌকার মধ্যে প্রতিপক্ষের একটি রক্ষিত ঘরে প্রতিপক্ষের ঘোড়ার চাল দেয়া।</string>
+  <string name="intermezzo">Intermezzo/মধ্যবর্তী চাল</string>
+  <string name="knightEndgame">Knight/ঘোড়ার সমাপনী খেলা</string>
+  <string name="knightEndgameDescription">শুধু হাতি এবং সৈন্যদের নিয়ে সমাপনী খেলা।</string>
+  <string name="long">দীর্ঘ ধাঁধা</string>
+  <string name="longDescription">তিন চালে জিতুন।</string>
+  <string name="master">খেতাবধারীদের খেলা</string>
+  <string name="masterDescription">খেতাবধারীদের খেলা থেকে নেয়া ধাঁধা।</string>
+  <string name="masterVsMaster">খেতাব বনাম খেতাব</string>
+  <string name="masterVsMasterDescription">দুইজন খেতাবধারীদের খেলা থেকে নেয়া ধাঁধা।</string>
+  <string name="mate">কিস্তিমাত</string>
+  <string name="mateDescription">ভঙ্গিমায় খেলা জিতুন।</string>
+  <string name="mateIn1">১ চালে মাত</string>
+  <string name="mateIn1Description">১ চালে কিস্তিমাত দিন।</string>
+  <string name="mateIn2">২ চালে মাত</string>
+  <string name="mateIn2Description">২ চালে কিস্তিমাত দিন।</string>
+  <string name="mateIn3">৩ চালে মাত</string>
+  <string name="mateIn3Description">৩ চালে কিস্তিমাত দিন।</string>
+  <string name="mateIn4">৪ চালে মাত</string>
+  <string name="mateIn4Description">৪ চালে কিস্তিমাত দিন।</string>
+  <string name="mateIn5">৫ বা ততোধিক চালে মাত</string>
+  <string name="mateIn5Description">কিস্তিমাত করার দীর্ঘ চালের ক্রম বের করতে হবে।</string>
+  <string name="middlegame">মধ্য-খেলা</string>
 </resources>
