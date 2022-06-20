@@ -77,4 +77,16 @@
   <string name="mateIn5">৫ বা ততোধিক চালে মাত</string>
   <string name="mateIn5Description">কিস্তিমাত করার দীর্ঘ চালের ক্রম বের করতে হবে।</string>
   <string name="middlegame">মধ্য-খেলা</string>
+  <string name="middlegameDescription">খেলার দ্বিতীয় পর্যায়ের কৌশল।</string>
+  <string name="oneMove">১ চালের ধাঁধা</string>
+  <string name="oneMoveDescription">মাত্র ১ চাল দীর্ঘ ধাঁধা।</string>
+  <string name="opening">প্রারম্ভিক খেলা</string>
+  <string name="openingDescription">খেলার শুরুর পর্যায়ের কৌশল।</string>
+  <string name="pawnEndgame">সৈন্যের সমাপনী খেলা</string>
+  <string name="pawnEndgameDescription">শুধুমাত্র সৈন্য দ্বারা সমাপনী খেলা।</string>
+  <string name="pin">Pin/আটকে ফেলা</string>
+  <string name="pinDescription">এক ধরণের কৌশল যেখানে একটি গুটির চাল দিলে নিজের বড় গুটির উপর আক্রমন হবে।</string>
+  <string name="promotion">Promotion/পদোন্নতি</string>
+  <string name="promotionDescription">আপনার সৈন্যকে মন্ত্রী বা অন্য লঘু গুটিতে উন্নীত করুন।</string>
+  <string name="queenEndgame">মন্ত্রীর সমাপনী খেলা</string>
 </resources>
