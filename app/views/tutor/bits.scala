@@ -11,10 +11,22 @@ import lila.user.User
 
 object bits {
 
+  val mascot =
+    img(
+      cls := "tutor__mascot",
+      src := assetUrl("images/mascot/octopus.svg")
+    )
+
+  def mascotSays(content: Modifier*) = div(cls := "tutor__mascot-says")(
+    div(cls := "tutor__mascot-says__content")(content),
+    mascot
+  )
+
   private[tutor] def layout(
       availability: TutorReport.Availability,
       menu: Frag,
-      title: String = "Lichess Tutor"
+      title: String = "Lichess Tutor",
+      pageSmall: Boolean = false
   )(
       content: Modifier*
   )(implicit ctx: Context) =
@@ -22,35 +34,9 @@ object bits {
       moreCss = cssTag("tutor"),
       title = "Lichess Tutor"
     ) {
-      main(cls := "page-menu tutor")(
+      main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
         st.aside(cls := "page-menu__menu subnav")(menu),
         div(cls := "page-menu__content")(content)
       )
     }
-
-  def empty(availability: TutorReport.Empty, user: User)(implicit ctx: Context) =
-    layout(availability, menu = emptyFrag)(
-      cls := "tutor__insufficient box box-pad",
-      h1("Lichess Tutor"),
-      p("Explain what tutor is about here."),
-      availability.status match {
-        case TutorQueue.NotInQueue =>
-          postForm(action := routes.Tutor.refresh(user.username))(
-            submitButton(cls := "button button-fat")("Analyse my games and help me improve")
-          )
-        case in: TutorQueue.InQueue =>
-          frag(
-            p("Tutor will analyse your games as soon as possible"),
-            p("Position in the queue: ", in.position),
-            p("Estimated wait time: ", showMinutes(in.eta.toMinutes.toInt atLeast 1))
-          )
-      }
-    )
-
-  def insufficientGames(implicit ctx: Context) =
-    layout(TutorReport.InsufficientGames, menu = emptyFrag)(
-      cls := "tutor__insufficient box box-pad",
-      h1("Lichess Tutor"),
-      p("Not enough games to analyse! Go and play some more chess.")
-    )
 }

@@ -6,8 +6,23 @@
   }
 
   &-card {
-    @extend %box-neat-force;
+    @extend %box-neat;
     background: $c-bg-zebra;
+
+    &__top {
+      @extend %flex-center;
+
+      i {
+        text-shadow: $text-shadow;
+        font-size: 6em;
+        margin: -2rem 1rem 0 1.5rem;
+        color: $c-primary;
+        opacity: 0.7;
+      }
+      &__title {
+        font-size: 1.6em;
+      }
+    }
   }
   &-overlaid {
     position: relative;
@@ -18,5 +33,6 @@
 
   &-overlay {
     @extend %link-overlay;
+    // display: none;
   }
 }

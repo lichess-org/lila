@@ -2,17 +2,21 @@
   &__home {
   }
   &__perfs {
+    @extend %box-padding-horiz;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-gap: 2vmin;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-gap: var(--box-padding);
+    margin: var(--box-padding) 0;
     &__perf {
-      h3 {
-        padding: 1vh 2vw;
-        font-size: 1.6em;
-      }
       .slist tr td {
         font-weight: bold;
       }
+    }
+  }
+  &__empty {
+    &__cta {
+      text-align: center;
+      margin: 10vh 0 5vh 0;
     }
   }
 }

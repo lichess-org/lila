@@ -22,8 +22,10 @@ case class TutorReport(
 
   def favouritePerfs: List[TutorPerfReport] =
     perfs.head :: perfs.tail.takeWhile { perf =>
-      perf.estimateTotalTime.exists(_ > totalTime * 0.25) || perf.stats.nbGames >= 30
+      perf.estimateTotalTime.exists(_ > totalTime * 0.25)
     }
+
+  override def toString = s"Report($user, $at, ${perfs.map(_.perf.key) mkString "+"})"
 }
 
 case class TutorPerfReport(
