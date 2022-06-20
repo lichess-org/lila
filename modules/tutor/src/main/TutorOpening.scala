@@ -21,16 +21,21 @@ case class TutorColorOpenings(
     Metric.Performance,
     families.map { f => (f.family, f.performance.toOption) }
   )
+  lazy val awarenessCompare = TutorCompare[LilaOpeningFamily, TutorRatio](
+    InsightDimension.OpeningFamily,
+    Metric.Awareness,
+    families.map { f => (f.family, f.awareness) }
+  )
 
   def dimensionHighlights(nb: Int) =
     Heapsort.topNToList(
-      acplCompare.dimComparisons ::: performanceCompare.dimComparisons,
+      acplCompare.dimComparisons ::: performanceCompare.dimComparisons ::: awarenessCompare.dimComparisons,
       nb,
       comparisonOrdering
     )
   def peerHighlights(nb: Int) =
     Heapsort.topNToList(
-      acplCompare.dimComparisons ::: performanceCompare.dimComparisons,
+      acplCompare.peerComparisons ::: performanceCompare.peerComparisons ::: awarenessCompare.peerComparisons,
       nb,
       comparisonOrdering
     )

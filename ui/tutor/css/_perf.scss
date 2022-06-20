@@ -1,12 +1,8 @@
 .tutor {
   &__perf {
     &__angles {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      grid-gap: 2vmin;
     }
     &__angle {
-      padding: 1vh 2vw;
     }
   }
 }

@@ -12,11 +12,11 @@ import lila.tutor.{ TutorCompare, ValueComparison }
 private object compare {
 
   def show(comp: TutorCompare.Comparison[_, _]) =
-    p(
+    li(
       "Your ",
       showMetric(comp.metric),
       " in the ",
-      showDimension(comp.dimension),
+      strong(showDimension(comp.dimension)),
       " is ",
       showQuality(comp.comparison),
       " than ",

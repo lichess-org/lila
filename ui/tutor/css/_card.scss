@@ -1,4 +1,11 @@
 .tutor {
+  &-cards {
+    @extend %box-padding-horiz;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-gap: var(--box-padding);
+    margin: var(--box-padding) 0;
+  }
   &-card {
     @extend %box-neat;
     background: $c-bg-zebra;
@@ -14,11 +21,14 @@
         opacity: 0.7;
       }
       &__title {
+        &--pad {
+          padding: 2rem 1rem 0 2rem;
+        }
         i + & {
           margin-top: 1em;
         }
         &__text {
-          font-size: 1.6em;
+          font-size: 1.7em;
         }
         &__sub {
           margin-top: 0.5em;
@@ -29,6 +39,10 @@
 
     &__content {
       padding: 2rem;
+      li {
+        list-style: disc inside;
+        margin: 0 0 1em 1em;
+      }
     }
     &__more {
       display: block;

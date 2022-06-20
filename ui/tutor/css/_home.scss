@@ -2,11 +2,6 @@
   &__home {
   }
   &__perfs {
-    @extend %box-padding-horiz;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    grid-gap: var(--box-padding);
-    margin: var(--box-padding) 0;
     &__perf {
       .slist tr td {
         font-weight: bold;

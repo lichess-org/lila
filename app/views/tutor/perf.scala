@@ -16,17 +16,28 @@ object perf {
       ctx: Context
   ) =
     bits.layout(full, menu = menu(full, user, report.some))(
-      cls := "tutor__perf box box-pad",
+      cls := "tutor__perf box",
       h1(
         a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+        "Tutor: ",
         report.perf.trans
       ),
-      div(cls := "tutor__perf__angles")(
-        angleCard(routes.Tutor.openings(user.username, report.perf.key))(
-          h2("Openings")
+      bits.mascotSays("..."),
+      div(cls := "tutor__perf__angles tutor-cards")(
+        angleCard(
+          routes.Tutor.openings(user.username, report.perf.key),
+          frag(report.perf.trans, " openings")
+        )(
+          ul(
+            report.openingDimensionHighlights(2) map compare.show,
+            report.openingPeerHighlights(2) map compare.show
+          )
         ),
-        angleCard(routes.Tutor.phases(user.username, report.perf.key))(
-          h2("Game phases")
+        angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
+          ul(
+            report.phaseDimensionHighlights(2) map compare.show,
+            report.phasePeerHighlights(2) map compare.show
+          )
         )
       )
     )
@@ -43,13 +54,17 @@ object perf {
     }
   )
 
-  private def angleCard(url: Call)(content: Modifier*)(implicit ctx: Context) =
-    div(cls := "tutor__perf__angle tutor-card tutor-overlaid")(
+  private def angleCard(url: Call, title: Frag)(content: Modifier*)(implicit ctx: Context) =
+    st.article(cls := "tutor__perf__angle tutor-card tutor-overlaid")(
       a(
         cls  := "tutor-overlay",
         href := url
       ),
-      content
+      div(cls := "tutor-card__top")(
+        div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
+          h3(cls := "tutor-card__top__title__text")(title)
+        )
+      ),
+      div(cls := "tutor-card__content")(content, bits.seeMore)
     )
-
 }

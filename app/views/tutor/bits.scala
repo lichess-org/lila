@@ -21,6 +21,8 @@ object bits {
     mascot
   )
 
+  val seeMore = a(cls := "tutor-card__more")("Click to see more...")
+
   private[tutor] def layout(
       availability: TutorFullReport.Availability,
       menu: Frag,

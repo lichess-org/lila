@@ -30,7 +30,7 @@ object home {
         ),
         p("Let's see how to improve.")
       ),
-      div(cls := "tutor__perfs")(
+      div(cls := "tutor__perfs tutor-cards")(
         full.report.perfs.toList map { perfReportCard(full.report, _, user) }
       )
     )
@@ -61,9 +61,8 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        perfReport.dimensionHighlights(2) map compare.show,
-        perfReport.peerHighlights(2) map compare.show,
-        a(cls := "tutor-card__more")("Click to see more...")
+        ul(perfReport.dimensionHighlights(2) map compare.show, perfReport.peerHighlights(2) map compare.show),
+        bits.seeMore
       )
     )
 }
