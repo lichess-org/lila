@@ -52,4 +52,7 @@
   <string name="hangingPiece">ঝুলন্ত গুটি</string>
   <string name="hangingPieceDescription">প্রতিপক্ষের গুটি অরক্ষিত বা অপর্যাপ্তভাবে রক্ষিত এবং ক্যাপচার/খাওয়ার জন্য উন্মুক্ত।</string>
   <string name="hookMate">হুক মেট</string>
+  <string name="hookMateDescription">একটি নৌকা, ঘোড়া এবং সৈন্য দ্বারা প্রতিপক্ষের রাজাকে কিস্তিমাত করা যা নিজের সৈন্য দ্বারা আটকা পরেছে।</string>
+  <string name="interference">প্রতিবন্ধকতা তৈরি</string>
+  <string name="interferenceDescription">একটি গুটিকে প্রতিপক্ষের দুটি গুটির মধ্যবর্তী ঘরে চাল দেয়া, যাতে একটি বা উভয় গুটি অরক্ষিত হয়ে পড়ে। যেমনঃ দুটি নৌকার মধ্যে প্রতিপক্ষের একটি রক্ষিত ঘরে প্রতিপক্ষের ঘোড়ার চাল দেয়া।</string>
 </resources>
