@@ -55,6 +55,7 @@
     }
     .active {
       @extend %flex-center-nowrap;
+      direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
       background: mix($c-secondary, $c-bg-box, 40%);
