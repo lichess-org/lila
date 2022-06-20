@@ -52,15 +52,8 @@ final private class TutorQueue(
 
   implicit private val nextReader    = Macros.reader[Next]
   def next: Fu[Option[Next]]         = queueColl.find($empty).sort($sort asc F.requestedAt).one[Next]
-  def start(userId: User.ID): Funit  = queueColl.updateField($id(userId), F.requestedAt, DateTime.now).void
+  def start(userId: User.ID): Funit  = queueColl.updateField($id(userId), F.startedAt, DateTime.now).void
   def remove(userId: User.ID): Funit = queueColl.delete.one($id(userId)).void
-  def removeAndStartNext(userId: User.ID): Fu[Option[Next]] =
-    remove(userId) >> queueColl.ext
-      .findAndUpdate[Next](
-        selector = $empty,
-        update = $set(F.startedAt -> DateTime.now),
-        fetchNewObject = true
-      )
 
   private def fetchStatus(user: User): Fu[Status] =
     queueColl.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {

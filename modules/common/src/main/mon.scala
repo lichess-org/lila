@@ -201,6 +201,7 @@ object mon {
     def buildFull                     = future("tutor.build.full")
     def askMine                       = askAs("mine") _
     def askPeer                       = askAs("peer") _
+    def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
     private def askAs(as: String)(question: String, perf: String) =
       future("tutor.insight.ask", Map("question" -> question, "perf" -> perf, "as" -> as))
   }

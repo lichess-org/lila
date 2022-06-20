@@ -48,21 +48,10 @@ final private class TutorBuilder(
   // private val timeToWaitForAnalysis       = 1 second
   // private val timeToWaitForAnalysis      = 3 minutes
 
-  def tutorablePerfTypesOf(user: User) =
-    PerfType.standardWithUltra.filter(pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
-    )
-
   def apply(userId: User.ID): Funit = for {
-    user <- userRepo named userId orFail s"No such user $userId"
-    hasFresh <- reportColl.exists(
-      $doc(
-        TutorReport.F.user -> user.id,
-        TutorReport.F.at $gt DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
-      )
-    )
+    user     <- userRepo named userId orFail s"No such user $userId"
+    hasFresh <- hasFreshReport(user)
     _ <- !hasFresh ?? {
-      Thread sleep 10 * 60 * 1000
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for {
@@ -79,7 +68,7 @@ final private class TutorBuilder(
 
   private def produce(user: User): Fu[TutorReport] = for {
     _         <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
-    perfStats <- perfStatsApi(user, tutorablePerfTypesOf(user)).monSuccess(_.tutor buildSegment "perf-stats")
+    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user)).monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
       .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
       .toList
@@ -91,6 +80,18 @@ final private class TutorBuilder(
     openings <- TutorOpening compute user
     phases   <- TutorPhases compute user
   } yield TutorPerfReport(user.perfType, user.perfStats, openings, phases)
+
+  private[tutor] def eligiblePerfTypesOf(user: User) =
+    PerfType.standardWithUltra.filter { pt =>
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
+    }
+
+  private def hasFreshReport(user: User) = reportColl.exists(
+    $doc(
+      TutorReport.F.user -> user.id,
+      TutorReport.F.at $gt DateTime.now.minusMinutes(TutorReport.freshness.toMinutes.toInt)
+    )
+  )
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
 

@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User
+import chess.Centis
 
 case class InsightPerfStats(rating: MeanRating, nbGames: Int, time: FiniteDuration)
 
@@ -33,8 +34,8 @@ final class InsightPerfStatsApi(
           pt  <- PerfType(id)
           ra  <- doc double "r"
           nb  <- doc int "n"
-          t   <- doc long "t"
-        } yield pt -> InsightPerfStats(MeanRating(ra.toInt), nb, t.seconds)
+          t   <- doc.getAsOpt[Centis]("t")
+        } yield pt -> InsightPerfStats(MeanRating(ra.toInt), nb, t.toDuration)
       }.map(_.toMap)
     }
 }
