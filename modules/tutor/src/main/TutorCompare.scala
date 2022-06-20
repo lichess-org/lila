@@ -10,23 +10,25 @@ case class TutorCompare[D, V: TutorCompare.Qualifiable](
 ) {
   import TutorCompare._
 
-  private def dimComparisons = {
+  val dimComparisons = {
     val myPoints = points.collect { case (dim, TutorMetricOption(Some(mine), _)) =>
       dim -> mine
-    }
+    }.zipWithIndex
     for {
-      (dim1, met1) <- myPoints
-      (dim2, met2) <- myPoints.filter(_._1 != dim1)
+      ((dim1, met1), i1) <- myPoints
+      ((dim2, met2), i2) <- myPoints.filter(_._2 > i1)
     } yield Comparison(dimensionType, dim1, metricType, met1, OtherDim(dim2, met2))
   }
 
-  private def peerComparisons = points.pp.collect { case (dim, TutorMetricOption(Some(mine), Some(peer))) =>
-    Comparison(dimensionType, dim, metricType, mine, Peers[D, V](peer).pp).pp
+  val peerComparisons = points.collect { case (dim, TutorMetricOption(Some(mine), Some(peer))) =>
+    Comparison(dimensionType, dim, metricType, mine, Peers[D, V](peer))
   }
 
-  val comparisons: List[Comparison[D, V]] = dimComparisons ::: peerComparisons
+  def comparisons: List[Comparison[D, V]] = dimComparisons ::: peerComparisons
+  def highlights(nb: Int)                 = Heapsort.topNToList(comparisons, nb, comparisonOrdering)
 
-  def highlights(nb: Int) = Heapsort.topNToList(comparisons, nb, comparisonOrdering)
+  def dimensionHighlights(nb: Int) = Heapsort.topNToList(dimComparisons, nb, comparisonOrdering)
+  def peerHighlights(nb: Int)      = Heapsort.topNToList(peerComparisons, nb, comparisonOrdering)
 }
 
 object TutorCompare {

@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.{ RelativeQuality, TutorCompare, TutorFullReport, TutorPerfReport }
 import lila.user.User
 
 object home {
@@ -46,20 +46,44 @@ object home {
       ),
       div(cls := "tutor-card__top")(
         iconTag(perfReport.perf.iconChar),
-        h3(cls := "tutor-card__top__title")(
-          perfReport.stats.nbGames.localize,
-          " ",
-          perfReport.perf.trans,
-          " games"
+        div(cls := "tutor-card__top__title")(
+          h3(cls := "tutor-card__top__title__text")(
+            perfReport.stats.nbGames.localize,
+            " ",
+            perfReport.perf.trans,
+            " games"
+          ),
+          report ratioTimeOf perfReport.perf map { ratio =>
+            div(cls := "tutor-card__top__title__sub")(
+              strong(ratio.percent.toInt, "%"),
+              " of your chess playing time."
+            )
+          }
         )
       ),
       div(cls := "tutor-card__content")(
-        report ratioTimeOf perfReport.perf map { ratio =>
-          p(strong(ratio.percent.toInt, "%"), " of your chess playing time.")
-        },
-        perfReport.highlights(5) map { highlight =>
-          p(highlight.quality.wording.toString, " ", highlight.toString)
-        }
+        perfReport.dimensionHighlights(2) map showHighlight,
+        perfReport.peerHighlights(2) map showHighlight
       )
     )
+
+  private def showHighlight(comp: TutorCompare.Comparison[_, _]) =
+    p(
+      "Your ",
+      comp.metricType.toString,
+      " in the ",
+      comp.dimension.toString,
+      " is ",
+      showQuality(comp.quality),
+      " than ",
+      comp.reference match {
+        case TutorCompare.OtherDim(dim, _) => frag("in the ", dim.toString)
+        case TutorCompare.Peers(_)         => frag("your peer's")
+      }
+    )
+
+  private def showQuality(quality: RelativeQuality) =
+    (if (quality.positive) goodTag else badTag)(quality.wording.value)
+
+  // p(comp.quality.wording.toString, " ", comp.toString)
 }
