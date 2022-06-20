@@ -107,7 +107,8 @@ final private class TournamentScheduler(
                 description = s"""
 We've had $yo great chess years together!
 
-Thank you all, you rock!"""
+Thank you all, you rock!""",
+                homepageHours = 24
               ).some
             )
           }
