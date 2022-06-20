@@ -3,27 +3,30 @@ package lila.tutor
 import lila.common.Heapsort
 import lila.insight.{ InsightDimension, Metric }
 
-case class TutorCompare[D, V: TutorCompare.Qualifiable](
-    dimensionType: InsightDimension[D],
-    metricType: Metric,
+case class TutorCompare[D, V: TutorCompare.Comparable](
+    metric: Metric,
     points: List[(D, TutorMetricOption[V])]
 ) {
   import TutorCompare._
 
+  val totalCountMine = points.map(_._2.mine.??(_.count)).sum
+
   val dimComparisons = {
     val myPoints: List[((D, ValueCount[V]), Int)] = points.collect {
-      case (dim, TutorMetricOption(Some(mine), _)) =>
+      case (dim, TutorMetricOption(Some(mine), _)) if mine.relevantTo(totalCountMine) =>
         dim -> mine
     }.zipWithIndex
 
     for {
       ((dim1, met1), i1) <- myPoints
       ((dim2, met2), i2) <- myPoints.filter(_._2 > i1)
-    } yield Comparison(dimensionType, dim1, metricType, met1, OtherDim(dim2, met2))
+    } yield Comparison(dim1, metric, met1, OtherDim(dim2, met2))
   }
 
-  val peerComparisons = points.collect { case (dim, TutorMetricOption(Some(mine), Some(peer))) =>
-    Comparison(dimensionType, dim, metricType, mine, Peers[D, V](peer))
+  val peerComparisons = points.collect {
+    case (dim, TutorMetricOption(Some(mine), Some(peer)))
+        if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
+      Comparison(dim, metric, mine, Peers[D, V](peer))
   }
 
   def comparisons: List[Comparison[D, V]] = dimComparisons ::: peerComparisons
@@ -35,42 +38,41 @@ case class TutorCompare[D, V: TutorCompare.Qualifiable](
 
 object TutorCompare {
 
-  case class Comparison[D, V: Qualifiable](
-      dimensionType: InsightDimension[D],
+  case class Comparison[D, V: Comparable](
       dimension: D,
-      metricType: Metric,
+      metric: Metric,
       value: ValueCount[V],
       reference: Reference[D, V]
   ) {
-    val quality = valueCountIsQualifiable[V].quality(value, reference.value)
+    val comparison = valueCountIsComparable[V].compare(value, reference.value)
 
-    override def toString = s"(${quality.value}) $dimension $metricType $value vs $reference"
+    override def toString = s"(${comparison.value}) $dimension $metric $value vs $reference"
   }
 
-  private[tutor] val comparisonOrdering = Ordering.by[Comparison[_, _], Double](_.quality.abs)
+  private[tutor] val comparisonOrdering = Ordering.by[Comparison[_, _], Double](_.comparison.abs)
 
   sealed trait Reference[D, V] { val value: ValueCount[V] }
   case class Peers[D, V](value: ValueCount[V])                  extends Reference[D, V]
   case class OtherDim[D, V](dimension: D, value: ValueCount[V]) extends Reference[D, V]
 
-  trait Qualifiable[V] {
-    def quality(a: V, b: V): RelativeQuality
+  trait Comparable[V] {
+    def compare(a: V, b: V): ValueComparison
   }
 
-  implicit val ratioIsQualifiable = new Qualifiable[TutorRatio] {
-    def quality(a: TutorRatio, b: TutorRatio) = RelativeQuality(a.value, b.value)
+  implicit val ratioIsComparable = new Comparable[TutorRatio] {
+    def compare(a: TutorRatio, b: TutorRatio) = ValueComparison(a.value, b.value)
   }
-  implicit val doubleIsQualifiable = new Qualifiable[Double] {
-    def quality(a: Double, b: Double) = RelativeQuality(a, b)
+  implicit val doubleIsComparable = new Comparable[Double] {
+    def compare(a: Double, b: Double) = ValueComparison(a, b)
   }
-  implicit val acplIsQualifiable = new Qualifiable[Acpl] {
-    def quality(a: Acpl, b: Acpl) = RelativeQuality(-a.value, -b.value)
+  implicit val acplIsComparable = new Comparable[Acpl] {
+    def compare(a: Acpl, b: Acpl) = ValueComparison(-a.value, -b.value)
   }
-  implicit val ratingIsQualifiable = new Qualifiable[Rating] {
-    def quality(a: Rating, b: Rating) = RelativeQuality((a.value - b.value) / 300)
+  implicit val ratingIsComparable = new Comparable[Rating] {
+    def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
   }
-  implicit def valueCountIsQualifiable[V](implicit by: Qualifiable[V]) = new Qualifiable[ValueCount[V]] {
-    def quality(a: ValueCount[V], b: ValueCount[V]) = by.quality(a.value, b.value)
+  implicit def valueCountIsComparable[V](implicit by: Comparable[V]) = new Comparable[ValueCount[V]] {
+    def compare(a: ValueCount[V], b: ValueCount[V]) = by.compare(a.value, b.value)
   }
 
   def higherIsBetter[M](metric: Metric) = metric match {

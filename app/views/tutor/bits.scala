@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ RelativeQuality, TutorFullReport }
+import lila.tutor.{ TutorFullReport, ValueComparison }
 
 object bits {
 

@@ -10,7 +10,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Acpl(value: Double) extends AnyVal {
-  def winningChances    = RelativeQuality(2 / (1 + Math.exp(-0.004 * value)) - 1)
+  def winningChances    = ValueComparison(2 / (1 + Math.exp(-0.004 * value)) - 1)
   override def toString = value.toInt.toString
 }
 object Acpl {
@@ -22,7 +22,9 @@ object Rating {
 }
 
 case class ValueCount[V](value: V, count: Int) {
-  def map[B](f: V => B) = copy(value = f(value))
+  def map[B](f: V => B)      = copy(value = f(value))
+  def reliableEnough         = count >= 50
+  def relevantTo(total: Int) = reliableEnough && count * 10 > total
 }
 
 case class TutorMetric[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
@@ -52,9 +54,9 @@ object TutorRatio {
 }
 
 // value from -1 (worse) to +1 (best)
-case class RelativeQuality private (value: Double) extends AnyVal {
+case class ValueComparison private (value: Double) extends AnyVal {
 
-  import RelativeQuality.Wording
+  import ValueComparison.Wording
 
   def abs      = math.abs(value)
   def positive = value > 0
@@ -70,9 +72,9 @@ case class RelativeQuality private (value: Double) extends AnyVal {
   }
 }
 
-object RelativeQuality {
-  def apply(a: Double, b: Double): RelativeQuality = apply((a / b) - 1)
-  def apply(value: Double): RelativeQuality        = new RelativeQuality(value atLeast -1 atMost 1)
+object ValueComparison {
+  def apply(a: Double, b: Double): ValueComparison = apply((a / b) - 1)
+  def apply(value: Double): ValueComparison        = new ValueComparison(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val value: String)
   object Wording {
