@@ -32,8 +32,7 @@ final private class TutorBuilder(
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
-    fishnetAnalyser: Analyser,
-    fishnetAwaiter: FishnetAwaiter,
+    fishnet: TutorFishnet,
     reportColl: Coll @@ ReportColl
 )(implicit
     ec: ExecutionContext,
@@ -67,12 +66,15 @@ final private class TutorBuilder(
   } yield report
 
   private def produce(user: User): Fu[TutorFullReport] = for {
-    _         <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user)).monSuccess(_.tutor buildSegment "perf-stats")
+    _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
+    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider).monSuccess(
+      _.tutor buildSegment "perf-stats"
+    )
     tutorUsers = perfStats
-      .collect { case (pt, stats) if stats.nbGames > 5 => TutorUser(user, pt, stats) }
+      .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
       .sortBy(-_.perfStats.nbGames)
+    _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
     perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
 

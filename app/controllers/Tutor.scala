@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.rating.PerfType
 import lila.user.{ User => UserModel }
-import lila.tutor.{ TutorPerfReport, TutorFullReport }
+import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.common.LilaOpeningFamily
 
 final class Tutor(env: Env) extends LilaController(env) {
@@ -65,12 +65,16 @@ final class Tutor(env: Env) extends LilaController(env) {
       } else proceed(holder.user)
     }
 
-  private def TutorPage(username: String)(f: Context => UserModel => TutorFullReport.Available => Fu[Result]) =
+  private def TutorPage(
+      username: String
+  )(f: Context => UserModel => TutorFullReport.Available => Fu[Result]) =
     TutorPageAvailability(username) { implicit ctx => user => availability =>
       availability match {
         case TutorFullReport.InsufficientGames =>
           BadRequest(views.html.tutor.pages.insufficientGames).fuccess
-        case empty: TutorFullReport.Empty         => BadRequest(views.html.tutor.pages.empty(empty, user)).fuccess
+        case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
+          Accepted(views.html.tutor.pages.emptyQueued(in, user)).fuccess
+        case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.pages.empty(user)).fuccess
         case available: TutorFullReport.Available => f(ctx)(user)(available)
       }
     }
