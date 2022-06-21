@@ -6,6 +6,7 @@ import reactivemongo.api.bson.BSONNull
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 import lila.common.config
+import lila.common.Heapsort.implicits._
 
 final class InsightApi(
     storage: InsightStorage,
@@ -38,8 +39,7 @@ final class InsightApi(
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
         withPovs ?? {
-          val gameIds = lila.common.ThreadLocalRandom.shuffle(clusters.flatMap(_.gameIds)) take 4
-          gameRepo.userPovsByGameIds(gameIds, user)
+          gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds) botN 4, user)
         } map { Answer(question, clusters, _) }
       }
       .monSuccess(_.insight.user)

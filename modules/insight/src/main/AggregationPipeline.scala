@@ -136,7 +136,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
 
         val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
         val includeSomeGameIds = gameIdsSlice map AddFields.apply
-        val addGameIdToSet     = withPovs option AddFieldToSet("_id")
+        val addGameId          = withPovs option PushField("_id")
         val toPercent          = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
 
         def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
@@ -145,13 +145,13 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               groupOptions(dimensionGroupId(d))(
                 "v"   -> f.some,
                 "nb"  -> SumAll.some,
-                "ids" -> addGameIdToSet
+                "ids" -> addGameId
               )
             case Grouping.BucketAuto(buckets, granularity) =>
               bucketAutoOptions(dimensionGroupId(d), buckets, granularity)(
                 "v"   -> f.some,
                 "nb"  -> SumAll.some,
-                "ids" -> addGameIdToSet
+                "ids" -> addGameId
               )
           }) map some
 
@@ -161,7 +161,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               List(
                 groupOptions($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
                   "v"   -> SumAll.some,
-                  "ids" -> addGameIdToSet
+                  "ids" -> addGameId
                 ).some,
                 regroupStacked.some,
                 includeSomeGameIds
@@ -179,7 +179,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 UnwindField("doc").some,
                 groupOptions($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
                   "v"   -> SumAll.some,
-                  "ids" -> addGameIdToSet
+                  "ids" -> addGameId
                 ).some,
                 regroupStacked.some,
                 includeSomeGameIds,
