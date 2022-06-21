@@ -48,10 +48,10 @@ final private class TutorBuilder(
   // private val timeToWaitForAnalysis       = 1 second
   // private val timeToWaitForAnalysis      = 3 minutes
 
-  def apply(userId: User.ID): Funit = for {
+  def apply(userId: User.ID): Fu[Option[TutorFullReport]] = for {
     user     <- userRepo named userId orFail s"No such user $userId"
     hasFresh <- hasFreshReport(user)
-    _ <- !hasFresh ?? {
+    report <- !hasFresh ?? {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for {
@@ -62,9 +62,9 @@ final private class TutorBuilder(
           "millis" -> lap.millis
         )
         _ <- reportColl.insert.one(doc).void
-      } yield ()
+      } yield report.some
     }
-  } yield ()
+  } yield report
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _         <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")

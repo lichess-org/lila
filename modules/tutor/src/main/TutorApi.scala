@@ -6,9 +6,15 @@ import scala.concurrent.duration._
 
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl._
+import lila.memo.CacheApi
 import lila.user.User
 
-final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll @@ ReportColl)(implicit
+final class TutorApi(
+    queue: TutorQueue,
+    builder: TutorBuilder,
+    reportColl: Coll @@ ReportColl,
+    cacheApi: CacheApi
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
@@ -16,7 +22,7 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
   import TutorBsonHandlers._
 
   def availability(user: User): Fu[TutorFullReport.Availability] =
-    findLatest(user) flatMap {
+    cache.get(user.id) flatMap {
       case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorFullReport.Available(report, _) }
       case None =>
@@ -55,11 +61,19 @@ final class TutorApi(queue: TutorQueue, builder: TutorBuilder, reportColl: Coll 
   // NOT for builder
   private def buildThenRemoveFromQueue(userId: User.ID) =
     queue.start(userId) >>- {
-      builder(userId) >> queue.remove(userId) unit
+      builder(userId) foreach { reportOpt =>
+        queue.remove(userId) >>- cache.put(userId, fuccess(reportOpt)) unit
+      }
     }
 
-  private def findLatest(user: User) = reportColl
-    .find($doc(TutorFullReport.F.user -> user.id))
+  private val cache = cacheApi[User.ID, Option[TutorFullReport]](256, "tutor.report") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(1024)
+      .buildAsyncFuture(findLatest)
+  }
+
+  private def findLatest(userId: User.ID) = reportColl
+    .find($doc(TutorFullReport.F.user -> userId))
     .sort($sort desc TutorFullReport.F.at)
     .one[TutorFullReport]
 }
