@@ -108,7 +108,7 @@ final private class TournamentScheduler(
 We've had $yo great chess years together!
 
 Thank you all, you rock!""",
-                homepageHours = 24
+                homepageHours = 24.some
               ).some
             )
           }
