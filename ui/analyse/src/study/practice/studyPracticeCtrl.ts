@@ -47,7 +47,6 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     if (success() !== null) return;
     nbMoves(computeNbMoves());
     const res = success(makeSuccess(root, goal(), nbMoves()));
-    console.log(res);
     if (res) onVictory();
     else if (res === false) onFailure();
   }
