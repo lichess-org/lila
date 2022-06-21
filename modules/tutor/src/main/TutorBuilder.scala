@@ -94,23 +94,6 @@ final private class TutorBuilder(
   )
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
-
-  // private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
-  //   analysisRepo.byGame(game) orElse {
-  //     (index < requireAnalysisOnLastGames) ?? requestAnalysis(
-  //       game,
-  //       lila.fishnet.Work.Sender(userId = userId, ip = ip.some, mod = false, system = false)
-  //     )
-  //   }
-
-  // private def requestAnalysis(game: Game, sender: lila.fishnet.Work.Sender): Fu[Option[Analysis]] = {
-  //   def fetch = analysisRepo byId game.id
-  //   fishnetAnalyser(game, sender, ignoreConcurrentCheck = true) flatMap {
-  //     case Analyser.Result.Ok              => fishnetAwaiter(game.id, timeToWaitForAnalysis) >> fetch
-  //     case Analyser.Result.AlreadyAnalysed => fetch
-  //     case _                               => fuccess(none)
-  //   }
-  // }
 }
 
 private object TutorBuilder {
@@ -119,16 +102,15 @@ private object TutorBuilder {
   type Count = Int
   type Pair  = ValueCount[Value]
 
-  val peerNbGames = config.Max(5_000)
+  val peerNbGames = config.Max(10_000)
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) =
-    for {
-      mine <- answerMine(question, user)
-      peer <- answerPeer(question, user)
-    } yield Answers(mine, peer)
+  ) = for {
+    mine <- answerMine(question, user)
+    peer <- answerPeer(question, user)
+  } yield Answers(mine, peer)
 
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
