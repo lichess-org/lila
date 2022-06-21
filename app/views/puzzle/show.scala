@@ -20,7 +20,7 @@ object show {
     views.html.base.layout(
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = frag(
-        cssTag("puzzle"),
+        cssTag("puzzle" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.blind option cssTag("round.nvui")
       ),

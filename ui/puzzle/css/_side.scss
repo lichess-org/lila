@@ -22,7 +22,11 @@
 
       &::before {
         font-size: 3rem;
-        margin-right: 1vw;
+        @if variable-exists(is-rtl) {
+          margin-left: 1vw;
+        } @else {
+          margin-right: 1vw;
+        }
       }
 
       &.puzzle {
@@ -108,7 +112,11 @@
       @extend %flex-center-nowrap;
 
       .switch {
-        margin-right: 1em;
+        @if variable-exists(is-rtl) {
+          margin-left: 1em;
+        } @else {
+          margin-right: 1em;
+        }
       }
 
       label {
@@ -120,7 +128,11 @@
       margin-top: 2vmin;
 
       label {
-        margin-right: 1em;
+        @if variable-exists(is-rtl) {
+          margin-left: 1em;
+        } @else {
+          margin-right: 1em;
+        }
       }
 
       select {
