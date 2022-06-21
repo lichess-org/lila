@@ -17,12 +17,11 @@ final private class TutorFishnet(
     analyser: Analyser,
     awaiter: FishnetAwaiter,
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
-)(implicit
-    ec: ExecutionContext
-) {
+)(implicit ec: ExecutionContext) {
 
   val maxToAnalyse       = config.Max(30)
   val maxGamesToConsider = config.Max(maxToAnalyse.value * 2)
+  val maxTime            = 5 minutes
 
   val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
 
@@ -35,9 +34,8 @@ final private class TutorFishnet(
       }
       .sequenceFu
       .map(_.flatten) flatMap { games =>
-      games.foreach(g => println(s"${g.perfKey}"))
       games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
-      awaiter(games.map(_.id), 5 minutes)
+      awaiter(games.map(_.id), maxTime)
     }
   }
 }

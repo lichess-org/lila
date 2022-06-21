@@ -42,6 +42,8 @@ final private class TutorBuilder(
   import TutorBsonHandlers._
   import TutorBuilder._
 
+  val maxTime = fishnet.maxTime + 1.minute
+
   implicit private val insightApiImplicit = insightApi
   // private val requireAnalysisOnLastGames  = 15
   // private val timeToWaitForAnalysis       = 1 second

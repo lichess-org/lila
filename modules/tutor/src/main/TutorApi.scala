@@ -46,7 +46,10 @@ final class TutorApi(
     _ ?? { next =>
       next.startedAt match {
         case None => buildThenRemoveFromQueue(next.userId)
-        case Some(at) if at.isBefore(DateTime.now minusMinutes 5) || at.isBefore(Uptime.startedAt) =>
+        case Some(at)
+            if at.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) || at.isBefore(
+              Uptime.startedAt
+            ) =>
           for {
             _    <- queue remove next.userId
             next <- queue.next
@@ -62,7 +65,8 @@ final class TutorApi(
   private def buildThenRemoveFromQueue(userId: User.ID) =
     queue.start(userId) >>- {
       builder(userId) foreach { reportOpt =>
-        queue.remove(userId) >>- cache.put(userId, fuccess(reportOpt)) unit
+        cache.put(userId, fuccess(reportOpt))
+        queue.remove(userId)
       }
     }
 
