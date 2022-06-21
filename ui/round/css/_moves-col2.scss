@@ -33,7 +33,11 @@
   #{$move-tag} {
     /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
     flex: 0 0 41.666%;
-    padding-left: 0.7em;
+    @if variable-exists(is-rtl) {
+      padding-right: 0.7em;
+    } @else {
+      padding-left: 0.7em;
+    }
     cursor: pointer;
 
     &:hover {
