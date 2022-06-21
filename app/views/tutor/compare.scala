@@ -33,16 +33,16 @@ private object compare {
   }
 
   private[tutor] def showQuality(quality: ValueComparison) =
-    (if (quality.positive) goodTag else badTag)(quality.wording.value)
+    (if (quality.better) goodTag else if (quality.worse) badTag else span)(quality.wording.value)
 
   private[tutor] def showMetric(metric: Metric): String = metric match {
     case Metric.MeanCpl => "accuracy"
     case metric         => metric.name.toLowerCase
   }
 
-  private[tutor] def showDimension[D](dimension: D): String = (dimension match {
+  private[tutor] def showDimension[D](dimension: D): String = dimension match {
     case d: LilaOpeningFamily => d.name.value
-    case d: Phase             => d.name
-    case d                    => d.toString
-  }).toLowerCase
+    case d: Phase             => d.name.toLowerCase
+    case d                    => d.toString.toLowerCase
+  }
 }

@@ -75,7 +75,7 @@ final private class TutorBuilder(
     tutorUsers = perfStats
       .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
-      .sortBy(-_.perfStats.nbGames)
+      .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
     perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)

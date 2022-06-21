@@ -28,16 +28,10 @@ object perf {
           routes.Tutor.openings(user.username, report.perf.key),
           frag(report.perf.trans, " openings")
         )(
-          ul(
-            report.openingDimensionHighlights(2) map compare.show,
-            report.openingPeerHighlights(2) map compare.show
-          )
+          ul(report openingHighlights 3 map compare.show)
         ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
-          ul(
-            report.phaseDimensionHighlights(2) map compare.show,
-            report.phasePeerHighlights(2) map compare.show
-          )
+          ul(report phaseHighlights 3 map compare.show)
         )
       )
     )

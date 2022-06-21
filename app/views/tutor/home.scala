@@ -47,7 +47,7 @@ object home {
         iconTag(perfReport.perf.iconChar),
         div(cls := "tutor-card__top__title")(
           h3(cls := "tutor-card__top__title__text")(
-            perfReport.stats.nbGames.localize,
+            perfReport.stats.totalNbGames.localize,
             " ",
             perfReport.perf.trans,
             " games"
@@ -61,7 +61,7 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        ul(perfReport.dimensionHighlights(2) map compare.show, perfReport.peerHighlights(2) map compare.show),
+        ul(perfReport highlights 3 map compare.show),
         bits.seeMore
       )
     )

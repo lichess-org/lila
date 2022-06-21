@@ -9,9 +9,9 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
 
-object pages {
+object empty {
 
-  def empty(user: User)(implicit ctx: Context) =
+  def start(user: User)(implicit ctx: Context) =
     bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       h1("Lichess Tutor"),
@@ -21,26 +21,27 @@ object pages {
       )
     )
 
-  def emptyQueued(in: TutorQueue.InQueue, user: User)(implicit ctx: Context) =
+  def queued(in: TutorQueue.InQueue, user: User)(implicit ctx: Context) =
     bits.layout(
       TutorFullReport.Empty(in),
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
       pageSmall = true,
-      moreJs =
-        embedJsUnsafeLoadThen(s"""setTimeout(lichess.reload, ${in.avgDuration.toMillis atMost 20_000})""")
+      moreJs = embedJsUnsafeLoadThen(
+        s"""setTimeout(lichess.reload, ${in.avgDuration.toMillis atMost 60_000 atLeast 10_000})"""
+      )
     )(
       cls := "tutor__empty box",
       h1("Lichess Tutor"),
       if (in.position == 1)
         bits.mascotSays(
-          p(strong("I'm examining your games now!")),
+          p(strong(cls := "tutor__intro")("I'm examining your games now!")),
           examinationMethod,
           p("It should be done in a minute or two.")
         )
       else
         bits.mascotSays(
-          p(strong("I will examine your games as soon as possible.")),
+          p(strong(cls := "tutor__intro")("I will examine your games as soon as possible.")),
           examinationMethod,
           p(
             "There are ",

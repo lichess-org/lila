@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
+import lila.insight.Phase
 
 object phases {
 
@@ -21,15 +22,28 @@ object phases {
         a(href := routes.Tutor.phases(user.username, report.perf.key), cls := "active")("Game phases")
       )
     )(
-      cls := "box box-pad",
+      cls := "tutor__phases box",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
         report.perf.trans,
         " phases"
       ),
-      div(cls := "tutor__phases")(
-        // bits.mascotSays(
-        //   )
+      bits.mascotSays(
+        ul(report phaseHighlights 3 map compare.show)
+      ),
+      div(cls := "tutor-cards tutor-cards--full-size")(
+        report.phases.map { phase =>
+          div(cls := "tutor-card tutor__phases__phase")(
+            div(cls := "tutor-card__top")(
+              div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
+                h3(cls := "tutor-card__top__title__text")(phase.phase.name)
+              )
+            ),
+            div(cls := "tutor-card__content")(
+              phase.acpl.toString
+            )
+          )
+        }
       )
     )
 }

@@ -3,10 +3,11 @@ package lila.tutor
 import chess.Color
 import scala.concurrent.duration._
 
-import lila.common.Heapsort
+import lila.common.Heapsort.implicits._
+import lila.common.LilaOpeningFamily
 import lila.insight.{ Insight, InsightDimension, InsightPerfStats, Metric, Phase }
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.comparisonOrdering
+import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
 
 case class TutorPerfReport(
     perf: PerfType,
@@ -30,28 +31,32 @@ case class TutorPerfReport(
 
   def phaseCompares = List(phaseAcplCompare, phaseAwarenessCompare)
 
-  def openingCompares = openings.all.toList.flatMap { op =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, _]] = openings.all.toList.flatMap { op =>
     List(op.acplCompare, op.awarenessCompare, op.performanceCompare)
   }
 
   lazy val allCompares: List[TutorCompare[_, _]] =
     phaseAcplCompare :: phaseAwarenessCompare :: openingCompares
 
-  def openingDimensionHighlights(nb: Int) =
-    Heapsort.topNToList(openingCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+  val highlights        = TutorCompare.allHighlights(allCompares)
+  val openingHighlights = TutorCompare.allHighlights(openingCompares)
+  val phaseHighlights   = TutorCompare.allHighlights(phaseCompares)
 
-  def openingPeerHighlights(nb: Int) =
-    Heapsort.topNToList(openingCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+  def openingFrequency(color: Color, fam: TutorOpeningFamily) =
+    TutorRatio(fam.performance.mine.count, stats.nbGames(color))
 
-  def phaseDimensionHighlights(nb: Int) =
-    Heapsort.topNToList(phaseCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+  // def openingPeerHighlights(nb: Int) =
+  //   Heapsort.topNToList(openingCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
 
-  def phasePeerHighlights(nb: Int) =
-    Heapsort.topNToList(phaseCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+  // def phaseDimensionHighlights(nb: Int) =
+  //   Heapsort.topNToList(phaseCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
 
-  def dimensionHighlights(nb: Int) =
-    Heapsort.topNToList(allCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+  // def phasePeerHighlights(nb: Int) =
+  //   Heapsort.topNToList(phaseCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
 
-  def peerHighlights(nb: Int) =
-    Heapsort.topNToList(allCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+  // def dimensionHighlights = TutorCompare.highlights(allCompares) _
+  // Heapsort.topNToList(allCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+
+  // def peerHighlights(nb: Int) =
+  //   Heapsort.topNToList(allCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
 }

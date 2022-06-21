@@ -3,15 +3,18 @@
     @extend %box-padding-horiz;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    grid-gap: var(--box-padding);
+    grid-gap: $block-gap;
     margin: var(--box-padding) 0;
+    &--full-size {
+      grid-template-columns: 100%;
+    }
   }
   &-card {
     @extend %box-neat;
     background: $c-bg-zebra;
 
     &__top {
-      @extend %flex-center;
+      @extend %flex-center-nowrap;
 
       i {
         text-shadow: $text-shadow;

@@ -10,7 +10,6 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Acpl(value: Double) extends AnyVal {
-  def winningChances    = ValueComparison(2 / (1 + Math.exp(-0.004 * value)) - 1)
   override def toString = value.toInt.toString
 }
 object Acpl {
@@ -54,14 +53,16 @@ object TutorRatio {
 }
 
 // value from -1 (worse) to +1 (best)
-case class ValueComparison private (value: Double) extends AnyVal {
+case class ValueComparison private (value: Double) {
 
   import ValueComparison.Wording
 
-  def abs      = math.abs(value)
-  def positive = value > 0
+  def abs    = math.abs(value)
+  def better = wording == Wording.MuchBetter || wording == Wording.Better || wording == Wording.SlightlyBetter
+  def worse  = wording == Wording.MuchWorse || wording == Wording.Worse || wording == Wording.SlightlyWorse
+  def negate = copy(value = -value)
 
-  def wording: Wording = value match {
+  val wording: Wording = value match {
     case v if v < -0.5  => Wording.MuchWorse
     case v if v < -0.2  => Wording.Worse
     case v if v < -0.05 => Wording.SlightlyWorse

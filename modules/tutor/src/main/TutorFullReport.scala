@@ -14,14 +14,15 @@ case class TutorFullReport(
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
   def isFresh = at isAfter DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
 
-  lazy val nbGames = perfs.toList.map(_.stats.nbGames).sum
+  lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
   lazy val totalTime: FiniteDuration =
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
-  def favouritePerfs: List[TutorPerfReport] =
-    perfs.head :: perfs.tail.takeWhile { perf =>
+  def favouritePerfs: List[TutorPerfReport] = perfs.headOption ?? {
+    _ :: perfs.tailSafe.takeWhile { perf =>
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
     }
+  }
 
   def ratioTimeOf(perf: PerfType): Option[TutorRatio] =
     apply(perf).flatMap(_.estimateTotalTime) map { time =>

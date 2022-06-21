@@ -27,18 +27,9 @@ case class TutorColorOpenings(
     families.map { f => (f.family, f.awareness) }
   )
 
-  def dimensionHighlights(nb: Int) =
-    Heapsort.topNToList(
-      acplCompare.dimComparisons ::: performanceCompare.dimComparisons ::: awarenessCompare.dimComparisons,
-      nb,
-      comparisonOrdering
-    )
-  def peerHighlights(nb: Int) =
-    Heapsort.topNToList(
-      acplCompare.peerComparisons ::: performanceCompare.peerComparisons ::: awarenessCompare.peerComparisons,
-      nb,
-      comparisonOrdering
-    )
+  lazy val allCompares = List(acplCompare, performanceCompare, awarenessCompare)
+
+  val highlights = TutorCompare.allHighlights(allCompares)
 }
 
 case class TutorOpeningFamily(

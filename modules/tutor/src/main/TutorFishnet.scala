@@ -19,18 +19,18 @@ final private class TutorFishnet(
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
 )(implicit ec: ExecutionContext) {
 
-  val maxToAnalyse       = config.Max(30)
-  val maxGamesToConsider = config.Max(maxToAnalyse.value * 2)
+  def maxToAnalyse       = config.Max(nbAnalysis.get())
+  def maxGamesToConsider = config.Max(maxToAnalyse.value * 2)
   val maxTime            = 5 minutes
 
   val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
 
   def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit = {
-    val totalNbGames = stats.values.map(_.stats.nbGames).sum
+    val totalNbGames = stats.values.map(_.stats.totalNbGames).sum
     stats.values.toList
       .map { s =>
-        val ids = s.gameIds.take(s.stats.nbGames * maxGamesToConsider.value / totalNbGames)
-        gameRepo.unanalysedGames(ids, config.Max(s.stats.nbGames * maxToAnalyse.value / totalNbGames))
+        val ids = s.gameIds.take(s.stats.totalNbGames * maxGamesToConsider.value / totalNbGames)
+        gameRepo.unanalysedGames(ids, config.Max(s.stats.totalNbGames * maxToAnalyse.value / totalNbGames))
       }
       .sequenceFu
       .map(_.flatten) flatMap { games =>

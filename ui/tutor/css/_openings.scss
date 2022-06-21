@@ -3,7 +3,7 @@
     &__colors {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 2vw;
+      grid-gap: $block-gap;
     }
     &__color {
       flex: 50% 0 0;
@@ -17,9 +17,16 @@
       }
     }
     &__opening {
-      h3 {
-        padding: 1em;
-        font-size: 1.6em;
+      .no-square {
+        flex: 0 0 5em;
+        height: 5em;
+
+        piece {
+          position: inherit;
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
       }
       .slist tr td {
         font-weight: bold;

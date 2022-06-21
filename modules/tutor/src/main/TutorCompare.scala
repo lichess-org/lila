@@ -1,6 +1,6 @@
 package lila.tutor
 
-import lila.common.Heapsort
+import lila.common.Heapsort.implicits._
 import lila.insight.{ InsightDimension, Metric }
 
 case class TutorCompare[D, V](
@@ -13,7 +13,7 @@ case class TutorCompare[D, V](
 
   val totalCountMine = points.map(_._2.mine.??(_.count)).sum
 
-  val dimComparisons = {
+  val dimensionComparisons: List[AnyComparison] = {
     val myPoints: List[(D, ValueCount[V])] =
       points.collect { case (dim, TutorMetricOption(Some(mine), _)) => dim -> mine }
 
@@ -23,17 +23,13 @@ case class TutorCompare[D, V](
     } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
   }
 
-  val peerComparisons = points.collect {
+  val peerComparisons: List[AnyComparison] = points.collect {
     case (dim, TutorMetricOption(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
       Comparison(dimensionType, dim, metric, mine, Peers(peer))
   }
 
-  def comparisons: List[Comparison[D, V]] = dimComparisons ::: peerComparisons
-  def highlights(nb: Int)                 = Heapsort.topNToList(comparisons, nb, comparisonOrdering)
-
-  def dimensionHighlights(nb: Int) = Heapsort.topNToList(dimComparisons, nb, comparisonOrdering)
-  def peerHighlights(nb: Int)      = Heapsort.topNToList(peerComparisons, nb, comparisonOrdering)
+  def comparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
 }
 
 object TutorCompare {
@@ -48,10 +44,31 @@ object TutorCompare {
 
     val comparison = number.compare(value.value, reference.value.value)
 
+    def better = comparison.better
+
     override def toString = s"(${comparison.value}) $dimension $metric $value vs $reference"
   }
 
-  private[tutor] val comparisonOrdering = Ordering.by[Comparison[_, _], Double](_.comparison.abs)
+  type AnyComparison = Comparison[_, _]
+  type AnyCompare    = TutorCompare[_, _]
+
+  implicit private[tutor] val comparisonOrdering: Ordering[AnyComparison] =
+    Ordering.by[AnyComparison, Double](_.comparison.abs)
+
+  type HighlightsMaker = List[AnyCompare] => Int => List[AnyComparison]
+
+  val dimensionHighlights: HighlightsMaker = highlights(_.dimensionComparisons) _
+  val peerHighlights: HighlightsMaker      = highlights(_.peerComparisons) _
+  val allHighlights: HighlightsMaker       = highlights(_.comparisons) _
+
+  def highlights(
+      select: AnyCompare => List[AnyComparison]
+  )(compares: List[AnyCompare])(nb: Int): List[AnyComparison] = {
+    val half = ~lila.common.Maths.divideRoundUp(nb, 2)
+    compares.flatMap(select).partition(_.better) match {
+      case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
+    }
+  } sorted comparisonOrdering.reverse take nb
 
   sealed trait Reference[V] { val value: ValueCount[V] }
   case class Peers[V](value: ValueCount[V])  extends Reference[V]
