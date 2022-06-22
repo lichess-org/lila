@@ -1,9 +1,12 @@
 package lila.analyse
 
+import chess.Color
+
 import lila.game.Pov
+import lila.game.Game.SideAndStart
 import lila.tree.Eval._
 
-object Accuracy {
+object AccuracyCP {
 
   private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
 
@@ -14,20 +17,7 @@ object Accuracy {
     case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
   }
 
-  case class PovLike(
-      color: chess.Color,
-      startColor: chess.Color,
-      startedAtTurn: Int
-  )
-
-  implicit def povToPovLike(pov: Pov): PovLike =
-    PovLike(
-      color = pov.color,
-      startColor = pov.game.startColor,
-      startedAtTurn = pov.game.chess.startedAtTurn
-    )
-
-  def diffsList(pov: PovLike, analysis: Analysis): List[Int] = {
+  def diffsList(pov: SideAndStart, analysis: Analysis): List[Int] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos
   }.grouped(2)
@@ -40,17 +30,17 @@ object Accuracy {
     }
     .reverse
 
-  def prevColorInfos(pov: PovLike, analysis: Analysis): List[Info] = {
+  def prevColorInfos(pov: SideAndStart, analysis: Analysis): List[Info] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos
   }.zipWithIndex.collect {
     case (e, i) if (i % 2) == 0 => e
   }
 
-  def mean(pov: PovLike, analysis: Analysis): Option[Int] = {
+  def mean(pov: SideAndStart, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)
     val nb    = diffs.size
     (nb != 0) option (diffs.sum / nb)
   }
-  def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(povToPovLike(pov), analysis)
+  def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(pov.sideAndStart, analysis)
 }

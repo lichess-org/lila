@@ -6,7 +6,7 @@ import chess.opening.FullOpeningDB
 import chess.{ Centis, Role, Situation, Stats }
 import scala.util.chaining._
 
-import lila.analyse.{ Accuracy, Advice }
+import lila.analyse.{ AccuracyCP, Advice }
 import lila.game.{ Game, Pov }
 import lila.user.User
 import lila.common.{ LilaOpening, LilaOpeningFamily }
@@ -15,7 +15,7 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    moveAccuracy: Option[List[Int]],
+    moveAccuracyCP: Option[List[Int]],
     situations: NonEmptyList[Situation],
     movetimes: NonEmptyList[Centis],
     advices: Map[Ply, Advice]
@@ -63,7 +63,7 @@ final private class PovToEntry(
               pov = pov,
               provisional = provisional,
               analysis = an,
-              moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
+              moveAccuracyCP = an.map { AccuracyCP.diffsList(pov.sideAndStart, _) },
               situations = situations,
               movetimes = movetimes,
               advices = an.?? {
@@ -86,9 +86,9 @@ final private class PovToEntry(
     }
 
   private def makeMoves(from: RichPov): List[InsightMove] = {
-    val cpDiffs = ~from.moveAccuracy toVector
+    val cpDiffs = ~from.moveAccuracyCP toVector
     val prevInfos = from.analysis.?? { an =>
-      Accuracy.prevColorInfos(from.pov, an) pipe { is =>
+      AccuracyCP.prevColorInfos(from.pov.sideAndStart, an) pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
