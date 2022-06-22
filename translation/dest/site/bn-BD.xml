@@ -503,6 +503,7 @@
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
+  <string name="importedByX">খেলাটি এনেছেন %s</string>
   <string name="thisTopicIsNowClosed">এই বিষয়টি এখন শেষ হয়ে গেছে</string>
   <string name="blog">ব্লগ</string>
   <string name="notes">গুরুত্বপূর্ণ তথ্য</string>
@@ -873,7 +874,19 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="playComputerMove">কম্পিউটারের সেরা চাল</string>
   <string name="reopenYourAccount">আপনার একাউন্ট পুনরায় খুলুন</string>
   <string name="closedAccountChangedMind">আপনি যদি আপনার একাউন্ট বন্ধ করে থাকেন, কিন্তু পরবর্তীতে মন পরিবর্তন করেন, সেক্ষেত্রে একাউন্ট ফেরত পাওয়ার জন্য আপনাকে একবার সুযোগ দেয়া হবে।</string>
+  <string name="onlyWorksOnce">এটি শুধুমাত্র একবার কাজ করবে।</string>
+  <string name="cantDoThisTwice">আপনি যদি দ্বিতীয়বারের মত একাউন্ট বন্ধ করেন, তাহলে তা আর পুনরুদ্ধার করা যাবে না।</string>
+  <string name="emailAssociatedToaccount">এই একাউন্টের সঙ্গে সংশ্লিষ্ট ই-মেইল অ্যাড্রেস হচ্ছে</string>
+  <string name="sentEmailWithLink">আমরা আপনাকে একটি লিঙ্ক সহ ই-মেইল পাঠিয়েছি।</string>
+  <string name="tournamentEntryCode">টুর্নামেন্টে প্রবেশের কোড</string>
+  <string name="hangOn">সাবধান!</string>
+  <string name="gameInProgress">%s এর সাথে এখনো আপনার খেলা চলছে।</string>
+  <string name="abortTheGame">খেলা ত্যাগ(abort) করুন</string>
+  <string name="resignTheGame">খেলা সমর্পণ(resign) করুন</string>
+  <string name="youCantStartNewGame">আপনি এই খেলা শেষ না করে নতুন খেলা শুরু করতে পারবেন না।</string>
   <string name="since">Since/শুরু</string>
   <string name="until">Until/পর্যন্ত</string>
+  <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>
+  <string name="switchSides">পক্ষ পরিবর্তন করুন</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
 </resources>
