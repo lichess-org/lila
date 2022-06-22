@@ -211,12 +211,15 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
   const userId = line.u?.toLowerCase();
 
+  const mentionedUsers = line.t.match(enhance.userPattern);
+
   return h(
     'li',
     {
       class: {
         me: userId === ctrl.data.userId,
         host: userId === ctrl.data.hostId,
+        mentioned: mentionedUsers !== null && mentionedUsers.includes('@' + ctrl.data.userId),
       },
     },
     ctrl.moderation()
