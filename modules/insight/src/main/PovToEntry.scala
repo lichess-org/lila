@@ -132,7 +132,7 @@ final private class PovToEntry(
           tenths = movetime.roundTenths,
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
-          cpl = cpDiffs lift i,
+          cpl = cpDiffs.lift(i).flatten,
           winPercent = prevInfo.map(_.eval) flatMap WinPercent.fromEval,
           accuracyPercent = accuracyPercents lift i,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),

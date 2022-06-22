@@ -80,7 +80,7 @@ object PlayerAssessment {
       }
 
     lazy val suspiciousErrorRate: Boolean =
-      listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis)) < (game.speed match {
+      listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match {
         case Speed.Bullet => 25
         case Speed.Blitz  => 20
         case _            => 15
@@ -157,7 +157,7 @@ object PlayerAssessment {
       assessment = assessment,
       date = DateTime.now,
       basics = basics,
-      analysis = intAvgSd(AccuracyCP.diffsList(pov.sideAndStart, analysis)),
+      analysis = intAvgSd(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten),
       flags = flags,
       tcFactor = tcFactor.some
     )

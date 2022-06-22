@@ -17,18 +17,17 @@ object AccuracyCP {
     case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
   }
 
-  def diffsList(pov: SideAndStart, analysis: Analysis): List[Int] = {
+  def diffsList(pov: SideAndStart, analysis: Analysis): List[Option[Int]] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos
-  }.grouped(2)
-    .foldLeft(List[Int]()) {
-      case (list, List(i1, i2)) =>
-        makeDiff.lift((i1.cp, i1.mate, i2.cp, i2.mate)).fold(list) { diff =>
-          (if (pov.color.white) -diff else diff).max(0) :: list
-        }
-      case (list, _) => list
+  }.map(_.eval)
+    .grouped(2)
+    .collect { case List(e1, e2) =>
+      for { s1 <- e1.forceAsCp; s2 <- e2.forceAsCp } yield {
+        (s2.ceiled.value - s1.ceiled.value) * pov.color.fold(-1, 1)
+      } atLeast 0
     }
-    .reverse
+    .toList
 
   def prevColorInfos(pov: SideAndStart, analysis: Analysis): List[Info] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
@@ -37,10 +36,8 @@ object AccuracyCP {
     case (e, i) if (i % 2) == 0 => e
   }
 
-  def mean(pov: SideAndStart, analysis: Analysis): Option[Int] = {
-    val diffs = diffsList(pov, analysis)
-    val nb    = diffs.size
-    (nb != 0) option (diffs.sum / nb)
-  }
+  def mean(pov: SideAndStart, analysis: Analysis): Option[Int] =
+    lila.common.Maths.mean(diffsList(pov, analysis).flatten).map(_.toInt)
+
   def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(pov.sideAndStart, analysis)
 }

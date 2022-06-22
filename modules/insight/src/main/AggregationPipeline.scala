@@ -238,6 +238,59 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 AddFields($doc("cplBucket" -> cplIdDispatcher)).some
               ) :::
                 groupMulti(dimension, "cplBucket")
+            // case M.MeanAccuracy => // power mean
+            //   List(
+            //     projectForMove,
+            //     unwindMoves,
+            //     matchMoves(),
+            //     sampleMoves,
+            //     AddFields(
+            //       $doc("pow" -> $doc("$pow" -> $arr($doc("$subtract" -> $arr(1000, "$m.a")), 3)))
+            //     ).some
+            //   ) :::
+            //     group(dimension, SumField("pow")) :::
+            //     List(
+            //       AddFields(
+            //         $doc(
+            //           "v" -> $doc(
+            //             "$divide" -> $arr(
+            //               $doc(
+            //                 "$subtract" -> $arr(
+            //                   1000,
+            //                   $doc("$pow" -> $arr($doc("$divide" -> $arr("$v", "$nb")), 1 / 3d))
+            //                 )
+            //               ),
+            //               10
+            //             )
+            //           )
+            //         )
+            //       ).some,
+            //       includeSomeGameIds
+            //     )
+            case M.MeanAccuracy => // harmonic mean
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves,
+                AddFields(
+                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$subtract" -> $arr(101, "$m.a")))))
+                ).some
+              ) :::
+                group(dimension, SumField("step")) :::
+                List(
+                  AddFields(
+                    $doc(
+                      "v" -> $doc(
+                        "$subtract" -> $arr(
+                          101,
+                          $doc("$divide" -> $arr($doc("$divide" -> $arr("$nb", "$v")), 10))
+                        )
+                      )
+                    )
+                  ).some,
+                  includeSomeGameIds
+                )
             case M.Material =>
               List(
                 projectForMove,
@@ -299,13 +352,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves(),
                 sampleMoves
               ) :::
-                group(
-                  dimension,
-                  GroupFunction(
-                    "$avg",
-                    $doc("$divide" -> $arr("$" + F.moves("t"), 10))
-                  )
-                ) :::
+                group(dimension, GroupFunction("$avg", $doc("$divide" -> $arr(s"$$${F.moves("t")}", 10)))) :::
                 List(includeSomeGameIds)
             case M.RatingDiff =>
               group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds)
@@ -357,7 +404,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case _                                    => Nil
           }).flatten
         }
-        pipeline
+        pipeline.pp
       }
     }
 }

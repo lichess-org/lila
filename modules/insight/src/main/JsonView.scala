@@ -102,6 +102,7 @@ final class JsonView {
       Categ(
         "Evaluation",
         List(
+          Json.toJson(M.MeanAccuracy: Metric),
           Json.toJson(M.MeanCpl: Metric),
           Json.toJson(M.CplBucket: Metric),
           Json.toJson(M.Awareness: Metric),

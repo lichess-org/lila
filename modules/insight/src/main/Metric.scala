@@ -52,6 +52,17 @@ object Metric {
         InsightDimension.CplRange.description
       )
 
+  case object MeanAccuracy
+      extends Metric(
+        "accuracy",
+        "Accuracy",
+        F moves "a",
+        Move,
+        Move,
+        Percent,
+        """Accuracy of your moves. Higher is better."""
+      )
+
   case object Movetime
       extends Metric(
         "movetime",
@@ -198,6 +209,7 @@ object Metric {
   val all = List(
     MeanCpl,
     CplBucket,
+    MeanAccuracy,
     Movetime,
     Result,
     Termination,
@@ -216,49 +228,44 @@ object Metric {
     (p.key, p)
   } toMap
 
-  def requiresAnalysis(m: Metric) =
-    m match {
-      case MeanCpl   => true
-      case CplBucket => true
-      case _         => false
-    }
+  def requiresAnalysis(m: Metric) = m match {
+    case MeanCpl | CplBucket | MeanAccuracy => true
+    case _                                  => false
+  }
 
-  def requiresStableRating(m: Metric) =
-    m match {
-      case Performance | RatingDiff | OpponentRating => true
-      case _                                         => false
-    }
+  def requiresStableRating(m: Metric) = m match {
+    case Performance | RatingDiff | OpponentRating => true
+    case _                                         => false
+  }
 
-  def isStacked(m: Metric) =
-    m match {
-      case Result      => true
-      case Termination => true
-      case PieceRole   => true
-      case CplBucket   => true
-      case _           => false
-    }
+  def isStacked(m: Metric) = m match {
+    case Result      => true
+    case Termination => true
+    case PieceRole   => true
+    case CplBucket   => true
+    case _           => false
+  }
 
-  def valuesOf(metric: Metric): List[MetricValue] =
-    metric match {
-      case Result =>
-        lila.insight.Result.all.map { r =>
-          MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-        }
-      case Termination =>
-        lila.insight.Termination.all.map { r =>
-          MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-        }
-      case PieceRole =>
-        chess.Role.all.reverse.map { r =>
-          MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
-        }
-      case CplBucket =>
-        lila.insight.CplRange.all.map { cpl =>
-          MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
-        }
-      case _ => Nil
-    }
+  def valuesOf(metric: Metric): List[MetricValue] = metric match {
+    case Result =>
+      lila.insight.Result.all.map { r =>
+        MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+      }
+    case Termination =>
+      lila.insight.Termination.all.map { r =>
+        MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+      }
+    case PieceRole =>
+      chess.Role.all.reverse.map { r =>
+        MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
+      }
+    case CplBucket =>
+      lila.insight.CplRange.all.map { cpl =>
+        MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
+      }
+    case _ => Nil
+  }
 
-  case class MetricValueName(name: String)
+  case class MetricValueName(name: String) extends AnyVal
   case class MetricValue(key: BSONValue, name: MetricValueName)
 }

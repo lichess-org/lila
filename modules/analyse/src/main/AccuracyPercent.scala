@@ -5,7 +5,7 @@ import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
-case class AccuracyPercent(value: Double) extends AnyVal {
+case class AccuracyPercent private (value: Double) extends AnyVal {
   def toInt = value.toInt
 }
 
@@ -13,10 +13,30 @@ object AccuracyPercent {
 
   import WinPercent.BeforeAfter
 
-  // FIXME https://graphsketch.com/?eqn1_color=1&eqn1_eqn=100%20-%20(sqrt(x)%20*%2010)&eqn2_color=2&eqn2_eqn=&eqn3_color=3&eqn3_eqn=&eqn4_color=4&eqn4_eqn=&eqn5_color=5&eqn5_eqn=&eqn6_color=6&eqn6_eqn=&x_min=0&x_max=100&y_min=0&y_max=100&x_tick=1&y_tick=1&x_label_freq=5&y_label_freq=5&do_grid=0&do_grid=1&bold_labeled_lines=0&bold_labeled_lines=1&line_width=4&image_w=850&image_h=525
+  /*
+from scipy.optimize import curve_fit
+import numpy as np
+
+def model_func(x, a, k, b):
+    return a * np.exp(-k*x) + b
+
+# sample data
+x = np.array([  0,  5, 10, 20, 40, 60, 80, 90, 100])
+y = np.array([100, 75, 60, 42, 20,  5,  0,  0,   0])
+
+# curve fit
+p0 = (1.,1.e-5,1.) # starting search koefs
+opt, pcov = curve_fit(model_func, x, y, p0)
+a, k, b = opt
+print(f"{a} * exp(-{k} * x) + {b}")
+   */
   def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
-    if (before.value < after.value) 100d
-    else 100 - Math.sqrt(before.value - after.value) * 10
+    if (after.value >= before.value) 100d
+    else {
+      val diff = before.value - after.value
+      // 105.571942 * Math.exp(-0.037088731 * diff) - 4.08425894
+      98.70882650493327 * Math.exp(-0.04227403940198299 * diff) + -1.852425254357673
+    } atMost 100 atLeast 0
   }
 
   def fromWinPercents(both: BeforeAfter): AccuracyPercent =
@@ -24,7 +44,7 @@ object AccuracyPercent {
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] = {
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
-    val alignedEvals    = if (pov.color == pov.startColor) Eval.initial :: evals else evals
+    val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
     alignedEvals
       .grouped(2)
       .collect { case List(e1, e2) =>

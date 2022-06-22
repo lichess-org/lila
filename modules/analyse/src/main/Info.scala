@@ -45,13 +45,6 @@ case class Info(
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 
-  def forceCentipawns: Option[Int] =
-    mate match {
-      case None                  => cp.map(_.centipawns)
-      case Some(m) if m.negative => Some(Int.MinValue - m.value)
-      case Some(m)               => Some(Int.MaxValue - m.value)
-    }
-
   override def toString =
     s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} $best"
 }
