@@ -871,6 +871,8 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="toggleLocalAnalysis">ব্যক্তিগত কম্পিউটার বিশ্লেষণ অন/অফ</string>
   <string name="toggleAllAnalysis">সব কম্পিউটার বিশ্লেষণ অন/অফ</string>
   <string name="playComputerMove">কম্পিউটারের সেরা চাল</string>
+  <string name="reopenYourAccount">আপনার একাউন্ট পুনরায় খুলুন</string>
+  <string name="closedAccountChangedMind">আপনি যদি আপনার একাউন্ট বন্ধ করে থাকেন, কিন্তু পরবর্তীতে মন পরিবর্তন করেন, সেক্ষেত্রে একাউন্ট ফেরত পাওয়ার জন্য আপনাকে একবার সুযোগ দেয়া হবে।</string>
   <string name="since">Since/শুরু</string>
   <string name="until">Until/পর্যন্ত</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
