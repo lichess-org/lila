@@ -13,6 +13,7 @@
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
   <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
+  <string name="yourPuzzleRatingWillNotChange">আপনার ধাঁধার রেটিং পরিবর্তীত হবে না। উল্লেখ্য, ধাঁধা প্রতিযোগীতামূলক নয়। আপনার রেটিং আপনার দক্ষতা অনুযায়ী ধাঁধা বাছাই করতে সাহায্য করে।</string>
   <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>
@@ -38,8 +39,16 @@
   <string name="normal">সাধারন</string>
   <string name="easier">সহজ</string>
   <string name="easiest">খুবই সহজ</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">আপনার ধাঁধার রেটিং হতে এক পয়েন্ট কম।</item>
+    <item quantity="other">আপনার ধাঁধার রেটিং হতে %s পয়েন্ট কম।</item>
+  </plurals>
   <string name="harder">কঠিন</string>
   <string name="hardest">খুবই কঠিন</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">আপনার ধাঁধার রেটিং হতে এক পয়েন্ট বেশি।</item>
+    <item quantity="other">আপনার ধাঁধার রেটিং হতে %s পয়েন্ট বেশি।</item>
+  </plurals>
   <string name="example">উদাহরণ</string>
   <string name="addAnotherTheme">অন্য থিম যুক্ত করুন</string>
   <string name="nextPuzzle">পরবর্তী ধাঁধা</string>
@@ -61,4 +70,13 @@
 আপনার খেলা থেকে ধাঁধা নেয়ার সম্ভাবনা বাড়াতে র‍্যাপিড এবং ক্লাসিক খেলুন।</string>
   <string name="fromXGamesFound">%2$s টি খেলা হতে %1$s টি ধাঁধা পাওয়া গেছে।</string>
   <string name="puzzleDashboardDescription">প্রশিক্ষণ, বিশ্লেষণ, উন্নতি</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s টি খেলেছেন</item>
+    <item quantity="other">%s টি খেলেছেন</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s টি পুনরায় খেলুন</item>
+    <item quantity="other">%s টি পুনরায় খেলুন</item>
+  </plurals>
+  <string name="percentSolved">%s সমাধান করেছেন।</string>
 </resources>
