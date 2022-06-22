@@ -31,7 +31,7 @@ object HTTPRequest {
   )
 
   def appOrigin(req: RequestHeader): Option[String] =
-    origin(req) map { case o if appOrigins exists o.startsWith => o }
+    origin(req) filter { o => appOrigins exists o.startsWith }
 
   def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
