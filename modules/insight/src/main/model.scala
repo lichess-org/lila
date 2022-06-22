@@ -3,16 +3,20 @@ package lila.insight
 import chess.{ Color, Role }
 import scala.concurrent.duration.FiniteDuration
 
+import lila.analyse.{ AccuracyPercent, WinPercent }
+
 case class MeanRating(value: Int) extends AnyVal
 
 case class InsightMove(
     phase: Phase,
     tenths: Int,
     role: Role,
-    eval: Option[Int], // before the move was played, relative to player
-    mate: Option[Int], // before the move was played, relative to player
-    cpl: Option[Int],  // eval diff caused by the move, relative to player, mate ~= 10
-    material: Int,     // material imbalance, relative to player
+    eval: Option[Int],              // before the move was played, relative to player
+    mate: Option[Int],              // before the move was played, relative to player
+    cpl: Option[Int],               // eval diff caused by the move, relative to player, mate ~= 10
+    winPercent: Option[WinPercent], // before the move was played, relative to player
+    accuracyPercent: Option[AccuracyPercent],
+    material: Int, // material imbalance, relative to player
     opportunism: Option[Boolean],
     luck: Option[Boolean],
     blur: Boolean,

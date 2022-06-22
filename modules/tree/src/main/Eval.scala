@@ -77,7 +77,7 @@ object Eval {
 
     def compare(other: Mate) = Integer.compare(value, other.value)
 
-    def signum: Int = Math.signum(value.toFloat).toInt
+    def signum: Int = if (positive) 1 else -1
 
     def positive = value > 0
     def negative = value < 0

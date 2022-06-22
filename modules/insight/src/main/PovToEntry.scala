@@ -6,7 +6,7 @@ import chess.opening.FullOpeningDB
 import chess.{ Centis, Role, Situation, Stats }
 import scala.util.chaining._
 
-import lila.analyse.{ AccuracyCP, Advice }
+import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
 import lila.user.User
 import lila.common.{ LilaOpening, LilaOpeningFamily }
@@ -15,7 +15,6 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    moveAccuracyCP: Option[List[Int]],
     situations: NonEmptyList[Situation],
     movetimes: NonEmptyList[Centis],
     advices: Map[Ply, Advice]
@@ -63,7 +62,6 @@ final private class PovToEntry(
               pov = pov,
               provisional = provisional,
               analysis = an,
-              moveAccuracyCP = an.map { AccuracyCP.diffsList(pov.sideAndStart, _) },
               situations = situations,
               movetimes = movetimes,
               advices = an.?? {
@@ -86,9 +84,13 @@ final private class PovToEntry(
     }
 
   private def makeMoves(from: RichPov): List[InsightMove] = {
-    val cpDiffs = ~from.moveAccuracyCP toVector
+    val sideAndStart = from.pov.sideAndStart
+    def cpDiffs      = from.analysis ?? { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    val accuracyPercents = from.analysis ?? {
+      AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
+    }
     val prevInfos = from.analysis.?? { an =>
-      AccuracyCP.prevColorInfos(from.pov.sideAndStart, an) pipe { is =>
+      AccuracyCP.prevColorInfos(sideAndStart, an) pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
@@ -132,6 +134,8 @@ final private class PovToEntry(
           eval = prevInfo.flatMap(_.cp).map(_.ceiled.centipawns),
           mate = prevInfo.flatMap(_.mate).map(_.moves),
           cpl = cpDiffs lift i,
+          winPercent = prevInfo.map(_.eval) flatMap WinPercent.fromEval,
+          accuracyPercent = accuracyPercents lift i,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck,

@@ -10,6 +10,8 @@ final class Analyser(
     analysisRepo: AnalysisRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  import AnalyseBsonHandlers._
+
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo byGame game
 

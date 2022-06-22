@@ -27,7 +27,7 @@ final class AssessApi(
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers._
-  import Analysis.analysisBSONHandler
+  import lila.analyse.AnalyseBsonHandlers._
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void

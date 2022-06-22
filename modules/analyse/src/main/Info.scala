@@ -17,6 +17,8 @@ case class Info(
   def mate = eval.mate
   def best = eval.best
 
+  def winPercent = eval.cp map WinPercent.fromCentiPawns
+
   def turn = 1 + (ply - 1) / 2
 
   def color = Color.fromPly(ply - 1)
