@@ -56,6 +56,7 @@
   <string name="interference">প্রতিবন্ধকতা তৈরি</string>
   <string name="interferenceDescription">একটি গুটিকে প্রতিপক্ষের দুটি গুটির মধ্যবর্তী ঘরে চাল দেয়া, যাতে একটি বা উভয় গুটি অরক্ষিত হয়ে পড়ে। যেমনঃ দুটি নৌকার মধ্যে প্রতিপক্ষের একটি রক্ষিত ঘরে প্রতিপক্ষের ঘোড়ার চাল দেয়া।</string>
   <string name="intermezzo">Intermezzo/মধ্যবর্তী চাল</string>
+  <string name="intermezzoDescription">প্রত্যাশিত চাল না খেলে ভিন্ন চাল দেয়া, যা তৎক্ষণাৎ হুমকি(threat) তৈরি করবে এবং প্রতিপক্ষকে অবশ্যই তা প্রতিহত করতে হবে।</string>
   <string name="knightEndgame">Knight/ঘোড়ার সমাপনী খেলা</string>
   <string name="knightEndgameDescription">শুধু হাতি এবং সৈন্যদের নিয়ে সমাপনী খেলা।</string>
   <string name="long">দীর্ঘ ধাঁধা</string>
@@ -115,6 +116,7 @@
   <string name="veryLong">অতিদীর্ঘ ধাঁধা</string>
   <string name="veryLongDescription">চার বা ততোধিক চালে জিতুন</string>
   <string name="xRayAttack">এক্স-রে আক্রমণ</string>
+  <string name="xRayAttackDescription">একটি গুটি যখন প্রতিপক্ষের গুটির ভিতর দিয়ে কোনো ঘরকে রক্ষা বা আক্রমন করে।</string>
   <string name="zugzwang">জুগজওয়াং(Zugzwang)</string>
   <string name="zugzwangDescription">প্রতিপক্ষের সীমিত চাল আছে, এবং সব চাল তাদের অবস্থান আরো খারাপ করবে।</string>
   <string name="healthyMix">পরিমিত মিশ্রণ</string>
