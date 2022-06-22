@@ -46,7 +46,7 @@ Passwort: %3$s</string>
   <string name="createDesc2">Es bruucht kei E-Mail-Adrässe. Es wird es Passwort generiert, das muesch em Schüeler mitteile, dass er sich aanmälde chann.</string>
   <string name="createDesc3">Wichtig: En Schüeler dörf nöd mehreri Konte bsitze.</string>
   <string name="createDesc4">Wänns bereits eis händ, dänn nimmsch s\'Iiladigsformular.</string>
-  <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess uusgschlosse.</string>
+  <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess usgschlosse.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erschtell en neue Benutzername</string>
   <string name="welcomeToClass">Willkomme i dinere Klass: %s.
