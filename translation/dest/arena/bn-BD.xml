@@ -45,4 +45,11 @@
     <item quantity="one">দলটি দেখুন</item>
     <item quantity="other">পুরো %sটি দল দেখুন</item>
   </plurals>
+  <string name="newTeamBattle">নতুন দলীয় প্রতিযোগীতা</string>
+  <string name="customStartDate">শুরুর তারিখ</string>
+  <string name="customStartDateHelp">আপনার স্থানীয় সময়ে। এটি \'\'সময়ের পূর্বে প্রতিযোগিতা শুরু\" কে পরিবর্তন করতে পারে।</string>
+  <string name="allowBerserk">Berserk এর অনুমতি দিন</string>
+  <string name="allowBerserkHelp">খেলোয়াড়দের তাদের সময় অর্ধেক করে ফেলতে দেয়, যাতে তারা অতিরিক্ত পয়েন্ট অর্জন করতে পারে।</string>
+  <string name="allowChatHelp">খেলোয়ারদের চ্যাট-রুমে আলোচনা করতে দিন</string>
+  <string name="arenaStreaks">এরিনায় ধারাবাহিক জয়</string>
 </resources>
