@@ -845,6 +845,7 @@
   <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
 সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
   <string name="coachManager">প্রশিক্ষক ব্যবস্থাপনা</string>
+  <string name="streamerManager">সম্প্রচার নিয়ন্ত্রণ</string>
   <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
   <string name="tournDescription">টুর্নামেন্টের বর্ণনা</string>
   <string name="tournDescriptionHelp">অংশগ্রহণকারীদের কিছু বলতে চান? সংক্ষেপে লেখার চেষ্টা করুন।
