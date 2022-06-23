@@ -4,7 +4,7 @@
 
     align-items: center;
 
-    color: $c-good-over;
+    color: $c-font-clearer;
 
     span {
       opacity: 0.7;
@@ -23,7 +23,7 @@
       padding: 0.4em 1rem;
 
       $c-bg: $c-bg-box;
-      $c-value: mix($c-brag, $c-bg, 85%);
+      $c-value: mix($c-brag, $c-bg, 50%);
       background: linear-gradient(to right, $c-value 0%, $c-value var(--value), $c-bg var(--value), $c-bg 100%);
     }
   }

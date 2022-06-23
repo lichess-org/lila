@@ -47,11 +47,7 @@
     }
 
     &__content {
-      padding: 2rem;
-      li {
-        list-style: disc inside;
-        margin: 0 0 1em 1em;
-      }
+      padding: $block-gap;
     }
     &__more {
       display: block;

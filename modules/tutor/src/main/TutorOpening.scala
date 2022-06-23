@@ -29,8 +29,6 @@ case class TutorColorOpenings(
   )
 
   lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
-
-  val highlights = TutorCompare.allHighlights(allCompares)
 }
 
 case class TutorOpeningFamily(

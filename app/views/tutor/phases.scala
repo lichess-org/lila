@@ -40,42 +40,11 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              st.section(
-                phase.accuracy.mine.map { mine =>
-                  peerComparison("Accuracy", mine.value.value, phase.awareness.peer.map(_.value.value))
-                },
-                phase.awareness.mine.map { mine =>
-                  peerComparison(
-                    "Tactical Awareness",
-                    mine.value.value,
-                    phase.awareness.peer.map(_.value.value)
-                  )
-                }
-              )
+              bits.peerComparison("Accuracy", phase.accuracy),
+              bits.peerComparison("Tactical Awareness", phase.accuracy)
             )
           )
         }
       )
     )
-
-  private def peerComparison(name: String, myValue: Double, peerValue: Option[Double]) =
-    div(cls := "tutor-comparison")(
-      h3(cls := "tutor-comparison__name")(name),
-      div(cls                                           := "tutor-comparison__unit")(
-        horizontalBarPercent(myValue.some, "Yours")(cls := "tutor-bar--mine")
-      ),
-      div(cls                                        := "tutor-comparison__unit")(
-        horizontalBarPercent(peerValue, "Peers")(cls := "tutor-bar--peer")
-      )
-    )
-
-  private def horizontalBarPercent(value: Option[Double], legend: String) =
-    value match {
-      case Some(v) =>
-        div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(
-          span(legend),
-          strong(f"$v%1.1f%%")
-        )
-      case None => div(cls := "tutor-bar tutor-bar--empty")
-    }
 }

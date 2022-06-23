@@ -56,28 +56,10 @@ object openings {
                   )
                 )
               ),
-              div(cls := "tutor-card__content")()
-              // table(cls := "slist")(
-              //   thead(tr(th("Metric"), th("You"), th("Peers"))),
-              //   tbody(
-              //     tr(
-              //       th("Frequency"),
-              //       showCount(fam.performance)
-              //     ),
-              //     tr(
-              //       th("Performance"),
-              //       showMetric(fam.performance, true.some)
-              //     ),
-              //     tr(
-              //       th("Tactical awareness"),
-              //       showMetric(fam.awareness, true.some)
-              //     ),
-              //     tr(
-              //       th("Centipawn loss"),
-              //       showMetric(fam.acpl, false.some)
-              //     )
-              //   )
-              // )
+              div(cls := "tutor-card__content")(
+                bits.peerComparison("Accuracy", fam.accuracy),
+                bits.peerComparison("Tactical Awareness", fam.accuracy)
+              )
             )
           })
         )

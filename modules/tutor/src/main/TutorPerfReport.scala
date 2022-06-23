@@ -39,31 +39,15 @@ case class TutorPerfReport(
   }
 
   lazy val allCompares: List[TutorCompare[_, _]] =
-    phaseAccuracyCompare :: phaseAwarenessCompare :: openingCompares
+    openingCompares ::: phaseCompares
 
-  val openingHighlights = TutorCompare.allHighlights(openingCompares)
+  val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons)) _
 
-  val phaseHighlights = TutorCompare.peerHighlights(phaseCompares)
+  val phaseHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.peerComparisons)) _
 
-  val allHighlights = TutorCompare.highlights {
+  val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) ::: phaseCompares.flatMap(_.peerComparisons)
-  } _
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
-
-  // def openingPeerHighlights(nb: Int) =
-  //   Heapsort.topNToList(openingCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
-
-  // def phaseDimensionHighlights(nb: Int) =
-  //   Heapsort.topNToList(phaseCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
-
-  // def phasePeerHighlights(nb: Int) =
-  //   Heapsort.topNToList(phaseCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
-
-  // def dimensionHighlights = TutorCompare.highlights(allCompares) _
-  // Heapsort.topNToList(allCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
-
-  // def peerHighlights(nb: Int) =
-  //   Heapsort.topNToList(allCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
 }

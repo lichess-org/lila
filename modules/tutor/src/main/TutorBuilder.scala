@@ -69,9 +69,11 @@ final private class TutorBuilder(
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider).monSuccess(
-      _.tutor buildSegment "perf-stats"
-    )
+    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
+      .monSuccess(
+        _.tutor buildSegment "perf-stats"
+      )
+      .thenPp
     tutorUsers = perfStats
       .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
