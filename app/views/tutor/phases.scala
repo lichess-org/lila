@@ -40,7 +40,7 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              phase.acpl.toString
+              phase.accuracy.toString
             )
           )
         }

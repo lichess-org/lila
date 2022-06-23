@@ -15,6 +15,8 @@ object AccuracyPercent {
 
   val perfect = AccuracyPercent(100)
 
+  implicit val ordering = Ordering.by[AccuracyPercent, Double](_.value)
+
   /*
 from scipy.optimize import curve_fit
 import numpy as np
