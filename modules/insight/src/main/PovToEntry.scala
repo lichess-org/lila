@@ -134,6 +134,7 @@ final private class PovToEntry(
             else none // evals can be missing in super long games (300 plies, used to be 200)
           }
         }
+
         InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,

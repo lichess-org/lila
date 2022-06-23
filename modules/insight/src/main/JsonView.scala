@@ -161,7 +161,7 @@ final class JsonView {
       )
     }
 
-    implicit val positionWriter: Writes[Position] = Writes { p =>
+    implicit val positionWriter: Writes[InsightPosition] = Writes { p =>
       JsString(p.name)
     }
   }

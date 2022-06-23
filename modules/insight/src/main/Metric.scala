@@ -8,8 +8,8 @@ sealed abstract class Metric(
     val key: String,
     val name: String,
     val dbKey: String,
-    val position: Position,
-    val per: Position,
+    val position: InsightPosition,
+    val per: InsightPosition,
     val dataType: Metric.DataType,
     val description: String
 )
@@ -27,7 +27,7 @@ object Metric {
   }
 
   import DataType._
-  import Position._
+  import InsightPosition._
   import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl

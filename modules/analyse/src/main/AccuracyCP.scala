@@ -37,7 +37,7 @@ object AccuracyCP {
   }
 
   def mean(pov: SideAndStart, analysis: Analysis): Option[Int] =
-    lila.common.Maths.mean(diffsList(pov, analysis).flatten).map(_.toInt)
+    lila.common.Maths.mean(diffsList(pov, analysis).flatten).map(x => Math.round(x).toInt)
 
   def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(pov.sideAndStart, analysis)
 }

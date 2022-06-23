@@ -274,19 +274,26 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves(),
                 sampleMoves,
                 AddFields(
-                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$subtract" -> $arr(101, "$m.a")))))
+                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$add" -> $arr(1, "$m.a")))))
                 ).some
               ) :::
                 group(dimension, SumField("step")) :::
                 List(
                   AddFields(
                     $doc(
-                      "v" -> $doc(
-                        "$subtract" -> $arr(
-                          101,
-                          $doc("$divide" -> $arr($doc("$divide" -> $arr("$nb", "$v")), 10))
+                      "v" ->
+                        $doc(
+                          "$divide" ->
+                            $arr(
+                              $doc(
+                                "$subtract" -> $arr(
+                                  $doc("$divide" -> $arr("$nb", "$v")),
+                                  1
+                                )
+                              ),
+                              10
+                            )
                         )
-                      )
                     )
                   ).some,
                   includeSomeGameIds
@@ -404,7 +411,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case _                                    => Nil
           }).flatten
         }
-        pipeline.pp
+        pipeline
       }
     }
 }

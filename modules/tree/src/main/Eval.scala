@@ -17,7 +17,7 @@ case class Eval(
   def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
 
   def forceAsCp: Option[Eval.Cp] = cp orElse mate.map {
-    case m if m.negative => Eval.Cp(Int.MinValue + m.value)
+    case m if m.negative => Eval.Cp(Int.MinValue - m.value)
     case m               => Eval.Cp(Int.MaxValue - m.value)
   }
 }

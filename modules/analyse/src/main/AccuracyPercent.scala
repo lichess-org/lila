@@ -6,7 +6,7 @@ import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
 case class AccuracyPercent private (value: Double) extends AnyVal {
-  def toInt = value.toInt
+  def toInt = Math.round(value).toInt
 }
 
 object AccuracyPercent {
