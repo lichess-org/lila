@@ -213,7 +213,8 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   const myUserId = ctrl.data.userId;
   const mentioned =
-    !!myUserId && !!line.t.match(enhance.userPattern)?.find(mention => mention.toLowerCase() == `@${ctrl.data.userId}`);
+    !!myUserId &&
+    !!line.t.match(enhance.userPattern)?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
   return h(
     'li',
