@@ -22,4 +22,6 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def langName = LangList.nameByStr _
 
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)
+
+  def isRTL(implicit lang: Lang) = lila.i18n.LangList.isRTL(lang)
 }
