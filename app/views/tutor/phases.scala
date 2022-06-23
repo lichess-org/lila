@@ -31,7 +31,7 @@ object phases {
       bits.mascotSays(
         ul(report phaseHighlights 3 map compare.show)
       ),
-      div(cls := "tutor-cards tutor-cards--full-size")(
+      div(cls := "tutor-cards tutor-cards--triple")(
         report.phases.map { phase =>
           div(cls := "tutor-card tutor__phases__phase")(
             div(cls := "tutor-card__top")(
@@ -40,10 +40,36 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              phase.accuracy.toString
+              table(cls := "tutor-card__table")(
+                tbody(
+                  phase.accuracy.mine.map { mine =>
+                    peerComparison("Accuracy", mine.value.value, phase.awareness.peer.map(_.value.value))
+                  },
+                  phase.awareness.mine.map { mine =>
+                    peerComparison("Awareness", mine.value.value, phase.awareness.peer.map(_.value.value))
+                  }
+                )
+              )
             )
           )
         }
       )
     )
+
+  private def peerComparison(name: String, myValue: Double, peerValue: Option[Double]) =
+    frag(
+      tr(
+        th(rowspan := 2)(name),
+        td(horizontalBarPercent(myValue.some)(cls := "tutor-bar--mine"))
+      ),
+      tr(
+        td(horizontalBarPercent(peerValue)(cls := "tutor-bar--peer"))
+      )
+    )
+
+  private def horizontalBarPercent(value: Option[Double]) =
+    value match {
+      case Some(v) => div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(f"$v%1.1f%%")
+      case None    => div(cls := "tutor-bar tutor-bar--empty")
+    }
 }
