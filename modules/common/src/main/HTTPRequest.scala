@@ -24,14 +24,18 @@ object HTTPRequest {
       .get(HeaderNames.ACCEPT)
       .exists(_ startsWith "application/vnd.lichess.v")
 
-  private val appOrigins = Set(
+  private val appOrigins = List(
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
     "http://localhost"       // android/dev/flutter
   )
 
   def appOrigin(req: RequestHeader): Option[String] =
-    origin(req) filter { o => appOrigins exists o.startsWith }
+    origin(req) filter { reqOrigin =>
+      appOrigins exists { appOrigin =>
+        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+      }
+    }
 
   def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
