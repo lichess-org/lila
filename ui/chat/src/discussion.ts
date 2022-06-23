@@ -211,18 +211,24 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
   const userId = line.u?.toLowerCase();
 
+  const myUserId = ctrl.data.userId;
+  const mentioned =
+    !!myUserId &&
+    !!line.t.match(enhance.userPattern)?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+
   return h(
     'li',
     {
       class: {
-        me: userId === ctrl.data.userId,
+        me: userId === myUserId,
         host: userId === ctrl.data.hostId,
+        mentioned,
       },
     },
     ctrl.moderation()
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          ctrl.data.userId && line.u && ctrl.data.userId != line.u
+          myUserId && line.u && myUserId != line.u
             ? h('i.flag', {
                 attrs: {
                   'data-icon': '',
