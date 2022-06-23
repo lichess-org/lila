@@ -33,22 +33,24 @@ object phases {
       ),
       div(cls := "tutor-cards tutor-cards--triple")(
         report.phases.map { phase =>
-          div(cls := "tutor-card tutor__phases__phase")(
+          st.section(cls := "tutor-card tutor__phases__phase")(
             div(cls := "tutor-card__top")(
               div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
-                h3(cls := "tutor-card__top__title__text")(phase.phase.name)
+                h2(cls := "tutor-card__top__title__text")(phase.phase.name)
               )
             ),
             div(cls := "tutor-card__content")(
-              table(cls := "tutor-card__table")(
-                tbody(
-                  phase.accuracy.mine.map { mine =>
-                    peerComparison("Accuracy", mine.value.value, phase.awareness.peer.map(_.value.value))
-                  },
-                  phase.awareness.mine.map { mine =>
-                    peerComparison("Awareness", mine.value.value, phase.awareness.peer.map(_.value.value))
-                  }
-                )
+              st.section(
+                phase.accuracy.mine.map { mine =>
+                  peerComparison("Accuracy", mine.value.value, phase.awareness.peer.map(_.value.value))
+                },
+                phase.awareness.mine.map { mine =>
+                  peerComparison(
+                    "Tactical Awareness",
+                    mine.value.value,
+                    phase.awareness.peer.map(_.value.value)
+                  )
+                }
               )
             )
           )
@@ -57,19 +59,23 @@ object phases {
     )
 
   private def peerComparison(name: String, myValue: Double, peerValue: Option[Double]) =
-    frag(
-      tr(
-        th(rowspan := 2)(name),
-        td(horizontalBarPercent(myValue.some)(cls := "tutor-bar--mine"))
+    div(cls := "tutor-comparison")(
+      h3(cls := "tutor-comparison__name")(name),
+      div(cls                                           := "tutor-comparison__unit")(
+        horizontalBarPercent(myValue.some, "Yours")(cls := "tutor-bar--mine")
       ),
-      tr(
-        td(horizontalBarPercent(peerValue)(cls := "tutor-bar--peer"))
+      div(cls                                        := "tutor-comparison__unit")(
+        horizontalBarPercent(peerValue, "Peers")(cls := "tutor-bar--peer")
       )
     )
 
-  private def horizontalBarPercent(value: Option[Double]) =
+  private def horizontalBarPercent(value: Option[Double], legend: String) =
     value match {
-      case Some(v) => div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(f"$v%1.1f%%")
-      case None    => div(cls := "tutor-bar tutor-bar--empty")
+      case Some(v) =>
+        div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(
+          span(legend),
+          strong(f"$v%1.1f%%")
+        )
+      case None => div(cls := "tutor-bar tutor-bar--empty")
     }
 }

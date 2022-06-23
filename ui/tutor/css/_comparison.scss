@@ -1,0 +1,14 @@
+.tutor {
+  &-comparison {
+    margin-bottom: $block-gap;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__name {
+      font-size: 1.2em;
+    }
+    &__unit {
+      margin-top: 0.5em;
+    }
+  }
+}

@@ -6,7 +6,10 @@
     grid-gap: $block-gap;
     margin: var(--box-padding) 0;
     &--triple {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
+      @include breakpoint($mq-medium) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
     }
     &--full-size {
       grid-template-columns: 100%;
@@ -53,15 +56,6 @@
     &__more {
       display: block;
       text-align: center;
-    }
-
-    &__table {
-      width: 100%;
-      border: none;
-      td {
-        width: 100%;
-        padding-bottom: 1em;
-      }
     }
   }
   &-overlaid {
