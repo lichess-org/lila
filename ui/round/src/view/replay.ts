@@ -154,7 +154,7 @@ function renderButtons(ctrl: RoundController) {
   let iconPrev = '';
   let iconNext = '';
   let iconLast = '';
-  if ($('body').data('direction') == 'rtl') {
+  if (document.dir == 'rtl') {
     iconLast = '';
     iconNext = '';
     iconPrev = '';

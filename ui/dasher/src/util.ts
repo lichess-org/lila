@@ -38,7 +38,7 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
 
 export function header(name: string, close: Close) {
   let icon = ''; // <
-  if ($('body').data('direction') == 'rtl') {
+  if (document.dir == 'rtl') {
     icon = ''; // >
   }
 

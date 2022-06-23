@@ -304,7 +304,6 @@ object layout {
           dataAssetVersion := assetVersion.value,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
-          dataDirection    := lila.i18n.LangList.isRTL(ctx.lang).option("rtl").getOrElse("ltr"),
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style            := zoomable option s"--zoom:${ctx.zoom}"
@@ -333,7 +332,11 @@ object layout {
               div(cls := "content list")
             )
           ),
-          netConfig.socketDomains.nonEmpty option a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
+          netConfig.socketDomains.nonEmpty option a(
+            id       := "reconnecting",
+            cls      := "link text",
+            dataIcon := ""
+          )(trans.reconnecting()),
           ctx.pref.agreementNeededSince map { date =>
             div(id := "agreement")(
               div(
