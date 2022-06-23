@@ -211,7 +211,9 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
   const userId = line.u?.toLowerCase();
 
-  const mentionedUsers = line.t.match(enhance.userPattern)?.map(user => user.toLowerCase());
+  const mentioned = !!line.t
+    .match(enhance.userPattern)
+    ?.find(mention => mention.toLowerCase() == `@${ctrl.data.userId}`);
 
   return h(
     'li',
@@ -219,7 +221,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
       class: {
         me: userId === ctrl.data.userId,
         host: userId === ctrl.data.hostId,
-        mentioned: mentionedUsers != null && mentionedUsers.includes('@' + ctrl.data.userId),
+        mentioned,
       },
     },
     ctrl.moderation()
