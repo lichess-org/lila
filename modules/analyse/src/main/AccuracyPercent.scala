@@ -13,6 +13,8 @@ object AccuracyPercent {
 
   import WinPercent.BeforeAfter
 
+  val perfect = AccuracyPercent(100)
+
   /*
 from scipy.optimize import curve_fit
 import numpy as np

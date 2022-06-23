@@ -86,7 +86,7 @@ final private class PovToEntry(
   private def makeMoves(from: RichPov): List[InsightMove] = {
     val sideAndStart = from.pov.sideAndStart
     def cpDiffs      = from.analysis ?? { AccuracyCP.diffsList(sideAndStart, _).toVector }
-    val accuracyPercents = from.analysis ?? {
+    val accuracyPercents = from.analysis map {
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
     }
     val prevInfos = from.analysis.?? { an =>
@@ -127,6 +127,13 @@ final private class PovToEntry(
             }
           case _ => none
         }
+        val accuracyPercent = accuracyPercents flatMap { accs =>
+          accs lift i orElse {
+            if (i == situations.size - 1) // last eval missing if checkmate
+              ~from.pov.win && from.pov.game.status.is(_.Mate) option AccuracyPercent.perfect
+            else none // evals can be missing in super long games (300 plies, used to be 200)
+          }
+        }
         InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
@@ -134,7 +141,7 @@ final private class PovToEntry(
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
           winPercent = prevInfo.map(_.eval) flatMap WinPercent.fromEval,
-          accuracyPercent = accuracyPercents lift i,
+          accuracyPercent = accuracyPercent,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck,
