@@ -9,12 +9,6 @@ import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 import lila.user.User
 
-case class Acpl(value: Double) extends AnyVal {
-  override def toString = value.toInt.toString
-}
-object Acpl {
-  implicit val ordering = Ordering.by[Acpl, Double](_.value)
-}
 case class Rating(value: Double) extends AnyVal
 object Rating {
   implicit val ordering = Ordering.by[Rating, Double](_.value)

@@ -6,7 +6,7 @@ import chess.opening.FullOpeningDB
 import chess.{ Centis, Role, Situation, Stats }
 import scala.util.chaining._
 
-import lila.analyse.{ Accuracy, Advice }
+import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
 import lila.user.User
 import lila.common.{ LilaOpening, LilaOpeningFamily }
@@ -15,7 +15,6 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    moveAccuracy: Option[List[Int]],
     situations: NonEmptyList[Situation],
     movetimes: NonEmptyList[Centis],
     advices: Map[Ply, Advice]
@@ -63,7 +62,6 @@ final private class PovToEntry(
               pov = pov,
               provisional = provisional,
               analysis = an,
-              moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
               situations = situations,
               movetimes = movetimes,
               advices = an.?? {
@@ -86,9 +84,13 @@ final private class PovToEntry(
     }
 
   private def makeMoves(from: RichPov): List[InsightMove] = {
-    val cpDiffs = ~from.moveAccuracy toVector
+    val sideAndStart = from.pov.sideAndStart
+    def cpDiffs      = from.analysis ?? { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    val accuracyPercents = from.analysis map {
+      AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
+    }
     val prevInfos = from.analysis.?? { an =>
-      Accuracy.prevColorInfos(from.pov, an) pipe { is =>
+      AccuracyCP.prevColorInfos(sideAndStart, an) pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
@@ -125,13 +127,22 @@ final private class PovToEntry(
             }
           case _ => none
         }
+        val accuracyPercent = accuracyPercents flatMap { accs =>
+          accs lift i orElse {
+            if (i == situations.size - 1) // last eval missing if checkmate
+              ~from.pov.win && from.pov.game.status.is(_.Mate) option AccuracyPercent.perfect
+            else none // evals can be missing in super long games (300 plies, used to be 200)
+          }
+        }
+
         InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
           role = role,
-          eval = prevInfo.flatMap(_.cp).map(_.ceiled.centipawns),
-          mate = prevInfo.flatMap(_.mate).map(_.moves),
-          cpl = cpDiffs lift i,
+          eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
+          cpl = cpDiffs.lift(i).flatten,
+          winPercent = prevInfo.map(_.eval) flatMap WinPercent.fromEval,
+          accuracyPercent = accuracyPercent,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck,

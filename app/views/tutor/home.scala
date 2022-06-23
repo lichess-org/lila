@@ -61,7 +61,7 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        ul(perfReport highlights 3 map compare.show),
+        ul(perfReport allHighlights 3 map compare.show),
         bits.seeMore
       )
     )

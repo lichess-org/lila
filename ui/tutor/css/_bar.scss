@@ -1,0 +1,41 @@
+.tutor {
+  &-bar {
+    @extend %box-neat, %flex-column;
+
+    $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.4em 0.7em 0.6em 0.7em;
+    text-transform: uppercase;
+    flex: 0 0 23.5%;
+    margin-left: 2%;
+    cursor: default;
+
+    // strong {
+    //   @extend %roboto;
+
+    //   font-size: 2em;
+    //   line-height: 1.3em;
+    //   font-weight: normal;
+    // }
+
+    // span {
+    //   color: rgba(255%, 255%, 255%, 0.8);
+    //   letter-spacing: -1px;
+    //   font-size: 0.9rem;
+    // }
+
+    background: $c-bg-zebra2;
+
+    $c-darken: #333;
+
+    $c-value: mix($c-good, $c-darken, 85%);
+    $c-bg: $c-bg-box;
+
+    background: //#{$glow-gradient},
+      linear-gradient(to right, $c-value 0%, $c-value var(--value), $c-bg var(--value), $c-bg 100%);
+    color: $c-good-over;
+  }
+}

@@ -15,6 +15,11 @@ case class Eval(
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
 
   def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
+
+  def forceAsCp: Option[Eval.Cp] = cp orElse mate.map {
+    case m if m.negative => Eval.Cp(Int.MinValue - m.value)
+    case m               => Eval.Cp(Int.MaxValue - m.value)
+  }
 }
 
 object Eval {
@@ -77,7 +82,7 @@ object Eval {
 
     def compare(other: Mate) = Integer.compare(value, other.value)
 
-    def signum: Int = Math.signum(value.toFloat).toInt
+    def signum: Int = if (positive) 1 else -1
 
     def positive = value > 0
     def negative = value < 0

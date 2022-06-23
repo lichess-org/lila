@@ -644,6 +644,8 @@ object Game {
 
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
+  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
+
   val syntheticId = "synthetic"
 
   val maxPlaying         = 200 // including correspondence
