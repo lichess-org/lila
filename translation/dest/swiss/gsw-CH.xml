@@ -82,7 +82,7 @@ Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo
 vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
-  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" (wiki) spillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. 
+  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. 
 Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zueglost, zum sicher 
 stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de glichi Gägner trifft. 
 De Sieger isch am Schluss de Schpiller, mit de höchschte Azahl Pünkt, wo us allne Runde addiert worde sind. 

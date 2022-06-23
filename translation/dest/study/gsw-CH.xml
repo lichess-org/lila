@@ -142,7 +142,7 @@
   <string name="equalPosition">Uusglichäni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
   <string name="whiteIsSlightlyBetter">Wiss schtaht es bitzli besser</string>
-  <string name="blackIsSlightlyBetter">Schwarz schtoht liächt besser</string>
+  <string name="blackIsSlightlyBetter">Schwarz schtaht es bitzli besser</string>
   <string name="whiteIsBetter">Wiss schtaht besser</string>
   <string name="blackIsBetter">Schwarz schtoht besser</string>
   <string name="whiteIsWinning">Wiss schtaht uf Gwünn</string>

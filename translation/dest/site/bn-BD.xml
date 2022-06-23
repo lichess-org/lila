@@ -9,7 +9,7 @@
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <string name="level">লেভেল</string>
-  <string name="strength">শক্তি</string>
+  <string name="strength">শক্তিমত্তা</string>
   <string name="toggleTheChat">আড্ডা চালু/বন্ধ</string>
   <string name="chat">আড্ডা</string>
   <string name="resign">হার স্বীকার করুন</string>
@@ -17,6 +17,8 @@
   <string name="stalemate">চালমাত - সমান</string>
   <string name="white">সাদা</string>
   <string name="black">কালো</string>
+  <string name="asWhite">সাদা হয়ে</string>
+  <string name="asBlack">কালো হয়ে</string>
   <string name="randomColor">যে কোন রঙ</string>
   <string name="createAGame">খেলা তৈরি করুন</string>
   <string name="whiteIsVictorious">সাদা বিজয়ী</string>
@@ -90,6 +92,7 @@
   <string name="noGameFound">কোন খেলা নেই</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">হয়তো আরো খেলা যোগ করা হবে পচ্ছন্দের তালিকায়?</string>
   <string name="openingExplorer">অনুসন্ধানকারী খুলতেছে</string>
+  <string name="openingEndgameExplorer">প্রারম্ভিক/শেষ খেলা কৌশল বিশ্লেষণ</string>
   <string name="xOpeningExplorer">%s অনুসন্ধানকারী খুলতেছে</string>
   <string name="winPreventedBy50MoveRule">50-চাল নিয়মে জয় প্রতিরোধ</string>
   <string name="lossSavedBy50MoveRule">50- চাল নিয়মে হার জমা</string>
@@ -134,6 +137,8 @@
     <item quantity="one">%s জন খেলোয়াড়</item>
     <item quantity="other">%s জন খেলোয়াড়</item>
   </plurals>
+  <string name="drawByMutualAgreement">মতৈক্যের ভিত্তিতে ড্র</string>
+  <string name="fiftyMovesWithoutProgress">কোনো অগ্রগতি ছাড়া ৫০ চাল</string>
   <string name="currentGames">বর্তমান খেলা</string>
   <plurals name="nbGames">
     <item quantity="one">%s টি খেলা</item>
@@ -173,6 +178,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ঘন্টা</item>
     <item quantity="other">%s ঘন্টা</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s মিনিট</item>
+    <item quantity="other">%s মিনিট</item>
   </plurals>
   <string name="time">সময়</string>
   <string name="rating">অনুপাত</string>
@@ -335,8 +344,11 @@
   <string name="apply">প্রয়োগ</string>
   <string name="save">সংরক্ষন করুন</string>
   <string name="leaderboard">লিডারবোর্ড</string>
+  <string name="screenshotCurrentPosition">বর্তমান অবস্থানে স্ক্রিনশট নিন</string>
+  <string name="gameAsGIF">GIF হিসেবে</string>
   <string name="pasteTheFenStringHere">এখানে FEN স্ট্রিংটি জোড়া লাগান</string>
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
+  <string name="orUploadPgnFile">অথবা PGN আপলোড করুন</string>
   <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
   <string name="toStudy">অধ্যায়ন</string>
@@ -413,6 +425,8 @@
   <string name="tournamentIsStarting">টুর্নামেন্ট শুরু হচ্ছে</string>
   <string name="tournamentPairingsAreNowClosed">ক্রীড়া-প্রতিযোগিতা যোগদান এখন বন্ধ হয়ে গেছে.</string>
   <string name="standByX">অপেক্ষিত %s, যোগদান খেলোয়ার, তৈরি হও!</string>
+  <string name="pause">বিরতি/Pause</string>
+  <string name="resume">পুনরায় শুরু</string>
   <string name="youArePlaying">আপনি খেলতেছেন!</string>
   <string name="winRate">জয়ের অনুপাত</string>
   <string name="berserkRate">ক্ষিপ্ত অনুপাত</string>
@@ -427,6 +441,8 @@
   <string name="boardEditor">বোর্ড সম্পাদক</string>
   <string name="setTheBoard">বোর্ড সেট করুন</string>
   <string name="popularOpenings">জনপ্রিয় চমক</string>
+  <string name="endgamePositions">সমাপনী খেলার অবস্থান</string>
+  <string name="chess960StartPosition">Chess960 এর শুরুর অবস্থান: %s</string>
   <string name="startPosition">শুরুর অবস্থান</string>
   <string name="clearBoard">বোর্ড খালি করুন</string>
   <string name="loadPosition">অবস্থান পুনঃস্থাপন</string>
@@ -443,6 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">দেশ বা পতাকা</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
+  <string name="oneUrlPerLine">প্রতি লাইনে একটি লিংক।</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
   <string name="onlinePlayers">যে সমস্ত  খেলোয়ার অনলাইন আছে</string>
@@ -486,6 +503,7 @@
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
+  <string name="importedByX">খেলাটি এনেছেন %s</string>
   <string name="thisTopicIsNowClosed">এই বিষয়টি এখন শেষ হয়ে গেছে</string>
   <string name="blog">ব্লগ</string>
   <string name="notes">গুরুত্বপূর্ণ তথ্য</string>
@@ -546,10 +564,18 @@
   <string name="community">সম্প্রদায়</string>
   <string name="tools">সরঞ্জামসমূহ</string>
   <string name="increment">মুনাফা</string>
+  <string name="error.unknown">অচল মান</string>
   <string name="error.required">এই ঘরটি পূরন করা আবশ্যক</string>
   <string name="error.email">ইমেইল ঠিকানাটি বৈধ নয়</string>
   <string name="error.email_acceptable">ইমেইল ঠিকানাটি গ্রহণযোগ্য নয়। দয়া করে পুনরায় চেক করুন, অত‍ঃপর চেষ্টা করুন।</string>
+  <string name="error.email_unique">ইমেইল টি অকার্যকর বা ইতোমধ্যে ব্যবহৃত</string>
+  <string name="error.email_different">এটি আপনার বর্তমানে ব্যবহৃত ইমেইল ঠিকানা</string>
+  <string name="error.minLength">পাসওয়ার্ড অন্তত %s বর্ণ/চিহ্ন দীর্ঘ হতে হবে</string>
+  <string name="error.maxLength">পাসওয়ার্ড সর্বোচ্চ %s বর্ণ/চিহ্ন দীর্ঘ হতে পারবে</string>
+  <string name="error.min">অবশ্যই %s দীর্ঘ হতে হবে।</string>
+  <string name="error.max">অবশ্যই %s দীর্ঘ হতে হবে।</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
+  <string name="ifRegistered">নিবন্ধিত</string>
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>
   <string name="menu">মেনু</string>
@@ -638,6 +664,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">প্রিভিউ দেখার জন্য কম্পিউটার ভ্যারিয়েশনের উপর স্ক্রল করুন।</string>
   <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
   <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
+  <string name="receiveForumNotifications">নোটিফিকেশন পাবেন যখন ফোরামে আপনাকে কেউ উল্লেখ করে</string>
   <string name="shareYourInsightsData">আপনার দাবার অর্ন্তদৃষ্টি তথ্য শেয়ার করুন</string>
   <string name="withNobody">কারো সাথে না</string>
   <string name="withFriends">বন্ধুদের সাথে</string>
@@ -649,6 +676,7 @@
   <string name="enableKidMode">বাচ্চা ধরন সক্রিয় করুন</string>
   <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
   <string name="security">নিরাপত্তা</string>
+  <string name="sessions">সেশনসমূহ</string>
   <string name="revokeAllSessions">সকল সেশন বাতিল করুন</string>
   <string name="playChessEverywhere">দাবা খেলুন সব জায়গায়</string>
   <string name="asFreeAsLichess">যেমন লিচাস মুক্ত হিসাবে</string>
@@ -770,6 +798,7 @@
   <string name="currentMatchScore">বর্তমান ম্যাচের স্কোর</string>
   <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">আমি একমত পোষণ করছি যে আমি একাধিক একাউন্ট তৈরি করব না (%s এ উল্লেখিত কারণ ব্যতীত)।</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
@@ -815,4 +844,50 @@
   <string name="welcome">স্বাগতম!</string>
   <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
 সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
+  <string name="coachManager">প্রশিক্ষক ব্যবস্থাপনা</string>
+  <string name="streamerManager">সম্প্রচার নিয়ন্ত্রণ</string>
+  <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
+  <string name="tournDescription">টুর্নামেন্টের বর্ণনা</string>
+  <string name="tournDescriptionHelp">অংশগ্রহণকারীদের কিছু বলতে চান? সংক্ষেপে লেখার চেষ্টা করুন।
+Markdown links ব্যবহারযোগ্য: [name](https://url)</string>
+  <string name="ratedFormHelp">খেলাগুলো রেটেড/পয়েন্ট ভিত্তিক এবং খেলোয়াড়দের রেটিং এ প্রভাব ফেলবে</string>
+  <string name="onlyMembersOfTeam">শুধুমাত্র দলের সদস্যরা</string>
+  <string name="noRestriction">কোনো বিধিনিষেধ নেই</string>
+  <string name="minimumRatedGames">সর্বনিম্ন রেটেড খেলার সংখ্যা</string>
+  <string name="minimumRating">সর্বনিম্ন রেটিং</string>
+  <string name="maximumWeeklyRating">সর্বোচ্চ সাপ্তাহিক রেটিং</string>
+  <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
+  <string name="onlyTitledHelp">এই টুর্নামেন্টে যুক্ত হতে অফিসিয়াল খেতাব প্রয়োজন</string>
+  <string name="cancelSimul">একত্রে খেলা বাতিল করুন</string>
+  <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
+  <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>
+  <string name="simulFeatured">দেখানো হবে %s</string>
+  <string name="simulDescriptionHelp">আপনি অংশগ্রহণকারীদের কিছু বলতে চান?</string>
+  <string name="inYourLocalTimezone">আপনার স্থানীয় সময়</string>
+  <string name="tournChat">টুর্নামেন্ট চ্যাট</string>
+  <string name="noChat">কোনো চ্যাট নয়</string>
+  <string name="onlyTeamLeaders">শুধুমাত্র দলীয় প্রধানগণ</string>
+  <string name="onlyTeamMembers">শুধুমাত্র দলের সদস্যরা</string>
+  <string name="navigateMoveTree">Move/চালের তালিকা নির্দেশক</string>
+  <string name="mouseTricks">মাউসের নিয়ন্ত্রন</string>
+  <string name="toggleLocalAnalysis">ব্যক্তিগত কম্পিউটার বিশ্লেষণ অন/অফ</string>
+  <string name="toggleAllAnalysis">সব কম্পিউটার বিশ্লেষণ অন/অফ</string>
+  <string name="playComputerMove">কম্পিউটারের সেরা চাল</string>
+  <string name="reopenYourAccount">আপনার একাউন্ট পুনরায় খুলুন</string>
+  <string name="closedAccountChangedMind">আপনি যদি আপনার একাউন্ট বন্ধ করে থাকেন, কিন্তু পরবর্তীতে মন পরিবর্তন করেন, সেক্ষেত্রে একাউন্ট ফেরত পাওয়ার জন্য আপনাকে একবার সুযোগ দেয়া হবে।</string>
+  <string name="onlyWorksOnce">এটি শুধুমাত্র একবার কাজ করবে।</string>
+  <string name="cantDoThisTwice">আপনি যদি দ্বিতীয়বারের মত একাউন্ট বন্ধ করেন, তাহলে তা আর পুনরুদ্ধার করা যাবে না।</string>
+  <string name="emailAssociatedToaccount">এই একাউন্টের সঙ্গে সংশ্লিষ্ট ই-মেইল অ্যাড্রেস হচ্ছে</string>
+  <string name="sentEmailWithLink">আমরা আপনাকে একটি লিঙ্ক সহ ই-মেইল পাঠিয়েছি।</string>
+  <string name="tournamentEntryCode">টুর্নামেন্টে প্রবেশের কোড</string>
+  <string name="hangOn">সাবধান!</string>
+  <string name="gameInProgress">%s এর সাথে এখনো আপনার খেলা চলছে।</string>
+  <string name="abortTheGame">খেলা ত্যাগ(abort) করুন</string>
+  <string name="resignTheGame">খেলা সমর্পণ(resign) করুন</string>
+  <string name="youCantStartNewGame">আপনি এই খেলা শেষ না করে নতুন খেলা শুরু করতে পারবেন না।</string>
+  <string name="since">Since/শুরু</string>
+  <string name="until">Until/পর্যন্ত</string>
+  <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>
+  <string name="switchSides">পক্ষ পরিবর্তন করুন</string>
+  <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
 </resources>

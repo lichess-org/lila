@@ -81,7 +81,7 @@
   <string name="unknown">Unbekannt</string>
   <string name="database">Datäbank</string>
   <string name="whiteDrawBlack">Wiss / Remis / Schwarz</string>
-  <string name="averageRatingX">Durchschnittlichi Wärtigszahl: %s</string>
+  <string name="averageRatingX">Durchschnittlichi Wertigszahl: %s</string>
   <string name="recentGames">Aktuelli Partie</string>
   <string name="topGames">Beschti-Partie</string>
   <string name="masterDbExplanation">2 Millione OTB Schpiil vu %1$s+ FIDE-gwertete Schpiller vu %2$s bis %3$s</string>
@@ -105,7 +105,7 @@
   <string name="delete">Lösche</string>
   <string name="deleteThisImportedGame">Das importierte Schpiil lösche?</string>
   <string name="replayMode">Widergabemodus</string>
-  <string name="realtimeReplay">Ächtziit</string>
+  <string name="realtimeReplay">Ächtzit</string>
   <string name="byCPL">Nach CPL</string>
   <string name="openStudy">Schtudie eröffne</string>
   <string name="enable">Iischaltä</string>
@@ -171,8 +171,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="minutesPerSide">Minute pro Schpiller</string>
   <string name="variant">Variante</string>
   <string name="variants">Variante</string>
-  <string name="timeControl">Bedänkziit</string>
-  <string name="realTime">Ächtziit</string>
+  <string name="timeControl">Bedänkzit</string>
+  <string name="realTime">Ächtzit</string>
   <string name="correspondence">Fernschach</string>
   <string name="daysPerTurn">Täg pro Zug</string>
   <string name="oneDay">Ein Tag</string>
@@ -230,7 +230,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="yourOpponentOffersADraw">Din Gägner offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
   <string name="decline">Ablehnä</string>
-  <string name="playingRightNow">Partii isch am laufä</string>
+  <string name="playingRightNow">Partie isch am laufe</string>
   <string name="eventInProgress">Schpillt jetzt</string>
   <string name="finished">Beändet</string>
   <string name="finishesX">ändet in %s</string>
@@ -273,7 +273,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s Niederlag</item>
-    <item quantity="other">%s Niderlagä</item>
+    <item quantity="other">%s Niderlage</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s Remis</item>
@@ -329,12 +329,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">Du bruchsch no %s Wertigs-Schpiil meh</item>
     <item quantity="other">Du bruchsch no %s Wertigs-Schpiil meh</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
+  <string name="yourPerfRatingIsProvisional">Dini %s Wertig isch provisorisch</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wärtig (%2$s) isch z\'höch</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüüf</string>
   <string name="ratedMoreThanInPerf">Gwertet ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Wärtig ≤ %1$s in %2$s diä Wuchä</string>
+  <string name="ratedLessThanInPerf">Wertig ≤ %1$s in %2$s die Wuche</string>
   <string name="mustBeInTeam">Du muesch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrugg zum Schpiil</string>
@@ -409,7 +409,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="openTournaments">Offeni Turnier</string>
   <string name="duration">Duur</string>
   <string name="winner">Sieger</string>
-  <string name="standing">Tabällä</string>
+  <string name="standing">Tabälle</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
   <string name="tournamentCalendar">Turnier Kaländer</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
@@ -434,7 +434,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="resume">wieder ischtiige</string>
   <string name="youArePlaying">Dis Schpiil fangt aa!</string>
   <string name="winRate">Gwünn Rate</string>
-  <string name="berserkRate">Bärsärkratä</string>
+  <string name="berserkRate">Berserkrate</string>
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
   <string name="movesPlayed">Gschpillti Züg</string>
@@ -442,7 +442,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="blackWins">Sieg mit Schwarz</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächschts %s Turnier:</string>
-  <string name="averageOpponent">Durchschnittlichä Gägnär</string>
+  <string name="averageOpponent">Durchschnitt - Gägner</string>
   <string name="boardEditor">Schtellig ufbaue</string>
   <string name="setTheBoard">Brätt ufbaue</string>
   <string name="popularOpenings">Beliebti Eröffnige</string>
@@ -454,7 +454,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Mäld %s dä Moderatorä</string>
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
-  <string name="xRating">%s Wärtigszahl</string>
+  <string name="xRating">%s Wertigszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
@@ -522,7 +522,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="newPasswordAgain">Neus Passwort (nomal)</string>
   <string name="newPasswordsDontMatch">Die neue Passwörter sind nöd gliich</string>
   <string name="newPasswordStrength">Passwortstärchi</string>
-  <string name="clockInitialTime">Grundbedänkziit</string>
+  <string name="clockInitialTime">Grundbedänkzit</string>
   <string name="clockIncrement">Ziit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
   <string name="privacyPolicy">Datäschutzbeschtimmige</string>
@@ -630,7 +630,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
-  <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
+  <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extra Ziit Simultanschpiller</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
@@ -674,7 +674,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpiil vor- oder rückwärts laufe.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
-  <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
+  <string name="analysisShapesHowTo">Mit Shift + Musklick - rächts oder links - chasch grüeni oder roti Chreis und Pfil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
   <string name="receiveForumNotifications">Empfang Benachrichtige, dass du im Forum erwähnt worde bisch</string>
   <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
