@@ -23,7 +23,7 @@ object editor {
 data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
-      moreCss = cssTag("editor" + lila.i18n.LangList.isRTL(ctx.lang).option(".rtl").getOrElse("")),
+      moreCss = cssTag("editor"),
       chessground = false,
       zoomable = true,
       openGraph = lila.app.ui
