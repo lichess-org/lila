@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
-	<string name="byPlaying">by playing!</string>
+	<string name="learnShogi">Matuto maglaro ng shogi</string>
+	<string name="byPlaying">sa paglalaro!</string>
 	<string name="menu">Menu</string>
-	<string name="progressX">Progress: %s</string>
-	<string name="resetMyProgress">Reset my progress</string>
-	<string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
-	<string name="play">play!</string>
-	<string name="shogiPieces">Shogi pieces</string>
+	<string name="progressX">Progreso %s</string>
+	<string name="resetMyProgress">I-reset ang pagtutuloy</string>
+	<string name="youWillLoseAllYourProgress">Mawawala ang lahat ng iyong pagtutuloy!</string>
+	<string name="play">laro!</string>
+	<string name="shogiPieces">Piyesa ng Shogi</string>
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
