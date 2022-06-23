@@ -31,7 +31,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     cssTagWithDirAndTheme(name, isRTL, ctx.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
-    cssAt(s"css/$name.$dir.$theme.${if (minifiedAssets) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
