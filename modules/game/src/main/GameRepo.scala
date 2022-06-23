@@ -14,6 +14,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.isDuplicateKey
 import lila.user.User
+import lila.common.config
 
 final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -133,11 +134,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def unanalysedGames(gameIds: Seq[ID]): Fu[List[Game]] =
+  def unanalysedGames(gameIds: Seq[ID], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
-      .find($inIds(gameIds) ++ Query.analysed(false))
+      .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
       .cursor[Game](ReadPreference.secondaryPreferred)
-      .list(100)
+      .list(max.value)
 
   def cursor(
       selector: Bdoc,
@@ -270,7 +271,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
-  def setAnalysed(id: ID): Unit   = coll.updateFieldUnchecked($id(id), F.analysed, true)
+  def setAnalysed(id: ID): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: ID): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
 
   def isAnalysed(id: ID): Fu[Boolean] =

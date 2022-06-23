@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Stillingar</string>
-  <string name="gameDisplay">Útsjónd á talvi</string>
   <string name="pieceAnimation">Snið á talvfólki</string>
   <string name="materialDifference">Virðismunur</string>
   <string name="boardHighlights">Upplýstir talvpuntar (seinasti leikur og skák)</string>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Настройки</string>
-  <string name="gameDisplay">Внешний вид</string>
+  <string name="display">Отображать</string>
+  <string name="privacy">Конфиденциальность</string>
   <string name="pieceAnimation">Анимация фигур</string>
   <string name="materialDifference">Показывать разницу в материале</string>
   <string name="boardHighlights">Подсвечивать последний ход и шах</string>

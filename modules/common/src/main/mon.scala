@@ -192,8 +192,18 @@ object mon {
     val notification = counter("timeline.notification").withoutTags()
   }
   object insight {
-    val request = future("insight.request.time")
-    val index   = future("insight.index.time")
+    val user  = future("insight.request.time", "user")
+    val peers = future("insight.request.time", "peer")
+    val index = future("insight.index.time")
+  }
+  object tutor {
+    def buildSegment(segment: String) = future("tutor.build.segment", segment)
+    def buildFull                     = future("tutor.build.full")
+    def askMine                       = askAs("mine") _
+    def askPeer                       = askAs("peer") _
+    def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
+    private def askAs(as: String)(question: String, perf: String) =
+      future("tutor.insight.ask", Map("question" -> question, "perf" -> perf, "as" -> as))
   }
   object search {
     def time(op: String, index: String, success: Boolean) =
@@ -497,9 +507,9 @@ object mon {
         def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
         def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
       }
-      def nextPuzzleResult(theme: String, difficulty: String, result: String) =
+      def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
         timer("puzzle.selector.user.puzzleResult").withTags(
-          Map("theme" -> theme, "difficulty" -> difficulty, "result" -> result)
+          Map("theme" -> theme, "difficulty" -> difficulty, "color" -> color, "result" -> result)
         )
     }
     object path {

@@ -26,4 +26,6 @@ final class FishnetAwaiter(implicit ec: ExecutionContext, system: ActorSystem) {
         Bus.unsubscribe(listener, busChannel)
       }
     }
+
+  def apply(gameId: Game.ID, atMost: FiniteDuration): Funit = apply(List(gameId), atMost)
 }

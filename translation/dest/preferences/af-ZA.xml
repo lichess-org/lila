@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Voorkeure</string>
-  <string name="gameDisplay">Spel vertoon</string>
+  <string name="display">Vertoon</string>
+  <string name="privacy">Privaatheid</string>
   <string name="pieceAnimation">Stuk animasie</string>
   <string name="materialDifference">Materiaal verskil</string>
   <string name="boardHighlights">Bord hoogtepunte (onlangste skuif en skaak)</string>

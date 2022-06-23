@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration._
 
-import lila.common.{ AtMost, Bus, Every, LilaStream, ResilientScheduler }
+import lila.common.{ Bus, LilaStream, LilaScheduler }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 
@@ -54,7 +54,7 @@ final private class CorresAlarm(
     }
   }
 
-  ResilientScheduler(every = Every(10 seconds), timeout = AtMost(10 seconds), initialDelay = 2 minutes) {
+  LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
     coll
       .find($doc("ringsAt" $lt DateTime.now))
       .cursor[Alarm]()

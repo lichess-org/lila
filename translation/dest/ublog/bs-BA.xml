@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="createBlogDiscussion">Omogućite komentare</string>
+  <string name="createBlogDiscussionHelp">Bit će kreirana tema na forumu kako bi ljudi mogli komentirati Vašu objavu</string>
+</resources>

@@ -7,6 +7,10 @@ import play.api.ConfigLoader
 
 object config {
 
+  case class Every(value: FiniteDuration)  extends AnyVal
+  case class AtMost(value: FiniteDuration) extends AnyVal
+  case class Delay(value: FiniteDuration)  extends AnyVal
+
   case class CollName(value: String) extends AnyVal with StringValue
 
   case class Secret(value: String) extends AnyVal {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Socruithe</string>
-  <string name="gameDisplay">Taispeántas cluiche</string>
   <string name="pieceAnimation">Beochan píosa</string>
   <string name="materialDifference">Difríocht ábhartha</string>
   <string name="boardHighlights">Buaicphointí an bhoird (an mbeart deireanach agus an sáinn)</string>

@@ -24,7 +24,6 @@ object BSONHandlers {
   implicit val StudyNameBSONHandler   = stringIsoHandler(Study.nameIso)
   implicit val ChapterIdBSONHandler   = stringIsoHandler(Chapter.idIso)
   implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
-  implicit val CentisBSONHandler      = intIsoHandler(Iso.centisIso)
   implicit val StudyTopicBSONHandler  = stringIsoHandler(StudyTopic.topicIso)
   implicit val StudyTopicsBSONHandler =
     implicitly[BSONHandler[List[StudyTopic]]].as[StudyTopics](StudyTopics.apply, _.value)

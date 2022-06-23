@@ -11,6 +11,8 @@ import controllers.routes
 
 object features {
 
+  val engineFullName = "Stockfish 15 NNUE"
+
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -43,7 +45,9 @@ object features {
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
-              "Deep Stockfish 15 server analysis"
+              "Deep ",
+              engineFullName,
+              " server analysis"
             ),
             tr(unlimited)(
               "Instant local Stockfish 14+ analysis (depth 99)"

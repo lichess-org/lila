@@ -25,6 +25,10 @@ object opening {
             h1("Puzzles by openings"),
             orderSelect(order)
           ),
+          p(cls := "help help-keyboard")(iconTag("", "Use Ctrl+f to find your favourite opening!")),
+          p(cls := "help help-touchscreen")(
+            iconTag("", "Use \"Find in page\" in the browser menu to find your favourite opening!")
+          ),
           div(cls := "puzzle-themes")(
             treeOf(openings treeList order),
             theme.info
@@ -33,12 +37,12 @@ object opening {
       )
     )
 
-  private[puzzle] def listOf(openings: List[PuzzleOpening.WithCount])(implicit ctx: Context) =
-    div(cls := "puzzle-openings__list")(openings map { op =>
-      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(op.opening.key.value))(
+  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(implicit ctx: Context) =
+    div(cls := "puzzle-openings__list")(families map { fam =>
+      a(cls := "puzzle-openings__link", href := routes.Puzzle.show(fam.family.key.value))(
         h3(
-          op.opening.name,
-          em(op.count.localize)
+          fam.family.name,
+          em(fam.count.localize)
         )
       )
     })
@@ -49,8 +53,8 @@ object opening {
         h2(
           a(
             cls     := "blpt",
-            dataFen := fam.family.ref.fen
-          )(href := routes.Puzzle.show(fam.family.key.value))(fam.family.family.name),
+            dataFen := fam.family.full.fen
+          )(href := routes.Puzzle.show(fam.family.key.value))(fam.family.name),
           em(fam.count.localize)
         ),
         openings.nonEmpty option div(cls := "puzzle-openings__list")(openings.map { op =>
@@ -60,7 +64,7 @@ object opening {
             href    := routes.Puzzle.show(op.opening.key.value)
           )(
             h3(
-              op.opening.variation.fold("Unknown")(_.name),
+              op.opening.variation.name,
               em(op.count.localize)
             )
           )

@@ -1,4 +1,6 @@
 import * as domData from 'common/data';
+import clockWidget from './clock-widget';
+import StrongSocket from './socket';
 
 interface UpdateData {
   lm: string;
@@ -30,7 +32,7 @@ export const init = (node: HTMLElement) => {
     domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
     ['white', 'black'].forEach(color =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
-        lichess.clockWidget(this, {
+        clockWidget(this, {
           time: parseInt(this.getAttribute('data-time')!),
           pause: color != turnColor,
         });
@@ -43,7 +45,7 @@ export const init = (node: HTMLElement) => {
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(init).filter(id => id);
-  if (ids.length) lichess.StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
+  if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
 };
 
 export const update = (node: HTMLElement, data: UpdateData) => {
@@ -59,7 +61,7 @@ export const update = (node: HTMLElement, data: UpdateData) => {
   const turnColor = fenColor(data.fen);
   const renderClock = (time: number | undefined, color: string) => {
     if (!isNaN(time!))
-      lichess.clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
+      clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
         pause: color != turnColor,
       });

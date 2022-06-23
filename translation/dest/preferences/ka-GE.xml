@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">პრეფერენსები</string>
-  <string name="gameDisplay">თამაშის გამოსახულება</string>
   <string name="pieceAnimation">ფიგურის ანიმაცია</string>
   <string name="materialDifference">ფიგურათა სხვაობა</string>
   <string name="boardHighlights">აღმნიშვნელები დაფაზე (უკანასკნელი სვლა და ქიში)</string>

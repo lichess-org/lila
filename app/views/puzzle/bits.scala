@@ -88,6 +88,9 @@ object bits {
       trans.analysis,
       trans.playWithTheMachine,
       trans.preferences.zenMode,
+      trans.asWhite,
+      trans.asBlack,
+      trans.randomColor,
       // ceval
       trans.depthX,
       trans.usingServerAnalysis,

@@ -84,6 +84,7 @@ final class Env(
     val storm: lila.storm.Env,
     val racer: lila.racer.Env,
     val ublog: lila.ublog.Env,
+    val tutor: lila.tutor.Env,
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
@@ -175,6 +176,9 @@ final class EnvBoot(
   def baseUrl              = netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 
+  // lazy load the Uptime object to fix a precise date
+  lila.common.Uptime.startedAt.unit
+
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
@@ -243,6 +247,7 @@ final class EnvBoot(
   lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
   lazy val racer: lila.racer.Env             = wire[lila.racer.Env]
   lazy val ublog: lila.ublog.Env             = wire[lila.ublog.Env]
+  lazy val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 

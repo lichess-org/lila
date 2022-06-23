@@ -50,7 +50,8 @@ final class Env(
 
   private lazy val formatApi = wire[RelayFormatApi]
 
-  system.actorOf(Props(wire[RelayFetch]))
+  // start the sync scheduler
+  wire[RelayFetch]
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.autoStart >> api.autoFinishNotSyncing

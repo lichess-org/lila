@@ -46,7 +46,7 @@ object index {
           div(cls := "ats")(
             stream.map { s =>
               p(cls := "at")(
-                currentlyStreaming(strong(s.status))
+                currentlyStreaming(strong(s.cleanStatus))
               )
             } getOrElse frag(
               p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),

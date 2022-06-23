@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import lila.common.{ LilaStream, LilaScheduler }
 import lila.memo.SettingStore
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
@@ -36,7 +36,7 @@ final class TournamentLilaHttp(
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
 
-  ResilientScheduler(every = Every(1 second), timeout = AtMost(30 seconds), initialDelay = 14 seconds) {
+  LilaScheduler(_.Every(1 second), _.AtMost(30 seconds), _.Delay(14 seconds)) {
     tournamentRepo
       .idsCursor(handledIds)
       .documentSource()

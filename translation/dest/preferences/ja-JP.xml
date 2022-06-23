@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">設定</string>
-  <string name="gameDisplay">表示設定</string>
+  <string name="display">表示</string>
+  <string name="privacy">プライバシー</string>
   <string name="pieceAnimation">駒のアニメーション速度</string>
   <string name="materialDifference">駒の損得</string>
   <string name="boardHighlights">盤上のハイライト表示（最後の手、チェック）</string>

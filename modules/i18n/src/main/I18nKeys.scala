@@ -1608,7 +1608,8 @@ val `thisAccountIsClosed` = new I18nKey("settings:thisAccountIsClosed")
 
 object preferences {
 val `preferences` = new I18nKey("preferences:preferences")
-val `gameDisplay` = new I18nKey("preferences:gameDisplay")
+val `display` = new I18nKey("preferences:display")
+val `privacy` = new I18nKey("preferences:privacy")
 val `pieceAnimation` = new I18nKey("preferences:pieceAnimation")
 val `materialDifference` = new I18nKey("preferences:materialDifference")
 val `boardHighlights` = new I18nKey("preferences:boardHighlights")

@@ -5,7 +5,7 @@ import akka.stream.scaladsl._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import lila.common.{ LilaStream, LilaScheduler }
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -16,7 +16,7 @@ final private class StartedOrganizer(
 
   var runCounter = 0
 
-  ResilientScheduler(every = Every(1 seconds), timeout = AtMost(30 seconds), initialDelay = 26 seconds) {
+  LilaScheduler(_.Every(1 seconds), _.AtMost(30 seconds), _.Delay(26 seconds)) {
 
     val doAllTournaments = runCounter % 20 == 0
 

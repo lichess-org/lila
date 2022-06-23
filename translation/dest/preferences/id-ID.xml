@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferensi</string>
-  <string name="gameDisplay">Tampilan Permainan</string>
   <string name="pieceAnimation">Animasi Buah Catur</string>
   <string name="materialDifference">Perbedaan materi</string>
   <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>

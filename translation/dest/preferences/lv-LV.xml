@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Uzstādījumi</string>
-  <string name="gameDisplay">Spēles izskats</string>
+  <string name="display">Izskats</string>
+  <string name="privacy">Privātums</string>
   <string name="pieceAnimation">Figūru animācija</string>
   <string name="materialDifference">Materiāla starpība</string>
   <string name="boardHighlights">Lauciņu izcelšana (pēdējais gājiens vai piesakot šahu)</string>

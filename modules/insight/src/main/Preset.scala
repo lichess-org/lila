@@ -6,7 +6,7 @@ case class Preset(name: String, question: Question[_])
 
 object Preset {
 
-  import lila.insight.{ Dimension => D, Metric => M }
+  import lila.insight.{ InsightDimension => D, Metric => M }
 
   private val filterBlitzPlus = List(
     Filter(D.Perf, List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical))
@@ -61,7 +61,7 @@ object Preset {
     Preset(
       "What is the Win-Rate of my favourite openings as white?",
       Question(
-        D.Opening,
+        D.OpeningVariation,
         M.Result,
         List(
           Filter(
@@ -74,7 +74,7 @@ object Preset {
     ),
     Preset(
       "How often do I punish blunders made by my opponent during each game phase?",
-      Question(D.Phase, M.Opportunism, Nil)
+      Question(D.Phase, M.Awareness, Nil)
     ),
     Preset(
       "Do I gain rating when I don't castle kingside?",

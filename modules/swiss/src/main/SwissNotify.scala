@@ -5,8 +5,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.Bus
-import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.common.{ Bus, LilaScheduler }
 import lila.db.dsl._
 import lila.hub.actorApi.push.TourSoon
 import lila.user.User
@@ -19,7 +18,7 @@ final private class SwissNotify(colls: SwissColls)(implicit
 
   private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
 
-  ResilientScheduler(every = Every(20 seconds), timeout = AtMost(10 seconds), initialDelay = 1 minute) {
+  LilaScheduler(_.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     colls.swiss
       .find(
         $doc(

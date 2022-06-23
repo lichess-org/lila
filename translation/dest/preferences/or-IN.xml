@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ଅଗ୍ରାଧିକାରସମୂହ</string>
-  <string name="gameDisplay">ଖେଳ ପ୍ରଦର୍ଶନ</string>
+  <string name="display">ପ୍ରଦର୍ଶନ</string>
+  <string name="privacy">ଗୋପନୀୟତା</string>
   <string name="boardCoordinates">ବୋର୍ଡ ସ୍ଥାନାଙ୍କ (A-H, 1-8)</string>
   <string name="showPlayerRatings">ଖେଳାଳିଙ୍କ ରେଟିଂ ଦେଖାଅ</string>
   <string name="explainShowPlayerRatings">ଚେସ୍ ଉପରେ ଧ୍ୟାନ ଦେବା ପାଇଁ ଏହା ୱେବସାଇଟରୁ ସମସ୍ତ ମୂଲ୍ୟାୟନ ଲୁଚାଇବାକୁ ଅନୁମତି ଦିଏ। ଖେଳଗୁଡ଼ିକ ଏବେ ବି ମୂଲ୍ୟାୟନ କରାଯାଇପାରିବ, ଏହା କେବଳ ଆପଣ କ\'ଣ ଦେଖିବାକୁ ପାଇବେ ତାହା ବିଷୟରେ।</string>

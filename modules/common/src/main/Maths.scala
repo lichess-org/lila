@@ -30,6 +30,9 @@ object Maths {
   def closestMultipleOf(mult: Int, v: Int): Int =
     ((2 * v + mult) / (2 * mult)) * mult
 
+  def divideRoundUp(a: Int, b: Int): Option[Int] =
+    b != 0 option Math.ceil(a.toDouble / b).toInt
+
   /* Moderates distribution with a factor,
    * and retries when value is outside the mean+deviation box.
    * Factor is at most 1 to prevent too many retries

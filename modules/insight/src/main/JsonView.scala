@@ -2,68 +2,78 @@ package lila.insight
 
 import play.api.i18n.Lang
 import play.api.libs.json._
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 
 final class JsonView {
 
-  import lila.insight.{ Dimension => D, Metric => M }
+  import lila.insight.{ InsightDimension => D, Metric => M }
   import writers._
 
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String], asMod: Boolean)(implicit lang: Lang) = {
+  def ui(families: List[LilaOpeningFamily], openings: List[LilaOpening], asMod: Boolean)(implicit
+      lang: Lang
+  ) = {
+
+    val openingFamilyJson = Json.obj(
+      "key"         -> D.OpeningFamily.key,
+      "name"        -> D.OpeningFamily.name,
+      "position"    -> D.OpeningFamily.position,
+      "description" -> D.OpeningFamily.description,
+      "values"      -> families.map(InsightDimension.valueToJson(D.OpeningFamily))
+    )
 
     val openingJson = Json.obj(
-      "key"         -> D.Opening.key,
-      "name"        -> D.Opening.name,
-      "position"    -> D.Opening.position,
-      "description" -> D.Opening.description,
-      "values" -> Dimension
-        .valuesOf(D.Opening)
-        .filter { o =>
-          ecos contains o.eco
-        }
-        .map(Dimension.valueToJson(D.Opening))
+      "key"         -> D.OpeningVariation.key,
+      "name"        -> D.OpeningVariation.name,
+      "position"    -> D.OpeningVariation.position,
+      "description" -> D.OpeningVariation.description,
+      "values"      -> openings.map(InsightDimension.valueToJson(D.OpeningVariation))
     )
 
     val dimensionCategs = List(
       Categ(
         "Setup",
         List(
-          Json.toJson(D.Date: Dimension[_]),
-          Json.toJson(D.Period: Dimension[_]),
-          Json.toJson(D.Perf: Dimension[_]),
-          Json.toJson(D.Color: Dimension[_]),
-          Json.toJson(D.OpponentStrength: Dimension[_])
+          Json.toJson(D.Date: InsightDimension[_]),
+          Json.toJson(D.Period: InsightDimension[_]),
+          Json.toJson(D.Perf: InsightDimension[_]),
+          Json.toJson(D.Color: InsightDimension[_]),
+          Json.toJson(D.OpponentStrength: InsightDimension[_])
         )
       ),
       Categ(
         "Game",
         List(
+          openingFamilyJson,
           openingJson,
-          Json.toJson(D.MyCastling: Dimension[_]),
-          Json.toJson(D.OpCastling: Dimension[_]),
-          Json.toJson(D.QueenTrade: Dimension[_])
+          Json.toJson(D.MyCastling: InsightDimension[_]),
+          Json.toJson(D.OpCastling: InsightDimension[_]),
+          Json.toJson(D.QueenTrade: InsightDimension[_])
         )
       ),
       Categ(
         "Move",
         List(
-          Json.toJson(D.PieceRole: Dimension[_]),
-          Json.toJson(D.MovetimeRange: Dimension[_]),
-          Json.toJson(D.MaterialRange: Dimension[_]),
-          Json.toJson(D.EvalRange: Dimension[_]),
-          Json.toJson(D.Phase: Dimension[_]),
-          Json.toJson(D.CplRange: Dimension[_])
+          Json.toJson(D.PieceRole: InsightDimension[_]),
+          Json.toJson(D.MovetimeRange: InsightDimension[_]),
+          Json.toJson(D.MaterialRange: InsightDimension[_]),
+          Json.toJson(D.EvalRange: InsightDimension[_]),
+          Json.toJson(D.Phase: InsightDimension[_]),
+          Json.toJson(D.CplRange: InsightDimension[_])
         ) ::: {
-          asMod ?? List(Json.toJson(D.Blur: Dimension[_]), Json.toJson(D.TimeVariance: Dimension[_]))
+          asMod ?? List(
+            Json.toJson(D.Blur: InsightDimension[_]),
+            Json.toJson(D.TimeVariance: InsightDimension[_])
+          )
         }
       ),
       Categ(
         "Result",
         List(
-          Json.toJson(D.Termination: Dimension[_]),
-          Json.toJson(D.Result: Dimension[_])
+          Json.toJson(D.Termination: InsightDimension[_]),
+          Json.toJson(D.Result: InsightDimension[_])
         )
       )
     )
@@ -94,7 +104,7 @@ final class JsonView {
         List(
           Json.toJson(M.MeanCpl: Metric),
           Json.toJson(M.CplBucket: Metric),
-          Json.toJson(M.Opportunism: Metric),
+          Json.toJson(M.Awareness: Metric),
           Json.toJson(M.Luck: Metric)
         )
       ),
@@ -103,6 +113,7 @@ final class JsonView {
         List(
           Json.toJson(M.Termination: Metric),
           Json.toJson(M.Result: Metric),
+          Json.toJson(M.Performance: Metric),
           Json.toJson(M.RatingDiff: Metric)
         )
       )
@@ -124,19 +135,19 @@ final class JsonView {
           "dimension" -> p.question.dimension.key,
           "metric"    -> p.question.metric.key,
           "filters" -> JsObject(p.question.filters.map { case Filter(dimension, selected) =>
-            dimension.key -> JsArray(selected.map(Dimension.valueKey(dimension)).map(JsString.apply))
+            dimension.key -> JsArray(selected.map(InsightDimension.valueKey(dimension)).map(JsString.apply))
           })
         )
       }
 
-    implicit def dimensionWriter[X](implicit lang: Lang): Writes[Dimension[X]] =
+    implicit def dimensionWriter[X](implicit lang: Lang): Writes[InsightDimension[X]] =
       Writes { d =>
         Json.obj(
           "key"         -> d.key,
           "name"        -> d.name,
           "position"    -> d.position,
           "description" -> d.description,
-          "values"      -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
+          "values"      -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
         )
       }
 

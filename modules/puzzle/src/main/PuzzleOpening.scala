@@ -6,41 +6,44 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.LilaStream
+import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream }
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.memo.CacheApi
 
-case class PuzzleOpening(ref: FullOpening) {
-  val name: PuzzleOpening.Name = ref.variation.fold(ref.family.name)(v => s"${ref.family.name}: ${v.name}")
-  val key: PuzzleOpening.Key   = PuzzleOpening.nameToKey(name)
-  def family                   = ref.family
-  def variation                = ref.variation
-}
+case class PuzzleOpeningCollection(
+    families: List[PuzzleOpening.FamilyWithCount], // most popular first
+    openings: List[PuzzleOpening.WithCount]        // most popular first
+) {
 
-case class PuzzleOpeningCollection(all: List[PuzzleOpening.WithCount]) {
+  import LilaOpening._
   import PuzzleOpening._
-  val byKey: Map[PuzzleOpening.Key, PuzzleOpening.WithCount] = all.view.map { op =>
-    op.opening.key -> op
-  }.toMap
-  val treeMap: TreeMap = all.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
+
+  val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
+  val openingMap = openings.view.map { op => op.opening.key -> op }.toMap
+
+  val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) {
-      case None => (op.count, op.opening.ref, op.opening.variation.isDefined ?? Set(op)).some
-      case Some((famCount, famRef, ops)) =>
-        (famCount, famRef, if (op.opening.variation.isDefined) ops incl op else ops).some
+      case None =>
+        (
+          families.find(_.family.key == op.opening.family.key).??(_.count),
+          op.opening.ref.variation.isDefined ?? Set(op)
+        ).some
+      case Some((famCount, ops)) =>
+        (famCount, if (op.opening.ref.variation.isDefined) ops incl op else ops).some
     }
   }
   val treePopular: TreeList = treeMap.toList
-    .map { case (family, (famCount, famRef, ops)) =>
-      FamilyWithCount(PuzzleOpeningFamily(family, famRef), famCount) -> ops.toList.sortBy(-_.count)
+    .map { case (family, (famCount, ops)) =>
+      FamilyWithCount(family, famCount) -> ops.toList.sortBy(-_.count)
     }
     .sortBy(-_._1.count)
   val treeAlphabetical: TreeList = treePopular
     .map { case (fam, ops) =>
-      fam -> ops.sortBy(_.opening.name)
+      fam -> ops.sortBy(_.opening.name.value)
     }
-    .sortBy(_._1.family.family.name)
+    .sortBy(_._1.family.name.value)
 
   def treeList(order: Order) = order match {
     case Order.Popular      => treePopular
@@ -54,6 +57,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
     mat: akka.stream.Materializer
 ) {
   import BsonHandlers._
+  import LilaOpening._
   import PuzzleOpening._
 
   private val collectionCache =
@@ -62,22 +66,31 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
         .buildAsyncFuture { _ =>
           import Puzzle.BSONFields._
           colls.puzzle {
-            _.aggregateList(PuzzleOpening.maxOpenings) { framework =>
+            _.aggregateList(maxOpenings) { framework =>
               import framework._
               UnwindField(opening) -> List(
                 PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
-                Limit(PuzzleOpening.maxOpenings)
+                Limit(maxOpenings)
               )
             }.map {
-              _.flatMap { obj =>
-                for {
-                  key     <- obj string "_id" map PuzzleOpening.Key
-                  opening <- PuzzleOpening(key)
-                  if opening.variation.fold(true)(_ != otherVariations)
-                  count <- obj int "count"
-                } yield PuzzleOpening.WithCount(opening, count)
+              _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
+                val count = ~obj.int("count")
+                obj.string("_id").fold(acc) { keyStr =>
+                  LilaOpeningFamily.find(keyStr) match {
+                    case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
+                    case None =>
+                      LilaOpening
+                        .find(keyStr)
+                        .filter(_.ref.variation != LilaOpening.otherVariations)
+                        .fold(acc) { op =>
+                          acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+                        }
+                  }
+                }
               }
-            } map PuzzleOpeningCollection
+            } map { case PuzzleOpeningCollection(families, openings) =>
+              PuzzleOpeningCollection(families.reverse, openings.reverse)
+            }
           }
         }
     }
@@ -85,8 +98,10 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 
-  def count(key: PuzzleOpening.Key): Fu[Int] =
-    collection dmap { _.byKey.get(key).??(_.count) }
+  def count(key: Either[LilaOpeningFamily.Key, LilaOpening.Key]): Fu[Int] =
+    collection dmap { coll =>
+      key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
+    }
 
   def addAllMissing: Funit =
     colls.puzzle {
@@ -99,7 +114,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       )
         .cursor[Puzzle]()
         .documentSource()
-        .mapAsyncUnordered(12)(addMissing)
+        .mapAsyncUnordered(4)(addMissing)
         .runWith(LilaStream.sinkCount)
         .chronometer
         .log(logger)(count => s"Done adding $count puzzle openings")
@@ -109,14 +124,13 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
 
   private def addMissing(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
     _ ?? { game =>
-      FullOpeningDB.search(game.pgnMoves).map(_.opening) match {
+      FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
         case None =>
           fuccess {
             logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
           }
         case Some(o) =>
-          val variation = o.variation | otherVariations
-          val keys      = List(nameToKey(o.family.name), nameToKey(s"${o.family.name}: ${variation.name}"))
+          val keys = List(o.family.key, o.key).map(_.value)
           colls.puzzle {
             _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
           }
@@ -125,49 +139,18 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   }
 }
 
-case class PuzzleOpeningFamily(family: OpeningFamily, ref: FullOpening) {
-  lazy val key = PuzzleOpening.nameToKey(family.name)
-}
-
 object PuzzleOpening {
-
-  case class Key(value: String) extends AnyVal with StringValue
 
   val maxOpenings = 1000
 
   type Count = Int
   type Name  = String
 
-  val otherVariations = OpeningVariation("Other variations")
+  case class WithCount(opening: LilaOpening, count: Count)
+  case class FamilyWithCount(family: LilaOpeningFamily, count: Count)
 
-  case class WithCount(opening: PuzzleOpening, count: Count)
-  case class FamilyWithCount(family: PuzzleOpeningFamily, count: Count)
-
-  type TreeMap  = Map[OpeningFamily, (Count, FullOpening, Set[PuzzleOpening.WithCount])]
-  type TreeList = List[(FamilyWithCount, List[PuzzleOpening.WithCount])]
-
-  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
-
-  private[puzzle] def nameToKey(name: Name) = Key {
-    java.text.Normalizer
-      .normalize(
-        name,
-        java.text.Normalizer.Form.NFD
-      )                                      // split an accented letter in the base letter and the accent
-      .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
-      .replaceAllIn("""\s+""".r, "_")
-      .replaceAllIn("""[^\w\-]+""".r, "")
-  }
-
-  def apply(key: Key): Option[PuzzleOpening] = openings get key
-
-  def find(key: String): Option[PuzzleOpening] = apply(Key(key))
-
-  lazy val openings: Map[Key, PuzzleOpening] = FullOpeningDB.all
-    .foldLeft(Map.empty[Key, PuzzleOpening]) { case (acc, fullOp) =>
-      val op = PuzzleOpening(fullOp)
-      if (acc.contains(op.key)) acc else acc.updated(op.key, op)
-    }
+  type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
+  type TreeList = List[(FamilyWithCount, List[WithCount])]
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 

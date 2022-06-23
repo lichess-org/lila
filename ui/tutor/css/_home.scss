@@ -1,0 +1,20 @@
+.tutor {
+  &__home {
+  }
+  &__perfs {
+    &__perf {
+      .slist tr td {
+        font-weight: bold;
+      }
+    }
+  }
+  &__empty {
+    &__cta {
+      text-align: center;
+      margin: 10vh 0 5vh 0;
+    }
+    .spinner {
+      margin: 10vh auto;
+    }
+  }
+}

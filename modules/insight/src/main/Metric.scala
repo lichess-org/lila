@@ -49,7 +49,7 @@ object Metric {
         Move,
         Move,
         Percent,
-        Dimension.CplRange.description
+        InsightDimension.CplRange.description
       )
 
   case object Movetime
@@ -60,11 +60,19 @@ object Metric {
         Move,
         Move,
         Seconds,
-        Dimension.MovetimeRange.description
+        InsightDimension.MovetimeRange.description
       )
 
   case object Result
-      extends Metric("result", "Game result", F.result, Game, Game, Percent, Dimension.Result.description)
+      extends Metric(
+        "result",
+        "Game result",
+        F.result,
+        Game,
+        Game,
+        Percent,
+        InsightDimension.Result.description
+      )
 
   case object Termination
       extends Metric(
@@ -74,7 +82,18 @@ object Metric {
         Game,
         Game,
         Percent,
-        Dimension.Termination.description
+        InsightDimension.Termination.description
+      )
+
+  case object Performance
+      extends Metric(
+        "performance",
+        "Performance",
+        F.opponentRating,
+        Game,
+        Game,
+        Average,
+        "Estimated performance rating."
       )
 
   case object RatingDiff
@@ -118,13 +137,13 @@ object Metric {
         Move,
         Move,
         Percent,
-        Dimension.PieceRole.description
+        InsightDimension.PieceRole.description
       )
 
-  case object Opportunism
+  case object Awareness
       extends Metric(
-        "opportunism",
-        "Opportunism",
+        "awareness",
+        "Tactical awareness",
         F moves "o",
         Move,
         Move,
@@ -151,7 +170,7 @@ object Metric {
         Move,
         Move,
         Average,
-        Dimension.MaterialRange.description
+        InsightDimension.MaterialRange.description
       )
 
   case object Blurs
@@ -182,11 +201,12 @@ object Metric {
     Movetime,
     Result,
     Termination,
+    Performance,
     RatingDiff,
     OpponentRating,
     NbMoves,
     PieceRole,
-    Opportunism,
+    Awareness,
     Luck,
     Material,
     Blurs,
@@ -205,9 +225,8 @@ object Metric {
 
   def requiresStableRating(m: Metric) =
     m match {
-      case RatingDiff     => true
-      case OpponentRating => true
-      case _              => false
+      case Performance | RatingDiff | OpponentRating => true
+      case _                                         => false
     }
 
   def isStacked(m: Metric) =

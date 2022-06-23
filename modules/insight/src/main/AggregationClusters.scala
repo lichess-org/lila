@@ -17,7 +17,7 @@ object AggregationClusters {
       x     <- getId[X](doc)(question.dimension.bson)
       value <- doc.double("v")
       nb    <- doc.int("nb")
-      ids   <- doc.getAsOpt[List[String]]("ids")
+      ids = ~doc.getAsOpt[List[String]]("ids")
     } yield Cluster(x, Insight.Single(Point(value)), nb, ids)
 
   private def getId[X](doc: Bdoc)(reader: BSONReader[X]): Option[X] =
@@ -42,12 +42,13 @@ object AggregationClusters {
           points.map { case (n, p) =>
             n -> Point(100 * p.y / total)
           }
-      ids <- doc.getAsOpt[List[String]]("ids")
+      ids = ~doc.getAsOpt[List[String]]("ids")
     } yield Cluster(x, Insight.Stacked(percents), total, ids)
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
     q.dimension match {
-      case Dimension.Opening => clusters
-      case _                 => clusters.sortLike(Dimension.valuesOf(q.dimension), _.x)
+      case InsightDimension.OpeningFamily    => clusters
+      case InsightDimension.OpeningVariation => clusters
+      case _                                 => clusters.sortLike(InsightDimension.valuesOf(q.dimension), _.x)
     }
 }

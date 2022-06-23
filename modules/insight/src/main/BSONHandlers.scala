@@ -1,20 +1,16 @@
 package lila.insight
 
+import chess.{ Color, Role }
 import reactivemongo.api.bson._
 
-import chess.opening.{ Ecopening, EcopeningDB }
-import chess.{ Color, Role }
+import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-private object BSONHandlers {
+object BSONHandlers {
 
-  implicit val EcopeningBSONHandler = tryHandler[Ecopening](
-    { case BSONString(v) => EcopeningDB.allByEco get v toTry s"Invalid ECO $v" },
-    e => BSONString(e.eco)
-  )
   implicit val RelativeStrengthBSONHandler = tryHandler[RelativeStrength](
     { case BSONInteger(v) => RelativeStrength.byId get v toTry s"Invalid relative strength $v" },
     e => BSONInteger(e.id)
@@ -72,8 +68,7 @@ private object BSONHandlers {
   )
 
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
-
-  implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
+  implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
 
   implicit def MoveBSONHandler =
     new BSON[InsightMove] {
@@ -117,10 +112,11 @@ private object BSONHandlers {
           userId = r.str(userId),
           color = r.get[Color](color),
           perf = r.get[PerfType](perf),
-          eco = r.getO[Ecopening](eco),
+          opening = r.getO[LilaOpening](opening),
           myCastling = r.get[Castling](myCastling),
-          opponentRating = r.int(opponentRating),
-          opponentStrength = r.get[RelativeStrength](opponentStrength),
+          rating = r.intO(rating),
+          opponentRating = r.intO(opponentRating),
+          opponentStrength = r.getO[RelativeStrength](opponentStrength),
           opponentCastling = r.get[Castling](opponentCastling),
           moves = r.get[List[InsightMove]](moves),
           queenTrade = r.get[QueenTrade](queenTrade),
@@ -138,8 +134,10 @@ private object BSONHandlers {
           userId           -> e.userId,
           color            -> e.color,
           perf             -> e.perf,
-          eco              -> e.eco,
+          opening          -> e.opening,
+          openingFamily    -> e.opening.map(_.family),
           myCastling       -> e.myCastling,
+          rating           -> e.rating,
           opponentRating   -> e.opponentRating,
           opponentStrength -> e.opponentStrength,
           opponentCastling -> e.opponentCastling,

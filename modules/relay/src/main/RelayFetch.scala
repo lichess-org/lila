@@ -9,13 +9,15 @@ import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
-import lila.base.LilaException
+import lila.base.LilaInvalid
+import lila.common.LilaScheduler
+import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
-import lila.game.{ GameRepo, PgnDump }
-import lila.round.GameProxyRepo
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -26,34 +28,21 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-) extends Actor {
+)(implicit context: ExecutionContext, system: ActorSystem) {
 
-  implicit def system = context.system
-  implicit def ec     = context.dispatcher
-
-  override def preStart(): Unit = {
-    context setReceiveTimeout 20.seconds
-    context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext())
-    ()
+  LilaScheduler(_.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
+    syncRelays(official = true)
   }
 
-  case object Tick
+  LilaScheduler(_.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)) {
+    syncRelays(official = false)
+  }
 
-  def scheduleNext(): Unit =
-    context.system.scheduler.scheduleOnce(500 millis, self, Tick).unit
-
-  def receive = {
-
-    case ReceiveTimeout =>
-      val msg = "RelaySync timed out!"
-      logger.error(msg)
-      throw new RuntimeException(msg)
-
-    case Tick =>
-      api.toSync.flatMap { relays =>
-        List(true, false) foreach { official =>
-          lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
-        }
+  private def syncRelays(official: Boolean) =
+    api
+      .toSync(official)
+      .flatMap { relays =>
+        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
         relays.map { rt =>
           if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
             api.update(rt.round)(_ => newRelay)
@@ -65,12 +54,12 @@ final private class RelayFetch(
             logger.info(s"Finish for lack of start ${rt.round}")
             api.update(rt.round)(_.finish)
           } else fuccess(rt.round)
-        }.sequenceFu addEffectAnyway scheduleNext()
-      }.unit
-  }
+        }.sequenceFu
+      }
+      .void
 
   // no writing the relay; only reading!
-  def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
+  private def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
     if (!rt.round.sync.playing) fuccess(rt.round.withSync(_.play))
     else
       fetchGames(rt)
@@ -100,7 +89,7 @@ final private class RelayFetch(
           afterSync(result, newRelay withTour rt.tour)
         }
 
-  def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
+  private def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match {
       case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
       case result: SyncResult.Ok =>
@@ -110,10 +99,10 @@ final private class RelayFetch(
       case _ => continueRelay(rt)
     }
 
-  def continueRelay(rt: RelayRound.WithTour): RelayRound =
+  private def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.round.sync.upstream.fold(rt.round) { upstream =>
       val seconds =
-        if (rt.round.sync.log.alwaysFails && !upstream.local) {
+        if (rt.round.sync.log.alwaysFails) {
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
@@ -129,7 +118,9 @@ final private class RelayFetch(
       rt.round.withSync {
         _.copy(
           nextAt = DateTime.now plusSeconds {
-            seconds atLeast { if (rt.round.sync.log.justTimedOut) 10 else 2 }
+            seconds atLeast {
+              if (rt.round.sync.log.justTimedOut) 10 else 2
+            }
           } some
         )
       }
@@ -154,10 +145,15 @@ final private class RelayFetch(
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap
-          gameRepo.withInitialFens flatMap {
-            _.map { case (game, fen) =>
-              pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-            }.sequenceFu dmap MultiPgn.apply
+          gameRepo.withInitialFens flatMap { games =>
+            if (games.size == ids.size)
+              games.map { case (game, fen) =>
+                pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
+              }.sequenceFu dmap MultiPgn.apply
+            else
+              throw LilaInvalid(
+                s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
+              )
           } flatMap RelayFetch.multiPgnToGames.apply
       case url: UpstreamUrl =>
         cache.asMap
@@ -178,7 +174,7 @@ final private class RelayFetch(
   // is only pulled from as many times as necessary, and not more.
   private val cache: Cache[UpstreamUrl, GamesSeenBy] = CacheApi.scaffeineNoScheduler
     .initialCapacity(4)
-    .maximumSize(16)
+    .maximumSize(32)
     .build[UpstreamUrl, GamesSeenBy]()
     .underlying
 
@@ -309,7 +305,7 @@ private object RelayFetch {
           case (Success((acc, index)), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
-              if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
+              if (game.isEmpty) Failure(LilaInvalid(s"Found an empty PGN at index $index"))
               else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc
@@ -326,7 +322,7 @@ private object RelayFetch {
       lila.study
         .PgnImport(pgn, Nil)
         .fold(
-          err => Failure(LilaException(err)),
+          err => Failure(LilaInvalid(err)),
           res =>
             Success(index =>
               RelayGame(

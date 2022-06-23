@@ -143,6 +143,7 @@ POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
+POST  /training/color/:theme           controllers.Puzzle.setColor(theme: String)
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
@@ -767,6 +768,14 @@ GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
+
+GET   /tutor                           controllers.Tutor.home()
+GET   /tutor/:username                 controllers.Tutor.user(username: String)
+POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: String)
+GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, perf: String)
+GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: String, perf: String)
+GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: String, perf: String, color: String, opening: String)
+GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: String, perf: String)
 
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize

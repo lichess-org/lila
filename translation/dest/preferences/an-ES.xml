@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferencias</string>
-  <string name="gameDisplay">Configuración visual d\'o chuego</string>
+  <string name="display">Visualización</string>
+  <string name="privacy">Privacidat</string>
   <string name="pieceAnimation">Animación d\'as piezas</string>
   <string name="materialDifference">Diferencia material</string>
   <string name="boardHighlights">Destacar quadretz d\'o escaquero (zaguer movimiento y escaque)</string>

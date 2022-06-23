@@ -636,6 +636,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
+  <string name="error.unknown">Netinkama reikšmė</string>
   <string name="error.required">Šį laukelį būtina užpildyti</string>
   <string name="error.email">Neteisingas el. pašto adresas</string>
   <string name="error.email_acceptable">Nepriimtinas el. pašto adresas. Patikrinkite ir bandykite dar kartą.</string>

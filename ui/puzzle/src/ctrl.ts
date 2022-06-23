@@ -114,6 +114,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    vm.isDaily = location.href.endsWith('/daily');
 
     setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -580,7 +581,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     voteTheme,
     getCeval,
     pref: opts.pref,
-    difficulty: opts.difficulty,
+    settings: opts.settings,
     trans: lichess.trans(opts.i18n),
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),

@@ -85,6 +85,7 @@ Siin on link klassi sisenemiseks.</string>
   <string name="variantXOverLastY">%1$s viimase %2$s jooksul</string>
   <string name="winrate">Võiduprotsent</string>
   <string name="na">Puudub</string>
+  <string name="news">Uudised</string>
   <string name="editNews">Muuda uudist</string>
   <string name="notifyAllStudents">Teata kõiki õpilasi</string>
   <string name="nothingHere">Siin pole veel midagi.</string>

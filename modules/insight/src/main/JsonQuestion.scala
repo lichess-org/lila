@@ -9,18 +9,18 @@ case class JsonQuestion(
 ) {
 
   def question: Option[Question[_]] = {
-    import Dimension._
+    import InsightDimension._
     for {
       realMetric <- Metric.byKey get metric
       realFilters =
         filters
           .flatMap {
             case (filterKey, valueKeys) => {
-              def build[X](dimension: Dimension[X]) =
+              def build[X](dimension: InsightDimension[X]) =
                 Filter[X](
                   dimension,
                   valueKeys.flatMap {
-                    Dimension.valueByKey(dimension, _)
+                    InsightDimension.valueByKey(dimension, _)
                   }
                 ).some
 
@@ -31,7 +31,8 @@ case class JsonQuestion(
                 case Result.key           => build(Result)
                 case Termination.key      => build(Termination)
                 case Color.key            => build(Color)
-                case Opening.key          => build(Opening)
+                case OpeningFamily.key    => build(OpeningFamily)
+                case OpeningVariation.key => build(OpeningVariation)
                 case OpponentStrength.key => build(OpponentStrength)
                 case PieceRole.key        => build(PieceRole)
                 case MovetimeRange.key    => build(MovetimeRange)
@@ -50,7 +51,7 @@ case class JsonQuestion(
           .filterNot(_.isEmpty)
           .toList
       question <- {
-        def build[X](dimension: Dimension[X]) = Question[X](dimension, realMetric, realFilters).some
+        def build[X](dimension: InsightDimension[X]) = Question[X](dimension, realMetric, realFilters).some
         dimension match {
           case Date.key             => build(Date)
           case Perf.key             => build(Perf)
@@ -58,7 +59,8 @@ case class JsonQuestion(
           case Result.key           => build(Result)
           case Termination.key      => build(Termination)
           case Color.key            => build(Color)
-          case Opening.key          => build(Opening)
+          case OpeningFamily.key    => build(OpeningFamily)
+          case OpeningVariation.key => build(OpeningVariation)
           case OpponentStrength.key => build(OpponentStrength)
           case PieceRole.key        => build(PieceRole)
           case MovetimeRange.key    => build(MovetimeRange)
@@ -84,7 +86,7 @@ object JsonQuestion {
       dimension = q.dimension.key,
       metric = q.metric.key,
       filters = q.filters.view.map { case Filter(dimension, selected) =>
-        dimension.key -> selected.map(Dimension.valueKey(dimension))
+        dimension.key -> selected.map(InsightDimension.valueKey(dimension))
       }.toMap
     )
 

@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 
 import lila.user.User
 import lila.common.String.html.unescapeHtml
+import lila.common.String.removeMultibyteSymbols
 
 trait Stream {
   def serviceName: String
@@ -15,7 +16,9 @@ trait Stream {
   def twitch                       = serviceName == "twitch"
   def youTube                      = serviceName == "youTube"
 
-  lazy val lang: String = status match {
+  lazy val cleanStatus = removeMultibyteSymbols(status).trim
+
+  lazy val lang: String = cleanStatus match {
     case Stream.LangRegex(code) => code.toLowerCase
     case _                      => "en"
   }
