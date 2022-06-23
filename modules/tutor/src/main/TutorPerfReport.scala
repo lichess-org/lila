@@ -2,17 +2,29 @@ package lila.tutor
 
 import chess.Color
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
 import lila.common.Heapsort.implicits._
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Insight, InsightDimension, InsightPerfStats, Metric, Phase }
+import lila.insight.{
+  Filter,
+  Insight,
+  InsightApi,
+  InsightDimension,
+  InsightPerfStats,
+  Metric,
+  Phase,
+  Question
+}
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
 
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
+    accuracy: TutorMetricOption[AccuracyPercent],
+    awareness: TutorMetricOption[TutorRatio],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -50,4 +62,38 @@ case class TutorPerfReport(
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
+}
+
+private object TutorPerfs {
+
+  import TutorBuilder._
+
+  private val awarenessQuestion = Question(InsightDimension.Perf, Metric.Awareness)
+
+  def compute(
+      users: List[TutorUser]
+  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = {
+    val accuracyQuestion = Question(InsightDimension.Perf, Metric.MeanAccuracy).filter(
+      Filter(InsightDimension.Perf, users.map(_.perfType))
+    )
+    val awarenessQuestion = accuracyQuestion withMetric Metric.Awareness
+    for {
+      accuracy  <- answerBoth(accuracyQuestion, user)
+      awareness <- answerBoth(awarenessQuestion, user)
+      perfReports <- users.map { u =>
+        for {
+          openings <- TutorOpening compute user
+          phases   <- TutorPhases compute user
+        } yield TutorPerfReport(
+          user.perfType,
+          user.perfStats,
+          accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
+          awareness = awareness valueMetric user.perfType map TutorRatio.apply,
+          openings,
+          phases
+        )
+      }.sequenceFu
+
+    } yield perfReports
+  }
 }

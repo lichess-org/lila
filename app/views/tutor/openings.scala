@@ -58,7 +58,7 @@ object openings {
               ),
               div(cls := "tutor-card__content")(
                 bits.peerComparison("Accuracy", fam.accuracy),
-                bits.peerComparison("Tactical Awareness", fam.accuracy)
+                bits.peerComparison("Tactical Awareness", fam.awareness)
               )
             )
           })

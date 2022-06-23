@@ -79,13 +79,8 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- TutorPerfs.compute(tutorUsers).monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
-
-  private def producePerf(user: TutorUser): Fu[TutorPerfReport] = for {
-    openings <- TutorOpening compute user
-    phases   <- TutorPhases compute user
-  } yield TutorPerfReport(user.perfType, user.perfStats, openings, phases)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
@@ -110,14 +105,6 @@ private object TutorBuilder {
 
   val peerNbGames = config.Max(10_000)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
-      insightApi: InsightApi,
-      ec: ExecutionContext
-  ) = for {
-    mine <- answerMine(question, user)
-    peer <- answerPeer(question, user)
-  } yield Answers(mine, peer)
-
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
@@ -131,6 +118,26 @@ private object TutorBuilder {
   ) = insightApi
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
+
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = for {
+    mine <- answerMine(question, user)
+    peer <- answerPeer(question, user)
+  } yield Answers(mine, peer)
+
+  def answerBothNoPerf[Dim](question: Question[Dim], user: User)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = for {
+    mine <- insightApi
+      .ask(question, user, withPovs = false)
+      .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
+    peer <- insightApi
+      .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
+      .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
+  } yield Answers(mine, peer)
 
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
 
