@@ -18,6 +18,8 @@ case class TutorPerfReport(
 ) {
   lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
 
+  // Dimension comparison is not interesting for phase accuracy (opening always better)
+  // But peer comparison is gold
   lazy val phaseAccuracyCompare = TutorCompare[Phase, AccuracyPercent](
     InsightDimension.Phase,
     Metric.MeanAccuracy,
@@ -39,9 +41,13 @@ case class TutorPerfReport(
   lazy val allCompares: List[TutorCompare[_, _]] =
     phaseAccuracyCompare :: phaseAwarenessCompare :: openingCompares
 
-  val highlights        = TutorCompare.allHighlights(allCompares)
   val openingHighlights = TutorCompare.allHighlights(openingCompares)
-  val phaseHighlights   = TutorCompare.allHighlights(phaseCompares)
+
+  val phaseHighlights = TutorCompare.peerHighlights(phaseCompares)
+
+  val allHighlights = TutorCompare.highlights {
+    openingCompares.flatMap(_.allComparisons) ::: phaseCompares.flatMap(_.peerComparisons)
+  } _
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))

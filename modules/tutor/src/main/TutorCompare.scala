@@ -13,7 +13,7 @@ case class TutorCompare[D, V](
 
   val totalCountMine = points.map(_._2.mine.??(_.count)).sum
 
-  val dimensionComparisons: List[AnyComparison] = {
+  lazy val dimensionComparisons: List[AnyComparison] = {
     val myPoints: List[(D, ValueCount[V])] =
       points.collect { case (dim, TutorMetricOption(Some(mine), _)) => dim -> mine }
 
@@ -23,13 +23,13 @@ case class TutorCompare[D, V](
     } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
   }
 
-  val peerComparisons: List[AnyComparison] = points.collect {
+  lazy val peerComparisons: List[AnyComparison] = points.collect {
     case (dim, TutorMetricOption(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
       Comparison(dimensionType, dim, metric, mine, Peers(peer))
   }
 
-  def comparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
+  def allComparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
 }
 
 object TutorCompare {
@@ -59,13 +59,15 @@ object TutorCompare {
 
   val dimensionHighlights: HighlightsMaker = highlights(_.dimensionComparisons) _
   val peerHighlights: HighlightsMaker      = highlights(_.peerComparisons) _
-  val allHighlights: HighlightsMaker       = highlights(_.comparisons) _
+  val allHighlights: HighlightsMaker       = highlights(_.allComparisons) _
 
   def highlights(
       select: AnyCompare => List[AnyComparison]
-  )(compares: List[AnyCompare])(nb: Int): List[AnyComparison] = {
+  )(compares: List[AnyCompare])(nb: Int): List[AnyComparison] = highlights(compares.flatMap(select))(nb)
+
+  def highlights(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
     val half = ~lila.common.Maths.divideRoundUp(nb, 2)
-    compares.flatMap(select).partition(_.better) match {
+    comparisons.partition(_.better) match {
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
     }
   } sorted comparisonOrdering.reverse take nb
