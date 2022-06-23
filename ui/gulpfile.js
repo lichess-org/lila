@@ -77,6 +77,7 @@ function createThemedBuilds(cb) {
   glob(buildsGlob, {}, (err, files) => {
     files
       .filter(file => file.match(/\/_.+\.scss$/))
+      .filter(file => !file.match(/\/_.+\.abstract\.scss$/))
       .forEach(file => {
         dirs.forEach(dir => {
           themes.forEach(theme => {
