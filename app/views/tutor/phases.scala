@@ -31,16 +31,17 @@ object phases {
       bits.mascotSays(
         ul(report phaseHighlights 3 map compare.show)
       ),
-      div(cls := "tutor-cards tutor-cards--full-size")(
+      div(cls := "tutor-cards tutor-cards--triple")(
         report.phases.map { phase =>
-          div(cls := "tutor-card tutor__phases__phase")(
+          st.section(cls := "tutor-card tutor__phases__phase")(
             div(cls := "tutor-card__top")(
               div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
-                h3(cls := "tutor-card__top__title__text")(phase.phase.name)
+                h2(cls := "tutor-card__top__title__text")(phase.phase.name)
               )
             ),
             div(cls := "tutor-card__content")(
-              phase.acpl.toString
+              bits.peerComparison("Accuracy", phase.accuracy),
+              bits.peerComparison("Tactical Awareness", phase.accuracy)
             )
           )
         }

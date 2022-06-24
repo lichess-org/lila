@@ -41,35 +41,8 @@ case class Analysis(
 
 object Analysis {
 
-  import lila.db.BSON
-  import reactivemongo.api.bson._
-
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
   type ID         = String
   type FishnetKey = String
-
-  implicit val analysisBSONHandler = new BSON[Analysis] {
-    def reads(r: BSON.Reader) = {
-      val startPly = r intD "ply"
-      val raw      = r str "data"
-      Analysis(
-        id = r str "_id",
-        studyId = r strO "studyId",
-        infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
-        startPly = startPly,
-        date = r date "date",
-        fk = r strO "fk"
-      )
-    }
-    def writes(w: BSON.Writer, a: Analysis) =
-      BSONDocument(
-        "_id"     -> a.id,
-        "studyId" -> a.studyId,
-        "data"    -> Info.encodeList(a.infos),
-        "ply"     -> w.intO(a.startPly),
-        "date"    -> w.date(a.date),
-        "fk"      -> a.fk
-      )
-  }
 }

@@ -14,8 +14,8 @@ private object TutorBsonHandlers {
 
   import lila.insight.BSONHandlers._
   import lila.rating.BSONHandlers.perfTypeIdHandler
+  import lila.analyse.AnalyseBsonHandlers.accuracyPercentHandler
 
-  implicit val acplHandler: BSONHandler[Acpl]     = doubleAnyValHandler[Acpl](_.value, Acpl.apply)
   implicit val ratingHandler: BSONHandler[Rating] = doubleAnyValHandler[Rating](_.value, Rating.apply)
   implicit val durationHandler: BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   implicit val ratioHandler = doubleAnyValHandler[TutorRatio](_.value, TutorRatio.apply)
@@ -26,32 +26,6 @@ private object TutorBsonHandlers {
         doc => Color.Map(doc("w"), doc("b")),
         map => Map("w" -> map.white, "b" -> map.black)
       )
-
-  // trait CanBeUnknown[T] {
-  //   val value: T
-  //   val is = (v: T) => v == value
-  // }
-  // implicit val doubleCanBeUnknown = new CanBeUnknown[Double] {
-  //   val value = Double.MinValue
-  // }
-  // implicit val ratioCanBeUnknown = new CanBeUnknown[TutorRatio] {
-  //   val value = TutorRatio(doubleCanBeUnknown.value)
-  // }
-  // implicit val acplCanBeUnknown = new CanBeUnknown[Acpl] {
-  //   val value = Acpl(doubleCanBeUnknown.value)
-  // }
-  // implicit val ratingCanBeUnknown = new CanBeUnknown[Rating] {
-  //   val value = Rating(doubleCanBeUnknown.value)
-  // }
-
-  // implicit def valueCountHandler[V](implicit
-  //     handler: BSONHandler[V]
-  // ): BSONHandler[ValueCount[V]] =
-  //   implicitly[BSONHandler[List[V]]]
-  //     .as[ValueCount[V]](
-  //       list => ValueCount(list(0), list(1)),
-  //       vc => List(vc.value, vc.count)
-  //     )
 
   implicit private def valueCountHandler[V](implicit handler: BSONHandler[V]) =
     quickHandler[Option[ValueCount[V]]](

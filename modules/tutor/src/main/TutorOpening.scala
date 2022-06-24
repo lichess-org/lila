@@ -3,6 +3,7 @@ package lila.tutor
 import chess.Color
 import scala.concurrent.ExecutionContext
 
+import lila.analyse.AccuracyPercent
 import lila.common.{ Heapsort, LilaOpeningFamily }
 import lila.insight.{ Filter, InsightApi, InsightDimension, Metric, Phase, Question }
 import lila.rating.PerfType
@@ -11,10 +12,10 @@ import lila.tutor.TutorCompare.comparisonOrdering
 case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
 ) {
-  lazy val acplCompare = TutorCompare[LilaOpeningFamily, Acpl](
+  lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
-    Metric.MeanCpl,
-    families.map { f => (f.family, f.acpl) }
+    Metric.MeanAccuracy,
+    families.map { f => (f.family, f.accuracy) }
   )
   lazy val performanceCompare = TutorCompare[LilaOpeningFamily, Rating](
     InsightDimension.OpeningFamily,
@@ -27,15 +28,13 @@ case class TutorColorOpenings(
     families.map { f => (f.family, f.awareness) }
   )
 
-  lazy val allCompares = List(acplCompare, performanceCompare, awarenessCompare)
-
-  val highlights = TutorCompare.allHighlights(allCompares)
+  lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
 }
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
     performance: TutorMetric[Rating],
-    acpl: TutorMetricOption[Acpl],
+    accuracy: TutorMetricOption[AccuracyPercent],
     awareness: TutorMetricOption[TutorRatio]
 )
 
@@ -59,18 +58,18 @@ private case object TutorOpening {
       myPerfs   <- answerMine(perfQuestion(color), user)
       peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
       performances = Answers(myPerfs, peerPerfs)
-      acplQuestion = myPerfs.alignedQuestion
-        .withMetric(Metric.MeanCpl)
+      accuracyQuestion = myPerfs.alignedQuestion
+        .withMetric(Metric.MeanAccuracy)
         .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-      acpls <- answerBoth(acplQuestion, user)
-      awarenessQuestion = acplQuestion.withMetric(Metric.Awareness)
+      accuracy <- answerBoth(accuracyQuestion, user)
+      awarenessQuestion = accuracyQuestion withMetric Metric.Awareness
       awareness <- answerBoth(awarenessQuestion, user)
     } yield TutorColorOpenings {
       performances.mine.list.map { case (family, myPerformance) =>
         TutorOpeningFamily(
           family,
           performance = performances.valueMetric(family, myPerformance) map Rating.apply,
-          acpl = acpls valueMetric family map Acpl.apply,
+          accuracy = accuracy valueMetric family map AccuracyPercent.apply,
           awareness = awareness valueMetric family map TutorRatio.fromPercent
         )
       }

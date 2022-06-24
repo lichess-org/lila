@@ -5,7 +5,7 @@ import lila.game.Game
 
 final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Analysis.analysisBSONHandler
+  import AnalyseBsonHandlers._
 
   type ID = String
 

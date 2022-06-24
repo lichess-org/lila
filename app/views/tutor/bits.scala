@@ -6,7 +6,16 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ TutorFullReport, ValueComparison }
+import lila.tutor.{
+  Rating,
+  TutorFullReport,
+  TutorMetric,
+  TutorMetricOption,
+  TutorNumber,
+  TutorRatio,
+  ValueComparison,
+  ValueCount
+}
 
 object bits {
 
@@ -22,6 +31,29 @@ object bits {
   )
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
+
+  def peerComparison[A](name: String, metric: TutorMetricOption[A])(implicit number: TutorNumber[A]) =
+    metric.mine map { mine =>
+      div(cls := "tutor-comparison")(
+        h3(cls := "tutor-comparison__name")(name),
+        div(cls                                                             := "tutor-comparison__unit")(
+          horizontalBarPercent(number.iso.to(mine.value).some, "Yours")(cls := "tutor-bar--mine")
+        ),
+        div(cls := "tutor-comparison__unit")(
+          horizontalBarPercent(metric.peer.map(_.value).map(number.iso.to), "Peers")(cls := "tutor-bar--peer")
+        )
+      )
+    }
+
+  private def horizontalBarPercent(value: Option[Double], legend: String) =
+    value match {
+      case Some(v) =>
+        div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(
+          span(legend),
+          em(strong(f"$v%1.1f"), "%")
+        )
+      case None => div(cls := "tutor-bar tutor-bar--empty")
+    }
 
   private[tutor] def layout(
       availability: TutorFullReport.Availability,

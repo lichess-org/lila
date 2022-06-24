@@ -1,5 +1,6 @@
 package lila.tutor
 
+import lila.analyse.AccuracyPercent
 import lila.common.Iso
 
 trait TutorNumber[V] {
@@ -21,9 +22,8 @@ object TutorNumber {
   implicit val doubleIsTutorNumber = new TutorNumber[Double] {
     val iso = Iso.isoIdentity[Double]
   }
-  implicit val acplIsTutorNumber = new TutorNumber[Acpl] {
-    val iso                                = Iso.double[Acpl](Acpl.apply, _.value)
-    override def compare(a: Acpl, b: Acpl) = ValueComparison(a.value, b.value).negate
+  implicit val accuracyIsTutorNumber = new TutorNumber[AccuracyPercent] {
+    val iso = Iso.double[AccuracyPercent](AccuracyPercent.apply, _.value)
   }
   implicit val ratingIsTutorNumber = new TutorNumber[Rating] {
     val iso                                    = Iso.double[Rating](Rating.apply, _.value)

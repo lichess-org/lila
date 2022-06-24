@@ -1,5 +1,9 @@
 .tutor {
   &__home {
+    .tutor__mascot-says h2 {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
   }
   &__perfs {
     &__perf {

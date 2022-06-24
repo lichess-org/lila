@@ -104,7 +104,7 @@ object Preset {
       "How well do I move each piece in the opening?",
       Question(
         D.PieceRole,
-        M.MeanCpl,
+        M.MeanAccuracy,
         List(
           Filter(D.Phase, List(Phase.Opening))
         )

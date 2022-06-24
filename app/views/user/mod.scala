@@ -244,10 +244,10 @@ object mod {
       )
     )
 
-  def showRageSit(rageSit: RageSit): Frag =
+  def showRageSitAndPlaybans(rageSit: RageSit, playbans: Int): Frag =
     mzSection("sitdccounter")(
-      strong(cls := "text inline")("Ragesit counter"),
-      strong(cls := "fat")(rageSit.counterView)
+      strong(cls := "text inline")("Ragesits / playbans"),
+      strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
   def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
