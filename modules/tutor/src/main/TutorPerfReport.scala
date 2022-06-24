@@ -19,6 +19,7 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
+import cats.data.NonEmptyList
 
 case class TutorPerfReport(
     perf: PerfType,
@@ -68,32 +69,28 @@ private object TutorPerfs {
 
   import TutorBuilder._
 
+  private val accuracyQuestion  = Question(InsightDimension.Perf, Metric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, Metric.Awareness)
 
   def compute(
-      users: List[TutorUser]
-  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = {
-    val accuracyQuestion = Question(InsightDimension.Perf, Metric.MeanAccuracy).filter(
-      Filter(InsightDimension.Perf, users.map(_.perfType))
-    )
-    val awarenessQuestion = accuracyQuestion withMetric Metric.Awareness
-    for {
-      accuracy  <- answerBoth(accuracyQuestion, user)
-      awareness <- answerBoth(awarenessQuestion, user)
-      perfReports <- users.map { u =>
-        for {
-          openings <- TutorOpening compute user
-          phases   <- TutorPhases compute user
-        } yield TutorPerfReport(
-          user.perfType,
-          user.perfStats,
-          accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
-          awareness = awareness valueMetric user.perfType map TutorRatio.apply,
-          openings,
-          phases
-        )
-      }.sequenceFu
+      users: NonEmptyList[TutorUser]
+  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
+    accuracy  <- answerManyPerfs(accuracyQuestion, users)
+    awareness <- answerManyPerfs(awarenessQuestion, users)
+    perfReports <- users.toList.map { user =>
+      for {
+        openings <- TutorOpening compute user
+        phases   <- TutorPhases compute user
+      } yield TutorPerfReport(
+        user.perfType,
+        user.perfStats,
+        accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
+        awareness = awareness valueMetric user.perfType map TutorRatio.apply,
+        openings,
+        phases
+      )
+    }.sequenceFu
 
-    } yield perfReports
-  }
+  } yield perfReports
+
 }

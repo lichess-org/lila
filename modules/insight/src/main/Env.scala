@@ -31,7 +31,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  private lazy val storage = new InsightStorage(db(CollName("insight_js")))
+  private lazy val storage = new InsightStorage(db(CollName("insight")))
 
   private lazy val aggregationPipeline = wire[AggregationPipeline]
 
