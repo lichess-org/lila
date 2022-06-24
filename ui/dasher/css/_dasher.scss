@@ -19,7 +19,7 @@
 
     signal {
       position: absolute;
-      $end-direction: 1rem;
+      #{$end-direction}: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }
