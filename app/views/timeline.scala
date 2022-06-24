@@ -88,26 +88,25 @@ object timeline {
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          for {
-            opponentId <- opponent
-            perf       <- lila.rating.PerfType(perfKey)
-          } yield (win match {
-            case Some(true)  => trans.victoryVsYInZ
-            case Some(false) => trans.defeatVsYInZ
-            case None        => trans.drawVsYInZ
-          })(
-            a(
-              href     := routes.Round.player(playerId),
-              dataIcon := perf.iconChar,
-              cls      := "text glpt"
-            )(win match {
-              case Some(true)  => trans.victory()
-              case Some(false) => trans.defeat()
-              case None        => trans.draw()
-            }),
-            userLink(opponentId),
-            perf.trans
-          )
+          lila.rating.PerfType(perfKey) map { perf =>
+            (win match {
+              case Some(true)  => trans.victoryVsYInZ
+              case Some(false) => trans.defeatVsYInZ
+              case None        => trans.drawVsYInZ
+            })(
+              a(
+                href     := routes.Round.player(playerId),
+                dataIcon := perf.iconChar,
+                cls      := "text glpt"
+              )(win match {
+                case Some(true)  => trans.victory()
+                case Some(false) => trans.defeat()
+                case None        => trans.draw()
+              }),
+              userIdLink(opponent),
+              perf.trans
+            )
+          }
         case StudyLike(userId, studyId, studyName) =>
           trans.xLikesY(
             userLink(userId),

@@ -55,7 +55,7 @@ object Metric {
   case object MeanAccuracy
       extends Metric(
         "accuracy",
-        "Accuracy (beta)",
+        "Accuracy",
         F moves "a",
         Move,
         Move,

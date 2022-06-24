@@ -83,7 +83,7 @@ object BSONHandlers {
         winPercent = r.getO[WinPercent]("w"),
         accuracyPercent = r.getO[AccuracyPercent]("a"),
         material = r.int("i"),
-        opportunism = r.boolO("o"),
+        awareness = r.boolO("o"),
         luck = r.boolO("l"),
         blur = r.boolD("b"),
         timeCv = r.intO("v").map(v => v.toFloat / TimeVariance.intFactor)
@@ -98,7 +98,7 @@ object BSONHandlers {
         "w" -> b.winPercent,
         "a" -> b.accuracyPercent,
         "i" -> b.material,
-        "o" -> b.opportunism,
+        "o" -> b.awareness,
         "l" -> b.luck,
         "b" -> w.boolO(b.blur),
         "v" -> b.timeCv.map(v => (v * TimeVariance.intFactor).toInt)

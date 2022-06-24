@@ -5,7 +5,9 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Heapsort.implicits._
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
+import lila.tutor.TutorCompare.comparisonOrdering
 import lila.user.User
 
 object home {
@@ -14,22 +16,36 @@ object home {
     bits.layout(full, menu = perf.menu(full, user, none))(
       cls := "tutor__home box",
       h1("Lichess Tutor"),
-      bits.mascotSays(
-        p(
-          strong(
-            cls := "tutor__intro",
-            "Hello, I have examined ",
-            full.report.nbGames.localize,
-            " recent rated games of yours."
+      if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
+      else {
+        bits.mascotSays(
+          p(
+            strong(
+              cls := "tutor__intro",
+              "Hello, I have examined ",
+              full.report.nbGames.localize,
+              " recent rated games of yours."
+            )
+          ),
+          p(
+            "You particularly enjoy playing ",
+            full.report.favouritePerfs.map(_.perf.trans).mkString(" and "),
+            "!"
+          ),
+          p(
+            h2("Your strengths:"),
+            ul(full.report strengths 4 map { case (comp, perf) =>
+              compare.showWithPerf(comp, perf.some)
+            })
+          ),
+          p(
+            h2("Your weaknesses:"),
+            ul(full.report weaknesses 4 map { case (comp, perf) =>
+              compare.showWithPerf(comp, perf.some)
+            })
           )
-        ),
-        p(
-          "You particularly enjoy playing ",
-          full.report.favouritePerfs.map(_.perf.trans).mkString(" and "),
-          "!"
-        ),
-        p("Let's see how to improve.")
-      ),
+        )
+      },
       div(cls := "tutor__perfs tutor-cards")(
         full.report.perfs.toList map { perfReportCard(full.report, _, user) }
       )
@@ -61,7 +77,9 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        ul(perfReport allHighlights 3 map compare.show),
+        bits.peerComparison("Accuracy", perfReport.accuracy),
+        bits.peerComparison("Tactical Awareness", perfReport.awareness),
+        ul(perfReport.relevantComparisons.topN(3) map compare.show),
         bits.seeMore
       )
     )

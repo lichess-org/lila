@@ -38,8 +38,8 @@ sealed trait Advice {
 object Advice {
 
   sealed abstract class Judgement(val glyph: Glyph, val name: String) {
-    override def toString = name
-    def isBlunder         = this == Judgement.Blunder
+    override def toString  = name
+    def isMistakeOrBlunder = this == Judgement.Mistake || this == Judgement.Blunder
   }
   object Judgement {
     object Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")

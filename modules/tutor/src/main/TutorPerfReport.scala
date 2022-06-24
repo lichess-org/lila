@@ -2,17 +2,30 @@ package lila.tutor
 
 import chess.Color
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
 import lila.common.Heapsort.implicits._
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Insight, InsightDimension, InsightPerfStats, Metric, Phase }
+import lila.insight.{
+  Filter,
+  Insight,
+  InsightApi,
+  InsightDimension,
+  InsightPerfStats,
+  Metric,
+  Phase,
+  Question
+}
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
+import cats.data.NonEmptyList
 
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
+    accuracy: TutorMetricOption[AccuracyPercent],
+    awareness: TutorMetricOption[TutorRatio],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -39,31 +52,45 @@ case class TutorPerfReport(
   }
 
   lazy val allCompares: List[TutorCompare[_, _]] =
-    phaseAccuracyCompare :: phaseAwarenessCompare :: openingCompares
+    openingCompares ::: phaseCompares
 
-  val openingHighlights = TutorCompare.allHighlights(openingCompares)
+  val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons)) _
 
-  val phaseHighlights = TutorCompare.peerHighlights(phaseCompares)
+  val phaseHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.peerComparisons)) _
 
-  val allHighlights = TutorCompare.highlights {
+  val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) ::: phaseCompares.flatMap(_.peerComparisons)
-  } _
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
+}
 
-  // def openingPeerHighlights(nb: Int) =
-  //   Heapsort.topNToList(openingCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+private object TutorPerfs {
 
-  // def phaseDimensionHighlights(nb: Int) =
-  //   Heapsort.topNToList(phaseCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+  import TutorBuilder._
 
-  // def phasePeerHighlights(nb: Int) =
-  //   Heapsort.topNToList(phaseCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+  private val accuracyQuestion  = Question(InsightDimension.Perf, Metric.MeanAccuracy)
+  private val awarenessQuestion = Question(InsightDimension.Perf, Metric.Awareness)
 
-  // def dimensionHighlights = TutorCompare.highlights(allCompares) _
-  // Heapsort.topNToList(allCompares.flatMap(_.dimComparisons), nb, comparisonOrdering)
+  def compute(
+      users: NonEmptyList[TutorUser]
+  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
+    accuracy  <- answerManyPerfs(accuracyQuestion, users)
+    awareness <- answerManyPerfs(awarenessQuestion, users)
+    perfReports <- users.toList.map { user =>
+      for {
+        openings <- TutorOpening compute user
+        phases   <- TutorPhases compute user
+      } yield TutorPerfReport(
+        user.perfType,
+        user.perfStats,
+        accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
+        awareness = awareness valueMetric user.perfType map TutorRatio.apply,
+        openings,
+        phases
+      )
+    }.sequenceFu
 
-  // def peerHighlights(nb: Int) =
-  //   Heapsort.topNToList(allCompares.flatMap(_.peerComparisons), nb, comparisonOrdering)
+  } yield perfReports
+
 }

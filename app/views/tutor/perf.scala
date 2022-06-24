@@ -7,6 +7,8 @@ import play.api.mvc.Call
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Heapsort.implicits._
+import lila.tutor.TutorCompare.comparisonOrdering
 import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
 import lila.user.User
 
@@ -22,7 +24,7 @@ object perf {
         "Tutor: ",
         report.perf.trans
       ),
-      bits.mascotSays("..."),
+      bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
           routes.Tutor.openings(user.username, report.perf.key),
