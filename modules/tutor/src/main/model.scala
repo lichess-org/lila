@@ -9,12 +9,6 @@ import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 import lila.user.User
 
-case class Acpl(value: Double) extends AnyVal {
-  override def toString = value.toInt.toString
-}
-object Acpl {
-  implicit val ordering = Ordering.by[Acpl, Double](_.value)
-}
 case class Rating(value: Double) extends AnyVal
 object Rating {
   implicit val ordering = Ordering.by[Rating, Double](_.value)
@@ -79,13 +73,13 @@ object ValueComparison {
 
   sealed abstract class Wording(val value: String)
   object Wording {
-    case object MuchWorse      extends Wording("much worse")
-    case object Worse          extends Wording("worse")
-    case object SlightlyWorse  extends Wording("slightly worse")
-    case object Similar        extends Wording("similar")
-    case object SlightlyBetter extends Wording("slightly better")
-    case object Better         extends Wording("better")
-    case object MuchBetter     extends Wording("much better")
+    case object MuchWorse      extends Wording("much worse than")
+    case object Worse          extends Wording("worse than")
+    case object SlightlyWorse  extends Wording("slightly worse than")
+    case object Similar        extends Wording("similar to")
+    case object SlightlyBetter extends Wording("slightly better than")
+    case object Better         extends Wording("better than")
+    case object MuchBetter     extends Wording("much better than")
   }
 }
 

@@ -5,6 +5,12 @@
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     grid-gap: $block-gap;
     margin: var(--box-padding) 0;
+    &--triple {
+      grid-template-columns: 1fr;
+      @include breakpoint($mq-medium) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
     &--full-size {
       grid-template-columns: 100%;
     }
@@ -41,11 +47,7 @@
     }
 
     &__content {
-      padding: 2rem;
-      li {
-        list-style: disc inside;
-        margin: 0 0 1em 1em;
-      }
+      padding: $block-gap;
     }
     &__more {
       display: block;

@@ -16,20 +16,20 @@ sealed abstract class InsightDimension[A: BSONHandler](
     val key: String,
     val name: String,
     val dbKey: String,
-    val position: Position,
+    val position: InsightPosition,
     val description: String
 ) {
 
   def bson = implicitly[BSONHandler[A]]
 
-  def isInGame = position == Position.Game
-  def isInMove = position == Position.Move
+  def isInGame = position == InsightPosition.Game
+  def isInMove = position == InsightPosition.Move
 }
 
 object InsightDimension {
 
   import BSONHandlers._
-  import Position._
+  import InsightPosition._
   import InsightEntry.{ BSONFields => F }
   import lila.rating.BSONHandlers.perfTypeIdHandler
 

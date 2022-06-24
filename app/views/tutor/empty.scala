@@ -68,6 +68,9 @@ object empty {
     bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       h1("Lichess Tutor"),
-      bits.mascotSays("Not enough games to analyse! Go and play some more chess.")
+      mascotSaysInsufficient
     )
+
+  def mascotSaysInsufficient =
+    bits.mascotSays("Not enough rated games to examine! Go and play some more chess.")
 }
