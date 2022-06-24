@@ -24,11 +24,7 @@
       align-items: center;
 
       input {
-        @if variable-exists(is-rtl) {
-          margin-right: 1rem;
-        } @else {
-          margin-left: 1rem;
-        }
+        margin-#{$start-direction}: 1rem;
         flex: 1 1 100%;
       }
     }
