@@ -1,17 +1,20 @@
 package lila.common
 
+import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
 
 case class LilaOpeningFamily(ref: OpeningFamily, full: FullOpening) {
   import LilaOpeningFamily._
-  val name = Name(ref.name)
-  val key  = Key(LilaOpening nameToKey name.value)
+  val name             = Name(ref.name)
+  val key              = Key(LilaOpening nameToKey name.value)
+  def as(color: Color) = LilaOpeningFamily.AsColor(this, color)
 }
 
 object LilaOpeningFamily {
 
   case class Key(value: String)  extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
+  case class AsColor(family: LilaOpeningFamily, color: Color)
 
   def apply(key: Key): Option[LilaOpeningFamily]   = families get key
   def find(key: String): Option[LilaOpeningFamily] = apply(Key(key))

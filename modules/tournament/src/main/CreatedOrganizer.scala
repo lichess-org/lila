@@ -5,7 +5,7 @@ import akka.stream.scaladsl._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import lila.common.{ LilaStream, LilaScheduler }
 
 final private class CreatedOrganizer(
     api: TournamentApi,
@@ -13,7 +13,7 @@ final private class CreatedOrganizer(
     playerRepo: PlayerRepo
 )(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
-  ResilientScheduler(every = Every(2 seconds), timeout = AtMost(20 seconds), initialDelay = 18 seconds) {
+  LilaScheduler(_.Every(2 seconds), _.AtMost(20 seconds), _.Delay(18 seconds)) {
     tournamentRepo.shouldStartCursor
       .documentSource()
       .mapAsync(1)(api.start)

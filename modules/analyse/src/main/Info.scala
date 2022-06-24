@@ -17,6 +17,8 @@ case class Info(
   def mate = eval.mate
   def best = eval.best
 
+  def winPercent = eval.cp map WinPercent.fromCentiPawns
+
   def turn = 1 + (ply - 1) / 2
 
   def color = Color.fromPly(ply - 1)
@@ -42,13 +44,6 @@ case class Info(
   def evalComment: Option[String] = cpComment orElse mateComment
 
   def isEmpty = cp.isEmpty && mate.isEmpty
-
-  def forceCentipawns: Option[Int] =
-    mate match {
-      case None                  => cp.map(_.centipawns)
-      case Some(m) if m.negative => Some(Int.MinValue - m.value)
-      case Some(m)               => Some(Int.MaxValue - m.value)
-    }
 
   override def toString =
     s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} $best"

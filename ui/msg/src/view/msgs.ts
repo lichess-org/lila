@@ -35,7 +35,7 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
             )
           : null,
         ...contentMsgs(ctrl, convo.msgs),
-        ctrl.typing ? h('div.msg-app__convo__msgs__typing', `${convo.user.name} is typing...`) : null,
+        h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
       ]),
     ]
   );

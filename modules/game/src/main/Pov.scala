@@ -45,6 +45,12 @@ case class Pov(game: Game, color: Color) {
 
   def mightClaimWin = game.resignable && !game.hasAi && game.hasClock && !isMyTurn
 
+  def sideAndStart = Game.SideAndStart(
+    color = color,
+    startColor = game.startColor,
+    startedAtTurn = game.chess.startedAtTurn
+  )
+
   override def toString = ref.toString
 }
 

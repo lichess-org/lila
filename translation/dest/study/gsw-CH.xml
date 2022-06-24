@@ -25,10 +25,10 @@
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
   </plurals>
-  <string name="addMembers">Mitgliider zuefüege</string>
+  <string name="addMembers">Mitglider zuefüege</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Mitgliid</item>
-    <item quantity="other">%s Mitglieder</item>
+    <item quantity="one">%s Mitglid</item>
+    <item quantity="other">%s Mitglider</item>
   </plurals>
   <string name="inviteToTheStudy">Lad zu de Schtudie ii</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lad nur Lüt ii, wo du kännsch und wo wännd aktiv a dere Schtudie teilneh.</string>
@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nur a Mitwürkendi - a dere Schtudie - chönd e Coputeranalyse aafordere.</string>
   <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi serversitigi Computeranalyse vu de Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal aagforderet werde.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitgliider gsehnd die gliich Schtellig</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
   <string name="playing">Laufend</string>
   <string name="first">zur erschte Site</string>
@@ -101,8 +101,8 @@
   <string name="loadAGameFromPgn">Lad ä Partii mittäls PGN</string>
   <string name="automatic">Automaatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Füäg din PGN Tegscht do ii, bis zu %s Partii</item>
-    <item quantity="other">Füäg din PGN Tegscht do ii, bis zu %s Partiiä</item>
+    <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
+    <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
   </plurals>
   <string name="urlOfTheGame">URL vodä Partii</string>
   <string name="loadAGameFromXOrY">Partii vo %1$s oder %2$s ladä</string>
@@ -118,7 +118,7 @@
   <string name="nobody">Niämärt</string>
   <string name="onlyMe">Numä ich</string>
   <string name="contributors">Mitwirkändi</string>
-  <string name="members">Mitgliider</string>
+  <string name="members">Mitglider</string>
   <string name="everyone">Alli</string>
   <string name="enableSync">Sync aktiviärä</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Jawoll: Gliichligi Schtellig für alli</string>
@@ -141,11 +141,11 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Uusglichäni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
-  <string name="whiteIsSlightlyBetter">Wiis schtoht liächt besser</string>
-  <string name="blackIsSlightlyBetter">Schwarz schtoht liächt besser</string>
-  <string name="whiteIsBetter">Wiis schtoht besser</string>
+  <string name="whiteIsSlightlyBetter">Wiss schtaht es bitzli besser</string>
+  <string name="blackIsSlightlyBetter">Schwarz schtaht es bitzli besser</string>
+  <string name="whiteIsBetter">Wiss schtaht besser</string>
   <string name="blackIsBetter">Schwarz schtoht besser</string>
-  <string name="whiteIsWinning">Wiis schtoht uf Gwünn</string>
+  <string name="whiteIsWinning">Wiss schtaht uf Gwünn</string>
   <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>

@@ -1,0 +1,45 @@
+.tutor {
+  &__openings {
+    &__colors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: $block-gap;
+    }
+    &__color {
+      flex: 50% 0 0;
+      h2 {
+        font-size: 2em;
+        margin-bottom: 1em;
+      }
+      &__openings {
+        display: grid;
+        grid-gap: 2vmin;
+      }
+    }
+    &__opening {
+      .no-square {
+        flex: 0 0 5em;
+        height: 5em;
+
+        piece {
+          position: inherit;
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .slist tr td {
+        font-weight: bold;
+        &:last-child {
+          opacity: 0.8;
+        }
+        &.good {
+          background: mix($c-good, $c-bg-zebra, 20%);
+        }
+        &.bad {
+          background: mix($c-bad, $c-bg-zebra, 20%);
+        }
+      }
+    }
+  }
+}

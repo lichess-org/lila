@@ -8,8 +8,8 @@ sealed abstract class Metric(
     val key: String,
     val name: String,
     val dbKey: String,
-    val position: Position,
-    val per: Position,
+    val position: InsightPosition,
+    val per: InsightPosition,
     val dataType: Metric.DataType,
     val description: String
 )
@@ -27,7 +27,7 @@ object Metric {
   }
 
   import DataType._
-  import Position._
+  import InsightPosition._
   import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl
@@ -50,6 +50,17 @@ object Metric {
         Move,
         Percent,
         InsightDimension.CplRange.description
+      )
+
+  case object MeanAccuracy
+      extends Metric(
+        "accuracy",
+        "Accuracy",
+        F moves "a",
+        Move,
+        Move,
+        Percent,
+        """Accuracy of your moves. Higher is better."""
       )
 
   case object Movetime
@@ -140,10 +151,10 @@ object Metric {
         InsightDimension.PieceRole.description
       )
 
-  case object Opportunism
+  case object Awareness
       extends Metric(
-        "opportunism",
-        "Opportunism",
+        "awareness",
+        "Tactical awareness",
         F moves "o",
         Move,
         Move,
@@ -198,6 +209,7 @@ object Metric {
   val all = List(
     MeanCpl,
     CplBucket,
+    MeanAccuracy,
     Movetime,
     Result,
     Termination,
@@ -206,7 +218,7 @@ object Metric {
     OpponentRating,
     NbMoves,
     PieceRole,
-    Opportunism,
+    Awareness,
     Luck,
     Material,
     Blurs,
@@ -216,49 +228,44 @@ object Metric {
     (p.key, p)
   } toMap
 
-  def requiresAnalysis(m: Metric) =
-    m match {
-      case MeanCpl   => true
-      case CplBucket => true
-      case _         => false
-    }
+  def requiresAnalysis(m: Metric) = m match {
+    case MeanCpl | CplBucket | MeanAccuracy => true
+    case _                                  => false
+  }
 
-  def requiresStableRating(m: Metric) =
-    m match {
-      case Performance | RatingDiff | OpponentRating => true
-      case _                                         => false
-    }
+  def requiresStableRating(m: Metric) = m match {
+    case Performance | RatingDiff | OpponentRating => true
+    case _                                         => false
+  }
 
-  def isStacked(m: Metric) =
-    m match {
-      case Result      => true
-      case Termination => true
-      case PieceRole   => true
-      case CplBucket   => true
-      case _           => false
-    }
+  def isStacked(m: Metric) = m match {
+    case Result      => true
+    case Termination => true
+    case PieceRole   => true
+    case CplBucket   => true
+    case _           => false
+  }
 
-  def valuesOf(metric: Metric): List[MetricValue] =
-    metric match {
-      case Result =>
-        lila.insight.Result.all.map { r =>
-          MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-        }
-      case Termination =>
-        lila.insight.Termination.all.map { r =>
-          MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-        }
-      case PieceRole =>
-        chess.Role.all.reverse.map { r =>
-          MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
-        }
-      case CplBucket =>
-        lila.insight.CplRange.all.map { cpl =>
-          MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
-        }
-      case _ => Nil
-    }
+  def valuesOf(metric: Metric): List[MetricValue] = metric match {
+    case Result =>
+      lila.insight.Result.all.map { r =>
+        MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+      }
+    case Termination =>
+      lila.insight.Termination.all.map { r =>
+        MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+      }
+    case PieceRole =>
+      chess.Role.all.reverse.map { r =>
+        MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
+      }
+    case CplBucket =>
+      lila.insight.CplRange.all.map { cpl =>
+        MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
+      }
+    case _ => Nil
+  }
 
-  case class MetricValueName(name: String)
+  case class MetricValueName(name: String) extends AnyVal
   case class MetricValue(key: BSONValue, name: MetricValueName)
 }

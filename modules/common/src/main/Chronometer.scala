@@ -45,7 +45,9 @@ object Chronometer {
 
     def showDuration: String = if (millis >= 1) s"$millis ms" else s"$micros micros"
   }
-  case class LapTry[A](result: Try[A], nanos: Long)
+  case class LapTry[A](result: Try[A], nanos: Long) {
+    def millis = (nanos / 1000000).toInt
+  }
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
 

@@ -400,7 +400,10 @@ final class User(
 
         val prefs = isGranted(_.CheatHunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
 
-        val rageSit = isGranted(_.CheatHunter) ?? env.playban.api.getRageSit(user.id).map(view.showRageSit)
+        val rageSit = isGranted(_.CheatHunter) ?? env.playban.api
+          .getRageSit(user.id)
+          .zip(env.playban.api.bans(user.id))
+          .map { case (r, p) => view.showRageSitAndPlaybans(r, p) }
 
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))

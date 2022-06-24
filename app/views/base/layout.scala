@@ -331,7 +331,7 @@ object layout {
               div(cls := "content list")
             )
           ),
-          a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
+          netConfig.socketDomains.nonEmpty option a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
           ctx.pref.agreementNeededSince map { date =>
             div(id := "agreement")(
               div(

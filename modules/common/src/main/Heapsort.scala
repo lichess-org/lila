@@ -33,7 +33,7 @@ object Heapsort {
     b.result()
   }
 
-  def topNToList[T, C](xs: IterableOnce[T], nb: Int, ord: Ordering[T]): List[T] = {
+  def topNToList[T](xs: IterableOnce[T], nb: Int, ord: Ordering[T]): List[T] = {
     val p = PriorityQueue.from(xs)(ord)
     val b = List.newBuilder[T]
     moveN(p, b, nb)

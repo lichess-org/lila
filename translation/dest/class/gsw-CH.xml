@@ -20,7 +20,7 @@
   <string name="sendAMessage">Schick e Nachricht a alli Schüeler.</string>
   <string name="aLinkToTheClassWillBeAdded">En Link a die ganz Klass wird automatisch - am Änd vu de Nachricht - zuegfüegt, drum muesch en du nöd sälber biifüege.</string>
   <string name="className">Klasse Name</string>
-  <string name="classDescription">Klasse Beschriibig</string>
+  <string name="classDescription">Klasse Beschribig</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüeler vu de Klass</string>
   <string name="teachersOfTheClass">Lehrer vu de Klass</string>
   <string name="addLichessUsernames">Füeg Lichess Benutzernäme zue, um sie als Lehrer iizlade. Aber nur 1 pro Ziile.</string>
@@ -46,7 +46,7 @@ Passwort: %3$s</string>
   <string name="createDesc2">Es bruucht kei E-Mail-Adrässe. Es wird es Passwort generiert, das muesch em Schüeler mitteile, dass er sich aanmälde chann.</string>
   <string name="createDesc3">Wichtig: En Schüeler dörf nöd mehreri Konte bsitze.</string>
   <string name="createDesc4">Wänns bereits eis händ, dänn nimmsch s\'Iiladigsformular.</string>
-  <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess uusgschlosse.</string>
+  <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess usgschlosse.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erschtell en neue Benutzername</string>
   <string name="welcomeToClass">Willkomme i dinere Klass: %s.
@@ -70,7 +70,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
   <string name="closeTheAccount">Schüeler Konto duurhaft schlüsse.</string>
   <string name="closeDesc1">De Schüeler chann das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de Schüeler das verstaht und akzeptiert.</string>
-  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass ers wiiter chann benutze.</string>
+  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass er das witer benutze chann.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>

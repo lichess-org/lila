@@ -32,26 +32,24 @@ object JsonView {
         })
     })
 
-  import Accuracy.povToPovLike
-
-  def player(pov: Accuracy.PovLike)(analysis: Analysis) =
+  def player(pov: Game.SideAndStart)(analysis: Analysis) =
     analysis.summary
       .find(_._1 == pov.color)
       .map(_._2)
       .map(s =>
         JsObject(s map { case (nag, nb) =>
           nag.toString.toLowerCase -> JsNumber(nb)
-        }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis))
+        }).add("acpl" -> lila.analyse.AccuracyCP.mean(pov, analysis))
       )
 
   def bothPlayers(game: Game, analysis: Analysis) =
     Json.obj(
       "id"    -> analysis.id,
-      "white" -> player(game.whitePov)(analysis),
-      "black" -> player(game.blackPov)(analysis)
+      "white" -> player(game.whitePov.sideAndStart)(analysis),
+      "black" -> player(game.blackPov.sideAndStart)(analysis)
     )
 
-  def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) =
+  def bothPlayers(pov: Game.SideAndStart, analysis: Analysis) =
     Json.obj(
       "id"    -> analysis.id,
       "white" -> player(pov.copy(color = chess.White))(analysis),

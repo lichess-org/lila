@@ -5,7 +5,7 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.common.LilaScheduler
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -91,23 +91,11 @@ final class Env(
     case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId).unit
   }
 
-  ResilientScheduler(
-    every = Every(1 seconds),
-    timeout = AtMost(20 seconds),
-    initialDelay = 20 seconds
-  ) { api.startPendingRounds }
+  LilaScheduler(_.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(api.startPendingRounds)
 
-  ResilientScheduler(
-    every = Every(10 seconds),
-    timeout = AtMost(15 seconds),
-    initialDelay = 20 seconds
-  ) { api.checkOngoingGames }
+  LilaScheduler(_.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(api.checkOngoingGames)
 
-  ResilientScheduler(
-    every = Every(1 hour),
-    timeout = AtMost(15 seconds),
-    initialDelay = 5 minutes
-  ) { officialSchedule.generate }
+  LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
 }
 
 private class SwissColls(db: lila.db.Db) {

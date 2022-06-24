@@ -7,6 +7,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
+import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
@@ -124,6 +125,7 @@ trait Handlers {
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
   implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
+  implicit val centisIntHandler: BSONHandler[chess.Centis] = intIsoHandler(Iso.centisIso)
 
   implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
   implicit val FenOpeningHandler = tryHandler[chess.opening.FullOpening](
@@ -150,6 +152,8 @@ trait Handlers {
 
   implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
     stringAnyValHandler(_.value, lila.common.Markdown.apply)
+
+  val minutesHandler = BSONIntegerHandler.as[FiniteDuration](_.minutes, _.toMinutes.toInt)
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {

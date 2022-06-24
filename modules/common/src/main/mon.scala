@@ -192,8 +192,18 @@ object mon {
     val notification = counter("timeline.notification").withoutTags()
   }
   object insight {
-    val request = future("insight.request.time")
-    val index   = future("insight.index.time")
+    val user  = future("insight.request.time", "user")
+    val peers = future("insight.request.time", "peer")
+    val index = future("insight.index.time")
+  }
+  object tutor {
+    def buildSegment(segment: String) = future("tutor.build.segment", segment)
+    def buildFull                     = future("tutor.build.full")
+    def askMine                       = askAs("mine") _
+    def askPeer                       = askAs("peer") _
+    def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
+    private def askAs(as: String)(question: String, perf: String) =
+      future("tutor.insight.ask", Map("question" -> question, "perf" -> perf, "as" -> as))
   }
   object search {
     def time(op: String, index: String, success: Boolean) =

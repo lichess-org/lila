@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import lila.common.{ AtMost, Bus, Every, ResilientScheduler }
+import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
 import lila.user.User
 
@@ -32,7 +32,7 @@ final private class Streaming(
 
   def getLiveStreams = liveStreams
 
-  ResilientScheduler(every = Every(15 seconds), timeout = AtMost(10 seconds), initialDelay = 20 seconds) {
+  LilaScheduler(_.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>

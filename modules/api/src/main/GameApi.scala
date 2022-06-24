@@ -226,7 +226,7 @@ final private[api] class GameApi(
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
-            .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
+            .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color sideAndStart)))
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),

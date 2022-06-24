@@ -46,7 +46,7 @@
   <string name="castlingPrevented">E Rochade wird nur verhinderet, wänn de König über es aagriffes Fäld zieh will.</string>
   <string name="castlingRules">Schtell sicher, dass du mit Rochade Regle vertraut bisch</string>
   <string name="tryCastling">Probier das chliine, interaktive Schpiil und lern meh über die \"Rochade\"</string>
-  <string name="castlingImported">Wänn du es Schpiil importiert häsch oder us ere beschtimmte Stellig schtartisch, stell sicher, dass du d\'Rächt für d\'Rochade richtig iigschtellt häsch.</string>
+  <string name="castlingImported">Wänn du es Schpil importiert häsch oder us ere beschtimmte Schtellig schtartisch, schtell sicher, dass du d\'Rächt für d\'Rochade richtig igschtellt häsch.</string>
   <string name="insufficientMaterial">Nöd gnueg Material zum Matt setze</string>
   <string name="fideMate">Nach de FIDE Schachregle §6.9 isch e Partie nöd Remis, wänn es Schachmatt, mit irgend einere, legale Zugsfolg, möglich isch</string>
   <string name="knightMate">Es isch möglich - nur mit Schpringer oder Läufer - es Schachmatt z\'erreiche, wänn de Gägner meh als nur de König uf em Brätt hät.</string>

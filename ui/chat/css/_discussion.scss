@@ -29,6 +29,10 @@
       &.host {
         background-color: rgba($c-secondary-dim, 0.4);
       }
+
+      &.mentioned {
+        background-color: rgba($c-secondary-dimmer, 0.4);
+      }
     }
 
     .deleted {

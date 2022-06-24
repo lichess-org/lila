@@ -74,7 +74,7 @@ object Preset {
     ),
     Preset(
       "How often do I punish blunders made by my opponent during each game phase?",
-      Question(D.Phase, M.Opportunism, Nil)
+      Question(D.Phase, M.Awareness, Nil)
     ),
     Preset(
       "Do I gain rating when I don't castle kingside?",
@@ -104,7 +104,7 @@ object Preset {
       "How well do I move each piece in the opening?",
       Question(
         D.PieceRole,
-        M.MeanCpl,
+        M.MeanAccuracy,
         List(
           Filter(D.Phase, List(Phase.Opening))
         )
