@@ -242,7 +242,7 @@ object UserLogins {
       userLogins: UserLogins,
       othersWithEmail: UserLogins.WithMeSortedWithEmails,
       notes: List[lila.user.Note],
-      bans: Map[String, Int],
+      bans: Map[User.ID, Int],
       max: Int
   )
 }

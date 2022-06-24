@@ -185,6 +185,14 @@ final class PlaybanApi(
       }.toMap
     }
 
+  def bans(userId: User.ID): Fu[Int] =
+    coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($id(userId) ++ $doc("b" $exists true)) -> List(
+        Project($doc("bans" -> $doc("$size" -> "$b")))
+      )
+    } map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
+
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
   private val rageSitCache = cacheApi[User.ID, RageSit](32768, "playban.ragesit") {
