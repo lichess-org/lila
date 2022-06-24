@@ -89,7 +89,7 @@ object timeline {
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
           for {
-            perf       <- lila.rating.PerfType(perfKey)
+            perf <- lila.rating.PerfType(perfKey)
           } yield (win match {
             case Some(true)  => trans.victoryVsYInZ
             case Some(false) => trans.defeatVsYInZ
@@ -104,7 +104,7 @@ object timeline {
               case Some(false) => trans.defeat()
               case None        => trans.draw()
             }),
-            userLink(opponent getOrElse lila.user.User.anonymous),
+            userIdLink(opponent),
             perf.trans
           )
         case StudyLike(userId, studyId, studyName) =>
