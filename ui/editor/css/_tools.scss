@@ -53,11 +53,7 @@
         @extend %page-link !optional;
 
         width: 100%;
-        @if variable-exists(is-rtl) {
-          text-align: right;
-        } @else {
-          text-align: left;
-        }
+        text-align: $start-direction;
       }
     }
   }

@@ -19,11 +19,7 @@
 
     signal {
       position: absolute;
-      @if variable-exists(is-rtl) {
-        left: 1rem;
-      } @else {
-        right: 1rem;
-      }
+      $end-direction: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }

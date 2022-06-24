@@ -75,11 +75,7 @@ textarea.form-control {
 }
 
 .form-check-input {
-  @if variable-exists(is-rtl) {
-    margin-left: 0.5rem;
-  } @else {
-    margin-right: 0.5rem;
-  }
+  margin-#{$end-direction}: 0.5rem;
 }
 
 .form-check .form-label {
