@@ -16,7 +16,7 @@ case class InsightMove(
     winPercent: Option[WinPercent], // before the move was played, relative to player
     accuracyPercent: Option[AccuracyPercent],
     material: Int, // material imbalance, relative to player
-    opportunism: Option[Boolean],
+    awareness: Option[Boolean],
     luck: Option[Boolean],
     blur: Boolean,
     timeCv: Option[Float] // time coefficient variation

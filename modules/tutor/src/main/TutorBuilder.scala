@@ -5,6 +5,7 @@ import chess.Color
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.IpAddress
@@ -17,6 +18,7 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightPerfStats,
   InsightPerfStatsApi,
   Metric,
   Phase,
@@ -24,9 +26,8 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
-import scala.concurrent.ExecutionContext
 import lila.common.config
-import scala.concurrent.Future
+import cats.data.NonEmptyList
 
 final private class TutorBuilder(
     insightApi: InsightApi,
@@ -41,13 +42,9 @@ final private class TutorBuilder(
 
   import TutorBsonHandlers._
   import TutorBuilder._
+  implicit private val insightApiImplicit = insightApi
 
   val maxTime = fishnet.maxTime + 1.minute
-
-  implicit private val insightApiImplicit = insightApi
-  // private val requireAnalysisOnLastGames  = 15
-  // private val timeToWaitForAnalysis       = 1 second
-  // private val timeToWaitForAnalysis      = 3 minutes
 
   def apply(userId: User.ID): Fu[Option[TutorFullReport]] = for {
     user     <- userRepo named userId orFail s"No such user $userId"
@@ -69,21 +66,17 @@ final private class TutorBuilder(
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider).monSuccess(
-      _.tutor buildSegment "perf-stats"
-    )
+    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
+      .monSuccess(
+        _.tutor buildSegment "perf-stats"
+      )
     tutorUsers = perfStats
       .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- tutorUsers.map(producePerf).sequenceFu.monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- (tutorUsers.toNel ?? TutorPerfs.compute).monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
-
-  private def producePerf(user: TutorUser): Fu[TutorPerfReport] = for {
-    openings <- TutorOpening compute user
-    phases   <- TutorPhases compute user
-  } yield TutorPerfReport(user.perfType, user.perfStats, openings, phases)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
@@ -108,14 +101,6 @@ private object TutorBuilder {
 
   val peerNbGames = config.Max(10_000)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
-      insightApi: InsightApi,
-      ec: ExecutionContext
-  ) = for {
-    mine <- answerMine(question, user)
-    peer <- answerPeer(question, user)
-  } yield Answers(mine, peer)
-
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
@@ -130,6 +115,29 @@ private object TutorBuilder {
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
 
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = for {
+    mine <- answerMine(question, user)
+    peer <- answerPeer(question, user)
+  } yield Answers(mine, peer)
+
+  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(implicit
+      insightApi: InsightApi,
+      ec: ExecutionContext
+  ) = for {
+    mine <- insightApi
+      .ask(
+        question filter perfsFilter(tutorUsers.toList.map(_.perfType)),
+        tutorUsers.head.user,
+        withPovs = false
+      )
+      .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
+    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _, config.Max(5_000)) }.sequenceFu
+    peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
+  } yield Answers(mine, peer)
+
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
 
     val list: List[(Dim, Pair)] =
@@ -143,10 +151,6 @@ private object TutorBuilder {
 
     def dimensions = list.map(_._1)
 
-    // lazy val totalCount = list.map(_._2.count).sum
-
-    // def countRatio(count: Count) = TutorRatio(count, totalCount)
-
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
   }
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
@@ -159,6 +163,7 @@ private object TutorBuilder {
     def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim), peer.get(dim))
   }
 
-  def colorFilter(color: Color)      = Filter(InsightDimension.Color, List(color))
-  def perfFilter(perfType: PerfType) = Filter(InsightDimension.Perf, List(perfType))
+  def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))
+  def perfFilter(perfType: PerfType)             = Filter(InsightDimension.Perf, List(perfType))
+  def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)
 }

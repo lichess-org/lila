@@ -8,22 +8,28 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Metric, Phase }
 import lila.tutor.{ TutorCompare, ValueComparison }
+import lila.rating.PerfType
+import play.api.i18n.Lang
 
 private object compare {
 
-  def show(comp: TutorCompare.Comparison[_, _]) =
+  def show(comp: TutorCompare.AnyComparison)(implicit lang: Lang) = showWithPerf(comp, none)
+
+  def showWithPerf(comp: TutorCompare.AnyComparison, perf: Option[PerfType] = None)(implicit lang: Lang) =
     li(
       "Your ",
+      perf.map(p => frag(p.trans, " ")),
       showMetric(comp.metric),
       " in the ",
       strong(showDimension(comp.dimension)),
       " is ",
       showQuality(comp.comparison),
-      " than ",
+      " ",
       comp.reference match {
         case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
         case TutorCompare.Peers(_)  => frag("your peers'")
-      }
+      },
+      "."
     )
 
   private def otherDims[D](dimension: InsightDimension[D]) = dimension match {

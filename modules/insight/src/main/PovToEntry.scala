@@ -111,19 +111,19 @@ final private class PovToEntry(
       case (((((movetime, role), situation), blur), timeCv), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
-        val opportunism = from.advices.get(ply - 1) flatMap {
-          case o if o.judgment.isBlunder =>
+        val awareness = from.advices.get(ply - 1) flatMap {
+          case o if o.judgment.isMistakeOrBlunder =>
             from.advices get ply match {
-              case Some(p) if p.judgment.isBlunder => false.some
-              case _                               => true.some
+              case Some(p) if p.judgment.isMistakeOrBlunder => false.some
+              case _                                        => true.some
             }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
-          case o if o.judgment.isBlunder =>
+          case o if o.judgment.isMistakeOrBlunder =>
             from.advices.get(ply + 1) match {
-              case Some(p) if p.judgment.isBlunder => true.some
-              case _                               => false.some
+              case Some(p) if p.judgment.isMistakeOrBlunder => true.some
+              case _                                        => false.some
             }
           case _ => none
         }
@@ -144,7 +144,7 @@ final private class PovToEntry(
           winPercent = prevInfo.map(_.eval) flatMap WinPercent.fromEval,
           accuracyPercent = accuracyPercent,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
-          opportunism = opportunism,
+          awareness = awareness,
           luck = luck,
           blur = blur,
           timeCv = timeCv
