@@ -135,7 +135,11 @@ export default class RacerCtrl {
   end = (): void => {
     if (this.run.history.length != 0) {
       const index = this.run.current.index;
-      this.run.history.push({ puzzle: this.data.puzzles[index], win:false , millis: getNow() - this.run.current.startAt });
+      this.run.history.push({
+        puzzle: this.data.puzzles[index],
+        win: false,
+        millis: getNow() - this.run.current.startAt,
+      });
     }
     this.setGround();
     this.redraw();
