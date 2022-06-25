@@ -45,6 +45,8 @@ trait Handlers {
     BSONDoubleHandler.as[A](iso.from, iso.to)
   def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
     doubleIsoHandler(Iso(from, to))
+  def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
+    intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
 
   def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
     BSONFloatHandler.as[A](iso.from, iso.to)
