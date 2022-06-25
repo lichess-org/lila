@@ -8,6 +8,8 @@ let now: number, startTime: number, stopTime: number;
 
 const i18nNames: Record<string, string> = {};
 
+const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+
 function i18nName(t: Tournament) {
   if (!i18nNames[t.id]) i18nNames[t.id] = t.fullName;
   return i18nNames[t.id];
@@ -150,7 +152,18 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
       class: tournamentClass(tour),
       attrs: {
         href: '/tournament/' + tour.id,
-        style: 'width: ' + width + 'px; left: ' + left + 'px; padding-left: ' + paddingLeft + 'px',
+        style:
+          'width: ' +
+          width +
+          'px; ' +
+          startDirection() +
+          ': ' +
+          left +
+          'px; padding-' +
+          startDirection() +
+          ': ' +
+          paddingLeft +
+          'px',
       },
     },
     [
@@ -203,7 +216,7 @@ function renderTimeline() {
         'div.timeheader',
         {
           class: { hour: !time.getMinutes() },
-          attrs: { style: 'left: ' + leftPos(time.getTime()) + 'px' },
+          attrs: { style: startDirection() + ': ' + leftPos(time.getTime()) + 'px' },
         },
         timeString(time)
       )
@@ -212,7 +225,7 @@ function renderTimeline() {
   }
   timeHeaders.push(
     h('div.timeheader.now', {
-      attrs: { style: 'left: ' + leftPos(now) + 'px' },
+      attrs: { style: startDirection() + ': ' + leftPos(now) + 'px' },
     })
   );
 
@@ -260,7 +273,8 @@ export default function (ctrl: Ctrl) {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
             const bitLater = now + 15 * 60 * 1000;
-            el.scrollLeft = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
+            const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
+            el.scrollLeft = document.dir == 'rtl' ? -1 * scroll : scroll;
 
             el.addEventListener('mousedown', e => {
               mousedownAt = [e.clientX, e.clientY];
