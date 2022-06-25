@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
-import lila.common.{ LilaStream, LilaScheduler }
+import lila.common.{ LilaScheduler, LilaStream }
 
 final private class TournamentScheduler(
     api: TournamentApi,

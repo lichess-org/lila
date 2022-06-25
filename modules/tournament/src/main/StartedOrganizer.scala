@@ -5,7 +5,7 @@ import akka.stream.scaladsl._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ LilaStream, LilaScheduler }
+import lila.common.{ LilaScheduler, LilaStream }
 
 final private class StartedOrganizer(
     api: TournamentApi,
