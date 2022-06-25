@@ -2,8 +2,8 @@ import Ctrl from './ctrl';
 import { h } from 'snabbdom';
 import { Game } from './interfaces';
 
-function miniGame(game: Game) {
-  return h(
+const miniGame = (game: Game) =>
+  h(
     'a',
     {
       attrs: {
@@ -39,7 +39,6 @@ function miniGame(game: Game) {
       ]),
     ]
   );
-}
 
 export default function (ctrl: Ctrl) {
   if (!ctrl.vm.answer) return;
