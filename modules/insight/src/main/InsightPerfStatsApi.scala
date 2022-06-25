@@ -65,7 +65,6 @@ final class InsightPerfStatsApi(
           Match($doc("total" $gte 5))
         )
       }.map { docs =>
-        docs foreach lila.db.BSON.print
         for {
           doc <- docs
           id  <- doc int "_id"
