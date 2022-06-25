@@ -14,8 +14,8 @@ import lila.common.LilaOpeningFamily
 final class Tutor(env: Env) extends LilaController(env) {
 
   def home =
-    Auth { implicit ctx => me =>
-      Redirect(routes.Tutor.user(me.username)).fuccess
+    Secure(_.Beta) { implicit ctx => holder =>
+      Redirect(routes.Tutor.user(holder.user.username)).fuccess
     }
 
   def user(username: String) = TutorPage(username) { implicit ctx => me => av =>
