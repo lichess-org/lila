@@ -35,6 +35,7 @@ case class TutorFullReport(
 
   val weaknesses = ponderedHighlights(_.worse) _
 
+  // perfs with more games have more highlights
   def ponderedHighlights(compFilter: AnyComparison => Boolean)(nb: Int): List[(AnyComparison, PerfType)] =
     perfs
       .flatMap { p =>
