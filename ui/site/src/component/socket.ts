@@ -44,6 +44,8 @@ interface Settings {
   options?: Partial<Options>;
 }
 
+const origSend = WebSocket.prototype.send;
+
 // versioned events, acks, retries, resync
 export default class StrongSocket {
   pubsub = lichess.pubsub;
@@ -175,7 +177,7 @@ export default class StrongSocket {
     }
     this.debug('send ' + message);
     try {
-      this.ws!.send(message);
+      origSend.apply(this.ws!, [message]);
     } catch (e) {
       // maybe sent before socket opens,
       // try again a second later.

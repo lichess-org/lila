@@ -770,6 +770,7 @@
   <string name="important">Կարևոր</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
+  <string name="thisTopicIsArchived">Այս թեման տեղափոխվել է արխիվ, և այն այլևս հնարավոր չէ մեկնաբանել։</string>
   <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
