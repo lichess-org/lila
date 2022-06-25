@@ -15,7 +15,7 @@
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">праз %s гадзіну</item>
-    <item quantity="few">праз %s гадзін</item>
+    <item quantity="few">праз %s гадзіны</item>
     <item quantity="many">праз %s гадзін</item>
     <item quantity="other">праз %s гадзін</item>
   </plurals>
