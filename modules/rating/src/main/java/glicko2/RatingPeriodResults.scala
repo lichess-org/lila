@@ -6,7 +6,8 @@ import scala.jdk.CollectionConverters._
 
 /** This class holds the results accumulated over a rating period.
   *
-  * @author Jeremy Gooch
+  * @author
+  *   Jeremy Gooch
   */
 abstract class RatingPeriodResults[R <: Result](participants: Set[Rating] = Set.empty) {
 
@@ -26,8 +27,8 @@ abstract class RatingPeriodResults[R <: Result](participants: Set[Rating] = Set.
     participants.asJava
   }
 
-  /** Add a participant to the rating period, e.g. so that their rating will
-    * still be calculated even if they don't actually compete.
+  /** Add a participant to the rating period, e.g. so that their rating will still be calculated even if they
+    * don't actually compete.
     */
   def addParticipants(rating: Rating) = participants.add(rating)
 
