@@ -56,7 +56,7 @@ case class TutorPerfReport(
 
   val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons)) _
 
-  val phaseHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.peerComparisons)) _
+  val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)) _
 
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) ::: phaseCompares.flatMap(_.peerComparisons)
