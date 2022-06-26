@@ -127,7 +127,7 @@ object GameMod {
         .distinct
     def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
 
-    def nbGames = nbGamesOpt.getOrElse(100)
+    def nbGames = nbGamesOpt | 100
   }
 
   val emptyFilter = Filter(none, none, none, none, none)
@@ -153,7 +153,7 @@ object GameMod {
         "swiss"      -> optional(nonEmptyText),
         "speed"      -> optional(nonEmptyText),
         "opponents"  -> optional(nonEmptyText),
-        "nbGamesOpt" -> optional(number(min = 0))
+        "nbGamesOpt" -> optional(number(min = 1, max = 500))
       )(Filter.apply)(Filter.unapply _)
     )
 
