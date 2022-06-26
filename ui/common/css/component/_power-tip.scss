@@ -16,13 +16,11 @@
     padding-bottom: 0.3em;
     padding-#{$start-direction}: 0.7em;
 
-
     &:first-child {
       padding-top: 0.3em;
       padding-#{$end-direction}: 0.5em;
       padding-bottom: 3px;
       padding-#{$start-direction}: 0.7em;
-  
     }
   }
 }

@@ -20,7 +20,7 @@
       padding-#{$end-direction}: 5px;
       padding-bottom: 0.5em;
       padding-#{$start-direction}: 10px;
-  
+
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
@@ -115,7 +115,6 @@
     padding-#{$end-direction}: 20px;
     padding-bottom: 3px;
     padding-#{$start-direction}: 4px;
-
 
     &:focus {
       outline: 1px solid $c-primary;

@@ -16,7 +16,13 @@
 
       $c-bg: $c-bg-box;
       $c-value: mix($c-good, $c-bg, 85%);
-      background: linear-gradient(to $end-direction, $c-value 0%, $c-value var(--value), $c-bg var(--value), $c-bg 100%);
+      background: linear-gradient(
+        to $end-direction,
+        $c-value 0%,
+        $c-value var(--value),
+        $c-bg var(--value),
+        $c-bg 100%
+      );
     }
     &--peer {
       font-size: 0.9em;
@@ -24,7 +30,13 @@
 
       $c-bg: $c-bg-box;
       $c-value: mix($c-brag, $c-bg, 50%);
-      background: linear-gradient(to $end-direction, $c-value 0%, $c-value var(--value), $c-bg var(--value), $c-bg 100%);
+      background: linear-gradient(
+        to $end-direction,
+        $c-value 0%,
+        $c-value var(--value),
+        $c-bg var(--value),
+        $c-bg 100%
+      );
     }
   }
 }
