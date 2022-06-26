@@ -31,7 +31,10 @@
       }
       &__title {
         &--pad {
-          padding: 2rem 1rem 0 2rem;
+          padding-top: 2rem;
+          padding-#{$end-direction}: 1rem;
+          padding-bottom: 0;
+          padding-#{$start-direction}: 2rem;
         }
         i + & {
           margin-top: 1em;

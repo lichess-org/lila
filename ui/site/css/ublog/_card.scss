@@ -20,7 +20,11 @@
     &__over-image {
       position: absolute;
       top: 0;
-      padding: 0.2em 0.5em 0.3em 0.5em;
+      padding-top: 0.2em;
+      padding-#{$end-direction}: 0.5em;
+      padding-bottom: 0.3em;
+      padding-#{$start-direction}: 0.5em;
+
       @if $theme-dark {
         background: rgba(0, 0, 0, 0.65);
         color: #ddd;

@@ -12,7 +12,10 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   }
 
   &-inline {
-    padding: 7px 3px 7px 7px;
+    padding-top: 7px;
+    padding-#{$end-direction}: 3px;
+    padding-bottom: 7px;
+    padding-#{$start-direction}: 7px;
   }
 
   move {
