@@ -156,7 +156,7 @@ body {
     cursor: pointer;
 
     body.dark & {
-      transform: translateX(18px);
+      transform: translateX($transform-direction * 18px);
     }
   }
 }
