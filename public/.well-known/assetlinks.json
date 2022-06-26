@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "org.lichess.mobileapp",
+    "sha256_cert_fingerprints":
+    ["F3:7D:99:F0:1B:15:9F:55:05:F8:1A:93:E5:6E:72:5D:46:08:50:A7:ED:09:A8:D2:63:3C:98:01:FA:BD:0E:B9"]
+  }
+}]
