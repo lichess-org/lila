@@ -1,8 +1,8 @@
 @import 'extend';
 
-$c-inaccuracy: #56b4e9;
-$c-mistake: #e69f00;
-$c-blunder: #df5353;
+$c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%);
+$c-bg-mistake-hover: c-dimmer($c-mistake, 70%);
+$c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
 
 .tview2 {
   white-space: normal;
@@ -24,12 +24,21 @@ $c-blunder: #df5353;
 
     &.inaccuracy {
       color: $c-inaccuracy;
+      &:hover {
+        background: $c-bg-inaccuracy-hover;
+      }
     }
     &.mistake {
       color: $c-mistake;
+      &:hover {
+        background: $c-bg-mistake-hover;
+      }
     }
     &.blunder {
       color: $c-blunder;
+      &:hover {
+        background: $c-bg-blunder-hover;
+      }
     }
   }
 
@@ -74,7 +83,7 @@ $c-blunder: #df5353;
     font-style: italic;
   }
 
-  move:not(.empty):hover {
+  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):hover {
     &,
     index,
     eval {
@@ -196,6 +205,15 @@ $c-blunder: #df5353;
 
     display: block;
     padding: 3px 5px;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
   }
 
   &-inline comment {
