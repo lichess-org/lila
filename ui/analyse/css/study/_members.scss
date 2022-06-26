@@ -104,7 +104,11 @@
   m-config {
     @extend %flex-between;
 
-    padding: 0.4em 0.8em 1em 0.8em;
+    padding-top: 0.4em;
+    padding-#{$end-direction}: 0.8em;
+    padding-bottom: 1em;
+    padding-#{$start-direction}: 0.8em;
+
 
     .role {
       @extend %flex-center;

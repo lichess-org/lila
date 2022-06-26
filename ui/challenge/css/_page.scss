@@ -10,7 +10,11 @@
     > div {
       @extend %box-radius;
 
-      padding: 2em 2em 1em 2em;
+      padding-top: 2em;
+      padding-#{$end-direction}: 2em;
+      padding-bottom: 1em;
+      padding-#{$start-direction}: 2em;
+  
       background: $c-bg-zebra;
       margin: 1em;
       flex: 1 1 auto;

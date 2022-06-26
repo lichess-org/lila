@@ -38,7 +38,11 @@
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
-    padding: 0.7em 0.7em 0.7em 0;
+    padding-top: 0.7em;
+    padding-#{$end-direction}: 0.7em;
+    padding-bottom: 0.7em;
+    padding-#{$start-direction}: 0;
+
     background: $c-bg-low;
     font-size: 0.9em;
 

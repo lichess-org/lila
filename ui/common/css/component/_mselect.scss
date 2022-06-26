@@ -12,7 +12,11 @@ $c-mselect: $c-primary;
     @extend %box-neat, %metal, %flex-between;
 
     flex-flow: row nowrap;
-    padding: 0.3rem 0.6rem 0.3rem 1rem;
+    padding-top: 0.3rem;
+    padding-#{$end-direction}: 0.6rem;
+    padding-bottom: 0.3rem;
+    padding-#{$start-direction}: 1rem;
+
     cursor: pointer;
 
     &:hover {

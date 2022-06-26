@@ -22,7 +22,11 @@
 
   &-result {
     color: $c-font;
-    padding: 0.4em 0 0.4em 0.4em;
+    padding-top: 0.4em;
+    padding-#{$end-direction}: 0;
+    padding-bottom: 0.4em;
+    padding-#{$start-direction}: 0.4em;
+
     display: block;
     cursor: pointer;
     text-align: left;

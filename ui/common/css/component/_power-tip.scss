@@ -11,10 +11,18 @@
   z-index: z('powertip');
 
   .mini-game__player {
-    padding: 3px 0.5em 0.3em 0.7em;
+    padding-top: 3px;
+    padding-#{$end-direction}: 0.5em;
+    padding-bottom: 0.3em;
+    padding-#{$start-direction}: 0.7em;
+
 
     &:first-child {
-      padding: 0.3em 0.5em 3px 0.7em;
+      padding-top: 0.3em;
+      padding-#{$end-direction}: 0.5em;
+      padding-bottom: 3px;
+      padding-#{$start-direction}: 0.7em;
+  
     }
   }
 }

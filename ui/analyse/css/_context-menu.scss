@@ -26,7 +26,10 @@
     @extend %flex-center-nowrap;
 
     color: $c-font;
-    padding: 0.5em 0.6em 0.5em 0.3em;
+    padding-top: 0.5em;
+    padding-#{$end-direction}: 0.6em;
+    padding-bottom: 0.5em;
+    padding-#{$start-direction}: 0.3em;
 
     &::before {
       width: 2em;

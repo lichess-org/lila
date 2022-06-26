@@ -46,7 +46,11 @@
     font-weight: bold;
     color: $c-font-dim;
     width: 1px;
-    padding: 0 0.3em 0 1em !important;
+    padding-top: 0 !important;
+    padding-#{$end-direction}: 0.3em !important;
+    padding-bottom: 0 !important;
+    padding-#{$start-direction}: 1em !important;
+
   }
 
   td {
@@ -56,7 +60,11 @@
   input,
   span {
     display: block;
-    padding: 0.6em 1em 0.6em 0.7em;
+    padding-top: 0.6em;
+    padding-#{$end-direction}: 1em;
+    padding-bottom: 0.6em;
+    padding-#{$start-direction}: 0.7em;
+
     line-height: 1.7;
   }
 

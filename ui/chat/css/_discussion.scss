@@ -16,7 +16,11 @@
 
     li {
       position: relative;
-      padding: 0.5em 5px 0.5em 10px;
+      padding-top: 0.5em;
+      padding-#{$end-direction}: 5px;
+      padding-bottom: 0.5em;
+      padding-#{$start-direction}: 10px;
+  
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
@@ -107,7 +111,11 @@
     border: 0;
     border-top: $border;
     border-radius: 0;
-    padding: 3px 20px 3px 4px;
+    padding-top: 3px;
+    padding-#{$end-direction}: 20px;
+    padding-bottom: 3px;
+    padding-#{$start-direction}: 4px;
+
 
     &:focus {
       outline: 1px solid $c-primary;

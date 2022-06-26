@@ -61,7 +61,10 @@
 .scheduled {
   a {
     color: $c-font;
-    padding: 0.5em 0 0.5em 2.7em;
+    padding-top: 0.5em;
+    padding-#{$end-direction}: 0;
+    padding-bottom: 0.5em;
+    padding-#{$start-direction}: 2.7em;
     display: block;
     position: relative;
     line-height: 1.2;
