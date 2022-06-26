@@ -38,7 +38,7 @@ object games {
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
               form3.input(filterForm("opponents"))(placeholder  := "Opponents"),
-              form3.input(filterForm("nbGamesOpt"))(placeholder := "Number of games"),
+              form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("speed"),
                 chess.Speed.all.map { s =>
