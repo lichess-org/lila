@@ -65,7 +65,10 @@ $mq-picture: $mq-large;
   }
 
   .description {
-    padding: 2.5em 50px 2.5em 65px;
+    padding-top: 2.5em;
+    padding-#{$end-direction}: 50px;
+    padding-bottom: 2.5em;
+    padding-#{$start-direction}: 65px;
     font-size: 1.4em;
   }
 
@@ -82,7 +85,11 @@ $mq-picture: $mq-large;
     @extend %flex-center;
 
     justify-content: space-between;
-    padding: 2em 50px 1em 58px;
+    padding-top: 2em;
+    padding-#{$end-direction}: 50px;
+    padding-bottom: 1em;
+    padding-#{$start-direction}: 58px;
+
     font-size: 1.6em;
     line-height: 0.9;
     background: mix($c-brag, $c-bg-box, 20%);

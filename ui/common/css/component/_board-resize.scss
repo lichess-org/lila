@@ -10,7 +10,7 @@ cg-resize {
   @include breakpoint($mq-board-resizable) {
     display: block;
     position: absolute;
-    #{$end-direction}: #{13px - $resize-width};
+    right: #{13px - $resize-width};
     bottom: #{13px - $resize-width};
     width: $resize-width;
     height: $resize-width;
@@ -24,6 +24,7 @@ cg-resize {
       position: absolute;
       width: 12px;
       height: 1px;
+      left: 0;
     }
 
     &::before {

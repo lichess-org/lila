@@ -25,7 +25,10 @@
 
     &__list > * {
       font-size: 1.3rem;
-      padding: 0.3em 1em 0.3em 0.7em;
+      padding-top: 0.3em;
+      padding-#{$end-direction}: 1em;
+      padding-bottom: 0.3em;
+      padding-#{$start-direction}: 0.7em;
     }
   }
 }

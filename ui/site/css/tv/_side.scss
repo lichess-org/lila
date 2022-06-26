@@ -1,5 +1,8 @@
 .tv-channel {
-  padding: 0.4rem 0.8rem 0.4rem 0 !important;
+  padding-top: 0.4rem !important;
+  padding-#{$end-direction}: 0.8rem !important;
+  padding-bottom: 0.4rem !important;
+  padding-#{$start-direction}: 0 !important;
 
   > span {
     @extend %flex-center-nowrap;

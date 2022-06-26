@@ -32,17 +32,28 @@ function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
 export function renderPager(ctrl: TournamentController, pag: Pagination): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
     page = ctrl.page;
+  let iconFirst = '';
+  let iconPrev = '';
+  let iconNext = '';
+  let iconLast = '';
+  if (document.dir == 'rtl') {
+    iconLast = '';
+    iconNext = '';
+    iconPrev = '';
+    iconFirst = '';
+  }
+
   return pag.nbPages > -1
     ? [
         search.button(ctrl),
         ...(ctrl.searching
           ? [search.input(ctrl)]
           : [
-              button('First', '', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
-              button('Prev', '', ctrl.userPrevPage, enabled && page > 1, ctrl),
+              button('First', iconFirst, () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
+              button('Prev', iconPrev, ctrl.userPrevPage, enabled && page > 1, ctrl),
               h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
-              button('Next', '', ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
-              button('Last', '', ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
+              button('Next', iconNext, ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
+              button('Last', iconLast, ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
               scrollToMeButton(ctrl),
             ]),
       ]

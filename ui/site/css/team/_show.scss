@@ -129,7 +129,10 @@ $section-margin-more: 5vh;
 
   .userlist > li,
   .userlist > div.paginated {
-    padding: 5px 0 5px 25px;
+    padding-top: 5px;
+    padding-#{$end-direction}: 0;
+    padding-bottom: 5px;
+    padding-#{$start-direction}: 25px;
   }
 
   &__forum {
