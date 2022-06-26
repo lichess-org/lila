@@ -53,7 +53,7 @@
 
     &__side {
       flex: 0 0 calc(50% - #{$block-gap});
-      margin-left: $block-gap;
+      margin-#{$start-direction}: $block-gap;
     }
 
     > a {

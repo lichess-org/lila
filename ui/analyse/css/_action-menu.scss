@@ -29,11 +29,11 @@
     }
 
     &:before {
-      right: 8px;
+      #{$end-direction}: 8px;
     }
 
     &:after {
-      left: 8px;
+      #{$start-direction}: 8px;
     }
   }
 

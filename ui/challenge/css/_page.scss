@@ -56,7 +56,7 @@
       &::before {
         color: var(--c-font);
         font-size: 6rem;
-        margin-right: 0.2em;
+        margin-#{$end-direction}: 0.2em;
       }
 
       div {

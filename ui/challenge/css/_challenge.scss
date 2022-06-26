@@ -1,7 +1,7 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
   overflow: hidden;
-  right: 0;
+  #{$end-direction}: 0;
   width: 270px;
   text-align: center;
 
@@ -87,7 +87,7 @@
 
     button.decline {
       color: $c-bad;
-      border-right: none;
+      border-#{$end-direction}: none;
     }
 
     button:hover {
@@ -121,7 +121,7 @@
     }
 
     .head .user-link {
-      margin-left: -5px;
+      margin-#{$start-direction}: -5px;
     }
 
     .color-icon::before {

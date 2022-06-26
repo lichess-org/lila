@@ -19,7 +19,7 @@
     /* for bookmark */
     &::before {
       font-size: 3rem;
-      margin-right: 4%;
+      margin-#{$end-direction}: 4%;
     }
 
     p {
@@ -42,7 +42,7 @@
 
   .bookmark {
     position: absolute;
-    right: 0;
+    #{$end-direction}: 0;
     z-index: z('game-bookmark');
     color: $c-font-dim;
 

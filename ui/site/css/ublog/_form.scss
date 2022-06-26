@@ -8,8 +8,8 @@
   &__main .form-actions,
   &__delete .form-actions,
   &__image {
-    padding-left: var(--box-padding);
-    padding-right: var(--box-padding);
+    padding-#{$start-direction}: var(--box-padding);
+    padding-#{$end-direction}: var(--box-padding);
   }
   &__image {
     background: $c-bg-zebra;
@@ -38,7 +38,7 @@
     padding: 10em 0 5em 0;
   }
   &__etiquette {
-    margin-right: 3em;
+    margin-#{$end-direction}: 3em;
   }
   &__image {
     .form-group {

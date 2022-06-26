@@ -56,7 +56,7 @@
     &::before {
       color: $c-font-dim;
       font-size: 3em;
-      margin-right: 12px;
+      margin-#{$end-direction}: 12px;
     }
   }
 

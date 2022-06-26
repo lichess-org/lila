@@ -27,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
     }
   }
 
@@ -46,7 +46,7 @@
     }
 
     &--suspect {
-      border-right: 10px solid $c-bg-zebra;
+      border-#{$end-direction}: 10px solid $c-bg-zebra;
     }
 
     img {
@@ -61,7 +61,7 @@
     margin-top: 2em;
 
     .button {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
   }
 
@@ -77,7 +77,7 @@
   }
 
   .appeal-presets {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   &__rules {

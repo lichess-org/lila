@@ -99,7 +99,7 @@
 }
 
 #user_tag {
-  padding-right: 1rem;
+  padding-#{$end-direction}: 1rem;
   white-space: nowrap;
 }
 

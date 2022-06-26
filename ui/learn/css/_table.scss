@@ -153,14 +153,14 @@
       background: $c-bg-high;
       height: 3em;
       font-size: 0.9em;
-      border-left: $border;
+      border-#{$start-direction}: $border;
       opacity: 0.8;
 
       @include transition;
     }
 
     a:first-child {
-      border-left: 0;
+      border-#{$start-direction}: 0;
     }
 
     a:hover {

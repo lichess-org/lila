@@ -38,7 +38,7 @@
       @extend %flex-wrap;
 
       .button {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
       }
 
       .unsub.on .off,

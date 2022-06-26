@@ -72,7 +72,7 @@
 
     &.blind div {
       display: block;
-      margin-left: -9000px;
+      margin-#{$start-direction}: -9000px;
     }
 
     &.hover section:hover,

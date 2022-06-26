@@ -141,7 +141,7 @@ form.color {
 
   input.keyboard {
     width: 4em;
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
   &.hidden {
     display: none;

@@ -116,15 +116,15 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   }
 
   &-column move index {
-    padding-left: 5px;
+    padding-#{$start-direction}: 5px;
   }
 
   &-column move index:first-child {
-    padding-left: 0;
+    padding-#{$start-direction}: 0;
   }
 
   &-inline move index {
-    padding-right: 0.2em;
+    padding-#{$end-direction}: 0.2em;
     line-height: 111.11%;
   }
 
@@ -141,7 +141,7 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   }
 
   &-column > index + move {
-    border-right: $c-border;
+    border-#{$end-direction}: $c-border;
   }
 
   eval {
@@ -156,13 +156,13 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   glyph {
     @extend %base-font;
 
-    margin-left: 0.08em;
+    margin-#{$start-direction}: 0.08em;
     vertical-align: bottom;
   }
 
   shapes {
     font-size: 0.7em;
-    margin-left: 0.4em;
+    margin-#{$start-direction}: 0.4em;
     text-align: right;
     color: $c-good;
     &::before {
@@ -182,7 +182,7 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
     flex: 0 0 13%;
     display: flex;
     justify-content: center;
-    border-right: $border;
+    border-#{$end-direction}: $border;
     background: $c-bg-zebra;
     line-height: 2.07em;
     color: $c-font-dimmer;
@@ -230,16 +230,16 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
     vertical-align: -0.3em;
     font-size: 0.9em;
     opacity: 0.8;
-    margin-right: 0.4em;
+    margin-#{$end-direction}: 0.4em;
     max-width: 9em;
   }
 
   &-column comment.white {
-    border-left: 3px solid;
+    border-#{$start-direction}: 3px solid;
   }
 
   &-column comment.black {
-    border-right: 3px solid;
+    border-#{$end-direction}: 3px solid;
     overflow-x: hidden;
   }
 
@@ -279,17 +279,17 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   lines {
     display: block;
     margin-top: 2px;
-    margin-left: 6px;
+    margin-#{$start-direction}: 6px;
     margin-bottom: 0.8em;
-    border-left: 2px solid $c-border;
+    border-#{$start-direction}: 2px solid $c-border;
   }
 
   > interrupt > lines {
-    margin-left: 0px;
+    margin-#{$start-direction}: 0px;
   }
 
   lines.single {
-    border-left: none;
+    border-#{$start-direction}: none;
   }
 
   lines:last-child {
@@ -298,7 +298,7 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
 
   line {
     display: block;
-    padding-left: 7px;
+    padding-#{$start-direction}: 7px;
   }
 
   &-column line {
@@ -310,21 +310,21 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
   }
 
   lines lines {
-    margin-left: 1px;
+    margin-#{$start-direction}: 1px;
   }
 
   lines lines::before {
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
-    margin-left: -11px;
+    margin-#{$start-direction}: -11px;
     width: 9px;
     height: 6px;
   }
 
   lines line::before {
     margin-top: 0.65em;
-    margin-left: -8px;
+    margin-#{$start-direction}: -8px;
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
@@ -352,12 +352,12 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
 
   inline::before {
     content: '(';
-    margin-left: 2px;
+    margin-#{$start-direction}: 2px;
   }
 
   inline::after {
     content: ')';
-    margin-right: 2px;
+    margin-#{$end-direction}: 2px;
   }
 
   &-inline inline::before,

@@ -39,7 +39,7 @@
       }
 
       &__country {
-        margin-left: 0.5em;
+        margin-#{$start-direction}: 0.5em;
       }
 
       .user-link {
@@ -58,7 +58,7 @@
         font-size: 0.9em;
 
         img {
-          margin-right: 0.3em;
+          margin-#{$end-direction}: 0.3em;
         }
       }
     }

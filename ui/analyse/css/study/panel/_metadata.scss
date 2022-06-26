@@ -25,7 +25,7 @@
     }
 
     .liking {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       font-weight: bold;
       cursor: pointer;
       opacity: 0.7;

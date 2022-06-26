@@ -51,7 +51,7 @@
 
     &.sort .is:before {
       opacity: 0.7;
-      margin-right: 3px;
+      margin-#{$end-direction}: 3px;
       content: '';
     }
 
@@ -88,7 +88,7 @@
     }
 
     &:last-child ::before {
-      margin-right: 8px;
+      margin-#{$end-direction}: 8px;
       line-height: 0.9;
       font-size: 1.6em;
     }
@@ -101,7 +101,7 @@
       padding: 0.5em 0.4em;
 
       &:first-child {
-        padding-left: 0.7em;
+        padding-#{$start-direction}: 0.7em;
       }
 
       // player name

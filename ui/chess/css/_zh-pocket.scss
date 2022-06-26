@@ -31,7 +31,7 @@
 
       content: attr(data-nb);
       bottom: 0;
-      right: 0;
+      #{$end-direction}: 0;
       position: absolute;
       line-height: 0.9em;
       padding: 3px 0.3em;

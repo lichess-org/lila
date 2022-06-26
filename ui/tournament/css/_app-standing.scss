@@ -2,8 +2,8 @@
   border: none;
 
   .player {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-#{$start-direction}: 0px;
+    padding-#{$end-direction}: 0px;
 
     .user-link {
       @extend %flex-center-nowrap;
@@ -13,7 +13,7 @@
       @extend %nowrap-ellipsis;
 
       display: inline-block;
-      padding-right: 5px;
+      padding-#{$end-direction}: 5px;
       max-width: 140px;
     }
   }
@@ -29,7 +29,7 @@
 
   tr.long .user-link .rating {
     display: block;
-    padding-left: 0px;
+    padding-#{$start-direction}: 0px;
   }
 
   tr {
@@ -86,8 +86,8 @@
 
   .sheet {
     text-align: right;
-    padding-right: 0;
-    padding-left: 0;
+    padding-#{$end-direction}: 0;
+    padding-#{$start-direction}: 0;
     letter-spacing: 0.1em;
 
     & > * {
@@ -124,6 +124,6 @@
   .total {
     text-align: right;
     font-weight: bold;
-    padding-right: $block-gap;
+    padding-#{$end-direction}: $block-gap;
   }
 }

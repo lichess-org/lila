@@ -6,7 +6,7 @@
     text-align: center;
     padding: 5px 0;
     background: #888;
-    margin-left: 0;
+    margin-#{$start-direction}: 0;
     height: auto;
   }
 }

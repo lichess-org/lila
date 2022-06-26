@@ -59,7 +59,7 @@
 
     .rp {
       font-size: 1.3rem;
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
 
       &.up {
         color: $c-good;
@@ -192,7 +192,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 0;
+        #{$start-direction}: 0;
         width: var(--p);
         background: mix($c-bg-page, $c-primary, 40%)
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
@@ -245,10 +245,10 @@
       @extend %flex-between;
 
       align-items: stretch;
-      margin-left: -0.5rem;
+      margin-#{$start-direction}: -0.5rem;
 
       a {
-        margin-left: 0.5rem;
+        margin-#{$start-direction}: 0.5rem;
         line-height: 2em;
       }
 

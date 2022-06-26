@@ -1,7 +1,7 @@
 .trophies {
   position: absolute;
   top: 35px;
-  right: 1.5em;
+  #{$end-direction}: 1.5em;
   height: 40px;
   display: flex;
   flex-flow: row wrap;
@@ -108,15 +108,15 @@
 }
 
 .packed .trophy {
-  margin-right: -8px;
+  margin-#{$end-direction}: -8px;
 }
 
 .packed .stacked {
-  margin-right: 30px;
+  margin-#{$end-direction}: 30px;
 }
 
 .packed .stacked .trophy {
-  margin-right: -30px;
+  margin-#{$end-direction}: -30px;
 }
 
 .trophy.icon3d {

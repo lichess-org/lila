@@ -35,7 +35,7 @@
 
     &::before {
       font-size: 3rem;
-      margin-right: 4%;
+      margin-#{$end-direction}: 4%;
     }
 
     p {

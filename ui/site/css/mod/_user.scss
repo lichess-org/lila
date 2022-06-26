@@ -30,7 +30,7 @@
     font-style: italic;
     font-weight: bold;
     background: rgba(56, 147, 232, 0.2) !important;
-    border-left: 3px solid rgba(56, 147, 232, 0.8) !important;
+    border-#{$start-direction}: 3px solid rgba(56, 147, 232, 0.8) !important;
   }
 
   time {
@@ -147,7 +147,7 @@
       }
 
       i {
-        margin-right: 0.3em;
+        margin-#{$end-direction}: 0.3em;
         opacity: 0.5;
       }
     }
@@ -210,7 +210,7 @@
 
       td {
         &:first-child {
-          padding-left: 1em;
+          padding-#{$start-direction}: 1em;
           width: 0%;
         }
       }
@@ -242,7 +242,7 @@
       }
 
       i {
-        margin-left: 0.5ch;
+        margin-#{$start-direction}: 0.5ch;
       }
 
       &.spy_filter {
@@ -284,7 +284,7 @@
 
     .slist {
       td:first-child {
-        padding-left: 10px;
+        padding-#{$start-direction}: 10px;
       }
 
       thead th:first-child {
@@ -307,7 +307,7 @@
         margin: 0;
 
         &::before {
-          margin-right: 0;
+          margin-#{$end-direction}: 0;
         }
       }
     }
@@ -326,7 +326,7 @@
       overflow-y: auto;
 
       &:first-child {
-        margin-right: 1em;
+        margin-#{$end-direction}: 1em;
       }
 
       .score {
@@ -479,12 +479,12 @@
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-        border-left: $border;
+        border-#{$start-direction}: $border;
         padding: 5px 10px;
       }
 
       > *:first-child {
-        border-left: none;
+        border-#{$start-direction}: none;
       }
 
       .title {
@@ -497,7 +497,7 @@
           height: 50px;
           width: 50px;
           opacity: 0.7;
-          margin-right: 8px;
+          margin-#{$end-direction}: 8px;
         }
       }
 
@@ -561,7 +561,7 @@
 
       span {
         flex: 0 1 10px;
-        margin-left: 3px;
+        margin-#{$start-direction}: 3px;
       }
       .green {
         /* actually blue */
@@ -593,7 +593,7 @@
       overflow-y: auto;
 
       &:first-child {
-        margin-right: 1em;
+        margin-#{$end-direction}: 1em;
       }
 
       li {

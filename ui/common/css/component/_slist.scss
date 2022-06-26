@@ -31,18 +31,18 @@
 
   td:first-child,
   th:first-child {
-    padding-left: 1.5rem;
+    padding-#{$start-direction}: 1.5rem;
   }
 
   &-pad {
     td:first-child,
     th:first-child {
-      padding-left: var(--box-padding);
+      padding-#{$start-direction}: var(--box-padding);
     }
 
     td:last-child,
     th:last-child {
-      padding-right: var(--box-padding);
+      padding-#{$end-direction}: var(--box-padding);
     }
   }
 

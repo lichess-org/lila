@@ -43,7 +43,7 @@ $section-margin-more: 5vh;
 
       &__col1 {
         flex: 0 0 30%;
-        margin-right: var(--box-padding);
+        margin-#{$end-direction}: var(--box-padding);
       }
 
       &__col2 {
@@ -184,7 +184,7 @@ $section-margin-more: 5vh;
       @extend %flex-center;
 
       label {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
         cursor: pointer;
       }
     }

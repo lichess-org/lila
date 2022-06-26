@@ -89,7 +89,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       &::before {
         color: mix($c-clas, $c-bg-box, 80%);
         font-size: 5em;
-        margin-right: 0.4em;
+        margin-#{$end-direction}: 0.4em;
 
         @include transition;
         @include breakpoint($mq-not-xx-small) {
@@ -340,7 +340,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
           color: $c-good-over;
         }
 
-        border-right: 1px solid $c-border;
+        border-#{$end-direction}: 1px solid $c-border;
 
         &:last-child {
           border: 0;
@@ -362,7 +362,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       margin: 0 0.4em;
 
       &::before {
-        margin-right: 0.2em;
+        margin-#{$end-direction}: 0.2em;
       }
     }
 
@@ -439,7 +439,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
       &::before {
         font-size: 2.5em;
-        margin-right: 0.4em;
+        margin-#{$end-direction}: 0.4em;
         color: $c-bg-clas-over-dim;
       }
 

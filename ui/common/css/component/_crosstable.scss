@@ -34,7 +34,7 @@
     text-align: left;
 
     a {
-      padding-left: $block-gap;
+      padding-#{$start-direction}: $block-gap;
     }
   }
 
@@ -97,8 +97,8 @@
   .sep {
     @extend %box-radius-left;
 
-    border-left: $border;
-    margin-left: 0.3em;
+    border-#{$start-direction}: $border;
+    margin-#{$start-direction}: 0.3em;
   }
 
   .win {
