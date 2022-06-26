@@ -227,3 +227,10 @@ case class PayPalCapture(
   def isCompleted   = status == "COMPLETED"
   def capturedMoney = isCompleted option amount.money
 }
+case class PayPalSale(
+    amount: PayPalAmount,
+    custom: String,
+    state: String
+) {
+  def toCapture = PayPalCapture(amount, custom_id = custom, status = state)
+}

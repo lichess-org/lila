@@ -49,17 +49,14 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => {
       const nb: number = d.analysis![color][a.kind];
+      const style = nb ? `.symbol.${a.kind}` : '';
       const attrs: VNodeData = nb
         ? {
             'data-color': color,
             'data-symbol': a.symbol,
           }
         : {};
-      return h(
-        `div.advice-summary__mistake${nb ? '.symbol' : ''}`,
-        { attrs },
-        ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb))
-      );
+      return h(`div.advice-summary__error${style}`, { attrs }, ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb)));
     }),
     h('div.advice-summary__acpl', [
       h('strong', '' + (defined(acpl) ? acpl : '?')),

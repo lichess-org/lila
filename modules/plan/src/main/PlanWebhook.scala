@@ -63,6 +63,19 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
                     api.payPal.onCaptureCompleted(capture)
                   }
               )
+          case "PAYMENT.SALE.COMPLETED" =>
+            SaleReads
+              .reads(event.resource)
+              .fold(
+                err => {
+                  log.error(s"Unreadable PayPalSale ${Json stringify event.resource take 2000}")
+                  funit
+                },
+                sale =>
+                  fuccess {
+                    api.payPal.onCaptureCompleted(sale.toCapture)
+                  }
+              )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
             event.resourceId.map(PayPalSubscriptionId) ?? api.payPal.subscriptionUser flatMap {

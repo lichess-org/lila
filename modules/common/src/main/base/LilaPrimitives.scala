@@ -10,11 +10,6 @@ final class AugmentedAny[A](private val self: A) extends AnyVal {
   @scala.annotation.nowarn
   def unit: Unit = ()
 
-  def assertNotNull: A = {
-    assert(self != null, "Value can't be null")
-    self
-  }
-
   def ap[B](f: A => B): B = f(self)
 }
 

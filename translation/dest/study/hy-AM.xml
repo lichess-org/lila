@@ -36,6 +36,8 @@
   <string name="spectator">Հանդիսատես</string>
   <string name="unlike">Չեմ հավանում</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Ցուգցվանգ</string>
+  <string name="studyActions">Գործողությունները ստուդիայում</string>
   <string name="topics">Թեմաներ</string>
   <string name="myTopics">Իմ թեմաները</string>
   <string name="popularTopics">Շատ դիտվող թեմաներ</string>

@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ LilaStream, LilaScheduler }
+import lila.common.{ LilaScheduler, LilaStream }
 import lila.memo.SettingStore
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 

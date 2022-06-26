@@ -30,8 +30,8 @@ object AnalyseBsonHandlers {
       )
   }
 
-  implicit val winPercentHandler =
-    intAnyValHandler[WinPercent](x => Math.round(x.value * 10).toInt, x => WinPercent(x / 10d))
+  implicit val winPercentHandler = doubleAsIntHandler[WinPercent](_.value, WinPercent.apply, 10)
+
   implicit val accuracyPercentHandler =
-    intAnyValHandler[AccuracyPercent](x => Math.round(x.value * 10).toInt, x => AccuracyPercent(x / 10d))
+    doubleAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.apply, 10)
 }
