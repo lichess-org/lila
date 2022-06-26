@@ -101,7 +101,7 @@
 
       background: #{$glow-gradient},
         linear-gradient(
-          to right,
+          to $end-direction,
           $c-first 0%,
           $c-first var(--first),
           $c-fix var(--first),

@@ -145,7 +145,7 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        background: linear-gradient(to $end-direction, fade-out($c-accent, 0.5), $c-bg-box 80%);
       }
     }
   }

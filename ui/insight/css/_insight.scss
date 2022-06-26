@@ -261,7 +261,7 @@
       $c-sel-ms-choice: fade-out($c-accent, 0.3);
 
       background: linear-gradient(
-        to right,
+        to $end-direction,
         $c-sel-ms-choice 0px,
         $c-sel-ms-choice 5px,
         rgba(0, 0, 0, 0) 5px,
