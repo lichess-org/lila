@@ -7,8 +7,7 @@ export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;
 }
 
-export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, name: string): TourStandingCtrl {
-  return {
+export const tourStandingCtrl = (players: TourPlayer[], team: Team | undefined, name: string): TourStandingCtrl => ({
     set(d: TourPlayer[]) {
       players = d;
     },
@@ -20,9 +19,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
       return h(
         'div',
         {
-          hook: onInsert(_ => {
-            lichess.loadCssPath('round.tour-standing');
-          }),
+          hook: onInsert(_ => lichess.loadCssPath('round.tour-standing')),
         },
         [
           team
@@ -66,5 +63,4 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
         ]
       );
     },
-  };
-}
+  });
