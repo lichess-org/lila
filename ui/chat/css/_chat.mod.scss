@@ -24,10 +24,7 @@
 
     .history {
       td {
-        padding-top: 0.3rem;
-        padding-#{$end-direction}: 0.5rem;
-        padding-bottom: 0.3rem;
-        padding-#{$start-direction}: 0;
+        @include padding-direction(0.3rem, 0.5rem, 0.3rem, 0);
       }
 
       table {

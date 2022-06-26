@@ -10,12 +10,9 @@ $c-mselect: $c-primary;
 
   &__label {
     @extend %box-neat, %metal, %flex-between;
+    @include padding-direction(0.3rem, 0.6rem, 0.3rem, 1rem);
 
     flex-flow: row nowrap;
-    padding-top: 0.3rem;
-    padding-#{$end-direction}: 0.6rem;
-    padding-bottom: 0.3rem;
-    padding-#{$start-direction}: 1rem;
 
     cursor: pointer;
 

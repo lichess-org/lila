@@ -101,10 +101,7 @@
 
     .content {
       @extend %flex-between-nowrap;
-      padding-top: 0.5em;
-      padding-#{$end-direction}: 0.8em;
-      padding-bottom: 0em;
-      padding-#{$start-direction}: 1em;
+      @include padding-direction(0.5em, 0.8em, 0, 1em);
 
       &__text {
         @extend %nowrap-ellipsis;

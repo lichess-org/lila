@@ -28,10 +28,7 @@
   .entry {
     @extend %flex-center-nowrap;
 
-    padding-top: 0.7em;
-    padding-#{$end-direction}: 0.1em;
-    padding-bottom: 0.7em;
-    padding-#{$start-direction}: 0.6em;
+    @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
 
     margin-#{$start-direction}: -0.1em;
 

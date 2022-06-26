@@ -203,10 +203,7 @@
     width: 100%;
 
     td {
-      padding-top: 5px;
-      padding-#{$end-direction}: 0;
-      padding-bottom: 5px;
-      padding-#{$start-direction}: 7px;
+      @include padding-direction(5px, 0, 5px, 7px);
 
       max-width: 110px;
       &:nth-child(2) {

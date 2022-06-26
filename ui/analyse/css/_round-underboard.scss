@@ -137,10 +137,7 @@ $col2-panel-height: 240px;
   top: 91px;
   #{$start-direction}: -1px;
   background: $c-bg-box;
-  padding-top: 7px;
-  padding-#{$end-direction}: 10px;
-  padding-bottom: 7px;
-  padding-#{$start-direction}: 0;
+  @include padding-direction(7px, 10px, 7px, 0);
 
   line-height: 20px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
