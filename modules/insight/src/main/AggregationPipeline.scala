@@ -200,6 +200,9 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case D.CplRange     => List($doc(F.moves("c") $exists true))
             case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
+          } ::: metric.ap {
+            case Metric.MeanAccuracy => List($doc(F.moves("a") $exists true))
+            case _                   => List.empty[Bdoc]
           }).some.filterNot(_.isEmpty) map Match.apply
 
         def projectForMove: Option[PipelineOperator] =
@@ -274,7 +277,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves(),
                 sampleMoves,
                 AddFields(
-                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$add" -> $arr(1, "$m.a")))))
+                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$max" -> $arr(1, "$m.a")))))
                 ).some
               ) :::
                 group(dimension, SumField("step")) :::
@@ -283,16 +286,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                     $doc(
                       "v" ->
                         $doc(
-                          "$divide" ->
-                            $arr(
-                              $doc(
-                                "$subtract" -> $arr(
-                                  $doc("$divide" -> $arr("$nb", "$v")),
-                                  1
-                                )
-                              ),
-                              10
-                            )
+                          "$divide" -> $arr($doc("$divide" -> $arr("$nb", "$v")), 10)
                         )
                     )
                   ).some,
