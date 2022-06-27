@@ -33,9 +33,9 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         import lila.insight.{ InsightDimension => D, Metric => M }
         import InsightEntry.{ BSONFields => F }
 
-        val limitGames     = Limit(maxGames.value)
-        val sortDate       = Sort(Descending(F.date))
-        val sampleMoves    = Sample(200_000).some
+        val limitGames     = Limit(nbGames.value)
+        val sortDate       = target.isLeft ?? List(Sort(Descending(F.date)))
+        val sampleMoves    = Sample((200_000 / maxGames.value.toDouble * nbGames.value).toInt).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
         def limit(nb: Int) = Limit(nb).some
@@ -222,7 +222,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               $doc(F.provisional $ne true)
             }
         ) -> {
-          sortDate :: limitGames :: (metric.ap {
+          sortDate ::: limitGames :: (metric.ap {
             case M.MeanCpl =>
               List(
                 projectForMove,

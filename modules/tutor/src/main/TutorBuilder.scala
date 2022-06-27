@@ -99,7 +99,7 @@ private object TutorBuilder {
   type Count = Int
   type Pair  = ValueCount[Value]
 
-  val peerNbGames = config.Max(10_000)
+  val peerNbGames = config.Max(5_000)
 
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
@@ -134,7 +134,7 @@ private object TutorBuilder {
         withPovs = false
       )
       .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
-    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _, config.Max(5_000)) }.sequenceFu
+    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.sequenceFu
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
   } yield Answers(mine, peer)
 
