@@ -43,6 +43,8 @@ object TutorCompare {
 
     val comparison = number.compare(value.value, reference.value.value)
 
+    val importance = comparison.value * math.sqrt(value.count)
+
     def better                          = comparison.better
     def worse                           = comparison.worse
     def similarTo(other: AnyComparison) = other.dimensionType == dimensionType && other.metric == metric
@@ -51,7 +53,7 @@ object TutorCompare {
   }
 
   implicit val comparisonOrdering: Ordering[AnyComparison] =
-    Ordering.by[AnyComparison, Double](_.comparison.abs)
+    Ordering.by[AnyComparison, Double](_.importance.abs)
 
   type AnyComparison = Comparison[_, _]
   type AnyCompare    = TutorCompare[_, _]

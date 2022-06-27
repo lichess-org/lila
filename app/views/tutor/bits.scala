@@ -16,6 +16,7 @@ import lila.tutor.{
   ValueComparison,
   ValueCount
 }
+import play.api.i18n.Lang
 
 object bits {
 
@@ -32,27 +33,32 @@ object bits {
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def peerComparison[A](name: String, metric: TutorMetricOption[A])(implicit number: TutorNumber[A]) =
+  def peerComparison[A: TutorNumber](name: String, metric: TutorMetricOption[A])(implicit lang: Lang) =
     metric.mine map { mine =>
       div(cls := "tutor-comparison")(
         h3(cls := "tutor-comparison__name")(name),
-        div(cls                                                             := "tutor-comparison__unit")(
-          horizontalBarPercent(number.iso.to(mine.value).some, "Yours")(cls := "tutor-bar--mine")
+        div(cls := "tutor-comparison__unit")(
+          horizontalBarPercent(mine.some, "Yours", "mine")
         ),
         div(cls := "tutor-comparison__unit")(
-          horizontalBarPercent(metric.peer.map(_.value).map(number.iso.to), "Peers")(cls := "tutor-bar--peer")
+          horizontalBarPercent(metric.peer, "Peers", "peer")
         )
       )
     }
 
-  private def horizontalBarPercent(value: Option[Double], legend: String) =
+  private def horizontalBarPercent[A](
+      value: Option[ValueCount[A]],
+      legend: String,
+      extraCls: String
+  )(implicit lang: Lang, number: TutorNumber[A]) =
     value match {
       case Some(v) =>
-        div(cls := "tutor-bar", style := s"--value:${Math.round(v)}%")(
+        val double = number.iso.to(v.value)
+        div(cls := s"tutor-bar tutor-bar--$extraCls", style := s"--value:${Math.round(double)}%")(
           span(legend),
-          em(strong(f"$v%1.1f"), "%")
+          em(strong(f"${double}%1.1f"), "%", " (", v.count.localize, ")")
         )
-      case None => div(cls := "tutor-bar tutor-bar--empty")
+      case None => div(cls := s"tutor-bar tutor-bar--$extraCls tutor-bar--empty")
     }
 
   private[tutor] def layout(
