@@ -68,10 +68,7 @@
   td.rank {
     @extend %roboto;
 
-    padding-top: 1em;
-    padding-#{$end-direction}: 0.5em;
-    padding-bottom: 1em;
-    padding-#{$start-direction}: 10px;
+    @include padding-direction(1em, 0.5em, 1em, 10px);
 
     width: 1px;
 

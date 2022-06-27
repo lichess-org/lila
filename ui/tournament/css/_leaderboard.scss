@@ -36,10 +36,7 @@ $user-list-width: 35ch;
   li {
     @extend %flex-between;
 
-    padding-top: 1.2rem;
-    padding-#{$end-direction}: 1.2rem;
-    padding-bottom: 1.2rem;
-    padding-#{$start-direction}: 0.5rem;
+    @include padding-direction(1.2rem, 1.2rem, 1.2rem, 0.5rem);
 
     &:nth-child(even) {
       background: $c-bg-zebra;
