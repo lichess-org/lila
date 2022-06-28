@@ -71,12 +71,14 @@ object BSONHandlers {
 
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
   implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
+  implicit val timePressureHandler  = doubleAsIntHandler[TimePressure](_.value, TimePressure.apply, 1000)
 
   implicit def MoveBSONHandler = new BSON[InsightMove] {
     def reads(r: BSON.Reader) =
       InsightMove(
         phase = r.get[Phase]("p"),
         tenths = r.get[Int]("t"),
+        timePressure = r.get[TimePressure]("s"),
         role = r.get[Role]("r"),
         eval = r.intO("e"),
         cpl = r.intO("c"),
@@ -92,6 +94,7 @@ object BSONHandlers {
       BSONDocument(
         "p" -> b.phase,
         "t" -> b.tenths,
+        "s" -> b.timePressure,
         "r" -> b.role,
         "e" -> b.eval,
         "c" -> b.cpl,

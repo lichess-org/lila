@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.{ Color, Role }
+import chess.{ Centis, Clock, Color, Role }
 import scala.concurrent.duration.FiniteDuration
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
@@ -9,7 +9,8 @@ case class MeanRating(value: Int) extends AnyVal
 
 case class InsightMove(
     phase: Phase,
-    tenths: Int,
+    tenths: Int, // tenths of seconds spent thinking
+    timePressure: TimePressure,
     role: Role,
     eval: Option[Int],              // before the move was played, relative to player
     cpl: Option[Int],               // eval diff caused by the move, relative to player, mate ~= 10
@@ -21,6 +22,15 @@ case class InsightMove(
     blur: Boolean,
     timeCv: Option[Float] // time coefficient variation
 )
+
+// 0 (no pressure) to 1 (about to flag)
+case class TimePressure(value: Double) extends AnyVal {}
+
+object TimePressure {
+  def apply(clock: Clock.Config, timeLeft: Centis) = new TimePressure(
+    1 - timeLeft.centis.toDouble / clock.estimateTotalTime.centis
+  )
+}
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
