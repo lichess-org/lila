@@ -70,7 +70,7 @@ private case object TutorOpening {
           family,
           performance = performances.valueMetric(family, myPerformance) map Rating.apply,
           accuracy = accuracy valueMetric family map AccuracyPercent.apply,
-          awareness = awareness valueMetric family map TutorRatio.apply
+          awareness = awareness valueMetric family map TutorRatio.fromPercent
         )
       }
     }

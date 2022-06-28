@@ -29,7 +29,7 @@ private object TutorPhases {
       TutorPhase(
         phase,
         accuracy = accuracy valueMetric phase map AccuracyPercent.apply,
-        awareness = awareness valueMetric phase map TutorRatio.apply
+        awareness = awareness valueMetric phase map TutorRatio.fromPercent
       )
     }
 }

@@ -85,7 +85,7 @@ private object TutorPerfs {
         user.perfType,
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
-        awareness = awareness valueMetric user.perfType map TutorRatio.apply,
+        awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
         openings,
         phases
       )

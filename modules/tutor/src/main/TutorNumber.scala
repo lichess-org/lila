@@ -17,7 +17,7 @@ trait TutorNumber[V] {
 object TutorNumber {
 
   implicit val ratioIsTutorNumber = new TutorNumber[TutorRatio] {
-    val iso = Iso.double[TutorRatio](TutorRatio.apply, _.value)
+    val iso = Iso.double[TutorRatio](TutorRatio.fromPercent, _.percent)
   }
   implicit val doubleIsTutorNumber = new TutorNumber[Double] {
     val iso = Iso.isoIdentity[Double]
