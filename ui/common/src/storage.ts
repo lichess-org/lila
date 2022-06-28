@@ -45,3 +45,22 @@ export const storedJsonProp =
     const ret = JSON.parse(storage.get(key)!);
     return ret !== null ? ret : defaultValue();
   };
+
+export interface StoredMap<T> {
+  (key: string): T;
+  (key: string, value: T): void;
+}
+
+export const storedMap = <T>(propKey: string, maxSize: number, defaultValue: () => T): StoredMap<T> => {
+  const prop = storedJsonProp<[string, T][]>(propKey, () => []);
+  const map = new Map<string, T>(prop());
+  return (key: string, v?: T) => {
+    if (defined(v)) {
+      map.delete(key); // update insertion order as old entries are culled
+      map.set(key, v);
+      prop(Array.from(map.entries()).slice(-maxSize));
+    }
+    const ret = map.get(key);
+    return defined(ret) ? ret : defaultValue();
+  };
+};
