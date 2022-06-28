@@ -12,6 +12,10 @@ export function study(ctrl: AnalyseCtrl) {
           ctrl.study!.vm.tab(tab);
           ctrl.redraw();
         },
+        closeActionMenu: () => {
+          ctrl.actionMenu.open = false;
+          ctrl.redraw();
+        },
       });
     });
 }
