@@ -130,5 +130,11 @@
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Malklara aranĝo</string>
   <string name="whiteIsSlightlyBetter">Blanko estas iomete pli bona</string>
   <string name="blackIsSlightlyBetter">Nigro estas iomete pli bona</string>
+  <string name="whiteIsBetter">Blanko estas pli bona</string>
   <string name="blackIsBetter">Nigro estas pli bona</string>
+  <string name="whiteIsWinning">Blanko estas gajnanta</string>
+  <string name="blackIsWinning">Nigro estas gajnanta</string>
+  <string name="topics">Temoj</string>
+  <string name="myTopics">Miaj temoj</string>
+  <string name="popularTopics">Popularaj temoj</string>
 </resources>
