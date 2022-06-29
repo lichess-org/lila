@@ -146,10 +146,11 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case _      => Grouping.Group
           }
 
-        val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
-        val includeSomeGameIds = gameIdsSlice map AddFields.apply
-        val addGameId          = withPovs option AddFieldToSet("_id")
-        val toPercent          = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
+        val gameIdsSlice        = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
+        val includeSomeGameIds  = gameIdsSlice map AddFields.apply
+        val addGameId           = withPovs option AddFieldToSet("_id")
+        val toPercent           = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
+        val toPercentFromPerMil = $doc("v" -> $doc("$divide" -> $arr("$v", 10)))
 
         def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match {
@@ -320,6 +321,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves($doc(F.moves("o") $exists true)),
                 sampleMoves
               ) :::
+                // TODO wut? $avg?
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
                 List(AddFields(~gameIdsSlice ++ toPercent).some)
             case M.Luck =>
@@ -329,8 +331,17 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves($doc(F.moves("l") $exists true)),
                 sampleMoves
               ) :::
+                // TODO wut? $avg?
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
                 List(AddFields(~gameIdsSlice ++ toPercent).some)
+            case M.TimePressure =>
+              List(
+                projectForMove,
+                unwindMoves,
+                sampleMoves
+              ) :::
+                group(dimension, AvgField(F.moves("s"))) :::
+                List(AddFields(~gameIdsSlice ++ toPercentFromPerMil).some)
             case M.Blurs =>
               List(
                 projectForMove,

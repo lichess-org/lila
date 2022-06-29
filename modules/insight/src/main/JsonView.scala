@@ -90,6 +90,7 @@ final class JsonView {
         "Move",
         List(
           Json.toJson(M.Movetime: Metric),
+          Json.toJson(M.TimePressure: Metric),
           Json.toJson(M.PieceRole: Metric),
           Json.toJson(M.Material: Metric),
           Json.toJson(M.NbMoves: Metric)

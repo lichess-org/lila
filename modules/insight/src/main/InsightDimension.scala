@@ -219,7 +219,7 @@ object InsightDimension {
         "Time pressure",
         F.moves("s"),
         Move,
-        "How close the player is to flagging while making a move. 0% = full time on the clock, 100% = flagging."
+        "How close a player is to flagging while making a move. 0% = full time on the clock, 100% = flagging."
       )
 
   def requiresStableRating(d: InsightDimension[_]) =

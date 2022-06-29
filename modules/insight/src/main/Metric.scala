@@ -184,6 +184,17 @@ object Metric {
         InsightDimension.MaterialRange.description
       )
 
+  case object TimePressure
+      extends Metric(
+        "timePressure",
+        "Time pressure",
+        F moves "s",
+        Move,
+        Move,
+        Average,
+        InsightDimension.TimePressureRange.description
+      )
+
   case object Blurs
       extends Metric(
         "blurs",
@@ -211,6 +222,7 @@ object Metric {
     CplBucket,
     MeanAccuracy,
     Movetime,
+    TimePressure,
     Result,
     Termination,
     Performance,
