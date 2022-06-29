@@ -372,6 +372,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
   protected def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
   protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua dmap { JsonOk(_) }
+  protected def JsonBadRequest(body: JsValue): Result     = BadRequest(body) as JSON
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
   protected val jsonOkResult = JsonOk(jsonOkBody)
