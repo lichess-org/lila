@@ -30,7 +30,7 @@ final class ClasApi(
 
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
-    def of(teacher: User): Fu[List[Clas]] =
+    def of(teacher: User, closed: Boolean = false): Fu[List[Clas]] =
       coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
