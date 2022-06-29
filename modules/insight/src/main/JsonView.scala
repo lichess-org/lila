@@ -58,6 +58,7 @@ final class JsonView {
         List(
           Json.toJson(D.PieceRole: InsightDimension[_]),
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
+          Json.toJson(D.TimePressureRange: InsightDimension[_]),
           Json.toJson(D.MaterialRange: InsightDimension[_]),
           Json.toJson(D.EvalRange: InsightDimension[_]),
           Json.toJson(D.Phase: InsightDimension[_]),

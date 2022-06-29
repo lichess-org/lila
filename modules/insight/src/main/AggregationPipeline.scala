@@ -114,14 +114,26 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 )
               )
             }
+        lazy val timePressureIdDispatcher =
+          TimePressureRange.all.tail.foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR1.id)) {
+            case (acc, tp) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$gte" -> $arr("$" + F.moves("s"), tp.permils)),
+                  tp.id,
+                  acc
+                )
+              )
+          }
         def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {
-            case InsightDimension.MovetimeRange => movetimeIdDispatcher
-            case InsightDimension.CplRange      => cplIdDispatcher
-            case InsightDimension.MaterialRange => materialIdDispatcher
-            case InsightDimension.EvalRange     => evalIdDispatcher
-            case InsightDimension.TimeVariance  => timeVarianceIdDispatcher
-            case d                              => BSONString("$" + d.dbKey)
+            case InsightDimension.MovetimeRange     => movetimeIdDispatcher
+            case InsightDimension.CplRange          => cplIdDispatcher
+            case InsightDimension.MaterialRange     => materialIdDispatcher
+            case InsightDimension.EvalRange         => evalIdDispatcher
+            case InsightDimension.TimeVariance      => timeVarianceIdDispatcher
+            case InsightDimension.TimePressureRange => timePressureIdDispatcher
+            case d                                  => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
         object Grouping {

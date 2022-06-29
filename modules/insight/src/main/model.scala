@@ -28,7 +28,7 @@ case class TimePressure(value: Double) extends AnyVal {}
 
 object TimePressure {
   def apply(clock: Clock.Config, timeLeft: Centis) = new TimePressure(
-    1 - timeLeft.centis.toDouble / clock.estimateTotalTime.centis
+    (1 - timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 1
   )
 }
 
@@ -259,4 +259,18 @@ object EvalRange {
     byId.get(er.id - 1).fold(Int.MinValue)(_.eval),
     er.eval
   )
+}
+
+sealed abstract class TimePressureRange(val id: Int, val name: String, val permils: Int)
+object TimePressureRange {
+  case object TPR1 extends TimePressureRange(1, "No time pressure", 0)
+  case object TPR2 extends TimePressureRange(2, "Light time pressure", 500)
+  case object TPR3 extends TimePressureRange(3, "Medium time pressure", 750)
+  case object TPR4 extends TimePressureRange(4, "Heavy time pressure", 900)
+  case object TPR5 extends TimePressureRange(5, "About to flag", 970)
+  val all: List[TimePressureRange] = List(TPR1, TPR2, TPR3, TPR4, TPR5)
+  val byId = all map { p =>
+    (p.id, p)
+  } toMap
+  def toRange(tpr: TimePressureRange): (Int, Int) = (tpr.permils, byId.get(tpr.id).fold(1000)(_.permils))
 }
