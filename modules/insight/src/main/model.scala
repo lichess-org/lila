@@ -272,5 +272,4 @@ object TimePressureRange {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def toRange(tpr: TimePressureRange): (Int, Int) = (tpr.permils, byId.get(tpr.id).fold(1000)(_.permils))
 }

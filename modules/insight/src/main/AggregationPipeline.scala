@@ -115,12 +115,12 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               )
             }
         lazy val timePressureIdDispatcher =
-          TimePressureRange.all.tail.foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR1.id)) {
+          TimePressureRange.all.tail.reverse.foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR5.id)) {
             case (acc, tp) =>
               $doc(
                 "$cond" -> $arr(
-                  $doc("$gte" -> $arr("$" + F.moves("s"), tp.permils)),
-                  tp.id,
+                  $doc("$lt" -> $arr("$" + F.moves("s"), tp.permils)),
+                  tp.id - 1,
                   acc
                 )
               )
