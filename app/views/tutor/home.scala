@@ -79,6 +79,7 @@ object home {
       div(cls := "tutor-card__content")(
         bits.peerComparison("Accuracy", perfReport.accuracy),
         bits.peerComparison("Tactical Awareness", perfReport.awareness),
+        bits.peerComparison("Time pressure", perfReport.timePressure),
         ul(perfReport.relevantComparisons.topN(3) map compare.show),
         bits.seeMore
       )

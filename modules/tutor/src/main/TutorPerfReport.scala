@@ -26,6 +26,7 @@ case class TutorPerfReport(
     stats: InsightPerfStats,
     accuracy: TutorMetricOption[AccuracyPercent],
     awareness: TutorMetricOption[TutorRatio],
+    timePressure: TutorMetricOption[TimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -45,6 +46,12 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
+  lazy val pressureCompare = TutorCompare[PerfType, TimePressure](
+    InsightDimension.Perf,
+    Metric.TimePressure,
+    List((perf, timePressure))
+  )
+
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, _]] = openings.all.toList.flatMap { op =>
@@ -59,7 +66,9 @@ case class TutorPerfReport(
   val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)) _
 
   val relevantComparisons: List[AnyComparison] =
-    openingCompares.flatMap(_.allComparisons) ::: phaseCompares.flatMap(_.peerComparisons)
+    openingCompares.flatMap(_.allComparisons) :::
+      phaseCompares.flatMap(_.peerComparisons) :::
+      pressureCompare.peerComparisons
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
@@ -71,12 +80,18 @@ private object TutorPerfs {
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, Metric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, Metric.Awareness)
+  private val pressureQuestion = Question(
+    InsightDimension.Perf,
+    Metric.TimePressure,
+    List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
+  )
 
   def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
     accuracy  <- answerManyPerfs(accuracyQuestion, users)
     awareness <- answerManyPerfs(awarenessQuestion, users)
+    pressure  <- answerManyPerfs(pressureQuestion, users)
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -86,6 +101,7 @@ private object TutorPerfs {
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
+        timePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
         openings,
         phases
       )
