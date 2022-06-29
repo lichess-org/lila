@@ -89,3 +89,8 @@ lichess.studyTourChapter = function (study) {
     tour.start();
   });
 };
+lichess.cancelCurrentTour = function () {
+  if (Shepherd.activeTour) {
+    Shepherd.activeTour.cancel()
+  }
+}

@@ -33,6 +33,7 @@ interface Lichess {
   announce(d: LichessAnnouncement): void;
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
+  cancelCurrentTour(): void;
 
   siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;

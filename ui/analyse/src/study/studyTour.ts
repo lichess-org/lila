@@ -23,3 +23,9 @@ export function chapter(setTab: (tab: string) => void) {
     });
   });
 }
+
+export function cancelCurrentTour() {
+  lichess.loadScript('javascripts/study/tour-chapter.js').then(() => {
+    window.lichess['cancelCurrentTour']();
+  });
+}
