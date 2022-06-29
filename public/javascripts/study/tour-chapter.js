@@ -90,7 +90,7 @@ lichess.studyTourChapter = function (study) {
   });
 };
 lichess.cancelCurrentTour = function () {
-  if (Shepherd.activeTour) {
-    Shepherd.activeTour.cancel()
+  if (typeof Shepherd !== 'undefined' && Shepherd.activeTour) {
+    Shepherd.activeTour.cancel();
   }
-}
+};
