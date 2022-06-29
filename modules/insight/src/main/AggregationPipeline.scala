@@ -146,11 +146,11 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case _      => Grouping.Group
           }
 
-        val gameIdsSlice        = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
-        val includeSomeGameIds  = gameIdsSlice map AddFields.apply
-        val addGameId           = withPovs option AddFieldToSet("_id")
-        val toPercent           = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
-        val toPercentFromPerMil = $doc("v" -> $doc("$divide" -> $arr("$v", 10)))
+        val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
+        val includeSomeGameIds = gameIdsSlice map AddFields.apply
+        val addGameId          = withPovs option AddFieldToSet("_id")
+        val ratioToPercent     = $doc("v" -> $doc("$multiply" -> $arr(100, "$v")))
+        val perMilToPercent    = $doc("v" -> $doc("$divide" -> $arr("$v", 10)))
 
         def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match {
@@ -321,9 +321,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves($doc(F.moves("o") $exists true)),
                 limitMoves
               ) :::
-                // TODO wut? $avg?
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
-                List(AddFields(~gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.Luck =>
               List(
                 projectForMove,
@@ -331,9 +330,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves($doc(F.moves("l") $exists true)),
                 limitMoves
               ) :::
-                // TODO wut? $avg?
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
-                List(AddFields(~gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.TimePressure =>
               List(
                 projectForMove,
@@ -341,7 +339,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 limitMoves
               ) :::
                 group(dimension, AvgField(F.moves("s"))) :::
-                List(AddFields(~gameIdsSlice ++ toPercentFromPerMil).some)
+                List(AddFields(~gameIdsSlice ++ perMilToPercent).some)
             case M.Blurs =>
               List(
                 projectForMove,
@@ -349,8 +347,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 matchMoves(),
                 limitMoves
               ) :::
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
-                List(AddFields(~gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.NbMoves =>
               List(
                 projectForMove,
