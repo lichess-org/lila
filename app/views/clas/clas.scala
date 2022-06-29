@@ -40,7 +40,9 @@ object clas {
       )
     }
 
-  def teacherIndex(classes: List[Clas])(implicit ctx: Context) =
+  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) = {
+    val (active, archived) = classes.partition(_.isActive)
+    val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
@@ -52,11 +54,21 @@ object clas {
           dataIcon := ""
         )
       ),
-      if (classes.isEmpty)
+      if (current.isEmpty)
         frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
       else
-        renderClasses(classes)
+        renderClasses(current),
+      (closed || others.nonEmpty) option div(cls := "clas-index__others")(
+        a(href := s"${routes.Clas.index}?closed=${!closed}")(
+          "And ",
+          others.size.localize,
+          " ",
+          if (closed) "active" else "archived",
+          " classes"
+        )
+      )
     )
+  }
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(

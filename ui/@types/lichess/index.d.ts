@@ -288,6 +288,7 @@ interface Study {
   userId?: string | null;
   isContrib?: boolean;
   isOwner?: boolean;
+  closeActionMenu?(): void;
   setTab(tab: string): void;
 }
 

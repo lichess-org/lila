@@ -17,7 +17,7 @@ trait TutorNumber[V] {
 object TutorNumber {
 
   implicit val ratioIsTutorNumber = new TutorNumber[TutorRatio] {
-    val iso = Iso.double[TutorRatio](TutorRatio.apply, _.value)
+    val iso = Iso.double[TutorRatio](TutorRatio.fromPercent, _.percent)
   }
   implicit val doubleIsTutorNumber = new TutorNumber[Double] {
     val iso = Iso.isoIdentity[Double]
@@ -28,5 +28,9 @@ object TutorNumber {
   implicit val ratingIsTutorNumber = new TutorNumber[Rating] {
     val iso                                    = Iso.double[Rating](Rating.apply, _.value)
     override def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
+  }
+  implicit val pressureIsTutorNumber = new TutorNumber[TimePressure] {
+    val iso = Iso.double[TimePressure](TimePressure.fromPercent, _.percent)
+    override def compare(a: TimePressure, b: TimePressure) = ValueComparison(iso.to(b), iso.to(a))
   }
 }

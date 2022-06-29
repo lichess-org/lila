@@ -27,9 +27,14 @@
 
 .mod-games {
   &__filter-form {
+    > *:not(:first-child) {
+      margin-left: 1em;
+    }
     select {
       max-width: 30ch;
-      margin-left: 1em;
+    }
+    input[name='nbGamesOpt'] {
+      width: 14ch;
     }
   }
 }

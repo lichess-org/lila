@@ -61,6 +61,6 @@ object perf {
           h3(cls := "tutor-card__top__title__text")(title)
         )
       ),
-      div(cls := "tutor-card__content")(content, bits.seeMore)
+      div(cls := "tutor-card__content")(content)
     )
 }

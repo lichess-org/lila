@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, LilaStream, LilaScheduler }
+import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 

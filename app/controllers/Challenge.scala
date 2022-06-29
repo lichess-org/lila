@@ -337,7 +337,7 @@ final class Challenge(
                       case _ =>
                         destUser ?? { env.challenge.granter.isDenied(me.some, _, config.perfType) } flatMap {
                           case Some(denied) =>
-                            BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+                            JsonBadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
                           case _ =>
                             env.challenge.api create challenge map {
                               case true =>
@@ -349,9 +349,9 @@ final class Challenge(
                                   )
                                 else JsonOk(json)
                               case false =>
-                                BadRequest(jsonError("Challenge not created"))
+                                JsonBadRequest(jsonError("Challenge not created"))
                             }
-                        } map (_ as JSON)
+                        }
                     }
                   }(rateLimitedFu)
                 }(rateLimitedFu)

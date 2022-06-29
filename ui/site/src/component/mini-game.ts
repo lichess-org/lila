@@ -30,17 +30,20 @@ export const init = (node: HTMLElement) => {
       $cg = $el.find('.cg-wrap'),
       turnColor = fenColor(fen);
     domData.set($cg[0] as HTMLElement, 'chessground', window.Chessground($cg[0], config));
-    ['white', 'black'].forEach(color =>
+    ['white', 'black'].forEach((color: Color) =>
       $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
         clockWidget(this, {
           time: parseInt(this.getAttribute('data-time')!),
-          pause: color != turnColor,
+          pause: color != turnColor || !clockIsRunning(fen, color),
         });
       })
     );
   }
   return node.getAttribute('data-live');
 };
+
+const clockIsRunning = (fen: string, color: Color) =>
+  color == 'white' ? !fen.includes('PPPPPPPP/RNBQKBNR') : !fen.startsWith('rnbqkbnr/pppppppp');
 
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
@@ -59,11 +62,11 @@ export const update = (node: HTMLElement, data: UpdateData) => {
       lastMove,
     });
   const turnColor = fenColor(data.fen);
-  const renderClock = (time: number | undefined, color: string) => {
+  const renderClock = (time: number | undefined, color: Color) => {
     if (!isNaN(time!))
       clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
-        pause: color != turnColor,
+        pause: color != turnColor || !clockIsRunning(data.fen, color),
       });
   };
   renderClock(data.wc, 'white');

@@ -46,6 +46,14 @@ object TutorRatio {
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
 }
 
+case class TimePressure(value: Double) extends AnyVal {
+  def percent = value * 100
+}
+object TimePressure {
+  def fromPercent(p: Double): TimePressure = TimePressure(p / 100)
+  implicit val ordering                    = Ordering.by[TimePressure, Double](-_.value)
+}
+
 // value from -1 (worse) to +1 (best)
 case class ValueComparison private (value: Double) {
 
