@@ -294,7 +294,7 @@ object index {
           a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
           ".",
           br,
-          views.html.site.contact.contactEmailLinkEmpty(bankTransfers()),
+          views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",
           br,
           strong("Please note that only the donation form above will grant the Patron status.")

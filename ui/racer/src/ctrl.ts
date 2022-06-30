@@ -133,6 +133,7 @@ export default class RacerCtrl {
       : undefined;
 
   end = (): void => {
+    this.pushToHistory(false); // add last unsolved puzzle
     this.setGround();
     this.redraw();
     sound.end();
@@ -220,14 +221,21 @@ export default class RacerCtrl {
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
   private incPuzzle = (win: boolean): boolean => {
+    this.pushToHistory(win);
     const index = this.run.current.index;
-    this.run.history.push({ puzzle: this.data.puzzles[index], win, millis: getNow() - this.run.current.startAt });
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
       return true;
     }
     return false;
   };
+
+  private pushToHistory = (win: boolean) =>
+    this.run.history.push({
+      puzzle: this.data.puzzles[this.run.current.index],
+      win,
+      millis: getNow() - this.run.current.startAt,
+    });
 
   withGround: WithGround = f => {
     const g = this.ground();

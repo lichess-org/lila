@@ -6,16 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{
-  Rating,
-  TutorFullReport,
-  TutorMetric,
-  TutorMetricOption,
-  TutorNumber,
-  TutorRatio,
-  ValueComparison,
-  ValueCount
-}
+import lila.tutor.{ Rating, TutorFullReport, TutorMetricOption, TutorNumber, ValueCount }
 import play.api.i18n.Lang
 
 object bits {

@@ -213,6 +213,15 @@ object InsightDimension {
         "Stockfish evaluation of the position, relative to the player, in centipawns."
       )
 
+  case object TimePressureRange
+      extends InsightDimension[TimePressureRange](
+        "timePressure",
+        "Time pressure",
+        F.moves("s"),
+        Move,
+        "How close a player is to flagging while making a move. 0% = full time on the clock, 100% = flagging."
+      )
+
   def requiresStableRating(d: InsightDimension[_]) =
     d match {
       case OpponentStrength => true
@@ -238,6 +247,7 @@ object InsightDimension {
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
       case EvalRange               => lila.insight.EvalRange.all
+      case TimePressureRange       => lila.insight.TimePressureRange.all
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
     }
@@ -261,6 +271,7 @@ object InsightDimension {
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
+      case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byId.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
@@ -291,6 +302,7 @@ object InsightDimension {
       case QueenTrade              => v.id
       case MaterialRange           => v.id
       case EvalRange               => v.id
+      case TimePressureRange       => v.id
       case Blur                    => v.id
       case TimeVariance            => v.id
     }).toString
@@ -314,6 +326,7 @@ object InsightDimension {
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
       case EvalRange               => JsString(v.name)
+      case TimePressureRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
     }

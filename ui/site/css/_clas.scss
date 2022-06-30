@@ -127,6 +127,11 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
     }
   }
+
+  &__others {
+    padding: $block-gap;
+    text-align: right;
+  }
 }
 
 .clas-show {

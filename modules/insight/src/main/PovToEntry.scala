@@ -3,7 +3,7 @@ package lila.insight
 import cats.data.NonEmptyList
 import chess.format.{ FEN, Forsyth }
 import chess.opening.FullOpeningDB
-import chess.{ Centis, Role, Situation, Stats }
+import chess.{ Centis, Clock, Role, Situation, Stats }
 import scala.util.chaining._
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
@@ -16,7 +16,9 @@ case class RichPov(
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
     situations: NonEmptyList[Situation],
-    movetimes: NonEmptyList[Centis],
+    clock: Clock.Config,
+    movetimes: Vector[Centis],
+    clockStates: Vector[Centis],
     advices: Map[Ply, Advice]
 ) {
   lazy val division = chess.Divider(situations.map(_.board).toList)
@@ -57,13 +59,17 @@ final private class PovToEntry(
                   )
                   .toOption
                   .flatMap(_.toNel)
-              movetimes <- game.moveTimes(pov.color).flatMap(_.toNel)
+              clock       <- game.clock
+              movetimes   <- game moveTimes pov.color
+              clockStates <- game.clockHistory.map(_(pov.color))
             } yield RichPov(
               pov = pov,
               provisional = provisional,
               analysis = an,
               situations = situations,
-              movetimes = movetimes,
+              clock = clock.config,
+              movetimes = movetimes.toVector,
+              clockStates = clockStates,
               advices = an.?? {
                 _.advices.view.map { a =>
                   a.info.ply -> a
@@ -94,8 +100,7 @@ final private class PovToEntry(
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
-    val movetimes = from.movetimes.toList
-    val roles     = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
     val situations = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.situations.toList.zipWithIndex.collect {
@@ -104,11 +109,17 @@ final private class PovToEntry(
     }
     val blurs = {
       val bools = from.pov.player.blurs.booleans
-      bools ++ Array.fill(movetimes.size - bools.length)(false)
+      bools ++ Array.fill(from.movetimes.size - bools.length)(false)
     }
-    val timeCvs = slidingMoveTimesCvs(movetimes)
-    movetimes.zip(roles).zip(situations).zip(blurs).zip(timeCvs).zipWithIndex.map {
-      case (((((movetime, role), situation), blur), timeCv), i) =>
+    val timeCvs = slidingMoveTimesCvs(from.movetimes)
+    from.clockStates.toList
+      .zip(from.movetimes)
+      .zip(roles)
+      .zip(situations)
+      .zip(blurs)
+      .zip(timeCvs)
+      .zipWithIndex
+      .map { case ((((((clock, movetime), role), situation), blur), timeCv), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
@@ -138,6 +149,7 @@ final private class PovToEntry(
         InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
+          timePressure = TimePressure(from.clock, clock),
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
@@ -149,10 +161,10 @@ final private class PovToEntry(
           blur = blur,
           timeCv = timeCv
         )
-    }
+      }
   }
 
-  private def slidingMoveTimesCvs(movetimes: Seq[Centis]): Seq[Option[Float]] = {
+  private def slidingMoveTimesCvs(movetimes: Vector[Centis]): Seq[Option[Float]] = {
     val sliding = 13 // should be odd
     val nb      = movetimes.size
     if (nb < sliding) Vector.fill(nb)(none[Float])
