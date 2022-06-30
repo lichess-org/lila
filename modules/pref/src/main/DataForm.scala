@@ -18,12 +18,12 @@ object DataForm {
     mapping(
       "display" -> mapping(
         "animation"       -> number.verifying(Set(0, 1, 2, 3) contains _),
-        "captured"        -> booleanNumber,
+        "coords"          -> checkedNumber(Pref.Coords.choices),
         "highlightLastDests" -> booleanNumber,
         "highlightCheck"    -> booleanNumber,
+        "squareOverlay"   -> booleanNumber,
         "destination"     -> booleanNumber,
         "dropDestination" -> booleanNumber,
-        "coords"          -> checkedNumber(Pref.Coords.choices),
         "replay"          -> checkedNumber(Pref.Replay.choices),
         "zen"             -> optional(booleanNumber),
         "resizeHandle"    -> optional(checkedNumber(Pref.ResizeHandle.choices)),
@@ -40,7 +40,6 @@ object DataForm {
       "clock" -> mapping(
         "tenths"    -> checkedNumber(Pref.ClockTenths.choices),
         "countdown" -> checkedNumber(Pref.ClockCountdown.choices),
-        "bar"       -> booleanNumber,
         "sound"     -> booleanNumber,
         "moretime"  -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
@@ -54,12 +53,12 @@ object DataForm {
 
   case class DisplayData(
       animation: Int,
-      captured: Int,
+      coords: Int,
       highlightLastDests: Int,
       highlightCheck: Int,
+      squareOverlay: Int,
       destination: Int,
       dropDestination: Int,
-      coords: Int,
       replay: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
@@ -78,7 +77,6 @@ object DataForm {
   case class ClockData(
       tenths: Int,
       countdown: Int,
-      bar: Int,
       sound: Int,
       moretime: Int
   )
@@ -100,11 +98,11 @@ object DataForm {
         moretime = clock.moretime,
         clockTenths = clock.tenths,
         clockCountdown = clock.countdown,
-        clockBar = clock.bar == 1,
         clockSound = clock.sound == 1,
         follow = follow == 1,
         highlightLastDests = display.highlightLastDests == 1,
         highlightCheck = display.highlightCheck == 1,
+        squareOverlay = display.squareOverlay  == 1,
         destination = display.destination == 1,
         dropDestination = display.dropDestination == 1,
         coords = display.coords,
@@ -118,7 +116,6 @@ object DataForm {
         submitMove = behavior.submitMove,
         insightShare = insightShare,
         confirmResign = behavior.confirmResign,
-        captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -130,14 +127,14 @@ object DataForm {
     def apply(pref: Pref): PrefData =
       PrefData(
         display = DisplayData(
+          coords = pref.coords,
           highlightLastDests = if (pref.highlightLastDests) 1 else 0,
           highlightCheck = if (pref.highlightCheck) 1 else 0,
+          squareOverlay = if (pref.squareOverlay) 1 else 0,
           destination = if (pref.destination) 1 else 0,
           dropDestination = if (pref.dropDestination) 1 else 0,
           animation = pref.animation,
-          coords = pref.coords,
           replay = pref.replay,
-          captured = if (pref.captured) 1 else 0,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
@@ -153,7 +150,6 @@ object DataForm {
         clock = ClockData(
           tenths = pref.clockTenths,
           countdown = pref.clockCountdown,
-          bar = if (pref.clockBar) 1 else 0,
           sound = if (pref.clockSound) 1 else 0,
           moretime = pref.moretime
         ),
@@ -193,7 +189,9 @@ object DataForm {
 
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText
+      "bgImg" -> text.verifying { url =>
+        url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
+      }
     )
   )
 
@@ -208,4 +206,20 @@ object DataForm {
       "notation" -> text.verifying(Set("0", "1", "2", "3") contains _)
     )
   )
+
+  val customTheme = Form(
+    mapping(
+      "boardColor" -> text(maxLength = 30),
+      "boardImg"   -> text.verifying { url =>
+          url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
+        },
+      "gridColor"  -> text(maxLength = 30),
+      "gridWidth"  -> number.verifying(Set(0, 1, 2, 3) contains _),
+      "handsColor" -> text(maxLength = 30),
+      "handsImg"   -> text.verifying { url =>
+          url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
+        },
+    )(CustomTheme.apply)(CustomTheme.unapply)
+  )
+
 }

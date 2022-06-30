@@ -7,6 +7,29 @@ import lila.db.dsl._
 
 private object PrefHandlers {
 
+  implicit val customThemeBSONHandler = new BSON[CustomTheme] {
+
+    def reads(r: BSON.Reader): CustomTheme =
+      CustomTheme(
+        boardColor = r str "bc",
+        boardImg   = r str "bi",
+        gridColor  = r str "gc",
+        gridWidth  = r int "gw",
+        handsColor  = r str "hc",
+        handsImg    = r str "hi"
+      )
+
+    def writes(w: BSON.Writer, o: CustomTheme) =
+      BSONDocument(
+        "bc" -> w.str(o.boardColor),
+        "bi" -> w.str(o.boardImg),
+        "gc" -> w.str(o.gridColor),
+        "gw" -> w.int(o.gridWidth),
+        "hc" -> w.str(o.handsColor),
+        "hi" -> w.str(o.handsImg)
+      )
+  }
+
   implicit val prefBSONHandler = new BSON[Pref] {
     
     def reads(r: BSON.Reader): Pref =
@@ -16,6 +39,7 @@ private object PrefHandlers {
         transp = r.getD("transp", Pref.default.transp),
         bgImg = r.strO("bgImg"),
         theme = r.getD("theme", Pref.default.theme),
+        customTheme = r.getO[CustomTheme]("customTheme"),
         pieceSet = r.getD("pieceSet", Pref.default.pieceSet),
         soundSet = r.getD("soundSet", Pref.default.soundSet),
         blindfold = r.getD("blindfold", Pref.default.blindfold),
@@ -23,11 +47,9 @@ private object PrefHandlers {
         moretime = r.getD("moretime", Pref.default.moretime),
         clockTenths = r.getD("clockTenths", Pref.default.clockTenths),
         clockCountdown = r.getD("clockCountdown", Pref.default.clockCountdown),
-        clockBar = r.getD("clockBar", Pref.default.clockBar),
         clockSound = r.getD("clockSound", Pref.default.clockSound),
         premove = r.getD("premove", Pref.default.premove),
         animation = r.getD("animation", Pref.default.animation),
-        captured = r.getD("captured", Pref.default.captured),
         follow = r.getD("follow", Pref.default.follow),
         highlightLastDests = r.getD("highlightLastDests", Pref.default.highlightLastDests),
         highlightCheck = r.getD("highlightCheck", Pref.default.highlightCheck),
@@ -46,6 +68,7 @@ private object PrefHandlers {
         zen = r.getD("zen", Pref.default.zen),
         notation = r.getD("notation", Pref.default.notation),
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
+        squareOverlay = r.getD("squareOverlay", Pref.default.squareOverlay),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         tags = r.getD("tags", Pref.default.tags)
       )
@@ -57,6 +80,7 @@ private object PrefHandlers {
         "transp"          -> o.transp,
         "bgImg"           -> o.bgImg,
         "theme"           -> o.theme,
+        "customTheme"     -> o.customTheme,
         "pieceSet"        -> o.pieceSet,
         "soundSet"        -> SoundSet.name2key(o.soundSet),
         "blindfold"       -> o.blindfold,
@@ -64,14 +88,13 @@ private object PrefHandlers {
         "moretime"        -> o.moretime,
         "clockTenths"     -> o.clockTenths,
         "clockCountdown"  -> o.clockCountdown,
-        "clockBar"        -> o.clockBar,
         "clockSound"      -> o.clockSound,
         "premove"         -> o.premove,
         "animation"       -> o.animation,
-        "captured"        -> o.captured,
         "follow"          -> o.follow,
         "highlightLastDests" -> o.highlightLastDests,
-        "highlightCheck"    -> o.highlightCheck,
+        "highlightCheck"  -> o.highlightCheck,
+        "squareOverlay"   -> o.squareOverlay,
         "destination"     -> o.destination,
         "dropDestination" -> o.dropDestination,
         "coords"          -> o.coords,

@@ -16,7 +16,6 @@ object FormCompatLayer {
         List(
           "clockTenths"    -> "tenths",
           "clockCountdown" -> "countdown",
-          "clockBar"       -> "bar",
           "clockSound"     -> "sound",
           "moretime"       -> "moretime"
         )
@@ -37,12 +36,12 @@ object FormCompatLayer {
         "display",
         List(
           "animation",
-          "captured",
+          "coords",
           "highlightLastDests",
           "highlightCheck",
+          "squareOverlay",
           "destination",
           "dropDestination",
-          "coords",
           "replay",
           "blindfold"
         )

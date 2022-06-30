@@ -4,12 +4,15 @@ import play.api.libs.json._
 
 object JsonView {
 
+  implicit val CustomThemeWriter = Json.writes[CustomTheme]
+
   implicit val prefJsonWriter = OWrites[Pref] { p =>
     Json.obj(
       "dark"            -> p.dark,
       "transp"          -> p.transp,
       "bgImg"           -> p.bgImgOrDefault,
       "theme"           -> p.theme,
+      "customTheme"     -> p.customThemeOrDefault,
       "pieceSet"        -> p.pieceSet,
       "soundSet"        -> p.soundSet,
       "notation"        -> p.notation,
@@ -18,14 +21,13 @@ object JsonView {
       "moretime"        -> p.moretime,
       "clockTenths"     -> p.clockTenths,
       "clockCountdown"  -> p.clockCountdown,
-      "clockBar"        -> p.clockBar,
       "clockSound"      -> p.clockSound,
       "premove"         -> p.premove,
       "animation"       -> p.animation,
-      "captured"        -> p.captured,
       "follow"          -> p.follow,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"    -> p.highlightCheck,
+      "squareOverlay"   -> p.squareOverlay,
       "destination"     -> p.destination,
       "dropDestination" -> p.dropDestination,
       "coords"          -> p.coords,

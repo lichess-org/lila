@@ -19,17 +19,26 @@ object RequestPref {
     def paramOrSession(name: String): Option[String] =
       queryParam(req, name) orElse req.session.get(name)
 
-    val bg       = paramOrSession("bg") | "light"
-    val notation = paramOrSession("notation").flatMap(_.toIntOption)
+    val customTheme = CustomTheme(
+        boardColor = paramOrSession("boardColor") | CustomTheme.default.boardColor,
+        boardImg = paramOrSession("boardImg") | CustomTheme.default.boardImg,
+        gridColor = paramOrSession("gridColor") | CustomTheme.default.gridColor,
+        gridWidth = paramOrSession("gridWidth").flatMap(_.toIntOption) | CustomTheme.default.gridWidth,
+        handsColor = paramOrSession("handsColor") | CustomTheme.default.handsColor,
+        handsImg = paramOrSession("handsImg") | CustomTheme.default.handsImg,
+      ).some.filterNot(_ == CustomTheme.default)
+    val bg = paramOrSession("bg") | "light"
+    val theme = paramOrSession("theme") | default.theme
 
     default.copy(
       dark = bg != "light",
       transp = bg == "transp",
-      theme = paramOrSession("theme") | default.theme,
-      pieceSet = req.session.data.getOrElse("pieceSet", default.pieceSet),
-      soundSet = req.session.data.getOrElse("soundSet", default.soundSet),
-      bgImg = req.session.data.get("bgImg"),
-      notation = notation | default.notation
+      theme = theme,
+      pieceSet = paramOrSession("pieceSet") | default.pieceSet,
+      soundSet = paramOrSession("soundSet") | default.soundSet,
+      bgImg = paramOrSession("bgImg"),
+      notation = paramOrSession("notation").flatMap(_.toIntOption) | default.notation,
+      customTheme = customTheme
     )
   }
 

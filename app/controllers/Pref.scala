@@ -53,9 +53,17 @@ final class Pref(env: Env) extends LilaController(env) {
     OpenBody { implicit ctx =>
       if (name == "zoom") {
         Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+      }
+      else if (name == "customTheme") {
+        implicit val req = ctx.body
+        FormResult(forms.customTheme) { v => 
+          saveCustomTheme(v, ctx) map { cookie =>
+            Ok(()).withCookies(cookie)
+          }
+        }
       } else {
         implicit val req = ctx.body
-        (setters get name) ?? { case (form, fn) =>
+        (setters get name) ?? { case (form, fn) => 
           FormResult(form) { v =>
             fn(v, ctx) map { cookie =>
               Ok(()).withCookies(cookie)
@@ -87,11 +95,25 @@ final class Pref(env: Env) extends LilaController(env) {
     "bg"            -> (forms.bg            -> save("bg") _),
     "bgImg"         -> (forms.bgImg         -> save("bgImg") _),
     "zen"           -> (forms.zen           -> save("zen") _),
-    "notation" -> (forms.notation -> save("notation") _)
+    "notation"      -> (forms.notation      -> save("notation") _),
   )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(ctx.req)
+
+  private def saveCustomTheme(ct: lila.pref.CustomTheme, ctx: Context): Fu[Cookie] =
+    ctx.me ?? {
+      api.setPref(_, p => p.copy(customTheme = ct.some))
+    } inject env.lilaCookie.withSession{ s =>
+      s ++ List(
+        ("boardColor" -> ct.boardColor),
+        ("boardImg" -> ct.boardImg),
+        ("gridColor" -> ct.gridColor),
+        ("gridWidth" -> ct.gridWidth.toString),
+        ("handsColor" -> ct.handsColor),
+        ("handsImg" -> ct.handsImg)
+      )
+    }(ctx.req)
 }

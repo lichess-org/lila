@@ -6,6 +6,7 @@ case class Pref(
     transp: Boolean,
     bgImg: Option[String],
     theme: String,
+    customTheme: Option[CustomTheme],
     pieceSet: String,
     soundSet: String,
     blindfold: Int,
@@ -13,17 +14,16 @@ case class Pref(
     moretime: Int,
     clockTenths: Int,
     clockCountdown: Int,
-    clockBar: Boolean,
     clockSound: Boolean,
     premove: Boolean,
     animation: Int,
-    captured: Boolean,
     follow: Boolean,
+    coords: Int,
     highlightLastDests: Boolean,
     highlightCheck: Boolean,
+    squareOverlay: Boolean,
     destination: Boolean,
     dropDestination: Boolean,
-    coords: Int,
     replay: Int,
     challenge: Int,
     message: Int,
@@ -44,12 +44,9 @@ case class Pref(
 
   def id = _id
 
-  def realTheme     = Theme(theme)
-  def realPieceSet  = PieceSet(pieceSet)
+  def isUsingCustomTheme = theme == "custom"
 
   def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
-
-  def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
   def coordsClass    = Coords classOf coords
@@ -96,6 +93,8 @@ case class Pref(
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
+
+  def customThemeOrDefault = customTheme | CustomTheme.default
 
   def isZen = zen == Zen.YES
 }
@@ -351,19 +350,19 @@ object Pref {
     transp = false,
     bgImg = none,
     theme = Theme.default.name,
+    customTheme = none,
     pieceSet = PieceSet.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,
-    clockBar = true,
     clockSound = true,
     premove = true,
     animation = 2,
-    captured = true,
     follow = true,
     highlightLastDests = true,
     highlightCheck = true,
+    squareOverlay = true,
     destination = true,
     dropDestination = true,
     coords = Coords.OUTSIDE,
