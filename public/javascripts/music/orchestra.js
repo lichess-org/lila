@@ -37,7 +37,7 @@ function lishogiOrchestra() {
     instruments.swells.push(
       new Howl({
         src: makeSoundPair('swells/swell' + i),
-        volume: 0.8,
+        volume: 0.5,
       })
     );
   }

@@ -5,55 +5,37 @@ lishogi.playMusic = function () {
     orchestra = lishogiOrchestra();
   });
 
-  var isPawn = function (san) {
-    return san[0] === san[0].toLowerCase();
-  };
-  var isKing = function (san) {
-    return san[0] === 'K';
+  var isPawn = function(notation) {
+    return notation && (notation.includes("P") || notation.includes("歩"));
+  }
+
+  // support 12x12 board
+  var rankToInt = function (file) {
+    return 'abcdefghijkl'.indexOf(file);
   };
 
-  var hasCastle = function (san) {
-    return san.startsWith('O-O');
-  };
-  var hasCheck = function (san) {
-    return san.includes('+');
-  };
-  var hasMate = function (san) {
-    return san.includes('#');
-  };
-  var hasCapture = function (san) {
-    return san.includes('x');
-  };
-
-  // a -> 0
-  // c -> 2
-  var fileToInt = function (file) {
-    return 'abcdefgh'.indexOf(file);
-  };
-
-  // c7 = 2 * 8 + 7 = 23
+  // 7f = (7 - 1) * 12 + 5 = 77
   var keyToInt = function (key) {
-    return fileToInt(key[0]) * 8 + parseInt(key[1]) - 1;
+    return (parseInt(key[0]) - 1) * 12 + rankToInt(key[1]);
   };
 
-  var usiBase = 64;
+  var usiBase = 122;
 
   var keyToPitch = function (key) {
     return keyToInt(key) / (usiBase / 23);
   };
 
   var jump = function (node) {
-    if (node.san) {
+    if (node.usi) {
       var pitch = keyToPitch(node.usi.slice(2));
-      var instrument = isPawn(node.san) || isKing(node.san) ? 'clav' : 'celesta';
+      var instrument = isPawn(node.notation) ? 'clav' : 'celesta';
       orchestra.play(instrument, pitch);
-      if (hasCastle(node.san)) orchestra.play('swells', pitch);
-      else if (hasCheck(node.san)) orchestra.play('swells', pitch);
-      else if (hasCapture(node.san)) {
+      if (node.check) orchestra.play('swells', pitch);
+      else if (node.capture) {
         orchestra.play('swells', pitch);
         var capturePitch = keyToPitch(node.usi.slice(0, 2));
         orchestra.play(instrument, capturePitch);
-      } else if (hasMate(node.san)) orchestra.play('swells', pitch);
+      }
     } else {
       orchestra.play('swells', 0);
     }
