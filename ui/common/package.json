@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "shogiground": "^0.5.3",
-    "shogiops": "^0.8.0"
+    "shogiops": "^0.8.1"
   }
 }
