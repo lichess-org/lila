@@ -1,11 +1,11 @@
 $board-files: (
-  'wood1': 'wood1.png',
+  'wood': 'wood.png',
   'kaya1': 'kaya1.jpg',
   'kaya2': 'kaya2.jpg',
   'oak': 'oak.png',
-  'Painting1': 'Painting1.jpg',
-  'Painting2': 'Painting2.jpg',
-  'Kinkaku': 'Kinkaku.jpg',
+  'painting1': 'painting1.jpg',
+  'painting2': 'painting2.jpg',
+  'kinkaku': 'kinkaku.jpg',
   'space': 'space.png',
   'doubutsu': 'doubutsu.png',
 );
@@ -176,7 +176,7 @@ sg-squares {
   }
 }
 
-.solid-natural {
+.natural {
   sg-board, dasher_app .piece .list {
     background-color: #ffd890;
   }
@@ -187,7 +187,7 @@ sg-squares {
   }
 }
 
-.solid-orange {
+.orange {
   sg-board, dasher_app .piece .list {
     background-color: #f4bf57;
   }
@@ -227,27 +227,79 @@ sg-squares {
 }
 
 .custom {
-  sg-squares {
-    background-color: var(--c-b-color-bg, transparent);
-    background-image: var(--c-b-url-bg, transparent);
-    border-top: 1px solid var(--c-b-grid, $c-font);
-    border-left: 1px solid var(--c-b-grid, $c-font);
+  #dasher_app .piece .list {
+    background-color: var(--c-board-color, transparent);
+    background-image: var(--c-board-url, none);
+  }
+  sg-board {
+    background-color: var(--c-board-color, transparent);
+    background-image: var(--c-board-url, none);
+    sg-squares {
+      border-top: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border-left: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+    }
     sq {
-      border-bottom: 1px solid var(--c-b-grid, $c-font);
-      border-right: 1px solid var(--c-b-grid, $c-font);
+      border-bottom: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border-right: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
       &::after {
-        background-color: var(--c-b-grid, $c-font) !important;
+        background-color: var(--c-grid-color, $c-font) !important;
       }
     }
   }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
-      background-color: var(--c-h-color-bg, transparent);
-      background-image: var(--c-h-url-bg, transparent);
-      border: 1px solid var(--c-b-grid, $c-font);
+      background-color: var(--c-hands-color, transparent);
+      background-image: var(--c-hands-url, none);
+      border: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
     }
     &.coords-edge .main-board .sg-wrap {
-      border: 1px solid var(--c-b-grid, $c-font);
+      border: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+    }
+  }
+  &.grid-width-0 {
+    .sg-wrap {
+      border-width: 0;
+      sg-squares  {
+        border-width: 0;
+        sq {
+          border-width: 0;
+          &::after {
+            content: unset;
+          }
+        }      
+      }
+    }
+  }
+  &.grid-width-2 {
+    .sg-wrap {
+      border-width: 2px;
+      sg-squares  {
+        border-width: 2px;
+        sq {
+          border-width: 2px;
+          &::after {
+            margin: -6px;
+            width: 10px;
+            height: 10px;
+          }
+        }      
+      }
+    }
+  }
+  &.grid-width-3 {
+    .sg-wrap {
+      border-width: 3px;
+      sg-squares  {
+        border-width: 3px;
+        sq {
+          border-width: 3px;
+          &::after {
+            margin: -7px;
+            width: 12px;
+            height: 12px;
+          }
+        }      
+      }
     }
   }
 }

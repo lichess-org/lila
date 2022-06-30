@@ -1,19 +1,19 @@
 @mixin coords-colors {
   $coords-color: (
-    'solid-orange': black,
-    'solid-natural': black,
-    'wood1': black,
+    'orange': black,
+    'natural': black,
+    'wood': black,
     'kaya1': black,
     'kaya2': black,
     'oak': black,
     'space': #eee,
-    'Painting1': black,
-    'Painting2': black,
-    'Kinkaku': black,
+    'painting1': black,
+    'painting2': black,
+    'kinkaku': black,
     'doubutsu': #c36e5f,
     'gray': #eee,
     'blue': #eee,
-    'custom': var(--c-b-grid, #{$c-font})
+    'custom': var(--c-grid-color, $c-font)
   );
 
   @each $theme, $color in $coords-color {
