@@ -4,20 +4,22 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { onInsert } from './util';
-import { parseHands } from 'shogiops/sfen';
-import { lastStep } from './round';
-import { stringToRole } from 'shogiops/util';
 
-export type KeyboardMoveHandler = (sfen: Sfen, dests?: sg.Dests, yourMove?: boolean) => void;
+export type KeyboardMoveHandler = (
+  sfen: Sfen,
+  moveDests: sg.Dests | undefined,
+  dropDests: sg.DropDests | undefined,
+  yourMove?: boolean
+) => void;
 
 export interface KeyboardMove {
-  drop(key: sg.Key, piece: string): void;
-  promote(orig: sg.Key, dest: sg.Key, piece: string): void;
+  move(orig: sg.Key, dest: sg.Key, promotion: boolean): void;
+  drop(key: sg.Key, role: sg.Role): void;
+  lastDest: sg.Key | undefined;
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
-  move(orig: sg.Key, dest: sg.Key): void;
   select(key: sg.Key): void;
   hasSelected(): sg.Key | undefined;
   confirmMove(): void;
@@ -33,52 +35,39 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let preHandlerBuffer = step.sfen;
   let lastSelect = Date.now();
   const sgState = root.shogiground.state;
-  const select = function (key: sg.Key): void {
+  const select = function (key: sg.Key, prom?: boolean): void {
     if (sgState.selected === key) root.shogiground.cancelMove();
     else {
-      root.shogiground.selectSquare(key, true);
+      root.shogiground.selectSquare(key, prom, true);
       lastSelect = Date.now();
     }
   };
   let usedMove = false;
   return {
-    drop(key, piece) {
-      const role = stringToRole(piece);
+    move(orig, dest, prom) {
+      usedMove = true;
+      root.shogiground.cancelMove();
+      root.shogiground.move(orig, dest, prom);
+    },
+    drop(key, role) {
       const color = root.data.player.color;
-      const parsedHands = parseHands(lastStep(root.data).sfen.split(' ')[2] || '-');
-      // Square occupied
-      if (!role || parsedHands.isErr || sgState.pieces[key]) return;
       // Piece not in hand
-      if (parsedHands.value[color][role] === 0) return;
       root.shogiground.cancelMove();
       root.shogiground.drop({ role, color }, key);
-      root.sendDrop(role, key, { premade: false });
     },
-    promote(_orig, _dest, piece) {
-      const role = stringToRole(piece);
-      if (!role) return;
-      root.shogiground.cancelMove();
-
-      //sendPromotion(root, orig, dest, role, { premove: false, predrop: false });
-    },
+    lastDest: sgState.lastDests && sgState.lastDests[sgState.lastDests.length - 1],
     update(step, yourMove: boolean = false) {
-      if (handler) handler(step.sfen, sgState.movable.dests, yourMove);
+      if (handler) handler(step.sfen, sgState.movable.dests, sgState.droppable.dests, yourMove);
       else preHandlerBuffer = step.sfen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, sgState.movable.dests);
+      if (preHandlerBuffer) handler(preHandlerBuffer, sgState.movable.dests, sgState.droppable.dests);
     },
     hasFocus: () => focus,
     setFocus(v) {
       focus = v;
       redraw();
-    },
-    move(orig, dest) {
-      usedMove = true;
-      root.shogiground.cancelMove();
-      select(orig);
-      select(dest);
     },
     select,
     hasSelected: () => sgState.selected,
