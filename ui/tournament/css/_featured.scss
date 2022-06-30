@@ -1,5 +1,6 @@
 .tour__featured {
   @extend %box-neat-force, %flex-column;
+  background: $c-bg-box;
   &__player {
     @extend %metal, %flex-center-nowrap;
     > * {

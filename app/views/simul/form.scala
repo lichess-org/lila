@@ -31,7 +31,6 @@ object form {
           p(trans.whenCreateSimul()),
           br,
           br,
-          globalError(form),
           formContent(form, teams),
           form3.actions(
             a(href := routes.Simul.home)(trans.cancel()),
@@ -143,7 +142,11 @@ object form {
           trans.startPosition(),
           klass = "position",
           half = true,
-          help = views.html.tournament.form.positionInputHelp.some
+          help = frag(
+            views.html.tournament.form.positionInputHelp,
+            br,
+            "Works only with one variant selected."
+          ).some
         )(form3.input(_))
       ),
       form3.group(

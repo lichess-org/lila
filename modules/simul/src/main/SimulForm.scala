@@ -161,7 +161,7 @@ object SimulForm {
 
     def isCustomPositionValid =
       position.fold(true) { sfen =>
-        sfen.toSituation(actualVariants.head).exists(_.playable(strict = true, withImpasse = true))
+        sfen.toSituation(actualVariants.headOption | shogi.variant.Standard).exists(_.playable(strict = true, withImpasse = true))
       }
 
     def actualVariants = variants.flatMap(shogi.variant.Variant(_)).distinct

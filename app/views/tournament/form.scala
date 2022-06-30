@@ -198,8 +198,6 @@ object form {
   val positionInputHelp = frag(
     "Paste a valid SFEN to start every game from a given position.",
     br,
-    "It only works for standard games, not with variants.",
-    br,
     "You can use the ",
     a(href := routes.Editor.index, target := "_blank")("board editor"),
     " to generate a SFEN position, then paste it here.",
