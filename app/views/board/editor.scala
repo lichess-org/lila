@@ -58,6 +58,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
           "moveEvent"          -> ctx.pref.moveEvent,
           "resizeHandle"       -> ctx.pref.resizeHandle,
           "highlightLastDests" -> ctx.pref.highlightLastDests,
+          "squareOverlay"    -> ctx.pref.squareOverlay,
           "notation"           -> ctx.pref.notation
         ),
       "i18n"          -> i18nJsObject(i18nKeyes)

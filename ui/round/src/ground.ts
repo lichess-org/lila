@@ -88,7 +88,7 @@ export function makeConfig(ctrl: RoundController): Config {
     draggable: {
       enabled: data.pref.moveEvent > 0,
       showGhost: data.pref.highlightLastDests,
-      showTouchSquareOverlay: true,
+      showTouchSquareOverlay: data.pref.squareOverlay,
     },
     selectable: {
       enabled: data.pref.moveEvent !== 1,
@@ -112,6 +112,7 @@ export function renderBoard(ctrl: RoundController) {
     hook: {
       insert: vnode => {
         ctrl.shogiground.attach({ board: vnode.elm as HTMLElement });
+        // ctrl.setKeyboardMove();
       },
     },
   });

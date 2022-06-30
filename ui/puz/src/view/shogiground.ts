@@ -44,6 +44,7 @@ export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, u
     draggable: {
       enabled: pref.moveEvent > 0,
       showGhost: pref.highlightLastDests,
+      showTouchSquareOverlay: pref.squareOverlay,
     },
     selectable: {
       enabled: pref.moveEvent !== 1,

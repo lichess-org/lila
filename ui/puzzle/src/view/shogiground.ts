@@ -76,6 +76,7 @@ function makeConfig(ctrl: Controller): SgConfig {
     draggable: {
       enabled: ctrl.pref.moveEvent > 0,
       showGhost: ctrl.pref.highlightLastDests,
+      showTouchSquareOverlay: ctrl.pref.squareOverlay,
     },
     selectable: {
       enabled: ctrl.pref.moveEvent !== 1,

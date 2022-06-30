@@ -28,6 +28,8 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
               "moveEvent"       -> pref.moveEvent,
               "highlightLastDests" -> pref.highlightLastDests,
               "highlightCheck" -> pref.highlightCheck,
+              "squareOverlay" -> pref.squareOverlay,
+              "resizeHandle"   -> pref.resizeHandle,
               "notation"   -> pref.notation
             ),
             "i18n" -> i18nJsObject(i18nKeys)

@@ -90,6 +90,7 @@ final class JsonView(
       "moveEvent"       -> p.moveEvent,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"    -> p.highlightCheck,
+      "squareOverlay"   -> p.squareOverlay,
       "notation"   -> p.notation
     )
 

@@ -90,17 +90,16 @@ final class JsonView(
                 "moveEvent"         -> pref.moveEvent,
                 "notation"     -> pref.notation
               )
-              .add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
               .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlightLastDests" -> pref.highlightLastDests)
               .add("highlightCheck" -> pref.highlightCheck)
+              .add("squareOverlay" -> pref.squareOverlay)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
               .add("enablePremove" -> pref.premove)
-              .add("showCaptured" -> pref.captured)
               .add("submitMove" -> {
                 import Pref.SubmitMove._
                 pref.submitMove match {
@@ -182,12 +181,11 @@ final class JsonView(
                 "clockCountdown"    -> pref.clockCountdown,
                 "notation"     -> pref.notation
               )
-              .add("clockBar" -> pref.clockBar)
               .add("highlightLastDests" -> pref.highlightLastDests)
               .add("highlightCheck" -> pref.highlightCheck)
+              .add("squareOverlay" -> pref.squareOverlay)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
-              .add("showCaptured" -> pref.captured),
+              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
@@ -248,6 +246,7 @@ final class JsonView(
           )
           .add("highlightLastDests" -> pref.highlightLastDests)
           .add("highlightCheck" -> pref.highlightCheck)
+          .add("squareOverlay" -> pref.squareOverlay)
           .add("destination" -> (pref.destination && !pref.isBlindfold))
           .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
         "path"         -> pov.game.plies,

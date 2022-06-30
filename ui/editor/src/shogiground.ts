@@ -57,6 +57,7 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     draggable: {
       enabled: ctrl.data.pref.moveEvent > 0,
       showGhost: ctrl.data.pref.highlightLastDests,
+      showTouchSquareOverlay: ctrl.data.pref.squareOverlay,
       deleteOnDropOff: true,
       addToHandOnDropOff: true,
     },

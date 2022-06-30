@@ -114,7 +114,7 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     draggable: {
       enabled: pref.moveEvent > 0,
       showGhost: pref.highlightLastDests,
-      showTouchSquareOverlay: true,
+      showTouchSquareOverlay: pref.squareOverlay,
     },
     selectable: {
       enabled: pref.moveEvent !== 1,
