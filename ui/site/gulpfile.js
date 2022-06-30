@@ -69,6 +69,14 @@ const highcharts = () =>
     })
     .pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
 
+const spectrum = () =>
+gulp
+  .src(['dist/spectrum.min.js', 'dist/spectrum.min.css'], {
+    cwd: path.dirname(require.resolve('spectrum/package.json')),
+    cwdbase: true,
+  })
+  .pipe(gulp.dest('../../public/vendor/spectrum/'));
+
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
     .plugin(tsify)
@@ -177,6 +185,7 @@ const tasks = [
   hopscotch,
   jqueryBarRating,
   highcharts,
+  spectrum
 ];
 
 const dev = gulp.series(tasks.concat([devSource]));

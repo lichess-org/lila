@@ -549,7 +549,7 @@
         lishogi.pubsub.emit('top.toggle.' + $(this).attr('id'));
         setTimeout(function () {
           var handler = function (e) {
-            if ($.contains($p[0], e.target)) return;
+            if ($.contains($p[0], e.target) || !!$('.sp-container:not(.sp-hidden)').length) return;
             $p.removeClass('shown');
             $('html').off('click', handler);
           };
@@ -691,7 +691,7 @@
     Object.keys(names).forEach(function (name) {
       api[name] = function (text) {
         if (!enabled()) return;
-        if (!text || !api.say(text)) {
+        if (!text || !api.say({en: text})) {
           Howler.volume(api.getVolume());
           var sound = collection(name);
           if (Howler.ctx && Howler.ctx.state == 'suspended') {
@@ -702,11 +702,14 @@
         }
       };
     });
-    api.say = function (text, cut, force) {
+    api.say = function (texts, cut, force) {
       if (!speechStorage.get() && !force) return false;
-      var msg = text.text ? text : new SpeechSynthesisUtterance(text);
+      var useJp = !!texts.jp && document.documentElement.lang === 'ja-JP';
+      var text = useJp ? texts.jp : texts.en;
+      var lang = useJp ? 'ja-JP' : 'en-US';
+      var msg = new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
-      msg.lang = 'en-US';
+      msg.lang = lang;
       if (cut) speechSynthesis.cancel();
       speechSynthesis.speak(msg);
       console.log(`%c${msg.text}`, 'color: blue');

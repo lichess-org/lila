@@ -281,6 +281,12 @@ lishogi.slider = function () {
     'javascripts/vendor/jquery-ui.slider' + (lishogi.hasTouchEvents ? '.touch' : '') + '.min.js'
   );
 };
+lishogi.spectrum = function () {
+  lishogi.loadCss('vendor/spectrum/dist/spectrum.min.css');
+  return lishogi.loadScript(
+    'vendor/spectrum/dist/spectrum.min.js'
+  )
+};
 lishogi.makeChat = function (data, callback) {
   requestAnimationFrame(function () {
     data.loadCss = lishogi.loadCssPath;
