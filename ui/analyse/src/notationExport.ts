@@ -69,7 +69,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
 
   const pos = parseSfen(
     ctrl.data.game.variant.key,
-    g.initialSfen ?? initialSfen(ctrl.data.game.variant.key),
+    g.initialSfen || initialSfen(ctrl.data.game.variant.key),
     false
   ).unwrap();
   const moves = makeKifNodes(ctrl.tree.root, pos, offset % 2).join('\n');

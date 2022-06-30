@@ -140,8 +140,7 @@ export default class AnalyseCtrl {
 
     this.setPath(this.initialPath);
 
-    this.shogiground = Shogiground(makeConfig(this));
-    this.showGround();
+    this.shogiground = Shogiground();
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
@@ -149,6 +148,9 @@ export default class AnalyseCtrl {
       ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
+
+    this.shogiground.set(makeConfig(this), true);
+    this.showGround(true);
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
     else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
@@ -162,8 +164,8 @@ export default class AnalyseCtrl {
 
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/replay.js').then(() => {
-          this.music = window.lishogiReplayMusic();
+        li.loadScript('javascripts/music/play.js').then(() => {
+          this.music = window.lishogi.playMusic();
         });
       if (this.music && set !== 'music') this.music = null;
     });
@@ -245,9 +247,9 @@ export default class AnalyseCtrl {
     this.actionMenu.open = false;
   }
 
-  private showGround(): void {
+  private showGround(skip?: boolean): void {
     this.onChange();
-    this.shogiground.set(this.makeSgOpts());
+    if (!skip) this.shogiground.set(this.makeSgOpts());
     this.setAutoShapes();
     if (this.node.shapes) this.shogiground.setShapes(this.node.shapes as DrawShape[]);
   }
@@ -330,7 +332,7 @@ export default class AnalyseCtrl {
     this.autoScrollRequested = true;
   }
 
-  playedLastMoveMyself = () => !!this.justPlayedUsi && !!this.node.usi && this.node.usi.startsWith(this.justPlayedUsi);
+  playedLastMoveMyself = () => !!this.justPlayedUsi && this.node.usi === this.justPlayedUsi;
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
@@ -736,7 +738,7 @@ export default class AnalyseCtrl {
     if (!this.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-      this.shogiground && this.shogiground.setAutoShapes([]);
+      this.shogiground.setAutoShapes([]);
     } else this.resetAutoShapes();
   }
 
