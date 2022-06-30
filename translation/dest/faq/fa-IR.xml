@@ -8,10 +8,12 @@
   <string name="hearItPronouncedBySpecialist">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">لایچس از طریق کمک های مالی حامیان و تلاش های داوطلبان تامین میشود.</string>
   <string name="beingAPatron">پشتیبان بودن</string>
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله، در واقع لایپس الهام بخش سایر سابت های متن باز (اوپن سورس) است که از کد منبع، API یا دیتابیس ما استفاده میکنند.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی من برای دریافت ریتینگ از دست داده ام توسط متقلبین واجد شرایط هستم?</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از اینکه یک بازیکن نشان‌گذاری میشود، چهل بازی ریتد انجام شده توسط او در سه روز گذشته گرفته میشوند. اگر شما در آن بازی ها حریف او بوده باشید، ریتینگ از دست رفته شما (به علت باخت یا مساوی) در صورتی که ریتینگ شما موقت نبوده باشد، را به صورت یک بازپرداخت ریتینگ دریافت میکنید. مقدار ریتینگ بر اساس ریتینگ اوج شما و تغییرات ریتینگتان پس از بازی محاسبه میشود. (برای مثال، اگر ریتینگ شما پس از آن بازی ها به مقدار زیادی افزایش داشته باشد، ممکن است مقدار جزئی دریافت یا هیچ ریتینگی دریافت نکنید) مقدار بازپرداخت هیچوقت از ١۵٠ امتیاز تجاوز نمی‌کند.</string>
