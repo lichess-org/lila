@@ -1,4 +1,5 @@
 .cmn-toggle {
+  @extend %double-tap;
   position: absolute;
   margin-left: -99999px;
 }

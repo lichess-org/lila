@@ -1,5 +1,5 @@
 .rmoves {
-  @extend %flex-column;
+  @extend %flex-column, %double-tap;;
   .buttons {
     @extend %box-shadow;
     flex: 0 0 auto;
@@ -17,10 +17,6 @@
     padding: 5px 0;
     flex: 0 0 calc(100% / 6);
     text-align: center;
-  }
-  .moves,
-  .message {
-    flex: 0 0 auto;
   }
   .moves,
   .message {
