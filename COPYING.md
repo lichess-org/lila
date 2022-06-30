@@ -60,7 +60,6 @@ public/piece/{Logy_Games,Vald_opt,Valdivia} | [Kleffa](https://github.com/kleffa
 public/piece/western | [peanatsu](https://github.com/peanatsu) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 public/sound/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sound/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
-public/sound/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sound/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 
 Exceptions (non-free)

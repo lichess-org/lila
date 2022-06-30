@@ -15,7 +15,6 @@ object SoundSet {
   val list = List(
     silent,
     new SoundSet("standard", "Standard"),
-    new SoundSet("piano", "Piano"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
