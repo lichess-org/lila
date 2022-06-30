@@ -57,6 +57,7 @@ $text-shadow: 0.5px 1px 1px #000;
       height: 100%;
       top: 0;
       left: 0;
+      background-image: var(--tr-bg-url, none);
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
