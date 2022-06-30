@@ -148,7 +148,6 @@ export default class StormCtrl {
     this.redrawQuick();
     this.redrawSlow();
     this.shogiground.set(makeSgOpts(this.run, !this.run.endAt));
-    });
     window.lishogi.pubsub.emit('ply', this.run.moves);
   }
 
