@@ -10,7 +10,10 @@ coords {
   position: absolute;
   display: flex;
   pointer-events: none;
-  @include fluid-size('font-size', 8px, 12px);
+  @include fluid-size('font-size', 7px, 11px);
+  .notation-2 &.ranks {
+    @include fluid-size('font-size', 6px, 10px);
+  }
   user-select: none;
   color: #fff;
   font-weight: bold;
@@ -66,7 +69,7 @@ coords {
   .coords-out coords { 
     &.ranks {
       will-change: transform; // for some reason - helps with blurry pieces
-      right: -15px;
+      right: -12px;
       width: 12px;
     }
     &.files {
@@ -78,6 +81,7 @@ coords {
   }
   .coords-edge {
     $edge-size: calc(1.7vh * var(--board-scale, 1));
+    $edge-size-s: calc(1.7vh * var(--board-scale, 1) - 1px);
     .main-board sg-board {
       border: $edge-size solid transparent;
       background-origin: border-box;
@@ -86,7 +90,7 @@ coords {
       outline: $edge-size solid #0000003f;
     }
     coords {
-      font-size: $edge-size;
+      font-size: $edge-size-s;
       &.ranks {
         left: 100%;
         width: $edge-size;
@@ -101,8 +105,8 @@ coords {
           bottom: unset;
           top: 100%;
         }
-        height: $edge-size;
-        line-height: $edge-size;
+        height: $edge-size-s;
+        line-height: $edge-size-s;
       } 
     }
     &.notation-2 {
