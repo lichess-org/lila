@@ -44,15 +44,20 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
+
+  private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
+      s"""type="$t" """
+    )}${crossorigin ?? "crossorigin"}>""")
+  
   private def fontPreload(implicit ctx: Context) =
-    raw {
-      s"""<link rel="preload" href="${assetUrl(
-        s"font/lishogi.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
-        s"""<link rel="preload" href="${assetUrl(
-          s"font/lishogi.shogi.woff2"
-        )}" as="font" type="font/woff2" crossorigin>"""
+    preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some)
+
+  private def boardPreload(implicit ctx: Context) = 
+    ctx.currentTheme.file map { file =>
+      preload(assetUrl(s"images/boards/$file"), "image", crossorigin = false)
     }
+
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">"""
   )
@@ -144,6 +149,26 @@ object layout {
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
 
+  private def cssBackgroundImageValue(url: String): String =
+    if (url.isEmpty) "none" else s"url(${escapeHtmlRaw(url).replace("&amp;", "&")})"
+
+  private def cssVariables(zoomable: Boolean)(implicit ctx: Context): Option[String] = {
+    val zoom = zoomable option s"--zoom:${ctx.zoom};"
+    val customBg = ctx.transpBgImg map { img =>
+      s"--tr-bg-url:${cssBackgroundImageValue(img)};"
+    }
+    val customTheme = ctx.activeCustomTheme map { ct =>
+      List(
+        s"--c-board-color:${ct.boardColor};",
+        s"--c-board-url:${cssBackgroundImageValue(ct.boardImg)};",
+        s"--c-grid-color:${ct.gridColor};",
+        s"--c-hands-color:${ct.handsColor};",
+        s"--c-hands-url:${cssBackgroundImageValue(ct.handsImg)};",
+      ).mkString("")
+    }
+    (zoom ++ customBg ++ customTheme).reduceLeftOption(_ + _)
+  }
+
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
@@ -199,7 +224,7 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticUrl("logo/lishogi.svg"), color := "black"),
+          link(rel := "mask-icon", href := staticUrl("logo/lishogi.svg"), attr("color") := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
@@ -210,24 +235,20 @@ object layout {
             rel := "alternate",
             st.title := trans.blog.txt()
           ),
-          ctx.transpBgImg map { img =>
-            raw(
-              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
-                .replace("&amp;", "&")}");}</style>"""
-            )
-          },
           fontPreload,
+          boardPreload,
           manifests,
           jsLicense
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
-            "zen"                                                                                                         -> ctx.pref.isZen,
-            "blind-mode"                                                                                                  -> ctx.blind,
-            "kid"                                                                                                         -> ctx.kid,
-            "mobile"                                                                                                      -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                                                                        -> playing
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation} grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> true,
+            "no-touch"             -> !ctx.pref.squareOverlay,
+            "zen"                  -> ctx.pref.isZen,
+            "blind-mode"           -> ctx.blind,
+            "kid"                  -> ctx.kid,
+            "mobile"               -> ctx.isMobileBrowser,
+            "playing fixed-scroll" -> playing
           ),
           dataDev := (!isProd).option("true"),
           dataVapid := vapidPublicKey,
@@ -240,7 +261,7 @@ object layout {
           dataTheme := ctx.currentBg,
           dataPieceSet := ctx.currentPieceSet.name,
           dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style := zoomable option s"--zoom:${ctx.zoom}"
+          style := cssVariables(zoomable)
         )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
