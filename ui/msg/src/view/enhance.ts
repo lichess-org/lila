@@ -112,17 +112,17 @@ function parseLink(a: HTMLAnchorElement): Link | undefined {
 }
 
 const themes = [
-  'solid-orange',
-  'solid-natural',
-  'wood1',
+  'orange',
+  'natural',
+  'wood',
   'kaya1',
   'kaya2',
   'oak',
   'blue',
   'gray',
-  'Painting1',
-  'Painting2',
-  'Kinkaku',
+  'painting1',
+  'painting2',
+  'kinkaku',
   'space',
   'doubutsu',
 ];
@@ -130,7 +130,7 @@ const themes = [
 function configureSrc(url: string): string {
   if (url.includes('://')) return url;
   const parsed = new URL(url, window.location.href);
-  parsed.searchParams.append('theme', themes.find(theme => document.body.classList.contains(theme)) ?? 'wood1');
+  parsed.searchParams.append('theme', themes.find(theme => document.body.classList.contains(theme)) ?? 'wood');
   parsed.searchParams.append('bg', document.body.getAttribute('data-theme')!);
   return parsed.href;
 }

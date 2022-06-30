@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class Theme private[pref] (val name: String) {
+sealed class Theme private[pref] (val name: String, val file: Option[String]) {
 
   override def toString = name
 
@@ -9,26 +9,24 @@ sealed class Theme private[pref] (val name: String) {
 
 object Theme {
 
-  val all = List(
-    "solid-orange",
-    "solid-natural",
-    "wood1",
-    "kaya1",
-    "kaya2",
-    "oak",
-    "blue",
-    "gray",
-    "Painting1",
-    "Painting2",
-    "Kinkaku",
-    "space",
-    "doubutsu",
-    "custom",
-  ) map { name =>
-    new Theme(name)
-  }
+  val default = new Theme("wood", "wood.png".some)
 
-  lazy val default = allByName get "wood1" err "Can't find default theme D:"
+  val all = List(
+    new Theme("orange", None),
+    new Theme("natural", None),
+    default,
+    new Theme("kaya1", "kaya1.jpg".some),
+    new Theme("kaya2", "kaya2.jpg".some),
+    new Theme("oak", "oak.png".some),
+    new Theme("blue", None),
+    new Theme("gray", None),
+    new Theme("painting1", "painting1.jpg".some),
+    new Theme("painting2", "painting2.jpg".some),
+    new Theme("kinkaku", "kinkaku.jpg".some),
+    new Theme("space", "space.png".some),
+    new Theme("doubutsu", "doubutsu.png".some),
+    new Theme("custom", None),
+  )
 
   lazy val allByName = all map { c =>
     c.name -> c
@@ -39,3 +37,22 @@ object Theme {
   def contains(name: String) = allByName contains name
 }
 
+case class CustomTheme(
+  boardColor: String,
+  boardImg: String,
+  gridColor: String,
+  gridWidth: Int,
+  handsColor: String,
+  handsImg: String
+)
+
+object CustomTheme {
+  val default = new CustomTheme(
+    boardColor = "transparent",
+    boardImg = "",
+    gridColor = "initial", // uses css fallback
+    gridWidth = 1,
+    handsColor = "transparent",
+    handsImg = ""
+  )
+}

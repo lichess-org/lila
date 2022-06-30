@@ -133,17 +133,17 @@ $(function () {
   };
 
   var themes = [
-    'solid-orange',
-    'solid-natural',
-    'wood1',
+    'orange',
+    'natural',
+    'wood',
     'kaya1',
     'kaya2',
     'oak',
     'blue',
     'gray',
-    'Painting1',
-    'Painting2',
-    'Kinkaku',
+    'painting1',
+    'painting2',
+    'kinkaku',
     'space',
     'doubutsu',
   ];
@@ -155,7 +155,7 @@ $(function () {
       'theme',
       themes.find(function (theme) {
         return document.body.classList.contains(theme);
-      }) ?? 'wood1'
+      }) ?? 'wood'
     );
     const pieceSet = document.body.dataset.pieceSet;
     if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
