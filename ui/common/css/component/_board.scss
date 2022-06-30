@@ -15,9 +15,19 @@
     top: calc(100% / 11);
     height: calc(100% / 11 * 9);
     sg-squares sq::after {
-      width: 3px;
-      height: 3px;
-      margin: -2px;
+      width: 3px !important;
+      height: 3px !important;
+      margin: -2px !important;
+    }
+    .grid-width-2 & sg-squares sq::after {
+      width: 6px !important;
+      height: 6px !important;
+      margin: -4px !important;
+    }
+    .grid-width-3 & sg-squares sq::after {
+      width: 8px !important;
+      height: 8px !important;
+      margin: -5px !important;
     }
   }
   sg-hand-wrap {
