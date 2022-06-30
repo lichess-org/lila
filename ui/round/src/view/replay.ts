@@ -42,22 +42,9 @@ function plyOffset(ctrl: RoundController): number {
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
-  let result;
-  if (status.finished(ctrl.data))
-    switch (ctrl.data.game.winner) {
-      case 'sente':
-        result = '1-0';
-        break;
-      case 'gote':
-        result = '0-1';
-        break;
-      default:
-        result = '½-½';
-    }
-  if (result || status.aborted(ctrl.data)) {
+  if (status.finished(ctrl.data) || status.aborted(ctrl.data)) {
     const winner = ctrl.data.game.winner;
     return h('div.result-wrap', [
-      h('p.result', result || ''),
       h(
         'p.status',
         {

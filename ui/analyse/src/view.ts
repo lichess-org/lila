@@ -37,21 +37,8 @@ import * as gridHacks from './gridHacks';
 const li = window.lishogi;
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  let result: string | undefined;
-  if (ctrl.data.game.status.id >= 30)
-    switch (ctrl.data.game.winner) {
-      case 'sente':
-        result = '1-0';
-        break;
-      case 'gote':
-        result = '0-1';
-        break;
-      default:
-        result = '½-½';
-    }
   const tags: VNode[] = [];
-  if (result) {
-    tags.push(h('div.result', result));
+  if (ctrl.data.game.status.id >= 30) {
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
     tags.push(
       h('div.status', [
