@@ -36,7 +36,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     set(k: Key) {
       api.speech(k == 'speech');
       window.lishogi.pubsub.emit('speech.enabled', api.speech());
-      if (api.speech()) api.say('Speech synthesis ready');
+      if (api.speech()) api.say({ en: 'Speech synthesis ready' });
       else {
         api.changeSet(k);
         // If we want to play move for all sets we need to get move sound for pentatonic

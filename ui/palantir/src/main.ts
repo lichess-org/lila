@@ -30,7 +30,7 @@ export function palantir(opts: PalantirOpts) {
             (s: any) => {
               myStream = s;
               setState('ready');
-              li.sound.say('Voice chat is ready.', true, true);
+              li.sound.say({ en: 'Voice chat is ready.' }, true, true);
               ping();
             },
             function (err) {
@@ -68,7 +68,7 @@ export function palantir(opts: PalantirOpts) {
       .on('stream', () => {
         log('call.stream');
         setState('on', call.peer);
-        li.sound.say('Connected', true, true);
+        li.sound.say({ en: 'Connected' }, true, true);
       })
       .on('close', () => {
         log('call.close');

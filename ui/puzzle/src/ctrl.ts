@@ -15,9 +15,9 @@ import { defined, prop } from 'common/common';
 import { parseSfen, makeSfen } from 'shogiops/sfen';
 import { usiToTree, mergeSolution, sfenToTree } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
-import { isDrop, Move, Outcome, Piece, Role } from 'shogiops/types';
+import { Move, Outcome, Piece, Role } from 'shogiops/types';
 import { storedProp } from 'common/storage';
-import { plyColor } from './util';
+import { plyColor, scalashogiCharPair } from './util';
 import { makeSquare, makeUsi, parseSquare, parseUsi } from 'shogiops/util';
 import { makeNotationWithPosition } from 'common/notation';
 import { Shogiground } from 'shogiground';
@@ -187,15 +187,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     );
   }
 
-  function scalashogiCharPair(move: Move): string {
-    if (isDrop(move))
-      return String.fromCharCode(
-        34 + move.to,
-        34 + 81 + 128 + ['rook', 'bishop', 'knight', 'pawn', 'gold', 'silver', 'lance'].indexOf(move.role)
-      );
-    else return String.fromCharCode(34 + move.from, move.promotion ? 34 + move.to + 128 : 34 + move.to);
-  }
-
   function usiToLastMove(usi: string | undefined): [Key, Key] | [Key] | undefined {
     return defined(usi)
       ? usi[1] === '*'
@@ -213,7 +204,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
-    speech.node(node, false);
+    if (progress === 'fail') speech.failure();
+    else speech.node(node, false);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -402,7 +394,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     shogiground.selectSquare(null);
     jump(path);
-    speech.node(vm.node, true);
+    if (path) speech.node(vm.node, true);
   }
 
   function viewSolution(): void {
