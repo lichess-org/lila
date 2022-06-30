@@ -13,10 +13,10 @@
 .ruser-bottom {
   grid-area: user-bot;
 }
-.rclock-top {
+.rclock-top, .empty__clock-top {
   grid-area: clock-top;
 }
-.rclock-bottom {
+.rclock-bottom, .empty__clock-bottom {
   grid-area: clock-bot;
 }
 .rmoves {
