@@ -2,7 +2,7 @@ package lila.study
 
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{ Pos, Piece => ShogiPiece }
+import shogi.{ Pos, Piece }
 import play.api.libs.json._
 import scala.util.chaining._
 
@@ -142,7 +142,7 @@ object JsonView {
     (v.asOpt[String] flatMap { r => shogi.Role.allByName.get(r) })
       .fold[JsResult[shogi.Role]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val pieceReader = Json.reads[ShogiPiece]
+  implicit private val pieceReader = Json.reads[Piece]
 
   implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
@@ -170,20 +170,25 @@ object JsonView {
   }
   implicit private[study] val settingsWriter: Writes[Settings] = Json.writes[Settings]
 
+  implicit private[study] val pieceOrPosReader: Reads[Shape.PosOrPiece] = Reads[Shape.PosOrPiece] { v =>
+    posReader.reads(v) match {
+      case JsSuccess(pos, _) => JsSuccess(Left(pos).withRight[Piece])
+      case JsError(_) => pieceReader.reads(v) match {
+        case JsSuccess(piece, _) => JsSuccess(Right(piece).withLeft[Pos])
+        case JsError(_) => JsError(Nil)
+      }
+    }
+  }
+
   implicit private[study] val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject]
       .flatMap { o =>
         for {
           brush <- o str "brush"
-          orig  <- o.get[Pos]("orig")
-        } yield o.get[Pos]("dest") match {
-          case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _ => {
-            o.get[ShogiPiece]("piece") match {
-              case Some(piece) => Shape.Piece(brush, orig, piece)
-              case _           => Shape.Circle(brush, orig)
-            }
-          }
+          orig  <- o.get[Shape.PosOrPiece]("orig")
+        } yield o.get[Shape.PosOrPiece]("dest") match {
+            case Some(dest) if dest != orig => Shape.Arrow(brush, orig, dest)
+            case _                          => Shape.Circle(brush, orig, o.get[Piece]("piece"))
         }
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))

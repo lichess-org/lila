@@ -1,6 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl._
+import shogi.{ Pos, Piece }
 import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
@@ -104,19 +105,21 @@ object NotationDump {
         case Nil    => ""
         case shapes => s"[%$as ${shapes.mkString(",")}]"
       }
+    def writePosOrPiece(pop: Either[Pos, Piece]) =
+      pop.fold(_.usiKey, "_" + _.forsyth takeRight 2)
     val circles = render("csl") {
-      shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}${orig.usiKey}"
+      shapes.value.collect { case Shape.Circle(brush, orig, None) =>
+        s"${brush.head.toUpper}${writePosOrPiece(orig)}"
+      }
+    }
+    val pieces = render("cpl") {
+      shapes.value.collect { case Shape.Circle(brush, Left(orig), Some(piece)) =>
+        s"${brush.head.toUpper}${orig.usiKey}${piece.forsyth}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}${orig.usiKey}${dest.usiKey}"
-      }
-    }
-    val pieces = render("cpl") {
-      shapes.value.collect { case Shape.Piece(brush, orig, piece) =>
-        s"${brush.head.toUpper}${orig.usiKey}${piece.forsyth}"
+        s"${brush.head.toUpper}${writePosOrPiece(orig)}${writePosOrPiece(dest)}"
       }
     }
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)

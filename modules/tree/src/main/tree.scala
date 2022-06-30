@@ -8,7 +8,7 @@ import shogi.format.{ Glyph, Glyphs }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening.FullOpening
-import shogi.{ Pos, Piece => ShogiPiece }
+import shogi.{ Pos, Piece }
 
 import shogi.Centis
 
@@ -98,9 +98,10 @@ object Node {
   object Shape {
     type ID    = String
     type Brush = String
-    case class Circle(brush: Brush, orig: Pos)                    extends Shape
-    case class Arrow(brush: Brush, orig: Pos, dest: Pos)          extends Shape
-    case class Piece(brush: Brush, orig: Pos, piece: ShogiPiece)  extends Shape
+    type PosOrPiece = Either[Pos, Piece]
+
+    case class Circle(brush: Brush, pos: PosOrPiece, piece: Option[Piece]) extends Shape
+    case class Arrow(brush: Brush, orig: PosOrPiece, dest: PosOrPiece) extends Shape
   }
   case class Shapes(value: List[Shape]) extends AnyVal {
     def list = value
@@ -194,19 +195,21 @@ object Node {
   implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
     JsString(p.usiKey)
   }
-  implicit private val pieceWrites: Writes[ShogiPiece] = Writes[ShogiPiece] { p =>
+  implicit private val pieceWrites: Writes[Piece] = Writes[Piece] { p =>
     Json.obj(
       "role"  -> p.role.name,
       "color" -> p.color.name
     )
   }
+  implicit private val shapePieceOrPosWrites: Writes[Shape.PosOrPiece] = Writes[Shape.PosOrPiece] {
+    case Left(pos) => posWrites.writes(pos)
+    case Right(piece) => pieceWrites.writes(piece)
+  }
   implicit private val shapeCircleWrites = Json.writes[Shape.Circle]
   implicit private val shapeArrowWrites  = Json.writes[Shape.Arrow]
-  implicit private val shapePieceWrites  = Json.writes[Shape.Piece]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
-    case s: Shape.Piece  => shapePieceWrites writes s
   }
   implicit val shapesWrites: Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.list.map(shapeWrites.writes))

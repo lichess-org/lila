@@ -39,23 +39,23 @@ object BSONHandlers {
     x => BSONString(x.forsyth)
   )
 
+  implicit private val PosOrPieceBSONHandler = tryHandler[Shape.PosOrPiece](
+    { case BSONString(v) => Pos.fromKey(v).map(Left(_).withRight[Piece]).orElse(Piece.fromForsyth(v).map(Right(_).withLeft[Pos])) toTry s"No such pos or piece: $v" },
+    x => BSONString(x.fold(_.usiKey, _.forsyth))
+  )
+
   implicit val ShapeBSONHandler = new BSON[Shape] {
     def reads(r: Reader) = {
       val brush = r str "b"
-      r.getO[Pos]("p") map { pos =>
-        Shape.Circle(brush, pos)
-      } getOrElse {
-        r.getO[Piece]("k") map { piece =>
-          Shape.Piece(brush, r.get[Pos]("o"), piece)
-        } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
-      }
+      r.getO[Shape.PosOrPiece]("p") map { pos =>
+        Shape.Circle(brush, pos, r.getO[Piece]("k"))
+      } getOrElse Shape.Arrow(brush, r.get[Shape.PosOrPiece]("o"), r.get[Shape.PosOrPiece]("d"))
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.usiKey)
-        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.usiKey, "d" -> dest.usiKey)
-        case Shape.Piece(brush, orig, piece) =>
-          $doc("b" -> brush, "o" -> orig.usiKey, "k" -> piece.forsyth)
+        case Shape.Circle(brush, pop, None)        => $doc("b" -> brush, "p" -> pop)
+        case Shape.Circle(brush, pop, Some(piece)) => $doc("b" -> brush, "p" -> pop, "k" -> piece.forsyth)
+        case Shape.Arrow(brush, origPop, destPop)  => $doc("b" -> brush, "o" -> origPop, "d" -> destPop)
       }
   }
 
