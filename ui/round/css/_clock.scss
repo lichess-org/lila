@@ -32,36 +32,10 @@
       line-height: 2.2em;
     }
   }
-  .bar {
-    display: none;
-    &.berserk {
-      background: $c-bad;
-    }
-  }
-  @include breakpoint($mq-col2) {
-    .bar {
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      background: $c-good;
-      transform-origin: left;
-      .with-expiration & {
-        display: none;
-      }
-    }
-    &-top .bar {
-      bottom: -4px;
-    }
-    &-bottom .bar {
-      top: -4px;
-    }
-  }
   .clock-byo {
     display: flex;
     flex-direction: row-reverse;
     min-width: 3em;
-    line-height: $col1-player-clock-height;
     z-index: -1;
     @include breakpoint($mq-xx-small) {
       flex-direction: row;
@@ -74,7 +48,7 @@
     @include breakpoint($mq-xx-small) {
       font-size: 1.5rem;
     }
-    padding: 0 0.5rem;
+    padding: 0 0.35rem;
     opacity: 0.8;
   }
   .time {
@@ -82,7 +56,9 @@
     background: $c-bg-box;
     font-size: 2.5em;
     font-weight: bold;
+    line-height: $col1-player-clock-height;
     padding: 0 $block-gap;
+    padding-top: 3px;
     white-space: nowrap;
     display: flex;
     &.hour {
@@ -96,10 +72,10 @@
       align-items: flex-end;
     }
     @include breakpoint($mq-xx-small $mq-tall) {
-      font-size: 3em;
-      letter-spacing: 0.12em;
+      font-size: 2.8em;
+      letter-spacing: 0.1em;
       &.hour {
-        font-size: 2.9em;
+        font-size: 2.7em;
         letter-spacing: 0.1em;
       }
     }
