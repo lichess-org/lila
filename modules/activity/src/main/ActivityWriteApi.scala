@@ -84,11 +84,6 @@ final class ActivityWriteApi(
         .void
     }
 
-  def learn(userId: User.ID, stage: String) =
-    update(userId) { a =>
-      a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some
-    }
-
   def practice(prog: lila.practice.PracticeProgress.OnComplete) =
     update(prog.userId) { a =>
       a.copy(practice = Some(~a.practice + prog.studyId)).some
