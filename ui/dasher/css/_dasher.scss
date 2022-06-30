@@ -163,4 +163,51 @@
   .board .slider {
     margin-top: 1rem;
   }
+  .custom-theme {
+    p {
+      margin: 6px 0 3px 0;
+    }
+    .board, .grid, .hands {
+      margin-top: 0.5rem;
+    }
+    .board, .grid {
+      border-bottom: $border;
+      padding-bottom: 1rem;
+    }
+    .title {
+      padding: 3px;
+      text-align: center;
+    }
+    .color-wrap, .url-wrap, .select-wrap {
+      margin: 6px;
+    }
+    .select-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-around;
+      width: calc(100% - 12px);
+      & > * {
+        flex-grow: 1;
+      }
+    }
+    .color-wrap input {
+      width: calc(100% - 35px);
+    }
+    .url-wrap input {
+      width: 100%;
+    }
+    &.loading {
+      height: 550px;
+      .spinner {
+        display: flex;
+      }
+    }
+
+    .sp-container {
+      background-color: $c-bg-box;
+      .sp-alpha {
+        border-radius: 4px;
+      }
+    }
+  }
 }

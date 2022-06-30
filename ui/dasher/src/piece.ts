@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-import { Redraw, Open, bind, header } from './util';
+import { Redraw, bind, header, Close } from './util';
 
 type Piece = string;
 
@@ -14,10 +14,10 @@ export interface PieceCtrl {
   data: PieceData;
   trans: Trans;
   set(t: Piece): void;
-  open: Open;
+  close: Close;
 }
 
-export function ctrl(data: PieceData, trans: Trans, redraw: Redraw, open: Open): PieceCtrl {
+export function ctrl(data: PieceData, trans: Trans, redraw: Redraw, close: Close): PieceCtrl {
   return {
     trans,
     data: data,
@@ -29,13 +29,13 @@ export function ctrl(data: PieceData, trans: Trans, redraw: Redraw, open: Open):
       }).fail(() => window.lishogi.announce({ msg: 'Failed to save piece set preference' }));
       redraw();
     },
-    open,
+    close,
   };
 }
 
 export function view(ctrl: PieceCtrl): VNode {
   return h('div.sub.piece.', [
-    header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
+    header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
     h('div.list', ctrl.data.list.map(pieceView(ctrl.data.current, ctrl.set))),
   ]);
 }

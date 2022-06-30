@@ -7,6 +7,7 @@ import { view as langsView } from './langs';
 import { view as soundView } from './sound';
 import { view as backgroundView } from './background';
 import { view as themeView } from './theme';
+import { view as customThemeView } from './customTheme';
 import { view as pieceView } from './piece';
 import { view as notationView } from './notation';
 import { spinner } from './util';
@@ -29,6 +30,9 @@ export function loaded(ctrl: DasherCtrl): VNode {
       break;
     case 'theme':
       content = themeView(ctrl.subs.theme);
+      break;
+    case 'customTheme':
+      content = customThemeView(ctrl.subs.customTheme);
       break;
     case 'piece':
       content = pieceView(ctrl.subs.piece);

@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
+import lila.pref.JsonView.CustomThemeWriter
 
 final class Dasher(env: Env) extends LilaController(env) {
 
@@ -17,10 +18,19 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.light,
     trans.dark,
     trans.transparent,
+    trans.customTheme,
     trans.backgroundImageUrl,
-    trans.boardGeometry,
+    trans.backgroundColor,
+    trans.gridColor,
+    trans.gridWidth,
+    trans.none,
+    trans.gridSlim,
+    trans.gridThick,
+    trans.gridVeryThick,
+    trans.hands,
+    trans.grid,
+    trans.board,
     trans.boardTheme,
-    trans.boardSize,
     trans.pieceSet,
     trans.preferences.zenMode,
     trans.notationSystem,
@@ -80,6 +90,7 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "current" -> ctx.currentTheme.name,
                   "list"    -> lila.pref.Theme.all.map(_.name)
                 ),
+                "customTheme" -> ctx.pref.customThemeOrDefault,
                 "piece" -> Json.obj(
                   "current" -> ctx.currentPieceSet.name,
                   "list"    -> lila.pref.PieceSet.all.map(_.name)

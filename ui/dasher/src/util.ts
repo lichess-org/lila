@@ -5,25 +5,6 @@ export type Redraw = () => void;
 export type Close = () => void;
 export type Open = (sub: string) => void;
 
-export interface Prop<T> {
-  (): T;
-  (v: T): T;
-}
-
-export function defined<A>(v: A | undefined): v is A {
-  return typeof v !== 'undefined';
-}
-
-// like mithril prop but with type safety
-export function prop<A>(initialValue: A): Prop<A> {
-  let value = initialValue;
-  const fun = function (v: A | undefined) {
-    if (typeof v !== 'undefined') value = v;
-    return value;
-  };
-  return fun as Prop<A>;
-}
-
 export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
   return {
     insert: (vnode: VNode) => {
@@ -56,4 +37,9 @@ export function spinner() {
       }),
     ]),
   ]);
+}
+
+export function validateUrl(url: string): boolean {
+  // modules/pref/src/main/PrefForm.scala
+  return url === '' || ((url.startsWith('https://') || url.startsWith('//')) && url.length >= 10 && url.length <= 400);
 }

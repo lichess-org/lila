@@ -1,73 +1,86 @@
 #dasher_app .theme {
   .list {
     @extend %flex-wrap;
-    margin: 5px 0;
-  }
-  .list a {
-    flex: 0 0 50%;
-    height: 44px;
-    @extend %flex-center;
-    justify-content: center;
-  }
-  .list span {
-    display: block;
-    width: 69px;
-    height: 38px;
-  }
-  &.d3 .list span {
-    width: 66px;
-    height: 30px;
-    @include transition(transform);
-  }
-  .list a:hover {
-    filter: brightness(1.05);
-    background-color: $c-shade;
-  }
-  .list a.active {
-    background-color: $c-dasher;
-  }
-  & {
-    .solid-natural {
-      background-image: url(../images/boards/thumbnails/solid-natural.png);
+    margin-top: 5px;
+    a {
+      flex: 0 0 50%;
+      height: 44px;
+      @extend %flex-center;
+      justify-content: center;
+      @include transition(background);
+      &:hover {
+        background: $c-dasher-light;
+      }
+      &.active {
+        background-color: $c-dasher;
+        color: $c-dasher-over;
+      }
+      span {
+        display: block;
+        width: 69px;
+        height: 38px;
+      }
+      &.custom {
+        display: block;
+        padding: 8px 1rem;
+        flex-basis: 100%;
+        height: 38px;
+        margin-top: 3px;
+        border-top: $border;
+        &.active{
+          color: $c-dasher-over;
+          &::before {
+            color: $c-dasher-over;
+          }
+        }
+        &::before {
+          float: right;
+          font-size: 80%;
+          margin-top: 0.25rem;
+          color: $c-dasher;
+        }
+      }
     }
-    .solid-orange {
-      background-image: url(../images/boards/thumbnails/solid-orange.png);
-    }
-    .space {
-      background-image: url(../images/boards/thumbnails/space.png);
-    }
-    .blue {
-      background-image: url(../images/boards/thumbnails/blue.png);
-    }
-    .gray {
-      background-image: url(../images/boards/thumbnails/gray.png);
-    }
-    .wood1 {
-      background-image: url(../images/boards/thumbnails/wood1.png);
-    }
-    .doubutsu {
-      background-image: url(../images/boards/thumbnails/doubutsu.png);
-    }
-    .kaya1 {
-      background-image: url(../images/boards/thumbnails/kaya1.png);
-    }
-    .kaya2 {
-      background-image: url(../images/boards/thumbnails/kaya2.png);
-    }
-    .oak {
-      background-image: url(../images/boards/thumbnails/oak.png);
-    }
-    .Painting1 {
-      background-image: url(../images/boards/thumbnails/Painting1.png);
-    }
-    .Painting2 {
-      background-image: url(../images/boards/thumbnails/Painting2.png);
-    }
-    .Kinkaku {
-      background-image: url(../images/boards/thumbnails/Kinkaku.png);
-    }
-    .custom {
-      background-image: url(../images/boards/thumbnails/custom.png);
+    & {
+      .natural {
+        background-image: url(../images/boards/thumbnails/natural.png);
+      }
+      .orange {
+        background-image: url(../images/boards/thumbnails/orange.png);
+      }
+      .space {
+        background-image: url(../images/boards/thumbnails/space.png);
+      }
+      .blue {
+        background-image: url(../images/boards/thumbnails/blue.png);
+      }
+      .gray {
+        background-image: url(../images/boards/thumbnails/gray.png);
+      }
+      .wood {
+        background-image: url(../images/boards/thumbnails/wood.png);
+      }
+      .doubutsu {
+        background-image: url(../images/boards/thumbnails/doubutsu.png);
+      }
+      .kaya1 {
+        background-image: url(../images/boards/thumbnails/kaya1.png);
+      }
+      .kaya2 {
+        background-image: url(../images/boards/thumbnails/kaya2.png);
+      }
+      .oak {
+        background-image: url(../images/boards/thumbnails/oak.png);
+      }
+      .painting1 {
+        background-image: url(../images/boards/thumbnails/painting1.png);
+      }
+      .painting2 {
+        background-image: url(../images/boards/thumbnails/painting2.png);
+      }
+      .kinkaku {
+        background-image: url(../images/boards/thumbnails/kinkaku.png);
+      }
     }
   }
 }

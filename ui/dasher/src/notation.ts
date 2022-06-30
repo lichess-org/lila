@@ -21,12 +21,11 @@ export function ctrl(data: NotationData, trans: Trans, redraw: Redraw, close: Cl
   return {
     set(n: Notation) {
       data.current = n;
-      $.post('/pref/notation', { notation: n }).fail(() =>
-        window.lishogi.announce({ msg: 'Failed to save notation preference' })
-      );
+      $.post('/pref/notation', { notation: n }, () => {
+        // we need to reload the page to see changes
+        setTimeout(location.reload.bind(location), 150);
+      }).fail(() => window.lishogi.announce({ msg: 'Failed to save notation preference' }));
       redraw();
-      // we need to reload the page to see changes - kinda stupid solution, but it works
-      setTimeout(location.reload.bind(location), 250);
     },
     data,
     redraw,
@@ -58,9 +57,9 @@ function notationView(ctrl: NotationCtrl, current: Notation) {
 function notationDisplay(ctrl: NotationCtrl, notation: Notation): string {
   switch (notation) {
     case Notation.Western:
-      return ctrl.trans('westernNotation');
+      return ctrl.trans('westernNotation') + ' (76)';
     case Notation.WesternEngine:
-      return ctrl.trans('westernNotation');
+      return ctrl.trans('westernNotation') + ' (7f)';
     case Notation.Japanese:
       return ctrl.trans('japaneseNotation');
     case Notation.Kawasaki:

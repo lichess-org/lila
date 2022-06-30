@@ -1,12 +1,14 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-import { Redraw, Close, bind, header } from './util';
+import { Redraw, Close, bind, header, validateUrl } from './util';
+
+type Key = 'light' | 'dark' | 'transp';
 
 export interface BackgroundCtrl {
   list: Background[];
-  set(k: string): void;
-  get(): string;
+  set(k: Key): void;
+  get(): Key;
   getImage(): string;
   setImage(i: string): void;
   trans: Trans;
@@ -14,12 +16,12 @@ export interface BackgroundCtrl {
 }
 
 export interface BackgroundData {
-  current: string;
+  current: Key;
   image: string;
 }
 
 interface Background {
-  key: string;
+  key: Key;
   name: string;
 }
 
@@ -36,7 +38,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     list,
     trans,
     get: () => data.current,
-    set(c: string) {
+    set(c: Key) {
       data.current = c;
       $.post('/pref/bg', { bg: c }, reloadAllTheThings).fail(announceFail);
       applyBackground(data, list);
@@ -90,8 +92,9 @@ function imageInput(ctrl: BackgroundCtrl) {
           $(vnode.elm as HTMLElement).on(
             'change keyup paste',
             window.lishogi.debounce(function (this: HTMLElement) {
-              ctrl.setImage($(this).val());
-            }, 200)
+              const url = ($(this).val() as string).trim();
+              if (validateUrl(url)) ctrl.setImage(url);
+            }, 300)
           );
         },
       },

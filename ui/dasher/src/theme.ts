@@ -36,21 +36,40 @@ export function ctrl(data: ThemeData, trans: Trans, redraw: Redraw, open: Open):
 export function view(ctrl: ThemeCtrl): VNode {
   return h('div.sub.theme', [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
-    h('div.list', ctrl.data.list.map(themeView(ctrl.data.current, ctrl.set))),
+    h(
+      'div.list',
+      ctrl.data.list.map(t => themeView(ctrl, t))
+    ),
   ]);
 }
 
-function themeView(current: Theme, set: (t: Theme) => void) {
-  return (t: Theme) =>
-    h(
+function themeView(ctrl: ThemeCtrl, t: Theme) {
+  if (t === 'custom') return customThemeView(ctrl);
+  else
+    return h(
       'a',
       {
-        hook: bind('click', () => set(t)),
+        hook: bind('click', () => ctrl.set(t)),
         attrs: { title: t },
-        class: { active: current === t },
+        class: { active: ctrl.data.current === t },
       },
-      [h('span.' + t)]
+      h('span.' + t)
     );
+}
+
+function customThemeView(ctrl: ThemeCtrl): VNode {
+  return h(
+    'a.custom',
+    {
+      hook: bind('click', () => {
+        ctrl.set('custom');
+        ctrl.open('customTheme');
+      }),
+      attrs: { title: 'custom', 'data-icon': 'H' },
+      class: { active: ctrl.data.current === 'custom' },
+    },
+    ctrl.trans('customTheme')
+  );
 }
 
 function applyTheme(t: Theme, list: Theme[]) {

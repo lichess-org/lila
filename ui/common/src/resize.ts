@@ -4,7 +4,7 @@ export type MouchEvent = MouseEvent & TouchEvent;
 
 type Visible = (ply: Ply) => boolean;
 
-export default function resizeHandle(els: sg.DomBoardElements, pref: number, ply: number, visible?: Visible) {
+export default function resizeHandle(els: sg.BoardElements, pref: number, ply: number, visible?: Visible) {
   if (!pref) return;
 
   const el = document.createElement('sg-resize');
@@ -30,7 +30,7 @@ export default function resizeHandle(els: sg.DomBoardElements, pref: number, ply
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
-      document.body.setAttribute('style', '--zoom:' + zoom);
+      document.body.style.setProperty('--zoom', zoom.toString());
       window.lishogi.dispatchEvent(window, 'resize');
 
       saveZoom();

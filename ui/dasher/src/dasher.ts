@@ -3,9 +3,11 @@ import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
 import { SoundCtrl, ctrl as soundCtrl } from './sound';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
+import { CustomThemeCtrl, ctrl as customThemeCtrl, CustomThemeData } from './customTheme';
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
-import { Redraw, Prop, prop } from './util';
+import { Redraw } from './util';
 import { NotationCtrl, ctrl as notationCtrl, NotationData } from './notation';
+import { prop, Prop } from 'common';
 
 export interface DasherData {
   user?: LightUser;
@@ -16,6 +18,7 @@ export interface DasherData {
   };
   background: BackgroundData;
   theme: ThemeData;
+  customTheme: CustomThemeData;
   piece: PieceData;
   inbox: boolean;
   coach: boolean;
@@ -23,7 +26,16 @@ export interface DasherData {
   i18n: any;
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'notation' | 'theme' | 'piece';
+export type Mode =
+  | 'links'
+  | 'langs'
+  | 'sound'
+  | 'background'
+  | 'board'
+  | 'notation'
+  | 'theme'
+  | 'customTheme'
+  | 'piece';
 
 const defaultMode = 'links';
 
@@ -39,6 +51,7 @@ export interface DasherCtrl {
     background: BackgroundCtrl;
     notation: NotationCtrl;
     theme: ThemeCtrl;
+    customTheme: CustomThemeCtrl;
     piece: PieceCtrl;
   };
   opts: DasherOpts;
@@ -68,8 +81,9 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     sound: soundCtrl(data.sound.list, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
     theme: themeCtrl(data.theme, trans, redraw, setMode),
+    customTheme: customThemeCtrl(data.customTheme, trans, redraw, setMode),
     notation: notationCtrl(data.notation, trans, redraw, close),
-    piece: pieceCtrl(data.piece, trans, redraw, setMode),
+    piece: pieceCtrl(data.piece, trans, redraw, close),
   };
 
   window.lishogi.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
