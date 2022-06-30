@@ -33,14 +33,12 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
         style = moveStyle.get(),
         variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
       if (!ctrl.shogiground) {
-        ctrl.setShogiground(
-          Shogiground({
-            ...makeSgConfig(ctrl),
-            animation: { enabled: false },
-            drawable: { enabled: false },
-            coordinates: { enabled: false },
-          })
-        );
+        ctrl.shogiground = Shogiground({
+          ...makeSgConfig(ctrl),
+          animation: { enabled: false },
+          drawable: { enabled: false },
+          coordinates: { enabled: false },
+        });
         if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
       return h(
