@@ -47,9 +47,10 @@ $c-slider: $c-setup;
     border-width: 0 7px 7px 0;
     padding: 5px;
     transform: rotate(45deg);
+    margin-top: 1rem;
     &.active {
+      margin-top: 1.5rem;
       transform: rotate(-135deg);
-      margin: 7px 0 0 0;
     }
   }
   .advanced_setup #config_periods {

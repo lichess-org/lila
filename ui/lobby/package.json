@@ -24,7 +24,7 @@
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
     "shogiground": "0.5.3",
-    "shogiops": "^0.8.0",
+    "shogiops": "^0.8.1",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

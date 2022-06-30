@@ -323,7 +323,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a.button',
               {
                 attrs: {
-                  href: '/?sfen=' + ctrl.encodeSfen(state.legalSfen || '') + '#ai',
+                  href:
+                    '/?sfen=' +
+                    ctrl.encodeSfen(state.legalSfen || '') +
+                    `&variant=${ctrl.rules === 'standard' ? '1' : '2'}` +
+                    '#ai',
                   rel: 'nofollow',
                 },
               },
@@ -333,7 +337,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a.button',
               {
                 attrs: {
-                  href: '/?sfen=' + ctrl.encodeSfen(state.legalSfen || '') + '#friend',
+                  href:
+                    '/?sfen=' +
+                    ctrl.encodeSfen(state.legalSfen || '') +
+                    `&variant=${ctrl.rules === 'standard' ? '1' : '2'}` +
+                    '#friend',
                   rel: 'nofollow',
                 },
               },
