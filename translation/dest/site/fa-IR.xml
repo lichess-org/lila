@@ -183,6 +183,10 @@
     <item quantity="one">%s ساعت</item>
     <item quantity="other">%s ساعت</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s دقیقه</item>
+    <item quantity="other">%s دقیقه</item>
+  </plurals>
   <string name="time">زمان</string>
   <string name="rating">ریتینگ</string>
   <string name="ratingStats">آمار ریتنگ</string>
