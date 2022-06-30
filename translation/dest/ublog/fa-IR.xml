@@ -9,10 +9,11 @@
   <string name="postBody">متنِ نوشته</string>
   <string name="drafts">پیش‌نویس‌ها</string>
   <string name="published">منتشر شده</string>
+  <string name="createBlogDiscussion">فعال‌سازی نظرات</string>
   <string name="publishOnYourBlog">روی تارنگارِ خود منتشر کنید</string>
   <string name="publishHelp">اگر انتخاب شود، نوشته در تارنگار شما نمایه می‌شود. اگر نه، به صورت خصوصی، در نوشته‌های پیش‌نویس شما خواهد بود</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">یک نوشتهٔ تارنگار منتشر شد</item>
+    <item quantity="one">یک پست در وبلاگ منتشر شد</item>
     <item quantity="other">نوشته‌های تارنگار %s منتشر شد</item>
   </plurals>
   <plurals name="nbViews">
