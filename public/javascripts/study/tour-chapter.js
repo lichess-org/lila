@@ -1,5 +1,5 @@
 function loadShepherd(f) {
-  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'dark' : 'default');
   lishogi.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
   lishogi.loadCss('stylesheets/shepherd.css');
   lishogi.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).done(function () {
