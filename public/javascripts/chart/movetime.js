@@ -28,7 +28,7 @@ lishogi.movetimeChart = function (data, trans) {
             data.game.moveCentis.forEach(function (time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
-              var san = node ? node.notation : '-';
+              var notation = node ? node.notation : '-';
 
               var color = ply & 1;
 
@@ -36,7 +36,7 @@ lishogi.movetimeChart = function (data, trans) {
               max = Math.max(y, max);
 
               var point = {
-                name: ply - plyOffset + '. ' + san,
+                name: ply - plyOffset + '. ' + notation,
                 x: i,
                 y: color ? y : -y,
               };
