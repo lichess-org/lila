@@ -37,9 +37,10 @@ import {
 } from './interfaces';
 import { makeNotation } from 'common/notation';
 import { isDrop, Role, Piece } from 'shogiops/types';
-import { parseUsi, roleToString, makeSquare } from 'shogiops/util';
+import { parseUsi, roleToString, makeSquare, opposite } from 'shogiops/util';
 import { Shogiground } from 'shogiground';
 import { usiToSquareNames } from 'shogiops/compat';
+import { unpromote } from 'shogiops/variantUtil';
 
 interface GoneBerserk {
   sente?: boolean;
@@ -165,6 +166,13 @@ export default class RoundController {
   private onUserMove = (orig: sg.Key, dest: sg.Key, prom: boolean, meta: sg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.move(this, meta);
     this.sendMove(orig, dest, prom, meta);
+
+    // to update hand immediately and not wait on apiMove
+    if (meta.captured)
+      this.shogiground.addToHand({
+        role: unpromote(this.data.game.variant.key)(meta.captured.role) || meta.captured.role,
+        color: opposite(meta.captured.color),
+      });
   };
 
   private onUserDrop = (piece: Piece, key: sg.Key, _prom: boolean, meta: sg.MoveMetadata) => {
@@ -374,6 +382,9 @@ export default class RoundController {
         this.shogiground.move(keys[0], keys[1], move.promotion);
       }
       this.shogiground.set({
+        sfen: {
+          hands: o.sfen.split(' ')[2],
+        },
         turnColor: d.game.player,
         movable: {
           dests: playing && activeColor ? util.getMoveDests(o.sfen, d.game.variant.key) : new Map(),
@@ -658,8 +669,7 @@ export default class RoundController {
     this.socket.sendLoading('draw-yes', null);
   };
 
-  setShogiground = (sg: SgApi) => {
-    this.shogiground = sg;
+  setKeyboardMove = () => {
     if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       requestAnimationFrame(() => this.redraw());

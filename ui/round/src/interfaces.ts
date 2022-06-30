@@ -88,6 +88,7 @@ export interface Step {
   ply: Ply;
   sfen: Sfen;
   usi?: Usi;
+  notation?: string;
   check?: boolean;
   capture?: boolean;
 }
@@ -142,6 +143,7 @@ export interface Pref {
   enablePremove: boolean;
   highlightLastDests: boolean;
   highlightCheck: boolean;
+  squareOverlay: boolean;
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
