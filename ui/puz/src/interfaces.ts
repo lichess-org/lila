@@ -21,6 +21,7 @@ export interface PuzPrefs {
   moveEvent: number;
   highlightLastDests: boolean;
   highlightCheck: boolean;
+  squareOverlay: boolean;
   notation: number;
 }
 

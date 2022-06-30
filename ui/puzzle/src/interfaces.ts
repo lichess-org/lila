@@ -113,6 +113,7 @@ export interface PuzzlePrefs {
   moveEvent: number;
   highlightLastDests: boolean;
   highlightCheck: boolean;
+  squareOverlay: boolean;
   animation: {
     duration: number;
   };
