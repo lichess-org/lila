@@ -7,6 +7,7 @@ import play.api.i18n.Lang
 
 import lila.app._
 import lila.common.IpAddress
+import lila.common.config
 
 final class Search(env: Env) extends LilaController(env) {
 
@@ -34,7 +35,7 @@ final class Search(env: Env) extends LilaController(env) {
         else
           OnlyHumans {
             val page = p atLeast 1
-            Reasonable(page, 100) {
+            Reasonable(page, config.Max(100)) {
               val cost         = scala.math.sqrt(page.toDouble).toInt
               implicit def req = ctx.body
               def limited =

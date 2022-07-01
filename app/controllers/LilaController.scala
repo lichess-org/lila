@@ -18,6 +18,7 @@ import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User => UserModel, UserContext }
+import lila.common.config
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -612,10 +613,10 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def Reasonable(
       page: Int,
-      max: Int = 40,
+      max: config.Max = config.Max(40),
       errorPage: => Fu[Result] = BadRequest("resource too old").fuccess
   )(result: => Fu[Result]): Fu[Result] =
-    if (page < max && page > 0) result else errorPage
+    if (max > page && page > 0) result else errorPage
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
