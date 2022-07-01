@@ -135,7 +135,8 @@ object pref {
             ),
             setting(
               inputMovesWithTheKeyboard(),
-              radios(form("behavior.keyboardMove"), booleanChoices)
+              radios(form("behavior.keyboardMove"), booleanChoices),
+              false
             ),
             setting(
               "scrollOnTheBoardToReplayMoves",

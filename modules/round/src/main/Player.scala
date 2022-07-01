@@ -126,7 +126,7 @@ final private class Player(
     }
 
   private def notifyMove(usi: Usi, game: Game): Unit = {
-    import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent } // todo UsiEvent
+    import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
     val color = !game.situation.color
     val moveEvent = MoveEvent(
       gameId = game.id,
