@@ -5,6 +5,7 @@ import lila.common.paginator._
 import lila.common.LightUser
 import lila.db.dsl._
 import lila.db.paginator._
+import org.joda.time.DateTime
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
@@ -38,10 +39,21 @@ final private[team] class PaginatorBuilder(
       maxUserPerPage
     )
 
-  final private class TeamAdapter(team: Team) extends AdapterLike[LightUser] {
+  def teamMembersWithDate(team: Team, page: Int): Fu[Paginator[TeamMember.UserAndDate]] =
+    Paginator(
+      adapter = new TeamAdapterWithDate(team),
+      page,
+      maxUserPerPage
+    )
 
+  private trait MembersAdapter {
+    val team: Team
     val nbResults = fuccess(team.nbMembers)
+    val sorting   = $sort desc "date"
+    val selector  = memberRepo teamQuery team.id
+  }
 
+  final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter {
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
         docs <-
@@ -54,8 +66,24 @@ final private[team] class PaginatorBuilder(
         userIds = docs.flatMap(_ string "user")
         users <- lightUserApi asyncMany userIds
       } yield users.flatten
-    private def selector = memberRepo teamQuery team.id
-    private def sorting  = $sort desc "date"
+  }
+
+  final private class TeamAdapterWithDate(val team: Team)
+      extends AdapterLike[TeamMember.UserAndDate]
+      with MembersAdapter {
+    def slice(offset: Int, length: Int): Fu[Seq[TeamMember.UserAndDate]] =
+      for {
+        docs <-
+          memberRepo.coll
+            .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
+            .sort(sorting)
+            .skip(offset)
+            .cursor[Bdoc]()
+            .list(length)
+        userIds = docs.flatMap(_ string "user")
+        dates   = docs.flatMap(_.getAsOpt[DateTime]("date"))
+        users <- lightUserApi asyncMany userIds
+      } yield users.flatten.zip(dates) map { case (u, d) => TeamMember.UserAndDate(u, d) }
   }
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
