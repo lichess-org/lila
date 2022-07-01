@@ -252,10 +252,8 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNo
   if (ctrl.path.length === 0) {
     return renderMainline(ctrl.mainline, ctrl.path, style);
   } else {
-    const currentLine = ctrl.tree.getNodeList(ctrl.path),
-      currentNode = currentLine[currentLine.length - 1],
-      futureNodes = currentNode.children.length > 0 ? ops.mainlineNodeList(currentNode.children[0]) : [];
-    return renderMainline(currentLine.concat(futureNodes), ctrl.path, style);
+    const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
+    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
   }
 }
 
