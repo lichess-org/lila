@@ -9,9 +9,8 @@ import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
 import { MaybeVNodes, RoundData } from '../interfaces';
-import { makeMoveNotationLine } from 'common/notation';
+import { notationsWithColor } from 'common/notation';
 import { toBlackWhite } from 'shogiops/util';
-import { initialSfen } from 'shogiops/sfen';
 
 const scrollMax = 99999,
   moveTag = 'm2';
@@ -62,29 +61,23 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps;
-  if (typeof round.lastPly(ctrl.data) === 'undefined') return [];
-
-  const usis = steps.slice(1).map(s => s.usi!);
-  const movesNotation: MoveNotation[] = makeMoveNotationLine(
-    ctrl.data.pref.notation,
-    ctrl.data.game.initialSfen || initialSfen(ctrl.data.game.variant.key),
-    ctrl.data.game.variant.key,
-    usis
-  );
+  if (steps.length <= 1) return [];
 
   const els: MaybeVNodes = [];
   const curMove = ctrl.ply - (ctrl.data.game.startedAtPly || 0) + (ctrl.data.game.startedAtMove ?? 1) - 1;
 
-  movesNotation.forEach((m, i) => {
-    const moveNumber = i + (ctrl.data.game.startedAtMove || 1);
+  steps.slice(1).forEach((s, i) => {
+    const moveNumber = i + (ctrl.data.game.startedAtMove || 1),
+      useColorIcon = notationsWithColor.includes(ctrl.data.pref.notation);
     els.push(h('index', moveNumber));
     els.push(
       h(
-        moveTag + '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'sente' : 'gote'),
+        moveTag +
+          (useColorIcon ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'sente' : 'gote') : ''),
         {
           class: { active: moveNumber === curMove },
         },
-        m
+        s.notation
       )
     );
   });

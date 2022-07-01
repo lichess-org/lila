@@ -11,6 +11,7 @@ import * as sg from 'shogiground/types';
 import { Config as SgConfig } from 'shogiground/config';
 import { Api as SgApi } from 'shogiground/api';
 import { ClockController } from './clock/clockCtrl';
+import { initialSfen } from 'shogiops/sfen';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -35,7 +36,7 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
-import { makeNotation } from 'common/notation';
+import { makeNotation, makeNotationLine } from 'common/notation';
 import { isDrop, Role, Piece } from 'shogiops/types';
 import { parseUsi, roleToString, makeSquare, opposite } from 'shogiops/util';
 import { Shogiground } from 'shogiground';
@@ -94,6 +95,8 @@ export default class RoundController {
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
 
     this.shogiground = Shogiground(ground.makeConfig(this));
+
+    this.initNotation();
 
     setTimeout(() => {
       this.firstSeconds = false;
@@ -156,6 +159,18 @@ export default class RoundController {
 
     if (li.ab && this.isPlaying()) li.ab.init(this);
   }
+
+  private initNotation = (): void => {
+    if (this.data.steps.length <= 1) return;
+    const usis = this.data.steps.slice(1).map(s => s.usi!),
+      movesNotation: MoveNotation[] = makeNotationLine(
+        this.data.pref.notation,
+        this.data.game.initialSfen || initialSfen(this.data.game.variant.key),
+        this.data.game.variant.key,
+        usis
+      );
+    for (let i = 1; i < this.data.steps.length; i++) this.data.steps[i].notation = movesNotation[i - 1];
+  };
 
   private showExpiration = () => {
     if (!this.data.expiration) return;
@@ -398,13 +413,15 @@ export default class RoundController {
       blur.onMove();
       li.pubsub.emit('ply', this.ply);
     }
-    const step = {
-      ply: round.lastPly(this.data) + 1,
-      sfen: o.sfen,
-      usi: o.usi,
-      check: o.check,
-      capture: !!capture,
-    };
+    const lastStep = round.lastStep(this.data),
+      step = {
+        ply: lastStep.ply + 1,
+        sfen: o.sfen,
+        usi: o.usi,
+        notation: makeNotation(d.pref.notation, lastStep.sfen, this.data.game.variant.key, o.usi!, lastStep.usi),
+        check: o.check,
+        capture: !!capture,
+      };
     d.steps.push(step);
     game.setOnGame(d, playedColor, true);
     this.data.forecastCount = undefined;
