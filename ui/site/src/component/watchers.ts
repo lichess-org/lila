@@ -34,13 +34,14 @@ export default function watchers(element: HTMLElement) {
     $numberEl.text('' + data.nb);
 
     if (data.users) {
-      const key = data.users.map(u => (u ? name(u) : '')).join(';');
-      if ($listEl.data('users-key') === key) return;
-      $listEl.data('users-key', key);
-      const tags = data.users.map(u => (u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous'));
-      if (data.anons === 1) tags.push('Anonymous');
-      else if (data.anons) tags.push(`Anonymous (${data.anons})`);
-      $listEl.html(tags.join(', '));
+      const prevUsers = data.users.map(u => u || '').join(';');
+      if ($listEl.data('prevUsers') !== prevUsers) {
+        $listEl.data('prevUsers', prevUsers);
+        const tags = data.users.map(u => (u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous'));
+        if (data.anons === 1) tags.push('Anonymous');
+        else if (data.anons) tags.push(`Anonymous (${data.anons})`);
+        $listEl.html(tags.join(', '));
+      }
     } else $listEl.html('');
 
     $element.removeClass('none');
