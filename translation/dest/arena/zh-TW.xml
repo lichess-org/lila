@@ -4,7 +4,7 @@
   <string name="isItRated">這一局棋會被計分嗎？</string>
   <string name="willBeNotified">您將會在錦標賽開始時收到通知，所以您可以放心的在錦標賽開始前下其他的棋局</string>
   <string name="isRated">這場錦標賽將會計分，並且會影響到您的分數</string>
-  <string name="isNotRated">這場錦標賽不會計分，並且它不會影響到您的分數</string>
+  <string name="isNotRated">這場錦標賽不會計分，並且不會影響到您的分數</string>
   <string name="someRated">一些錦標賽將會計分，並且影響到您的分數</string>
   <string name="howAreScoresCalculated">分數是如何計算的?</string>
   <string name="howAreScoresCalculatedAnswer">贏家將會得到2點積分，平局1點積分，輸家0分。

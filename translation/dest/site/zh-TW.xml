@@ -120,7 +120,7 @@
 	<plurals name="nbPlayers">
 		<item quantity="other">%s位棋手目前在線</item>
 	</plurals>
-	<string name="currentGames">當前對局</string>
+	<string name="currentGames">現在對局</string>
 	<plurals name="nbGames">
 		<item quantity="other">查看所有%s盤棋</item>
 	</plurals>

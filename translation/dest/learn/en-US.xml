@@ -22,7 +22,7 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="itMovesInStraightLines">It moves in straight lines</string>
 	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
 	<string name="rookGoal">Click on the rook to bring it to the star!</string>
-	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
+	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside the board.</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
@@ -99,7 +99,7 @@ And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
 	<string name="pieceDrops">Piece drops</string>
 	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
-	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
+	<string name="dropIntro">Once again, capture all the opponent\'s pieces without losing yours!</string>
 	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Protection</string>
@@ -111,7 +111,7 @@ Escape the threat!</string>
 	<string name="noEscape">There is no escape,
 but you can defend!</string>
 	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
-	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
+	<string name="dontForgetYouCanDropToDefend">Don\'t forget that you can drop pieces to defend!</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">Don\'t let them take
 any undefended piece!</string>
 	<string name="combat">Combat</string>
@@ -143,12 +143,12 @@ or block the attack!</string>
 	<string name="mateInOne">Mate in one</string>
 	<string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
 	<string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
-	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is kmate, or tsume.</string>
 	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Attack your opponent\'s king
 in a way that cannot be defended!</string>
 	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
-	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
+	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal — in a real game you would be forfeited!</string>
 	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
 	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
 	<string name="intermediate">Intermediate</string>
@@ -169,9 +169,10 @@ Make any move to continue.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="repetition">Repetition</string>
 	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
-	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
+	<string name="repetitionIntro">Fourfold repetition is a draw whereas Perpetual check is a loss.</string>
 	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
+	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent\'s king is a loss for the checking side.
+Unfortunately for your opponent, they don\'t know that! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
 	<string name="stalemate">Stalemate</string>

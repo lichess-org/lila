@@ -3,7 +3,7 @@
 	<string name="lishogiCoaches">Entrenadores de Lishogi</string>
 	<string name="lishogiCoach">Entrenador de Lishogi</string>
 	<string name="areYouCoach">¿Eres un gran entrenador de shogi con un %s?</string>
-	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
+	<string name="becomeACoach">¿Eres un gran entrenador de shogi con experiencia y quieres estar presente en lishogi?</string>
 	<string name="nmOrFideTitle">Titulo</string>
 	<string name="confirmTitle">Confirma tu título aquí y revisaremos tu solicitud.</string>
 	<string name="sendApplication">Envíanos un correo electrónico a %s y revisaremos tu solicitud.</string>
@@ -13,7 +13,7 @@
 	<string name="hourlyRate">Tarifa por hora</string>
 	<string name="availability">Disponibilidad</string>
 	<string name="accepting">Acepta estudiantes</string>
-	<string name="notAccepting">Actualmente, no acepta estudiantes</string>
+	<string name="notAccepting">Actualmente no está aceptando estudiantes</string>
 	<string name="xCoachesStudents">%s entrena a estudiantes de shogi</string>
 	<string name="viewXProfile">Ver el perfil de Lishogi de %s</string>
 	<string name="sendPM">Enviar un mensaje privado</string>

@@ -201,7 +201,7 @@
 	<string name="finishesX">结束：%s</string>
 	<string name="abortGame">中止本局</string>
 	<string name="gameAborted">棋局已中止</string>
-	<string name="standard">标准国际象棋</string>
+	<string name="standard">标准将棋</string>
 	<string name="unlimited">无限时间</string>
 	<string name="mode">模式</string>
 	<string name="casual">休闲</string>

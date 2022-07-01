@@ -24,8 +24,8 @@
   <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
   <string name="whoToKick">Sino ang gusto mong/ninyong sibakin mula sa koponan?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s kahilingang sumali</item>
-    <item quantity="other">%s join requests</item>
+    <item quantity="one">%s aplikasyon sa pagsali</item>
+    <item quantity="other">%s mga aplikasyon sa pagsali</item>
   </plurals>
   <string name="willBeReviewed">Ang iyong kahilingang sumali ay susuriin ng pinuno ng koponan.</string>
   <string name="beingReviewed">Ang iyong kahilingang sumali ay sinusuri ng pinuno ng koponan.</string>

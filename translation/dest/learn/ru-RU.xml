@@ -11,7 +11,7 @@
 	<string name="theIntroduction">Введение</string>
 	<string name="introBasics">Давайте изучим основы.</string>
 	<string name="introIntro">Ваше путешествие начинается здесь.</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">Нажмите здесь после выбора понравившегося дизайна.</string>
 	<string name="choosePieceDesign">Важно уметь различать фигуры, поэтому убедитесь, что вы выбрали правильный набор.
 Чтобы выбрать, кликните на шестерне или вашем имени пользователя (в верхнем правом углу), затем нажмите на \'Набор фигур\'.</string>
 	<string name="promotionZone">Когда некоторые ваши фишки входят в зону первых трёх строк территории вашего противника(или выходят из неё), вы можете перевернуть их и сделать сильнее.</string>
@@ -98,7 +98,7 @@
 And don\'t lose yours.</string>
 	<string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться фигурами сёги!</string>
 	<string name="pieceDrops">Piece drops</string>
-	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
+	<string name="reuseCapturedPieces">Повторно используйте захваченные фигуры!</string>
 	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
 	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
@@ -147,9 +147,9 @@ And don\'t lose yours.</string>
 	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
 чтобы его невозможно было защитить!</string>
-	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
+	<string name="chooseYourPieceCarefully">Выбирайте фигуру тщательно!</string>
 	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
-	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
+	<string name="mateWithAPushedPawnIs">Мат пододвинутой пешкой разрешён</string>
 	<string name="mateInOneComplete">Поздравляем! Вот таким образом вы и будете побеждать!</string>
 	<string name="intermediate">Средний уровень</string>
 	<string name="boardSetup">Расстановка фигур</string>
@@ -166,7 +166,7 @@ And don\'t lose yours.</string>
 	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
 	<string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на доске.</string>
 	<string name="repetition">Repetition</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Четырехразовое повторение - это ничья, КРОМЕ...</string>
 	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
 	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>

@@ -3,7 +3,7 @@
 	<string name="lishogiCoaches">Mga Lishogi coach</string>
 	<string name="lishogiCoach">Lishogi coach</string>
 	<string name="areYouCoach">Isa ka bang magaling na shogi coach na may %s?</string>
-	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
+	<string name="becomeACoach">Ikaw ba ay isang magaling na shogi coach na may karanasan at may kagustuhang maitampok sa lishogi?</string>
 	<string name="nmOrFideTitle">titulo</string>
 	<string name="confirmTitle">Kumpirmahin ang iyong title dito at aming susuriin ang iyong aplikasyon.</string>
 	<string name="sendApplication">Magpadala ng email sa amin %s at aming susuriin ang iyong aplikasyon.</string>
@@ -18,13 +18,13 @@
 	<string name="viewXProfile">Tingnan %s Lishogi profile</string>
 	<string name="sendPM">Magpadala ng pribadong mensahe</string>
 	<string name="aboutMe">Tungkol sa akin</string>
-	<string name="playingExperience">Playing experience</string>
+	<string name="playingExperience">Karanasan sa paglalaro</string>
 	<string name="teachingExperience">Karanasan sa pagtuturo</string>
 	<string name="otherExperiences">Iba pang mga karanasan</string>
-	<string name="bestSkills">Best skills</string>
+	<string name="bestSkills">Pinakamahusay na kakayahan</string>
 	<string name="teachingMethod">Paraan ng pagtuturo</string>
-	<string name="publicStudies">Public studies</string>
-	<string name="youtubeVideos">YouTube videos</string>
+	<string name="publicStudies">Mga pampublikong pag-aaral</string>
+	<string name="youtubeVideos">Mga bidyo sa YouTube</string>
 	<plurals name="studentReviews">
 		<item quantity="one">Isa
 Isang pagsusuri ng estudyante
