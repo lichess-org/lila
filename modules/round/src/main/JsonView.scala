@@ -291,6 +291,7 @@ object JsonView {
       division: Boolean = false,
       clocks: Boolean = false,
       blurs: Boolean = false,
-      rating: Boolean = true
+      rating: Boolean = true,
+      puzzles: Boolean = false
   )
 }

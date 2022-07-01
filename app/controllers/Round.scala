@@ -25,8 +25,6 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention {
 
-  private def analyser = env.analyse.analyser
-
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html =
@@ -200,7 +198,7 @@ final class Round(
             for {
               tour     <- env.tournament.api.gameView.watcher(pov.game)
               data     <- env.api.roundApi.watcher(pov, tour, apiVersion, tv = none)
-              analysis <- analyser get pov.game
+              analysis <- env.analyse.analyser get pov.game
               chat     <- getWatcherChat(pov.game)
             } yield Ok {
               data

@@ -68,7 +68,8 @@ final class Analyse(
                     clocks = true,
                     division = true,
                     opening = true,
-                    rating = ctx.pref.showRatings
+                    rating = ctx.pref.showRatings,
+                    puzzles = true
                   )
                 ) map { data =>
                   EnableSharedArrayBuffer(
