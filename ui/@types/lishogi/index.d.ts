@@ -22,6 +22,7 @@ interface Lishogi {
   loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
   hopscotch: any;
   slider(): any;
+  spectrum: any;
   makeChat(data: any, callback?: (chat: any) => void): void;
   formAjax(form: JQuery): any;
   numberFormat(n: number): string;
@@ -83,8 +84,7 @@ interface Lishogi {
 }
 
 interface LishogiSpeech {
-  say(t: string, cut: boolean): void;
-  step(s: { usi?: Usi }, cut: boolean): void;
+  step(s: { notation?: string }, cut: boolean): void;
 }
 
 interface PalantirOpts {
@@ -274,6 +274,7 @@ declare namespace Tree {
     comments?: Comment[];
     gamebook?: Gamebook;
     check?: Key;
+    capture?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
@@ -339,6 +340,7 @@ interface JQuery {
   highcharts(conf?: any): any;
   slider(key: string, value: any): any;
   slider(opts: any): any;
+  spectrum(opts: any): any;
   flatpickr(opts: any): any;
 }
 
