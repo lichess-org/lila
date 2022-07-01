@@ -19,7 +19,7 @@ import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
-  function section(key: 'white' | 'black' | 'draws') {
+  const section = (key: 'white' | 'black' | 'draws') => {
     const percent = (move[key] * 100) / sum;
     return h(
       'span.' + key,
@@ -28,7 +28,7 @@ function resultBar(move: OpeningMoveStats): VNode {
       },
       percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
     );
-  }
+  };
   return h('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
@@ -93,11 +93,12 @@ function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   return '';
 }
 
-function showResult(winner?: Color): VNode {
-  if (winner === 'white') return h('result.white', '1-0');
-  if (winner === 'black') return h('result.black', '0-1');
-  return h('result.draws', '½-½');
-}
+const showResult = (winner?: Color): VNode =>
+  winner === 'white'
+    ? h('result.white', '1-0')
+    : winner === 'black'
+    ? h('result.black', '0-1')
+    : h('result.draws', '½-½');
 
 function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
