@@ -22,15 +22,10 @@ function authorDom(author: Author): string | VNode {
   );
 }
 
-export function isAuthorObj(author: Author): author is AuthorObj {
-  return typeof author === 'object';
-}
+export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';
 
-export function authorText(author?: Author): string {
-  if (!author) return 'Unknown';
-  if (typeof author === 'string') return author;
-  return author.name;
-}
+export const authorText = (author?: Author): string =>
+  !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
   if (!ctrl.node.comments) return;
