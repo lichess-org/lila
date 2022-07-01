@@ -1,7 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
-import { makeMoveNotationLine } from 'common/notation';
+import { makeNotationLine } from 'common/notation';
 import { ForecastStep } from './forecast/interfaces';
 import { ops as treeOps } from 'tree';
 
@@ -178,7 +178,7 @@ export function renderNodesHtml(
   const tags: MaybeVNodes = [];
   const usis = nodes.map(n => n.usi);
 
-  const movesNotation = makeMoveNotationLine(notation, initialSfen, variant, usis);
+  const movesNotation = makeNotationLine(notation, initialSfen, variant, usis);
   movesNotation.forEach((moveNotation, index) => {
     tags.push(h('index', index + 1 + '.'));
     tags.push(h('move-notation', moveNotation));

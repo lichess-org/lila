@@ -56,7 +56,7 @@ export function makeNotation(
   return makeNotationWithPosition(notation, pos, parseUsi(usi)!, lastMove);
 }
 
-export function makeMoveNotationLine(
+export function makeNotationLine(
   notation: Notation,
   sfen: Sfen,
   variant: VariantKey,
