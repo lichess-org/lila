@@ -16,6 +16,7 @@ import {
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
+  usiToNotation,
 } from './treeView';
 import { enrichText, innerHTML } from '../util';
 
@@ -34,7 +35,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   const conceal = opts.noConceal ? null : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
   if (conceal === 'hide') return;
   if (opts.isMainline) {
-    const commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
+    const commentTags = renderMainlineCommentsOf(ctx, main, opts, conceal, true).filter(nonEmpty);
     if (!cs[1] && empty(commentTags) && !main.forceVariation)
       return ([moveView.renderIndex(main.ply, ctx.ctrl.plyOffset(), false)] as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
@@ -161,7 +162,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       ),
     ];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(renderInlineCommentsOf(ctx, node))
+    .concat(renderInlineCommentsOf(ctx, node, opts.parentPath))
     .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
     .concat(
       renderChildrenOf(ctx, node, {
@@ -186,7 +187,13 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   );
 }
 
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
+function renderMainlineCommentsOf(
+  ctx: Ctx,
+  node: Tree.Node,
+  opts: Opts,
+  conceal: Conceal,
+  withColor: boolean
+): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.gote ' : '.sente ') : '';
@@ -202,7 +209,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(by + truncated, text => {
+      hook: innerHTML(by + usiToNotation(ctx, node, opts.parentPath, truncated), text => {
         const s = text.split('</span>');
         return by + enrichText(s[s.length - 1]);
       }),
@@ -230,7 +237,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     currentPath: findCurrentPath(ctrl),
     offset: ctrl.plyOffset(),
   };
-  const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
+  const commentTags = renderMainlineCommentsOf(ctx, root, { parentPath: '', isMainline: true }, false, false);
   return h(
     'div.tview2.tview2-column',
     {

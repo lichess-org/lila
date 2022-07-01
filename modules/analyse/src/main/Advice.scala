@@ -25,7 +25,7 @@ sealed trait Advice {
       }) + "." + {
         withBestMove ?? {
           info.variation.headOption ?? { usi =>
-            s" Engine suggests $usi" // todo
+            s" Best move was [usi:${ply - 1}.$usi]"
           }
         }
       }

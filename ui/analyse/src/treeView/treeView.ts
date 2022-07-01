@@ -13,6 +13,8 @@ import inline from './inlineView';
 import { empty, defined } from 'common';
 import throttle from 'common/throttle';
 import { storedProp, StoredProp } from 'common/storage';
+import { makeNotation } from 'common/notation';
+import { makeUsi, parseUsi } from 'shogiops/util';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;
@@ -95,7 +97,7 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   );
 }
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node
     .comments!.map(comment => {
@@ -103,14 +105,42 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
       return h('comment', {
-        hook: innerHTML(truncated, text => by + enrichText(text)),
+        hook: innerHTML(usiToNotation(ctx, node, parentPath, truncated), text => by + enrichText(text)),
       });
     })
     .filter(nonEmpty);
 }
 
-export function truncateComment(text: string, len: number, ctx: Ctx) {
+export function truncateComment(text: string, len: number, ctx: Ctx): string {
   return ctx.truncateComments && text.length > len ? text.slice(0, len - 10) + ' [...]' : text;
+}
+
+export function usiToNotation(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path, text: string): string {
+  const matches = text.match(/\[usi:(\d*)\.?(\d\w\d\w)\]/g);
+  if (matches?.length) {
+    for (const mText of matches) {
+      const match = mText.match(/usi:(\d*)\.?(\d\w\d\w)/);
+      if (match) {
+        // the default is that the move is played after this node
+        const plyCutoff = node.ply - (parseInt(match[1]) || node.ply),
+          parent = plyCutoff <= 0 ? node : ctx.ctrl.tree.nodeAtPath(parentPath.slice(0, -2 * plyCutoff)),
+          md = match[2] && parseUsi(match[2]), // to make sure we have valid usi
+          notation =
+            md &&
+            parent &&
+            makeNotation(
+              ctx.ctrl.data.pref.notation,
+              parent.sfen,
+              ctx.ctrl.data.game.variant.key,
+              makeUsi(md),
+              parent.usi
+            );
+        if (notation) text = text.replace(mText, notation);
+        else text = text.replace(mText, 'Invalid move');
+      }
+    }
+  }
+  return text;
 }
 
 export function mainHook(ctrl: AnalyseCtrl): Hooks {
