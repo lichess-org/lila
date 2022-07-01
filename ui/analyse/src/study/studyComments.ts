@@ -36,13 +36,12 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
   if (!comments.length) return;
   return h(
     'div',
-    comments.map((comment: Tree.Comment) => {
+    comments.map(comment => {
       const by: Author = comment.by;
       const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
       if (!includingMine && isMine) return;
-      const canDelete = isMine || study.members.isOwner();
       return h('div.study__comment.' + comment.id, [
-        canDelete && study.vm.mode.write
+        study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
                 'data-icon': '',
