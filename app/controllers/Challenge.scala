@@ -311,17 +311,17 @@ final class Challenge(
       }
     }
 
-  def apiCreate(userId: String) =
+  def apiCreate(username: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      !me.is(userId) ?? env.setup.forms.api
+      !me.is(username) ?? env.setup.forms.api
         .user(me)
         .bindFromRequest()
         .fold(
           newJsonFormError,
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
-              env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
+              env.user.repo enabledByName username flatMap { destUser =>
                 val cost = destUser match {
                   case _ if me.isApiHog         => 0
                   case None                     => 2
@@ -337,7 +337,9 @@ final class Challenge(
                       case _ =>
                         destUser ?? { env.challenge.granter.isDenied(me.some, _, config.perfType) } flatMap {
                           case Some(denied) =>
-                            JsonBadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+                            JsonBadRequest(
+                              jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                            ).fuccess
                           case _ =>
                             env.challenge.api create challenge map {
                               case true =>
