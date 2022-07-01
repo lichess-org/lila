@@ -59,11 +59,11 @@
       margin-right: 10px;
       margin-left: 2px;
       padding: 10px;
-      filter: if($theme-light, brightness(0.2), brightness(0.90));
+      filter: if($theme-light, brightness(0.2), brightness(0.9));
     }
     &.active {
       background-color: fade-out($c-primary, 0.8);
-      border-left: 2px solid  $c-primary;
+      border-left: 2px solid $c-primary;
     }
     &.done {
       border-left: 2px solid $c-good;

@@ -1,4 +1,5 @@
-.sg-hand-wrap, sg-hand-wrap {
+.sg-hand-wrap,
+sg-hand-wrap {
   position: relative;
   width: 77%;
   height: 0;
@@ -44,7 +45,7 @@
       height: 100%;
       background-color: #0000003f;
     }
-  
+
     sg-hp-wrap {
       position: relative;
       flex: 1 0 14%;
@@ -57,11 +58,11 @@
         opacity: 1;
         background-color: rgba(20, 30, 85, 0.5);
       }
-  
+
       &.current-pre {
         background-color: rgba(20, 30, 85, 0.5);
       }
-  
+
       &[data-nb='0']:not(.drawing) {
         opacity: 0.35;
       }
@@ -108,8 +109,6 @@
           flex: 1 0 20%;
         }
       }
-  
     }
   }
 }
-

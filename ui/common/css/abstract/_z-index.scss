@@ -4,7 +4,8 @@
 /// @prop {String} key - Layer’s name
 /// @prop {Number} value - Z value mapped to the key
 $z-indexes: (
-  'sg__piece.dragging': 102, // needs to be lower than nag-circle, or we get blurry pieces...
+  // needs to be lower than nag-circle, or we get blurry pieces...
+  'sg__piece.dragging': 102,
   'sg__piece.anim': 3,
   'sg__svg.sg-shapes': 2,
   'sg__svg.sg-free-pieces': 2,

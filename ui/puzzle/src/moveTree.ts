@@ -1,11 +1,10 @@
 import { Position, Shogi } from 'shogiops/shogi';
-import { makeSfen, parseSfen } from 'shogiops/sfen';
+import { initialSfen, makeSfen, parseSfen } from 'shogiops/sfen';
 import { Move } from 'shogiops/types';
 import { makeSquare, makeUsi, parseUsi } from 'shogiops/util';
 import { TreeWrapper } from 'tree';
 import { makeNotationWithPosition, Notation } from 'common/notation';
 import { scalashogiCharPair } from './util';
-import { initialSfen } from 'shogiops/sfen';
 
 export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
   const pos = Shogi.default();

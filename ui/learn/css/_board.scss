@@ -1,5 +1,4 @@
 .learn__main {
-
   sg-squares sq.help {
     position: relative;
     &::before {
@@ -33,7 +32,7 @@
   svg.sg-custom-svgs .rep-digit {
     fill: $c-primary;
   }
-  
+
   .info-text {
     position: absolute;
     background: white;

@@ -35,6 +35,7 @@
     "no-extra-boolean-cast": "off",
     "@typescript-eslint/ban-types": "off",
     "no-async-promise-executor": "off",
-    "@typescript-eslint/adjacent-overload-signatures": "off"
+    "@typescript-eslint/adjacent-overload-signatures": "off",
+    "no-irregular-whitespace": "off"
   }
 }

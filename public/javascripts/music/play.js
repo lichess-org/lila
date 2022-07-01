@@ -5,9 +5,9 @@ lishogi.playMusic = function () {
     orchestra = lishogiOrchestra();
   });
 
-  var isPawn = function(notation) {
-    return notation && (notation.includes("P") || notation.includes("歩"));
-  }
+  var isPawn = function (notation) {
+    return notation && (notation.includes('P') || notation.includes('歩'));
+  };
 
   // support 12x12 board
   var rankToInt = function (file) {

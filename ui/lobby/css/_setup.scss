@@ -25,7 +25,8 @@ $c-slider: $c-setup;
       background: $c-setup;
     }
   }
-  .mode_choice, .sfen_position {
+  .mode_choice,
+  .sfen_position {
     group.radio div {
       flex-basis: 50%;
     }
@@ -99,7 +100,7 @@ $c-slider: $c-setup;
       min-height: 200px;
       margin: 0.5em auto;
       .spinner {
-        padding-top: 55px
+        padding-top: 55px;
       }
     }
   }

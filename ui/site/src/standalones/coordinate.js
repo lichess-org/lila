@@ -24,18 +24,21 @@ $(function () {
     var showColor = function () {
       color = colorPref == 'random' ? ['sente', 'gote'][Math.round(Math.random())] : colorPref;
       if (!ground)
-        ground = Shogiground({
-          activeColor: null,
-          coordinates: {enabled: false},
-          blockTouchScroll: true,
-          drawable: { enabled: false },
-          movable: {
-            free: false,
+        ground = Shogiground(
+          {
+            activeColor: null,
+            coordinates: { enabled: false },
+            blockTouchScroll: true,
+            drawable: { enabled: false },
+            movable: {
+              free: false,
+            },
+            orientation: color,
           },
-          orientation: color,
-        }, {
-          board: $board[0]
-        });
+          {
+            board: $board[0],
+          }
+        );
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('sente gote').addClass(color);
     };

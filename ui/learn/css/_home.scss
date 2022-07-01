@@ -35,7 +35,7 @@
       width: 80px;
       height: 80px;
       margin: 0 13px;
-      filter: if($theme-light, brightness(0.2), brightness(0.90));
+      filter: if($theme-light, brightness(0.2), brightness(0.9));
     }
     .text {
       height: 100%;
@@ -81,7 +81,8 @@
       right: -6px;
       overflow: hidden;
       position: absolute;
-      &::before, &::after {
+      &::before,
+      &::after {
         content: '';
         border-top-color: transparent;
         border-right-color: transparent;
@@ -164,9 +165,8 @@
       margin: 20px 0;
       font-size: 1.2em;
     }
-  } 
+  }
 }
-
 
 @keyframes glow {
   from {

@@ -12,7 +12,8 @@ $board-files: (
 
 @each $board, $file in $board-files {
   .#{$board} {
-    sg-board, #dasher_app .piece .list {
+    sg-board,
+    #dasher_app .piece .list {
       background-image: url(../images/boards/#{$file});
     }
     @include breakpoint($mq-col2-uniboard) {
@@ -32,7 +33,7 @@ $board-files: (
   width: 7px;
   height: 7px;
   top: 0;
-  left: 0
+  left: 0;
 }
 
 sg-squares {
@@ -83,7 +84,8 @@ sg-squares {
     background-color: #878787; // dark squares
     sq:nth-child(even) {
       background-color: #d1d1d1; // light squares
-      &.oc.dest, &.oc.pre-dest {
+      &.oc.dest,
+      &.oc.pre-dest {
         background-color: #d1d1d1; // light squares
       }
       &.selected {
@@ -123,14 +125,16 @@ sg-squares {
     background-color: #617a8e; // dark squares
     sq:nth-child(even) {
       background-color: #99aec2; // light squares
-      &.oc.dest, &.oc.pre-dest {
+      &.oc.dest,
+      &.oc.pre-dest {
         background-color: #99aec2; // light squares
       }
       &.selected {
         background-color: #568270;
       }
       &.preselected,
-      &.current-pre, &.oc.pre-dest {
+      &.current-pre,
+      &.oc.pre-dest {
         background-color: #56668c;
       }
       &.dest.hover {
@@ -158,8 +162,9 @@ sg-squares {
   }
 }
 
-.blue, .gray {
-  sg-squares  {
+.blue,
+.gray {
+  sg-squares {
     border: none;
     sq {
       border: none;
@@ -177,7 +182,8 @@ sg-squares {
 }
 
 .natural {
-  sg-board, dasher_app .piece .list {
+  sg-board,
+  dasher_app .piece .list {
     background-color: #ffd890;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -188,7 +194,8 @@ sg-squares {
 }
 
 .orange {
-  sg-board, dasher_app .piece .list {
+  sg-board,
+  dasher_app .piece .list {
     background-color: #f4bf57;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -199,7 +206,10 @@ sg-squares {
 }
 
 .space {
-  sg-squares, sg-squares sq, &.coords-edge .main-board .sg-wrap, sg-hand {
+  sg-squares,
+  sg-squares sq,
+  &.coords-edge .main-board .sg-wrap,
+  sg-hand {
     border-color: #eee;
   }
   sg-squares sq::after {
@@ -220,7 +230,8 @@ sg-squares {
     }
   }
   @include breakpoint($mq-col2-uniboard) {
-    sg-hand, &.coords-edge .main-board .sg-wrap {
+    sg-hand,
+    &.coords-edge .main-board .sg-wrap {
       border: 2px dashed #bb645c;
     }
   }
@@ -259,21 +270,21 @@ sg-squares {
   &.grid-width-0 {
     .sg-wrap {
       border-width: 0;
-      sg-squares  {
+      sg-squares {
         border-width: 0;
         sq {
           border-width: 0;
           &::after {
             content: unset;
           }
-        }      
+        }
       }
     }
   }
   &.grid-width-2 {
     .sg-wrap {
       border-width: 2px;
-      sg-squares  {
+      sg-squares {
         border-width: 2px;
         sq {
           border-width: 2px;
@@ -282,14 +293,14 @@ sg-squares {
             width: 10px;
             height: 10px;
           }
-        }      
+        }
       }
     }
   }
   &.grid-width-3 {
     .sg-wrap {
       border-width: 3px;
-      sg-squares  {
+      sg-squares {
         border-width: 3px;
         sq {
           border-width: 3px;
@@ -298,14 +309,17 @@ sg-squares {
             width: 12px;
             height: 12px;
           }
-        }      
+        }
       }
     }
   }
 }
 
 @include breakpoint($mq-xx-large) {
-  sg-squares, sg-squares sq, sg-hand, .coords-edge .main-board .sg-wrap {
+  sg-squares,
+  sg-squares sq,
+  sg-hand,
+  .coords-edge .main-board .sg-wrap {
     border-width: 2px;
   }
   sg-squares sq::after {

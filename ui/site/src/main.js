@@ -256,7 +256,10 @@
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         hands: {
           inlined: true,
-          roles: variant === 'minishogi' ? ['rook', 'bishop', 'gold', 'silver', 'pawn'] : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn']
+          roles:
+            variant === 'minishogi'
+              ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+              : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'],
         },
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
@@ -691,7 +694,7 @@
     Object.keys(names).forEach(function (name) {
       api[name] = function (text) {
         if (!enabled()) return;
-        if (!text || !api.say({en: text})) {
+        if (!text || !api.say({ en: text })) {
           Howler.volume(api.getVolume());
           var sound = collection(name);
           if (Howler.ctx && Howler.ctx.state == 'suspended') {

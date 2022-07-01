@@ -167,10 +167,13 @@
     p {
       margin: 6px 0 3px 0;
     }
-    .board, .grid, .hands {
+    .board,
+    .grid,
+    .hands {
       margin-top: 0.5rem;
     }
-    .board, .grid {
+    .board,
+    .grid {
       border-bottom: $border;
       padding-bottom: 1rem;
     }
@@ -178,7 +181,9 @@
       padding: 3px;
       text-align: center;
     }
-    .color-wrap, .url-wrap, .select-wrap {
+    .color-wrap,
+    .url-wrap,
+    .select-wrap {
       margin: 6px;
     }
     .select-wrap {

@@ -3,13 +3,12 @@ import { Api as SgApi } from 'shogiground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as SgConfig } from 'shogiground/config';
 import { Deferred } from 'common/defer';
-import { Outcome, Move } from 'shogiops/types';
+import { Outcome, Piece, Move } from 'shogiops/types';
 import { Prop } from 'common';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
 import { Shogi } from 'shogiops/shogi';
-import { Piece } from 'shogiops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];

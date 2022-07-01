@@ -8,11 +8,11 @@ function parseSfen($elem) {
     var color = $this.data('color');
     var ground = $this.data('shogiground');
     var config = {
-      coordinates: {enabled: false},
+      coordinates: { enabled: false },
       drawable: { enabled: false, visible: false },
       viewOnly: true,
       sfen: { board: sfen, hands: hands },
-      hands: { inlined: true},
+      hands: { inlined: true },
       lastDests: dropOrMove,
     };
     if (color) config.orientation = color;

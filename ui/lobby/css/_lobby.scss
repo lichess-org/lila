@@ -32,9 +32,10 @@ body {
   }
 }
 
-.lobby__tv, .lobby__puzzle {
+.lobby__tv,
+.lobby__puzzle {
   @extend %box-neat;
-  background: $c-bg-box; 
+  background: $c-bg-box;
 }
 
 .lobby__side {
