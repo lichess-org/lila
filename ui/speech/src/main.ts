@@ -108,7 +108,6 @@ function renderMove(move: string) {
 }
 
 export function step(s: { notation?: string }, cut: boolean) {
-  console.log('hello', s);
   const texts = {
     en: s.notation ? renderMove(s.notation) : 'Game start',
     jp: s.notation ? jRenderMove(s.notation) : '開始',

@@ -12,7 +12,7 @@ import { toBW } from 'shogiops/util';
 import { Shogiground } from 'shogiground';
 import { makeConfig } from './shogiground';
 import { initializePosition } from 'shogiops/variant';
-import { Board } from 'shogiops';
+import { Board } from 'shogiops/board';
 
 export default class EditorCtrl {
   data: EditorData;

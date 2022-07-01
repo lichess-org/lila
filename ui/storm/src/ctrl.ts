@@ -13,6 +13,7 @@ import { isDrop, Move, Role, Piece } from 'shogiops/types';
 import { backrank, secondBackrank } from 'shogiops/variantUtil';
 import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
 import { Shogiground } from 'shogiground';
+import { makeSgOpts } from 'puz/run';
 
 export default class StormCtrl {
   private data: StormData;
