@@ -45,7 +45,7 @@ trait ShogigroundHelper {
     )
 
   private def sgWrap(variant: Variant, orient: Option[Color])(content: Frag): Frag =
-    div(cls := s"sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}${orient.fold("")(o => s" orientation-${o.name}")}") {
+    div(cls := s"sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}${orient.fold("")(o => s" orientation-${o.name}")} preload") {
       sgBoard {
         content
       }
