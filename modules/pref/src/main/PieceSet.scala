@@ -31,6 +31,7 @@ object PieceSet {
     "Intl_Shadowed",
     "Intl_Monochrome_2D",
     "Intl_Wooden_3D",
+    "Intl_Portella"
     "international",
     "simple_kanji",
     "doubutsu",

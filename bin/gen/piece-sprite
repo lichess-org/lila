@@ -18,6 +18,7 @@ themes = [
   ['Intl_Shadowed', 'svg'],
   ['Intl_Monochrome_2D', 'svg'],
   ['Intl_Wooden_3D', 'svg'],
+  ['Intl_Portella', 'png'],
   ['kanji_brown', 'svg'],
   ['kanji_light', 'svg'],
   ['Kanji_Guide_Shadowed', 'svg'],

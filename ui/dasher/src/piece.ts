@@ -45,7 +45,7 @@ function pieceImage(t: Piece) {
 }
 
 function isPngPiece(t: Piece): boolean {
-  return t === 'Portella' || t === 'Portella_2Kanji';
+  return t === 'Portella' || t === 'Portella_2Kanji' || t === 'Intl_Portella';
 }
 
 function pieceView(current: Piece, set: (t: Piece) => void) {
