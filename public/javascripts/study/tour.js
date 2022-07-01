@@ -113,5 +113,14 @@ lichess.studyTour = function (study) {
         tour.addStep(s.title, s);
       });
     tour.start();
+
+    var stopTour = () => {
+      tour.cancel();
+    };
+    lichess.pubsub.on('tour.stop', stopTour);
+
+    Shepherd.once('inactive', _ => {
+      lichess.pubsub.off('tour.stop', stopTour);
+    });
   });
 };

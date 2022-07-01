@@ -11,7 +11,7 @@ import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { chapter as chapterTour, cancelCurrentTour } from './studyTour';
+import { chapter as chapterTour } from './studyTour';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
@@ -73,13 +73,13 @@ export function ctrl(
   }
 
   function open() {
-    cancelCurrentTour();
+    lichess.pubsub.emit('tour.stop');
     vm.open = true;
     loadVariants();
     vm.initial(false);
   }
   function close() {
-    cancelCurrentTour();
+    lichess.pubsub.emit('tour.stop');
     vm.open = false;
   }
 
