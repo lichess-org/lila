@@ -2,6 +2,7 @@ package controllers
 
 import lila.app._
 import views._
+import lila.common.config
 
 final class ForumCateg(env: Env) extends LilaController(env) with ForumController {
 
@@ -20,7 +21,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
   def show(slug: String, page: Int) =
     Open { implicit ctx =>
       NotForKids {
-        Reasonable(page, 50, errorPage = notFound) {
+        Reasonable(page, config.Max(50), notFound) {
           OptionFuResult(categApi.show(slug, ctx.me, page)) { case (categ, topics) =>
             for {
               canRead     <- access.isGrantedRead(categ.slug)

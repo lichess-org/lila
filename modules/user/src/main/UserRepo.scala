@@ -81,6 +81,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def enabledById(id: ID): Fu[Option[User]] =
     User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
 
+  def enabledByName(name: String): Fu[Option[User]] = enabledById(User normalize name)
+
   def isEnabled(id: ID): Fu[Boolean] =
     User.noGhost(id) ?? coll.exists(enabledSelect ++ $id(id))
 

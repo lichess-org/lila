@@ -1,14 +1,14 @@
 package lila.relation
 
-case class Follower(u1: String) {
+case class Follower(u1: String) extends AnyVal {
   def userId = u1
 }
 
-case class Followed(u2: String) {
+case class Followed(u2: String) extends AnyVal {
   def userId = u2
 }
 
-case class Blocked(u2: String) {
+case class Blocked(u2: String) extends AnyVal {
   def userId = u2
 }
 

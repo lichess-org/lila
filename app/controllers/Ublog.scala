@@ -10,6 +10,7 @@ import lila.user.{ User => UserModel }
 import play.api.i18n.Lang
 import lila.i18n.LangList
 import lila.report.Suspect
+import lila.common.config
 
 final class Ublog(env: Env) extends LilaController(env) {
 
@@ -249,7 +250,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def friends(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
-      Reasonable(page, 10) {
+      Reasonable(page, config.Max(10)) {
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
           Ok(html.ublog.index.friends(posts))
         }
@@ -260,7 +261,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def community(code: String, page: Int) = Open { implicit ctx =>
     NotForKids {
       val l = Lang.get(code).filter(LangList.popularNoRegion.contains)
-      Reasonable(page, 8) {
+      Reasonable(page, config.Max(8)) {
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }
@@ -277,7 +278,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def liked(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
-      Reasonable(page, 15) {
+      Reasonable(page, config.Max(15)) {
         ctx.me ?? { me =>
           env.ublog.paginator.liveByLiked(me, page) map { posts =>
             Ok(html.ublog.index.liked(posts))
@@ -297,7 +298,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def topic(str: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      Reasonable(page, 5) {
+      Reasonable(page, config.Max(5)) {
         lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))

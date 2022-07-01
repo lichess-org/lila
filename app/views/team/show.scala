@@ -67,7 +67,10 @@ object show {
           h1(cls := "text", dataIcon := "")(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
-            else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+            else
+              a(href := routes.Team.members(t.slug))(
+                nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+              )
           )
         ),
         div(cls := "team-show__content")(
@@ -178,7 +181,7 @@ object show {
               cls := "team-show__members"
             )(
               st.section(cls := "recent-members")(
-                h2(teamRecentMembers()),
+                h2(a(href := routes.Team.members(t.slug))(teamRecentMembers())),
                 div(cls := "userlist infinite-scroll")(
                   members.currentPageResults.map { member =>
                     div(cls := "paginated")(lightUserLink(member))

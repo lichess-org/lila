@@ -14,6 +14,7 @@ import lila.common.HTTPRequest
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ Holder, User => UserModel }
+import lila.common.config
 
 final class Team(
     env: Env,
@@ -45,6 +46,17 @@ final class Team(
     Open { implicit ctx =>
       Reasonable(page) {
         OptionFuOk(api team id) { renderTeam(_, page, mod) }
+      }
+    }
+
+  def members(id: String, page: Int) =
+    Open { implicit ctx =>
+      Reasonable(page, config.Max(50)) {
+        OptionFuOk(api team id) { team =>
+          paginator.teamMembersWithDate(team, page) map {
+            html.team.members(team, _)
+          }
+        }
       }
     }
 
