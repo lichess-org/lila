@@ -25,12 +25,6 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
-  def apiCreate = Scoped() { implicit req => me =>
-    env.racer.api.createAndJoin(playerId) map { raceId =>
-      Redirect(routes.Racer.show(raceId.value))
-    }
-  }
-
   def show(id: String) =
     WithPlayerId { implicit ctx => playerId =>
       env.racer.api.get(RacerRace.Id(id)) match {
