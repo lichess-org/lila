@@ -86,7 +86,7 @@ export default function (
   const redraw = ctrl.redraw;
 
   const relayRecProp = storedProp('relay.rec', true);
-  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => false);
+  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
 
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
