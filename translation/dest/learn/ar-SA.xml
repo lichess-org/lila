@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">تعلم الشطرنج</string>
-  <string name="byPlaying">عن طريق اللعب!</string>
+  <string name="byPlaying">بواسطة اللعب!</string>
   <string name="menu">القائمة</string>
   <string name="progressX">التقدم: %s</string>
   <string name="resetMyProgress">إعادة ضبط تقدمي</string>
   <string name="youWillLoseAllYourProgress">سيتم محو كل سجلات تقييمك!</string>
-  <string name="play">إلعب!</string>
+  <string name="play">اِلعب!</string>
   <string name="chessPieces">قطع الشطرنج</string>
   <string name="theRook">الرخ</string>
-  <string name="itMovesInStraightLines">إنها تتحرك في خطوط مستقيمة</string>
-  <string name="rookIntro">الرخ قطعة قوية. هل أنت مستعد لقيادتها؟</string>
+  <string name="itMovesInStraightLines">تتحرك في خطوط مستقيمة</string>
+  <string name="rookIntro">الرخ قطعة قوية. أ أنت مستعد لقيادتها؟</string>
   <string name="rookGoal">انقر على الرخ لتحضرها إلى النجمة!</string>
   <string name="grabAllTheStars">إجمع كل النجوم!</string>
   <string name="theFewerMoves">كلما قلت النقلات التي تقوم بها ، كلما كسبت المزيد من النقاط!</string>
@@ -190,6 +190,7 @@
   <string name="rightOn">على الطريق الصحيح!</string>
   <string name="stageXComplete">المرحلة %s تمت</string>
   <string name="next">التالي</string>
+  <string name="nextX">موالي: %s</string>
   <string name="backToMenu">العودة إلى القائمة</string>
   <string name="puzzleFailed">لقد خسرت اللغز!</string>
   <string name="retry">إعادة المحاولة</string>

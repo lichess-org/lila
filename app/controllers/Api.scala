@@ -448,7 +448,7 @@ final class Api(
   def addKeepAlive(source: Source[JsValue, _]): Source[Option[JsValue], _] =
     source
       .map(some)
-      .keepAlive(60.seconds, () => none) // play's idleTimeout = 75s
+      .keepAlive(50.seconds, () => none) // play's idleTimeout = 75s
 
   def sourceToNdJson(source: Source[JsValue, _]): Result =
     sourceToNdJsonString {

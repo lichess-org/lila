@@ -10,4 +10,6 @@
   <string name="youCanAnalyseAGameMoreEffectively">Vi povas analizi ludon pli efike se vi ne bezonas serĉi kvadratajn nomojn.</string>
   <string name="aSquareNameAppears">Kvadrata nomo aperas sur la tabulo kaj vi devas alklaki la ĝustan kvadraton. Vi havas 30 sekundojn por rekoni tiom da kvadratoj kiel eble!</string>
   <string name="startTraining">Komenci trejnadon</string>
+  <string name="findSquare">Trovu kvadraton</string>
+  <string name="nameSquare">Nomu kvadraton</string>
 </resources>

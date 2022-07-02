@@ -73,11 +73,13 @@ export function ctrl(
   }
 
   function open() {
+    lichess.pubsub.emit('tour.stop');
     vm.open = true;
     loadVariants();
     vm.initial(false);
   }
   function close() {
+    lichess.pubsub.emit('tour.stop');
     vm.open = false;
   }
 

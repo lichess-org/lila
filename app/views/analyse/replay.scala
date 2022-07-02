@@ -49,7 +49,7 @@ object replay {
     val imageLinks = frag(
       a(
         dataIcon := "",
-        cls      := "text",
+        cls      := "text game-gif",
         targetBlank,
         href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
       )(trans.gameAsGIF()),

@@ -25,6 +25,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
+    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
     positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement,
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastInputHash: string;
@@ -47,6 +48,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           lastMove: ctrl.node.uci,
           variant: ctrl.data.game.variant.key,
         });
+        gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
         lastInputHash = nextInputHash;
       }
       if ($chart.length) {

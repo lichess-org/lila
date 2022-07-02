@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">الألغاز</string>
   <string name="puzzleThemes">خصائص الألغاز</string>
-  <string name="recommended">موصى به</string>
+  <string name="recommended">مقترح</string>
   <string name="phases">مراحل</string>
   <string name="motifs">الأفكار الرئيسية</string>
   <string name="advanced">خيارات أعمق</string>
@@ -63,6 +63,7 @@
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">إضافة نوع آخر</string>
+  <string name="nextPuzzle">اللغز الموالي</string>
   <string name="jumpToNextPuzzleImmediately">انتقل للغز التالي مباشرة</string>
   <string name="puzzleDashboard">لوحة التحكم بالألغاز</string>
   <string name="improvementAreas">مناطق بحاجة لتحسين</string>

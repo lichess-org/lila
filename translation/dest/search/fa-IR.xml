@@ -29,4 +29,11 @@
   <string name="maxNumber">حداکثر تعداد</string>
   <string name="maxNumberExplanation">حداکثر تعداد بازی برای بارگیری</string>
   <string name="include">شامل</string>
+  <string name="descending">نزولی</string>
+  <string name="ascending">صعودی</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s بازی یافت شد</item>
+    <item quantity="other">%s بازی یافت شد</item>
+  </plurals>
+  <string name="ratingExplanation">میانگین ریتینگ هر دو بازیکن</string>
 </resources>

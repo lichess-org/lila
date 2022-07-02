@@ -97,6 +97,9 @@
   <string name="xOpeningExplorer">حرکت گشاینده %s برای تنوع مورد بررسی</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
+  <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
+  <string name="lossOr50MovesByPriorMistake">باخت یا ۵٠ حرکت از اشتباه قبلی</string>
+  <string name="unknownDueToRounding">برد یا باخت تنها زمانی تضمین شده است که شاخه پیشنهاد شده توسط دیتابیس پس از آخرین گرفتن مهره یا حرکت پیاده اجرا شود. علت رند کردن احتمالی مقدار های DTZ در دیتابیس است.</string>
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف نمایید</string>
@@ -179,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ساعت</item>
     <item quantity="other">%s ساعت</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s دقیقه</item>
+    <item quantity="other">%s دقیقه</item>
   </plurals>
   <string name="time">زمان</string>
   <string name="rating">ریتینگ</string>
@@ -341,6 +348,8 @@
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">بهترین بازیکنان</string>
+  <string name="screenshotCurrentPosition">عکس گرفتن از تخته‌</string>
+  <string name="gameAsGIF">دانلود گیف بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
@@ -419,6 +428,8 @@
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
   <string name="tournamentPairingsAreNowClosed">تعین حریف به اتمام رسیده است.</string>
   <string name="standByX">حریف %s است،آماده باشید!</string>
+  <string name="pause">توقف</string>
+  <string name="resume">ادامه دادن</string>
   <string name="youArePlaying">شما بازی میکنید!</string>
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
@@ -556,6 +567,7 @@
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
+  <string name="error.unknown">مقدار نامعتبر</string>
   <string name="error.required">حتماً باید این خانه را پر کنید</string>
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
   <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
@@ -788,6 +800,7 @@
   <string name="currentMatchScore">امتیاز بازی فعلی</string>
   <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از انجین ، کتاب ، پایگاه داده یا شخصی دیگر)</string>
   <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">من موافقت می‌کنم که چندین اکانت برای خودم ایجاد نکنم(به جز دلایلی که در %s اشاره شده).</string>
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>

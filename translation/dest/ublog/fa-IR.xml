@@ -9,10 +9,12 @@
   <string name="postBody">متنِ نوشته</string>
   <string name="drafts">پیش‌نویس‌ها</string>
   <string name="published">منتشر شده</string>
+  <string name="createBlogDiscussion">فعال‌سازی نظرات</string>
+  <string name="createBlogDiscussionHelp">تالار مربوط پست جهت نظر گذاشتن کاربران ایجاد خواهد شد</string>
   <string name="publishOnYourBlog">روی تارنگارِ خود منتشر کنید</string>
   <string name="publishHelp">اگر انتخاب شود، نوشته در تارنگار شما نمایه می‌شود. اگر نه، به صورت خصوصی، در نوشته‌های پیش‌نویس شما خواهد بود</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">یک نوشتهٔ تارنگار منتشر شد</item>
+    <item quantity="one">یک پست در وبلاگ منتشر شد</item>
     <item quantity="other">نوشته‌های تارنگار %s منتشر شد</item>
   </plurals>
   <plurals name="nbViews">
@@ -26,6 +28,10 @@
   <string name="noPostsInThisBlogYet">هنوز، هیچ نوشته‌ای در این تارنگار نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
   <string name="latestBlogPosts">آخرین نوشته‌های بلاگ</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">دیدن پست</item>
+    <item quantity="other">دیدت تمام %s پست</item>
+  </plurals>
   <string name="uploadAnImageForYourPost">بارگذاری یک عکس برای پست شما</string>
   <string name="imageAlt">مقدار alternative برای عکس</string>
   <string name="imageCredit">منبع عکس</string>

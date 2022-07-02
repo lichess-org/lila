@@ -25,18 +25,18 @@
   <string name="humanOrComputer">سواءً كان الخصم بشرياً أو جهاز كمبيوتر</string>
   <string name="aiLevel">مستوى الذكاء الاصطناعي</string>
   <string name="source">المصدر</string>
-  <string name="nbTurns">عدد الادوار</string>
+  <string name="nbTurns">عدد الأدوار</string>
   <string name="result">النتيجة</string>
   <string name="winnerColor">لون الفائز</string>
-  <string name="date">تاريخ</string>
+  <string name="date">التاريخ</string>
   <string name="sortBy">ترتيب حسب</string>
   <string name="analysis">تحليل</string>
   <string name="onlyAnalysed">فقط المباريات التي يتوفر تحليل الكمبيوتر لها</string>
   <string name="color">اللون</string>
   <string name="evaluation">التقييم</string>
   <string name="maxNumber">أقصى رقم</string>
-  <string name="maxNumberExplanation">الحد الأقصى لعدد الألعاب المراد إرجاعها</string>
-  <string name="include">تضمين</string>
+  <string name="maxNumberExplanation">أكبر عدد الألعاب المراد إرجاعها</string>
+  <string name="include">محتوية</string>
   <string name="descending">تنازلي</string>
   <string name="ascending">تصاعدي</string>
   <plurals name="gamesFound">
@@ -47,5 +47,5 @@
     <item quantity="many">تم إيجاد %s لعبة</item>
     <item quantity="other">تم إيجاد %s لعبة</item>
   </plurals>
-  <string name="ratingExplanation">متوسط التقييم لكلا اللاعبين</string>
+  <string name="ratingExplanation">معدل التقييم لكلا اللاعبين</string>
 </resources>
