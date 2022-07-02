@@ -98,9 +98,9 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    left: 0;
+    #{$start-direction}: 0;
     background: $c-bg-high;
-    transform: translateX(calc(-100% - 10px));
+    transform: translateX(calc(-100% * #{$transform-direction} - 10px * #{$transform-direction}));
 
     @include transition(transform, 200ms);
 
