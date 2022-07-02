@@ -158,6 +158,7 @@ GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(usernam
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
+POST  /api/racer                        controllers.Racer.apiCreate
 GET   /racer/:id                        controllers.Racer.show(id: String)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id: String)
 POST  /racer/lobby                      controllers.Racer.lobby
