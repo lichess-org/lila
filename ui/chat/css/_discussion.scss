@@ -101,6 +101,12 @@
     li.me i {
       display: none !important;
     }
+
+    &.as-mod {
+      li:hover {
+        background: mix($c-accent, $c-bg-box, 10%);
+      }
+    }
   }
 
   &__say {
