@@ -21,7 +21,7 @@
 
   .node .back {
     width: 1em;
-    margin-right: 0.3em;
+    margin-#{$end-direction}: 0.3em;
     display: inline-block;
     opacity: 0.6;
 
@@ -43,7 +43,7 @@
       font-size: 1.2em;
       display: block;
       padding: 1em;
-      padding-left: 30px;
+      padding-#{$start-direction}: 30px;
 
       @include transition;
 

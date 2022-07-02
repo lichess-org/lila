@@ -29,11 +29,11 @@
     }
 
     &:before {
-      right: 8px;
+      #{$end-direction}: 8px;
     }
 
     &:after {
-      left: 8px;
+      #{$start-direction}: 8px;
     }
   }
 
@@ -102,7 +102,7 @@
 
     input[type='range'] {
       flex: 1 4 auto;
-      padding: 0 0 0 1em;
+      padding-#{$start-direction}: 1em;
       height: 1.6em;
       width: 100%;
       margin: 0 1ch;

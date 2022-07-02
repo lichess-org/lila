@@ -6,7 +6,7 @@
   .auto-refresh {
     position: absolute;
     top: 30px;
-    right: 20px;
+    #{$end-direction}: 20px;
 
     @include transition;
 

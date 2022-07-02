@@ -37,7 +37,7 @@
 
   .playing input {
     vertical-align: middle;
-    margin-right: 3px;
+    margin-#{$end-direction}: 3px;
   }
 
   .now-playing {
@@ -82,7 +82,7 @@
       white-space: nowrap;
 
       span {
-        margin-left: 0.5em;
+        margin-#{$start-direction}: 0.5em;
       }
     }
 

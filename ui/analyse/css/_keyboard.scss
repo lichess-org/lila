@@ -3,6 +3,6 @@
 
   td.mouse li {
     list-style: disc inside;
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
   }
 }

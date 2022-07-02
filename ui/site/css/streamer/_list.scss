@@ -30,7 +30,7 @@ $mq-picture: $mq-medium;
 
       &::before {
         display: inline;
-        margin-right: 0.2em;
+        margin-#{$end-direction}: 0.2em;
 
         @include breakpoint($mq-picture) {
           display: none;
@@ -105,7 +105,7 @@ $mq-picture: $mq-medium;
     svg {
       width: 1.4em;
       height: 1.4em;
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
       opacity: 0.7;
     }
   }
@@ -116,7 +116,7 @@ $mq-picture: $mq-medium;
     overflow: hidden;
     position: absolute;
     top: -10px;
-    right: -10px;
+    #{$end-direction}: -10px;
     z-index: 2;
 
     @include breakpoint($mq-not-xx-small) {
@@ -137,17 +137,17 @@ $mq-picture: $mq-medium;
 
     &::before {
       top: 0;
-      left: 0;
+      #{$start-direction}: 0;
     }
 
     &::after {
       bottom: 0;
-      right: 0;
+      #{$end-direction}: 0;
     }
 
     span {
       position: absolute;
-      left: -20px;
+      #{$start-direction}: -20px;
       top: 35px;
       transform: rotate(45deg);
       display: block;

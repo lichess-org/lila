@@ -1,5 +1,5 @@
 .tv-channel {
-  padding: 0.4rem 0.8rem 0.4rem 0 !important;
+  @include padding-direction(0.4rem, 0.8rem, 0.4rem, 0, true);
 
   > span {
     @extend %flex-center-nowrap;
@@ -11,7 +11,7 @@
       order: 2;
       color: mix($c-brag, $c-bg-page, 60%);
       font-size: 2.5em;
-      margin-left: 0.8rem;
+      margin-#{$start-direction}: 0.8rem;
     }
 
     > span {

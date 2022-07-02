@@ -65,16 +65,16 @@
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
-      padding-right: 1em;
-      padding-left: 1em;
+      padding-#{$end-direction}: 1em;
+      padding-#{$start-direction}: 1em;
       text-transform: none;
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
       &.active:hover {
         background: mix($c-secondary, white, 80);
       }
     }
     .color {
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
     }
   }
 

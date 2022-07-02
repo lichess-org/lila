@@ -8,7 +8,7 @@
   a {
     @extend %page-text;
 
-    margin-right: 1.2em;
+    margin-#{$end-direction}: 1.2em;
     white-space: nowrap;
 
     @media (any-pointer: coarse) {

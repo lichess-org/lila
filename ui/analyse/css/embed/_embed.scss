@@ -36,7 +36,7 @@ cg-board {
     z-index: z('cg__board.overlay');
     position: absolute;
     top: 50%;
-    left: 50%;
+    #{$start-direction}: 50%;
     transform: translate(-50%, -50%);
     display: block;
     padding: 2em 4em;

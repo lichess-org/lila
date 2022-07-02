@@ -27,12 +27,12 @@
 
   &__pov {
     color: $c-brag;
-    margin-left: 5vw;
+    margin-#{$start-direction}: 5vw;
 
     @include breakpoint($mq-col2) {
       position: absolute;
       bottom: -3em;
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
     }
   }
 }

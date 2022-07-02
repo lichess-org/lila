@@ -25,7 +25,7 @@ $c-study-button: $c-accent;
     color: $c-bad-over;
     padding: 0 5px;
     border-radius: 9px;
-    margin-right: 4px;
+    margin-#{$end-direction}: 4px;
   }
 
   .mode {
@@ -39,7 +39,7 @@ $c-study-button: $c-accent;
       font-size: 1.4em;
       content: '';
       color: $c-bad;
-      margin-right: 0.2rem;
+      margin-#{$end-direction}: 0.2rem;
     }
 
     &.on i::before {

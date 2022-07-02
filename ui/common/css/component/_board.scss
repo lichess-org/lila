@@ -1,6 +1,8 @@
 .main-board {
   @extend %square;
 
+  direction: ltr;
+
   &__preload {
     position: absolute;
   }

@@ -32,7 +32,7 @@ $chat-height: calc(90vh - 300px);
 
     > i {
       font-size: 2.5em;
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
     }
   }
 

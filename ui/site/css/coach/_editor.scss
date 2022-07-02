@@ -18,12 +18,12 @@
     }
 
     .picture_wrap img {
-      margin-right: 10px;
+      margin-#{$end-direction}: 10px;
       width: 100px !important;
       height: 100px !important;
 
       @include breakpoint($mq-picture) {
-        margin-right: 30px;
+        margin-#{$end-direction}: 30px;
         width: 250px !important;
         height: 250px !important;
       }

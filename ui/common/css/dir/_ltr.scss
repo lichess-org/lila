@@ -1,0 +1,15 @@
+$direction: ltr;
+$opposite-direction: rtl;
+
+$start-direction: left;
+$end-direction: right;
+
+$transform-direction: 1;
+
+@mixin padding-direction($top, $end, $bottom, $start, $important: false) {
+  @if $important {
+    padding: $top $end $bottom $start !important;
+  } @else {
+    padding: $top $end $bottom $start;
+  }
+}

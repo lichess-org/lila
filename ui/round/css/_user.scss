@@ -52,7 +52,7 @@
   }
 
   .rp {
-    margin-right: 0.2em;
+    margin-#{$end-direction}: 0.2em;
   }
 
   @include breakpoint($mq-col2) {

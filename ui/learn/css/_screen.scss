@@ -73,7 +73,7 @@
   .stars .star-wrap::before {
     position: absolute;
     top: 5px;
-    left: 5px;
+    #{$start-direction}: 5px;
     display: block;
     width: 45px;
     height: 45px;

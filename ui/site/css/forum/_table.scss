@@ -11,13 +11,13 @@
     @include breakpoint($mq-small) {
       display: table-cell;
       text-align: right;
-      padding-right: 2em;
+      padding-#{$end-direction}: 2em;
     }
   }
 
   td:last-child {
     white-space: nowrap;
-    padding-right: 1em;
+    padding-#{$end-direction}: 1em;
 
     time {
       color: $c-link;

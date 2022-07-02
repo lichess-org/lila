@@ -150,6 +150,17 @@ function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
     firstPly = round.firstPly(d),
     lastPly = round.lastPly(d);
+  let iconFirst = '';
+  let iconPrev = '';
+  let iconNext = '';
+  let iconLast = '';
+  if (document.dir == 'rtl') {
+    iconLast = '';
+    iconNext = '';
+    iconPrev = '';
+    iconFirst = '';
+  }
+
   return h(
     'div.buttons',
     {
@@ -182,10 +193,10 @@ function renderButtons(ctrl: RoundController) {
         },
       }),
       ...[
-        ['', firstPly],
-        ['', ctrl.ply - 1],
-        ['', ctrl.ply + 1],
-        ['', lastPly],
+        [iconFirst, firstPly],
+        [iconPrev, ctrl.ply - 1],
+        [iconNext, ctrl.ply + 1],
+        [iconLast, lastPly],
       ].map((b, i) => {
         const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
         return h('button.fbt', {

@@ -20,7 +20,8 @@
     &__over-image {
       position: absolute;
       top: 0;
-      padding: 0.2em 0.5em 0.3em 0.5em;
+      @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
+
       @if $theme-dark {
         background: rgba(0, 0, 0, 0.65);
         color: #ddd;
@@ -33,11 +34,11 @@
       opacity: 1;
     }
     time {
-      left: 0;
+      #{$start-direction}: 0;
       border-radius: 0 0 $box-radius-size 0;
     }
     .user-link {
-      right: 0;
+      #{$end-direction}: 0;
       border-radius: 0 0 0 $box-radius-size;
     }
 

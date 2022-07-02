@@ -38,7 +38,7 @@ $user-list-width: 30ch;
     }
 
     .user-link {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
   }
 
@@ -53,7 +53,7 @@ $user-list-width: 30ch;
       border: 1px solid $c-lead;
 
       .user-top {
-        border-right: 2px solid fade-out($c-lead, 0.5);
+        border-#{$end-direction}: 2px solid fade-out($c-lead, 0.5);
       }
 
       h2 {
@@ -62,7 +62,7 @@ $user-list-width: 30ch;
         font-size: 1.45em;
         line-height: 2.5em;
         letter-spacing: -1px;
-        padding-left: 0.8rem;
+        padding-#{$start-direction}: 0.8rem;
         text-transform: uppercase;
         margin: 0;
         background: $c-lead;
@@ -74,7 +74,7 @@ $user-list-width: 30ch;
       }
 
       li {
-        padding: 0.7rem 1.2rem 0.7rem 0.5rem;
+        @include padding-direction(0.7rem, 1.2rem, 0.7rem, 0.5rem);
       }
 
       li:nth-child(even) {

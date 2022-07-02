@@ -25,7 +25,9 @@ export const loadCss = (url: string): Promise<void> => {
 };
 
 export const loadCssPath = (key: string): Promise<void> =>
-  loadCss(`css/${key}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
+  loadCss(
+    `css/${key}.${document.dir || 'ltr'}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`
+  );
 
 export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 

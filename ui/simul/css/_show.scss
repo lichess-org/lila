@@ -30,7 +30,7 @@ $box-padding: var(--box-padding);
 
   .user-link em {
     font-weight: bold;
-    padding-left: 5px;
+    padding-#{$start-direction}: 5px;
   }
 
   .game-list {

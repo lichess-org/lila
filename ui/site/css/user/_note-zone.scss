@@ -33,10 +33,10 @@
     > div {
       @extend %flex-center;
 
-      margin-left: 1.5em;
+      margin-#{$start-direction}: 1.5em;
 
       > label {
-        margin-left: 0.5em;
+        margin-#{$start-direction}: 0.5em;
         cursor: pointer;
       }
     }

@@ -11,7 +11,7 @@
       @extend %box-radius-bottom;
 
       position: absolute;
-      right: 0;
+      #{$end-direction}: 0;
       top: 100%;
       text-align: right;
       opacity: 0;

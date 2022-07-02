@@ -4,7 +4,7 @@ $clock-height: 20px;
 
 .analyse__player_strip {
   position: absolute;
-  right: 0;
+  #{$end-direction}: 0;
   display: flex;
 
   &.top {
@@ -34,7 +34,7 @@ $clock-height: 20px;
   @extend %metal, %box-shadow;
 
   padding: 0 0.5em;
-  margin-left: 12px;
+  margin-#{$start-direction}: 12px;
   height: $clock-height;
   font-weight: bold;
   text-align: center;
@@ -61,14 +61,14 @@ $clock-height: 20px;
 }
 
 .material {
-  padding-right: 1px;
+  padding-#{$end-direction}: 1px;
 
   mpiece {
     width: 20px;
     height: 20px;
 
     &.pawn {
-      margin-left: -10px;
+      margin-#{$start-direction}: -10px;
     }
   }
   score {

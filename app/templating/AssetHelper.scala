@@ -28,10 +28,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def cssTag(name: String)(implicit ctx: Context): Frag =
-    cssTagWithTheme(name, ctx.currentBg)
+    cssTagWithDirAndTheme(name, isRTL, ctx.currentBg)
 
-  def cssTagWithTheme(name: String, theme: String): Frag =
-    cssAt(s"css/$name.$theme.${if (minifiedAssets) "min" else "dev"}.css")
+  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
+    cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
