@@ -48,6 +48,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           lastMove: ctrl.node.uci,
           variant: ctrl.data.game.variant.key,
         });
+        gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
         lastInputHash = nextInputHash;
       }
       if ($chart.length) {
@@ -70,7 +71,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           chart.lastPly = mainlinePly;
         }
       }
-      gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!window.LichessChartGame) startAdvantageChart();
