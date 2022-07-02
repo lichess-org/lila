@@ -39,13 +39,16 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
 }
 
 function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
+  const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
   switch (technology) {
     case 'asmjs':
       return 18;
     case 'wasm':
       return 20;
+    case 'external':
+      return 26 + extraDepth;
     default:
-      return 22 + Math.min(Math.max(threads - multiPv, 0), 6);
+      return 22 + extraDepth;
   }
 }
 
