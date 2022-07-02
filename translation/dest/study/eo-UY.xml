@@ -121,4 +121,20 @@
   <string name="deleteTheStudyChatHistory">Ĉu forigi la historian babilejon de la ĉapitro? Tiun agon vi ne povos malfari!</string>
   <string name="deleteStudy">Forigi studon</string>
   <string name="whereDoYouWantToStudyThat">Kie vi volas studi tion?</string>
+  <string name="goodMove">Bona movo</string>
+  <string name="mistake">Eraro</string>
+  <string name="brilliantMove">Brilianta movo</string>
+  <string name="interestingMove">Interesa movo</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nura movo</string>
+  <string name="equalPosition">Egala aranĝo</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Malklara aranĝo</string>
+  <string name="whiteIsSlightlyBetter">Blanko estas iomete pli bona</string>
+  <string name="blackIsSlightlyBetter">Nigro estas iomete pli bona</string>
+  <string name="whiteIsBetter">Blanko estas pli bona</string>
+  <string name="blackIsBetter">Nigro estas pli bona</string>
+  <string name="whiteIsWinning">Blanko estas gajnanta</string>
+  <string name="blackIsWinning">Nigro estas gajnanta</string>
+  <string name="topics">Temoj</string>
+  <string name="myTopics">Miaj temoj</string>
+  <string name="popularTopics">Popularaj temoj</string>
 </resources>

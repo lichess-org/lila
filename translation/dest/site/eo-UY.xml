@@ -344,6 +344,7 @@
   <string name="apply">Apliki</string>
   <string name="save">Konservi</string>
   <string name="leaderboard">Sukcesotabulo</string>
+  <string name="gameAsGIF">Ludo kiel GIF</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
   <string name="fromPosition">De pozicio</string>
@@ -421,6 +422,8 @@
   <string name="tournamentIsStarting">Turniro komenciĝas</string>
   <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
+  <string name="pause">Paŭzu</string>
+  <string name="resume">Daŭrigu</string>
   <string name="youArePlaying">Vi nun ludas!</string>
   <string name="winRate">Venka procento</string>
   <string name="berserkRate">Freneza procento</string>
@@ -556,7 +559,10 @@
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>
+  <string name="error.unknown">Nevalida valoro</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
+  <string name="error.email">Ĉi tiu retadreso ne estas valida</string>
+  <string name="error.email_unique">Retadreso nevalida aŭ jam prenita</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
   <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
@@ -824,9 +830,19 @@
   <string name="noRestriction">Neniu limigo</string>
   <string name="minimumRating">Minimuma rango</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
+  <string name="onlyTitled">Nuraj titolaj ludantoj</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="estimatedStart">Proksimuma komenca tempo</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="tournChat">Babilejo de turnira</string>
   <string name="noChat">Malaktivigi babilejon</string>
+  <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
+  <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
+  <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
+  <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
+  <string name="analysisOptions">Analizaj agordoj</string>
   <string name="focusChat">Babilejo de fokuso</string>
+  <string name="abortTheGame">Ĉesigu ludon</string>
+  <string name="resignTheGame">Rezignu la ludo</string>
+  <string name="until">Ĝis</string>
 </resources>

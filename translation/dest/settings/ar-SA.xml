@@ -2,11 +2,11 @@
 <resources>
   <string name="settings">الإعدادات</string>
   <string name="closeAccount">إغلاق الحساب</string>
-  <string name="closingIsDefinitive">الاغلاق نهائي، لايمكنك التراجع عن هذا القرار، هل أنت متأكد ؟</string>
-  <string name="cantOpenSimilarAccount">لن يسمح لك بفتح حساب جديد بنفس الإسم، حتى لو كان حجم الأحرف مختلف.</string>
+  <string name="closingIsDefinitive">الإغلاق الحساب نهائي، لا يمكنك التراجع عن هذا القرار، أ أنت متحقق؟</string>
+  <string name="cantOpenSimilarAccount">لا تستطيع فتح حساب جديد بنفس الاسم، حتى بحجم مختلف للأحرف.</string>
   <string name="changedMindDoNotCloseAccount">غيرت رأيي ، لا تغلق حسابي</string>
-  <string name="closeAccountExplanation">هل أنت متأكد من أنك تريد اغلاق حسابك؟
-اغلاق حسابك هو قرار دائم ونهائي.
-ولا يمكنك التراجع عن هذا القرار على الإطلاق.</string>
+  <string name="closeAccountExplanation">هل أنت متحقق من أنك تريد إغلاق حسابك؟
+إغلاق حسابك هو قرار دائم ونهائي.
+ولا يمكنك التراجع عن هذا القرار على الإطلاق أبدا.</string>
   <string name="thisAccountIsClosed">تم إغلاق هذا الحساب.</string>
 </resources>

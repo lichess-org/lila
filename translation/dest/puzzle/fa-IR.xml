@@ -55,6 +55,7 @@
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
+  <string name="nextPuzzle">پازل بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
 با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
   <string name="puzzleDashboard">داشبورد پازل</string>

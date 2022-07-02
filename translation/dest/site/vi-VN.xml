@@ -405,6 +405,8 @@ Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm l
   <string name="tournamentIsStarting">Giải đấu đang diễn ra</string>
   <string name="tournamentPairingsAreNowClosed">Đã đóng việc sắp xếp đấu cặp.</string>
   <string name="standByX">Đợi %s người. Chuẩn bị nhé!</string>
+  <string name="pause">Tạm dừng</string>
+  <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Đã vào ván!</string>
   <string name="winRate">Tỉ lệ thắng</string>
   <string name="berserkRate">Tỉ lệ berserk</string>
@@ -545,11 +547,13 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>
+  <string name="error.unknown">Giá trị không hợp lệ</string>
   <string name="error.required">Mục bắt buộc</string>
   <string name="error.email">Email này không hợp lệ</string>
   <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra và thử lại.</string>
   <string name="error.email_unique">Email này không được chấp nhận hoặc đã được dùng</string>
   <string name="error.email_different">Đây đã là email cua</string>
+  <string name="error.minLength">Phải dài ít nhất %s ký tự</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
@@ -844,6 +848,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
   <string name="toggleLocalAnalysis">Bật/tắt đánh giá máy tính</string>
+  <string name="toggleAllAnalysis">Bật/tắt đánh giá máy tính</string>
   <string name="playComputerMove">Chơi nước máy tính tốt nhất</string>
   <string name="analysisOptions">Tùy chọn phân tích</string>
   <string name="focusChat">Nói chuyện tập trung</string>
@@ -860,6 +865,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="abortTheGame">Hủy ván đấu</string>
   <string name="resignTheGame">Bỏ cuộc</string>
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
+  <string name="since">Từ</string>
   <string name="until">Cho đến khi</string>
   <string name="switchSides">Đổi bên
 

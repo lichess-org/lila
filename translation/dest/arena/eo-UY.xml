@@ -44,6 +44,7 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
     <item quantity="other">Rigardi ĉiujn %s teamojn</item>
   </plurals>
   <string name="newTeamBattle">Nova teama batalo</string>
+  <string name="customStartDate">Agorda komenca dato</string>
   <string name="allowBerserk">Permesi uzi la Berserkon</string>
   <string name="allowChatHelp">Permesi uzi la turniran babilejon</string>
 </resources>

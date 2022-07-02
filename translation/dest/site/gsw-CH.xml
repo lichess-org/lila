@@ -33,7 +33,7 @@
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpiil mit dir schpille</string>
-  <string name="joinTheGame">Tritt dä Partii bi</string>
+  <string name="joinTheGame">Tritt de Partie bi</string>
   <string name="whitePlays">Wiss am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
   <plurals name="opponentLeftCounter">
@@ -46,7 +46,7 @@
   <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiss git uf</string>
-  <string name="blackResigned">Schwarz hät uufgää</string>
+  <string name="blackResigned">Schwarz hät ufgeh</string>
   <string name="whiteLeftTheGame">Wiss hät d\'Partie verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partie verlah</string>
   <string name="whiteDidntMove">Wiss hät nöd zoge</string>
@@ -58,19 +58,19 @@
   <string name="analysis">Analysebrätt</string>
   <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
-  <string name="loadingEngine">Engine wird gladä ...</string>
+  <string name="loadingEngine">Engine wird glade ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Gang tüfer</string>
-  <string name="showThreat">Bedrohig aazeigä</string>
+  <string name="showThreat">Bedrohig azeige</string>
   <string name="inLocalBrowser">im lokale Browser</string>
   <string name="toggleLocalEvaluation">Lokali Uswertig aa und abschalte</string>
   <string name="promoteVariation">Variante ufwerte</string>
   <string name="makeMainLine">Zur Hauptvariante mache</string>
   <string name="deleteFromHere">Ab da lösche</string>
-  <string name="forceVariation">Variantä erzwingä</string>
+  <string name="forceVariation">Variante erzwinge</string>
   <string name="move">Zug</string>
-  <string name="variantLoss">Variantä verlorä</string>
-  <string name="variantWin">Variantä gwunnä</string>
+  <string name="variantLoss">Variante verlore</string>
+  <string name="variantWin">Variante gwunne</string>
   <string name="insufficientMaterial">Nöd gnueg Material</string>
   <string name="pawnMove">Puure-Zug</string>
   <string name="capture">Schlag-Zug</string>
@@ -98,9 +98,9 @@
   <string name="winPreventedBy50MoveRule">Sieg mit de 50-Züg-Regle verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züg dur en vorherige Fähler</string>
-  <string name="lossOr50MovesByPriorMistake">Niderlaag oder 50 Züg dur en vorherige Fähler</string>
+  <string name="lossOr50MovesByPriorMistake">Niderlag oder 50 Züg dur en vorherige Fähler</string>
   <string name="unknownDueToRounding">Sieg/Niderlag nur garantiert, wänn die empfohle Datäbank-Zugfolg sit em letschte Schlag- oder Puure-Zug befolgt worde isch, da möglicherwis DTZ-Wert i de Syzygy-Datäbank grundet sind.</string>
-  <string name="allSet">Färtig!</string>
+  <string name="allSet">Fertig!</string>
   <string name="importPgn">PGN importierä</string>
   <string name="delete">Lösche</string>
   <string name="deleteThisImportedGame">Das importierte Schpiil lösche?</string>
@@ -108,7 +108,7 @@
   <string name="realtimeReplay">Ächtzit</string>
   <string name="byCPL">Nach CPL</string>
   <string name="openStudy">Schtudie eröffne</string>
-  <string name="enable">Iischaltä</string>
+  <string name="enable">Ischalte</string>
   <string name="bestMoveArrow">Pfiil für de bescht Zug</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
   <string name="multipleLines">Mehreri Variantä</string>
@@ -139,7 +139,7 @@
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s Schpiller</item>
-    <item quantity="other">%s Schpiller/-innä</item>
+    <item quantity="other">%s Schpiller</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
@@ -149,20 +149,20 @@
     <item quantity="other">%s Partie</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Läsezeichä</item>
-    <item quantity="other">%s Läsezeichä</item>
+    <item quantity="one">%s Läsezeiche</item>
+    <item quantity="other">%s Läsezeiche</item>
   </plurals>
   <string name="viewInFullSize">In voller Grössi aazeige</string>
   <string name="logOut">Abmälde</string>
   <string name="signIn">Iilogge</string>
   <string name="youNeedAnAccountToDoThat">Für das bruchsch du es Benutzerkonto</string>
   <string name="signUp">Regischtriere</string>
-  <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datebanke oder andere Schpiller hälfe. 
+  <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datäbanke oder andere Schpiller hälfe. 
 Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multikonteverhalte chann zume Usschluss fühere.</string>
   <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s hät zum Thema %2$s öppis gschribä</string>
-  <string name="latestForumPosts">Neuschti Forum-Biiträg</string>
+  <string name="latestForumPosts">Neuschti Forum-Biträg</string>
   <string name="players">Schpiller</string>
   <string name="friends">Fründe</string>
   <string name="discussions">Underhaltige</string>
@@ -195,7 +195,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chliischriibig verändere, z. B. \"hansmuster\" in \"HansMuster\".</string>
-  <string name="changeUsernameDescription">Änder din Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
+  <string name="changeUsernameDescription">Korrigier din Beutzername. Das gaht nur eimal und mer chann nur d\'Gros- und Chlischribig verändere.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -412,7 +412,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="standing">Tabälle</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
   <string name="tournamentCalendar">Turnier Kaländer</string>
-  <string name="conditionOfEntry">Teilnahmebedingigä:</string>
+  <string name="conditionOfEntry">Teilnahmebedingige:</string>
   <string name="advancedSettings">Erwiterti Ischtellige</string>
   <string name="safeTournamentName">Wähl en möglichscht sichere Name fürs Turnier.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
