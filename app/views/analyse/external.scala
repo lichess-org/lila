@@ -25,7 +25,7 @@ object external {
     main(cls := "oauth box box-pad")(
       div(cls := "oauth__top")(
         oAuth.authorize.ringsImage,
-        h1("External engine (ALPHA)"),
+        h1("External engine (alpha)"),
         strong(code(prompt.url.origin))
       ),
       p("Do you want to use this external engine on your device?"),
