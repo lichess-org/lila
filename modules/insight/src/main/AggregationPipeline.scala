@@ -254,35 +254,6 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 AddFields($doc("cplBucket" -> cplIdDispatcher)).some
               ) :::
                 groupMulti(dimension, "cplBucket")
-            // case M.MeanAccuracy => // power mean
-            //   List(
-            //     projectForMove,
-            //     unwindMoves,
-            //     matchMoves(),
-            //     limitMoves,
-            //     AddFields(
-            //       $doc("pow" -> $doc("$pow" -> $arr($doc("$subtract" -> $arr(1000, "$m.a")), 3)))
-            //     ).some
-            //   ) :::
-            //     group(dimension, SumField("pow")) :::
-            //     List(
-            //       AddFields(
-            //         $doc(
-            //           "v" -> $doc(
-            //             "$divide" -> $arr(
-            //               $doc(
-            //                 "$subtract" -> $arr(
-            //                   1000,
-            //                   $doc("$pow" -> $arr($doc("$divide" -> $arr("$v", "$nb")), 1 / 3d))
-            //                 )
-            //               ),
-            //               10
-            //             )
-            //           )
-            //         )
-            //       ).some,
-            //       includeSomeGameIds
-            //     )
             case M.MeanAccuracy => // harmonic mean
               List(
                 projectForMove,
