@@ -30,7 +30,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
       ) { implicit framework =>
         import framework._
         import question.{ dimension, filters, metric }
-        import lila.insight.{ InsightDimension => D, Metric => M }
+        import lila.insight.{ InsightDimension => D, InsightMetric => M }
         import InsightEntry.{ BSONFields => F }
 
         val limitGames     = Limit(nbGames.value)
@@ -214,7 +214,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
           } ::: metric.ap {
-            case Metric.MeanAccuracy => List($doc(F.moves("a") $exists true))
+            case InsightMetric.MeanAccuracy => List($doc(F.moves("a") $exists true))
             case _                   => List.empty[Bdoc]
           }).some.filterNot(_.isEmpty) map Match.apply
 
@@ -229,9 +229,9 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           target.fold(u => selectUserId(u.id), selectPeers) ++
             gameMatcher(question.filters) ++
             fieldExistsMatcher ++
-            (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
+            (InsightMetric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
-            (Metric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
+            (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
         ) -> {

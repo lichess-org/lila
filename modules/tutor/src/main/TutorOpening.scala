@@ -5,7 +5,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
 import lila.common.{ Heapsort, LilaOpeningFamily }
-import lila.insight.{ Filter, InsightApi, InsightDimension, Metric, Phase, Question }
+import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.comparisonOrdering
 
@@ -59,10 +59,10 @@ private case object TutorOpening {
       peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
       performances = Answers(myPerfs, peerPerfs)
       accuracyQuestion = myPerfs.alignedQuestion
-        .withMetric(Metric.MeanAccuracy)
+        .withMetric(InsightMetric.MeanAccuracy)
         .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
       accuracy <- answerBoth(accuracyQuestion, user)
-      awarenessQuestion = accuracyQuestion withMetric Metric.Awareness
+      awarenessQuestion = accuracyQuestion withMetric InsightMetric.Awareness
       awareness <- answerBoth(awarenessQuestion, user)
     } yield TutorColorOpenings {
       performances.mine.list.map { case (family, myPerformance) =>
@@ -78,7 +78,7 @@ private case object TutorOpening {
 
   def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,
-    Metric.Performance,
+    InsightMetric.Performance,
     List(colorFilter(color))
   )
 }

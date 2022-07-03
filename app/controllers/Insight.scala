@@ -7,7 +7,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.insight.{ InsightDimension, Metric }
+import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env) {
 
@@ -33,7 +33,7 @@ final class Insight(env: Env) extends LilaController(env) {
       open = implicit ctx =>
         Accessible(username) { user =>
           render.async {
-            case Accepts.Html() => doPath(user, Metric.MeanCpl.key, InsightDimension.Perf.key, "")
+            case Accepts.Html() => doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, "")
             case Accepts.Json() => jsonStatus(user)
           }
         },

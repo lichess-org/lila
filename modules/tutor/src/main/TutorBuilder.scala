@@ -18,9 +18,9 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightMetric,
   InsightPerfStats,
   InsightPerfStatsApi,
-  Metric,
   Phase,
   Question
 }

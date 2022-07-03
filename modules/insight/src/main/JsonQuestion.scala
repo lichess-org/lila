@@ -11,7 +11,7 @@ case class JsonQuestion(
   def question: Option[Question[_]] = {
     import InsightDimension._
     for {
-      realMetric <- Metric.byKey get metric
+      realMetric <- InsightMetric.byKey get metric
       realFilters =
         filters
           .flatMap {

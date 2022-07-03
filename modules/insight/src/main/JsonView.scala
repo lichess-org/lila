@@ -6,7 +6,7 @@ import lila.common.{ LilaOpening, LilaOpeningFamily }
 
 final class JsonView {
 
-  import lila.insight.{ InsightDimension => D, Metric => M }
+  import lila.insight.{ InsightDimension => D, InsightMetric => M }
   import writers._
 
   case class Categ(name: String, items: List[JsValue])
@@ -83,41 +83,41 @@ final class JsonView {
       Categ(
         "Setup",
         List(
-          Json.toJson(M.OpponentRating: Metric)
+          Json.toJson(M.OpponentRating: InsightMetric)
         )
       ),
       Categ(
         "Move",
         List(
-          Json.toJson(M.Movetime: Metric),
-          Json.toJson(M.TimePressure: Metric),
-          Json.toJson(M.PieceRole: Metric),
-          Json.toJson(M.Material: Metric),
-          Json.toJson(M.NbMoves: Metric)
+          Json.toJson(M.Movetime: InsightMetric),
+          Json.toJson(M.TimePressure: InsightMetric),
+          Json.toJson(M.PieceRole: InsightMetric),
+          Json.toJson(M.Material: InsightMetric),
+          Json.toJson(M.NbMoves: InsightMetric)
         ) ++ {
           asMod ?? List(
-            Json.toJson(M.Blurs: Metric),
-            Json.toJson(M.TimeVariance: Metric)
+            Json.toJson(M.Blurs: InsightMetric),
+            Json.toJson(M.TimeVariance: InsightMetric)
           )
         }
       ),
       Categ(
         "Evaluation",
         List(
-          Json.toJson(M.MeanAccuracy: Metric),
-          Json.toJson(M.MeanCpl: Metric),
-          Json.toJson(M.CplBucket: Metric),
-          Json.toJson(M.Awareness: Metric),
-          Json.toJson(M.Luck: Metric)
+          Json.toJson(M.MeanAccuracy: InsightMetric),
+          Json.toJson(M.MeanCpl: InsightMetric),
+          Json.toJson(M.CplBucket: InsightMetric),
+          Json.toJson(M.Awareness: InsightMetric),
+          Json.toJson(M.Luck: InsightMetric)
         )
       ),
       Categ(
         "Result",
         List(
-          Json.toJson(M.Termination: Metric),
-          Json.toJson(M.Result: Metric),
-          Json.toJson(M.Performance: Metric),
-          Json.toJson(M.RatingDiff: Metric)
+          Json.toJson(M.Termination: InsightMetric),
+          Json.toJson(M.Result: InsightMetric),
+          Json.toJson(M.Performance: InsightMetric),
+          Json.toJson(M.RatingDiff: InsightMetric)
         )
       )
     )
@@ -154,7 +154,7 @@ final class JsonView {
         )
       }
 
-    implicit val metricWriter: Writes[Metric] = Writes { m =>
+    implicit val metricWriter: Writes[InsightMetric] = Writes { m =>
       Json.obj(
         "key"         -> m.key,
         "name"        -> m.name,

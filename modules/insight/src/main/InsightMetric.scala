@@ -4,17 +4,17 @@ import scalatags.Text.all._
 
 import reactivemongo.api.bson._
 
-sealed abstract class Metric(
+sealed abstract class InsightMetric(
     val key: String,
     val name: String,
     val dbKey: String,
     val position: InsightPosition,
     val per: InsightPosition,
-    val dataType: Metric.DataType,
+    val dataType: InsightMetric.DataType,
     val description: String
 )
 
-object Metric {
+object InsightMetric {
 
   sealed trait DataType {
     def name = toString.toLowerCase
@@ -31,7 +31,7 @@ object Metric {
   import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl
-      extends Metric(
+      extends InsightMetric(
         "acpl",
         "Average centipawn loss",
         F moves "c",
@@ -42,7 +42,7 @@ object Metric {
       )
 
   case object CplBucket
-      extends Metric(
+      extends InsightMetric(
         "cplBucket",
         "Centipawn loss bucket",
         F moves "c",
@@ -53,7 +53,7 @@ object Metric {
       )
 
   case object MeanAccuracy
-      extends Metric(
+      extends InsightMetric(
         "accuracy",
         "Accuracy",
         F moves "a",
@@ -64,7 +64,7 @@ object Metric {
       )
 
   case object Movetime
-      extends Metric(
+      extends InsightMetric(
         "movetime",
         "Move time",
         F moves "t",
@@ -75,7 +75,7 @@ object Metric {
       )
 
   case object Result
-      extends Metric(
+      extends InsightMetric(
         "result",
         "Game result",
         F.result,
@@ -86,7 +86,7 @@ object Metric {
       )
 
   case object Termination
-      extends Metric(
+      extends InsightMetric(
         "termination",
         "Game termination",
         F.termination,
@@ -97,7 +97,7 @@ object Metric {
       )
 
   case object Performance
-      extends Metric(
+      extends InsightMetric(
         "performance",
         "Performance",
         F.opponentRating,
@@ -108,7 +108,7 @@ object Metric {
       )
 
   case object RatingDiff
-      extends Metric(
+      extends InsightMetric(
         "ratingDiff",
         "Rating gain",
         F.ratingDiff,
@@ -119,7 +119,7 @@ object Metric {
       )
 
   case object OpponentRating
-      extends Metric(
+      extends InsightMetric(
         "opponentRating",
         "Opponent rating",
         F.opponentRating,
@@ -130,7 +130,7 @@ object Metric {
       )
 
   case object NbMoves
-      extends Metric(
+      extends InsightMetric(
         "nbMoves",
         "Moves per game",
         F moves "r",
@@ -141,7 +141,7 @@ object Metric {
       )
 
   case object PieceRole
-      extends Metric(
+      extends InsightMetric(
         "piece",
         "Piece moved",
         F moves "r",
@@ -152,7 +152,7 @@ object Metric {
       )
 
   case object Awareness
-      extends Metric(
+      extends InsightMetric(
         "awareness",
         "Tactical awareness",
         F moves "o",
@@ -163,7 +163,7 @@ object Metric {
       )
 
   case object Luck
-      extends Metric(
+      extends InsightMetric(
         "luck",
         "Luck",
         F moves "l",
@@ -174,7 +174,7 @@ object Metric {
       )
 
   case object Material
-      extends Metric(
+      extends InsightMetric(
         "material",
         "Material imbalance",
         F moves "i",
@@ -185,7 +185,7 @@ object Metric {
       )
 
   case object TimePressure
-      extends Metric(
+      extends InsightMetric(
         "timePressure",
         "Time pressure",
         F moves "s",
@@ -196,7 +196,7 @@ object Metric {
       )
 
   case object Blurs
-      extends Metric(
+      extends InsightMetric(
         "blurs",
         "Blurs",
         F moves "b",
@@ -207,7 +207,7 @@ object Metric {
       )
 
   case object TimeVariance
-      extends Metric(
+      extends InsightMetric(
         "timeVariance",
         "Time variance",
         F moves "v",
@@ -240,17 +240,17 @@ object Metric {
     (p.key, p)
   } toMap
 
-  def requiresAnalysis(m: Metric) = m match {
+  def requiresAnalysis(m: InsightMetric) = m match {
     case MeanCpl | CplBucket | MeanAccuracy => true
     case _                                  => false
   }
 
-  def requiresStableRating(m: Metric) = m match {
+  def requiresStableRating(m: InsightMetric) = m match {
     case Performance | RatingDiff | OpponentRating => true
     case _                                         => false
   }
 
-  def isStacked(m: Metric) = m match {
+  def isStacked(m: InsightMetric) = m match {
     case Result      => true
     case Termination => true
     case PieceRole   => true
@@ -258,7 +258,7 @@ object Metric {
     case _           => false
   }
 
-  def valuesOf(metric: Metric): List[MetricValue] = metric match {
+  def valuesOf(metric: InsightMetric): List[MetricValue] = metric match {
     case Result =>
       lila.insight.Result.all.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))

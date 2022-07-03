@@ -13,8 +13,8 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightMetric,
   InsightPerfStats,
-  Metric,
   Phase,
   Question,
   TimePressure
@@ -92,11 +92,11 @@ private object TutorPerfs {
 
   import TutorBuilder._
 
-  private val accuracyQuestion  = Question(InsightDimension.Perf, Metric.MeanAccuracy)
-  private val awarenessQuestion = Question(InsightDimension.Perf, Metric.Awareness)
+  private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
+  private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
   private val pressureQuestion = Question(
     InsightDimension.Perf,
-    Metric.TimePressure,
+    InsightMetric.TimePressure,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
 
@@ -135,7 +135,7 @@ private object TutorPerfs {
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
-      Metric.TimePressure,
+      InsightMetric.TimePressure,
       List(Filter(InsightDimension.Perf, perfs))
     )
     val gameMatcher = $doc(F.result -> Result.Loss.id, F.perf $in perfs)

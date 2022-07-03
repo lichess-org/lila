@@ -7,7 +7,7 @@ object AggregationClusters {
 
   def apply[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     postSort(question) {
-      if (Metric isStacked question.metric) stacked(question, aggDocs)
+      if (InsightMetric isStacked question.metric) stacked(question, aggDocs)
       else single(question, aggDocs)
     }
 
@@ -29,10 +29,10 @@ object AggregationClusters {
   private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     for {
       doc <- aggDocs
-      metricValues = Metric valuesOf question.metric
+      metricValues = InsightMetric valuesOf question.metric
       x     <- getId[X](doc)(question.dimension.bson)
       stack <- doc.getAsOpt[List[StackEntry]]("stack")
-      points = metricValues.map { case Metric.MetricValue(id, name) =>
+      points = metricValues.map { case InsightMetric.MetricValue(id, name) =>
         name -> Point(stack.find(_.metric == id).??(_.v.toDouble.get))
       }
       total = stack.map(_.v.toInt.get).sum

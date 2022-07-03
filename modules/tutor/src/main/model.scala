@@ -5,7 +5,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.{ InsightPerfStats, Metric, TimePressure }
+import lila.insight.{ InsightMetric, InsightPerfStats, TimePressure }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -32,14 +32,14 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
 }
 
-sealed abstract class TutorMetric(val metric: Metric)
+sealed abstract class TutorMetric(val metric: InsightMetric)
 
 object TutorMetric {
-  case object GlobalTimePressure extends TutorMetric(Metric.TimePressure)
-  case object DefeatTimePressure extends TutorMetric(Metric.TimePressure)
-  case object Accuracy           extends TutorMetric(Metric.MeanAccuracy)
-  case object Awareness          extends TutorMetric(Metric.Awareness)
-  case object Performance        extends TutorMetric(Metric.Performance)
+  case object GlobalTimePressure extends TutorMetric(InsightMetric.TimePressure)
+  case object DefeatTimePressure extends TutorMetric(InsightMetric.TimePressure)
+  case object Accuracy           extends TutorMetric(InsightMetric.MeanAccuracy)
+  case object Awareness          extends TutorMetric(InsightMetric.Awareness)
+  case object Performance        extends TutorMetric(InsightMetric.Performance)
 }
 
 case class TutorRatio(value: Double) extends AnyVal {

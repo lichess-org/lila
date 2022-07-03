@@ -4,7 +4,7 @@ import chess.Color
 import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
-import lila.insight.{ Filter, InsightApi, InsightDimension, Metric, Phase, Question }
+import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -18,8 +18,8 @@ private object TutorPhases {
 
   import TutorBuilder._
 
-  private val accuracyQuestion  = Question(InsightDimension.Phase, Metric.MeanAccuracy)
-  private val awarenessQuestion = Question(InsightDimension.Phase, Metric.Awareness)
+  private val accuracyQuestion  = Question(InsightDimension.Phase, InsightMetric.MeanAccuracy)
+  private val awarenessQuestion = Question(InsightDimension.Phase, InsightMetric.Awareness)
 
   def compute(user: TutorUser)(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPhase]] =
     for {
