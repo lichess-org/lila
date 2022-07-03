@@ -13,6 +13,11 @@ trait TutorNumber[V] {
     } match {
       case (sum, total) => ValueCount(iso.from(if (total > 0) sum / total else 0), total)
     }
+  def reverseCompare = new TutorNumber[V] {
+    val iso                                                          = TutorNumber.this.iso
+    override def compare(a: V, b: V)                                 = TutorNumber.this.compare(b, a)
+    override def average(vs: Iterable[ValueCount[V]]): ValueCount[V] = TutorNumber.this.average(vs)
+  }
 }
 
 object TutorNumber {

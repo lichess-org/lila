@@ -5,7 +5,7 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
-    metric: TutorMetric,
+    metric: TutorMetric[V],
     points: List[(D, TutorBothValueOptions[V])]
 )(implicit number: TutorNumber[V]) {
   import TutorCompare._
@@ -36,7 +36,7 @@ object TutorCompare {
   case class Comparison[D, V](
       dimensionType: InsightDimension[D],
       dimension: D,
-      metric: TutorMetric,
+      metric: TutorMetric[V],
       value: ValueCount[V],
       reference: Reference[V]
   )(implicit number: TutorNumber[V]) {

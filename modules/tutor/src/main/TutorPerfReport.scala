@@ -60,7 +60,7 @@ case class TutorPerfReport(
     InsightDimension.Perf,
     TutorMetric.DefeatTimePressure,
     List((perf, defeatTimePressure))
-  )
+  )(TutorNumber.pressureIsTutorNumber.reverseCompare)
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
