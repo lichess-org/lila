@@ -1,10 +1,10 @@
 package lila.tutor
 
-import scala.reflect.ClassTag
+import scala.reflect.runtime.universe._
 import lila.common.Heapsort.implicits._
 import lila.insight.{ InsightDimension, Metric }
 
-case class TutorCompare[D, V: ClassTag](
+case class TutorCompare[D, V: TypeTag](
     dimensionType: InsightDimension[D],
     metric: Metric,
     points: List[(D, TutorMetricOption[V])]
@@ -34,7 +34,7 @@ case class TutorCompare[D, V: ClassTag](
 
 object TutorCompare {
 
-  case class Comparison[D, V: ClassTag](
+  case class Comparison[D, V: TypeTag](
       dimensionType: InsightDimension[D],
       dimension: D,
       metric: Metric,
