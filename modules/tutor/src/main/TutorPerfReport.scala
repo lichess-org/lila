@@ -158,13 +158,12 @@ private object TutorPerfs {
       }
     }
     for {
-      mine <- aggregate(InsightStorage.selectUserId(users.head.user.id), true) map { docs =>
-        AnswerMine(Answer(question, clusterParser(docs), Nil))
-      }
-      peer <- aggregate(InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)), false) map {
-        docs =>
-          AnswerPeer(Answer(question, clusterParser(docs), Nil))
-      }
+      mine <- aggregate(InsightStorage.selectUserId(users.head.user.id), true)
+        .map { docs => AnswerMine(Answer(question, clusterParser(docs), Nil)) }
+        .monSuccess(_.tutor.askMine(question.monKey, "all"))
+      peer <- aggregate(InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)), false)
+        .map { docs => AnswerPeer(Answer(question, clusterParser(docs), Nil)) }
+        .monSuccess(_.tutor.askPeer(question.monKey, "all"))
     } yield Answers(mine, peer)
   }
 }
