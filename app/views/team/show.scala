@@ -57,6 +57,7 @@ object show {
     ) {
       val manageTeamEnabled = isGranted(_.ManageTeam) && requestedModView
       val enabledOrLeader   = t.enabled || info.ledByMe || manageTeamEnabled
+      val canSeeMembers     = t.enabled && (t.publicMembers || info.mine || manageTeamEnabled)
       main(
         cls := "team-show box",
         socketVersion.map { v =>
@@ -68,7 +69,7 @@ object show {
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
             else
-              a(href := routes.Team.members(t.slug))(
+              canSeeMembers option a(href := routes.Team.members(t.slug))(
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
               )
           )
@@ -177,7 +178,7 @@ object show {
                 "View team as Mod"
               )
             ),
-            t.enabled && (t.publicMembers || info.mine || manageTeamEnabled) option div(
+            canSeeMembers option div(
               cls := "team-show__members"
             )(
               st.section(cls := "recent-members")(

@@ -52,9 +52,17 @@ final class Team(
   def members(id: String, page: Int) =
     Open { implicit ctx =>
       Reasonable(page, config.Max(50)) {
-        OptionFuOk(api team id) { team =>
-          paginator.teamMembersWithDate(team, page) map {
-            html.team.members(team, _)
+        OptionFuResult(api teamEnabled id) { team =>
+          val canSee =
+            fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.?? {
+              api.belongsTo(team.id, _)
+            }
+          canSee flatMap {
+            case true =>
+              paginator.teamMembersWithDate(team, page) map {
+                html.team.members(team, _)
+              }
+            case false => authorizationFailed
           }
         }
       }
