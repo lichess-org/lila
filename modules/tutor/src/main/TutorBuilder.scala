@@ -158,9 +158,9 @@ private object TutorBuilder {
 
   case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
 
-    def valueMetric(dim: Dim, myValue: Pair) = TutorMetric(myValue, peer.get(dim))
+    def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
-    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim), peer.get(dim))
+    def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
   }
 
   def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))

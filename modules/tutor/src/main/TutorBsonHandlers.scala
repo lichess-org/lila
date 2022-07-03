@@ -19,8 +19,6 @@ private object TutorBsonHandlers {
   implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 10)
   implicit val durationHandler = lila.db.dsl.minutesHandler
   implicit val ratioHandler    = doubleAsIntHandler[TutorRatio](_.value, TutorRatio.apply, 1000)
-  implicit val globalTPHandler = timePressureHandler.as[GlobalTimePressure](GlobalTimePressure.apply, _.value)
-  implicit val defeatTPHandler = timePressureHandler.as[DefeatTimePressure](DefeatTimePressure.apply, _.value)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
     implicitly[BSONHandler[Map[String, A]]]
@@ -45,19 +43,19 @@ private object TutorBsonHandlers {
   implicit def metricHandler[A](implicit
       handler: BSONHandler[A],
       ordering: Ordering[A]
-  ): BSONHandler[TutorMetric[A]] =
+  ): BSONHandler[TutorBothValues[A]] =
     implicitly[BSONHandler[List[Option[ValueCount[A]]]]]
-      .as[TutorMetric[A]](
-        list => TutorMetric(list(0).get, list.lift(1).flatten),
+      .as[TutorBothValues[A]](
+        list => TutorBothValues(list(0).get, list.lift(1).flatten),
         metric => List(metric.mine.some, metric.peer)
       )
 
   implicit def metricOptionHandler[A](implicit
       handler: BSONHandler[A],
       ordering: Ordering[A]
-  ): BSONHandler[TutorMetricOption[A]] =
-    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorMetricOption[A]](
-      list => TutorMetricOption(list.lift(0).flatten, list.lift(1).flatten),
+  ): BSONHandler[TutorBothValueOptions[A]] =
+    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorBothValueOptions[A]](
+      list => TutorBothValueOptions(list.lift(0).flatten, list.lift(1).flatten),
       metric => List(metric.mine, metric.peer)
     )
 

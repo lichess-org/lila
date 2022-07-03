@@ -5,7 +5,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.{ InsightPerfStats, TimePressure }
+import lila.insight.{ InsightPerfStats, Metric, TimePressure }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,16 +20,26 @@ case class ValueCount[V](value: V, count: Int) {
   def relevantTo(total: Int) = reliableEnough && count * 10 > total
 }
 
-case class TutorMetric[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
-  def map[B: Ordering](f: A => B) = TutorMetric(mine map f, peer map (_ map f))
+case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
+  def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
-  def toOption                    = TutorMetricOption(mine.some, peer)
+  def toOption                    = TutorBothValueOptions(mine.some, peer)
 }
-case class TutorMetricOption[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
+case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
     o: Ordering[A]
 ) {
-  def map[B: Ordering](f: A => B) = TutorMetricOption(mine map (_ map f), peer map (_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
+}
+
+sealed abstract class TutorMetric(val metric: Metric)
+
+object TutorMetric {
+  case object GlobalTimePressure extends TutorMetric(Metric.TimePressure)
+  case object DefeatTimePressure extends TutorMetric(Metric.TimePressure)
+  case object Accuracy           extends TutorMetric(Metric.MeanAccuracy)
+  case object Awareness          extends TutorMetric(Metric.Awareness)
+  case object Performance        extends TutorMetric(Metric.Performance)
 }
 
 case class TutorRatio(value: Double) extends AnyVal {
@@ -45,9 +55,6 @@ object TutorRatio {
   implicit val zero     = Zero(TutorRatio(0))
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
 }
-
-case class GlobalTimePressure(value: TimePressure)
-case class DefeatTimePressure(value: TimePressure)
 
 // value from -1 (worse) to +1 (best)
 case class ValueComparison private (value: Double) {

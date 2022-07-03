@@ -9,8 +9,8 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{
   Rating,
   TutorFullReport,
-  TutorMetric,
-  TutorMetricOption,
+  TutorBothValues,
+  TutorBothValueOptions,
   TutorPerfReport,
   TutorRatio,
   ValueCount

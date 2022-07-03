@@ -10,8 +10,8 @@ import lila.user.User
 
 case class TutorPhase(
     phase: Phase,
-    accuracy: TutorMetricOption[AccuracyPercent],
-    awareness: TutorMetricOption[TutorRatio]
+    accuracy: TutorBothValueOptions[AccuracyPercent],
+    awareness: TutorBothValueOptions[TutorRatio]
 )
 
 private object TutorPhases {

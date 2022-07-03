@@ -27,10 +27,10 @@ import lila.common.config
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
-    accuracy: TutorMetricOption[AccuracyPercent],
-    awareness: TutorMetricOption[TutorRatio],
-    globalTimePressure: TutorMetricOption[GlobalTimePressure],
-    defeatTimePressure: TutorMetricOption[DefeatTimePressure],
+    accuracy: TutorBothValueOptions[AccuracyPercent],
+    awareness: TutorBothValueOptions[TutorRatio],
+    globalTimePressure: TutorBothValueOptions[TimePressure],
+    defeatTimePressure: TutorBothValueOptions[TimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -40,25 +40,25 @@ case class TutorPerfReport(
   // But peer comparison is gold
   lazy val phaseAccuracyCompare = TutorCompare[Phase, AccuracyPercent](
     InsightDimension.Phase,
-    Metric.MeanAccuracy,
+    TutorMetric.Accuracy,
     phases.map { phase => (phase.phase, phase.accuracy) }
   )
 
   lazy val phaseAwarenessCompare = TutorCompare[Phase, TutorRatio](
     InsightDimension.Phase,
-    Metric.Awareness,
+    TutorMetric.Awareness,
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
-  lazy val globalPressureCompare = TutorCompare[PerfType, GlobalTimePressure](
+  lazy val globalPressureCompare = TutorCompare[PerfType, TimePressure](
     InsightDimension.Perf,
-    Metric.TimePressure,
+    TutorMetric.GlobalTimePressure,
     List((perf, globalTimePressure))
   )
 
-  lazy val defeatPressureCompare = TutorCompare[PerfType, DefeatTimePressure](
+  lazy val defeatPressureCompare = TutorCompare[PerfType, TimePressure](
     InsightDimension.Perf,
-    Metric.TimePressure,
+    TutorMetric.DefeatTimePressure,
     List((perf, defeatTimePressure))
   )
 
@@ -116,10 +116,8 @@ private object TutorPerfs {
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
-        globalTimePressure =
-          pressure valueMetric user.perfType map TimePressure.fromPercent map GlobalTimePressure,
-        defeatTimePressure =
-          defeatPressure valueMetric user.perfType map TimePressure.fromPercent map DefeatTimePressure,
+        globalTimePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
+        defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
         openings,
         phases
       )

@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
-import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
+import lila.tutor.{ TutorFullReport, TutorPerfReport }
 
 object opening {
 
