@@ -46,7 +46,7 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
     case 'wasm':
       return 20;
     case 'external':
-      return 26 + extraDepth;
+      return 24 + extraDepth;
     default:
       return 22 + extraDepth;
   }
