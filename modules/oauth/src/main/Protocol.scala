@@ -65,13 +65,13 @@ object Protocol {
   }
 
   case class RedirectUri(value: URL) extends AnyVal {
-    private def host: Option[String] = Option(value.host).map(_.toString)
+    private def host: Option[String] = Option(value.host).map(_.toHostString)
 
     // https://github.com/smola/galimatias/issues/72 will be more precise
     def clientOrigin: String = s"${value.scheme}://${~host}"
 
     def insecure =
-      value.scheme == "http" && !host.exists(h => List("localhost", "[::1]", "127.0.0.1").has(h))
+      value.scheme == "http" && !host.exists(h => List("localhost", "[::1]", "[::]", "127.0.0.1", "0.0.0.0").has(h))
 
     def withoutQuery: String = value.withQuery(null).toString
 

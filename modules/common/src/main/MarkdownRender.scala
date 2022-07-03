@@ -145,7 +145,7 @@ object MarkdownRender {
       for {
         url <- Try(URL.parse(src)).toOption
         if url.scheme == "http" || url.scheme == "https"
-        host <- Option(url.host).map(_.toString)
+        host <- Option(url.host).map(_.toHostString)
         if whitelist.exists(h => host == h || host.endsWith(s".$h"))
       } yield url.toString
 
