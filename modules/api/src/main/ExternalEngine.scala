@@ -10,11 +10,10 @@ import lila.common.Form._
 object ExternalEngine {
 
   case class EngineUrl(value: URL) extends AnyVal {
-    private def host: Option[String] = Option(value.host).map(_.toString)
+    private def host: Option[String] = Option(value.host).map(_.toHostString)
     def origin: String               = s"${value.scheme}://${~host}"
-    def secure = value.scheme == "wss" || host.exists(h =>
-      List("localhost", "[::1]", "[::]", "127.0.0.1", "0.0.0.0").has(h)
-    )
+    def secure = value.scheme == "wss" || host
+      .exists(h => List("localhost", "[::1]", "[::]", "127.0.0.1", "0.0.0.0").has(h))
   }
 
   val form = Form(
