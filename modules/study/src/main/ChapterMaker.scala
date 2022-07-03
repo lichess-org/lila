@@ -106,7 +106,7 @@ final private class ChapterMaker(
           ownerId = userId,
           practice = data.isPractice,
           gamebook = data.isGamebook,
-          conceal = None
+          conceal = data.isConceal option Chapter.Ply(root.ply)
         )
     }
   }
