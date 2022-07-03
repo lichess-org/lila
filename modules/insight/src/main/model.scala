@@ -24,12 +24,15 @@ case class InsightMove(
 )
 
 // 0 (no pressure) to 1 (about to flag)
-case class TimePressure(value: Double) extends AnyVal {}
+case class TimePressure(value: Double) extends AnyVal {
+  def percent = value * 100
+}
 
 object TimePressure {
   def apply(clock: Clock.Config, timeLeft: Centis) = new TimePressure(
     (1 - timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 1
   )
+  def fromPercent(p: Double): TimePressure = TimePressure(p / 100)
 }
 
 sealed abstract class Termination(val id: Int, val name: String)

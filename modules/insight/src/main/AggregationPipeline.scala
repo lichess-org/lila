@@ -226,7 +226,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
         val pipeline = Match(
-          target.fold(u => selectUserId(u.id), peers => $doc(F.rating $inRange peers.ratingRange)) ++
+          target.fold(u => selectUserId(u.id), selectPeers) ++
             gameMatcher(question.filters) ++
             fieldExistsMatcher ++
             (Metric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))

@@ -1,6 +1,7 @@
 package lila.tutor
 
 import lila.analyse.AccuracyPercent
+import lila.insight.TimePressure
 import lila.common.Iso
 
 trait TutorNumber[V] {

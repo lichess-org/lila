@@ -80,7 +80,7 @@ final private class TutorBuilder(
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(2))
     }
 
   private def hasFreshReport(user: User) = reportColl.exists(
