@@ -82,7 +82,7 @@ final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concu
     }
 }
 
-private object InsightStorage {
+object InsightStorage {
 
   import InsightEntry.{ BSONFields => F }
 

@@ -1,5 +1,6 @@
 package lila.tutor
 
+import cats.data.NonEmptyList
 import chess.Color
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
@@ -19,14 +20,16 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
-import cats.data.NonEmptyList
+import lila.insight.Result
+import lila.common.config
 
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
     accuracy: TutorMetricOption[AccuracyPercent],
     awareness: TutorMetricOption[TutorRatio],
-    timePressure: TutorMetricOption[TimePressure],
+    globalTimePressure: TutorMetricOption[TimePressure],
+    defeatTimePressure: TutorMetricOption[TimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -46,10 +49,16 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
-  lazy val pressureCompare = TutorCompare[PerfType, TimePressure](
+  lazy val globalPressureCompare = TutorCompare[PerfType, TimePressure](
     InsightDimension.Perf,
     Metric.TimePressure,
-    List((perf, timePressure))
+    List((perf, globalTimePressure))
+  )
+
+  lazy val defeatPressureCompare = TutorCompare[PerfType, TimePressure](
+    InsightDimension.Perf,
+    Metric.TimePressure,
+    List((perf, globalTimePressure))
   )
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
@@ -68,7 +77,8 @@ case class TutorPerfReport(
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      pressureCompare.peerComparisons
+      globalPressureCompare.peerComparisons :::
+      defeatPressureCompare.peerComparisons
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
@@ -89,9 +99,10 @@ private object TutorPerfs {
   def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
-    accuracy  <- answerManyPerfs(accuracyQuestion, users)
-    awareness <- answerManyPerfs(awarenessQuestion, users)
-    pressure  <- answerManyPerfs(pressureQuestion, users)
+    accuracy       <- answerManyPerfs(accuracyQuestion, users)
+    awareness      <- answerManyPerfs(awarenessQuestion, users)
+    pressure       <- answerManyPerfs(pressureQuestion, users)
+    defeatPressure <- computeDefeatTimePressure(users)
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -101,7 +112,8 @@ private object TutorPerfs {
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
-        timePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
+        globalTimePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
+        defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
         openings,
         phases
       )
@@ -109,4 +121,34 @@ private object TutorPerfs {
 
   } yield perfReports
 
+  private def computeDefeatTimePressure(
+      users: NonEmptyList[TutorUser]
+  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[Answers[PerfType]] = {
+    import lila.db.dsl._
+    import lila.rating.BSONHandlers.perfTypeIdHandler
+    import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
+    import lila.insight.InsightEntry.{ BSONFields => F }
+    val question = Question(InsightDimension.Perf, Metric.TimePressure)
+    insightApi.coll {
+      _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
+        import framework._
+        Match(InsightStorage.selectUserId(users.head.user.id) ++ $doc(F.result -> Result.Loss.id)) -> List(
+          Sort(Descending(F.date)),
+          Limit(10_000),
+          Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
+          UnwindField(F.moves),
+          Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")),
+          GroupField(F.perf)("tp" -> AvgField("tp"), "nb" -> SumAll)
+        )
+      } map { docs =>
+        val clusters = for {
+          doc      <- docs
+          perf     <- doc.getAsOpt[PerfType]("_id")
+          pressure <- doc.double("tp")
+          size     <- doc.int("nb")
+        } yield Cluster(perf, Insight.Single(Point(pressure)), size, Nil)
+        Answers(AnswerMine(Answer(question, clusters, Nil)), AnswerPeer(Answer(question, clusters, Nil)))
+      }
+    }
+  }
 }
