@@ -32,6 +32,12 @@ object perf {
         )(
           ul(report openingHighlights 3 map compare.show)
         ),
+        angleCard(
+          routes.Tutor.time(user.username, report.perf.key),
+          frag(report.perf.trans, " time management")
+        )(
+          ul(report timeHighlights 3 map compare.show)
+        ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
           ul(report phaseHighlights 3 map compare.show)
         )

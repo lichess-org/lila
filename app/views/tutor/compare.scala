@@ -7,7 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Metric, Phase }
-import lila.tutor.{ TutorCompare, ValueComparison }
+import lila.tutor.{ DefeatTimePressure, GlobalTimePressure, TutorCompare, ValueComparison }
 import lila.rating.PerfType
 import play.api.i18n.Lang
 
@@ -19,7 +19,7 @@ private object compare {
     li(
       "Your ",
       perf.map(p => frag(p.trans, " ")),
-      showMetric(comp.metric),
+      showMetric(comp),
       " in the ",
       strong(showDimension(comp.dimension)),
       " is ",
@@ -41,9 +41,15 @@ private object compare {
   private[tutor] def showQuality(quality: ValueComparison) =
     (if (quality.better) goodTag else if (quality.worse) badTag else span)(quality.wording.value)
 
-  private[tutor] def showMetric(metric: Metric): String = metric match {
+  private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String = comp.metric match {
     case Metric.MeanCpl => "accuracy"
-    case metric         => metric.name.toLowerCase
+    // case Metric.TimePressure =>
+    //   comp match {
+    //     case _: TutorCompare.Comparison[_, GlobalTimePressure] => "global time pressure"
+    //     case _: TutorCompare.Comparison[_, DefeatTimePressure] => "time pressure upon defeat"
+    //     case _                                                 => "time pressure"
+    //   }
+    case metric => metric.name.toLowerCase
   }
 
   private[tutor] def showDimension[D](dimension: D): String = dimension match {

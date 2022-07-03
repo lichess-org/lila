@@ -778,6 +778,7 @@ GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, 
 GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: String, perf: String)
 GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: String, perf: String, color: String, opening: String)
 GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: String, perf: String)
+GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: String, perf: String)
 
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize

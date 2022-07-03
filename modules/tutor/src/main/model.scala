@@ -5,7 +5,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.InsightPerfStats
+import lila.insight.{ InsightPerfStats, TimePressure }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -45,6 +45,9 @@ object TutorRatio {
   implicit val zero     = Zero(TutorRatio(0))
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
 }
+
+case class GlobalTimePressure(value: TimePressure)
+case class DefeatTimePressure(value: TimePressure)
 
 // value from -1 (worse) to +1 (best)
 case class ValueComparison private (value: Double) {

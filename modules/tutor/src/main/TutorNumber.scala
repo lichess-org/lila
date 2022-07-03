@@ -30,8 +30,14 @@ object TutorNumber {
     val iso                                    = Iso.double[Rating](Rating.apply, _.value)
     override def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
   }
-  implicit val pressureIsTutorNumber = new TutorNumber[TimePressure] {
-    val iso = Iso.double[TimePressure](TimePressure.fromPercent, _.percent)
-    override def compare(a: TimePressure, b: TimePressure) = ValueComparison(iso.to(b), iso.to(a))
+  implicit val globalPressureIsTutorNumber = new TutorNumber[GlobalTimePressure] {
+    val iso =
+      Iso.double[GlobalTimePressure](p => GlobalTimePressure(TimePressure fromPercent p), _.value.percent)
+    override def compare(a: GlobalTimePressure, b: GlobalTimePressure) = ValueComparison(iso.to(b), iso.to(a))
+  }
+  implicit val defeatPressureIsTutorNumber = new TutorNumber[DefeatTimePressure] {
+    val iso =
+      Iso.double[DefeatTimePressure](p => DefeatTimePressure(TimePressure fromPercent p), _.value.percent)
+    override def compare(a: DefeatTimePressure, b: DefeatTimePressure) = ValueComparison(iso.to(b), iso.to(a))
   }
 }

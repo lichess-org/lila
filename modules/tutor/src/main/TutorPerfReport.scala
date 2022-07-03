@@ -29,8 +29,8 @@ case class TutorPerfReport(
     stats: InsightPerfStats,
     accuracy: TutorMetricOption[AccuracyPercent],
     awareness: TutorMetricOption[TutorRatio],
-    globalTimePressure: TutorMetricOption[TimePressure],
-    defeatTimePressure: TutorMetricOption[TimePressure],
+    globalTimePressure: TutorMetricOption[GlobalTimePressure],
+    defeatTimePressure: TutorMetricOption[DefeatTimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
 ) {
@@ -50,19 +50,21 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
-  lazy val globalPressureCompare = TutorCompare[PerfType, TimePressure](
+  lazy val globalPressureCompare = TutorCompare[PerfType, GlobalTimePressure](
     InsightDimension.Perf,
     Metric.TimePressure,
     List((perf, globalTimePressure))
   )
 
-  lazy val defeatPressureCompare = TutorCompare[PerfType, TimePressure](
+  lazy val defeatPressureCompare = TutorCompare[PerfType, DefeatTimePressure](
     InsightDimension.Perf,
     Metric.TimePressure,
-    List((perf, globalTimePressure))
+    List((perf, defeatTimePressure))
   )
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
+
+  val timePressureCompares = List(globalPressureCompare, defeatPressureCompare)
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, _]] = openings.all.toList.flatMap { op =>
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
@@ -75,11 +77,12 @@ case class TutorPerfReport(
 
   val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)) _
 
+  val timeHighlights = TutorCompare.mixedBag(timePressureCompares.flatMap(_.peerComparisons)) _
+
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      globalPressureCompare.peerComparisons :::
-      defeatPressureCompare.peerComparisons
+      timePressureCompares.flatMap(_.peerComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
@@ -113,8 +116,10 @@ private object TutorPerfs {
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
-        globalTimePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
-        defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
+        globalTimePressure =
+          pressure valueMetric user.perfType map TimePressure.fromPercent map GlobalTimePressure,
+        defeatTimePressure =
+          defeatPressure valueMetric user.perfType map TimePressure.fromPercent map DefeatTimePressure,
         openings,
         phases
       )
