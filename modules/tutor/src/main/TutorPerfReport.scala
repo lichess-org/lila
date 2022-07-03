@@ -94,7 +94,7 @@ private object TutorPerfs {
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
-  private val pressureQuestion = Question(
+  private val timePressureQuestion = Question(
     InsightDimension.Perf,
     InsightMetric.TimePressure,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
@@ -105,7 +105,7 @@ private object TutorPerfs {
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
     accuracy       <- answerManyPerfs(accuracyQuestion, users)
     awareness      <- answerManyPerfs(awarenessQuestion, users)
-    pressure       <- answerManyPerfs(pressureQuestion, users)
+    pressure       <- answerManyPerfs(timePressureQuestion, users)
     defeatPressure <- computeDefeatTimePressure(users)
     perfReports <- users.toList.map { user =>
       for {
@@ -138,46 +138,32 @@ private object TutorPerfs {
       InsightMetric.TimePressure,
       List(Filter(InsightDimension.Perf, perfs))
     )
-    val gameMatcher = $doc(F.result -> Result.Loss.id, F.perf $in perfs)
     def clusterParser(docs: List[Bdoc]) = for {
       doc      <- docs
       perf     <- doc.getAsOpt[PerfType]("_id")
       pressure <- doc.double("tp")
       size     <- doc.int("nb")
     } yield Cluster(perf, Insight.Single(Point(pressure)), size, Nil)
-    for {
-      mine <- insightApi.coll {
-        _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
-          import framework._
-          Match(InsightStorage.selectUserId(users.head.user.id) ++ gameMatcher) -> List(
-            Sort(Descending(F.date)),
-            Limit(10_000),
-            Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
-            UnwindField(F.moves),
-            Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")),
-            GroupField(F.perf)("tp" -> AvgField("tp"), "nb" -> SumAll)
-          )
-        } map { docs =>
-          docs foreach lila.db.BSON.print
-          AnswerMine(Answer(question, clusterParser(docs), Nil))
-        }
+    def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
+      _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
+        import framework._
+        Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
+          sort option Sort(Descending(F.date)),
+          Limit(10_000).some,
+          Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
+          UnwindField(F.moves).some,
+          Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")).some,
+          GroupField(F.perf)("tp" -> AvgField("tp"), "nb" -> SumAll).some
+        ).flatten
       }
-      peer <- insightApi.coll {
-        _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
-          import framework._
-          Match(
-            InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)) ++ gameMatcher
-          ) -> List(
-            Limit(10_000),
-            Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
-            UnwindField(F.moves),
-            Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")),
-            GroupField(F.perf)("tp" -> AvgField("tp"), "nb" -> SumAll)
-          )
-        } map { docs =>
-          docs foreach lila.db.BSON.print
+    }
+    for {
+      mine <- aggregate(InsightStorage.selectUserId(users.head.user.id), true) map { docs =>
+        AnswerMine(Answer(question, clusterParser(docs), Nil))
+      }
+      peer <- aggregate(InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)), false) map {
+        docs =>
           AnswerPeer(Answer(question, clusterParser(docs), Nil))
-        }
       }
     } yield Answers(mine, peer)
   }
